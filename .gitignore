@@ -1,0 +1,13 @@
+*.ncb
+.DS_Store
+*.LOG
+/DXGBProject/LogDatas
+
+/Debug
+/*.suo
+
+*.user
+
+/BomberProject/Debug
+
+/BomberProject/LogDatas
