@@ -1,0 +1,4 @@
+*.ncb
+.DS_Store
+*.LOG
+/DXGBProject/LogDatas
