@@ -1,0 +1,7 @@
+
+サーバー       : Assembla
+URL            : https://www.assembla.com/
+チーム名(ID)   : TeamBokan
+プロジェクト名 : BomberProject
+パスワード     : diskerror0
+GitURL         : git@git.assembla.com:BomberProject_.git
