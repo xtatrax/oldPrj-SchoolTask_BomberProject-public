@@ -15,7 +15,7 @@
 //		class DxDevice;
 //
 #pragma once
-
+ 
 #include "StdAfx.h"
 #include "Object.h"
 #include "Controller/Controller.h"
