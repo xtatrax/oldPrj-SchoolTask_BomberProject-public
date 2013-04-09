@@ -496,10 +496,6 @@
 			</Filter>
 		</Filter>
 		<File
-			RelativePath=".\ClassDiagram1.cd"
-			>
-		</File>
-		<File
 			RelativePath=".\LogDatas\LogData.txt"
 			>
 		</File>
