@@ -29,6 +29,17 @@ namespace wiz{
 
 extern class Object ;
 
+namespace functions{
+
+#define TL_SQUARE(n)							((n)*(n))
+#define TL_PI									(3.1415926535897932384626433832795028841971)
+#define TL_RAD(degree)							((degree) * TL_PI / 180.0f)
+#define TL_DEG(radian)							((radian) * 180.0 / TL_PI)
+#define TL_DISTANCE2D(   PointAX, PointAY,   PointBX, PointBY)						sqrt(TL_SQUARE((PointBX)  - (PointAX))  + TL_SQUARE((PointBY) - (PointAY)))
+#define TL_SQDISTANCE2D( PointAX, PointAY,   PointBX, PointBY)						 abs(TL_SQUARE((PointBX)  - (PointAX))  + TL_SQUARE((PointBY) - (PointAY)))
+#define TL_DISTANCE3D(   PointAX, PointAY, PointAZ,   PointBX, PointBY, PointBZ)	sqrt(TL_SQUARE((PointBX)  - (PointAX))  + TL_SQUARE((PointBY) - (PointAY))  + TL_SQUARE((PointBZ) - (PointAZ)))
+#define TL_SQDISTANCE3D( PointAX, PointAY, PointAZ,   PointBX, PointBY, PointBZ)	 abs(TL_SQUARE((PointBX)  - (PointAX))  + TL_SQUARE((PointBY) - (PointAY))  + TL_SQUARE((PointBZ) - (PointAZ)))
+
 //************************************************//
 //class DxException : public exception
 //
@@ -621,5 +632,204 @@ inline Object* SearchObjectFromID(const vector<Object*>* Vec,DWORD i_dwID){
 	return NULL;
 };
 
+
+////////////////////////////////////////
+////// Non-environment-dependent ///////
+////////////////////////////////////////
+
+
+///////// /////////
+//BOOL ArcMove(float *x ,float *y , float Distance, float Degree);
+//
+//基準点(x,y)からDegree度,Distance距離離れたところに
+//ポイント(x,y)を移動させる
+//
+//引数：
+//	float *x：移動させたいx座標
+//	float *y：移動させたいy座標
+//	float Distance：
+//
+inline bool ArcMove(float &x ,float &y , float Distance, float Degree){
+    x = Distance  *  cosf((float)TL_RAD(Degree)) ;
+    y = Distance  *  sinf((float)TL_RAD(Degree)) ;
+
+    return true;
 }
-//end of namespace wiz.
+
+
+
+///////// /////////
+//float TurnAngle(float *Angle, float Turn);
+//
+//Angleを0°～360°に収まるようにTurn度分変更する
+//
+//引数：
+//	float *Angle：	変更すべきデータへのポインタ
+//	float Turn：	変更したい角度
+//
+//返り値：変更後の角度(同じ値が第一引数にも返される)
+//
+//オーバー防止に一応
+//
+inline float TurnAngle(float *Angle, float Turn){
+    if(*Angle +Turn >= 360){
+        *Angle = (*Angle +Turn)  - 360;		//360度を超えた時
+        while(*Angle >= 360) *Angle -= 360;	//角度の範囲内に収まるように一周分を引く
+    }
+    else if(*Angle +Turn < 0){
+        *Angle = (*Angle +Turn)+360;		//0度を下回った時
+        while(*Angle <= 0) *Angle += 360;	//角度の範囲内に収まるように一周分を足す
+    }else{
+        *Angle += Turn;//
+    }
+    return *Angle;
+}
+
+///////// /////////
+//inline float VectorLength( float X, float Y );
+// ベクトルの長さを計算する
+//
+inline double VectorLength( double X, double Y ){
+	return pow( ( X * X ) + ( Y * Y ), 0.5 );
+}
+
+///////// /////////
+//inline float VectorLength( float X, float Y );
+// ベクトルの長さを計算する
+//
+inline double VectorProduct(float P1x,float P1y,float P2x,float P2y){
+	return P1x * P2x + P1y * P2y ;
+}
+///////// /////////
+//inline float VectorLength( float X, float Y );
+// ベクトルの長さを計算する
+//
+//
+inline double GetCosineTheta(float P1x,float P1y,float P2x,float P2y){
+	return VectorProduct(P1x,P1y,P2x,P2y) / ( VectorLength(P1x,P1y) * VectorLength(P2x,P2y) ) ;
+}
+///////// /////////
+//inline float VectorLength( float X, float Y );
+// ベクトルの長さを計算する
+//
+//
+inline void TwoPoint2Vector( float &retX, float &retY, float P1x,float P1y,float P2x,float P2y){
+	retX = P2x - P1x;
+	retY = P2y - P1y;
+}
+
+///////// /////////
+//float ThreePoint2Radian(float P1x,float P1y,float P2x,float P2y,float P3x,float P3y);
+//
+//引数：
+//	float P1x：点１のＸ座標値
+//	float P1y：点１のＹ座標値
+//	float P2x：点２のＸ座標値
+//	float P2y：点２のＹ座標値
+//	float P3x：点３のＸ座標値
+//	float P3y：点３のＹ座標値
+//戻り値：∠P1P2P3のラジアン角
+//
+inline float ThreePoint2Radian(float P1x,float P1y,float P2x,float P2y,float P3x,float P3y){
+	float vAx , vAy , vBx, vBy ;
+	TwoPoint2Vector( vAx , vAy, P2x, P2y, P1x, P1y);
+	TwoPoint2Vector( vBx , vBy, P2x, P2y, P3x, P3y);
+    return acosf(GetCosineTheta(vAx , vAy , vBx, vBy));
+};
+
+///////// /////////
+//float ThreePoint2Radian(float P1x,float P1y,float P2x,float P2y,float P3x,float P3y);
+//
+//引数：
+//	float P1x：点１のＸ座標値
+//	float P1y：点１のＹ座標値
+//	float P2x：点２のＸ座標値
+//	float P2y：点２のＹ座標値
+//	float P3x：点３のＸ座標値
+//	float P3y：点３のＹ座標値
+//戻り値：∠P1P2P3のディグリー角
+//
+inline float ThreePoint2Degree(float P1x,float P1y,float P2x,float P2y,float P3x,float P3y){
+    return (float)TL_DEG(ThreePoint2Radian( P1x, P1y, P2x, P2y, P3x, P3y));
+};
+
+
+///////// /////////
+//float ThreePoint2Radian(float P1x,float P1y,float P2x,float P2y,float P3x,float P3y);
+//
+//引数：
+//	float P1x：点１のＸ座標値
+//	float P1y：点１のＹ座標値
+//	float P2x：点２のＸ座標値
+//	float P2y：点２のＹ座標値
+//	float P3x：点３のＸ座標値
+//	float P3y：点３のＹ座標値
+//戻り値：∠P1P2P3のラジアン角
+//
+inline float TwoPoint2Radian(float P1x,float P1y,float P2x,float P2y){
+    return ThreePoint2Radian( P1x, P1y, P2x, P2y, P2x + 1 , P2y );
+};
+
+///////// /////////
+//float ThreePoint2Radian(float P1x,float P1y,float P2x,float P2y,float P3x,float P3y);
+//
+//引数：
+//	float P1x：点１のＸ座標値
+//	float P1y：点１のＹ座標値
+//	float P2x：点２のＸ座標値
+//	float P2y：点２のＹ座標値
+//	float P3x：点３のＸ座標値
+//	float P3y：点３のＹ座標値
+//戻り値：∠P1P2P3のディグリー角
+//
+inline float TwoPoint2Degree(float P1x,float P1y,float P2x,float P2y){
+	if( P1y >= P2y )
+	    return ThreePoint2Degree( P1x, P1y, P2x, P2y, P2x - 1 , P2y );
+	else
+	    return ( 180 - ThreePoint2Degree( P1x, P1y, P2x, P2y, P2x - 1 , P2y ) ) + 180;
+};
+
+
+//////////
+//	: 拾い物
+inline struct Vector2D{
+	double x;
+	double y;
+};
+
+//ベクトルの長さを計算する
+inline double get_vector_length( Vector2D v ) {
+	return pow( ( v.x * v.x ) + ( v.y * v.y ), 0.5 );
+}
+
+//ベクトル内積
+inline double dot_product(Vector2D vl, Vector2D vr) {
+	return vl.x * vr.x + vl.y * vr.y;
+}
+
+//２つのベクトルABのなす角度θを求める
+inline double AngleOf2Vector(Vector2D A, Vector2D B )
+{
+	//　※ベクトルの長さが0だと答えが出ませんので注意してください。
+
+	//ベクトルAとBの長さを計算する
+	double length_A = get_vector_length(A);
+	double length_B = get_vector_length(B);
+
+	//内積とベクトル長さを使ってcosθを求める
+	double cos_sita = dot_product(A,B) / ( length_A * length_B );
+
+	//cosθからθを求める
+	double sita = acos( cos_sita );	
+
+	//ラジアンでなく0～180の角度でほしい場合はコメント外す
+	//sita = sita * 180.0 / PI;
+
+	return sita;
+}
+//
+//////////
+
+}//end of namespace functions.
+using namespace functions ;
+}//end of namespace wiz.

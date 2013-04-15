@@ -46,8 +46,7 @@ public:
 		vMove.x += Controller1P.Gamepad.fThumbLX;
 		vMove.y -= Controller1P.Gamepad.fThumbLY;
 
-
-		this->m_vPos += vMove * 10.0f ;
+		this->m_vPos += vMove * 15.0f ;
 		
 		D3DXMatrixTranslation( &this->m_mMatrix , this->m_vPos.x , this->m_vPos.y , this->m_vPos.z ) ;
 
@@ -79,20 +78,69 @@ public:
 
 		if(pPlayer == NULL) pPlayer = (ProvisionalPlayer*)SearchObjectFromID(i_UpdatePacket.pVec , OBJID_3D_PLAYER);
 		else{
-
-			D3DXVECTOR3 vMove = pPlayer->getPos() - m_vPos ;
-
-			this->m_vPos += vMove * 0.03f ;
 			
+			D3DXVECTOR3 vMove = g_vZero ;
+			vMove.x = 1 ;
+			D3DXVECTOR3 pPos = this->pPlayer->getPos();
+			float degree = TwoPoint2Degree( m_vPos.x, m_vPos.y, pPos.x, pPos.y );	
+			ArcMove( vMove.x , vMove.y , 10.0f, degree);
+			//Debugger::DBGSTR::addStr(L"Degree : %f \n" , degree );
+			vMove.y *= -1.0f ;
+			this->m_vPos += vMove ;
 			D3DXMatrixTranslation( &this->m_mMatrix , this->m_vPos.x , this->m_vPos.y , this->m_vPos.z ) ;
 		}
 	};
 };
 class EnemyManager : public Object{
+	list< Enemy* > m_EnemyList ;
+	float Delay ;
 public:
 	EnemyManager()
 		:Object(OBJID_UI_SPRITE)
+		,Delay(0)
 	{}
+	void Update(UpdatePacket& i_UpdatePacket){
+
+		if( ( Delay += i_UpdatePacket.pTime->getElapsedTime() ) >= 0.8f){
+			float x = rand() % 1024 ;
+			float y = rand() % 800 ;
+			m_EnemyList.push_back( 
+				new Enemy(
+					i_UpdatePacket.pD3DDevice,
+					i_UpdatePacket.pTxMgr->addTexture(i_UpdatePacket.pD3DDevice,L"Circle.BMP"),
+					g_vOne,
+					g_vZero,
+					D3DXVECTOR3( x , y ,0.0f),
+					NULL,
+					0xFFFF0000
+				)
+			);
+			Delay = 0 ;
+		}
+
+
+		list< Enemy* >::iterator  it = m_EnemyList.begin() ;
+		list< Enemy* >::iterator end = m_EnemyList.end()   ;
+
+		for(  ; it != end ; it++ ){
+			(*it)->Update( i_UpdatePacket );
+		}
+
+
+	}
+	~EnemyManager(){
+		SafeDeletePointerContainer(m_EnemyList);
+	}
+	virtual void Draw(DrawPacket& i_DrawPacket){
+		list< Enemy* >::iterator  it = m_EnemyList.begin() ;
+		list< Enemy* >::iterator end = m_EnemyList.end()   ;
+
+		for(  ; it != end ; it++ ){
+			(*it)->Draw( i_DrawPacket );
+		}
+
+	};
+
 
 };
 
@@ -113,26 +161,19 @@ PlayStage::PlayStage(LPDIRECT3DDEVICE9 pD3DDevice,Stage* pStage)
 
 {
 	try{
+
 		this->m_Vec.push_back(
 			new ProvisionalPlayer(
 				pD3DDevice,
 				this->m_TexMgr.addTexture(pD3DDevice,L"Circle.BMP"),
 				g_vOne,
 				g_vZero,
-				D3DXVECTOR3(100.0f,100.0f,0.0f),
+				D3DXVECTOR3(200.0f,100.0f,0.0f),
 				NULL
 			)
 		);
 		this->m_Vec.push_back(
-			new Enemy(
-				pD3DDevice,
-				this->m_TexMgr.addTexture(pD3DDevice,L"Circle.BMP"),
-				g_vOne,
-				g_vZero,
-				D3DXVECTOR3(800.0f,600.0f,0.0f),
-				NULL,
-				0xFFFF0000
-			)
+			new EnemyManager()
 		);
 		//m_IsDialog = true;
 		//MainFactory(pD3DDevice,m_Vec,m_TexMgr);

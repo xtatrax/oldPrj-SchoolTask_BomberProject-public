@@ -21,8 +21,10 @@
 namespace wiz{
 class Object ; 
 class TextureManager ;
-
+namespace functions {
 extern void EarnFromMeshOBB(const LPD3DXBASEMESH i_pMesh,D3DXVECTOR3& o_vPos ,D3DXVECTOR3& o_vSize);
+}
+using namespace functions ;
 namespace structs{
 /*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*/
 //**************************************************************************//

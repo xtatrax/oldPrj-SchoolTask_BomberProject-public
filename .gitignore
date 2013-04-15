@@ -30,7 +30,4 @@ _ReSharper*/
 *.user
 .DS_Store
 /*.suo
-/DXGBProject/LogDatas
-/Debug
-/BomberProject/Debug
 /BomberProject/LogDatas

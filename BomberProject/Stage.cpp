@@ -220,6 +220,7 @@ MenuStage::~MenuStage(){
 ***************************************************************************/
 void MenuStage::Update(UpdatePacket& i_UpdatePacket)
 {
+	if( i_UpdatePacket.pTxMgr == NULL ) i_UpdatePacket.pTxMgr = &m_TexMgr ;
 	CONTROLER_STATE	ControllerState1P = i_UpdatePacket.pCntlState[0];
     if(!m_SelectLock){
 		//	: ŽŸ‚Ìƒ{ƒ^ƒ“‚Ö

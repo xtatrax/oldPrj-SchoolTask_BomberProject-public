@@ -29,7 +29,7 @@
 #include "Function.h"
 
 namespace wiz{
-
+namespace functions{
 Rect __GetClientSize::m_MainWindowRect  ;
-
+}
 }
