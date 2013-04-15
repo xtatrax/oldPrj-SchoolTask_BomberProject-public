@@ -1,0 +1,41 @@
+
+
+Debug機能
+
+・プログラム実行中の機能
+	・プログラム全体の機能
+
+		●F12 一時停止
+		●F11 スロー(1FPS化)
+		●F9  デバッグ文字列をファイルへ出力
+		●F8  newされた領域をファイルへ出力
+
+・関数
+	・画面上に簡易的に文字列を描画する
+
+		Debugger::DBGSTR::addStr( const wchar_t* addStr , ... )     関数
+		Debugger::DBGSTR::addStrTop( const wchar_t* addStr , ... )  関数
+		
+		addStr()関数は一番最後に文字列を追加します
+		addStrTop()関数は一番最初に文字列を追加します
+		使い方は printf()関数とほとんど同じになっています
+		
+		例)
+		DBGSTR::addStr( " 追加したい文字列 %d" , foo );
+		
+	
+	・ログファイルを出力する
+	
+		Debugger::DBGWRITINGLOGTEXT::addStr( const char* addStr , ... )  関数
+		Debugger::DBGWRITINGLOGTEXT::addStrToFile( const wstring FileName , const wchar_t* addStr , ...)  関数
+	  
+	  
+		addStr()関数はデフォルトのログファイル"./LogDatas/LogData.txt"へログの書き出しができます｡
+		addStrToFile()関数は第一引数に指定したファイルに書き出しを行います
+		使い方は printf()関数とほとんど同じになっています
+	  
+		例)
+		if(  PushKEY  ){
+			DBGWRITINGLOGTEXT::addStr( "フー : %d" , foo );
+		}
+		
