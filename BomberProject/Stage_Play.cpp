@@ -1,5 +1,5 @@
 ////////////////////////////// //////////////////////////////
-//	プロジェクト	：Stick Figures
+//	プロジェクト	：Magnetica
 //	ファイル名		：Stage_Pray.h
 //	開発環境		：MSVC++ 2008
 //	最適タブ数		：4
@@ -11,7 +11,7 @@
 //
 #include "StdAfx.h"
 #include "Scene.h"
-#include "MainFactory.h"
+#include "Factory_Main.h"
 #include "Stage_Play.h"
 #include "stage.h"
 
@@ -64,7 +64,7 @@ public:
 		D3DXVECTOR3 &vScale,						//	: 伸縮
 		D3DXVECTOR3 &vRot,							//	: 回転
 		D3DXVECTOR3 &vPos,							//	: 位置
-		RECT* pRect,								//	: 描画範囲
+		RECT* pRect,						 		//	: 描画範囲
 		Color color = 0xFFFFFFFF,					//	: 色
 		wiz::OBJID id = OBJID_UI_SPRITE				//	: ID
 	)

@@ -242,7 +242,6 @@ extern wstring g_sDefaultTexturePath ;	//	: テクスチャの置き場
 #include "DebugFunctions.h"
 #include "Tempus/Tempus.h"
 #include "Structs.h"
-#include "Command.h"
 #include "DxDevice.h"
 #include "Object.h"
 #include "Function.h"

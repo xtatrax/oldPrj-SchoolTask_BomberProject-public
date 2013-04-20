@@ -1,5 +1,5 @@
 ////////////////////////////// //////////////////////////////
-//	プロジェクト	：Stick Figures
+//	プロジェクト	：Magnetica
 //	ファイル名		：Debug_Stage.h
 //	開発環境		：MSVC++ 2008
 //	最適タブ数		：4
@@ -13,7 +13,7 @@
 #include "StdAfx.h"
 #include "BassMenuItems.h"
 #include "Debug_Stage.h"
-#include "MainFactory.h"
+#include "Factory_Main.h"
 
 namespace wiz{
 

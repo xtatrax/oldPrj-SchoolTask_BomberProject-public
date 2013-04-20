@@ -1,31 +1,117 @@
 ////////////////////////////// //////////////////////////////
 //	プロジェクト	：DirectX Program Bass Project
-//	ファイル名		：DxDevice.h
+//	ファイル名		：Structs.h
 //	開発環境		：MSVC++ 2008
 //	最適タブ数		：4
 //	担当者			：鴫原 徹
-//	内包ﾃﾞｰﾀと備考	：グローバルな関数群のインライン定義
+//	内包ﾃﾞｰﾀと備考	：多所で利用される構造体郡
 //					▼
 //	namespace wiz;
-//		struct FlexibleVertex ;
-//		struct OBB  ;
-//		struct AABB      ;
-//		struct Sphere        ;
-//		struct RENDERSTATE_PARAM ;
-//		struct ObjeData    ;
+//		struct Command			;
+//		struct UpdatePacket		;
+//		struct RenderPacket		;
+//		struct FactoryPacket	;
+//		struct Color			;
+//		struct FlexibleVertex	;
+//		struct OBB				;
+//		struct AABB				;
+//		struct Sphere			;
+//		struct RENDERSTATE_PARAM	;
+//		struct ObjeData			;
 //
 #pragma once
 
 #include "StdAfx.h"
 
 namespace wiz{
-class Object ; 
-class TextureManager ;
+class  Object ; 
+class  TextureManager ;
+struct CONTROLER_STATE;
 namespace functions {
 extern void EarnFromMeshOBB(const LPD3DXBASEMESH i_pMesh,D3DXVECTOR3& o_vPos ,D3DXVECTOR3& o_vSize);
 }
 using namespace functions ;
 namespace structs{
+
+/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
+/**************************************************************************
+ struct Command;
+ 用途: シーン内、ステージ内でやり取りされるコマンド
+ ＊コマンド内容の定義は、各コンテンツにまかせる
+****************************************************************************/
+struct Command{
+	DWORD m_Command;	
+	DWORD m_Param1;
+	DWORD m_Param2;
+	Command()
+		:m_Command(0),m_Param1(0),m_Param2(0)
+	{}
+	void Clear(){
+		m_Command = m_Param1 = m_Param2 = 0;
+	}
+	~Command(){
+		Clear();
+	}
+};
+/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
+
+/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
+//**************************************************************************//
+// struct UpdatePacket;
+//
+// 担当者  : 鴫原 徹
+// 用途    : アップデート関数郡に流れるデータ
+//**************************************************************************//
+struct UpdatePacket{
+	const CONTROLER_STATE*	pCntlState	;
+	LPDIRECT3DDEVICE9		pD3DDevice	;
+	vector<Object*>*		pVec		;
+	TextureManager*			pTxMgr		;
+	TLIB::Tempus2*			pTime		;
+	Command*				pCommand	;
+	UpdatePacket()
+		:pCntlState( NULL )
+		,pD3DDevice( NULL )
+		,pVec( NULL )
+		,pTxMgr( NULL )
+		,pTime( NULL )
+		,pCommand( NULL )
+	{
+	}
+
+};
+/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
+
+/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
+//**************************************************************************//
+// struct RenderPacket;
+//
+// 担当者  : 鴫原 徹
+// 用途    : レンダー関数群に流れるデータ
+//**************************************************************************//
+struct RenderPacket{
+	LPDIRECT3DDEVICE9	pD3DDevice	;
+	vector<Object*>*	pVec		;
+	Command*			pCommand	;
+};
+/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
+
+/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
+//**************************************************************************//
+// struct DrawPacket;
+//
+// 担当者  : 鴫原 徹
+// 用途    : ドロー関数群に流れるデータ
+//**************************************************************************//
+struct DrawPacket{
+	LPDIRECT3DDEVICE9	pD3DDevice	;
+	vector<Object*>*	pVec		;
+	TLIB::Tempus2*		pTime		;
+	Command*			pCommand	;
+};
+/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
+
+
 /*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 //**************************************************************************//
 // struct FactoryPacket;
@@ -41,6 +127,8 @@ struct FactoryPacket{
 	//テクスチャのポインタのベクトル
 	TextureManager* m_pTexMgr;
 };
+/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
+
 //**************************************************************************
 // union Color;
 //
@@ -56,6 +144,7 @@ union Color {
 	{ byteColor.a = A;byteColor.r = R;byteColor.g = G;byteColor.b = B;};
 	Color& operator = (DWORD other){ dwColor = other ; return *this; };
 };
+/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 
 /*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 //**************************************************************************//

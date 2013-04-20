@@ -1,13 +1,13 @@
 ////////////////////////////// //////////////////////////////
-//	プロジェクト	：Stick Figures
-//	ファイル名		：MainFactory.h
+//	プロジェクト	：Magnetica
+//	ファイル名		：Factory_Magnetic.h
 //	開発環境		：MSVC++ 2008
 //	最適タブ数		：4
 //	担当者			：鴫原 徹
 //	内包ﾃﾞｰﾀと備考	：メインファクトリー
 //					▼
 //	namespace wiz;
-//		class MainFactory ;
+//		class Factory_Magnetic ;
 //
 #pragma once
 
@@ -21,13 +21,13 @@ namespace wiz{
 
 
 /**************************************************************************
- class MainFactory;
+ class Factory_Magnetic;
  用途: メイン工場クラス
 ****************************************************************************/
-class MainFactory{
+class Factory_Magnetic{
 public:
 /**************************************************************************
- MainFactory(
+ Factory_Magnetic(
 	LPDIRECT3DDEVICE9 pD3DDevice,	//デバイス
 	vector<Object*>& vec,			//オブジェクトの配列
 	TextureManager& TexMgr		//テクスチャの配列
@@ -35,13 +35,13 @@ public:
  用途: コンストラクタ（サンプルオブジェクトを配列に追加する）
  戻り値: なし
 ***************************************************************************/
-	MainFactory(LPDIRECT3DDEVICE9 pD3DDevice,vector<Object*>& vec,TextureManager& TexMgr);
+	Factory_Magnetic(LPDIRECT3DDEVICE9 pD3DDevice,vector<Object*>& vec,TextureManager& TexMgr);
 /**************************************************************************
  ~MyFactory();
  用途: デストラクタ
  戻り値: なし
 ***************************************************************************/
-	~MainFactory();
+	~Factory_Magnetic();
 };
 }
 //end of namespace wiz.

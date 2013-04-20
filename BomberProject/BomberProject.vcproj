@@ -203,10 +203,6 @@
 					Name="DxDevice"
 					>
 					<File
-						RelativePath=".\Command.h"
-						>
-					</File>
-					<File
 						RelativePath=".\DxDevice.cpp"
 						>
 					</File>
@@ -351,11 +347,47 @@
 					Name="MainFactory"
 					>
 					<File
-						RelativePath=".\MainFactory.cpp"
+						RelativePath=".\Factory_Main.cpp"
 						>
 					</File>
 					<File
-						RelativePath=".\MainFactory.h"
+						RelativePath=".\Factory_Main.h"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="PlayerFactory"
+					>
+					<File
+						RelativePath=".\Factory_Player.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Factory_Player.h"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="MagneticFactory"
+					>
+					<File
+						RelativePath=".\Factory_Magnetic.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Factory_Magnetic.h"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="WallFactory"
+					>
+					<File
+						RelativePath=".\Factory_Wall.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Factory_Wall.h"
 						>
 					</File>
 				</Filter>

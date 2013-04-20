@@ -22,36 +22,6 @@ namespace wiz{
 
 extern class Object;
 
-struct UpdatePacket{
-	const CONTROLER_STATE*	pCntlState	;
-	LPDIRECT3DDEVICE9		pD3DDevice	;
-	vector<Object*>*		pVec		;
-	TextureManager*			pTxMgr		;
-	TLIB::Tempus2*			pTime		;
-	Command*				pCommand	;
-	UpdatePacket()
-		:pCntlState( NULL )
-		,pD3DDevice( NULL )
-		,pVec( NULL )
-		,pTxMgr( NULL )
-		,pTime( NULL )
-		,pCommand( NULL )
-	{
-	}
-
-};
-struct RenderPacket{
-	LPDIRECT3DDEVICE9	pD3DDevice	;
-	vector<Object*>*	pVec		;
-	Command*			pCommand	;
-};
-struct DrawPacket{
-	LPDIRECT3DDEVICE9	pD3DDevice	;
-	vector<Object*>*	pVec		;
-	TLIB::Tempus2*		pTime		;
-	Command*			pCommand	;
-};
-
 
 
 //**************************************************************************
