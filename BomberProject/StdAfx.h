@@ -114,10 +114,10 @@ using namespace std;
 //	: デファイン定数
 #define MAP_PARTS_HEIGHT		(    1.0f)	/*  */
 #define MAP_PARTS_WIDTH			(    1.0f)	/*  */
-#define BASE_CLIENT_HEIGHT		(  768.0f)	/* 基準になる描画領域の高さ */
-#define BASE_CLIENT_WIDTH		( 1366.0f)	/* 基準になる描画領域の幅   */
-#define STANDARD_WINDOW_HEIGHT  (  480.0f)	/* ウインドウモードの高さ   */
-#define STANDARD_WINDOW_WIDTH   (  800.0f)	/* ウインドウモードの幅     */
+#define BASE_CLIENT_HEIGHT		(  600.0f)	/* 基準になる描画領域の高さ */
+#define BASE_CLIENT_WIDTH		( 1024.0f)	/* 基準になる描画領域の幅   */
+#define STANDARD_WINDOW_HEIGHT  (  600.0f)	/* ウインドウモードの高さ   */
+#define STANDARD_WINDOW_WIDTH   ( 1024.0f)	/* ウインドウモードの幅     */
 
 #define DEFAULT_WINDOW_TITLE		( L"ウインドウタイトル" )
 #define DEFAULT_WINDOW_CLASS_NAME	( L"ウインドウクラスネーム" )

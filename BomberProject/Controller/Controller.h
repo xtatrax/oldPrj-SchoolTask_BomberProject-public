@@ -197,6 +197,10 @@ struct CONTROLER_STATE
 	DWORD					dwPacketNumber;
     bool					bConnected;
 };
+struct MouseState{
+	Point Position;
+
+};
 //**************************************************************************
 // class CONTROLLERS;
 // 担当  : 鴫原 徹
@@ -239,7 +243,7 @@ public:
     void Release(){
 		//CI.Release();
 		//SAFE_RELEASE(CIGpBuf);
-	}	
+	}
 /////////////////// ////////////////////
 //// 関数名     ：const CONTROLER_STATE* GetState()
 //// カテゴリ   ：ゲッター(?)

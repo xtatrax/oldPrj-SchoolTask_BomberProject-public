@@ -42,9 +42,9 @@ ProvisionalPlayer::ProvisionalPlayer(
 	Color color ,								//	: F
 	wiz::OBJID id 								//	: ID
 )
-:SpriteObject(pD3DDevice,pTexture,vScale,vRot,vPos,
-	pRect,g_vZero,g_vZero,color,id)
-,m_vPos(vPos)
+:MagneticumObject(pD3DDevice,pTexture,vScale,vRot,vPos,
+	pRect,color,id)
+
 {
 }
 
@@ -61,10 +61,15 @@ ProvisionalPlayer::ProvisionalPlayer(
 void ProvisionalPlayer::Update( UpdatePacket& i_UpdatePacket ){
 	wiz::CONTROLER_STATE Controller1P = i_UpdatePacket.pCntlState[0] ;
 	D3DXVECTOR3 vMove = g_vZero ;
-	vMove.x += Controller1P.Gamepad.fThumbLX;
-	vMove.y -= Controller1P.Gamepad.fThumbLY;
+	Point MousePos ;
+	GetCursorPos( &MousePos );
+	m_vPos.x = MousePos.x;
+	m_vPos.y = MousePos.y;
 
-	this->m_vPos += vMove * 15.0f ;
+	Controller1P.Gamepad.wPressedButtons.XConState.A && this->ChangePole() ;
+
+
+	//this->m_vPos += vMove * 15.0f ;
 	
 	D3DXMatrixTranslation( &this->m_mMatrix , this->m_vPos.x , this->m_vPos.y , this->m_vPos.z ) ;
 
@@ -95,10 +100,9 @@ PlayerCoil::PlayerCoil(
 	Color color ,								//	: F
 	wiz::OBJID id 								//	: ID
 )
-:SpriteObject(pD3DDevice,pTexture,vScale,vRot,vPos,
-	pRect,g_vZero,g_vZero,color,id)
-,m_vPos(vPos)
-,m_pPlayer(NULL)
+:MagneticumObject(pD3DDevice,pTexture,vScale,vRot,vPos,
+	pRect,color,id)
+,m_pPlayer( NULL )
 {
 }
 
@@ -113,6 +117,9 @@ PlayerCoil::PlayerCoil(
 ////            F
 ////
 void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
+
+	wiz::CONTROLER_STATE Controller1P = i_UpdatePacket.pCntlState[0] ;
+
 	if( m_pPlayer ){
 
 
@@ -121,16 +128,22 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 
 		float Lng  = TwoPointToBassLength( pPos, m_vPos ) ;
 		float Lng2 = VectorLength( D3DXVECTOR3( pPos.x - m_vPos.x, pPos.y - m_vPos.y ,0) );
+
+		Controller1P.Gamepad.wPressedButtons.XConState.Y && this->ChangePole() ;
+
 		Debugger::DBGSTR::addStr( L"Lng : %f\n", Lng);
 		Debugger::DBGSTR::addStr( L"Lng : %f\n", Lng2);
 		Debugger::DBGSTR::addStr( L"Lng : %f\n", sqrt(Lng));
-		Debugger::DBGSTR::addStr( L"Lng : %d\n", 100*100);
-		if( Lng <= 100*100 ){
+		Debugger::DBGSTR::addStr( L"Lng : %d\n", MGPRM_MAGNETICUM_QUAD);
+		if( Lng <= MGPRM_MAGNETICUM_QUAD ){
 			vMove.x = 1 ;
 			float degree = TwoPoint2Degree( m_vPos, pPos );	
 			ArcMove( vMove , 10.0f, degree);
 
-			//vMove.y *= -1.0f ;
+			if( m_pPlayer->getMagnetPole() != this->getMagnetPole() ){
+				vMove.y *= -1.0f ;
+				vMove.x *= -1.0f ;
+			}
 			this->m_vPos += vMove ;
 			D3DXMatrixTranslation( &this->m_mMatrix , this->m_vPos.x , this->m_vPos.y , this->m_vPos.z ) ;
 		}
@@ -162,9 +175,9 @@ Factory_Player::Factory_Player( FactoryPacket* fpac ){
 				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Circle.png" ),
 				g_vOne,
 				g_vZero,
-				D3DXVECTOR3(200.0f,100.0f,0.0f),
+				D3DXVECTOR3(0.0f,0.0f,0.0f),
 				NULL,
-				0xFFFF0000
+				0xFF0000FF
 			)
 		);
 		fpac->m_pVec->push_back(
@@ -175,7 +188,7 @@ Factory_Player::Factory_Player( FactoryPacket* fpac ){
 				g_vZero,
 				D3DXVECTOR3(200.0f,300.0f,0.0f),
 				NULL,
-				0xFFFF00000
+				0xFF00000FF
 			)
 		);
 

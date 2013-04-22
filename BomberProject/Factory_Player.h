@@ -14,17 +14,22 @@
 #include "StdAfx.h"
 #include "Object.h"
 #include "BassItems.h"
+#include "Factory_Magnetic.h"
+
+#define  MGPRM_MAGNETICUM	100  /* 磁界の影響半径( 現在単位 pixel ) */
+#define  MGPRM_MAGNETICUM_QUAD ( MGPRM_MAGNETICUM * MGPRM_MAGNETICUM )
 
 namespace wiz{
+
+
+
 //**************************************************************************//
-// class ProvisionalPlayer : public SpriteObject ;
+// class ProvisionalPlayer : public MagneticumObject ;
 //
 // 担当者  : 鴫原 徹
-// 用途    : ドロー関数群に流れるデータ
+// 用途    : 仮のユーザー設置磁界
 //**************************************************************************//
-class ProvisionalPlayer : public SpriteObject{
-	//	: 
-	D3DXVECTOR3 m_vPos ;
+class ProvisionalPlayer : public MagneticumObject{
 public:
 	//	: 
 	ProvisionalPlayer( LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTexture,
@@ -32,22 +37,18 @@ public:
 		Color color = 0xFFFFFFFF, wiz::OBJID id = OBJID_3D_PLAYER );
 	//	: 
 	void Update( UpdatePacket& i_UpdatePacket );
-	D3DXVECTOR3 getPos() const {return m_vPos;};
-
 };
 
 
 //**************************************************************************//
-// class PlayerCoil : public SpriteObject ;
+// class PlayerCoil : public MagneticumObject ;
 //
 // 担当者  : 鴫原 徹
-// 用途    : ドロー関数群に流れるデータ
+// 用途    : コイル
 //**************************************************************************//
-class PlayerCoil : public SpriteObject{
+class PlayerCoil : public MagneticumObject{
 	ProvisionalPlayer* m_pPlayer;
 
-	//	: 
-	D3DXVECTOR3 m_vPos ;
 
 public:
 /////////////////// ////////////////////
@@ -77,18 +78,6 @@ public:
 ////            ：
 ////
 	void Update( UpdatePacket& i_UpdatePacket );
-
-/////////////////// ////////////////////
-//// 関数名     ：D3DXVECTOR3 getPos()
-//// カテゴリ   ：ゲッター
-//// 用途       ：
-//// 引数       ：
-//// 戻値       ：なし
-//// 担当       ：鴫原 徹
-//// 備考       ：
-////            ：
-////
-	D3DXVECTOR3 getPos() const {return m_vPos;};
 
 };
 
