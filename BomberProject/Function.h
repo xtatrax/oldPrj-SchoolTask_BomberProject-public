@@ -1,6 +1,6 @@
 ////////////////////////////// //////////////////////////////
 //	プロジェクト	：DirectX Program Bass Project
-//	ファイル名		：DxDevice.h
+//	ファイル名		：Function.h
 //	開発環境		：MSVC++ 2008
 //	最適タブ数		：4
 //	担当者			：鴫原 徹
@@ -620,22 +620,77 @@ inline void ChangeRenderStateArray(const LPDIRECT3DDEVICE9 i_pDevice,RENDERSTATE
 	}
 };
 
-inline Object* SearchObjectFromID(const vector<Object*>* Vec,DWORD i_dwID){
 
-	vector<Object*>::size_type	sz = Vec->size(),
+/////////////////// ////////////////////
+//// 関数名     ：inline Object* SearchObjectFromOBJID(vector<Object*>* i_pVec,DWORD i_dwID, vector<Object*>* o_pVec = NULL)
+//// カテゴリ   ：グローバル関数
+//// 用途       ：OBJIDを元にオブジェクトを探す
+//// 引数       ：    vector<Object*>*   i_pVec     //   [in] 対象オブジェクトが格納されているvector<>へのポインタ
+////            ：    DWORD              i_dwID     //   [in] 検索対象のID
+////            ：    vector<Object*>*   o_pVec	    //  [out] (Option) 発見したオブジェクト一覧 ( 
+//// 戻値       ：一番最初に発見したオブジェクトへのポインタ
+//// 担当       ：鴫原 徹
+//// 備考       ：現在SearchObjectFromTypeIDでも同じようなことはできますが原則SearchObjectFromOBJIDを利用してください
+////            ：
+////            ：
+////            ：
+inline Object* SearchObjectFromID(vector<Object*>* i_pVec,DWORD i_dwID, vector<Object*>* o_pVec = NULL){
+
+	vector<Object*>::size_type	sz = i_pVec->size(),
 								 i = 0 ;
 	for( i = 0; i < sz ; i++ ){
-		if( (*Vec)[i]->getID() == i_dwID ) {
-			return  (*Vec)[i] ;
+		if( (*i_pVec)[i]->getID() == i_dwID ) {
+			if( o_pVec )
+				(*o_pVec).push_back( (*i_pVec)[i] );
+			else
+				return  (*i_pVec)[i] ;
 		}
 	}
-	return NULL;
+	if( o_pVec && o_pVec->size() ){
+		return (*o_pVec)[0] ;
+	}else{
+		return NULL;
+	}
+};
+
+/////////////////// ////////////////////
+//// 関数名     ：inline Object* SearchObjectFromTypeID(vector<Object*>* i_pVec,DWORD i_dwID, vector<Object*>* o_pVec = NULL)
+//// カテゴリ   ：グローバル関数
+//// 用途       ：OBJIDを元にオブジェクトを探す
+//// 引数       ：    vector<Object*>*   i_pVec     //   [in] 対象オブジェクトが格納されているvector<>へのポインタ
+////            ：    DWORD              i_dwID     //   [in] 検索対象のID
+////            ：    vector<Object*>*   o_pVec	    //  [out] (Option) 発見したオブジェクト一覧 ( 
+//// 戻値       ：一番最初に発見したオブジェクトへのポインタ
+//// 担当       ：鴫原 徹
+//// 備考       ：
+////            ：
+////            ：
+////            ：
+inline Object* SearchObjectFromTypeID(vector<Object*>* i_pVec,const type_info& i_typeinfo, vector<Object*>* o_pVec = NULL){
+
+	vector<Object*>::size_type	sz = i_pVec->size(),
+								 i = 0 ;
+	const type_info& info = typeid( *( *i_pVec )[ i ] );
+	for( i = 0; i < sz ; i++ ){
+		if( info == i_typeinfo ) {
+			if( o_pVec )
+				(*o_pVec).push_back( (*i_pVec)[i] );
+			else
+				return  (*i_pVec)[i] ;
+		}
+	}
+	if( o_pVec && o_pVec->size() ){
+		return (*o_pVec)[0] ;
+	}else{
+		return NULL;
+	}
 };
 
 
 ////////////////////////////////////////
 ////// Non-environment-dependent ///////
 ////////////////////////////////////////
+
 
 
 ///////// /////////
@@ -649,9 +704,9 @@ inline Object* SearchObjectFromID(const vector<Object*>* Vec,DWORD i_dwID){
 //	float *y：移動させたいy座標
 //	float Distance：
 //
-inline bool ArcMove(float &x ,float &y , float Distance, float Degree){
-    x = Distance  *  cosf((float)TL_RAD(Degree)) ;
-    y = Distance  *  sinf((float)TL_RAD(Degree)) ;
+inline bool ArcMove( D3DXVECTOR3& Pos , float Distance, float Degree){
+    Pos.x = Distance  *  cosf((float)TL_RAD(Degree)) ;
+    Pos.y = Distance  *  sinf((float)TL_RAD(Degree)) ;
 
     return true;
 }
@@ -689,34 +744,69 @@ inline float TurnAngle(float *Angle, float Turn){
 //inline float VectorLength( float X, float Y );
 // ベクトルの長さを計算する
 //
-inline double VectorLength( double X, double Y ){
-	return pow( ( X * X ) + ( Y * Y ), 0.5 );
+inline double TwoPointToBassLength( D3DXVECTOR3& i_Vec1, D3DXVECTOR3& i_Vec2 ){
+	return TL_SQUARE( i_Vec2.x - i_Vec1.x )  + TL_SQUARE( i_Vec2.y - i_Vec1.y ) ;
 }
 
 ///////// /////////
 //inline float VectorLength( float X, float Y );
 // ベクトルの長さを計算する
 //
-inline double VectorProduct(float P1x,float P1y,float P2x,float P2y){
-	return P1x * P2x + P1y * P2y ;
+inline double VectorLength( D3DXVECTOR3& i_Vec1 ){
+	double ret = ( i_Vec1.x * i_Vec1.x ) + ( i_Vec1.y * i_Vec1.y ) ;
+	return pow( ret , 0.5 );
+}
+
+///////// /////////
+//inline float VectorLength( float X, float Y );
+// ベクトルの長さを計算する
+//
+inline double VectorProduct( D3DXVECTOR3& i_Vec1, D3DXVECTOR3& i_Vec2 ){
+	return i_Vec1.x * i_Vec2.x + i_Vec1.y * i_Vec2.y ;
 }
 ///////// /////////
 //inline float VectorLength( float X, float Y );
 // ベクトルの長さを計算する
 //
 //
-inline double GetCosineTheta(float P1x,float P1y,float P2x,float P2y){
-	return VectorProduct(P1x,P1y,P2x,P2y) / ( VectorLength(P1x,P1y) * VectorLength(P2x,P2y) ) ;
+inline double GetCosineTheta( D3DXVECTOR3& i_Vec1, D3DXVECTOR3& i_Vec2 ){
+	double buf1 = VectorProduct( i_Vec1 , i_Vec2 ) ;
+	double buf2 = VectorLength( i_Vec1 ) ;
+	double buf3 = VectorLength( i_Vec2 ) ;
+	double ret  = buf1 / ( buf2 * buf3 ) ;
+	return ret ;
 }
 ///////// /////////
 //inline float VectorLength( float X, float Y );
 // ベクトルの長さを計算する
 //
 //
-inline void TwoPoint2Vector( float &retX, float &retY, float P1x,float P1y,float P2x,float P2y){
-	retX = P2x - P1x;
-	retY = P2y - P1y;
+inline D3DXVECTOR3& TwoPoint2Vector( D3DXVECTOR3& i_Vec1, D3DXVECTOR3& i_Vec2 ){
+	return  D3DXVECTOR3( i_Vec2.x - i_Vec1.x , i_Vec2.y - i_Vec1.y , 0 ) ;
 }
+
+///////// /////////
+//double ThreePoint2Radian(double P1x,double P1y,double P2x,double P2y,double P3x,double P3y);
+//
+//引数：
+//	double P1x：点１のＸ座標値
+//	double P1y：点１のＹ座標値
+//	double P2x：点２のＸ座標値
+//	double P2y：点２のＹ座標値
+//	double P3x：点３のＸ座標値
+//	double P3y：点３のＹ座標値
+//戻り値：∠P1P2P3のラジアン角
+//
+inline double ThreePoint2Radian(D3DXVECTOR3& i_Vec1, D3DXVECTOR3& i_Vec2, D3DXVECTOR3& i_Vec3){
+	//double vAx , vAy , vBx, vBy ;
+	//TwoPoint2Vector( vAx , vAy, P2x, P2y, P1x, P1y);
+	//TwoPoint2Vector( vBx , vBy, P2x, P2y, P3x, P3y);
+	D3DXVECTOR3 vPosA = TwoPoint2Vector( i_Vec2 , i_Vec1 ) ;
+	D3DXVECTOR3 vPosB = TwoPoint2Vector( i_Vec2 , i_Vec3 ) ;
+	double buf = GetCosineTheta( vPosA , vPosB ) ;
+	double ret = acos( buf );
+    return ret ;
+};
 
 ///////// /////////
 //float ThreePoint2Radian(float P1x,float P1y,float P2x,float P2y,float P3x,float P3y);
@@ -728,13 +818,119 @@ inline void TwoPoint2Vector( float &retX, float &retY, float P1x,float P1y,float
 //	float P2y：点２のＹ座標値
 //	float P3x：点３のＸ座標値
 //	float P3y：点３のＹ座標値
+//戻り値：∠P1P2P3のディグリー角
+//
+inline float ThreePoint2Degree(D3DXVECTOR3& i_Vec1, D3DXVECTOR3& i_Vec2, D3DXVECTOR3& i_Vec3){
+	float ret = (float)TL_DEG(ThreePoint2Radian( i_Vec1, i_Vec2, i_Vec3));
+    return ret ;
+};
+
+
+///////// /////////
+//float ThreePoint2Radian(float P1x,float P1y,float P2x,float P2y,float P3x,float P3y);
+//
+//引数：
+//	float P1x：点１のＸ座標値
+//	float P1y：点１のＹ座標値
+//	float P2x：点２のＸ座標値
+//	float P2y：点２のＹ座標値
 //戻り値：∠P1P2P3のラジアン角
 //
-inline float ThreePoint2Radian(float P1x,float P1y,float P2x,float P2y,float P3x,float P3y){
-	float vAx , vAy , vBx, vBy ;
+inline double TwoPoint2Radian(D3DXVECTOR3& i_Vec1, D3DXVECTOR3& i_Vec2){
+	double ret =  ThreePoint2Radian( i_Vec1, i_Vec2, D3DXVECTOR3( i_Vec2.x + 1 , i_Vec2.y , 0 ) );
+    return ret ;
+};
+
+///////// /////////
+//float ThreePoint2Radian(float P1x,float P1y,float P2x,float P2y,float P3x,float P3y);
+//
+//引数：
+//	float P1x：点１のＸ座標値
+//	float P1y：点１のＹ座標値
+//	float P2x：点２のＸ座標値
+//	float P2y：点２のＹ座標値
+//戻り値：∠P1P2P3のディグリー角
+//
+inline float TwoPoint2Degree(D3DXVECTOR3& i_Vec1, D3DXVECTOR3& i_Vec2){
+
+	float ret = 0 ; 
+	if( i_Vec1.y >= i_Vec2.y )
+		ret = ThreePoint2Degree( i_Vec1, i_Vec2, D3DXVECTOR3( i_Vec2.x + 1 , i_Vec2.y , 0 ) ) ;
+	else
+	    ret = ( 180 - ThreePoint2Degree( i_Vec1, i_Vec2, D3DXVECTOR3( i_Vec2.x + 1 , i_Vec2.y , 0 ) ) ) + 180;
+	return ret;
+};
+
+
+
+
+///////// /////////
+//inline double TwoPointToBassLength( double P1x,double P1y,double P2x,double P2y );
+// ルートを取る前の二点間の距離を計算
+//
+inline double TwoPointToBassLength( double P1x,double P1y,double P2x,double P2y ){
+	return TL_SQUARE( P2x - P1x )  + TL_SQUARE( P2y * P1y ) ;
+}
+
+///////// /////////
+//inline float VectorLength( float X, float Y );
+// ベクトルの長さを計算する
+//
+inline double VectorLength( double X, double Y ){
+	return pow( ( X * X ) + ( Y * Y ), 0.5 );
+}
+
+///////// /////////
+//inline double VectorProduct(double P1x,double P1y,double P2x,double P2y);
+// ベクトルの内積を計算する
+//
+inline double VectorProduct(double P1x,double P1y,double P2x,double P2y){
+	return P1x * P2x + P1y * P2y ;
+}
+///////// /////////
+//inline double GetCosineTheta(double P1x,double P1y,double P2x,double P2y);
+// これをacos()すると角度が出る
+//
+//
+inline double GetCosineTheta(double P1x,double P1y,double P2x,double P2y){
+	return VectorProduct(P1x,P1y,P2x,P2y) / ( VectorLength(P1x,P1y) * VectorLength(P2x,P2y) ) ;
+}
+///////// /////////
+//inline void TwoPoint2Vector( double &retX, double &retY, double P1x,double P1y,double P2x,double P2y);
+// ベクトルの長さを計算する
+//
+//
+inline void TwoPoint2Vector( double &retX, double &retY, double P1x,double P1y,double P2x,double P2y){
+	retX = P2x - P1x;
+	retY = P2y - P1y;
+}
+///////// /////////
+//inline void TwoPointLength( double &retX, double &retY, double P1x,double P1y,double P2x,double P2y);
+// ベクトルの長さを計算する
+//
+//
+inline void TwoPointLength( double &retX, double &retY, double P1x,double P1y,double P2x,double P2y){
+	retX = P2x - P1x;
+	retY = P2y - P1y;
+}
+
+///////// /////////
+//double ThreePoint2Radian(double P1x,double P1y,double P2x,double P2y,double P3x,double P3y);
+//
+//引数：
+//	double P1x：点１のＸ座標値
+//	double P1y：点１のＹ座標値
+//	double P2x：点２のＸ座標値
+//	double P2y：点２のＹ座標値
+//	double P3x：点３のＸ座標値
+//	double P3y：点３のＹ座標値
+//戻り値：∠P1P2P3のラジアン角
+//
+inline double ThreePoint2Radian(double P1x,double P1y,double P2x,double P2y,double P3x,double P3y){
+	double vAx , vAy , vBx, vBy ;
 	TwoPoint2Vector( vAx , vAy, P2x, P2y, P1x, P1y);
 	TwoPoint2Vector( vBx , vBy, P2x, P2y, P3x, P3y);
-    return acosf(GetCosineTheta(vAx , vAy , vBx, vBy));
+    return acos(GetCosineTheta(vAx , vAy , vBx, vBy));
 };
 
 ///////// /////////
@@ -762,11 +958,9 @@ inline float ThreePoint2Degree(float P1x,float P1y,float P2x,float P2y,float P3x
 //	float P1y：点１のＹ座標値
 //	float P2x：点２のＸ座標値
 //	float P2y：点２のＹ座標値
-//	float P3x：点３のＸ座標値
-//	float P3y：点３のＹ座標値
 //戻り値：∠P1P2P3のラジアン角
 //
-inline float TwoPoint2Radian(float P1x,float P1y,float P2x,float P2y){
+inline double TwoPoint2Radian(double P1x,double P1y,double P2x,double P2y){
     return ThreePoint2Radian( P1x, P1y, P2x, P2y, P2x + 1 , P2y );
 };
 
@@ -778,8 +972,6 @@ inline float TwoPoint2Radian(float P1x,float P1y,float P2x,float P2y){
 //	float P1y：点１のＹ座標値
 //	float P2x：点２のＸ座標値
 //	float P2y：点２のＹ座標値
-//	float P3x：点３のＸ座標値
-//	float P3y：点３のＹ座標値
 //戻り値：∠P1P2P3のディグリー角
 //
 inline float TwoPoint2Degree(float P1x,float P1y,float P2x,float P2y){
@@ -789,46 +981,6 @@ inline float TwoPoint2Degree(float P1x,float P1y,float P2x,float P2y){
 	    return ( 180 - ThreePoint2Degree( P1x, P1y, P2x, P2y, P2x - 1 , P2y ) ) + 180;
 };
 
-
-//////////
-//	: 拾い物
-inline struct Vector2D{
-	double x;
-	double y;
-};
-
-//ベクトルの長さを計算する
-inline double get_vector_length( Vector2D v ) {
-	return pow( ( v.x * v.x ) + ( v.y * v.y ), 0.5 );
-}
-
-//ベクトル内積
-inline double dot_product(Vector2D vl, Vector2D vr) {
-	return vl.x * vr.x + vl.y * vr.y;
-}
-
-//２つのベクトルABのなす角度θを求める
-inline double AngleOf2Vector(Vector2D A, Vector2D B )
-{
-	//　※ベクトルの長さが0だと答えが出ませんので注意してください。
-
-	//ベクトルAとBの長さを計算する
-	double length_A = get_vector_length(A);
-	double length_B = get_vector_length(B);
-
-	//内積とベクトル長さを使ってcosθを求める
-	double cos_sita = dot_product(A,B) / ( length_A * length_B );
-
-	//cosθからθを求める
-	double sita = acos( cos_sita );	
-
-	//ラジアンでなく0～180の角度でほしい場合はコメント外す
-	//sita = sita * 180.0 / PI;
-
-	return sita;
-}
-//
-//////////
 
 }//end of namespace functions.
 using namespace functions ;

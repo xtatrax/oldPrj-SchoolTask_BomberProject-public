@@ -120,10 +120,12 @@ struct DrawPacket{
 // 用途    : ファクトリーに渡すパケットデータ
 //**************************************************************************//
 struct FactoryPacket{
+	//Device
+	LPDIRECT3DDEVICE9 pD3DDevice ;
 	//ダイアログステージかどうか
 	bool m_IsDialog;
 	//配置オブジェクトのポインタのベクトル
-	vector<Object*> m_Vec;
+	vector<Object*>* m_pVec;
 	//テクスチャのポインタのベクトル
 	TextureManager* m_pTexMgr;
 };

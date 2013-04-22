@@ -1,5 +1,5 @@
 ////////////////////////////// //////////////////////////////
-//	プロジェクト	：Magnetica
+//	プロジェクト	：BomberProject
 //	ファイル名		：BassMenuItems.h
 //	開発環境		：MSVC++ 2008
 //	最適タブ数		：4
@@ -23,7 +23,7 @@ namespace menuobject{
 	ることによってボタン化することができます
 	まずこのクラスをクラス内に宣言してください
 		例)
-		    class CLS{
+		    class foo{
 		    private:
 		       Button m_ButtonPrm;
 		       ・
