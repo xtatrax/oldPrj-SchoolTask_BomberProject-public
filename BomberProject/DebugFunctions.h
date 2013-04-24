@@ -446,7 +446,7 @@ public:
 			}
 			if(m_bDrawFlag){
 				m_lpDebagFont->DrawText(NULL,str.c_str(), -1, NULL
-					, 0 , D3DCOLOR_ARGB(255, 255, 255, 124));
+					, 0 , D3DCOLOR_ARGB(255, 0, 0, 0));
 				str  = L"\n\n\nデバッグ                                                                                                                                               F12:停止\n";
 				str += L"                                                                                                     コントローラー＝キーボード / A = X / B = C / X = S / Y = D /  \n";
 			}

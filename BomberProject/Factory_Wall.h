@@ -19,6 +19,14 @@ namespace wiz{
 
 
 
+class Wall : public SpriteObject{
+public:
+	Wall(	LPDIRECT3DDEVICE9 pD3DDevice,LPDIRECT3DTEXTURE9 pTexture,
+			D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos, RECT* pRect,
+			D3DXVECTOR3& vCenter,D3DXVECTOR3& vOffsetPos,Color color = 0xFFFFFFFF,
+			wiz::OBJID id = OBJID_2D_WALL);
+};
+
 
 /**************************************************************************
  class Factory_Wall;
@@ -30,12 +38,12 @@ public:
  Factory_Wall(
 	LPDIRECT3DDEVICE9 pD3DDevice,	//デバイス
 	vector<Object*>& vec,			//オブジェクトの配列
-	TextureManager& TexMgr		//テクスチャの配列
+	TextureManager& TexMgr			//テクスチャの配列
 );
  用途: コンストラクタ（サンプルオブジェクトを配列に追加する）
  戻り値: なし
 ***************************************************************************/
-	Factory_Wall(LPDIRECT3DDEVICE9 pD3DDevice,vector<Object*>& vec,TextureManager& TexMgr);
+	Factory_Wall(FactoryPacket* fpac);
 /**************************************************************************
  ~MyFactory();
  用途: デストラクタ

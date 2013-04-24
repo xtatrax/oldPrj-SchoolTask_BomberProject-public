@@ -15,7 +15,9 @@
 #include "Factory_Player.h"
 #include "BassItems.h"
 
+
 namespace wiz{
+
 
 /**************************************************************************
  ProvisionalPlayer 定義部
@@ -92,18 +94,26 @@ void ProvisionalPlayer::Update( UpdatePacket& i_UpdatePacket ){
 ////
 PlayerCoil::PlayerCoil(
 	LPDIRECT3DDEVICE9 pD3DDevice,				//	: デバイス
-	LPDIRECT3DTEXTURE9 pTexture,				//	: テクスチャー
+	LPDIRECT3DTEXTURE9 pCoreTexture,			//	: コア部分のTexture
+	LPDIRECT3DTEXTURE9 pDirTexture,				//	: 方向を表す三角のてくすたー
 	D3DXVECTOR3 &vScale,						//	: 伸縮
 	D3DXVECTOR3 &vRot,							//	: 回転
 	D3DXVECTOR3 &vPos,							//	: 位置
-	RECT* pRect,								//	: 描画範囲
-	Color color ,								//	: 色
+	D3DXVECTOR3 &vDirOffset,					//	: 方向を表す三角の描画オフセット
+	RECT* pCoreRect,							//	: 描画範囲
+	RECT* pDirRect,								//	: 描画範囲
 	wiz::OBJID id 								//	: ID
 )
-:MagneticumObject(pD3DDevice,pTexture,vScale,vRot,vPos,
-	pRect,color,id)
-,m_pPlayer( NULL )
+:MagneticumObject(pD3DDevice,pCoreTexture,vScale,vRot,vPos,
+	pCoreRect,0xFFFFFFFF,id)
+,m_pPlayer(    NULL )
+,m_fMoveDir(   PLAYER_BASSROT )
+,m_fMovdSpeed( PLAYER_SPEED   )
+,m_pDirParts( NULL )
+
 {
+	m_pDirParts = new SpriteObject( pD3DDevice, pDirTexture, vScale, vRot, vPos, pDirRect, g_vZero, vDirOffset ) ;
+	setPoleN();
 }
 
 /////////////////// ////////////////////
@@ -123,39 +133,79 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 	if( m_pPlayer ){
 
 
-		D3DXVECTOR3 vMove = g_vZero ;
-		D3DXVECTOR3 pPos = this->m_pPlayer->getPos();
+		//	: 必要な変数の宣言
+		// 移動の方向 + 距離
+		D3DXVECTOR3 vMove = D3DXVECTOR3( 1.0f, 0.0f, 0.0f) ;
+		// ユーザー磁界の座標
+		D3DXVECTOR3 pPos  = this->m_pPlayer->getPos();
 
+		// コイルとユーザー磁界の距離を算出
 		float Lng  = TwoPointToBassLength( pPos, m_vPos ) ;
+		// テスト用
 		float Lng2 = VectorLength( D3DXVECTOR3( pPos.x - m_vPos.x, pPos.y - m_vPos.y ,0) );
 
+		// 磁界反転
 		Controller1P.Gamepad.wPressedButtons.XConState.Y && this->ChangePole() ;
 
 		Debugger::DBGSTR::addStr( L"Lng : %f\n", Lng);
 		Debugger::DBGSTR::addStr( L"Lng : %f\n", Lng2);
 		Debugger::DBGSTR::addStr( L"Lng : %f\n", sqrt(Lng));
 		Debugger::DBGSTR::addStr( L"Lng : %d\n", MGPRM_MAGNETICUM_QUAD);
+
 		if( Lng <= MGPRM_MAGNETICUM_QUAD ){
-			vMove.x = 1 ;
-			float degree = TwoPoint2Degree( m_vPos, pPos );	
-			ArcMove( vMove , 10.0f, degree);
 
+			//	: 角度の算出
+			m_fMoveDir = TwoPoint2Degree( m_vPos, pPos );
+
+			//	: 反発処理
+			//	: 同じ磁界だと反発する
 			if( m_pPlayer->getMagnetPole() != this->getMagnetPole() ){
-				vMove.y *= -1.0f ;
-				vMove.x *= -1.0f ;
+				TurnAngle( &m_fMoveDir , -180.0f ) ;
 			}
-			this->m_vPos += vMove ;
-			D3DXMatrixTranslation( &this->m_mMatrix , this->m_vPos.x , this->m_vPos.y , this->m_vPos.z ) ;
-		}
 
-		char atr[] = "いきるのめんどくさい";
-		this->m_vPos += vMove * 1.0f ;
 
-		D3DXMatrixTranslation( &this->m_mMatrix , this->m_vPos.x , this->m_vPos.y , this->m_vPos.z ) ;
+	}
+
+		Debugger::DBGSTR::addStr( L"角度 = %f",m_fMoveDir);
+
+		//	: 指定方向へ指定距離移動
+		ArcMove( vMove , m_fMovdSpeed, m_fMoveDir);
+
+		this->m_vPos += vMove ;
+
+
+
+		//	: 移動の確定
+		//	: 
+		D3DXMATRIX mPos , mRotZ ;
+
+		D3DXMatrixTranslation( &mPos  , this->m_vPos.x , this->m_vPos.y , this->m_vPos.z ) ;
+		D3DXMatrixRotationZ(   &mRotZ ,  D3DXToRadian( m_fMoveDir - PLAYER_BASSROT ) ) ;
+
+		this->m_mMatrix = mRotZ * mPos ;
+
 	} else {
 		m_pPlayer = (ProvisionalPlayer*)SearchObjectFromTypeID( i_UpdatePacket.pVec , typeid(ProvisionalPlayer) );
 	}
+	if( m_pDirParts ) m_pDirParts->setMatrix( m_mMatrix );
 };
+/////////////////// ////////////////////
+//// 用途       ：virtual void Draw( DrawPacket& i_DrawPacket )
+//// カテゴリ   ：
+//// 用途       ：
+//// 引数       ：
+//// 戻値       ：なし
+//// 担当者     ：鴫原 徹
+//// 備考       ：
+////            ：
+////
+void PlayerCoil::Draw(DrawPacket& i_DrawPacket){
+	if( m_pDirParts ) m_pDirParts->Draw( i_DrawPacket ) ;
+	else ;
+
+	MagneticumObject::Draw( i_DrawPacket );
+}
+
 
 /**************************************************************************
  Factory_Player 定義部
@@ -169,11 +219,13 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 ***************************************************************************/
 Factory_Player::Factory_Player( FactoryPacket* fpac ){
 	try{
+
+		D3DXVECTOR3 vScale( 0.8f, 0.8f, 1.0f );
 		fpac->m_pVec->push_back(
 			new ProvisionalPlayer(
 				fpac->pD3DDevice,
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Circle.png" ),
-				g_vOne,
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"CircleP.png" ),
+				vScale,
 				g_vZero,
 				D3DXVECTOR3(0.0f,0.0f,0.0f),
 				NULL,
@@ -183,12 +235,14 @@ Factory_Player::Factory_Player( FactoryPacket* fpac ){
 		fpac->m_pVec->push_back(
 			new PlayerCoil(
 				fpac->pD3DDevice,
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Circle.png" ),
-				g_vOne,
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"CircleC.png" ),
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"CoilDir.png" ),
+				vScale,
 				g_vZero,
 				D3DXVECTOR3(200.0f,300.0f,0.0f),
+				D3DXVECTOR3( -16.5f, -26.0f,0.0f),
 				NULL,
-				0xFF00000FF
+				NULL
 			)
 		);
 

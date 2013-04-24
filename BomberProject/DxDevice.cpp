@@ -215,17 +215,17 @@ void DxDevice::End(){
 ////            ：
 ////
 int DxDevice::MainThreadRun(){
+ 	Tempus2 mainFTime;
+	m_DrawPacket.pTime = &mainFTime;
+
 	#ifndef CF_SINGLETHREAD
 	/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 		//	: シングルスレッドが宣言されていない場合
 		//	: アップデートスレッドを生成する
 		StartUpdateThread();
 	/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
-	#endif	
- 	Tempus2 mainFTime;
-	m_DrawPacket.pTime = &mainFTime;
-	#ifdef CF_SINGLETHREAD
-	m_UpdatePacket.pTime = &mainFTime;
+	#else
+		m_UpdatePacket.pTime = &mainFTime;
 	#endif 
 
 
@@ -252,6 +252,7 @@ int DxDevice::MainThreadRun(){
             }
         }
         else {  // 処理するメッセージが無いときは描画を行う
+			mainFTime.TimeUpdate();
 			#ifdef CF_SINGLETHREAD
 			/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 				//	: シングルスレッド宣言がされていたら
@@ -266,7 +267,6 @@ int DxDevice::MainThreadRun(){
                 (wndpl.showCmd != SW_MINIMIZE) &&
                 (wndpl.showCmd != SW_SHOWMINIMIZED) &&
                 (wndpl.showCmd != SW_SHOWMINNOACTIVE)) {
-				mainFTime.TimeUpdate();
                 // 描画処理の実行
                 RenderScene();
             }
@@ -392,7 +392,7 @@ void DxDevice::RenderScene()
 						D3DCLEAR_STENCIL |                  // ステンシルバッファを指定
 						D3DCLEAR_TARGET |                   // バックバッファを指定
 						D3DCLEAR_ZBUFFER,                   // 深度バッファ（Zバッファ）を指定
-						D3DXCOLOR(0.0f, 0.0f, 0.0f, 1.0f),  // 初期化する色
+						D3DXCOLOR(0.8f, 0.8f, 0.8f, 1.0f),  // 初期化する色
 						1.0f,                               // 初期化する深度バッファ（Zバッファ）の値
 						0))){                               // 初期化するステンシルバッファの値
 			//失敗したらスロー

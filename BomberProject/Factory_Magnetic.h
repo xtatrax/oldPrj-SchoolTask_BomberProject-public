@@ -38,13 +38,14 @@ private:
 	//	: N極 = POLE_N
 	bool m_bMagnetPole ;
 
-
 //////////
 //	: プロテクト
 protected:
 	//	: 座標
 	D3DXVECTOR3 m_vPos ;
 
+	void setPoleS(){ m_bMagnetPole = POLE_S  ; m_Color = 0xFF0000FF	; } ;
+	void setPoleN(){ m_bMagnetPole = POLE_N	 ; m_Color = 0xFFFF0000	; } ;
 /////////////////// ////////////////////
 //// 関数名     ：void ChangePole()
 //// カテゴリ   ：非公開アクセッサ
@@ -56,10 +57,8 @@ protected:
 ////            ：
 ////
 	bool ChangePole(){
-		if( m_bMagnetPole == POLE_S )
-		{ m_bMagnetPole = POLE_N ; m_Color = 0xFFFF0000 ; }
-		else
-		{ m_bMagnetPole = POLE_S ; m_Color = 0xFF0000FF ; }
+		if( m_bMagnetPole == POLE_S )	{ setPoleN() ; }
+		else							{ setPoleS() ; }
 		return true ;
 	}
 

@@ -665,6 +665,8 @@ protected:
 	RECT*			m_pRect;		//	: テクスチャーの描画領域
 	Color			m_Color;
 public:
+	void setMatrix( D3DXMATRIX i_mMatrix ){ m_mMatrix = i_mMatrix ; }
+
 /////////////////// ////////////////////
 //// 関数名     ：PrimitiveSprite(LPDIRECT3DDEVICE9 pD3DDevice,LPDIRECT3DTEXTURE9 pTexture,RECT* Rect,
 ////            ：    D3DXVECTOR3& vCenter,D3DXVECTOR3& vOffsetPos,D3DCOLOR color = 0xFFFFFFFF);
@@ -706,6 +708,8 @@ public:
 ////            ：
 ////
 	virtual void Draw(DrawPacket& i_DrawPacket);
+
+
 };
 
 //**************************************************************************
