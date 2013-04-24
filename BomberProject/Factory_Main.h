@@ -35,7 +35,7 @@ public:
  用途: コンストラクタ（サンプルオブジェクトを配列に追加する）
  戻り値: なし
 ***************************************************************************/
-	Factory_Main(LPDIRECT3DDEVICE9 pD3DDevice,vector<Object*>& vec,TextureManager& TexMgr);
+	Factory_Main(FactoryPacket* fpac);
 /**************************************************************************
  ~MyFactory();
  用途: デストラクタ
