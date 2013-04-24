@@ -28,8 +28,7 @@ namespace wiz{
 // 用途    : 磁界オブジェクト
 //         : コイルオブジェクトやユーザー設置磁界にも応用しています｡
 //**************************************************************************//
-class MagneticumObject : public SpriteObject
-{
+class MagneticumObject : public SpriteObject{
 
 //////////
 //	: 非公開
@@ -60,7 +59,6 @@ protected:
 	bool ChangePole(){
 		if( m_bMagnetPole == POLE_S )	{ setPoleN() ; }
 		else							{ setPoleS() ; }
-
 		return true ;
 	}
 
@@ -72,22 +70,6 @@ public:
 		Color color = 0xFFFFFFFF, wiz::OBJID id = OBJID_3D_PLAYER );
 	//	: 
 	void Update( UpdatePacket& i_UpdatePacket );
-/////////////////// ////////////////////
-//// 用途       ：virtual void Update( LPDIRECT3DDEVICE9 pD3DDevice
-////            ：  vector<Object*>& Vec)
-//// カテゴリ   ：純粋仮想関数
-//// 用途       ：オブジェクトを描画
-//// 引数       ：  LPDIRECT3DDEVICE9 pD3DDevice        // IDirect3DDevice9 インターフェイスへのポインタ
-////            ：  vector<Object*>& Vec                // オブジェクトの配列
-////            ：  Tempus2* i_DrawPacket.pTime	        // 時間を管理するクラスへのポインター
-////            ：  Command i_DrawPacket.pCommand       // コマンド
-//// 戻値       ：無し
-//// 担当者     ：
-//// 備考       ：継承するものは何れかのレベルで必ず定義をすること｡
-////            ：
-////
-    virtual void Draw(DrawPacket& i_DrawPacket);
-
 /////////////////// ////////////////////
 //// 関数名     ：D3DXVECTOR3 getPos() const
 //// カテゴリ   ：ゲッター
