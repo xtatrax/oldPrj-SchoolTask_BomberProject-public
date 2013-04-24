@@ -12,7 +12,6 @@
 #include "StdAfx.h"
 #include "Scene.h"
 #include "Factory_Main.h"
-#include "Factory_Player.h"
 #include "Stage_Play.h"
 #include "stage.h"
 
@@ -43,8 +42,7 @@ PlayStage::PlayStage(LPDIRECT3DDEVICE9 pD3DDevice,Stage* pStage)
 		FPac.m_pTexMgr  = &this->m_TexMgr   ;
 		FPac.m_pVec     = &this->m_Vec      ;
 		FPac.pD3DDevice =  pD3DDevice       ;
-		Factory_Player Pfac( &FPac );
-
+		Factory_Main mainF( &FPac );
 	}
 	catch(...){
 		Clear();

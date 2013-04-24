@@ -90,10 +90,10 @@ LPDIRECT3DTEXTURE9 TextureManager::addTexture(LPDIRECT3DDEVICE9 pD3DDevice,
 
 		return NULL;
 	}
-	catch(wiz::DxException& e){
+	catch(wiz::BaseException& e){
 		Release();
 		//再スロー
-		throw DxException(
+		throw BaseException(
 				e.what_w(), 
 				L"↑TextureManager::addTexture()"
 				);
@@ -167,10 +167,10 @@ LPDIRECT3DTEXTURE9 TextureManager::addTextureEx(LPDIRECT3DDEVICE9 pD3DDevice,con
 
 		return NULL;
 	}
-	catch(wiz::DxException& e){
+	catch(wiz::BaseException& e){
 		Release();
 		//再スロー
-		throw DxException(
+		throw BaseException(
 				e.what_w(), 
 				L"↑TextureManager::addTextureEx()"
 				);
@@ -240,10 +240,10 @@ LPDIRECT3DTEXTURE9 TextureManager::addTextureExLight(LPDIRECT3DDEVICE9 pD3DDevic
 		}
 		return NULL;
 	}
-	catch(wiz::DxException& e){
+	catch(wiz::BaseException& e){
 		Release();
 		//再スロー
-		throw DxException(
+		throw BaseException(
 				e.what_w(), 
 				L"↑TextureManager::addTextureExLight()"
 				);
@@ -331,10 +331,10 @@ TextureManager::Texture::Texture(LPDIRECT3DDEVICE9 pD3DDevice,const wchar_t* fil
 			::MessageBox(NULL,msgtxt.c_str(),L"エラー",MB_OK);
 		}
 	}
-	catch(wiz::DxException& e){
+	catch(wiz::BaseException& e){
         SAFE_RELEASE(m_pTexture);
         //再スロー
-        throw DxException(
+        throw BaseException(
 				e.what_w(), 
                 L"↑TextureManager::Texture::Texture()"
                 );
@@ -385,10 +385,10 @@ TextureManager::Texture::Texture(LPDIRECT3DDEVICE9 pD3DDevice,const wchar_t* fil
 			::MessageBox(NULL,L"テクスチャ読み込みに失敗しました。\nTextureManager::Texture::Texture()",L"エラー",MB_OK);
 		}
 	}
-	catch(wiz::DxException& e){
+	catch(wiz::BaseException& e){
         SAFE_RELEASE(m_pTexture);
         //再スロー
-        throw DxException(
+        throw BaseException(
 				e.what_w(), 
                 L"↑TextureManager::Texture::Texture()   (EX"
                 );

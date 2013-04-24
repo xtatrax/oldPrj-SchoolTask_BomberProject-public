@@ -528,6 +528,18 @@
 			</Filter>
 		</Filter>
 		<File
+			RelativePath=".\ClassDiagram1.cd"
+			>
+		</File>
+		<File
+			RelativePath=".\ClassDiagram2.cd"
+			>
+		</File>
+		<File
+			RelativePath=".\FunctionMemo.txt"
+			>
+		</File>
+		<File
 			RelativePath=".\LogDatas\LogData.txt"
 			>
 		</File>

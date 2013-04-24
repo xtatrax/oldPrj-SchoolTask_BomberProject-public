@@ -74,7 +74,7 @@ Scene::Scene(LPDIRECT3DDEVICE9 pD3DDevice)
     try{
         //無効チェック
         if(!pD3DDevice){
-            throw DxException(L"シーンの初期化に失敗しました。デバイスが無効です。",
+            throw BaseException(L"シーンの初期化に失敗しました。デバイスが無効です。",
             L"Scene::Scene()");
         }
 		m_pD3DDevice = pD3DDevice;
@@ -112,10 +112,10 @@ Scene::Scene(LPDIRECT3DDEVICE9 pD3DDevice)
 		SetRenderStateArray(pD3DDevice,g_GlobalRenderStates);
 
     }
-    catch(wiz::DxException& e){
+    catch(wiz::BaseException& e){
         //破棄処理
         Clear();
-        throw DxException(
+        throw BaseException(
 			e.what_w(), 
             L"↑Scene::Scene()"
             );

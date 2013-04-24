@@ -13,6 +13,8 @@
 #include "Object.h"
 #include "Scene.h"
 #include "Factory_Main.h"
+#include "Factory_Player.h"
+#include "Factory_Wall.h"
 #include "BassItems.h"
 
 namespace wiz{
@@ -31,10 +33,10 @@ namespace wiz{
  用途: コンストラクタ（サンプルオブジェクトを配列に追加する）
  戻り値: なし
 ***************************************************************************/
-Factory_Main::Factory_Main(LPDIRECT3DDEVICE9 pD3DDevice,vector<Object*>& vec,
-					 TextureManager& TexMgr){
+Factory_Main::Factory_Main(FactoryPacket* fpac){
 	try{
-		
+		Factory_Player Pfac( fpac );
+		Factory_Wall   Wfac( fpac );
 	}
 	catch(...){
 		//再throw

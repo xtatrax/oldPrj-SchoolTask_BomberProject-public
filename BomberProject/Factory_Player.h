@@ -16,8 +16,11 @@
 #include "BassItems.h"
 #include "Factory_Magnetic.h"
 
-#define  MGPRM_MAGNETICUM	100  /* 磁界の影響半径( 現在単位 pixel ) */
+#define  MGPRM_MAGNETICUM	300  /* 磁界の影響半径( 現在単位 pixel ) */
 #define  MGPRM_MAGNETICUM_QUAD ( MGPRM_MAGNETICUM * MGPRM_MAGNETICUM )
+#define  PLAYER_SPEED		(   4.0f ) 
+#define  PLAYER_BASSROT		( -90.0f ) 
+
 
 namespace wiz{
 
@@ -47,8 +50,16 @@ public:
 // 用途    : コイル
 //**************************************************************************//
 class PlayerCoil : public MagneticumObject{
-	ProvisionalPlayer* m_pPlayer;
 
+
+	//	: コイルの方向指標用パーツ
+	SpriteObject*		m_pDirParts		;
+
+	//	: 
+	ProvisionalPlayer*	m_pPlayer		;
+
+	float		m_fMoveDir   ;
+	float       m_fMovdSpeed ;
 
 public:
 /////////////////// ////////////////////
@@ -63,9 +74,18 @@ public:
 //// 備考       ：
 ////            ：
 ////
-	PlayerCoil( LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTexture,
-		D3DXVECTOR3 &vScale, D3DXVECTOR3 &vRot, D3DXVECTOR3 &vPos, RECT* pRect,
-		Color color = 0xFFFFFFFF, wiz::OBJID id = OBJID_3D_PLAYER );
+	PlayerCoil(
+		LPDIRECT3DDEVICE9 pD3DDevice,				//	: デバイス
+		LPDIRECT3DTEXTURE9 pCoreTexture,			//	: コア部分のTexture
+		LPDIRECT3DTEXTURE9 pDirTexture,				//	: 方向を表す三角のてくすたー
+		D3DXVECTOR3 &vScale,						//	: 伸縮
+		D3DXVECTOR3 &vRot,							//	: 回転
+		D3DXVECTOR3 &vPos,							//	: 位置
+		D3DXVECTOR3 &vDirOffset,					//	: 方向を表す三角の描画オフセット
+		RECT* pCoreRect = NULL,						//	: 描画範囲
+		RECT* pDirRect = NULL,						//	: 描画範囲
+		wiz::OBJID id = OBJID_3D_PLAYER				//	: ID
+	);
 
 /////////////////// ////////////////////
 //// 関数名     ：void Update( UpdatePacket& i_UpdatePacket )
@@ -78,6 +98,18 @@ public:
 ////            ：
 ////
 	void Update( UpdatePacket& i_UpdatePacket );
+
+/////////////////// ////////////////////
+//// 用途       ：virtual void Draw( DrawPacket& i_DrawPacket )
+//// カテゴリ   ：
+//// 用途       ：
+//// 引数       ：
+//// 戻値       ：なし
+//// 担当者     ：鴫原 徹
+//// 備考       ：
+////            ：
+////
+    void Draw(DrawPacket& i_DrawPacket) ;
 
 };
 

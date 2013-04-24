@@ -154,8 +154,8 @@ public:
 //// 用途       ：オブジェクトを描画
 //// 引数       ：  LPDIRECT3DDEVICE9 pD3DDevice        // IDirect3DDevice9 インターフェイスへのポインタ
 ////            ：  vector<Object*>& Vec                // オブジェクトの配列
-////            ：  Tempus2* i_DrawPacket.pTime                     // 時間を管理するクラスへのポインター
-////            ：  Command i_DrawPacket.pCommand                         // コマンド
+////            ：  Tempus2* i_DrawPacket.pTime	        // 時間を管理するクラスへのポインター
+////            ：  Command i_DrawPacket.pCommand       // コマンド
 //// 戻値       ：無し
 //// 担当者     ：
 //// 備考       ：継承するものは何れかのレベルで必ず定義をすること｡

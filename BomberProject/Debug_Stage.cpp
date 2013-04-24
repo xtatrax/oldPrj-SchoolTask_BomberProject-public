@@ -231,9 +231,9 @@ DebugMenu::DebugMenu(LPDIRECT3DDEVICE9 pD3DDevice,Stage* Par)
 		//	)));
 		//m_ButtonVec.push_back(pButton->getButtonP());
 	}
-	catch(wiz::DxException& e){
+	catch(wiz::BaseException& e){
         //çƒÉXÉçÅ[
-        throw DxException(
+        throw BaseException(
 				e.what_w(), 
                 L"Å™DebugMenu::DebugMenu()"
                 );

@@ -223,7 +223,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE
 		return (int) device.MainThreadRun();
 		/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 	}
-    catch(wiz::DxException& e){
+    catch(wiz::BaseException& e){
         //初期化失敗した
         ::MessageBox(hWnd,e.what_w(),L"エラー",MB_OK);
         return 1;   //エラー終了

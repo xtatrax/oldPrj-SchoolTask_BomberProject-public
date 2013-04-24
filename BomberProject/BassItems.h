@@ -6,21 +6,23 @@
 //	担当者			：tatra
 //	内包ﾃﾞｰﾀと備考	：ゲームのベースになるアイテム群の宣言
 //					▼
+//	プリミティブ周辺を山ノ井先生のソースを参考に大改造する! 
+//
 //	namespace wiz;
 //		union Color                :				# DWORD表記カラーを使いやすくしてみた(使いやすいと思うよ多分…)動作
 //		class Camera               : public Object ;		# カメラ
 //		class Guide                : public Object ;		# ガイドライン
 //		class CommonMesh           ;						# メッシュを扱うときに継承すると便利なクラス
-//			class MultiCommonMesh      : public CommonMesh ;	# 似たような動作をする異なる形状のメッシュを作りたい時に継承すると便利なクラス
+//		class MultiCommonMesh      : public CommonMesh ;	# 似たような動作をする異なる形状のメッシュを作りたい時に継承すると便利なクラス
 //		class LoadMeshFromX        : public CommonMesh ;	#
-//			class ThinPlate            ;						# 薄い板のようなものを作るときに継承すると便利なクラス
+//		class ThinPlate            ;						# 薄い板のようなものを作るときに継承すると便利なクラス
 //		class PrimitiveSprite      ;						# 2次元的なUIを作るときに継承すると便利なクラス
 //		class PrimitiveBox         : public CommonMesh      ;		# 立方体状の物を作るときに継承すると便利なクラス
-//			class PrimitiveMultiBox    : public PrimitiveBox    ;		# 複数の似たような動作をする立方体を作るときに継承すると便利なクラス
+//		class PrimitiveMultiBox    : public PrimitiveBox    ;		# 複数の似たような動作をする立方体を作るときに継承すると便利なクラス
 //		class PrimitiveSphere      : public CommonMesh      ;		# 球状の物を作るときに継承すると便利なクラス
-//			class PrimitiveMultiSphere : public PrimitiveSphere ;		# 複数の似たような動作をする球体を作るときに継承すると便利なクラス
-//			class BoxObject            : public PrimitiveBox    , public Object          ;		# 簡単なボックスを作るクラス
-//			class SpriteObject         : public Object          , public PrimitiveSprite ;		# 簡単なスプライトを作るクラス
+//		class PrimitiveMultiSphere : public PrimitiveSphere ;		# 複数の似たような動作をする球体を作るときに継承すると便利なクラス
+//		class BoxObject            : public PrimitiveBox    , public Object          ;		# 簡単なボックスを作るクラス
+//		class SpriteObject         : public Object          , public PrimitiveSprite ;		# 簡単なスプライトを作るクラス
 //
 //
 #pragma once
@@ -193,77 +195,283 @@ public:
 
 
 
-//**************************************************************************
-// class CommonMesh ;
-//
-// 担当者  ; (山ノ井先生のひな形より)
-// 用途: コモンメッシュクラス
-//       メッシュを扱うときに継承すると便利
-//**************************************************************************
+/**************************************************************************
+ class CommonMesh : public Object;
+ 用途: コモンメッシュクラス
+ (山ノ井先生のひな形より)
+****************************************************************************/
 class CommonMesh {
+public:
+	//Boxのテクスチャパターン
+	//パターンは呼び出し側で指定するので、これだけpublicにする
+	enum {PtnUV_1_1 = 0, PtnUV_6_1,PtnUV_YWrap,PtnUV_ZWrap};
 protected:
     //メッシュ
-    LPD3DXMESH   m_pMesh;
-
-    //マテリアル
-    D3DMATERIAL9 m_Material;
-
-    //現在のオブジェクトのマトリックス
-	D3DXMATRIX   m_mMatrix;
-
+    LPD3DXMESH m_pMesh;
 	//サブセット
 	DWORD        m_dwDrawSubset;
+	//マトリックス
+	D3DXMATRIX	 m_mMatrix ;
+	//マテリアル
+	D3DMATERIAL9 m_Material ;
+private:
+	//直接構築できないように、
+	//メンバを基本的にprivateにする
+	//影ボリュームクラス
+	//ShadowVolume* m_pShadowVolume;
+	//ラッピングテクスチャかどうか
+	bool m_bWrapMode;
+	//ワイアーフレーム表示するかどうか
+	bool m_bWireFrame;
+/**************************************************************************
+ struct  CommonMeshVertex;
+ 用途: CommonMeshのテクスチャがある場合の頂点フォーマットの定義
+	D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_TEX1
+	を構造体化している
+****************************************************************************/
+	struct  CommonMeshVertex{
+		D3DXVECTOR3 vec;	//頂点
+		D3DXVECTOR3 normal;	//法線
+		FLOAT       tu,tv;	//UV値
+	};
+	//CommonMesh用のFVFをDirectXAPIに渡すときのパラメータ
+	enum { CommonMeshFVF = D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_TEX1 };
+/**************************************************************************
+ ユーティリティ関数（static関数）
+****************************************************************************/
+/**************************************************************************
+ static void PolygonVec2UV(
+	float x,	//xの値
+	float y,	//yの値
+	float z,	//zの値
+	float r,	//ポリゴンの半径
+	float& u,	//変換するu（テクスチャ上のU座標）
+	float& v	//変換するv（テクスチャ上のV座標）
+	);
+ 用途: PolygonのVectorからUとVを作り出す
+ 戻り値: なし
+ float& uとfloat& vに変換後の値を代入
+***************************************************************************/
+	static void PolygonVec2UV(float x,float y,float z,float r,float& u,float& v);
+/**************************************************************************
+ static void BoxVecNomal2UV(
+	D3DXVECTOR3 vec,	//頂点
+	D3DXVECTOR3 normal,	//法線
+	float& u,	//変換するu（テクスチャ上のU座標）
+	float& v	//変換するv（テクスチャ上のV座標）
+	);
+ 用途: BoxのVectorと法線からUとVを作り出す
+ すべての面に同じテクスチャを展開する場合
+ 戻り値: なし
+ float& uとfloat& vに変換後の値を代入
+***************************************************************************/
+	static void BoxVecNomal2UV(D3DXVECTOR3 vec,D3DXVECTOR3 normal,float& u,float& v);
+/**************************************************************************
+ static void BoxVecNomal2UV_6_1(
+	D3DXVECTOR3 vec,	//頂点
+	D3DXVECTOR3 normal,	//法線
+	float& u,	//変換するu（テクスチャ上のU座標）
+	float& v	//変換するv（テクスチャ上のV座標）
+	);
+ 用途: BoxのVectorと法線からUとVを作り出す
+ テクスチャが1×6の画像になってる場合
+ 戻り値: なし
+ float& uとfloat& vに変換後の値を代入
+***************************************************************************/
+	static void BoxVecNomal2UV_6_1(D3DXVECTOR3 vec,D3DXVECTOR3 normal,float& u,float& v);
+/**************************************************************************
+ static void SphereVec2UV(
+	float x,	//xの値
+	float y,	//yの値
+	float z,	//zの値
+	float r,	//球の半径
+	float& u,	//変換するu（テクスチャ上のU座標）
+	float& v	//変換するv（テクスチャ上のV座標）
+	);
+ 用途: SphereのVectorからUとVを作り出す
+ 戻り値: なし
+ float& uとfloat& vに変換後の値を代入
+***************************************************************************/
+	static void SphereVec2UV(float x,float y,float z,float r,float& u,float& v);
+/**************************************************************************
+ static void WrapVec2UV(
+	float x,	//xの値
+	float y,	//yの値
+	float z,	//zの値
+	float& u,	//変換するu（テクスチャ上のU座標）
+	float& v,	//変換するv（テクスチャ上のV座標）
+	bool IsYWrap = true		//Y軸でくるむかZ軸でくるむか
+	);
+ 用途: ラッピングすべきメッシュのVectorからUとVを作り出す
+ 戻り値: なし
+ float& uとfloat& vに変換後の値を代入
+***************************************************************************/
+	static void WrapVec2UV(float x,float y,float z,float& u,float& v,bool IsYWrap = true);
+/**************************************************************************
+ static void TorusVec2UV(
+	float x,	//xの値
+	float y,	//yの値
+	float z,	//zの値
+	float inr,	//トーラスの内径
+	float outr,	//トーラスの外径
+	float& u,	//変換するu（テクスチャ上のU座標）
+	float& v	//変換するv（テクスチャ上のV座標）
+	);
+ 用途: TorusのVectorからUとVを作り出す
+ 戻り値: なし
+ float& uとfloat& vに変換後の値を代入
+***************************************************************************/
+	static void TorusVec2UV(float x,float y,float z,float inr,float outr,float& u,float& v);
+protected:
+	//以下は派生クラスから呼ばれる
+/**************************************************************************
+ CommonMesh();
+ 用途: コンストラクタ
+ 戻り値: なし
+***************************************************************************/
+	CommonMesh();
+/**************************************************************************
+ CommonMesh(D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient);
+ 用途: コンストラクタ
+ 戻り値: なし
+***************************************************************************/
+	CommonMesh(D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient);
+/**************************************************************************
+ virtual ~CommonMesh();
+ 用途: デストラクタ
+ 戻り値: なし
+***************************************************************************/
+    virtual ~CommonMesh();
+/**************************************************************************
+void CreateBox(
+	LPDIRECT3DDEVICE9 pD3DDevice,	//デバイス
+	D3DXVECTOR3& size,				//サイズ
+	bool bTextureActive = false,		//テクスチャがアクティブかどうか
+	int TexturePtn = PtnUV_1_1	//テクスチャが有効な場合のパターン
+);
+ 用途:Boxオブジェクトの構築
+ 戻り値: なし（例外をthrow）
+***************************************************************************/
+	void CreateBox(LPDIRECT3DDEVICE9 pD3DDevice,D3DXVECTOR3& size,
+		bool bTextureActive = false,int TexturePtn = PtnUV_1_1);
+/**************************************************************************
+void CreateSphere(
+	LPDIRECT3DDEVICE9 pD3DDevice,	//デバイス
+	FLOAT radius,					//半径
+	bool bTextureActive = false,		//テクスチャがアクティブかどうか
+	UINT Slices = 18,	//主軸の回転スライス数
+	UINT Stacks = 18	//主軸に沿ったスライス数
+);
+ 用途:球オブジェクトの構築
+ 戻り値: なし（例外をthrow）
+***************************************************************************/
+	void CreateSphere(LPDIRECT3DDEVICE9 pD3DDevice,FLOAT radius,
+		bool bTextureActive = false,UINT Slices = 18,UINT Stacks = 18);
+/**************************************************************************
+void CreateTorus(
+	LPDIRECT3DDEVICE9 pD3DDevice,	//デバイス
+    FLOAT InnerRadius,              //内側の半径の大きさ
+    FLOAT OuterRadius,              //外側の半径の大きさ
+	bool bTextureActive = false,		//テクスチャがアクティブかどうか
+	UINT Sides = 18,	//横断面の辺の数。値は 3 以上である必要がある。
+	UINT Rings = 18		//トーラスを構成する環の数。値は 3 以上である必要がある。 
+);
+ 用途:トーラスオブジェクトの構築
+ 戻り値: なし（例外をthrow）
+***************************************************************************/
+	void CreateTorus(LPDIRECT3DDEVICE9 pD3DDevice,
+			FLOAT InnerRadius,FLOAT OuterRadius,bool bTextureActive = false,
+			UINT Sides = 18,UINT Rings = 18);
+/**************************************************************************
+void CreateCylinder(
+	LPDIRECT3DDEVICE9 pD3DDevice,	//デバイス
+    FLOAT Radius1,					//z 軸の負の側の面の半径。値は 0.0f 以上である必要がある。 
+    FLOAT Radius2,					//z 軸の正の側の面の半径。値は 0.0f 以上である必要がある。
+	FLOAT Length,					//z 軸方向の円柱の長さ。
+	bool bTextureActive = false,	//テクスチャがアクティブかどうか
+	UINT Slices = 18,				//主軸を回転軸としたスライスの数。
+	UINT Stacks = 18				//主軸に沿ったスタック数。  
+);
+ 用途:シリンダーオブジェクトの構築
+ 戻り値: なし（例外をthrow）
+***************************************************************************/
+	void CreateCylinder(LPDIRECT3DDEVICE9 pD3DDevice,
+			FLOAT Radius1,FLOAT Radius2,FLOAT Length,bool bTextureActive = false,
+			UINT Slices = 18,UINT Stacks = 18);
+/**************************************************************************
+void CreatePolygon(
+	LPDIRECT3DDEVICE9 pD3DDevice,	//デバイス
+	FLOAT Length,					//各面の長さ。
+	UINT Sides,						//ポリゴンの面数。値は 3 以上である必要がある。
+	bool bTextureActive = false,	//テクスチャがアクティブかどうか
+);
+ 用途:ポリゴンオブジェクトの構築
+ 戻り値: なし（例外をthrow）
+***************************************************************************/
+void CreatePolygon(LPDIRECT3DDEVICE9 pD3DDevice,
+	FLOAT Length,UINT Sides,bool bTextureActive = false);
 
 /////////////////// ////////////////////
-//// 関数名     ：CommonMesh( D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient);
-//// カテゴリ   ：コンストラクタ
-//// 用途       ：インスタンス生成時処理
-//// 引数       ：  D3DXVECTOR3 pos,				//位置
-////            ：  D3DCOLORVALUE& Diffuse,			//ディフューズ色
-////            ：  D3DCOLORVALUE& Specular,		//スペキュラ色
-////            ：  D3DCOLORVALUE& Ambient			//アンビエント色
-//// 戻値       ：なし（失敗時は例外をthrow）
-//// 担当者     ： (山ノ井先生のひな形より)
-//// 備考       ：独立したオブジェクト向けのコンストラクタ
-////            ：
-////
-  CommonMesh( D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient);
-/////////////////// ////////////////////
-//// 関数名     ：CommonMesh::CommonMesh()
-//// カテゴリ   ：コンストラクタ
-//// 用途       ：インスタンス生成時処理
-//// 引数       ：なし
-//// 戻値       ：なし（失敗時は例外をthrow）
-//// 備考       ：マルチオブジェクト向けのコンストラクタ
-////            ：
-////
-  CommonMesh( );
-/////////////////// ////////////////////
-//// 関数名     ：CommonMesh::~CommonMesh()
-//// カテゴリ   ：デストラクタ
-//// 用途       ：インスタンス破棄時処理
-//// 引数       ：なし
-//// 戻値       ：なし
-//// 担当者     ： (山ノ井先生のひな形より)
-//// 備考       ：
-////            ：
-////
-    virtual ~CommonMesh();
-/////////////////// ////////////////////
-//// 関数名     ：void Draw( DrawPacket& i_DrawPacket)
+//// 関数名     ：void CommonMesh::Draw( DrawPacket& i_DrawPacket )
 //// カテゴリ   ：仮想関数
 //// 用途       ：メッシュを描画
 //// 引数       ：  LPDIRECT3DDEVICE9 pD3DDevice		//IDirect3DDevice9 インターフェイスへのポインタ
 ////            ：  vector<Object*>& Vec,				//オブジェクトの配列
-//// 戻値       ：なし
+//// 戻値       ：無し
 //// 担当者     ： (山ノ井先生のひな形より)
 //// 備考       ：Objectクラスの純粋仮想関数
 ////            ：
 ////
-    virtual void Draw(DrawPacket& i_DrawPacket) ;
+void Draw(DrawPacket& i_DrawPacket);
+/**************************************************************************
+ void DrawCommonMesh(
+    LPDIRECT3DDEVICE9 pD3DDevice,    //IDirect3DDevice9 インターフェイスへのポインタ
+	D3DXMATRIX& Matrix,			//変換行列
+	D3DMATERIAL9& Material,		//マティリアル
+	Texture* pTexture = 0			//テクスチャ
+ );
+ 用途: コモンオブジェクトを描画（派生クラスから呼ばれる）
+ 戻り値: なし。
+***************************************************************************/
+	 void DrawCommonMesh(LPDIRECT3DDEVICE9 pD3DDevice,D3DXMATRIX& Matrix,
+		D3DMATERIAL9& Material,LPDIRECT3DTEXTURE9 pTexture = 0);
+/**************************************************************************
+	void DrawCommonShadowVolume(
+    LPDIRECT3DDEVICE9 pD3DDevice,    //IDirect3DDevice9 インターフェイスへのポインタ
+	D3DXMATRIX& AllMatrix,				//オブジェクトの変換行列
+	LPD3DXEFFECT	pEffect,			//エフェクトのポインタ
+	D3DXMATRIX& mCameraView,			//カメラのビュー行列
+	D3DXMATRIX& mCameraProj			//カメラのプロジェクション行列
+	);
+ 用途: 影ボリュームを描画（仮想関数）派生クラスから呼ばれる
+ 戻り値: なし。
+***************************************************************************/
+	void DrawCommonShadowVolume(
+		LPDIRECT3DDEVICE9 pD3DDevice,D3DXMATRIX& AllMatrix,
+		LPD3DXEFFECT pEffect,D3DXMATRIX& mCameraView,D3DXMATRIX& mCameraProj);
 public:
-	LPD3DXMESH getMesh(){ return m_pMesh; };
+/**************************************************************************
+	void SetWireFrame(
+	bool Value	//ワイアフレームにするかどうか
+	);
+ 用途: ワイアフレームの場合はtrue、それ以外はfalseを設定する
+ 戻り値: なし。
+***************************************************************************/
+	void SetWireFrame(bool Value){
+		m_bWireFrame = Value;
+	}
+	//以下はデバイス喪失時に外部から呼ばれる
+/**************************************************************************
+	virtual void ReleaseObj();
+ 用途: デバイス喪失によるリソースの開放（仮想関数）
+ 戻り値: なし。
+ ＊デバイスが喪失したときに呼ばれる。すべてのObjectの派生クラスは、個別に対応をとる
+***************************************************************************/
+	virtual void ReleaseObj();
 };
+
+
+
 //**************************************************************************
 // class LoadMeshFromX : public MultiCommonMesh;
 //
@@ -549,10 +757,94 @@ protected:
 };
 
 //**************************************************************************
+// class PrimitiveCylinder : public CommonMesh;
+//
+// 担当者  : 鴫原 徹
+// 用途    : 円柱クラス
+//**************************************************************************
+class PrimitiveCylinder : public CommonMesh  {
+	// D3DFVF_XYZ | D3DFVF_TEX1
+	// を構造体化している
+	struct  SphereVertex{
+		D3DXVECTOR3 vec;
+		D3DXVECTOR3 n;
+		FLOAT       tu,tv;
+	};
+	//PrimitiveCylinder用のFVFをDIrectXAPIに渡すときのパラメータ
+	enum { BallFVF = D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_TEX1 };
+		LPDIRECT3DTEXTURE9 m_pTexture;
+/////////////////// ////////////////////
+//// 関数名     ：void Vec2UV(float x,float y,float z,float r,float& u,float& v );
+//// カテゴリ   ：メンバ関数
+//// 用途       ：VectorをUとVにコンバート
+//// 引数       ：  float x     //xの値
+////            ：  float y     //yの値
+////            ：  float z     //zの値
+////            ：  float r     //球の半径
+////            ：  float& u    //変換するu（テクスチャ上のU座標）
+////            ：  float& v    //変換するv（テクスチャ上のV座標）
+//// 戻値       ：なし
+//// 担当者     ：鴫原 徹(山ノ井先生のひな形より)
+//// 備考       ：float& uとfloat& vに変換後の値を代入
+////            ：
+////
+	void Vec2UV(float x,float y,float z,float r,float& u,float& v);
+/////////////////// ////////////////////
+//// 関数名     ：void CreateSphere(LPDIRECT3DDEVICE9 pD3DDevice)
+//// カテゴリ   ：関数
+//// 用途       ：球を生成
+//// 引数       ：  LPDIRECT3DDEVICE9 pD3DDevice		//IDirect3DDevice9 インターフェイスへのポインタ
+//// 戻値       ：なし
+//// 担当者     ： (山ノ井先生のひな形より)
+//// 備考       ：float& uとfloat& vに変換後の値を代入
+////            ：
+////
+	void CreateCylinder(LPDIRECT3DDEVICE9 pD3DDevice);
+protected:
+/////////////////// ////////////////////
+//// 関数名     ：PrimitiveCylinder( LPDIRECT3DDEVICE9 pD3DDevice,LPDIRECT3DTEXTURE9 pTexture = 0);
+//// カテゴリ   ：コンストラクタ
+//// 用途       ：球体を作成
+//// 引数       ：  LPDIRECT3DDEVICE9 pD3DDevice,	//IDirect3DDevice9インターフェイスへのポインタ
+////            ：  LPDIRECT3DTEXTURE9 pTexture = 0	//テクスチャを張るときは指定
+//// 戻値       ：なし（失敗時は例外をthrow）
+//// 担当者     ： (山ノ井先生のひな形より)
+//// 備考       ：
+////            ：
+////
+    PrimitiveCylinder(LPDIRECT3DDEVICE9 pD3DDevice,
+           D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,
+		   LPDIRECT3DTEXTURE9 pTexture);
+/////////////////// ////////////////////
+//// 関数名     ：~PrimitiveCylinder();
+//// カテゴリ   ：デストラクタ
+//// 用途       ：球体を破棄
+//// 引数       ：なし
+//// 戻値       ：なし
+//// 担当者     ： (山ノ井先生のひな形より)
+//// 備考       ：
+////            ：
+////
+    virtual ~PrimitiveCylinder();
+
+/////////////////// ////////////////////
+//// 関数名     ：void Draw( LPDIRECT3DDEVICE9 pD3DDevice , vector<Object*>& Vec)
+//// カテゴリ   ：仮想関数
+//// 用途       ：球体を描画
+//// 引数       ：  LPDIRECT3DDEVICE9 pD3DDevice		//IDirect3DDevice9 インターフェイスへのポインタ
+////            ：  vector<Object*>& Vec,				//オブジェクトの配列
+//// 戻値       ：なし
+//// 担当者     ： (山ノ井先生のひな形より)
+//// 備考       ：
+////            ：
+////
+    virtual void Draw(DrawPacket& i_DrawPacket) ;
+};
+//**************************************************************************
 // class PrimitiveSphere : public CommonMesh;
 //
-// 担当者  : (山ノ井先生のひな形より)
-// 用途    : 球体クラス
+// 担当者  : 鴫原 徹
+// 用途    : 円柱クラス
 //**************************************************************************
 class PrimitiveSphere : public CommonMesh {
 	// D3DFVF_XYZ | D3DFVF_TEX1
@@ -665,6 +957,8 @@ protected:
 	RECT*			m_pRect;		//	: テクスチャーの描画領域
 	Color			m_Color;
 public:
+	void setMatrix( D3DXMATRIX i_mMatrix ){ m_mMatrix = i_mMatrix ; }
+
 /////////////////// ////////////////////
 //// 関数名     ：PrimitiveSprite(LPDIRECT3DDEVICE9 pD3DDevice,LPDIRECT3DTEXTURE9 pTexture,RECT* Rect,
 ////            ：    D3DXVECTOR3& vCenter,D3DXVECTOR3& vOffsetPos,D3DCOLOR color = 0xFFFFFFFF);
@@ -706,6 +1000,8 @@ public:
 ////            ：
 ////
 	virtual void Draw(DrawPacket& i_DrawPacket);
+
+
 };
 
 //**************************************************************************
