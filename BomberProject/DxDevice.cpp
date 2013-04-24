@@ -49,7 +49,7 @@ void DxDevice::initDevice(HWND hWnd,bool isFullScreen,int Width,int Height)
         D3DDISPLAYMODE d3ddm;
         // Direct3D9オブジェクトの作成
         if((m_pD3D = ::Direct3DCreate9(D3D_SDK_VERSION)) == 0){
-            throw DxException(
+            throw BaseException(
                 L"DirectXの初期化に失敗しました。DirectXインターフェイスが取得できません。",
                 L"DxDevice::DxDevice()"
                 );
@@ -57,7 +57,7 @@ void DxDevice::initDevice(HWND hWnd,bool isFullScreen,int Width,int Height)
         
         // 現在のディスプレイモードを取得
         if(FAILED(m_pD3D->GetAdapterDisplayMode(D3DADAPTER_DEFAULT, &d3ddm))) {
-            throw DxException(
+            throw BaseException(
                 L"デバイスの初期化に失敗しました。ディスプレイモードを取得できません。",
                 L"DxDevice::DxDevice()"
                 );
@@ -100,7 +100,7 @@ void DxDevice::initDevice(HWND hWnd,bool isFullScreen,int Width,int Height)
                                                 D3DCREATE_SOFTWARE_VERTEXPROCESSING, 
                                                 &m_D3DPP, &m_pD3DDevice))) {
                     // 初期化失敗
-                    throw DxException(
+                    throw BaseException(
                         L"デバイスの初期化に失敗しました。的確なデバイスを取得できません。",
                         L"DxDevice::DxDevice()"
                         );
@@ -153,11 +153,11 @@ DxDevice::DxDevice(HWND hWnd,bool isFullScreen,int Width,int Height)
         pScene = new Scene(getDevice());
 
 	}
-	catch(wiz::DxException& e){
+	catch(wiz::BaseException& e){
 		//破棄処理
         Clear();
 		//再スロー
-        throw DxException(
+        throw BaseException(
 				e.what_w(), 
                 L"↑DxDevice::DxDevice()"
                 );
@@ -334,7 +334,7 @@ void DxDevice::UpdateScene()
     try{
 		if(!pScene){
 			//シーンが無効ならスロー
-			throw DxException(
+			throw BaseException(
 				L"シーンが見つかりません。",
 				L"DxDevice::RenderScene()"
 				);
@@ -382,7 +382,7 @@ void DxDevice::RenderScene()
     try{
 		if(!pScene){
 			//シーンが無効ならスロー
-			throw DxException(
+			throw BaseException(
 				L"シーンが見つかりません。",
 				L"DxDevice::RenderScene()"
 				);
@@ -396,7 +396,7 @@ void DxDevice::RenderScene()
 						1.0f,                               // 初期化する深度バッファ（Zバッファ）の値
 						0))){                               // 初期化するステンシルバッファの値
 			//失敗したらスロー
-			throw DxException(
+			throw BaseException(
 				L"バッファをクリアできません。",
 				L"DxDevice::RenderScene()"
 				);
@@ -420,7 +420,7 @@ void DxDevice::RenderScene()
 			// デバイス消失から復帰
 			if(m_pD3DDevice->Reset(&m_D3DPP)!= D3D_OK){
 				//デバイスの復帰に失敗したらスロー
-				throw DxException(
+				throw BaseException(
 					L"デバイスを復帰できません。",
 					L"DxDevice::RenderScene()"
 					);

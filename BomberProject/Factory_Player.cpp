@@ -42,8 +42,8 @@ ProvisionalPlayer::ProvisionalPlayer(
 	Color color ,								//	: êF
 	wiz::OBJID id 								//	: ID
 )
-:MagneticumObject(pD3DDevice,pTexture,vScale,vRot,vPos,
-	pRect,color,id)
+	:MagneticumObject( pD3DDevice, pTexture, vScale, vRot, vPos, pRect, color, id )
+
 
 {
 }

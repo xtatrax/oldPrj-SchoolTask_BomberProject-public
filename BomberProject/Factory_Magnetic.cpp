@@ -43,8 +43,8 @@ MagneticumObject::MagneticumObject(
 	Color color ,								//	: 色
 	wiz::OBJID id 								//	: ID
 )
-:SpriteObject(pD3DDevice,pTexture,vScale,vRot,vPos,
-	pRect,g_vZero,g_vZero,color,id)
+:PrimitiveCylinder(pD3DDevice,vScale,vRot,pTexture)
+,Object(id)
 ,m_vPos( vPos )
 ,m_bMagnetPole( POLE_S )
 {
@@ -63,6 +63,25 @@ MagneticumObject::MagneticumObject(
 void MagneticumObject::Update( UpdatePacket& i_UpdatePacket ){
 
 };
+
+/////////////////// ////////////////////
+//// 用途       ：virtual void Update( LPDIRECT3DDEVICE9 pD3DDevice
+////            ：  vector<Object*>& Vec)
+//// カテゴリ   ：純粋仮想関数
+//// 用途       ：オブジェクトを描画
+//// 引数       ：  LPDIRECT3DDEVICE9 pD3DDevice        // IDirect3DDevice9 インターフェイスへのポインタ
+////            ：  vector<Object*>& Vec                // オブジェクトの配列
+////            ：  Tempus2* i_DrawPacket.pTime	        // 時間を管理するクラスへのポインター
+////            ：  Command i_DrawPacket.pCommand       // コマンド
+//// 戻値       ：無し
+//// 担当者     ：
+//// 備考       ：継承するものは何れかのレベルで必ず定義をすること｡
+////            ：
+////
+void Draw(DrawPacket& i_DrawPacket){
+	PrimitiveCylinder::Draw( i_DrawPacket );
+}
+
 
 
 //class EnemyManager : public Object{

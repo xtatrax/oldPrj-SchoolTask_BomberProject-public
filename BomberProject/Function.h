@@ -7,7 +7,7 @@
 //	内包ﾃﾞｰﾀと備考	：グローバルな関数群のインライン定義
 //					▼
 //	namespace wiz;
-//		class DxException : public exception ;
+//		class BaseException : public exception ;
 //		template<typename T> inline void SafeDelete(T*& p)    ;
 //		template<typename T> inline void SafeDeleteArr(T*& p) ;
 //		template<typename T> inline void SafeRelease(T*& p)   ;
@@ -41,17 +41,17 @@ namespace functions{
 #define TL_SQDISTANCE3D( PointAX, PointAY, PointAZ,   PointBX, PointBY, PointBZ)	 abs(TL_SQUARE((PointBX)  - (PointAX))  + TL_SQUARE((PointBY) - (PointAY))  + TL_SQUARE((PointBZ) - (PointAZ)))
 
 //************************************************//
-//class DxException : public exception
+//class BaseException : public exception
 //
 // 担当者  : なし(山ノ井先生のひな形より)
 // 目的    : STL例外から派生したクラス
 //************************************************//
-class DxException : public exception{
+class BaseException : public exception{
     //メッセージ変数
     wstring m_Message;
 public:
 /////////////////// ////////////////////
-//// 関数名     ：DxException(const wchar_t* m1,const wchar_t* m2)
+//// 関数名     ：BaseException(const wchar_t* m1,const wchar_t* m2)
 //// カテゴリ   ：コンストラクタ
 //// 用途       ：コンストラクタ
 //// 引数       ：  const wchar_t* m1,  //第1メッセージ
@@ -61,7 +61,7 @@ public:
 //// 備考       ：
 ////            ：
 ////
-    DxException(const wchar_t* m1,const wchar_t* m2){
+    BaseException(const wchar_t* m1,const wchar_t* m2){
         m_Message = m1;
         m_Message += L"\r\n";
         m_Message += m2;

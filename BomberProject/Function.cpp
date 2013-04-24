@@ -7,7 +7,7 @@
 //	内包ﾃﾞｰﾀと備考	：Function.h内定義の一部データの実体を定義
 //					▼
 //	namespace wiz;
-//		class DxException : public exception ;
+//		class BaseException : public exception ;
 //		template<typename T> inline void SafeDelete(T*& p)    ;
 //		template<typename T> inline void SafeDeleteArr(T*& p) ;
 //		template<typename T> inline void SafeRelease(T*& p)   ;
