@@ -43,7 +43,7 @@ MagneticumObject::MagneticumObject(
 	Color color ,								//	: êF
 	wiz::OBJID id 								//	: ID
 )
-:PrimitiveCylinder(pD3DDevice,vScale,vRot,pTexture)
+:Sprite(pD3DDevice,vScale,vRot,pTexture)
 ,Object(id)
 ,m_vPos( vPos )
 ,m_bMagnetPole( POLE_S )

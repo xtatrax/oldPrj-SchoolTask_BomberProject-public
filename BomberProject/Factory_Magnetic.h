@@ -28,7 +28,8 @@ namespace wiz{
 // 用途    : 磁界オブジェクト
 //         : コイルオブジェクトやユーザー設置磁界にも応用しています｡
 //**************************************************************************//
-class MagneticumObject : public PrimitiveCylinder ,public Object{
+class MagneticumObject : public SpriteObject
+{
 
 //////////
 //	: 非公開
@@ -57,15 +58,9 @@ protected:
 ////            ：
 ////
 	bool ChangePole(){
-<<<<<<< HEAD
-		if( m_bMagnetPole == POLE_S )
-		{ m_bMagnetPole = POLE_N ; m_Material.Diffuse.r = 0x00 ; m_Material.Diffuse.b = 0xFF ; }
-		else
-		{ m_bMagnetPole = POLE_S ; m_Material.Diffuse.b = 0x00 ; m_Material.Diffuse.r = 0xFF ; }
-=======
 		if( m_bMagnetPole == POLE_S )	{ setPoleN() ; }
 		else							{ setPoleS() ; }
->>>>>>> WorkSpace
+
 		return true ;
 	}
 
