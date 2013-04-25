@@ -252,4 +252,6 @@ using namespace TLIB;
 //////////
 
 extern wiz::RENDERSTATE_PARAM g_GlobalRenderStates[];
-
+extern HWND g_hWnd;
+extern bool g_bMouseLB;
+extern bool g_bMouseRB;

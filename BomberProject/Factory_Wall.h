@@ -17,17 +17,27 @@
 
 namespace wiz{
 
+extern class PlayerCoil ;
 
-
-class Wall : public SpriteObject{
+class WallObject : public SpriteObject{
+	static PlayerCoil* m_pPlayerCoil ;
+	D3DXVECTOR3 m_vPos ;
 public:
-	Wall(	LPDIRECT3DDEVICE9 pD3DDevice,LPDIRECT3DTEXTURE9 pTexture,
+	WallObject(	LPDIRECT3DDEVICE9 pD3DDevice,LPDIRECT3DTEXTURE9 pTexture,
 			D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos, RECT* pRect,
-			D3DXVECTOR3& vCenter,D3DXVECTOR3& vOffsetPos,Color color = 0xFFFFFFFF,
-			wiz::OBJID id = OBJID_2D_WALL);
+			Color color = 0xFFFFFFFF,wiz::OBJID id = OBJID_2D_WALL);
+
+	bool HitTest2DRectAndCircle( D3DXVECTOR3& i_vPos, float i_fRadius );
 };
-
-
+//class WallManager {
+//	typedef multimap< float, Wall > WALLCONTAINER ;
+//	WALLCONTAINER m_Walls ;
+//
+//public:
+//	WallManager();
+//
+//};
+//
 /**************************************************************************
  class Factory_Wall;
  用途: メイン工場クラス

@@ -116,21 +116,21 @@ public:
 ////
     virtual bool HitTest(Object* other){ return false; }
 /////////////////// ////////////////////
-//// 用途       ：virtual void Update( LPDIRECT3DDEVICE9 pD3DDevice
-////            ：      vector<Object*>& Vec,const CONTROLER_STATE* pCntlState,Command& i_DrawPacket.pCommand)
+//// 用途       ：virtual void Update( UpdatePacket& i_UpdatePacket )
 //// カテゴリ   ：仮想関数
 //// 用途       ：オブジェクトを更新
-//// 引数       ：  LPDIRECT3DDEVICE9 pD3DDevice        // IDirect3DDevice9 インターフェイスへのポインタ
-////            ：  Tempus2* i_DrawPacket.pTime                     // 時間を管理するクラスへのポインター
-////            ：  vector<Object*>& Vec,               // オブジェクトの配列
-////            ：  const CONTROLER_STATE* pCntlState   // コントローラのステータス
-////            ：  Command i_DrawPacket.pCommand                         // コマンド
+//// 引数       ：  UpdatePacket& i_UpdatePacket     // アップデート時に必要なデータ群 ↓内容下記
+////            ：  ├       LPDIRECT3DDEVICE9  pD3DDevice      // IDirect3DDevice9 インターフェイスへのポインタ
+////            ：  ├       Tempus2*           pTime           // 時間を管理するクラスへのポインター
+////            ：  ├       vector<Object*>&   Vec,            // オブジェクトの配列
+////            ：  ├ const CONTROLER_STATE*   pCntlState      // コントローラのステータス
+////            ：  └       Command            pCommand        // コマンド
 //// 戻値       ：無し
 //// 担当者     ：鴫原 徹
 //// 備考       ：継承したものでも必ずとも定義をしなくても良い
 ////            ：
 ////
-    virtual void Update(UpdatePacket& i_UpdatePacket){};
+    virtual void Update( UpdatePacket& i_UpdatePacket ){};
 
 /////////////////// ////////////////////
 //// 用途       ：virtual void TargetRender( LPDIRECT3DDEVICE9 pD3DDevice
@@ -145,23 +145,23 @@ public:
 //// 備考       ：継承したものでも必ずとも定義をしなくても良い
 ////            ：
 ////
-	virtual void TargetRender(RenderPacket& i_RenderPacket){};
+	virtual void TargetRender( RenderPacket& i_RenderPacket ){};
 
 /////////////////// ////////////////////
-//// 用途       ：virtual void Update( LPDIRECT3DDEVICE9 pD3DDevice
-////            ：  vector<Object*>& Vec)
+//// 用途       ：virtual void Draw( DrawPacket& i_DrawPacket )
 //// カテゴリ   ：純粋仮想関数
-//// 用途       ：オブジェクトを描画
-//// 引数       ：  LPDIRECT3DDEVICE9 pD3DDevice        // IDirect3DDevice9 インターフェイスへのポインタ
-////            ：  vector<Object*>& Vec                // オブジェクトの配列
-////            ：  Tempus2* i_DrawPacket.pTime	        // 時間を管理するクラスへのポインター
-////            ：  Command i_DrawPacket.pCommand       // コマンド
+//// 用途       ：オブジェクトをディスプレイに表示する
+//// 引数       ：  DrawPacket& i_DrawPacket             // 画面描画時に必要なデータ群 ↓内容下記
+////            ：  ├ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 インターフェイスへのポインタ
+////            ：  ├ vector<Object*>&    Vec                     // オブジェクトの配列
+////            ：  ├ Tempus2*            i_DrawPacket.pTime	   // 時間を管理するクラスへのポインター
+////            ：  └ Command             i_DrawPacket.pCommand   // コマンド
 //// 戻値       ：無し
 //// 担当者     ：
 //// 備考       ：継承するものは何れかのレベルで必ず定義をすること｡
 ////            ：
 ////
-    virtual void Draw(DrawPacket& i_DrawPacket) = 0;
+    virtual void Draw( DrawPacket& i_DrawPacket ) = 0;
 };
 
 //**************************************************************************

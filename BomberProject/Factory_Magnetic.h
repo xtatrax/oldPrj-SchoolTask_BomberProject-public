@@ -43,6 +43,7 @@ private:
 protected:
 	//	: ç¿ïW
 	D3DXVECTOR3 m_vPos ;
+	D3DXVECTOR3 m_vScale ;
 
 	void setPoleS(){ m_bMagnetPole = POLE_S  ; m_Color = 0xFF0000FF	; } ;
 	void setPoleN(){ m_bMagnetPole = POLE_N	 ; m_Color = 0xFFFF0000	; } ;

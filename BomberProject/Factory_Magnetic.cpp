@@ -46,6 +46,7 @@ MagneticumObject::MagneticumObject(
 :SpriteObject(pD3DDevice,pTexture,vScale,vRot,vPos,
 	pRect,g_vZero,g_vZero,color,id)
 ,m_vPos( vPos )
+,m_vScale( vScale )
 ,m_bMagnetPole( POLE_S )
 {
 }

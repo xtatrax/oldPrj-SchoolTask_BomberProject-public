@@ -25,3 +25,7 @@ wiz::RENDERSTATE_PARAM g_GlobalRenderStates[] = {
 	{ D3DRS_LIGHTING     , TRUE         },  // ライティングモード
 	{ D3DRS_FORCE_DWORD  , NULL			}	// 終了宣言
 };
+
+HWND g_hWnd ;
+bool g_bMouseLB;
+bool g_bMouseRB;

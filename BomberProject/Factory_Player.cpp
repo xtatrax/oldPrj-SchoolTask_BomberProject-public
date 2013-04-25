@@ -14,10 +14,12 @@
 #include "Scene.h"
 #include "Factory_Player.h"
 #include "BassItems.h"
+#include "Factory_Wall.h"
 
 
 namespace wiz{
 
+extern class WallObject ;
 
 /**************************************************************************
  ProvisionalPlayer 定義部
@@ -61,20 +63,31 @@ ProvisionalPlayer::ProvisionalPlayer(
 ////            ：
 ////
 void ProvisionalPlayer::Update( UpdatePacket& i_UpdatePacket ){
-	wiz::CONTROLER_STATE Controller1P = i_UpdatePacket.pCntlState[0] ;
-	D3DXVECTOR3 vMove = g_vZero ;
-	Point MousePos ;
-	GetCursorPos( &MousePos );
-	m_vPos.x = MousePos.x;
-	m_vPos.y = MousePos.y;
+	if( g_bMouseLB || g_bMouseRB ){
+		wiz::CONTROLER_STATE Controller1P = i_UpdatePacket.pCntlState[0] ;
+		D3DXVECTOR3 vMove = g_vZero ;
+		Point MousePos ;
+		GetCursorPos( &MousePos );
+		ScreenToClient( g_hWnd , &MousePos);
+		m_vPos.x = MousePos.x;
+		m_vPos.y = MousePos.y;	
 
-	Controller1P.Gamepad.wPressedButtons.XConState.A && this->ChangePole() ;
+		if( g_bMouseLB )
+			setPoleN() ;
+		if( g_bMouseRB )
+			setPoleS() ;
 
-
-	//this->m_vPos += vMove * 15.0f ;
+		//this->m_vPos += vMove * 15.0f ;
 	
-	D3DXMatrixTranslation( &this->m_mMatrix , this->m_vPos.x , this->m_vPos.y , this->m_vPos.z ) ;
+		D3DXMATRIX mPos , mScale ;
 
+		D3DXMatrixTranslation( &mPos , this->m_vPos.x , this->m_vPos.y , this->m_vPos.z ) ;
+		D3DXMatrixScaling( &mScale, m_vScale.x, m_vScale.y, m_vScale.z );
+		m_mMatrix = mScale * mPos ;
+	}
+
+	g_bMouseLB = false ;
+	g_bMouseRB = false ;
 };
 
 /**************************************************************************
@@ -162,9 +175,7 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 			if( m_pPlayer->getMagnetPole() != this->getMagnetPole() ){
 				TurnAngle( &m_fMoveDir , -180.0f ) ;
 			}
-
-
-	}
+		}
 
 		Debugger::DBGSTR::addStr( L"角度 = %f",m_fMoveDir);
 
@@ -173,16 +184,22 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 
 		this->m_vPos += vMove ;
 
-
-
+		WallObject* pWall = (WallObject*)SearchObjectFromID(i_UpdatePacket.pVec, OBJID_2D_WALL ) ;
+		if( pWall && pWall->HitTest2DRectAndCircle( m_vPos, 32.0f) ){
+			m_vPos = D3DXVECTOR3( 300, 300, 0 );
+		}
+		if( m_vPos.x <= 0 || m_vPos.x >= 800 || m_vPos.y <= 0 || m_vPos.y >= 500 ){
+			m_vPos = D3DXVECTOR3( 100, 500, 0 );
+		}
 		//	: 移動の確定
 		//	: 
-		D3DXMATRIX mPos , mRotZ ;
+		D3DXMATRIX mPos , mScale , mRotZ ;
 
 		D3DXMatrixTranslation( &mPos  , this->m_vPos.x , this->m_vPos.y , this->m_vPos.z ) ;
+		D3DXMatrixScaling( &mScale, m_vScale.x, m_vScale.y, m_vScale.z);
 		D3DXMatrixRotationZ(   &mRotZ ,  D3DXToRadian( m_fMoveDir - PLAYER_BASSROT ) ) ;
 
-		this->m_mMatrix = mRotZ * mPos ;
+		this->m_mMatrix = mScale * mRotZ * mPos ;
 
 	} else {
 		m_pPlayer = (ProvisionalPlayer*)SearchObjectFromTypeID( i_UpdatePacket.pVec , typeid(ProvisionalPlayer) );
@@ -220,7 +237,7 @@ void PlayerCoil::Draw(DrawPacket& i_DrawPacket){
 Factory_Player::Factory_Player( FactoryPacket* fpac ){
 	try{
 
-		D3DXVECTOR3 vScale( 0.8f, 0.8f, 1.0f );
+		D3DXVECTOR3 vScale( 0.7f, 0.7f, 1.0f );
 		fpac->m_pVec->push_back(
 			new ProvisionalPlayer(
 				fpac->pD3DDevice,
@@ -246,6 +263,19 @@ Factory_Player::Factory_Player( FactoryPacket* fpac ){
 			)
 		);
 
+		fpac->m_pVec->push_back(
+			new SpriteObject(
+				fpac->pD3DDevice,
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"display.png" ),
+				g_vOne,
+				g_vZero,
+				g_vZero,
+				NULL,
+				g_vZero,
+				g_vZero,
+				0xFFFFFFFF
+			)
+		);
 	}
 	catch(...){
 		//再throw

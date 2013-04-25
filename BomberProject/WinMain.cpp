@@ -59,6 +59,7 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
         default:
         break;
     }
+
     return ::DefWindowProc(hWnd, msg, wParam, lParam);
 }
 /**************************************************************************
@@ -204,7 +205,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE
     }
 	wiz::__GetClientSize(wiz::Rect(0,0,iClientWidth,iClientHeight));
 	wiz::DxDevice::setClientRect(wiz::Rect(0,0,iClientWidth,iClientHeight));
-
+	g_hWnd = hWnd ;
 	ShowCursor(false);
 
     //ウインドウの表示

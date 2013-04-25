@@ -16,7 +16,7 @@
 #include "BassItems.h"
 #include "Factory_Magnetic.h"
 
-#define  MGPRM_MAGNETICUM	300  /* é•äEÇÃâeãøîºåa( åªç›íPà  pixel ) */
+#define  MGPRM_MAGNETICUM	200  /* é•äEÇÃâeãøîºåa( åªç›íPà  pixel ) */
 #define  MGPRM_MAGNETICUM_QUAD ( MGPRM_MAGNETICUM * MGPRM_MAGNETICUM )
 #define  PLAYER_SPEED		(   4.0f ) 
 #define  PLAYER_BASSROT		( -90.0f ) 

@@ -244,6 +244,12 @@ int DxDevice::MainThreadRun(){
 					// 構造体のハンドルで使ったメモリを解放する
 					DragFinish((HDROP)msg.wParam);
 					break;
+				case WM_LBUTTONDOWN :
+					g_bMouseLB = true;
+					break ; 
+				case WM_RBUTTONDOWN :
+					g_bMouseRB = true;
+					break ; 
 				default:
 	                // メッセージの翻訳とディスパッチ
 					::TranslateMessage(&msg);
@@ -257,6 +263,7 @@ int DxDevice::MainThreadRun(){
 			/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 				//	: シングルスレッド宣言がされていたら
 				//	: ここでシーンのアップデートをする
+
 				UpdateScene();
 			/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 			#endif
@@ -278,6 +285,7 @@ int DxDevice::MainThreadRun(){
 			break;
 		}
     }
+
 	return (int) msg.wParam;
 }
 /////////////////// ////////////////////
@@ -297,6 +305,9 @@ int DxDevice::UpdateThreadRun(){
 	MSG msg;    //メッセージ構造体の宣言定義
 	//メッセージループ
     while(true){
+		g_bMouseLB = false ;
+		g_bMouseRB = false ;
+
 		if(::PeekMessage(&msg,NULL,0,0,PM_REMOVE)){
             switch(msg.message){ 
 				case WM_QUIT:// PostQuitMessage()が呼ばれた
