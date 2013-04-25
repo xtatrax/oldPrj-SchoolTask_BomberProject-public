@@ -69,27 +69,27 @@ public:
 		std::list<itemInfo>::iterator end = m_ItemInfo.end();
 		if( GetAsyncKeyState( MYVK_DEBUG_OUTPUT_MEMORY ) ){
 			time_t timer;
-			struct tm *local;
+			struct tm local;
 
 			/* 現在時刻を取得 */
 			timer = time(NULL);
 
-			local = localtime(&timer); /* 地方時に変換 */
+			localtime_s(&local, &timer); /* 地方時に変換 */
 
 			/* 地方時 変換後表示 */
 			printf("地方時: ");
-			printf("%4d/", local->tm_year + 1900);
-			printf("%2d/", local->tm_mon + 1);
-			printf("%2d ", local->tm_mday);
-			printf("%2d:", local->tm_hour);
-			printf("%2d:", local->tm_min);
-			printf("%2d", local->tm_sec);
-			printf(" %d\n", local->tm_isdst);
+			printf("%4d/", local.tm_year + 1900);
+			printf("%2d/", local.tm_mon + 1);
+			printf("%2d ", local.tm_mday);
+			printf("%2d:", local.tm_hour);
+			printf("%2d:", local.tm_min);
+			printf("%2d", local.tm_sec);
+			printf(" %d\n", local.tm_isdst);
 
 
 			Debugger::DBGWRITINGLOGTEXT::addStrToFile( L"めもり.txt" , L"ローカル時間 %4d/%2d/%2d %2d:%2d:%2d %d \n",
-				local->tm_year + 1900, local->tm_mon + 1, local->tm_mday, local->tm_hour,
-				local->tm_min, local->tm_sec, local->tm_isdst );
+				local.tm_year + 1900, local.tm_mon + 1, local.tm_mday, local.tm_hour,
+				local.tm_min, local.tm_sec, local.tm_isdst );
 			DWORD i = 0 ;
 			for(  ; it != end ; it++ ){
 				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "めもり.txt" , " %d \n"               , i                 );

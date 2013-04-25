@@ -69,8 +69,8 @@ void ProvisionalPlayer::Update( UpdatePacket& i_UpdatePacket ){
 		Point MousePos ;
 		GetCursorPos( &MousePos );
 		ScreenToClient( g_hWnd , &MousePos);
-		m_vPos.x = MousePos.x;
-		m_vPos.y = MousePos.y;	
+		m_vPos.x = (float)MousePos.x;
+		m_vPos.y = (float)MousePos.y;	
 
 		if( g_bMouseLB )
 			setPoleN() ;
@@ -153,9 +153,9 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 		D3DXVECTOR3 pPos  = this->m_pPlayer->getPos();
 
 		// コイルとユーザー磁界の距離を算出
-		float Lng  = TwoPointToBassLength( pPos, m_vPos ) ;
+		float Lng  = (float)TwoPointToBassLength( pPos, m_vPos ) ;
 		// テスト用
-		float Lng2 = VectorLength( D3DXVECTOR3( pPos.x - m_vPos.x, pPos.y - m_vPos.y ,0) );
+		float Lng2 = (float)VectorLength( D3DXVECTOR3( pPos.x - m_vPos.x, pPos.y - m_vPos.y ,0) );
 
 		// 磁界反転
 		Controller1P.Gamepad.wPressedButtons.XConState.Y && this->ChangePole() ;
@@ -263,19 +263,7 @@ Factory_Player::Factory_Player( FactoryPacket* fpac ){
 			)
 		);
 
-		fpac->m_pVec->push_back(
-			new SpriteObject(
-				fpac->pD3DDevice,
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"display.png" ),
-				g_vOne,
-				g_vZero,
-				g_vZero,
-				NULL,
-				g_vZero,
-				g_vZero,
-				0xFFFFFFFF
-			)
-		);
+
 	}
 	catch(...){
 		//再throw

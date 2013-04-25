@@ -37,6 +37,19 @@ Factory_Main::Factory_Main(FactoryPacket* fpac){
 	try{
 		Factory_Player Pfac( fpac );
 		Factory_Wall   Wfac( fpac );
+		fpac->m_pVec->push_back(
+			new SpriteObject(
+				fpac->pD3DDevice,
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"display.png" ),
+				g_vOne,
+				g_vZero,
+				g_vZero,
+				NULL,
+				g_vZero,
+				g_vZero,
+				0xFFFFFFFF
+			)
+		);
 	}
 	catch(...){
 		//çƒthrow

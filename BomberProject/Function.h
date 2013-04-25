@@ -781,8 +781,9 @@ inline double GetCosineTheta( D3DXVECTOR3& i_Vec1, D3DXVECTOR3& i_Vec2 ){
 // ベクトルの長さを計算する
 //
 //
-inline D3DXVECTOR3& TwoPoint2Vector( D3DXVECTOR3& i_Vec1, D3DXVECTOR3& i_Vec2 ){
-	return  D3DXVECTOR3( i_Vec2.x - i_Vec1.x , i_Vec2.y - i_Vec1.y , 0 ) ;
+inline D3DXVECTOR3 TwoPoint2Vector( D3DXVECTOR3& i_Vec1, D3DXVECTOR3& i_Vec2 ){
+	D3DXVECTOR3 ret ( i_Vec2.x - i_Vec1.x , i_Vec2.y - i_Vec1.y , 0 );
+	return  ret ;
 }
 
 ///////// /////////
