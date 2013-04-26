@@ -50,6 +50,17 @@ Factory_Main::Factory_Main(FactoryPacket* fpac){
 				0xFFFFFFFF
 			)
 		);
+		 //ライトのインスタンス初期化
+        D3DCOLORVALUE Diffuse = {1.0f,1.0f,1.0f,0.0f};
+        D3DCOLORVALUE Specular = {1.0f,1.0f,1.0f,0.0f};
+        D3DCOLORVALUE Ambient = {0.5f,0.5f,0.5f,0.0f};
+        fpac->m_pVec->push_back(new DirectionalLight(fpac->pD3DDevice,Diffuse,Specular,Ambient,
+                    D3DXVECTOR3( -0.0f, -1.0f, 0.0f)));
+		//カメラのインスタンス初期化
+        fpac->m_pVec->push_back(
+			new Camera(D3DXVECTOR3( 0.0f, 0.0f, -10.0f),D3DXVECTOR3( 0.0f, 0.0f, 0.0f),
+						1.0f, 100.0f,30.0f));
+
 	}
 	catch(...){
 		//再throw

@@ -19,16 +19,60 @@ namespace wiz{
 
 extern class PlayerCoil ;
 
-class WallObject : public SpriteObject{
+//壁クラス---------------------------------------------------------------------
+class WallObject : public PrimitiveBox , public Object{
 	static PlayerCoil* m_pPlayerCoil ;
-	D3DXVECTOR3 m_vPos ;
+	struct WallItem{
+		D3DMATERIAL9 m_Material;
+		D3DXVECTOR3 m_vScale ;
+		D3DXVECTOR3 m_vPos ;
+		D3DXQUATERNION m_vRot;
+		virtual ~WallItem(){}
+	};
+	vector<WallItem*> m_ItemVec;
 public:
-	WallObject(	LPDIRECT3DDEVICE9 pD3DDevice,LPDIRECT3DTEXTURE9 pTexture,
-			D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos, RECT* pRect,
-			Color color = 0xFFFFFFFF,wiz::OBJID id = OBJID_2D_WALL);
+	WallObject(	LPDIRECT3DDEVICE9 pD3DDevice,LPDIRECT3DTEXTURE9 pTexture,wiz::OBJID id = OBJID_2D_WALL);
 
 	bool HitTest2DRectAndCircle( D3DXVECTOR3& i_vPos, float i_fRadius );
+
+	/////////////////// ////////////////////
+	//// 用途       ：void Draw( DrawPacket& i_DrawPacket )
+	//// カテゴリ   ：関数
+	//// 用途       ：オブジェクトをディスプレイに表示する
+	//// 引数       ：  DrawPacket& i_DrawPacket             // 画面描画時に必要なデータ群 ↓内容下記
+	////            ：  ├ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 インターフェイスへのポインタ
+	////            ：  ├ vector<Object*>&    Vec                     // オブジェクトの配列
+	////            ：  ├ Tempus2*            i_DrawPacket.pTime	   // 時間を管理するクラスへのポインター
+	////            ：  └ Command             i_DrawPacket.pCommand   // コマンド
+	//// 戻値       ：無し
+	//// 担当者     ：本多寛之
+	//// 備考       ：
+	////            ：
+	////
+	void Draw( DrawPacket& i_DrawPacket );
+
+	/////////////////// ////////////////////
+	//// 用途       ：void AddWall( DrawPacket& i_DrawPacket )
+	//// カテゴリ   ：関数
+	//// 用途       ：Wallの追加
+	//// 引数       ：  LPDIRECT3DDEVICE9 pD3DDevice,	////IDirect3DDevice9インターフェイスへのポインタ
+	////		    ：  D3DXVECTOR3 &vScale				//拡大縮小
+	////		    ：  D3DXVECTOR3 &vRot				//回転角
+	////		    ：  D3DXVECTOR3 &vPos				//位置
+	////            ：  D3DCOLORVALUE& Diffuse,			//ディフューズ色
+	////            ：  D3DCOLORVALUE& Specular,		//スペキュラ色
+	////            ：  D3DCOLORVALUE& Ambient,			//アンビエント色
+	//// 戻値       ：無し
+	//// 担当者     ：本多寛之
+	//// 備考       ：
+	////            ：
+	////
+	void AddWall(D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos,
+			D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient);
+
 };
+//-------------------------------------------------------------------------------
+
 //class WallManager {
 //	typedef multimap< float, Wall > WALLCONTAINER ;
 //	WALLCONTAINER m_Walls ;

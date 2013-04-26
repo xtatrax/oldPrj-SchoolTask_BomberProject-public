@@ -138,6 +138,7 @@ void Stage::Update(UpdatePacket& i_UpdatePacket)
 ***************************************************************************/
 void Stage::Draw(DrawPacket& i_DrawPacket)
 {
+	i_DrawPacket.pVec = &m_Vec ;
 	//配置オブジェクトの描画
 	vector<Object*>::size_type sz = m_Vec.size();
 	for(vector<Object*>::size_type i = 0;i < sz;i++){
