@@ -120,7 +120,55 @@ void MagneticumObject::Update( UpdatePacket& i_UpdatePacket ){
 //};
 //
 
-	
+
+/**************************************************************************
+ MagneticumObject3D 定義部
+****************************************************************************/
+/////////////////// ////////////////////
+//// 関数名     ：MagneticumObject3D( LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTexture,
+////            ：    D3DXVECTOR3 &vScale, D3DXVECTOR3 &vRot, D3DXVECTOR3 &vPos, RECT* pRect,
+////            ：    Color color = 0xFFFFFFFF, wiz::OBJID id = OBJID_3D_PLAYER )
+//// カテゴリ   ：コンストラクタ
+//// 用途       ：
+//// 引数       ：
+//// 戻値       ：なし
+//// 担当       ：鴫原 徹
+//// 備考       ：
+////            ：
+////
+MagneticumObject3D::MagneticumObject3D(
+	LPDIRECT3DDEVICE9 pD3DDevice,				//	: デバイス
+	LPDIRECT3DTEXTURE9 pTexture,				//	: テクスチャー
+	D3DXVECTOR3 &vScale,						//	: 伸縮
+	D3DXVECTOR3 &vRot,							//	: 回転
+	D3DXVECTOR3 &vPos,							//	: 位置
+	D3DCOLORVALUE& Diffuse,						//	: 拡散光
+	D3DCOLORVALUE& Specular,					//	: 鏡面反射光 
+	D3DCOLORVALUE& Ambient,						//	: 環境光
+	wiz::OBJID id 								//	: ID
+)
+:PrimitiveCylinder(pD3DDevice, Diffuse, Specular, Ambient, pTexture)
+,m_vPos( vPos )
+,m_vScale( vScale )
+,m_bMagnetPole( POLE_S )
+,Object( id ){
+}
+
+/////////////////// ////////////////////
+//// 関数名     ：void Update( UpdatePacket& i_UpdatePacket )
+//// カテゴリ   ：
+//// 用途       ：
+//// 引数       ：
+//// 戻値       ：なし
+//// 担当       ：鴫原 徹
+//// 備考       ：
+////            ：
+////
+void MagneticumObject3D::Update( UpdatePacket& i_UpdatePacket ){
+
+};
+
+
 /**************************************************************************
  Factory_Magnetic 定義部
 ****************************************************************************/

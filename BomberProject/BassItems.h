@@ -813,7 +813,7 @@ protected:
 ////            ：
 ////
     PrimitiveCylinder(LPDIRECT3DDEVICE9 pD3DDevice,
-           D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,
+          D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,
 		   LPDIRECT3DTEXTURE9 pTexture);
 /////////////////// ////////////////////
 //// 関数名     ：~PrimitiveCylinder();
@@ -915,7 +915,7 @@ protected:
 //// 備考       ：
 ////            ：
 ////
-    PrimitiveSphere(LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTexture = 0);
+    //PrimitiveSphere(LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTexture = 0);
 /////////////////// ////////////////////
 //// 関数名     ：~PrimitiveSphere();
 //// カテゴリ   ：デストラクタ

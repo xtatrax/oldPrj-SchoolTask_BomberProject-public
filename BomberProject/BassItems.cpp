@@ -2061,19 +2061,19 @@ PrimitiveSphere::PrimitiveSphere(LPDIRECT3DDEVICE9 pD3DDevice,
 //// 備考       ：
 ////            ：
 ////
-PrimitiveSphere::PrimitiveSphere(LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTexture)
-    :CommonMesh()
-	,m_pTexture(pTexture)
-{
-    try{
-		CreateSphere(pD3DDevice);
-    }
-    catch(...){
-        //再スロー
-        throw;
-    }
-
-}
+//PrimitiveSphere::PrimitiveSphere(LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTexture)
+//    :CommonMesh()
+//	,m_pTexture(pTexture)
+//{
+//    try{
+//		CreateSphere(pD3DDevice);
+//    }
+//    catch(...){
+//        //再スロー
+//        throw;
+//    }
+//
+//}
 
 /////////////////// ////////////////////
 //// 関数名     ：PrimitiveSphere::~PrimitiveSphere();
