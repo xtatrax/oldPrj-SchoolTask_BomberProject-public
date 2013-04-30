@@ -222,21 +222,6 @@ struct fRect{
 	:left(l) , top(t) , right(r) , bottom(b){}
 };
 
-class SlidingEffect : public Effect , public PrimitiveBox{
-private:
-	Player*		m_pPlayer;
-	const BYTE	m_byFrameQty;
-	BYTE		m_byFrameNum;
-	fRect*		m_pFrameRectArray;
-	void ChangeUV();
-public:
-	SlidingEffect(LPDIRECT3DDEVICE9 pD3DDevice,
-        D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,
-		Player* pPlayer,BYTE byFrameQty,fRect FirstRect,LPDIRECT3DTEXTURE9 pTexture = 0);
-	~SlidingEffect();
-	
-};
-
 
 
 }	//	: wiz

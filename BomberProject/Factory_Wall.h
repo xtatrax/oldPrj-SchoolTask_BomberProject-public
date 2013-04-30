@@ -20,7 +20,7 @@ namespace wiz{
 extern class PlayerCoil ;
 
 //•ÇƒNƒ‰ƒX---------------------------------------------------------------------
-class WallObject : public PrimitiveBox , public Object{
+class WallObject : public PrimitiveBox{
 	static PlayerCoil* m_pPlayerCoil ;
 	struct WallItem{
 		D3DMATERIAL9 m_Material;

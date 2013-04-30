@@ -182,6 +182,7 @@ MenuStage::MenuStage(LPDIRECT3DDEVICE9 pD3DDevice,Stage* Par)
         //カメラのインスタンス初期化
         m_Vec.push_back(
 			new Camera(
+				pD3DDevice,
 				D3DXVECTOR3( 0.0f, 2.0f, -30.0f),
 				D3DXVECTOR3( 0.0f, 0.0f, 0.0f),
 				1.0f,

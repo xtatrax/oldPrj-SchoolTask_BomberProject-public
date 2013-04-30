@@ -71,6 +71,17 @@ public:
 ////            ：
 ////
 	bool getDead() const { return m_bDead; }
+///////////////////// ////////////////////
+//// 関数名     ：D3DXVECTOR3 getPos() const { return g_vZero; }
+//// カテゴリ   ：ゲッター
+//// 用途       ：DEAD OR ALIVE
+//// 引数       ：なし
+//// 戻値       ：なし
+//// 担当者     ：鴫原 徹
+//// 備考       ：
+////            ：
+////
+	D3DXVECTOR3 getPos() const { return g_vZero; }
 /////////////////// ////////////////////
 //// 関数名     ：void AccessBegin()
 //// カテゴリ   ：メンバ関数
@@ -115,6 +126,18 @@ public:
 ////            ：
 ////
     virtual bool HitTest(Object* other){ return false; }
+/**************************************************************************
+	virtual void ChangeDevice(
+    LPDIRECT3DDEVICE9 pD3DDevice    //IDirect3DDevice9 インターフェイスへのポインタ
+	);
+ 用途: デバイス喪失による再構築（仮想関数）
+ 戻り値: なし。
+ ＊デバイスが喪失したときに最構築時に呼ばれる。すべてのObjectの派生クラスは、個別に対応をとる
+***************************************************************************/
+	virtual void ChangeDevice(LPDIRECT3DDEVICE9 pD3DDevice){
+		//基底クラスでは何もしない
+	}
+
 /////////////////// ////////////////////
 //// 用途       ：virtual void Update( UpdatePacket& i_UpdatePacket )
 //// カテゴリ   ：仮想関数
@@ -254,6 +277,233 @@ public:
 
 
 };
+
+/**************************************************************************
+ class Camera : public Object;
+ 用途: カメラクラス
+****************************************************************************/
+class Camera : public Object{
+protected:
+    D3DXMATRIX  m_View;     // カメラの配置
+    D3DXMATRIX m_Proj;		// 射影行列
+    D3DXVECTOR3 m_Eye;      //カメラの位置
+    D3DXVECTOR3 m_At;       //直視点
+    FLOAT m_Near;           //射影の手前側の距離
+    FLOAT m_Far;            //射影の奥側の距離
+    FLOAT m_FovY;           //射影角度
+
+    D3DXVECTOR3 m_Arm;       //視点と直視点の間（腕）のベクトル
+	FLOAT m_TotalAngleXZ;	//カメラのXZ回転のラジアン値
+	FLOAT m_TotalAngleY;	//カメラのY回転のラジアン値
+
+public:
+/**************************************************************************
+ Camera(
+    LPDIRECT3DDEVICE9 pD3DDevice,    //IDirect3DDevice9 インターフェイスへのポインタ
+    D3DXVECTOR3& At,    //直視点
+	FLOAT AbsPosZFromAt,//直視点から見た、カメラ位置のZの位置(絶対値指定)
+	FLOAT PosYFromAt,	//直視点から見た、カメラ位置のYの位置
+    FLOAT Near,         //射影の手前側の距離
+    FLOAT Far,          //射影の奥側の距離
+    FLOAT FovY          //Y軸射影角度
+    );
+ 用途: コンストラクタ
+ ＊カメラ位置の初期値は直接は指定できない。
+ ＊直視点からみて、Zの手前に引く相対位置とYの相対位置を指定する。Xは0に固定
+ ＊Zの手前に引く相対位置（AbsPosZFromAt）は絶対値化されるので、
+	マイナスを指定しても意味がない。
+ 戻り値: なし
+***************************************************************************/
+ Camera(LPDIRECT3DDEVICE9 pD3DDevice,D3DXVECTOR3& At,FLOAT PosZFromAt,FLOAT PosYFromAt,
+    FLOAT Near,FLOAT Far,FLOAT FovY);
+/**************************************************************************
+Camera(
+    LPDIRECT3DDEVICE9 pD3DDevice,    //IDirect3DDevice9 インターフェイスへのポインタ
+    D3DXVECTOR3& Eye,    //カメラの位置
+    D3DXVECTOR3& At,    //直視点
+    FLOAT Near,         //射影の手前側の距離
+    FLOAT Far,          //射影の奥側の距離
+    FLOAT FovY          //Y軸射影角度
+    );
+ 用途: コンストラクタ
+ 戻り値: なし
+***************************************************************************/
+	Camera(LPDIRECT3DDEVICE9 pD3DDevice,D3DXVECTOR3& Eye,D3DXVECTOR3& At,
+		FLOAT Near,FLOAT Far,FLOAT FovY);
+
+/**************************************************************************
+ virtual ~Camera();
+ 用途: 仮想デストラクタ
+ 戻り値: なし
+***************************************************************************/
+    virtual ~Camera();
+/**************************************************************************
+ virtual void Draw(
+    DrawPacket& i_DrawPacket 
+ );
+ 用途: オブジェクトを描画（純粋仮想関数）
+ 戻り値: なし。
+***************************************************************************/
+    virtual void Draw(DrawPacket& i_DrawPacket);
+/**************************************************************************
+ void GetEyeAt(
+ D3DXVECTOR3& Eye,	//カメラの位置
+ D3DXVECTOR3& At	//注視点
+ );
+ 用途: カメラの現在の位置と注視点を得る
+ 戻り値: なし。EyeとATに値を代入
+***************************************************************************/
+	void GetEyeAt(D3DXVECTOR3& Eye,D3DXVECTOR3& At){
+		Eye = m_Eye;
+		At = m_At;
+	}
+/**************************************************************************
+ void GetMatrix(
+ D3DXMATRIX& View,	//ビュー行列
+ D3DXMATRIX& Proj	//射影行列
+ );
+ 用途: カメラのビュー行列と射影行列を得る
+ 戻り値: なし。ViewとProjに値を代入
+***************************************************************************/
+	void GetMatrix(D3DXMATRIX& View,D3DXMATRIX& Proj){
+		View = m_View;
+		Proj = m_Proj;
+	}
+/**************************************************************************
+ FLOAT GetFar();
+ 用途: カメラのFar位置を得る
+ 戻り値: Far位置
+***************************************************************************/
+	FLOAT GetFar(){
+		return m_Far;
+	}
+};
+
+/**************************************************************************
+ class LookAtCamera : public Camera;
+ 用途: オブジェクトを注目するカメラクラス
+****************************************************************************/
+class LookAtCamera : public Camera{
+protected:
+	Object* m_pObject;
+	FLOAT m_LocalY;
+public:
+/**************************************************************************
+ LookAtCamera(
+    LPDIRECT3DDEVICE9 pD3DDevice,    //IDirect3DDevice9 インターフェイスへのポインタ
+    Object*	pObj,		//直視点を得るためのオブジェクト
+	FLOAT LocalY,		//直視点から調整するY位置
+	FLOAT AbsPosZFromAt,//直視点から見た、カメラ位置のZの位置(絶対値指定)
+	FLOAT PosYFromAt,	//直視点から見た、カメラ位置のYの位置
+    FLOAT Near,         //射影の手前側の距離
+    FLOAT Far,          //射影の奥側の距離
+    FLOAT FovY          //Y軸射影角度
+    );
+ 用途: コンストラクタ
+ ＊カメラ位置の初期値は直接は指定できない。
+ ＊直視点からみて、Zの手前に引く相対位置とYの相対位置を指定する。Xは0に固定
+ ＊Zの手前に引く相対位置（AbsPosZFromAt）は絶対値化されるので、
+	マイナスを指定しても意味がない。
+ 戻り値: なし
+***************************************************************************/
+	LookAtCamera(LPDIRECT3DDEVICE9 pD3DDevice,
+		Object* pObj,FLOAT LocalY,FLOAT AbsPosZFromAt,FLOAT PosYFromAt,
+	    FLOAT Near,FLOAT Far,FLOAT FovY);
+/**************************************************************************
+ virtual ~LookAtCamera();
+ 用途: 仮想デストラクタ
+ 戻り値: なし
+***************************************************************************/
+    virtual ~LookAtCamera();
+/**************************************************************************
+ virtual void Transform(
+	UpdatePacket& i_UpdatePacket
+ );
+ 用途: オブジェクトを変化させる（仮想関数）
+ 戻り値: なし。
+***************************************************************************/
+	virtual void Update( UpdatePacket& i_UpdatePacket );
+/**************************************************************************
+ virtual void Draw(
+    LPDIRECT3DDEVICE9 pD3DDevice    //IDirect3DDevice9 インターフェイスへのポインタ
+    vector<Object*>& Vec,            //オブジェクトの配列
+    const CONTROLER_STATE* pCntlState,   //コントローラのステータス
+	Context& Data					//ユーザーデータ
+ );
+ 用途: オブジェクトを描画（純粋仮想関数）
+ 戻り値: なし。
+***************************************************************************/
+    virtual void Draw(LPDIRECT3DDEVICE9 pD3DDevice,vector<Object*>& Vec,
+		const CONTROLER_STATE* pCntlState,Context& Data);
+};
+
+/**************************************************************************
+ class Guide : public Object;
+ 用途: ガイドクラス（x、y、z方向に伸びるガイド線）
+****************************************************************************/
+class Guide : public Object{
+protected:
+    IDirect3DVertexBuffer9* m_pVB;
+    //クラス内構造体
+    //ここでしか使用しないので、内部に持つ
+    struct CUSTOMVERTEX
+    {
+        D3DXVECTOR3 vec;
+        DWORD color;
+    };
+/**************************************************************************
+ void CreateInctance(
+ LPDIRECT3DDEVICE9 pD3DDevice	//IDirect3DDevice9インターフェイスへのポインタ
+ );
+ 用途: インスタンスの構築
+ 戻り値: なし。（例外がthrowされる）
+***************************************************************************/
+	void CreateInctance(LPDIRECT3DDEVICE9 pD3DDevice);
+public:
+/**************************************************************************
+ Guide(
+    LPDIRECT3DDEVICE9 pD3DDevice    //IDirect3DDevice9インターフェイスへのポインタ
+    );
+ 用途: コンストラクタ
+ 戻り値: なし（失敗時は例外をthrow）
+***************************************************************************/
+    Guide(LPDIRECT3DDEVICE9 pD3DDevice);
+/**************************************************************************
+ virtual ~Guide();
+ 用途: デストラクタ
+ 戻り値: なし
+***************************************************************************/
+    virtual ~Guide();
+/**************************************************************************
+	virtual void ReleaseObj();
+ 用途: デバイス喪失によるリソースの開放（仮想関数）
+ 戻り値: なし。
+ ＊デバイスが喪失したときに呼ばれる。すべてのObjectの派生クラスは、個別に対応をとる
+***************************************************************************/
+	virtual void ReleaseObj();
+/**************************************************************************
+	virtual void ChangeDevice(
+    LPDIRECT3DDEVICE9 pD3DDevice    //IDirect3DDevice9 インターフェイスへのポインタ
+	);
+ 用途: デバイス喪失による再構築（仮想関数）
+ 戻り値: なし。
+ ＊デバイスが喪失したときに最構築時に呼ばれる。すべてのObjectの派生クラスは、個別に対応をとる
+***************************************************************************/
+	virtual void ChangeDevice(LPDIRECT3DDEVICE9 pD3DDevice);
+/**************************************************************************
+ virtual void Draw(
+    LPDIRECT3DDEVICE9 pD3DDevice    //IDirect3DDevice9 インターフェイスへのポインタ
+    vector<Object*>& Vec,            //オブジェクトの配列
+    const CONTROLER_STATE* pCntlState,   //コントローラのステータス
+	Context& Data					//ユーザーデータ
+ );
+ 用途: オブジェクトを描画（純粋仮想関数）
+ 戻り値: なし。
+***************************************************************************/
+    virtual void Draw(LPDIRECT3DDEVICE9 pD3DDevice,vector<Object*>& Vec,
+		const CONTROLER_STATE* pCntlState,Context& Data);
+};
+
 
 
 

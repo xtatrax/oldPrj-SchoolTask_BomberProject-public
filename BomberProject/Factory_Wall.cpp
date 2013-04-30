@@ -24,8 +24,8 @@ WallObject::WallObject( LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTextur
 					D3DCOLORVALUE(),
 					D3DCOLORVALUE(),
 					D3DCOLORVALUE(),
-					pTexture),
-					Object(id)
+					id,
+					pTexture)
 {
 	::ZeroMemory( &m_Material, sizeof(D3DMATERIAL9));
 }
@@ -79,7 +79,7 @@ void WallObject::Draw(DrawPacket& i_DrawPacket)
 			i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLORARG1, D3DTA_TEXTURE );
 			i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLORARG2, D3DTA_DIFFUSE );
 
-			i_DrawPacket.pD3DDevice->SetFVF(PlateFVF);
+			//i_DrawPacket.pD3DDevice->SetFVF(PlateFVF);
 			// マトリックスをレンダリングパイプラインに設定
 			i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &mAllMatrix);
 			//コモンメッシュのDraw()を呼ぶ

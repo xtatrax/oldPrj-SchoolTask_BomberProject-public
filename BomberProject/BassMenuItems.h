@@ -12,6 +12,7 @@
 //
 #pragma once
 #include "BassItems.h"
+#include "Bass2DItems.h"
 
 namespace wiz{
 
