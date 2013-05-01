@@ -19,18 +19,37 @@ namespace wiz{
 
 extern class PlayerCoil ;
 
-//壁クラス---------------------------------------------------------------------
+/**************************************************************************
+ WallObject 定義部
+****************************************************************************/
 class WallObject : public PrimitiveBox , public Object{
 	static PlayerCoil* m_pPlayerCoil ;
+	static Camera*	   m_pCamera;
 	struct WallItem{
 		D3DMATERIAL9 m_Material;
+		D3DXMATRIX	m_Matrix;
 		D3DXVECTOR3 m_vScale ;
 		D3DXVECTOR3 m_vPos ;
 		D3DXQUATERNION m_vRot;
 		virtual ~WallItem(){}
 	};
-	vector<WallItem*> m_ItemVec;
+	
+	//map<オブジェクトのポジション,WallItem>
+	multimap<float,WallItem*> m_ItemMap_All;	//全てのWallItem
+	multimap<float,WallItem*> m_ItemMap_Target;//描画対象のWallItem
+	//std::find
+
 public:
+	/**************************************************************************
+	 WallObject::WallObject(
+		LPDIRECT3DDEVICE9 pD3DDevice,	//デバイス
+		LPDIRECT3DTEXTURE9 pTexture,	//テクスチャ
+		wiz::OBJID id					//オブジェクトの種類
+	);
+	 用途: コンストラクタ
+	 戻り値: なし
+	 担当：本多寛之
+	***************************************************************************/
 	WallObject(	LPDIRECT3DDEVICE9 pD3DDevice,LPDIRECT3DTEXTURE9 pTexture,wiz::OBJID id = OBJID_2D_WALL);
 
 	bool HitTest2DRectAndCircle( D3DXVECTOR3& i_vPos, float i_fRadius );
@@ -47,9 +66,24 @@ public:
 	//// 戻値       ：無し
 	//// 担当者     ：本多寛之
 	//// 備考       ：
+	void Draw( DrawPacket& i_DrawPacket );
+
+	/////////////////// ////////////////////
+	//// 用途       ：void Update( UpdatePacket& i_UpdatePacket )
+	//// カテゴリ   ：関数
+	//// 用途       ：オブジェクトを更新
+	//// 引数       ：  UpdatePacket& i_UpdatePacket     // アップデート時に必要なデータ群 ↓内容下記
+	////            ：  ├       LPDIRECT3DDEVICE9  pD3DDevice      // IDirect3DDevice9 インターフェイスへのポインタ
+	////            ：  ├       Tempus2*           pTime           // 時間を管理するクラスへのポインター
+	////            ：  ├       vector<Object*>&   Vec,            // オブジェクトの配列
+	////            ：  ├ const CONTROLER_STATE*   pCntlState      // コントローラのステータス
+	////            ：  └       Command            pCommand        // コマンド
+	//// 戻値       ：無し
+	//// 担当者     ：本多寛之
+	//// 備考       ：
 	////            ：
 	////
-	void Draw( DrawPacket& i_DrawPacket );
+	void Update( UpdatePacket& i_UpdatePacket );
 
 	/////////////////// ////////////////////
 	//// 用途       ：void AddWall( DrawPacket& i_DrawPacket )
@@ -65,8 +99,6 @@ public:
 	//// 戻値       ：無し
 	//// 担当者     ：本多寛之
 	//// 備考       ：
-	////            ：
-	////
 	void AddWall(D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos,
 			D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient);
 
