@@ -58,7 +58,7 @@ Factory_Main::Factory_Main(FactoryPacket* fpac){
                     D3DXVECTOR3( -0.0f, -1.0f, 0.0f)));
 		//カメラのインスタンス初期化
         fpac->m_pVec->push_back(
-			new Camera(D3DXVECTOR3( 0.0f, 0.0f, -10.0f),D3DXVECTOR3( 0.0f, 0.0f, 0.0f),
+			new Camera(fpac->pD3DDevice,D3DXVECTOR3( 0.0f, 0.0f, 0.0f),-10,0,
 						1.0f, 100.0f,30.0f));
 
 	}

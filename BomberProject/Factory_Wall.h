@@ -22,7 +22,8 @@ extern class PlayerCoil ;
 /**************************************************************************
  WallObject ’è‹`•”
 ****************************************************************************/
-class WallObject : public PrimitiveBox , public Object{
+//•ÇƒNƒ‰ƒX---------------------------------------------------------------------
+class WallObject : public PrimitiveBox{
 	static PlayerCoil* m_pPlayerCoil ;
 	static Camera*	   m_pCamera;
 	struct WallItem{

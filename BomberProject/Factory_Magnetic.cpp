@@ -147,11 +147,11 @@ MagneticumObject3D::MagneticumObject3D(
 	D3DCOLORVALUE& Ambient,						//	: ŠÂ‹«Œõ
 	wiz::OBJID id 								//	: ID
 )
-:PrimitiveCylinder(pD3DDevice, Diffuse, Specular, Ambient, pTexture)
+:PrimitiveCylinder(pD3DDevice, Diffuse, Specular, Ambient, id, pTexture)
 ,m_vPos( vPos )
 ,m_vScale( vScale )
 ,m_bMagnetPole( POLE_S )
-,Object( id ){
+{
 }
 
 /////////////////// ////////////////////

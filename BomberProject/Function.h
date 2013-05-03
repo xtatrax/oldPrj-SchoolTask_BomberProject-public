@@ -81,6 +81,42 @@ public:
     }
 };
 
+/**************************************************************************
+ class Math;
+ 用途: 計算用のユーティリティ
+ 　　　static呼び出しをする
+****************************************************************************/
+
+class Math{
+public:
+	static void QtToRot(const D3DXQUATERNION& Qt,D3DXVECTOR3& Rot){
+		D3DXQUATERNION tempQt = Qt;
+		//正規化
+		D3DXQuaternionNormalize(&tempQt,&tempQt);
+		//行列に取り出す
+		D3DXMATRIX mt;
+		D3DXMatrixIdentity(&mt);
+		D3DXMatrixRotationQuaternion(&mt,&tempQt);
+		if(mt._32 == 1.0f){
+			Rot.x = D3DX_PI / 2.0f;
+			Rot.y = 0;
+			Rot.z = -atan2(mt._21,mt._11);
+		}
+		else if(mt._32 == -1.0f){
+			Rot.x = -D3DX_PI / 2.0f;
+			Rot.y = 0;
+			Rot.z = -atan2(mt._21,mt._11);
+		}
+		else{
+			Rot.x = -asin(mt._32);
+			Rot.y = -atan2(-mt._31,mt._33);
+			Rot.z = -atan2(-mt._12,mt._22);
+		}
+	}
+	Math(){}
+	~Math(){}
+
+};
 
 
 /////////////////// ////////////////////
@@ -149,27 +185,24 @@ inline void EarnFromMeshOBB(const LPD3DXBASEMESH i_pMesh,D3DXVECTOR3& o_vPos ,D3
 };
 
 
-//**************************************************************************
-// class HitTest;
-//
-// 担当者  : 鴫原 徹(山ノ井先生のひな形より)
-// 用途    : 衝突判定用のユーティリティ
-// 　    　　static呼び出しをする
-//****************************************************************************/
+/**************************************************************************
+ class HitTest;
+ 用途: 衝突判定用のユーティリティ
+ 　　　static呼び出しをする
+****************************************************************************/
 class HitTest{
-/////////////////// ////////////////////
-//// 関数名     ：static void ClosestPtPointOBB(const D3DXVECTOR3& point,
-////            ：    const OBB& obb, D3DXVECTOR3& retvec)
-//// カテゴリ   ：静的非公開メンバ関数
-//// 用途       ：pointから見たOBBの最近接点を得る
-//// 引数       ：	const D3DXVECTOR3& point,   // 基準点
-////            ：  const OBB& obb,             // OBB
-////            ：  D3DXVECTOR3& retvec         // 最近接点を返す参照
-//// 戻値       ：なし（retvecに最近接点が代入される）
-//// 担当       ：なし(山ノ井先生のひな形より)
-//// 備考       ：
-////            ：
-////
+public:
+	HitTest(){}
+	~HitTest(){}
+/**************************************************************************
+ static void ClosestPtPointOBB(
+	const D3DXVECTOR3& point,		//基準点
+	const OBB& obb,				//OBB
+	D3DXVECTOR3& retvec		//最近接点を返す参照
+　);
+ 用途: pointから見たOBBの最近接点を得る
+ 戻り値: 無し（retvecに最近接点が代入される）
+***************************************************************************/
 	static void ClosestPtPointOBB(const D3DXVECTOR3& point,const OBB& obb, D3DXVECTOR3& retvec){
 		D3DXVECTOR3 d = point - obb.m_Center;
 		retvec = obb.m_Center;
@@ -188,89 +221,141 @@ class HitTest{
 			retvec +=  dist * obb.m_Rot[i];
 		}
 	}
-public:
-	HitTest(){}
-	~HitTest(){}
-/////////////////// ////////////////////
-//// 関数名     ：static bool Sphere_Sphere(const Sphere& sp1,const Sphere& sp2)
-//// カテゴリ   ：静的公開メンバ関数
-//// 用途       ：pointから見たOBBの最近接点を得る
-//// 引数       ：  const Sphere& sp1       //球１
-////            ：  const Sphere& sp2       //球２
-//// 戻値       ：衝突していればtrue
-//// 担当       ：なし(山ノ井先生のひな形より)
-//// 備考       ：
-////            ：
-////
-	static bool Sphere_Sphere(const Sphere& sp1,const Sphere& sp2){
+/**************************************************************************
+ static bool SPHERE_SPHERE(
+	const SPHERE& sp1,		//球１
+	const SPHERE& sp2		//球２
+);
+ 用途: 球と球との衝突判定
+ 戻り値: 衝突していればtrue
+***************************************************************************/
+	static bool SPHERE_SPHERE(const SPHERE& sp1,const SPHERE& sp2){
 		D3DXVECTOR3 d = sp1.m_Center - sp2.m_Center;
 		float dist2 = D3DXVec3Dot(&d,&d);
 		float radiussum = sp1.m_Radius + sp2.m_Radius;
 		return dist2 <= radiussum * radiussum;
 	}
-/////////////////// ////////////////////
-//// 関数名     ：static bool AABB_OBB(const AABB& aabb,const OBB& obb)
-//// カテゴリ   ：静的公開メンバ関数
-//// 用途       ：AABBとOBBとの衝突判定
-//// 引数       ：  const AABB& aabb   // AABB
-////            ：  const OBB&  obb    // OBB
-//// 戻値       ：衝突していればtrue
-//// 担当       ：鴫原 徹
-//// 備考       ：
-////            ：
-////
-	static bool AABB_OBB(const AABB& aabb,const OBB& obb){
-		D3DXVECTOR3 l = aabb.m_Center - obb.m_Center;
-		D3DXVECTOR3 s = aabb.m_Size + obb.m_Size;
-		if(fabs(l.x) < s.x && fabs(l.y) < s.y && fabs(l.z) < s.z )
-			return true ;
-		else
-			return false ;
+/**************************************************************************
+ static void ClosestPtPointAABB(
+	const D3DXVECTOR3& p,		//点
+	const AABB& b,		//AABB
+	D3DXVECTOR3& retvec	//最近接点が代入される参照
+);
+ 用途: 点とAABBとの最近接点を得る
+ 戻り値: なし（retvecに最近接点が代入される）
+***************************************************************************/
+	static void ClosestPtPointAABB(const D3DXVECTOR3& p,const AABB& b,
+		D3DXVECTOR3& retvec){
+		for(int i = 0;i < 3;i++){
+			float v = p[i];
+			if(v < b.m_Min[i]){
+				v = b.m_Min[i];
+			}
+			if(v > b.m_Max[i]){
+				v = b.m_Max[i];
+			}
+			retvec[i] = v;
+		}
+	}
 
+
+/**************************************************************************
+ static float SqDistPointAABB(
+	const D3DXVECTOR3& p,		//点
+	const AABB& b		//AABB
+);
+ 用途: 点とAABBとの距離の平方を測る
+ 戻り値: 距離
+***************************************************************************/
+	static float SqDistPointAABB(const D3DXVECTOR3& p,const AABB& b){
+		float sqDist = 0.0f;
+		for(int i = 0;i < 3;i++){
+			float v = p[i];
+			if(v < b.m_Min[i]){
+				sqDist += (b.m_Min[i] - v) * (b.m_Min[i] - v);
+			}
+			if(v > b.m_Max[i]){
+				sqDist += (v - b.m_Max[i]) * (v - b.m_Max[i]);
+			}
+		}
+		return sqDist;
 	}
-/////////////////// ////////////////////
-//// 関数名     ：static bool AABB_AABB(const AABB& aabb,const AABB& obb)
-//// カテゴリ   ：静的公開メンバ関数
-//// 用途       ：AABBとAABBとの衝突判定
-//// 引数       ：  const AABB& aabb1   // AABB
-////            ：  const AABB& aabb2   // AABB
-//// 戻値       ：衝突していればtrue
-//// 担当       ：鴫原 徹
-//// 備考       ：
-////            ：
-////
-	static bool AABB_AABB(const AABB& aabb1,const AABB& aabb2){
-		//if(abs(aabb))
-		return false ;
+/**************************************************************************
+ static bool SPHERE_AABB(
+	const SPHERE& sp,		//球１
+	const AABB& b,		//AABB２
+	D3DXVECTOR3& retvec	//最近接点が代入される参照
+);
+ 用途: 球とAABBとの衝突判定
+ 戻り値: 衝突していればtrue（retvecに最近接点が代入される）
+***************************************************************************/
+	static bool SPHERE_AABB(const SPHERE& sp,const AABB& b,
+		D3DXVECTOR3& retvec){
+			//最近接点を得る
+			ClosestPtPointAABB(sp.m_Center,b,retvec);
+			//距離の平方が球の半径の平方内ならtrue
+			if(SqDistPointAABB(sp.m_Center,b) <= (sp.m_Radius * sp.m_Radius)){
+				return true;
+			}
+			return false;
 	}
-/////////////////// ////////////////////
-//// 関数名     ：static bool OBB_Sphere(const Sphere& sp,const OBB& obb,D3DXVECTOR3& retvec)
-//// カテゴリ   ：静的公開メンバ関数
-//// 用途       ：OBBと球との衝突判定
-//// 引数       ：  const Sphere& sp		// 球
-////            ：  const OBB&    obb		// OBB
-////            ：  D3DXVECTOR3&  retvec	// 最近接点が代入される参照
-//// 戻値       ：衝突していればtrue（retvecに最近接点が代入される）
-//// 担当       ：なし(山ノ井先生のひな形より)
-//// 備考       ：
-////            ：
-////
-	static bool OBB_Sphere(const Sphere& sp,const OBB& obb,D3DXVECTOR3& retvec){
+
+/**************************************************************************
+ static bool AABB_AABB(
+	const AABB& a,		//AABB１
+	const AABB& b		//AABB２
+);
+ 用途: AABBとAABBとの衝突判定
+ 戻り値: 衝突していればtrue
+***************************************************************************/
+	static bool AABB_AABB(const AABB& a,const AABB& b){
+		if(a.m_Max.x < b.m_Min.x || a.m_Min.x > b.m_Max.x)
+			return false;
+		if(a.m_Max.y < b.m_Min.y || a.m_Min.y > b.m_Max.y)
+			return false;
+		if(a.m_Max.z < b.m_Min.z || a.m_Min.z > b.m_Max.z)
+			return false;
+		return true;
+	}
+/**************************************************************************
+ static bool AABB_IN_AABB(
+	const AABB& a,		//AABB１
+	const AABB& b		//AABB２
+);
+ 用途: AABB aがAABB ｂに完全に含まれるか判定
+ 戻り値: 衝突していればtrue
+***************************************************************************/
+	static bool AABB_IN_AABB(const AABB& a,const AABB& b){
+		if(a.m_Min.x < b.m_Min.x || a.m_Max.x > b.m_Max.x)
+			return false;
+		if(a.m_Min.y < b.m_Min.y || a.m_Max.y > b.m_Max.y)
+			return false;
+		if(a.m_Min.z < b.m_Min.z || a.m_Max.z > b.m_Max.z)
+			return false;
+		return true;
+	}
+/**************************************************************************
+ static bool SPHERE_OBB(
+	const SPHERE& sp,		//球
+	const OBB& obb,		//OBB
+	D3DXVECTOR3& retvec	//最近接点が代入される参照
+);
+ 用途: OBBと球との衝突判定
+ 戻り値: 衝突していればtrue（retvecに最近接点が代入される）
+***************************************************************************/
+	static bool SPHERE_OBB(const SPHERE& sp,const OBB& obb,D3DXVECTOR3& retvec){
         ClosestPtPointOBB(sp.m_Center,obb,retvec);
         D3DXVECTOR3 v = retvec - sp.m_Center;
         return D3DXVec3Dot(&v,&v) <= sp.m_Radius * sp.m_Radius;
 	}
-/////////////////// ////////////////////
-//// 関数名     ：static bool OBB_OBB(const OBB& obb1,const OBB& obb2)
-//// カテゴリ   ：静的公開メンバ関数
-//// 用途       ：OBBとOBBとの衝突判定
-//// 引数       ：  const OBB& obb1
-////            ：  const OBB& obb2
-//// 戻値       ：衝突していればtrue
-//// 担当       ：なし(山ノ井先生のひな形より)
-//// 備考       ：
-////            ：
-////
+/**************************************************************************
+ static bool OBB_OBB(
+ const OBB& obb1,
+ const OBB& obb2
+ );
+ 用途: OBBとOBBとの衝突判定
+ 戻り値: 衝突していればtrue
+***************************************************************************/
 	static bool OBB_OBB(const OBB& obb1,const OBB& obb2){
 		const float EPSILON = 1.175494e-37f;
 		float R[3][3], AbsR[3][3];
@@ -357,70 +442,6 @@ public:
 		}
 		return true;
 	}
-/////////////////// ////////////////////
-//// 関数名     ：
-//// カテゴリ   ：
-//// 用途       ：
-//// 引数       ：
-//// 戻値       ：
-//// 担当       ：
-//// 備考       ：D3DXIntersect
-////            ：第１  |  検査対象のメッシュ
-////            ：第２  |  キャラクターの位置(レイの開始点)
-////            ：第３  |  キャラクターの移動方向(レイの方向)
-////            ：第４  |  あたったかどうか
-////            ：第５  |  レイの開始点に最も近い面のインデックスへのポインタ
-////            ：第６  |  重心ヒット座標 ∪ へのポインタ
-////            ：第７  |  重心ヒット座標 ∨ へのポインタ
-////            ：第８  |  衝突地点までの長さ
-////            ：第９  |  インフォ??
-////            ：第10  |  9の配列数
-////
-	static bool Intersect(
-		LPD3DXBASEMESH i_pMesh,
-        CONST D3DXVECTOR3 *i_pRayPos,
-        CONST D3DXVECTOR3 *i_pRayDir, 
-        DWORD   *o_pFaceIndex,        // index of closest face intersected
-        FLOAT   *o_pU,                // Barycentric Hit Coordinates    
-        FLOAT   *o_pV,                // Barycentric Hit Coordinates
-        FLOAT   *o_pDist,             // Ray-Intersection Parameter Distance
-        LPD3DXBUFFER *o_ppAllHits,    // Array of D3DXINTERSECTINFOs for all hits (not just closest) 
-        DWORD   *o_pCountOfHits)
-	{
-		BOOL flg = false;
-		D3DXIntersect(i_pMesh,i_pRayPos,i_pRayDir,&flg,o_pFaceIndex,o_pU,o_pV,o_pDist,o_ppAllHits,o_pCountOfHits);
-		return flg == TRUE;
-	}
-/////////////////// ////////////////////
-//// 関数名     ：bool GetCollisionJudge(LPD3DXMESH mesh,D3DXVECTOR3 point,D3DXVECTOR3 direction,D3DXMATRIX mat,float distance)
-//// カテゴリ   ：
-//// 用途       ：凹凸のあるメッシュの当たり判定
-//// 引数       ：
-//// 戻値       ：
-//// 担当       ：拾い物(未検証)
-//// 備考       ：
-////            ：まだ使わないでください
-////
-	bool GetCollisionJudge(LPD3DXMESH mesh,D3DXVECTOR3 point,D3DXVECTOR3 direction,D3DXMATRIX mat,float distance){
-		float dis;
-		BOOL judge;
-		D3DXMATRIX matI;
-		D3DXMatrixInverse(&matI,NULL,&mat);
-		D3DXVECTOR3 pointI,directionI;
-		D3DXVec3TransformCoord(&pointI,&point,&matI);
-		D3DXVec3TransformCoord(&directionI,&direction,&matI);
-		D3DXIntersect(mesh,&pointI,&directionI,&judge,NULL,NULL,NULL,&dis,NULL,NULL);
-		if(judge){
-			if(dis<distance){
-				return true;
-			}else{
-				return false;
-			}
-		}else{
-			return false;
-		}
-}
-
 };
 /////////////////// ////////////////////
 //// 関数名     ：inline DWORD BYTE4toDWORD(BYTE* byteBuf,BYTE arraySize/* MAX = 4*/)
