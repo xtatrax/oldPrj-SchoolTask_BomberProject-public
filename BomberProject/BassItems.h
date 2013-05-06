@@ -2145,6 +2145,21 @@ public:
 
 
 };
+/*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*/
+
+/*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*/
+class PrimitiveSphere : public Sphere {
+public:
+	PrimitiveSphere(LPDIRECT3DDEVICE9 pD3DDevice,
+        D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,
+		LPDIRECT3DTEXTURE9 pTexture = 0):
+		Sphere( pD3DDevice,
+			 1, g_vZero, g_vZero,
+			 Diffuse, Specular, Ambient,
+			 OBJID_3D_SPHERE,
+			 false, pTexture ,
+			18, 18){}
+};
 
 }//end of namespace baseitems.
 using namespace baseitems;
