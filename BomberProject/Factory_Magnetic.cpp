@@ -121,6 +121,9 @@ void MagneticumObject::Update( UpdatePacket& i_UpdatePacket ){
 //
 
 
+
+
+//3D変換用
 /**************************************************************************
  MagneticumObject3D 定義部
 ****************************************************************************/
@@ -184,7 +187,13 @@ void MagneticumObject3D::Update( UpdatePacket& i_UpdatePacket ){
 Factory_Magnetic::Factory_Magnetic(LPDIRECT3DDEVICE9 pD3DDevice,vector<Object*>& vec,
 					 TextureManager& TexMgr){
 	try{
-		
+		// シリンダーオブジェクトのマテリアル
+		//D3DCOLORVALUE MagneticDiffuse  = { 1.0, 1.0, 1.0, 1.0}
+		//D3DCOLORVALUE MagneticSpecular = { 1.0, 1.0, 1.0, 1.0}
+		//D3DCOLORVALUE MagneticAmbient  = { 1.0, 1.0, 1.0, 1.0}
+		//// 磁界の表示
+		//MagneticumObject3D* mgt = new MagneticumObject3D(pD3DDevice, pTexture, vScale,
+		//	vRot, vPos)
 	}
 	catch(...){
 		//再throw
