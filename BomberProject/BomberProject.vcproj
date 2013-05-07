@@ -335,6 +335,18 @@
 										>
 									</File>
 								</Filter>
+								<Filter
+									Name="Bass2DItems"
+									>
+									<File
+										RelativePath=".\Bass2DItems.cpp"
+										>
+									</File>
+									<File
+										RelativePath=".\Bass2DItems.h"
+										>
+									</File>
+								</Filter>
 							</Filter>
 						</Filter>
 					</Filter>
@@ -392,6 +404,18 @@
 					</File>
 				</Filter>
 			</Filter>
+			<Filter
+				Name="Prim"
+				>
+				<File
+					RelativePath=".\Prm.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\Prm.h"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="リソース ファイル"
@@ -406,6 +430,10 @@
 		<Filter
 			Name="StdAfx"
 			>
+			<File
+				RelativePath=".\defineValue.h"
+				>
+			</File>
 			<File
 				RelativePath=".\StdAfx.cpp"
 				>
@@ -428,6 +456,10 @@
 			</File>
 			<File
 				RelativePath=".\StdAfx.h"
+				>
+			</File>
+			<File
+				RelativePath=".\userInclude.h"
 				>
 			</File>
 		</Filter>
@@ -457,6 +489,18 @@
 					RelativePath=".\AnimationModelClass\AnimationModelClass.h"
 					>
 				</File>
+				<Filter
+					Name="CSV"
+					>
+					<File
+						RelativePath=".\CSV.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\CSV.h"
+						>
+					</File>
+				</Filter>
 			</Filter>
 			<Filter
 				Name="DebugFunctions"
@@ -511,18 +555,6 @@
 				</File>
 				<File
 					RelativePath=".\Tempus\Tempus.h"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="CSV"
-				>
-				<File
-					RelativePath=".\CSV.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\CSV.h"
 					>
 				</File>
 			</Filter>

@@ -1,5 +1,7 @@
 
 Thumbs.db
+.DS_Store
+~$*
 *.obj
 *.pdb
 *.user
@@ -16,18 +18,17 @@ Thumbs.db
 *.cache
 *.ilk
 *.log
-[Bb]in
-[Dd]ebug*/
 *.lib
 *.sbr
-obj/
-[Rr]elease*/
-_ReSharper*/
-[Tt]est[Rr]esult*
 *.cd
 *.ncb
 *.LOG
 *.user
-.DS_Store
+[Bb]in
+[Tt]est[Rr]esult*
+obj/
+_ReSharper*/
+[Dd]ebug*/
+[Rr]elease*/
 /*.suo
 /BomberProject/LogDatas
