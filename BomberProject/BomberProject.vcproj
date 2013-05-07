@@ -403,6 +403,18 @@
 						>
 					</File>
 				</Filter>
+				<Filter
+					Name="EnemyFactory"
+					>
+					<File
+						RelativePath=".\Factory_Enemy.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Factory_Enemy.h"
+						>
+					</File>
+				</Filter>
 			</Filter>
 			<Filter
 				Name="Prim"

@@ -147,6 +147,7 @@ namespace wiz{
 
 		OBJID_3D_PLAYER				,
 		OBJID_3D_EFFECT				,
+		OBJID_3D_ENEMY				,
 	} ;
 
 }
