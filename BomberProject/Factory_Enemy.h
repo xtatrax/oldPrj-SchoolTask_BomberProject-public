@@ -18,7 +18,7 @@
 namespace wiz{
 	namespace baseobject{
 
-	class EnemySphere : public PrimitiveSphere , public Object {
+	class EnemySphere : public PrimitiveSphere {
 
 		struct  SphereVertex{
 			D3DXVECTOR3 vec;

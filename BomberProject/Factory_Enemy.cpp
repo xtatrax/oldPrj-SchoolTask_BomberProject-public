@@ -152,7 +152,6 @@ namespace wiz
 		//Œp³Œ³‚ğ‚±‚ñ‚ÈŠ´‚¶‚Å‘‚­BŒ^‚Í•Ï”‚¾‚¯B
 		: PrimitiveSphere( pD3DDevice,
 			    Diffuse, Specular, Ambient, pTexture)
-				,Object(id)
 				,m_pTexture(pTexture)
 	{
 		try

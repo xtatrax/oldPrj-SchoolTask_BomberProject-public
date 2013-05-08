@@ -311,7 +311,7 @@ Factory_Magnetic::Factory_Magnetic(FactoryPacket *fpac){
 
 		Magnet->AddMagnetic(D3DXVECTOR3(1.0f,1.0f,1.0f),
 					  D3DXVECTOR3(0.0f,0.0f,0.0f),
-					  D3DXVECTOR3(0.5f,0.5f,0.0f),
+					  D3DXVECTOR3(1.0f,0.0f,0.0f),
 					  MagnetDiffuse,
 					  MagnetSpecular,
 					  MagnetAmbient);
