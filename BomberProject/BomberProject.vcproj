@@ -235,14 +235,6 @@
 							<Filter
 								Name="0.Stages"
 								>
-								<File
-									RelativePath=".\Stage_Play.cpp"
-									>
-								</File>
-								<File
-									RelativePath=".\Stage_Play.h"
-									>
-								</File>
 								<Filter
 									Name="Stage_Test"
 									>
@@ -264,6 +256,18 @@
 									</File>
 									<File
 										RelativePath=".\Debug_Stage.h"
+										>
+									</File>
+								</Filter>
+								<Filter
+									Name="Stage_Play"
+									>
+									<File
+										RelativePath=".\Stage_Play.cpp"
+										>
+									</File>
+									<File
+										RelativePath=".\Stage_Play.h"
 										>
 									</File>
 								</Filter>
@@ -412,6 +416,14 @@
 					</File>
 					<File
 						RelativePath=".\Factory_Enemy.h"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="ItemFactory"
+					>
+					<File
+						RelativePath=".\Factory_Item.h"
 						>
 					</File>
 				</Filter>

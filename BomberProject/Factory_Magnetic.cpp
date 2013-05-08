@@ -306,8 +306,11 @@ Factory_Magnetic::Factory_Magnetic(FactoryPacket *fpac){
 		D3DCOLORVALUE MagnetSpecular = { 0.0f, 0.0f, 0.0f, 0.0f } ;
 		D3DCOLORVALUE MagnetAmbient  = { 1.0f, 1.0f, 1.0f, 1.0f } ;
 		// ¥ŠE‚Ì•\¦
-		MagneticumObject3D* Magnet = new MagneticumObject3D(fpac->pD3DDevice,
-			fpac->m_pTexMgr->addTexture(fpac->pD3DDevice,L"ddn.jpg"));
+		MagneticumObject3D* Magnet = new MagneticumObject3D(
+			fpac->pD3DDevice,
+			fpac->m_pTexMgr->addTexture(fpac->pD3DDevice,L"ddn.jpg")
+		);
+		fpac->m_pVec->push_back(Magnet);
 
 		Magnet->AddMagnetic(D3DXVECTOR3(1.0f,1.0f,1.0f),
 					  D3DXVECTOR3(0.0f,0.0f,0.0f),
@@ -316,7 +319,6 @@ Factory_Magnetic::Factory_Magnetic(FactoryPacket *fpac){
 					  MagnetSpecular,
 					  MagnetAmbient);
 
-		fpac->m_pVec->push_back(Magnet);
 	}
 	catch(...){
 		//Äthrow
