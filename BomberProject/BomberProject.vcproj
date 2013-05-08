@@ -423,6 +423,10 @@
 					Name="ItemFactory"
 					>
 					<File
+						RelativePath=".\Factory_Item.cpp"
+						>
+					</File>
+					<File
 						RelativePath=".\Factory_Item.h"
 						>
 					</File>

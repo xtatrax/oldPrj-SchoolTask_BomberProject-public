@@ -15,6 +15,7 @@
 #include "Factory_Wall.h"
 #include "BassItems.h"
 
+
 namespace wiz{
 PlayerCoil* WallObject::m_pPlayerCoil = NULL ;
 Camera*		WallObject::m_pCamera = NULL;	
@@ -125,7 +126,7 @@ void WallObject::Update( UpdatePacket& i_UpdatePacket ){
 	m_ItemMap_Target.clear();
 	multimap<float,WallItem*>::iterator it = m_ItemMap_All.begin();
 	while(it != m_ItemMap_All.end()){
-		if( ( +(it->first - m_pCamera->getEye().y) <= 3) && ( +(it->first - m_pCamera->getEye().y) >= -3 ) ){
+		if( ( +(it->first - m_pCamera->getEye().y) <= 3000) && ( +(it->first - m_pCamera->getEye().y) >= -3000 ) ){
 			m_ItemMap_Target.insert(multimap<float,WallItem*>::value_type(it->second->m_vPos.y,it->second));
 		}
 		++it;

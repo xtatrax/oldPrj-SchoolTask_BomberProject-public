@@ -16,7 +16,7 @@
 #include "Factory_Player.h"
 #include "Factory_Wall.h"
 #include "Factory_Magnetic.h"
-//#include "Factory_Item.h"
+#include "Factory_Item.h"
 #include "BassItems.h"
 
 namespace wiz{
