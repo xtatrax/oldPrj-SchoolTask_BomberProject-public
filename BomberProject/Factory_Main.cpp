@@ -40,7 +40,7 @@ Factory_Main::Factory_Main(FactoryPacket* fpac){
 		Factory_Player Pfac( fpac );
 		Factory_Wall   Wfac( fpac );
 		Factory_Magnetic Mfac( fpac ) ;
-		//Factory_Item   Ifac( fpac ) ;
+		Factory_Item   Ifac( fpac ) ;
 		fpac->m_pVec->push_back(
 			new SpriteObject(
 				fpac->pD3DDevice,
