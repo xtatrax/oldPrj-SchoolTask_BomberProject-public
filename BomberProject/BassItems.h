@@ -821,8 +821,7 @@ bool val		//したいしたい値（trueかfalse）
  用途: オブジェクトを描画（純粋仮想関数）
  戻り値: なし。
 ***************************************************************************/
-    virtual void Draw(LPDIRECT3DDEVICE9 pD3DDevice,vector<Object*>& Vec,
-		const CONTROLER_STATE* pCntlState,Context& Data);
+    virtual void Draw(DrawPacket& i_DrawPacket);
 /**************************************************************************
 	virtual void DrawShadowVolume(
     LPDIRECT3DDEVICE9 pD3DDevice,    //IDirect3DDevice9 インターフェイスへのポインタ
@@ -1567,8 +1566,7 @@ bool val		//したいしたい値（trueかfalse）
  用途: オブジェクトを描画（純粋仮想関数）
  戻り値: なし。
 ***************************************************************************/
-    virtual void Draw(LPDIRECT3DDEVICE9 pD3DDevice,vector<Object*>& Vec,
-		const CONTROLER_STATE* pCntlState,Context& Data);
+    virtual void Draw(DrawPacket& i_DrawPacket);
 /**************************************************************************
 	virtual void DrawShadowVolume(
     LPDIRECT3DDEVICE9 pD3DDevice,    //IDirect3DDevice9 インターフェイスへのポインタ
@@ -2092,8 +2090,7 @@ public:
  用途: オブジェクトを描画（純粋仮想関数）
  戻り値: なし。
 ***************************************************************************/
-    virtual void Draw(LPDIRECT3DDEVICE9 pD3DDevice,vector<Object*>& Vec,
-        const CONTROLER_STATE* pCntlState,Context& Data);
+    virtual void Draw(DrawPacket& i_DrawPacket);
 /**************************************************************************
 	virtual void DrawShadowVolume(
     LPDIRECT3DDEVICE9 pD3DDevice,    //IDirect3DDevice9 インターフェイスへのポインタ
@@ -2118,9 +2115,11 @@ class PrimitiveCylinder : public Cylinder{
 	
 public:
 	PrimitiveCylinder(LPDIRECT3DDEVICE9 pD3DDevice,
-          D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,
-		  wiz::OBJID id,
-		   LPDIRECT3DTEXTURE9 pTexture)
+          D3DCOLORVALUE& Diffuse,
+		  D3DCOLORVALUE& Specular,
+		  D3DCOLORVALUE& Ambient,
+		  wiz::OBJID id = OBJID_3D_MAGNET,
+		   LPDIRECT3DTEXTURE9 pTexture = 0 )
 		   :Cylinder(pD3DDevice, 1, 1, 1, g_vZero, g_vZero, Diffuse, Specular, Ambient,id, false, pTexture)
 	{
 		
@@ -2144,6 +2143,21 @@ public:
 	}
 
 
+};
+/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
+
+/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
+class PrimitiveSphere : public Sphere {
+public:
+	PrimitiveSphere(LPDIRECT3DDEVICE9 pD3DDevice,
+        D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,
+		LPDIRECT3DTEXTURE9 pTexture = 0):
+		Sphere( pD3DDevice,
+			 1, g_vZero, g_vZero,
+			 Diffuse, Specular, Ambient,
+			 OBJID_3D_SPHERE,
+			 false, pTexture ,
+			18, 18){}
 };
 
 }//end of namespace baseitems.

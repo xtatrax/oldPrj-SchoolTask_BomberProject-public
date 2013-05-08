@@ -235,14 +235,6 @@
 							<Filter
 								Name="0.Stages"
 								>
-								<File
-									RelativePath=".\Stage_Play.cpp"
-									>
-								</File>
-								<File
-									RelativePath=".\Stage_Play.h"
-									>
-								</File>
 								<Filter
 									Name="Stage_Test"
 									>
@@ -264,6 +256,18 @@
 									</File>
 									<File
 										RelativePath=".\Debug_Stage.h"
+										>
+									</File>
+								</Filter>
+								<Filter
+									Name="Stage_Play"
+									>
+									<File
+										RelativePath=".\Stage_Play.cpp"
+										>
+									</File>
+									<File
+										RelativePath=".\Stage_Play.h"
 										>
 									</File>
 								</Filter>
@@ -403,6 +407,30 @@
 						>
 					</File>
 				</Filter>
+				<Filter
+					Name="EnemyFactory"
+					>
+					<File
+						RelativePath=".\Factory_Enemy.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Factory_Enemy.h"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="ItemFactory"
+					>
+					<File
+						RelativePath=".\Factory_Item.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Factory_Item.h"
+						>
+					</File>
+				</Filter>
 			</Filter>
 			<Filter
 				Name="Prim"
@@ -489,6 +517,18 @@
 					RelativePath=".\AnimationModelClass\AnimationModelClass.h"
 					>
 				</File>
+				<Filter
+					Name="CSV"
+					>
+					<File
+						RelativePath=".\CSV.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\CSV.h"
+						>
+					</File>
+				</Filter>
 			</Filter>
 			<Filter
 				Name="DebugFunctions"
@@ -543,18 +583,6 @@
 				</File>
 				<File
 					RelativePath=".\Tempus\Tempus.h"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="CSV"
-				>
-				<File
-					RelativePath=".\CSV.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\CSV.h"
 					>
 				</File>
 			</Filter>

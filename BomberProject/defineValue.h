@@ -143,8 +143,11 @@ namespace wiz{
 		OBJID_3D_MULTI_CYLINDER		,
 		OBJID_3D_MULTI_TAURUS		,
 
+		OBJID_3D_MAGNET				,
+
 		OBJID_3D_PLAYER				,
 		OBJID_3D_EFFECT				,
+		OBJID_3D_ENEMY				,
 	} ;
 
 }

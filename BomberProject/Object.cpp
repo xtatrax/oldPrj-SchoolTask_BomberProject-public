@@ -247,6 +247,7 @@ Camera::~Camera(){
  戻り値: なし。
 ***************************************************************************/
 void Camera::Draw(DrawPacket& i_DrawPacket){
+
     // ビューポートの取得
     D3DVIEWPORT9 vp;
     if(FAILED(i_DrawPacket.pD3DDevice->GetViewport(&vp))){
@@ -515,6 +516,136 @@ void LookAtCamera::Draw(LPDIRECT3DDEVICE9 pD3DDevice,vector<Object*>& Vec,
     pD3DDevice->SetTransform(D3DTS_PROJECTION,&m_Proj);
     // カメラの設定
     pD3DDevice->SetTransform(D3DTS_VIEW,&m_View);
+}
+
+
+/**************************************************************************
+ class Guide 定義部
+****************************************************************************/
+/**************************************************************************
+ void Guide::CreateInctance(
+ LPDIRECT3DDEVICE9 pD3DDevice	//IDirect3DDevice9インターフェイスへのポインタ
+ );
+ 用途: インスタンスの構築
+ 戻り値: なし。（例外がthrowされる）
+***************************************************************************/
+void Guide::CreateInctance(LPDIRECT3DDEVICE9 pD3DDevice){
+	ReleaseObj();
+    try{
+        CUSTOMVERTEX Vertices[] = 
+        {
+            {D3DXVECTOR3(-1000.0,0.0,0.0),D3DCOLOR_ARGB(0xff,0xff,0,0)},
+            {D3DXVECTOR3(1000.0,0.0,0.0),D3DCOLOR_ARGB(0xff,0xff,0,0)},
+            {D3DXVECTOR3(0.0,-1000.0,0.0),D3DCOLOR_ARGB(0xff,0,0xff,0)},
+            {D3DXVECTOR3(0.0,1000.0,0.0),D3DCOLOR_ARGB(0xff,0,0xff,0)},
+            {D3DXVECTOR3(0.0,0.0,-1000.0),D3DCOLOR_ARGB(0xff,0,0,0xff)},
+            {D3DXVECTOR3(0.0,0.0,1000.0),D3DCOLOR_ARGB(0xff,0,0,0xff)}
+        };
+        if(FAILED(pD3DDevice->CreateVertexBuffer( 6 * sizeof( CUSTOMVERTEX ),
+                                    0,D3DFVF_XYZ|D3DFVF_DIFFUSE,
+                                    D3DPOOL_DEFAULT, &m_pVB, NULL)))
+        {
+            // 初期化失敗
+            throw BaseException(
+                L"頂点バッファの作成に失敗しました。",
+                L"Guide::Guide()"
+                );
+        }
+        //バッファをロック
+        VOID* pVertices;
+        if(FAILED( m_pVB->Lock( 0, sizeof(Vertices),( void** )&pVertices, 0 ))){
+            // 初期化失敗
+            throw BaseException(
+                L"頂点バッファのロックに失敗しました。",
+                L"Guide::Guide()"
+                );
+        }
+        //頂点データから頂点バッファに転送
+        memcpy( pVertices,Vertices, sizeof(Vertices) );
+        //頂点バッファをアンロック
+        m_pVB->Unlock();
+    }
+    catch(...){
+        //コンストラクタ例外発生
+        //後始末
+		ReleaseObj();
+        //再スロー
+        throw;
+    }
+}
+
+/**************************************************************************
+ Guide::Guide(
+    LPDIRECT3DDEVICE9 pD3DDevice    //IDirect3DDevice9インターフェイスへのポインタ
+    );
+ 用途: コンストラクタ
+ 戻り値: なし（失敗時は例外をthrow）
+***************************************************************************/
+Guide::Guide(LPDIRECT3DDEVICE9 pD3DDevice)
+:Object(OBJID_SYS_GUIDELINE),m_pVB(0)
+{
+	CreateInctance(pD3DDevice);
+}
+/**************************************************************************
+ Guide::~Guide();
+ 用途: デストラクタ
+ 戻り値: なし
+***************************************************************************/
+Guide::~Guide(){
+	ReleaseObj();
+}
+/**************************************************************************
+	virtual void Guide::ReleaseObj();
+ 用途: デバイス喪失によるリソースの開放（仮想関数）
+ 戻り値: なし。
+ ＊デバイスが喪失したときに呼ばれる。すべてのObjectの派生クラスは、個別に対応をとる
+***************************************************************************/
+void Guide::ReleaseObj(){
+    SafeRelease(m_pVB);
+}
+
+/**************************************************************************
+	virtual void Guide::ChangeDevice(
+    LPDIRECT3DDEVICE9 pD3DDevice    //IDirect3DDevice9 インターフェイスへのポインタ
+	);
+ 用途: デバイス喪失による再構築（仮想関数）
+ 戻り値: なし。
+ ＊デバイスが喪失したときに最構築時に呼ばれる。すべてのObjectの派生クラスは、個別に対応をとる
+***************************************************************************/
+void Guide::ChangeDevice(LPDIRECT3DDEVICE9 pD3DDevice){
+	//基底クラスでは何もしない
+	CreateInctance(pD3DDevice);
+}
+
+
+/**************************************************************************
+ virtual void Guide::Draw(
+    LPDIRECT3DDEVICE9 pD3DDevice    //IDirect3DDevice9 インターフェイスへのポインタ
+    vector<Object*>& Vec,            //オブジェクトの配列
+    const CONTROLER_STATE* pCntlState,   //コントローラのステータス
+	Context& Data					//ユーザーデータ
+ );
+ 用途: オブジェクトを描画（純粋仮想関数）
+ 戻り値: なし。
+***************************************************************************/
+void Guide::Draw(DrawPacket& i_DrawPacket){
+	LPDIRECT3DDEVICE9 pD3DDevice = i_DrawPacket.pD3DDevice ;
+	if(!m_pVB){
+		//バッファが無効なら何もしない
+		return;
+	}
+    D3DXMATRIX  wm;
+    //座標変換無し
+    D3DXMatrixIdentity(&wm);
+    // マトリックスをレンダリングパイプラインに設定
+    pD3DDevice->SetTransform(D3DTS_WORLD, &wm);
+    pD3DDevice->SetStreamSource( 0, m_pVB, 0, sizeof( CUSTOMVERTEX ) );
+    pD3DDevice->SetFVF(D3DFVF_XYZ|D3DFVF_DIFFUSE);
+    pD3DDevice->SetRenderState( D3DRS_LIGHTING,FALSE);
+    pD3DDevice->LightEnable( 0, FALSE );
+    pD3DDevice->DrawPrimitive(D3DPT_LINELIST, 0, 3);
+    pD3DDevice->SetRenderState( D3DRS_LIGHTING,TRUE);
+    pD3DDevice->LightEnable( 0, TRUE );
 }
 
 
