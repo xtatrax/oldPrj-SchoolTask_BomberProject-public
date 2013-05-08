@@ -419,6 +419,14 @@
 						>
 					</File>
 				</Filter>
+				<Filter
+					Name="ItemFactory"
+					>
+					<File
+						RelativePath=".\Factory_Item.h"
+						>
+					</File>
+				</Filter>
 			</Filter>
 			<Filter
 				Name="Prim"
