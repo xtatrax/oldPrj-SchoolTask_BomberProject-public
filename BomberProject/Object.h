@@ -502,8 +502,7 @@ public:
  用途: オブジェクトを描画（純粋仮想関数）
  戻り値: なし。
 ***************************************************************************/
-    virtual void Draw(LPDIRECT3DDEVICE9 pD3DDevice,vector<Object*>& Vec,
-		const CONTROLER_STATE* pCntlState,Context& Data);
+    virtual void Draw(DrawPacket& i_DrawPacket);
 };
 
 

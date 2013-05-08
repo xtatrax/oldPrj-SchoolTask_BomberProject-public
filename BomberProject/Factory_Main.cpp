@@ -52,16 +52,18 @@ Factory_Main::Factory_Main(FactoryPacket* fpac){
 				0xFFFFFFFF
 			)
 		);
+		fpac->m_pVec->push_back(new Guide( fpac->pD3DDevice ) );
 		 //ライトのインスタンス初期化
         D3DCOLORVALUE Diffuse = {1.0f,1.0f,1.0f,0.0f};
         D3DCOLORVALUE Specular = {1.0f,1.0f,1.0f,0.0f};
         D3DCOLORVALUE Ambient = {0.5f,0.5f,0.5f,0.0f};
         fpac->m_pVec->push_back(new DirectionalLight(fpac->pD3DDevice,Diffuse,Specular,Ambient,
                     D3DXVECTOR3( -0.0f, -1.0f, 0.0f)));
+		float ECXPos = 25.1f;
+		float ECYPos = 10.1f;
 		//カメラのインスタンス初期化
         fpac->m_pVec->push_back(
-			new Camera(fpac->pD3DDevice,D3DXVECTOR3( 0.0f, 0.0f, 0.0f),-10,0,
-						1.0f, 100.0f,30.0f));
+			new Camera(fpac->pD3DDevice,D3DXVECTOR3( ECXPos, ECYPos, -55.7f),D3DXVECTOR3(ECXPos,ECYPos,0.0f), 1 ,300.0f,30.0f));
 
 	}
 	catch(...){

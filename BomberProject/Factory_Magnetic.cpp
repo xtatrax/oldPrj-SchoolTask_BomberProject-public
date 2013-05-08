@@ -306,17 +306,47 @@ Factory_Magnetic::Factory_Magnetic(FactoryPacket *fpac){
 		D3DCOLORVALUE MagnetSpecular = { 0.0f, 0.0f, 0.0f, 0.0f } ;
 		D3DCOLORVALUE MagnetAmbient  = { 1.0f, 1.0f, 1.0f, 1.0f } ;
 		// 磁界の表示
-		MagneticumObject3D* Magnet = new MagneticumObject3D(fpac->pD3DDevice,
-			fpac->m_pTexMgr->addTexture(fpac->pD3DDevice,L"ddn.jpg"));
-
-		Magnet->AddMagnetic(D3DXVECTOR3(1.0f,1.0f,1.0f),
-					  D3DXVECTOR3(0.0f,0.0f,0.0f),
-					  D3DXVECTOR3(0.5f,0.5f,0.0f),
-					  MagnetDiffuse,
-					  MagnetSpecular,
-					  MagnetAmbient);
-
+		MagneticumObject3D* Magnet = new MagneticumObject3D(
+			fpac->pD3DDevice,
+			fpac->m_pTexMgr->addTexture(fpac->pD3DDevice,L"ddn.jpg")
+		);
 		fpac->m_pVec->push_back(Magnet);
+
+
+		/*/ カメラ設定テスト用
+		for( int i = 0 ; i < 40 ; i++ ){
+			fpac->m_pVec->push_back(
+				new Box(
+					fpac->pD3DDevice,
+					D3DXVECTOR3(1.0f,1.0f,0.0f),
+					D3DXVECTOR3(1.0f * i,0.0f,0.0f),
+					g_vZero,
+					MagnetDiffuse,
+					MagnetSpecular,
+					MagnetAmbient,
+					OBJID_3D_BOX,
+					false,
+					fpac->m_pTexMgr->addTexture(fpac->pD3DDevice,L"CircleM.png")
+				)
+			);
+		}
+		for( int i = 0 ; i < 25 ; i++ ){
+			fpac->m_pVec->push_back(
+				new Box(
+					fpac->pD3DDevice,
+					D3DXVECTOR3(1.0f,1.0f,0.0f),
+					D3DXVECTOR3(0.0f,1.0f * i,0.0f),
+					g_vZero,
+					MagnetDiffuse,
+					MagnetSpecular,
+					MagnetAmbient,
+					OBJID_3D_BOX,
+					false,
+					fpac->m_pTexMgr->addTexture(fpac->pD3DDevice,L"CircleM.png")
+				)
+			);
+		}
+		//*/
 	}
 	catch(...){
 		//再throw
