@@ -918,6 +918,19 @@ inline double GetCosineTheta(double P1x,double P1y,double P2x,double P2y){
 	return VectorProduct(P1x,P1y,P2x,P2y) / ( VectorLength(P1x,P1y) * VectorLength(P2x,P2y) ) ;
 }
 ///////// /////////
+//inline float ConvertToCartesianCoordinates( float X, float Y );
+// 極座標をデカルト座標に変換
+//
+inline D3DXVECTOR3 ConvertToCartesianCoordinates(float Move, float Direction ){
+	float CosBuffer = NULL, SinBuffer = NULL;
+	D3DXVECTOR3 Descartes = D3DXVECTOR3(0.0f,0.0f,0.0f);
+	CosBuffer = cos(Direction * D3DX_PI / 180.0f);
+	SinBuffer = sin(Direction * D3DX_PI / 180.0f);
+	Descartes.x = Move * CosBuffer;
+	Descartes.y = Move * SinBuffer;
+	return 	Descartes;
+}
+///////// /////////
 //inline void TwoPoint2Vector( double &retX, double &retY, double P1x,double P1y,double P2x,double P2y);
 // ベクトルの長さを計算する
 //
@@ -956,7 +969,7 @@ inline double ThreePoint2Radian(double P1x,double P1y,double P2x,double P2y,doub
 };
 
 ///////// /////////
-//float ThreePoint2Radian(float P1x,float P1y,float P2x,float P2y,float P3x,float P3y);
+//float ThreePoint2Degree(float P1x,float P1y,float P2x,float P2y,float P3x,float P3y);
 //
 //引数：
 //	float P1x：点１のＸ座標値
