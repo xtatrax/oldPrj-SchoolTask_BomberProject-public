@@ -37,7 +37,30 @@ public:
 	//	: 
 	ProvisionalPlayer( LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTexture,
 		D3DXVECTOR3 &vScale, D3DXVECTOR3 &vRot, D3DXVECTOR3 &vPos, RECT* pRect,
-		Color color = 0xFFFFFFFF, wiz::OBJID id = OBJID_3D_PLAYER );
+		Color color = 0xFFFFFFFF, wiz::OBJID id = OBJID_2D_PLAYER );
+	//	: 
+	void Update( UpdatePacket& i_UpdatePacket );
+};
+
+// 3D用
+//**************************************************************************//
+// class ProvisionalPlayer : public MagneticumObject ;
+//
+// 担当者  : 曳地大洋
+// 用途    : 仮のユーザー設置磁界
+//**************************************************************************//
+class ProvisionalPlayer3D : public MagneticumObject3D{
+	D3DXMATRIX		m_Matrix ;
+	D3DXVECTOR3		m_vPos ;
+	D3DXQUATERNION	m_vRot ;
+	D3DXVECTOR3		m_vScale ;
+public:
+	//	: 
+	ProvisionalPlayer3D( LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTexture,
+		D3DXVECTOR3 &vScale, D3DXQUATERNION &vRot, D3DXVECTOR3 &vPos,
+		wiz::OBJID id = OBJID_3D_PLAYER );
+	//	:
+	void Draw( DrawPacket& i_DrawPacket );
 	//	: 
 	void Update( UpdatePacket& i_UpdatePacket );
 };
@@ -84,7 +107,7 @@ public:
 		D3DXVECTOR3 &vDirOffset,					//	: 方向を表す三角の描画オフセット
 		RECT* pCoreRect = NULL,						//	: 描画範囲
 		RECT* pDirRect = NULL,						//	: 描画範囲
-		wiz::OBJID id = OBJID_3D_PLAYER				//	: ID
+		wiz::OBJID id = OBJID_2D_PLAYER				//	: ID
 	);
 
 /////////////////// ////////////////////
