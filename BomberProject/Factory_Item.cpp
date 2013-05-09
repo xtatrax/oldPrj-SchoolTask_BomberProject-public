@@ -113,8 +113,8 @@ void	Item::Update(UpdatePacket& i_UpdatePacket){
 		float fDistance	 = (float)sqrt(dirX + dirY);	//	: é©ï™Ç∆ëŒè€Ç‹Ç≈ÇÃãóó£ÇãÅÇﬂÇÈ
 
 		//ãóó£Ç™100Ç¢Ç»Ç¢Ç»ÇÁÇÊÇ¡ÇƒÇ¢Ç≠
-		if( fDistance < 100.0f ){
-			m_ItemVec[i]->m_Pos	+= vTargetDir*0.0005f;
+		if( fDistance < 5.0f ){
+			m_ItemVec[i]->m_Pos	+= vTargetDir*0.05f;
 
 			if( m_ItemVec[i]->m_Pos == cPos ){
 				br->Recovery();
@@ -230,10 +230,10 @@ Factory_Item::Factory_Item(FactoryPacket* fpac){
         D3DCOLORVALUE BallSpecular = {0.0f,0.0f,0.0f,0.0f};
         D3DCOLORVALUE BallAmbient = {0.0f,0.7f,0.7f,1.0f};
 		Item*	it	=	new	Item(fpac,NULL,OBJID_UNK);
-		for(int i = 0; i < 10; i++){
-			for(int j = 0; j < 10; j++){
-				it->addItem(D3DXVECTOR3((float(i)*3.5f+float(rand()%100*0.05f))+1.5f,
-										(float(j)*1.75f+float(rand()%100*0.05f))+1.5f,0.0f),
+		for(int i = 0; i < 7; i++){
+			for(int j = 0; j < 7; j++){
+				it->addItem(D3DXVECTOR3((float(i)*5.0f+float(rand()%100*0.05f))+1.5f,
+										(float(j)*2.75f+float(rand()%100*0.05f))+1.5f,0.0f),
 							D3DXVECTOR3(0.5f,0.5f,0.5f),
 							BallDiffuse,
 							BallSpecular,

@@ -117,15 +117,20 @@ PlayerCoil::PlayerCoil(
 	RECT* pDirRect,								//	: •`‰æ”ÍˆÍ
 	wiz::OBJID id 								//	: ID
 )
-:MagneticumObject(pD3DDevice,pCoreTexture,vScale,vRot,vPos,
-	pCoreRect,0xFFFFFFFF,id)
+:MagneticumObject(pD3DDevice,pCoreTexture,vScale,vRot,vPos,pCoreRect,0xFFFFFFFF,id)
+//:MagneticumObject3D(pD3DDevice,pCoreTexture,id)
 ,m_pPlayer(    NULL )
 ,m_fMoveDir(   PLAYER_BASSROT )
 ,m_fMovdSpeed( PLAYER_SPEED   )
 ,m_pDirParts( NULL )
 
 {
+	D3DCOLORVALUE Diffuse = {0.7f,0.7f,0.7f,1.0f};
+	D3DCOLORVALUE Specular = {0.0f,0.0f,0.0f,0.0f};
+	D3DCOLORVALUE Ambient = {0.5f,0.5f,0.5f,1.0f};
 	m_pDirParts = new SpriteObject( pD3DDevice, pDirTexture, vScale, vRot, vPos, pDirRect, g_vZero, vDirOffset ) ;
+	m_pDirParts3D = new Cylinder(pD3DDevice,0.0f,1.0f,3.0f,D3DXVECTOR3(0.0f,0.0f,0.0f),D3DXVECTOR3(90.0f,0.0f,0.0f),Diffuse,Specular,Ambient);
+	//m_pDirParts3D = new PrimitiveCylinder(pD3DDevice,Diffuse,Specular,Ambient);
 	setPoleN();
 }
 
@@ -257,7 +262,7 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 		}
 		//	: ˆÚ“®‚ÌŠm’è
 		//	: 
-		D3DXMATRIX mPos , mScale , mRotZ ;
+		D3DXMATRIX mPos ,  mScale , mRotZ ;
 
 		D3DXMatrixTranslation( &mPos  , this->m_vPos.x , this->m_vPos.y , this->m_vPos.z ) ;
 		D3DXMatrixScaling( &mScale, m_vScale.x, m_vScale.y, m_vScale.z);
@@ -265,10 +270,24 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 
 		this->m_mMatrix = mScale * mRotZ * mPos ;
 
+
 	} else {
 		m_pPlayer = (ProvisionalPlayer*)SearchObjectFromTypeID( i_UpdatePacket.pVec , typeid(ProvisionalPlayer) );
 	}
 	if( m_pDirParts ) m_pDirParts->setMatrix( m_mMatrix );
+
+	D3DXMATRIX mPos2 , mScale2 , mRotZ2 , mRotX;
+	if( m_pDirParts3D ){
+		D3DXMatrixRotationX(&mRotX,90.0f);
+		D3DXVECTOR3 vScale;
+		m_pDirParts3D->GetWorldScale(vScale);
+		D3DXMatrixScaling( &mScale2, vScale.x, vScale.y, vScale.z);
+		D3DXMatrixRotationZ(   &mRotZ2 ,  D3DXToRadian( PLAYER_BASSROT - m_fMoveDir) ) ;
+		D3DXVECTOR3 vPos = D3DXVECTOR3(this->m_vPos.x/20.0f,(STANDARD_WINDOW_HEIGHT - this->m_vPos.y)/25.0f , this->m_vPos.z);
+		m_pDirParts3D->SetPos(vPos);
+		D3DXMatrixTranslation( &mPos2  ,vPos.x, vPos.y,vPos.z) ;
+		m_pDirParts3D->CalcMatrix(mPos2,mScale2,mRotX*mRotZ2);
+	}
 };
 /////////////////// ////////////////////
 //// —p“r       Fvirtual void Draw( DrawPacket& i_DrawPacket )
@@ -283,6 +302,8 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 void PlayerCoil::Draw(DrawPacket& i_DrawPacket){
 	if( m_pDirParts ) m_pDirParts->Draw( i_DrawPacket ) ;
 	else ;
+	
+	if(m_pDirParts3D) m_pDirParts3D->Draw(i_DrawPacket);
 
 	MagneticumObject::Draw( i_DrawPacket );
 }

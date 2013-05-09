@@ -72,16 +72,6 @@ public:
 	//	: 
 	void Update( UpdatePacket& i_UpdatePacket );
 /////////////////// ////////////////////
-//// 関数名     ：D3DXVECTOR3 getPos() const
-//// カテゴリ   ：ゲッター
-//// 用途       ：中心座標を獲得
-//// 引数       ：なし
-//// 戻値       ：なし
-//// 担当       ：鴫原 徹
-//// 備考       ：
-////            ：
-	D3DXVECTOR3 getPos() const { return m_vPos			;	}	;
-/////////////////// ////////////////////
 //// 関数名     ：void ChangePole()
 //// カテゴリ   ：ゲッター
 //// 用途       ：磁極を獲得
@@ -91,7 +81,20 @@ public:
 //// 備考       ： S極 = POLE_S = false
 ////            ： N極 = POLE_N = true
 	bool getMagnetPole() const { return m_bMagnetPole	;	}	;
-	
+///////////////////// ////////////////////
+//// 関数名     ：D3DXVECTOR3 getPos() const { return g_vZero; }
+//// カテゴリ   ：ゲッター
+//// 用途       ：DEAD OR ALIVE
+//// 引数       ：なし
+//// 戻値       ：なし
+//// 担当者     ：鴫原 徹
+//// 備考       ：
+////            ：
+////
+	D3DXVECTOR3 getPos() const {
+		return m_vPos; 
+	}
+
 };
 
 
