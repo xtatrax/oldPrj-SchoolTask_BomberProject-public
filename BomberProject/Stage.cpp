@@ -125,6 +125,26 @@ void Stage::Update(UpdatePacket& i_UpdatePacket)
 	}
 	}
 }
+/////////////////// ////////////////////
+//// 関数名     ：void Render(RenderPacket& i_RenderPacket);
+//// カテゴリ   ：関数
+//// 用途       ：ターゲットレンダリング
+//// 引数       ：  RenderPacket& i_RenderPacket        // レンダー処理に流すデータの集合体
+//// 戻値       ：無し
+//// 担当者     ：鴫原 徹
+//// 備考       ：画面以外のバッファーに描画する
+////            ：
+////
+void Stage::Render(RenderPacket& i_RenderPacket){
+	i_RenderPacket.pVec = &m_Vec ;
+	//配置オブジェクトの描画
+	vector<Object*>::size_type sz = m_Vec.size();
+	for(vector<Object*>::size_type i = 0;i < sz;i++){
+		m_Vec[i]->AccessBegin();
+		m_Vec[i]->TargetRender(i_RenderPacket);
+		m_Vec[i]->AccessEnd();
+	}
+}
 
 /**************************************************************************
  virtual void Stage::Draw(

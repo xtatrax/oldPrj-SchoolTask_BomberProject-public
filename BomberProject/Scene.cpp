@@ -181,11 +181,10 @@ void Scene::Update(UpdatePacket& i_UpdatePacket){
 //// 備考       ：画面以外のバッファーに描画する
 ////            ：
 ////
- void Scene::AnotherTargetRender(RenderPacket& i_RenderPacket){
-    //vector<Object*>::size_type sz = m_Vec.size();
-    //for(vector<Object*>::size_type i = 0;i < sz;i++){
-    //    m_Vec[i]->TargetRender(i_DrawPacket.pD3DDevice,m_Vec,i_DrawPacket.pCommand);
-    //}
+void Scene::Render(RenderPacket& i_RenderPacket){
+	if(m_pRootStage){
+		m_pRootStage->getActiveStage()->Render(i_RenderPacket);
+	}
 }
 /////////////////// ////////////////////
 //// 関数名     ：void Draw(DrawPacket& i_DrawPacket);

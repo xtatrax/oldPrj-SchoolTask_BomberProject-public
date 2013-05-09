@@ -285,7 +285,18 @@ Stage* getActiveStage();
  戻り値: なし。
 ***************************************************************************/
 	virtual void Update(UpdatePacket& i_UpdatePacket);
-
+/////////////////// ////////////////////
+//// 関数名     ：void Render(RenderPacket& i_RenderPacket);
+//// カテゴリ   ：関数
+//// 用途       ：ターゲットレンダリング
+//// 引数       ：  RenderPacket& i_RenderPacket        // レンダー処理に流すデータの集合体
+//// 戻値       ：無し
+//// 担当者     ：鴫原 徹
+//// 備考       ：画面以外のバッファーに描画する
+////            ：
+////
+    void Render(RenderPacket& i_RenderPacket);
+	
 /**************************************************************************
  void Draw(
     LPDIRECT3DDEVICE9 pD3DDevice,		//IDirect3DDevice9 インターフェイスへのポインタ

@@ -148,9 +148,39 @@ public:
 // 用途    : 
 //           
 //**************************************************************************
-class RenderTargetSprite : public PrimitiveSprite{
+class RenderTargetSprite : public PrimitiveSprite, public Object{
+	LPDIRECT3DSURFACE9	m_sfRenderTarget	,	//	色データ
+						m_sfRenderTargetZ	;	//	Ｚ値
+	Size				m_ClientSize		;
 public:
-	RenderTargetSprite(BassPacket& i_BassPacket, UINT i_Width, UINT i_Height);
+	RenderTargetSprite(BassPacket* i_BassPacket, UINT i_Width, UINT i_Height, wiz::OBJID id = OBJID_SYS_RENDERTARGET);
+/////////////////// ////////////////////
+//// 用途       ：virtual void TargetRender( LPDIRECT3DDEVICE9 pD3DDevice
+////            ：      vector<Object*>& Vec)
+//// カテゴリ   ：仮想関数
+//// 用途       ：オブジェクトを描画
+//// 引数       ：  LPDIRECT3DDEVICE9 pD3DDevice        // IDirect3DDevice9 インターフェイスへのポインタ
+////            ：  vector<Object*>& Vec,               // オブジェクトの配列
+////            ：  Command i_DrawPacket.pCommand                         // コマンド
+//// 戻値       ：無し
+//// 担当者     ：鴫原 徹
+//// 備考       ：継承したものでも必ずとも定義をしなくても良い
+////            ：
+////
+	virtual void TargetRender( RenderPacket& i_RenderPacket );
+/////////////////// ////////////////////
+//// 用途       ：void Draw( DrawPacket& i_DrawPacket )
+//// カテゴリ   ：関数
+//// 用途       ：オブジェクトをディスプレイに表示する
+//// 引数       ：  DrawPacket& i_DrawPacket             // 画面描画時に必要なデータ群 ↓内容下記
+////            ：  ├ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 インターフェイスへのポインタ
+////            ：  ├ vector<Object*>&    Vec                     // オブジェクトの配列
+////            ：  ├ Tempus2*            i_DrawPacket.pTime	   // 時間を管理するクラスへのポインター
+////            ：  └ Command             i_DrawPacket.pCommand   // コマンド
+//// 戻値       ：無し
+//// 担当者     ：鴫原 徹
+//// 備考       ：
+	void Draw(DrawPacket& i_DrawPacket);
 };
 
 }//end of namespace base2Dobject.
