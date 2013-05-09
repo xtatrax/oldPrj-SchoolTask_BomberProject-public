@@ -42,6 +42,29 @@ public:
 	void Update( UpdatePacket& i_UpdatePacket );
 };
 
+// 3Dóp
+//**************************************************************************//
+// class ProvisionalPlayer : public MagneticumObject ;
+//
+// íSìñé“  : âgínëÂóm
+// ópìr    : âºÇÃÉÜÅ[ÉUÅ[ê›íué•äE
+//**************************************************************************//
+class ProvisionalPlayer3D : public MagneticumObject3D{
+	D3DXMATRIX		m_Matrix ;
+	D3DXVECTOR3		m_vPos ;
+	D3DXQUATERNION	m_vRot ;
+	D3DXVECTOR3		m_vScale ;
+public:
+	//	: 
+	ProvisionalPlayer3D( LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTexture,
+		D3DXVECTOR3 &vScale, D3DXQUATERNION &vRot, D3DXVECTOR3 &vPos,
+		wiz::OBJID id = OBJID_3D_PLAYER );
+	//	:
+	void Draw( DrawPacket& i_DrawPacket );
+	//	: 
+	void Update( UpdatePacket& i_UpdatePacket );
+};
+
 
 //**************************************************************************//
 // class PlayerCoil : public MagneticumObject ;

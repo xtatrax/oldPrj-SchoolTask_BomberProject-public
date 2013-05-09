@@ -2120,7 +2120,7 @@ public:
 		  D3DCOLORVALUE& Ambient,
 		  wiz::OBJID id = OBJID_3D_MAGNET,
 		   LPDIRECT3DTEXTURE9 pTexture = 0 )
-		   :Cylinder(pD3DDevice, 1, 1, 1, g_vZero, g_vZero, Diffuse, Specular, Ambient,id, false, pTexture)
+		   :Cylinder(pD3DDevice, 0.5, 0.5, 1, g_vZero, g_vZero, Diffuse, Specular, Ambient,id, false, pTexture)
 	{
 		
 	}

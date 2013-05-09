@@ -43,6 +43,7 @@ void StageLoader::PartsGenerator(ObjeData i_Data, DWORD i_dwHeight, DWORD i_dwWi
 	//	: ƒƒCƒh‚©‚çƒ}ƒ‹ƒ`‚Ö
 	string sFilePath;
 	TLIB::narrow(i_Data.m_sFilePath, sFilePath);
+
 	// Motion* pMotion = NULL ;
 	wiz::OBJID ObjectID ;
 	switch(i_Data.m_iObjeType){
@@ -59,7 +60,7 @@ void StageLoader::PartsGenerator(ObjeData i_Data, DWORD i_dwHeight, DWORD i_dwWi
 			if((it = m_ObjeTypeMap.find(OBJID_2D_WALL)) != m_ObjeTypeMap.end()){
 				//	: “o˜^‚ğŒ©‚Â‚¯‚½ê‡
 				dynamic_cast<WallObject*>((*m_pVec)[it->second])->AddWall(
-					D3DXVECTOR3(MAP_PARTS_WIDTH,MAP_PARTS_HEIGHT,5.0f),
+					D3DXVECTOR3(MAP_PARTS_WIDTH,MAP_PARTS_HEIGHT,1.0f),
 					g_vZero,
 					D3DXVECTOR3((MAP_PARTS_WIDTH	*	i_dwWidth	)	-	MAP_PARTS_WIDTH		/	2,
 								(MAP_PARTS_HEIGHT	*	i_dwHeight	)	-	MAP_PARTS_HEIGHT	/	2,
@@ -70,9 +71,9 @@ void StageLoader::PartsGenerator(ObjeData i_Data, DWORD i_dwHeight, DWORD i_dwWi
 				);
 			}else{
 				//	: “o˜^‚ª‚È‚©‚Á‚½ê‡
-				WallObject* mgb = new WallObject(m_pD3DDevice,m_pTexMgr->addTexture(m_pD3DDevice,L"biribiriWall.png"),OBJID_3D_TESTBOX);
+				WallObject* mgb = new WallObject(m_pD3DDevice,m_pTexMgr->addTexture(m_pD3DDevice,L"biribiriWall.png"),OBJID_2D_WALL);
 				mgb->AddWall(
-					 D3DXVECTOR3(MAP_PARTS_WIDTH, MAP_PARTS_HEIGHT, 5.0f)
+					 D3DXVECTOR3(MAP_PARTS_WIDTH, MAP_PARTS_HEIGHT, 1.0f)
 					,g_vZero
 					,D3DXVECTOR3((MAP_PARTS_WIDTH	*	i_dwWidth	)	-	MAP_PARTS_WIDTH		/	2,
 								(MAP_PARTS_HEIGHT	*	i_dwHeight	)	-	MAP_PARTS_HEIGHT	/	2,
@@ -82,7 +83,7 @@ void StageLoader::PartsGenerator(ObjeData i_Data, DWORD i_dwHeight, DWORD i_dwWi
 					,Ambient
 				);
 				m_pVec->push_back(mgb);
-				m_ObjeTypeMap.insert( make_pair( OBJID_3D_TESTBOX , m_pVec->size() -1));
+				m_ObjeTypeMap.insert( make_pair( OBJID_2D_WALL , m_pVec->size() -1));
 			}
 			break;
 

@@ -108,10 +108,10 @@ namespace wiz{
 		//	仕様に従い絶対に値を明記すること
 		//
 
-		GP_CREATE_NONE		=  0 ,
-		GP_CREATE_TESTTIP	=  1 ,
-		GP_CREATE_WALL		=  10 ,
-		GP_CREATE_ENEMY		=  3 ,
+		GP_CREATE_NONE		=    0 ,
+		GP_CREATE_TESTTIP	=    1 ,
+		GP_CREATE_WALL		=  100 ,
+		GP_CREATE_ENEMY		=    3 ,
 	};
 
 	enum OBJID{
@@ -149,6 +149,7 @@ namespace wiz{
 
 		OBJID_3D_MAGNET				,	//	: 磁石
 
+		OBJID_3D_PLAYER				,
 		OBJID_3D_USERMAGNET			,	//	: ユーザー
 		OBJID_3D_COIL				,	//	: プレイヤー
 		OBJID_3D_EFFECT				,	//	: エフェクト

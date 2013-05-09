@@ -13,6 +13,7 @@
 //
 #include "StdAfx.h"
 #include "Stage_Test.h"
+#include "Factory_Player.h"
 namespace wiz{
 
 /**************************************************************************
@@ -38,10 +39,19 @@ DebugStage_TATRA::DebugStage_TATRA(LPDIRECT3DDEVICE9 pD3DDevice,Stage* pStage)
 		FPac.m_pVec     = &this->m_Vec      ;
 		FPac.pD3DDevice =  pD3DDevice       ;
 
+		//カメラのインスタンス初期化
+		float ECXPos = 25.1f;
+		float ECYPos = 10.1f;		
+        m_Vec.push_back(
+			new Camera(pD3DDevice,D3DXVECTOR3( ECXPos, ECYPos, -55.7f),D3DXVECTOR3(ECXPos,ECYPos,0.0f), 1 ,300.0f,30.0f)
+		);
 		//	: ガイドライン
 		m_Vec.push_back(new Guide( pD3DDevice ) );
 
+
+
 		StageLoader loader(pD3DDevice,L"media/Map/Stages.csv",1,m_Vec,m_TexMgr);
+		Factory_Player Pfac( &FPac );
 	}
 	catch(...){
 		Clear();
