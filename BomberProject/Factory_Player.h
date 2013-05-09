@@ -78,11 +78,35 @@ class PlayerCoil : public MagneticumObject{
 	//	: コイルの方向指標用パーツ
 	SpriteObject*		m_pDirParts		;
 
+	//PrimitiveCylinder*			m_pDirParts3D;
+	Cylinder*			m_pDirParts3D;
+
 	//	: 
 	ProvisionalPlayer*	m_pPlayer		;
 
 	float		m_fMoveDir   ;//角度
 	float       m_fMovdSpeed ;//速度
+
+	//仮
+	//Color			m_Color;
+	//bool			m_bMagnetPole ;
+	//void setPoleS(){ m_bMagnetPole = POLE_S  ; m_Color = 0xFF0000FF	; } ;
+	//void setPoleN(){ m_bMagnetPole = POLE_N	 ; m_Color = 0xFFFF0000	; } ;
+	/////////////////// ////////////////////
+	//// 関数名     ：void ChangePole()
+	//// カテゴリ   ：非公開アクセッサ
+	//// 用途       ：磁極を反転させる
+	//// 引数       ：なし
+	//// 戻値       ：なし
+	//// 担当       ：鴫原 徹
+	//// 備考       ： 磁極フラグとカラーを変更する
+	////            ：
+	////
+	//	bool ChangePole(){
+	//		if( m_bMagnetPole == POLE_S )	{ setPoleN() ; }
+	//		else							{ setPoleS() ; }
+	//		return true ;
+	//	}
 
 public:
 /////////////////// ////////////////////
@@ -133,6 +157,18 @@ public:
 ////            ：
 ////
     void Draw(DrawPacket& i_DrawPacket) ;
+
+/////////////////// ////////////////////
+//// 関数名     ：D3DXVECTOR3 getPos() const
+//// カテゴリ   ：ゲッター
+//// 用途       ：中心座標を獲得
+//// 引数       ：なし
+//// 戻値       ：なし
+//// 担当       ：鴫原 徹
+//// 備考       ：
+////            ：
+	D3DXVECTOR3 getPos() const { return m_pDirParts3D->getPos()	;	}	;
+
 
 };
 
