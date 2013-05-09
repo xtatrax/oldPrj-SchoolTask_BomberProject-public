@@ -26,7 +26,7 @@ namespace wiz{
 
 {
 	try{
-		D3DXMatrixIdentity(&m_mMatrix);
+		//D3DXMatrixIdentity(&m_mMatrix);
         // D3DMATERIAL9構造体を0でクリア
         ::ZeroMemory( &m_Material, sizeof(D3DMATERIAL9));
 	}
@@ -43,9 +43,41 @@ Item::~Item(){
 	用途：描画
 ********************************************/
 void	Item::Draw(DrawPacket &i_DrawPacket){
+	vector<BallItem>::size_type sz = m_ItemVec.size();
+	for(vector<BallItem>::size_type i = 0; i < sz; i++){
+		//テクスチャがある場合
+		if(m_pTexture){
+			DWORD wkdword;
+			//現在のテクスチャステータスを得る
+			i_DrawPacket.pD3DDevice->GetTextureStageState(0,D3DTSS_COLOROP,&wkdword);
+			//ステージの設定
+			i_DrawPacket.pD3DDevice->SetTexture(0,m_pTexture);
+			//デフィーズ色とテクスチャを掛け合わせる設定
+			i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLOROP, D3DTOP_MODULATE4X );
+			i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLORARG1, D3DTA_TEXTURE );
+			i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLORARG2, D3DTA_DIFFUSE );
+
+			//i_DrawPacket.pD3DDevice->SetFVF(PlateFVF);
+			// マトリックスをレンダリングパイプラインに設定
+			i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &m_ItemVec[i]->m_mMatrix);
+			//コモンメッシュのDraw()を呼ぶ
+			CommonMesh::Draw(i_DrawPacket);
+			i_DrawPacket.pD3DDevice->SetTexture(0,0);
+			//ステージを元に戻す
+			i_DrawPacket.pD3DDevice->SetTextureStageState(0,D3DTSS_COLOROP,wkdword);
+		}
+		else{
+		//テクスチャがない場合
+			// マトリックスをレンダリングパイプラインに設定
+			i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &m_ItemVec[i]->m_mMatrix);
+			//コモンメッシュのDraw()を呼ぶ
+			CommonMesh::Draw(i_DrawPacket);
+		}
+	}
+
 	// マトリックスをレンダリングパイプラインに設定
-	i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &m_mMatrix);
-	CommonMesh::Draw(i_DrawPacket);
+	//i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &m_mMatrix);
+	//CommonMesh::Draw(i_DrawPacket);
 }
 
 void	Item::Update(UpdatePacket& i_UpdatePacket){
@@ -99,7 +131,7 @@ void	Item::Update(UpdatePacket& i_UpdatePacket){
 
 		//マティリアル設定
 		m_Material = m_ItemVec[i]->m_Material;
-		m_mMatrix	= mScale * mMove;
+		m_ItemVec[i]->m_mMatrix	= mScale * mMove;
 	}
 }
 
@@ -194,16 +226,20 @@ void Bar::Draw(DrawPacket& i_DrawPacket){
 ***************************************************************************/
 Factory_Item::Factory_Item(FactoryPacket* fpac){
 	try{
-        D3DCOLORVALUE BallDiffuse = {1.0f,1.0f,1.0f,1.0f};
+        D3DCOLORVALUE BallDiffuse = {0.0f,0.7f,0.7f,1.0f};
         D3DCOLORVALUE BallSpecular = {0.0f,0.0f,0.0f,0.0f};
-        D3DCOLORVALUE BallAmbient = {0.5f,0.5f,0.0f,1.0f};
+        D3DCOLORVALUE BallAmbient = {0.0f,0.7f,0.7f,1.0f};
 		Item*	it	=	new	Item(fpac,NULL,OBJID_UNK);
-
-		it->addItem(D3DXVECTOR3(-1.0f,0.0f,0.0f),
-					D3DXVECTOR3(1.0f,1.0f,1.0f),
-					BallDiffuse,
-					BallSpecular,
-					BallAmbient);
+		for(int i = 0; i < 10; i++){
+			for(int j = 0; j < 10; j++){
+				it->addItem(D3DXVECTOR3((float(i)*3.5f+float(rand()%100*0.05f))+1.5f,
+										(float(j)*1.75f+float(rand()%100*0.05f))+1.5f,0.0f),
+							D3DXVECTOR3(0.5f,0.5f,0.5f),
+							BallDiffuse,
+							BallSpecular,
+							BallAmbient);
+			}
+		}
 		fpac->m_pVec->push_back(it);
 
 		fpac->m_pVec->push_back(

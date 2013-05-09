@@ -204,33 +204,57 @@ void WallObject::AddWall(D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos
 ***************************************************************************/
 Factory_Wall::Factory_Wall(FactoryPacket* fpac){
 	try{
- 		D3DCOLORVALUE WallDiffuse = {1.0f,1.0f,1.0f,1.0f};
+ 		D3DCOLORVALUE WallDiffuse = {0.7f,0.7f,0.7f,1.0f};
 		D3DCOLORVALUE WallSpecular = {0.0f,0.0f,0.0f,0.0f};
-		D3DCOLORVALUE WallAmbient = {1.0f,1.0f,1.0f,1.0f};
+		D3DCOLORVALUE WallAmbient = {0.5f,0.5f,0.5f,1.0f};
 
 		WallObject* Wall = new WallObject(fpac->pD3DDevice,
 			fpac->m_pTexMgr->addTexture(fpac->pD3DDevice,L"biribiriWall.png"));
-		Wall->AddWall(D3DXVECTOR3(0.2f,5.0f,0.5f),
+		Wall->AddWall(D3DXVECTOR3(2.0f,26.0f,0.5f),
 					  D3DXVECTOR3(0.0f,0.0f,0.0f),
-					  D3DXVECTOR3(2.5f,0.5f,0.0f),
+					  D3DXVECTOR3(38.5f,12.0f,0.0f),
 					  WallDiffuse,
 					  WallSpecular,
 					  WallAmbient);
-		Wall->AddWall(D3DXVECTOR3(0.2f,5.0f,0.5f),
+		Wall->AddWall(D3DXVECTOR3(2.0f,26.0f,0.5f),
 					  D3DXVECTOR3(0.0f,0.0f,0.0f),
-					  D3DXVECTOR3(-4.5f,0.5f,0.0f),
+					  D3DXVECTOR3(0.5f,12.0f,0.0f),
 					  WallDiffuse,
 					  WallSpecular,
 					  WallAmbient);
-		Wall->AddWall(D3DXVECTOR3(2.0f,0.2f,0.5f),
-					  D3DXVECTOR3(0.0f,0.0f,0.0f),
-					  D3DXVECTOR3(-3.5f,0.0f,0.0f),
+		Wall->AddWall(D3DXVECTOR3(2.0f,40.0f,0.5f),
+					  D3DXVECTOR3(0.0f,0.0f,90.0f),
+					  D3DXVECTOR3(20.0f,24.0f,0.0f),
 					  WallDiffuse,
 					  WallSpecular,
 					  WallAmbient);
-		Wall->AddWall(D3DXVECTOR3(2.0f,0.2f,0.5f),
+		Wall->AddWall(D3DXVECTOR3(2.0f,40.0f,0.5f),
+					  D3DXVECTOR3(0.0f,0.0f,90.0f),
+					  D3DXVECTOR3(20.0f,0.5f,0.0f),
+					  WallDiffuse,
+					  WallSpecular,
+					  WallAmbient);
+		Wall->AddWall(D3DXVECTOR3(2.0f,10.0f,0.5f),
 					  D3DXVECTOR3(0.0f,0.0f,0.0f),
-					  D3DXVECTOR3(1.5f,1.0f,0.0f),
+					  D3DXVECTOR3(20.0f,6.0f,0.0f),
+					  WallDiffuse,
+					  WallSpecular,
+					  WallAmbient);
+		Wall->AddWall(D3DXVECTOR3(2.0f,11.0f,0.5f),
+					  D3DXVECTOR3(0.0f,0.0f,90.0f),
+					  D3DXVECTOR3(7.0f,14.0f,0.0f),
+					  WallDiffuse,
+					  WallSpecular,
+					  WallAmbient);
+		Wall->AddWall(D3DXVECTOR3(2.0f,5.0f,0.5f),
+					  D3DXVECTOR3(0.0f,0.0f,45.0f),
+					  D3DXVECTOR3(30.0f,15.0f,0.0f),
+					  WallDiffuse,
+					  WallSpecular,
+					  WallAmbient);
+		Wall->AddWall(D3DXVECTOR3(2.0f,4.0f,0.5f),
+					  D3DXVECTOR3(0.0f,0.0f,-45.0f),
+					  D3DXVECTOR3(20.0f,17.0f,0.0f),
 					  WallDiffuse,
 					  WallSpecular,
 					  WallAmbient);
