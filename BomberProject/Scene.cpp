@@ -204,6 +204,7 @@ void Scene::Draw(DrawPacket& i_DrawPacket){
 	}
 	CommandTranslator(i_DrawPacket);
 }
+
 /////////////////// ////////////////////
 //// 関数名     ：void CommandTranslator(LPDIRECT3DDEVICE9 pD3DDevice,Command& i_DrawPacket.pCommand);
 //// カテゴリ   ：関数

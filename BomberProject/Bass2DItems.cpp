@@ -185,6 +185,18 @@ void SpriteObject::Draw(DrawPacket& i_DrawPacket)
 	//	: 描画は親クラスに任せる
 	PrimitiveSprite::Draw(i_DrawPacket);
 };
+/**************************************************************************
+  定義部
+***************************************************************************/
+
+RenderTargetSprite::RenderTargetSprite(BassPacket& i_BassPacket, UINT i_Width, UINT i_Height){
+	//	: テクスチャを動的に生成する（横６４０ピクセル・縦４８０ピクセル、３２ビットカラー）
+	//D3DXCreateTexture( i_BassPacket.pD3DDevice, i_Width, i_Height, 0, D3DUSAGE_RENDERTARGET, D3DFMT_A8R8G8B8, D3DPOOL_DEFAULT, &g_pTexture );
+	//pd3dDevice->CreateDepthStencilSurface( i_Width, i_Height, D3DFMT_D16, D3DMULTISAMPLE_NONE, 0, FALSE, &g_sfRenderTargetZ, NULL );	//	深度バッファを生成
+	//g_pTexture->GetSurfaceLevel( 0, &g_sfRenderTarget );																	//	テクスチャからサーフェイスを取得
+
+
+}
 
 }//end of namespace	base2Dobject.
 }//end of namespace	wiz.

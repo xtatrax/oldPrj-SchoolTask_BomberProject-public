@@ -137,20 +137,32 @@ public:
 // 担当者  : 鴫原 徹
 // 用途    : アップデート関数郡に流れるデータ
 //**************************************************************************//
-struct UpdatePacket{
-	const CONTROLER_STATE*	pCntlState	;
-	LPDIRECT3DDEVICE9		pD3DDevice	;
-	vector<Object*>*		pVec		;
-	TextureManager*			pTxMgr		;
-	TLIB::Tempus2*			pTime		;
-	Command*				pCommand	;
-	UpdatePacket()
-		:pCntlState( NULL )
-		,pD3DDevice( NULL )
+struct BassPacket{
+	LPDIRECT3DDEVICE9		pD3DDevice	;	// デバイス
+	vector<Object*>*		pVec		;	// オブジェコンテナ
+	TextureManager*			pTxMgr		;	// テクスチャ管理クラス
+	TLIB::Tempus2*			pTime		;	// 時間
+	Command*				pCommand	;	// コマンド
+	BassPacket()
+		:pD3DDevice( NULL )
 		,pVec( NULL )
 		,pTxMgr( NULL )
 		,pTime( NULL )
 		,pCommand( NULL )
+	
+	{}
+
+};
+//**************************************************************************//
+// struct UpdatePacket;
+//
+// 担当者  : 鴫原 徹
+// 用途    : アップデート関数郡に流れるデータ
+//**************************************************************************//
+struct UpdatePacket : public BassPacket{
+	const CONTROLER_STATE*	pCntlState	;
+	UpdatePacket()
+		:pCntlState( NULL )
 	{
 	}
 
@@ -164,10 +176,7 @@ struct UpdatePacket{
 // 担当者  : 鴫原 徹
 // 用途    : レンダー関数群に流れるデータ
 //**************************************************************************//
-struct RenderPacket{
-	LPDIRECT3DDEVICE9	pD3DDevice	;
-	vector<Object*>*	pVec		;
-	Command*			pCommand	;
+struct RenderPacket : public BassPacket{
 };
 /*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 
@@ -178,11 +187,7 @@ struct RenderPacket{
 // 担当者  : 鴫原 徹
 // 用途    : ドロー関数群に流れるデータ
 //**************************************************************************//
-struct DrawPacket{
-	LPDIRECT3DDEVICE9	pD3DDevice	;
-	vector<Object*>*	pVec		;
-	TLIB::Tempus2*		pTime		;
-	Command*			pCommand	;
+struct DrawPacket : public BassPacket{
 };
 /*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 

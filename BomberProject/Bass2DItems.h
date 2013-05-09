@@ -33,6 +33,8 @@ protected:
 	D3DXVECTOR3		m_vCenter;		//	: テクスチャーの中心
 	RECT*			m_pRect;		//	: テクスチャーの描画領域
 	Color			m_Color;
+	//仮
+	PrimitiveSprite(){};
 public:
 	void setMatrix( D3DXMATRIX i_mMatrix ){ m_mMatrix = i_mMatrix ; }
 
@@ -137,6 +139,18 @@ public:
 ////            ：
 ////
 	virtual void Draw(DrawPacket& i_DrawPacket);
+};
+
+//**************************************************************************
+// 
+//
+// 担当者  : 鴫原 徹
+// 用途    : 
+//           
+//**************************************************************************
+class RenderTargetSprite : public PrimitiveSprite{
+public:
+	RenderTargetSprite(BassPacket& i_BassPacket, UINT i_Width, UINT i_Height);
 };
 
 }//end of namespace base2Dobject.
