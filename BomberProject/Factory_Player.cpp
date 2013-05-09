@@ -320,7 +320,7 @@ Factory_Player::Factory_Player( FactoryPacket* fpac ){
 				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"CoilDir.png" ),
 				vScale,
 				g_vZero,
-				D3DXVECTOR3(200.0f,300.0f,0.0f),
+				D3DXVECTOR3(100.0f,400.0f,0.0f),
 				D3DXVECTOR3( -16.5f, -26.0f,0.0f),
 				NULL,
 				NULL
