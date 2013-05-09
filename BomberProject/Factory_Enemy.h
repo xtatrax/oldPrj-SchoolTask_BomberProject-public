@@ -7,7 +7,7 @@
 //	内包ﾃﾞｰﾀと備考	：メインファクトリー
 //					▼
 //	namespace wiz;
-//		class Factory_Wall ;
+//		class Factory_Enemy ;
 //
 #pragma once
 
@@ -16,49 +16,21 @@
 #include "BassItems.h"
 
 namespace wiz{
-	namespace baseobject{
 
-	class EnemySphere : public PrimitiveSphere , public Object {
-
-		struct  SphereVertex{
-			D3DXVECTOR3 vec;
-			D3DXVECTOR3 n;
-			FLOAT       tu,tv;
+	
+	class EnemySphere : public PrimitiveSphere {
+			struct EnemyItem{
+		D3DMATERIAL9 m_Material;
+		D3DXMATRIX	m_Matrix;
+		D3DXVECTOR3 m_vScale ;
+		D3DXVECTOR3 m_vPos ;
+		D3DXQUATERNION m_vRot;
+		virtual ~EnemyItem(){}
 		};
-
-		//PrimitiveSphere用のFVFをDIrectXAPIに渡すときのパラメータ
-		enum { BallFVF = D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_TEX1 };
-			LPDIRECT3DTEXTURE9 m_pTexture;
-
-	//Enemy用		
-	/////////////////// ////////////////////
-	//// 関数名     ：void Vec2UV(float x,float y,float z,float r,float& u,float& v );
-	//// カテゴリ   ：メンバ関数
-	//// 用途       ：VectorをUとVにコンバート
-	//// 引数       ：  float x     //xの値
-	////            ：  float y     //yの値
-	////            ：  float z     //zの値
-	////            ：  float r     //球の半径
-	////            ：  float& u    //変換するu（テクスチャ上のU座標）
-	////            ：  float& v    //変換するv（テクスチャ上のV座標）
-	//// 戻値       ：なし
-	//// 担当者     ：鴫原 徹(山ノ井先生のひな形より)
-	//// 備考       ：float& uとfloat& vに変換後の値を代入
-	////            ：
-	////
-			void Vec2UV(float x,float y,float z,float r,float& u,float& v);
-	/////////////////// ////////////////////
-	//// 関数名     ：void CreateSphere(LPDIRECT3DDEVICE9 pD3DDevice)
-	//// カテゴリ   ：関数
-	//// 用途       ：球を生成
-	//// 引数       ：  LPDIRECT3DDEVICE9 pD3DDevice		//IDirect3DDevice9 インターフェイスへのポインタ
-	//// 戻値       ：なし
-	//// 担当者     ： (山ノ井先生のひな形より)
-	//// 備考       ：float& uとfloat& vに変換後の値を代入
-	////            ：
-	////
-		void CreateSphere(LPDIRECT3DDEVICE9 pD3DDevice);
-	protected:
+				//map<オブジェクトのポジション,EnemyItem>
+	multimap<float,EnemyItem*> m_ItemMap_All;	//全てのWallItem
+	multimap<float,EnemyItem*> m_ItemMap_Target;//描画対象のWallItem
+	public:
 	/////////////////// ////////////////////
 	//// 関数名     ：EnemySphere(LPDIRECT3DDEVICE9 pD3DDevice,D3DCOLORVALUE& Diffuse,
 	////            ：  D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,LPDIRECT3DTEXTURE9 pTexture = 0);
@@ -78,33 +50,71 @@ namespace wiz{
 			D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,
 			LPDIRECT3DTEXTURE9 pTexture = 0 , wiz::OBJID id = OBJID_3D_ENEMY);
 
-
 	/////////////////// ////////////////////
-	//// 関数名     ：~EnemySphere();
-	//// カテゴリ   ：デストラクタ
-	//// 用途       ：球体を破棄
-	//// 引数       ：なし
-	//// 戻値       ：なし
-	//// 担当者     ： (山ノ井先生のひな形より)
-	//// 備考       ：PrimitiveSphereの派生型
-	////            ：
-	////
-		virtual ~EnemySphere();
-
-	/////////////////// ////////////////////
-	//// 関数名     ：void Draw( LPDIRECT3DDEVICE9 pD3DDevice , vector<Object*>& Vec)
-	//// カテゴリ   ：仮想関数
-	//// 用途       ：球体を描画
-	//// 引数       ：  LPDIRECT3DDEVICE9 pD3DDevice		//IDirect3DDevice9 インターフェイスへのポインタ
-	////            ：  vector<Object*>& Vec,				//オブジェクトの配列
-	//// 戻値       ：なし
-	//// 担当者     ： (山ノ井先生のひな形より)
+	//// 用途       ：void Draw( DrawPacket& i_DrawPacket )
+	//// カテゴリ   ：関数
+	//// 用途       ：オブジェクトをディスプレイに表示する
+	//// 引数       ：  DrawPacket& i_DrawPacket             // 画面描画時に必要なデータ群 ↓内容下記
+	////            ：  ├ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 インターフェイスへのポインタ
+	////            ：  ├ vector<Object*>&    Vec                     // オブジェクトの配列
+	////            ：  ├ Tempus2*            i_DrawPacket.pTime	   // 時間を管理するクラスへのポインター
+	////            ：  └ Command             i_DrawPacket.pCommand   // コマンド
+	//// 戻値       ：無し
+	//// 担当者     ：斎藤謙吾
 	//// 備考       ：
-	////            ：
-	////
-		virtual void Draw(DrawPacket& i_DrawPacket) ;
-	};
+	void Draw( DrawPacket& i_DrawPacket );
 
-	}//end of namespace baseobject.
-	using namespace baseobject;
-}//end of namespace wiz.
+
+	/////////////////// ////////////////////
+	//// 用途       ：void AddEnemy( DrawPacket& i_DrawPacket )
+	//// カテゴリ   ：関数
+	//// 用途       ：Enemyの追加
+	//// 引数       ：  LPDIRECT3DDEVICE9 pD3DDevice,	////IDirect3DDevice9インターフェイスへのポインタ
+	////		    ：  D3DXVECTOR3 &vScale				//拡大縮小
+	////		    ：  D3DXVECTOR3 &vRot				//回転角
+	////		    ：  D3DXVECTOR3 &vPos				//位置
+	////            ：  D3DCOLORVALUE& Diffuse,			//ディフューズ色
+	////            ：  D3DCOLORVALUE& Specular,		//スペキュラ色
+	////            ：  D3DCOLORVALUE& Ambient,			//アンビエント色
+	//// 戻値       ：無し
+	//// 担当者     ：本多寛之
+	//// 備考       ：
+	void AddEnemy(D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos,
+			D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient);
+
+	
+	
+	
+	
+	~EnemySphere();
+};
+
+
+
+
+
+/**************************************************************************
+ class Factory_Enemy;
+ 用途: メイン工場クラス
+****************************************************************************/
+class Factory_Enemy{
+public:
+/**************************************************************************
+ Factory_Enemy(
+	LPDIRECT3DDEVICE9 pD3DDevice,	//デバイス
+	vector<Object*>& vec,			//オブジェクトの配列
+	TextureManager& TexMgr			//テクスチャの配列
+);
+ 用途: コンストラクタ（サンプルオブジェクトを配列に追加する）
+ 戻り値: なし
+***************************************************************************/
+	Factory_Enemy(FactoryPacket* fpac);
+/**************************************************************************
+ ~MyFactory();
+ 用途: デストラクタ
+ 戻り値: なし
+***************************************************************************/
+	~Factory_Enemy();
+};
+}
+//end of namespace wiz.

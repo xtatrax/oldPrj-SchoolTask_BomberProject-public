@@ -15,6 +15,7 @@
 #include "Factory_Main.h"
 #include "Factory_Player.h"
 #include "Factory_Wall.h"
+#include "Factory_Enemy.h"
 #include "BassItems.h"
 
 namespace wiz{
@@ -37,6 +38,7 @@ Factory_Main::Factory_Main(FactoryPacket* fpac){
 	try{
 		Factory_Player Pfac( fpac );
 		Factory_Wall   Wfac( fpac );
+		//Factory_Enemy Efac( fpac ) ;
 		fpac->m_pVec->push_back(
 			new SpriteObject(
 				fpac->pD3DDevice,

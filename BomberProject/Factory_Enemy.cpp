@@ -17,119 +17,9 @@
 
 namespace wiz
 {
-
-
 	/**************************************************************************
 	 EnemySphere 定義部
 	***************************************************************************/
-	
-	/////////////////// ////////////////////
-	//// 関数名     ：void EnemySphere::Vec2UV(float x,float y,float z,float r,float& u,float& v );
-	//// カテゴリ   ：メンバ関数
-	//// 用途       ：VectorをUとVにコンバート
-	//// 引数       ：  float x     //xの値
-	////            ：  float y     //yの値
-	////            ：  float z     //zの値
-	////            ：  float r     //球の半径
-	////            ：  float& u    //変換するu（テクスチャ上のU座標）
-	////            ：  float& v    //変換するv（テクスチャ上のV座標）
-	//// 戻値       ：なし
-	//// 担当者     ： (山ノ井先生のひな形より)
-	//// 備考       ：float& uとfloat& vに変換後の値を代入
-	////            ：
-	////
-	void EnemySphere::Vec2UV(float x,float y,float z,float r,float& u,float& v) 
-	{
-		float q ;
-		float q2;
-		q = atan2(z,x);
-		u = q / (2.0f * D3DX_PI);
-		q2 = asin(y / r);
-		v = (1.0f - q2 / (D3DX_PI / 2.0f)) / 2.0f;
-		if( u > 1.0f)
-			u = 1.0f;
-	}
-	/////////////////// ////////////////////
-	//// 関数名     ：void EnemySphere::CreateSphere(LPDIRECT3DDEVICE9 pD3DDevice)
-	//// カテゴリ   ：関数
-	//// 用途       ：球を生成
-	//// 引数       ：  LPDIRECT3DDEVICE9 pD3DDevice		//IDirect3DDevice9 インターフェイスへのポインタ
-	//// 戻値       ：なし
-	//// 担当者     ：斎藤　謙吾(山ノ井先生のひな形より)
-	//// 備考       ：float& uとfloat& vに変換後の値を代入
-	////            ：
-	////
-	void EnemySphere::CreateSphere(LPDIRECT3DDEVICE9 pD3DDevice)
-	{
-		try
-		{
-			
-
-		
-				//球の作成
-			if(
-				FAILED(
-					D3DXCreateSphere(
-						pD3DDevice, 
-						30.0f,//球の大きさ
-						18,
-						18,
-						&m_pMesh, 
-						NULL
-					)
-				)
-			)
-			{
-				// 初期化失敗
-				throw BaseException(
-					L"球の作成に失敗しました。",
-					L"EnemySphere::EnemySphere"
-					);
-			}
-			if(m_pTexture)
-			{
-				//テクスチャメッシュ
-				LPD3DXMESH pMesh2 = 0;
-				//作成されたメッシュを元に、テクスチャつきのメッシュを作成
-				if(FAILED(m_pMesh->CloneMeshFVF(NULL,BallFVF,pD3DDevice,&pMesh2)))
-				{
-					// 初期化失敗
-					throw BaseException(
-						L"テクスチャ付の球の作成に失敗しました。",
-						L"EnemySphere::EnemySphere"
-						);
-				}
-				//この段階でm_pMeshはいらないから削除
-				SafeRelease(m_pMesh);
-				//新しいメッシュを代入
-				m_pMesh = pMesh2;
-				//テクスチャ上の座標をマッピング
-				LPDIRECT3DVERTEXBUFFER9 pVB = 0;
-				SphereVertex* pVer = 0;
-				m_pMesh->GetVertexBuffer(&pVB);
-				pVB->Lock(0,0,(VOID**)&pVer,0);
-				for(DWORD n = 0;n < m_pMesh->GetNumVertices();n++)
-				{ //頂点の数を取得する
-					float u,v;
-					Vec2UV(pVer[n].vec.x,pVer[n].vec.y,pVer[n].vec.z,1.0f,u,v);
-					pVer[n].tu=u;
-					pVer[n].tv=v;
-				}
-				pVB->Unlock();
-			}
-			//クオータニオンの初期化
-			//D3DXQuaternionRotationYawPitchRoll(&m_Qtn,0,0,0);
-		}
-		catch(...)
-		{
-			//コンストラクタ例外発生
-			//後始末
-			SafeRelease(m_pMesh);
-			//再スロー
-			throw;
-		}
-	};
-
 	/////////////////// ////////////////////
 	//// 関数名     ：EnemySphere::EnemySphere(LPDIRECT3DDEVICE9 pD3DDevice,D3DCOLORVALUE& Diffuse,
 	////            ：  D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,LPDIRECT3DTEXTURE9 pTexture = 0);
@@ -146,29 +36,31 @@ namespace wiz
 	////            ：
 	////
 	//CPPでのコンストラクタの書き方。
-	EnemySphere::EnemySphere(LPDIRECT3DDEVICE9 pD3DDevice,
-			   D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,
-			   LPDIRECT3DTEXTURE9 pTexture, wiz::OBJID id)
+	EnemySphere::EnemySphere(LPDIRECT3DDEVICE9 pD3DDevice,D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient, LPDIRECT3DTEXTURE9 pTexture, wiz::OBJID id)
 		//継承元をこんな感じで書く。型は変数だけ。
 		: PrimitiveSphere( pD3DDevice,
-			    Diffuse, Specular, Ambient, pTexture)
-				,Object(id)
-				,m_pTexture(pTexture)
+									  Diffuse,
+									  Specular,
+									  Ambient,
+									  pTexture)
 	{
-		try
-		{
-			EnemySphere* Sphere = new EnemySphere( pD3DDevice, Diffuse, Specular, Ambient, pTexture, id);
-
-			CreateSphere(pD3DDevice);
-		}
-		catch(...)
-		{
-			//再スロー
-			throw;
-		}
+		::ZeroMemory( &m_Material, sizeof(D3DMATERIAL9));
+	}
+	/////////////////// ////////////////////
+	//// 関数名     ：voidEnemySphere::Draw( LPDIRECT3DDEVICE9 pD3DDevice , vector<Object*>& Vec)
+	//// カテゴリ   ：仮想関数
+	//// 用途       ：球体を描画
+	//// 引数       ：  LPDIRECT3DDEVICE9 pD3DDevice		//IDirect3DDevice9 インターフェイスへのポインタ
+	////            ：  vector<Object*>& Vec,				//オブジェクトの配列
+	//// 戻値       ：なし
+	//// 担当者     ： (山ノ井先生のひな形より)
+	//// 備考       ：
+	////            ：
+	////
+	void EnemySphere::Draw(DrawPacket& i_DrawPacket)
+	{
 
 	}
-
 
 
 	/////////////////// ////////////////////
@@ -186,46 +78,82 @@ namespace wiz
 		//後始末
 		SafeRelease(m_pMesh);
 	}
-	/////////////////// ////////////////////
-	//// 関数名     ：voidEnemySphere::Draw( LPDIRECT3DDEVICE9 pD3DDevice , vector<Object*>& Vec)
-	//// カテゴリ   ：仮想関数
-	//// 用途       ：球体を描画
-	//// 引数       ：  LPDIRECT3DDEVICE9 pD3DDevice		//IDirect3DDevice9 インターフェイスへのポインタ
-	////            ：  vector<Object*>& Vec,				//オブジェクトの配列
-	//// 戻値       ：なし
-	//// 担当者     ： (山ノ井先生のひな形より)
-	//// 備考       ：
-	////            ：
-	////
-	void EnemySphere::Draw(DrawPacket& i_DrawPacket)
+
+/////////////////// ////////////////////
+//// 用途       ：void AddWall( DrawPacket& i_DrawPacket )
+//// カテゴリ   ：関数
+//// 用途       ：Wallの追加
+//// 引数       ：  LPDIRECT3DDEVICE9 pD3DDevice,	////IDirect3DDevice9インターフェイスへのポインタ
+////		    ：  D3DXVECTOR3 &vScale				//拡大縮小
+////		    ：  D3DXVECTOR3 &vRot				//回転角
+////		    ：  D3DXVECTOR3 &vPos				//位置
+////            ：  D3DCOLORVALUE& Diffuse,			//ディフューズ色
+////            ：  D3DCOLORVALUE& Specular,		//スペキュラ色
+////            ：  D3DCOLORVALUE& Ambient,			//アンビエント色
+//// 戻値       ：無し
+//// 担当者     ：本多寛之
+//// 備考       ：
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+	void EnemySphere::AddEnemy(D3DXVECTOR3 &vScale, D3DXVECTOR3 &vRot, D3DXVECTOR3 &vPos, D3DCOLORVALUE &Diffuse,D3DCOLORVALUE &Specular, D3DCOLORVALUE &Ambient)
 	{
-		//テクスチャがあった場合
-		if(m_pTexture)
-		{
-			//テクスチャ描画命令
-			DWORD wkdword;
-			//現在のテクスチャステータスを得る
-			i_DrawPacket.pD3DDevice->GetTextureStageState(0,D3DTSS_COLOROP,&wkdword);
-			//ステージの設定
-			i_DrawPacket.pD3DDevice->SetTexture(0,m_pTexture);
-			//デフィーズ色とテクスチャを掛け合わせる設定
-			i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLOROP, D3DTOP_MODULATE4X );
-			i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLORARG1, D3DTA_TEXTURE );
-			i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLORARG2, D3DTA_DIFFUSE );
-			i_DrawPacket.pD3DDevice->SetFVF(BallFVF);
+		EnemyItem* pItem = new EnemyItem;
+		pItem->m_vScale = vScale;
+		pItem->m_vPos = vPos;
+		::ZeroMemory(&pItem->m_Material,sizeof(D3DMATERIAL9));
+		pItem->m_Material.Diffuse = Diffuse;
+		pItem->m_Material.Specular = Specular;
+		pItem->m_Material.Ambient = Ambient;
 
-			//コモンメッシュのDraw()を呼ぶ
-			CommonMesh::Draw(i_DrawPacket);
-			i_DrawPacket.pD3DDevice->SetTexture(0,0);
-			//ステージを元に戻す
-			i_DrawPacket.pD3DDevice->SetTextureStageState(0,D3DTSS_COLOROP,wkdword);
-		}
-		else
-		{
-			//テクスチャがない場合
+	//回転の初期化
+		D3DXQuaternionRotationYawPitchRoll(&pItem->m_vRot,
+		D3DXToRadian(vRot.y),D3DXToRadian(vRot.x),D3DXToRadian(vRot.z));
 
-			//コモンメッシュのDraw()を呼ぶ
-			CommonMesh::Draw(i_DrawPacket);
-		}
+		m_ItemMap_All.insert(multimap<float, EnemyItem*>::value_type(pItem->m_vPos.y,pItem));	
 	}
+
+
+/**************************************************************************
+ Factory_Enemy 定義部
+****************************************************************************/
+/**************************************************************************
+ Factory_Enemy::Factory_Enemy(
+	LPDIRECT3DDEVICE9 pD3DDevice,	//デバイス
+	vector<Object*>& vec,			//オブジェクトの配列
+	TextureManager& TexMgr		//テクスチャの配列
+);
+ 用途: コンストラクタ（サンプルオブジェクトを配列に追加する）
+ 戻り値: なし
+***************************************************************************/
+	Factory_Enemy::Factory_Enemy(FactoryPacket* fpac){
+	try{
+		D3DCOLORVALUE EnemyDiffuse = {1.0f,1.0f,1.0f,1.0f};
+		D3DCOLORVALUE EnemySpecular = {0.0f,0.0f,0.0f,0.0f};
+		D3DCOLORVALUE EnemyAmbient = {1.0f,1.0f,1.0f,1.0f};
+		
+//		fpac->m_pVec->push_back(new EnemySphere(fpac->pD3DDevice, EnemyDiffuse, EnemySpecular, EnemyAmbient, fpac->m_pTexMgr->addTexture(fpac->pD3DDevice,NULL)));
+		EnemySphere* Enemy = new EnemySphere(fpac->pD3DDevice, EnemyDiffuse, EnemySpecular, EnemyAmbient, fpac->m_pTexMgr->addTexture(fpac->pD3DDevice,L"Enemy.jpg"));
+		Enemy->AddEnemy(D3DXVECTOR3( 0.2f, 0.2f, 0.2f ),
+			D3DXVECTOR3( 0.0f, 0.0f, 0.0f ),
+			D3DXVECTOR3( 200.0f, 200.0f, 0.0f ),
+					  EnemyDiffuse,
+					  EnemySpecular,
+					  EnemyAmbient);
+	
+		fpac->m_pVec->push_back(Enemy);
+	}
+	catch(...){
+		//再throw
+		throw;
+	}
+
+	}
+/**************************************************************************
+ Factory_Enemy::~Factory_Enemy();
+ 用途: デストラクタ
+ 戻り値: なし
+***************************************************************************/
+	Factory_Enemy::~Factory_Enemy(){
+    //なにもしない
+}
+//end of namespace wiz.
 }

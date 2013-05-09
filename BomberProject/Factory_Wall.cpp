@@ -207,8 +207,7 @@ Factory_Wall::Factory_Wall(FactoryPacket* fpac){
 		D3DCOLORVALUE WallSpecular = {0.0f,0.0f,0.0f,0.0f};
 		D3DCOLORVALUE WallAmbient = {1.0f,1.0f,1.0f,1.0f};
 
-		WallObject* Wall = new WallObject(fpac->pD3DDevice,
-			fpac->m_pTexMgr->addTexture(fpac->pD3DDevice,L"biribiriWall.png"));
+		WallObject* Wall = new WallObject(fpac->pD3DDevice,fpac->m_pTexMgr->addTexture(fpac->pD3DDevice,L"biribiriWall.png"));
 		Wall->AddWall(D3DXVECTOR3(0.2f,5.0f,0.5f),
 					  D3DXVECTOR3(0.0f,0.0f,0.0f),
 					  D3DXVECTOR3(2.5f,0.5f,0.0f),
