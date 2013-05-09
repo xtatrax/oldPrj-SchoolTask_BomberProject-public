@@ -67,62 +67,6 @@ void MagneticumObject::Update( UpdatePacket& i_UpdatePacket ){
 };
 
 
-//class EnemyManager : public Object{
-//	list< Enemy* > m_EnemyList ;
-//	float Delay ;
-//public:
-//	EnemyManager()
-//		:Object(OBJID_UI_SPRITE)
-//		,Delay(0)
-//	{}
-//	void Update(UpdatePacket& i_UpdatePacket){
-//
-//		if( ( Delay += i_UpdatePacket.pTime->getElapsedTime() ) >= 0.8f){
-//			float x = rand() % 1024 ;
-//			float y = rand() % 800 ;
-//			m_EnemyList.push_back( 
-//				new Enemy(
-//					i_UpdatePacket.pD3DDevice,
-//					i_UpdatePacket.pTxMgr->addTexture(i_UpdatePacket.pD3DDevice,L"Circle.BMP"),
-//					g_vOne,
-//					g_vZero,
-//					D3DXVECTOR3( x , y ,0.0f),
-//					NULL,
-//					0xFFFF0000
-//				)
-//			);
-//			Delay = 0 ;
-//		}
-//
-//
-//		list< Enemy* >::iterator  it = m_EnemyList.begin() ;
-//		list< Enemy* >::iterator end = m_EnemyList.end()   ;
-//
-//		for(  ; it != end ; it++ ){
-//			(*it)->Update( i_UpdatePacket );
-//		}
-//
-//
-//	}
-//	~EnemyManager(){
-//		SafeDeletePointerContainer(m_EnemyList);
-//	}
-//	virtual void Draw(DrawPacket& i_DrawPacket){
-//		list< Enemy* >::iterator  it = m_EnemyList.begin() ;
-//		list< Enemy* >::iterator end = m_EnemyList.end()   ;
-//
-//		for(  ; it != end ; it++ ){
-//			(*it)->Draw( i_DrawPacket );
-//		}
-//
-//	};
-//
-//
-//};
-//
-
-
-
 
 //3D•ÏŠ·—p
 /**************************************************************************
@@ -152,6 +96,7 @@ MagneticumObject3D::MagneticumObject3D(
 				   D3DCOLORVALUE(),
 				   id,
 				   pTexture)
+,m_bMagnetPole( POLE_S )
 {
 	::ZeroMemory( &m_Material, sizeof(D3DMATERIAL9) ) ;
 }
@@ -222,7 +167,8 @@ void MagneticumObject3D::Update( UpdatePacket& i_UpdatePacket ){
 	m_ItemMap_Target.clear();
 	multimap<float,Magnet3DItem*>::iterator it = m_ItemMap_All.begin();
 	while(it != m_ItemMap_All.end()){
-		if( ( +(it->first - m_pCamera->getEye().y) <= 3) && ( +(it->first - m_pCamera->getEye().y) >= -3 ) ){
+		if( ((it->first - m_pCamera->getEye().y) <= 13) && ((it->first - m_pCamera->getEye().y) >= -13) /*&&
+			((it->first - m_pCamera->getEye().x) <= 15) && ((it->first - m_pCamera->getEye().x) >= -15)*/ ){
 			m_ItemMap_Target.insert(multimap<float,Magnet3DItem*>::value_type(it->second->m_vPos.y,it->second));
 		}
 		++it;
@@ -312,12 +258,252 @@ Factory_Magnetic::Factory_Magnetic(FactoryPacket *fpac){
 		);
 		fpac->m_pVec->push_back(Magnet);
 
-		Magnet->AddMagnetic(D3DXVECTOR3(1.0f,1.0f,1.0f),
-					  D3DXVECTOR3(0.0f,0.0f,0.0f),
-					  D3DXVECTOR3(1.0f,0.0f,0.0f),
-					  MagnetDiffuse,
-					  MagnetSpecular,
-					  MagnetAmbient);
+		//Magnet->AddMagnetic(D3DXVECTOR3(5.0f,5.0f,0.5f),
+		//			  D3DXVECTOR3(0.0f,0.0f,0.0f),
+		//			  D3DXVECTOR3(0.0f,0.0f,0.0f),
+		//			  MagnetDiffuse,
+		//			  MagnetSpecular,
+		//			  MagnetAmbient);
+		//Magnet->AddMagnetic(D3DXVECTOR3(1.0f,1.0f,1.0f),
+		//			  D3DXVECTOR3(0.0f,0.0f,0.0f),
+		//			  D3DXVECTOR3(1.0f,0.0f,0.0f),
+		//			  MagnetDiffuse,
+		//			  MagnetSpecular,
+		//			  MagnetAmbient);
+		//Magnet->AddMagnetic(D3DXVECTOR3(1.0f,1.0f,1.0f),
+		//			  D3DXVECTOR3(0.0f,0.0f,0.0f),
+		//			  D3DXVECTOR3(2.0f,0.0f,0.0f),
+		//			  MagnetDiffuse,
+		//			  MagnetSpecular,
+		//			  MagnetAmbient);
+		//Magnet->AddMagnetic(D3DXVECTOR3(1.0f,1.0f,1.0f),
+		//			  D3DXVECTOR3(0.0f,0.0f,0.0f),
+		//			  D3DXVECTOR3(3.0f,0.0f,0.0f),
+		//			  MagnetDiffuse,
+		//			  MagnetSpecular,
+		//			  MagnetAmbient);
+		//Magnet->AddMagnetic(D3DXVECTOR3(1.0f,1.0f,1.0f),
+		//			  D3DXVECTOR3(0.0f,0.0f,0.0f),
+		//			  D3DXVECTOR3(4.0f,0.0f,0.0f),
+		//			  MagnetDiffuse,
+		//			  MagnetSpecular,
+		//			  MagnetAmbient);
+		//Magnet->AddMagnetic(D3DXVECTOR3(1.0f,1.0f,1.0f),
+		//			  D3DXVECTOR3(0.0f,0.0f,0.0f),
+		//			  D3DXVECTOR3(5.0f,0.0f,0.0f),
+		//			  MagnetDiffuse,
+		//			  MagnetSpecular,
+		//			  MagnetAmbient);
+		//Magnet->AddMagnetic(D3DXVECTOR3(1.0f,1.0f,1.0f),
+		//			  D3DXVECTOR3(0.0f,0.0f,0.0f),
+		//			  D3DXVECTOR3(6.0f,0.0f,0.0f),
+		//			  MagnetDiffuse,
+		//			  MagnetSpecular,
+		//			  MagnetAmbient);
+		//Magnet->AddMagnetic(D3DXVECTOR3(1.0f,1.0f,1.0f),
+		//			  D3DXVECTOR3(0.0f,0.0f,0.0f),
+		//			  D3DXVECTOR3(7.0f,0.0f,0.0f),
+		//			  MagnetDiffuse,
+		//			  MagnetSpecular,
+		//			  MagnetAmbient);
+		//Magnet->AddMagnetic(D3DXVECTOR3(1.0f,1.0f,1.0f),
+		//			  D3DXVECTOR3(0.0f,0.0f,0.0f),
+		//			  D3DXVECTOR3(8.0f,0.0f,0.0f),
+		//			  MagnetDiffuse,
+		//			  MagnetSpecular,
+		//			  MagnetAmbient);
+		//Magnet->AddMagnetic(D3DXVECTOR3(1.0f,1.0f,1.0f),
+		//			  D3DXVECTOR3(0.0f,0.0f,0.0f),
+		//			  D3DXVECTOR3(9.0f,0.0f,0.0f),
+		//			  MagnetDiffuse,
+		//			  MagnetSpecular,
+		//			  MagnetAmbient);
+		//Magnet->AddMagnetic(D3DXVECTOR3(1.0f,1.0f,1.0f),
+		//			  D3DXVECTOR3(0.0f,0.0f,0.0f),
+		//			  D3DXVECTOR3(10.0f,0.0f,0.0f),
+		//			  MagnetDiffuse,
+		//			  MagnetSpecular,
+		//			  MagnetAmbient);
+		//Magnet->AddMagnetic(D3DXVECTOR3(1.0f,1.0f,1.0f),
+		//			  D3DXVECTOR3(0.0f,0.0f,0.0f),
+		//			  D3DXVECTOR3(11.0f,0.0f,0.0f),
+		//			  MagnetDiffuse,
+		//			  MagnetSpecular,
+		//			  MagnetAmbient);
+		//Magnet->AddMagnetic(D3DXVECTOR3(1.0f,1.0f,1.0f),
+		//			  D3DXVECTOR3(0.0f,0.0f,0.0f),
+		//			  D3DXVECTOR3(12.0f,0.0f,0.0f),
+		//			  MagnetDiffuse,
+		//			  MagnetSpecular,
+		//			  MagnetAmbient);
+		//Magnet->AddMagnetic(D3DXVECTOR3(1.0f,1.0f,1.0f),
+		//			  D3DXVECTOR3(0.0f,0.0f,0.0f),
+		//			  D3DXVECTOR3(13.0f,0.0f,0.0f),
+		//			  MagnetDiffuse,
+		//			  MagnetSpecular,
+		//			  MagnetAmbient);
+		//Magnet->AddMagnetic(D3DXVECTOR3(1.0f,1.0f,1.0f),
+		//			  D3DXVECTOR3(0.0f,0.0f,0.0f),
+		//			  D3DXVECTOR3(14.0f,0.0f,0.0f),
+		//			  MagnetDiffuse,
+		//			  MagnetSpecular,
+		//			  MagnetAmbient);
+		//Magnet->AddMagnetic(D3DXVECTOR3(1.0f,1.0f,1.0f),
+		//			  D3DXVECTOR3(0.0f,0.0f,0.0f),
+		//			  D3DXVECTOR3(15.0f,0.0f,0.0f),
+		//			  MagnetDiffuse,
+		//			  MagnetSpecular,
+		//			  MagnetAmbient);
+		//Magnet->AddMagnetic(D3DXVECTOR3(1.0f,1.0f,1.0f),
+		//			  D3DXVECTOR3(0.0f,0.0f,0.0f),
+		//			  D3DXVECTOR3(16.0f,0.0f,0.0f),
+		//			  MagnetDiffuse,
+		//			  MagnetSpecular,
+		//			  MagnetAmbient);
+		//Magnet->AddMagnetic(D3DXVECTOR3(1.0f,1.0f,1.0f),
+		//			  D3DXVECTOR3(0.0f,0.0f,0.0f),
+		//			  D3DXVECTOR3(17.0f,0.0f,0.0f),
+		//			  MagnetDiffuse,
+		//			  MagnetSpecular,
+		//			  MagnetAmbient);
+		//Magnet->AddMagnetic(D3DXVECTOR3(1.0f,1.0f,1.0f),
+		//			  D3DXVECTOR3(0.0f,0.0f,0.0f),
+		//			  D3DXVECTOR3(18.0f,0.0f,0.0f),
+		//			  MagnetDiffuse,
+		//			  MagnetSpecular,
+		//			  MagnetAmbient);
+		//Magnet->AddMagnetic(D3DXVECTOR3(1.0f,1.0f,1.0f),
+		//			  D3DXVECTOR3(0.0f,0.0f,0.0f),
+		//			  D3DXVECTOR3(19.0f,0.0f,0.0f),
+		//			  MagnetDiffuse,
+		//			  MagnetSpecular,
+		//			  MagnetAmbient);
+		//Magnet->AddMagnetic(D3DXVECTOR3(1.0f,1.0f,1.0f),
+		//			  D3DXVECTOR3(0.0f,0.0f,0.0f),
+		//			  D3DXVECTOR3(20.0f,0.0f,0.0f),
+		//			  MagnetDiffuse,
+		//			  MagnetSpecular,
+		//			  MagnetAmbient);
+		//Magnet->AddMagnetic(D3DXVECTOR3(1.0f,1.0f,1.0f),
+		//			  D3DXVECTOR3(0.0f,0.0f,0.0f),
+		//			  D3DXVECTOR3(21.0f,0.0f,0.0f),
+		//			  MagnetDiffuse,
+		//			  MagnetSpecular,
+		//			  MagnetAmbient);
+		//Magnet->AddMagnetic(D3DXVECTOR3(1.0f,1.0f,1.0f),
+		//			  D3DXVECTOR3(0.0f,0.0f,0.0f),
+		//			  D3DXVECTOR3(22.0f,0.0f,0.0f),
+		//			  MagnetDiffuse,
+		//			  MagnetSpecular,
+		//			  MagnetAmbient);
+		//Magnet->AddMagnetic(D3DXVECTOR3(1.0f,1.0f,1.0f),
+		//			  D3DXVECTOR3(0.0f,0.0f,0.0f),
+		//			  D3DXVECTOR3(23.0f,0.0f,0.0f),
+		//			  MagnetDiffuse,
+		//			  MagnetSpecular,
+		//			  MagnetAmbient);
+		//Magnet->AddMagnetic(D3DXVECTOR3(1.0f,1.0f,1.0f),
+		//			  D3DXVECTOR3(0.0f,0.0f,0.0f),
+		//			  D3DXVECTOR3(24.0f,0.0f,0.0f),
+		//			  MagnetDiffuse,
+		//			  MagnetSpecular,
+		//			  MagnetAmbient);
+		//Magnet->AddMagnetic(D3DXVECTOR3(1.0f,1.0f,1.0f),
+		//			  D3DXVECTOR3(0.0f,0.0f,0.0f),
+		//			  D3DXVECTOR3(25.0f,0.0f,0.0f),
+		//			  MagnetDiffuse,
+		//			  MagnetSpecular,
+		//			  MagnetAmbient);
+		//Magnet->AddMagnetic(D3DXVECTOR3(1.0f,1.0f,1.0f),
+		//			  D3DXVECTOR3(0.0f,0.0f,0.0f),
+		//			  D3DXVECTOR3(26.0f,0.0f,0.0f),
+		//			  MagnetDiffuse,
+		//			  MagnetSpecular,
+		//			  MagnetAmbient);
+		//Magnet->AddMagnetic(D3DXVECTOR3(1.0f,1.0f,1.0f),
+		//			  D3DXVECTOR3(0.0f,0.0f,0.0f),
+		//			  D3DXVECTOR3(27.0f,0.0f,0.0f),
+		//			  MagnetDiffuse,
+		//			  MagnetSpecular,
+		//			  MagnetAmbient);
+		//Magnet->AddMagnetic(D3DXVECTOR3(1.0f,1.0f,1.0f),
+		//			  D3DXVECTOR3(0.0f,0.0f,0.0f),
+		//			  D3DXVECTOR3(28.0f,0.0f,0.0f),
+		//			  MagnetDiffuse,
+		//			  MagnetSpecular,
+		//			  MagnetAmbient);
+		//Magnet->AddMagnetic(D3DXVECTOR3(1.0f,1.0f,1.0f),
+		//			  D3DXVECTOR3(0.0f,0.0f,0.0f),
+		//			  D3DXVECTOR3(29.0f,0.0f,0.0f),
+		//			  MagnetDiffuse,
+		//			  MagnetSpecular,
+		//			  MagnetAmbient);
+		//Magnet->AddMagnetic(D3DXVECTOR3(1.0f,1.0f,1.0f),
+		//			  D3DXVECTOR3(0.0f,0.0f,0.0f),
+		//			  D3DXVECTOR3(30.0f,0.0f,0.0f),
+		//			  MagnetDiffuse,
+		//			  MagnetSpecular,
+		//			  MagnetAmbient);
+		//Magnet->AddMagnetic(D3DXVECTOR3(1.0f,1.0f,1.0f),
+		//			  D3DXVECTOR3(0.0f,0.0f,0.0f),
+		//			  D3DXVECTOR3(31.0f,0.0f,0.0f),
+		//			  MagnetDiffuse,
+		//			  MagnetSpecular,
+		//			  MagnetAmbient);
+		//Magnet->AddMagnetic(D3DXVECTOR3(1.0f,1.0f,1.0f),
+		//			  D3DXVECTOR3(0.0f,0.0f,0.0f),
+		//			  D3DXVECTOR3(32.0f,0.0f,0.0f),
+		//			  MagnetDiffuse,
+		//			  MagnetSpecular,
+		//			  MagnetAmbient);
+		//Magnet->AddMagnetic(D3DXVECTOR3(1.0f,1.0f,1.0f),
+		//			  D3DXVECTOR3(0.0f,0.0f,0.0f),
+		//			  D3DXVECTOR3(33.0f,0.0f,0.0f),
+		//			  MagnetDiffuse,
+		//			  MagnetSpecular,
+		//			  MagnetAmbient);
+		//Magnet->AddMagnetic(D3DXVECTOR3(1.0f,1.0f,1.0f),
+		//			  D3DXVECTOR3(0.0f,0.0f,0.0f),
+		//			  D3DXVECTOR3(34.0f,0.0f,0.0f),
+		//			  MagnetDiffuse,
+		//			  MagnetSpecular,
+		//			  MagnetAmbient);
+		//Magnet->AddMagnetic(D3DXVECTOR3(1.0f,1.0f,1.0f),
+		//			  D3DXVECTOR3(0.0f,0.0f,0.0f),
+		//			  D3DXVECTOR3(35.0f,0.0f,0.0f),
+		//			  MagnetDiffuse,
+		//			  MagnetSpecular,
+		//			  MagnetAmbient);
+		//Magnet->AddMagnetic(D3DXVECTOR3(1.0f,1.0f,1.0f),
+		//			  D3DXVECTOR3(0.0f,0.0f,0.0f),
+		//			  D3DXVECTOR3(36.0f,0.0f,0.0f),
+		//			  MagnetDiffuse,
+		//			  MagnetSpecular,
+		//			  MagnetAmbient);
+		//Magnet->AddMagnetic(D3DXVECTOR3(1.0f,1.0f,1.0f),
+		//			  D3DXVECTOR3(0.0f,0.0f,0.0f),
+		//			  D3DXVECTOR3(37.0f,0.0f,0.0f),
+		//			  MagnetDiffuse,
+		//			  MagnetSpecular,
+		//			  MagnetAmbient);
+		//Magnet->AddMagnetic(D3DXVECTOR3(1.0f,1.0f,1.0f),
+		//			  D3DXVECTOR3(0.0f,0.0f,0.0f),
+		//			  D3DXVECTOR3(38.0f,0.0f,0.0f),
+		//			  MagnetDiffuse,
+		//			  MagnetSpecular,
+		//			  MagnetAmbient);
+		//Magnet->AddMagnetic(D3DXVECTOR3(1.0f,1.0f,1.0f),
+		//			  D3DXVECTOR3(0.0f,0.0f,0.0f),
+		//			  D3DXVECTOR3(39.0f,0.0f,0.0f),
+		//			  MagnetDiffuse,
+		//			  MagnetSpecular,
+		//			  MagnetAmbient);
+		//Magnet->AddMagnetic(D3DXVECTOR3(1.0f,1.0f,1.0f),
+		//			  D3DXVECTOR3(0.0f,0.0f,0.0f),
+		//			  D3DXVECTOR3(40.0f,0.0f,0.0f),
+		//			  MagnetDiffuse,
+		//			  MagnetSpecular,
+		//			  MagnetAmbient);
 
 	}
 	catch(...){
