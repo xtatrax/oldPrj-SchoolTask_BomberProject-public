@@ -19,10 +19,11 @@ namespace wiz{
 
 class	Item	: public PrimitiveSphere {
 protected:
-	D3DXMATRIX m_mMatrix;
 	struct BallItem{
 		//マテリアル
 		D3DMATERIAL9 m_Material;
+		//マトリックス
+		D3DXMATRIX m_mMatrix;
 		//サイズ
 		D3DXVECTOR3	m_Size;
 		//オブジェクトの位置(中心)
