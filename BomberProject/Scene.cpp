@@ -15,6 +15,7 @@
 #include "Scene.h"
 #include "Debug_Stage.h"
 #include "Stage_Play.h"
+#include "Stage_Test.h"
 #include <process.h>
 
 
@@ -241,16 +242,18 @@ void Scene::CommandTranslator(DrawPacket& i_DrawPacket){
 			//	: ゲームオーバー画面
 
 
-		//	: デバッグステージ
-		case GM_OPENDEBUGSTAGE_TOJIWORKSPACE:
-		case GM_OPENDEBUGSTAGE_HSWORKSPACE:
-		case GM_OPENDEBUGSTAGE_TATEAWORKSPACE:
+
 		//case GM_OPENDEBUGSTAGE_STAGECREATE:
 		//	SafeDeleteStage();
 		//	m_pRootStage = new DevelopStage(i_DrawPacket.pD3DDevice);
 		//	break;
 			m_fStageNotFoundMessageTime          = 3.0f ;
 			break ; 
+		//	: デバッグステージ
+		case GM_OPENDEBUGSTAGE_TATEAWORKSPACE:
+			SafeDeleteStage(m_pRootStage);
+			m_pRootStage = new DebugStage_TATRA(i_DrawPacket.pD3DDevice);
+			break;
 		case GM_EXIT:
 			PostQuitMessage(0);
 			break;

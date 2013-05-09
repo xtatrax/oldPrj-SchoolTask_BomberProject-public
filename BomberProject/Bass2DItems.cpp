@@ -229,7 +229,7 @@ void RenderTargetSprite::TargetRender( RenderPacket& i_RenderPacket ){
     
     //	: 新しいレンダーターゲットを設定する
     //		（テクスチャに対する描画に切り替える）
-    D3DVIEWPORT9	newViewport	= { 0, 0, 640, 480, 0.0f, 1.0f } ;	//	画面の左上端から幅640高さ480を描画領域にする
+	D3DVIEWPORT9	newViewport	= { 0, 0, m_ClientSize.cx, m_ClientSize.cy, 0.0f, 1.0f } ;	//	画面の左上端から幅640高さ480を描画領域にする
     pd3dDevice->SetViewport( &newViewport );
     pd3dDevice->SetRenderTarget( 0, m_sfRenderTarget );
     pd3dDevice->SetDepthStencilSurface( m_sfRenderTargetZ );

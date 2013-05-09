@@ -68,7 +68,7 @@ protected:
 public:
 	MagneticumObject( LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTexture,
 		D3DXVECTOR3 &vScale, D3DXVECTOR3 &vRot, D3DXVECTOR3 &vPos, RECT* pRect,
-		Color color = 0xFFFFFFFF, wiz::OBJID id = OBJID_3D_PLAYER );
+		Color color = 0xFFFFFFFF, wiz::OBJID id = OBJID_3D_MAGNET );
 	//	: 
 	void Update( UpdatePacket& i_UpdatePacket );
 /////////////////// ////////////////////
@@ -292,7 +292,7 @@ public:
 	MagneticumObject3DverT( LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTexture,
 		D3DXVECTOR3 &vScale, D3DXVECTOR3 &vRot, D3DXVECTOR3 &vPos,
 		D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,
-		wiz::OBJID id = OBJID_3D_PLAYER );
+		wiz::OBJID id = OBJID_3D_MAGNET );
 	//	: 
 	void Update( UpdatePacket& i_UpdatePacket );
 /////////////////// ////////////////////

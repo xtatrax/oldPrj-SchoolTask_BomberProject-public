@@ -37,7 +37,7 @@ public:
 	//	: 
 	ProvisionalPlayer( LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTexture,
 		D3DXVECTOR3 &vScale, D3DXVECTOR3 &vRot, D3DXVECTOR3 &vPos, RECT* pRect,
-		Color color = 0xFFFFFFFF, wiz::OBJID id = OBJID_3D_PLAYER );
+		Color color = 0xFFFFFFFF, wiz::OBJID id = OBJID_3D_MAGNET );
 	//	: 
 	void Update( UpdatePacket& i_UpdatePacket );
 };
@@ -84,7 +84,7 @@ public:
 		D3DXVECTOR3 &vDirOffset,					//	: •ûŒü‚ð•\‚·ŽOŠp‚Ì•`‰æƒIƒtƒZƒbƒg
 		RECT* pCoreRect = NULL,						//	: •`‰æ”ÍˆÍ
 		RECT* pDirRect = NULL,						//	: •`‰æ”ÍˆÍ
-		wiz::OBJID id = OBJID_3D_PLAYER				//	: ID
+		wiz::OBJID id = OBJID_3D_COIL				//	: ID
 	);
 
 /////////////////// ////////////////////

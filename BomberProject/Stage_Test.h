@@ -14,10 +14,22 @@
 #include "Stage.h"
 namespace wiz{
 
-class Stage_Test : public Stage {
+/**************************************************************************
+ class DebugStage : public Stage;
+ 用途: メニュータイプのステージクラス
+ 　　（メニュータイプであれば、この派生クラスを作ってメニューにすると使いやすい）
+****************************************************************************/
+class DebugStage_TATRA : public MenuStage{
 public:
-	Stage_Test();
-		
+/**************************************************************************
+ DebugStage(
+ LPDIRECT3DDEVICE9 pD3DDevice,	//デバイス
+ Stage* Par = 0					//親ステージ
+ );
+ 用途: コンストラクタ
+ 戻り値: なし（失敗時は例外をthrow）
+***************************************************************************/
+	DebugStage_TATRA(LPDIRECT3DDEVICE9 pD3DDevice,Stage* Par = 0);
 };
 
 };
