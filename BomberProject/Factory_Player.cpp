@@ -144,7 +144,9 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 	wiz::CONTROLER_STATE Controller1P = i_UpdatePacket.pCntlState[0] ;
 
 	if( m_pPlayer ){
-
+		//m_fMovdSpeed = 0;
+		//ConvertToCartesianCoordinatesを使って自機のデカルト座標を出す
+		//ThreePoint2Radianでデカルト座標(1)、自機の位置(2)、磁界の位置(3)を入れて角度を出す
 
 		//	: 必要な変数の宣言
 		// 移動の方向 + 距離
@@ -166,14 +168,76 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 		Debugger::DBGSTR::addStr( L"Lng : %d\n", MGPRM_MAGNETICUM_QUAD);
 
 		if( Lng <= MGPRM_MAGNETICUM_QUAD ){
+			//自機と磁界の角度
+			float fTargetDir = TwoPoint2Degree( pPos , m_vPos );
+			//fTargetDir = 360.0f - fTargetDir;
+			Debugger::DBGSTR::addStr( L"fTargetDir : %f\n", fTargetDir);
+			//自機のデカルト座標
+			D3DXVECTOR3 vDescartes = ConvertToCartesianCoordinates(vMove.x,m_fMoveDir);
+			Debugger::DBGSTR::addStr( L"vDescartes : %f\n", vDescartes.x);
 
-			//	: 角度の算出
-			m_fMoveDir = TwoPoint2Degree( m_vPos, pPos );
+			float	fReverse = 0.0f;
+			if(m_fMoveDir > 180.0f){
+				fReverse = m_fMoveDir - 180.0f;
+			}
+			else{
+				fReverse = m_fMoveDir + 180.0f;
+			}
 
-			//	: 反発処理
-			//	: 同じ磁界だと反発する
-			if( m_pPlayer->getMagnetPole() != this->getMagnetPole() ){
-				TurnAngle( &m_fMoveDir , -180.0f ) ;
+			if(m_pPlayer->getMagnetPole() != this->getMagnetPole()){
+
+				if(m_fMoveDir < fTargetDir){
+					if(fTargetDir - m_fMoveDir <= 180.0f){
+						m_fMoveDir += 1.0f;
+						m_fMoveDir = float(int(m_fMoveDir) % 360);						
+					}
+					else{
+						m_fMoveDir -= 1.0f;
+						if(m_fMoveDir < 0.0f){
+							m_fMoveDir += 360.0f;
+						}
+					}
+				}
+				else if(m_fMoveDir > fTargetDir){
+					if(m_fMoveDir - fTargetDir <= 180.0f){
+						m_fMoveDir -= 1.0f;
+						if(m_fMoveDir < 0.0f){
+							m_fMoveDir += 360.0f;
+						}
+					}
+					else{
+						m_fMoveDir += 1.0f;
+						m_fMoveDir = float(int(m_fMoveDir) % 360);												
+					}
+				}
+			}
+			else{
+				if(fReverse != fTargetDir){
+					if(m_fMoveDir < fTargetDir){
+						if(fTargetDir - m_fMoveDir <= 180.0f){
+							m_fMoveDir -= 1.0f;
+							if(m_fMoveDir < 0.0f){
+								m_fMoveDir += 360.0f;
+							}
+						}
+						else{
+							m_fMoveDir += 1.0f;
+							m_fMoveDir = float(int(m_fMoveDir) % 360);						
+						}
+					}
+					else if(m_fMoveDir > fTargetDir){
+						if(m_fMoveDir - fTargetDir <= 180.0f){
+							m_fMoveDir += 1.0f;
+							m_fMoveDir = float(int(m_fMoveDir) % 360);												
+						}
+						else{
+							m_fMoveDir -= 1.0f;
+							if(m_fMoveDir < 0.0f){
+								m_fMoveDir += 360.0f;
+							}
+						}
+					}
+				}
 			}
 		}
 
@@ -256,7 +320,7 @@ Factory_Player::Factory_Player( FactoryPacket* fpac ){
 				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"CoilDir.png" ),
 				vScale,
 				g_vZero,
-				D3DXVECTOR3(200.0f,300.0f,0.0f),
+				D3DXVECTOR3(100.0f,400.0f,0.0f),
 				D3DXVECTOR3( -16.5f, -26.0f,0.0f),
 				NULL,
 				NULL

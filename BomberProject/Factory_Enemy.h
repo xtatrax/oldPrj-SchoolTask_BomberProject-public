@@ -17,15 +17,17 @@
 
 namespace wiz{
 
+
 	
 	class EnemySphere : public PrimitiveSphere {
-			struct EnemyItem{
-		D3DMATERIAL9 m_Material;
-		D3DXMATRIX	m_Matrix;
-		D3DXVECTOR3 m_vScale ;
-		D3DXVECTOR3 m_vPos ;
-		D3DXQUATERNION m_vRot;
-		virtual ~EnemyItem(){}
+		struct EnemyItem{
+			D3DMATERIAL9 m_Material;
+			D3DXMATRIX	m_Matrix;
+			D3DXVECTOR3 m_vScale ;
+			D3DXVECTOR3 m_vPos ;
+			D3DXQUATERNION m_vRot;
+			virtual ~EnemyItem(){}
+
 		};
 				//map<オブジェクトのポジション,EnemyItem>
 	multimap<float,EnemyItem*> m_ItemMap_All;	//全てのWallItem

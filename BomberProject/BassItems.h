@@ -17,48 +17,48 @@
 #include "TL-String.h"
 namespace wiz {
 
-namespace baseitems{
+	namespace baseitems{
 
 /**************************************************************************
  class CommonMesh : public Object;
  用途: コモンメッシュクラス
 ****************************************************************************/
-class CommonMesh : public Object{
-public:
-	//Boxのテクスチャパターン
-	//パターンは呼び出し側で指定するので、これだけpublicにする
-	enum {PtnUV_1_1 = 0, PtnUV_6_1,PtnUV_YWrap,PtnUV_ZWrap};
-protected:
-	//以下は派生クラスから呼ばれる
-    //メッシュ
-    LPD3DXMESH m_pMesh;
-	//影ボリュームクラス
-	ShadowVolume* m_pShadowVolume;
-	//ラッピングテクスチャかどうか
-	bool m_bWrapMode;
-	//ワイアーフレーム表示するかどうか
-	bool m_bWireFrame;
-	//フラットモードにするかどうか
-	//デフォルトはfalse（グーロー シェーディング モード）
-	bool m_bShadeModeFlat;
-protected:
-	//テスト用
-	D3DMATERIAL9	m_Material ;
-	DWORD			m_dwDrawSubset;
-
+		class CommonMesh : public Object{
+			public:
+				//Boxのテクスチャパターン
+				//パターンは呼び出し側で指定するので、これだけpublicにする
+				enum {PtnUV_1_1 = 0, PtnUV_6_1,PtnUV_YWrap,PtnUV_ZWrap};
+			protected:
+				//以下は派生クラスから呼ばれる
+				//メッシュ
+				LPD3DXMESH m_pMesh;
+				//影ボリュームクラス
+				ShadowVolume* m_pShadowVolume;
+				//ラッピングテクスチャかどうか
+				bool m_bWrapMode;
+				//ワイアーフレーム表示するかどうか
+				bool m_bWireFrame;
+				//フラットモードにするかどうか
+				//デフォルトはfalse（グーロー シェーディング モード）
+				bool m_bShadeModeFlat;
+			protected:
+				//テスト用
+				D3DMATERIAL9	m_Material ;
+				DWORD			m_dwDrawSubset;
+				
 /**************************************************************************
  struct  CommonMeshVertex;
  用途: CommonMeshのテクスチャがある場合の頂点フォーマットの定義
 	D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_TEX1
 	を構造体化している
 ****************************************************************************/
-	struct  CommonMeshVertex{
-		D3DXVECTOR3 vec;	//頂点
-		D3DXVECTOR3 normal;	//法線
-		FLOAT       tu,tv;	//UV値
-	};
-	//CommonMesh用のFVFをDirectXAPIに渡すときのパラメータ
-	enum { CommonMeshFVF = D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_TEX1 };
+				struct  CommonMeshVertex{
+					D3DXVECTOR3 vec;	//頂点
+					D3DXVECTOR3 normal;	//法線
+					FLOAT       tu,tv;	//UV値
+				};
+			//CommonMesh用のFVFをDirectXAPIに渡すときのパラメータ
+				enum { CommonMeshFVF = D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_TEX1 };
 /**************************************************************************
  ユーティリティ関数（static関数）
 ****************************************************************************/
@@ -75,7 +75,7 @@ protected:
  戻り値: なし
  float& uとfloat& vに変換後の値を代入
 ***************************************************************************/
-	static void PolygonVec2UV(float x,float y,float z,float r,float& u,float& v);
+				static void PolygonVec2UV(float x,float y,float z,float r,float& u,float& v);
 /**************************************************************************
  static void BoxVecNomal2UV(
 	D3DXVECTOR3 vec,	//頂点
@@ -88,7 +88,7 @@ protected:
  戻り値: なし
  float& uとfloat& vに変換後の値を代入
 ***************************************************************************/
-	static void BoxVecNomal2UV(D3DXVECTOR3 vec,D3DXVECTOR3 normal,float& u,float& v);
+				static void BoxVecNomal2UV(D3DXVECTOR3 vec,D3DXVECTOR3 normal,float& u,float& v);
 /**************************************************************************
  static void BoxVecNomal2UV_6_1(
 	D3DXVECTOR3 vec,	//頂点
@@ -101,7 +101,7 @@ protected:
  戻り値: なし
  float& uとfloat& vに変換後の値を代入
 ***************************************************************************/
-	static void BoxVecNomal2UV_6_1(D3DXVECTOR3 vec,D3DXVECTOR3 normal,float& u,float& v);
+				static void BoxVecNomal2UV_6_1(D3DXVECTOR3 vec,D3DXVECTOR3 normal,float& u,float& v);
 /**************************************************************************
  static void SphereVec2UV(
 	float x,	//xの値
@@ -115,7 +115,7 @@ protected:
  戻り値: なし
  float& uとfloat& vに変換後の値を代入
 ***************************************************************************/
-	static void SphereVec2UV(float x,float y,float z,float r,float& u,float& v);
+				static void SphereVec2UV(float x,float y,float z,float r,float& u,float& v);
 /**************************************************************************
  static void WrapVec2UV(
 	float x,	//xの値
@@ -129,7 +129,7 @@ protected:
  戻り値: なし
  float& uとfloat& vに変換後の値を代入
 ***************************************************************************/
-	static void WrapVec2UV(float x,float y,float z,float& u,float& v,bool IsYWrap = true);
+				static void WrapVec2UV(float x,float y,float z,float& u,float& v,bool IsYWrap = true);
 /**************************************************************************
  static void TorusVec2UV(
 	float x,	//xの値
@@ -144,19 +144,19 @@ protected:
  戻り値: なし
  float& uとfloat& vに変換後の値を代入
 ***************************************************************************/
-	static void TorusVec2UV(float x,float y,float z,float inr,float outr,float& u,float& v);
+				static void TorusVec2UV(float x,float y,float z,float inr,float outr,float& u,float& v);
 /**************************************************************************
  CommonMesh();
  用途: コンストラクタ
  戻り値: なし
 ***************************************************************************/
-	CommonMesh( wiz::OBJID id );
+				CommonMesh( wiz::OBJID id );
 /**************************************************************************
  virtual ~CommonMesh();
  用途: デストラクタ
  戻り値: なし
 ***************************************************************************/
-    virtual ~CommonMesh();
+				virtual ~CommonMesh();
 /**************************************************************************
 void CreateBox(
 	LPDIRECT3DDEVICE9 pD3DDevice,	//デバイス
@@ -167,8 +167,7 @@ void CreateBox(
  用途:Boxオブジェクトの構築
  戻り値: なし（例外をthrow）
 ***************************************************************************/
-	void CreateBox(LPDIRECT3DDEVICE9 pD3DDevice,D3DXVECTOR3& size,
-		bool bTextureActive = false,int TexturePtn = PtnUV_1_1);
+				void CreateBox(LPDIRECT3DDEVICE9 pD3DDevice,D3DXVECTOR3& size,bool bTextureActive = false,int TexturePtn = PtnUV_1_1);
 /**************************************************************************
 void CreateSphere(
 	LPDIRECT3DDEVICE9 pD3DDevice,	//デバイス
@@ -180,8 +179,7 @@ void CreateSphere(
  用途:球オブジェクトの構築
  戻り値: なし（例外をthrow）
 ***************************************************************************/
-	void CreateSphere(LPDIRECT3DDEVICE9 pD3DDevice,FLOAT radius,
-		bool bTextureActive = false,UINT Slices = 18,UINT Stacks = 18);
+				void CreateSphere(LPDIRECT3DDEVICE9 pD3DDevice,FLOAT radius,bool bTextureActive = false,UINT Slices = 18,UINT Stacks = 18);
 /**************************************************************************
 void CreateTorus(
 	LPDIRECT3DDEVICE9 pD3DDevice,	//デバイス
@@ -194,9 +192,7 @@ void CreateTorus(
  用途:トーラスオブジェクトの構築
  戻り値: なし（例外をthrow）
 ***************************************************************************/
-	void CreateTorus(LPDIRECT3DDEVICE9 pD3DDevice,
-			FLOAT InnerRadius,FLOAT OuterRadius,bool bTextureActive = false,
-			UINT Sides = 18,UINT Rings = 18);
+				void CreateTorus(LPDIRECT3DDEVICE9 pD3DDevice,FLOAT InnerRadius,FLOAT OuterRadius,bool bTextureActive = false,UINT Sides = 18,UINT Rings = 18);
 /**************************************************************************
 void CreateCylinder(
 	LPDIRECT3DDEVICE9 pD3DDevice,	//デバイス
@@ -210,9 +206,7 @@ void CreateCylinder(
  用途:シリンダーオブジェクトの構築
  戻り値: なし（例外をthrow）
 ***************************************************************************/
-	void CreateCylinder(LPDIRECT3DDEVICE9 pD3DDevice,
-			FLOAT Radius1,FLOAT Radius2,FLOAT Length,bool bTextureActive = false,
-			UINT Slices = 18,UINT Stacks = 18);
+				void CreateCylinder(LPDIRECT3DDEVICE9 pD3DDevice,FLOAT Radius1,FLOAT Radius2,FLOAT Length,bool bTextureActive = false,UINT Slices = 18,UINT Stacks = 18);
 /**************************************************************************
 void CreatePolygon(
 	LPDIRECT3DDEVICE9 pD3DDevice,	//デバイス
@@ -223,9 +217,7 @@ void CreatePolygon(
  用途:ポリゴンオブジェクトの構築
  戻り値: なし（例外をthrow）
 ***************************************************************************/
-	void CreatePolygon(LPDIRECT3DDEVICE9 pD3DDevice,
-		FLOAT Length,UINT Sides,bool bTextureActive = false);
-
+				void CreatePolygon(LPDIRECT3DDEVICE9 pD3DDevice,FLOAT Length,UINT Sides,bool bTextureActive = false);
 /////////////////// ////////////////////
 //// 関数名     ：void CommonMesh::Draw( DrawPacket& i_DrawPacket )
 //// カテゴリ   ：仮想関数
@@ -236,7 +228,7 @@ void CreatePolygon(
 //// 備考       ：なるべくこの関数は使わず DrawCommonMesh 関数を使うようにしてください
 ////            ：
 ////
-	void Draw(DrawPacket& i_DrawPacket);
+				void Draw(DrawPacket& i_DrawPacket);
 /**************************************************************************
  void DrawCommonMesh(
     LPDIRECT3DDEVICE9 pD3DDevice,    //IDirect3DDevice9 インターフェイスへのポインタ
@@ -247,8 +239,7 @@ void CreatePolygon(
  用途: コモンオブジェクトを描画（派生クラスから呼ばれる）
  戻り値: なし。
 ***************************************************************************/
-	 void DrawCommonMesh(LPDIRECT3DDEVICE9 pD3DDevice,D3DXMATRIX& Matrix,
-		D3DMATERIAL9& Material,LPDIRECT3DTEXTURE9 pTexture = 0);
+				void DrawCommonMesh(LPDIRECT3DDEVICE9 pD3DDevice,D3DXMATRIX& Matrix,D3DMATERIAL9& Material,LPDIRECT3DTEXTURE9 pTexture = 0);
 /**************************************************************************
 	void DrawCommonShadowVolume(
     LPDIRECT3DDEVICE9 pD3DDevice,    //IDirect3DDevice9 インターフェイスへのポインタ
@@ -260,10 +251,8 @@ void CreatePolygon(
  用途: 影ボリュームを描画（仮想関数）派生クラスから呼ばれる
  戻り値: なし。
 ***************************************************************************/
-	void DrawCommonShadowVolume(
-		LPDIRECT3DDEVICE9 pD3DDevice,D3DXMATRIX& AllMatrix,
-		LPD3DXEFFECT pEffect,D3DXMATRIX& mCameraView,D3DXMATRIX& mCameraProj);
-public:
+				void DrawCommonShadowVolume( LPDIRECT3DDEVICE9 pD3DDevice,D3DXMATRIX& AllMatrix, LPD3DXEFFECT pEffect,D3DXMATRIX& mCameraView,D3DXMATRIX& mCameraProj);
+			public:
 /**************************************************************************
 	void SetWireFrame(
 	bool Value	//ワイアフレームにするかどうか
@@ -271,9 +260,7 @@ public:
  用途: ワイアフレームの場合はtrue、それ以外はfalseを設定する
  戻り値: なし。
 ***************************************************************************/
-	void SetWireFrame(bool Value){
-		m_bWireFrame = Value;
-	}
+				void SetWireFrame(bool Value){ m_bWireFrame = Value; }
 /**************************************************************************
 	void SetShadeModeFlat(
 	bool Value	//シェーダーをフラットモードにするかどうか
@@ -282,9 +269,7 @@ public:
  　それ以外（グーロー シェーディング モードはfalseを設定する
  戻り値: なし。
 ***************************************************************************/
-	void SetShadeModeFlat(bool Value){
-		m_bShadeModeFlat = Value;
-	}
+				void SetShadeModeFlat(bool Value){ m_bShadeModeFlat = Value;}
 
 	//以下はデバイス喪失時に外部から呼ばれる
 /**************************************************************************
@@ -293,51 +278,51 @@ public:
  戻り値: なし。
  ＊デバイスが喪失したときに呼ばれる。すべてのObjectの派生クラスは、個別に対応をとる
 ***************************************************************************/
-	virtual void ReleaseObj();
-};
+				virtual void ReleaseObj();
+		};
 
 
 /**************************************************************************
  class MultiCommonMesh : public CommonMesh;
  用途: 複数のコモンメッシュクラス
 ****************************************************************************/
-class MultiCommonMesh : public CommonMesh{
-protected:
-	//テクスチャつきかどうか
-	bool m_IsTextureActive;
-	struct CommonItem{
-		//このアイテムは有効かどうか
-		bool m_IsActive;
-		//マテリアル
-		D3DMATERIAL9 m_Material;
-		//初期のスケール
-		D3DXVECTOR3 m_BaseScale;
-		//初期位置のオブジェクトの中心
-		D3DXVECTOR3 m_BasePos;
-		//回転用のクオータニオン
-		D3DXQUATERNION m_BaseQt;
-		//現在の初期位置からの相対位置
-		D3DXVECTOR3 m_Pos;
-		//現在の初期位置からの回転用のクオータニオン
-		D3DXQUATERNION m_Qt;
-		//描画時に使用されるワールド変換行列
-		D3DXMATRIX m_WorldMatrix;
-		//影を描画するかどうか
-		bool m_IsShadowActive;
-		//テクスチャ
-		LPDIRECT3DTEXTURE9 m_pTexture;
-		//派生クラスを作ってもClear()関数で
-		//削除できるように仮想デストラクタにしておく
-		virtual ~CommonItem(){}
-	};
-	//CommonItemの配列
-	vector<CommonItem*> m_ItemVec;
+		class MultiCommonMesh : public CommonMesh{
+			protected:
+				//テクスチャつきかどうか
+				bool m_IsTextureActive;
+				struct CommonItem{
+					//このアイテムは有効かどうか
+					bool m_IsActive;
+					//マテリアル
+					D3DMATERIAL9 m_Material;
+					//初期のスケール
+					D3DXVECTOR3 m_BaseScale;
+					//初期位置のオブジェクトの中心
+					D3DXVECTOR3 m_BasePos;
+					//回転用のクオータニオン
+					D3DXQUATERNION m_BaseQt;
+					//現在の初期位置からの相対位置
+					D3DXVECTOR3 m_Pos;
+					//現在の初期位置からの回転用のクオータニオン
+					D3DXQUATERNION m_Qt;
+					//描画時に使用されるワールド変換行列
+					D3DXMATRIX m_WorldMatrix;
+					//影を描画するかどうか
+					bool m_IsShadowActive;
+					//テクスチャ
+					LPDIRECT3DTEXTURE9 m_pTexture;
+					//派生クラスを作ってもClear()関数で
+					//削除できるように仮想デストラクタにしておく
+					virtual ~CommonItem(){}
+				};
+		//CommonItemの配列
+		vector<CommonItem*> m_ItemVec;
 /**************************************************************************
  virtual void Clear();
  用途:オブジェクトの破棄
  戻り値: なし
 ***************************************************************************/
-	virtual void Clear();
+				virtual void Clear();
 /**************************************************************************
  MultiCommonMesh(
 	bool IsTextureActive = false	//テクスチャを張るときは指定
@@ -346,14 +331,14 @@ protected:
  戻り値: なし（失敗時は例外をthrow）
  ＊コンストラクタでは、テクスチャを使用するかしないか指定する
 ***************************************************************************/
-    MultiCommonMesh( wiz::OBJID id , bool IsTextureActive = false );
-public:
+				MultiCommonMesh( wiz::OBJID id , bool IsTextureActive = false );
+			public:
 /**************************************************************************
  virtual ~MultiCommonMesh();
  用途: デストラクタ
  戻り値: なし
 ***************************************************************************/
-    virtual ~MultiCommonMesh();
+				virtual ~MultiCommonMesh();
 /**************************************************************************
  virtual size_t AddItem(
     D3DXVECTOR3& Scale,               //スケール（拡大縮小の倍率）
@@ -368,23 +353,19 @@ public:
  用途: アイテムを追加
  戻り値: 追加したインデックス（失敗時は例外をthrow）
 ***************************************************************************/
-   virtual size_t AddItem(D3DXVECTOR3& Scale,D3DXVECTOR3& Pos,D3DXVECTOR3& Rot,
-		 D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,
-		 bool IsShadowActive = false,LPDIRECT3DTEXTURE9 pTexture = 0);
+				virtual size_t AddItem(D3DXVECTOR3& Scale,D3DXVECTOR3& Pos,D3DXVECTOR3& Rot,D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,bool IsShadowActive = false,LPDIRECT3DTEXTURE9 pTexture = 0);
 /**************************************************************************
 　size_t GetItemCount();
  用途: 現在のアイテム数を得る
  戻り値: アイテム数
 ***************************************************************************/
-	size_t GetItemCount(){
-		return  m_ItemVec.size();
-	}
+				size_t GetItemCount(){return  m_ItemVec.size();}
 /**************************************************************************
 　size_t GetActiveItemCount();
  用途: 現在の有効なアイテム数を得る
  戻り値: アイテム数
 ***************************************************************************/
-	size_t GetActiveItemCount();
+				size_t GetActiveItemCount();
 /**************************************************************************
 bool IsActiveItem(
 size_t Index	//取得したいインデックス
@@ -392,7 +373,7 @@ size_t Index	//取得したいインデックス
  用途: 指定したインデックスのアイテムが有効かどうかを調べる
  戻り値: 有効ならTRUE、無効ならFALSE、インデックスが範囲以外なら例外
 ***************************************************************************/
-	bool IsActiveItem(size_t Index);
+				bool IsActiveItem(size_t Index);
 
 /**************************************************************************
 void SetActiveItem(
@@ -402,7 +383,7 @@ bool val		//したいしたい値（trueかfalse）
  用途: 指定したインデックスのアイテムが有効かどうかを設定する
  戻り値: なし、インデックスが範囲以外なら例外
 ***************************************************************************/
-	void SetActiveItem(size_t Index,bool val);
+				void SetActiveItem(size_t Index,bool val);
 /**************************************************************************
  void CopyItem(
 	 CommonItem* Dest,	//コピー先
@@ -411,7 +392,7 @@ bool val		//したいしたい値（trueかfalse）
  用途:アイテムのコピー
  戻り値: なし
 ***************************************************************************/
- void CopyItem(CommonItem* Dest,size_t Index);
+				void CopyItem(CommonItem* Dest,size_t Index);
 /**************************************************************************
  void GetItemMaterial(
 	size_t Index,	//取得するインデックス
@@ -420,7 +401,7 @@ bool val		//したいしたい値（trueかfalse）
  用途: マテリアルを取得する
  戻り値: なし（MaterialにIndexのマテリアルを返す）
 ***************************************************************************/
- void GetItemMaterial(size_t Index,D3DMATERIAL9& Material);
+				void GetItemMaterial(size_t Index,D3DMATERIAL9& Material);
 /**************************************************************************
  void SetItemMaterial(
 	size_t Index,	//設定するインデックス
@@ -429,7 +410,7 @@ bool val		//したいしたい値（trueかfalse）
  用途: マテリアルを設定する
  戻り値: なし
 ***************************************************************************/
- void SetItemMaterial(size_t Index,D3DMATERIAL9& Material);
+				void SetItemMaterial(size_t Index,D3DMATERIAL9& Material);
 
 /**************************************************************************
 bool IsTextureActive();
@@ -437,7 +418,7 @@ bool IsTextureActive();
  戻り値: 有効ならTRUE、無効ならFALSE
  ＊各インデックスのテクスチャを変更する場合は、先に有効かどうか調査すること
 ***************************************************************************/
-	bool IsTextureActive();
+				bool IsTextureActive();
 
 /**************************************************************************
  LPDIRECT3DTEXTURE9 GetItemTexture(
@@ -446,7 +427,7 @@ bool IsTextureActive();
  用途: テクスチャを取得する
  戻り値: 現在のテクスチャ（ない場合は0が返る）
 ***************************************************************************/
- LPDIRECT3DTEXTURE9 GetItemTexture(size_t Index);
+				LPDIRECT3DTEXTURE9 GetItemTexture(size_t Index);
 /**************************************************************************
  void SetItemTexture(
 	size_t Index,	//設定するインデックス
@@ -455,7 +436,7 @@ bool IsTextureActive();
  用途: テクスチャを設定する
  戻り値: なし
 ***************************************************************************/
- void SetItemTexture(size_t Index,LPDIRECT3DTEXTURE9 pTexture);
+				void SetItemTexture(size_t Index,LPDIRECT3DTEXTURE9 pTexture);
 
 /**************************************************************************
 bool IsShadowActiveItem(
@@ -464,7 +445,7 @@ size_t Index	//取得したいインデックス
  用途: 指定したインデックスの影が有効かどうかを調べる
  戻り値: 有効ならTRUE、無効ならFALSE、インデックスが範囲以外なら例外
 ***************************************************************************/
-	bool IsShadowActiveItem(size_t Index);
+				bool IsShadowActiveItem(size_t Index);
 
 /**************************************************************************
 void SetShadowActiveItem(
@@ -474,7 +455,7 @@ bool val		//したいしたい値（trueかfalse）
  用途: 指定したインデックスの影が有効かどうかを設定する
  戻り値: なし、インデックスが範囲以外なら例外
 ***************************************************************************/
-	void SetShadowActiveItem(size_t Index,bool val);
+				void SetShadowActiveItem(size_t Index,bool val);
 
 
 /**************************************************************************
@@ -485,7 +466,7 @@ bool val		//したいしたい値（trueかfalse）
  用途: ワールド位置を取得する
  戻り値: なし（PosにIndexのワールド位置を返す）
 ***************************************************************************/
- void GetItemWorldPos(size_t Index,D3DXVECTOR3& Pos);
+				void GetItemWorldPos(size_t Index,D3DXVECTOR3& Pos);
 
 /**************************************************************************
  void GetItemWorldRot(
@@ -495,7 +476,7 @@ bool val		//したいしたい値（trueかfalse）
  用途: ワールド回転を取得する
  戻り値: なし（RotにIndexのワールド回転を返す）
 ***************************************************************************/
- void GetItemWorldRot(size_t Index,D3DXVECTOR3& Rot);
+				void GetItemWorldRot(size_t Index,D3DXVECTOR3& Rot);
 /**************************************************************************
  void GetItemWorldQt(
 	size_t Index,	//取得するインデックス
@@ -504,7 +485,7 @@ bool val		//したいしたい値（trueかfalse）
  用途: ワールド回転を取得する
  戻り値: なし（QtにIndexのワールド回転を返す）
 ***************************************************************************/
- void GetItemWorldQt(size_t Index,D3DXQUATERNION& Qt);
+				void GetItemWorldQt(size_t Index,D3DXQUATERNION& Qt);
 /**************************************************************************
  void GetItemWorldScale(
 	size_t Index,	//取得するインデックス
@@ -514,7 +495,7 @@ bool val		//したいしたい値（trueかfalse）
  ＊この関数はGetItemBaseScale関数と同じ
  戻り値: なし（ScaleにIndexのワールド回転を返す）
 ***************************************************************************/
- void GetItemWorldScale(size_t Index,D3DXVECTOR3& Scale);
+				void GetItemWorldScale(size_t Index,D3DXVECTOR3& Scale);
 /**************************************************************************
  void GetItemWorld(
 	size_t Index,_	//取得するインデックス
@@ -526,8 +507,7 @@ bool val		//したいしたい値（trueかfalse）
  用途: すべてのワールド値を取得する
  戻り値: なし（参照にIndexのワールド値を返す）
 ***************************************************************************/
- void GetItemWorld(size_t Index,
-	 D3DXVECTOR3& Scale,D3DXVECTOR3& Pos,D3DXVECTOR3& Rot,D3DXQUATERNION& Qt);
+				void GetItemWorld(size_t Index,D3DXVECTOR3& Scale,D3DXVECTOR3& Pos,D3DXVECTOR3& Rot,D3DXQUATERNION& Qt);
 /**************************************************************************
  void GetItemWorldMatrix(
 	size_t Index,_	//取得するインデックス
@@ -536,13 +516,13 @@ bool val		//したいしたい値（trueかfalse）
  用途:ワールド変換を取得する
  戻り値: なし。mtWorldに変換行列をセットする
 ***************************************************************************/
-	void GetItemWorldMatrix(size_t Index,D3DXMATRIX& mtWorld);
+				void GetItemWorldMatrix(size_t Index,D3DXMATRIX& mtWorld);
 /**************************************************************************
  void CalcWorldMatrix();
  用途:すべてのアイテムのワールド変換を計算する
  戻り値: なし。現在の変換をもとにワールド行列を計算する
 ***************************************************************************/
-	void CalcWorldMatrix();
+				void CalcWorldMatrix();
 /**************************************************************************
  void GetItemLocalPos(
 	size_t Index,	//取得するインデックス
@@ -551,7 +531,7 @@ bool val		//したいしたい値（trueかfalse）
  用途: 相対位置を取得する
  戻り値: なし
 ***************************************************************************/
- void GetItemLocalPos(size_t Index,D3DXVECTOR3& Pos);
+				void GetItemLocalPos(size_t Index,D3DXVECTOR3& Pos);
 
 /**************************************************************************
  void GetItemLocalRot(
@@ -561,7 +541,7 @@ bool val		//したいしたい値（trueかfalse）
  用途: 相対回転を取得する
  戻り値: なし
 ***************************************************************************/
- void GetItemLocalRot(size_t Index,D3DXVECTOR3& Rot);
+				void GetItemLocalRot(size_t Index,D3DXVECTOR3& Rot);
 
 /**************************************************************************
  void GetItemLocalQt(
@@ -571,7 +551,7 @@ bool val		//したいしたい値（trueかfalse）
  用途: 相対回転を取得する（クオータニオン版）
  戻り値: なし
 ***************************************************************************/
- void GetItemLocalQt(size_t Index,D3DXQUATERNION& Qt);
+				void GetItemLocalQt(size_t Index,D3DXQUATERNION& Qt);
 
 /**************************************************************************
  void GetItemLocalPosQt(
@@ -582,8 +562,7 @@ bool val		//したいしたい値（trueかfalse）
  用途: 相対値を取得する(クオータニオン版)
  戻り値: なし
 ***************************************************************************/
-	void GetItemLocalPosQt(size_t Index,
-		D3DXVECTOR3& Pos,D3DXQUATERNION& Qt);
+				void GetItemLocalPosQt(size_t Index,D3DXVECTOR3& Pos,D3DXQUATERNION& Qt);
 /**************************************************************************
  void GetItemLocalPosRot(
 	size_t Index,	//取得するインデックス
@@ -593,8 +572,7 @@ bool val		//したいしたい値（trueかfalse）
  用途: 相対値を取得する
  戻り値: なし
 ***************************************************************************/
-	void GetItemLocalPosRot(size_t Index,
-		D3DXVECTOR3& Pos,D3DXVECTOR3& Rot);
+				void GetItemLocalPosRot(size_t Index,D3DXVECTOR3& Pos,D3DXVECTOR3& Rot);
 
 /**************************************************************************
  void SetItemLocalPosQt(
@@ -605,8 +583,7 @@ bool val		//したいしたい値（trueかfalse）
  用途: 相対値を設定する(クオータニオン版)
  戻り値: なし
 ***************************************************************************/
-	void SetItemLocalPosQt(size_t Index,
-		D3DXVECTOR3& Pos,D3DXQUATERNION& Qt);
+				void SetItemLocalPosQt(size_t Index,D3DXVECTOR3& Pos,D3DXQUATERNION& Qt);
 /**************************************************************************
  void SetItemLocalPosRot(
 	size_t Index,	//インデックス
@@ -616,8 +593,7 @@ bool val		//したいしたい値（trueかfalse）
  用途: 相対値を設定する
  戻り値: なし
 ***************************************************************************/
-	void SetItemLocalPosRot(size_t Index,
-		D3DXVECTOR3& Pos,D3DXVECTOR3& Rot);
+				void SetItemLocalPosRot(size_t Index,D3DXVECTOR3& Pos,D3DXVECTOR3& Rot);
 
 /**************************************************************************
  void MoveToPosRot(
@@ -628,7 +604,7 @@ bool val		//したいしたい値（trueかfalse）
  *すべてのオブジェクトに適用される
  戻り値: なし
 ***************************************************************************/
-	void MoveToPosRot(D3DXVECTOR3& Pos,D3DXVECTOR3& Rot);
+				void MoveToPosRot(D3DXVECTOR3& Pos,D3DXVECTOR3& Rot);
 /**************************************************************************
  void MoveToPosQt(
 	D3DXVECTOR3& Pos,	//動かす相対位置
@@ -638,7 +614,7 @@ bool val		//したいしたい値（trueかfalse）
  *すべてのオブジェクトに適用される
  戻り値: なし
 ***************************************************************************/
-	void MoveToPosQt(D3DXVECTOR3& Pos,D3DXQUATERNION& Qt);
+					void MoveToPosQt(D3DXVECTOR3& Pos,D3DXQUATERNION& Qt);
 
 /**************************************************************************
  void MoveToItemPosRot(
@@ -649,7 +625,7 @@ bool val		//したいしたい値（trueかfalse）
  用途: 指定のメンバの相対値を移動し回転する
  戻り値: なし
 ***************************************************************************/
-	void MoveToItemPosRot(size_t Index,D3DXVECTOR3& Pos,D3DXVECTOR3& Rot);
+				void MoveToItemPosRot(size_t Index,D3DXVECTOR3& Pos,D3DXVECTOR3& Rot);
 /**************************************************************************
  void MoveToItemPosQt(
 	size_t Index,	//変化させるインデックス
@@ -659,7 +635,7 @@ bool val		//したいしたい値（trueかfalse）
  用途: 指定のメンバの相対値を移動し回転する(クオータニオン版)
  戻り値: なし
 ***************************************************************************/
-	void MoveToItemPosQt(size_t Index,D3DXVECTOR3& Pos,D3DXQUATERNION& Qt);
+				void MoveToItemPosQt(size_t Index,D3DXVECTOR3& Pos,D3DXQUATERNION& Qt);
 /**************************************************************************
  void MoveAtPosRot(
 	D3DXVECTOR3& Pos,	//新しい相対位置
@@ -669,7 +645,7 @@ bool val		//したいしたい値（trueかfalse）
  *すべてのオブジェクトに適用される
  戻り値: なし
 ***************************************************************************/
-	void MoveAtPosRot(D3DXVECTOR3& Pos,D3DXVECTOR3& Rot);
+				void MoveAtPosRot(D3DXVECTOR3& Pos,D3DXVECTOR3& Rot);
 /**************************************************************************
  void MoveAtPosQt(
 	D3DXVECTOR3& Pos,	//新しい相対位置
@@ -679,7 +655,7 @@ bool val		//したいしたい値（trueかfalse）
  *すべてのオブジェクトに適用される
  戻り値: なし
 ***************************************************************************/
-	void MoveAtPosQt(D3DXVECTOR3& Pos,D3DXQUATERNION& Qt);
+				void MoveAtPosQt(D3DXVECTOR3& Pos,D3DXQUATERNION& Qt);
 /**************************************************************************
  void MoveAtItemPosRot(
 	size_t Index,	//変化させるインデックス
@@ -689,7 +665,7 @@ bool val		//したいしたい値（trueかfalse）
  用途: 指定のメンバの相対置をセットする
  戻り値: なし
 ***************************************************************************/
-	void MoveAtItemPosRot(size_t Index,D3DXVECTOR3& Pos,D3DXVECTOR3& Rot);
+				void MoveAtItemPosRot(size_t Index,D3DXVECTOR3& Pos,D3DXVECTOR3& Rot);
 /**************************************************************************
  void MoveAtItemPosQt(
 	size_t Index,	//変化させるインデックス
@@ -699,14 +675,14 @@ bool val		//したいしたい値（trueかfalse）
  用途: 指定のメンバの相対置をセットする(クオータニオン版)
  戻り値: なし
 ***************************************************************************/
-	void MoveAtItemPosQt(size_t Index,D3DXVECTOR3& Pos,D3DXQUATERNION& Qt);
+				void MoveAtItemPosQt(size_t Index,D3DXVECTOR3& Pos,D3DXQUATERNION& Qt);
 /**************************************************************************
  void MoveAtIdentity();
  用途: 最初に作成された位置からの指定する相対位置をクリアする
  *すべてのオブジェクトに適用される
  戻り値: なし
 ***************************************************************************/
-	void MoveAtIdentity();
+				void MoveAtIdentity();
 /**************************************************************************
  void MoveAtItemIdentity(
 	size_t Index	//変化させるインデックス
@@ -714,7 +690,7 @@ bool val		//したいしたい値（trueかfalse）
  用途: 指定のメンバの最初に作成された位置からの指定する相対位置をクリアする
  戻り値: なし
 ***************************************************************************/
-	void MoveAtItemIdentity(size_t Index);
+				void MoveAtItemIdentity(size_t Index);
 /**************************************************************************
  void GetItemBaseScalePosRot(
 	size_t Index,		//取得するインデックス
@@ -725,8 +701,7 @@ bool val		//したいしたい値（trueかfalse）
  用途: 指定のインデックスのベースのスケーリングと位置と回転を同時に取り出す
  戻り値: なし
 ***************************************************************************/
-	void GetItemBaseScalePosRot(size_t Index,
-		D3DXVECTOR3& Scale,D3DXVECTOR3& Pos,D3DXVECTOR3& Rot);
+				void GetItemBaseScalePosRot(size_t Index,D3DXVECTOR3& Scale,D3DXVECTOR3& Pos,D3DXVECTOR3& Rot);
 /**************************************************************************
  void GetItemBaseScalePosQt(
 	size_t Index,		//取得するインデックス
@@ -737,8 +712,7 @@ bool val		//したいしたい値（trueかfalse）
  用途: 指定のインデックスのベースのスケーリングと位置と回転を同時に取り出す（クオータニオン版）
  戻り値: なし
 ***************************************************************************/
-	void GetItemBaseScalePosQt(size_t Index,
-		D3DXVECTOR3& Scale,D3DXVECTOR3& Pos,D3DXQUATERNION& Qt);
+				void GetItemBaseScalePosQt(size_t Index,D3DXVECTOR3& Scale,D3DXVECTOR3& Pos,D3DXQUATERNION& Qt);
 
 /**************************************************************************
  void SetItemBaseScale(
@@ -748,7 +722,7 @@ bool val		//したいしたい値（trueかfalse）
  用途: 指定のインデックスの最初に作成されたスケーリングを変更する
  戻り値: なし
 ***************************************************************************/
-	void SetItemBaseScale(size_t Index,D3DXVECTOR3& Scale);
+				void SetItemBaseScale(size_t Index,D3DXVECTOR3& Scale);
 /**************************************************************************
  void SetItemBasePos(
 	size_t Index,		//設定するインデックス
@@ -757,7 +731,7 @@ bool val		//したいしたい値（trueかfalse）
  用途: 指定のインデックスの最初に作成された位置を変更する
  戻り値: なし
 ***************************************************************************/
-	void SetItemBasePos(size_t Index,D3DXVECTOR3& Pos);
+				void SetItemBasePos(size_t Index,D3DXVECTOR3& Pos);
 /**************************************************************************
  void SetItemBaseRot(
 	size_t Index,		//設定するインデックス
@@ -766,7 +740,7 @@ bool val		//したいしたい値（trueかfalse）
  用途: 指定のインデックスの最初に作成された回転を変更する
  戻り値: なし
 ***************************************************************************/
-	void SetItemBaseRot(size_t Index,D3DXVECTOR3& Rot);
+				void SetItemBaseRot(size_t Index,D3DXVECTOR3& Rot);
 /**************************************************************************
  void SetItemBaseQt(
 	size_t Index,		//設定するインデックス
@@ -775,7 +749,7 @@ bool val		//したいしたい値（trueかfalse）
  用途: 指定のインデックスの最初に作成された回転を変更する(クオータニオン版)
  戻り値: なし
 ***************************************************************************/
-	void SetItemBaseQt(size_t Index,D3DXQUATERNION& Qt);
+				void SetItemBaseQt(size_t Index,D3DXQUATERNION& Qt);
 /**************************************************************************
  void SetItemBaseScalePosRot(
 	size_t Index,		//設定するインデックス
@@ -786,8 +760,7 @@ bool val		//したいしたい値（trueかfalse）
  用途: 指定のインデックスの最初に作成されたスケーリングと位置と回転を同時に変更する
  戻り値: なし
 ***************************************************************************/
-	void SetItemBaseScalePosRot(size_t Index,
-		D3DXVECTOR3& Scale,D3DXVECTOR3& Pos,D3DXVECTOR3& Rot);
+				void SetItemBaseScalePosRot(size_t Index,D3DXVECTOR3& Scale,D3DXVECTOR3& Pos,D3DXVECTOR3& Rot);
 /**************************************************************************
  void SetItemBaseScalePosQt(
 	size_t Index,		//設定するインデックス
@@ -798,8 +771,7 @@ bool val		//したいしたい値（trueかfalse）
  用途: 指定のインデックスの最初に作成されたスケーリングと位置と回転を同時に変更する(クオータニオン版)
  戻り値: なし
 ***************************************************************************/
-	void SetItemBaseScalePosQt(size_t Index,
-		D3DXVECTOR3& Scale,D3DXVECTOR3& Pos,D3DXQUATERNION& Qt);
+				void SetItemBaseScalePosQt(size_t Index,D3DXVECTOR3& Scale,D3DXVECTOR3& Pos,D3DXQUATERNION& Qt);
 /**************************************************************************
  virtual void Transform(
     vector<Object*>& Vec,            //オブジェクトの配列
@@ -809,8 +781,7 @@ bool val		//したいしたい値（trueかfalse）
  用途: オブジェクトを変化させる（仮想関数）
  戻り値: なし。
 ***************************************************************************/
-	virtual void Transform(vector<Object*>& Vec,
-		const CONTROLER_STATE* pCntlState,Context& Data);
+				virtual void Transform(vector<Object*>& Vec,const CONTROLER_STATE* pCntlState,Context& Data);
 /**************************************************************************
  virtual void Draw(
     LPDIRECT3DDEVICE9 pD3DDevice    //IDirect3DDevice9 インターフェイスへのポインタ
@@ -821,8 +792,7 @@ bool val		//したいしたい値（trueかfalse）
  用途: オブジェクトを描画（純粋仮想関数）
  戻り値: なし。
 ***************************************************************************/
-    virtual void Draw(LPDIRECT3DDEVICE9 pD3DDevice,vector<Object*>& Vec,
-		const CONTROLER_STATE* pCntlState,Context& Data);
+				virtual void Draw(DrawPacket& i_DrawPacket);
 /**************************************************************************
 	virtual void DrawShadowVolume(
     LPDIRECT3DDEVICE9 pD3DDevice,    //IDirect3DDevice9 インターフェイスへのポインタ
@@ -833,9 +803,8 @@ bool val		//したいしたい値（trueかfalse）
  用途: 影ボリュームを描画（仮想関数）
  戻り値: なし。
 ***************************************************************************/
-	virtual void DrawShadowVolume(LPDIRECT3DDEVICE9 pD3DDevice,LPD3DXEFFECT pEffect,
-		D3DXMATRIX& mCameraView,D3DXMATRIX& mCameraProj);
-};
+				virtual void DrawShadowVolume(LPDIRECT3DDEVICE9 pD3DDevice,LPD3DXEFFECT pEffect,D3DXMATRIX& mCameraView,D3DXMATRIX& mCameraProj);
+		};
 
 
 
@@ -843,7 +812,7 @@ bool val		//したいしたい値（trueかfalse）
  class MultiPolygon : public MultiCommonMesh;
  用途: 複数のポリゴンクラス
 ****************************************************************************/
-class MultiPolygon : public MultiCommonMesh{
+		class MultiPolygon : public MultiCommonMesh{
 /**************************************************************************
  void CreateInctance(
  LPDIRECT3DDEVICE9 pD3DDevice	//IDirect3DDevice9インターフェイスへのポインタ
@@ -851,11 +820,11 @@ class MultiPolygon : public MultiCommonMesh{
  用途: インスタンスの構築
  戻り値: なし。（例外がthrowされる）
 ***************************************************************************/
-	void CreateInctance(LPDIRECT3DDEVICE9 pD3DDevice);
-protected:
-	FLOAT m_Length;	//各面の長さ。
-    UINT m_Sides;	//ポリゴンの面数。値は 3 以上である必要がある。
-public:
+			void CreateInctance(LPDIRECT3DDEVICE9 pD3DDevice);
+			protected:
+				FLOAT m_Length;	//各面の長さ。
+				UINT m_Sides;	//ポリゴンの面数。値は 3 以上である必要がある。
+			public:
 /**************************************************************************
  MultiPolygon(
     LPDIRECT3DDEVICE9 pD3DDevice,   //IDirect3DDevice9インターフェイスへのポインタ
@@ -867,14 +836,13 @@ public:
  戻り値: なし（失敗時は例外をthrow）
  ＊コンストラクタでは、テクスチャを使用するかしないかを設定する
 ***************************************************************************/
- MultiPolygon(LPDIRECT3DDEVICE9 pD3DDevice, 
-	 FLOAT Length,UINT Sides,wiz::OBJID id = OBJID_3D_MULTI_POLYGON,bool IsTextureActive = false);
+				MultiPolygon(LPDIRECT3DDEVICE9 pD3DDevice,FLOAT Length,UINT Sides,wiz::OBJID id = OBJID_3D_MULTI_POLYGON,bool IsTextureActive = false);
 /**************************************************************************
  virtual ~MultiPolygon();
  用途: デストラクタ
  戻り値: なし
 ***************************************************************************/
-    virtual ~MultiPolygon();
+				virtual ~MultiPolygon();
 /**************************************************************************
 	virtual void ChangeDevice(
     LPDIRECT3DDEVICE9 pD3DDevice    //IDirect3DDevice9 インターフェイスへのポインタ
@@ -883,8 +851,8 @@ public:
  戻り値: なし。
  ＊デバイスが喪失したときに呼ばれる。すべてのObjectの派生クラスは、個別に対応をとる
 ***************************************************************************/
-	virtual void ChangeDevice(LPDIRECT3DDEVICE9 pD3DDevice);
-};
+				virtual void ChangeDevice(LPDIRECT3DDEVICE9 pD3DDevice);
+		};
 
 
 
@@ -892,7 +860,7 @@ public:
  class MultiBox : public MultiCommonMesh;
  用途: 複数の直方体クラス
 ****************************************************************************/
-class MultiBox : public MultiCommonMesh{
+		class MultiBox : public MultiCommonMesh{
 /**************************************************************************
  void CreateInctance(
  LPDIRECT3DDEVICE9 pD3DDevice	//IDirect3DDevice9インターフェイスへのポインタ
@@ -900,13 +868,13 @@ class MultiBox : public MultiCommonMesh{
  用途: インスタンスの構築
  戻り値: なし。（例外がthrowされる）
 ***************************************************************************/
-	void CreateInctance(LPDIRECT3DDEVICE9 pD3DDevice);
-protected:
-	//テクスチャパターン
-	int m_TexturePtn;
-	//コモンメッシュのサイズ
-	D3DXVECTOR3 m_Size;
-public:
+			void CreateInctance(LPDIRECT3DDEVICE9 pD3DDevice);
+			protected:
+				//テクスチャパターン
+				int m_TexturePtn;
+				//コモンメッシュのサイズ
+				D3DXVECTOR3 m_Size;
+			public:
 /**************************************************************************
  MultiBox(
     LPDIRECT3DDEVICE9 pD3DDevice,   //IDirect3DDevice9インターフェイスへのポインタ
@@ -919,15 +887,13 @@ public:
  ＊コンストラクタでは、テクスチャを使用するかしないかと、
  ＊テクスチャを使用する場合はテクスチャパターンを指定する
 ***************************************************************************/
-    MultiBox(LPDIRECT3DDEVICE9 pD3DDevice,D3DXVECTOR3& size,
-		wiz::OBJID id = OBJID_3D_MULTI_BOX,
-		bool IsTextureActive = false,int TexturePtn = PtnUV_1_1);
+				MultiBox(LPDIRECT3DDEVICE9 pD3DDevice,D3DXVECTOR3& size,wiz::OBJID id = OBJID_3D_MULTI_BOX,bool IsTextureActive = false,int TexturePtn = PtnUV_1_1);
 /**************************************************************************
  virtual ~MultiBox();
  用途: デストラクタ
  戻り値: なし
 ***************************************************************************/
-    virtual ~MultiBox();
+				virtual ~MultiBox();
 /**************************************************************************
 	virtual void ChangeDevice(
     LPDIRECT3DDEVICE9 pD3DDevice    //IDirect3DDevice9 インターフェイスへのポインタ
@@ -936,7 +902,7 @@ public:
  戻り値: なし。
  ＊デバイスが喪失したときに呼ばれる。すべてのObjectの派生クラスは、個別に対応をとる
 ***************************************************************************/
-	virtual void ChangeDevice(LPDIRECT3DDEVICE9 pD3DDevice);
+				virtual void ChangeDevice(LPDIRECT3DDEVICE9 pD3DDevice);
 /**************************************************************************
 	void GetOBB(
 		size_t Index,
@@ -946,15 +912,15 @@ public:
  戻り値: なし。インデックスが範囲外なら例外
  ＊現在のOBBを代入する
 ***************************************************************************/
-	void GetOBB(size_t Index,OBB& obb);
-};
+				void GetOBB(size_t Index,OBB& obb);
+		};
 
 /**************************************************************************
  class ParallelMultiBox : public MultiBox;
  用途: 複数の軸に平行な直方体クラス
 ****************************************************************************/
-class ParallelMultiBox : public MultiBox{
-public:
+		class ParallelMultiBox : public MultiBox{
+			public:
 /**************************************************************************
  ParallelMultiBox(
     LPDIRECT3DDEVICE9 pD3DDevice,   //IDirect3DDevice9インターフェイスへのポインタ
@@ -967,15 +933,13 @@ public:
  ＊コンストラクタでは、テクスチャを使用するかしないかと、
  ＊テクスチャを使用する場合はテクスチャパターンを指定する
 ***************************************************************************/
-    ParallelMultiBox(LPDIRECT3DDEVICE9 pD3DDevice,D3DXVECTOR3& size,
-		wiz::OBJID id = OBJID_3D_MULTI_BOX_PARALLEL,
-		bool IsTextureActive = false,int TexturePtn = PtnUV_1_1);
+				ParallelMultiBox(LPDIRECT3DDEVICE9 pD3DDevice,D3DXVECTOR3& size,wiz::OBJID id = OBJID_3D_MULTI_BOX_PARALLEL,bool IsTextureActive = false,int TexturePtn = PtnUV_1_1);
 /**************************************************************************
  virtual ~ParallelMultiBox();
  用途: デストラクタ
  戻り値: なし
 ***************************************************************************/
-    virtual ~ParallelMultiBox();
+				virtual ~ParallelMultiBox();
 /**************************************************************************
  size_t AddItem(
     D3DXVECTOR3& Scale,               //スケール（拡大縮小の倍率）
@@ -990,10 +954,7 @@ public:
  ＊回転は受けつけない
  戻り値: 追加したインデックス（失敗時は例外をthrow）
 ***************************************************************************/
- size_t AddItem(
-    D3DXVECTOR3& Scale,D3DXVECTOR3& Pos,
-    D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,
-	bool IsShadowActive = false,LPDIRECT3DTEXTURE9 pTexture = 0);
+			size_t AddItem(D3DXVECTOR3& Scale,D3DXVECTOR3& Pos,D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,bool IsShadowActive = false,LPDIRECT3DTEXTURE9 pTexture = 0);
 /**************************************************************************
 	void GetAABB(
 		size_t Index,			//インデックス
@@ -1002,16 +963,14 @@ public:
  用途: 指定のインデックスの現在矩形を得る
  戻り値: なし。インデックスが範囲外なら例外
 ***************************************************************************/
-	void GetAABB(size_t Index,AABB& Tgt);
-
-
-};
+			void GetAABB(size_t Index,AABB& Tgt);
+	};
 
 /**************************************************************************
  class MultiSphere : public MultiCommonMesh;
  用途: 複数の球クラス
 ****************************************************************************/
-class MultiSphere : public MultiCommonMesh{
+	class MultiSphere : public MultiCommonMesh{
 /**************************************************************************
  void CreateInctance(
  LPDIRECT3DDEVICE9 pD3DDevice	//IDirect3DDevice9インターフェイスへのポインタ
@@ -1019,14 +978,14 @@ class MultiSphere : public MultiCommonMesh{
  用途: インスタンスの構築
  戻り値: なし。（例外がthrowされる）
 ***************************************************************************/
-	void CreateInctance(LPDIRECT3DDEVICE9 pD3DDevice);
-protected:
-	FLOAT m_Radius;	//半径
-	//主軸の回転スライス数
-	UINT m_Slices;
-	//主軸に沿ったスライス数
-	UINT m_Stacks;
-public:
+		void CreateInctance(LPDIRECT3DDEVICE9 pD3DDevice);
+		protected:
+			FLOAT m_Radius;	//半径
+			//主軸の回転スライス数
+			UINT m_Slices;
+			//主軸に沿ったスライス数
+			UINT m_Stacks;
+		public:
 /**************************************************************************
  MultiSphere(
     LPDIRECT3DDEVICE9 pD3DDevice,   //IDirect3DDevice9インターフェイスへのポインタ
@@ -1038,16 +997,13 @@ public:
  用途: コンストラクタ
  戻り値: なし（失敗時は例外をthrow）
 ***************************************************************************/
-    MultiSphere(LPDIRECT3DDEVICE9 pD3DDevice,FLOAT radius,
-		wiz::OBJID id = OBJID_3D_MULTI_SPHERE,
-		bool IsTextureActive = false,
-		UINT Slices = 18,UINT Stacks = 18);
+				MultiSphere(LPDIRECT3DDEVICE9 pD3DDevice,FLOAT radius,wiz::OBJID id = OBJID_3D_MULTI_SPHERE,bool IsTextureActive = false,UINT Slices = 18,UINT Stacks = 18);
 /**************************************************************************
  virtual ~MultiSphere();
  用途: デストラクタ
  戻り値: なし
 ***************************************************************************/
-    virtual ~MultiSphere();
+				virtual ~MultiSphere();
 /**************************************************************************
 	virtual void ChangeDevice(
     LPDIRECT3DDEVICE9 pD3DDevice    //IDirect3DDevice9 インターフェイスへのポインタ
@@ -1056,14 +1012,14 @@ public:
  戻り値: なし。
  ＊デバイスが喪失したときに呼ばれる。すべてのObjectの派生クラスは、個別に対応をとる
 ***************************************************************************/
-	virtual void ChangeDevice(LPDIRECT3DDEVICE9 pD3DDevice);
-};
+				virtual void ChangeDevice(LPDIRECT3DDEVICE9 pD3DDevice);
+		};
 
 /**************************************************************************
  class MultiCylinder : public MultiCommonMesh;
  用途: 複数のシリンダークラス
 ****************************************************************************/
-class MultiCylinder : public MultiCommonMesh{
+		class MultiCylinder : public MultiCommonMesh{
 /**************************************************************************
  void CreateInctance(
  LPDIRECT3DDEVICE9 pD3DDevice	//IDirect3DDevice9インターフェイスへのポインタ
@@ -1071,16 +1027,16 @@ class MultiCylinder : public MultiCommonMesh{
  用途: インスタンスの構築
  戻り値: なし。（例外がthrowされる）
 ***************************************************************************/
-	void CreateInctance(LPDIRECT3DDEVICE9 pD3DDevice);
-protected:
-    FLOAT m_Radius1;	//z 軸の負の側の面の半径。
-    FLOAT m_Radius2;	//z 軸の正の側の面の半径。
-    FLOAT m_Length;		//z 軸方向の円柱の長さ。
-	//主軸を回転軸としたスライスの数。
-	UINT m_Slices;
-	//主軸に沿ったスタック数。
-	UINT m_Stacks;	
-public:
+			void CreateInctance(LPDIRECT3DDEVICE9 pD3DDevice);
+			protected:
+				FLOAT m_Radius1;	//z 軸の負の側の面の半径。
+				FLOAT m_Radius2;	//z 軸の正の側の面の半径。
+				FLOAT m_Length;		//z 軸方向の円柱の長さ。
+				//主軸を回転軸としたスライスの数。
+				UINT m_Slices;
+				//主軸に沿ったスタック数。
+				UINT m_Stacks;	
+			public:
 /**************************************************************************
  MultiCylinder(
     LPDIRECT3DDEVICE9 pD3DDevice,   //IDirect3DDevice9インターフェイスへのポインタ
@@ -1094,16 +1050,13 @@ public:
  用途: コンストラクタ
  戻り値: なし（失敗時は例外をthrow）
 ***************************************************************************/
-	 MultiCylinder(LPDIRECT3DDEVICE9 pD3DDevice,
-		FLOAT Radius1,FLOAT Radius2,FLOAT Length,
-		wiz::OBJID id = OBJID_3D_MULTI_CYLINDER,bool IsTextureActive = false,
-		UINT Slices = 18,UINT Stacks = 18);
+				MultiCylinder(LPDIRECT3DDEVICE9 pD3DDevice,FLOAT Radius1,FLOAT Radius2,FLOAT Length,wiz::OBJID id = OBJID_3D_MULTI_CYLINDER,bool IsTextureActive = false,UINT Slices = 18,UINT Stacks = 18);
 /**************************************************************************
  virtual ~MultiCylinder();
  用途: デストラクタ
  戻り値: なし
 ***************************************************************************/
-    virtual ~MultiCylinder();
+				virtual ~MultiCylinder();
 /**************************************************************************
 	virtual void ChangeDevice(
     LPDIRECT3DDEVICE9 pD3DDevice    //IDirect3DDevice9 インターフェイスへのポインタ
@@ -1112,14 +1065,14 @@ public:
  戻り値: なし。
  ＊デバイスが喪失したときに呼ばれる。すべてのObjectの派生クラスは、個別に対応をとる
 ***************************************************************************/
-	virtual void ChangeDevice(LPDIRECT3DDEVICE9 pD3DDevice);
-};
+				virtual void ChangeDevice(LPDIRECT3DDEVICE9 pD3DDevice);
+		};
 
 /**************************************************************************
  class MultiTorus : public MultiCommonMesh;
  用途: 複数のトーラスクラス
 ****************************************************************************/
-class MultiTorus : public MultiCommonMesh{
+		class MultiTorus : public MultiCommonMesh{
 /**************************************************************************
  void CreateInctance(
  LPDIRECT3DDEVICE9 pD3DDevice	//IDirect3DDevice9インターフェイスへのポインタ
@@ -1127,17 +1080,17 @@ class MultiTorus : public MultiCommonMesh{
  用途: インスタンスの構築
  戻り値: なし。（例外がthrowされる）
 ***************************************************************************/
-	void CreateInctance(LPDIRECT3DDEVICE9 pD3DDevice);
-protected:
-	//ドーナッツの半径
-	FLOAT m_InnerRadius;
-	//原点からドーナッツ中心までの半径
-	FLOAT m_OuterRadius;
-	//横断面の辺の数。値は 3 以上である必要がある。
-	UINT m_Sides;
-	//トーラスを構成する環の数。値は 3 以上である必要がある
-	UINT m_Rings;		
-public:
+			void CreateInctance(LPDIRECT3DDEVICE9 pD3DDevice);
+			protected:
+				//ドーナッツの半径
+				FLOAT m_InnerRadius;
+				//原点からドーナッツ中心までの半径
+				FLOAT m_OuterRadius;
+				//横断面の辺の数。値は 3 以上である必要がある。
+				UINT m_Sides;
+				//トーラスを構成する環の数。値は 3 以上である必要がある
+				UINT m_Rings;		
+			public:
 /**************************************************************************
  MultiTorus(
     LPDIRECT3DDEVICE9 pD3DDevice,   //IDirect3DDevice9インターフェイスへのポインタ
@@ -1150,16 +1103,13 @@ public:
  用途: コンストラクタ
  戻り値: なし（失敗時は例外をthrow）
 ***************************************************************************/
-    MultiTorus(LPDIRECT3DDEVICE9 pD3DDevice,FLOAT InnerRadius,FLOAT OuterRadius,
-		wiz::OBJID id = OBJID_3D_MULTI_TAURUS ,
-		bool IsTextureActive = false,
-		UINT Sides = 18,UINT Rings = 18);
+				MultiTorus(LPDIRECT3DDEVICE9 pD3DDevice,FLOAT InnerRadius,FLOAT OuterRadius,wiz::OBJID id = OBJID_3D_MULTI_TAURUS ,bool IsTextureActive = false,UINT Sides = 18,UINT Rings = 18);
 /**************************************************************************
  virtual ~MultiTorus();
  用途: デストラクタ
  戻り値: なし
 ***************************************************************************/
-    virtual ~MultiTorus();
+				virtual ~MultiTorus();
 /**************************************************************************
 	virtual void ChangeDevice(
     LPDIRECT3DDEVICE9 pD3DDevice    //IDirect3DDevice9 インターフェイスへのポインタ
@@ -1168,8 +1118,8 @@ public:
  戻り値: なし。
  ＊デバイスが喪失したときに呼ばれる。すべてのObjectの派生クラスは、個別に対応をとる
 ***************************************************************************/
-	virtual void ChangeDevice(LPDIRECT3DDEVICE9 pD3DDevice);
-};
+				virtual void ChangeDevice(LPDIRECT3DDEVICE9 pD3DDevice);
+		};
 
 
 
@@ -1177,39 +1127,37 @@ public:
  class SimpleCommonMesh : public CommonMesh;
  用途: 単純なコモンメッシュクラス
 ****************************************************************************/
-class SimpleCommonMesh : public CommonMesh{
-protected:
-	//このオブジェクトは有効かどうか
-	bool m_IsActive;
-	//表示のスケーリング
-	//通常は変化させない
-    D3DXVECTOR3 m_BaseScale;
-	//初期位置のオブジェクトの中心
-    D3DXVECTOR3 m_BasePos;
-	//回転用のクオータニオン
-    D3DXQUATERNION m_BaseQt;
-    //現在の初期位置からの相対位置
-    D3DXVECTOR3 m_Pos;
-	//現在の初期位置からの回転用のクオータニオン
-    D3DXQUATERNION m_Qt;
-	//描画時に使用されるワールド変換行列
-	D3DXMATRIX m_WorldMatrix;
-    //マテリアル
-    //D3DMATERIAL9 m_Material;
-	//影を描画するかどうか
-	bool m_IsShadowActive;
-	//テクスチャ
-	LPDIRECT3DTEXTURE9 m_pTexture;
-	//グループ化する場合のマルチメッシュのポインタの配列
-	vector<MultiCommonMesh*> m_MultiVec;
+		class SimpleCommonMesh : public CommonMesh{
+			protected:
+				//このオブジェクトは有効かどうか
+				bool m_IsActive;
+				//表示のスケーリング
+				//通常は変化させない
+				D3DXVECTOR3 m_BaseScale;
+				//初期位置のオブジェクトの中心
+				D3DXVECTOR3 m_BasePos;
+				//回転用のクオータニオン
+				D3DXQUATERNION m_BaseQt;
+				//現在の初期位置からの相対位置
+				D3DXVECTOR3 m_Pos;
+				//現在の初期位置からの回転用のクオータニオン
+				D3DXQUATERNION m_Qt;
+				//描画時に使用されるワールド変換行列
+				D3DXMATRIX m_WorldMatrix;
+				//マテリアル
+				//D3DMATERIAL9 m_Material;
+				//影を描画するかどうか
+				bool m_IsShadowActive;
+				//テクスチャ
+				LPDIRECT3DTEXTURE9 m_pTexture;
+				//グループ化する場合のマルチメッシュのポインタの配列
+				vector<MultiCommonMesh*> m_MultiVec;
 /**************************************************************************
  virtual D3DXVECTOR3 GetPos();
  用途: 現在のポジションを返す
  戻り値: 現在のポジション
 ***************************************************************************/
-	virtual D3DXVECTOR3 GetPos(){
-		return m_BasePos + m_Pos;
-	}
+				virtual D3DXVECTOR3 GetPos(){ return m_BasePos + m_Pos;}
 /**************************************************************************
  SimpleCommonMesh(
     D3DXVECTOR3& Pos,                //位置
@@ -1223,10 +1171,7 @@ protected:
  用途: コンストラクタ
  戻り値: なし（失敗時は例外をthrow）
 ***************************************************************************/
- SimpleCommonMesh(D3DXVECTOR3& Pos,D3DXVECTOR3& Rot,
-        D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,
-		wiz::OBJID id,
-		bool IsShadowActive = false,LPDIRECT3DTEXTURE9 pTexture = 0);
+				SimpleCommonMesh(D3DXVECTOR3& Pos,D3DXVECTOR3& Rot,D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,wiz::OBJID id,bool IsShadowActive = false,LPDIRECT3DTEXTURE9 pTexture = 0);
 /**************************************************************************
 	virtual void ChangeDevice(
     LPDIRECT3DDEVICE9 pD3DDevice    //IDirect3DDevice9 インターフェイスへのポインタ
@@ -1235,14 +1180,14 @@ protected:
  戻り値: なし。（失敗時は例外をthrow）
  ＊デバイスが喪失したときに呼ばれる。すべてのObjectの派生クラスは、個別に対応をとる
 ***************************************************************************/
-	virtual void ChangeDevice(LPDIRECT3DDEVICE9 pD3DDevice);
-public:
+				virtual void ChangeDevice(LPDIRECT3DDEVICE9 pD3DDevice);
+			public:
 /**************************************************************************
  virtual ~SimpleCommonMesh();
  用途: デストラクタ
  戻り値: なし
 ***************************************************************************/
-    virtual ~SimpleCommonMesh();
+				virtual ~SimpleCommonMesh();
 /**************************************************************************
  size_t AddMultiMesh(
 	MultiCommonMesh* pMultiCommonMesh	//マルチメッシュのポインタ
@@ -1250,25 +1195,25 @@ public:
  用途: マルチメッシュを追加
  戻り値: 追加した配列のインデックス
 ***************************************************************************/
-	 size_t AddMultiMesh(MultiCommonMesh* pMultiCommonMesh);
+				size_t AddMultiMesh(MultiCommonMesh* pMultiCommonMesh);
 /**************************************************************************
  size_t GetMultiMeshCount();
  用途: マルチメッシュの数を返す
  戻り値: マルチメッシュ配列の数
 ***************************************************************************/
-	size_t GetMultiMeshCount();
+				size_t GetMultiMeshCount();
 /**************************************************************************
  MultiCommonMesh* GetMultiCommonMesh(size_t Index);
  用途: 指定したインデックスのマルチメッシュを返す
  戻り値: マルチメッシュのポインタ（範囲外は例外）
 ***************************************************************************/
-	MultiCommonMesh* GetMultiCommonMesh(size_t Index);
+				MultiCommonMesh* GetMultiCommonMesh(size_t Index);
 /**************************************************************************
 bool IsActive();
  用途: オブジェクトが有効かどうかを調べる
  戻り値: 有効ならTRUE、無効ならFALSE
 ***************************************************************************/
-	bool IsActive();
+				bool IsActive();
 /**************************************************************************
 void SetActive(
 	bool val		//したいしたい値（trueかfalse）
@@ -1276,7 +1221,7 @@ void SetActive(
  用途:このオブジェクトが有効かどうかを設定する
  戻り値: なし、
 ***************************************************************************/
-	void SetActive(bool val);
+				void SetActive(bool val);
 /**************************************************************************
  void GetMaterial(
 	D3DMATERIAL9& Material	//現在のマテリアル
@@ -1284,7 +1229,7 @@ void SetActive(
  用途: マテリアルを取得する
  戻り値: なし（Materialにマテリアルを返す）
 ***************************************************************************/
- void GetMaterial(D3DMATERIAL9& Material);
+				void GetMaterial(D3DMATERIAL9& Material);
 /**************************************************************************
  void SetMaterial(
 	D3DMATERIAL9& Material	//設定するマテリアル
@@ -1292,7 +1237,7 @@ void SetActive(
  用途: マテリアルを設定する
  戻り値: なし
 ***************************************************************************/
- void SetMaterial(D3DMATERIAL9& Material);
+				void SetMaterial(D3DMATERIAL9& Material);
 
 /**************************************************************************
 bool IsTextureActive();
@@ -1300,14 +1245,14 @@ bool IsTextureActive();
  戻り値: 有効ならTRUE、無効ならFALSE
  ＊テクスチャを変更する場合は、先に有効かどうか調査すること
 ***************************************************************************/
-	bool IsTextureActive();
+				bool IsTextureActive();
 
 /**************************************************************************
  LPDIRECT3DTEXTURE9 GetTexture();
  用途: テクスチャを取得する
  戻り値: 現在のテクスチャ（ない場合は0が返る）
 ***************************************************************************/
- LPDIRECT3DTEXTURE9 GetTexture();
+				LPDIRECT3DTEXTURE9 GetTexture();
 /**************************************************************************
  void SetTexture(
 	LPDIRECT3DTEXTURE9 pTexture	//設定するテクスチャ
@@ -1315,14 +1260,14 @@ bool IsTextureActive();
  用途: テクスチャを設定する
  戻り値: なし
 ***************************************************************************/
- void SetTexture(LPDIRECT3DTEXTURE9 pTexture);
+				void SetTexture(LPDIRECT3DTEXTURE9 pTexture);
 
 /**************************************************************************
 bool IsShadowActive();
  用途: 影が有効かどうかを調べる
  戻り値: 有効ならTRUE、無効ならFALSE
 ***************************************************************************/
-	bool IsShadowActive();
+				bool IsShadowActive();
 
 /**************************************************************************
 void SetShadowActive(
@@ -1331,7 +1276,7 @@ bool val		//したいしたい値（trueかfalse）
  用途: 影が有効かどうかを設定する
  戻り値: なし、
 ***************************************************************************/
-	void SetShadowActive(bool val);
+				void SetShadowActive(bool val);
 
 /**************************************************************************
  void GetWorldPos(
@@ -1340,7 +1285,7 @@ bool val		//したいしたい値（trueかfalse）
  用途: ワールド位置を取得する
  戻り値: なし（Posにワールド位置を返す）
 ***************************************************************************/
- void GetWorldPos(D3DXVECTOR3& Pos);
+				void GetWorldPos(D3DXVECTOR3& Pos);
 
 /**************************************************************************
  void GetWorldRot(
@@ -1349,7 +1294,7 @@ bool val		//したいしたい値（trueかfalse）
  用途: ワールド回転を取得する
  戻り値: なし（Rotにワールド回転を返す）
 ***************************************************************************/
- void GetWorldRot(D3DXVECTOR3& Rot);
+				void GetWorldRot(D3DXVECTOR3& Rot);
 /**************************************************************************
  void GetWorldQt(
 	D3DXQUATERNION& Qt	//現在のワールド回転
@@ -1357,7 +1302,7 @@ bool val		//したいしたい値（trueかfalse）
  用途: ワールド回転を取得する
  戻り値: なし（Qtにワールド回転を返す）
 ***************************************************************************/
- void GetWorldQt(D3DXQUATERNION& Qt);
+				void GetWorldQt(D3DXQUATERNION& Qt);
 /**************************************************************************
  void GetWorldScale(
 	D3DXVECTOR3& Scale	//現在のワールドスケール
@@ -1366,7 +1311,7 @@ bool val		//したいしたい値（trueかfalse）
  ＊この関数はGetBaseScale関数と同じ
  戻り値: なし（Scaleにワールドスケーリングを返す）
 ***************************************************************************/
- void GetWorldScale(D3DXVECTOR3& Scale);
+				void GetWorldScale(D3DXVECTOR3& Scale);
 /**************************************************************************
  void GetWorld(
 	D3DXVECTOR3& Scale,	//現在のワールドスケール
@@ -1377,7 +1322,7 @@ bool val		//したいしたい値（trueかfalse）
  用途: すべてのワールド値を取得する
  戻り値: なし（参照にワールド値を返す）
 ***************************************************************************/
- void GetWorld(D3DXVECTOR3& Scale,D3DXVECTOR3& Pos,D3DXVECTOR3& Rot,D3DXQUATERNION& Qt);
+				void GetWorld(D3DXVECTOR3& Scale,D3DXVECTOR3& Pos,D3DXVECTOR3& Rot,D3DXQUATERNION& Qt);
 /**************************************************************************
  void GetWorldMatrix(
 	D3DXMATRIX& mtWorld
@@ -1385,13 +1330,13 @@ bool val		//したいしたい値（trueかfalse）
  用途:ワールド変換を取得する
  戻り値: なし。mtWorldに変換行列をセットする
 ***************************************************************************/
-	void GetWorldMatrix(D3DXMATRIX& mtWorld);
+				void GetWorldMatrix(D3DXMATRIX& mtWorld);
 /**************************************************************************
  void CalcWorldMatrix();
  用途:ワールド変換を計算する
  戻り値: なし。現在の変換をもとにワールド行列を計算する
 ***************************************************************************/
-	void CalcWorldMatrix();
+				void CalcWorldMatrix();
 /**************************************************************************
  void GetLocalPosQt(
 	D3DXVECTOR3& Pos,	//現在の相対位置
@@ -1400,7 +1345,7 @@ bool val		//したいしたい値（trueかfalse）
  用途: 相対値を取得する(クオータニオン版)
  戻り値: なし
 ***************************************************************************/
-	void GetLocalPosQt(D3DXVECTOR3& Pos,D3DXQUATERNION& Qt);
+				void GetLocalPosQt(D3DXVECTOR3& Pos,D3DXQUATERNION& Qt);
 /**************************************************************************
  void GetLocalPosRot(
 	D3DXVECTOR3& Pos,	//現在の相対位置
@@ -1409,7 +1354,7 @@ bool val		//したいしたい値（trueかfalse）
  用途: 相対値を取得する
  戻り値: なし
 ***************************************************************************/
-	void GetLocalPosRot(D3DXVECTOR3& Pos,D3DXVECTOR3& Rot);
+				void GetLocalPosRot(D3DXVECTOR3& Pos,D3DXVECTOR3& Rot);
 
 /**************************************************************************
  void SetLocalPosQt(
@@ -1419,7 +1364,7 @@ bool val		//したいしたい値（trueかfalse）
  用途: 相対値を設定する(クオータニオン版)
  戻り値: なし
 ***************************************************************************/
-	void SetLocalPosQt(D3DXVECTOR3& Pos,D3DXQUATERNION& Qt);
+				void SetLocalPosQt(D3DXVECTOR3& Pos,D3DXQUATERNION& Qt);
 /**************************************************************************
  void SetLocalPosRot(
 	D3DXVECTOR3& Pos,	//相対位置
@@ -1428,7 +1373,7 @@ bool val		//したいしたい値（trueかfalse）
  用途: 相対値を設定する
  戻り値: なし
 ***************************************************************************/
-	void SetLocalPosRot(D3DXVECTOR3& Pos,D3DXVECTOR3& Rot);
+				void SetLocalPosRot(D3DXVECTOR3& Pos,D3DXVECTOR3& Rot);
 
 
 /**************************************************************************
@@ -1439,7 +1384,7 @@ bool val		//したいしたい値（trueかfalse）
  用途: 相対値を移動し回転する
  戻り値: なし
 ***************************************************************************/
-	void MoveToPosRot(D3DXVECTOR3& Pos,D3DXVECTOR3& Rot);
+				void MoveToPosRot(D3DXVECTOR3& Pos,D3DXVECTOR3& Rot);
 /**************************************************************************
  void MoveToPosQt(
 	D3DXVECTOR3& Pos,	//動かす相対位置
@@ -1448,7 +1393,7 @@ bool val		//したいしたい値（trueかfalse）
  用途: 相対値を移動し回転する(クオータニオン版)
  戻り値: なし
 ***************************************************************************/
-	void MoveToPosQt(D3DXVECTOR3& Pos,D3DXQUATERNION& Qt);
+				void MoveToPosQt(D3DXVECTOR3& Pos,D3DXQUATERNION& Qt);
 
 /**************************************************************************
  void MoveAtPosRot(
@@ -1458,7 +1403,7 @@ bool val		//したいしたい値（trueかfalse）
  用途: 相対値を設定しなおす
  戻り値: なし
 ***************************************************************************/
-	void MoveAtPosRot(D3DXVECTOR3& Pos,D3DXVECTOR3& Rot);
+				void MoveAtPosRot(D3DXVECTOR3& Pos,D3DXVECTOR3& Rot);
 /**************************************************************************
  void MoveAtPosQt(
 	D3DXVECTOR3& Pos,	//新しい相対位置
@@ -1467,13 +1412,13 @@ bool val		//したいしたい値（trueかfalse）
  用途: 相対値を設定しなおす(クオータニオン版)
  戻り値: なし
 ***************************************************************************/
-	void MoveAtPosQt(D3DXVECTOR3& Pos,D3DXQUATERNION& Qt);
+				void MoveAtPosQt(D3DXVECTOR3& Pos,D3DXQUATERNION& Qt);
 /**************************************************************************
  void MoveAtIdentity();
  用途: 最初に作成された位置からの指定する相対位置をクリアする
  戻り値: なし
 ***************************************************************************/
-	void MoveAtIdentity();
+			void MoveAtIdentity();
 /**************************************************************************
  void GetBaseScalePosRot(
 	D3DXVECTOR3& Scale,	//スケーリングの参照
@@ -1483,7 +1428,7 @@ bool val		//したいしたい値（trueかfalse）
  用途: 最初に作成されたスケーリングと位置と回転を同時に取り出す
  戻り値: なし
 ***************************************************************************/
- void GetBaseScalePosRot(D3DXVECTOR3& Scale,D3DXVECTOR3& Pos,D3DXVECTOR3& Rot);
+				void GetBaseScalePosRot(D3DXVECTOR3& Scale,D3DXVECTOR3& Pos,D3DXVECTOR3& Rot);
 /**************************************************************************
  void GetBaseScalePosQt(
 	D3DXVECTOR3& Scale,	//スケーリングの参照
@@ -1493,7 +1438,7 @@ bool val		//したいしたい値（trueかfalse）
  用途: 最初に作成されたスケーリングと位置と回転を同時に取り出す（クオータニオン版）
  戻り値: なし
 ***************************************************************************/
- void GetBaseScalePosQt(D3DXVECTOR3& Scale,D3DXVECTOR3& Pos,D3DXQUATERNION& Qt);
+				void GetBaseScalePosQt(D3DXVECTOR3& Scale,D3DXVECTOR3& Pos,D3DXQUATERNION& Qt);
 /**************************************************************************
  void SetBaseScale(
 	D3DXVECTOR3& Scale	//新しいベーススケーリング
@@ -1501,7 +1446,7 @@ bool val		//したいしたい値（trueかfalse）
  用途: 最初に作成されたスケーリングを変更する
  戻り値: なし
 ***************************************************************************/
- void SetBaseScale(D3DXVECTOR3& Scale);
+				void SetBaseScale(D3DXVECTOR3& Scale);
 /**************************************************************************
  void SetBasePos(
 	D3DXVECTOR3& Pos	//新しいベース位置
@@ -1509,7 +1454,7 @@ bool val		//したいしたい値（trueかfalse）
  用途: 最初に作成された位置を変更する
  戻り値: なし
 ***************************************************************************/
- void SetBasePos(D3DXVECTOR3& Pos);
+				void SetBasePos(D3DXVECTOR3& Pos);
 /**************************************************************************
  void SetBaseRot(
 	D3DXVECTOR3& Rot	//新しいベース回転
@@ -1517,7 +1462,7 @@ bool val		//したいしたい値（trueかfalse）
  用途: 最初に作成された回転を変更する
  戻り値: なし
 ***************************************************************************/
- void SetBaseRot(D3DXVECTOR3& Rot);
+				void SetBaseRot(D3DXVECTOR3& Rot);
 /**************************************************************************
  void SetBaseQt(
 	D3DXQUATERNION& Qt	//新しいベース回転
@@ -1525,7 +1470,7 @@ bool val		//したいしたい値（trueかfalse）
  用途: 最初に作成された回転を変更する(クオータニオン版)
  戻り値: なし
 ***************************************************************************/
- void SetBaseQt(D3DXQUATERNION& Qt);
+				void SetBaseQt(D3DXQUATERNION& Qt);
 /**************************************************************************
  void SetBaseScalePosRot(
 	D3DXVECTOR3& Scale,	//新しいベーススケーリング
@@ -1535,7 +1480,7 @@ bool val		//したいしたい値（trueかfalse）
  用途: 最初に作成されたスケーリングと位置と回転を同時に変更する
  戻り値: なし
 ***************************************************************************/
- void SetBaseScalePosRot(D3DXVECTOR3& Scale,D3DXVECTOR3& Pos,D3DXVECTOR3& Rot);
+				void SetBaseScalePosRot(D3DXVECTOR3& Scale,D3DXVECTOR3& Pos,D3DXVECTOR3& Rot);
 /**************************************************************************
  void SetBaseScalePosQt(
 	D3DXVECTOR3& Scale,	//新しいベーススケーリング
@@ -1545,7 +1490,7 @@ bool val		//したいしたい値（trueかfalse）
  用途: 最初に作成されたスケーリングと位置と回転を同時に変更する(クオータニオン版)
  戻り値: なし
 ***************************************************************************/
- void SetBaseScalePosQt(D3DXVECTOR3& Scale,D3DXVECTOR3& Pos,D3DXQUATERNION& Qt);
+				void SetBaseScalePosQt(D3DXVECTOR3& Scale,D3DXVECTOR3& Pos,D3DXQUATERNION& Qt);
 /**************************************************************************
  virtual void Transform(
     vector<Object*>& Vec,            //オブジェクトの配列
@@ -1555,8 +1500,7 @@ bool val		//したいしたい値（trueかfalse）
  用途: オブジェクトを変化させる（仮想関数）
  戻り値: なし。
 ***************************************************************************/
-	virtual void Transform(vector<Object*>& Vec,
-		const CONTROLER_STATE* pCntlState,Context& Data);
+				virtual void Transform(vector<Object*>& Vec,const CONTROLER_STATE* pCntlState,Context& Data);
 /**************************************************************************
  virtual void Draw(
     LPDIRECT3DDEVICE9 pD3DDevice    //IDirect3DDevice9 インターフェイスへのポインタ
@@ -1567,8 +1511,7 @@ bool val		//したいしたい値（trueかfalse）
  用途: オブジェクトを描画（純粋仮想関数）
  戻り値: なし。
 ***************************************************************************/
-    virtual void Draw(LPDIRECT3DDEVICE9 pD3DDevice,vector<Object*>& Vec,
-		const CONTROLER_STATE* pCntlState,Context& Data);
+				virtual void Draw(DrawPacket& i_DrawPacket);
 /**************************************************************************
 	virtual void DrawShadowVolume(
     LPDIRECT3DDEVICE9 pD3DDevice,    //IDirect3DDevice9 インターフェイスへのポインタ
@@ -1579,16 +1522,14 @@ bool val		//したいしたい値（trueかfalse）
  用途: 影ボリュームを描画（仮想関数）
  戻り値: なし。
 ***************************************************************************/
-	virtual void DrawShadowVolume(
-    LPDIRECT3DDEVICE9 pD3DDevice,LPD3DXEFFECT pEffect,
-	D3DXMATRIX& mCameraView,D3DXMATRIX& mCameraProj);
-};
+				virtual void DrawShadowVolume(LPDIRECT3DDEVICE9 pD3DDevice,LPD3DXEFFECT pEffect,D3DXMATRIX& mCameraView,D3DXMATRIX& mCameraProj);
+		};
 
 /**************************************************************************
  class Polygon : public SimpleCommonMesh;
  用途: 単純なポリゴンクラス
 ****************************************************************************/
-class Polygon : public SimpleCommonMesh{
+		class Polygon : public SimpleCommonMesh{
 /**************************************************************************
  void CreateInctance(
  LPDIRECT3DDEVICE9 pD3DDevice	//IDirect3DDevice9インターフェイスへのポインタ
@@ -1596,11 +1537,11 @@ class Polygon : public SimpleCommonMesh{
  用途: インスタンスの構築
  戻り値: なし。（例外がthrowされる）
 ***************************************************************************/
-	void CreateInctance(LPDIRECT3DDEVICE9 pD3DDevice);
-protected:
-	FLOAT m_Length;	//各面の長さ。
-    UINT m_Sides;	//ポリゴンの面数。値は 3 以上である必要がある。
-public:
+			void CreateInctance(LPDIRECT3DDEVICE9 pD3DDevice);
+			protected:
+				FLOAT m_Length;	//各面の長さ。
+				UINT m_Sides;	//ポリゴンの面数。値は 3 以上である必要がある。
+			public:
 /**************************************************************************
  Polygon(
     LPDIRECT3DDEVICE9 pD3DDevice,   //IDirect3DDevice9インターフェイスへのポインタ
@@ -1617,17 +1558,13 @@ public:
  用途: コンストラクタ
  戻り値: なし（失敗時は例外をthrow）
 ***************************************************************************/
- Polygon(LPDIRECT3DDEVICE9 pD3DDevice,
-	FLOAT Length,UINT Sides,D3DXVECTOR3& pos,D3DXVECTOR3& rot,
-    D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,
-	wiz::OBJID id = OBJID_3D_POLYGON,
-	bool IsShadowActive = false,LPDIRECT3DTEXTURE9 pTexture = 0);
+				Polygon(LPDIRECT3DDEVICE9 pD3DDevice,FLOAT Length,UINT Sides,D3DXVECTOR3& pos,D3DXVECTOR3& rot,D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,wiz::OBJID id = OBJID_3D_POLYGON,bool IsShadowActive = false,LPDIRECT3DTEXTURE9 pTexture = 0);
 /**************************************************************************
  virtual ~Polygon();
  用途: デストラクタ
  戻り値: なし
 ***************************************************************************/
-    virtual ~Polygon();
+				virtual ~Polygon();
 /**************************************************************************
 	virtual void ChangeDevice(
     LPDIRECT3DDEVICE9 pD3DDevice    //IDirect3DDevice9 インターフェイスへのポインタ
@@ -1636,8 +1573,8 @@ public:
  戻り値: なし。（失敗時は例外をthrow）
  ＊デバイスが喪失したときに呼ばれる。すべてのObjectの派生クラスは、個別に対応をとる
 ***************************************************************************/
-	virtual void ChangeDevice(LPDIRECT3DDEVICE9 pD3DDevice);
-};
+				virtual void ChangeDevice(LPDIRECT3DDEVICE9 pD3DDevice);
+		};
 
 
 
@@ -1645,7 +1582,7 @@ public:
  class Box : public SimpleCommonMesh;
  用途: ボックスクラス
 ****************************************************************************/
-class Box : public SimpleCommonMesh{
+		class Box : public SimpleCommonMesh{
 /**************************************************************************
  void CreateInctance(
  LPDIRECT3DDEVICE9 pD3DDevice	//IDirect3DDevice9インターフェイスへのポインタ
@@ -1653,11 +1590,11 @@ class Box : public SimpleCommonMesh{
  用途: インスタンスの構築
  戻り値: なし。（例外がthrowされる）
 ***************************************************************************/
-	void CreateInctance(LPDIRECT3DDEVICE9 pD3DDevice);
-protected:
-    D3DXVECTOR3 m_Size;  //大きさ
-	int m_TexturePtn;	//テクスチャパターン
-public:
+			void CreateInctance(LPDIRECT3DDEVICE9 pD3DDevice);
+			protected:
+				D3DXVECTOR3 m_Size;  //大きさ
+				int m_TexturePtn;	//テクスチャパターン
+			public:
 /**************************************************************************
  Box(
     LPDIRECT3DDEVICE9 pD3DDevice,   //IDirect3DDevice9インターフェイスへのポインタ
@@ -1674,16 +1611,13 @@ public:
  用途: コンストラクタ
  戻り値: なし（失敗時は例外をthrow）
 ***************************************************************************/
-    Box(LPDIRECT3DDEVICE9 pD3DDevice,D3DXVECTOR3& size,D3DXVECTOR3& pos,D3DXVECTOR3& rot,
-        D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,
-		wiz::OBJID id = OBJID_3D_BOX,
-		bool IsShadowActive = false,LPDIRECT3DTEXTURE9 pTexture = 0,int TexturePtn = PtnUV_1_1);
+				Box(LPDIRECT3DDEVICE9 pD3DDevice,D3DXVECTOR3& size,D3DXVECTOR3& pos,D3DXVECTOR3& rot,D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,wiz::OBJID id = OBJID_3D_BOX,bool IsShadowActive = false,LPDIRECT3DTEXTURE9 pTexture = 0,int TexturePtn = PtnUV_1_1);
 /**************************************************************************
  virtual ~Box();
  用途: デストラクタ
  戻り値: なし
 ***************************************************************************/
-    virtual ~Box();
+				virtual ~Box();
 /**************************************************************************
 	virtual void ChangeDevice(
     LPDIRECT3DDEVICE9 pD3DDevice    //IDirect3DDevice9 インターフェイスへのポインタ
@@ -1692,15 +1626,15 @@ public:
  戻り値: なし。（失敗時は例外をthrow）
  ＊デバイスが喪失したときに呼ばれる。すべてのObjectの派生クラスは、個別に対応をとる
 ***************************************************************************/
-	virtual void ChangeDevice(LPDIRECT3DDEVICE9 pD3DDevice);
-};
+				virtual void ChangeDevice(LPDIRECT3DDEVICE9 pD3DDevice);
+		};
 
 /**************************************************************************
  class ParallelBox : public Box;
  用途: 軸に平行な直方体クラス
 ****************************************************************************/
-class ParallelBox : public Box{
-public:
+		class ParallelBox : public Box{
+			public:
 /**************************************************************************
  ParallelBox(
     LPDIRECT3DDEVICE9 pD3DDevice,   //IDirect3DDevice9インターフェイスへのポインタ
@@ -1716,16 +1650,13 @@ public:
  用途: コンストラクタ
  戻り値: なし（失敗時は例外をthrow）
 ***************************************************************************/
-    ParallelBox(LPDIRECT3DDEVICE9 pD3DDevice,D3DXVECTOR3& size,D3DXVECTOR3& pos,
-        D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,
-		wiz::OBJID id = OBJID_3D_BOX_PARALLEL,
-		bool IsShadowActive = false,LPDIRECT3DTEXTURE9 pTexture = 0,int TexturePtn = PtnUV_1_1);
+				ParallelBox(LPDIRECT3DDEVICE9 pD3DDevice,D3DXVECTOR3& size,D3DXVECTOR3& pos,D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,wiz::OBJID id = OBJID_3D_BOX_PARALLEL,bool IsShadowActive = false,LPDIRECT3DTEXTURE9 pTexture = 0,int TexturePtn = PtnUV_1_1);
 /**************************************************************************
  virtual ~ParallelBox();
  用途: デストラクタ
  戻り値: なし
 ***************************************************************************/
-    virtual ~ParallelBox();
+				virtual ~ParallelBox();
 /**************************************************************************
 	void GetAABB(
 		AABB& Tgt	//矩形変数
@@ -1734,8 +1665,8 @@ public:
  戻り値: なし。
  ＊現在の矩形を代入する
 ***************************************************************************/
-	void GetAABB(AABB& Tgt);
-};
+				void GetAABB(AABB& Tgt);
+		};
 
 
 
@@ -1743,7 +1674,7 @@ public:
  class Sphere : public SimpleCommonMesh;
  用途: 球クラス
 ****************************************************************************/
-class Sphere : public SimpleCommonMesh{
+		class Sphere : public SimpleCommonMesh{
 /**************************************************************************
  void CreateInctance(
  LPDIRECT3DDEVICE9 pD3DDevice	//IDirect3DDevice9インターフェイスへのポインタ
@@ -1751,15 +1682,15 @@ class Sphere : public SimpleCommonMesh{
  用途: インスタンスの構築
  戻り値: なし。（例外がthrowされる）
 ***************************************************************************/
-	void CreateInctance(LPDIRECT3DDEVICE9 pD3DDevice);
-protected:
-	//半径
-	FLOAT m_Radius;
-	//主軸の回転スライス数
-	UINT m_Slices;
-	//主軸に沿ったスライス数
-	UINT m_Stacks;
-public:
+			void CreateInctance(LPDIRECT3DDEVICE9 pD3DDevice);
+			protected:
+				//半径
+				FLOAT m_Radius;
+				//主軸の回転スライス数
+				UINT m_Slices;
+				//主軸に沿ったスライス数
+				UINT m_Stacks;
+			public:
 /**************************************************************************
  Sphere(
     LPDIRECT3DDEVICE9 pD3DDevice,   ////IDirect3DDevice9インターフェイスへのポインタ
@@ -1777,18 +1708,13 @@ public:
  用途: コンストラクタ
  戻り値: なし（失敗時は例外をthrow）
 ***************************************************************************/
-    Sphere(LPDIRECT3DDEVICE9 pD3DDevice,
-		FLOAT radius,D3DXVECTOR3& pos,D3DXVECTOR3& rot,
-        D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,
-		wiz::OBJID id = OBJID_3D_SPHERE,
-		bool IsShadowActive = false,LPDIRECT3DTEXTURE9 pTexture = 0,
-		UINT Slices = 18,UINT Stacks = 18);
+				Sphere(LPDIRECT3DDEVICE9 pD3DDevice,FLOAT radius,D3DXVECTOR3& pos,D3DXVECTOR3& rot,D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,wiz::OBJID id = OBJID_3D_SPHERE,bool IsShadowActive = false,LPDIRECT3DTEXTURE9 pTexture = 0,UINT Slices = 18,UINT Stacks = 18);
 /**************************************************************************
  virtual ~Sphere();
  用途: デストラクタ
  戻り値: なし
 ***************************************************************************/
-    virtual ~Sphere();
+				virtual ~Sphere();
 /**************************************************************************
 	virtual void ChangeDevice(
     LPDIRECT3DDEVICE9 pD3DDevice    //IDirect3DDevice9 インターフェイスへのポインタ
@@ -1796,15 +1722,15 @@ public:
  用途: デバイス喪失による再構築（仮想関数）
  戻り値: なし。
 ***************************************************************************/
-	virtual void ChangeDevice(LPDIRECT3DDEVICE9 pD3DDevice);
-};
+				virtual void ChangeDevice(LPDIRECT3DDEVICE9 pD3DDevice);
+		};
 
 
 /**************************************************************************
  class Cylinder : public SimpleCommonMesh;
  用途: シリンダークラス
 ****************************************************************************/
-class Cylinder : public SimpleCommonMesh{
+		class Cylinder : public SimpleCommonMesh{
 /**************************************************************************
  void CreateInctance(
  LPDIRECT3DDEVICE9 pD3DDevice	//IDirect3DDevice9インターフェイスへのポインタ
@@ -1812,16 +1738,16 @@ class Cylinder : public SimpleCommonMesh{
  用途: インスタンスの構築
  戻り値: なし。（例外がthrowされる）
 ***************************************************************************/
-	void CreateInctance(LPDIRECT3DDEVICE9 pD3DDevice);
-protected:
-    FLOAT m_Radius1;
-    FLOAT m_Radius2;
-    FLOAT m_Length;
-	//主軸を回転軸としたスライスの数。
-	UINT m_Slices;
-	//主軸に沿ったスタック数。
-	UINT m_Stacks;	
-public:
+			void CreateInctance(LPDIRECT3DDEVICE9 pD3DDevice);
+			protected:
+				FLOAT m_Radius1;
+				FLOAT m_Radius2;
+				FLOAT m_Length;
+				//主軸を回転軸としたスライスの数。
+				UINT m_Slices;
+				//主軸に沿ったスタック数。
+				UINT m_Stacks;	
+			public:
 /**************************************************************************
  Cylinder(
     LPDIRECT3DDEVICE9 pD3DDevice,   //IDirect3DDevice9インターフェイスへのポインタ
@@ -1841,19 +1767,13 @@ public:
  用途: コンストラクタ
  戻り値: なし（失敗時は例外をthrow）
 ***************************************************************************/
- Cylinder(LPDIRECT3DDEVICE9 pD3DDevice,
-	 FLOAT Radius1,FLOAT Radius2,FLOAT Length,
-	 D3DXVECTOR3& pos,D3DXVECTOR3& rot,
-	 D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,
-	 wiz::OBJID id = OBJID_3D_CYLINDER,
-	 bool IsShadowActive = false,LPDIRECT3DTEXTURE9 pTexture = 0,
-	 UINT Slices = 18,UINT Stacks = 18);
+				Cylinder(LPDIRECT3DDEVICE9 pD3DDevice,FLOAT Radius1,FLOAT Radius2,FLOAT Length,D3DXVECTOR3& pos,D3DXVECTOR3& rot,D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,wiz::OBJID id = OBJID_3D_CYLINDER,bool IsShadowActive = false,LPDIRECT3DTEXTURE9 pTexture = 0,UINT Slices = 18,UINT Stacks = 18);
 /**************************************************************************
  virtual ~Cylinder();
  用途: デストラクタ
  戻り値: なし
 ***************************************************************************/
-    virtual ~Cylinder();
+				virtual ~Cylinder();
 /**************************************************************************
 	virtual void ChangeDevice(
     LPDIRECT3DDEVICE9 pD3DDevice    //IDirect3DDevice9 インターフェイスへのポインタ
@@ -1861,14 +1781,14 @@ public:
  用途: デバイス喪失による再構築（仮想関数）
  戻り値: なし。
 ***************************************************************************/
-	virtual void ChangeDevice(LPDIRECT3DDEVICE9 pD3DDevice);
-};
+				virtual void ChangeDevice(LPDIRECT3DDEVICE9 pD3DDevice);
+		};
 
 /**************************************************************************
  class Torus : public SimpleCommonMesh;
  用途: トーラスクラス
 ****************************************************************************/
-class Torus : public SimpleCommonMesh{
+		class Torus : public SimpleCommonMesh{
 /**************************************************************************
  void CreateInctance(
  LPDIRECT3DDEVICE9 pD3DDevice	//IDirect3DDevice9インターフェイスへのポインタ
@@ -1876,17 +1796,17 @@ class Torus : public SimpleCommonMesh{
  用途: インスタンスの構築
  戻り値: なし。（例外がthrowされる）
 ***************************************************************************/
-	void CreateInctance(LPDIRECT3DDEVICE9 pD3DDevice);
-protected:
-	//ドーナッツの半径
-	FLOAT m_InnerRadius;
-	//原点からドーナッツ中心までの半径
-	FLOAT m_OuterRadius;
-	//横断面の辺の数。値は 3 以上である必要がある。
-	UINT m_Sides;
-	//トーラスを構成する環の数。値は 3 以上である必要がある
-	UINT m_Rings;		
-public:
+				void CreateInctance(LPDIRECT3DDEVICE9 pD3DDevice);
+			protected:
+				//ドーナッツの半径
+				FLOAT m_InnerRadius;
+				//原点からドーナッツ中心までの半径
+				FLOAT m_OuterRadius;
+				//横断面の辺の数。値は 3 以上である必要がある。
+				UINT m_Sides;
+				//トーラスを構成する環の数。値は 3 以上である必要がある
+				UINT m_Rings;		
+			public:
 /**************************************************************************
  Torus(
     LPDIRECT3DDEVICE9 pD3DDevice,   //IDirect3DDevice9インターフェイスへのポインタ
@@ -1905,19 +1825,13 @@ public:
  用途: コンストラクタ
  戻り値: なし（失敗時は例外をthrow）
 ***************************************************************************/
-	Torus(
-		LPDIRECT3DDEVICE9 pD3DDevice,
-		FLOAT InnerRadius,FLOAT OuterRadius,D3DXVECTOR3& pos,D3DXVECTOR3& rot,
-		D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,
-		wiz::OBJID id = OBJID_3D_SPHERE,
-		bool IsShadowActive = false,LPDIRECT3DTEXTURE9 pTexture = 0,
-		UINT Sides = 18,UINT Rings = 18);
+				Torus(LPDIRECT3DDEVICE9 pD3DDevice,FLOAT InnerRadius,FLOAT OuterRadius,D3DXVECTOR3& pos,D3DXVECTOR3& rot,D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,wiz::OBJID id = OBJID_3D_SPHERE,bool IsShadowActive = false,LPDIRECT3DTEXTURE9 pTexture = 0,UINT Sides = 18,UINT Rings = 18);
 /**************************************************************************
  virtual ~Torus();
  用途: デストラクタ
  戻り値: なし
 ***************************************************************************/
-    virtual ~Torus();
+				virtual ~Torus();
 /**************************************************************************
 	virtual void ChangeDevice(
     LPDIRECT3DDEVICE9 pD3DDevice    //IDirect3DDevice9 インターフェイスへのポインタ
@@ -1925,8 +1839,8 @@ public:
  用途: デバイス喪失による再構築（仮想関数）
  戻り値: なし。
 ***************************************************************************/
-	virtual void ChangeDevice(LPDIRECT3DDEVICE9 pD3DDevice);
-};
+				virtual void ChangeDevice(LPDIRECT3DDEVICE9 pD3DDevice);
+		};
 
 /**************************************************************************
  class SimpleCommonMeshGroup : public Object;
@@ -1934,70 +1848,68 @@ public:
  ＊派生クラスとして作成するのではなく、
  SimpleCommonMeshを包含関係にて取り込む
 ****************************************************************************/
-class SimpleCommonMeshGroup : public Object{
-protected:
-	//元となるシンプルコモンメッシュ
-	SimpleCommonMesh* m_pSimpleCommonMesh;
-	struct GroupItem{
-		//マテリアル
-		D3DMATERIAL9 m_Material;
-		//現在の初期位置からの相対位置
-		D3DXVECTOR3 m_Pos;
-		//現在の初期位置からの回転用のクオータニオン
-		D3DXQUATERNION m_Qt;
-		//派生クラスを作っても
-		//削除できるように仮想デストラクタにしておく
-		virtual ~GroupItem(){}
-	};
-	//GroupItemの配列
-	vector<GroupItem*> m_ItemVec;
-public:
+		class SimpleCommonMeshGroup : public Object{
+			protected:
+				//元となるシンプルコモンメッシュ
+				SimpleCommonMesh* m_pSimpleCommonMesh;
+				struct GroupItem{
+					//マテリアル
+					D3DMATERIAL9 m_Material;
+					//現在の初期位置からの相対位置
+					D3DXVECTOR3 m_Pos;
+					//現在の初期位置からの回転用のクオータニオン
+					D3DXQUATERNION m_Qt;
+					//派生クラスを作っても
+					//削除できるように仮想デストラクタにしておく
+					virtual ~GroupItem(){}
+				};
+				//GroupItemの配列
+				vector<GroupItem*> m_ItemVec;
+			public:
 /**************************************************************************
  SimpleCommonMeshGroup(SimpleCommonMesh* pSimpleCommonMesh = 0)
  用途: コンストラクタ
  戻り値: なし（失敗時は例外をthrowする）
  ＊あらかじめ作成したシンプルコモンメッシュを渡す。
 ***************************************************************************/
-	SimpleCommonMeshGroup(SimpleCommonMesh* pSimpleCommonMesh = 0,wiz::OBJID id = OBJID_UNK);
+				SimpleCommonMeshGroup(SimpleCommonMesh* pSimpleCommonMesh = 0,wiz::OBJID id = OBJID_UNK);
 /**************************************************************************
  virtual ~SimpleCommonMeshGroup();
  用途: デストラクタ
  戻り値: なし
 ***************************************************************************/
-    virtual ~SimpleCommonMeshGroup();
+				virtual ~SimpleCommonMeshGroup();
 /**************************************************************************
 	virtual void ReleaseObj();
  用途: デバイス喪失によるリソースの開放（仮想関数）
  戻り値: なし。
  ＊デバイスが喪失したときに呼ばれる。すべてのObjectの派生クラスは、個別に対応をとる
 ***************************************************************************/
-	virtual void ReleaseObj();
+				virtual void ReleaseObj();
 /**************************************************************************
 	void SetSimpleCommonMesh(SimpleCommonMesh* pSimpleCommonMesh);
  用途: シンプルコモンメッシュの設定
  戻り値: なし。
 ***************************************************************************/
-	void SetSimpleCommonMesh(SimpleCommonMesh* pSimpleCommonMesh);
+				void SetSimpleCommonMesh(SimpleCommonMesh* pSimpleCommonMesh);
 /**************************************************************************
  const SimpleCommonMesh* GetSimpleCommonMesh() const;
  用途: 基準となるコモンメッシュを返す
  戻り値: 基準となるコモンメッシュのポインタ
 ***************************************************************************/
-	const SimpleCommonMesh* GetSimpleCommonMesh() const;
+				const SimpleCommonMesh* GetSimpleCommonMesh() const;
 /**************************************************************************
 	size_t AddItem(D3DXVECTOR3& Pos,D3DXVECTOR3& Rot);
  用途: アイテムの登録
  戻り値: 追加したインデックス
 ***************************************************************************/
-	size_t AddItem(D3DXVECTOR3& Pos,D3DXVECTOR3& Rot);
+				size_t AddItem(D3DXVECTOR3& Pos,D3DXVECTOR3& Rot);
 /**************************************************************************
 　size_t GetItemCount();
  用途: 現在のアイテム数を得る
  戻り値: アイテム数
 ***************************************************************************/
-	size_t GetItemCount(){
-		return  m_ItemVec.size();
-	}
+				size_t GetItemCount(){return  m_ItemVec.size();}
 /**************************************************************************
  void GetItemMaterial(
 	size_t Index,	//取得するインデックス
@@ -2006,7 +1918,7 @@ public:
  用途: マテリアルを取得する
  戻り値: なし（MaterialにIndexのマテリアルを返す）
 ***************************************************************************/
- void GetItemMaterial(size_t Index,D3DMATERIAL9& Material);
+				void GetItemMaterial(size_t Index,D3DMATERIAL9& Material);
 /**************************************************************************
  void SetItemMaterial(
 	size_t Index,	//設定するインデックス
@@ -2015,7 +1927,7 @@ public:
  用途: マテリアルを設定する
  戻り値: なし
 ***************************************************************************/
- void SetItemMaterial(size_t Index,D3DMATERIAL9& Material);
+				void SetItemMaterial(size_t Index,D3DMATERIAL9& Material);
 
 /**************************************************************************
  void GetItemLocalPosQt(
@@ -2026,8 +1938,7 @@ public:
  用途: 相対値を取得する(クオータニオン版)
  戻り値: なし
 ***************************************************************************/
-	void GetItemLocalPosQt(size_t Index,
-		D3DXVECTOR3& Pos,D3DXQUATERNION& Qt);
+				void GetItemLocalPosQt(size_t Index,D3DXVECTOR3& Pos,D3DXQUATERNION& Qt);
 /**************************************************************************
  void GetItemLocalPosRot(
 	size_t Index,	//取得するインデックス
@@ -2037,8 +1948,7 @@ public:
  用途: 相対値を取得する
  戻り値: なし
 ***************************************************************************/
-	void GetItemLocalPosRot(size_t Index,
-		D3DXVECTOR3& Pos,D3DXVECTOR3& Rot);
+				void GetItemLocalPosRot(size_t Index,D3DXVECTOR3& Pos,D3DXVECTOR3& Rot);
 /**************************************************************************
  void SetItemLocalPosQt(
 	size_t Index,	//インデックス
@@ -2048,8 +1958,7 @@ public:
  用途: 相対値を設定する(クオータニオン版)
  戻り値: なし
 ***************************************************************************/
-	void SetItemLocalPosQt(size_t Index,
-		D3DXVECTOR3& Pos,D3DXQUATERNION& Qt);
+				void SetItemLocalPosQt(size_t Index,D3DXVECTOR3& Pos,D3DXQUATERNION& Qt);
 /**************************************************************************
  void SetItemLocalPosRot(
 	size_t Index,	//インデックス
@@ -2059,8 +1968,7 @@ public:
  用途: 相対値を設定する(クオータニオン版)
  戻り値: なし
 ***************************************************************************/
- void SetItemLocalPosRot(size_t Index,
-	D3DXVECTOR3& Pos,D3DXVECTOR3& Rot);
+				void SetItemLocalPosRot(size_t Index,D3DXVECTOR3& Pos,D3DXVECTOR3& Rot);
 
 /**************************************************************************
 	virtual void ChangeDevice(
@@ -2070,7 +1978,7 @@ public:
  戻り値: なし。
  ＊デバイスが喪失したときに最構築時に呼ばれる。すべてのObjectの派生クラスは、個別に対応をとる
 ***************************************************************************/
-	virtual void ChangeDevice(LPDIRECT3DDEVICE9 pD3DDevice);
+				virtual void ChangeDevice(LPDIRECT3DDEVICE9 pD3DDevice);
 /**************************************************************************
  virtual void Transform(
  vector<Object*>& Vec,            //オブジェクトの配列
@@ -2080,8 +1988,7 @@ public:
  用途: オブジェクトを変化させる（仮想関数）
  戻り値: なし。
 ***************************************************************************/
-	virtual void Transform(vector<Object*>& Vec,
-		const CONTROLER_STATE* pCntlState,Context& Data);
+				virtual void Transform(vector<Object*>& Vec,const CONTROLER_STATE* pCntlState,Context& Data);
 /**************************************************************************
  virtual void Draw(
     LPDIRECT3DDEVICE9 pD3DDevice    //IDirect3DDevice9 インターフェイスへのポインタ
@@ -2092,8 +1999,7 @@ public:
  用途: オブジェクトを描画（純粋仮想関数）
  戻り値: なし。
 ***************************************************************************/
-    virtual void Draw(LPDIRECT3DDEVICE9 pD3DDevice,vector<Object*>& Vec,
-        const CONTROLER_STATE* pCntlState,Context& Data);
+				virtual void Draw(DrawPacket& i_DrawPacket);
 /**************************************************************************
 	virtual void DrawShadowVolume(
     LPDIRECT3DDEVICE9 pD3DDevice,    //IDirect3DDevice9 インターフェイスへのポインタ
@@ -2104,63 +2010,43 @@ public:
  用途: 影ボリュームを描画（仮想関数）
  戻り値: なし。
 ***************************************************************************/
-	virtual void DrawShadowVolume(
-    LPDIRECT3DDEVICE9 pD3DDevice,LPD3DXEFFECT pEffect,
-	D3DXMATRIX& mCameraView,D3DXMATRIX& mCameraProj);
-
-};
+				virtual void DrawShadowVolume(LPDIRECT3DDEVICE9 pD3DDevice,LPD3DXEFFECT pEffect,D3DXMATRIX& mCameraView,D3DXMATRIX& mCameraProj);
+		};
 
 
 
 /*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 
-class PrimitiveCylinder : public Cylinder{
-	
-public:
-	PrimitiveCylinder(LPDIRECT3DDEVICE9 pD3DDevice,
-          D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,
-		  wiz::OBJID id,
-		   LPDIRECT3DTEXTURE9 pTexture)
-		   :Cylinder(pD3DDevice, 1, 1, 1, g_vZero, g_vZero, Diffuse, Specular, Ambient,id, false, pTexture)
-	{
-		
-	}
-	
-};
+		class PrimitiveCylinder : public Cylinder{
+			public:
+				PrimitiveCylinder(LPDIRECT3DDEVICE9 pD3DDevice,D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,wiz::OBJID id = OBJID_3D_MAGNET,LPDIRECT3DTEXTURE9 pTexture = 0 ):Cylinder(pD3DDevice, 1, 1, 1, g_vZero, g_vZero, Diffuse, Specular, Ambient,id, false, pTexture)
+				{}
+			
+		};
 /*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 
 
 /*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
-class PrimitiveBox : public Box {
-public:
-	PrimitiveBox(LPDIRECT3DDEVICE9 pD3DDevice,
-        D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,
-		wiz::OBJID id = OBJID_3D_BOX,
-		LPDIRECT3DTEXTURE9 pTexture = 0)
-		:Box(pD3DDevice,g_vOne, g_vZero, g_vZero, Diffuse, Specular, Ambient, id, false, pTexture)
-	
-	{
-
-	}
+		class PrimitiveBox : public Box {
+			public:
+				PrimitiveBox(LPDIRECT3DDEVICE9 pD3DDevice,
+					D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,
+					wiz::OBJID id = OBJID_3D_BOX,
+					LPDIRECT3DTEXTURE9 pTexture = 0)
+					:Box(pD3DDevice,g_vOne, g_vZero, g_vZero, Diffuse, Specular, Ambient, id, false, pTexture)
+				
+				{}
 
 
-};
+		};
 /*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 
 /*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
-class PrimitiveSphere : public Sphere {
-public:
-	PrimitiveSphere(LPDIRECT3DDEVICE9 pD3DDevice,
-        D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,
-		LPDIRECT3DTEXTURE9 pTexture = 0):
-		Sphere( pD3DDevice,
-			 1, g_vZero, g_vZero,
-			 Diffuse, Specular, Ambient,
-			 OBJID_3D_SPHERE,
-			 false, pTexture ,
-			18, 18){}
-};
+		class PrimitiveSphere : public Sphere {
+			public:
+				PrimitiveSphere(LPDIRECT3DDEVICE9 pD3DDevice,D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,LPDIRECT3DTEXTURE9 pTexture = 0):Sphere( pD3DDevice,1, g_vZero, g_vZero,Diffuse, Specular, Ambient,OBJID_3D_SPHERE, false, pTexture ,18, 18){}
+		};
 
-}//end of namespace baseitems.
-using namespace baseitems;
+	}//end of namespace baseitems.
+	using namespace baseitems;
 }//end of namespace wiz.

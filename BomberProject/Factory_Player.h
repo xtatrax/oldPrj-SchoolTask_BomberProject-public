@@ -18,8 +18,8 @@
 
 #define  MGPRM_MAGNETICUM	200  /* é•äEÇÃâeãøîºåa( åªç›íPà  pixel ) */
 #define  MGPRM_MAGNETICUM_QUAD ( MGPRM_MAGNETICUM * MGPRM_MAGNETICUM )
-#define  PLAYER_SPEED		(   4.0f ) 
-#define  PLAYER_BASSROT		( -90.0f ) 
+#define  PLAYER_SPEED		(   0.5f ) 
+#define  PLAYER_BASSROT		( 270.0f ) 
 
 
 namespace wiz{
@@ -58,8 +58,8 @@ class PlayerCoil : public MagneticumObject{
 	//	: 
 	ProvisionalPlayer*	m_pPlayer		;
 
-	float		m_fMoveDir   ;
-	float       m_fMovdSpeed ;
+	float		m_fMoveDir   ;//äpìx
+	float       m_fMovdSpeed ;//ë¨ìx
 
 public:
 /////////////////// ////////////////////

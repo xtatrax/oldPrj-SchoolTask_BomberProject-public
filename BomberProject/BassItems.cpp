@@ -27,6 +27,7 @@
 //
 #include "StdAfx.h"
 #include "BassItems.h"
+
 namespace wiz {
 
 namespace baseitems{
@@ -2177,8 +2178,7 @@ void MultiCommonMesh::Transform(vector<Object*>& Vec,
  用途: オブジェクトを描画（純粋仮想関数）
  戻り値: なし。
 ***************************************************************************/
-void MultiCommonMesh::Draw(LPDIRECT3DDEVICE9 pD3DDevice,vector<Object*>& Vec,
-	const CONTROLER_STATE* pCntlState,Context& Data){
+void MultiCommonMesh::Draw(DrawPacket& i_DrawPacket){
     //配置オブジェクトの描画
     vector<CommonItem*>::size_type sz = m_ItemVec.size();
     for(vector<CommonItem*>::size_type i = 0;i < sz;i++){
@@ -2188,7 +2188,7 @@ void MultiCommonMesh::Draw(LPDIRECT3DDEVICE9 pD3DDevice,vector<Object*>& Vec,
 		}
 		//すでにワールド座標は変換済みと前提
 		//コモンメッシュの描画を呼ぶ
-		DrawCommonMesh(pD3DDevice,m_ItemVec[i]->m_WorldMatrix,m_ItemVec[i]->m_Material,
+		DrawCommonMesh(i_DrawPacket.pD3DDevice,m_ItemVec[i]->m_WorldMatrix,m_ItemVec[i]->m_Material,
 			m_ItemVec[i]->m_pTexture);
     }
 }
@@ -3465,8 +3465,8 @@ void SimpleCommonMesh::Transform(vector<Object*>& Vec,
  用途: オブジェクトを描画（純粋仮想関数）
  戻り値: なし。
 ***************************************************************************/
-void SimpleCommonMesh::Draw(LPDIRECT3DDEVICE9 pD3DDevice,vector<Object*>& Vec,
-	const CONTROLER_STATE* pCntlState,Context& Data){
+void SimpleCommonMesh::Draw(DrawPacket& i_DrawPacket){
+	LPDIRECT3DDEVICE9 pD3DDevice = i_DrawPacket.pD3DDevice ;
 	if(!m_IsActive){
 		//アクティブでなければ表示しない
 		return;
@@ -3476,7 +3476,7 @@ void SimpleCommonMesh::Draw(LPDIRECT3DDEVICE9 pD3DDevice,vector<Object*>& Vec,
 	//マルチメッシュ配列内の描画
 	vector<MultiCommonMesh*>::size_type sz = m_MultiVec.size();
 	for(vector<MultiCommonMesh*>::size_type i = 0;i < sz;i++){
-		m_MultiVec[i]->Draw(pD3DDevice,Vec,pCntlState,Data);
+		m_MultiVec[i]->Draw(i_DrawPacket);
 	}
 }
 /**************************************************************************
@@ -4306,8 +4306,7 @@ void SimpleCommonMeshGroup::Transform(vector<Object*>& Vec,
  用途: オブジェクトを描画（純粋仮想関数）
  戻り値: なし。
 ***************************************************************************/
-void SimpleCommonMeshGroup::Draw(LPDIRECT3DDEVICE9 pD3DDevice,vector<Object*>& Vec,
-	 const CONTROLER_STATE* pCntlState,Context& Data){
+void SimpleCommonMeshGroup::Draw(DrawPacket& i_DrawPacket){
 	 if(!m_pSimpleCommonMesh){
 		 return;
 	 }
@@ -4322,7 +4321,7 @@ void SimpleCommonMeshGroup::Draw(LPDIRECT3DDEVICE9 pD3DDevice,vector<Object*>& V
 		m_pSimpleCommonMesh->MoveAtPosQt(m_ItemVec[i]->m_Pos,m_ItemVec[i]->m_Qt);
 		m_pSimpleCommonMesh->CalcWorldMatrix();
 		//描画
-		m_pSimpleCommonMesh->Draw(pD3DDevice,Vec,pCntlState,Data);
+		m_pSimpleCommonMesh->Draw(i_DrawPacket);
 	}
 	//元に戻す
 	m_pSimpleCommonMesh->SetMaterial(TmpItem.m_Material);

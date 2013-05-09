@@ -43,6 +43,7 @@ namespace wiz
 									  Specular,
 									  Ambient,
 									  pTexture)
+
 	{
 		::ZeroMemory( &m_Material, sizeof(D3DMATERIAL9));
 	}
@@ -124,7 +125,7 @@ namespace wiz
  用途: コンストラクタ（サンプルオブジェクトを配列に追加する）
  戻り値: なし
 ***************************************************************************/
-	Factory_Enemy::Factory_Enemy(FactoryPacket* fpac){
+Factory_Enemy::Factory_Enemy(FactoryPacket* fpac){
 	try{
 		D3DCOLORVALUE EnemyDiffuse = {1.0f,1.0f,1.0f,1.0f};
 		D3DCOLORVALUE EnemySpecular = {0.0f,0.0f,0.0f,0.0f};
@@ -145,8 +146,8 @@ namespace wiz
 		//再throw
 		throw;
 	}
+}
 
-	}
 /**************************************************************************
  Factory_Enemy::~Factory_Enemy();
  用途: デストラクタ
@@ -154,6 +155,6 @@ namespace wiz
 ***************************************************************************/
 	Factory_Enemy::~Factory_Enemy(){
     //なにもしない
+	}
 }
 //end of namespace wiz.
-}
