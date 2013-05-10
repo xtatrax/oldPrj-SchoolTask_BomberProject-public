@@ -27,6 +27,7 @@
 //
 #include "StdAfx.h"
 #include "BassItems.h"
+
 namespace wiz {
 
 namespace baseitems{
