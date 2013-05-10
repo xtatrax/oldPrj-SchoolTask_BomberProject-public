@@ -16,6 +16,12 @@
 #include "BassItems.h"
 #include "Factory_Wall.h"
 
+//	: UIの高さ
+#define UI_HEIGHT					( 88.0f )
+//	: 表示画面の倍率 x=800, y=512 : x=40, y=25.6
+#define DRAW_CLIENT_MAGNIFICATION	( 20.0f )
+//	: 磁界の半径
+#define MAGNETIC_RADIUS				( 0.5f )
 
 namespace wiz{
 
@@ -138,38 +144,34 @@ ProvisionalPlayer3D::ProvisionalPlayer3D(
 //// 備考       ：
 void ProvisionalPlayer3D::Draw(DrawPacket& i_DrawPacket)
 {
-	//multimap<float,Magnet3DItem*>::iterator it = m_ItemMap_Target.begin();
-	//while(it != m_ItemMap_Target.end()){
-		//テクスチャがある場合
-		if(m_pTexture){
-			DWORD wkdword;
-			//現在のテクスチャステータスを得る
-			i_DrawPacket.pD3DDevice->GetTextureStageState(0,D3DTSS_COLOROP,&wkdword);
-			//ステージの設定
-			i_DrawPacket.pD3DDevice->SetTexture(0,m_pTexture);
-			//デフィーズ色とテクスチャを掛け合わせる設定
-			i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLOROP, D3DTOP_MODULATE4X );
-			i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLORARG1, D3DTA_TEXTURE );
-			i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLORARG2, D3DTA_DIFFUSE );
+	//テクスチャがある場合
+	if(m_pTexture){
+		DWORD wkdword;
+		//現在のテクスチャステータスを得る
+		i_DrawPacket.pD3DDevice->GetTextureStageState(0,D3DTSS_COLOROP,&wkdword);
+		//ステージの設定
+		i_DrawPacket.pD3DDevice->SetTexture(0,m_pTexture);
+		//デフィーズ色とテクスチャを掛け合わせる設定
+		i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLOROP, D3DTOP_MODULATE4X );
+		i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLORARG1, D3DTA_TEXTURE );
+		i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLORARG2, D3DTA_DIFFUSE );
 
-			//i_DrawPacket.pD3DDevice->SetFVF(PlateFVF);
-			// マトリックスをレンダリングパイプラインに設定
-			i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &/*it->second->*/m_Matrix);
-			//コモンメッシュのDraw()を呼ぶ
-			CommonMesh::Draw(i_DrawPacket);
-			i_DrawPacket.pD3DDevice->SetTexture(0,0);
-			//ステージを元に戻す
-			i_DrawPacket.pD3DDevice->SetTextureStageState(0,D3DTSS_COLOROP,wkdword);
-		}
-		else{
-		//テクスチャがない場合
-			// マトリックスをレンダリングパイプラインに設定
-			i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &/*it->second->*/m_Matrix);
-			//コモンメッシュのDraw()を呼ぶ
-			CommonMesh::Draw(i_DrawPacket);
-		}
-		//++it;
-	//}
+		//i_DrawPacket.pD3DDevice->SetFVF(PlateFVF);
+		// マトリックスをレンダリングパイプラインに設定
+		i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &/*it->second->*/m_Matrix);
+		//コモンメッシュのDraw()を呼ぶ
+		CommonMesh::Draw(i_DrawPacket);
+		i_DrawPacket.pD3DDevice->SetTexture(0,0);
+		//ステージを元に戻す
+		i_DrawPacket.pD3DDevice->SetTextureStageState(0,D3DTSS_COLOROP,wkdword);
+	}
+	else{
+	//テクスチャがない場合
+		// マトリックスをレンダリングパイプラインに設定
+		i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &/*it->second->*/m_Matrix);
+		//コモンメッシュのDraw()を呼ぶ
+		CommonMesh::Draw(i_DrawPacket);
+	}
 }
 
 /////////////////// ////////////////////
@@ -183,69 +185,45 @@ void ProvisionalPlayer3D::Draw(DrawPacket& i_DrawPacket)
 ////            ：
 ////
 void ProvisionalPlayer3D::Update( UpdatePacket& i_UpdatePacket ){
-	//m_ItemMap_Target.clear() ;
-	//multimap<float, Magnet3DItem*>::iterator it2 = m_ItemMap_Target.begin() ;
-	//while(it2 != m_ItemMap_Target.end()){
-		if( g_bMouseLB || g_bMouseRB ){
-			wiz::CONTROLER_STATE Controller1P = i_UpdatePacket.pCntlState[0] ;
-			D3DXVECTOR3 vMove = g_vZero ;
-			Point MousePos ;
-			GetCursorPos( &MousePos );
-			ScreenToClient( g_hWnd , &MousePos);
-			
-			//float m_vStage ;
-			/*it2->second->*/m_vPos.x = (float)MousePos.x / 20.0f - 0.5f ;
-			m_vPos.y = (( STANDARD_WINDOW_HEIGHT - MousePos.y ) - 88.0f ) / 20.0f - 0.5f ;
-			///*it2->second->*/m_vPos.x = (float)MousePos.x ;
-			//m_vStage = ( STANDARD_WINDOW_HEIGHT - 88.0f ) -(float)MousePos.y + 88.0f ;
-			//m_vPos.y = -( m_vStage - (float)MousePos.y ) ;
-			//m_vPos.y + 88.0f = ( STANDARD_WINDOW_HEIGHT - 88.0f ) -(float)MousePos.y - 88.0f ;
-			//*it2->second->*/m_vPos.y = ((512.0f -  (float)MousePos.y ) / 12.5f ) ;
-			///*it2->second->*/m_vPos.y = ((STANDARD_WINDOW_HEIGHT -  (float)MousePos.y ) / 12.5f ) ;
-			//m_vPos.y = m_vPos.y - 30.0f ;
+	if( g_bMouseLB || g_bMouseRB ){
+		wiz::CONTROLER_STATE Controller1P = i_UpdatePacket.pCntlState[0] ;
+		D3DXVECTOR3 vMove = g_vZero ;
+		Point MousePos ;
+		GetCursorPos( &MousePos ) ;
+		ScreenToClient( g_hWnd , &MousePos) ;
+		
+		m_vPos.x = (float)MousePos.x / DRAW_CLIENT_MAGNIFICATION - MAGNETIC_RADIUS ;
+		m_vPos.y = (( STANDARD_WINDOW_HEIGHT - MousePos.y ) - UI_HEIGHT ) / DRAW_CLIENT_MAGNIFICATION - MAGNETIC_RADIUS ;
 
-			if( g_bMouseLB )
-				setPoleN() ;
-			if( g_bMouseRB )
-				setPoleS() ;
+		if( g_bMouseLB )
+			setPoleN() ;
+		if( g_bMouseRB )
+			setPoleS() ;
 
-			//this->m_vPos += vMove * 15.0f ;
+		//	: 拡大縮小
+		D3DXMATRIX mScale ;
+		D3DXMatrixIdentity( &mScale ) ;
+		D3DXMatrixScaling( &mScale, m_vScale.x, m_vScale.y, m_vScale.z ) ;
+		
+		//	: 回転
+		D3DXMATRIX mRot ;
+		D3DXMatrixIdentity( &mRot ) ;
+		D3DXMatrixRotationQuaternion( &mRot, &m_vRot ) ;
+		
+		//	: 移動用
+		D3DXMATRIX mMove ;
+		D3DXMatrixIdentity( &mMove ) ;
+		D3DXMatrixTranslation( &mMove, m_vPos.x, m_vPos.y, m_vPos.z ) ;
+		
+		//	: ミックス行列
+		m_Matrix = mScale * mRot * mMove ;
 
-			/*
-			D3DXMATRIX mPos , mScale ;
+		//	: マティリアル設定
+		m_Material = m_Material ;
 
-			D3DXMatrixTranslation( &mPos , this->m_vPos.x , this->m_vPos.y , this->m_vPos.z ) ;
-			//D3DXMatrixScaling( &mScale, m_vScale.x, m_vScale.y, m_vScale.z );
-			D3DXMatrixScaling(&mScale,
-				it2->second->m_vScale.x,it2->second->m_vScale.y,it2->second->m_vScale.z);
-			it2->second->m_Matrix = mScale * mPos ;
-			*/
-
-					//拡大縮小
-			D3DXMATRIX mScale;
-			D3DXMatrixIdentity(&mScale);
-			D3DXMatrixScaling(&mScale,
-				/*it2->second->*/m_vScale.x, /*it2->second->*/m_vScale.y,/*it2->second->*/m_vScale.z);
-			//回転
-			D3DXMATRIX mRot;
-			D3DXMatrixIdentity(&mRot);
-			D3DXMatrixRotationQuaternion(&mRot,/*it2->second->*/&m_vRot);
-			//移動用
-			D3DXMATRIX mMove;
-			D3DXMatrixIdentity(&mMove);
-			D3DXMatrixTranslation(&mMove,
-				/*it2->second->*/m_vPos.x, /*it2->second->*/m_vPos.y,/*it2->second->*/m_vPos.z);
-			//ミックス行列
-			/*it2->second->*/m_Matrix = mScale * mRot * mMove;
-			//マティリアル設定
-			m_Material = /*it2->second->*/m_Material;
-
-		//}
-
+		//	: マウスのフラグ
 		g_bMouseLB = false ;
 		g_bMouseRB = false ;
-
-		//++it2 ;
 	}
 };
 
@@ -277,7 +255,6 @@ PlayerCoil::PlayerCoil(
 	wiz::OBJID id 								//	: ID
 )
 :MagneticumObject(pD3DDevice,pCoreTexture,vScale,vRot,vPos,pCoreRect,0xFFFFFFFF,id)
-//:MagneticumObject3D(pD3DDevice,pCoreTexture,id)
 ,m_pPlayer(    NULL )
 ,m_fMoveDir(   PLAYER_BASSROT )
 ,m_fMovdSpeed( PLAYER_SPEED   )
@@ -289,7 +266,6 @@ PlayerCoil::PlayerCoil(
 	D3DCOLORVALUE Ambient = {0.5f,0.5f,0.5f,1.0f};
 	m_pDirParts = new SpriteObject( pD3DDevice, pDirTexture, vScale, vRot, vPos, pDirRect, g_vZero, vDirOffset ) ;
 	m_pDirParts3D = new Cylinder(pD3DDevice,0.0f,1.0f,3.0f,D3DXVECTOR3(0.0f,0.0f,0.0f),D3DXVECTOR3(90.0f,0.0f,0.0f),Diffuse,Specular,Ambient);
-	//m_pDirParts3D = new PrimitiveCylinder(pD3DDevice,Diffuse,Specular,Ambient);
 	setPoleN();
 }
 
@@ -506,8 +482,8 @@ Factory_Player::Factory_Player( FactoryPacket* fpac ){
 		fpac->m_pVec->push_back(
 			new ProvisionalPlayer3D(
 				fpac->pD3DDevice,
-				//NULL,
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"CircleP.png" ),
+				NULL,
+				//fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"CircleP.png" ),
 				vScale,
 				D3DXQUATERNION( 0.0f, 0.0f, 0.0f, 0.0f ),
 				D3DXVECTOR3(0.0f,0.0f,0.0f))

@@ -210,7 +210,7 @@ void MagneticumObject3D::Update( UpdatePacket& i_UpdatePacket ){
 ////            ：  D3DCOLORVALUE& Specular,		//スペキュラ色
 ////            ：  D3DCOLORVALUE& Ambient,			//アンビエント色
 //// 戻値       ：無し
-//// 担当者     ：本多寛之
+//// 担当者     ：曳地 大洋
 //// 備考       ：
 void MagneticumObject3D::AddMagnetic(D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos,
 			D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient)
@@ -258,12 +258,12 @@ Factory_Magnetic::Factory_Magnetic(FactoryPacket *fpac){
 		);
 		fpac->m_pVec->push_back(Magnet);
 
-		Magnet->AddMagnetic(D3DXVECTOR3(5.0f,5.0f,0.5f),
-					  D3DXVECTOR3(0.0f,0.0f,0.0f),
-					  D3DXVECTOR3(0.0f,0.0f,0.0f),
-					  MagnetDiffuse,
-					  MagnetSpecular,
-					  MagnetAmbient);
+		//Magnet->AddMagnetic(D3DXVECTOR3(5.0f,5.0f,0.5f),
+		//			  D3DXVECTOR3(0.0f,0.0f,0.0f),
+		//			  D3DXVECTOR3(0.0f,0.0f,0.0f),
+		//			  MagnetDiffuse,
+		//			  MagnetSpecular,
+		//			  MagnetAmbient);
 		//Magnet->AddMagnetic(D3DXVECTOR3(1.0f,1.0f,1.0f),
 		//			  D3DXVECTOR3(0.0f,0.0f,0.0f),
 		//			  D3DXVECTOR3(1.0f,0.0f,0.0f),
