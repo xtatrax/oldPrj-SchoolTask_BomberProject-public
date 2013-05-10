@@ -50,10 +50,12 @@ public:
 // 用途    : 仮のユーザー設置磁界
 //**************************************************************************//
 class ProvisionalPlayer3D : public MagneticumObject3D{
+	static Camera*	m_Camera;
 	D3DXMATRIX		m_Matrix ;
 	D3DXVECTOR3		m_vPos ;
 	D3DXQUATERNION	m_vRot ;
 	D3DXVECTOR3		m_vScale ;
+	float			m_MovePosY;
 public:
 	//	: 
 	ProvisionalPlayer3D( LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTexture,
