@@ -2163,9 +2163,7 @@ public:
 		wiz::OBJID id = OBJID_3D_BOX,
 		LPDIRECT3DTEXTURE9 pTexture = 0)
 		:Box(pD3DDevice,g_vOne, g_vZero, g_vZero, Diffuse, Specular, Ambient, id, false, pTexture)
-	
 	{
-
 	}
 
 
