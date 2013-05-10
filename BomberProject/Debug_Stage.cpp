@@ -119,7 +119,7 @@ DebugMenu::DebugMenu(LPDIRECT3DDEVICE9 pD3DDevice,Stage* Par)
 			g_vZero,
 			0xFFFFFFFF,
 			0xFFAAAAAA,
-			GM_OPENSTAGE_RESULT,
+			GM_WITHOUT,
 			2
 			)));
 		m_ButtonVec.push_back(pButton->getButtonP());
@@ -137,7 +137,7 @@ DebugMenu::DebugMenu(LPDIRECT3DDEVICE9 pD3DDevice,Stage* Par)
 			g_vZero,
 			0xFFFFFFFF,
 			0xFFAAAAAA,
-			GM_OPENSTAGE_GAMEOVER,
+			GM_WITHOUT,
 			3
 			)));
 		m_ButtonVec.push_back(pButton->getButtonP());
@@ -155,12 +155,12 @@ DebugMenu::DebugMenu(LPDIRECT3DDEVICE9 pD3DDevice,Stage* Par)
 			g_vZero,
 			0xFFFFFFFF,
 			0xFFAAAAAA,
-			GM_OPENDEBUGSTAGE_TATEAWORKSPACE,
+			GM_WITHOUT,
 			4
 			)));
 		m_ButtonVec.push_back(pButton->getButtonP());
 
-		//	: とじわーく
+		//	: 
 		pTex = m_TexMgr.addTexture(pD3DDevice,L"DBG_.png");
 		m_Vec.push_back((pButton = new ButtonSprite(
 			pD3DDevice,
@@ -173,12 +173,12 @@ DebugMenu::DebugMenu(LPDIRECT3DDEVICE9 pD3DDevice,Stage* Par)
 			g_vZero,
 			0xFFFFFFFF,
 			0xFFAAAAAA,
-			GM_OPENDEBUGSTAGE_TOJIWORKSPACE,
+			GM_WITHOUT,
 			5
 			)));
 		m_ButtonVec.push_back(pButton->getButtonP());
 
-		//	: ランキング
+		//	: 
 		pTex = m_TexMgr.addTexture(pD3DDevice,L"DBG_.png");
 		m_Vec.push_back((pButton = new ButtonSprite(
 			pD3DDevice,
@@ -191,13 +191,13 @@ DebugMenu::DebugMenu(LPDIRECT3DDEVICE9 pD3DDevice,Stage* Par)
 			g_vZero,
 			0xFFFFFFFF,
 			0xFFAAAAAA,
-			GM_OPENSTAGE_RANKING,
+			GM_WITHOUT,
 			6
 			)));
 		m_ButtonVec.push_back(pButton->getButtonP());
 
-		//	: ゲームクリア
-		pTex = m_TexMgr.addTexture(pD3DDevice,L"DBG_.png");
+		//	: てとらわーく
+		pTex = m_TexMgr.addTexture(pD3DDevice,L"DBG_TATRA.png");
 		m_Vec.push_back((pButton = new ButtonSprite(
 			pD3DDevice,
 			pTex,
@@ -209,7 +209,7 @@ DebugMenu::DebugMenu(LPDIRECT3DDEVICE9 pD3DDevice,Stage* Par)
 			g_vZero,
 			0xFFFFFFFF,
 			0xFFAAAAAA,
-			GM_OPENSTAGE_GAMECLEAR,
+			GM_OPENDEBUGSTAGE_TATEAWORKSPACE,
 			7
 			)));
 		m_ButtonVec.push_back(pButton->getButtonP());

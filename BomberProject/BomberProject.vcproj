@@ -192,13 +192,13 @@
 				RelativePath=".\Structs.h"
 				>
 			</File>
-			<File
-				RelativePath=".\WinMain.cpp"
-				>
-			</File>
 			<Filter
 				Name="00.System"
 				>
+				<File
+					RelativePath=".\WinMain.cpp"
+					>
+				</File>
 				<Filter
 					Name="DxDevice"
 					>

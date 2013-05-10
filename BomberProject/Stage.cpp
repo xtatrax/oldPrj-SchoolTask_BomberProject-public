@@ -16,10 +16,389 @@
 #include "Stage.h"
 #include "BassItems.h"
 #include "TL-String.h"
+#include "Factory_Wall.h"
 
 
 
 namespace wiz{
+/////////////////// ////////////////////
+//// 関数名     ：
+//// カテゴリ   ：
+//// 用途       ：
+//// 引数       ：
+//// 戻値       ：
+//// 担当者     ：
+//// 備考       ：StageGeneratorから
+////            ：
+////
+void StageLoader::PartsGenerator(ObjeData i_Data, DWORD i_dwHeight, DWORD i_dwWidth){
+	//	: オブジェタイプに応じたオブジェクトを生成する
+	//	: 生成の際､余計なデータが増えないように
+	multimap<OBJID,DWORD>::iterator it;
+
+	D3DCOLORVALUE Diffuse = {0.7f,0.7f,0.7f,1.0f};
+	D3DCOLORVALUE Specular = {0.0f,0.0f,0.0f,0.0f};
+	D3DCOLORVALUE Ambient = {0.5f,0.5f,0.5f,1.0f};
+
+	//	: ワイドからマルチへ
+	string sFilePath;
+	TLIB::narrow(i_Data.m_sFilePath, sFilePath);
+
+	// Motion* pMotion = NULL ;
+	wiz::OBJID ObjectID ;
+	switch(i_Data.m_iObjeType){
+		//////////
+		//
+		case GP_CREATE_NONE:
+		default:
+			return;
+		//
+		//////////
+		case GP_CREATE_WALL:
+			//////////
+			//	: 壁
+			if((it = m_ObjeTypeMap.find(OBJID_2D_WALL)) != m_ObjeTypeMap.end()){
+				//	: 登録を見つけた場合
+				dynamic_cast<WallObject*>((*m_pVec)[it->second])->AddWall(
+					D3DXVECTOR3(MAP_PARTS_WIDTH,MAP_PARTS_HEIGHT,1.0f),
+					g_vZero,
+					D3DXVECTOR3((MAP_PARTS_WIDTH	*	i_dwWidth	)	-	MAP_PARTS_WIDTH		/	2,
+								(MAP_PARTS_HEIGHT	*	i_dwHeight	)	-	MAP_PARTS_HEIGHT	/	2,
+								0.0f),
+					Diffuse,
+					Specular,
+					Ambient
+				);
+			}else{
+				//	: 登録がなかった場合
+				WallObject* mgb = new WallObject(m_pD3DDevice,m_pTexMgr->addTexture(m_pD3DDevice,L"biribiriWall.png"),OBJID_2D_WALL);
+				mgb->AddWall(
+					 D3DXVECTOR3(MAP_PARTS_WIDTH, MAP_PARTS_HEIGHT, 1.0f)
+					,g_vZero
+					,D3DXVECTOR3((MAP_PARTS_WIDTH	*	i_dwWidth	)	-	MAP_PARTS_WIDTH		/	2,
+								(MAP_PARTS_HEIGHT	*	i_dwHeight	)	-	MAP_PARTS_HEIGHT	/	2,
+								0.0f)
+					,Diffuse
+					,Specular
+					,Ambient
+				);
+				m_pVec->push_back(mgb);
+				m_ObjeTypeMap.insert( make_pair( OBJID_2D_WALL , m_pVec->size() -1));
+			}
+			break;
+
+	}
+
+};
+
+/////////////////// ////////////////////
+//// 関数名     ：void StageLoader::ObjectsLoader(wstring i_sFilePath)
+//// カテゴリ   ：メンバ関数
+//// 用途       ：オブジェクト情報を構築します
+//// 引数       ：  wstring i_sFilePath         //
+//// 戻値       ：なし
+//// 担当者     ：鴫原 徹
+//// 備考       ：PointSearch関数から呼ばれます
+////            ：
+////
+void StageLoader::ObjectsLoader(wstring i_sFileName){
+	vector<vector<wstring>> vvCsvData;	//	: CSVデータを受け取るための変数
+	readcsv(i_sFileName,vvCsvData);		//	: CSVデータの受け取り
+
+	CSVMATRIX o_CsvMatrix ;
+	PointSearch(vvCsvData, o_CsvMatrix);
+
+	for(vector<vector<wstring>>::size_type i = 1 , vvSz = vvCsvData.size() , Line = 0;
+		(i + o_CsvMatrix.Line) < vvSz ; i++ )
+	{
+		Line = o_CsvMatrix.Line + i ;
+		int		iNumber		=        wcstol( vvCsvData[ Line ][ o_CsvMatrix.Column.uiNumber    ].c_str(), NULL  , 10);
+		int		iType		=        wcstol( vvCsvData[ Line ][ o_CsvMatrix.Column.uiType      ].c_str(), NULL  , 10);
+		DWORD	dwAniNum	=        wcstol( vvCsvData[ Line ][ o_CsvMatrix.Column.uiMotionNum ].c_str(), NULL  , 10);
+		float	fTracSpd	= (float)wcstod( vvCsvData[ Line ][ o_CsvMatrix.Column.uiTracSpeed ].c_str(), NULL );
+		wstring sPath		= vvCsvData[ Line ][ o_CsvMatrix.Column.uiPath    ] ;
+		wstring sTexPath	= vvCsvData[ Line ][ o_CsvMatrix.Column.uiTexPath ] ;
+		D3DXVECTOR3 vScale	= D3DXVECTOR3(
+			(float)wcstod( vvCsvData[ Line ][ o_CsvMatrix.Column.uiScaleX ].c_str(), NULL),
+			(float)wcstod( vvCsvData[ Line ][ o_CsvMatrix.Column.uiScaleY ].c_str(), NULL),
+			(float)wcstod( vvCsvData[ Line ][ o_CsvMatrix.Column.uiScaleZ ].c_str(), NULL)
+		);
+		m_ObjeMap[iNumber] = ObjeData(iType,sPath,sTexPath,vScale,dwAniNum,fTracSpd);
+	}
+}
+/////////////////// ////////////////////
+//// 関数名     ：void StageLoader::StageGenerator(wstring i_sStageFilePath)
+//// カテゴリ   ：メンバ関数
+//// 用途       ：ステージを構築すします
+//// 引数       ：  wstring i_sStageFilePath         //  ステージの構成ファイルへのパス
+//// 戻値       ：なし
+//// 担当者     ：鴫原 徹
+//// 備考       ：StageListLoader関数から呼ばれます
+////            ：
+////
+void StageLoader::StageGenerator(wstring i_sFileName){
+	vector<vector<wstring>> vvCsvData;	//	: CSVデータを受け取るための変数
+	readcsv(i_sFileName,vvCsvData);		//	: CSVデータの受け取り
+
+	for(UINT i = 0 , isz = vvCsvData.size() ; i < isz ; i++ ){
+		for(UINT j = 0 , jsz = vvCsvData[i].size() ; j < jsz ; j++ ){
+			UINT PartsType = wcstol( vvCsvData[i][j].c_str() , NULL , 10 ) ;
+			if( m_ObjeMap.count( PartsType ) ){
+				PartsGenerator(m_ObjeMap[ PartsType ], isz-i, j);
+			}
+		}
+	}
+}
+/////////////////// ////////////////////
+//// 関数名     ：void PointSearch( vector<vector<wstring>>& i_vvCsvData, CSVMATRIX& o_CsvMatrix)
+//// カテゴリ   ：メンバ関数
+//// 用途       ：ステージを構築すします
+//// 引数       ：  wstring    i_sStageFilePath         //  ステージの構成ファイルへのパス
+////            ： CSVMATRIX&  o_CsvMatrix				//	読み込むべき行と列の詰め合わせ
+//// 戻値       ：なし
+//// 担当者     ：鴫原 徹
+//// 備考       ：StageListLoader関数から呼ばれます
+////            ：
+////
+void StageLoader::PointSearch( vector<vector<wstring>>& i_vvCsvData, CSVMATRIX& o_CsvMatrix)
+{
+	try{
+		enum{
+			STAGE_NUMBER = 0x0001,
+			OBJECT_TYPE  = 0x0002,
+			FILE_PATH    = 0x0004,
+			TEX_PATH     = 0x0008,
+			MOTION_NUM   = 0x0010,
+			TRAC_SPEED   = 0x0020,
+			SCALE_X      = 0x0040,
+			SCALE_Y      = 0x0080,
+			SCALE_Z      = 0x0100,
+			IS_OK        = STAGE_NUMBER | OBJECT_TYPE | FILE_PATH | TEX_PATH | MOTION_NUM | TRAC_SPEED ,
+			ALL_OK       = STAGE_NUMBER | OBJECT_TYPE | FILE_PATH | TEX_PATH | MOTION_NUM | TRAC_SPEED | SCALE_X   |  SCALE_Y   | SCALE_Z ,
+		};
+		WORD  SearchFlag = 0 ;
+		for(BYTE i = 1 , Lane = i_vvCsvData.size(); i < Lane ; i++ ){
+			for(BYTE j = 0 , Line = i_vvCsvData[i].size() ; j < Line ; j++){
+
+				//	: 読み込み位置の設定
+				if(i_vvCsvData[i][j] == L"Number"	){ o_CsvMatrix.Column.uiNumber		= j ; SearchFlag |= STAGE_NUMBER ; o_CsvMatrix.Line = i ; }
+				if(i_vvCsvData[i][j] == L"Type"		){ o_CsvMatrix.Column.uiType		= j ; SearchFlag |= OBJECT_TYPE  ; }
+				if(i_vvCsvData[i][j] == L"Path"		){ o_CsvMatrix.Column.uiPath		= j ; SearchFlag |= FILE_PATH    ; }
+				if(i_vvCsvData[i][j] == L"TexPath"	){ o_CsvMatrix.Column.uiTexPath		= j ; SearchFlag |= TEX_PATH     ; }
+				if(i_vvCsvData[i][j] == L"MotionNum"){ o_CsvMatrix.Column.uiMotionNum	= j ; SearchFlag |= MOTION_NUM   ; }
+				if(i_vvCsvData[i][j] == L"TracSpeed"){ o_CsvMatrix.Column.uiTracSpeed	= j ; SearchFlag |= TRAC_SPEED   ; }
+				if(i_vvCsvData[i][j] == L"ScaleX"	){ o_CsvMatrix.Column.uiScaleX		= j ; SearchFlag |= SCALE_X      ; }
+				if(i_vvCsvData[i][j] == L"ScaleY"	){ o_CsvMatrix.Column.uiScaleY		= j ; SearchFlag |= SCALE_Y      ; }
+				if(i_vvCsvData[i][j] == L"ScaleZ"	){ o_CsvMatrix.Column.uiScaleZ		= j ; SearchFlag |= SCALE_Z      ; }
+				
+				//	: すべての読み込みを完了
+				if(SearchFlag == ALL_OK) return ;
+			}
+			//	: 一部読み込めなくても問題なし!
+			if(SearchFlag == IS_OK) return ;
+		}
+//////////
+//
+//	ここまで飛んできたら確実に読み込みが失敗している
+//
+
+//	: デッバッグ用エラー
+//#if defined(DEBUG) | defined(_DEBUG) | defined(ON_DEBUGGINGPROCESS)
+//			//	: 
+//			if( !(SearchFlag & ( FILE_PATH )) ) 
+//					throw BaseException(
+//						L"ファイルパスの行が見つかりませんでした\n→CSVデータを確認してください",
+//						L"StageLoader::PointSearch()"
+//					);
+//			if( !(SearchFlag & ( STAGE_NUMBER )) ) 
+//					throw BaseException(
+//						L"ステージ番号の行が見つかりませんでした\n→CSVデータを確認してください",
+//						L"StageLoader::PointSearch()"
+//					);
+//			//	: 
+//			if( !(SearchFlag & ( FILE_PATH )) ) 
+//					throw BaseException(
+//						L"ファイルパスの行が見つかりませんでした\n→CSVデータを確認してください",
+//						L"StageLoader::PointSearch()"
+//					);
+//			if( !(SearchFlag & ( STAGE_NUMBER )) ) 
+//					throw BaseException(
+//						L"ステージ番号の行が見つかりませんでした\n→CSVデータを確認してください",
+//						L"StageLoader::PointSearch()"
+//					);
+//#endif
+
+		//	: 一般向けエラー
+		throw BaseException(
+			L"ステージデータの読み込みに失敗しました\n→データが破損していないか確認してください",
+			L"StageLoader::PointSearch()"
+		);
+	}
+	catch(wiz::BaseException& e){
+		//再スロー
+		throw BaseException(
+				e.what_w(), 
+				L"↑StageLoader::PointSearch()"
+				);
+	}
+	catch(...){
+		//再スロー
+		throw;
+	}
+}
+
+/////////////////// ////////////////////
+//// 関数名     ：void StageLoader::PointSearch( vector<vector<wstring>>& i_vvCsvData , POINT& o_NumberPoint , POINT& o_PathPoint)
+//// カテゴリ   ：メンバ関数
+//// 用途       ：ステージを構築すします
+//// 引数       ：  wstring i_sStageFilePath         //  ステージの構成ファイルへのパス
+//// 戻値       ：なし
+//// 担当者     ：鴫原 徹
+//// 備考       ：StageListLoader関数から呼ばれます
+////            ：
+////
+void StageLoader::PointSearch( vector<vector<wstring>>& i_vvCsvData , POINT& o_NumberPoint , POINT& o_PathPoint){
+	try{
+		enum{
+			OBJECTS_CSV  = 0x01,
+			STAGE_NUMBER = 0x02,
+			FILE_PATH    = 0x04,
+			ALL_OK       = OBJECTS_CSV | STAGE_NUMBER | FILE_PATH ,
+		};
+		BYTE  SearchFlag = 0 ;
+		for(BYTE i = 1 , Lane = i_vvCsvData.size(); i < Lane ; i++ ){
+			for(BYTE j = 0 , Line = i_vvCsvData[i].size() ; j < Line ; j++){
+
+				//	: Objectリストを読み込み
+				if(i_vvCsvData[i][j] == L"ObjectsCSV" ){ ObjectsLoader(i_vvCsvData[i][j+1]); SearchFlag |= OBJECTS_CSV ; }
+
+				//	: 読み込み位置の設定
+				if(i_vvCsvData[i][j] == L"StageNumber"){ o_NumberPoint.x = j ; o_NumberPoint.y = i ; SearchFlag |= STAGE_NUMBER ; }
+				if(i_vvCsvData[i][j] == L"FilePath"   ){ o_PathPoint.x   = j ; o_PathPoint.y   = i ; SearchFlag |= FILE_PATH    ; }
+
+				//	: すべての読み込みを完了
+				if(SearchFlag == ALL_OK) return ;
+			}
+		}
+//////////
+//
+//	ここまで飛んできたら確実に読み込みが失敗している
+//
+
+//	: デッバッグ用エラー
+#if defined(DEBUG) | defined(_DEBUG) | defined(ON_DEBUGGINGPROCESS)
+			//	: 
+			if( !(SearchFlag & ( FILE_PATH )) ) 
+					throw BaseException(
+						L"ファイルパスの行が見つかりませんでした\n→CSVデータを確認してください",
+						L"StageLoader::PointSearch()"
+					);
+			if( !(SearchFlag & ( STAGE_NUMBER )) ) 
+					throw BaseException(
+						L"ステージ番号の行が見つかりませんでした\n→CSVデータを確認してください",
+						L"StageLoader::PointSearch()"
+					);
+#endif
+
+		//	: 一般向けエラー
+		throw BaseException(
+			L"ステージデータの読み込みに失敗しました\n→データが破損していないか確認してください",
+			L"StageLoader::PointSearch()"
+		);
+	}
+	catch(wiz::BaseException& e){
+		//再スロー
+		throw BaseException(
+				e.what_w(), 
+				L"↑StageLoader::PointSearch()"
+				);
+	}
+	catch(...){
+		//再スロー
+		throw;
+	}
+}
+/////////////////// ////////////////////
+//// 関数名     ：
+//// カテゴリ   ：
+//// 用途       ：
+//// 引数       ：
+//// 戻値       ：
+//// 担当者     ：
+//// 備考       ：
+////            ：
+////
+void StageLoader::StageListLoader(wstring i_sFileName, BYTE i_byStageNum){
+	try{
+
+		vector<vector<wstring>> vvCsvData;	//	: CSVデータを受け取るための変数
+		readcsv(i_sFileName,vvCsvData);		//	: CSVデータの受け取り
+
+		POINT NumberPoint ;		//	: ステージ番号が書いてある行と列のデータ
+		POINT PathPoint   ;		//	: ステージの構成データファイル名が書いてある行と列のデータ
+		PointSearch( vvCsvData , NumberPoint , PathPoint ) ;
+		BYTE size = vvCsvData.size();
+		do{
+			if( wcstol( vvCsvData[NumberPoint.y][NumberPoint.x].c_str() , NULL , 10 ) 
+				== i_byStageNum )
+			{
+				StageGenerator(vvCsvData[NumberPoint.y][NumberPoint.x +1]);
+				return;
+			}
+		}while(size > ++NumberPoint.y);
+		throw BaseException(
+				L"", 
+				L"StageLoader::StageListLoader()"
+				);
+	}
+	catch(wiz::BaseException& e){
+		//再スロー
+		throw BaseException(
+				e.what_w(), 
+				L"↑StageLoader::StageListLoader()"
+				);
+	}
+	catch(...){
+		//再スロー
+		throw;
+	}
+}
+/////////////////// ////////////////////
+//// 関数名     ：
+//// カテゴリ   ：コンストラクタ
+//// 用途       ：FILEからStageを構築します
+//// 引数       ：
+//// 戻値       ：なし(失敗時は例外をthrow)
+//// 担当者     ：
+//// 備考       ：
+////            ：
+////
+StageLoader::StageLoader(LPDIRECT3DDEVICE9 pD3DDevice, wstring i_sFileName,
+		BYTE i_byStageNum, vector<Object*>& Vec, TextureManager& TexMgr){
+	try{
+		m_pD3DDevice	= pD3DDevice;
+		m_pVec			= (&Vec);
+		m_pTexMgr		= (&TexMgr);
+
+
+			
+		StageListLoader(i_sFileName, i_byStageNum);
+	}
+	catch(wiz::BaseException& e){
+		//再スロー
+		throw BaseException(
+				e.what_w(), 
+				L"↑StageLoader::StageLoader()"
+				);
+	}
+	catch(...){
+		//再スロー
+		throw;
+	}
+}
+
+/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
+
 /*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 /**************************************************************************
  Stage 定義部
@@ -125,6 +504,26 @@ void Stage::Update(UpdatePacket& i_UpdatePacket)
 	}
 	}
 }
+/////////////////// ////////////////////
+//// 関数名     ：void Render(RenderPacket& i_RenderPacket);
+//// カテゴリ   ：関数
+//// 用途       ：ターゲットレンダリング
+//// 引数       ：  RenderPacket& i_RenderPacket        // レンダー処理に流すデータの集合体
+//// 戻値       ：無し
+//// 担当者     ：鴫原 徹
+//// 備考       ：画面以外のバッファーに描画する
+////            ：
+////
+void Stage::Render(RenderPacket& i_RenderPacket){
+	i_RenderPacket.pVec = &m_Vec ;
+	//配置オブジェクトの描画
+	vector<Object*>::size_type sz = m_Vec.size();
+	for(vector<Object*>::size_type i = 0;i < sz;i++){
+		m_Vec[i]->AccessBegin();
+		m_Vec[i]->TargetRender(i_RenderPacket);
+		m_Vec[i]->AccessEnd();
+	}
+}
 
 /**************************************************************************
  virtual void Stage::Draw(
@@ -147,6 +546,30 @@ void Stage::Draw(DrawPacket& i_DrawPacket)
 		m_Vec[i]->AccessEnd();
 	}
 }
+/////////////////// ////////////////////
+//// 用途       ：
+//// カテゴリ   ：関数
+//// 用途       ：オブジェクトをディスプレイに表示する
+//// 引数       ：
+//// 戻値       ：無し
+//// 担当者     ：鴫原 徹
+//// 備考       ：
+void Stage::TargetRender(BassPacket& BassPacket, Object* DrawObject, Object* RenderTarget){
+
+}
+
+/////////////////// ////////////////////
+//// 用途       ：
+//// カテゴリ   ：関数
+//// 用途       ：オブジェクトをディスプレイに表示する
+//// 引数       ：
+//// 戻値       ：無し
+//// 担当者     ：鴫原 徹
+//// 備考       ：
+void Stage::DefaultRender(){
+
+}
+
 /*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 
 /**************************************************************************

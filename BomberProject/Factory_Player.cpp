@@ -282,7 +282,7 @@ PlayerCoil::PlayerCoil(
 void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 
 	wiz::CONTROLER_STATE Controller1P = i_UpdatePacket.pCntlState[0] ;
-
+	if( m_pCamera ){ m_pCamera = ( Camera* ) SearchObjectFromID( i_UpdatePacket.pVec, OBJID_SYS_CAMERA ) ; }
 	if( m_pPlayer ){
 		//m_fMovdSpeed = 0;
 		//ConvertToCartesianCoordinatesを使って自機のデカルト座標を出す
@@ -393,7 +393,7 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 			m_vPos = D3DXVECTOR3( 300, 300, 0 );
 		}
 		if( m_vPos.x <= 0 || m_vPos.x >= 800 || m_vPos.y <= 0 || m_vPos.y >= 500 ){
-			m_vPos = D3DXVECTOR3( 100, 500, 0 );
+			//m_vPos = D3DXVECTOR3( 100, 500, 0 );
 		}
 		//	: 移動の確定
 		//	: 
@@ -407,7 +407,7 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 
 
 	} else {
-		m_pPlayer = (ProvisionalPlayer*)SearchObjectFromTypeID( i_UpdatePacket.pVec , typeid(ProvisionalPlayer) );
+		m_pPlayer = (ProvisionalPlayer3D*)SearchObjectFromTypeID( i_UpdatePacket.pVec , typeid(ProvisionalPlayer3D) );
 	}
 	if( m_pDirParts ) m_pDirParts->setMatrix( m_mMatrix );
 
@@ -422,6 +422,13 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 		m_pDirParts3D->SetPos(vPos);
 		D3DXMatrixTranslation( &mPos2  ,vPos.x, vPos.y,vPos.z) ;
 		m_pDirParts3D->CalcMatrix(mPos2,mScale2,mRotX*mRotZ2);
+
+
+
+		if( m_pCamera && m_pCamera->getPosY() < vPos.y ){
+			m_pCamera->setPosY( vPos.y );
+		}
+
 	}
 };
 /////////////////// ////////////////////
@@ -458,17 +465,17 @@ Factory_Player::Factory_Player( FactoryPacket* fpac ){
 	try{
 
 		D3DXVECTOR3 vScale( 1.0f, 1.0f, 1.0f );
-		fpac->m_pVec->push_back(
-			new ProvisionalPlayer(
-				fpac->pD3DDevice,
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"CircleP.png" ),
-				vScale,
-				g_vZero,
-				D3DXVECTOR3(0.0f,0.0f,0.0f),
-				NULL,
-				0xFF0000FF
-			)
-		);
+		//fpac->m_pVec->push_back(
+		//	new ProvisionalPlayer(
+		//		fpac->pD3DDevice,
+		//		fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"CircleP.png" ),
+		//		vScale,
+		//		g_vZero,
+		//		D3DXVECTOR3(0.0f,0.0f,0.0f),
+		//		NULL,
+		//		0xFF0000FF
+		//	)
+		//);
 
 		// 3D用
 		D3DXVECTOR3 vScale2( 10.0f, 10.0f, 10.0f );

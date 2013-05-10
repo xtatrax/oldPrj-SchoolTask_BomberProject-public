@@ -379,6 +379,30 @@ Camera(
 	FLOAT GetFar(){
 		return m_Far;
 	}
+/////////////////// ////////////////////
+//// 関数名     ：void Update( UpdatePacket& i_UpdatePacket )
+//// カテゴリ   ：
+//// 用途       ：
+//// 引数       ：
+//// 戻値       ：なし
+//// 担当       ：鴫原 徹
+//// 備考       ：
+////            ：
+////
+	float getPosY(){ return m_Eye.y ; };
+/////////////////// ////////////////////
+//// 関数名     ：void Update( UpdatePacket& i_UpdatePacket )
+//// カテゴリ   ：
+//// 用途       ：
+//// 引数       ：
+//// 戻値       ：なし
+//// 担当       ：鴫原 徹
+//// 備考       ：
+////            ：
+////
+	void setPosY( float i_fYPos ){
+		m_Eye.y = m_At.y = i_fYPos ; 
+	};
 };
 
 /**************************************************************************

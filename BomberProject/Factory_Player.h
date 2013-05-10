@@ -37,7 +37,7 @@ public:
 	//	: 
 	ProvisionalPlayer( LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTexture,
 		D3DXVECTOR3 &vScale, D3DXVECTOR3 &vRot, D3DXVECTOR3 &vPos, RECT* pRect,
-		Color color = 0xFFFFFFFF, wiz::OBJID id = OBJID_2D_PLAYER );
+		Color color = 0xFFFFFFFF, wiz::OBJID id = OBJID_3D_MAGNET );
 	//	: 
 	void Update( UpdatePacket& i_UpdatePacket );
 };
@@ -63,6 +63,9 @@ public:
 	void Draw( DrawPacket& i_DrawPacket );
 	//	: 
 	void Update( UpdatePacket& i_UpdatePacket );
+	D3DXVECTOR3 getPos(){
+		return m_vPos;
+	};
 };
 
 
@@ -74,6 +77,7 @@ public:
 //**************************************************************************//
 class PlayerCoil : public MagneticumObject{
 
+	Camera*				m_pCamera ;
 
 	//	: コイルの方向指標用パーツ
 	SpriteObject*		m_pDirParts		;
@@ -82,7 +86,7 @@ class PlayerCoil : public MagneticumObject{
 	Cylinder*			m_pDirParts3D;
 
 	//	: 
-	ProvisionalPlayer*	m_pPlayer		;
+	ProvisionalPlayer3D*	m_pPlayer		;
 
 	float		m_fMoveDir   ;//角度
 	float       m_fMovdSpeed ;//速度
@@ -131,7 +135,7 @@ public:
 		D3DXVECTOR3 &vDirOffset,					//	: 方向を表す三角の描画オフセット
 		RECT* pCoreRect = NULL,						//	: 描画範囲
 		RECT* pDirRect = NULL,						//	: 描画範囲
-		wiz::OBJID id = OBJID_2D_PLAYER				//	: ID
+		wiz::OBJID id = OBJID_3D_COIL				//	: ID
 	);
 
 /////////////////// ////////////////////

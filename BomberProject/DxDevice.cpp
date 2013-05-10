@@ -361,7 +361,7 @@ void DxDevice::UpdateScene()
 
 		#endif
 		pScene->Update(m_UpdatePacket);
-		pScene->AnotherTargetRender(m_RenderPacket);
+		pScene->Render(m_RenderPacket);
 
 		#ifndef CF_SINGLETHREAD 
 			//	: マルチスレッドモードの場合
