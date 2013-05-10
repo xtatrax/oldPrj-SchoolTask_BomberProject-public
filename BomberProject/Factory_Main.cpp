@@ -42,16 +42,12 @@ Factory_Main::Factory_Main(FactoryPacket* fpac){
 		//	: ガイドライン
 		fpac->m_pVec->push_back(new Guide( fpac->pD3DDevice ) );
 
-<<<<<<< HEAD
 		//ライトのインスタンス初期化
         D3DCOLORVALUE Diffuse = {1.0f,1.0f,1.0f,0.0f};
         D3DCOLORVALUE Specular = {1.0f,1.0f,1.0f,0.0f};
         D3DCOLORVALUE Ambient = {0.5f,0.5f,0.5f,0.0f};
         fpac->m_pVec->push_back(new DirectionalLight(fpac->pD3DDevice,Diffuse,Specular,Ambient,
                     D3DXVECTOR3( -0.0f, -1.0f, 0.0f)));
-=======
-			Factory_Enemy Efac( fpac ) ;
->>>>>>> work_space
 
 		//カメラのインスタンス初期化
 		float ECXPos = 25.1f;
