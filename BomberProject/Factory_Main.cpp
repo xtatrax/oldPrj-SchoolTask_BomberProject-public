@@ -42,7 +42,7 @@ namespace wiz{
 			Factory_Player Pfac( fpac );
 			Factory_Wall   Wfac( fpac );
 
-			//Factory_Enemy Efac( fpac ) ;
+			Factory_Enemy Efac( fpac ) ;
 
 			Factory_Magnetic Mfac( fpac ) ;
 			Factory_Item   Ifac( fpac ) ;
