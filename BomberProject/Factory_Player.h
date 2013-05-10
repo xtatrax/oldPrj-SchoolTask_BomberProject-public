@@ -63,6 +63,9 @@ public:
 	void Draw( DrawPacket& i_DrawPacket );
 	//	: 
 	void Update( UpdatePacket& i_UpdatePacket );
+	D3DXVECTOR3 getPos(){
+		return m_vPos;
+	};
 };
 
 
@@ -74,6 +77,7 @@ public:
 //**************************************************************************//
 class PlayerCoil : public MagneticumObject{
 
+	Camera*				m_pCamera ;
 
 	//	: コイルの方向指標用パーツ
 	SpriteObject*		m_pDirParts		;
@@ -82,7 +86,7 @@ class PlayerCoil : public MagneticumObject{
 	Cylinder*			m_pDirParts3D;
 
 	//	: 
-	ProvisionalPlayer*	m_pPlayer		;
+	ProvisionalPlayer3D*	m_pPlayer		;
 
 	float		m_fMoveDir   ;//角度
 	float       m_fMovdSpeed ;//速度

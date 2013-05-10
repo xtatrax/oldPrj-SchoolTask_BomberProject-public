@@ -57,6 +57,11 @@ Factory_Main::Factory_Main(FactoryPacket* fpac){
 			new RenderTargetSprite((BassPacket*)fpac,800,512)
 		);
 
+		Factory_Player Pfac( fpac );
+		Factory_Wall   Wfac( fpac );
+		Factory_Magnetic Mfac( fpac ) ;
+		Factory_Item   Ifac( fpac ) ;
+
 		//	: スプライト
 		fpac->m_pVec->push_back(
 			new SpriteObject(
@@ -72,10 +77,6 @@ Factory_Main::Factory_Main(FactoryPacket* fpac){
 			)
 		);
 
-		Factory_Player Pfac( fpac );
-		Factory_Wall   Wfac( fpac );
-		Factory_Magnetic Mfac( fpac ) ;
-		Factory_Item   Ifac( fpac ) ;
 	}
 	catch(...){
 		//再throw

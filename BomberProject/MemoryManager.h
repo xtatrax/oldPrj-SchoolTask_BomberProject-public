@@ -6,7 +6,13 @@
 //	担当者			：鴫原 徹
 //	内包ﾃﾞｰﾀと備考	：メモリを管理する子たちの集まり
 //					▼
-//	namespace TLIB;
+//	namespace TLIB ;
+//		class TMemoryManager ;		//	: メモリの管理クラス
+//		inline void* operator new( size_t iSize,LPCSTR  sFile, LPCSTR  sFunc, UINT iLine)	;		//	:    new 演算子のオーバーライド関数 メモリを生成した ソースファイル・関数・行番号を同時に獲得する
+//		inline void  operator delete(  void* pv,LPCSTR  sFile, LPCSTR  sFunc, UINT iLine)	;		//	: delete 演算子のオーバーライド関数
+//		template<typename T> inline void SafeDelete(T*& p)		;	//	: 安全にポインタを削除する
+//		template<typename T> inline void SafeDeleteArr(T*& p)	;	//	: 安全に配列を削除する
+//		
 //
 
 #ifndef TLIB_MEMORYMANAGER
@@ -126,7 +132,9 @@ public:
 //};
 //////////
 //	: operator new のオーバーライド
-inline void* operator new(size_t iSize,LPCSTR  sFile, LPCSTR  sFunc, UINT iLine){
+//inline void* operator new(size_t iSize,LPCSTR  sFile =  "" , LPCSTR  sFunc = "" , UINT iLine = 0)
+inline void* operator new(size_t iSize,LPCSTR  sFile  , LPCSTR  sFunc  , UINT iLine )
+{
 	return TMemoryManager::add(iSize,sFile,sFunc,iLine);
 };
 
@@ -137,6 +145,7 @@ inline void operator delete(void* pv,LPCSTR  sFile, LPCSTR  sFunc, UINT iLine){
 inline void operator delete(void* pv){
 	return TMemoryManager::remove(pv);
 };
+
 #define new new(__FILE__, __FUNCTION__, __LINE__)
 
 
