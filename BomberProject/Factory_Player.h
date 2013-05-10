@@ -18,7 +18,7 @@
 
 #define  MGPRM_MAGNETICUM	10  /* 磁界の影響半径( 現在単位 pixel ) */
 #define  MGPRM_MAGNETICUM_QUAD ( MGPRM_MAGNETICUM * MGPRM_MAGNETICUM )
-#define  PLAYER_SPEED		(   0.05f ) 
+#define  PLAYER_SPEED		(   0.08f ) 
 #define  PLAYER_BASSROT		( 90.0f ) 
 
 
@@ -50,12 +50,14 @@ public:
 // 用途    : 仮のユーザー設置磁界
 //**************************************************************************//
 class ProvisionalPlayer3D : public MagneticumObject3D{
-	static Camera*	m_Camera;
+	Camera*			m_Camera;
 	D3DXMATRIX		m_Matrix ;
 	D3DXVECTOR3		m_vPos ;
 	D3DXQUATERNION	m_vRot ;
 	D3DXVECTOR3		m_vScale ;
 	float			m_MovePosY;
+	bool			m_bLastMouseRB;
+	bool			m_bLastMouseLB;
 public:
 	//	: 
 	ProvisionalPlayer3D( LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTexture,
@@ -76,7 +78,11 @@ public:
 	//// 備考       ：
 	////            ：
 	D3DXVECTOR3 getPos() const {
-		return m_vPos			;	
+		if( g_bMouseLB || g_bMouseRB ){ 
+			return m_vPos	;
+		}else{
+			return g_vMin	;
+		}
 	}	;
 
 };
@@ -179,6 +185,16 @@ public:
 	////            ：
 	D3DXVECTOR3 getPos() const { return m_vPos	;	}	;
 
+	/////////////////// ////////////////////
+	//// 関数名     ：D3DXVECTOR3 getSpeed() const
+	//// カテゴリ   ：ゲッター
+	//// 用途       ：速度を獲得
+	//// 引数       ：なし
+	//// 戻値       ：なし
+	//// 担当       ：本多寛之
+	//// 備考       ：
+	////            ：
+	float getSpeed() const { return m_fMovdSpeed	;	}	;
 
 };
 
