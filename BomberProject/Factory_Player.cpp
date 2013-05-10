@@ -25,6 +25,7 @@
 
 namespace wiz{
 
+Camera*	ProvisionalPlayer3D::m_Camera	= NULL;
 extern class WallObject ;
 
 /**************************************************************************
@@ -122,11 +123,11 @@ ProvisionalPlayer3D::ProvisionalPlayer3D(
 ,m_vPos(vPos)
 ,m_vRot(vRot)
 ,m_vScale(vScale)
+,m_MovePosY(0)
 {
 	::ZeroMemory( &m_Material, sizeof(D3DMATERIAL9) ) ;
 	D3DXMatrixIdentity( &m_Matrix ) ;
 	setPoleS();
-
 }
 
 
@@ -185,6 +186,10 @@ void ProvisionalPlayer3D::Draw(DrawPacket& i_DrawPacket)
 ////            F
 ////
 void ProvisionalPlayer3D::Update( UpdatePacket& i_UpdatePacket ){
+	if(m_Camera == NULL){
+		m_Camera = (Camera*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_SYS_CAMERA);
+		m_MovePosY	= m_Camera->getPosY();
+	}
 	if( g_bMouseLB || g_bMouseRB ){
 		wiz::CONTROLER_STATE Controller1P = i_UpdatePacket.pCntlState[0] ;
 		D3DXVECTOR3 vMove = g_vZero ;
@@ -193,7 +198,7 @@ void ProvisionalPlayer3D::Update( UpdatePacket& i_UpdatePacket ){
 		ScreenToClient( g_hWnd , &MousePos) ;
 		
 		m_vPos.x = (float)MousePos.x / DRAW_CLIENT_MAGNIFICATION - MAGNETIC_RADIUS ;
-		m_vPos.y = (( STANDARD_WINDOW_HEIGHT - MousePos.y ) - UI_HEIGHT ) / DRAW_CLIENT_MAGNIFICATION - MAGNETIC_RADIUS ;
+		m_vPos.y = (( STANDARD_WINDOW_HEIGHT - MousePos.y ) - UI_HEIGHT ) / DRAW_CLIENT_MAGNIFICATION - MAGNETIC_RADIUS + ( m_Camera->getPosY() - m_MovePosY ) ;
 
 		if( g_bMouseLB )
 			setPoleN() ;
