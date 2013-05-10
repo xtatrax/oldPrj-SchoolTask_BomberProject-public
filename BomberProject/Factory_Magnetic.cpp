@@ -254,16 +254,17 @@ Factory_Magnetic::Factory_Magnetic(FactoryPacket *fpac){
 		// Ž¥ŠE‚Ì•\Ž¦
 		MagneticumObject3D* Magnet = new MagneticumObject3D(
 			fpac->pD3DDevice,
-			fpac->m_pTexMgr->addTexture(fpac->pD3DDevice,L"ddn.jpg")
+			NULL
+			//fpac->m_pTexMgr->addTexture(fpac->pD3DDevice,L"ddn.jpg")
 		);
 		fpac->m_pVec->push_back(Magnet);
 
-		//Magnet->AddMagnetic(D3DXVECTOR3(5.0f,5.0f,0.5f),
-		//			  D3DXVECTOR3(0.0f,0.0f,0.0f),
-		//			  D3DXVECTOR3(0.0f,0.0f,0.0f),
-		//			  MagnetDiffuse,
-		//			  MagnetSpecular,
-		//			  MagnetAmbient);
+		Magnet->AddMagnetic(D3DXVECTOR3(5.0f,5.0f,0.5f),
+					  D3DXVECTOR3(0.0f,0.0f,0.0f),
+					  D3DXVECTOR3(0.0f,0.0f,0.0f),
+					  MagnetDiffuse,
+					  MagnetSpecular,
+					  MagnetAmbient);
 		//Magnet->AddMagnetic(D3DXVECTOR3(1.0f,1.0f,1.0f),
 		//			  D3DXVECTOR3(0.0f,0.0f,0.0f),
 		//			  D3DXVECTOR3(1.0f,0.0f,0.0f),

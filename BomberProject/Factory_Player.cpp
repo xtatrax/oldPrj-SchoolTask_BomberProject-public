@@ -119,6 +119,7 @@ ProvisionalPlayer3D::ProvisionalPlayer3D(
 {
 	::ZeroMemory( &m_Material, sizeof(D3DMATERIAL9) ) ;
 	D3DXMatrixIdentity( &m_Matrix ) ;
+	setPoleS();
 
 }
 
@@ -192,8 +193,15 @@ void ProvisionalPlayer3D::Update( UpdatePacket& i_UpdatePacket ){
 			GetCursorPos( &MousePos );
 			ScreenToClient( g_hWnd , &MousePos);
 			
+			//float m_vStage ;
 			/*it2->second->*/m_vPos.x = (float)MousePos.x / 20.0f - 0.5f ;
-			/*it2->second->*/m_vPos.y = ((STANDARD_WINDOW_HEIGHT -  (float)MousePos.y ) / 40.0f ) ;
+			m_vPos.y = (( STANDARD_WINDOW_HEIGHT - MousePos.y ) - 88.0f ) / 20.0f - 0.5f ;
+			///*it2->second->*/m_vPos.x = (float)MousePos.x ;
+			//m_vStage = ( STANDARD_WINDOW_HEIGHT - 88.0f ) -(float)MousePos.y + 88.0f ;
+			//m_vPos.y = -( m_vStage - (float)MousePos.y ) ;
+			//m_vPos.y + 88.0f = ( STANDARD_WINDOW_HEIGHT - 88.0f ) -(float)MousePos.y - 88.0f ;
+			//*it2->second->*/m_vPos.y = ((512.0f -  (float)MousePos.y ) / 12.5f ) ;
+			///*it2->second->*/m_vPos.y = ((STANDARD_WINDOW_HEIGHT -  (float)MousePos.y ) / 12.5f ) ;
 			//m_vPos.y = m_vPos.y - 30.0f ;
 
 			if( g_bMouseLB )
@@ -491,7 +499,8 @@ Factory_Player::Factory_Player( FactoryPacket* fpac ){
 		fpac->m_pVec->push_back(
 			new ProvisionalPlayer3D(
 				fpac->pD3DDevice,
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"ddn.jpg" ),
+				//NULL,
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"CircleP.png" ),
 				vScale,
 				D3DXQUATERNION( 0.0f, 0.0f, 0.0f, 0.0f ),
 				D3DXVECTOR3(0.0f,0.0f,0.0f))
