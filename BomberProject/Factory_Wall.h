@@ -22,7 +22,12 @@ extern class PlayerCoil ;
 /**************************************************************************
  WallObject 定義部
 ****************************************************************************/
-//壁クラス---------------------------------------------------------------------
+//**************************************************************************//
+// cclass WallObject : public PrimitiveBox
+//
+// 担当者  : 本多寛之
+// 用途    : 壁
+//**************************************************************************//
 class WallObject : public PrimitiveBox{
 	static PlayerCoil* m_pPlayerCoil ;
 	static Camera*	   m_pCamera;
@@ -41,17 +46,20 @@ class WallObject : public PrimitiveBox{
 	//std::find
 
 public:
-	/**************************************************************************
-	 WallObject::WallObject(
-		LPDIRECT3DDEVICE9 pD3DDevice,	//デバイス
-		LPDIRECT3DTEXTURE9 pTexture,	//テクスチャ
-		wiz::OBJID id					//オブジェクトの種類
-	);
-	 用途: コンストラクタ
-	 戻り値: なし
-	 担当：本多寛之
-	***************************************************************************/
-	WallObject(	LPDIRECT3DDEVICE9 pD3DDevice,LPDIRECT3DTEXTURE9 pTexture,wiz::OBJID id = OBJID_2D_WALL);
+	/////////////////// ////////////////////
+	//// 用途       ：WallObject(	LPDIRECT3DDEVICE9 pD3DDevice,LPDIRECT3DTEXTURE9 pTexture,wiz::OBJID id = OBJID_3D_WALL);
+	//// カテゴリ   ：コンストラクタ
+	//// 用途       ：
+	//// 引数       ：LPDIRECT3DDEVICE9 pD3DDevice //デバイス
+	////			  : LPDIRECT3DTEXTURE9 pTexture  //テクスチャ
+	////			  : pTexture,wiz::OBJID id = OBJID_3D_WALL //ID
+	//// 戻値       ：無し
+	//// 担当者     ：本多寛之
+	//// 備考       ：
+	WallObject(	LPDIRECT3DDEVICE9 pD3DDevice,
+				LPDIRECT3DTEXTURE9 pTexture,
+				wiz::OBJID id = OBJID_2D_WALL
+				);
 
 	bool HitTest2DRectAndCircle( D3DXVECTOR3& i_vPos, float i_fRadius );
 
@@ -124,7 +132,6 @@ public:
 ***************************************************************************/
 	void GetOBB(size_t Index,OBB& obb);
 };
-//-------------------------------------------------------------------------------
 
 //class WallManager {
 //	typedef multimap< float, Wall > WALLCONTAINER ;

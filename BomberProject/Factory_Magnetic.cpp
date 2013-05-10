@@ -102,6 +102,52 @@ MagneticumObject3D::MagneticumObject3D(
 }
 
 /////////////////// ////////////////////
+//// 用途       ：MagneticumObject3D(
+////									LPDIRECT3DDEVICE9 pD3DDevice,LPDIRECT3DTEXTURE9 pTexture,
+////									float Radius1,float Radius2,float Lenght,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos,
+////									D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,
+////									wiz::OBJID id = OBJID_3D_MAGNET) ;
+//// カテゴリ   ：コンストラクタ
+//// 用途       ：Player用のコンストラクタ
+//// 引数       ：  LPDIRECT3DDEVICE9 pD3DDevice,	//デバイス
+////			  :   LPDIRECT3DTEXTURE9 pTexture,  //テクスチャ	
+////		      :   Radius1						//円の直径1
+////		      :   Radius2						//円の直径2
+////			  :   Lenght						//高さ
+////		      :   D3DXVECTOR3 &vRot				//回転角
+////		      :   D3DXVECTOR3 &vPos				//位置
+////              :   D3DCOLORVALUE& Diffuse,		//ディフューズ色
+////              :   D3DCOLORVALUE& Specular,		//スペキュラ色
+////              :   D3DCOLORVALUE& Ambient,		//アンビエント色
+////              :   wiz::OBJID id = OBJID_3D_MAGNET //ID
+//// 戻値       ：無し
+//// 担当者     ：本多寛之
+//// 備考       ：
+////	
+MagneticumObject3D::MagneticumObject3D(
+	LPDIRECT3DDEVICE9 pD3DDevice,
+	LPDIRECT3DTEXTURE9 pTexture,
+	float Radius1,
+	float Radius2,
+	float Lenght,
+	D3DXVECTOR3 &vRot,
+	D3DXVECTOR3 &vPos,
+	D3DCOLORVALUE& Diffuse,
+	D3DCOLORVALUE& Specular,
+	D3DCOLORVALUE& Ambient,
+	wiz::OBJID id) 
+:PrimitiveCylinder(
+		   pD3DDevice,pTexture,
+		   Radius1,Radius2,Lenght,
+		   vRot,vPos,
+		   Diffuse,Specular,Ambient,
+		   id)
+,m_bMagnetPole( POLE_N )
+{
+	::ZeroMemory( &m_Material, sizeof(D3DMATERIAL9) ) ;
+}
+
+/////////////////// ////////////////////
 //// 用途       ：void Draw( DrawPacket& i_DrawPacket )
 //// カテゴリ   ：関数
 //// 用途       ：オブジェクトをディスプレイに表示する
@@ -258,9 +304,9 @@ Factory_Magnetic::Factory_Magnetic(FactoryPacket *fpac){
 		);
 		fpac->m_pVec->push_back(Magnet);
 
-		//Magnet->AddMagnetic(D3DXVECTOR3(5.0f,5.0f,0.5f),
+		//Magnet->AddMagnetic(D3DXVECTOR3(10.0f,10.0f,0.5f),
 		//			  D3DXVECTOR3(0.0f,0.0f,0.0f),
-		//			  D3DXVECTOR3(0.0f,0.0f,0.0f),
+		//			  D3DXVECTOR3(10.0f,10.0f,0.0f),
 		//			  MagnetDiffuse,
 		//			  MagnetSpecular,
 		//			  MagnetAmbient);
