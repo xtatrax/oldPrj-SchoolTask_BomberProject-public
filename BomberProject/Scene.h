@@ -106,7 +106,7 @@ public:
 ////
     void Update(UpdatePacket& i_UpdatePacket);
 /////////////////// ////////////////////
-//// 関数名     ：void AnotherTargetRender(RenderPacket& i_RenderPacket);
+//// 関数名     ：void Render(RenderPacket& i_RenderPacket);
 //// カテゴリ   ：関数
 //// 用途       ：ターゲットレンダリング
 //// 引数       ：  RenderPacket& i_RenderPacket        // レンダー処理に流すデータの集合体
@@ -115,7 +115,7 @@ public:
 //// 備考       ：画面以外のバッファーに描画する
 ////            ：
 ////
-    void AnotherTargetRender(RenderPacket& i_RenderPacket);
+    void Render(RenderPacket& i_RenderPacket);
 /////////////////// ////////////////////
 //// 関数名     ：void Draw(DrawPacket& i_DrawPacket);
 //// カテゴリ   ：関数

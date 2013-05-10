@@ -300,7 +300,7 @@ Factory_Magnetic::Factory_Magnetic(FactoryPacket *fpac){
 		// ¥ŠE‚Ì•\¦
 		MagneticumObject3D* Magnet = new MagneticumObject3D(
 			fpac->pD3DDevice,
-			fpac->m_pTexMgr->addTexture(fpac->pD3DDevice,L"ddn.jpg")
+			NULL//fpac->m_pTexMgr->addTexture(fpac->pD3DDevice,L"ddn.jpg")
 		);
 		fpac->m_pVec->push_back(Magnet);
 

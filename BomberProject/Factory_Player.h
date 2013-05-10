@@ -37,7 +37,7 @@ public:
 	//	: 
 	ProvisionalPlayer( LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTexture,
 		D3DXVECTOR3 &vScale, D3DXVECTOR3 &vRot, D3DXVECTOR3 &vPos, RECT* pRect,
-		Color color = 0xFFFFFFFF, wiz::OBJID id = OBJID_2D_PLAYER );
+		Color color = 0xFFFFFFFF, wiz::OBJID id = OBJID_3D_MAGNET );
 	//	: 
 	void Update( UpdatePacket& i_UpdatePacket );
 };
@@ -96,6 +96,8 @@ class PlayerCoil : public MagneticumObject3D{
 	float			m_fMovdSpeed ;//‘¬“x 
 	
 	ProvisionalPlayer3D*	m_pPlayer;
+
+	Camera* m_pCamera;
 
 
 public:

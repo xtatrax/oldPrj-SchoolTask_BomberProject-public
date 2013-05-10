@@ -111,6 +111,26 @@ public:
 	void AddWall(D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos,
 			D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient);
 
+	/////////////////// ////////////////////
+	//// 用途       ：void GetOBB( size_t Index, OBB& obb )
+	//// カテゴリ   ：関数
+	//// 用途       ：オブジェクトをディスプレイに表示する
+	//// 引数       ： size_t Index,
+	////				 OBB& obb			//取得するOBB
+	//// 戻値       ：なし。インデックスが範囲外なら例外
+	////				＊現在のOBBを代入する
+	//// 担当者     ：曳地 大洋
+	//// 備考       ：
+/**************************************************************************
+	void GetOBB(
+		size_t Index,
+		OBB& obb	//取得するOBB
+	);
+ 用途: 指定のインデックスの現在のOBBを得る
+ 戻り値: なし。インデックスが範囲外なら例外
+ ＊現在のOBBを代入する
+***************************************************************************/
+	void GetOBB(size_t Index,OBB& obb);
 };
 
 //class WallManager {
