@@ -37,9 +37,35 @@ public:
 	//	: 
 	ProvisionalPlayer( LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTexture,
 		D3DXVECTOR3 &vScale, D3DXVECTOR3 &vRot, D3DXVECTOR3 &vPos, RECT* pRect,
-		Color color = 0xFFFFFFFF, wiz::OBJID id = OBJID_3D_PLAYER );
+		Color color = 0xFFFFFFFF, wiz::OBJID id = OBJID_3D_MAGNET );
 	//	: 
 	void Update( UpdatePacket& i_UpdatePacket );
+};
+
+// 3D用
+//**************************************************************************//
+// class ProvisionalPlayer : public MagneticumObject ;
+//
+// 担当者  : 曳地大洋
+// 用途    : 仮のユーザー設置磁界
+//**************************************************************************//
+class ProvisionalPlayer3D : public MagneticumObject3D{
+	D3DXMATRIX		m_Matrix ;
+	D3DXVECTOR3		m_vPos ;
+	D3DXQUATERNION	m_vRot ;
+	D3DXVECTOR3		m_vScale ;
+public:
+	//	: 
+	ProvisionalPlayer3D( LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTexture,
+		D3DXVECTOR3 &vScale, D3DXQUATERNION &vRot, D3DXVECTOR3 &vPos,
+		wiz::OBJID id = OBJID_3D_PLAYER );
+	//	:
+	void Draw( DrawPacket& i_DrawPacket );
+	//	: 
+	void Update( UpdatePacket& i_UpdatePacket );
+	D3DXVECTOR3 getPos(){
+		return m_vPos;
+	};
 };
 
 
@@ -51,15 +77,40 @@ public:
 //**************************************************************************//
 class PlayerCoil : public MagneticumObject{
 
+	Camera*				m_pCamera ;
 
 	//	: コイルの方向指標用パーツ
 	SpriteObject*		m_pDirParts		;
 
+	//PrimitiveCylinder*			m_pDirParts3D;
+	Cylinder*			m_pDirParts3D;
+
 	//	: 
-	ProvisionalPlayer*	m_pPlayer		;
+	ProvisionalPlayer3D*	m_pPlayer		;
 
 	float		m_fMoveDir   ;//角度
 	float       m_fMovdSpeed ;//速度
+
+	//仮
+	//Color			m_Color;
+	//bool			m_bMagnetPole ;
+	//void setPoleS(){ m_bMagnetPole = POLE_S  ; m_Color = 0xFF0000FF	; } ;
+	//void setPoleN(){ m_bMagnetPole = POLE_N	 ; m_Color = 0xFFFF0000	; } ;
+	/////////////////// ////////////////////
+	//// 関数名     ：void ChangePole()
+	//// カテゴリ   ：非公開アクセッサ
+	//// 用途       ：磁極を反転させる
+	//// 引数       ：なし
+	//// 戻値       ：なし
+	//// 担当       ：鴫原 徹
+	//// 備考       ： 磁極フラグとカラーを変更する
+	////            ：
+	////
+	//	bool ChangePole(){
+	//		if( m_bMagnetPole == POLE_S )	{ setPoleN() ; }
+	//		else							{ setPoleS() ; }
+	//		return true ;
+	//	}
 
 public:
 /////////////////// ////////////////////
@@ -84,7 +135,7 @@ public:
 		D3DXVECTOR3 &vDirOffset,					//	: 方向を表す三角の描画オフセット
 		RECT* pCoreRect = NULL,						//	: 描画範囲
 		RECT* pDirRect = NULL,						//	: 描画範囲
-		wiz::OBJID id = OBJID_3D_PLAYER				//	: ID
+		wiz::OBJID id = OBJID_3D_COIL				//	: ID
 	);
 
 /////////////////// ////////////////////
@@ -110,6 +161,18 @@ public:
 ////            ：
 ////
     void Draw(DrawPacket& i_DrawPacket) ;
+
+/////////////////// ////////////////////
+//// 関数名     ：D3DXVECTOR3 getPos() const
+//// カテゴリ   ：ゲッター
+//// 用途       ：中心座標を獲得
+//// 引数       ：なし
+//// 戻値       ：なし
+//// 担当       ：鴫原 徹
+//// 備考       ：
+////            ：
+	D3DXVECTOR3 getPos() const { return m_pDirParts3D->getPos()	;	}	;
+
 
 };
 

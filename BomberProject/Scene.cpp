@@ -15,6 +15,7 @@
 #include "Scene.h"
 #include "Debug_Stage.h"
 #include "Stage_Play.h"
+#include "Stage_Test.h"
 #include <process.h>
 
 
@@ -181,11 +182,10 @@ void Scene::Update(UpdatePacket& i_UpdatePacket){
 //// 備考       ：画面以外のバッファーに描画する
 ////            ：
 ////
- void Scene::AnotherTargetRender(RenderPacket& i_RenderPacket){
-    //vector<Object*>::size_type sz = m_Vec.size();
-    //for(vector<Object*>::size_type i = 0;i < sz;i++){
-    //    m_Vec[i]->TargetRender(i_DrawPacket.pD3DDevice,m_Vec,i_DrawPacket.pCommand);
-    //}
+void Scene::Render(RenderPacket& i_RenderPacket){
+	if(m_pRootStage){
+		m_pRootStage->getActiveStage()->Render(i_RenderPacket);
+	}
 }
 /////////////////// ////////////////////
 //// 関数名     ：void Draw(DrawPacket& i_DrawPacket);
@@ -204,6 +204,7 @@ void Scene::Draw(DrawPacket& i_DrawPacket){
 	}
 	CommandTranslator(i_DrawPacket);
 }
+
 /////////////////// ////////////////////
 //// 関数名     ：void CommandTranslator(LPDIRECT3DDEVICE9 pD3DDevice,Command& i_DrawPacket.pCommand);
 //// カテゴリ   ：関数
@@ -241,16 +242,18 @@ void Scene::CommandTranslator(DrawPacket& i_DrawPacket){
 			//	: ゲームオーバー画面
 
 
-		//	: デバッグステージ
-		case GM_OPENDEBUGSTAGE_TOJIWORKSPACE:
-		case GM_OPENDEBUGSTAGE_HSWORKSPACE:
-		case GM_OPENDEBUGSTAGE_TATEAWORKSPACE:
+
 		//case GM_OPENDEBUGSTAGE_STAGECREATE:
 		//	SafeDeleteStage();
 		//	m_pRootStage = new DevelopStage(i_DrawPacket.pD3DDevice);
 		//	break;
 			m_fStageNotFoundMessageTime          = 3.0f ;
 			break ; 
+		//	: デバッグステージ
+		case GM_OPENDEBUGSTAGE_TATEAWORKSPACE:
+			SafeDeleteStage(m_pRootStage);
+			m_pRootStage = new DebugStage_TATRA(i_DrawPacket.pD3DDevice);
+			break;
 		case GM_EXIT:
 			PostQuitMessage(0);
 			break;

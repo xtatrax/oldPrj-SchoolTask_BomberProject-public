@@ -3101,6 +3101,15 @@ void SimpleCommonMesh::CalcWorldMatrix(){
 }
 
 /**************************************************************************
+ void SimpleCommonMesh::CalcMatrix(D3DXMATRIX mPos , D3DXMATRIX mScale , D3DXMATRIX mRotZ)
+ 用途:ワールド変換を計算する
+ 戻り値: なし。現在の変換をもとにワールド行列を計算する
+***************************************************************************/
+void SimpleCommonMesh::CalcMatrix(D3DXMATRIX mPos , D3DXMATRIX mScale , D3DXMATRIX mRot){
+	m_WorldMatrix = mScale * mRot * mPos ;
+}
+
+/**************************************************************************
  void SimpleCommonMesh::GetLocalPosQt(
 	D3DXVECTOR3& Pos,	//現在の相対位置
 	D3DXQUATERNION& Qt	//現在の相対回転
@@ -3312,6 +3321,17 @@ void SimpleCommonMesh::SetBaseScale(D3DXVECTOR3& Scale){
 ***************************************************************************/
 void SimpleCommonMesh::SetBasePos(D3DXVECTOR3& Pos){
 	m_BasePos = Pos;
+	//含まれるマルチメッシュには適用しない
+}
+/**************************************************************************
+ void SimpleCommonMesh::SetBasePos(
+	D3DXVECTOR3& Pos	//新しいベース位置
+  );
+ 用途: 最初に作成された位置を変更する
+ 戻り値: なし
+***************************************************************************/
+void SimpleCommonMesh::SetPos(D3DXVECTOR3& Pos){
+	m_Pos = Pos;
 	//含まれるマルチメッシュには適用しない
 }
 /**************************************************************************
@@ -3929,6 +3949,20 @@ void Cylinder::ChangeDevice(LPDIRECT3DDEVICE9 pD3DDevice){
 	CreateInctance(pD3DDevice);
 	//親クラスのChangeDeviceを呼ぶ（マルチメッシュ配列用）
 	SimpleCommonMesh::ChangeDevice(pD3DDevice);
+}
+
+///////////////////// ////////////////////
+//// 関数名     ：D3DXVECTOR3 getPos() const
+//// カテゴリ   ：ゲッター
+//// 用途       ：DEAD OR ALIVE
+//// 引数       ：なし
+//// 戻値       ：なし
+//// 担当者     ：本多寛之
+//// 備考       ：
+////            ：
+////
+D3DXVECTOR3 Cylinder::getPos() const{
+	return m_Pos;
 }
 
 /**************************************************************************

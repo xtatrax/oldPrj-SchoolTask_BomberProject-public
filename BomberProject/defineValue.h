@@ -73,16 +73,6 @@
 //
 //////////
 
-//////////
-//	ゲームパーツ
-#define GP_CREATE_NONE		(   0 )
-#define GP_CREATE_TESTTIP	(   1 )
-#define GP_CREATE_GROUND	(   2 )
-#define GP_CREATE_ENEMY		(   3 )
-#define GP_CREATE_BIRD		(   4 )
-#define GP_CREATE_ARROW		(   5 )
-#define GP_CREATE_CLEAR		(   6 )
-//#define  GP_CREATE_NONE (0)
 //
 
 
@@ -111,43 +101,61 @@ namespace wiz{
 
 	};
 
+	enum{
+		/////////
+		//
+		//	この列挙型は外部ファイルで使用するので
+		//	仕様に従い絶対に値を明記すること
+		//
+
+		GP_CREATE_NONE		=    0 ,
+		GP_CREATE_TESTTIP	=    1 ,
+		GP_CREATE_WALL		=  100 ,
+		GP_CREATE_ENEMY		=    3 ,
+	};
+
 	enum OBJID{
-		OBJID_UNK					,
+		OBJID_UNK					,	//	: 未定オブジェ
 
-		OBJID_SYS_CAMERA			,
-		OBJID_SYS_LIGHT				,
-		OBJID_SYS_GUIDELINE			,
-		OBJID_SYS_SOUND				,
-		OBJID_SYS_ENEMYMANAGER		,
-		OBJID_SYS_CLEARAREA			,
+		OBJID_SYS_CAMERA			,	//	: カメラ
+		OBJID_SYS_LIGHT				,	//	: ライト
+		OBJID_SYS_GUIDELINE			,	//	: XYZガイド線
+		OBJID_SYS_SOUND				,	//	: 音声
+		OBJID_SYS_ENEMYMANAGER		,	//	: 敵の管理クラス( 不要の可能性 )
+		OBJID_SYS_CLEARAREA			,	//	: クリア領域
+		OBJID_SYS_RENDERTARGET		,	//	: レンダーターゲット
 
-		OBJID_UI_SPRITE				,
-		OBJID_UI_SPRITEBUTTON		,
-		OBJID_UI_LIFE				,
-		OBJID_UI_GAUGE				,
-		OBJID_UI_SCORE				,
-		OBJID_UI_TIME				,
+		OBJID_UI_SPRITE				,	//	: UIに使うスプライト
+		OBJID_UI_SPRITEBUTTON		,	//	: スプライトボタンのUI
+		OBJID_UI_LIFE				,	//	: ライフ( 念のため )
+		OBJID_UI_GAUGE				,	//	: ゲージ
+		OBJID_UI_SCORE				,	//	: スコア
+		OBJID_UI_TIME				,	//	: 時間( いる? )
 
-		OBJID_2D_WALL				,
+		OBJID_2D_WALL				,	//	: 壁( 3Dへ移行 削除予定 )
 
-		OBJID_3D_POLYGON			,
-		OBJID_3D_BOX				,
-		OBJID_3D_BOX_PARALLEL		,
-		OBJID_3D_SPHERE				,
-		OBJID_3D_CYLINDER			,
+		OBJID_3D_POLYGON			,	//	: とりあえず読み込んだモデルデータ
+		OBJID_3D_BOX				,	//	: とりあえず作った箱
+		OBJID_3D_BOX_PARALLEL		,	//	: ぱられる?・・・
+		OBJID_3D_SPHERE				,	//	: とりあえず作った球体
+		OBJID_3D_CYLINDER			,	//	: とりあえず作った円柱円錐
 
-		OBJID_3D_MULTI_POLYGON		,
+		OBJID_3D_MULTI_POLYGON		,	
 		OBJID_3D_MULTI_BOX			,
 		OBJID_3D_MULTI_BOX_PARALLEL	,
 		OBJID_3D_MULTI_SPHERE		,
 		OBJID_3D_MULTI_CYLINDER		,
 		OBJID_3D_MULTI_TAURUS		,
 
-		OBJID_3D_MAGNET				,
+		OBJID_3D_MAGNET				,	//	: 磁石
 
 		OBJID_3D_PLAYER				,
-		OBJID_3D_EFFECT				,
-		OBJID_3D_ENEMY				,
+		OBJID_3D_USERMAGNET			,	//	: ユーザー
+		OBJID_3D_COIL				,	//	: プレイヤー
+		OBJID_3D_EFFECT				,	//	: エフェクト
+		OBJID_3D_ENEMY				,	//	: 敵
+
+		OBJID_3D_TESTBOX			,	//	: テスト用の箱
 	} ;
 
 }

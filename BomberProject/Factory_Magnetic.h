@@ -68,19 +68,9 @@ protected:
 public:
 	MagneticumObject( LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTexture,
 		D3DXVECTOR3 &vScale, D3DXVECTOR3 &vRot, D3DXVECTOR3 &vPos, RECT* pRect,
-		Color color = 0xFFFFFFFF, wiz::OBJID id = OBJID_3D_PLAYER );
+		Color color = 0xFFFFFFFF, wiz::OBJID id = OBJID_3D_MAGNET );
 	//	: 
 	void Update( UpdatePacket& i_UpdatePacket );
-/////////////////// ////////////////////
-//// 関数名     ：D3DXVECTOR3 getPos() const
-//// カテゴリ   ：ゲッター
-//// 用途       ：中心座標を獲得
-//// 引数       ：なし
-//// 戻値       ：なし
-//// 担当       ：鴫原 徹
-//// 備考       ：
-////            ：
-	D3DXVECTOR3 getPos() const { return m_vPos			;	}	;
 /////////////////// ////////////////////
 //// 関数名     ：void ChangePole()
 //// カテゴリ   ：ゲッター
@@ -91,7 +81,20 @@ public:
 //// 備考       ： S極 = POLE_S = false
 ////            ： N極 = POLE_N = true
 	bool getMagnetPole() const { return m_bMagnetPole	;	}	;
-	
+///////////////////// ////////////////////
+//// 関数名     ：D3DXVECTOR3 getPos() const { return g_vZero; }
+//// カテゴリ   ：ゲッター
+//// 用途       ：DEAD OR ALIVE
+//// 引数       ：なし
+//// 戻値       ：なし
+//// 担当者     ：鴫原 徹
+//// 備考       ：
+////            ：
+////
+	D3DXVECTOR3 getPos() const {
+		return m_vPos; 
+	}
+
 };
 
 
@@ -134,8 +137,13 @@ protected:
 
 	D3DXVECTOR3			m_vPos ;
 
-	//void setPoleS(){ m_bMagnetPole = POLE_S  ; m_Color = 0xFF0000FF	; } ;
-	//void setPoleN(){ m_bMagnetPole = POLE_N	 ; m_Color = 0xFFFF0000	; } ;
+	void setPoleS(){ m_bMagnetPole = POLE_S  ; 
+	m_Material.Ambient.a = 1.0f ; m_Material.Ambient.b = 1.0f ; m_Material.Ambient.g = 0.0f ; m_Material.Ambient.r = 0.0f ;
+	m_Material.Diffuse.a = 1.0f ; m_Material.Diffuse.b = 1.0f ; m_Material.Diffuse.g = 1.0f ; m_Material.Diffuse.r = 1.0f ; }
+	void setPoleN(){ m_bMagnetPole = POLE_N	 ;
+	m_Material.Ambient.a = 1.0f ; m_Material.Ambient.b = 0.0f ; m_Material.Ambient.g = 0.0f ; m_Material.Ambient.r = 1.0f ;
+	m_Material.Diffuse.a = 1.0f ; m_Material.Diffuse.b = 1.0f ; m_Material.Diffuse.g = 1.0f ; m_Material.Diffuse.r = 1.0f ; }
+
 
 /////////////////// ////////////////////
 //// 関数名     ：void ChangePole()
@@ -148,11 +156,11 @@ protected:
 ////            ：
 ////
 
-	//bool ChangePole(){
-	//	if( m_bMagnetPole == POLE_S )	{ setPoleN() ; }
-	//	else							{ setPoleS() ; }
-	//	return true ;
-	//}
+	bool ChangePole(){
+		if( m_bMagnetPole == POLE_S )	{ setPoleN() ; }
+		else							{ setPoleS() ; }
+		return true ;
+	}
 
 //////////
 //	: 公開
@@ -243,81 +251,132 @@ public:
 };
 
 
-// 3D変換用
-//**************************************************************************//
-// class MagneticumObject3D : public PrimitiveCylinder ;
-//
-// 担当者  : 曳地 大洋
-// 用途    : 磁界オブジェクト
-//         : コイルオブジェクトやユーザー設置磁界にも応用しています｡
-//**************************************************************************//
-class MagneticumObject3DverT : public PrimitiveCylinder{
-//////////
-//	: 非公開
-private:
-	//	: 磁極フラグ
-	//	: S極 = POLE_S
-	//	: N極 = POLE_N
-	bool m_bMagnetPole ;
-
-//////////
-//	: プロテクト
-protected:
-	//	: 座標
-	D3DXVECTOR3 m_vPos ;
-	D3DXVECTOR3 m_vScale ;
-	//Color		m_Color;
-
-	void setPoleS(){ /*m_ = POLE_S  ; m_Color = 0xFF0000FF	;*/ } ;
-	void setPoleN(){ /*m_bMagnetPole = POLE_N	 ; m_Color = 0xFFFF0000	;*/ } ;
-/////////////////// ////////////////////
-//// 関数名     ：void ChangePole()
-//// カテゴリ   ：非公開アクセッサ
-//// 用途       ：磁極を反転させる
-//// 引数       ：なし
-//// 戻値       ：なし
-//// 担当       ：鴫原 徹
-//// 備考       ： 磁極フラグとカラーを変更する
-////            ：
+//// 3D変換用
+////**************************************************************************//
+//// class MagneticumObject3D : public PrimitiveCylinder ;
 ////
-	bool ChangePole(){
-		if( m_bMagnetPole == POLE_S )	{ setPoleN() ; }
-		else							{ setPoleS() ; }
-		return true ;
-	}
+//// 担当者  : 曳地 大洋
+//// 用途    : 磁界オブジェクト
+////         : コイルオブジェクトやユーザー設置磁界にも応用しています｡
+////**************************************************************************//
+//class MagneticumObject3DverT : public PrimitiveCylinder{
+////////////
+////	: 非公開
+//private:
+//	//	: 磁極フラグ
+//	//	: S極 = POLE_S
+//	//	: N極 = POLE_N
+//	bool m_bMagnetPole ;
+//
+////////////
+////	: プロテクト
+//protected:
+//	//	: 座標
+//	D3DXVECTOR3 m_vPos ;
+//	D3DXVECTOR3 m_vScale ;
+//	//Color		m_Color;
+//
+//	void setPoleS(){ /*m_ = POLE_S  ; m_Color = 0xFF0000FF	;*/ } ;
+//	void setPoleN(){ /*m_bMagnetPole = POLE_N	 ; m_Color = 0xFFFF0000	;*/ } ;
+///////////////////// ////////////////////
+////// 関数名     ：void ChangePole()
+////// カテゴリ   ：非公開アクセッサ
+////// 用途       ：磁極を反転させる
+////// 引数       ：なし
+////// 戻値       ：なし
+////// 担当       ：鴫原 徹
+////// 備考       ： 磁極フラグとカラーを変更する
+//////            ：
+//////
+//	bool ChangePole(){
+//		if( m_bMagnetPole == POLE_S )	{ setPoleN() ; }
+//		else							{ setPoleS() ; }
+//		return true ;
+//	}
+//
+////////////
+////	: 公開
+//public:
+//	MagneticumObject3DverT( LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTexture,
+//		D3DXVECTOR3 &vScale, D3DXVECTOR3 &vRot, D3DXVECTOR3 &vPos,
+//		D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,
+//		wiz::OBJID id = OBJID_2D_PLAYER );
+//	//	: 
+//	void Update( UpdatePacket& i_UpdatePacket );
+///////////////////// ////////////////////
+////// 関数名     ：D3DXVECTOR3 getPos() const
+////// カテゴリ   ：ゲッター
+////// 用途       ：中心座標を獲得
+////// 引数       ：なし
+////// 戻値       ：なし
+////// 担当       ：鴫原 徹
+////// 備考       ：
+//////            ：
+//	D3DXVECTOR3 getPos() const { return m_vPos			;	}	;
+///////////////////// ////////////////////
+////// 関数名     ：void ChangePole()
+////// カテゴリ   ：ゲッター
+////// 用途       ：磁極を獲得
+////// 引数       ：なし
+////// 戻値       ：なし
+////// 担当       ：鴫原 徹
+////// 備考       ： S極 = POLE_S = false
+//////            ： N極 = POLE_N = true
+//	bool getMagnetPole() const { return m_bMagnetPole	;	}	;
+//	
+//};
 
-//////////
-//	: 公開
-public:
-	MagneticumObject3DverT( LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTexture,
-		D3DXVECTOR3 &vScale, D3DXVECTOR3 &vRot, D3DXVECTOR3 &vPos,
-		D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,
-		wiz::OBJID id = OBJID_3D_PLAYER );
-	//	: 
-	void Update( UpdatePacket& i_UpdatePacket );
-/////////////////// ////////////////////
-//// 関数名     ：D3DXVECTOR3 getPos() const
-//// カテゴリ   ：ゲッター
-//// 用途       ：中心座標を獲得
-//// 引数       ：なし
-//// 戻値       ：なし
-//// 担当       ：鴫原 徹
-//// 備考       ：
-////            ：
-	D3DXVECTOR3 getPos() const { return m_vPos			;	}	;
-/////////////////// ////////////////////
-//// 関数名     ：void ChangePole()
-//// カテゴリ   ：ゲッター
-//// 用途       ：磁極を獲得
-//// 引数       ：なし
-//// 戻値       ：なし
-//// 担当       ：鴫原 徹
-//// 備考       ： S極 = POLE_S = false
-////            ： N極 = POLE_N = true
-	bool getMagnetPole() const { return m_bMagnetPole	;	}	;
-	
-};
 
+//	void setPoleS(){ /*m_ = POLE_S  ; m_Color = 0xFF0000FF	;*/ } ;
+//	void setPoleN(){ /*m_bMagnetPole = POLE_N	 ; m_Color = 0xFFFF0000	;*/ } ;
+///////////////////// ////////////////////
+////// 関数名     ：void ChangePole()
+////// カテゴリ   ：非公開アクセッサ
+////// 用途       ：磁極を反転させる
+////// 引数       ：なし
+////// 戻値       ：なし
+////// 担当       ：鴫原 徹
+////// 備考       ： 磁極フラグとカラーを変更する
+//////            ：
+//////
+//	bool ChangePole(){
+//		if( m_bMagnetPole == POLE_S )	{ setPoleN() ; }
+//		else							{ setPoleS() ; }
+//		return true ;
+//	}
+//
+////////////
+////	: 公開
+//public:
+//	MagneticumObject3DverT( LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTexture,
+//		D3DXVECTOR3 &vScale, D3DXVECTOR3 &vRot, D3DXVECTOR3 &vPos,
+//		D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,
+//		wiz::OBJID id = OBJID_3D_MAGNET );
+//	//	: 
+//	void Update( UpdatePacket& i_UpdatePacket );
+///////////////////// ////////////////////
+////// 関数名     ：D3DXVECTOR3 getPos() const
+////// カテゴリ   ：ゲッター
+////// 用途       ：中心座標を獲得
+////// 引数       ：なし
+////// 戻値       ：なし
+////// 担当       ：鴫原 徹
+////// 備考       ：
+//////            ：
+//	D3DXVECTOR3 getPos() const { return m_vPos			;	}	;
+///////////////////// ////////////////////
+////// 関数名     ：void ChangePole()
+////// カテゴリ   ：ゲッター
+////// 用途       ：磁極を獲得
+////// 引数       ：なし
+////// 戻値       ：なし
+////// 担当       ：鴫原 徹
+////// 備考       ： S極 = POLE_S = false
+//////            ： N極 = POLE_N = true
+//	bool getMagnetPole() const { return m_bMagnetPole	;	}	;
+//	
+//};
+//
 
 /**************************************************************************
  class Factory_Magnetic;

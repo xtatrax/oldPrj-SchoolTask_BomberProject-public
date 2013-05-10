@@ -4,14 +4,14 @@
 //	開発環境		：MSVC++ 2008
 //	最適タブ数		：4
 //	担当者			：tatra
-//	内包ﾃﾞｰﾀと備考	：コントローラーの管理
+//	内包ﾃﾞｰﾀと備考	：コントローラーの読み込み等を管理する
 //					▼
 //	namespace wiz;
-//		class  GAMEPAD ;
-//		struct BState  ;
-//		struct CUSTOM_CONTROLER_STATE ;
-//		struct CONTROLER_STATE ;
-//		class  CONTROLLERS ;
+//		class  GAMEPAD ;					//	: [ tatra ] 参考用に拾ったソース( 未使用 )
+//		struct BState  ;					//	: [ tatra ] XBOXコントローラーに対応したボタンの状態を格納する構造体	
+//		struct CUSTOM_CONTROLER_STATE ;		//	: [ tatra ] XINPUT_STATを拡張した構造体
+//		struct CONTROLER_STATE ;			//	: [ tatra ] 一つのコントローラーの情報をまとめておく構造体
+//		class  CONTROLLERS ;				//	: [ tatra ] コントローラーを管理するクラス
 //
 
 //定数定義

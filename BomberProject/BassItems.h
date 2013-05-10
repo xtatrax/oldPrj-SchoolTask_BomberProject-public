@@ -1338,6 +1338,12 @@ bool val		//したいしたい値（trueかfalse）
 ***************************************************************************/
 				void CalcWorldMatrix();
 /**************************************************************************
+ void SimpleCommonMesh::CalcMatrix(D3DXMATRIX mPos , D3DXMATRIX mScale , D3DXMATRIX mRotZ);
+ 用途:ワールド変換を計算する
+ 戻り値: なし。現在の変換をもとにワールド行列を計算する
+***************************************************************************/
+	void CalcMatrix(D3DXMATRIX mPos , D3DXMATRIX mScale , D3DXMATRIX mRot);
+/**************************************************************************
  void GetLocalPosQt(
 	D3DXVECTOR3& Pos,	//現在の相対位置
 	D3DXQUATERNION& Qt	//現在の相対回転
@@ -1455,6 +1461,14 @@ bool val		//したいしたい値（trueかfalse）
  戻り値: なし
 ***************************************************************************/
 				void SetBasePos(D3DXVECTOR3& Pos);
+/**************************************************************************
+ void SetPos(
+	D3DXVECTOR3& Pos	//新しいベース位置
+  );
+ 用途: 位置を変更する
+ 戻り値: なし
+***************************************************************************/
+ void SetPos(D3DXVECTOR3& Pos);
 /**************************************************************************
  void SetBaseRot(
 	D3DXVECTOR3& Rot	//新しいベース回転
@@ -1781,8 +1795,20 @@ bool val		//したいしたい値（trueかfalse）
  用途: デバイス喪失による再構築（仮想関数）
  戻り値: なし。
 ***************************************************************************/
-				virtual void ChangeDevice(LPDIRECT3DDEVICE9 pD3DDevice);
-		};
+	virtual void ChangeDevice(LPDIRECT3DDEVICE9 pD3DDevice);
+
+///////////////////// ////////////////////
+//// 関数名     ：D3DXVECTOR3 getPos() const
+//// カテゴリ   ：ゲッター
+//// 用途       ：DEAD OR ALIVE
+//// 引数       ：なし
+//// 戻値       ：なし
+//// 担当者     ：本多寛之
+//// 備考       ：
+////            ：
+////
+	D3DXVECTOR3 getPos() const;
+};
 
 /**************************************************************************
  class Torus : public SimpleCommonMesh;
@@ -2017,12 +2043,21 @@ bool val		//したいしたい値（trueかfalse）
 
 /*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 
-		class PrimitiveCylinder : public Cylinder{
-			public:
-				PrimitiveCylinder(LPDIRECT3DDEVICE9 pD3DDevice,D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,wiz::OBJID id = OBJID_3D_MAGNET,LPDIRECT3DTEXTURE9 pTexture = 0 ):Cylinder(pD3DDevice, 1, 1, 1, g_vZero, g_vZero, Diffuse, Specular, Ambient,id, false, pTexture)
-				{}
-			
-		};
+class PrimitiveCylinder : public Cylinder{
+	
+public:
+	PrimitiveCylinder(LPDIRECT3DDEVICE9 pD3DDevice,
+          D3DCOLORVALUE& Diffuse,
+		  D3DCOLORVALUE& Specular,
+		  D3DCOLORVALUE& Ambient,
+		  wiz::OBJID id = OBJID_3D_MAGNET,
+		   LPDIRECT3DTEXTURE9 pTexture = 0 )
+		   :Cylinder(pD3DDevice, 0.5, 0.5, 1, g_vZero, g_vZero, Diffuse, Specular, Ambient,id, false, pTexture)
+	{
+		
+	}
+	
+};
 /*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 
 

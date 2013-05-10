@@ -691,8 +691,8 @@ inline Object* SearchObjectFromTypeID(vector<Object*>* i_pVec,const type_info& i
 
 	vector<Object*>::size_type	sz = i_pVec->size(),
 								 i = 0 ;
-	const type_info& info = typeid( *( *i_pVec )[ i ] );
 	for( i = 0; i < sz ; i++ ){
+		const type_info& info = typeid( *( *i_pVec )[ i ] );
 		if( info == i_typeinfo ) {
 			if( o_pVec )
 				(*o_pVec).push_back( (*i_pVec)[i] );
