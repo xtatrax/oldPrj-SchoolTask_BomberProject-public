@@ -40,6 +40,8 @@
 #define STANDARD_WINDOW_HEIGHT  (  600.0f)	/* ウインドウモードの高さ   */
 #define STANDARD_WINDOW_WIDTH   ( 1024.0f)	/* ウインドウモードの幅     */
 
+
+
 #define DEFAULT_WINDOW_TITLE		( L"ウインドウタイトル" )
 #define DEFAULT_WINDOW_CLASS_NAME	( L"ウインドウクラスネーム" )
 
