@@ -135,11 +135,11 @@ protected:
 	D3DXVECTOR3			m_vPos ;
 
 	void setPoleS(){ m_bMagnetPole = POLE_S  ; 
-	m_Material.Ambient.a = 1.0f ; m_Material.Ambient.b = 0.0f ; m_Material.Ambient.g = 0.0f ; m_Material.Ambient.r = 1.0f ;
-	m_Material.Ambient.a = 1.0f ; m_Material.Diffuse.b = 1.0f ; m_Material.Ambient.g = 1.0f ; m_Material.Ambient.r = 1.0f ;} ;
-	void setPoleN(){ m_bMagnetPole = POLE_N	 ;
 	m_Material.Ambient.a = 1.0f ; m_Material.Ambient.b = 1.0f ; m_Material.Ambient.g = 0.0f ; m_Material.Ambient.r = 0.0f ;
-	m_Material.Ambient.a = 1.0f ; m_Material.Diffuse.b = 1.0f ; m_Material.Ambient.g = 1.0f ; m_Material.Ambient.r = 1.0f ;} ;
+	m_Material.Diffuse.a = 1.0f ; m_Material.Diffuse.b = 1.0f ; m_Material.Diffuse.g = 1.0f ; m_Material.Diffuse.r = 1.0f ; }
+	void setPoleN(){ m_bMagnetPole = POLE_N	 ;
+	m_Material.Ambient.a = 1.0f ; m_Material.Ambient.b = 0.0f ; m_Material.Ambient.g = 0.0f ; m_Material.Ambient.r = 1.0f ;
+	m_Material.Diffuse.a = 1.0f ; m_Material.Diffuse.b = 1.0f ; m_Material.Diffuse.g = 1.0f ; m_Material.Diffuse.r = 1.0f ; }
 
 
 /////////////////// ////////////////////
