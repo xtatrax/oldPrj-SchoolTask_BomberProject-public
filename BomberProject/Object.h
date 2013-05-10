@@ -20,7 +20,7 @@
 
 namespace wiz{
 
-extern class Object;
+	extern class Object;
 
 
 
@@ -30,14 +30,14 @@ extern class Object;
 // 担当者  :
 // 用途    : シーン配置オブジェクトの基底クラス（抽象クラス）
 //**************************************************************************
-class Object{
-private:
-	bool	m_bAccessLock;
-	bool	m_bDead;
-	OBJID	m_dwID;
-public:
-	Object(OBJID id):m_bAccessLock(false),m_dwID(id){}
-    virtual ~Object(){}
+	class Object{
+	private:
+		bool	m_bAccessLock;
+		bool	m_bDead;
+		OBJID	m_dwID;
+	public:
+		Object(OBJID id):m_bAccessLock(false),m_dwID(id){}
+		virtual ~Object(){}
 /////////////////// ////////////////////
 //// 関数名     ：void getID()
 //// カテゴリ   ：セッター
@@ -526,13 +526,8 @@ public:
  用途: オブジェクトを描画（純粋仮想関数）
  戻り値: なし。
 ***************************************************************************/
-    virtual void Draw(DrawPacket& i_DrawPacket);
-};
-
-
-
-
-
+		virtual void Draw(DrawPacket& i_DrawPacket);
+	};
 
 
 }

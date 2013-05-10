@@ -32,7 +32,9 @@ Item::Item(FactoryPacket* fpac,LPDIRECT3DTEXTURE9 pTexture, wiz::OBJID id)
 	:PrimitiveSphere(fpac->pD3DDevice,
 						D3DCOLORVALUE(),
 						D3DCOLORVALUE(),
-						D3DCOLORVALUE(),pTexture)
+						D3DCOLORVALUE(),
+						pTexture
+	)
 
 {
 	try{
