@@ -16,19 +16,18 @@
 #include "BassItems.h"
 
 namespace wiz{
-
-
 	
 	class EnemySphere : public PrimitiveSphere {
 		struct EnemyItem{
 			D3DMATERIAL9 m_Material;
-			D3DXMATRIX	m_Matrix;
-			D3DXVECTOR3 m_vScale ;
-			D3DXVECTOR3 m_vPos ;
+			D3DXMATRIX   m_Matrix;
+			D3DXVECTOR3  m_vScale ;
+			D3DXVECTOR3  m_vPos ;
 			D3DXQUATERNION m_vRot;
 			virtual ~EnemyItem(){}
 
 		};
+	Camera*	m_pCamera;
 				//map<オブジェクトのポジション,EnemyItem>
 	multimap<float,EnemyItem*> m_ItemMap_All;	//全てのWallItem
 	multimap<float,EnemyItem*> m_ItemMap_Target;//描画対象のWallItem
@@ -67,6 +66,26 @@ namespace wiz{
 	void Draw( DrawPacket& i_DrawPacket );
 
 
+	
+	/////////////////// ////////////////////
+	//// 用途       ：void Update( UpdatePacket& i_UpdatePacket )
+	//// カテゴリ   ：関数
+	//// 用途       ：オブジェクトを更新
+	//// 引数       ：  UpdatePacket& i_UpdatePacket     // アップデート時に必要なデータ群 ↓内容下記
+	////            ：  ├       LPDIRECT3DDEVICE9  pD3DDevice      // IDirect3DDevice9 インターフェイスへのポインタ
+	////            ：  ├       Tempus2*           pTime           // 時間を管理するクラスへのポインター
+	////            ：  ├       vector<Object*>&   Vec,            // オブジェクトの配列
+	////            ：  ├ const CONTROLER_STATE*   pCntlState      // コントローラのステータス
+	////            ：  └       Command            pCommand        // コマンド
+	//// 戻値       ：無し
+	//// 担当者     ：本多寛之
+	//// 備考       ：
+	////            ：
+	////
+	void Update( UpdatePacket& i_UpdatePacket );
+
+
+
 	/////////////////// ////////////////////
 	//// 用途       ：void AddEnemy( DrawPacket& i_DrawPacket )
 	//// カテゴリ   ：関数
@@ -79,7 +98,7 @@ namespace wiz{
 	////            ：  D3DCOLORVALUE& Specular,		//スペキュラ色
 	////            ：  D3DCOLORVALUE& Ambient,			//アンビエント色
 	//// 戻値       ：無し
-	//// 担当者     ：本多寛之
+	//// 担当者     ：斎藤謙吾
 	//// 備考       ：
 	void AddEnemy(D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos,
 			D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient);
