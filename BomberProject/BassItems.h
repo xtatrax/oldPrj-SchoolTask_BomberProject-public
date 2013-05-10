@@ -2145,8 +2145,49 @@ public:
 		  D3DCOLORVALUE& Specular,
 		  D3DCOLORVALUE& Ambient,
 		  wiz::OBJID id = OBJID_3D_MAGNET,
-		   LPDIRECT3DTEXTURE9 pTexture = 0 )
-		   :Cylinder(pD3DDevice, 0.5, 0.5, 1, g_vZero, g_vZero, Diffuse, Specular, Ambient,id, false, pTexture)
+		  LPDIRECT3DTEXTURE9 pTexture = 0 )
+	:Cylinder(pD3DDevice, 0.5, 0.5, 1, g_vZero, g_vZero, Diffuse, Specular, Ambient,id, false, pTexture)
+	{
+		
+	}
+
+	/////////////////// ////////////////////
+	//// 用途       ：PrimitiveCylinder(
+	////									LPDIRECT3DDEVICE9 pD3DDevice,LPDIRECT3DTEXTURE9 pTexture,
+	////									float Radius1,float Radius2,float Lenght,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos,
+	////									D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,
+	////									wiz::OBJID id = OBJID_3D_MAGNET)
+	//// カテゴリ   ：コンストラクタ
+	//// 用途       ：Player用のコンストラクタ
+	//// 引数       ：  LPDIRECT3DDEVICE9 pD3DDevice,	//デバイス
+	////			  :   LPDIRECT3DTEXTURE9 pTexture,  //テクスチャ	
+	////		      :   float Radius1						//円の直径1
+	////		      :   float Radius2						//円の直径2
+	////			  :   float Lenght						//高さ
+	////		      :   D3DXVECTOR3 &vRot				//回転角
+	////		      :   D3DXVECTOR3 &vPos				//位置
+	////              :   D3DCOLORVALUE& Diffuse,		//ディフューズ色
+	////              :   D3DCOLORVALUE& Specular,		//スペキュラ色
+	////              :   D3DCOLORVALUE& Ambient,		//アンビエント色
+	////              :   wiz::OBJID id = OBJID_3D_MAGNET //ID
+	//// 戻値       ：無し
+	//// 担当者     ：本多寛之
+	//// 備考       ：
+	////	
+	PrimitiveCylinder(
+			LPDIRECT3DDEVICE9 pD3DDevice,
+			LPDIRECT3DTEXTURE9 pTexture,
+			float Radius1,
+			float Radius2,
+			float Lenght,
+			D3DXVECTOR3 &vRot,
+			D3DXVECTOR3 &vPos,
+			D3DCOLORVALUE& Diffuse,
+			D3DCOLORVALUE& Specular,
+			D3DCOLORVALUE& Ambient,
+			wiz::OBJID id = OBJID_3D_MAGNET)
+    :Cylinder(pD3DDevice, Radius1, Radius2, Lenght,
+			  vPos, vRot, Diffuse, Specular, Ambient,id, false, pTexture)
 	{
 		
 	}

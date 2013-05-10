@@ -165,9 +165,62 @@ protected:
 //////////
 //	: 公開
 public:
+	/////////////////// ////////////////////
+	//// 用途       ：MagneticumObject3D(
+	///										LPDIRECT3DDEVICE9 pD3DDevice,
+	///										LPDIRECT3DTEXTURE9 pTexture,
+	///										wiz::OBJID id = OBJID_3D_MAGNET
+	///										) ;
+	//// カテゴリ   ：コンストラクタ
+	//// 用途       ：
+	//// 引数       ：  LPDIRECT3DDEVICE9 pD3DDevice,	//デバイス
+	////			  :   LPDIRECT3DTEXTURE9 pTexture,  //テクスチャ	
+	////              :   wiz::OBJID id = OBJID_3D_MAGNET //ID
+	//// 戻値       ：無し
+	//// 担当者     ：曳地 大洋
+	//// 備考       ：
+	////	
 	MagneticumObject3D(
 		LPDIRECT3DDEVICE9 pD3DDevice,
 		LPDIRECT3DTEXTURE9 pTexture,
+		wiz::OBJID id = OBJID_3D_MAGNET
+		) ;
+
+	/////////////////// ////////////////////
+	//// 用途       ：	MagneticumObject3D(
+	////									LPDIRECT3DDEVICE9 pD3DDevice,LPDIRECT3DTEXTURE9 pTexture,
+	////									float Radius1,float Radius2,float Lenght,
+	////									D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos,D3DCOLORVALUE& Diffuse,
+	////									D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,
+	////									wiz::OBJID id = OBJID_3D_MAGNET)
+	//// カテゴリ   ：コンストラクタ
+	//// 用途       ：Player用のコンストラクタ
+	//// 引数       ：  LPDIRECT3DDEVICE9 pD3DDevice,	//デバイス
+	////			  :   LPDIRECT3DTEXTURE9 pTexture,  //テクスチャ	
+	////		      :   float Radius1						//円の直径1
+	////		      :   float Radius2						//円の直径2
+	////			  :   float Lenght						//高さ
+	////		      :   D3DXVECTOR3 &vRot				//回転角
+	////		      :   D3DXVECTOR3 &vPos				//位置
+	////              :   D3DCOLORVALUE& Diffuse,		//ディフューズ色
+	////              :   D3DCOLORVALUE& Specular,		//スペキュラ色
+	////              :   D3DCOLORVALUE& Ambient,		//アンビエント色
+	////              :   wiz::OBJID id = OBJID_3D_MAGNET //ID
+	//// 戻値       ：無し
+	//// 担当者     ：本多寛之
+	//// 備考       ：
+	////	
+	MagneticumObject3D(
+		LPDIRECT3DDEVICE9 pD3DDevice,
+		LPDIRECT3DTEXTURE9 pTexture,
+		float Radius1,
+		float Radius2,
+		float Lenght,
+		D3DXVECTOR3 &vRot,
+		D3DXVECTOR3 &vPos,
+		D3DCOLORVALUE& Diffuse,
+		D3DCOLORVALUE& Specular,
+		D3DCOLORVALUE& Ambient,
 		wiz::OBJID id = OBJID_3D_MAGNET
 		) ;
 
@@ -211,7 +264,9 @@ public:
 //// 担当       ：鴫原 徹
 //// 備考       ：
 ////            ：
-	D3DXVECTOR3 getPos() const { return m_vPos			;	}	;
+	D3DXVECTOR3 getPos() const {
+		return m_vPos			;	
+	}	;
 
 /////////////////// ////////////////////
 //// 関数名     ：void ChangePole()

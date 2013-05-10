@@ -245,44 +245,55 @@ void ProvisionalPlayer3D::Update( UpdatePacket& i_UpdatePacket ){
  PlayerCoil 定義部
 ****************************************************************************/
 /////////////////// ////////////////////
-//// 関数名     ：PlayerCoil( LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTexture,
-////            ：    D3DXVECTOR3 &vScale, D3DXVECTOR3 &vRot, D3DXVECTOR3 &vPos, RECT* pRect,
-////            ：    Color color = 0xFFFFFFFF, wiz::OBJID id = OBJID_3D_PLAYER )
+//// 関数名     ：PlayerCoil::PlayerCoil( 	
+////							LPDIRECT3DDEVICE9 pD3DDevice,LPDIRECT3DTEXTURE9 pTexture,
+////							float Radius1,float Radius2,float Lenght,
+////							D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos,
+////							D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,
+////							wiz::OBJID id = OBJID_3D_PLAYER)
 //// カテゴリ   ：コンストラクタ
 //// 用途       ：
-//// 引数       ：
+//// 引数       ：  LPDIRECT3DDEVICE9 pD3DDevice,	//デバイス
+////			  :   LPDIRECT3DTEXTURE9 pTexture,  //テクスチャ	
+////		      :   float Radius1						//円の直径1
+////		      :   float Radius2						//円の直径2
+////			  :   flaot Lenght						//高さ
+////			  :   D3DXVECTOR3 &vScale
+////		      :   D3DXVECTOR3 &vRot				//回転角
+////		      :   D3DXVECTOR3 &vPos				//位置
+////              :   D3DCOLORVALUE& Diffuse,		//ディフューズ色
+////              :   D3DCOLORVALUE& Specular,		//スペキュラ色
+////              :   D3DCOLORVALUE& Ambient,		//アンビエント色
+////			  : wiz::OBJID id = OBJID_2D_PLAYER //ID
 //// 戻値       ：なし
-//// 担当       ：鴫原 徹
+//// 担当       ：鴫原 徹 本多寛之(修正)
 //// 備考       ：
 ////            ：
 ////
 PlayerCoil::PlayerCoil(
-	LPDIRECT3DDEVICE9 pD3DDevice,				//	: デバイス
-	LPDIRECT3DTEXTURE9 pCoreTexture,			//	: コア部分のTexture
-	LPDIRECT3DTEXTURE9 pDirTexture,				//	: 方向を表す三角のてくすたー
-	D3DXVECTOR3 &vScale,						//	: 伸縮
-	D3DXVECTOR3 &vRot,							//	: 回転
-	D3DXVECTOR3 &vPos,							//	: 位置
-	D3DXVECTOR3 &vDirOffset,					//	: 方向を表す三角の描画オフセット
-	RECT* pCoreRect,							//	: 描画範囲
-	RECT* pDirRect,								//	: 描画範囲
-	wiz::OBJID id 								//	: ID
-)
-:MagneticumObject(pD3DDevice,pCoreTexture,vScale,vRot,vPos,pCoreRect,0xFFFFFFFF,id)
-//:MagneticumObject3D(pD3DDevice,pCoreTexture,id)
-,m_pPlayer(    NULL )
-,m_fMoveDir(   PLAYER_BASSROT )
-,m_fMovdSpeed( PLAYER_SPEED   )
-,m_pDirParts( NULL )
-
+		LPDIRECT3DDEVICE9 pD3DDevice,LPDIRECT3DTEXTURE9 pTexture,
+		float Radius1,float Radius2,float Lenght,
+		D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos,
+		D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,
+		wiz::OBJID id
+	)
+:MagneticumObject3D(pD3DDevice,pTexture,
+					Radius1,Radius2,Lenght,vRot,vPos,
+					Diffuse,Specular,Ambient)
+,m_vPos(vPos)
+,m_vRot(vRot)
+,m_vScale(vScale)
+,m_fMoveDir(PLAYER_BASSROT)
+,m_fMovdSpeed(PLAYER_SPEED)
+,m_pPlayer(NULL)
 {
-	D3DCOLORVALUE Diffuse = {0.7f,0.7f,0.7f,1.0f};
-	D3DCOLORVALUE Specular = {0.0f,0.0f,0.0f,0.0f};
-	D3DCOLORVALUE Ambient = {0.5f,0.5f,0.5f,1.0f};
-	m_pDirParts = new SpriteObject( pD3DDevice, pDirTexture, vScale, vRot, vPos, pDirRect, g_vZero, vDirOffset ) ;
-	m_pDirParts3D = new Cylinder(pD3DDevice,0.0f,1.0f,3.0f,D3DXVECTOR3(0.0f,0.0f,0.0f),D3DXVECTOR3(90.0f,0.0f,0.0f),Diffuse,Specular,Ambient);
-	//m_pDirParts3D = new PrimitiveCylinder(pD3DDevice,Diffuse,Specular,Ambient);
+	::ZeroMemory( &m_Material, sizeof(D3DMATERIAL9) ) ;
+	D3DXMatrixIdentity( &m_Matrix ) ;
 	setPoleN();
+	m_Material.Diffuse = Diffuse;
+	m_Material.Specular = Specular;
+	m_Material.Ambient = Ambient;
+	SetBaseRot(vRot);
 }
 
 /////////////////// ////////////////////
@@ -297,6 +308,7 @@ PlayerCoil::PlayerCoil(
 ////
 void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 
+	setPoleS();
 	wiz::CONTROLER_STATE Controller1P = i_UpdatePacket.pCntlState[0] ;
 
 	if( m_pPlayer ){
@@ -308,12 +320,13 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 		// 移動の方向 + 距離
 		D3DXVECTOR3 vMove = D3DXVECTOR3( 1.0f, 0.0f, 0.0f) ;
 		// ユーザー磁界の座標
-		D3DXVECTOR3 pPos  = this->m_pPlayer->getPos();
+		D3DXVECTOR3 vProvisionalPos  = this->m_pPlayer->getPos();
 
+			
 		// コイルとユーザー磁界の距離を算出
-		float Lng  = (float)TwoPointToBassLength( pPos, m_vPos ) ;
+		float Lng  = (float)TwoPointToBassLength( vProvisionalPos, m_vPos ) ;
 		// テスト用
-		float Lng2 = (float)VectorLength( D3DXVECTOR3( pPos.x - m_vPos.x, pPos.y - m_vPos.y ,0) );
+		float Lng2 = (float)VectorLength( D3DXVECTOR3( vProvisionalPos.x - m_vPos.x, vProvisionalPos.y - m_vPos.y ,0) );
 
 		// 磁界反転
 		Controller1P.Gamepad.wPressedButtons.XConState.Y && this->ChangePole() ;
@@ -325,7 +338,7 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 
 		if( Lng <= MGPRM_MAGNETICUM_QUAD ){
 			//自機と磁界の角度
-			float fTargetDir = TwoPoint2Degree( pPos , m_vPos );
+			float fTargetDir = TwoPoint2Degree( vProvisionalPos , m_vPos );
 			//fTargetDir = 360.0f - fTargetDir;
 			Debugger::DBGSTR::addStr( L"fTargetDir : %f\n", fTargetDir);
 			//自機のデカルト座標
@@ -402,7 +415,9 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 		//	: 指定方向へ指定距離移動
 		ArcMove( vMove , m_fMovdSpeed, m_fMoveDir);
 
-		this->m_vPos += vMove ;
+		//m_vPos = m_pDirParts3D->getPos() + vMove ;
+		//m_pDirParts3D->SetPos( m_vPos );
+		m_vPos += vMove;
 
 		WallObject* pWall = (WallObject*)SearchObjectFromID(i_UpdatePacket.pVec, OBJID_2D_WALL ) ;
 		if( pWall && pWall->HitTest2DRectAndCircle( m_vPos, 32.0f) ){
@@ -413,32 +428,32 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 		}
 		//	: 移動の確定
 		//	: 
-		D3DXMATRIX mPos ,  mScale , mRotZ ;
+		D3DXMATRIX mPos, mScale, mRotZ, mRotX;
 
-		D3DXMatrixTranslation( &mPos  , this->m_vPos.x , this->m_vPos.y , this->m_vPos.z ) ;
+		D3DXMatrixTranslation( &mPos  , m_vPos.x , m_vPos.y , m_vPos.z ) ;
 		D3DXMatrixScaling( &mScale, m_vScale.x, m_vScale.y, m_vScale.z);
-		D3DXMatrixRotationZ(   &mRotZ ,  D3DXToRadian( m_fMoveDir - PLAYER_BASSROT ) ) ;
-
-		this->m_mMatrix = mScale * mRotZ * mPos ;
-
+		D3DXMatrixRotationZ( &mRotZ, D3DXToRadian( m_fMoveDir - PLAYER_BASSROT ) ) ;
+		D3DXMatrixRotationX( &mRotX, D3DXToRadian( m_vRot.x ) );
+		m_Matrix = mScale * (mRotX*mRotZ) * mPos ;
+		//m_Material = m_Material;
 
 	} else {
-		m_pPlayer = (ProvisionalPlayer*)SearchObjectFromTypeID( i_UpdatePacket.pVec , typeid(ProvisionalPlayer) );
+		m_pPlayer = (ProvisionalPlayer3D*)SearchObjectFromTypeID( i_UpdatePacket.pVec , typeid(ProvisionalPlayer3D) );
 	}
-	if( m_pDirParts ) m_pDirParts->setMatrix( m_mMatrix );
+	//if( m_pDirParts ) m_pDirParts->setMatrix( m_mMatrix );
 
-	D3DXMATRIX mPos2 , mScale2 , mRotZ2 , mRotX;
-	if( m_pDirParts3D ){
-		D3DXMatrixRotationX(&mRotX,90.0f);
-		D3DXVECTOR3 vScale;
-		m_pDirParts3D->GetWorldScale(vScale);
-		D3DXMatrixScaling( &mScale2, vScale.x, vScale.y, vScale.z);
-		D3DXMatrixRotationZ(   &mRotZ2 ,  D3DXToRadian( PLAYER_BASSROT - m_fMoveDir) ) ;
-		D3DXVECTOR3 vPos = D3DXVECTOR3(this->m_vPos.x/20.0f,(STANDARD_WINDOW_HEIGHT - this->m_vPos.y)/25.0f , this->m_vPos.z);
-		m_pDirParts3D->SetPos(vPos);
-		D3DXMatrixTranslation( &mPos2  ,vPos.x, vPos.y,vPos.z) ;
-		m_pDirParts3D->CalcMatrix(mPos2,mScale2,mRotX*mRotZ2);
-	}
+	//D3DXMATRIX mPos2 , mScale2 , mRotZ2 , mRotX;
+	//if( m_pDirParts3D ){
+	//	D3DXMatrixRotationX(&mRotX,90.0f);
+	//	D3DXVECTOR3 vScale;
+	//	m_pDirParts3D->GetWorldScale(vScale);
+	//	D3DXMatrixScaling( &mScale2, vScale.x, vScale.y, vScale.z);
+	//	D3DXMatrixRotationZ(   &mRotZ2 ,  D3DXToRadian( m_fMoveDir - PLAYER_BASSROT) ) ;
+	//	D3DXVECTOR3 vPos = m_pDirParts3D->getPos();
+	//	//m_pDirParts3D->SetPos(vPos);
+	//	D3DXMatrixTranslation( &mPos2  ,vPos.x, vPos.y,vPos.z) ;
+	//	m_pDirParts3D->CalcMatrix(mPos2,mScale2,mRotX*mRotZ2);
+	//}
 };
 /////////////////// ////////////////////
 //// 用途       ：virtual void Draw( DrawPacket& i_DrawPacket )
@@ -451,12 +466,39 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 ////            ：
 ////
 void PlayerCoil::Draw(DrawPacket& i_DrawPacket){
-	if( m_pDirParts ) m_pDirParts->Draw( i_DrawPacket ) ;
-	else ;
-	
-	if(m_pDirParts3D) m_pDirParts3D->Draw(i_DrawPacket);
+	//if( m_pDirParts ) m_pDirParts->Draw( i_DrawPacket ) ;
+	//else ;
+	//
+	//if(m_pDirParts3D) m_pDirParts3D->Draw(i_DrawPacket);
 
-	MagneticumObject::Draw( i_DrawPacket );
+	//MagneticumObject3D::Draw( i_DrawPacket );
+	if(m_pTexture){
+		DWORD wkdword;
+		//現在のテクスチャステータスを得る
+		i_DrawPacket.pD3DDevice->GetTextureStageState(0,D3DTSS_COLOROP,&wkdword);
+		//ステージの設定
+		i_DrawPacket.pD3DDevice->SetTexture(0,m_pTexture);
+		//デフィーズ色とテクスチャを掛け合わせる設定
+		i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLOROP, D3DTOP_MODULATE4X );
+		i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLORARG1, D3DTA_TEXTURE );
+		i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLORARG2, D3DTA_DIFFUSE );
+
+		//i_DrawPacket.pD3DDevice->SetFVF(PlateFVF);
+		// マトリックスをレンダリングパイプラインに設定
+		i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &/*it->second->*/m_Matrix);
+		//コモンメッシュのDraw()を呼ぶ
+		CommonMesh::Draw(i_DrawPacket);
+		i_DrawPacket.pD3DDevice->SetTexture(0,0);
+		//ステージを元に戻す
+		i_DrawPacket.pD3DDevice->SetTextureStageState(0,D3DTSS_COLOROP,wkdword);
+	}
+	else{
+	//テクスチャがない場合
+		// マトリックスをレンダリングパイプラインに設定
+		i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &m_Matrix);
+		//コモンメッシュのDraw()を呼ぶ
+		CommonMesh::Draw(i_DrawPacket);
+	}
 }
 
 
@@ -497,18 +539,17 @@ Factory_Player::Factory_Player( FactoryPacket* fpac ){
 				D3DXVECTOR3(0.0f,0.0f,0.0f))
 		);
 
+ 		D3DCOLORVALUE CoilDiffuse = {0.7f,0.7f,0.7f,1.0f};
+		D3DCOLORVALUE CoilSpecular = {0.0f,0.0f,0.0f,0.0f};
+		D3DCOLORVALUE CoilAmbient = {0.5f,0.5f,0.5f,1.0f};
 		fpac->m_pVec->push_back(
 			new PlayerCoil(
 				fpac->pD3DDevice,
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"CircleC.png" ),
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"CoilDir.png" ),
-				vScale,
-				g_vZero,
-				D3DXVECTOR3(100.0f,400.0f,0.0f),
-				D3DXVECTOR3( -16.5f, -26.0f,0.0f),
+				//fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"CircleC.png" ),
 				NULL,
-				NULL
-			)
+				0.0f,1.0f,3.0f,vScale,D3DXVECTOR3(90.0f,0.0f,0.0f),D3DXVECTOR3(10.0f,10.0f,0.0f),
+				CoilDiffuse,CoilSpecular,CoilAmbient
+				)
 		);
 
 
