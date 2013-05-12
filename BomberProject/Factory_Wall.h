@@ -29,8 +29,8 @@ extern class PlayerCoil ;
 // 用途    : 壁
 //**************************************************************************//
 class WallObject : public PrimitiveBox{
-	static PlayerCoil* m_pPlayerCoil ;
-	static Camera*	   m_pCamera;
+	PlayerCoil* m_pPlayerCoil ;
+	Camera*	   m_pCamera;
 	struct WallItem{
 		D3DMATERIAL9 m_Material;
 		D3DXMATRIX	m_Matrix;
@@ -39,7 +39,6 @@ class WallObject : public PrimitiveBox{
 		D3DXQUATERNION m_vRot;
 		virtual ~WallItem(){}
 	};
-	
 	//map<オブジェクトのポジション,WallItem>
 	multimap<float,WallItem*> m_ItemMap_All;	//全てのWallItem
 	multimap<float,WallItem*> m_ItemMap_Target;//描画対象のWallItem
@@ -62,6 +61,7 @@ public:
 				);
 
 	bool HitTest2DRectAndCircle( D3DXVECTOR3& i_vPos, float i_fRadius );
+
 
 	/////////////////// ////////////////////
 	//// 用途       ：void Draw( DrawPacket& i_DrawPacket )
@@ -111,26 +111,19 @@ public:
 	void AddWall(D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos,
 			D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient);
 
-	/////////////////// ////////////////////
-	//// 用途       ：void GetOBB( size_t Index, OBB& obb )
-	//// カテゴリ   ：関数
-	//// 用途       ：オブジェクトをディスプレイに表示する
-	//// 引数       ： size_t Index,
-	////				 OBB& obb			//取得するOBB
-	//// 戻値       ：なし。インデックスが範囲外なら例外
-	////				＊現在のOBBを代入する
-	//// 担当者     ：曳地 大洋
-	//// 備考       ：
-/**************************************************************************
-	void GetOBB(
-		size_t Index,
-		OBB& obb	//取得するOBB
-	);
- 用途: 指定のインデックスの現在のOBBを得る
- 戻り値: なし。インデックスが範囲外なら例外
- ＊現在のOBBを代入する
-***************************************************************************/
-	void GetOBB(size_t Index,OBB& obb);
+	bool HitTest3DAddWall( MultiBox* pBox, size_t& Index, D3DXVECTOR3& Vec, D3DXVECTOR3& ElsePos );
+
+	///////////////////// ////////////////////
+	////// 用途       ：void GetOBB( size_t Index, OBB& obb )
+	////// カテゴリ   ：関数
+	////// 用途       ：オブジェクトをディスプレイに表示する
+	////// 引数       ： size_t Index,
+	//////				 OBB& obb			//取得するOBB
+	////// 戻値       ：なし。インデックスが範囲外なら例外
+	//////				＊現在のOBBを代入する
+	////// 担当者     ：曳地 大洋
+	////// 備考       ：
+	void GetOBBList( float Index, list<OBB>& ObbList );
 };
 
 //class WallManager {
