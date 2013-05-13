@@ -247,9 +247,16 @@ int DxDevice::MainThreadRun(){
 				case WM_LBUTTONDOWN :
 					g_bMouseLB = true;
 					break ; 
+				case WM_LBUTTONUP:
+					g_bMouseLB = false;
+					break;
 				case WM_RBUTTONDOWN :
 					g_bMouseRB = true;
-					break ; 
+					break ;
+				case WM_RBUTTONUP:
+					g_bMouseRB = false;
+					break;
+
 				default:
 	                // メッセージの翻訳とディスパッチ
 					::TranslateMessage(&msg);
