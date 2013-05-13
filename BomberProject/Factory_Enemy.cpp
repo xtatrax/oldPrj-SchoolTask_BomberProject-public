@@ -13,7 +13,7 @@
 #include "Object.h"
 #include "Scene.h"
 #include "Factory_Enemy.h"
-#include "Factory_Player.h"
+
 #include "BassItems.h"
 
 namespace wiz
@@ -45,7 +45,8 @@ namespace wiz
 						   Specular,
 						   Ambient,
 						   pTexture)
-	,m_pCamera(NULL)
+	,m_pCamera( NULL )
+	,m_pPlayer( NULL )
 	{
 		
 		::ZeroMemory( &m_Material, sizeof(D3DMATERIAL9));
@@ -137,6 +138,11 @@ namespace wiz
 		multimap<float,EnemyItem*>::iterator it2 = m_ItemMap_Target.begin();
 		while(it2 != m_ItemMap_Target.end()){
 //ŒvŽZ‚ÍUpdate‚Å
+
+
+
+
+
 //Šg‘åk¬
 			D3DXMATRIX mScale;
 			D3DXMatrixIdentity(&mScale);
@@ -182,8 +188,7 @@ namespace wiz
 		pItem->m_Material.Specular = Specular;
 		pItem->m_Material.Ambient = Ambient;
 //‰ñ“]‚Ì‰Šú‰»
-		D3DXQuaternionRotationYawPitchRoll(&pItem->m_vRot,
-		D3DXToRadian(vRot.y),D3DXToRadian(vRot.x),D3DXToRadian(vRot.z));
+		D3DXQuaternionRotationYawPitchRoll(&pItem->m_vRot,D3DXToRadian(vRot.y),D3DXToRadian(vRot.x),D3DXToRadian(vRot.z));
 		m_ItemMap_All.insert(multimap<float, EnemyItem*>::value_type(pItem->m_vPos.y,pItem));	
 	}
 
