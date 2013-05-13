@@ -2103,18 +2103,18 @@ public:
 
 
 /*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*/
-		class PrimitiveBox : public Box {
-			public:
-				PrimitiveBox(LPDIRECT3DDEVICE9 pD3DDevice,
-					D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,
-					wiz::OBJID id = OBJID_3D_BOX,
-					LPDIRECT3DTEXTURE9 pTexture = 0)
-					:Box(pD3DDevice,g_vOne, g_vZero, g_vZero, Diffuse, Specular, Ambient, id, false, pTexture)
-				
-				{}
+class PrimitiveBox : public Box {
+public:
+	PrimitiveBox(LPDIRECT3DDEVICE9 pD3DDevice,
+        D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,
+		wiz::OBJID id = OBJID_3D_BOX,
+		LPDIRECT3DTEXTURE9 pTexture = 0)
+		:Box(pD3DDevice,g_vOne, g_vZero, g_vZero, Diffuse, Specular, Ambient, id, false, pTexture)
+	{
+	}
 
 
-		};
+};
 /*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*/
 
 /*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*/
