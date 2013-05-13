@@ -516,7 +516,7 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 		Debugger::DBGSTR::addStr( L"Lng : %f\n", sqrt(Lng));
 		Debugger::DBGSTR::addStr( L"Lng : %d\n", MGPRM_MAGNETICUM_QUAD);
 
-		if( Lng <= MGPRM_MAGNETICUM_QUAD ){
+		if( Lng <= m_pPlayer->getMagneticum() ){
 			//Ž©‹@‚ÆŽ¥ŠE‚ÌŠp“x
 			float fTargetDir = TwoPoint2Degree( vProvisionalPos , m_vPos );
 			//fTargetDir = 360.0f - fTargetDir;
