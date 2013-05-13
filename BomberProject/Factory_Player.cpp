@@ -25,7 +25,7 @@
 
 namespace wiz{
 
-Camera*	ProvisionalPlayer3D::m_Camera	= NULL;
+//Camera*	ProvisionalPlayer3D::m_Camera	= NULL;
 extern class WallObject ;
 
 /**************************************************************************
@@ -89,6 +89,10 @@ void ProvisionalPlayer::Update( UpdatePacket& i_UpdatePacket ){
 		D3DXMatrixTranslation( &mPos , this->m_vPos.x , this->m_vPos.y , this->m_vPos.z ) ;
 		D3DXMatrixScaling( &mScale, m_vScale.x, m_vScale.y, m_vScale.z );
 		m_mMatrix = mScale * mPos ;
+	}else{
+	
+
+	
 	}
 
 	//g_bMouseLB = false ;
@@ -124,6 +128,9 @@ ProvisionalPlayer3D::ProvisionalPlayer3D(
 ,m_vRot(vRot)
 ,m_vScale(vScale)
 ,m_MovePosY(0)
+,m_Camera(NULL)
+,m_bLastMouseRB(false)
+,m_bLastMouseLB(false)
 {
 	::ZeroMemory( &m_Material, sizeof(D3DMATERIAL9) ) ;
 	D3DXMatrixIdentity( &m_Matrix ) ;
@@ -145,33 +152,36 @@ ProvisionalPlayer3D::ProvisionalPlayer3D(
 //// 備考       ：
 void ProvisionalPlayer3D::Draw(DrawPacket& i_DrawPacket)
 {
-	//テクスチャがある場合
-	if(m_pTexture){
-		DWORD wkdword;
-		//現在のテクスチャステータスを得る
-		i_DrawPacket.pD3DDevice->GetTextureStageState(0,D3DTSS_COLOROP,&wkdword);
-		//ステージの設定
-		i_DrawPacket.pD3DDevice->SetTexture(0,m_pTexture);
-		//デフィーズ色とテクスチャを掛け合わせる設定
-		i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLOROP, D3DTOP_MODULATE4X );
-		i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLORARG1, D3DTA_TEXTURE );
-		i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLORARG2, D3DTA_DIFFUSE );
+	if( g_bMouseLB || g_bMouseRB ){ 
 
-		//i_DrawPacket.pD3DDevice->SetFVF(PlateFVF);
-		// マトリックスをレンダリングパイプラインに設定
-		i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &/*it->second->*/m_Matrix);
-		//コモンメッシュのDraw()を呼ぶ
-		CommonMesh::Draw(i_DrawPacket);
-		i_DrawPacket.pD3DDevice->SetTexture(0,0);
-		//ステージを元に戻す
-		i_DrawPacket.pD3DDevice->SetTextureStageState(0,D3DTSS_COLOROP,wkdword);
-	}
-	else{
-	//テクスチャがない場合
-		// マトリックスをレンダリングパイプラインに設定
-		i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &/*it->second->*/m_Matrix);
-		//コモンメッシュのDraw()を呼ぶ
-		CommonMesh::Draw(i_DrawPacket);
+		//テクスチャがある場合
+		if(m_pTexture){
+			DWORD wkdword;
+			//現在のテクスチャステータスを得る
+			i_DrawPacket.pD3DDevice->GetTextureStageState(0,D3DTSS_COLOROP,&wkdword);
+			//ステージの設定
+			i_DrawPacket.pD3DDevice->SetTexture(0,m_pTexture);
+			//デフィーズ色とテクスチャを掛け合わせる設定
+			i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLOROP, D3DTOP_MODULATE4X );
+			i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLORARG1, D3DTA_TEXTURE );
+			i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLORARG2, D3DTA_DIFFUSE );
+
+			//i_DrawPacket.pD3DDevice->SetFVF(PlateFVF);
+			// マトリックスをレンダリングパイプラインに設定
+			i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &/*it->second->*/m_Matrix);
+			//コモンメッシュのDraw()を呼ぶ
+			CommonMesh::Draw(i_DrawPacket);
+			i_DrawPacket.pD3DDevice->SetTexture(0,0);
+			//ステージを元に戻す
+			i_DrawPacket.pD3DDevice->SetTextureStageState(0,D3DTSS_COLOROP,wkdword);
+		}
+		else{
+		//テクスチャがない場合
+			// マトリックスをレンダリングパイプラインに設定
+			i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &/*it->second->*/m_Matrix);
+			//コモンメッシュのDraw()を呼ぶ
+			CommonMesh::Draw(i_DrawPacket);
+		}
 	}
 }
 
@@ -190,16 +200,17 @@ void ProvisionalPlayer3D::Update( UpdatePacket& i_UpdatePacket ){
 		m_Camera = (Camera*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_SYS_CAMERA);
 		m_MovePosY	= m_Camera->getPosY();
 	}
-	if( g_bMouseLB || g_bMouseRB ){
-		wiz::CONTROLER_STATE Controller1P = i_UpdatePacket.pCntlState[0] ;
-		D3DXVECTOR3 vMove = g_vZero ;
-		Point MousePos ;
-		GetCursorPos( &MousePos ) ;
-		ScreenToClient( g_hWnd , &MousePos) ;
-		
-		m_vPos.x = (float)MousePos.x / DRAW_CLIENT_MAGNIFICATION - MAGNETIC_RADIUS ;
-		m_vPos.y = (( STANDARD_WINDOW_HEIGHT - MousePos.y ) - UI_HEIGHT ) / DRAW_CLIENT_MAGNIFICATION - MAGNETIC_RADIUS + ( m_Camera->getPosY() - m_MovePosY ) ;
-
+	if( g_bMouseLB || g_bMouseRB ){ 
+		if( !m_bLastMouseLB && !m_bLastMouseRB ){
+			wiz::CONTROLER_STATE Controller1P = i_UpdatePacket.pCntlState[0] ;
+			D3DXVECTOR3 vMove = g_vZero ;
+			Point MousePos ;
+			GetCursorPos( &MousePos ) ;
+			ScreenToClient( g_hWnd , &MousePos) ;
+			
+			m_vPos.x = (float)MousePos.x / DRAW_CLIENT_MAGNIFICATION - MAGNETIC_RADIUS ;
+			m_vPos.y = (( STANDARD_WINDOW_HEIGHT - MousePos.y ) - UI_HEIGHT ) / DRAW_CLIENT_MAGNIFICATION - MAGNETIC_RADIUS + ( m_Camera->getPosY() - m_MovePosY ) ;
+		}
 		if( g_bMouseLB )
 			setPoleN() ;
 		if( g_bMouseRB )
@@ -227,9 +238,13 @@ void ProvisionalPlayer3D::Update( UpdatePacket& i_UpdatePacket ){
 		m_Material = m_Material ;
 
 		//	: マウスのフラグ
-		g_bMouseLB = false ;
-		g_bMouseRB = false ;
+		//g_bMouseLB = false ;
+		//g_bMouseRB = false ;
+	}else{
+		
 	}
+	m_bLastMouseLB = g_bMouseLB ;
+	m_bLastMouseRB = g_bMouseRB ;
 };
 
 /**************************************************************************
@@ -400,7 +415,7 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 			}
 		}
 
-		Debugger::DBGSTR::addStr( L"角度 = %f",m_fMoveDir);
+		Debugger::DBGSTR::addStr( L"角度 = %f\n",m_fMoveDir);
 
 		//	: 指定方向へ指定距離移動
 		ArcMove( vMove , m_fMovdSpeed, m_fMoveDir);

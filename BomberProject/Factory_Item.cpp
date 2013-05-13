@@ -96,26 +96,14 @@ void	Item::Update(UpdatePacket& i_UpdatePacket)
 	vector<Object*> Vec	= 	*(i_UpdatePacket.pVec);
 	PlayerCoil*	pc	= NULL;
 	Bar*		br	= NULL;
-	vector<Object*>::size_type sz2 = Vec.size();
-	//コイルのポインタを取得
-	for(vector<Object*>::size_type i = 0;i < sz2;i++){
-		const type_info& info = typeid(*(Vec[i]));
-		if(info == typeid(PlayerCoil)){
-			pc = dynamic_cast<PlayerCoil*>(Vec[i]);
-			break;
-		}
-	}
-	//バーのポインタを取得
-	for(vector<Object*>::size_type i = 0;i < sz2;i++){
-		const type_info& info = typeid(*(Vec[i]));
-		if(info == typeid(Bar)){
-			br = dynamic_cast<Bar*>(Vec[i]);
-			break;
-		}
-	}
+
+	if( !pc ) pc = (PlayerCoil*)SearchObjectFromTypeID(&Vec,typeid(PlayerCoil));
+	if( !br ) br = (Bar*)SearchObjectFromTypeID(&Vec,typeid(Bar));
+
 	//コイルの位置取得
 	D3DXVECTOR3	cPos	= pc->getPos();
 
+	Debugger::DBGSTR::addStr(L"ItemAll = %d\n",m_ItemMap_All.size());
 	multimap<float,BallItem*>::iterator it = m_ItemMap_All.begin();
 	while(it != m_ItemMap_All.end()){
 		//	: 自分から対象までのベクトルを算出
@@ -126,10 +114,9 @@ void	Item::Update(UpdatePacket& i_UpdatePacket)
 		double dirY = vTargetDir.y * vTargetDir.y;
 		it->second->m_fDistance	 = (float)sqrt(dirX + dirY);
 
-		//Debugger::DBGSTR::addStr(L"ItemAll = %d\n",m_ItemMap_All.size());
 		//距離が5以内ならよっていく
 		if( it->second->m_fDistance < SuctionArea ){
-			it->second->m_Pos	+= vTargetDir*SpeedRate;
+			it->second->m_Pos	+= vTargetDir/**SpeedRate*/ * pc->getSpeed();
 
 			//プレイヤーと限りなく近くなったら、消滅
 			if( it->second->m_fDistance < VanishArea ){
@@ -292,7 +279,7 @@ Factory_Item::Factory_Item(FactoryPacket* fpac){
 				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"front_bar.png" ),
 				D3DXVECTOR3(0.8f,0.8f,1.0f),
 				g_vZero,
-				D3DXVECTOR3(300.0f,450.0f,0.0f),
+				D3DXVECTOR3(300.0f,550.0f,0.0f),
 				g_vZero,
 				Rect(0,0,200,20)
 			)
