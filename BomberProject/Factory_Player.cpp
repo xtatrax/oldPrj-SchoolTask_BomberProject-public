@@ -210,11 +210,11 @@ void ProvisionalPlayer3D::Update( UpdatePacket& i_UpdatePacket ){
 			
 			m_vPos.x = (float)MousePos.x / DRAW_CLIENT_MAGNIFICATION - MAGNETIC_RADIUS ;
 			m_vPos.y = (( STANDARD_WINDOW_HEIGHT - MousePos.y ) - UI_HEIGHT ) / DRAW_CLIENT_MAGNIFICATION - MAGNETIC_RADIUS + ( m_Camera->getPosY() - m_MovePosY ) ;
+			if( g_bMouseLB )
+				setPoleN() ;
+			if( g_bMouseRB )
+				setPoleS() ;
 		}
-		if( g_bMouseLB )
-			setPoleN() ;
-		if( g_bMouseRB )
-			setPoleS() ;
 
 		//	: 拡大縮小
 		D3DXMATRIX mScale ;
@@ -294,6 +294,7 @@ PlayerCoil::PlayerCoil(
 ,m_fMovdSpeed(PLAYER_SPEED)
 ,m_pPlayer(NULL)
 ,m_pCamera(NULL)
+,m_enumCoilState(COIL_STATE_START)
 {
 	::ZeroMemory( &m_Material, sizeof(D3DMATERIAL9) ) ;
 	D3DXMatrixIdentity( &m_Matrix ) ;
@@ -315,157 +316,195 @@ PlayerCoil::PlayerCoil(
 void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 
 	wiz::CONTROLER_STATE Controller1P = i_UpdatePacket.pCntlState[0] ;
-	if( !m_pCamera ){ m_pCamera = ( Camera* ) SearchObjectFromID( i_UpdatePacket.pVec, OBJID_SYS_CAMERA ) ; }
+	if( !m_pCamera ){ 
+		m_pCamera = ( Camera* ) SearchObjectFromID( i_UpdatePacket.pVec, OBJID_SYS_CAMERA ) ; 
+	}
 	if( m_pPlayer ){
-		//m_fMovdSpeed = 0;
-		//ConvertToCartesianCoordinatesを使って自機のデカルト座標を出す
-		//ThreePoint2Radianでデカルト座標(1)、自機の位置(2)、磁界の位置(3)を入れて角度を出す
-
-		//	: 必要な変数の宣言
 		// 移動の方向 + 距離
 		D3DXVECTOR3 vMove = D3DXVECTOR3( 1.0f, 0.0f, 0.0f) ;
 		// ユーザー磁界の座標
-		D3DXVECTOR3 vProvisionalPos  = this->m_pPlayer->getPos();
-
-			
+		D3DXVECTOR3 vProvisionalPos  = this->m_pPlayer->getPos();	
 		// コイルとユーザー磁界の距離を算出
 		float Lng  = (float)TwoPointToBassLength( vProvisionalPos, m_vPos ) ;
 		// テスト用
 		float Lng2 = (float)VectorLength( D3DXVECTOR3( vProvisionalPos.x - m_vPos.x, vProvisionalPos.y - m_vPos.y ,0) );
+		//自機と磁界の角度
+		float fTargetDir = TwoPoint2Degree( vProvisionalPos , m_vPos );
+		//自機のデカルト座標 (現状使ってません)
+		D3DXVECTOR3 vDescartes = ConvertToCartesianCoordinates(vMove.x,m_fMoveDir);
 
+		//デバック用-----------------------------------------------------------
 		// 磁界反転
 		Controller1P.Gamepad.wPressedButtons.XConState.Y && this->ChangePole() ;
-
+		//各数値を表示
 		Debugger::DBGSTR::addStr( L"Lng : %f\n", Lng);
 		Debugger::DBGSTR::addStr( L"Lng : %f\n", Lng2);
 		Debugger::DBGSTR::addStr( L"Lng : %f\n", sqrt(Lng));
 		Debugger::DBGSTR::addStr( L"Lng : %d\n", MGPRM_MAGNETICUM_QUAD);
+		Debugger::DBGSTR::addStr( L"fTargetDir : %f\n", fTargetDir);
+		Debugger::DBGSTR::addStr( L"vDescartes : %f\n", vDescartes.x);
+		//-----------------------------------------------------------------------
 
-		if( Lng <= MGPRM_MAGNETICUM_QUAD ){
-			//自機と磁界の角度
-			float fTargetDir = TwoPoint2Degree( vProvisionalPos , m_vPos );
-			//fTargetDir = 360.0f - fTargetDir;
-			Debugger::DBGSTR::addStr( L"fTargetDir : %f\n", fTargetDir);
-			//自機のデカルト座標
-			D3DXVECTOR3 vDescartes = ConvertToCartesianCoordinates(vMove.x,m_fMoveDir);
-			Debugger::DBGSTR::addStr( L"vDescartes : %f\n", vDescartes.x);
-
-			float	fReverse = 0.0f;
-			if(m_fMoveDir > 180.0f){
-				fReverse = m_fMoveDir - 180.0f;
-			}
-			else{
-				fReverse = m_fMoveDir + 180.0f;
-			}
-
-			if(m_pPlayer->getMagnetPole() != this->getMagnetPole()){
-
-				if(m_fMoveDir < fTargetDir){
-					if(fTargetDir - m_fMoveDir <= 180.0f){
-						m_fMoveDir += 1.0f;
-						m_fMoveDir = float(int(m_fMoveDir) % 360);						
-					}
-					else{
-						m_fMoveDir -= 1.0f;
-						if(m_fMoveDir < 0.0f){
-							m_fMoveDir += 360.0f;
-						}
-					}
-				}
-				else if(m_fMoveDir > fTargetDir){
-					if(m_fMoveDir - fTargetDir <= 180.0f){
-						m_fMoveDir -= 1.0f;
-						if(m_fMoveDir < 0.0f){
-							m_fMoveDir += 360.0f;
-						}
-					}
-					else{
-						m_fMoveDir += 1.0f;
-						m_fMoveDir = float(int(m_fMoveDir) % 360);												
-					}
-				}
-			}
-			else{
-				if(fReverse != fTargetDir){
-					if(m_fMoveDir < fTargetDir){
-						if(fTargetDir - m_fMoveDir <= 180.0f){
-							m_fMoveDir -= 1.0f;
-							if(m_fMoveDir < 0.0f){
-								m_fMoveDir += 360.0f;
-							}
-						}
-						else{
-							m_fMoveDir += 1.0f;
-							m_fMoveDir = float(int(m_fMoveDir) % 360);						
-						}
-					}
-					else if(m_fMoveDir > fTargetDir){
-						if(m_fMoveDir - fTargetDir <= 180.0f){
-							m_fMoveDir += 1.0f;
-							m_fMoveDir = float(int(m_fMoveDir) % 360);												
-						}
-						else{
-							m_fMoveDir -= 1.0f;
-							if(m_fMoveDir < 0.0f){
-								m_fMoveDir += 360.0f;
-							}
-						}
-					}
-				}
-			}
+		//状態ごとの処理
+		switch(m_enumCoilState){
+			case COIL_STATE_START:
+				Update_StateStart(fTargetDir);
+				break;
+			case COIL_STATE_MOVE:
+				Update_StateMove(vMove,fTargetDir,Lng);
+				break;
+			case COIL_STATE_STOP:
+				break;
+			case COIL_STATE_STICK:
+				break;
+			case COIL_STATE_SUPER:
+				break;
+			case COIL_STATE_DEAD:
+				break;
+			default:
+				break;
 		}
 
+		//デバック用-----------------------------------------------------------
 		Debugger::DBGSTR::addStr( L"角度 = %f\n",m_fMoveDir);
+		//-----------------------------------------------------------------------
 
-		//	: 指定方向へ指定距離移動
-		ArcMove( vMove , m_fMovdSpeed, m_fMoveDir);
-
-		//m_vPos = m_pDirParts3D->getPos() + vMove ;
-		//m_pDirParts3D->SetPos( m_vPos );
-		m_vPos += vMove;
-
-		WallObject* pWall = (WallObject*)SearchObjectFromID(i_UpdatePacket.pVec, OBJID_2D_WALL ) ;
-		if( pWall && pWall->HitTest2DRectAndCircle( m_vPos, 32.0f) ){
-			m_vPos = D3DXVECTOR3( 300, 300, 0 );
-		}
-		if( m_vPos.x <= 0 || m_vPos.x >= 800 || m_vPos.y <= 0 || m_vPos.y >= 500 ){
-			//m_vPos = D3DXVECTOR3( 100, 500, 0 );
-		}
-		//	: 移動の確定
-		//	: 
+		//マトリクス計算
 		D3DXMATRIX mPos, mScale, mRotZ, mRotX;
-
 		D3DXMatrixTranslation( &mPos  , m_vPos.x , m_vPos.y , m_vPos.z ) ;
 		D3DXMatrixScaling( &mScale, m_vScale.x, m_vScale.y, m_vScale.z);
 		D3DXMatrixRotationZ( &mRotZ, D3DXToRadian( m_fMoveDir - PLAYER_BASSROT ) ) ;
 		D3DXMatrixRotationX( &mRotX, D3DXToRadian( m_vRot.x ) );
 		m_Matrix = mScale * (mRotX*mRotZ) * mPos ;
-		//m_Material = m_Material;
 
 	} else {
 		m_pPlayer = (ProvisionalPlayer3D*)SearchObjectFromTypeID( i_UpdatePacket.pVec , typeid(ProvisionalPlayer3D) );
-
 	}
 
+	//カメラ座標設定
 	if( m_pCamera && m_pCamera->getPosY() < m_vPos.y ){
 		m_pCamera->setPosY( m_vPos.y );
 	}
 
-	//if( m_pDirParts ) m_pDirParts->setMatrix( m_mMatrix );
-
-	//D3DXMATRIX mPos2 , mScale2 , mRotZ2 , mRotX;
-	//if( m_pDirParts3D ){
-	//	D3DXMatrixRotationX(&mRotX,90.0f);
-	//	D3DXVECTOR3 vScale;
-	//	m_pDirParts3D->GetWorldScale(vScale);
-	//	D3DXMatrixScaling( &mScale2, vScale.x, vScale.y, vScale.z);
-	//	D3DXMatrixRotationZ(   &mRotZ2 ,  D3DXToRadian( m_fMoveDir - PLAYER_BASSROT) ) ;
-	//	D3DXVECTOR3 vPos = m_pDirParts3D->getPos();
-	//	//m_pDirParts3D->SetPos(vPos);
-	//	D3DXMatrixTranslation( &mPos2  ,vPos.x, vPos.y,vPos.z) ;
-	//	m_pDirParts3D->CalcMatrix(mPos2,mScale2,mRotX*mRotZ2);
-	//}
 };
+
+/////////////////// ////////////////////
+//// 関数名     ：void PlayerCoil::Update_StateStart( float i_fTargetDir )
+//// カテゴリ   ：
+//// 用途       ：STATE_START時の動き
+//// 引数       ：
+////　　　　　　：
+////　　　　　　：
+//// 戻値       ：なし
+//// 担当       ：本多寛之
+//// 備考       ：
+////            ：
+////
+void PlayerCoil::Update_StateStart( float i_fTargetDir ){
+	D3DXVECTOR3 vPlayer = g_vZero;
+	float		fTargetDir = NULL;
+	//マウス座標計算
+	Point MousePos ;
+	GetCursorPos( &MousePos ) ;
+	ScreenToClient( g_hWnd , &MousePos) ;
+	vPlayer.x = (float)MousePos.x / DRAW_CLIENT_MAGNIFICATION - MAGNETIC_RADIUS ;
+	vPlayer.y = (( STANDARD_WINDOW_HEIGHT - MousePos.y ) - UI_HEIGHT ) / DRAW_CLIENT_MAGNIFICATION - MAGNETIC_RADIUS + ( m_pCamera->getPosY() - m_pPlayer->getMoveY() ) ;
+	fTargetDir = TwoPoint2Degree( vPlayer , m_vPos );
+	//角度の更新
+	m_fMoveDir = fTargetDir;
+	//左クリックが押されたらMOVE状態に変更
+	float fLng  = (float)TwoPointToBassLength( vPlayer, m_vPos ) ;
+	if(g_bMouseLB && fLng <= START_EFFECTIVE_RANGE_QUAD){
+		m_enumCoilState = COIL_STATE_MOVE;
+	}
+}
+
+/////////////////// ////////////////////
+//// 関数名     ：PlayerCoil::Update_StateMove( D3DXVECTOR3 i_vMove, D3DXVECTOR3 i_vProvisionalPos ,float i_fLng )
+//// カテゴリ   ：
+//// 用途       ：STATE_MOVE時の動き
+//// 引数       ：D3DXVECTOR3 i_vMove				// 移動の方向 + 距離
+////　　　　　　：float i_fTargetDir				// ユーザー磁界との角度
+////　　　　　　：float i_fLng					// コイルとユーザー磁界の距離
+//// 戻値       ：なし
+//// 担当       ：本多寛之
+//// 備考       ：
+////            ：
+////
+void PlayerCoil::Update_StateMove( D3DXVECTOR3 i_vMove, float i_fTargetDir ,float i_fLng ){
+	if( i_fLng <= MGPRM_MAGNETICUM_QUAD ){
+
+		float	fReverse = 0.0f;
+		if(m_fMoveDir > 180.0f){
+			fReverse = m_fMoveDir - 180.0f;
+		}
+		else{
+			fReverse = m_fMoveDir + 180.0f;
+		}
+
+		if(m_pPlayer->getMagnetPole() != this->getMagnetPole()){
+			if(m_fMoveDir < i_fTargetDir){
+				if(i_fTargetDir - m_fMoveDir <= 180.0f){
+					m_fMoveDir += 1.0f;
+					m_fMoveDir = float(int(m_fMoveDir) % 360);						
+				}
+				else{
+					m_fMoveDir -= 1.0f;
+					if(m_fMoveDir < 0.0f){
+						m_fMoveDir += 360.0f;
+					}
+				}
+			}
+			else if(m_fMoveDir > i_fTargetDir){
+				if(m_fMoveDir - i_fTargetDir <= 180.0f){
+					m_fMoveDir -= 1.0f;
+					if(m_fMoveDir < 0.0f){
+						m_fMoveDir += 360.0f;
+					}
+				}
+				else{
+					m_fMoveDir += 1.0f;
+					m_fMoveDir = float(int(m_fMoveDir) % 360);												
+				}
+			}
+		}
+		else{
+			if(fReverse != i_fTargetDir){
+				if(m_fMoveDir < i_fTargetDir){
+					if(i_fTargetDir - m_fMoveDir <= 180.0f){
+						m_fMoveDir -= 1.0f;
+						if(m_fMoveDir < 0.0f){
+							m_fMoveDir += 360.0f;
+						}
+					}
+					else{
+						m_fMoveDir += 1.0f;
+						m_fMoveDir = float(int(m_fMoveDir) % 360);						
+					}
+				}
+				else if(m_fMoveDir > i_fTargetDir){
+					if(m_fMoveDir - i_fTargetDir <= 180.0f){
+						m_fMoveDir += 1.0f;
+						m_fMoveDir = float(int(m_fMoveDir) % 360);												
+					}
+					else{
+						m_fMoveDir -= 1.0f;
+						if(m_fMoveDir < 0.0f){
+							m_fMoveDir += 360.0f;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	//	: 指定方向へ指定距離移動
+	ArcMove( i_vMove , m_fMovdSpeed, m_fMoveDir);
+	//移動分を加算
+	m_vPos += i_vMove;
+
+}
+
 /////////////////// ////////////////////
 //// 用途       ：virtual void Draw( DrawPacket& i_DrawPacket )
 //// カテゴリ   ：
@@ -477,12 +516,6 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 ////            ：
 ////
 void PlayerCoil::Draw(DrawPacket& i_DrawPacket){
-	//if( m_pDirParts ) m_pDirParts->Draw( i_DrawPacket ) ;
-	//else ;
-	//
-	//if(m_pDirParts3D) m_pDirParts3D->Draw(i_DrawPacket);
-
-	//MagneticumObject3D::Draw( i_DrawPacket );
 	if(m_pTexture){
 		DWORD wkdword;
 		//現在のテクスチャステータスを得る

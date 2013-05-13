@@ -16,11 +16,21 @@
 #include "BassItems.h"
 #include "Factory_Magnetic.h"
 
-#define  MGPRM_MAGNETICUM	10  /* 磁界の影響半径( 現在単位 pixel ) */
-#define  MGPRM_MAGNETICUM_QUAD ( MGPRM_MAGNETICUM * MGPRM_MAGNETICUM )
-#define  PLAYER_SPEED		(   0.08f ) 
-#define  PLAYER_BASSROT		( 90.0f ) 
+const int	MGPRM_MAGNETICUM			= 10 ; /* 磁界の影響半径*/
+const int	MGPRM_MAGNETICUM_QUAD		= ( MGPRM_MAGNETICUM * MGPRM_MAGNETICUM );
+const int	START_EFFECTIVE_RANGE		= 12;
+const int 	START_EFFECTIVE_RANGE_QUAD	= (START_EFFECTIVE_RANGE * START_EFFECTIVE_RANGE);
+const float PLAYER_SPEED				= 0.08f;
+const float PLAYER_BASSROT				= 90.0f;
 
+enum COIL_STATE{			//自機の状態
+	COIL_STATE_START,		//スタート
+	COIL_STATE_MOVE,		//移動
+	COIL_STATE_STOP,		//停止
+	COIL_STATE_STICK,		//吸着
+	COIL_STATE_SUPER,		//無敵
+	COIL_STATE_DEAD			//死亡
+};
 
 namespace wiz{
 
@@ -85,17 +95,28 @@ public:
 		}
 	}	;
 
+	/////////////////// ////////////////////
+	//// 関数名     ：float getMoveY() const
+	//// カテゴリ   ：ゲッター
+	//// 用途       ：m_MovePosYを獲得
+	//// 引数       ：なし
+	//// 戻値       ：なし
+	//// 担当       ：本多寛之
+	//// 備考       ：
+	////            ：
+	float getMoveY() const { return m_MovePosY	;	}	;
+
 };
 
 
 //**************************************************************************//
 // class PlayerCoil : public MagneticumObject ;
 //
-// 担当者  : 本多寛之
+// 担当者  : 鴫原 徹 本多寛之(編集)
 // 用途    : コイル
 //**************************************************************************//
 class PlayerCoil : public MagneticumObject3D{
-
+	
 	D3DXMATRIX		m_Matrix ;
 	D3DXVECTOR3		m_vPos ;
 	D3DXQUATERNION	m_vRot ;
@@ -106,7 +127,8 @@ class PlayerCoil : public MagneticumObject3D{
 	ProvisionalPlayer3D*	m_pPlayer;
 
 	Camera* m_pCamera;
-
+	
+	COIL_STATE		m_enumCoilState;
 
 public:
 	/////////////////// ////////////////////
@@ -161,6 +183,34 @@ public:
 	////            ：
 	////
 	void Update( UpdatePacket& i_UpdatePacket );
+
+	/////////////////// ////////////////////
+	//// 関数名     ：void Update_StateStart( float i_fTargetDir )
+	//// カテゴリ   ：
+	//// 用途       ：STATE_START時の動き
+	////　　　　　　：float i_fTargetDir				// ユーザー磁界との角度
+	////　　　　　　：
+	////　　　　　　：
+	//// 戻値       ：なし
+	//// 担当       ：本多寛之
+	//// 備考       ：
+	////            ：
+	////
+	void Update_StateStart( float i_fTargetDir );
+
+	/////////////////// ////////////////////
+	//// 関数名     ：void Update_StateMove( D3DXVECTOR3 i_vMove, D3DXVECTOR3 i_vProvisionalPos ,float i_fLng )
+	//// カテゴリ   ：
+	//// 用途       ：STATE_MOVE時の動き
+	//// 引数       ：D3DXVECTOR3 i_vMove				// 移動の方向 + 距離
+	////　　　　　　：float i_fTargetDir				// ユーザー磁界との角度
+	////　　　　　　：float i_fLng					// コイルとユーザー磁界の距離
+	//// 戻値       ：なし
+	//// 担当       ：本多寛之
+	//// 備考       ：
+	////            ：
+	////
+	void Update_StateMove( D3DXVECTOR3 i_vMove, float i_fTargetDir ,float i_fLng );
 
 	/////////////////// ////////////////////
 	//// 用途       ：virtual void Draw( DrawPacket& i_DrawPacket )
