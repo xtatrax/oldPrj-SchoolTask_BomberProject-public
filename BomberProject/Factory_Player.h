@@ -19,8 +19,7 @@
 #define  MGPRM_MAGNETICUM	10  /* é•äEÇÃâeãøîºåa( åªç›íPà  pixel ) */
 #define  MGPRM_MAGNETICUM_QUAD ( MGPRM_MAGNETICUM * MGPRM_MAGNETICUM )
 #define  PLAYER_SPEED		(   0.08f ) 
-#define  PLAYER_BASSROT		( 90.0f ) 
-
+#define  PLAYER_BASSROT		( 90.0f )
 
 namespace wiz{
 
@@ -58,9 +57,10 @@ class ProvisionalPlayer3D : public MagneticumObject3D{
 	float			m_MovePosY;
 	bool			m_bLastMouseRB;
 	bool			m_bLastMouseLB;
+	bool			m_bField;
 public:
 	//	: 
-	ProvisionalPlayer3D( LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTexture,
+	ProvisionalPlayer3D( FactoryPacket* fpac, LPDIRECT3DTEXTURE9 pTexture,
 		D3DXVECTOR3 &vScale, D3DXQUATERNION &vRot, D3DXVECTOR3 &vPos,
 		wiz::OBJID id = OBJID_3D_PLAYER );
 	//	:
@@ -85,8 +85,31 @@ public:
 		}
 	}	;
 
+	bool	FieldDraw(){
+		return	m_bField;
+	};
 };
 
+/************************************************************************
+class MagneticField : public Cylinder
+
+íSìñé“	: ç≤ì°ó¡
+ópìr	: é•äEÇÃîÕàÕ
+************************************************************************/
+class	MagneticField : public Cylinder{
+	//D3DXMATRIX		m_Matrix ;
+	//D3DXVECTOR3		m_vPos ;
+	//D3DXQUATERNION	m_vRot ;
+	//D3DXVECTOR3		m_vScale ;
+public:
+	MagneticField(LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTexture,
+		D3DXVECTOR3 &vScale, D3DXQUATERNION &vRot, D3DXVECTOR3 &vPos);
+    void	Draw(DrawPacket& i_DrawPacket) ;
+	void	Update(UpdatePacket& i_UpdatePacket);
+	//void	setPos(D3DXVECTOR3 pos){
+	//	m_vPos	= pos;
+	//}
+};
 
 //**************************************************************************//
 // class PlayerCoil : public MagneticumObject ;
