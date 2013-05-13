@@ -62,6 +62,9 @@ struct Command{
  ユーザーデータは派生クラスを作成して使用する
 ****************************************************************************/
 class Context{
+	DWORD m_Command;	
+	DWORD m_Param1;
+	DWORD m_Param2;
 	//タイマー。経過秒を計る
 	Timer m_Timer;
 	//1回のタイムスパン
@@ -126,6 +129,13 @@ public:
  戻り値: なし
 ***************************************************************************/
 	virtual~Context(){}
+
+	void operator = ( const Command other ) {
+		m_Command = other.m_Command ;
+		m_Param1  = other.m_Param1  ;
+		m_Param2  = other.m_Param2  ;	
+	};
+
 };
 /*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 

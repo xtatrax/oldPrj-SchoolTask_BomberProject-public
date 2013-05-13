@@ -99,6 +99,21 @@ MagneticumObject3D::MagneticumObject3D(
 ,m_bMagnetPole( POLE_S )
 {
 	::ZeroMemory( &m_Material, sizeof(D3DMATERIAL9) ) ;
+	m_pMagneticField	= new	MagneticField(pD3DDevice,
+									NULL,
+									D3DXVECTOR3( 8.0f,8.0f,0.0f ),
+									D3DXQUATERNION( 0.0f, 0.0f, 0.0f, 0.0f ),
+									g_vMin);
+	m_pMagneticField2	= new	MagneticField(pD3DDevice,
+									NULL,
+									D3DXVECTOR3( 3.0f,3.0f,0.0f ),
+									D3DXQUATERNION( 0.0f, 0.0f, 0.0f, 0.0f ),
+									g_vMin);
+	m_pMagneticField3	= new	MagneticField(pD3DDevice,
+									NULL,
+									D3DXVECTOR3( 1.5f,1.5f,0.0f ),
+									D3DXQUATERNION( 0.0f, 0.0f, 0.0f, 0.0f ),
+									g_vMin);
 }
 
 /////////////////// ////////////////////
@@ -145,6 +160,11 @@ MagneticumObject3D::MagneticumObject3D(
 ,m_bMagnetPole( POLE_N )
 {
 	::ZeroMemory( &m_Material, sizeof(D3DMATERIAL9) ) ;
+	m_pMagneticField	= new	MagneticField(pD3DDevice,
+									NULL,
+									D3DXVECTOR3( 4.0f,4.0f,0.0f ),
+									D3DXQUATERNION( 0.0f, 0.0f, 0.0f, 0.0f ),
+									g_vMin);
 }
 
 /////////////////// ////////////////////
@@ -191,6 +211,10 @@ void MagneticumObject3D::Draw(DrawPacket& i_DrawPacket)
 			//コモンメッシュのDraw()を呼ぶ
 			CommonMesh::Draw(i_DrawPacket);
 		}
+		m_pMagneticField->Draw(i_DrawPacket);
+		m_pMagneticField2->Draw(i_DrawPacket);
+		m_pMagneticField3->Draw(i_DrawPacket);
+
 		++it;
 	}
 }
@@ -240,6 +264,9 @@ void MagneticumObject3D::Update( UpdatePacket& i_UpdatePacket ){
 		it2->second->m_Matrix = mScale * mRot * mMove;
 		//マティリアル設定
 		m_Material = it2->second->m_Material;
+
+		//m_pMagneticField->Update(i_UpdatePacket);
+		
 		++it2;
 	}
 }

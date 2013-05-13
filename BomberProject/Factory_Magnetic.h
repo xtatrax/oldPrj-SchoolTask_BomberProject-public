@@ -14,10 +14,13 @@
 #include "StdAfx.h"
 #include "Object.h"
 #include "BassItems.h"
+//#include "Factory_Player.h"
 
 #define  POLE_S true		/* S極 */
 #define  POLE_N false		/* N極 */
 namespace wiz{
+
+extern	class	MagneticField;
 
 //**************************************************************************//
 // class MagneticumObject : public SpriteObject ;
@@ -108,7 +111,11 @@ public:
 //         : コイルオブジェクトやユーザー設置磁界にも応用しています｡
 //**************************************************************************//
 class MagneticumObject3D : public PrimitiveCylinder{
+protected:
 	static Camera*	   m_pCamera ;
+	MagneticField*		m_pMagneticField;
+	MagneticField*		m_pMagneticField2;
+	MagneticField*		m_pMagneticField3;
 //////////
 //	: 非公開
 private:
