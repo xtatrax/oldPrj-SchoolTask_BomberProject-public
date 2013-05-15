@@ -136,28 +136,6 @@ ProvisionalPlayer3D::ProvisionalPlayer3D(
 	::ZeroMemory( &m_Material, sizeof(D3DMATERIAL9) ) ;
 	D3DXMatrixIdentity( &m_Matrix ) ;
 	setPoleS();
-
-	//fpac->m_pVec->push_back(
-	//	new MagneticField(
-	//			fpac->pD3DDevice,
-	//			NULL,
-	//			D3DXVECTOR3( 2.0f,2.0f,0.0f ),
-	//			D3DXQUATERNION( 0.0f, 0.0f, 0.0f, 0.0f ),
-	//			g_vMin));
-	//fpac->m_pVec->push_back(
-	//	new MagneticField(
-	//			fpac->pD3DDevice,
-	//			NULL,
-	//			D3DXVECTOR3( 1.6f,1.6f,0.0f ),
-	//			D3DXQUATERNION( 0.0f, 0.0f, 0.0f, 0.0f ),
-	//			g_vMin));
-	//fpac->m_pVec->push_back(
-	//	new MagneticField(
-	//			fpac->pD3DDevice,
-	//			NULL,
-	//			D3DXVECTOR3( 1.2f,1.2f,0.0f ),
-	//			D3DXQUATERNION( 0.0f, 0.0f, 0.0f, 0.0f ),
-	//			g_vMin));
 }
 
 /////////////////// ////////////////////
@@ -435,15 +413,14 @@ PlayerCoil::PlayerCoil(
 //////// 戻値       ：衝突していればtrue
 //////// 担当者     ：曳地 大洋
 //////// 備考       ：
-bool PlayerCoil::HitTestWall( OBB, float Index ){
+bool PlayerCoil::HitTestWall( OBB Obb, float Index ){
 	D3DXVECTOR3 Pos = GetPos();
 	SPHERE sp;
-	sp.m_Center = Pos;
+	sp.m_Center = m_vPos;
 	sp.m_Radius = m_pCylinder->getRadius1() ;
-	OBB obb;
 	//通常の衝突判定
 	D3DXVECTOR3 Vec ;
-	if(HitTest::SPHERE_OBB(sp,obb,Vec)){
+	if(HitTest::SPHERE_OBB(sp,Obb,Vec)){
 		MessageBox( NULL, L"当たった！！", L"Error", NULL) ;
 		return true;
 	}
