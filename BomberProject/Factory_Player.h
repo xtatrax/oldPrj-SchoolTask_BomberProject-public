@@ -95,18 +95,16 @@ class MagneticField : public Cylinder
 ópìr	: é•äEÇÃîÕàÕ
 ************************************************************************/
 class	MagneticField : public Cylinder{
-	//D3DXMATRIX		m_Matrix ;
-	//D3DXVECTOR3		m_vPos ;
-	//D3DXQUATERNION	m_vRot ;
-	//D3DXVECTOR3		m_vScale ;
+	bool	m_Pole;	//é•äEÇÃã…ÅFt=Sã…, f=Nã…
 public:
 	MagneticField(LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTexture,
 		D3DXVECTOR3 &vScale, D3DXQUATERNION &vRot, D3DXVECTOR3 &vPos);
     void	Draw(DrawPacket& i_DrawPacket) ;
 	void	Update(UpdatePacket& i_UpdatePacket);
-	//void	setPos(D3DXVECTOR3 pos){
-	//	m_vPos	= pos;
-	//}
+
+	void	setPole( bool pole ){
+		m_Pole	= pole;
+	}
 };
 
 //**************************************************************************//

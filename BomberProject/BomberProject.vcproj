@@ -431,6 +431,18 @@
 						>
 					</File>
 				</Filter>
+				<Filter
+					Name="GoalFactory"
+					>
+					<File
+						RelativePath=".\Factory_Goal.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Factory_Goal.h"
+						>
+					</File>
+				</Filter>
 			</Filter>
 			<Filter
 				Name="Prim"

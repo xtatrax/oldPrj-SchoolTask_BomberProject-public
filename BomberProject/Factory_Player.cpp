@@ -238,6 +238,17 @@ void ProvisionalPlayer3D::Update( UpdatePacket& i_UpdatePacket ){
 			m_vPos.x = (float)MousePos.x / DRAW_CLIENT_MAGNIFICATION - MAGNETIC_RADIUS ;
 			m_vPos.y = (( STANDARD_WINDOW_HEIGHT - MousePos.y ) - UI_HEIGHT ) / DRAW_CLIENT_MAGNIFICATION - MAGNETIC_RADIUS + ( m_Camera->getPosY() - m_MovePosY ) ;
 
+			if(g_bMouseLB){
+				m_pMagneticField->setPole(true);
+				m_pMagneticField2->setPole(true);
+				m_pMagneticField3->setPole(true);
+			}
+			else{
+				m_pMagneticField->setPole(false);
+				m_pMagneticField2->setPole(false);
+				m_pMagneticField3->setPole(false);
+			}
+
 			m_pMagneticField->SetPos(m_vPos);
 			m_pMagneticField->Update(i_UpdatePacket);
 
@@ -304,9 +315,7 @@ MagneticField::MagneticField(
 						D3DCOLORVALUE(),
 						D3DCOLORVALUE()
 	)
-//,m_vPos(vPos)
-//,m_vRot(vRot)
-//,m_vScale(vScale)
+,m_Pole(true)
 {
 	try{
 		//D3DXMatrixIdentity(&m_mMatrix);
@@ -324,43 +333,6 @@ MagneticField::MagneticField(
 用途       ：オブジェクトの描画
 ***************************************************************/
 void	MagneticField::Draw(DrawPacket &i_DrawPacket){
-	//vector<Object*> Vec	= 	*(i_DrawPacket.pVec);
-	//ProvisionalPlayer3D*	pp3	= NULL;
-
-	//if( !pp3 ) pp3 = (ProvisionalPlayer3D*)SearchObjectFromTypeID(&Vec,typeid(ProvisionalPlayer3D));
-
-	//if( pp3->FieldDraw() ){
-
-	//	//テクスチャがある場合
-	//	if(m_pTexture){
-	//		DWORD wkdword;
-	//		//現在のテクスチャステータスを得る
-	//		i_DrawPacket.pD3DDevice->GetTextureStageState(0,D3DTSS_COLOROP,&wkdword);
-	//		//ステージの設定
-	//		i_DrawPacket.pD3DDevice->SetTexture(0,m_pTexture);
-	//		//デフィーズ色とテクスチャを掛け合わせる設定
-	//		i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLOROP, D3DTOP_MODULATE4X );
-	//		i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLORARG1, D3DTA_TEXTURE );
-	//		i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLORARG2, D3DTA_DIFFUSE );
-
-	//		//i_DrawPacket.pD3DDevice->SetFVF(PlateFVF);
-	//		// マトリックスをレンダリングパイプラインに設定
-	//		i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &/*it->second->*/m_Matrix);
-	//		//コモンメッシュのDraw()を呼ぶ
-	//		CommonMesh::Draw(i_DrawPacket);
-	//		i_DrawPacket.pD3DDevice->SetTexture(0,0);
-	//		//ステージを元に戻す
-	//		i_DrawPacket.pD3DDevice->SetTextureStageState(0,D3DTSS_COLOROP,wkdword);
-	//	}
-	//	else{
-	//	//テクスチャがない場合
-	//		// マトリックスをレンダリングパイプラインに設定
-	//		i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &/*it->second->*/m_Matrix);
-	//		//コモンメッシュのDraw()を呼ぶ
-	//		CommonMesh::Draw(i_DrawPacket);
-	//	}
-
-	//}
 	Cylinder::Draw(i_DrawPacket);
 };
 
@@ -370,56 +342,31 @@ void	MagneticField::Draw(DrawPacket &i_DrawPacket){
 ********************************************************************/
 void	MagneticField::Update(UpdatePacket& i_UpdatePacket)
 {
-	//vector<Object*> Vec	= 	*(i_UpdatePacket.pVec);
-	//ProvisionalPlayer3D*	pp3	= NULL;
-
-	//if( !pp3 ) pp3 = (ProvisionalPlayer3D*)SearchObjectFromTypeID(&Vec,typeid(ProvisionalPlayer3D));
-	////コイルの位置取得
-	//D3DXVECTOR3	ppPos	= pp3->getPos();
-
-	////	: 拡大縮小
-	//D3DXMATRIX mScale ;
-	//D3DXMatrixIdentity( &mScale ) ;
-	//D3DXMatrixScaling( &mScale, m_vScale.x, m_vScale.y, m_vScale.z ) ;
-	//
-	////	: 回転
-	//D3DXMATRIX mRot ;
-	//D3DXMatrixIdentity( &mRot ) ;
-	//D3DXMatrixRotationQuaternion( &mRot, &m_vRot ) ;
-	//
-	////	: 移動用
-	//D3DXMATRIX mMove ;
-	//D3DXMatrixIdentity( &mMove ) ;
-	//D3DXMatrixTranslation( &mMove, m_vPos.x, m_vPos.y, m_vPos.z ) ;
-	//
-	////	: ミックス行列
-	//m_Matrix = mScale * mRot * mMove ;
-
 	//	: マティリアル設定
-	if(g_bMouseRB){
-		D3DCOLORVALUE BallDiffuse = {0.0f,0.0f,1.0f,0.2f};
-		D3DCOLORVALUE BallSpecular = {0.0f,0.0f,0.0f,0.0f};
-		D3DCOLORVALUE BallAmbient = {0.0f,0.0f,1.0f,0.2f};
+	if(m_Pole){
+		//N極
+		D3DCOLORVALUE Diffuse = {1.0f,0.0f,0.0f,0.2f};
+		D3DCOLORVALUE Specular = {0.0f,0.0f,0.0f,0.0f};
+		D3DCOLORVALUE Ambient = {1.0f,0.0f,0.0f,0.2f};
 
-		m_Material.Diffuse	= BallDiffuse;
-		m_Material.Specular	= BallSpecular;
-		m_Material.Ambient	= BallAmbient;
+		m_Material.Diffuse	= Diffuse;
+		m_Material.Specular	= Specular;
+		m_Material.Ambient	= Ambient;
 	}
 	else{
-		D3DCOLORVALUE BallDiffuse = {1.0f,0.0f,0.0f,0.2f};
-		D3DCOLORVALUE BallSpecular = {0.0f,0.0f,0.0f,0.0f};
-		D3DCOLORVALUE BallAmbient = {1.0f,0.0f,0.0f,0.2f};
+		//S極
+		D3DCOLORVALUE Diffuse = {0.0f,0.0f,1.0f,0.2f};
+		D3DCOLORVALUE Specular = {0.0f,0.0f,0.0f,0.0f};
+		D3DCOLORVALUE Ambient = {0.0f,0.0f,1.0f,0.2f};
 
-		m_Material.Diffuse	= BallDiffuse;
-		m_Material.Specular	= BallSpecular;
-		m_Material.Ambient	= BallAmbient;
+		m_Material.Diffuse	= Diffuse;
+		m_Material.Specular	= Specular;
+		m_Material.Ambient	= Ambient;
 	}
 
 	Context ct ;
 	Cylinder::Transform(*i_UpdatePacket.pVec,i_UpdatePacket.pCntlState,ct);
-		//m_vPos		 = ppPos;
 
-	//m_Material = m_Material ;
 };
 
 /**************************************************************************
