@@ -14,17 +14,10 @@
 #include "StdAfx.h"
 #include "Object.h"
 #include "BassItems.h"
-//#include "Factory_Player.h"
-
-#define  MGPRM_MAGNETICUM	10 /* 磁界の影響半径( 現在単位 pixel ) */
-#define  MGPRM_MAGNETICUM_QUAD ( MGPRM_MAGNETICUM * MGPRM_MAGNETICUM )
-
 
 #define  POLE_S true		/* S極 */
 #define  POLE_N false		/* N極 */
 namespace wiz{
-
-extern	class	MagneticField;
 
 //**************************************************************************//
 // class MagneticumObject : public SpriteObject ;
@@ -115,19 +108,14 @@ public:
 //         : コイルオブジェクトやユーザー設置磁界にも応用しています｡
 //**************************************************************************//
 class MagneticumObject3D : public PrimitiveCylinder{
-protected:
 	static Camera*	   m_pCamera ;
-	MagneticField*		m_pMagneticField;
-	MagneticField*		m_pMagneticField2;
-	MagneticField*		m_pMagneticField3;
 //////////
 //	: 非公開
 private:
 	//	: 磁極フラグ
 	//	: S極 = POLE_S
 	//	: N極 = POLE_N
-	bool  m_bMagnetPole ;
-	float m_fMagneticum ;
+	bool m_bMagnetPole ;
 //////////
 //	: プロテクト
 protected:
@@ -138,7 +126,7 @@ protected:
 		D3DXVECTOR3		m_vScale ;
 		D3DXVECTOR3		m_vPos ;
 		D3DXQUATERNION	m_vRot ;
-		bool			m_bMagnetPole ;
+		//bool			m_bMagnetPole ;
 		virtual ~Magnet3DItem(){}
 	};
 
@@ -267,6 +255,17 @@ public:
 
 
 /////////////////// ////////////////////
+//// 関数名     ：
+//// カテゴリ   ：
+//// 用途       ：
+//// 引数       ：
+//// 戻値       ：
+//// 担当       ：
+//// 備考       ：
+////            ：
+	//bool 
+
+/////////////////// ////////////////////
 //// 関数名     ：D3DXVECTOR3 getPos() const
 //// カテゴリ   ：ゲッター
 //// 用途       ：中心座標を獲得
@@ -288,8 +287,8 @@ public:
 //// 担当       ：曳地大洋
 //// 備考       ： S極 = POLE_S = false
 ////			 ： N極 = POLE_N = true
-	bool  getMagnetPole() const { return m_bMagnetPole	;	}	;
-	float getMagneticum() const { return m_fMagneticum*m_fMagneticum  ;	}	;
+	bool getMagnetPole() const { return m_bMagnetPole	;	}	;
+
 /////////////////// ////////////////////
 //// 用途       ：void AddMagnetic( DrawPacket& i_DrawPacket )
 //// カテゴリ   ：関数
@@ -309,7 +308,6 @@ public:
 		D3DXVECTOR3 &vScale,
 		D3DXVECTOR3 &vRot,
 		D3DXVECTOR3 &vPos,
-		bool		vPole,
 		D3DCOLORVALUE& Diffuse,
 		D3DCOLORVALUE& Speular,
 		D3DCOLORVALUE& Ambient

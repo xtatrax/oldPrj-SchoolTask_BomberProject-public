@@ -23,17 +23,10 @@ namespace wiz{
  Item 定義部
 ****************************************************************************/
 /***************************************************************************
-関数名　　　：Item( FactoryPacket* fpac,
-                      LPDIRECT3DTEXTURE9 pTexture,
-                      wiz::OBJID id )
-カテゴリ　　：コンストラクタ
-用途　　　　：
-引数　　　　：FactoryPacket* fpac           // : デバイスなど
-　　　　　　：LPDIRECT3DTEXTURE9 pTexture   // : テクスチャ―
-　　　　　　：wiz::OBJID id                 // : ID
-戻り値　　　：
-担当者　　　：佐藤涼
-備考　　　　：
+関数名     ：Item( FactoryPacket* fpac,			//	: デバイスなど
+					 LPDIRECT3DTEXTURE9 pTexture,	//	: テクスチャ―
+					 wiz::OBJID id )				//	: ID
+用途       ：コンストラクタ
 ****************************************************************************/
 Item::Item(FactoryPacket* fpac,LPDIRECT3DTEXTURE9 pTexture, wiz::OBJID id)
 	:PrimitiveSphere(fpac->pD3DDevice,
@@ -56,13 +49,8 @@ Item::Item(FactoryPacket* fpac,LPDIRECT3DTEXTURE9 pTexture, wiz::OBJID id)
 }
 
 /**************************************************************
-関数名　　：void Item::Draw(DrawPacket &i_DrawPacket)
-カテゴリ　：関数
-用途　　　：オブジェクトの描画
-引数　　　：i_DrawPacket          // 描画用のもろもろ
-戻り値　　：
-担当者　　：佐藤涼
-備考　　　：
+関数名     ：void	 Item::Draw(DrawPacket &i_DrawPacket)
+用途       ：オブジェクトの描画
 ***************************************************************/
 void	Item::Draw(DrawPacket &i_DrawPacket){
 	multimap<float,BallItem*>::iterator it = m_ItemMap_All.begin();
@@ -100,10 +88,8 @@ void	Item::Draw(DrawPacket &i_DrawPacket){
 }
 
 /*******************************************************************
-関数名　　：void Item::Update(UpdatePacket& i_UpdatePacket)
-カテゴリ　：関数
-用途　　　：データ更新
-引数　　　：
+関数名     ：void	 Item::Update(UpdatePacket& i_UpdatePacket)
+用途       ：データ更新
 ********************************************************************/
 void	Item::Update(UpdatePacket& i_UpdatePacket)
 {
@@ -138,7 +124,6 @@ void	Item::Update(UpdatePacket& i_UpdatePacket)
 				br->Recovery();
 				SafeDelete( it->second );
 				it = m_ItemMap_All.erase( it );
-				continue;
 			}
 		}
 		//移動用

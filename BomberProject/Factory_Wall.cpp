@@ -58,45 +58,6 @@ bool WallObject::HitTest2DRectAndCircle(D3DXVECTOR3& i_vPos, float i_fRadius)
 }
 
 /////////////////// ////////////////////
-//// 用途       ：void Will::GetOBB( size_t Index, OBB& obb )
-//// カテゴリ   ：関数
-//// 用途       ：指定のインデックスの現在のOBBを得る
-//// 引数       :		size_t Index,
-////					OBB& obb	//取得するOBB
-//// 戻値       ：なし。インデックスが範囲外なら例外
-////				 ＊現在のOBBを代入する
-//// 担当者     ：曳地 大洋
-//// 備考       ：
-void WallObject::GetOBBList( float Index, list<OBB>& ObbList ){
-    //指定の配置オブジェクトを検証
-	multimap<float,WallItem*>::iterator itBegin = m_ItemMap_Target.lower_bound( 20.0f ) ;
-	multimap<float,WallItem*>::iterator itEnd	= m_ItemMap_Target.upper_bound( 20.0f ) ;
-	OBB obb ; 
-	for(multimap<float,WallItem*>::iterator iter = itBegin; iter != itEnd; ++iter){
-		obb.m_Center  = iter->second->m_vPos + iter->second->m_vPos;
-		obb.m_Size	  = m_Size;
-		obb.m_Size.x *= iter->second->m_vScale.x;
-		obb.m_Size.y *= iter->second->m_vScale.y;
-		obb.m_Size.z *= iter->second->m_vScale.z;
-		obb.m_Size *= 0.5f;
-		//トータルの回転を得る
-		D3DXQUATERNION Qt = iter->second->m_vRot;
-		Qt *= iter->second->m_vRot;
-		//クオータニオンを正規化
-		D3DXQuaternionNormalize(&Qt,&Qt);
-		//クオータニオンから回転行列を作成
-		D3DXMATRIX mRot;
-		D3DXMatrixIdentity(&mRot);
-		D3DXMatrixRotationQuaternion(&mRot,&Qt);
-		obb.m_Rot[0] = D3DXVECTOR3(mRot._11,mRot._12,mRot._13);
-	    obb.m_Rot[1] = D3DXVECTOR3(mRot._21,mRot._22,mRot._23);
-	    obb.m_Rot[2] = D3DXVECTOR3(mRot._31,mRot._32,mRot._33);
-		ObbList.push_back( obb ) ;
-	}
-}
-
-
-/////////////////// ////////////////////
 //// 用途       ：void Draw( DrawPacket& i_DrawPacket )
 //// カテゴリ   ：関数
 //// 用途       ：オブジェクトをディスプレイに表示する
@@ -230,6 +191,99 @@ void WallObject::AddWall(D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos
 	m_ItemMap_All.insert(multimap<float,WallItem*>::value_type(pItem->m_vPos.y,pItem));	
 }
 
+///////////////////// ////////////////////
+////// 用途       ：bool WallObject::HitTest3DObject(D3DXVECTOR3& i_vPos, float i_fRadius)
+////// カテゴリ   ：関数
+////// 用途       ：オブジェクトをディスプレイに表示する
+////// 引数       ：  DrawPacket& i_DrawPacket             // 画面描画時に必要なデータ群 ↓内容下記
+//////            ：  ├ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 インターフェイスへのポインタ
+//////            ：  ├ vector<Object*>&    Vec                     // オブジェクトの配列
+//////            ：  ├ Tempus2*            i_DrawPacket.pTime	   // 時間を管理するクラスへのポインター
+//////            ：  └ Command             i_DrawPacket.pCommand   // コマンド
+////// 戻値       ：無し
+////// 担当者     ：曳地 大洋
+////// 備考       ：
+//bool WallObject::HitTest3DAddWall( MultiBox* pBox, size_t& Index, D3DXVECTOR3& Vec, D3DXVECTOR3& ElsePos )
+//{
+//	this->
+//	//D3DXVECTOR3 Pos = GetPos();
+//	//Box sp;
+//	//sp.m_Center = Pos;
+//	//sp.m_Radius = m_Radius;
+//	//size_t count = pBox->GetItemCount();
+//	//OBB obb;
+//	//for(size_t i = 0;i < count;i++){
+//	//	Index = i;
+//	//	pBox->GetOBB(i,obb);
+//	//	//前回との移動距離がプレーヤーの半径を超えた場合は
+//	//	//トンネル現象が起こる可能性があるため移動間隔を刻んでチェックする
+//	//	if((ElsePos.y - Pos.y) >  m_Radius){
+//	//		D3DXVECTOR3 LocalElsePos = ElsePos;
+//	//		FLOAT CeX = (ElsePos.x - Pos.x) * m_Radius / (ElsePos.y - Pos.y);
+//	//		FLOAT CeZ = (ElsePos.z - Pos.z) * m_Radius / (ElsePos.z - Pos.z);
+//	//		SPHERE sp2;
+//	//		sp2.m_Radius = m_Radius;
+//	//		while(LocalElsePos.y < Pos.y){
+//	//			LocalElsePos.y += m_Radius;
+//	//			LocalElsePos.x += CeX;
+//	//			LocalElsePos.z += CeZ;
+//	//			sp2.m_Center = LocalElsePos;
+//	//			if(HitTest::SPHERE_OBB(sp2,obb,Vec)){
+//	//				return true;
+//	//			}
+//	//		}
+//	//	}
+//	//	//通常の衝突判定
+//	//	if(HitTest::SPHERE_OBB(sp,obb,Vec)){
+//	//		return true;
+//	//	}
+//	//}
+//	//return false;
+//}
+
+/////////////////// ////////////////////
+//// 用途       ：void Will::GetOBB( size_t Index, OBB& obb )
+//// カテゴリ   ：関数
+//// 用途       ：指定のインデックスの現在のOBBを得る
+//// 引数       :		size_t Index,
+////					OBB& obb	//取得するOBB
+//// 戻値       ：なし。インデックスが範囲外なら例外
+////				 ＊現在のOBBを代入する
+//// 担当者     ：曳地 大洋
+//// 備考       ：
+void WallObject::GetOBBList( float Index, list<OBB>& ObbList ){
+    //指定の配置オブジェクトを検証
+	multimap<float,WallItem*>::iterator itBegin = m_ItemMap_Target.lower_bound( 20.0f ) ;
+	multimap<float,WallItem*>::iterator itEnd	= m_ItemMap_Target.upper_bound( 20.0f ) ;
+	OBB obb ; 
+	for(multimap<float,WallItem*>::iterator iter = itBegin; iter != itEnd; ++iter){
+		obb.m_Center  = iter->second->m_vPos + iter->second->m_vPos;
+		obb.m_Size	  = m_Size;
+		obb.m_Size.x *= iter->second->m_vScale.x;
+		obb.m_Size.y *= iter->second->m_vScale.y;
+		obb.m_Size.z *= iter->second->m_vScale.z;
+		obb.m_Size *= 0.5f;
+		//トータルの回転を得る
+		D3DXQUATERNION Qt = iter->second->m_vRot;
+		Qt *= iter->second->m_vRot;
+		//クオータニオンを正規化
+		D3DXQuaternionNormalize(&Qt,&Qt);
+		//クオータニオンから回転行列を作成
+		D3DXMATRIX mRot;
+		D3DXMatrixIdentity(&mRot);
+		D3DXMatrixRotationQuaternion(&mRot,&Qt);
+		obb.m_Rot[0] = D3DXVECTOR3(mRot._11,mRot._12,mRot._13);
+	    obb.m_Rot[1] = D3DXVECTOR3(mRot._21,mRot._22,mRot._23);
+	    obb.m_Rot[2] = D3DXVECTOR3(mRot._31,mRot._32,mRot._33);
+		ObbList.push_back( obb ) ;
+	}
+	//if(Index < sz){
+	//}
+	//else{
+	//	throw BaseException(L"インデックスが範囲外です。",
+	//		L"MultiBox::GetOBB()");
+	//}
+}
 
 
 /**************************************************************************

@@ -17,6 +17,7 @@
 #include "BassItems.h"
 #include "TL-String.h"
 #include "Factory_Wall.h"
+#include "Factory_Item.h"
 
 
 
@@ -31,7 +32,7 @@ namespace wiz{
 //// 備考       ：StageGeneratorから
 ////            ：
 ////
-void StageLoader::PartsGenerator(ObjeData i_Data, DWORD i_dwHeight, DWORD i_dwWidth){
+void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 	//	: オブジェタイプに応じたオブジェクトを生成する
 	//	: 生成の際､余計なデータが増えないように
 	multimap<OBJID,DWORD>::iterator it;
@@ -40,55 +41,70 @@ void StageLoader::PartsGenerator(ObjeData i_Data, DWORD i_dwHeight, DWORD i_dwWi
 	D3DCOLORVALUE Specular = {0.0f,0.0f,0.0f,0.0f};
 	D3DCOLORVALUE Ambient = {0.5f,0.5f,0.5f,1.0f};
 
+
 	//	: ワイドからマルチへ
 	string sFilePath;
-	TLIB::narrow(i_Data.m_sFilePath, sFilePath);
+	TLIB::narrow(i_Data.sFilePath, sFilePath);
 
-	// Motion* pMotion = NULL ;
-	wiz::OBJID ObjectID ;
-	switch(i_Data.m_iObjeType){
+	wiz::OBJID ObjectID = (wiz::OBJID)i_Data.enClassid;
+
+	switch( ObjectID ){
 		//////////
 		//
-		case GP_CREATE_NONE:
+		case OBJID_NONE:
 		default:
 			return;
 		//
 		//////////
-		case GP_CREATE_WALL:
+		case OBJID_3D_WALL:
 			//////////
 			//	: 壁
-			if((it = m_ObjeTypeMap.find(OBJID_2D_WALL)) != m_ObjeTypeMap.end()){
+			if((it = m_ObjeTypeMap.find( ObjectID )) != m_ObjeTypeMap.end()){
 				//	: 登録を見つけた場合
-				dynamic_cast<WallObject*>((*m_pVec)[it->second])->AddWall(
-					D3DXVECTOR3(MAP_PARTS_WIDTH,MAP_PARTS_HEIGHT,1.0f),
-					g_vZero,
-					D3DXVECTOR3((MAP_PARTS_WIDTH	*	i_dwWidth	)	-	MAP_PARTS_WIDTH		/	2,
-								(MAP_PARTS_HEIGHT	*	i_dwHeight	)	-	MAP_PARTS_HEIGHT	/	2,
-								0.0f),
-					Diffuse,
-					Specular,
-					Ambient
+				dynamic_cast< WallObject* >(( *m_pVec )[ it->second ])->AddWall(
+					i_Data.vScale, i_Data.vRot, i_Data.vPos, Diffuse, Specular, Ambient
 				);
 			}else{
 				//	: 登録がなかった場合
-				WallObject* mgb = new WallObject(m_pD3DDevice,m_pTexMgr->addTexture(m_pD3DDevice,L"biribiriWall.png"),OBJID_2D_WALL);
+				WallObject* mgb = new WallObject( m_pD3DDevice, m_pTexMgr->addTexture(m_pD3DDevice,L"biribiriWall.png"), ObjectID);
 				mgb->AddWall(
-					 D3DXVECTOR3(MAP_PARTS_WIDTH, MAP_PARTS_HEIGHT, 1.0f)
-					,g_vZero
-					,D3DXVECTOR3((MAP_PARTS_WIDTH	*	i_dwWidth	)	-	MAP_PARTS_WIDTH		/	2,
-								(MAP_PARTS_HEIGHT	*	i_dwHeight	)	-	MAP_PARTS_HEIGHT	/	2,
-								0.0f)
-					,Diffuse
-					,Specular
-					,Ambient
+					i_Data.vScale, i_Data.vRot, i_Data.vPos, Diffuse, Specular, Ambient
 				);
 				m_pVec->push_back(mgb);
-				m_ObjeTypeMap.insert( make_pair( OBJID_2D_WALL , m_pVec->size() -1));
+				m_ObjeTypeMap.insert( make_pair( ObjectID , m_pVec->size() -1));
+			}
+			break;
+		case OBJID_3D_ITEM:
+			//////////
+			//	: 壁
+			if((it = m_ObjeTypeMap.find( ObjectID )) != m_ObjeTypeMap.end()){
+				//	: 登録を見つけた場合
+				dynamic_cast< Item* >(( *m_pVec )[it->second])->addItem(
+					i_Data.vPos, i_Data.vScale, Diffuse, Specular, Ambient
+				);
+			}else{
+				//	: 登録がなかった場合
+				WallObject* mgb = new WallObject( m_pD3DDevice, m_pTexMgr->addTexture(m_pD3DDevice,L"biribiriWall.png"), ObjectID);
+				mgb->AddWall(
+					i_Data.vScale, i_Data.vRot, i_Data.vPos,
+					Diffuse, Specular, Ambient
+				);
+				m_pVec->push_back(mgb);
+				m_ObjeTypeMap.insert( make_pair( ObjectID , m_pVec->size() -1));
 			}
 			break;
 
 	}
-
+				//mgb->AddWall(
+				//	 D3DXVECTOR3(MAP_PARTS_WIDTH, MAP_PARTS_HEIGHT, 1.0f)
+				//	,g_vZero
+				//	,D3DXVECTOR3((MAP_PARTS_WIDTH	*	i_dwWidth	)	-	MAP_PARTS_WIDTH		/	2,
+				//				(MAP_PARTS_HEIGHT	*	i_dwHeight	)	-	MAP_PARTS_HEIGHT	/	2,
+				//				0.0f)
+				//	,Diffuse
+				//	,Specular
+				//	,Ambient
+				//);
 };
 
 /////////////////// ////////////////////
@@ -98,32 +114,42 @@ void StageLoader::PartsGenerator(ObjeData i_Data, DWORD i_dwHeight, DWORD i_dwWi
 //// 引数       ：  wstring i_sFilePath         //
 //// 戻値       ：なし
 //// 担当者     ：鴫原 徹
-//// 備考       ：PointSearch関数から呼ばれます
-////            ：
+//// 備考       ：CSVから読み取った情報を解析&インスタンス化します
+////            ：PointSearch関数から呼ばれます
 ////
 void StageLoader::ObjectsLoader(wstring i_sFileName){
 	vector<vector<wstring>> vvCsvData;	//	: CSVデータを受け取るための変数
 	readcsv(i_sFileName,vvCsvData);		//	: CSVデータの受け取り
 
-	CSVMATRIX o_CsvMatrix ;
-	PointSearch(vvCsvData, o_CsvMatrix);
+	CSVMATRIX o_CsvMatrix ;					//	: 各パラメータの書いてある列を格納する構造体
+	PointSearch(vvCsvData, o_CsvMatrix);	//	: 各パラメータが書いてある行を獲得
 
+	//	: i		> 現在のセル
+	//	: vvSz	> 最大のセル数
+	//	: Line	> 列
 	for(vector<vector<wstring>>::size_type i = 1 , vvSz = vvCsvData.size() , Line = 0;
 		(i + o_CsvMatrix.Line) < vvSz ; i++ )
 	{
-		Line = o_CsvMatrix.Line + i ;
+		MapPartsStatus Status ;
+		//////////
+		//	: このひとかたまりで一行
+		Line				= o_CsvMatrix.Line + i ;
 		int		iNumber		=        wcstol( vvCsvData[ Line ][ o_CsvMatrix.Column.uiNumber    ].c_str(), NULL  , 10);
-		int		iType		=        wcstol( vvCsvData[ Line ][ o_CsvMatrix.Column.uiType      ].c_str(), NULL  , 10);
-		DWORD	dwAniNum	=        wcstol( vvCsvData[ Line ][ o_CsvMatrix.Column.uiMotionNum ].c_str(), NULL  , 10);
-		float	fTracSpd	= (float)wcstod( vvCsvData[ Line ][ o_CsvMatrix.Column.uiTracSpeed ].c_str(), NULL );
-		wstring sPath		= vvCsvData[ Line ][ o_CsvMatrix.Column.uiPath    ] ;
-		wstring sTexPath	= vvCsvData[ Line ][ o_CsvMatrix.Column.uiTexPath ] ;
-		D3DXVECTOR3 vScale	= D3DXVECTOR3(
+		Status.enClassid	=        wcstol( vvCsvData[ Line ][ o_CsvMatrix.Column.uiType      ].c_str(), NULL  , 10);
+		Status.dwMotionNum	=        wcstol( vvCsvData[ Line ][ o_CsvMatrix.Column.uiMotionNum ].c_str(), NULL  , 10);
+		Status.fTracSpeed	= (float)wcstod( vvCsvData[ Line ][ o_CsvMatrix.Column.uiTracSpeed ].c_str(), NULL );
+		Status.sFilePath	= vvCsvData[ Line ][ o_CsvMatrix.Column.uiPath    ] ;
+		Status.sTexturePath	= vvCsvData[ Line ][ o_CsvMatrix.Column.uiTexPath ] ;
+		Status.vScale		= D3DXVECTOR3(
 			(float)wcstod( vvCsvData[ Line ][ o_CsvMatrix.Column.uiScaleX ].c_str(), NULL),
 			(float)wcstod( vvCsvData[ Line ][ o_CsvMatrix.Column.uiScaleY ].c_str(), NULL),
 			(float)wcstod( vvCsvData[ Line ][ o_CsvMatrix.Column.uiScaleZ ].c_str(), NULL)
 		);
-		m_ObjeMap[iNumber] = ObjeData(iType,sPath,sTexPath,vScale,dwAniNum,fTracSpd);
+		Status.vRot			= g_vZero ;
+		Status.vPos			= g_vZero ;
+		//	: このひとかたまりで一行
+		//////////
+		m_ObjeMap[iNumber] = Status;
 	}
 }
 /////////////////// ////////////////////
@@ -140,11 +166,17 @@ void StageLoader::StageGenerator(wstring i_sFileName){
 	vector<vector<wstring>> vvCsvData;	//	: CSVデータを受け取るための変数
 	readcsv(i_sFileName,vvCsvData);		//	: CSVデータの受け取り
 
+	//	: 
 	for(UINT i = 0 , isz = vvCsvData.size() ; i < isz ; i++ ){
 		for(UINT j = 0 , jsz = vvCsvData[i].size() ; j < jsz ; j++ ){
 			UINT PartsType = wcstol( vvCsvData[i][j].c_str() , NULL , 10 ) ;
 			if( m_ObjeMap.count( PartsType ) ){
-				PartsGenerator(m_ObjeMap[ PartsType ], isz-i, j);
+				m_ObjeMap[ PartsType ].vPos =
+					D3DXVECTOR3((MAP_PARTS_WIDTH	*	j		)	-	MAP_PARTS_WIDTH		/	2,
+								(MAP_PARTS_HEIGHT	*	isz-i	)	-	MAP_PARTS_HEIGHT	/	2,
+								0.0f);
+
+				PartsGenerator(m_ObjeMap[ PartsType ]);
 			}
 		}
 	}
@@ -393,6 +425,43 @@ StageLoader::StageLoader(LPDIRECT3DDEVICE9 pD3DDevice, wstring i_sFileName,
 	}
 	catch(...){
 		//再スロー
+		throw;
+	}
+}
+/////////////////// ////////////////////
+//// 関数名     ：
+//// カテゴリ   ：コンストラクタ
+//// 用途       ：
+//// 引数       ：
+//// 戻値       ：
+//// 担当者     ：
+//// 備考       ：
+////            ：
+////
+StageLoader::StageLoader(LPDIRECT3DDEVICE9 pD3DDevice, vector<Object*>& Vec, TextureManager& TexMgr, MapPartsStatus* i_Parts)
+{
+	try{
+		m_pD3DDevice	= pD3DDevice;
+		m_pVec			= (&Vec);
+		m_pTexMgr		= (&TexMgr);
+
+
+		for( DWORD num = 0 ; i_Parts[num].enClassid != OBJID_END ; num++ ){
+			PartsGenerator(i_Parts[num]);
+		}
+	}
+	catch(wiz::BaseException& e){
+		//再スロー
+		throw BaseException(
+				e.what_w(), 
+				L"↑StageLoader::StageLoader()"
+				);
+	}
+	catch(...){
+		throw BaseException(
+				L"マップデータ配列の最後にOBJID_ENDを指定したか確認してださい", 
+				L"↑StageLoader::StageLoader()"
+				);
 		throw;
 	}
 }

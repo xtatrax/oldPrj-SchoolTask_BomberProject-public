@@ -233,46 +233,6 @@
 								>
 							</File>
 							<Filter
-								Name="0.Stages"
-								>
-								<Filter
-									Name="Stage_Test"
-									>
-									<File
-										RelativePath=".\Stage_Test.cpp"
-										>
-									</File>
-									<File
-										RelativePath=".\Stage_Test.h"
-										>
-									</File>
-								</Filter>
-								<Filter
-									Name="Debug_Stages"
-									>
-									<File
-										RelativePath=".\Debug_Stage.cpp"
-										>
-									</File>
-									<File
-										RelativePath=".\Debug_Stage.h"
-										>
-									</File>
-								</Filter>
-								<Filter
-									Name="Stage_Play"
-									>
-									<File
-										RelativePath=".\Stage_Play.cpp"
-										>
-									</File>
-									<File
-										RelativePath=".\Stage_Play.h"
-										>
-									</File>
-								</Filter>
-							</Filter>
-							<Filter
 								Name="0.Effects"
 								>
 								<Filter
@@ -432,14 +392,14 @@
 					</File>
 				</Filter>
 				<Filter
-					Name="GoalFactory"
+					Name="CheckPointFactory"
 					>
 					<File
-						RelativePath=".\Factory_Goal.cpp"
+						RelativePath=".\Factory_CheckPoint.cpp"
 						>
 					</File>
 					<File
-						RelativePath=".\Factory_Goal.h"
+						RelativePath=".\Factory_CheckPoint.h"
 						>
 					</File>
 				</Filter>
@@ -455,6 +415,54 @@
 					RelativePath=".\Prm.h"
 					>
 				</File>
+			</Filter>
+			<Filter
+				Name="0.Stages"
+				>
+				<Filter
+					Name="Stage_Test"
+					>
+					<File
+						RelativePath=".\Stage_Test.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Stage_Test.h"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="Debug_Stages"
+					>
+					<File
+						RelativePath=".\Debug_Stage.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Debug_Stage.h"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="Stage_Play"
+					>
+					<File
+						RelativePath=".\Stage_Play.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Stage_Play.h"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="Stage_Title"
+					>
+				</Filter>
+				<Filter
+					Name="Stage_Clear"
+					>
+				</Filter>
 			</Filter>
 		</Filter>
 		<Filter
@@ -604,11 +612,7 @@
 			>
 		</File>
 		<File
-			RelativePath=".\ClassDiagram2.cd"
-			>
-		</File>
-		<File
-			RelativePath=".\ClassDiagram3.cd"
+			RelativePath=".\CommentTemplate.txt"
 			>
 		</File>
 		<File

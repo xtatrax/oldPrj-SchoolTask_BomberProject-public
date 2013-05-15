@@ -60,4 +60,54 @@ DebugStage_TATRA::DebugStage_TATRA(LPDIRECT3DDEVICE9 pD3DDevice,Stage* pStage)
 	}
 }
 
+
+/**************************************************************************
+ PlayStage 定義部
+****************************************************************************/
+/**************************************************************************
+ PlayStage(
+	LPDIRECT3DDEVICE9 pD3DDevice,		//デバイス
+	const Script::MLPHeader& Header,	//	: プレイする楽曲のヘッダーデータ
+	const Script::SCORELEVEL Level		//	: プレイするレベル種別
+ );
+ 用途: コンストラクタ
+ 戻り値: なし（失敗時は例外をthrow）
+***************************************************************************/
+DebugStage_Loader::DebugStage_Loader(LPDIRECT3DDEVICE9 pD3DDevice,Stage* pStage)
+	:MenuStage(pD3DDevice,pStage)
+
+{
+	try{
+		FactoryPacket FPac;
+		FPac.m_IsDialog =  this->m_IsDialog ;
+		FPac.m_pTexMgr  = &this->m_TexMgr   ;
+		FPac.m_pVec     = &this->m_Vec      ;
+		FPac.pD3DDevice =  pD3DDevice       ;
+
+		//カメラのインスタンス初期化
+		float ECXPos = 25.1f;
+		float ECYPos = 10.1f;		
+        m_Vec.push_back(
+			new Camera(pD3DDevice,D3DXVECTOR3( ECXPos, ECYPos, -55.7f),D3DXVECTOR3(ECXPos,ECYPos,0.0f), 1 ,300.0f,30.0f)
+		);
+		//	: ガイドライン
+		m_Vec.push_back(new Guide( pD3DDevice ) );
+
+		MapPartsStatus MapData[] = {
+			{ OBJID_3D_WALL, D3DXVECTOR3( 2.0f, 2.0f, 0.0f), g_vZero, g_vZero, getD3DCOLORVALUE( 0.5f, 0.5f, 0.5f, 0.5f), getD3DCOLORVALUE( 0.0f, 0.0f, 0.0f, 0.0f), getD3DCOLORVALUE( 0.7f, 0.7f, 0.7f, 0.7f), L"", L"", 0, 1.0f },
+			{ OBJID_END    , g_vZero, g_vZero, g_vZero, D3DCOLORVALUE(), D3DCOLORVALUE(), D3DCOLORVALUE(), L"", L"", 0, 1.0f }
+		
+		};
+
+
+		StageLoader loader(pD3DDevice,m_Vec,m_TexMgr,MapData);
+		Factory_Player Pfac( &FPac );
+	}
+	catch(...){
+		Clear();
+		//再スロー
+		throw;
+	}
+}
+
 };

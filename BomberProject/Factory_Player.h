@@ -16,8 +16,11 @@
 #include "BassItems.h"
 #include "Factory_Magnetic.h"
 
+#define  MGPRM_MAGNETICUM	10  /* 磁界の影響半径( 現在単位 pixel ) */
+#define  MGPRM_MAGNETICUM_QUAD ( MGPRM_MAGNETICUM * MGPRM_MAGNETICUM )
 #define  PLAYER_SPEED		(   0.08f ) 
-#define  PLAYER_BASSROT		( 90.0f   )
+#define  PLAYER_BASSROT		( 90.0f ) 
+
 
 namespace wiz{
 
@@ -55,10 +58,9 @@ class ProvisionalPlayer3D : public MagneticumObject3D{
 	float			m_MovePosY;
 	bool			m_bLastMouseRB;
 	bool			m_bLastMouseLB;
-	bool			m_bField;
 public:
 	//	: 
-	ProvisionalPlayer3D( FactoryPacket* fpac, LPDIRECT3DTEXTURE9 pTexture,
+	ProvisionalPlayer3D( LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTexture,
 		D3DXVECTOR3 &vScale, D3DXQUATERNION &vRot, D3DXVECTOR3 &vPos,
 		wiz::OBJID id = OBJID_3D_PLAYER );
 	//	:
@@ -83,29 +85,8 @@ public:
 		}
 	}	;
 
-	bool	FieldDraw(){
-		return	m_bField;
-	};
 };
 
-/************************************************************************
-class MagneticField : public Cylinder
-
-担当者	: 佐藤涼
-用途	: 磁界の範囲
-************************************************************************/
-class	MagneticField : public Cylinder{
-	bool	m_Pole;	//磁界の極：t=S極, f=N極
-public:
-	MagneticField(LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTexture,
-		D3DXVECTOR3 &vScale, D3DXQUATERNION &vRot, D3DXVECTOR3 &vPos);
-    void	Draw(DrawPacket& i_DrawPacket) ;
-	void	Update(UpdatePacket& i_UpdatePacket);
-
-	void	setPole( bool pole ){
-		m_Pole	= pole;
-	}
-};
 
 //**************************************************************************//
 // class PlayerCoil : public MagneticumObject ;
@@ -115,14 +96,12 @@ public:
 //**************************************************************************//
 class PlayerCoil : public MagneticumObject3D{
 
-	Cylinder*		m_pCylinder ;
-
 	D3DXMATRIX		m_Matrix ;
 	D3DXVECTOR3		m_vPos ;
 	D3DXQUATERNION	m_vRot ;
 	D3DXVECTOR3		m_vScale ;
 	float			m_fMoveDir   ;//角度
-	float			m_fMovdSpeed ;//速度
+	float			m_fMovdSpeed ;//速度 
 	
 	ProvisionalPlayer3D*	m_pPlayer;
 
@@ -170,21 +149,6 @@ public:
 		D3DCOLORVALUE& Ambient,
 		wiz::OBJID id = OBJID_3D_PLAYER
 	);
-
-	/////////////////////// ////////////////////
-	//////// 用途       ：	bool HitTestMultiBox(MultiBox* pBox,size_t& Index,D3DXVECTOR3& Vec,D3DXVECTOR3& ElsePos)
-	//////// カテゴリ   ：MultiBoxとの衝突判定
-	//////// 用途       ：マルチボックスとの衝突判定
-	//////// 引数       ：  bool HitTestMultiBox
-	////////				  MultiBox* pBox,	//マルチボックス
-	////////				  size_t& Index,	//ヒットしていたらインデックスが戻る
-	////////				  D3DXVECTOR3& Vec,         //最近接点
-	////////				  D3DXVECTOR3& ElsePos         //一つ前のポジション
-	//////// 戻値       ：衝突していればtrue
-	////////				ヒットしてたらtrue（インデックスと最近接点を代入）
-	//////// 担当者     ：曳地 大洋
-	//////// 備考       ：
-	bool HitTestWall( OBB, float Index );
 
 	/////////////////// ////////////////////
 	//// 関数名     ：void Update( UpdatePacket& i_UpdatePacket )

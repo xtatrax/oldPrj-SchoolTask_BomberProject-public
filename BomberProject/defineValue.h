@@ -24,7 +24,7 @@
 #define CF_SINGLETHREAD			/* シングルスレッドモード     */
 //#define CF_LOADINGANIMATION		/* ロード画面でアニメーション */
 #if defined(DEBUG) || defined(_DEBUG)
-	#define ON_DEBUGGINGPROCESS		/* デバックモード             */
+	#define ON_DEBUGGINGPROCESS			/* デバックモード             */
 	#define DEBUG_STRINGS_ON			/* デバッグ用文字列を有効化 */
 	#define ___MLP_DEBUG_TIMEDRAW_ 
 #else
@@ -80,6 +80,7 @@
 
 //
 namespace wiz{
+	//	: ゲーム内メセージ
 	enum{
 		GM_WITHOUT				,
 		GM_OPENSTAGE_TITLE		,
@@ -92,6 +93,7 @@ namespace wiz{
 		GM_EXIT					,
 
 		GM_OPENDEBUGSTAGE_DEBUGMENU      ,
+		GM_OPENDEBUGSTAGE_STAGELOADERTEST,
 		GM_OPENDEBUGSTAGE_TATEAWORKSPACE ,
 		GM_OPENDEBUGSTAGE_TOJIWORKSPACE  ,
 		GM_OPENDEBUGSTAGE_HSWORKSPACE    ,
@@ -102,40 +104,49 @@ namespace wiz{
 		GM_PLAYOPENING_END	,
 
 	};
+	//////	: 
+	////enum CLASSID{
+	////	/////////
+	////	//
+	////	//	この列挙型は外部ファイルで使用するので
+	////	//	仕様に従い絶対に値を明記すること
+	////	//
 
-	enum{
-		/////////
-		//
-		//	この列挙型は外部ファイルで使用するので
-		//	仕様に従い絶対に値を明記すること
-		//
+	////	CLASSID_NONE		=    0 ,
+	////	CLASSID_TESTTIP		=    1 ,
+	////	CLASSID_WALL		=  100 ,
+	////	CLASSID_ENEMY		=    3 ,
 
-		GP_CREATE_NONE		=    0 ,
-		GP_CREATE_TESTTIP	=    1 ,
-		GP_CREATE_WALL		=  100 ,
-		GP_CREATE_ENEMY		=    3 ,
-	};
+
+
+	////	CLASSID_END			=  0xFFFFFFFFFFFFFFFF ,
+	////};
 
 	enum OBJID{
-		OBJID_UNK					,	//	: 未定オブジェ
+		OBJID_NONE					= 0x0000,	//	: 未定オブジェ
+		OBJID_UNK					= 0x0001,	//	: 未定オブジェ
 
+		OBJID_SYS_BEGIN				= 0x1000,
+		OBJID_SYS_GUIDELINE			,	//	: XYZガイド線( Debug用 )
 		OBJID_SYS_CAMERA			,	//	: カメラ
 		OBJID_SYS_LIGHT				,	//	: ライト
-		OBJID_SYS_GUIDELINE			,	//	: XYZガイド線
 		OBJID_SYS_SOUND				,	//	: 音声
-		OBJID_SYS_ENEMYMANAGER		,	//	: 敵の管理クラス( 不要の可能性 )
+		OBJID_SYS_CHECKPOINT		,	//	: チェックポイント
 		OBJID_SYS_CLEARAREA			,	//	: クリア領域
 		OBJID_SYS_RENDERTARGET		,	//	: レンダーターゲット
+		OBJID_SYS_END				,	
 
+		OBJID_UI_BEGIN				= 0x2000,
 		OBJID_UI_SPRITE				,	//	: UIに使うスプライト
 		OBJID_UI_SPRITEBUTTON		,	//	: スプライトボタンのUI
 		OBJID_UI_LIFE				,	//	: ライフ( 念のため )
 		OBJID_UI_GAUGE				,	//	: ゲージ
 		OBJID_UI_SCORE				,	//	: スコア
 		OBJID_UI_TIME				,	//	: 時間( いる? )
+		OBJID_UI_END				,
 
-		OBJID_2D_WALL				,	//	: 壁( 3Dへ移行 削除予定 )
 
+		OBJID_3D_BEGIN				= 0x3000,
 		OBJID_3D_POLYGON			,	//	: とりあえず読み込んだモデルデータ
 		OBJID_3D_BOX				,	//	: とりあえず作った箱
 		OBJID_3D_BOX_PARALLEL		,	//	: ぱられる?・・・
@@ -150,6 +161,8 @@ namespace wiz{
 		OBJID_3D_MULTI_TAURUS		,
 
 		OBJID_3D_MAGNET				,	//	: 磁石
+		OBJID_3D_WALL				,	//	: 壁
+		OBJID_3D_ITEM				,	//	: アイテム
 
 		OBJID_3D_PLAYER				,
 		OBJID_3D_USERMAGNET			,	//	: ユーザー
@@ -158,6 +171,12 @@ namespace wiz{
 		OBJID_3D_ENEMY				,	//	: 敵
 
 		OBJID_3D_TESTBOX			,	//	: テスト用の箱
+		OBJID_3D_END				,
+
+
+		//	: 終わり
+		OBJID_END					=  0xFFFFFFFFFFFFFFFF ,
+
 	} ;
 
 }

@@ -67,8 +67,8 @@ class StageLoader{
 			UINT	uiScaleZ			;	//	Z伸縮
 		}Column;
 	};
-	map<UINT,ObjeData>		m_ObjeMap;
-	multimap<wiz::OBJID,DWORD>	m_ObjeTypeMap;
+	map<UINT,MapPartsStatus>		m_ObjeMap;
+	multimap<wiz::OBJID,DWORD>		m_ObjeTypeMap;
 
 	TextureManager*		m_pTexMgr;
 	vector<Object*>*	m_pVec;
@@ -83,7 +83,7 @@ class StageLoader{
 //// 備考       ：
 ////            ：
 ////
-	void PartsGenerator(ObjeData i_Data, DWORD i_dwHeight, DWORD i_dwWidth);
+	void PartsGenerator(MapPartsStatus i_Data);
 /////////////////// ////////////////////
 //// 関数名     ：
 //// カテゴリ   ：
@@ -94,7 +94,7 @@ class StageLoader{
 //// 備考       ：
 ////            ：
 ////
-	void D2(ObjeData i_Data);
+	void D2(MapPartsStatus i_Data);
 /////////////////// ////////////////////
 //// 関数名     ：void ObjectsLoader(wstring i_sFilePath)
 //// カテゴリ   ：メンバ関数
@@ -165,6 +165,18 @@ public:
 ////
 	StageLoader(LPDIRECT3DDEVICE9 pD3DDevice, wstring i_sFileName,
 		BYTE i_byStageNum, vector<Object*>& Vec, TextureManager& TexMgr);
+
+/////////////////// ////////////////////
+//// 関数名     ：
+//// カテゴリ   ：コンストラクタ
+//// 用途       ：
+//// 引数       ：
+//// 戻値       ：
+//// 担当者     ：
+//// 備考       ：
+////            ：
+////
+	StageLoader(LPDIRECT3DDEVICE9 pD3DDevice, vector<Object*>& Vec, TextureManager& TexMgr, MapPartsStatus[]);
 }; // StageLoader
 /*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 

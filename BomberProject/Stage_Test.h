@@ -32,4 +32,22 @@ public:
 	DebugStage_TATRA(LPDIRECT3DDEVICE9 pD3DDevice,Stage* Par = 0);
 };
 
+/**************************************************************************
+ class DebugStage : public Stage;
+ 用途: メニュータイプのステージクラス
+ 　　（メニュータイプであれば、この派生クラスを作ってメニューにすると使いやすい）
+****************************************************************************/
+class DebugStage_Loader : public MenuStage{
+public:
+/**************************************************************************
+ DebugStage(
+ LPDIRECT3DDEVICE9 pD3DDevice,	//デバイス
+ Stage* Par = 0					//親ステージ
+ );
+ 用途: コンストラクタ
+ 戻り値: なし（失敗時は例外をthrow）
+***************************************************************************/
+	DebugStage_Loader(LPDIRECT3DDEVICE9 pD3DDevice,Stage* Par = 0);
+};
+
 };

@@ -254,6 +254,11 @@ void Scene::CommandTranslator(DrawPacket& i_DrawPacket){
 			SafeDeleteStage(m_pRootStage);
 			m_pRootStage = new DebugStage_TATRA(i_DrawPacket.pD3DDevice);
 			break;
+
+		case GM_OPENDEBUGSTAGE_STAGELOADERTEST:
+			SafeDeleteStage(m_pRootStage);
+			m_pRootStage = new DebugStage_Loader(i_DrawPacket.pD3DDevice);
+			break;
 		case GM_EXIT:
 			PostQuitMessage(0);
 			break;
