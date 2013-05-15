@@ -472,11 +472,36 @@ PlayerCoil::PlayerCoil(
 {
 	::ZeroMemory( &m_Material, sizeof(D3DMATERIAL9) ) ;
 	D3DXMatrixIdentity( &m_Matrix ) ;
-
+	m_pCylinder = new Cylinder( pD3DDevice, m_Radius1, m_Radius2, m_Length, m_vPos, g_vZero, Diffuse, Specular, Ambient ) ;
 	setPoleN();
 	SetBaseRot(vRot);
 }
-
+/////////////////////// ////////////////////
+//////// 用途       ：bool PlayerCoil::HitTestWall( SPHERE& Coil )
+//////// カテゴリ   ：MultiBoxとの衝突判定
+//////// 用途       ：マルチボックスとの衝突判定
+//////// 引数       ：  bool HitTestMultiBox
+////////				  MultiBox* pBox,	//マルチボックス
+////////				  size_t& Index,	//ヒットしていたらインデックスが戻る
+////////				  D3DXVECTOR3& Vec,         //最近接点
+////////				  D3DXVECTOR3& ElsePos         //一つ前のポジション
+//////// 戻値       ：衝突していればtrue
+//////// 担当者     ：曳地 大洋
+//////// 備考       ：
+bool PlayerCoil::HitTestWall( OBB, float Index ){
+	D3DXVECTOR3 Pos = GetPos();
+	SPHERE sp;
+	sp.m_Center = Pos;
+	sp.m_Radius = m_pCylinder->getRadius1() ;
+	OBB obb;
+	//通常の衝突判定
+	D3DXVECTOR3 Vec ;
+	if(HitTest::SPHERE_OBB(sp,obb,Vec)){
+		MessageBox( NULL, L"当たった！！", L"Error", NULL) ;
+		return true;
+	}
+	return false;
+}
 /////////////////// ////////////////////
 //// 関数名     ：void Update( UpdatePacket& i_UpdatePacket )
 //// カテゴリ   ：

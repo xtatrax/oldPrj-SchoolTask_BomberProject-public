@@ -117,12 +117,14 @@ public:
 //**************************************************************************//
 class PlayerCoil : public MagneticumObject3D{
 
+	Cylinder*		m_pCylinder ;
+
 	D3DXMATRIX		m_Matrix ;
 	D3DXVECTOR3		m_vPos ;
 	D3DXQUATERNION	m_vRot ;
 	D3DXVECTOR3		m_vScale ;
 	float			m_fMoveDir   ;//角度
-	float			m_fMovdSpeed ;//速度 
+	float			m_fMovdSpeed ;//速度
 	
 	ProvisionalPlayer3D*	m_pPlayer;
 
@@ -170,6 +172,21 @@ public:
 		D3DCOLORVALUE& Ambient,
 		wiz::OBJID id = OBJID_3D_PLAYER
 	);
+
+	/////////////////////// ////////////////////
+	//////// 用途       ：	bool HitTestMultiBox(MultiBox* pBox,size_t& Index,D3DXVECTOR3& Vec,D3DXVECTOR3& ElsePos)
+	//////// カテゴリ   ：MultiBoxとの衝突判定
+	//////// 用途       ：マルチボックスとの衝突判定
+	//////// 引数       ：  bool HitTestMultiBox
+	////////				  MultiBox* pBox,	//マルチボックス
+	////////				  size_t& Index,	//ヒットしていたらインデックスが戻る
+	////////				  D3DXVECTOR3& Vec,         //最近接点
+	////////				  D3DXVECTOR3& ElsePos         //一つ前のポジション
+	//////// 戻値       ：衝突していればtrue
+	////////				ヒットしてたらtrue（インデックスと最近接点を代入）
+	//////// 担当者     ：曳地 大洋
+	//////// 備考       ：
+	bool HitTestWall( OBB, float Index );
 
 	/////////////////// ////////////////////
 	//// 関数名     ：void Update( UpdatePacket& i_UpdatePacket )
