@@ -97,22 +97,22 @@ MagneticumObject3D::MagneticumObject3D(
 				   id,
 				   pTexture)
 ,m_bMagnetPole( POLE_S )
-,m_fMagneticum(MGPRM_MAGNETICUM_QUAD)
+,m_fMagneticum(MGPRM_MAGNETICUM)
 {
 	::ZeroMemory( &m_Material, sizeof(D3DMATERIAL9) ) ;
 	m_pMagneticField	= new	MagneticField(pD3DDevice,
 									NULL,
-									D3DXVECTOR3( 8.0f,8.0f,0.0f ),
+									D3DXVECTOR3( m_fMagneticum,m_fMagneticum,0.0f ),
 									D3DXQUATERNION( 0.0f, 0.0f, 0.0f, 0.0f ),
 									g_vMin);
 	m_pMagneticField2	= new	MagneticField(pD3DDevice,
 									NULL,
-									D3DXVECTOR3( 3.0f,3.0f,0.0f ),
+									D3DXVECTOR3( m_fMagneticum/3*2,m_fMagneticum/3*2,0.0f ),
 									D3DXQUATERNION( 0.0f, 0.0f, 0.0f, 0.0f ),
 									g_vMin);
 	m_pMagneticField3	= new	MagneticField(pD3DDevice,
 									NULL,
-									D3DXVECTOR3( 1.5f,1.5f,0.0f ),
+									D3DXVECTOR3( m_fMagneticum/3,m_fMagneticum/3,0.0f ),
 									D3DXQUATERNION( 0.0f, 0.0f, 0.0f, 0.0f ),
 									g_vMin);
 }
@@ -267,9 +267,22 @@ void MagneticumObject3D::Update( UpdatePacket& i_UpdatePacket ){
 		m_Material = it2->second->m_Material;
 
 		//m_pMagneticField->Update(i_UpdatePacket);
+
+		m_pMagneticField->SetPos(it2->second->m_vPos);
+		m_pMagneticField->setPole(it2->second->m_bMagnetPole);
+		m_pMagneticField->Update(i_UpdatePacket);
+
+		m_pMagneticField2->SetPos(it2->second->m_vPos);
+		m_pMagneticField2->setPole(it2->second->m_bMagnetPole);
+		m_pMagneticField2->Update(i_UpdatePacket);
+
+		m_pMagneticField3->SetPos(it2->second->m_vPos);
+		m_pMagneticField3->setPole(it2->second->m_bMagnetPole);
+		m_pMagneticField3->Update(i_UpdatePacket);
 		
 		++it2;
 	}
+
 }
 
 /////////////////// ////////////////////
@@ -286,12 +299,13 @@ void MagneticumObject3D::Update( UpdatePacket& i_UpdatePacket ){
 //// –ß’l       F–³‚µ
 //// ’S“–ŽÒ     F‰g’n ‘å—m
 //// ”õl       F
-void MagneticumObject3D::AddMagnetic(D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos,
+void MagneticumObject3D::AddMagnetic(D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos,bool vPole,
 			D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient)
 {
-	Magnet3DItem* pItem = new Magnet3DItem ;
-	pItem->m_vScale = vScale ;
-	pItem->m_vPos	= vPos ;
+	Magnet3DItem* pItem		= new Magnet3DItem ;
+	pItem->m_vScale			= vScale ;
+	pItem->m_vPos			= vPos ;
+	pItem->m_bMagnetPole	= vPole;
     ::ZeroMemory(&pItem->m_Material,sizeof(D3DMATERIAL9)) ;
 	pItem->m_Material.Diffuse  = Diffuse ;
 	pItem->m_Material.Specular = Specular ;
@@ -332,12 +346,13 @@ Factory_Magnetic::Factory_Magnetic(FactoryPacket *fpac){
 		);
 		fpac->m_pVec->push_back(Magnet);
 
-		//Magnet->AddMagnetic(D3DXVECTOR3(10.0f,10.0f,0.5f),
-		//			  D3DXVECTOR3(0.0f,0.0f,0.0f),
-		//			  D3DXVECTOR3(10.0f,10.0f,0.0f),
-		//			  MagnetDiffuse,
-		//			  MagnetSpecular,
-		//			  MagnetAmbient);
+		Magnet->AddMagnetic(D3DXVECTOR3(1.0f,1.0f,1.0f),
+					  D3DXVECTOR3(0.0f,0.0f,0.0f),
+					  D3DXVECTOR3(10.0f,10.0f,0.0f),
+					  true,
+					  MagnetDiffuse,
+					  MagnetSpecular,
+					  MagnetAmbient);
 		//Magnet->AddMagnetic(D3DXVECTOR3(1.0f,1.0f,1.0f),
 		//			  D3DXVECTOR3(0.0f,0.0f,0.0f),
 		//			  D3DXVECTOR3(1.0f,0.0f,0.0f),
