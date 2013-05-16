@@ -122,12 +122,12 @@ public:
 /////////////////// ////////////////////
 //// 関数名     ：inline D3DXVECTOR3 MatrixCalculator(D3DXMATRIX& i_m4x4 , D3DXVECTOR3& i_v1x3)
 //// カテゴリ   ：グリーバル関数
-//// 用途       ：三次元ベクトルの行列変換を行う
+//// 用途       ：三次元ベクトルに行列変換を行う
 //// 引数       ：  const D3DXMATRIX&  i_m4x4    //  : 計算に使う行列データ
 ////            ：  const D3DXVECTOR3& i_v1x3    //  : 変換させたい座標データ
 //// 戻値       ：変換されたベクトル
 //// 担当       ：鴫原 徹
-//// 備考       ：敵
+//// 備考       ：
 ////            ：
 ////
 inline D3DXVECTOR3 MatrixCalculator(const D3DXMATRIX& i_m4x4 ,const D3DXVECTOR3& i_v1x3){
@@ -139,6 +139,50 @@ inline D3DXVECTOR3 MatrixCalculator(const D3DXMATRIX& i_m4x4 ,const D3DXVECTOR3&
 	//float alpha = (i_m4x4._14 * i_v1x3.x) + (i_m4x4._24 * i_v1x3.y) + (i_m4x4._34 * i_v1x3.z) + (i_m4x4._44 * 1);
 	
 	return res;
+};
+
+/////////////////// ////////////////////
+//// 関数名     ：inline D3DXVECTOR3 MatrixCalculator(const D3DXVECTOR3& vScale, const D3DXVECTOR3& vRot, const D3DXVECTOR3& vPos)
+//// カテゴリ   ：グリーバル関数
+//// 用途       ：三次元ベクトルに行列変換を行う
+//// 引数       ：  const D3DXVECTOR3& vScale
+////            ：  const D3DXVECTOR3& vRot
+////            ：  const D3DXVECTOR3& vPos
+//// 戻値       ：変換されたベクトル
+//// 担当       ：鴫原 徹
+//// 備考       ：名前被らないようにしたい…
+////            ：いい名前思いつかない><
+////
+inline D3DXMATRIX MatrixCalculator(const D3DXVECTOR3& vScale, const D3DXVECTOR3& vRot, const D3DXVECTOR3& vPos){
+	D3DXMATRIX mScale, mRot, mPos;
+
+	D3DXMatrixScaling( &mScale, vScale.x, vScale.y, vScale.z);
+	D3DXMatrixRotationYawPitchRoll( &mRot, vRot.z, vRot.x , vRot.y ) ;
+	D3DXMatrixTranslation( &mPos, vPos.x, vPos.y, vPos.z);
+
+	return mScale * mRot * mPos;
+};
+
+/////////////////// ////////////////////
+//// 関数名     ：inline D3DXVECTOR3 MatrixCalculator(const D3DXVECTOR3& vScale, const D3DXVECTOR3& vRot, const D3DXVECTOR3& vPos)
+//// カテゴリ   ：グリーバル関数
+//// 用途       ：三次元ベクトルに行列変換を行う
+//// 引数       ：  const D3DXVECTOR3& vScale
+////            ：  const D3DXVECTOR3& vRot
+////            ：  const D3DXVECTOR3& vPos
+//// 戻値       ：変換されたベクトル
+//// 担当       ：鴫原 徹
+//// 備考       ：名前被らないようにしたい…
+////            ：いい名前思いつかない><
+////
+inline D3DXMATRIX MatrixCalculator(const D3DXVECTOR3& vScale, const D3DXQUATERNION& Qt, const D3DXVECTOR3& vPos){
+	D3DXMATRIX mScale, mRot, mPos;
+
+	D3DXMatrixScaling( &mScale, vScale.x, vScale.y, vScale.z);
+	D3DXMatrixRotationQuaternion(&mRot,&Qt);
+	D3DXMatrixTranslation( &mPos, vPos.x, vPos.y, vPos.z);
+
+	return mScale * mRot * mPos;
 };
 
 /////////////////// ////////////////////

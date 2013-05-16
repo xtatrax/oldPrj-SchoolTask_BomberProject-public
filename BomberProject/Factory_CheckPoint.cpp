@@ -15,14 +15,20 @@
 #include "Factory_CheckPoint.h"
 #include "Factory_Player.h"
 #include "BassItems.h"
-const float CHECK_POINT_RADIUS = 0.35f ;
+const float CHECK_POINT_RADIUS = 12.35f ;
+D3DCOLORVALUE CHECKPOINTCOLOR = { 1.0f, 0.0f, 0.0f, 1.0f } ;
 namespace wiz{
 CheckPoint::CheckPoint( LPDIRECT3DDEVICE9 pD3DDevice, float fLength, wiz::OBJID id  )
-: Cylinder( pD3DDevice, CHECK_POINT_RADIUS, CHECK_POINT_RADIUS, fLength, g_vZero, g_vZero, D3DCOLORVALUE(), D3DCOLORVALUE(), D3DCOLORVALUE(), id, false, NULL, 2) 
+: Cylinder( pD3DDevice, CHECK_POINT_RADIUS, CHECK_POINT_RADIUS, fLength, g_vZero, g_vZero, CHECKPOINTCOLOR, D3DCOLORVALUE(), CHECKPOINTCOLOR, id, false, NULL, 2) 
+, m_pCoil( NULL )
+, m_pCamera( NULL )
+, m_ActiveItem( NULL )
 {
 	
 }
-
+CheckPoint::~CheckPoint(){
+	SafeDeletePointerContainer( m_ItemContainer ) ;
+}
 /////////////////// ////////////////////
 //// 用途       ：virtual void Update( UpdatePacket& i_UpdatePacket )
 //// カテゴリ   ：仮想関数
@@ -39,7 +45,8 @@ CheckPoint::CheckPoint( LPDIRECT3DDEVICE9 pD3DDevice, float fLength, wiz::OBJID 
 ////            ：
 ////
 void CheckPoint::Update( UpdatePacket& i_UpdatePacket ){
-	
+	if( !m_pCoil   ) m_pCoil   = (PlayerCoil*)SearchObjectFromID( i_UpdatePacket.pVec, OBJID_3D_COIL    );
+	if( !m_pCamera ) m_pCamera = (    Camera*)SearchObjectFromID( i_UpdatePacket.pVec, OBJID_SYS_CAMERA );
 };
 
 /////////////////// ////////////////////
@@ -57,8 +64,15 @@ void CheckPoint::Update( UpdatePacket& i_UpdatePacket ){
 ////            ：
 ////
 void CheckPoint::Draw( DrawPacket& i_DrawPacket ){
-	
+	if( m_pCamera ){
+		float DrawBeginLength = m_pCamera->getPosY() + DRAW_TOLERANCE ;
+		if( DrawBeginLength > m_ItemContainer[ m_ActiveItem ]->fPosY ){
+			m_Pos.x = m_ItemContainer[ m_ActiveItem ]->fPosY ;
 
+			m_WorldMatrix = MatrixCalculator(m_BaseScale, m_Qt, D3DXVECTOR3( m_pCamera->getAt().x, m_ItemContainer[ m_ActiveItem ]->fPosY, 0.0f));
+			Cylinder::Draw( i_DrawPacket );
+		}
+	}
 };
 
 /**************************************************************************
@@ -80,9 +94,14 @@ void CheckPoint::Draw( DrawPacket& i_DrawPacket ){
 			D3DCOLORVALUE Specular = {1.0f,1.0f,1.0f,1.0f};
 			D3DCOLORVALUE Ambient = {1.0f,1.0f,1.0f,1.0f};
 			
+			CheckPoint* pcp ;
 			fpac->m_pVec->push_back(
-				new CheckPoint( fpac->pD3DDevice, 10.0f)
+				pcp = new CheckPoint( fpac->pD3DDevice, 10.0f)
 			);
+			pcp->add( 10.0f );
+
+
+			
 
 		}
 		

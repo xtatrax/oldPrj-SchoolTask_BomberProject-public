@@ -39,8 +39,7 @@
 #define BASE_CLIENT_WIDTH		( 1024.0f)	/* 基準になる描画領域の幅   */
 #define STANDARD_WINDOW_HEIGHT  (  600.0f)	/* ウインドウモードの高さ   */
 #define STANDARD_WINDOW_WIDTH   ( 1024.0f)	/* ウインドウモードの幅     */
-
-
+#define DRAW_TOLERANCE			(   20.0f)	/* カメラからの描画距離 */
 
 #define DEFAULT_WINDOW_TITLE		( L"ウインドウタイトル" )
 #define DEFAULT_WINDOW_CLASS_NAME	( L"ウインドウクラスネーム" )
@@ -71,6 +70,7 @@
 #define MYVK_DEBUG_SLOW_UPDATE		( VK_F11 )
 #define MYVK_DEBUG_OUTPUT_DBGSTR	( VK_F9  )
 #define MYVK_DEBUG_OUTPUT_MEMORY	( VK_F8  )
+#define MYVK_DEBUG_OBB_DRAW			( VK_F7  )
 
 //
 //////////
@@ -148,7 +148,6 @@ namespace wiz{
 		OBJID_UI_END				,
 
 		//	: 3Dオブジェ
-
 		////
 		// プリミティブ系
 		OBJID_3D_BEGIN				= 0x3000,
@@ -182,6 +181,7 @@ namespace wiz{
 
 		//	: 
 		OBJID_3D_TESTBOX			,	//	: テスト用の箱
+		OBJID_3D_DRAWOBB			,
 		OBJID_3D_END				,
 
 

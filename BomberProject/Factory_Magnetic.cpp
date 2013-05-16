@@ -97,7 +97,7 @@ MagneticumObject3D::MagneticumObject3D(
 				   id,
 				   pTexture)
 ,m_bMagnetPole( POLE_S )
-,m_fMagneticum(MGPRM_MAGNETICUM)
+,m_fMagneticum((float)MGPRM_MAGNETICUM)
 {
 	::ZeroMemory( &m_Material, sizeof(D3DMATERIAL9) ) ;
 	m_pMagneticField	= new	MagneticField(pD3DDevice,
@@ -238,8 +238,7 @@ void MagneticumObject3D::Update( UpdatePacket& i_UpdatePacket ){
 	m_ItemMap_Target.clear();
 	multimap<float,Magnet3DItem*>::iterator it = m_ItemMap_All.begin();
 	while(it != m_ItemMap_All.end()){
-		if( ((it->first - m_pCamera->getEye().y) <= 13) && ((it->first - m_pCamera->getEye().y) >= -13) /*&&
-			((it->first - m_pCamera->getEye().x) <= 15) && ((it->first - m_pCamera->getEye().x) >= -15)*/ ){
+		if( ((it->first - m_pCamera->getEye().y) <= 13) && ((it->first - m_pCamera->getEye().y) >= -13) ){
 			m_ItemMap_Target.insert(multimap<float,Magnet3DItem*>::value_type(it->second->m_vPos.y,it->second));
 		}
 		++it;
@@ -350,8 +349,6 @@ bool MagneticumObject3D::CheckDistance( D3DXVECTOR3& i_vMagneticFieldPos, D3DXVE
  用途: コンストラクタ（サンプルオブジェクトを配列に追加する）
  戻り値: なし
 ***************************************************************************/
-//Factory_Magnetic::Factory_Magnetic(LPDIRECT3DDEVICE9 pD3DDevice,vector<Object*>& vec,
-//					 TextureManager& TexMgr){
 Factory_Magnetic::Factory_Magnetic(FactoryPacket *fpac){
 	try{
 		// シリンダーオブジェクトのマテリアル
@@ -365,13 +362,13 @@ Factory_Magnetic::Factory_Magnetic(FactoryPacket *fpac){
 		);
 		fpac->m_pVec->push_back(Magnet);
 
-		Magnet->AddMagnetic(D3DXVECTOR3(1.0f,1.0f,1.0f),
-					  D3DXVECTOR3(0.0f,0.0f,0.0f),
-					  D3DXVECTOR3(10.0f,10.0f,0.0f),
-					  true,
-					  MagnetDiffuse,
-					  MagnetSpecular,
-					  MagnetAmbient);
+		//Magnet->AddMagnetic(D3DXVECTOR3(1.0f,1.0f,1.0f),
+		//			  D3DXVECTOR3(0.0f,0.0f,0.0f),
+		//			  D3DXVECTOR3(10.0f,10.0f,0.0f),
+		//			  true,
+		//			  MagnetDiffuse,
+		//			  MagnetSpecular,
+		//			  MagnetAmbient);
 		//Magnet->AddMagnetic(D3DXVECTOR3(1.0f,1.0f,1.0f),
 		//			  D3DXVECTOR3(0.0f,0.0f,0.0f),
 		//			  D3DXVECTOR3(1.0f,0.0f,0.0f),

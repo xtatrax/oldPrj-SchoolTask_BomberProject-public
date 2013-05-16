@@ -45,7 +45,9 @@ namespace wiz
 						   Specular,
 						   Ambient,
 						   pTexture)
-	,m_pCamera(NULL)
+	,m_pCamera( NULL )
+	,m_pPlayer( NULL )
+
 	{
 		
 		::ZeroMemory( &m_Material, sizeof(D3DMATERIAL9));
@@ -121,22 +123,38 @@ namespace wiz
 	void EnemySphere::Update( UpdatePacket& i_UpdatePacket){
 		if(m_pCamera == NULL){
 			m_pCamera = (Camera*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_SYS_CAMERA);
+			
+		}
+		if( m_pPlayer ){
+			m_pPlayer = (ProvisionalPlayer3D*)SearchObjectFromTypeID( i_UpdatePacket.pVec,typeid(ProvisionalPlayer3D));
 		}
 
+
+
 		m_ItemMap_Target.clear();
+
 		multimap<float,EnemyItem*>::iterator it = m_ItemMap_All.begin();
 		while(it != m_ItemMap_All.end()){
+			//ƒGƒlƒ~[‚ÌÀ•W‚ðŽ¥ŠE‚Ì•û‚ÉŽ‚Á‚Ä‚¢‚­ˆ—i¡‚ÍuŠÔ“I‚É“ü‚ê‘Ö‚í‚éj
+			if( g_bMouseRB && g_bMouseLB && m_pPlayer){
+
+				it->second->m_vPos = m_pPlayer->getPos();
+
+			}
 			if( ( +(it->first - m_pCamera->getEye().y) <= 3000) && ( +(it->first - m_pCamera->getEye().y) >= -3000 ) ){
 				
 				m_ItemMap_Target.insert(multimap<float,EnemyItem*>::value_type(it->second->m_vPos.y,it->second));
+			
 			}
 
 			++it;
 		}
 
+	
 		multimap<float,EnemyItem*>::iterator it2 = m_ItemMap_Target.begin();
 		while(it2 != m_ItemMap_Target.end()){
 //ŒvŽZ‚ÍUpdate‚Å
+
 //Šg‘åk¬
 			D3DXMATRIX mScale;
 			D3DXMatrixIdentity(&mScale);
@@ -182,8 +200,7 @@ namespace wiz
 		pItem->m_Material.Specular = Specular;
 		pItem->m_Material.Ambient = Ambient;
 //‰ñ“]‚Ì‰Šú‰»
-		D3DXQuaternionRotationYawPitchRoll(&pItem->m_vRot,
-		D3DXToRadian(vRot.y),D3DXToRadian(vRot.x),D3DXToRadian(vRot.z));
+		D3DXQuaternionRotationYawPitchRoll(&pItem->m_vRot,D3DXToRadian(vRot.y),D3DXToRadian(vRot.x),D3DXToRadian(vRot.z));
 		m_ItemMap_All.insert(multimap<float, EnemyItem*>::value_type(pItem->m_vPos.y,pItem));	
 	}
 
