@@ -14,6 +14,7 @@
 #include "StdAfx.h"
 #include "Object.h"
 #include "BassItems.h"
+#include "Factory_Player.h"
 
 namespace wiz{
 
@@ -26,17 +27,19 @@ extern class PlayerCoil ;
 // cclass WallObject : public PrimitiveBox
 //
 // 担当者  : 本多寛之
+//            曳地 大洋
 // 用途    : 壁
 //**************************************************************************//
 class WallObject : public PrimitiveBox{
 	PlayerCoil* m_pPlayerCoil ;
-	Camera*	   m_pCamera;
+	Camera*	    m_pCamera;
 	struct WallItem{
-		D3DMATERIAL9 m_Material;
-		D3DXMATRIX	m_Matrix;
-		D3DXVECTOR3 m_vScale ;
-		D3DXVECTOR3 m_vPos ;
+		D3DMATERIAL9   m_Material;
+		D3DXMATRIX	   m_Matrix;
+		D3DXVECTOR3    m_vScale ;
+		D3DXVECTOR3	   m_vPos ;
 		D3DXQUATERNION m_vRot;
+		OBB			   m_Obb;
 		virtual ~WallItem(){}
 	};
 	//map<オブジェクトのポジション,WallItem>
