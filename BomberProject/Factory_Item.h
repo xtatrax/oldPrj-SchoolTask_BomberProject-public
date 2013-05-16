@@ -24,8 +24,10 @@ const	float	SpeedRate	= 0.05f;	//	: アイテムの速さ調整倍率
 namespace wiz{
 
 /******************************************************
-class	Item	: public PrimitiveSphere
-用途 : アイテム
+class  Item : public PrimitiveSphere
+
+用途　：アイテム
+担当者：佐藤涼
 *******************************************************/
 class	Item	: public PrimitiveSphere {
 protected:
@@ -54,7 +56,9 @@ public:
 };
 /************************************************
 class Bar : public SpriteObject
-用途 : エネルギーバー
+
+用途　：エネルギーバー
+担当者：佐藤涼
 *************************************************/
 class Bar : public SpriteObject{
 	int m_Time;
@@ -78,16 +82,14 @@ public:
 
 /**************************************************************************
  class Factory_Item;
- 用途: メイン工場クラス
+
+ 用途　：メイン工場クラス
+ 担当者：佐藤涼
 ****************************************************************************/
 	class Factory_Item{
 	public:
 	/**************************************************************************
-	 Factory_Item(
-		LPDIRECT3DDEVICE9 pD3DDevice,	//デバイス
-		vector<Object*>& vec,			//オブジェクトの配列
-		TextureManager& TexMgr		//テクスチャの配列
-	);
+	 Factory_Item(FactoryPacket* fpac);
 	 用途: コンストラクタ（サンプルオブジェクトを配列に追加する）
 	 戻り値: なし
 	***************************************************************************/
