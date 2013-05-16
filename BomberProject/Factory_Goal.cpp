@@ -206,12 +206,12 @@ Factory_Goal::Factory_Goal(FactoryPacket* fpac){
         D3DCOLORVALUE GoalAmbient = {0.0f,1.0f,0.0f,1.0f};
 
 		GoalObject* gl = new GoalObject(fpac->pD3DDevice,NULL);
-		//gl->addGoal(	D3DXVECTOR3( 10.0f, 3.0f, 1.0f ),
-		//				g_vZero,
-		//				D3DXVECTOR3( 20.0f, 20.0f, 0.0f ),
-		//				GoalDiffuse,
-		//				GoalSpecular,
-		//				GoalAmbient);
+		gl->addGoal(	D3DXVECTOR3( 10.0f, 3.0f, 1.0f ),
+						g_vZero,
+						D3DXVECTOR3( 20.0f, 20.0f, 0.0f ),
+						GoalDiffuse,
+						GoalSpecular,
+						GoalAmbient);
 
 		fpac->m_pVec->push_back(gl);
 
