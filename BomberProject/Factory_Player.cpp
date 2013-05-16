@@ -282,12 +282,37 @@ void ProvisionalPlayer3D::Update( UpdatePacket& i_UpdatePacket ){
 					 wiz::OBJID id )				//	: ID
 用途       ：コンストラクタ
 ****************************************************************************/
+//MagneticField::MagneticField(
+//	LPDIRECT3DDEVICE9 pD3DDevice,						//	: デバイス
+//	LPDIRECT3DTEXTURE9 pTexture,						//	: テクスチャー
+//	D3DXVECTOR3		   &vScale,							//	: 伸縮
+//	D3DXQUATERNION	   &vRot,							//	: 回転
+//	D3DXVECTOR3	       &vPos							//	: 位置
+/***************************************************************************
+関数名    ：MagneticField(
+                   LPDIRECT3DDEVICE9   pD3DDevice,
+                   LPDIRECT3DTEXTURE9  pTexture,
+                   D3DXVECTOR3         &vScale,
+                   D3DXQUATERNION      &vRot,
+                   D3DXVECTOR3         &vPos
+              )
+カテゴリ　：コンストラクタ
+用途      ：
+引数　　　：LPDIRECT3DDEVICE9   pD3DDevice    //デバイスなど
+　　　　　：LPDIRECT3DTEXTURE9  pTexture      //テクスチャ
+　　　　　：D3DXVECTOR3         &vScale       //伸縮
+　　　　　：D3DXQUATERNION      &vRot         //回転
+　　　　　：D3DXVECTOR3         &vPos         //位置
+戻り値　　：
+担当者　　：佐藤涼
+備考　　　：
+****************************************************************************/
 MagneticField::MagneticField(
-	LPDIRECT3DDEVICE9 pD3DDevice,						//	: デバイス
-	LPDIRECT3DTEXTURE9 pTexture,						//	: テクスチャー
-	D3DXVECTOR3		   &vScale,							//	: 伸縮
-	D3DXQUATERNION	   &vRot,							//	: 回転
-	D3DXVECTOR3	       &vPos							//	: 位置
+	LPDIRECT3DDEVICE9 pD3DDevice,
+	LPDIRECT3DTEXTURE9 pTexture,
+	D3DXVECTOR3		   &vScale,
+	D3DXQUATERNION	   &vRot,
+	D3DXVECTOR3	       &vPos
 )
 :Cylinder(pD3DDevice,vScale.x, vScale.y, vScale.z, g_vZero, g_vZero,
 						D3DCOLORVALUE(),
@@ -310,6 +335,14 @@ MagneticField::MagneticField(
 /**************************************************************
 関数名     ：void	 MagneticField::Draw(DrawPacket &i_DrawPacket)
 用途       ：オブジェクトの描画
+=======
+関数名　　：void MagneticField::Draw(DrawPacket &i_DrawPacket)
+カテゴリ　：関数
+用途　　　：オブジェクトの描画
+引数　　　：DrawPacket &i_DrawPacket     //もろもろのデータ
+戻り値　　：
+担当者　　：佐藤涼
+備考　　　：
 ***************************************************************/
 void	MagneticField::Draw(DrawPacket &i_DrawPacket){
 	Cylinder::Draw(i_DrawPacket);
@@ -318,6 +351,13 @@ void	MagneticField::Draw(DrawPacket &i_DrawPacket){
 /*******************************************************************
 関数名     ：void	 MagneticField::Update(UpdatePacket& i_UpdatePacket)
 用途       ：データ更新
+関数名　　：void MagneticField::Update(UpdatePacket& i_UpdatePacket)
+カテゴリ　：関数
+用途　　　：データ更新
+引数　　　：UpdatePacket& i_UpdatePacket     //もろもろのデータ
+戻り値　　：
+担当者　　：佐藤涼
+備考　　　：
 ********************************************************************/
 void	MagneticField::Update(UpdatePacket& i_UpdatePacket)
 {
@@ -394,8 +434,11 @@ PlayerCoil::PlayerCoil(
 ,m_fMoveDir(PLAYER_BASSROT)
 ,m_fMovdSpeed(PLAYER_SPEED)
 ,m_pPlayer(NULL)
+,m_pMagneticumObject(NULL)
 ,m_pCamera(NULL)
 ,m_enumCoilState(COIL_STATE_START)
+,m_vMove(D3DXVECTOR3( 1.0f, 0.0f, 0.0f))
+
 {
 	::ZeroMemory( &m_Material, sizeof(D3DMATERIAL9) ) ;
 	D3DXMatrixIdentity( &m_Matrix ) ;
@@ -441,41 +484,28 @@ bool PlayerCoil::HitTestWall( OBB Obb, float Index ){
 void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 
 	wiz::CONTROLER_STATE Controller1P = i_UpdatePacket.pCntlState[0] ;
+
 	if( !m_pCamera ){ 
 		m_pCamera = ( Camera* ) SearchObjectFromID( i_UpdatePacket.pVec, OBJID_SYS_CAMERA ) ; 
 	}
-	if( m_pPlayer ){
-		// 移動の方向 + 距離
-		D3DXVECTOR3 vMove = D3DXVECTOR3( 1.0f, 0.0f, 0.0f) ;
-		// ユーザー磁界の座標
-		D3DXVECTOR3 vProvisionalPos  = this->m_pPlayer->getPos();	
-		// コイルとユーザー磁界の距離を算出
-		float Lng  = (float)TwoPointToBassLength( vProvisionalPos, m_vPos ) ;
-		// テスト用
-		float Lng2 = (float)VectorLength( D3DXVECTOR3( vProvisionalPos.x - m_vPos.x, vProvisionalPos.y - m_vPos.y ,0) );
-		//自機と磁界の角度
-		float fTargetDir = TwoPoint2Degree( vProvisionalPos , m_vPos );
-		//自機のデカルト座標 (現状使ってません)
-		D3DXVECTOR3 vDescartes = ConvertToCartesianCoordinates(vMove.x,m_fMoveDir);
 
+	if( !m_pMagneticumObject ){ 
+		m_pMagneticumObject = ( MagneticumObject3D* ) SearchObjectFromTypeID( i_UpdatePacket.pVec, typeid(MagneticumObject3D) ) ; 
+	}
+
+	if( m_pPlayer ){
 		//デバック用-----------------------------------------------------------
 		// 磁界反転
 		Controller1P.Gamepad.wPressedButtons.XConState.Y && this->ChangePole() ;
-		//各数値を表示
-		Debugger::DBGSTR::addStr( L"Lng : %f\n", Lng);
-		Debugger::DBGSTR::addStr( L"Lng : %f\n", Lng2);
-		Debugger::DBGSTR::addStr( L"Lng : %f\n", sqrt(Lng));
-		Debugger::DBGSTR::addStr( L"fTargetDir : %f\n", fTargetDir);
-		Debugger::DBGSTR::addStr( L"vDescartes : %f\n", vDescartes.x);
 		//-----------------------------------------------------------------------
 
 		//状態ごとの処理
 		switch(m_enumCoilState){
 			case COIL_STATE_START:
-				Update_StateStart(fTargetDir);
+				Update_StateStart();
 				break;
 			case COIL_STATE_MOVE:
-				Update_StateMove(vMove,fTargetDir,Lng);
+				Update_StateMove();
 				break;
 			case COIL_STATE_STOP:
 				break;
@@ -489,13 +519,14 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 				break;
 		}
 
-		if( Lng <= m_pPlayer->getMagneticum() ){
+		bool bCheckDistance = CheckDistance( m_pPlayer->getPos(), m_vPos, m_pPlayer->getMagneticum() );
+		if( bCheckDistance ){
 			//自機と磁界の角度
-			float fTargetDir = TwoPoint2Degree( vProvisionalPos , m_vPos );
+			float fTargetDir = TwoPoint2Degree( m_pPlayer->getPos() , m_vPos );
 			//fTargetDir = 360.0f - fTargetDir;
 			Debugger::DBGSTR::addStr( L"fTargetDir : %f\n", fTargetDir);
 			//自機のデカルト座標
-			D3DXVECTOR3 vDescartes = ConvertToCartesianCoordinates(vMove.x,m_fMoveDir);
+			D3DXVECTOR3 vDescartes = ConvertToCartesianCoordinates(m_vMove.x,m_fMoveDir);
 			Debugger::DBGSTR::addStr( L"vDescartes : %f\n", vDescartes.x);
 
 			float	fReverse = 0.0f;
@@ -530,18 +561,16 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 };
 
 /////////////////// ////////////////////
-//// 関数名     ：void PlayerCoil::Update_StateStart( float i_fTargetDir )
+//// 関数名     ：void PlayerCoil::Update_StateStart()
 //// カテゴリ   ：
 //// 用途       ：STATE_START時の動き
 //// 引数       ：
-////　　　　　　：
-////　　　　　　：
 //// 戻値       ：なし
 //// 担当       ：本多寛之
 //// 備考       ：
 ////            ：
 ////
-void PlayerCoil::Update_StateStart( float i_fTargetDir ){
+void PlayerCoil::Update_StateStart(){
 	D3DXVECTOR3 vPlayer = g_vZero;
 	float		fTargetDir = NULL;
 	//マウス座標計算
@@ -561,88 +590,37 @@ void PlayerCoil::Update_StateStart( float i_fTargetDir ){
 };
 
 /////////////////// ////////////////////
-//// 関数名     ：PlayerCoil::Update_StateMove( D3DXVECTOR3 i_vMove, D3DXVECTOR3 i_vProvisionalPos ,float i_fLng )
+//// 関数名     ：PlayerCoil::Update_StateMove()
 //// カテゴリ   ：
 //// 用途       ：STATE_MOVE時の動き
-//// 引数       ：D3DXVECTOR3 i_vMove				// 移動の方向 + 距離
-////　　　　　　：float i_fTargetDir				// ユーザー磁界との角度
-////　　　　　　：float i_fLng					// コイルとユーザー磁界の距離
+//// 引数       ：
 //// 戻値       ：なし
 //// 担当       ：本多寛之
 //// 備考       ：
 ////            ：
 ////
-void PlayerCoil::Update_StateMove( D3DXVECTOR3 i_vMove, float i_fTargetDir ,float i_fLng ){
-	if( i_fLng <= MGPRM_MAGNETICUM_QUAD ){
-
-		float	fReverse = 0.0f;
-		if(m_fMoveDir > 180.0f){
-			fReverse = m_fMoveDir - 180.0f;
+void PlayerCoil::Update_StateMove(){
+	//プレイヤー磁界と自機の判定
+	bool bCheckDistance = CheckDistance( m_pPlayer->getPos(), m_vPos, (float)MGPRM_MAGNETICUM_QUAD );
+	if( bCheckDistance ){
+		m_fMoveDir = MagneticDecision(m_fMoveDir,m_pPlayer->getPos(),m_pPlayer->getMagnetPole());
+	}
+	
+	//設置磁界と自機の判定
+	multimap<float, Magnet3DItem*> ItemMap_Target = m_pMagneticumObject->getMapTarget();
+	multimap<float,Magnet3DItem*>::iterator it = ItemMap_Target.begin();
+	while(it != ItemMap_Target.end()){
+		bool bCheckDistance = CheckDistance( it->second->m_vPos, m_vPos, (float)MGPRM_MAGNETICUM_QUAD );
+		if( bCheckDistance ){
+			m_fMoveDir = MagneticDecision(m_fMoveDir,it->second->m_vPos,it->second->m_bMagnetPole);
 		}
-		else{
-			fReverse = m_fMoveDir + 180.0f;
-		}
-
-		if(m_pPlayer->getMagnetPole() != this->getMagnetPole()){
-			if(m_fMoveDir < i_fTargetDir){
-				if(i_fTargetDir - m_fMoveDir <= 180.0f){
-					m_fMoveDir += 1.0f;
-					m_fMoveDir = float(int(m_fMoveDir) % 360);						
-				}
-				else{
-					m_fMoveDir -= 1.0f;
-					if(m_fMoveDir < 0.0f){
-						m_fMoveDir += 360.0f;
-					}
-				}
-			}
-			else if(m_fMoveDir > i_fTargetDir){
-				if(m_fMoveDir - i_fTargetDir <= 180.0f){
-					m_fMoveDir -= 1.0f;
-					if(m_fMoveDir < 0.0f){
-						m_fMoveDir += 360.0f;
-					}
-				}
-				else{
-					m_fMoveDir += 1.0f;
-					m_fMoveDir = float(int(m_fMoveDir) % 360);												
-				}
-			}
-		}
-		else{
-			if(fReverse != i_fTargetDir){
-				if(m_fMoveDir < i_fTargetDir){
-					if(i_fTargetDir - m_fMoveDir <= 180.0f){
-						m_fMoveDir -= 1.0f;
-						if(m_fMoveDir < 0.0f){
-							m_fMoveDir += 360.0f;
-						}
-					}
-					else{
-						m_fMoveDir += 1.0f;
-						m_fMoveDir = float(int(m_fMoveDir) % 360);						
-					}
-				}
-				else if(m_fMoveDir > i_fTargetDir){
-					if(m_fMoveDir - i_fTargetDir <= 180.0f){
-						m_fMoveDir += 1.0f;
-						m_fMoveDir = float(int(m_fMoveDir) % 360);												
-					}
-					else{
-						m_fMoveDir -= 1.0f;
-						if(m_fMoveDir < 0.0f){
-							m_fMoveDir += 360.0f;
-						}
-					}
-				}
-			}
-		}
+		++it;
 	}
 
 	//	: 指定方向へ指定距離移動
-	ArcMove( i_vMove , m_fMovdSpeed, m_fMoveDir);
+	ArcMove( m_vMove , m_fMovdSpeed, m_fMoveDir);
 	//移動分を加算
-	m_vPos += i_vMove;
+	m_vPos += m_vMove;
 
 };
 
@@ -686,6 +664,83 @@ void PlayerCoil::Draw(DrawPacket& i_DrawPacket){
 	}
 };
 
+/////////////////// ////////////////////
+//// 関数名     ：float PlayerCoil::MagneticDecision( float i_fCoilDir, D3DXVECTOR3& i_vMagnetPos, bool i_bMagnetPole_Field )
+//// カテゴリ   ：関数
+//// 用途       ：自機に対する吸い寄せ、反発の処理
+//// 引数       ：float i_fCoilDir            //自機の角度
+////　　　　　　：D3DXVECTOR3& i_vMagnetPos   //磁界の位置
+////　　　　　　：bool i_bMagnetPole_Field	// 磁界の極
+//// 戻値       ：
+//// 担当       ：本多寛之
+//// 備考       ：
+////　　　　　　：
+float PlayerCoil::MagneticDecision( float i_fCoilDir, D3DXVECTOR3& i_vMagnetPos, bool i_bMagnetPole_Field ) const{
+	float	fTargetDir = TwoPoint2Degree( i_vMagnetPos , getPos() );
+	float	fReverse   = 0.0f;
+	if(i_fCoilDir > 180.0f){
+		fReverse = i_fCoilDir - 180.0f;
+	}
+	else{
+		fReverse = i_fCoilDir + 180.0f;
+	}
+
+	if(i_bMagnetPole_Field != this->getMagnetPole()){
+		if(i_fCoilDir < fTargetDir){
+			if(fTargetDir - i_fCoilDir <= 180.0f){
+				i_fCoilDir += 1.0f;
+				i_fCoilDir = float(int(i_fCoilDir) % 360);						
+			}
+			else{
+				i_fCoilDir -= 1.0f;
+				if(i_fCoilDir < 0.0f){
+					i_fCoilDir += 360.0f;
+				}
+			}
+		}
+		else if(i_fCoilDir > fTargetDir){
+			if(i_fCoilDir - fTargetDir <= 180.0f){
+				i_fCoilDir -= 1.0f;
+				if(i_fCoilDir < 0.0f){
+					i_fCoilDir += 360.0f;
+				}
+			}
+			else{
+				i_fCoilDir += 1.0f;
+				i_fCoilDir = float(int(i_fCoilDir) % 360);												
+			}
+		}
+	}
+	else{
+		if(fReverse != fTargetDir){
+			if(i_fCoilDir < fTargetDir){
+				if(fTargetDir - i_fCoilDir <= 180.0f){
+					i_fCoilDir -= 1.0f;
+					if(i_fCoilDir < 0.0f){
+						i_fCoilDir += 360.0f;
+					}
+				}
+				else{
+					i_fCoilDir += 1.0f;
+					i_fCoilDir = float(int(i_fCoilDir) % 360);						
+				}
+			}
+			else if(i_fCoilDir > fTargetDir){
+				if(i_fCoilDir - fTargetDir <= 180.0f){
+					i_fCoilDir += 1.0f;
+					i_fCoilDir = float(int(i_fCoilDir) % 360);												
+				}
+				else{
+					i_fCoilDir -= 1.0f;
+					if(i_fCoilDir < 0.0f){
+						i_fCoilDir += 360.0f;
+					}
+				}
+			}
+		}
+	}
+	return i_fCoilDir;
+};
 
 /**************************************************************************
  Factory_Player 定義部

@@ -141,12 +141,15 @@ class PlayerCoil : public MagneticumObject3D{
 	D3DXVECTOR3		m_vPos ;
 	D3DXQUATERNION	m_vRot ;
 	D3DXVECTOR3		m_vScale ;
+	D3DXVECTOR3		m_vMove;
 	float			m_fMoveDir   ;//角度
 	float			m_fMovdSpeed ;//速度
 	
 	ProvisionalPlayer3D*	m_pPlayer;
 
-	Camera* m_pCamera;
+	MagneticumObject3D*		m_pMagneticumObject;
+
+	Camera*					m_pCamera;
 	
 	COIL_STATE		m_enumCoilState;
 
@@ -223,29 +226,25 @@ public:
 	//// 関数名     ：void Update_StateStart( float i_fTargetDir )
 	//// カテゴリ   ：
 	//// 用途       ：STATE_START時の動き
-	////　　　　　　：float i_fTargetDir				// ユーザー磁界との角度
-	////　　　　　　：
-	////　　　　　　：
+	//// 引数       ：
 	//// 戻値       ：なし
 	//// 担当       ：本多寛之
 	//// 備考       ：
 	////            ：
 	////
-	void Update_StateStart( float i_fTargetDir );
+	void Update_StateStart();
 
 	/////////////////// ////////////////////
 	//// 関数名     ：void Update_StateMove( D3DXVECTOR3 i_vMove, D3DXVECTOR3 i_vProvisionalPos ,float i_fLng )
 	//// カテゴリ   ：
 	//// 用途       ：STATE_MOVE時の動き
-	//// 引数       ：D3DXVECTOR3 i_vMove				// 移動の方向 + 距離
-	////　　　　　　：float i_fTargetDir				// ユーザー磁界との角度
-	////　　　　　　：float i_fLng					// コイルとユーザー磁界の距離
+	//// 引数       ：
 	//// 戻値       ：なし
 	//// 担当       ：本多寛之
 	//// 備考       ：
 	////            ：
 	////
-	void Update_StateMove( D3DXVECTOR3 i_vMove, float i_fTargetDir ,float i_fLng );
+	void Update_StateMove();
 
 	/////////////////// ////////////////////
 	//// 用途       ：virtual void Draw( DrawPacket& i_DrawPacket )
@@ -258,6 +257,19 @@ public:
 	////            ：
 	////
     void Draw(DrawPacket& i_DrawPacket) ;
+
+	/////////////////// ////////////////////
+	//// 関数名     ：float MagneticDecision( float i_fCoilDir, D3DXVECTOR3& i_vMagnetPos, bool i_bMagnetPole_Field )
+	//// カテゴリ   ：関数
+	//// 用途       ：自機に対する吸い寄せ、反発の処理
+	//// 引数       ：float i_fCoilDir            //自機の角度
+	////　　　　　　：D3DXVECTOR3& i_vMagnetPos   //磁界の位置
+	////　　　　　　：bool i_bMagnetPole_Field	// 磁界の極
+	//// 戻値       ：
+	//// 担当       ：本多寛之
+	//// 備考       ：
+	////　　　　　　：
+	float MagneticDecision( float i_fCoilDir, D3DXVECTOR3& i_vMagnetPos, bool i_bMagnetPole_Field ) const;
 
 	/////////////////// ////////////////////
 	//// 関数名     ：D3DXVECTOR3 getPos() const

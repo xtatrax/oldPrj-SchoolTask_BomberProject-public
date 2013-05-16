@@ -316,6 +316,25 @@ void MagneticumObject3D::AddMagnetic(D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXV
 	m_ItemMap_All.insert(multimap<float,Magnet3DItem*>::value_type(pItem->m_vPos.y,pItem));	
 }
 
+/////////////////// ////////////////////
+//// 用途       ：bool MagneticumObject3D::CheckDistance( D3DXVECTOR3& i_vMagneticFieldPos, D3DXVECTOR3& i_vCoilPos ) const
+//// カテゴリ   ：関数
+//// 用途       ：距離を判定
+//// 引数       ：D3DXVECTOR3& i_vMagneticFieldPos //磁界の位置 
+////　　　　　　：D3DXVECTOR3& i_vCoilPos          //コイルの位置
+////　　　　　　：float        i_iBorder           //判定する値
+//// 戻値       ：true , false
+//// 担当者     ：本多寛之
+//// 備考       ：
+bool MagneticumObject3D::CheckDistance( D3DXVECTOR3& i_vMagneticFieldPos, D3DXVECTOR3& i_vCoilPos, float i_iBorder ) const{
+	float Lng  = (float)TwoPointToBassLength( i_vMagneticFieldPos, i_vCoilPos ) ;
+	if( Lng <= i_iBorder ){
+		return true;
+	}
+	else{
+		return false;
+	}
+}
 
 /**************************************************************************
  Factory_Magnetic 定義部

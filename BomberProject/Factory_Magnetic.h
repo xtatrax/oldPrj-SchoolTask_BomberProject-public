@@ -265,57 +265,21 @@ public:
 	//// 備考       ：
 	void Update( UpdatePacket& i_UpdatePacket );
 
-
-/////////////////// ////////////////////
-//// 関数名     ：
-//// カテゴリ   ：
-//// 用途       ：
-//// 引数       ：
-//// 戻値       ：
-//// 担当       ：
-//// 備考       ：
-////            ：
-	//bool 
-
-/////////////////// ////////////////////
-//// 関数名     ：D3DXVECTOR3 getPos() const
-//// カテゴリ   ：ゲッター
-//// 用途       ：中心座標を獲得
-//// 引数       ：なし
-//// 戻値       ：なし
-//// 担当       ：鴫原 徹
-//// 備考       ：
-////            ：
-	D3DXVECTOR3 getPos() const {
-		return m_vPos			;	
-	}	;
-
-/////////////////// ////////////////////
-//// 関数名     ：void ChangePole()
-//// カテゴリ   ：ゲッター
-//// 用途       ：磁極を獲得
-//// 引数       ：なし
-//// 戻値       ：なし
-//// 担当       ：曳地大洋
-//// 備考       ： S極 = POLE_S = false
-////			 ： N極 = POLE_N = true
-	bool  getMagnetPole() const { return m_bMagnetPole	;	}	;
-	float getMagneticum() const { return m_fMagneticum*m_fMagneticum  ;	}	;
-/////////////////// ////////////////////
-//// 用途       ：void AddMagnetic( DrawPacket& i_DrawPacket )
-//// カテゴリ   ：関数
-//// 用途       ：マグネットの追加
-//// 引数       ：  LPDIRECT3DDEVICE9 pD3DDevice,	////IDirect3DDevice9インターフェイスへのポインタ
-////		    ：  D3DXVECTOR3 &vScale				//拡大縮小
-////		    ：  D3DXVECTOR3 &vRot				//回転角
-////		    ：  D3DXVECTOR3 &vPos				//位置
-////            ：  D3DCOLORVALUE& Diffuse,			//ディフューズ色
-////            ：  D3DCOLORVALUE& Specular,		//スペキュラ色
-////            ：  D3DCOLORVALUE& Ambient,			//アンビエント色
-//// 戻値       ：無し
-//// 担当者     ：曳地 大洋
-//// 備考       ：
-////
+	/////////////////// ////////////////////
+	//// 用途       ：void AddMagnetic( DrawPacket& i_DrawPacket )
+	//// カテゴリ   ：関数
+	//// 用途       ：マグネットの追加
+	//// 引数       ：  LPDIRECT3DDEVICE9 pD3DDevice,	////IDirect3DDevice9インターフェイスへのポインタ
+	////		    ：  D3DXVECTOR3 &vScale				//拡大縮小
+	////		    ：  D3DXVECTOR3 &vRot				//回転角
+	////		    ：  D3DXVECTOR3 &vPos				//位置
+	////            ：  D3DCOLORVALUE& Diffuse,			//ディフューズ色
+	////            ：  D3DCOLORVALUE& Specular,		//スペキュラ色
+	////            ：  D3DCOLORVALUE& Ambient,			//アンビエント色
+	//// 戻値       ：無し
+	//// 担当者     ：曳地 大洋
+	//// 備考       ：
+	////
 	void AddMagnetic(
 		D3DXVECTOR3 &vScale,
 		D3DXVECTOR3 &vRot,
@@ -325,6 +289,57 @@ public:
 		D3DCOLORVALUE& Speular,
 		D3DCOLORVALUE& Ambient
 		) ;
+	
+	/////////////////// ////////////////////
+	//// 用途       ：bool CheckDistance( D3DXVECTOR3& i_vMagneticFieldPos, D3DXVECTOR3& i_vCoilPos ) const
+	//// カテゴリ   ：関数
+	//// 用途       ：距離を判定
+	//// 引数       ：D3DXVECTOR3& i_vMagneticFieldPos //磁界の位置 
+	////　　　　　　：D3DXVECTOR3& i_vCoilPos          //コイルの位置
+	////　　　　　　：float        i_iBorder           //判定する値
+	//// 戻値       ：true , false
+	//// 担当者     ：本多寛之
+	//// 備考       ：
+	bool CheckDistance( D3DXVECTOR3& i_vMagneticFieldPos, D3DXVECTOR3& i_vCoilPos, float i_iBorder ) const;
+	
+
+	/////////////////// ////////////////////
+	//// 関数名     ：D3DXVECTOR3 getPos() const
+	//// カテゴリ   ：ゲッター
+	//// 用途       ：中心座標を獲得
+	//// 引数       ：なし
+	//// 戻値       ：なし
+	//// 担当       ：鴫原 徹
+	//// 備考       ：
+	////            ：
+	D3DXVECTOR3 getPos() const {
+		return m_vPos			;	
+	}	;
+
+	/////////////////// ////////////////////
+	//// 関数名     ：void ChangePole()
+	//// カテゴリ   ：ゲッター
+	//// 用途       ：磁極を獲得
+	//// 引数       ：なし
+	//// 戻値       ：なし
+	//// 担当       ：曳地大洋
+	//// 備考       ： S極 = POLE_S = false
+	////			 ： N極 = POLE_N = true
+	bool  getMagnetPole() const { return m_bMagnetPole	;	}	;
+	float getMagneticum() const { return m_fMagneticum*m_fMagneticum  ;	}	;
+
+	/////////////////// ////////////////////
+	//// 関数名     ：multimap<float, Magnet3DItem*> getMapTarget() const
+	//// カテゴリ   ：ゲッター
+	//// 用途       ：m_ItemMap_Targetを獲得
+	//// 引数       ：なし
+	//// 戻値       ：m_ItemMap_Target
+	//// 担当       ：本多寛之
+	//// 備考       ：
+	////            ：
+	multimap<float, Magnet3DItem*> getMapTarget() const{
+		return m_ItemMap_Target;
+	}
 
 };
 

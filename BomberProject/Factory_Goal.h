@@ -20,10 +20,15 @@
 namespace wiz{
 
 /******************************************************
+<<<<<<< HEAD
 class Item : public PrimitiveSphere
 
 用途　：アイテム
 担当者：佐藤涼
+=======
+class	Item	: public PrimitiveSphere
+用途 : アイテム
+>>>>>>> workspace
 *******************************************************/
 class	GoalObject	:public PrimitiveBox{
 	PlayerCoil*	m_pCoil;
@@ -69,7 +74,11 @@ public:
  戻り値: なし
 ***************************************************************************/
 	~Factory_Goal();
+//};
+
+	void GetOBBList( float Index, list<OBB>& ObbList );
 };
+
 
 }
 //end of namespace wiz.

@@ -59,10 +59,13 @@ GoalObject::GoalObject( LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTextur
 関数名　　：void GoalObject::Draw(DrawPacket &i_DrawPacket)
 カテゴリ　：関数
 用途　　　：オブジェクトの描画
+<<<<<<< HEAD
 引数　　　：DrawPacket &i_DrawPacket   //もろもろのデータ
 戻り値　　：
 担当者　　：佐藤涼
 備考　　　：
+=======
+>>>>>>> workspace
 ***************************************************************/
 void	GoalObject::Draw(DrawPacket &i_DrawPacket){
 	multimap<float,GoalItem*>::iterator it = m_ItemMap_All.begin();
@@ -100,6 +103,7 @@ void	GoalObject::Draw(DrawPacket &i_DrawPacket){
 }
 
 /*******************************************************************
+<<<<<<< HEAD
 関数名　　：void GoalObject::Update(UpdatePacket& i_UpdatePacket)
 カテゴリ　：関数
 用途　　　：データ更新
@@ -107,6 +111,10 @@ void	GoalObject::Draw(DrawPacket &i_DrawPacket){
 戻り値　　：
 担当者　　：佐藤涼
 備考　　　：
+=======
+関数名     ：void	 GoalObject::Update(UpdatePacket& i_UpdatePacket)
+用途       ：データ更新
+>>>>>>> workspace
 ********************************************************************/
 void	GoalObject::Update(UpdatePacket& i_UpdatePacket)
 {
@@ -143,6 +151,7 @@ void	GoalObject::Update(UpdatePacket& i_UpdatePacket)
 }
 
 /*******************************************************************
+<<<<<<< HEAD
 関数名　　：void GoalObject::addGoal(
                      D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos,
                      D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient
@@ -158,6 +167,13 @@ void	GoalObject::Update(UpdatePacket& i_UpdatePacket)
 戻り値　　：
 担当者　　：佐藤涼
 備考　　　：
+=======
+関数名     ：void	 GoalObject::addGoal(
+						D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos,
+						D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient
+					)
+用途       ：ゴールの追加
+>>>>>>> workspace
 ********************************************************************/
 void GoalObject::addGoal(D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos,
 			D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient)
@@ -187,6 +203,38 @@ void GoalObject::addGoal(D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos
 	m_ItemMap_All.insert(multimap<float,GoalItem*>::value_type(pItem->m_vPos.y,pItem));	
 }
 
+/*****************************************************************
+関数名	：void Will::GetOBB( size_t Index, OBB& obb )
+用途	：指定のインデックスの現在のOBBを得る
+******************************************************************/
+//void GoalObject::GetOBBList( float Index, list<OBB>& ObbList ){
+//    //指定の配置オブジェクトを検証
+//	multimap<float,GoalItem*>::iterator itBegin = m_ItemMap_All.lower_bound( 20.0f ) ;
+//	multimap<float,GoalItem*>::iterator itEnd	= m_ItemMap_All.upper_bound( 20.0f ) ;
+//	OBB obb ; 
+//	for(multimap<float,GoalItem*>::iterator iter = itBegin; iter != itEnd; ++iter){
+//		obb.m_Center  = iter->second->m_vPos + iter->second->m_vPos;
+//		obb.m_Size	  = m_Size;
+//		obb.m_Size.x *= iter->second->m_vScale.x;
+//		obb.m_Size.y *= iter->second->m_vScale.y;
+//		obb.m_Size.z *= iter->second->m_vScale.z;
+//		obb.m_Size *= 0.5f;
+//		//トータルの回転を得る
+//		D3DXQUATERNION Qt = iter->second->m_vRot;
+//		Qt *= iter->second->m_vRot;
+//		//クオータニオンを正規化
+//		D3DXQuaternionNormalize(&Qt,&Qt);
+//		//クオータニオンから回転行列を作成
+//		D3DXMATRIX mRot;
+//		D3DXMatrixIdentity(&mRot);
+//		D3DXMatrixRotationQuaternion(&mRot,&Qt);
+//		obb.m_Rot[0] = D3DXVECTOR3(mRot._11,mRot._12,mRot._13);
+//	    obb.m_Rot[1] = D3DXVECTOR3(mRot._21,mRot._22,mRot._23);
+//	    obb.m_Rot[2] = D3DXVECTOR3(mRot._31,mRot._32,mRot._33);
+//		ObbList.push_back( obb ) ;
+//	}
+//}
+//
 /**************************************************************************
  Factory_Goal 定義部
 ****************************************************************************/
@@ -206,12 +254,6 @@ Factory_Goal::Factory_Goal(FactoryPacket* fpac){
         D3DCOLORVALUE GoalAmbient = {0.0f,1.0f,0.0f,1.0f};
 
 		GoalObject* gl = new GoalObject(fpac->pD3DDevice,NULL);
-		gl->addGoal(	D3DXVECTOR3( 10.0f, 3.0f, 1.0f ),
-						g_vZero,
-						D3DXVECTOR3( 20.0f, 30.0f, 0.0f ),
-						GoalDiffuse,
-						GoalSpecular,
-						GoalAmbient);
 		////お試し
 		//gl->addGoal(	D3DXVECTOR3( 10.0f, 3.0f, 1.0f ),
 		//				D3DXVECTOR3( 0.0f, 0.0f, 90.0f ),
@@ -219,6 +261,13 @@ Factory_Goal::Factory_Goal(FactoryPacket* fpac){
 		//				GoalDiffuse,
 		//				GoalSpecular,
 		//				GoalAmbient);
+
+		gl->addGoal(	D3DXVECTOR3( 3.0f, 1.0f, 1.0f ),
+						g_vZero,
+						D3DXVECTOR3( 35.0f, 20.0f, 0.0f ),
+						GoalDiffuse,
+						GoalSpecular,
+						GoalAmbient);
 		fpac->m_pVec->push_back(gl);
 
 	}

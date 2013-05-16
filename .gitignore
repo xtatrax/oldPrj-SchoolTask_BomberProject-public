@@ -24,6 +24,9 @@ Thumbs.db
 *.ncb
 *.LOG
 *.user
+*.BASE*
+*.LOCAL*
+*.REMOTE*
 [Bb]in
 [Tt]est[Rr]esult*
 obj/
