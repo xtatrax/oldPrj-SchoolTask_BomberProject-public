@@ -16,8 +16,8 @@
 #include "BassItems.h"
 //#include "Factory_Player.h"
 
-#define  MGPRM_MAGNETICUM	10  /* é•äEÇÃâeãøîºåa( åªç›íPà  pixel ) */
-#define  MGPRM_MAGNETICUM_QUAD ( MGPRM_MAGNETICUM * MGPRM_MAGNETICUM )
+const int	MGPRM_MAGNETICUM			= 10 ; /* é•äEÇÃâeãøîºåa*/
+const int	MGPRM_MAGNETICUM_QUAD		= ( MGPRM_MAGNETICUM * MGPRM_MAGNETICUM );
 
 
 #define  POLE_S true		/* Sã… */
