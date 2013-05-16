@@ -399,6 +399,19 @@ struct OBB{
 	    m_Rot[1] = D3DXVECTOR3(mRot._21,mRot._22,mRot._23);
 	    m_Rot[2] = D3DXVECTOR3(mRot._31,mRot._32,mRot._33);
 	};
+	OBB(D3DXVECTOR3 vScale,D3DXQUATERNION vQt,D3DXVECTOR3 vPos){
+		//è’ìÀîªíËópÇÃOBBÇÃèâä˙âª
+		m_Center = vPos   ;
+		m_Size   = vScale ;
+		vQt		*= vQt ; 
+		D3DXQuaternionNormalize(&vQt,&vQt);
+		D3DXMATRIX mRot   ;
+		D3DXMatrixIdentity(&mRot);
+		D3DXMatrixRotationQuaternion(&mRot,&vQt);
+		m_Rot[0] = D3DXVECTOR3(mRot._11,mRot._12,mRot._13);
+	    m_Rot[1] = D3DXVECTOR3(mRot._21,mRot._22,mRot._23);
+	    m_Rot[2] = D3DXVECTOR3(mRot._31,mRot._32,mRot._33);
+	};
 	OBB(LPD3DXMESH pMesh){
 		//è’ìÀîªíËópÇÃOBBÇÃèâä˙âª
 		EarnFromMeshOBB(pMesh,m_Center,m_Size);
