@@ -19,6 +19,7 @@
 #include "Factory_Enemy.h"
 #include "Factory_Magnetic.h"
 #include "Factory_Item.h"
+#include "Factory_Goal.h"
 #include "BassItems.h"
 
 namespace wiz{
@@ -65,6 +66,7 @@ Factory_Main::Factory_Main(FactoryPacket* fpac){
 		Factory_Enemy Efac( fpac ) ;
 		Factory_CheckPoint CPfac( fpac ) ;
 		Factory_Item   Ifac( fpac ) ;
+		Factory_Goal GPfac( fpac ) ;
 
 		//	: スプライト
 		fpac->m_pVec->push_back(
