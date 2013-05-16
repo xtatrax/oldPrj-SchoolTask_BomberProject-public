@@ -138,7 +138,7 @@ protected:
 		D3DXVECTOR3		m_vScale ;
 		D3DXVECTOR3		m_vPos ;
 		D3DXQUATERNION	m_vRot ;
-		//bool			m_bMagnetPole ;
+		bool			m_bMagnetPole ;
 		virtual ~Magnet3DItem(){}
 	};
 
@@ -289,7 +289,7 @@ public:
 //// 備考       ： S極 = POLE_S = false
 ////			 ： N極 = POLE_N = true
 	bool  getMagnetPole() const { return m_bMagnetPole	;	}	;
-	float getMagneticum() const { return m_fMagneticum  ;	}	;
+	float getMagneticum() const { return m_fMagneticum*m_fMagneticum  ;	}	;
 /////////////////// ////////////////////
 //// 用途       ：void AddMagnetic( DrawPacket& i_DrawPacket )
 //// カテゴリ   ：関数
@@ -309,6 +309,7 @@ public:
 		D3DXVECTOR3 &vScale,
 		D3DXVECTOR3 &vRot,
 		D3DXVECTOR3 &vPos,
+		bool		vPole,
 		D3DCOLORVALUE& Diffuse,
 		D3DCOLORVALUE& Speular,
 		D3DCOLORVALUE& Ambient

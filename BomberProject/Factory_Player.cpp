@@ -136,28 +136,6 @@ ProvisionalPlayer3D::ProvisionalPlayer3D(
 	::ZeroMemory( &m_Material, sizeof(D3DMATERIAL9) ) ;
 	D3DXMatrixIdentity( &m_Matrix ) ;
 	setPoleS();
-
-	//fpac->m_pVec->push_back(
-	//	new MagneticField(
-	//			fpac->pD3DDevice,
-	//			NULL,
-	//			D3DXVECTOR3( 2.0f,2.0f,0.0f ),
-	//			D3DXQUATERNION( 0.0f, 0.0f, 0.0f, 0.0f ),
-	//			g_vMin));
-	//fpac->m_pVec->push_back(
-	//	new MagneticField(
-	//			fpac->pD3DDevice,
-	//			NULL,
-	//			D3DXVECTOR3( 1.6f,1.6f,0.0f ),
-	//			D3DXQUATERNION( 0.0f, 0.0f, 0.0f, 0.0f ),
-	//			g_vMin));
-	//fpac->m_pVec->push_back(
-	//	new MagneticField(
-	//			fpac->pD3DDevice,
-	//			NULL,
-	//			D3DXVECTOR3( 1.2f,1.2f,0.0f ),
-	//			D3DXQUATERNION( 0.0f, 0.0f, 0.0f, 0.0f ),
-	//			g_vMin));
 }
 
 /////////////////// ////////////////////
@@ -238,6 +216,17 @@ void ProvisionalPlayer3D::Update( UpdatePacket& i_UpdatePacket ){
 			m_vPos.x = (float)MousePos.x / DRAW_CLIENT_MAGNIFICATION - MAGNETIC_RADIUS ;
 			m_vPos.y = (( STANDARD_WINDOW_HEIGHT - MousePos.y ) - UI_HEIGHT ) / DRAW_CLIENT_MAGNIFICATION - MAGNETIC_RADIUS + ( m_Camera->getPosY() - m_MovePosY ) ;
 
+			if(g_bMouseLB){
+				m_pMagneticField->setPole(true);
+				m_pMagneticField2->setPole(true);
+				m_pMagneticField3->setPole(true);
+			}
+			else{
+				m_pMagneticField->setPole(false);
+				m_pMagneticField2->setPole(false);
+				m_pMagneticField3->setPole(false);
+			}
+
 			m_pMagneticField->SetPos(m_vPos);
 			m_pMagneticField->Update(i_UpdatePacket);
 
@@ -288,26 +277,37 @@ void ProvisionalPlayer3D::Update( UpdatePacket& i_UpdatePacket ){
  MagneticField 定義部
 ****************************************************************************/
 /***************************************************************************
-関数名     ：MagneticField( FactoryPacket* fpac,			//	: デバイスなど
-					 LPDIRECT3DTEXTURE9 pTexture,	//	: テクスチャ―
-					 wiz::OBJID id )				//	: ID
-用途       ：コンストラクタ
+関数名    ：MagneticField(
+                   LPDIRECT3DDEVICE9   pD3DDevice,
+                   LPDIRECT3DTEXTURE9  pTexture,
+                   D3DXVECTOR3         &vScale,
+                   D3DXQUATERNION      &vRot,
+                   D3DXVECTOR3         &vPos
+              )
+カテゴリ　：コンストラクタ
+用途      ：
+引数　　　：LPDIRECT3DDEVICE9   pD3DDevice    //デバイスなど
+　　　　　：LPDIRECT3DTEXTURE9  pTexture      //テクスチャ
+　　　　　：D3DXVECTOR3         &vScale       //伸縮
+　　　　　：D3DXQUATERNION      &vRot         //回転
+　　　　　：D3DXVECTOR3         &vPos         //位置
+戻り値　　：
+担当者　　：佐藤涼
+備考　　　：
 ****************************************************************************/
 MagneticField::MagneticField(
-	LPDIRECT3DDEVICE9 pD3DDevice,						//	: デバイス
-	LPDIRECT3DTEXTURE9 pTexture,						//	: テクスチャー
-	D3DXVECTOR3		   &vScale,							//	: 伸縮
-	D3DXQUATERNION	   &vRot,							//	: 回転
-	D3DXVECTOR3	       &vPos							//	: 位置
+	LPDIRECT3DDEVICE9 pD3DDevice,
+	LPDIRECT3DTEXTURE9 pTexture,
+	D3DXVECTOR3		   &vScale,
+	D3DXQUATERNION	   &vRot,
+	D3DXVECTOR3	       &vPos
 )
 :Cylinder(pD3DDevice,vScale.x, vScale.y, vScale.z, g_vZero, g_vZero,
 						D3DCOLORVALUE(),
 						D3DCOLORVALUE(),
 						D3DCOLORVALUE()
 	)
-//,m_vPos(vPos)
-//,m_vRot(vRot)
-//,m_vScale(vScale)
+,m_Pole(true)
 {
 	try{
 		//D3DXMatrixIdentity(&m_mMatrix);
@@ -321,106 +321,54 @@ MagneticField::MagneticField(
 }
 
 /**************************************************************
-関数名     ：void	 MagneticField::Draw(DrawPacket &i_DrawPacket)
-用途       ：オブジェクトの描画
+関数名　　：void MagneticField::Draw(DrawPacket &i_DrawPacket)
+カテゴリ　：関数
+用途　　　：オブジェクトの描画
+引数　　　：DrawPacket &i_DrawPacket     //もろもろのデータ
+戻り値　　：
+担当者　　：佐藤涼
+備考　　　：
 ***************************************************************/
 void	MagneticField::Draw(DrawPacket &i_DrawPacket){
-	//vector<Object*> Vec	= 	*(i_DrawPacket.pVec);
-	//ProvisionalPlayer3D*	pp3	= NULL;
-
-	//if( !pp3 ) pp3 = (ProvisionalPlayer3D*)SearchObjectFromTypeID(&Vec,typeid(ProvisionalPlayer3D));
-
-	//if( pp3->FieldDraw() ){
-
-	//	//テクスチャがある場合
-	//	if(m_pTexture){
-	//		DWORD wkdword;
-	//		//現在のテクスチャステータスを得る
-	//		i_DrawPacket.pD3DDevice->GetTextureStageState(0,D3DTSS_COLOROP,&wkdword);
-	//		//ステージの設定
-	//		i_DrawPacket.pD3DDevice->SetTexture(0,m_pTexture);
-	//		//デフィーズ色とテクスチャを掛け合わせる設定
-	//		i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLOROP, D3DTOP_MODULATE4X );
-	//		i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLORARG1, D3DTA_TEXTURE );
-	//		i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLORARG2, D3DTA_DIFFUSE );
-
-	//		//i_DrawPacket.pD3DDevice->SetFVF(PlateFVF);
-	//		// マトリックスをレンダリングパイプラインに設定
-	//		i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &/*it->second->*/m_Matrix);
-	//		//コモンメッシュのDraw()を呼ぶ
-	//		CommonMesh::Draw(i_DrawPacket);
-	//		i_DrawPacket.pD3DDevice->SetTexture(0,0);
-	//		//ステージを元に戻す
-	//		i_DrawPacket.pD3DDevice->SetTextureStageState(0,D3DTSS_COLOROP,wkdword);
-	//	}
-	//	else{
-	//	//テクスチャがない場合
-	//		// マトリックスをレンダリングパイプラインに設定
-	//		i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &/*it->second->*/m_Matrix);
-	//		//コモンメッシュのDraw()を呼ぶ
-	//		CommonMesh::Draw(i_DrawPacket);
-	//	}
-
-	//}
 	Cylinder::Draw(i_DrawPacket);
 };
 
 /*******************************************************************
-関数名     ：void	 MagneticField::Update(UpdatePacket& i_UpdatePacket)
-用途       ：データ更新
+関数名　　：void MagneticField::Update(UpdatePacket& i_UpdatePacket)
+カテゴリ　：関数
+用途　　　：データ更新
+引数　　　：UpdatePacket& i_UpdatePacket     //もろもろのデータ
+戻り値　　：
+担当者　　：佐藤涼
+備考　　　：
 ********************************************************************/
 void	MagneticField::Update(UpdatePacket& i_UpdatePacket)
 {
-	//vector<Object*> Vec	= 	*(i_UpdatePacket.pVec);
-	//ProvisionalPlayer3D*	pp3	= NULL;
-
-	//if( !pp3 ) pp3 = (ProvisionalPlayer3D*)SearchObjectFromTypeID(&Vec,typeid(ProvisionalPlayer3D));
-	////コイルの位置取得
-	//D3DXVECTOR3	ppPos	= pp3->getPos();
-
-	////	: 拡大縮小
-	//D3DXMATRIX mScale ;
-	//D3DXMatrixIdentity( &mScale ) ;
-	//D3DXMatrixScaling( &mScale, m_vScale.x, m_vScale.y, m_vScale.z ) ;
-	//
-	////	: 回転
-	//D3DXMATRIX mRot ;
-	//D3DXMatrixIdentity( &mRot ) ;
-	//D3DXMatrixRotationQuaternion( &mRot, &m_vRot ) ;
-	//
-	////	: 移動用
-	//D3DXMATRIX mMove ;
-	//D3DXMatrixIdentity( &mMove ) ;
-	//D3DXMatrixTranslation( &mMove, m_vPos.x, m_vPos.y, m_vPos.z ) ;
-	//
-	////	: ミックス行列
-	//m_Matrix = mScale * mRot * mMove ;
-
 	//	: マティリアル設定
-	if(g_bMouseRB){
-		D3DCOLORVALUE BallDiffuse = {0.0f,0.0f,1.0f,0.2f};
-		D3DCOLORVALUE BallSpecular = {0.0f,0.0f,0.0f,0.0f};
-		D3DCOLORVALUE BallAmbient = {0.0f,0.0f,1.0f,0.2f};
+	if(m_Pole){
+		//N極
+		D3DCOLORVALUE Diffuse = {1.0f,0.0f,0.0f,0.2f};
+		D3DCOLORVALUE Specular = {0.0f,0.0f,0.0f,0.0f};
+		D3DCOLORVALUE Ambient = {1.0f,0.0f,0.0f,0.2f};
 
-		m_Material.Diffuse	= BallDiffuse;
-		m_Material.Specular	= BallSpecular;
-		m_Material.Ambient	= BallAmbient;
+		m_Material.Diffuse	= Diffuse;
+		m_Material.Specular	= Specular;
+		m_Material.Ambient	= Ambient;
 	}
 	else{
-		D3DCOLORVALUE BallDiffuse = {1.0f,0.0f,0.0f,0.2f};
-		D3DCOLORVALUE BallSpecular = {0.0f,0.0f,0.0f,0.0f};
-		D3DCOLORVALUE BallAmbient = {1.0f,0.0f,0.0f,0.2f};
+		//S極
+		D3DCOLORVALUE Diffuse = {0.0f,0.0f,1.0f,0.2f};
+		D3DCOLORVALUE Specular = {0.0f,0.0f,0.0f,0.0f};
+		D3DCOLORVALUE Ambient = {0.0f,0.0f,1.0f,0.2f};
 
-		m_Material.Diffuse	= BallDiffuse;
-		m_Material.Specular	= BallSpecular;
-		m_Material.Ambient	= BallAmbient;
+		m_Material.Diffuse	= Diffuse;
+		m_Material.Specular	= Specular;
+		m_Material.Ambient	= Ambient;
 	}
 
 	Context ct ;
 	Cylinder::Transform(*i_UpdatePacket.pVec,i_UpdatePacket.pCntlState,ct);
-		//m_vPos		 = ppPos;
 
-	//m_Material = m_Material ;
 };
 
 /**************************************************************************
@@ -474,11 +422,35 @@ PlayerCoil::PlayerCoil(
 {
 	::ZeroMemory( &m_Material, sizeof(D3DMATERIAL9) ) ;
 	D3DXMatrixIdentity( &m_Matrix ) ;
-
+	m_pCylinder = new Cylinder( pD3DDevice, m_Radius1, m_Radius2, m_Length, m_vPos, g_vZero, Diffuse, Specular, Ambient ) ;
 	setPoleN();
 	SetBaseRot(vRot);
 }
-
+/////////////////////// ////////////////////
+//////// 用途       ：bool PlayerCoil::HitTestWall( SPHERE& Coil )
+//////// カテゴリ   ：MultiBoxとの衝突判定
+//////// 用途       ：マルチボックスとの衝突判定
+//////// 引数       ：  bool HitTestMultiBox
+////////				  MultiBox* pBox,	//マルチボックス
+////////				  size_t& Index,	//ヒットしていたらインデックスが戻る
+////////				  D3DXVECTOR3& Vec,         //最近接点
+////////				  D3DXVECTOR3& ElsePos         //一つ前のポジション
+//////// 戻値       ：衝突していればtrue
+//////// 担当者     ：曳地 大洋
+//////// 備考       ：
+bool PlayerCoil::HitTestWall( OBB Obb, float Index ){
+	D3DXVECTOR3 Pos = GetPos();
+	SPHERE sp;
+	sp.m_Center = m_vPos;
+	sp.m_Radius = m_pCylinder->getRadius1() ;
+	//通常の衝突判定
+	D3DXVECTOR3 Vec ;
+	if(HitTest::SPHERE_OBB(sp,Obb,Vec)){
+		MessageBox( NULL, L"当たった！！", L"Error", NULL) ;
+		return true;
+	}
+	return false;
+}
 /////////////////// ////////////////////
 //// 関数名     ：void Update( UpdatePacket& i_UpdatePacket )
 //// カテゴリ   ：
