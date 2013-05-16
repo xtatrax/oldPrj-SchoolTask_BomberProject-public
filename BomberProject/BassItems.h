@@ -2141,11 +2141,72 @@ public:
 /*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 
 /*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
-		class PrimitiveSphere : public Sphere {
-			public:
-				PrimitiveSphere(LPDIRECT3DDEVICE9 pD3DDevice,D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,LPDIRECT3DTEXTURE9 pTexture = 0)
-					:Sphere( pD3DDevice,0.5f, g_vZero, g_vZero,Diffuse, Specular, Ambient,OBJID_3D_SPHERE, false, pTexture ,18, 18){}
-		};
+class PrimitiveSphere : public Sphere {
+	public:
+		PrimitiveSphere(LPDIRECT3DDEVICE9 pD3DDevice,D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,LPDIRECT3DTEXTURE9 pTexture = 0)
+			:Sphere( pD3DDevice,0.5f, g_vZero, g_vZero,Diffuse, Specular, Ambient,OBJID_3D_SPHERE, false, pTexture ,18, 18){}
+};
+
+
+//**************************************************************************
+// class DrawOBB : public Object;
+//
+// 担当者  ; 鴫原 徹
+// 用途    : OBBの可視化
+//**************************************************************************
+class DrawOBB : public Object{
+	IDirect3DVertexBuffer9* m_pVB;
+	//クラス内構造体
+	//ここでしか使用しないので、内部に持つ
+	struct CUSTOMVERTEX
+	{
+		D3DXVECTOR3 vec;
+		DWORD color;
+	};
+	OBB m_TargetObb ;
+/////////////////// ////////////////////
+//// 関数名     ：Guide(LPDIRECT3DDEVICE9 pD3DDevice)
+//// カテゴリ   ：コンストラクタ
+//// 用途       ：ガイドライン生成時処理
+//// 引数       ：  LPDIRECT3DDEVICE9 pD3DDevice    //IDirect3DDevice9インターフェイスへのポインタ
+//// 戻値       ：なし（失敗時は例外をthrow）
+//// 担当者     ：(山ノ井先生のひな形より)
+//// 備考       ：
+////            ：
+////
+	DrawOBB(LPDIRECT3DDEVICE9 pD3DDevice, OBB i_OBB, Color i_Color, wiz::OBJID id = OBJID_3D_DRAWOBB);
+public:
+/////////////////// ////////////////////
+//// 関数名     ：Guide::~Guide()
+//// カテゴリ   ：デストラクタ
+//// 用途       ：ガイドライン破棄時処理
+//// 引数       ：なし
+//// 戻値       ：なし
+//// 担当者     ：(山ノ井先生のひな形より)
+//// 備考       ：
+////            ：
+////
+virtual ~DrawOBB();
+/////////////////// ////////////////////
+//// 関数名     ：void Draw( LPDIRECT3DDEVICE9 pD3DDevice , vector<Object*>& Vec)
+//// カテゴリ   ：仮想関数
+//// 用途       ：ガイドラインを描画
+//// 引数       ：  LPDIRECT3DDEVICE9 pD3DDevice		//IDirect3DDevice9 インターフェイスへのポインタ
+////            ：  vector<Object*>& Vec,				//オブジェクトの配列
+//// 戻値       ：なし
+//// 担当者     ：(山ノ井先生のひな形より)
+//// 備考       ：Objectクラスの純粋仮想関数
+////            ：
+////
+virtual void Draw(LPDIRECT3DDEVICE9 pD3DDevice,Tempus2* i_Time,vector<Object*>& Vec,Command& Com) ;
+
+static void Add(LPDIRECT3DDEVICE9 pD3DDevice,vector<Object*>& Vec, OBB i_OBB, Color i_Color = 0xFFFF0000){
+	#ifdef ON_DEBUGGINGPROCESS
+		Vec.push_back( new DrawOBB(pD3DDevice, i_OBB, i_Color) );
+	#endif
+}
+
+};
 
 	}//end of namespace baseitems.
 	using namespace baseitems;

@@ -97,7 +97,7 @@ MagneticumObject3D::MagneticumObject3D(
 				   id,
 				   pTexture)
 ,m_bMagnetPole( POLE_S )
-,m_fMagneticum(MGPRM_MAGNETICUM)
+,m_fMagneticum((float)MGPRM_MAGNETICUM)
 {
 	::ZeroMemory( &m_Material, sizeof(D3DMATERIAL9) ) ;
 	m_pMagneticField	= new	MagneticField(pD3DDevice,

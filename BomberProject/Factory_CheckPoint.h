@@ -14,17 +14,25 @@
 #include "StdAfx.h"
 #include "Object.h"
 #include "BassItems.h"
+#include "Factory_Player.h"
 
 namespace wiz{
 	
 class CheckPoint : public Cylinder{
 protected:
 	struct ITEM{
-		
+		float	fPosY ;
+
+		ITEM(float i_fPosY)
+			:fPosY( i_fPosY )
+		{}
 	};
 	typedef vector< ITEM* > ITEMCONTAINER ;
-	ITEMCONTAINER	m_TtemContainer ;
-	size_t			m_ActiveItem    ;
+	ITEMCONTAINER			m_ItemContainer ;
+	size_t					m_ActiveItem    ;
+	PlayerCoil*				m_pCoil			;
+	Camera*					m_pCamera		;
+
 /////////////////// ////////////////////
 //// 関数名     ：bool HitTestIntersect(OBB i_obb, D3DXVECTOR3 i_vMove, HITGROUNDVECTOR& o_HitListVec)
 //// カテゴリ   ：メンバ関数
@@ -32,7 +40,7 @@ protected:
 //// 引数       ：
 ////            ：
 //// 戻値       ：
-//// 担当者     ：
+//// 担当者     ：鴫原 徹
 //// 備考       ：
 ////            ：
 ////
@@ -44,7 +52,7 @@ protected:
 //// 引数       ：
 ////            ：
 //// 戻値       ：
-//// 担当者     ：
+//// 担当者     ：鴫原 徹
 //// 備考       ：
 ////            ：
 ////
@@ -52,6 +60,7 @@ protected:
 
 public:
 	CheckPoint( LPDIRECT3DDEVICE9 pD3DDevice, float fLength, wiz::OBJID id = OBJID_SYS_CHECKPOINT );
+	~CheckPoint();
 /////////////////// ////////////////////
 //// 用途       ：virtual void Update( UpdatePacket& i_UpdatePacket )
 //// カテゴリ   ：仮想関数
@@ -79,12 +88,24 @@ public:
 ////            ：  ├ Tempus2*            i_DrawPacket.pTime	   // 時間を管理するクラスへのポインター
 ////            ：  └ Command             i_DrawPacket.pCommand   // コマンド
 //// 戻値       ：無し
-//// 担当者     ：
+//// 担当者     ：鴫原 徹
 //// 備考       ：継承するものは何れかのレベルで必ず定義をすること｡
 ////            ：
 ////
     virtual void Draw( DrawPacket& i_DrawPacket ) ;
-
+/////////////////// ////////////////////
+//// 用途       ：virtual void Draw( DrawPacket& i_DrawPacket )
+//// カテゴリ   ：
+//// 用途       ：チェックポイントを追加
+//// 引数       ：
+//// 戻値       ：無し
+//// 担当者     ：鴫原 徹
+//// 備考       ：
+////            ：
+////
+	void add(float fPosY){
+		m_ItemContainer.push_back( new ITEM( fPosY ) );
+	}
 
 
 };
