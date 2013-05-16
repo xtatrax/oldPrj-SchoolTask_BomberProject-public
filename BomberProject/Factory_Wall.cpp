@@ -169,6 +169,8 @@ void WallObject::Update( UpdatePacket& i_UpdatePacket ){
 			m_pPlayerCoil->HitTestWall( it2->second->m_Obb, 0 ) ;
 		}
 
+		DrawOBB::Add( i_UpdatePacket.pD3DDevice, *i_UpdatePacket.pVec, it2->second->m_Obb, 0xFFFFFFFF ) ;
+
 		++it2;
 	}
 }
@@ -203,7 +205,7 @@ void WallObject::AddWall(D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos
 			D3DXToRadian(vRot.y),D3DXToRadian(vRot.x),D3DXToRadian(vRot.z));
 
 	//衝突判定用のOBBの初期化
-	pItem->m_Obb = OBB( vScale, vRot, vPos ) ;
+	pItem->m_Obb = OBB( vScale, pItem->m_vRot, vPos ) ;
 	D3DXMATRIX mRot;
 	D3DXMatrixIdentity(&mRot);
 	D3DXMatrixRotationYawPitchRoll(&mRot,
@@ -281,81 +283,81 @@ Factory_Wall::Factory_Wall(FactoryPacket* fpac){
 		//			  WallDiffuse,
 		//			  WallSpecular,
 		//			  WallAmbient);
-		////右横
-		//Wall->AddWall(D3DXVECTOR3(2.0f,26.0f,0.5f),
-		//			  D3DXVECTOR3(0.0f,0.0f,0.0f),
-		//			  D3DXVECTOR3(38.5f,12.0f,0.0f),
-		//			  WallDiffuse,
-		//			  WallSpecular,
-		//			  WallAmbient);
-		////左横
+		//右横
+		Wall->AddWall(D3DXVECTOR3(2.0f,26.0f,0.5f),
+					  D3DXVECTOR3(0.0f,0.0f,0.0f),
+					  D3DXVECTOR3(38.5f,12.0f,0.0f),
+					  WallDiffuse,
+					  WallSpecular,
+					  WallAmbient);
+		//左横
 		//Wall->AddWall(D3DXVECTOR3(2.0f,26.0f,0.5f),
 		//			  D3DXVECTOR3(0.0f,0.0f,0.0f),
 		//			  D3DXVECTOR3(0.5f,12.0f,0.0f),
 		//			  WallDiffuse,
 		//			  WallSpecular,
 		//			  WallAmbient);
-		////お試し上
+		//お試し上
 		//Wall->AddWall(D3DXVECTOR3(40.0f,2.0f,0.5f),
 		//			  D3DXVECTOR3(0.0f,0.0f,0.0f),
 		//			  D3DXVECTOR3(20.0f,24.0f,0.0f),
 		//			  WallDiffuse,
 		//			  WallSpecular,
 		//			  WallAmbient);
-		////下
-		//Wall->AddWall(D3DXVECTOR3(2.0f,40.0f,0.5f),
-		//			  D3DXVECTOR3(0.0f,0.0f,90.0f),
-		//			  D3DXVECTOR3(20.0f,0.5f,0.0f),
-		//			  WallDiffuse,
-		//			  WallSpecular,
-		//			  WallAmbient);
-		////真ん中縦
-		//Wall->AddWall(D3DXVECTOR3(2.0f,10.0f,0.5f),
-		//			  D3DXVECTOR3(0.0f,0.0f,0.0f),
-		//			  D3DXVECTOR3(20.0f,6.0f,0.0f),
-		//			  WallDiffuse,
-		//			  WallSpecular,
-		//			  WallAmbient);
-		////お試し
-		//Wall->AddWall(D3DXVECTOR3(2.0f,11.0f,0.5f),
-		//			  D3DXVECTOR3(0.0f,0.0f,90.0f),
-		//			  D3DXVECTOR3(20.0f,10.0f,0.0f),
-		//			  WallDiffuse,
-		//			  WallSpecular,
-		//			  WallAmbient);
 		//下
+		Wall->AddWall(D3DXVECTOR3(2.0f,40.0f,0.5f),
+					  D3DXVECTOR3(0.0f,0.0f,90.0f),
+					  D3DXVECTOR3(20.0f,0.5f,0.0f),
+					  WallDiffuse,
+					  WallSpecular,
+					  WallAmbient);
+		//真ん中縦
+		Wall->AddWall(D3DXVECTOR3(2.0f,10.0f,0.5f),
+					  D3DXVECTOR3(0.0f,0.0f,0.0f),
+					  D3DXVECTOR3(20.0f,6.0f,0.0f),
+					  WallDiffuse,
+					  WallSpecular,
+					  WallAmbient);
+		//お試し
 		Wall->AddWall(D3DXVECTOR3(2.0f,11.0f,0.5f),
 					  D3DXVECTOR3(0.0f,0.0f,90.0f),
+					  D3DXVECTOR3(20.0f,10.0f,0.0f),
+					  WallDiffuse,
+					  WallSpecular,
+					  WallAmbient);
+		//下
+		Wall->AddWall(D3DXVECTOR3(2.0f,11.0f,0.5f),
+					  D3DXVECTOR3(0.0f,0.0f,120.0f),
 					  D3DXVECTOR3(20.0f,20.0f,0.0f),
 					  WallDiffuse,
 					  WallSpecular,
 					  WallAmbient);
-		//// 左横向き
-		//Wall->AddWall(D3DXVECTOR3(2.0f,11.0f,0.5f),
-		//			  D3DXVECTOR3(0.0f,0.0f,90.0f),
-		//			  D3DXVECTOR3(7.0f,14.0f,0.0f),
-		//			  WallDiffuse,
-		//			  WallSpecular,
-		//			  WallAmbient);
-		////お試し
-		//Wall->AddWall(D3DXVECTOR3(2.0f,20.0f,0.5f),
-		//			  D3DXVECTOR3(0.0f,0.0f,45.0f),
-		//			  D3DXVECTOR3(20.0f,20.0f,0.0f),
-		//			  WallDiffuse,
-		//			  WallSpecular,
-		//			  WallAmbient);
-		//Wall->AddWall(D3DXVECTOR3(2.0f,5.0f,0.5f),
-		//			  D3DXVECTOR3(0.0f,0.0f,45.0f),
-		//			  D3DXVECTOR3(30.0f,15.0f,0.0f),
-		//			  WallDiffuse,
-		//			  WallSpecular,
-		//			  WallAmbient);
-		//Wall->AddWall(D3DXVECTOR3(2.0f,4.0f,0.5f),
-		//			  D3DXVECTOR3(0.0f,0.0f,-45.0f),
-		//			  D3DXVECTOR3(20.0f,17.0f,0.0f),
-		//			  WallDiffuse,
-		//			  WallSpecular,
-		//			  WallAmbient);
+		// 左横向き
+		Wall->AddWall(D3DXVECTOR3(2.0f,11.0f,0.5f),
+					  D3DXVECTOR3(0.0f,0.0f,90.0f),
+					  D3DXVECTOR3(7.0f,14.0f,0.0f),
+					  WallDiffuse,
+					  WallSpecular,
+					  WallAmbient);
+		//お試し
+		Wall->AddWall(D3DXVECTOR3(2.0f,20.0f,0.5f),
+					  D3DXVECTOR3(0.0f,0.0f,45.0f),
+					  D3DXVECTOR3(20.0f,20.0f,0.0f),
+					  WallDiffuse,
+					  WallSpecular,
+					  WallAmbient);
+		Wall->AddWall(D3DXVECTOR3(2.0f,5.0f,0.5f),
+					  D3DXVECTOR3(0.0f,0.0f,45.0f),
+					  D3DXVECTOR3(30.0f,15.0f,0.0f),
+					  WallDiffuse,
+					  WallSpecular,
+					  WallAmbient);
+		Wall->AddWall(D3DXVECTOR3(2.0f,4.0f,0.5f),
+					  D3DXVECTOR3(0.0f,0.0f,-45.0f),
+					  D3DXVECTOR3(20.0f,17.0f,0.0f),
+					  WallDiffuse,
+					  WallSpecular,
+					  WallAmbient);
 		fpac->m_pVec->push_back(Wall);
 	}
 	catch(...){

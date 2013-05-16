@@ -407,9 +407,10 @@ struct OBB{
 		m_Center = vPos   ;
 		//m_Size   = vScale ;
 		m_Size   = vScale * 0.5f ;
-		vQt		*= vQt ; 
-		D3DXQuaternionNormalize(&vQt,&vQt);
-		D3DXMATRIX mRot   ;
+		//vQt		*= vQt ; 
+		//D3DXQuaternionNormalize(&vQt,&vQt);
+
+		D3DXMATRIX mRot;
 		D3DXMatrixIdentity(&mRot);
 		D3DXMatrixRotationQuaternion(&mRot,&vQt);
 		m_mRot = mRot ;

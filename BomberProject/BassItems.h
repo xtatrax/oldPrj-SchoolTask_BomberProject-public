@@ -2202,7 +2202,9 @@ virtual void Draw(DrawPacket& i_DrawPacket) ;
 
 static void Add(LPDIRECT3DDEVICE9 pD3DDevice,vector<Object*>& Vec, OBB i_OBB, Color i_Color = 0xFFFF0000){
 	#ifdef ON_DEBUGGINGPROCESS
-		Vec.push_back( new DrawOBB(pD3DDevice, i_OBB, i_Color) );
+		if(GetAsyncKeyState( MYVK_DEBUG_OBB_DRAW )){
+			Vec.push_back( new DrawOBB(pD3DDevice, i_OBB, i_Color) );
+		}
 	#endif
 }
 
