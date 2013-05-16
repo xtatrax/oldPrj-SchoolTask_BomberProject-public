@@ -35,7 +35,11 @@ const int DRAWING_RANGE = 20;
 //**************************************************************************//
 class WallObject : public PrimitiveBox{
 	PlayerCoil* m_pPlayerCoil ;
+<<<<<<< HEAD
 	Camera*	    m_pCamera;
+=======
+	Camera*	   m_pCamera;
+>>>>>>> workspace
 	struct WallItem{
 		D3DMATERIAL9   m_Material;
 		D3DXMATRIX	   m_Matrix;
@@ -69,6 +73,21 @@ public:
 	bool HitTest2DRectAndCircle( D3DXVECTOR3& i_vPos, float i_fRadius );
 
 
+<<<<<<< HEAD
+=======
+	///////////////////// ////////////////////
+	////// 用途       ：void GetOBB( size_t Index, OBB& obb )
+	////// カテゴリ   ：関数
+	////// 用途       ：オブジェクトをディスプレイに表示する
+	////// 引数       ： float Index,
+	//////				 OBB& obb			//取得するOBB
+	////// 戻値       ：なし。インデックスが範囲外なら例外
+	//////				＊現在のOBBを代入する
+	////// 担当者     ：曳地 大洋
+	////// 備考       ：
+	void GetOBBList( float Index, list<OBB>& ObbList );
+
+>>>>>>> workspace
 	/////////////////// ////////////////////
 	//// 用途       ：void Draw( DrawPacket& i_DrawPacket )
 	//// カテゴリ   ：関数
@@ -116,6 +135,7 @@ public:
 	//// 備考       ：
 	void AddWall(D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos,
 			D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient);
+<<<<<<< HEAD
 
 	bool HitTest3DAddWall( MultiBox* pBox, size_t& Index, D3DXVECTOR3& Vec, D3DXVECTOR3& ElsePos );
 
@@ -130,6 +150,8 @@ public:
 	////// 担当者     ：曳地 大洋
 	////// 備考       ：
 	void GetOBBList( float Index, list<OBB>& ObbList );
+=======
+>>>>>>> workspace
 };
 
 //class WallManager {
