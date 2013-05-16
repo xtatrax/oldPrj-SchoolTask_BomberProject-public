@@ -1808,6 +1808,29 @@ bool val		//したいしたい値（trueかfalse）
 ////            ：
 ////
 	D3DXVECTOR3 getPos() const;
+
+///////////////////// ////////////////////
+//// 関数名     ：FLOAT getRaduis1() const
+//// カテゴリ   ：ゲッター
+//// 用途       ：Radius1
+//// 引数       ：なし
+//// 戻値       ：なし
+//// 担当者     ：曳地 大洋
+//// 備考       ：
+////            ：
+////
+	FLOAT getRadius1() const ;
+///////////////////// ////////////////////
+//// 関数名     ：FLOAT getRaduis2() const
+//// カテゴリ   ：ゲッター
+//// 用途       ：Radius2
+//// 引数       ：なし
+//// 戻値       ：なし
+//// 担当者     ：曳地 大洋
+//// 備考       ：
+////            ：
+////
+	FLOAT getRadius2() const ;
 };
 
 /**************************************************************************
@@ -2103,18 +2126,18 @@ public:
 
 
 /*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
-		class PrimitiveBox : public Box {
-			public:
-				PrimitiveBox(LPDIRECT3DDEVICE9 pD3DDevice,
-					D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,
-					wiz::OBJID id = OBJID_3D_BOX,
-					LPDIRECT3DTEXTURE9 pTexture = 0)
-					:Box(pD3DDevice,g_vOne, g_vZero, g_vZero, Diffuse, Specular, Ambient, id, false, pTexture)
-				
-				{}
+class PrimitiveBox : public Box {
+public:
+	PrimitiveBox(LPDIRECT3DDEVICE9 pD3DDevice,
+        D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,
+		wiz::OBJID id = OBJID_3D_BOX,
+		LPDIRECT3DTEXTURE9 pTexture = 0)
+		:Box(pD3DDevice,g_vOne, g_vZero, g_vZero, Diffuse, Specular, Ambient, id, false, pTexture)
+	{
+	}
 
 
-		};
+};
 /*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 
 /*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/

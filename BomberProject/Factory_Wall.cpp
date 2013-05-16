@@ -17,8 +17,8 @@
 
 
 namespace wiz{
-PlayerCoil* WallObject::m_pPlayerCoil = NULL ;
-Camera*		WallObject::m_pCamera = NULL;	
+//PlayerCoil* WallObject::m_pPlayerCoil = NULL ;
+//Camera*		WallObject::m_pCamera = NULL;	
 
 /**************************************************************************
  WallObject 定義部
@@ -42,6 +42,8 @@ WallObject::WallObject( LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTextur
 					pTexture)
 {
 	::ZeroMemory( &m_Material, sizeof(D3DMATERIAL9));
+	m_pPlayerCoil = NULL ;
+	m_pCamera = NULL;	
 }
 
 bool WallObject::HitTest2DRectAndCircle(D3DXVECTOR3& i_vPos, float i_fRadius)
@@ -54,6 +56,45 @@ bool WallObject::HitTest2DRectAndCircle(D3DXVECTOR3& i_vPos, float i_fRadius)
 	//}
 	return false ;
 }
+
+/////////////////// ////////////////////
+//// 用途       ：void Will::GetOBB( size_t Index, OBB& obb )
+//// カテゴリ   ：関数
+//// 用途       ：指定のインデックスの現在のOBBを得る
+//// 引数       :		size_t Index,
+////					OBB& obb	//取得するOBB
+//// 戻値       ：なし。インデックスが範囲外なら例外
+////				 ＊現在のOBBを代入する
+//// 担当者     ：曳地 大洋
+//// 備考       ：
+void WallObject::GetOBBList( float Index, list<OBB>& ObbList ){
+    //指定の配置オブジェクトを検証
+	multimap<float,WallItem*>::iterator itBegin = m_ItemMap_Target.lower_bound( 20.0f ) ;
+	multimap<float,WallItem*>::iterator itEnd	= m_ItemMap_Target.upper_bound( 20.0f ) ;
+	OBB obb ; 
+	for(multimap<float,WallItem*>::iterator iter = itBegin; iter != itEnd; ++iter){
+		obb.m_Center  = iter->second->m_vPos + iter->second->m_vPos;
+		obb.m_Size	  = m_Size;
+		obb.m_Size.x *= iter->second->m_vScale.x;
+		obb.m_Size.y *= iter->second->m_vScale.y;
+		obb.m_Size.z *= iter->second->m_vScale.z;
+		obb.m_Size *= 0.5f;
+		//トータルの回転を得る
+		D3DXQUATERNION Qt = iter->second->m_vRot;
+		Qt *= iter->second->m_vRot;
+		//クオータニオンを正規化
+		D3DXQuaternionNormalize(&Qt,&Qt);
+		//クオータニオンから回転行列を作成
+		D3DXMATRIX mRot;
+		D3DXMatrixIdentity(&mRot);
+		D3DXMatrixRotationQuaternion(&mRot,&Qt);
+		obb.m_Rot[0] = D3DXVECTOR3(mRot._11,mRot._12,mRot._13);
+	    obb.m_Rot[1] = D3DXVECTOR3(mRot._21,mRot._22,mRot._23);
+	    obb.m_Rot[2] = D3DXVECTOR3(mRot._31,mRot._32,mRot._33);
+		ObbList.push_back( obb ) ;
+	}
+}
+
 
 /////////////////// ////////////////////
 //// 用途       ：void Draw( DrawPacket& i_DrawPacket )
@@ -188,7 +229,8 @@ void WallObject::AddWall(D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos
 
 	m_ItemMap_All.insert(multimap<float,WallItem*>::value_type(pItem->m_vPos.y,pItem));	
 }
-/**************************************************************************
+
+
 
 /**************************************************************************
  Factory_Wall 定義部

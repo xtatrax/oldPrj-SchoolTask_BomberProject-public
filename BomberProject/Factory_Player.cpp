@@ -116,14 +116,14 @@ void ProvisionalPlayer::Update( UpdatePacket& i_UpdatePacket ){
 ////            ：
 ////
 ProvisionalPlayer3D::ProvisionalPlayer3D(
-	LPDIRECT3DDEVICE9 pD3DDevice,						//	: デバイス
+	FactoryPacket*	fpac,								//	: デバイス
 	LPDIRECT3DTEXTURE9 pTexture,						//	: テクスチャー
 	D3DXVECTOR3		   &vScale,							//	: 伸縮
 	D3DXQUATERNION	   &vRot,							//	: 回転
 	D3DXVECTOR3	       &vPos,							//	: 位置
 	wiz::OBJID id 										//	: ID
 )
-	:MagneticumObject3D( pD3DDevice, pTexture, id )
+	:MagneticumObject3D( fpac->pD3DDevice, pTexture, id )
 ,m_vPos(vPos)
 ,m_vRot(vRot)
 ,m_vScale(vScale)
@@ -131,12 +131,12 @@ ProvisionalPlayer3D::ProvisionalPlayer3D(
 ,m_Camera(NULL)
 ,m_bLastMouseRB(false)
 ,m_bLastMouseLB(false)
+,m_bField(false)
 {
 	::ZeroMemory( &m_Material, sizeof(D3DMATERIAL9) ) ;
 	D3DXMatrixIdentity( &m_Matrix ) ;
 	setPoleS();
 }
-
 
 /////////////////// ////////////////////
 //// 用途       ：void Draw( DrawPacket& i_DrawPacket )
@@ -182,7 +182,12 @@ void ProvisionalPlayer3D::Draw(DrawPacket& i_DrawPacket)
 			//コモンメッシュのDraw()を呼ぶ
 			CommonMesh::Draw(i_DrawPacket);
 		}
+		m_pMagneticField->Draw(i_DrawPacket);
+		m_pMagneticField2->Draw(i_DrawPacket);
+		m_pMagneticField3->Draw(i_DrawPacket);
+		m_bField	= true;
 	}
+	else	m_bField	= false;
 }
 
 /////////////////// ////////////////////
@@ -210,6 +215,27 @@ void ProvisionalPlayer3D::Update( UpdatePacket& i_UpdatePacket ){
 			
 			m_vPos.x = (float)MousePos.x / DRAW_CLIENT_MAGNIFICATION - MAGNETIC_RADIUS ;
 			m_vPos.y = (( STANDARD_WINDOW_HEIGHT - MousePos.y ) - UI_HEIGHT ) / DRAW_CLIENT_MAGNIFICATION - MAGNETIC_RADIUS + ( m_Camera->getPosY() - m_MovePosY ) ;
+
+			if(g_bMouseLB){
+				m_pMagneticField->setPole(true);
+				m_pMagneticField2->setPole(true);
+				m_pMagneticField3->setPole(true);
+			}
+			else{
+				m_pMagneticField->setPole(false);
+				m_pMagneticField2->setPole(false);
+				m_pMagneticField3->setPole(false);
+			}
+
+			m_pMagneticField->SetPos(m_vPos);
+			m_pMagneticField->Update(i_UpdatePacket);
+
+			m_pMagneticField2->SetPos(m_vPos);
+			m_pMagneticField2->Update(i_UpdatePacket);
+
+			m_pMagneticField3->SetPos(m_vPos);
+			m_pMagneticField3->Update(i_UpdatePacket);
+
 			if( g_bMouseLB )
 				setPoleN() ;
 			if( g_bMouseRB )
@@ -245,6 +271,104 @@ void ProvisionalPlayer3D::Update( UpdatePacket& i_UpdatePacket ){
 	}
 	m_bLastMouseLB = g_bMouseLB ;
 	m_bLastMouseRB = g_bMouseRB ;
+};
+
+/**************************************************************************
+ MagneticField 定義部
+****************************************************************************/
+/***************************************************************************
+関数名    ：MagneticField(
+                   LPDIRECT3DDEVICE9   pD3DDevice,
+                   LPDIRECT3DTEXTURE9  pTexture,
+                   D3DXVECTOR3         &vScale,
+                   D3DXQUATERNION      &vRot,
+                   D3DXVECTOR3         &vPos
+              )
+カテゴリ　：コンストラクタ
+用途      ：
+引数　　　：LPDIRECT3DDEVICE9   pD3DDevice    //デバイスなど
+　　　　　：LPDIRECT3DTEXTURE9  pTexture      //テクスチャ
+　　　　　：D3DXVECTOR3         &vScale       //伸縮
+　　　　　：D3DXQUATERNION      &vRot         //回転
+　　　　　：D3DXVECTOR3         &vPos         //位置
+戻り値　　：
+担当者　　：佐藤涼
+備考　　　：
+****************************************************************************/
+MagneticField::MagneticField(
+	LPDIRECT3DDEVICE9 pD3DDevice,
+	LPDIRECT3DTEXTURE9 pTexture,
+	D3DXVECTOR3		   &vScale,
+	D3DXQUATERNION	   &vRot,
+	D3DXVECTOR3	       &vPos
+)
+:Cylinder(pD3DDevice,vScale.x, vScale.y, vScale.z, g_vZero, g_vZero,
+						D3DCOLORVALUE(),
+						D3DCOLORVALUE(),
+						D3DCOLORVALUE()
+	)
+,m_Pole(true)
+{
+	try{
+		//D3DXMatrixIdentity(&m_mMatrix);
+        // D3DMATERIAL9構造体を0でクリア
+        ::ZeroMemory( &m_Material, sizeof(D3DMATERIAL9));
+	}
+	catch(...){
+		//再スロー
+		throw;
+	}
+}
+
+/**************************************************************
+関数名　　：void MagneticField::Draw(DrawPacket &i_DrawPacket)
+カテゴリ　：関数
+用途　　　：オブジェクトの描画
+引数　　　：DrawPacket &i_DrawPacket     //もろもろのデータ
+戻り値　　：
+担当者　　：佐藤涼
+備考　　　：
+***************************************************************/
+void	MagneticField::Draw(DrawPacket &i_DrawPacket){
+	Cylinder::Draw(i_DrawPacket);
+};
+
+/*******************************************************************
+関数名　　：void MagneticField::Update(UpdatePacket& i_UpdatePacket)
+カテゴリ　：関数
+用途　　　：データ更新
+引数　　　：UpdatePacket& i_UpdatePacket     //もろもろのデータ
+戻り値　　：
+担当者　　：佐藤涼
+備考　　　：
+********************************************************************/
+void	MagneticField::Update(UpdatePacket& i_UpdatePacket)
+{
+	//	: マティリアル設定
+	if(m_Pole){
+		//N極
+		D3DCOLORVALUE Diffuse = {1.0f,0.0f,0.0f,0.2f};
+		D3DCOLORVALUE Specular = {0.0f,0.0f,0.0f,0.0f};
+		D3DCOLORVALUE Ambient = {1.0f,0.0f,0.0f,0.2f};
+
+		m_Material.Diffuse	= Diffuse;
+		m_Material.Specular	= Specular;
+		m_Material.Ambient	= Ambient;
+	}
+	else{
+		//S極
+		D3DCOLORVALUE Diffuse = {0.0f,0.0f,1.0f,0.2f};
+		D3DCOLORVALUE Specular = {0.0f,0.0f,0.0f,0.0f};
+		D3DCOLORVALUE Ambient = {0.0f,0.0f,1.0f,0.2f};
+
+		m_Material.Diffuse	= Diffuse;
+		m_Material.Specular	= Specular;
+		m_Material.Ambient	= Ambient;
+	}
+
+	Context ct ;
+	Cylinder::Transform(*i_UpdatePacket.pVec,i_UpdatePacket.pCntlState,ct);
+
 };
 
 /**************************************************************************
@@ -298,11 +422,35 @@ PlayerCoil::PlayerCoil(
 {
 	::ZeroMemory( &m_Material, sizeof(D3DMATERIAL9) ) ;
 	D3DXMatrixIdentity( &m_Matrix ) ;
-
+	m_pCylinder = new Cylinder( pD3DDevice, m_Radius1, m_Radius2, m_Length, m_vPos, g_vZero, Diffuse, Specular, Ambient ) ;
 	setPoleN();
 	SetBaseRot(vRot);
 }
-
+/////////////////////// ////////////////////
+//////// 用途       ：bool PlayerCoil::HitTestWall( SPHERE& Coil )
+//////// カテゴリ   ：MultiBoxとの衝突判定
+//////// 用途       ：マルチボックスとの衝突判定
+//////// 引数       ：  bool HitTestMultiBox
+////////				  MultiBox* pBox,	//マルチボックス
+////////				  size_t& Index,	//ヒットしていたらインデックスが戻る
+////////				  D3DXVECTOR3& Vec,         //最近接点
+////////				  D3DXVECTOR3& ElsePos         //一つ前のポジション
+//////// 戻値       ：衝突していればtrue
+//////// 担当者     ：曳地 大洋
+//////// 備考       ：
+bool PlayerCoil::HitTestWall( OBB Obb, float Index ){
+	D3DXVECTOR3 Pos = GetPos();
+	SPHERE sp;
+	sp.m_Center = m_vPos;
+	sp.m_Radius = m_pCylinder->getRadius1() ;
+	//通常の衝突判定
+	D3DXVECTOR3 Vec ;
+	if(HitTest::SPHERE_OBB(sp,Obb,Vec)){
+		MessageBox( NULL, L"当たった！！", L"Error", NULL) ;
+		return true;
+	}
+	return false;
+}
 /////////////////// ////////////////////
 //// 関数名     ：void Update( UpdatePacket& i_UpdatePacket )
 //// カテゴリ   ：
@@ -365,6 +513,23 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 				break;
 		}
 
+		if( Lng <= m_pPlayer->getMagneticum() ){
+			//自機と磁界の角度
+			float fTargetDir = TwoPoint2Degree( vProvisionalPos , m_vPos );
+			//fTargetDir = 360.0f - fTargetDir;
+			Debugger::DBGSTR::addStr( L"fTargetDir : %f\n", fTargetDir);
+			//自機のデカルト座標
+			D3DXVECTOR3 vDescartes = ConvertToCartesianCoordinates(vMove.x,m_fMoveDir);
+			Debugger::DBGSTR::addStr( L"vDescartes : %f\n", vDescartes.x);
+
+			float	fReverse = 0.0f;
+			if(m_fMoveDir > 180.0f){
+				fReverse = m_fMoveDir - 180.0f;
+			}
+			else{
+				fReverse = m_fMoveDir + 180.0f;
+			}
+		}
 		//デバック用-----------------------------------------------------------
 		Debugger::DBGSTR::addStr( L"角度 = %f\n",m_fMoveDir);
 		//-----------------------------------------------------------------------
@@ -417,7 +582,7 @@ void PlayerCoil::Update_StateStart( float i_fTargetDir ){
 	if(g_bMouseLB && fLng <= START_EFFECTIVE_RANGE_QUAD){
 		m_enumCoilState = COIL_STATE_MOVE;
 	}
-}
+};
 
 /////////////////// ////////////////////
 //// 関数名     ：PlayerCoil::Update_StateMove( D3DXVECTOR3 i_vMove, D3DXVECTOR3 i_vProvisionalPos ,float i_fLng )
@@ -433,7 +598,6 @@ void PlayerCoil::Update_StateStart( float i_fTargetDir ){
 ////
 void PlayerCoil::Update_StateMove( D3DXVECTOR3 i_vMove, float i_fTargetDir ,float i_fLng ){
 	if( i_fLng <= MGPRM_MAGNETICUM_QUAD ){
-
 		float	fReverse = 0.0f;
 		if(m_fMoveDir > 180.0f){
 			fReverse = m_fMoveDir - 180.0f;
@@ -503,7 +667,7 @@ void PlayerCoil::Update_StateMove( D3DXVECTOR3 i_vMove, float i_fTargetDir ,floa
 	//移動分を加算
 	m_vPos += i_vMove;
 
-}
+};
 
 /////////////////// ////////////////////
 //// 用途       ：virtual void Draw( DrawPacket& i_DrawPacket )
@@ -543,7 +707,7 @@ void PlayerCoil::Draw(DrawPacket& i_DrawPacket){
 		//コモンメッシュのDraw()を呼ぶ
 		CommonMesh::Draw(i_DrawPacket);
 	}
-}
+};
 
 
 /**************************************************************************
@@ -576,7 +740,7 @@ Factory_Player::Factory_Player( FactoryPacket* fpac ){
 		D3DXVECTOR3 vScale2( 10.0f, 10.0f, 10.0f );
 		fpac->m_pVec->push_back(
 			new ProvisionalPlayer3D(
-				fpac->pD3DDevice,
+				fpac,
 				NULL,
 				//fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"CircleP.png" ),
 				vScale,
@@ -596,7 +760,6 @@ Factory_Player::Factory_Player( FactoryPacket* fpac ){
 				CoilDiffuse,CoilSpecular,CoilAmbient
 				)
 		);
-
 
 	}
 	catch(...){

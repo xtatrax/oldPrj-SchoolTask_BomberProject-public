@@ -23,10 +23,17 @@ namespace wiz{
  Item 定義部
 ****************************************************************************/
 /***************************************************************************
-関数名     ：Item( FactoryPacket* fpac,			//	: デバイスなど
-					 LPDIRECT3DTEXTURE9 pTexture,	//	: テクスチャ―
-					 wiz::OBJID id )				//	: ID
-用途       ：コンストラクタ
+関数名　　　：Item( FactoryPacket* fpac,
+                      LPDIRECT3DTEXTURE9 pTexture,
+                      wiz::OBJID id )
+カテゴリ　　：コンストラクタ
+用途　　　　：
+引数　　　　：FactoryPacket* fpac           // : デバイスなど
+　　　　　　：LPDIRECT3DTEXTURE9 pTexture   // : テクスチャ―
+　　　　　　：wiz::OBJID id                 // : ID
+戻り値　　　：
+担当者　　　：佐藤涼
+備考　　　　：
 ****************************************************************************/
 Item::Item(FactoryPacket* fpac,LPDIRECT3DTEXTURE9 pTexture, wiz::OBJID id)
 	:PrimitiveSphere(fpac->pD3DDevice,
@@ -49,8 +56,13 @@ Item::Item(FactoryPacket* fpac,LPDIRECT3DTEXTURE9 pTexture, wiz::OBJID id)
 }
 
 /**************************************************************
-関数名     ：void	 Item::Draw(DrawPacket &i_DrawPacket)
-用途       ：オブジェクトの描画
+関数名　　：void Item::Draw(DrawPacket &i_DrawPacket)
+カテゴリ　：関数
+用途　　　：オブジェクトの描画
+引数　　　：DrawPacket &i_DrawPacket          // 描画用のもろもろ
+戻り値　　：
+担当者　　：佐藤涼
+備考　　　：
 ***************************************************************/
 void	Item::Draw(DrawPacket &i_DrawPacket){
 	multimap<float,BallItem*>::iterator it = m_ItemMap_All.begin();
@@ -88,8 +100,13 @@ void	Item::Draw(DrawPacket &i_DrawPacket){
 }
 
 /*******************************************************************
-関数名     ：void	 Item::Update(UpdatePacket& i_UpdatePacket)
-用途       ：データ更新
+関数名　　：void Item::Update(UpdatePacket& i_UpdatePacket)
+カテゴリ　：関数
+用途　　　：データ更新
+引数　　　：UpdatePacket& i_UpdatePacket  // 更新用データもろもろ
+戻り値　　：
+担当者　　：佐藤涼
+備考　　　：
 ********************************************************************/
 void	Item::Update(UpdatePacket& i_UpdatePacket)
 {
@@ -124,6 +141,7 @@ void	Item::Update(UpdatePacket& i_UpdatePacket)
 				br->Recovery();
 				SafeDelete( it->second );
 				it = m_ItemMap_All.erase( it );
+				continue;
 			}
 		}
 		//移動用
@@ -143,13 +161,22 @@ void	Item::Update(UpdatePacket& i_UpdatePacket)
 }
 
 /***********************************************
-関数名 : void	Item::addItem(
-					D3DXVECTOR3 pos,		//	: 描画位置
-					D3DXVECTOR3 size,		//	: 伸縮
-					D3DCOLORVALUE Diffuse,	//	: 
-					D3DCOLORVALUE Specular,	//	: 
-					D3DCOLORVALUE Ambient)	//	: 
-用途   : アイテムの追加
+関数名　：void Item::addItem(
+                      D3DXVECTOR3 pos,
+                      D3DXVECTOR3 size,
+                      D3DCOLORVALUE Diffuse,
+                      D3DCOLORVALUE Specular, 
+                      D3DCOLORVALUE Ambient)
+カテゴリ：関数
+用途　　：アイテムの追加
+引数　　：D3DXVECTOR3 pos          //描画位置
+　　　　：D3DXVECTOR3 size         //大きさ
+　　　　：D3DCOLORVALUE Diffuse    //
+　　　　：D3DCOLORVALUE Specular   //
+　　　　：D3DCOLORVALUE Ambient    //
+戻り値　：
+担当者　：佐藤涼
+備考　　：
 ***********************************************/
 void	Item::addItem(D3DXVECTOR3 pos, D3DXVECTOR3 size,
 					  D3DCOLORVALUE Diffuse,D3DCOLORVALUE Specular,D3DCOLORVALUE Ambient)
@@ -177,16 +204,27 @@ void	Item::addItem(D3DXVECTOR3 pos, D3DXVECTOR3 size,
 ***************************************************************************/
 /************************************************************************
  関数名     ：Bar::Bar(
-				LPDIRECT3DDEVICE9 pD3DDevice,	//	: デバイス
-				LPDIRECT3DTEXTURE9 pTex,		//	: テクスチャ―
-				D3DXVECTOR3 &vScale,			//	: 伸縮
-				D3DXVECTOR3 &vRot,				//	: 回転
-				D3DXVECTOR3 &vPos,				//	: 位置
-				D3DXVECTOR3 &vDirOffset,		//	: 描画オフセット
-				RECT* vRect,					//	: 描画範囲
-				wiz::OBJID id 					//	: ID
+                LPDIRECT3DDEVICE9 pD3DDevice,
+                LPDIRECT3DTEXTURE9 pTex,
+                D3DXVECTOR3 &vScale,
+                D3DXVECTOR3 &vRot,
+                D3DXVECTOR3 &vPos,
+                D3DXVECTOR3 &vDirOffset,
+                RECT* vRect,
+                wiz::OBJID id
 				)
-用途       ：コンストラクタ
+カテゴリ：コンストラクタ
+用途　　：LPDIRECT3DDEVICE9 pD3DDevice   // デバイス
+引数　　：LPDIRECT3DTEXTURE9 pTex        // テクスチャ―
+　　　　：D3DXVECTOR3 &vScale            // 伸縮
+　　　　：D3DXVECTOR3 &vRot              // 回転
+　　　　：D3DXVECTOR3 &vPos              // 位置
+　　　　：D3DXVECTOR3 &vDirOffset        // 描画オフセット
+　　　　：RECT* vRect                    // 描画範囲
+　　　　：wiz::OBJID id                  // ID
+戻り値　：
+担当者　：佐藤涼
+備考　　：
 *************************************************************************/
 Bar::Bar(
 	LPDIRECT3DDEVICE9 pD3DDevice,
@@ -205,8 +243,13 @@ Bar::Bar(
 }
 
 /****************************************
-関数名     ：void Bar::Recovery()
-用途       ：エネルギー回復
+関数名　　：void Bar::Recovery()
+カテゴリ　：関数
+用途　　　：エネルギー回復
+引数　　　：
+戻り値　　：
+担当者　　：佐藤涼
+備考　　　：
 *****************************************/
 void Bar::Recovery(){
 	if(m_pRect->right<500){
@@ -216,8 +259,13 @@ void Bar::Recovery(){
 	}
 }
 /*****************************************
- 関数名     ：void Bar::Consume()
- 用途       ：エネルギー消費
+ 関数名　　：void Bar::Consume()
+ カテゴリ　：関数
+ 用途　　　：エネルギー消費
+ 引数　　　：
+ 戻り値　　：
+ 担当者　　：佐藤涼
+ 備考　　　：
  *****************************************/
 void Bar::Consume(){
 	if(m_pRect->right > 0){
@@ -229,8 +277,13 @@ void Bar::Consume(){
 }
 
 /**************************************************************
-関数名     ：void	 Item::Draw(DrawPacket &i_DrawPacket)
-用途       ：オブジェクトの描画
+関数名　　：void Item::Draw(DrawPacket &i_DrawPacket)
+カテゴリ　：関数
+用途　　　：オブジェクトの描画
+引数　　　：DrawPacket &i_DrawPacket    //描画用のデータもろもろ
+戻り値　　：
+担当者　　：佐藤涼
+備考　　　：
 ***************************************************************/
 void Bar::Draw(DrawPacket& i_DrawPacket){
 	if(m_pRect->right != 500)
@@ -247,13 +300,13 @@ void Bar::Draw(DrawPacket& i_DrawPacket){
  Factory_Item 定義部
 ****************************************************************************/
 /**************************************************************************
- Factory_Item::Factory_Item(
-	LPDIRECT3DDEVICE9 pD3DDevice,	//デバイス
-	vector<Object*>& vec,			//オブジェクトの配列
-	TextureManager& TexMgr		//テクスチャの配列
-);
- 用途: コンストラクタ（サンプルオブジェクトを配列に追加する）
- 戻り値: なし
+関数名　　：Factory_Item::Factory_Item( FactoryPacket* fpac );
+カテゴリ　：コンストラクタ
+用途　　　：
+引数　　　：FactoryPacket* fpac     // もろもろのデータ
+戻り値　　：
+担当者　　：佐藤涼
+備考　　　：
 ***************************************************************************/
 Factory_Item::Factory_Item(FactoryPacket* fpac){
 	try{
@@ -292,9 +345,13 @@ Factory_Item::Factory_Item(FactoryPacket* fpac){
 
 }
 /**************************************************************************
- Factory_Item::~Factory_Item();
- 用途: デストラクタ
- 戻り値: なし
+ 関数名　　：Factory_Item::~Factory_Item();
+ カテゴリ　：デストラクタ
+ 用途　　　：
+ 引数　　　：
+ 戻り値　　：
+ 担当者　　：佐藤涼
+ 備考　　　：
 ***************************************************************************/
 Factory_Item::~Factory_Item(){
     //なにもしない

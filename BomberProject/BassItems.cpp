@@ -3965,6 +3965,33 @@ D3DXVECTOR3 Cylinder::getPos() const{
 	return m_Pos;
 }
 
+///////////////////// ////////////////////
+//// 関数名     ：FLOAT getRadius1() const
+//// カテゴリ   ：ゲッター
+//// 用途       ：RADIUS1
+//// 引数       ：なし
+//// 戻値       ：なし
+//// 担当者     ：曳地 大洋
+//// 備考       ：
+////            ：
+////
+FLOAT Cylinder::getRadius1() const{
+	return m_Radius1 ;
+}
+///////////////////// ////////////////////
+//// 関数名     ：FLOAT getRadius2() const
+//// カテゴリ   ：ゲッター
+//// 用途       ：RADIUS2
+//// 引数       ：なし
+//// 戻値       ：なし
+//// 担当者     ：曳地 大洋
+//// 備考       ：
+////            ：
+////
+FLOAT Cylinder::getRadius2() const{
+	return m_Radius2 ;
+}
+
 /**************************************************************************
  class Torus : public SimpleCommonMesh;
  用途: トーラスクラス
