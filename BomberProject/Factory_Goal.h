@@ -20,8 +20,10 @@
 namespace wiz{
 
 /******************************************************
-class	Item	: public PrimitiveSphere
-用途 : アイテム
+class Item : public PrimitiveSphere
+
+用途　：アイテム
+担当者：佐藤涼
 *******************************************************/
 class	GoalObject	:public PrimitiveBox{
 	PlayerCoil*	m_pCoil;
@@ -45,31 +47,29 @@ public:
 	void	Update(UpdatePacket& i_UpdatePacket);
 	void addGoal(D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos,
 			D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient);
-	void GetOBBList( float Index, list<OBB>& ObbList );
 };
 
 /**************************************************************************
- class Factory_Goal;
- 用途: メイン工場クラス
+class Factory_Goal;
+
+用途　：メイン工場クラス
+担当者：佐藤涼
 ****************************************************************************/
-	class Factory_Goal{
-	public:
-	/**************************************************************************
-	 Factory_Goal(
-		LPDIRECT3DDEVICE9 pD3DDevice,	//デバイス
-		vector<Object*>& vec,			//オブジェクトの配列
-		TextureManager& TexMgr		//テクスチャの配列
-	);
-	 用途: コンストラクタ（サンプルオブジェクトを配列に追加する）
-	 戻り値: なし
-	***************************************************************************/
-		Factory_Goal(FactoryPacket* fpac);
-	/**************************************************************************
-	 ~MyFactory();
-	 用途: デストラクタ
-	 戻り値: なし
-	***************************************************************************/
-		~Factory_Goal();
-	};
+class Factory_Goal{
+public:
+/**************************************************************************
+ Factory_Goal(FactoryPacket* fpac);
+ 用途: コンストラクタ（サンプルオブジェクトを配列に追加する）
+ 戻り値: なし
+***************************************************************************/
+	Factory_Goal(FactoryPacket* fpac);
+/**************************************************************************
+ ~MyFactory();
+ 用途: デストラクタ
+ 戻り値: なし
+***************************************************************************/
+	~Factory_Goal();
+};
+
 }
 //end of namespace wiz.
