@@ -178,8 +178,8 @@ DebugMenu::DebugMenu(LPDIRECT3DDEVICE9 pD3DDevice,Stage* Par)
 			)));
 		m_ButtonVec.push_back(pButton->getButtonP());
 
-		//	: 
-		pTex = m_TexMgr.addTexture(pD3DDevice,L"DBG_.png");
+		//	: ステージローダー
+		pTex = m_TexMgr.addTexture(pD3DDevice,L"DBG_StageLoader.png");
 		m_Vec.push_back((pButton = new ButtonSprite(
 			pD3DDevice,
 			pTex,
@@ -191,7 +191,7 @@ DebugMenu::DebugMenu(LPDIRECT3DDEVICE9 pD3DDevice,Stage* Par)
 			g_vZero,
 			0xFFFFFFFF,
 			0xFFAAAAAA,
-			GM_WITHOUT,
+			GM_OPENDEBUGSTAGE_STAGELOADERTEST,
 			6
 			)));
 		m_ButtonVec.push_back(pButton->getButtonP());

@@ -14,6 +14,7 @@
 #include "StdAfx.h"
 #include "Object.h"
 #include "BassItems.h"
+#include "Factory_Player.h"
 
 namespace wiz{
 
@@ -29,17 +30,19 @@ const int DRAWING_RANGE = 20;
 // cclass WallObject : public PrimitiveBox
 //
 // 担当者  : 本多寛之
+//            曳地 大洋
 // 用途    : 壁
 //**************************************************************************//
 class WallObject : public PrimitiveBox{
 	PlayerCoil* m_pPlayerCoil ;
-	Camera*	   m_pCamera;
+	Camera*	    m_pCamera;
 	struct WallItem{
-		D3DMATERIAL9 m_Material;
-		D3DXMATRIX	m_Matrix;
-		D3DXVECTOR3 m_vScale ;
-		D3DXVECTOR3 m_vPos ;
+		D3DMATERIAL9   m_Material;
+		D3DXMATRIX	   m_Matrix;
+		D3DXVECTOR3    m_vScale ;
+		D3DXVECTOR3	   m_vPos ;
 		D3DXQUATERNION m_vRot;
+		OBB			   m_Obb;
 		virtual ~WallItem(){}
 	};
 	//map<オブジェクトのポジション,WallItem>
@@ -60,23 +63,11 @@ public:
 	//// 備考       ：
 	WallObject(	LPDIRECT3DDEVICE9 pD3DDevice,
 				LPDIRECT3DTEXTURE9 pTexture,
-				wiz::OBJID id = OBJID_2D_WALL
+				wiz::OBJID id = OBJID_3D_WALL
 				);
 
 	bool HitTest2DRectAndCircle( D3DXVECTOR3& i_vPos, float i_fRadius );
 
-
-	///////////////////// ////////////////////
-	////// 用途       ：void GetOBB( size_t Index, OBB& obb )
-	////// カテゴリ   ：関数
-	////// 用途       ：オブジェクトをディスプレイに表示する
-	////// 引数       ： float Index,
-	//////				 OBB& obb			//取得するOBB
-	////// 戻値       ：なし。インデックスが範囲外なら例外
-	//////				＊現在のOBBを代入する
-	////// 担当者     ：曳地 大洋
-	////// 備考       ：
-	void GetOBBList( float Index, list<OBB>& ObbList );
 
 	/////////////////// ////////////////////
 	//// 用途       ：void Draw( DrawPacket& i_DrawPacket )
@@ -125,6 +116,20 @@ public:
 	//// 備考       ：
 	void AddWall(D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos,
 			D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient);
+
+	bool HitTest3DAddWall( MultiBox* pBox, size_t& Index, D3DXVECTOR3& Vec, D3DXVECTOR3& ElsePos );
+
+	///////////////////// ////////////////////
+	////// 用途       ：void GetOBB( size_t Index, OBB& obb )
+	////// カテゴリ   ：関数
+	////// 用途       ：オブジェクトをディスプレイに表示する
+	////// 引数       ： size_t Index,
+	//////				 OBB& obb			//取得するOBB
+	////// 戻値       ：なし。インデックスが範囲外なら例外
+	//////				＊現在のOBBを代入する
+	////// 担当者     ：曳地 大洋
+	////// 備考       ：
+	void GetOBBList( float Index, list<OBB>& ObbList );
 };
 
 //class WallManager {

@@ -17,7 +17,7 @@
 //		struct AABB				;
 //		struct Sphere			;
 //		struct RENDERSTATE_PARAM	;
-//		struct ObjeData			;
+//		struct MapPartsStatus			;
 //
 #pragma once
 
@@ -32,6 +32,46 @@ extern void EarnFromMeshOBB(const LPD3DXBASEMESH i_pMesh,D3DXVECTOR3& o_vPos ,D3
 }
 using namespace functions ;
 namespace structs{
+/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
+/**************************************************************************
+ struct MapPartsStatus;
+ 用途: 
+****************************************************************************/
+struct MapPartsStatus{
+	DWORD			enClassid ;	//	wiz::CLASSIDで指定してください
+	D3DXVECTOR3		vScale    ;
+	D3DXVECTOR3		vRot      ;
+	D3DXVECTOR3		vPos      ;
+	D3DCOLORVALUE   Diffuse   ;
+	D3DCOLORVALUE   Specular  ;
+	D3DCOLORVALUE   Ambient   ;
+	bool			bPool     ;
+
+	//	: オプション
+	wstring			sTexturePath	;
+
+	wstring			sFilePath		;
+	DWORD			dwMotionNum		;
+	float			fTracSpeed		;
+	//MapPartsStatus(){};
+	//MapPartsStatus(DWORD i_dwClassID, D3DXVECTOR3 i_vScale, D3DXVECTOR3 i_vRot, D3DXVECTOR3 i_vPos,
+	//	wstring i_wsPath = L"", wstring i_wsTexPath = L"",
+	//	DWORD i_dwMotionNum = 0, float i_fTracSpeed = 1.0f)
+	//{
+	//	enClassid		= i_dwClassID	;
+	//	vScale			= i_vScale		;
+	//	vRot			= i_vRot		;
+	//	vPos			= i_vPos		;
+	//	sFilePath		= i_wsPath		;
+	//	sTexturePath	= i_wsTexPath	;
+	//	vScale			= i_vScale		;
+	//	dwMotionNum		= i_dwMotionNum	;
+	//	fTracSpeed		= i_fTracSpeed	;
+	//}
+
+
+};
+/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 
 /*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 /**************************************************************************
@@ -62,9 +102,6 @@ struct Command{
  ユーザーデータは派生クラスを作成して使用する
 ****************************************************************************/
 class Context{
-	DWORD m_Command;	
-	DWORD m_Param1;
-	DWORD m_Param2;
 	//タイマー。経過秒を計る
 	Timer m_Timer;
 	//1回のタイムスパン
@@ -129,13 +166,6 @@ public:
  戻り値: なし
 ***************************************************************************/
 	virtual~Context(){}
-
-	void operator = ( const Command other ) {
-		m_Command = other.m_Command ;
-		m_Param1  = other.m_Param1  ;
-		m_Param2  = other.m_Param2  ;	
-	};
-
 };
 /*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 
@@ -369,6 +399,19 @@ struct OBB{
 	    m_Rot[1] = D3DXVECTOR3(mRot._21,mRot._22,mRot._23);
 	    m_Rot[2] = D3DXVECTOR3(mRot._31,mRot._32,mRot._33);
 	};
+	OBB(D3DXVECTOR3 vScale,D3DXQUATERNION vQt,D3DXVECTOR3 vPos){
+		//衝突判定用のOBBの初期化
+		m_Center = vPos   ;
+		m_Size   = vScale ;
+		vQt		*= vQt ; 
+		D3DXQuaternionNormalize(&vQt,&vQt);
+		D3DXMATRIX mRot   ;
+		D3DXMatrixIdentity(&mRot);
+		D3DXMatrixRotationQuaternion(&mRot,&vQt);
+		m_Rot[0] = D3DXVECTOR3(mRot._11,mRot._12,mRot._13);
+	    m_Rot[1] = D3DXVECTOR3(mRot._21,mRot._22,mRot._23);
+	    m_Rot[2] = D3DXVECTOR3(mRot._31,mRot._32,mRot._33);
+	};
 	OBB(LPD3DXMESH pMesh){
 		//衝突判定用のOBBの初期化
 		EarnFromMeshOBB(pMesh,m_Center,m_Size);
@@ -455,31 +498,6 @@ struct RENDERSTATE_PARAM{
 };
 /*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 
-/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
-/**************************************************************************
- class Stage;
- 用途: ゲームをステージ単位で管理するクラス
-****************************************************************************/
-struct ObjeData{
-	int			m_iObjeType		;
-	wstring		m_sFilePath		;
-	wstring		m_sTexturePath	;
-	D3DXVECTOR3	m_vScale		;
-	DWORD		m_dwMotionNum	;
-	float		m_fTracSpeed	;
-	ObjeData(){};
-	ObjeData(int iType, wstring wsPath, wstring wsTexPath,
-		D3DXVECTOR3 vScale, DWORD dwMotionNum, float fTracSpeed)
-	{
-		m_iObjeType		= iType			;
-		m_sFilePath		= wsPath		;
-		m_sTexturePath	= wsTexPath		;
-		m_vScale		= vScale		;
-		m_dwMotionNum	= dwMotionNum	;
-		m_fTracSpeed	= fTracSpeed	;
-	}
-};
-/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 
 
 }//end of namespace structs.

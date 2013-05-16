@@ -277,30 +277,17 @@ void ProvisionalPlayer3D::Update( UpdatePacket& i_UpdatePacket ){
  MagneticField 定義部
 ****************************************************************************/
 /***************************************************************************
-関数名    ：MagneticField(
-                   LPDIRECT3DDEVICE9   pD3DDevice,
-                   LPDIRECT3DTEXTURE9  pTexture,
-                   D3DXVECTOR3         &vScale,
-                   D3DXQUATERNION      &vRot,
-                   D3DXVECTOR3         &vPos
-              )
-カテゴリ　：コンストラクタ
-用途      ：
-引数　　　：LPDIRECT3DDEVICE9   pD3DDevice    //デバイスなど
-　　　　　：LPDIRECT3DTEXTURE9  pTexture      //テクスチャ
-　　　　　：D3DXVECTOR3         &vScale       //伸縮
-　　　　　：D3DXQUATERNION      &vRot         //回転
-　　　　　：D3DXVECTOR3         &vPos         //位置
-戻り値　　：
-担当者　　：佐藤涼
-備考　　　：
+関数名     ：MagneticField( FactoryPacket* fpac,			//	: デバイスなど
+					 LPDIRECT3DTEXTURE9 pTexture,	//	: テクスチャ―
+					 wiz::OBJID id )				//	: ID
+用途       ：コンストラクタ
 ****************************************************************************/
 MagneticField::MagneticField(
-	LPDIRECT3DDEVICE9 pD3DDevice,
-	LPDIRECT3DTEXTURE9 pTexture,
-	D3DXVECTOR3		   &vScale,
-	D3DXQUATERNION	   &vRot,
-	D3DXVECTOR3	       &vPos
+	LPDIRECT3DDEVICE9 pD3DDevice,						//	: デバイス
+	LPDIRECT3DTEXTURE9 pTexture,						//	: テクスチャー
+	D3DXVECTOR3		   &vScale,							//	: 伸縮
+	D3DXQUATERNION	   &vRot,							//	: 回転
+	D3DXVECTOR3	       &vPos							//	: 位置
 )
 :Cylinder(pD3DDevice,vScale.x, vScale.y, vScale.z, g_vZero, g_vZero,
 						D3DCOLORVALUE(),
@@ -321,26 +308,16 @@ MagneticField::MagneticField(
 }
 
 /**************************************************************
-関数名　　：void MagneticField::Draw(DrawPacket &i_DrawPacket)
-カテゴリ　：関数
-用途　　　：オブジェクトの描画
-引数　　　：DrawPacket &i_DrawPacket     //もろもろのデータ
-戻り値　　：
-担当者　　：佐藤涼
-備考　　　：
+関数名     ：void	 MagneticField::Draw(DrawPacket &i_DrawPacket)
+用途       ：オブジェクトの描画
 ***************************************************************/
 void	MagneticField::Draw(DrawPacket &i_DrawPacket){
 	Cylinder::Draw(i_DrawPacket);
 };
 
 /*******************************************************************
-関数名　　：void MagneticField::Update(UpdatePacket& i_UpdatePacket)
-カテゴリ　：関数
-用途　　　：データ更新
-引数　　　：UpdatePacket& i_UpdatePacket     //もろもろのデータ
-戻り値　　：
-担当者　　：佐藤涼
-備考　　　：
+関数名     ：void	 MagneticField::Update(UpdatePacket& i_UpdatePacket)
+用途       ：データ更新
 ********************************************************************/
 void	MagneticField::Update(UpdatePacket& i_UpdatePacket)
 {
@@ -488,7 +465,6 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 		Debugger::DBGSTR::addStr( L"Lng : %f\n", Lng);
 		Debugger::DBGSTR::addStr( L"Lng : %f\n", Lng2);
 		Debugger::DBGSTR::addStr( L"Lng : %f\n", sqrt(Lng));
-		Debugger::DBGSTR::addStr( L"Lng : %d\n", MGPRM_MAGNETICUM_QUAD);
 		Debugger::DBGSTR::addStr( L"fTargetDir : %f\n", fTargetDir);
 		Debugger::DBGSTR::addStr( L"vDescartes : %f\n", vDescartes.x);
 		//-----------------------------------------------------------------------

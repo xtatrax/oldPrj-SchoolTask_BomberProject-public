@@ -23,17 +23,10 @@ namespace wiz{
  Item 定義部
 ****************************************************************************/
 /***************************************************************************
-関数名　　　：Item( FactoryPacket* fpac,
-                      LPDIRECT3DTEXTURE9 pTexture,
-                      wiz::OBJID id )
-カテゴリ　　：コンストラクタ
-用途　　　　：
-引数　　　　：FactoryPacket* fpac           // : デバイスなど
-　　　　　　：LPDIRECT3DTEXTURE9 pTexture   // : テクスチャ―
-　　　　　　：wiz::OBJID id                 // : ID
-戻り値　　　：
-担当者　　　：佐藤涼
-備考　　　　：
+関数名     ：Item( FactoryPacket* fpac,			//	: デバイスなど
+					 LPDIRECT3DTEXTURE9 pTexture,	//	: テクスチャ―
+					 wiz::OBJID id )				//	: ID
+用途       ：コンストラクタ
 ****************************************************************************/
 Item::Item(FactoryPacket* fpac,LPDIRECT3DTEXTURE9 pTexture, wiz::OBJID id)
 	:PrimitiveSphere(fpac->pD3DDevice,
@@ -141,7 +134,6 @@ void	Item::Update(UpdatePacket& i_UpdatePacket)
 				br->Recovery();
 				SafeDelete( it->second );
 				it = m_ItemMap_All.erase( it );
-				continue;
 			}
 		}
 		//移動用

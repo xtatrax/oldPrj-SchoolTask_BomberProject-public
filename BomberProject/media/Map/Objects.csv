@@ -2,7 +2,7 @@
 Number,Type,Path,TexPath,MotionNum,TracSpeed,ScaleX,ScaleY,ScaleZ,,,
 1,1,media/Models/OneBox.X,,,,,,,,,test
 10,10,media/Models/OneBox.X,,,,1,1,1,,,
-1100,100,media/Models/FlatTestInside.X,Play_Stage1_Ground_Texture.tga,,,1,1,1,,ステージ1,平地中
+1100,12301,media/Models/FlatTestInside.X,Play_Stage1_Ground_Texture.tga,,,1,1,1,,ステージ1,平地中
 1101,110,media/Models/FrontPanel.X,Play_Stage1_Ground_Texture.tga,,,1,1,1,,ステージ1,
 1110,100,media/Models/FlatTestLeft.X,Play_Stage1_Ground_Texture.tga,,,-1,1,1,,ステージ1,穴(左)
 1111,100,media/Models/FlatTestLeft.X,Play_Stage1_Ground_Texture.tga,,,1,1,1,,ステージ1,穴(右)
