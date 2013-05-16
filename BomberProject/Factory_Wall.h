@@ -14,10 +14,14 @@
 #include "StdAfx.h"
 #include "Object.h"
 #include "BassItems.h"
+#include "Factory_Player.h"
 
 namespace wiz{
 
 extern class PlayerCoil ;
+
+const int DRAWING_RANGE = 20;
+
 
 /**************************************************************************
  WallObject 定義部
@@ -26,17 +30,19 @@ extern class PlayerCoil ;
 // cclass WallObject : public PrimitiveBox
 //
 // 担当者  : 本多寛之
+//            曳地 大洋
 // 用途    : 壁
 //**************************************************************************//
 class WallObject : public PrimitiveBox{
 	PlayerCoil* m_pPlayerCoil ;
-	Camera*	   m_pCamera;
+	Camera*	    m_pCamera;
 	struct WallItem{
-		D3DMATERIAL9 m_Material;
-		D3DXMATRIX	m_Matrix;
-		D3DXVECTOR3 m_vScale ;
-		D3DXVECTOR3 m_vPos ;
+		D3DMATERIAL9   m_Material;
+		D3DXMATRIX	   m_Matrix;
+		D3DXVECTOR3    m_vScale ;
+		D3DXVECTOR3	   m_vPos ;
 		D3DXQUATERNION m_vRot;
+		OBB			   m_Obb;
 		virtual ~WallItem(){}
 	};
 	//map<オブジェクトのポジション,WallItem>
@@ -57,7 +63,7 @@ public:
 	//// 備考       ：
 	WallObject(	LPDIRECT3DDEVICE9 pD3DDevice,
 				LPDIRECT3DTEXTURE9 pTexture,
-				wiz::OBJID id = OBJID_2D_WALL
+				wiz::OBJID id = OBJID_3D_WALL
 				);
 
 	bool HitTest2DRectAndCircle( D3DXVECTOR3& i_vPos, float i_fRadius );

@@ -16,11 +16,19 @@
 #include "BassItems.h"
 #include "Factory_Magnetic.h"
 
-#define  MGPRM_MAGNETICUM	10  /* 磁界の影響半径( 現在単位 pixel ) */
-#define  MGPRM_MAGNETICUM_QUAD ( MGPRM_MAGNETICUM * MGPRM_MAGNETICUM )
-#define  PLAYER_SPEED		(   0.08f ) 
-#define  PLAYER_BASSROT		( 90.0f ) 
+const int	START_EFFECTIVE_RANGE		= 12;
+const int 	START_EFFECTIVE_RANGE_QUAD	= (START_EFFECTIVE_RANGE * START_EFFECTIVE_RANGE);
+const float PLAYER_SPEED				= 0.08f;
+const float PLAYER_BASSROT				= 90.0f;
 
+enum COIL_STATE{			//自機の状態
+	COIL_STATE_START,		//スタート
+	COIL_STATE_MOVE,		//移動
+	COIL_STATE_STOP,		//停止
+	COIL_STATE_STICK,		//吸着
+	COIL_STATE_SUPER,		//無敵
+	COIL_STATE_DEAD			//死亡
+};
 
 namespace wiz{
 
@@ -58,9 +66,10 @@ class ProvisionalPlayer3D : public MagneticumObject3D{
 	float			m_MovePosY;
 	bool			m_bLastMouseRB;
 	bool			m_bLastMouseLB;
+	bool			m_bField;
 public:
 	//	: 
-	ProvisionalPlayer3D( LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTexture,
+	ProvisionalPlayer3D( FactoryPacket* fpac, LPDIRECT3DTEXTURE9 pTexture,
 		D3DXVECTOR3 &vScale, D3DXQUATERNION &vRot, D3DXVECTOR3 &vPos,
 		wiz::OBJID id = OBJID_3D_PLAYER );
 	//	:
@@ -85,28 +94,61 @@ public:
 		}
 	}	;
 
+	bool	FieldDraw(){
+		return	m_bField;
+	};
+	/////////////////// ////////////////////
+	//// 関数名     ：float getMoveY() const
+	//// カテゴリ   ：ゲッター
+	//// 用途       ：m_MovePosYを獲得
+	//// 引数       ：なし
+	//// 戻値       ：なし
+	//// 担当       ：本多寛之
+	//// 備考       ：
+	////            ：
+	float getMoveY() const { return m_MovePosY	;	}	;
+
 };
 
+/************************************************************************
+class MagneticField : public Cylinder
+
+担当者	: 佐藤涼
+用途	: 磁界の範囲
+************************************************************************/
+class	MagneticField : public Cylinder{
+	bool	m_Pole;	//磁界の極：t=S極, f=N極
+public:
+	MagneticField(LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTexture,
+		D3DXVECTOR3 &vScale, D3DXQUATERNION &vRot, D3DXVECTOR3 &vPos);
+    void	Draw(DrawPacket& i_DrawPacket) ;
+	void	Update(UpdatePacket& i_UpdatePacket);
+
+	void	setPole( bool pole ){
+		m_Pole	= pole;
+	}
+};
 
 //**************************************************************************//
 // class PlayerCoil : public MagneticumObject ;
 //
-// 担当者  : 本多寛之
+// 担当者  : 鴫原 徹 本多寛之(編集)
 // 用途    : コイル
 //**************************************************************************//
 class PlayerCoil : public MagneticumObject3D{
-
+	Cylinder*		m_pCylinder ;
 	D3DXMATRIX		m_Matrix ;
 	D3DXVECTOR3		m_vPos ;
 	D3DXQUATERNION	m_vRot ;
 	D3DXVECTOR3		m_vScale ;
 	float			m_fMoveDir   ;//角度
-	float			m_fMovdSpeed ;//速度 
+	float			m_fMovdSpeed ;//速度
 	
 	ProvisionalPlayer3D*	m_pPlayer;
 
 	Camera* m_pCamera;
-
+	
+	COIL_STATE		m_enumCoilState;
 
 public:
 	/////////////////// ////////////////////
@@ -150,6 +192,21 @@ public:
 		wiz::OBJID id = OBJID_3D_PLAYER
 	);
 
+	/////////////////////// ////////////////////
+	//////// 用途       ：	bool HitTestMultiBox(MultiBox* pBox,size_t& Index,D3DXVECTOR3& Vec,D3DXVECTOR3& ElsePos)
+	//////// カテゴリ   ：MultiBoxとの衝突判定
+	//////// 用途       ：マルチボックスとの衝突判定
+	//////// 引数       ：  bool HitTestMultiBox
+	////////				  MultiBox* pBox,	//マルチボックス
+	////////				  size_t& Index,	//ヒットしていたらインデックスが戻る
+	////////				  D3DXVECTOR3& Vec,         //最近接点
+	////////				  D3DXVECTOR3& ElsePos         //一つ前のポジション
+	//////// 戻値       ：衝突していればtrue
+	////////				ヒットしてたらtrue（インデックスと最近接点を代入）
+	//////// 担当者     ：曳地 大洋
+	//////// 備考       ：
+	bool HitTestWall( OBB, float Index );
+
 	/////////////////// ////////////////////
 	//// 関数名     ：void Update( UpdatePacket& i_UpdatePacket )
 	//// カテゴリ   ：
@@ -161,6 +218,34 @@ public:
 	////            ：
 	////
 	void Update( UpdatePacket& i_UpdatePacket );
+
+	/////////////////// ////////////////////
+	//// 関数名     ：void Update_StateStart( float i_fTargetDir )
+	//// カテゴリ   ：
+	//// 用途       ：STATE_START時の動き
+	////　　　　　　：float i_fTargetDir				// ユーザー磁界との角度
+	////　　　　　　：
+	////　　　　　　：
+	//// 戻値       ：なし
+	//// 担当       ：本多寛之
+	//// 備考       ：
+	////            ：
+	////
+	void Update_StateStart( float i_fTargetDir );
+
+	/////////////////// ////////////////////
+	//// 関数名     ：void Update_StateMove( D3DXVECTOR3 i_vMove, D3DXVECTOR3 i_vProvisionalPos ,float i_fLng )
+	//// カテゴリ   ：
+	//// 用途       ：STATE_MOVE時の動き
+	//// 引数       ：D3DXVECTOR3 i_vMove				// 移動の方向 + 距離
+	////　　　　　　：float i_fTargetDir				// ユーザー磁界との角度
+	////　　　　　　：float i_fLng					// コイルとユーザー磁界の距離
+	//// 戻値       ：なし
+	//// 担当       ：本多寛之
+	//// 備考       ：
+	////            ：
+	////
+	void Update_StateMove( D3DXVECTOR3 i_vMove, float i_fTargetDir ,float i_fLng );
 
 	/////////////////// ////////////////////
 	//// 用途       ：virtual void Draw( DrawPacket& i_DrawPacket )

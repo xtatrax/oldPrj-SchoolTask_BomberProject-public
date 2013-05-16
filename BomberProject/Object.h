@@ -23,14 +23,13 @@ namespace wiz{
 	extern class Object;
 
 
-
 //**************************************************************************
 // class Object;
 //
 // 担当者  :
 // 用途    : シーン配置オブジェクトの基底クラス（抽象クラス）
 //**************************************************************************
-	class Object{
+class Object{
 	private:
 		bool	m_bAccessLock;
 		bool	m_bDead;

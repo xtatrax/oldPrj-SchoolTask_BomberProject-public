@@ -708,6 +708,13 @@ inline Object* SearchObjectFromTypeID(vector<Object*>* i_pVec,const type_info& i
 };
 
 
+
+inline D3DCOLORVALUE getD3DCOLORVALUE(float a, float r, float g, float b){
+	D3DCOLORVALUE c = { a, r, g, b } ;
+	return c ;
+}
+
+
 ////////////////////////////////////////
 ////// Non-environment-dependent ///////
 ////////////////////////////////////////

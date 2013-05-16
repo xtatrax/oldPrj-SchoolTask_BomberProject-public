@@ -15,7 +15,7 @@
 #include "Factory_Main.h"
 #include "Factory_Player.h"
 #include "Factory_Wall.h"
-
+#include "Factory_CheckPoint.h"
 #include "Factory_Enemy.h"
 #include "Factory_Magnetic.h"
 #include "Factory_Item.h"
@@ -62,8 +62,9 @@ Factory_Main::Factory_Main(FactoryPacket* fpac){
 		Factory_Player Pfac( fpac );
 		Factory_Wall   Wfac( fpac );
 		Factory_Magnetic Mfac( fpac ) ;
-		Factory_Item   Ifac( fpac ) ;
 		Factory_Enemy Efac( fpac ) ;
+		Factory_CheckPoint CPfac( fpac ) ;
+		Factory_Item   Ifac( fpac ) ;
 
 		//	: スプライト
 		fpac->m_pVec->push_back(
