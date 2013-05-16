@@ -73,7 +73,7 @@ public:
  用途: デストラクタ
  戻り値: なし
 ***************************************************************************/
-	~Factory_Goal(){};
+	~Factory_Goal();
 //};
 
 	void GetOBBList( float Index, list<OBB>& ObbList );
