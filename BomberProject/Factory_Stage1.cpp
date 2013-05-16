@@ -62,10 +62,15 @@ Factory_Stage1::Factory_Stage1(FactoryPacket *fpac){
 			float			fTracSpeed		;
 
 		*/
-		MapPartsStatus MapData[] = {
-			{ OBJID_3D_WALL,	 D3DXVECTOR3( 2.0f, 2.0f, 0.0f), g_vZero, g_vZero, getD3DCOLORVALUE( 0.5f, 0.5f, 0.5f, 0.5f), getD3DCOLORVALUE( 0.0f, 0.0f, 0.0f, 0.0f), getD3DCOLORVALUE( 0.7f, 0.7f, 0.7f, 0.7f) },
-			{ OBJID_3D_ITEM,	 D3DXVECTOR3( 2.0f, 2.0f, 0.0f), g_vZero, g_vZero, getD3DCOLORVALUE( 0.5f, 0.5f, 0.5f, 0.5f), getD3DCOLORVALUE( 0.0f, 0.0f, 0.0f, 0.0f), getD3DCOLORVALUE( 0.7f, 0.7f, 0.7f, 0.7f) },
-			{ OBJID_3D_MAGNET,	 D3DXVECTOR3( 2.0f, 2.0f, 0.0f), g_vZero, g_vZero, getD3DCOLORVALUE( 0.5f, 0.5f, 0.5f, 0.5f), getD3DCOLORVALUE( 0.0f, 0.0f, 0.0f, 0.0f), getD3DCOLORVALUE( 0.7f, 0.7f, 0.7f, 0.7f) },
+		MapPartsStatus MapData[] = {//scale								Rot										PosXç¿ïWÇÇªÇÎÇ¶ÇÈéûÇÕ-0.38ÇµÇƒÇ®Ç≠Ç±Ç∆		Diffuse												Specular														Ambient
+			{ OBJID_3D_WALL,	 D3DXVECTOR3( 3.0f,40.0f, 0.0f),		D3DXVECTOR3( 0.0f, 0.0f, 90.0f),		D3DXVECTOR3( 19.62f,0.0f, 0.0f),			getD3DCOLORVALUE( 0.5f, 0.5f, 0.5f, 0.5f),			getD3DCOLORVALUE( 0.0f, 0.0f, 0.0f, 0.0f),			getD3DCOLORVALUE( 0.7f, 0.7f, 0.7f, 0.7f) },
+			{ OBJID_3D_WALL,	 D3DXVECTOR3( 3.0f,25.0f, 0.0f),		D3DXVECTOR3( 0.0f, 0.0f, 0.0f),			D3DXVECTOR3( 0.0f,13.5f, 0.0f),				getD3DCOLORVALUE( 0.5f, 0.5f, 0.5f, 0.5f),			getD3DCOLORVALUE( 0.0f, 0.0f, 0.0f, 0.0f),			getD3DCOLORVALUE( 0.7f, 0.7f, 0.7f, 0.7f) },
+
+
+
+	//		{ OBJID_3D_ITEM,	 D3DXVECTOR3( 2.0f, 2.0f, 0.0f), D3DXVECTOR3( 0.0f, 0.0f, 0.0f), D3DXVECTOR3( 0.0f, 0.0f, 0.0f), getD3DCOLORVALUE( 0.5f, 0.5f, 0.5f, 0.5f), getD3DCOLORVALUE( 0.0f, 0.0f, 0.0f, 0.0f), getD3DCOLORVALUE( 0.7f, 0.7f, 0.7f, 0.7f) },
+	//		{ OBJID_3D_MAGNET,	 D3DXVECTOR3( 2.0f, 2.0f, 0.0f), D3DXVECTOR3( 0.0f, 0.0f, 0.0f), D3DXVECTOR3( 0.0f, 0.0f, 0.0f), getD3DCOLORVALUE( 0.5f, 0.5f, 0.5f, 0.5f), getD3DCOLORVALUE( 0.0f, 0.0f, 0.0f, 0.0f), getD3DCOLORVALUE( 0.7f, 0.7f, 0.7f, 0.7f) },
+		
 			{ OBJID_END }
 		
 		};
