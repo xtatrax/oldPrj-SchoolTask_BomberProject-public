@@ -392,7 +392,8 @@ struct OBB{
 	OBB(D3DXVECTOR3 vScale,D3DXVECTOR3 vRot,D3DXVECTOR3 vPos){
 		//è’ìÀîªíËópÇÃOBBÇÃèâä˙âª
 		m_Center = vPos   ;
-		m_Size   = vScale ;
+		//m_Size   = vScale ;
+		m_Size   = vScale * 0.5f ;
 		D3DXMATRIX mRot   ;
 		D3DXMatrixIdentity(&mRot);
 		D3DXMatrixRotationYawPitchRoll(&mRot,vRot.y,vRot.x,vRot.z);
@@ -404,10 +405,12 @@ struct OBB{
 	OBB(D3DXVECTOR3 vScale,D3DXQUATERNION vQt,D3DXVECTOR3 vPos){
 		//è’ìÀîªíËópÇÃOBBÇÃèâä˙âª
 		m_Center = vPos   ;
-		m_Size   = vScale ;
-		vQt		*= vQt ; 
-		D3DXQuaternionNormalize(&vQt,&vQt);
-		D3DXMATRIX mRot   ;
+		//m_Size   = vScale ;
+		m_Size   = vScale * 0.5f ;
+		//vQt		*= vQt ; 
+		//D3DXQuaternionNormalize(&vQt,&vQt);
+
+		D3DXMATRIX mRot;
 		D3DXMatrixIdentity(&mRot);
 		D3DXMatrixRotationQuaternion(&mRot,&vQt);
 		m_mRot = mRot ;

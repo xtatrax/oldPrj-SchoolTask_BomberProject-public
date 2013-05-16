@@ -134,6 +134,7 @@ void	Item::Update(UpdatePacket& i_UpdatePacket)
 				br->Recovery();
 				SafeDelete( it->second );
 				it = m_ItemMap_All.erase( it );
+				continue ;
 			}
 		}
 		//ˆÚ“®—p

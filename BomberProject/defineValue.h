@@ -70,6 +70,7 @@
 #define MYVK_DEBUG_SLOW_UPDATE		( VK_F11 )
 #define MYVK_DEBUG_OUTPUT_DBGSTR	( VK_F9  )
 #define MYVK_DEBUG_OUTPUT_MEMORY	( VK_F8  )
+#define MYVK_DEBUG_OBB_DRAW			( VK_F7  )
 
 //
 //////////
