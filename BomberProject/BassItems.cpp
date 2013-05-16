@@ -4536,26 +4536,29 @@ DrawOBB::~DrawOBB(){
 ////            ：
 ////
 void DrawOBB::Draw( DrawPacket& i_DrawPacket ) {
-	LPDIRECT3DDEVICE9 pD3DDevice = i_DrawPacket.pD3DDevice ;
-    D3DXMATRIX  wm , mScale, mRot, mPos;
-    //座標変換無し
-    D3DXMatrixIdentity(&wm);
-    D3DXMatrixIdentity(&mScale);
-    D3DXMatrixIdentity(&mRot);
-    D3DXMatrixIdentity(&mPos);
-	D3DXMatrixScaling(&mScale, m_TargetObb.m_Size.x, m_TargetObb.m_Size.y, m_TargetObb.m_Size.z);
-	mRot = m_TargetObb.m_mRot ;
-	D3DXMatrixTranslation(&mPos, m_TargetObb.m_Center.x, m_TargetObb.m_Center.y, m_TargetObb.m_Center.z);
-	wm = mScale * mRot * mPos ;
-    // マトリックスをレンダリングパイプラインに設定
-    pD3DDevice->SetTransform(D3DTS_WORLD, &wm);
-    pD3DDevice->SetStreamSource( 0, m_pVB, 0, sizeof( CUSTOMVERTEX ) );
-    pD3DDevice->SetFVF(D3DFVF_XYZ|D3DFVF_DIFFUSE);
-    pD3DDevice->SetRenderState( D3DRS_LIGHTING,FALSE);
-    pD3DDevice->LightEnable( 0, FALSE );
-    pD3DDevice->DrawPrimitive(D3DPT_LINELIST, 0, 12);
-    pD3DDevice->SetRenderState( D3DRS_LIGHTING,TRUE);
-    pD3DDevice->LightEnable( 0, TRUE );
+	if(GetAsyncKeyState( MYVK_DEBUG_OBB_DRAW )){
+
+		LPDIRECT3DDEVICE9 pD3DDevice = i_DrawPacket.pD3DDevice ;
+		D3DXMATRIX  wm , mScale, mRot, mPos;
+		//座標変換無し
+		D3DXMatrixIdentity(&wm);
+		D3DXMatrixIdentity(&mScale);
+		D3DXMatrixIdentity(&mRot);
+		D3DXMatrixIdentity(&mPos);
+		D3DXMatrixScaling(&mScale, m_TargetObb.m_Size.x, m_TargetObb.m_Size.y, m_TargetObb.m_Size.z);
+		mRot = m_TargetObb.m_mRot ;
+		D3DXMatrixTranslation(&mPos, m_TargetObb.m_Center.x, m_TargetObb.m_Center.y, m_TargetObb.m_Center.z);
+		wm = mScale * mRot * mPos ;
+		// マトリックスをレンダリングパイプラインに設定
+		pD3DDevice->SetTransform(D3DTS_WORLD, &wm);
+		pD3DDevice->SetStreamSource( 0, m_pVB, 0, sizeof( CUSTOMVERTEX ) );
+		pD3DDevice->SetFVF(D3DFVF_XYZ|D3DFVF_DIFFUSE);
+		pD3DDevice->SetRenderState( D3DRS_LIGHTING,FALSE);
+		pD3DDevice->LightEnable( 0, FALSE );
+		pD3DDevice->DrawPrimitive(D3DPT_LINELIST, 0, 12);
+		pD3DDevice->SetRenderState( D3DRS_LIGHTING,TRUE);
+		pD3DDevice->LightEnable( 0, TRUE );
+	}
 }
 
 }//end of namespace	baseobject.
