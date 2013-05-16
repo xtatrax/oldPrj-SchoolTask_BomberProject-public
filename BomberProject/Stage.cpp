@@ -18,6 +18,7 @@
 #include "TL-String.h"
 #include "Factory_Wall.h"
 #include "Factory_Item.h"
+#include "Factory_Magnetic.h"
 
 
 
@@ -56,55 +57,65 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 			return;
 		//
 		//////////
-		case OBJID_3D_WALL:
+		case OBJID_3D_WALL :
 			//////////
 			//	: ï«
 			if((it = m_ObjeTypeMap.find( ObjectID )) != m_ObjeTypeMap.end()){
 				//	: ìoò^Çå©Ç¬ÇØÇΩèÍçá
 				dynamic_cast< WallObject* >(( *m_pVec )[ it->second ])->AddWall(
-					i_Data.vScale, i_Data.vRot, i_Data.vPos, Diffuse, Specular, Ambient
+					i_Data.vScale, i_Data.vRot, i_Data.vPos, i_Data.Diffuse, i_Data.Specular, i_Data.Ambient
 				);
 			}else{
 				//	: ìoò^Ç™Ç»Ç©Ç¡ÇΩèÍçá
 				WallObject* mgb = new WallObject( m_pD3DDevice, m_pTexMgr->addTexture(m_pD3DDevice,L"biribiriWall.png"), ObjectID);
 				mgb->AddWall(
-					i_Data.vScale, i_Data.vRot, i_Data.vPos, Diffuse, Specular, Ambient
+					i_Data.vScale, i_Data.vRot, i_Data.vPos, i_Data.Diffuse, i_Data.Specular, i_Data.Ambient
 				);
 				m_pVec->push_back(mgb);
 				m_ObjeTypeMap.insert( make_pair( ObjectID , m_pVec->size() -1));
 			}
 			break;
-		case OBJID_3D_ITEM:
+		case OBJID_3D_ITEM :
 			//////////
-			//	: ï«
+			//	: ÉAÉCÉeÉÄ
 			if((it = m_ObjeTypeMap.find( ObjectID )) != m_ObjeTypeMap.end()){
 				//	: ìoò^Çå©Ç¬ÇØÇΩèÍçá
 				dynamic_cast< Item* >(( *m_pVec )[it->second])->addItem(
-					i_Data.vPos, i_Data.vScale, Diffuse, Specular, Ambient
+					i_Data.vPos, i_Data.vScale, i_Data.Diffuse, i_Data.Specular, i_Data.Ambient
 				);
 			}else{
+				FactoryPacket fpac;
+				fpac.m_pTexMgr  = m_pTexMgr		;
+				fpac.m_pVec     = m_pVec		;
+				fpac.pD3DDevice = m_pD3DDevice	;
 				//	: ìoò^Ç™Ç»Ç©Ç¡ÇΩèÍçá
-				WallObject* mgb = new WallObject( m_pD3DDevice, m_pTexMgr->addTexture(m_pD3DDevice,L"biribiriWall.png"), ObjectID);
-				mgb->AddWall(
-					i_Data.vScale, i_Data.vRot, i_Data.vPos,
-					Diffuse, Specular, Ambient
+				Item* mgb = new Item( &fpac, m_pTexMgr->addTexture(m_pD3DDevice,L"biribiriWall.png"), ObjectID);
+				mgb->addItem(
+					i_Data.vPos, i_Data.vScale, i_Data.Diffuse, i_Data.Specular, i_Data.Ambient
 				);
 				m_pVec->push_back(mgb);
 				m_ObjeTypeMap.insert( make_pair( ObjectID , m_pVec->size() -1));
 			}
 			break;
-
+		case OBJID_3D_MAGNET :
+			//////////
+			//	: ÉAÉCÉeÉÄ
+			if((it = m_ObjeTypeMap.find( ObjectID )) != m_ObjeTypeMap.end()){
+				//	: ìoò^Çå©Ç¬ÇØÇΩèÍçá
+				dynamic_cast< MagneticumObject3D* >(( *m_pVec )[it->second])->AddMagnetic(
+					i_Data.vPos, i_Data.vScale, i_Data.vPos, i_Data.bPool, i_Data.Diffuse, i_Data.Specular, i_Data.Ambient
+				);
+			}else{
+				//	: ìoò^Ç™Ç»Ç©Ç¡ÇΩèÍçá
+				MagneticumObject3D* mgb = new MagneticumObject3D( m_pD3DDevice, m_pTexMgr->addTexture(m_pD3DDevice,L"biribiriWall.png"), ObjectID);
+				mgb->AddMagnetic(
+					i_Data.vPos, i_Data.vScale, i_Data.vPos, i_Data.bPool, i_Data.Diffuse, i_Data.Specular, i_Data.Ambient
+				);
+				m_pVec->push_back(mgb);
+				m_ObjeTypeMap.insert( make_pair( ObjectID , m_pVec->size() -1));
+			}
+			break;
 	}
-				//mgb->AddWall(
-				//	 D3DXVECTOR3(MAP_PARTS_WIDTH, MAP_PARTS_HEIGHT, 1.0f)
-				//	,g_vZero
-				//	,D3DXVECTOR3((MAP_PARTS_WIDTH	*	i_dwWidth	)	-	MAP_PARTS_WIDTH		/	2,
-				//				(MAP_PARTS_HEIGHT	*	i_dwHeight	)	-	MAP_PARTS_HEIGHT	/	2,
-				//				0.0f)
-				//	,Diffuse
-				//	,Specular
-				//	,Ambient
-				//);
 };
 
 /////////////////// ////////////////////
@@ -130,6 +141,7 @@ void StageLoader::ObjectsLoader(wstring i_sFileName){
 	for(vector<vector<wstring>>::size_type i = 1 , vvSz = vvCsvData.size() , Line = 0;
 		(i + o_CsvMatrix.Line) < vvSz ; i++ )
 	{
+		
 		MapPartsStatus Status ;
 		//////////
 		//	: Ç±ÇÃÇ–Ç∆Ç©ÇΩÇ‹ÇËÇ≈àÍçs

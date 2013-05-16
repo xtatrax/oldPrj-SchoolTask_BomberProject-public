@@ -21,10 +21,19 @@ namespace wiz{
  GoalObject 定義部
 ****************************************************************************/
 /***************************************************************************
-関数名     ：GoalObject( FactoryPacket* fpac,			//	: デバイスなど
-					 LPDIRECT3DTEXTURE9 pTexture,	//	: テクスチャ―
-					 wiz::OBJID id )				//	: ID
-用途       ：コンストラクタ
+関数名　　：GoalObject(
+                   FactoryPacket* fpac,
+                   LPDIRECT3DTEXTURE9 pTexture,
+                   wiz::OBJID id
+              )
+カテゴリ　：コンストラクタ
+用途　　　：
+引数　　　：FactoryPacket* fpac           //デバイスなど
+　　　　　：LPDIRECT3DTEXTURE9 pTexture   //テクスチャ―
+　　　　　：wiz::OBJID id                 //ID
+戻り値　　：
+担当者　　：佐藤涼
+備考　　　：
 ****************************************************************************/
 GoalObject::GoalObject( LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTexture,wiz::OBJID id)
 	:PrimitiveBox(pD3DDevice,
@@ -47,8 +56,9 @@ GoalObject::GoalObject( LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTextur
 }
 
 /**************************************************************
-関数名     ：void	 GoalObject::Draw(DrawPacket &i_DrawPacket)
-用途       ：オブジェクトの描画
+関数名　　：void GoalObject::Draw(DrawPacket &i_DrawPacket)
+カテゴリ　：関数
+用途　　　：オブジェクトの描画
 ***************************************************************/
 void	GoalObject::Draw(DrawPacket &i_DrawPacket){
 	multimap<float,GoalItem*>::iterator it = m_ItemMap_All.begin();

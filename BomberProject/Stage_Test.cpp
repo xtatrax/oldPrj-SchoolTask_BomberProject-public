@@ -84,24 +84,7 @@ DebugStage_Loader::DebugStage_Loader(LPDIRECT3DDEVICE9 pD3DDevice,Stage* pStage)
 		FPac.m_pVec     = &this->m_Vec      ;
 		FPac.pD3DDevice =  pD3DDevice       ;
 
-		//カメラのインスタンス初期化
-		float ECXPos = 25.1f;
-		float ECYPos = 10.1f;		
-        m_Vec.push_back(
-			new Camera(pD3DDevice,D3DXVECTOR3( ECXPos, ECYPos, -55.7f),D3DXVECTOR3(ECXPos,ECYPos,0.0f), 1 ,300.0f,30.0f)
-		);
-		//	: ガイドライン
-		m_Vec.push_back(new Guide( pD3DDevice ) );
-
-		MapPartsStatus MapData[] = {
-			{ OBJID_3D_WALL, D3DXVECTOR3( 2.0f, 2.0f, 0.0f), g_vZero, g_vZero, getD3DCOLORVALUE( 0.5f, 0.5f, 0.5f, 0.5f), getD3DCOLORVALUE( 0.0f, 0.0f, 0.0f, 0.0f), getD3DCOLORVALUE( 0.7f, 0.7f, 0.7f, 0.7f), L"", L"", 0, 1.0f },
-			{ OBJID_END    , g_vZero, g_vZero, g_vZero, D3DCOLORVALUE(), D3DCOLORVALUE(), D3DCOLORVALUE(), L"", L"", 0, 1.0f }
-		
-		};
-
-
-		StageLoader loader(pD3DDevice,m_Vec,m_TexMgr,MapData);
-		Factory_Player Pfac( &FPac );
+		Factory_Stage1 Sfac(&FPac);
 	}
 	catch(...){
 		Clear();

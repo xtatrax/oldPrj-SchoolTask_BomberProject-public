@@ -22,9 +22,9 @@ protected:
 	struct ITEM{
 		
 	};
-	typedef multimap< float, ITEM* > ITEMCONTAINER ;
-	ITEMCONTAINER m_TtemContainer ;
-	//list 
+	typedef vector< ITEM* > ITEMCONTAINER ;
+	ITEMCONTAINER	m_TtemContainer ;
+	size_t			m_ActiveItem    ;
 /////////////////// ////////////////////
 //// 関数名     ：bool HitTestIntersect(OBB i_obb, D3DXVECTOR3 i_vMove, HITGROUNDVECTOR& o_HitListVec)
 //// カテゴリ   ：メンバ関数

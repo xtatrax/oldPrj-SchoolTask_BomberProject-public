@@ -123,9 +123,10 @@ namespace wiz{
 	////};
 
 	enum OBJID{
-		OBJID_NONE					= 0x0000,	//	: 未定オブジェ
+		OBJID_NONE					= 0x0000,	//	: なし
 		OBJID_UNK					= 0x0001,	//	: 未定オブジェ
 
+		//	: システム関係
 		OBJID_SYS_BEGIN				= 0x1000,
 		OBJID_SYS_GUIDELINE			,	//	: XYZガイド線( Debug用 )
 		OBJID_SYS_CAMERA			,	//	: カメラ
@@ -136,6 +137,7 @@ namespace wiz{
 		OBJID_SYS_RENDERTARGET		,	//	: レンダーターゲット
 		OBJID_SYS_END				,	
 
+		//	: UI周り
 		OBJID_UI_BEGIN				= 0x2000,
 		OBJID_UI_SPRITE				,	//	: UIに使うスプライト
 		OBJID_UI_SPRITEBUTTON		,	//	: スプライトボタンのUI
@@ -145,7 +147,10 @@ namespace wiz{
 		OBJID_UI_TIME				,	//	: 時間( いる? )
 		OBJID_UI_END				,
 
+		//	: 3Dオブジェ
 
+		////
+		// プリミティブ系
 		OBJID_3D_BEGIN				= 0x3000,
 		OBJID_3D_POLYGON			,	//	: とりあえず読み込んだモデルデータ
 		OBJID_3D_BOX				,	//	: とりあえず作った箱
@@ -153,23 +158,29 @@ namespace wiz{
 		OBJID_3D_SPHERE				,	//	: とりあえず作った球体
 		OBJID_3D_CYLINDER			,	//	: とりあえず作った円柱円錐
 
+		//	: マルチプリミティブ
 		OBJID_3D_MULTI_POLYGON		,	
 		OBJID_3D_MULTI_BOX			,
 		OBJID_3D_MULTI_BOX_PARALLEL	,
 		OBJID_3D_MULTI_SPHERE		,
 		OBJID_3D_MULTI_CYLINDER		,
 		OBJID_3D_MULTI_TAURUS		,
+		// プリミティブ系
+		////
 
+		//	: 
 		OBJID_3D_MAGNET				,	//	: 磁石
 		OBJID_3D_WALL				,	//	: 壁
 		OBJID_3D_ITEM				,	//	: アイテム
 
+		//	:
 		OBJID_3D_PLAYER				,
 		OBJID_3D_USERMAGNET			,	//	: ユーザー
 		OBJID_3D_COIL				,	//	: プレイヤー
 		OBJID_3D_EFFECT				,	//	: エフェクト
 		OBJID_3D_ENEMY				,	//	: 敵
 
+		//	: 
 		OBJID_3D_TESTBOX			,	//	: テスト用の箱
 		OBJID_3D_END				,
 
