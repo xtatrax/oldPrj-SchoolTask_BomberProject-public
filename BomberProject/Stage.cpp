@@ -572,16 +572,17 @@ void Stage::Update(UpdatePacket& i_UpdatePacket)
 #endif
 	if(m_bUpdate){
 	//配置オブジェクトの描画
-	vector<Object*>::size_type sz = m_Vec.size();
-	for(vector<Object*>::size_type i = 0;i < sz;i++){
-		m_Vec[i]->AccessBegin();
-		m_Vec[i]->Update(i_UpdatePacket) ;
-		if(m_Vec[i]->getDead()){
-			//vector<Object*>
-			//SAFE_DELETE(*(m_Vec.begin() + i)) ;
-			//m_Vec.erase( i-- ) ;
+	vector<Object*>::size_type sz	= m_Vec.size();
+	vector<Object*>::iterator it	= m_Vec.begin();
+	for( ; it != m_Vec.end() ; it++ ){
+		(*it)->AccessBegin();
+		(*it)->Update(i_UpdatePacket) ;
+		if((*it)->getDead()){
+			SAFE_DELETE((*it)) ;
+			it = m_Vec.erase( it ) ;
+			continue;
 		}
-		m_Vec[i]->AccessEnd();
+		(*it)->AccessEnd();
 	}
 	}
 }

@@ -35,7 +35,7 @@ class Object{
 		bool	m_bDead;
 		OBJID	m_dwID;
 	public:
-		Object(OBJID id):m_bAccessLock(false),m_dwID(id){}
+		Object(OBJID id):m_bAccessLock(false),m_bDead(false),m_dwID(id){}
 		virtual ~Object(){}
 /////////////////// ////////////////////
 //// ä÷êîñº     ÅFvoid getID()

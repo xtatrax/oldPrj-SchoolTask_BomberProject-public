@@ -203,7 +203,7 @@ void ProvisionalPlayer3D::Draw(DrawPacket& i_DrawPacket)
 void ProvisionalPlayer3D::Update( UpdatePacket& i_UpdatePacket ){
 	if(m_Camera == NULL){
 		m_Camera = (Camera*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_SYS_CAMERA);
-		m_MovePosY	= m_Camera->getPosY();
+		m_Camera && (m_MovePosY	= m_Camera->getPosY());
 	}
 	if( g_bMouseLB || g_bMouseRB ){ 
 		if( !m_bLastMouseLB && !m_bLastMouseRB ){

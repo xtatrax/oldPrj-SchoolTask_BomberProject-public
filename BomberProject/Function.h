@@ -704,7 +704,8 @@ inline Object* SearchObjectFromID(vector<Object*>* i_pVec,DWORD i_dwID, vector<O
 	vector<Object*>::size_type	sz = i_pVec->size(),
 								 i = 0 ;
 	for( i = 0; i < sz ; i++ ){
-		if( (*i_pVec)[i]->getID() == i_dwID ) {
+		const DWORD id = (*i_pVec)[i]->getID() ;
+		if( id == i_dwID ) {
 			if( o_pVec )
 				(*o_pVec).push_back( (*i_pVec)[i] );
 			else
