@@ -14,6 +14,8 @@
 #include "StdAfx.h"
 #include "Stage_Test.h"
 #include "Factory_Player.h"
+#include "Factory_Stage1.h"
+
 namespace wiz{
 
 /**************************************************************************

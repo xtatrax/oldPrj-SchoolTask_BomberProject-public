@@ -407,11 +407,11 @@
 					Name="Stage1Factory"
 					>
 					<File
-						RelativePath="C:\Users\sayuri\Desktop\BomberProject_\BomberProject\Factory_Stage1.cpp"
+						RelativePath=".\Factory_Stage1.cpp"
 						>
 					</File>
 					<File
-						RelativePath="C:\Users\sayuri\Desktop\BomberProject_\BomberProject\Factory_Stage1.h"
+						RelativePath=".\Factory_Stage1.h"
 						>
 					</File>
 				</Filter>
