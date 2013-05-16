@@ -100,14 +100,6 @@ Factory_Stage1::Factory_Stage1(FactoryPacket *fpac){
 	}
 
 }
-/**************************************************************************
- Factory_Stage1::~Factory_Stage1();
- 用途: デストラクタ
- 戻り値: なし
-***************************************************************************/
-Factory_Stage1::~Factory_Stage1(){
-    //なにもしない
-}
 
 }
 //end of namespace wiz.
