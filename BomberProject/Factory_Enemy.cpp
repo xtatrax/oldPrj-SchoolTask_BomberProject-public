@@ -13,7 +13,7 @@
 #include "Object.h"
 #include "Scene.h"
 #include "Factory_Enemy.h"
-
+#include "Factory_Player.h"
 #include "BassItems.h"
 
 namespace wiz
@@ -47,6 +47,7 @@ namespace wiz
 						   pTexture)
 	,m_pCamera( NULL )
 	,m_pPlayer( NULL )
+
 	{
 		
 		::ZeroMemory( &m_Material, sizeof(D3DMATERIAL9));
@@ -122,26 +123,37 @@ namespace wiz
 	void EnemySphere::Update( UpdatePacket& i_UpdatePacket){
 		if(m_pCamera == NULL){
 			m_pCamera = (Camera*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_SYS_CAMERA);
+			
+		}
+		if( m_pPlayer ){
+			m_pPlayer = (ProvisionalPlayer3D*)SearchObjectFromTypeID( i_UpdatePacket.pVec,typeid(ProvisionalPlayer3D));
 		}
 
+
+
 		m_ItemMap_Target.clear();
+
 		multimap<float,EnemyItem*>::iterator it = m_ItemMap_All.begin();
 		while(it != m_ItemMap_All.end()){
+			//ÉGÉlÉ~Å[ÇÃç¿ïWÇé•äEÇÃï˚Ç…éùÇ¡ÇƒÇ¢Ç≠èàóùÅiç°ÇÕèuä‘ìIÇ…ì¸ÇÍë÷ÇÌÇÈÅj
+			if( g_bMouseRB && g_bMouseLB && m_pPlayer){
+
+				it->second->m_vPos = m_pPlayer->getPos();
+
+			}
 			if( ( +(it->first - m_pCamera->getEye().y) <= 3000) && ( +(it->first - m_pCamera->getEye().y) >= -3000 ) ){
 				
 				m_ItemMap_Target.insert(multimap<float,EnemyItem*>::value_type(it->second->m_vPos.y,it->second));
+			
 			}
 
 			++it;
 		}
 
+	
 		multimap<float,EnemyItem*>::iterator it2 = m_ItemMap_Target.begin();
 		while(it2 != m_ItemMap_Target.end()){
 //åvéZÇÕUpdateÇ≈
-
-
-
-
 
 //ägëÂèkè¨
 			D3DXMATRIX mScale;
