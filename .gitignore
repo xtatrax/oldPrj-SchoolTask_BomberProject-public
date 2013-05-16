@@ -32,3 +32,5 @@ _ReSharper*/
 [Rr]elease*/
 /*.suo
 /BomberProject/LogDatas
+
+*.orig

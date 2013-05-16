@@ -39,7 +39,7 @@ class	GoalObject	:public PrimitiveBox{
 public:
 	GoalObject(	LPDIRECT3DDEVICE9 pD3DDevice,
 				LPDIRECT3DTEXTURE9 pTexture,
-				wiz::OBJID id = OBJID_2D_WALL
+				wiz::OBJID id = OBJID_3D_WALL
 				);
     void	Draw(DrawPacket& i_DrawPacket) ;
 	void	Update(UpdatePacket& i_UpdatePacket);
