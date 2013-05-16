@@ -2198,7 +2198,7 @@ virtual ~DrawOBB();
 //// 備考       ：Objectクラスの純粋仮想関数
 ////            ：
 ////
-virtual void Draw(LPDIRECT3DDEVICE9 pD3DDevice,Tempus2* i_Time,vector<Object*>& Vec,Command& Com) ;
+virtual void Draw(DrawPacket& i_DrawPacket) ;
 
 static void Add(LPDIRECT3DDEVICE9 pD3DDevice,vector<Object*>& Vec, OBB i_OBB, Color i_Color = 0xFFFF0000){
 	#ifdef ON_DEBUGGINGPROCESS

@@ -147,7 +147,6 @@ namespace wiz{
 		OBJID_UI_END				,
 
 		//	: 3Dオブジェ
-
 		////
 		// プリミティブ系
 		OBJID_3D_BEGIN				= 0x3000,
@@ -181,6 +180,7 @@ namespace wiz{
 
 		//	: 
 		OBJID_3D_TESTBOX			,	//	: テスト用の箱
+		OBJID_3D_DRAWOBB			,
 		OBJID_3D_END				,
 
 

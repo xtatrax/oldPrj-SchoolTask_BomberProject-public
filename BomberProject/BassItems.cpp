@@ -4484,7 +4484,7 @@ DrawOBB::DrawOBB(LPDIRECT3DDEVICE9 pD3DDevice, OBB i_OBB, Color i_Color, wiz::OB
                                     D3DPOOL_DEFAULT, &m_pVB, NULL)))
         {
             // 初期化失敗
-            throw DxException(
+            throw BaseException(
                 L"頂点バッファの作成に失敗しました。",
                 L"Guide::Guide()"
                 );
@@ -4493,7 +4493,7 @@ DrawOBB::DrawOBB(LPDIRECT3DDEVICE9 pD3DDevice, OBB i_OBB, Color i_Color, wiz::OB
         VOID* pVertices;
         if(FAILED( m_pVB->Lock( 0, sizeof(Vertices),( void** )&pVertices, 0 ))){
             // 初期化失敗
-            throw DxException(
+            throw BaseException(
                 L"頂点バッファのロックに失敗しました。",
                 L"Guide::Guide()"
                 );
@@ -4535,7 +4535,8 @@ DrawOBB::~DrawOBB(){
 //// 備考       ：Objectクラスの純粋仮想関数
 ////            ：
 ////
-void DrawOBB::Draw(LPDIRECT3DDEVICE9 pD3DDevice,Tempus2* i_Time,vector<Object*>& Vec,Command& Com) {
+void DrawOBB::Draw( DrawPacket& i_DrawPacket ) {
+	LPDIRECT3DDEVICE9 pD3DDevice = i_DrawPacket.pD3DDevice ;
     D3DXMATRIX  wm , mScale, mRot, mPos;
     //座標変換無し
     D3DXMatrixIdentity(&wm);

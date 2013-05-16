@@ -100,8 +100,7 @@ void CheckPoint::Draw( DrawPacket& i_DrawPacket ){
 			);
 			pcp->add( 10.0f );
 
-			fpac->m_pVec->push_back(
-				);
+
 			
 
 		}

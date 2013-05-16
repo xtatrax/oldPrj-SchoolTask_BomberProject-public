@@ -381,6 +381,7 @@ struct FlexibleVertex{
 //**************************************************************************//
 struct OBB{
     D3DXVECTOR3 m_Center;   //中心点の座標
+	D3DXMATRIX	m_mRot;
     D3DXVECTOR3 m_Rot[3];   //XYZ の各座標軸の傾きを表す方向ベクトル
     D3DXVECTOR3 m_Size;     //OBB の各座標軸に沿った長さの半分（中心点から面までの長さ）
 	OBB():m_Center(g_vZero),m_Size(g_vOne){
@@ -395,6 +396,7 @@ struct OBB{
 		D3DXMATRIX mRot   ;
 		D3DXMatrixIdentity(&mRot);
 		D3DXMatrixRotationYawPitchRoll(&mRot,vRot.y,vRot.x,vRot.z);
+		m_mRot = mRot ;
 		m_Rot[0] = D3DXVECTOR3(mRot._11,mRot._12,mRot._13);
 	    m_Rot[1] = D3DXVECTOR3(mRot._21,mRot._22,mRot._23);
 	    m_Rot[2] = D3DXVECTOR3(mRot._31,mRot._32,mRot._33);
@@ -408,6 +410,7 @@ struct OBB{
 		D3DXMATRIX mRot   ;
 		D3DXMatrixIdentity(&mRot);
 		D3DXMatrixRotationQuaternion(&mRot,&vQt);
+		m_mRot = mRot ;
 		m_Rot[0] = D3DXVECTOR3(mRot._11,mRot._12,mRot._13);
 	    m_Rot[1] = D3DXVECTOR3(mRot._21,mRot._22,mRot._23);
 	    m_Rot[2] = D3DXVECTOR3(mRot._31,mRot._32,mRot._33);
@@ -424,6 +427,7 @@ struct OBB{
 	void setRot(D3DXVECTOR3 vRot){
 		D3DXMATRIX mRot   ;
 		D3DXMatrixIdentity(&mRot);
+		m_mRot = mRot ;
 		m_Rot[0] = D3DXVECTOR3(mRot._11,mRot._12,mRot._13);
 	    m_Rot[1] = D3DXVECTOR3(mRot._21,mRot._22,mRot._23);
 	    m_Rot[2] = D3DXVECTOR3(mRot._31,mRot._32,mRot._33);
