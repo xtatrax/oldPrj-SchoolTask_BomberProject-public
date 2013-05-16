@@ -466,7 +466,7 @@ bool PlayerCoil::HitTestWall( OBB Obb, float Index ){
 	//通常の衝突判定
 	D3DXVECTOR3 Vec ;
 	if(HitTest::SPHERE_OBB(sp,Obb,Vec)){
-		MessageBox( NULL, L"当たった！！", L"Error", NULL) ;
+		MessageBox( NULL, L"当たった！！", L"当たり判定", NULL) ;
 		return true;
 	}
 	return false;
