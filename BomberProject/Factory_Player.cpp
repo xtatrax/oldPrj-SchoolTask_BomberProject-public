@@ -283,13 +283,13 @@ void ProvisionalPlayer3D::Update( UpdatePacket& i_UpdatePacket ){
 					 wiz::OBJID id )				//	: ID
 用途       ：コンストラクタ
 ****************************************************************************/
-MagneticField::MagneticField(
-	LPDIRECT3DDEVICE9 pD3DDevice,						//	: デバイス
-	LPDIRECT3DTEXTURE9 pTexture,						//	: テクスチャー
-	D3DXVECTOR3		   &vScale,							//	: 伸縮
-	D3DXQUATERNION	   &vRot,							//	: 回転
-	D3DXVECTOR3	       &vPos							//	: 位置
-=======
+//MagneticField::MagneticField(
+//	LPDIRECT3DDEVICE9 pD3DDevice,						//	: デバイス
+//	LPDIRECT3DTEXTURE9 pTexture,						//	: テクスチャー
+//	D3DXVECTOR3		   &vScale,							//	: 伸縮
+//	D3DXQUATERNION	   &vRot,							//	: 回転
+//	D3DXVECTOR3	       &vPos							//	: 位置
+/***************************************************************************
 関数名    ：MagneticField(
                    LPDIRECT3DDEVICE9   pD3DDevice,
                    LPDIRECT3DTEXTURE9  pTexture,
@@ -314,7 +314,6 @@ MagneticField::MagneticField(
 	D3DXVECTOR3		   &vScale,
 	D3DXQUATERNION	   &vRot,
 	D3DXVECTOR3	       &vPos
->>>>>>> workspace
 )
 :Cylinder(pD3DDevice,vScale.x, vScale.y, vScale.z, g_vZero, g_vZero,
 						D3DCOLORVALUE(),

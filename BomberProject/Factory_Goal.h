@@ -46,13 +46,12 @@ class	GoalObject	:public PrimitiveBox{
 public:
 	GoalObject(	LPDIRECT3DDEVICE9 pD3DDevice,
 				LPDIRECT3DTEXTURE9 pTexture,
-				wiz::OBJID id = OBJID_2D_WALL
+				wiz::OBJID id = OBJID_3D_WALL
 				);
     void	Draw(DrawPacket& i_DrawPacket) ;
 	void	Update(UpdatePacket& i_UpdatePacket);
 	void addGoal(D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos,
 			D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient);
-<<<<<<< HEAD
 };
 
 /**************************************************************************
@@ -74,36 +73,12 @@ public:
  用途: デストラクタ
  戻り値: なし
 ***************************************************************************/
-	~Factory_Goal();
-};
+	~Factory_Goal(){};
+//};
 
-=======
 	void GetOBBList( float Index, list<OBB>& ObbList );
 };
 
-/**************************************************************************
- class Factory_Goal;
- 用途: メイン工場クラス
-****************************************************************************/
-	class Factory_Goal{
-	public:
-	/**************************************************************************
-	 Factory_Goal(
-		LPDIRECT3DDEVICE9 pD3DDevice,	//デバイス
-		vector<Object*>& vec,			//オブジェクトの配列
-		TextureManager& TexMgr		//テクスチャの配列
-	);
-	 用途: コンストラクタ（サンプルオブジェクトを配列に追加する）
-	 戻り値: なし
-	***************************************************************************/
-		Factory_Goal(FactoryPacket* fpac);
-	/**************************************************************************
-	 ~MyFactory();
-	 用途: デストラクタ
-	 戻り値: なし
-	***************************************************************************/
-		~Factory_Goal();
-	};
->>>>>>> workspace
+
 }
 //end of namespace wiz.
