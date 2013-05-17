@@ -26,7 +26,9 @@
 #if defined(DEBUG) || defined(_DEBUG)
 	#define ON_DEBUGGINGPROCESS			/* デバックモード             */
 	#define DEBUG_STRINGS_ON			/* デバッグ用文字列を有効化 */
+	
 	#define ___MLP_DEBUG_TIMEDRAW_ 
+	//#define ON_GUIDELINE
 #else
 	//#define CF_FULLSCREEN				/* フルスクリーンモード       */
 #endif

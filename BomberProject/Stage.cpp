@@ -89,7 +89,7 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 				fpac.m_pVec     = m_pVec		;
 				fpac.pD3DDevice = m_pD3DDevice	;
 				//	: “o˜^‚ª‚È‚©‚Á‚½ê‡
-				Item* mgb = new Item( &fpac, m_pTexMgr->addTexture(m_pD3DDevice,L"biribiriWall.png"), ObjectID);
+				Item* mgb = new Item( &fpac, NULL, ObjectID);
 				mgb->addItem(
 					i_Data.vPos, i_Data.vScale, i_Data.Diffuse, i_Data.Specular, i_Data.Ambient
 				);
