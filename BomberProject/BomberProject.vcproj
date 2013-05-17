@@ -427,6 +427,30 @@
 						>
 					</File>
 				</Filter>
+				<Filter
+					Name="ResultFactory"
+					>
+					<File
+						RelativePath=".\Factory_Result.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Factory_Result.h"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="TitleFactory"
+					>
+					<File
+						RelativePath=".\Factory_Title.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Factory_Title.h"
+						>
+					</File>
+				</Filter>
 			</Filter>
 			<Filter
 				Name="Prim"
@@ -482,10 +506,26 @@
 				<Filter
 					Name="Stage_Title"
 					>
+					<File
+						RelativePath=".\Stage_Title.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Stage_Title.h"
+						>
+					</File>
 				</Filter>
 				<Filter
 					Name="Stage_Clear"
 					>
+					<File
+						RelativePath=".\Stage_Result.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Stage_Result.h"
+						>
+					</File>
 				</Filter>
 			</Filter>
 		</Filter>

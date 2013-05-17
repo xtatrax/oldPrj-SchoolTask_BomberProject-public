@@ -120,6 +120,7 @@ protected:
 	MagneticField*		m_pMagneticField;
 	MagneticField*		m_pMagneticField2;
 	MagneticField*		m_pMagneticField3;
+	MagneticField*		m_pMagneticField4;
 //////////
 //	: ”ñŒöŠJ
 private:

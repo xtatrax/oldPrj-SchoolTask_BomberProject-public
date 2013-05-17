@@ -112,10 +112,10 @@ void	Item::Update(UpdatePacket& i_UpdatePacket)
 {
 	vector<Object*> Vec	= 	*(i_UpdatePacket.pVec);
 	PlayerCoil*	pc	= NULL;
-	Bar*		br	= NULL;
+	SuperGage*		br	= NULL;
 
 	if( !pc ) pc = (PlayerCoil*)SearchObjectFromTypeID(&Vec,typeid(PlayerCoil));
-	if( !br ) br = (Bar*)SearchObjectFromTypeID(&Vec,typeid(Bar));
+	if( !br ) br = (SuperGage*)SearchObjectFromTypeID(&Vec,typeid(SuperGage));
 
 	//コイルの位置取得
 	D3DXVECTOR3	cPos	= pc->getPos();
@@ -200,10 +200,10 @@ void	Item::addItem(D3DXVECTOR3 pos, D3DXVECTOR3 size,
 }
 
 /**************************************************************************
- Bar 定義部
+ Gage 定義部
 ***************************************************************************/
 /************************************************************************
- 関数名     ：Bar::Bar(
+ 関数名     ：Gage::Gage(
                 LPDIRECT3DDEVICE9 pD3DDevice,
                 LPDIRECT3DTEXTURE9 pTex,
                 D3DXVECTOR3 &vScale,
@@ -221,12 +221,13 @@ void	Item::addItem(D3DXVECTOR3 pos, D3DXVECTOR3 size,
 　　　　：D3DXVECTOR3 &vPos              // 位置
 　　　　：D3DXVECTOR3 &vDirOffset        // 描画オフセット
 　　　　：RECT* vRect                    // 描画範囲
+　　　　：RECT* vRect2                   // 描画範囲
 　　　　：wiz::OBJID id                  // ID
 戻り値　：
 担当者　：佐藤涼
 備考　　：
 *************************************************************************/
-Bar::Bar(
+Gage::Gage(
 	LPDIRECT3DDEVICE9 pD3DDevice,
 	LPDIRECT3DTEXTURE9 pTex,
 	D3DXVECTOR3 &vScale,
@@ -234,32 +235,35 @@ Bar::Bar(
 	D3DXVECTOR3 &vPos,
 	D3DXVECTOR3 &vDirOffset,
 	RECT* vRect,
+	RECT* vRect2,
 	wiz::OBJID id
 )
 :SpriteObject(pD3DDevice,pTex,vScale,vRot,vPos,
-	vRect,g_vZero,vDirOffset,0xFFFFFFFF,id),m_Time(0)
+	vRect,g_vZero,vDirOffset,0xFFFFFFFF,id)
+,m_Rect( vRect )
+,m_Rect2( vRect2 )
 
 {
 }
 
 /****************************************
-関数名　　：void Bar::Recovery()
+関数名　　：void Gage::Recovery()
 カテゴリ　：関数
-用途　　　：エネルギー回復
+用途　　　：エネルギー充填
 引数　　　：
 戻り値　　：
 担当者　　：佐藤涼
 備考　　　：
 *****************************************/
-void Bar::Recovery(){
-	if(m_pRect->right<500){
+void Gage::Recovery(){
+	if(m_Rect2.right < 254){
 		m_pRect->right	+= 5;
-		if(m_pRect->right>500)
-			m_pRect->right	= 500;
+		if( m_Rect2.right > 254 )
+			m_pRect->right	= 254;
 	}
 }
 /*****************************************
- 関数名　　：void Bar::Consume()
+ 関数名　　：void Gage::Consume()
  カテゴリ　：関数
  用途　　　：エネルギー消費
  引数　　　：
@@ -267,17 +271,17 @@ void Bar::Recovery(){
  担当者　　：佐藤涼
  備考　　　：
  *****************************************/
-void Bar::Consume(){
-	if(m_pRect->right > 0){
-		m_pRect->right	-= 3;
-		if(m_pRect->right > 0){
-			m_pRect->right	= 0;
+void Gage::Consume(){
+	if(m_Rect2.right > 0){
+		m_Rect2.right	-= 3;
+		if(m_Rect2.right > 0){
+			m_Rect2.right	= 0;
 		}
 	}
 }
 
 /**************************************************************
-関数名　　：void Item::Draw(DrawPacket &i_DrawPacket)
+関数名　　：void Gage::Draw(DrawPacket &i_DrawPacket)
 カテゴリ　：関数
 用途　　　：オブジェクトの描画
 引数　　　：DrawPacket &i_DrawPacket    //描画用のデータもろもろ
@@ -285,15 +289,125 @@ void Bar::Consume(){
 担当者　　：佐藤涼
 備考　　　：
 ***************************************************************/
-void Bar::Draw(DrawPacket& i_DrawPacket){
-	if(m_pRect->right != 500)
-		m_Time	+= 1;
-
-	if(m_Time >= 60){
-		m_pRect->right	+= 1;
-		m_Time	= 0;
-	}
+void Gage::Draw(DrawPacket& i_DrawPacket){
+	//枠の描画
+	m_pRect	= m_Rect;
 	SpriteObject::Draw( i_DrawPacket );
+	//ゲージの描画
+	m_pRect	= m_Rect2;
+	SpriteObject::Draw( i_DrawPacket );
+}
+
+/**************************************************************************
+ SuperGage 定義部
+***************************************************************************/
+/************************************************************************
+ 関数名     ：SuperGage::SuperGage(
+                LPDIRECT3DDEVICE9 pD3DDevice,
+                LPDIRECT3DTEXTURE9 pTex,
+                D3DXVECTOR3 &vScale,
+                D3DXVECTOR3 &vRot,
+                D3DXVECTOR3 &vPos,
+                D3DXVECTOR3 &vDirOffset,
+                RECT* vRect,
+                wiz::OBJID id
+				)
+カテゴリ：コンストラクタ
+用途　　：LPDIRECT3DDEVICE9 pD3DDevice   // デバイス
+引数　　：LPDIRECT3DTEXTURE9 pTex        // テクスチャ―
+　　　　：D3DXVECTOR3 &vScale            // 伸縮
+　　　　：D3DXVECTOR3 &vRot              // 回転
+　　　　：D3DXVECTOR3 &vPos              // 位置
+　　　　：D3DXVECTOR3 &vDirOffset        // 描画オフセット
+　　　　：RECT* vRect                    // 描画範囲
+　　　　：RECT* vRect2                   // 描画範囲
+　　　　：wiz::OBJID id                  // ID
+戻り値　：
+担当者　：佐藤涼
+備考　　：
+*************************************************************************/
+SuperGage::SuperGage(
+	LPDIRECT3DDEVICE9 pD3DDevice,
+	LPDIRECT3DTEXTURE9 pTex,
+	D3DXVECTOR3 &vScale,
+	D3DXVECTOR3 &vRot,
+	D3DXVECTOR3 &vPos,
+	RECT* vRect,
+	RECT* vRect2,
+	wiz::OBJID id
+)
+:Gage(pD3DDevice,pTex,vScale,vRot,vPos,g_vZero,
+	vRect,vRect2)
+{
+}
+
+/**************************************************************
+関数名　　：void SuperGage::Draw(DrawPacket &i_DrawPacket)
+カテゴリ　：関数
+用途　　　：オブジェクトの描画
+引数　　　：DrawPacket &i_DrawPacket    //描画用のデータもろもろ
+戻り値　　：
+担当者　　：佐藤涼
+備考　　　：
+***************************************************************/
+void SuperGage::Draw(DrawPacket& i_DrawPacket){
+	Gage::Draw( i_DrawPacket );
+}
+
+/**************************************************************************
+ MagneticGage 定義部
+***************************************************************************/
+/************************************************************************
+ 関数名     ：MagneticGage::MagneticGage(
+                LPDIRECT3DDEVICE9 pD3DDevice,
+                LPDIRECT3DTEXTURE9 pTex,
+                D3DXVECTOR3 &vScale,
+                D3DXVECTOR3 &vRot,
+                D3DXVECTOR3 &vPos,
+                D3DXVECTOR3 &vDirOffset,
+                RECT* vRect,
+                wiz::OBJID id
+				)
+カテゴリ：コンストラクタ
+用途　　：LPDIRECT3DDEVICE9 pD3DDevice   // デバイス
+引数　　：LPDIRECT3DTEXTURE9 pTex        // テクスチャ―
+　　　　：D3DXVECTOR3 &vScale            // 伸縮
+　　　　：D3DXVECTOR3 &vRot              // 回転
+　　　　：D3DXVECTOR3 &vPos              // 位置
+　　　　：RECT* vRect                    // 描画範囲
+　　　　：RECT* vRect2                   // 描画範囲
+　　　　：wiz::OBJID id                  // ID
+戻り値　：
+担当者　：佐藤涼
+備考　　：
+*************************************************************************/
+MagneticGage::MagneticGage(
+	LPDIRECT3DDEVICE9 pD3DDevice,
+	LPDIRECT3DTEXTURE9 pTex,
+	D3DXVECTOR3 &vScale,
+	D3DXVECTOR3 &vRot,
+	D3DXVECTOR3 &vPos,
+	RECT* vRect,
+	RECT* vRect2,
+	wiz::OBJID id
+)
+:Gage(pD3DDevice,pTex,vScale,vRot,vPos,g_vZero,
+	vRect,vRect2)
+
+{
+}
+
+/**************************************************************
+関数名　　：void MagneticGage::Draw(DrawPacket &i_DrawPacket)
+カテゴリ　：関数
+用途　　　：オブジェクトの描画
+引数　　　：DrawPacket &i_DrawPacket    //描画用のデータもろもろ
+戻り値　　：
+担当者　　：佐藤涼
+備考　　　：
+***************************************************************/
+void MagneticGage::Draw(DrawPacket& i_DrawPacket){
+	Gage::Draw( i_DrawPacket );
 }
 
 /**************************************************************************
@@ -326,15 +440,29 @@ Factory_Item::Factory_Item(FactoryPacket* fpac){
 		}
 		fpac->m_pVec->push_back(it);
 
+		//スーパーモード用ゲージ
 		fpac->m_pVec->push_back(
-			new Bar(
+			new SuperGage(
 				fpac->pD3DDevice,
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"front_bar.png" ),
-				D3DXVECTOR3(0.8f,0.8f,1.0f),
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"gage.png" ),
+				D3DXVECTOR3(1.0f,1.0f,0.0f),
 				g_vZero,
-				D3DXVECTOR3(300.0f,550.0f,0.0f),
+				D3DXVECTOR3(50.0f,520.0f,0.0f),
+				Rect(0,0,256,64),
+				Rect(0,64,100,128)
+			)
+		);
+
+		//磁界用ゲージ
+		fpac->m_pVec->push_back(
+			new MagneticGage(
+				fpac->pD3DDevice,
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"gage.png" ),
+				D3DXVECTOR3(1.0f,1.0f,0.0f),
 				g_vZero,
-				Rect(0,0,200,20)
+				D3DXVECTOR3(320.0f,520.0f,0.0f),
+				Rect(0,0,256,64),
+				Rect(0,64,100,128)
 			)
 		);
 	}
