@@ -28,7 +28,7 @@
 	#define DEBUG_STRINGS_ON			/* デバッグ用文字列を有効化 */
 	#define ___MLP_DEBUG_TIMEDRAW_ 
 #else
-	#define CF_FULLSCREEN				/* フルスクリーンモード       */
+	//#define CF_FULLSCREEN				/* フルスクリーンモード       */
 #endif
 #define DEBUG_KEYBORD_ON			/* デバッグ用キーボード操作を有効化 */
 
