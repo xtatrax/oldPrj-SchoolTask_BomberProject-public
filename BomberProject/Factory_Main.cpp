@@ -41,7 +41,7 @@ namespace wiz{
 ***************************************************************************/
 Factory_Main::Factory_Main(FactoryPacket* fpac){
 	try{
-#if defined(DEBUG) | defined(_DEBUG) | defined(ON_DEBUGGINGPROCESS) 
+#if defined( ON_GUIDELINE ) 
 
 		//	: ƒKƒCƒhƒ‰ƒCƒ“
 		fpac->m_pVec->push_back(new Guide( fpac->pD3DDevice ) );
