@@ -41,9 +41,11 @@ namespace wiz{
 ***************************************************************************/
 Factory_Main::Factory_Main(FactoryPacket* fpac){
 	try{
+#if defined(DEBUG) | defined(_DEBUG) | defined(ON_DEBUGGINGPROCESS) 
+
 		//	: ガイドライン
 		fpac->m_pVec->push_back(new Guide( fpac->pD3DDevice ) );
-
+#endif
 		//ライトのインスタンス初期化
         D3DCOLORVALUE Diffuse = {1.0f,1.0f,1.0f,0.0f};
         D3DCOLORVALUE Specular = {1.0f,1.0f,1.0f,0.0f};

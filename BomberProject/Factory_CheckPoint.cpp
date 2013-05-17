@@ -80,8 +80,8 @@ void CheckPoint::Draw( DrawPacket& i_DrawPacket ){
 			Cylinder::Draw( i_DrawPacket );
 			
 			OBB obb = OBB( m_BasePos, m_BaseQt, m_BaseScale );
-			DrawOBB(i_DrawPacket);
-			m_pCoil->HitTestWall();
+			//DrawOBB(i_DrawPacket);
+			//m_pCoil->HitTestWall();
 		}
 	}
 };
