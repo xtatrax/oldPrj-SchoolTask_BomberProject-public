@@ -231,13 +231,14 @@ void ProvisionalPlayer3D::Update( UpdatePacket& i_UpdatePacket ){
 					m_pMagneticField4->setPole(false);
 				}
 
+				//磁界に描画地点を渡す
 				m_pMagneticField->SetPos(m_vPos);
-				m_pMagneticField->Update(i_UpdatePacket);
-
 				m_pMagneticField2->SetPos(m_vPos);
-				m_pMagneticField2->Update(i_UpdatePacket);
-
 				m_pMagneticField3->SetPos(m_vPos);
+				m_pMagneticField4->SetPos(m_vPos);
+
+				m_pMagneticField->Update(i_UpdatePacket);
+				m_pMagneticField2->Update(i_UpdatePacket);
 				m_pMagneticField3->Update(i_UpdatePacket);
 
 				m_pMagneticField4->SetPos(m_vPos);
@@ -279,6 +280,9 @@ void ProvisionalPlayer3D::Update( UpdatePacket& i_UpdatePacket ){
 	}
 	m_bLastMouseLB = g_bMouseLB ;
 	m_bLastMouseRB = g_bMouseRB ;
+
+	//磁界のエフェクトを動かす
+	m_pMagneticField4->Update(i_UpdatePacket);
 };
 
 /**************************************************************************
@@ -429,6 +433,7 @@ void	MagneticField::Update(UpdatePacket& i_UpdatePacket)
 	D3DXMatrixIdentity(&mMove);
 	D3DXMatrixIdentity(&mScale);
 	if(m_Pole != cPole){
+		//反発のエフェクト
 		if( m_bEffect ){
 			m_Radius1	+= 0.2f;
 			m_Radius2	+= 0.2f;
@@ -443,6 +448,7 @@ void	MagneticField::Update(UpdatePacket& i_UpdatePacket)
 		}
 	}
 	else{
+		//吸い寄せるエフェクト
 		if( m_bEffect ){
 			m_Radius1	-= 0.2f;
 			m_Radius2	-= 0.2f;
