@@ -68,7 +68,7 @@ ProvisionalPlayer::ProvisionalPlayer(
 ////            ：
 ////
 void ProvisionalPlayer::Update( UpdatePacket& i_UpdatePacket ){
-	if( g_bMouseLB || g_bMouseRB ){
+	if( g_bMouseLB || g_bMouseRB){
 		wiz::CONTROLER_STATE Controller1P = i_UpdatePacket.pCntlState[0] ;
 		D3DXVECTOR3 vMove = g_vZero ;
 		Point MousePos ;
@@ -132,6 +132,7 @@ ProvisionalPlayer3D::ProvisionalPlayer3D(
 ,m_bLastMouseRB(false)
 ,m_bLastMouseLB(false)
 ,m_bField(false)
+,m_bCoilWasFired(true)
 {
 	::ZeroMemory( &m_Material, sizeof(D3DMATERIAL9) ) ;
 	D3DXMatrixIdentity( &m_Matrix ) ;
@@ -152,42 +153,44 @@ ProvisionalPlayer3D::ProvisionalPlayer3D(
 //// 備考       ：
 void ProvisionalPlayer3D::Draw(DrawPacket& i_DrawPacket)
 {
-	if( g_bMouseLB || g_bMouseRB ){ 
+	if( m_bCoilWasFired ){
+		if( g_bMouseLB || g_bMouseRB ){ 
 
-		//テクスチャがある場合
-		if(m_pTexture){
-			DWORD wkdword;
-			//現在のテクスチャステータスを得る
-			i_DrawPacket.pD3DDevice->GetTextureStageState(0,D3DTSS_COLOROP,&wkdword);
-			//ステージの設定
-			i_DrawPacket.pD3DDevice->SetTexture(0,m_pTexture);
-			//デフィーズ色とテクスチャを掛け合わせる設定
-			i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLOROP, D3DTOP_MODULATE4X );
-			i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLORARG1, D3DTA_TEXTURE );
-			i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLORARG2, D3DTA_DIFFUSE );
+			//テクスチャがある場合
+			if(m_pTexture){
+				DWORD wkdword;
+				//現在のテクスチャステータスを得る
+				i_DrawPacket.pD3DDevice->GetTextureStageState(0,D3DTSS_COLOROP,&wkdword);
+				//ステージの設定
+				i_DrawPacket.pD3DDevice->SetTexture(0,m_pTexture);
+				//デフィーズ色とテクスチャを掛け合わせる設定
+				i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLOROP, D3DTOP_MODULATE4X );
+				i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLORARG1, D3DTA_TEXTURE );
+				i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLORARG2, D3DTA_DIFFUSE );
 
-			//i_DrawPacket.pD3DDevice->SetFVF(PlateFVF);
-			// マトリックスをレンダリングパイプラインに設定
-			i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &/*it->second->*/m_Matrix);
-			//コモンメッシュのDraw()を呼ぶ
-			CommonMesh::Draw(i_DrawPacket);
-			i_DrawPacket.pD3DDevice->SetTexture(0,0);
-			//ステージを元に戻す
-			i_DrawPacket.pD3DDevice->SetTextureStageState(0,D3DTSS_COLOROP,wkdword);
+				//i_DrawPacket.pD3DDevice->SetFVF(PlateFVF);
+				// マトリックスをレンダリングパイプラインに設定
+				i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &/*it->second->*/m_Matrix);
+				//コモンメッシュのDraw()を呼ぶ
+				CommonMesh::Draw(i_DrawPacket);
+				i_DrawPacket.pD3DDevice->SetTexture(0,0);
+				//ステージを元に戻す
+				i_DrawPacket.pD3DDevice->SetTextureStageState(0,D3DTSS_COLOROP,wkdword);
+			}
+			else{
+			//テクスチャがない場合
+				// マトリックスをレンダリングパイプラインに設定
+				i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &/*it->second->*/m_Matrix);
+				//コモンメッシュのDraw()を呼ぶ
+				CommonMesh::Draw(i_DrawPacket);
+			}
+			m_pMagneticField->Draw(i_DrawPacket);
+			m_pMagneticField2->Draw(i_DrawPacket);
+			m_pMagneticField3->Draw(i_DrawPacket);
+			m_bField	= true;
 		}
-		else{
-		//テクスチャがない場合
-			// マトリックスをレンダリングパイプラインに設定
-			i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &/*it->second->*/m_Matrix);
-			//コモンメッシュのDraw()を呼ぶ
-			CommonMesh::Draw(i_DrawPacket);
-		}
-		m_pMagneticField->Draw(i_DrawPacket);
-		m_pMagneticField2->Draw(i_DrawPacket);
-		m_pMagneticField3->Draw(i_DrawPacket);
-		m_bField	= true;
+		else	m_bField	= false;
 	}
-	else	m_bField	= false;
 }
 
 /////////////////// ////////////////////
@@ -205,69 +208,71 @@ void ProvisionalPlayer3D::Update( UpdatePacket& i_UpdatePacket ){
 		m_Camera = (Camera*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_SYS_CAMERA);
 		m_Camera && (m_MovePosY	= m_Camera->getPosY());
 	}
-	if( g_bMouseLB || g_bMouseRB ){ 
-		if( !m_bLastMouseLB && !m_bLastMouseRB ){
-			wiz::CONTROLER_STATE Controller1P = i_UpdatePacket.pCntlState[0] ;
-			D3DXVECTOR3 vMove = g_vZero ;
-			Point MousePos ;
-			GetCursorPos( &MousePos ) ;
-			ScreenToClient( g_hWnd , &MousePos) ;
+	if( m_bCoilWasFired ){
+		if( g_bMouseLB || g_bMouseRB ){ 
+			if( !m_bLastMouseLB && !m_bLastMouseRB ){
+				wiz::CONTROLER_STATE Controller1P = i_UpdatePacket.pCntlState[0] ;
+				D3DXVECTOR3 vMove = g_vZero ;
+				Point MousePos ;
+				GetCursorPos( &MousePos ) ;
+				ScreenToClient( g_hWnd , &MousePos) ;
+				
+				m_vPos.x = (float)MousePos.x / DRAW_CLIENT_MAGNIFICATION - MAGNETIC_RADIUS ;
+				m_vPos.y = (( STANDARD_WINDOW_HEIGHT - MousePos.y ) - UI_HEIGHT ) / DRAW_CLIENT_MAGNIFICATION - MAGNETIC_RADIUS + ( m_Camera->getPosY() - m_MovePosY ) ;
+
+				if(g_bMouseLB){
+					m_pMagneticField->setPole(true);
+					m_pMagneticField2->setPole(true);
+					m_pMagneticField3->setPole(true);
+				}
+				else{
+					m_pMagneticField->setPole(false);
+					m_pMagneticField2->setPole(false);
+					m_pMagneticField3->setPole(false);
+				}
+
+				m_pMagneticField->SetPos(m_vPos);
+				m_pMagneticField->Update(i_UpdatePacket);
+
+				m_pMagneticField2->SetPos(m_vPos);
+				m_pMagneticField2->Update(i_UpdatePacket);
+
+				m_pMagneticField3->SetPos(m_vPos);
+				m_pMagneticField3->Update(i_UpdatePacket);
+
+				if( g_bMouseLB )
+					setPoleN() ;
+				if( g_bMouseRB )
+					setPoleS() ;
+			}
+
+			//	: 拡大縮小
+			D3DXMATRIX mScale ;
+			D3DXMatrixIdentity( &mScale ) ;
+			D3DXMatrixScaling( &mScale, m_vScale.x, m_vScale.y, m_vScale.z ) ;
 			
-			m_vPos.x = (float)MousePos.x / DRAW_CLIENT_MAGNIFICATION - MAGNETIC_RADIUS ;
-			m_vPos.y = (( STANDARD_WINDOW_HEIGHT - MousePos.y ) - UI_HEIGHT ) / DRAW_CLIENT_MAGNIFICATION - MAGNETIC_RADIUS + ( m_Camera->getPosY() - m_MovePosY ) ;
+			//	: 回転
+			D3DXMATRIX mRot ;
+			D3DXMatrixIdentity( &mRot ) ;
+			D3DXMatrixRotationQuaternion( &mRot, &m_vRot ) ;
+			
+			//	: 移動用
+			D3DXMATRIX mMove ;
+			D3DXMatrixIdentity( &mMove ) ;
+			D3DXMatrixTranslation( &mMove, m_vPos.x, m_vPos.y, m_vPos.z ) ;
+			
+			//	: ミックス行列
+			m_Matrix = mScale * mRot * mMove ;
 
-			if(g_bMouseLB){
-				m_pMagneticField->setPole(true);
-				m_pMagneticField2->setPole(true);
-				m_pMagneticField3->setPole(true);
-			}
-			else{
-				m_pMagneticField->setPole(false);
-				m_pMagneticField2->setPole(false);
-				m_pMagneticField3->setPole(false);
-			}
+			//	: マティリアル設定
+			m_Material = m_Material ;
 
-			m_pMagneticField->SetPos(m_vPos);
-			m_pMagneticField->Update(i_UpdatePacket);
-
-			m_pMagneticField2->SetPos(m_vPos);
-			m_pMagneticField2->Update(i_UpdatePacket);
-
-			m_pMagneticField3->SetPos(m_vPos);
-			m_pMagneticField3->Update(i_UpdatePacket);
-
-			if( g_bMouseLB )
-				setPoleN() ;
-			if( g_bMouseRB )
-				setPoleS() ;
+			//	: マウスのフラグ
+			//g_bMouseLB = false ;
+			//g_bMouseRB = false ;
+		}else{
+			
 		}
-
-		//	: 拡大縮小
-		D3DXMATRIX mScale ;
-		D3DXMatrixIdentity( &mScale ) ;
-		D3DXMatrixScaling( &mScale, m_vScale.x, m_vScale.y, m_vScale.z ) ;
-		
-		//	: 回転
-		D3DXMATRIX mRot ;
-		D3DXMatrixIdentity( &mRot ) ;
-		D3DXMatrixRotationQuaternion( &mRot, &m_vRot ) ;
-		
-		//	: 移動用
-		D3DXMATRIX mMove ;
-		D3DXMatrixIdentity( &mMove ) ;
-		D3DXMatrixTranslation( &mMove, m_vPos.x, m_vPos.y, m_vPos.z ) ;
-		
-		//	: ミックス行列
-		m_Matrix = mScale * mRot * mMove ;
-
-		//	: マティリアル設定
-		m_Material = m_Material ;
-
-		//	: マウスのフラグ
-		//g_bMouseLB = false ;
-		//g_bMouseRB = false ;
-	}else{
-		
 	}
 	m_bLastMouseLB = g_bMouseLB ;
 	m_bLastMouseRB = g_bMouseRB ;
@@ -688,11 +693,11 @@ float PlayerCoil::MagneticDecision( float i_fCoilDir, D3DXVECTOR3& i_vMagnetPos,
 	if(i_bMagnetPole_Field != this->getMagnetPole()){
 		if(i_fCoilDir < fTargetDir){
 			if(fTargetDir - i_fCoilDir <= 180.0f){
-				i_fCoilDir += 1.0f;
+				i_fCoilDir += PLAYER_TURN_ANGLE;
 				i_fCoilDir = float(int(i_fCoilDir) % 360);						
 			}
 			else{
-				i_fCoilDir -= 1.0f;
+				i_fCoilDir -= PLAYER_TURN_ANGLE;
 				if(i_fCoilDir < 0.0f){
 					i_fCoilDir += 360.0f;
 				}
@@ -700,13 +705,13 @@ float PlayerCoil::MagneticDecision( float i_fCoilDir, D3DXVECTOR3& i_vMagnetPos,
 		}
 		else if(i_fCoilDir > fTargetDir){
 			if(i_fCoilDir - fTargetDir <= 180.0f){
-				i_fCoilDir -= 1.0f;
+				i_fCoilDir -= PLAYER_TURN_ANGLE;
 				if(i_fCoilDir < 0.0f){
 					i_fCoilDir += 360.0f;
 				}
 			}
 			else{
-				i_fCoilDir += 1.0f;
+				i_fCoilDir += PLAYER_TURN_ANGLE;
 				i_fCoilDir = float(int(i_fCoilDir) % 360);												
 			}
 		}
@@ -715,23 +720,23 @@ float PlayerCoil::MagneticDecision( float i_fCoilDir, D3DXVECTOR3& i_vMagnetPos,
 		if(fReverse != fTargetDir){
 			if(i_fCoilDir < fTargetDir){
 				if(fTargetDir - i_fCoilDir <= 180.0f){
-					i_fCoilDir -= 1.0f;
+					i_fCoilDir -= PLAYER_TURN_ANGLE;
 					if(i_fCoilDir < 0.0f){
 						i_fCoilDir += 360.0f;
 					}
 				}
 				else{
-					i_fCoilDir += 1.0f;
+					i_fCoilDir += PLAYER_TURN_ANGLE;
 					i_fCoilDir = float(int(i_fCoilDir) % 360);						
 				}
 			}
 			else if(i_fCoilDir > fTargetDir){
 				if(i_fCoilDir - fTargetDir <= 180.0f){
-					i_fCoilDir += 1.0f;
+					i_fCoilDir += PLAYER_TURN_ANGLE;
 					i_fCoilDir = float(int(i_fCoilDir) % 360);												
 				}
 				else{
-					i_fCoilDir -= 1.0f;
+					i_fCoilDir -= PLAYER_TURN_ANGLE;
 					if(i_fCoilDir < 0.0f){
 						i_fCoilDir += 360.0f;
 					}
