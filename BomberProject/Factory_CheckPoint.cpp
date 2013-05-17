@@ -15,11 +15,12 @@
 #include "Factory_CheckPoint.h"
 #include "Factory_Player.h"
 #include "BassItems.h"
-const float CHECK_POINT_RADIUS = 12.35f ;
-D3DCOLORVALUE CHECKPOINTCOLOR = { 1.0f, 0.0f, 0.0f, 1.0f } ;
+const float CHECK_POINT_RADIUS = 0.25f ;
+D3DCOLORVALUE CHECKPOINTCOLOR = { 0.0f, 1.0f, 0.0f, 1.0f } ;
 namespace wiz{
 CheckPoint::CheckPoint( LPDIRECT3DDEVICE9 pD3DDevice, float fLength, wiz::OBJID id  )
-: Cylinder( pD3DDevice, CHECK_POINT_RADIUS, CHECK_POINT_RADIUS, fLength, g_vZero, g_vZero, CHECKPOINTCOLOR, D3DCOLORVALUE(), CHECKPOINTCOLOR, id, false, NULL, 2) 
+: Cylinder( pD3DDevice, CHECK_POINT_RADIUS, CHECK_POINT_RADIUS, fLength, g_vZero, D3DXVECTOR3( 0.0f,D3DXToRadian( 90.0f )
+		   , 0.0f ), CHECKPOINTCOLOR, D3DCOLORVALUE(), CHECKPOINTCOLOR, id, false, NULL, 18) 
 , m_pCoil( NULL )
 , m_pCamera( NULL )
 , m_ActiveItem( NULL )
@@ -59,18 +60,28 @@ void CheckPoint::Update( UpdatePacket& i_UpdatePacket ){
 ////            ：  ├ Tempus2*            i_DrawPacket.pTime	   // 時間を管理するクラスへのポインター
 ////            ：  └ Command             i_DrawPacket.pCommand   // コマンド
 //// 戻値       ：無し
-//// 担当者     ：
-//// 備考       ：継承するものは何れかのレベルで必ず定義をすること｡
+//// 担当者     ：鴫原 徹
+//// 備考       ：
 ////            ：
 ////
 void CheckPoint::Draw( DrawPacket& i_DrawPacket ){
-	if( m_pCamera ){
+	if( m_pCamera && m_ActiveItem < m_ItemContainer.size()){
+
+		float DrawEndLength = m_pCamera->getPosY() - DRAW_TOLERANCE ;
+		if(  DrawEndLength > m_ItemContainer[ m_ActiveItem ]->fPosY ){
+			m_ActiveItem++ ;
+			if(m_ActiveItem <= m_ItemContainer.size()) return ;
+		}
+
 		float DrawBeginLength = m_pCamera->getPosY() + DRAW_TOLERANCE ;
 		if( DrawBeginLength > m_ItemContainer[ m_ActiveItem ]->fPosY ){
-			m_Pos.x = m_ItemContainer[ m_ActiveItem ]->fPosY ;
-
-			m_WorldMatrix = MatrixCalculator(m_BaseScale, m_Qt, D3DXVECTOR3( m_pCamera->getAt().x, m_ItemContainer[ m_ActiveItem ]->fPosY, 0.0f));
+			m_BasePos = D3DXVECTOR3( m_pCamera->getAt().x, m_ItemContainer[ m_ActiveItem ]->fPosY,0.0f) ;
+			CalcWorldMatrix();
 			Cylinder::Draw( i_DrawPacket );
+			
+			OBB obb = OBB( m_BasePos, m_BaseQt, m_BaseScale );
+			DrawOBB(i_DrawPacket);
+			m_pCoil->HitTestWall();
 		}
 	}
 };
@@ -96,11 +107,13 @@ void CheckPoint::Draw( DrawPacket& i_DrawPacket ){
 			
 			CheckPoint* pcp ;
 			fpac->m_pVec->push_back(
-				pcp = new CheckPoint( fpac->pD3DDevice, 10.0f)
+				pcp = new CheckPoint( fpac->pD3DDevice, 100.0f)
 			);
 			pcp->add( 10.0f );
 
-
+			fpac->m_pVec->push_back(
+				new Cylinder( fpac->pD3DDevice, 1.0f, 1.0f, 1.0f, D3DXVECTOR3( 3.0f, 3.0f, 0.5f), g_vZero, Diffuse, Specular, Ambient, OBJID_3D_CYLINDER, false, NULL, 18 )
+			);
 			
 
 		}
