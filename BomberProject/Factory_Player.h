@@ -20,6 +20,7 @@ const int	START_EFFECTIVE_RANGE		= 12;
 const int 	START_EFFECTIVE_RANGE_QUAD	= (START_EFFECTIVE_RANGE * START_EFFECTIVE_RANGE);
 const float PLAYER_SPEED				= 0.08f;
 const float PLAYER_BASSROT				= 90.0f;
+const float PLAYER_TURN_ANGLE			= 2.0f;
 
 enum COIL_STATE{			//自機の状態
 	COIL_STATE_START,		//スタート
@@ -67,6 +68,7 @@ class ProvisionalPlayer3D : public MagneticumObject3D{
 	bool			m_bLastMouseRB;
 	bool			m_bLastMouseLB;
 	bool			m_bField;
+	bool			m_bCoilWasFired;
 public:
 	//	: 
 	ProvisionalPlayer3D( FactoryPacket* fpac, LPDIRECT3DTEXTURE9 pTexture,
