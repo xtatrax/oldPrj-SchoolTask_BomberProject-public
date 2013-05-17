@@ -17,7 +17,7 @@
 #include "Object.h"
 #include "BassItems.h"
 
-const	float	VanishArea	= 0.2f;		//	: アイテムを消すエリア
+const	float	VanishArea	= 1.0f;		//	: アイテムを消すエリア
 const	float	SuctionArea	= 5.0f;		//	: アイテムが吸いよる範囲
 const	float	SpeedRate	= 0.05f;	//	: アイテムの速さ調整倍率
 
@@ -55,22 +55,24 @@ public:
 					  D3DCOLORVALUE Diffuse,D3DCOLORVALUE Specular,D3DCOLORVALUE Ambient);
 };
 /************************************************
-class Bar : public SpriteObject
+class Gage : public SpriteObject
 
-用途　：エネルギーバー
+用途　：スーパーモード用のゲージ
 担当者：佐藤涼
 *************************************************/
-class Bar : public SpriteObject{
-	int m_Time;
+class Gage : public SpriteObject{
+	Rect	m_Rect;
+	Rect	m_Rect2;
 public:
-	Bar(
+	Gage(
 		LPDIRECT3DDEVICE9 pD3DDevice,	//	: デバイス
 		LPDIRECT3DTEXTURE9 pTex,		//	: コア部分のTexture
 		D3DXVECTOR3 &vScale,			//	: 伸縮
 		D3DXVECTOR3 &vRot,				//	: 回転
 		D3DXVECTOR3 &vPos,				//	: 位置
 		D3DXVECTOR3 &vDirOffset,		//	: 描画オフセット
-		RECT* vRect = NULL,				//	: 描画範囲
+		RECT* vRect  = NULL,				//	: 描画範囲
+		RECT* vRect2 = NULL,				//	: 描画範囲
 		wiz::OBJID id	=OBJID_UNK		//	: ID
 	);
 
@@ -79,6 +81,49 @@ public:
     void	Draw(DrawPacket& i_DrawPacket) ;
 };
 
+/************************************************
+class SuperGage : public SpriteObject
+
+用途　：スーパーモード用のゲージ
+担当者：佐藤涼
+*************************************************/
+class SuperGage : public Gage{
+public:
+	SuperGage(
+		LPDIRECT3DDEVICE9 pD3DDevice,	//	: デバイス
+		LPDIRECT3DTEXTURE9 pTex,		//	: コア部分のTexture
+		D3DXVECTOR3 &vScale,			//	: 伸縮
+		D3DXVECTOR3 &vRot,				//	: 回転
+		D3DXVECTOR3 &vPos,				//	: 位置
+		RECT* vRect  = NULL,			//	: 描画範囲
+		RECT* vRect2 = NULL,			//	: 描画範囲
+		wiz::OBJID id	=OBJID_UNK		//	: ID
+	);
+
+    void	Draw(DrawPacket& i_DrawPacket) ;
+};
+
+/************************************************
+class MagneticGage : public SpriteObject
+
+用途　：磁界用のゲージ
+担当者：佐藤涼
+*************************************************/
+class MagneticGage : public Gage{
+public:
+	MagneticGage(
+		LPDIRECT3DDEVICE9 pD3DDevice,	//	: デバイス
+		LPDIRECT3DTEXTURE9 pTex,		//	: コア部分のTexture
+		D3DXVECTOR3 &vScale,			//	: 伸縮
+		D3DXVECTOR3 &vRot,				//	: 回転
+		D3DXVECTOR3 &vPos,				//	: 位置
+		RECT* vRect  = NULL,				//	: 描画範囲
+		RECT* vRect2 = NULL,				//	: 描画範囲
+		wiz::OBJID id	=OBJID_UNK		//	: ID
+	);
+
+    void	Draw(DrawPacket& i_DrawPacket) ;
+};
 
 /**************************************************************************
  class Factory_Item;

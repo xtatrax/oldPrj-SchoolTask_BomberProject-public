@@ -100,23 +100,35 @@ MagneticumObject3D::MagneticumObject3D(
 ,m_fMagneticum((float)MGPRM_MAGNETICUM)
 {
 	::ZeroMemory( &m_Material, sizeof(D3DMATERIAL9) ) ;
+	//磁界　外側
 	m_pMagneticField	= new	MagneticField(pD3DDevice,
 									NULL,
 									D3DXVECTOR3( m_fMagneticum,m_fMagneticum,0.0f ),
 									D3DXQUATERNION( 0.0f, 0.0f, 0.0f, 0.0f ),
-									g_vMin);
+									g_vMin,
+									false);
+	//磁界　真ん中
 	m_pMagneticField2	= new	MagneticField(pD3DDevice,
 									NULL,
 									D3DXVECTOR3( m_fMagneticum/3*2,m_fMagneticum/3*2,0.0f ),
 									D3DXQUATERNION( 0.0f, 0.0f, 0.0f, 0.0f ),
-									g_vMin);
+									g_vMin,
+									false);
+	//磁界　内側
 	m_pMagneticField3	= new	MagneticField(pD3DDevice,
 									NULL,
 									D3DXVECTOR3( m_fMagneticum/3,m_fMagneticum/3,0.0f ),
 									D3DXQUATERNION( 0.0f, 0.0f, 0.0f, 0.0f ),
-									g_vMin);
+									g_vMin,
+									false);
+	//エフェクト用
+	m_pMagneticField4	= new	MagneticField(pD3DDevice,
+									NULL,
+									D3DXVECTOR3( m_fMagneticum,m_fMagneticum,0.0f ),
+									D3DXQUATERNION( 0.0f, 0.0f, 0.0f, 0.0f ),
+									g_vMin,
+									true);
 }
-
 /////////////////// ////////////////////
 //// 用途       ：MagneticumObject3D(
 ////									LPDIRECT3DDEVICE9 pD3DDevice,LPDIRECT3DTEXTURE9 pTexture,
@@ -161,11 +173,6 @@ MagneticumObject3D::MagneticumObject3D(
 ,m_bMagnetPole( POLE_N )
 {
 	::ZeroMemory( &m_Material, sizeof(D3DMATERIAL9) ) ;
-	m_pMagneticField	= new	MagneticField(pD3DDevice,
-									NULL,
-									D3DXVECTOR3( 4.0f,4.0f,0.0f ),
-									D3DXQUATERNION( 0.0f, 0.0f, 0.0f, 0.0f ),
-									g_vMin);
 }
 
 /////////////////// ////////////////////
@@ -215,6 +222,7 @@ void MagneticumObject3D::Draw(DrawPacket& i_DrawPacket)
 		m_pMagneticField->Draw(i_DrawPacket);
 		m_pMagneticField2->Draw(i_DrawPacket);
 		m_pMagneticField3->Draw(i_DrawPacket);
+		m_pMagneticField4->Draw(i_DrawPacket);
 
 		++it;
 	}
@@ -278,7 +286,11 @@ void MagneticumObject3D::Update( UpdatePacket& i_UpdatePacket ){
 		m_pMagneticField3->SetPos(it2->second->m_vPos);
 		m_pMagneticField3->setPole(it2->second->m_bMagnetPole);
 		m_pMagneticField3->Update(i_UpdatePacket);
-		
+
+		m_pMagneticField4->SetPos(it2->second->m_vPos);
+		m_pMagneticField4->setPole(it2->second->m_bMagnetPole);
+		m_pMagneticField4->Update(i_UpdatePacket);
+
 		++it2;
 	}
 

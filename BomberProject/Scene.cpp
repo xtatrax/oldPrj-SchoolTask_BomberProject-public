@@ -14,7 +14,9 @@
 #include "Object.h"
 #include "Scene.h"
 #include "Debug_Stage.h"
+#include "Stage_Title.h"
 #include "Stage_Play.h"
+#include "Stage_Result.h"
 #include "Stage_Test.h"
 #include <process.h>
 
@@ -83,7 +85,8 @@ Scene::Scene(LPDIRECT3DDEVICE9 pD3DDevice)
 //	: デバッグ用設定
 #if defined(DEBUG) || defined(_DEBUG) || defined(ON_DEBUGGINGPROCESS)
 		//ルートのステージにデバッグメニューを設定
-		m_pRootStage = new PlayStage(pD3DDevice);
+		//m_pRootStage = new PlayStage(pD3DDevice);
+		m_pRootStage = new TitleStage(pD3DDevice);
 #else 
 //	: リリース用設定
 		//ルートのステージにタイトルメニューを設定
@@ -219,6 +222,11 @@ void Scene::Draw(DrawPacket& i_DrawPacket){
 void Scene::CommandTranslator(DrawPacket& i_DrawPacket){
 
 	switch(i_DrawPacket.pCommand->m_Command){
+		case GM_OPENSTAGE_TITLE:
+			//	: タイトル画面
+			SafeDeleteStage(m_pRootStage);
+			m_pRootStage = new TitleStage(i_DrawPacket.pD3DDevice);
+			break;
 		case GM_OPENSTAGE_PLAY:
 			SafeDeleteStage(m_pRootStage);
 			//	: ゲームステージ
@@ -229,15 +237,15 @@ void Scene::CommandTranslator(DrawPacket& i_DrawPacket){
 			m_pRootStage = new DebugMenu(i_DrawPacket.pD3DDevice);
 			break;
 
-
-		case GM_OPENSTAGE_TITLE:
-			//	: タイトル画面
-		case GM_OPENSTAGE_RANKING:
-			//	: ランキング画面
-		case GM_OPENSTAGE_GAMECLEAR:
-			//	: ゲームクリア画面
 		case GM_OPENSTAGE_RESULT:
 			//	: ゲームクリア画面
+			SafeDeleteStage(m_pRootStage);
+			m_pRootStage = new ResultStage(i_DrawPacket.pD3DDevice);
+			break;
+
+
+		case GM_OPENSTAGE_RANKING:
+			//	: ランキング画面
 		case GM_OPENSTAGE_GAMEOVER:
 			//	: ゲームオーバー画面
 

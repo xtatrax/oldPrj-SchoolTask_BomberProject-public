@@ -67,7 +67,6 @@ class ProvisionalPlayer3D : public MagneticumObject3D{
 	float			m_MovePosY;
 	bool			m_bLastMouseRB;
 	bool			m_bLastMouseLB;
-	bool			m_bField;
 	bool			m_bCoilWasFired;
 public:
 	//	: 
@@ -96,9 +95,6 @@ public:
 		}
 	}	;
 
-	bool	FieldDraw(){
-		return	m_bField;
-	};
 	/////////////////// ////////////////////
 	//// 関数名     ：float getMoveY() const
 	//// カテゴリ   ：ゲッター
@@ -120,9 +116,12 @@ class MagneticField : public Cylinder
 ************************************************************************/
 class	MagneticField : public Cylinder{
 	bool	m_Pole;	//磁界の極：t=S極, f=N極
+	bool		m_bEffect;
+	D3DXVECTOR3	m_vNormalSize;
+	D3DXMATRIX	m_mMatrix;
 public:
 	MagneticField(LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTexture,
-		D3DXVECTOR3 &vScale, D3DXQUATERNION &vRot, D3DXVECTOR3 &vPos);
+		D3DXVECTOR3 &vScale, D3DXQUATERNION &vRot, D3DXVECTOR3 &vPos,bool bEffect);
     void	Draw(DrawPacket& i_DrawPacket) ;
 	void	Update(UpdatePacket& i_UpdatePacket);
 

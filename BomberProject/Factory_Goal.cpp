@@ -143,7 +143,7 @@ void	GoalObject::Update(UpdatePacket& i_UpdatePacket)
 		//Õ“Ë”»’è
 		m_pCoil = (PlayerCoil*)SearchObjectFromTypeID(i_UpdatePacket.pVec, typeid(PlayerCoil) ) ;
 		if( m_pCoil && m_pCoil->HitTestWall( it->second->m_Obb, 0) ){
-			//it->second->m_vPos	= g_vMin;
+			i_UpdatePacket.pCommand->m_Command	= GM_OPENSTAGE_RESULT;
 		}
 
 		++it;

@@ -3,7 +3,7 @@
 //	ファイル名		：Factory_Player.cpp
 //	開発環境		：MSVC++ 2008
 //	最適タブ数		：4
-//	担当者			：鴫原 徹
+//	担当者			：鴫原 徹 曳地大洋(編集) 本多寛之(編集)
 //	内包ﾃﾞｰﾀと備考	：メインファクトリー
 //					▼
 //	namespace wiz;
@@ -131,7 +131,6 @@ ProvisionalPlayer3D::ProvisionalPlayer3D(
 ,m_Camera(NULL)
 ,m_bLastMouseRB(false)
 ,m_bLastMouseLB(false)
-,m_bField(false)
 ,m_bCoilWasFired(true)
 {
 	::ZeroMemory( &m_Material, sizeof(D3DMATERIAL9) ) ;
@@ -187,9 +186,8 @@ void ProvisionalPlayer3D::Draw(DrawPacket& i_DrawPacket)
 			m_pMagneticField->Draw(i_DrawPacket);
 			m_pMagneticField2->Draw(i_DrawPacket);
 			m_pMagneticField3->Draw(i_DrawPacket);
-			m_bField	= true;
+			m_pMagneticField4->Draw(i_DrawPacket);
 		}
-		else	m_bField	= false;
 	}
 }
 
@@ -224,20 +222,23 @@ void ProvisionalPlayer3D::Update( UpdatePacket& i_UpdatePacket ){
 					m_pMagneticField->setPole(true);
 					m_pMagneticField2->setPole(true);
 					m_pMagneticField3->setPole(true);
+					m_pMagneticField4->setPole(true);
 				}
-				else{
+				else if(g_bMouseRB){
 					m_pMagneticField->setPole(false);
 					m_pMagneticField2->setPole(false);
 					m_pMagneticField3->setPole(false);
+					m_pMagneticField4->setPole(false);
 				}
 
+				//磁界に描画地点を渡す
 				m_pMagneticField->SetPos(m_vPos);
-				m_pMagneticField->Update(i_UpdatePacket);
-
 				m_pMagneticField2->SetPos(m_vPos);
-				m_pMagneticField2->Update(i_UpdatePacket);
-
 				m_pMagneticField3->SetPos(m_vPos);
+				m_pMagneticField4->SetPos(m_vPos);
+
+				m_pMagneticField->Update(i_UpdatePacket);
+				m_pMagneticField2->Update(i_UpdatePacket);
 				m_pMagneticField3->Update(i_UpdatePacket);
 
 				if( g_bMouseLB )
@@ -276,6 +277,9 @@ void ProvisionalPlayer3D::Update( UpdatePacket& i_UpdatePacket ){
 	}
 	m_bLastMouseLB = g_bMouseLB ;
 	m_bLastMouseRB = g_bMouseRB ;
+
+	//磁界のエフェクトを動かす
+	m_pMagneticField4->Update(i_UpdatePacket);
 };
 
 /**************************************************************************
@@ -313,18 +317,21 @@ void ProvisionalPlayer3D::Update( UpdatePacket& i_UpdatePacket ){
 備考　　　：
 ****************************************************************************/
 MagneticField::MagneticField(
-	LPDIRECT3DDEVICE9 pD3DDevice,
-	LPDIRECT3DTEXTURE9 pTexture,
-	D3DXVECTOR3		   &vScale,
-	D3DXQUATERNION	   &vRot,
-	D3DXVECTOR3	       &vPos
+	LPDIRECT3DDEVICE9 pD3DDevice,						//	: デバイス
+	LPDIRECT3DTEXTURE9 pTexture,						//	: テクスチャー
+	D3DXVECTOR3		   &vScale,							//	: 伸縮
+	D3DXQUATERNION	   &vRot,							//	: 回転
+	D3DXVECTOR3	       &vPos,							//	: 位置
+	bool				bEffect
 )
 :Cylinder(pD3DDevice,vScale.x, vScale.y, vScale.z, g_vZero, g_vZero,
 						D3DCOLORVALUE(),
 						D3DCOLORVALUE(),
 						D3DCOLORVALUE()
 	)
-,m_Pole(true)
+,m_Pole(NULL)
+,m_bEffect( bEffect )
+,m_vNormalSize(vScale)
 {
 	try{
 		//D3DXMatrixIdentity(&m_mMatrix);
@@ -350,7 +357,35 @@ MagneticField::MagneticField(
 備考　　　：
 ***************************************************************/
 void	MagneticField::Draw(DrawPacket &i_DrawPacket){
-	Cylinder::Draw(i_DrawPacket);
+	//テクスチャがある場合
+	if(m_pTexture){
+		DWORD wkdword;
+		//現在のテクスチャステータスを得る
+		i_DrawPacket.pD3DDevice->GetTextureStageState(0,D3DTSS_COLOROP,&wkdword);
+		//ステージの設定
+		i_DrawPacket.pD3DDevice->SetTexture(0,m_pTexture);
+		//デフィーズ色とテクスチャを掛け合わせる設定
+		i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLOROP, D3DTOP_MODULATE4X );
+		i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLORARG1, D3DTA_TEXTURE );
+		i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLORARG2, D3DTA_DIFFUSE );
+
+		//i_DrawPacket.pD3DDevice->SetFVF(PlateFVF);
+		// マトリックスをレンダリングパイプラインに設定
+		i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &m_mMatrix);
+		//コモンメッシュのDraw()を呼ぶ
+		CommonMesh::Draw(i_DrawPacket);
+		i_DrawPacket.pD3DDevice->SetTexture(0,0);
+		//ステージを元に戻す
+		i_DrawPacket.pD3DDevice->SetTextureStageState(0,D3DTSS_COLOROP,wkdword);
+	}
+	else{
+	//テクスチャがない場合
+		// マトリックスをレンダリングパイプラインに設定
+		i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &m_mMatrix);
+		//コモンメッシュのDraw()を呼ぶ
+		CommonMesh::Draw(i_DrawPacket);
+	}
+	//Cylinder::Draw(i_DrawPacket);
 };
 
 /*******************************************************************
@@ -388,8 +423,48 @@ void	MagneticField::Update(UpdatePacket& i_UpdatePacket)
 		m_Material.Ambient	= Ambient;
 	}
 
-	Context ct ;
-	Cylinder::Transform(*i_UpdatePacket.pVec,i_UpdatePacket.pCntlState,ct);
+	PlayerCoil*	pc = (PlayerCoil*)SearchObjectFromTypeID(i_UpdatePacket.pVec,typeid(PlayerCoil));
+	bool	cPole	= pc->getMagnetPole();
+
+	D3DXMATRIX mMove, mScale;
+	D3DXMatrixIdentity(&mMove);
+	D3DXMatrixIdentity(&mScale);
+	if(m_Pole != cPole){
+		//反発のエフェクト
+		if( m_bEffect ){
+			m_Radius1	+= 0.2f;
+			m_Radius2	+= 0.2f;
+
+			if( m_Radius1 > MGPRM_MAGNETICUM ){
+				m_Radius1	= 0;
+				m_Radius2	= 0;
+				
+			}
+			//移動用
+			Debugger::DBGSTR::addStr(L"*************************************************\n");
+		}
+	}
+	else{
+		//吸い寄せるエフェクト
+		if( m_bEffect ){
+			m_Radius1	-= 0.2f;
+			m_Radius2	-= 0.2f;
+
+			if( m_Radius1 < 0 ){
+				m_Radius1	= MGPRM_MAGNETICUM;
+				m_Radius2	= MGPRM_MAGNETICUM;
+				
+			}
+			//移動用
+			Debugger::DBGSTR::addStr(L"*************************************************\n");
+		}
+	}
+	D3DXMatrixTranslation(&mMove, m_Pos.x, m_Pos.y, m_Pos.z);
+	D3DXMatrixScaling( &mScale, m_Radius1/m_vNormalSize.x, m_Radius2/m_vNormalSize.y, 1.0f );
+	m_mMatrix	= mScale * mMove;
+
+	//Context ct ;
+	//Cylinder::Transform(*i_UpdatePacket.pVec,i_UpdatePacket.pCntlState,ct);
 
 };
 
