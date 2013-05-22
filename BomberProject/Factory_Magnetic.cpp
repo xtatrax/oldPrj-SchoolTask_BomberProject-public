@@ -326,15 +326,15 @@ void MagneticumObject3D::AddMagnetic(D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXV
 //// 戻値       ：true , false
 //// 担当者     ：本多寛之
 //// 備考       ：
-bool MagneticumObject3D::CheckDistance( D3DXVECTOR3& i_vMagneticFieldPos, D3DXVECTOR3& i_vCoilPos, float i_iBorder ) const{
-	float Lng  = (float)TwoPointToBassLength( i_vMagneticFieldPos, i_vCoilPos ) ;
-	if( Lng <= i_iBorder ){
-		return true;
-	}
-	else{
-		return false;
-	}
-}
+//bool MagneticumObject3D::CheckDistance( D3DXVECTOR3& i_vMagneticFieldPos, D3DXVECTOR3& i_vCoilPos, float i_iBorder ) const{
+//	float Lng  = (float)TwoPointToBassLength( i_vMagneticFieldPos, i_vCoilPos ) ;
+//	if( Lng <= i_iBorder ){
+//		return true;
+//	}
+//	else{
+//		return false;
+//	}
+//}
 
 /**************************************************************************
  Factory_Magnetic 定義部
