@@ -21,6 +21,7 @@
 #include "Factory_Magnetic.h"
 #include "Factory_Item.h"
 #include "Factory_Goal.h"
+#include "Factory_Stage1.h"
 #include "BassItems.h"
 
 namespace wiz{
@@ -64,11 +65,13 @@ Factory_Main::Factory_Main(FactoryPacket* fpac){
 		);
 
 		Factory_Player Pfac( fpac );
-		Factory_Wall   Wfac( fpac );
+		//Factory_Wall   Wfac( fpac );
 		Factory_Magnetic Mfac( fpac ) ;
 		Factory_Enemy Efac( fpac ) ;
 		Factory_CheckPoint CPfac( fpac ) ;
 		Factory_Item   Ifac( fpac ) ;
+
+		Factory_Stage1 Sfac( fpac ) ;
 
 		Factory_Goal GPfac( fpac ) ;
 
