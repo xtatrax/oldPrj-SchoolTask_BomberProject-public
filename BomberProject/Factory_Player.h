@@ -20,7 +20,9 @@ const int	START_EFFECTIVE_RANGE		= 12;
 const int 	START_EFFECTIVE_RANGE_QUAD	= (START_EFFECTIVE_RANGE * START_EFFECTIVE_RANGE);
 const float PLAYER_SPEED				= 0.08f;
 const float PLAYER_BASSROT				= 90.0f;
-const float PLAYER_TURN_ANGLE			= 2.0f;
+const float PLAYER_TURN_ANGLE_Lv1		= 1.0f;
+const float PLAYER_TURN_ANGLE_Lv2		= 2.0f;
+const float PLAYER_TURN_ANGLE_Lv3		= 3.0f;
 
 enum COIL_STATE{			//自機の状態
 	COIL_STATE_START,		//スタート
@@ -106,6 +108,18 @@ public:
 	////            ：
 	float getMoveY() const { return m_MovePosY	;	}	;
 
+	/////////////////// ////////////////////
+	//// 関数名     ：void CoilWasFired(bool i_bFlg)
+	//// カテゴリ   ：関数
+	//// 用途       ：m_bCoilWasFiredに値を入れる
+	//// 引数       ：bool i_bFlg
+	//// 戻値       ：なし
+	//// 担当       ：本多寛之
+	//// 備考       ：
+	////            ：
+	void CoilWasFired(bool i_bFlg){
+		m_bCoilWasFired = i_bFlg;
+	}
 };
 
 /************************************************************************
@@ -145,7 +159,9 @@ class PlayerCoil : public MagneticumObject3D{
 	D3DXVECTOR3		m_vMove;
 	float			m_fMoveDir   ;//角度
 	float			m_fMovdSpeed ;//速度
-	
+	D3DXVECTOR3		m_vStartPos;
+	float			m_fTurnAngle;
+
 	ProvisionalPlayer3D*	m_pPlayer;
 
 	MagneticumObject3D*		m_pMagneticumObject;
@@ -224,7 +240,7 @@ public:
 	void Update( UpdatePacket& i_UpdatePacket );
 
 	/////////////////// ////////////////////
-	//// 関数名     ：void Update_StateStart( float i_fTargetDir )
+	//// 関数名     ：void Update_StateStart()
 	//// カテゴリ   ：
 	//// 用途       ：STATE_START時の動き
 	//// 引数       ：
@@ -236,7 +252,7 @@ public:
 	void Update_StateStart();
 
 	/////////////////// ////////////////////
-	//// 関数名     ：void Update_StateMove( D3DXVECTOR3 i_vMove, D3DXVECTOR3 i_vProvisionalPos ,float i_fLng )
+	//// 関数名     ：void Update_StateMove()
 	//// カテゴリ   ：
 	//// 用途       ：STATE_MOVE時の動き
 	//// 引数       ：
@@ -246,6 +262,18 @@ public:
 	////            ：
 	////
 	void Update_StateMove();
+
+	/////////////////// ////////////////////
+	//// 関数名     ：void Update_StateSuper()
+	//// カテゴリ   ：
+	//// 用途       ：STATE_SUPER時の動き
+	//// 引数       ：
+	//// 戻値       ：なし
+	//// 担当       ：本多寛之
+	//// 備考       ：
+	////            ：
+	////
+	void Update_StateSuper();
 
 	/////////////////// ////////////////////
 	//// 用途       ：virtual void Draw( DrawPacket& i_DrawPacket )
@@ -273,6 +301,18 @@ public:
 	float MagneticDecision( float i_fCoilDir, D3DXVECTOR3& i_vMagnetPos, bool i_bMagnetPole_Field ) const;
 
 	/////////////////// ////////////////////
+	//// 用途       ：bool CheckDistance( D3DXVECTOR3& i_vMagneticFieldPos, D3DXVECTOR3& i_vCoilPos ) const
+	//// カテゴリ   ：関数
+	//// 用途       ：距離を判定
+	//// 引数       ：D3DXVECTOR3& i_vMagneticFieldPos //磁界の位置 
+	////　　　　　　：D3DXVECTOR3& i_vCoilPos          //コイルの位置
+	////　　　　　　：float        i_iBorder           //判定する値
+	//// 戻値       ：true , false
+	//// 担当者     ：本多寛之
+	//// 備考       ：
+	bool CheckDistance( D3DXVECTOR3& i_vMagneticFieldPos, D3DXVECTOR3& i_vCoilPos, float i_iBorder );
+
+	/////////////////// ////////////////////
 	//// 関数名     ：D3DXVECTOR3 getPos() const
 	//// カテゴリ   ：ゲッター
 	//// 用途       ：中心座標を獲得
@@ -281,7 +321,7 @@ public:
 	//// 担当       ：鴫原 徹
 	//// 備考       ：
 	////            ：
-	D3DXVECTOR3 getPos() const { return m_vPos	;	}	;
+	D3DXVECTOR3 getPos() const { return m_vPos;	}	;
 
 	/////////////////// ////////////////////
 	//// 関数名     ：D3DXVECTOR3 getSpeed() const
@@ -292,8 +332,31 @@ public:
 	//// 担当       ：本多寛之
 	//// 備考       ：
 	////            ：
-	float getSpeed() const { return m_fMovdSpeed	;	}	;
+	float getSpeed() const { return m_fMovdSpeed;	}	;
 
+	/////////////////// ////////////////////
+	//// 関数名     ：COIL_STATE getState() const 
+	//// カテゴリ   ：ゲッター
+	//// 用途       ：状態を獲得
+	//// 引数       ：なし
+	//// 戻値       ：なし
+	//// 担当       ：本多寛之
+	//// 備考       ：
+	////            ：
+	COIL_STATE getState() const { return m_enumCoilState;	}	;
+
+	/////////////////// ////////////////////
+	//// 関数名     ：void setStartPos(float i_fPosY)
+	//// カテゴリ   ：セッター
+	//// 用途       ：
+	//// 引数       ：なし
+	//// 戻値       ：なし
+	//// 担当       ：本多寛之
+	//// 備考       ：
+	////            ：
+	void setStartPos(float i_fPosY){
+		m_vStartPos = D3DXVECTOR3(15.0f,i_fPosY,0.0f);
+	}
 };
 
 
