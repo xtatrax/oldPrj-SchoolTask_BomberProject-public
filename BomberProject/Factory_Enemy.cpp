@@ -116,7 +116,7 @@ namespace wiz
 ////            ：  └       Command            pCommand        // コマンド
 //// 戻値       ：無し
 //// 担当者     ：斎藤謙吾
-//// 備考       ：
+//// 備考       
 ////            ：
 ////
 
@@ -125,22 +125,39 @@ namespace wiz
 			m_pCamera = (Camera*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_SYS_CAMERA);
 			
 		}
-		if( m_pPlayer ){
+		if( !m_pPlayer ){
 			m_pPlayer = (ProvisionalPlayer3D*)SearchObjectFromTypeID( i_UpdatePacket.pVec,typeid(ProvisionalPlayer3D));
 		}
-
+const float EnemyMove = 0.1f;
 
 
 		m_ItemMap_Target.clear();
 
 		multimap<float,EnemyItem*>::iterator it = m_ItemMap_All.begin();
 		while(it != m_ItemMap_All.end()){
-			//エネミーの座標を磁界の方に持っていく処理（今は瞬間的に入れ替わる）
-			if( g_bMouseRB && g_bMouseLB && m_pPlayer){
 
-				it->second->m_vPos = m_pPlayer->getPos();
+//エネミーの座標を磁界の方に持っていく処理
+			if( g_bMouseRB || g_bMouseLB && m_pPlayer){
+
+				if( it->second->m_vPos.x <= m_pPlayer->getPos().x ){
+					it->second->m_vPos.x += EnemyMove;
+				}
+				if( it->second->m_vPos.x >= m_pPlayer->getPos().x ){
+					it->second->m_vPos.x -= EnemyMove;
+				
+				}
+
+				if( it->second->m_vPos.y <= m_pPlayer->getPos().y ){
+					it->second->m_vPos.y += EnemyMove;
+				}
+				if( it->second->m_vPos.y > m_pPlayer->getPos().y ){
+					it->second->m_vPos.x -= EnemyMove;
+				}
+
+
 
 			}
+			
 			if( ( +(it->first - m_pCamera->getEye().y) <= 3000) && ( +(it->first - m_pCamera->getEye().y) >= -3000 ) ){
 				
 				m_ItemMap_Target.insert(multimap<float,EnemyItem*>::value_type(it->second->m_vPos.y,it->second));
