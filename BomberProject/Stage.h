@@ -180,6 +180,92 @@ public:
 }; // StageLoader
 /*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 
+
+
+/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
+//**************************************************************************
+// class StageLoader2;
+//
+// 担当者  : 鴫原 徹
+// 用途    : CSVデータからステージを構築します
+//**************************************************************************
+class StageLoader2{
+	struct CSVMATRIX {
+		//	: 行
+		UINT Line ;
+		//	: 列
+		struct {
+			UINT	uiClassid			;	//	番号
+			UINT	uiPosX				;	//	種類
+			UINT	uiPosY				;	//	FILE
+			UINT	uiPosZ				;	//	FILE
+			UINT	uiScaleX			;	//	テクスチャ
+			UINT	uiScaleY			;	//	モーション
+			UINT	uiScaleZ			;	//	モーション
+			UINT	uiRotX				;	//	モーションの速さ
+			UINT	uiRotY				;	//	モーションの速さ
+			UINT	uiRotZ				;	//	モーションの速さ
+			UINT	uiColor				;	//	X伸縮
+		}Column;
+	};
+	map<UINT,MapPartsStatus>		m_ObjeMap;
+	multimap<wiz::OBJID,DWORD>		m_ObjeTypeMap;
+
+	TextureManager*		m_pTexMgr;
+	vector<Object*>*	m_pVec;
+	LPDIRECT3DDEVICE9	m_pD3DDevice;
+/////////////////// ////////////////////
+//// 関数名     ：void StageLoader::PointSearch( vector<vector<wstring>>& i_vvCsvData , POINT& o_NumberPoint , POINT& o_PathPoint)
+//// カテゴリ   ：メンバ関数
+//// 用途       ：ステージを構築すします
+//// 引数       ：  wstring i_sStageFilePath         //  ステージの構成ファイルへのパス
+//// 戻値       ：なし
+//// 担当者     ：鴫原 徹
+//// 備考       ：StageListLoader関数から呼ばれます
+////            ：
+////
+void PointSearch4StageList( vector<vector<wstring>>& i_vvCsvData , POINT& o_NumberPoint , POINT& o_PathPoint);
+/////////////////// ////////////////////
+//// 関数名     ：StageListLoader()
+//// カテゴリ   ：コンストラクタ
+//// 用途       ：Stages.csvを解析する
+//// 引数       ：
+//// 戻値       ：なし
+//// 担当者     ：鴫原 徹
+//// 備考       ：コンストラクタから呼ばれる
+////            ：
+////
+	void StageListLoader(wstring i_sFileName, BYTE i_byStageNum,vector<wstring>& vsStageConsList);
+public:
+/////////////////// ////////////////////
+//// 関数名     ：
+//// カテゴリ   ：コンストラクタ
+//// 用途       ：
+//// 引数       ：
+//// 戻値       ：
+//// 担当者     ：
+//// 備考       ：
+////            ：
+////
+	StageLoader2(LPDIRECT3DDEVICE9 pD3DDevice, wstring i_sFileName,
+		BYTE i_byStageNum, vector<Object*>& Vec, TextureManager& TexMgr);
+
+/////////////////// ////////////////////
+//// 関数名     ：
+//// カテゴリ   ：コンストラクタ
+//// 用途       ：
+//// 引数       ：
+//// 戻値       ：
+//// 担当者     ：
+//// 備考       ：
+////            ：
+////
+	StageLoader2(LPDIRECT3DDEVICE9 pD3DDevice, vector<Object*>& Vec, TextureManager& TexMgr, MapPartsStatus[]);
+}; // StageLoader2
+/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
+
+
+
 /*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 /**************************************************************************
  class Stage;

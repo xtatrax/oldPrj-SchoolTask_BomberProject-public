@@ -521,7 +521,9 @@ PlayerCoil::PlayerCoil(
 ,m_pCamera(NULL)
 ,m_enumCoilState(COIL_STATE_START)
 ,m_vMove(D3DXVECTOR3( 1.0f, 0.0f, 0.0f))
-
+#if defined( ON_DEBUGGINGPROCESS )
+,m_pDSPH(NULL)
+#endif
 {
 	::ZeroMemory( &m_Material, sizeof(D3DMATERIAL9) ) ;
 	D3DXMatrixIdentity( &m_Matrix ) ;
@@ -545,7 +547,10 @@ bool PlayerCoil::HitTestWall( OBB Obb, float Index ){
 	D3DXVECTOR3 Pos = GetPos();
 	SPHERE sp;
 	sp.m_Center = m_vPos;
-	sp.m_Radius = m_pCylinder->getRadius1() ;
+	sp.m_Radius = m_pCylinder->getRadius2() ;
+#if defined( ON_DEBUGGINGPROCESS )
+	if( m_pDSPH ) m_pDSPH->UpdateSPHERE(sp);
+#endif
 	//通常の衝突判定
 	D3DXVECTOR3 Vec ;
 	if(HitTest::SPHERE_OBB(sp,Obb,Vec)){
@@ -565,6 +570,15 @@ bool PlayerCoil::HitTestWall( OBB Obb, float Index ){
 ////            ：
 ////
 void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
+
+#if defined( ON_DEBUGGINGPROCESS )
+	if( !m_pDSPH ){
+		SPHERE sp;
+		sp.m_Center = g_vMax ;
+		sp.m_Radius = 1.0f ;
+		m_pDSPH = new DrawSphere( i_UpdatePacket.pD3DDevice, sp );
+	}
+#endif
 
 	wiz::CONTROLER_STATE Controller1P = i_UpdatePacket.pCntlState[0] ;
 
@@ -688,7 +702,7 @@ void PlayerCoil::Update_StateMove(){
 	if( bCheckDistance ){
 		m_fMoveDir = MagneticDecision(m_fMoveDir,m_pPlayer->getPos(),m_pPlayer->getMagnetPole());
 	}
-	
+
 	//設置磁界と自機の判定
 	multimap<float, Magnet3DItem*> ItemMap_Target = m_pMagneticumObject->getMapTarget();
 	multimap<float,Magnet3DItem*>::iterator it = ItemMap_Target.begin();
@@ -745,6 +759,10 @@ void PlayerCoil::Draw(DrawPacket& i_DrawPacket){
 		//コモンメッシュのDraw()を呼ぶ
 		CommonMesh::Draw(i_DrawPacket);
 	}
+#if defined( ON_DEBUGGINGPROCESS )
+	if( m_pDSPH ) m_pDSPH->Draw( i_DrawPacket );
+#endif
+
 };
 
 /////////////////// ////////////////////

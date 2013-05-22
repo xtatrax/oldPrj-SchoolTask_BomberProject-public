@@ -140,6 +140,13 @@ void WallObject::Draw(DrawPacket& i_DrawPacket)
 			//ƒRƒ‚ƒ“ƒƒbƒVƒ…‚ÌDraw()‚ðŒÄ‚Ô
 			CommonMesh::Draw(i_DrawPacket);
 		}
+#if defined( ON_DEBUGGINGPROCESS )
+		if( it->second->m_pDOB ){
+			it->second->m_pDOB->Draw(i_DrawPacket);
+		}else{
+			it->second->m_pDOB = new DrawOBB(i_DrawPacket.pD3DDevice,it->second->m_Obb);
+		}
+#endif
 		++it;
 	}
 }
@@ -208,7 +215,6 @@ void WallObject::Update( UpdatePacket& i_UpdatePacket ){
 			m_pPlayerCoil->HitTestWall( it2->second->m_Obb, 0 ) ;
 		}
 
-		DrawOBB::Add( i_UpdatePacket.pD3DDevice, *i_UpdatePacket.pVec, it2->second->m_Obb, 0xFFFFFFFF ) ;
 
 		++it2;
 	}
@@ -249,6 +255,7 @@ void WallObject::AddWall(D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos
 	D3DXMatrixIdentity(&mRot);
 	D3DXMatrixRotationYawPitchRoll(&mRot,
 		D3DXToRadian(vRot.y),D3DXToRadian(vRot.x),D3DXToRadian(vRot.z));
+
 
 	m_ItemMap_All.insert(multimap<float,WallItem*>::value_type(pItem->m_vPos.y,pItem));	
 }

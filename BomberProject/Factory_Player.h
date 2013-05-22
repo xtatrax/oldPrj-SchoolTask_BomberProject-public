@@ -137,6 +137,9 @@ public:
 // ópìr    : ÉRÉCÉã
 //**************************************************************************//
 class PlayerCoil : public MagneticumObject3D{
+#if defined( ON_DEBUGGINGPROCESS )
+	DrawSphere*		m_pDSPH ;
+#endif
 	Cylinder*		m_pCylinder ;
 	D3DXMATRIX		m_Matrix ;
 	D3DXVECTOR3		m_vPos ;

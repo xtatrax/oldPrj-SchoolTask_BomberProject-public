@@ -43,11 +43,18 @@ class WallObject : public PrimitiveBox{
 		D3DXVECTOR3	   m_vPos ;
 		D3DXQUATERNION m_vRot;
 		OBB			   m_Obb;
-		virtual ~WallItem(){}
+#if defined( ON_DEBUGGINGPROCESS ) 
+		DrawOBB*       m_pDOB ;
+#endif 
+		WallItem()
+#if defined( ON_DEBUGGINGPROCESS )
+		:m_pDOB()
+#endif
+		{}
 	};
 	//map<オブジェクトのポジション,WallItem>
 	multimap<float,WallItem*> m_ItemMap_All;	//全てのWallItem
-	multimap<float,WallItem*> m_ItemMap_Target;//描画対象のWallItem
+	multimap<float,WallItem*> m_ItemMap_Target; //描画対象のWallItem
 	//std::find
 
 public:

@@ -90,7 +90,7 @@ Scene::Scene(LPDIRECT3DDEVICE9 pD3DDevice)
 #else 
 //	: リリース用設定
 		//ルートのステージにタイトルメニューを設定
-		//m_pRootStage = new TitleMenu(pD3DDevice);
+		m_pRootStage = new TitleStage(pD3DDevice);
 #endif
 //
 //////////

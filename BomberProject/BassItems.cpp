@@ -4422,6 +4422,80 @@ void SimpleCommonMeshGroup::DrawShadowVolume(
 	m_pSimpleCommonMesh->MoveAtPosQt(TmpItem.m_Pos,TmpItem.m_Qt);
 }
 /**************************************************************************
+ class DrawSphere 定義部
+****************************************************************************/
+/////////////////// ////////////////////
+//// 関数名     ：Guide::Guide(LPDIRECT3DDEVICE9 pD3DDevice)
+//// カテゴリ   ：コンストラクタ
+//// 用途       ：ガイドライン生成時処理
+//// 引数       ：  LPDIRECT3DDEVICE9 pD3DDevice    //IDirect3DDevice9インターフェイスへのポインタ
+//// 戻値       ：無し（失敗時は例外をthrow）
+//// 担当者     ：(山ノ井先生のひな形より)
+//// 備考       ：
+////            ：
+////
+DrawSphere::DrawSphere(LPDIRECT3DDEVICE9 pD3DDevice, SPHERE i_Sphere, Color i_Color, wiz::OBJID id)
+:Sphere( pD3DDevice, 1.0f, g_vZero, g_vZero, COLOR2DIFFUSE( i_Color ), COLOR2D3DCOLORVALUE(0), COLOR2AMBIENT( i_Color ) )
+,m_pVB(0)
+,m_TargetSphere(i_Sphere)
+{
+    try{
+
+		m_Material.Diffuse.a = 0.3f ;
+		m_Material.Ambient.a = 0.3f ;
+		DWORD dwColor = i_Color.dwColor ;
+		
+		SetBaseScalePosRot( g_vOne * i_Sphere.m_Radius, i_Sphere.m_Center, g_vZero );
+    }
+    catch(...){
+        //コンストラクタ例外発生
+        //後始末
+        SafeRelease(m_pVB);
+        //再スロー
+        throw;
+    }
+}
+/////////////////// ////////////////////
+//// 関数名     ：Guide::~Guide()
+//// カテゴリ   ：デストラクタ
+//// 用途       ：ガイドライン破棄時処理
+//// 引数       ：無し
+//// 戻値       ：無し
+//// 担当者     ：(山ノ井先生のひな形より)
+//// 備考       ：
+////            ：
+////
+DrawSphere::~DrawSphere(){
+    SafeRelease(m_pVB);
+}
+/////////////////// ////////////////////
+//// 関数名     ：void Guide::Draw( LPDIRECT3DDEVICE9 pD3DDevice , vector<Object*>& Vec)
+//// カテゴリ   ：仮想関数
+//// 用途       ：ガイドラインを描画
+//// 引数       ：  LPDIRECT3DDEVICE9 pD3DDevice		//IDirect3DDevice9 インターフェイスへのポインタ
+////            ：  vector<Object*>& Vec,				//オブジェクトの配列
+//// 戻値       ：無し
+//// 担当者     ：(山ノ井先生のひな形より)
+//// 備考       ：Objectクラスの純粋仮想関数
+////            ：
+////
+void DrawSphere::Draw( DrawPacket& i_DrawPacket ) {
+	//if(GetAsyncKeyState( MYVK_DEBUG_OBB_DRAW )){
+	if(GetAsyncKeyState( MYVK_DEBUG_OBB_DRAW )){
+		isEnableDraw ? isEnableDraw = false : isEnableDraw = true ;
+	}
+	if( isEnableDraw ){
+
+		LPDIRECT3DDEVICE9 pD3DDevice = i_DrawPacket.pD3DDevice ;
+		SetBasePos( m_TargetSphere.m_Center );
+		CalcWorldMatrix();
+		Sphere::Draw( i_DrawPacket );
+
+	}
+}
+
+bool DrawSphere::isEnableDraw = true ;
+/**************************************************************************
  class DrawOBB 定義部
 ****************************************************************************/
 /////////////////// ////////////////////
@@ -4438,7 +4512,7 @@ DrawOBB::DrawOBB(LPDIRECT3DDEVICE9 pD3DDevice, OBB i_OBB, Color i_Color, wiz::OB
 :Object(id),m_pVB(0),m_TargetObb(i_OBB)
 {
     try{
-		setDead() ;
+		//setDead() ;
 		DWORD dwColor = i_Color.dwColor ;
         CUSTOMVERTEX Vertices[] = 
         {
@@ -4536,7 +4610,11 @@ DrawOBB::~DrawOBB(){
 ////            ：
 ////
 void DrawOBB::Draw( DrawPacket& i_DrawPacket ) {
+	//if(GetAsyncKeyState( MYVK_DEBUG_OBB_DRAW )){
 	if(GetAsyncKeyState( MYVK_DEBUG_OBB_DRAW )){
+		isEnableDraw ? isEnableDraw = false : isEnableDraw = true ;
+	}
+	if( isEnableDraw ){
 
 		LPDIRECT3DDEVICE9 pD3DDevice = i_DrawPacket.pD3DDevice ;
 		D3DXMATRIX  wm , mScale, mRot, mPos;
@@ -4560,6 +4638,157 @@ void DrawOBB::Draw( DrawPacket& i_DrawPacket ) {
 		pD3DDevice->LightEnable( 0, TRUE );
 	}
 }
+
+bool DrawOBB::isEnableDraw = true ;
+
+/**************************************************************************
+ class DrawOBBLite 定義部
+****************************************************************************/
+/////////////////// ////////////////////
+//// 関数名     ：Guide::Guide(LPDIRECT3DDEVICE9 pD3DDevice)
+//// カテゴリ   ：コンストラクタ
+//// 用途       ：ガイドライン生成時処理
+//// 引数       ：  LPDIRECT3DDEVICE9 pD3DDevice    //IDirect3DDevice9インターフェイスへのポインタ
+//// 戻値       ：無し（失敗時は例外をthrow）
+//// 担当者     ：(山ノ井先生のひな形より)
+//// 備考       ：
+////            ：
+////
+DrawOBBLite::DrawOBBLite(LPDIRECT3DDEVICE9 pD3DDevice, OBB i_OBB, Color i_Color, wiz::OBJID id)
+:Object(id),m_pVB(0),m_TargetObb(i_OBB)
+{
+    try{
+		//setDead() ;
+		DWORD dwColor = i_Color.dwColor ;
+        CUSTOMVERTEX Vertices[] = 
+        {
+            {D3DXVECTOR3(+1.0,+1.0,+1.0),dwColor},	//	: 1
+            {D3DXVECTOR3(+1.0,-1.0,+1.0),dwColor},	//	: 2
+
+            {D3DXVECTOR3(+1.0,-1.0,+1.0),dwColor},	//	: 2
+            {D3DXVECTOR3(+1.0,-1.0,-1.0),dwColor},	//	: 3
+
+			{D3DXVECTOR3(+1.0,-1.0,+1.0),dwColor},	//	: 2
+            {D3DXVECTOR3(-1.0,-1.0,+1.0),dwColor},	//	: 4
+
+			{D3DXVECTOR3(+1.0,-1.0,-1.0),dwColor},	//	: 3
+            {D3DXVECTOR3(-1.0,-1.0,-1.0),dwColor},	//	: 5
+
+			{D3DXVECTOR3(+1.0,-1.0,-1.0),dwColor},	//	: 3
+            {D3DXVECTOR3(+1.0,+1.0,-1.0),dwColor},	//	: 8
+
+            {D3DXVECTOR3(-1.0,-1.0,-1.0),dwColor},	//	: 5
+            {D3DXVECTOR3(-1.0,-1.0,+1.0),dwColor},	//	: 4
+
+			{D3DXVECTOR3(-1.0,-1.0,-1.0),dwColor},	//	: 5
+            {D3DXVECTOR3(-1.0,+1.0,-1.0),dwColor},	//	: 6
+
+			{D3DXVECTOR3(-1.0,-1.0,+1.0),dwColor},	//	: 4
+            {D3DXVECTOR3(-1.0,+1.0,+1.0),dwColor},	//	: 7
+
+			{D3DXVECTOR3(-1.0,+1.0,-1.0),dwColor},	//	: 6
+            {D3DXVECTOR3(-1.0,+1.0,+1.0),dwColor},	//	: 7
+
+			{D3DXVECTOR3(-1.0,+1.0,-1.0),dwColor},	//	: 6
+			{D3DXVECTOR3(+1.0,+1.0,-1.0),dwColor},	//	: 8
+
+			{D3DXVECTOR3(-1.0,+1.0,+1.0),dwColor},	//	: 7
+            {D3DXVECTOR3(+1.0,+1.0,+1.0),dwColor},	//	: 1
+
+			{D3DXVECTOR3(+1.0,+1.0,-1.0),dwColor},	//	: 8
+            {D3DXVECTOR3(+1.0,+1.0,+1.0),dwColor},	//	: 1
+
+        };
+        if(FAILED(pD3DDevice->CreateVertexBuffer( 24 * sizeof( CUSTOMVERTEX ),
+                                    0,D3DFVF_XYZ|D3DFVF_DIFFUSE,
+                                    D3DPOOL_DEFAULT, &m_pVB, NULL)))
+        {
+            // 初期化失敗
+            throw BaseException(
+                L"頂点バッファの作成に失敗しました。",
+                L"Guide::Guide()"
+                );
+        }
+        //バッファをロック
+        VOID* pVertices;
+        if(FAILED( m_pVB->Lock( 0, sizeof(Vertices),( void** )&pVertices, 0 ))){
+            // 初期化失敗
+            throw BaseException(
+                L"頂点バッファのロックに失敗しました。",
+                L"Guide::Guide()"
+                );
+        }
+        //頂点データから頂点バッファに転送
+        memcpy( pVertices,Vertices, sizeof(Vertices) );
+        //頂点バッファをアンロック
+        m_pVB->Unlock();
+    }
+    catch(...){
+        //コンストラクタ例外発生
+        //後始末
+        SafeRelease(m_pVB);
+        //再スロー
+        throw;
+    }
+}
+/////////////////// ////////////////////
+//// 関数名     ：Guide::~Guide()
+//// カテゴリ   ：デストラクタ
+//// 用途       ：ガイドライン破棄時処理
+//// 引数       ：無し
+//// 戻値       ：無し
+//// 担当者     ：(山ノ井先生のひな形より)
+//// 備考       ：
+////            ：
+////
+DrawOBBLite::~DrawOBBLite(){
+    SafeRelease(m_pVB);
+}
+/////////////////// ////////////////////
+//// 関数名     ：void Guide::Draw( LPDIRECT3DDEVICE9 pD3DDevice , vector<Object*>& Vec)
+//// カテゴリ   ：仮想関数
+//// 用途       ：ガイドラインを描画
+//// 引数       ：  LPDIRECT3DDEVICE9 pD3DDevice		//IDirect3DDevice9 インターフェイスへのポインタ
+////            ：  vector<Object*>& Vec,				//オブジェクトの配列
+//// 戻値       ：無し
+//// 担当者     ：(山ノ井先生のひな形より)
+//// 備考       ：Objectクラスの純粋仮想関数
+////            ：
+////
+void DrawOBBLite::Draw( DrawPacket& i_DrawPacket ) {
+	//if(GetAsyncKeyState( MYVK_DEBUG_OBB_DRAW )){
+	if(GetAsyncKeyState( MYVK_DEBUG_OBB_DRAW )){
+		isEnableDraw ? isEnableDraw = false : isEnableDraw = true ;
+	}
+	if( !isEnableDraw ){
+		setDead();
+		return ;
+	}
+	LPDIRECT3DDEVICE9 pD3DDevice = i_DrawPacket.pD3DDevice ;
+	D3DXMATRIX  wm , mScale, mRot, mPos;
+	//座標変換無し
+	D3DXMatrixIdentity(&wm);
+	D3DXMatrixIdentity(&mScale);
+	D3DXMatrixIdentity(&mRot);
+	D3DXMatrixIdentity(&mPos);
+	D3DXMatrixScaling(&mScale, m_TargetObb.m_Size.x, m_TargetObb.m_Size.y, m_TargetObb.m_Size.z);
+	mRot = m_TargetObb.m_mRot ;
+	D3DXMatrixTranslation(&mPos, m_TargetObb.m_Center.x, m_TargetObb.m_Center.y, m_TargetObb.m_Center.z);
+	wm = mScale * mRot * mPos ;
+	// マトリックスをレンダリングパイプラインに設定
+	pD3DDevice->SetTransform(D3DTS_WORLD, &wm);
+	pD3DDevice->SetStreamSource( 0, m_pVB, 0, sizeof( CUSTOMVERTEX ) );
+	pD3DDevice->SetFVF(D3DFVF_XYZ|D3DFVF_DIFFUSE);
+	pD3DDevice->SetRenderState( D3DRS_LIGHTING,FALSE);
+	pD3DDevice->LightEnable( 0, FALSE );
+	pD3DDevice->DrawPrimitive(D3DPT_LINELIST, 0, 12);
+	pD3DDevice->SetRenderState( D3DRS_LIGHTING,TRUE);
+	pD3DDevice->LightEnable( 0, TRUE );
+	//}
+}
+
+bool DrawOBBLite::isEnableDraw = true ;
+
 
 }//end of namespace	baseobject.
 }//end of namespace	wiz.
