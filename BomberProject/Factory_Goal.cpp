@@ -262,9 +262,9 @@ Factory_Goal::Factory_Goal(FactoryPacket* fpac){
 		//				GoalSpecular,
 		//				GoalAmbient);
 
-		gl->addGoal(	D3DXVECTOR3( 3.0f, 1.0f, 1.0f ),
+		gl->addGoal(	D3DXVECTOR3( 40.0f, 1.0f, 1.0f ),
 						g_vZero,
-						D3DXVECTOR3( 35.0f, 20.0f, 0.0f ),
+						D3DXVECTOR3( 20.0f, 20.0f * 8.0f-10.0f, 0.0f ),
 						GoalDiffuse,
 						GoalSpecular,
 						GoalAmbient);
