@@ -139,6 +139,10 @@ namespace wiz{
 		OBJID_SYS_RENDERTARGET		,	//	: レンダーターゲット
 		OBJID_SYS_END				,	
 
+		OBJID_SOUND_BGM_TITLE		,
+		OBJID_SOUND_BGM_PLAY		,
+
+
 		//	: UI周り
 		OBJID_UI_BEGIN				= 0x2000,
 		OBJID_UI_SPRITE				,	//	: UIに使うスプライト

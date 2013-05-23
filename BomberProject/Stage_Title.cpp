@@ -13,6 +13,7 @@
 #include "Scene.h"
 #include "Stage_Title.h"
 #include "Factory_Title.h"
+#include "Factory_Sound.h"
 #include "stage.h"
 
 namespace wiz{
@@ -39,6 +40,16 @@ TitleStage::TitleStage(LPDIRECT3DDEVICE9 pD3DDevice,Stage* pStage)
 		FPac.m_pTexMgr  = &this->m_TexMgr   ;
 		FPac.m_pVec     = &this->m_Vec      ;
 		FPac.pD3DDevice =  pD3DDevice       ;
+		OneSound* pSound ;
+		m_Vec.push_back(
+			pSound = new OneSound(
+				L"media/Sound/MagneticaWave.xwb",
+				L"media/Sound/MagneticaSound.xsb",
+				"BGM_TITLE",
+				OBJID_SOUND_BGM_TITLE
+			)
+		);
+		pSound->PlaySound(255);
 		Factory_Title	resultF( &FPac );
 	}
 	catch(...){

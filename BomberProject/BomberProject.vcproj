@@ -463,6 +463,18 @@
 						>
 					</File>
 				</Filter>
+				<Filter
+					Name="SoundFactory"
+					>
+					<File
+						RelativePath=".\Factory_Sound.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Factory_Sound.h"
+						>
+					</File>
+				</Filter>
 			</Filter>
 			<Filter
 				Name="Prim"

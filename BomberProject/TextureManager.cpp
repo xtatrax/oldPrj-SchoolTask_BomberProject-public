@@ -54,10 +54,10 @@ TextureManager::~TextureManager(){
 ////            ÅF
 ////
 void TextureManager::Release(){
-	for(	DWORD i = 0 , L = m_vecTextures.size() ; L > i ; i++){	
-		delete m_vecTextures[i];
-	}
-	m_vecTextures.clear();
+	//for(	DWORD i = 0 , L = m_vecTextures.size() ; L > i ; i++){	
+		SafeDeletePointerContainer( m_vecTextures );
+	//}
+	//m_vecTextures.clear();
 };
 /////////////////// ////////////////////
 //// ópìr       ÅFLPDIRECT3DTEXTURE9 TextureManager::addTexture(LPDIRECT3DDEVICE9 pD3DDevice,
