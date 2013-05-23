@@ -218,6 +218,10 @@ const float EnemyMove = 0.1f;
 		pItem->m_Material.Ambient = Ambient;
 //回転の初期化
 		D3DXQuaternionRotationYawPitchRoll(&pItem->m_vRot,D3DXToRadian(vRot.y),D3DXToRadian(vRot.x),D3DXToRadian(vRot.z));
+		int	i	= rand()%2;
+		if( i = 0 )	pItem->m_bPole	= true;
+		else		pItem->m_bPole	= false;
+
 		m_ItemMap_All.insert(multimap<float, EnemyItem*>::value_type(pItem->m_vPos.y,pItem));	
 	}
 
@@ -257,7 +261,7 @@ const float EnemyMove = 0.1f;
 //			fpac->m_pVec->push_back(new EnemySphere(fpac->pD3DDevice, EnemyDiffuse, EnemySpecular, EnemyAmbient, fpac->m_pTexMgr->addTexture(fpac->pD3DDevice,NULL)));
 			EnemySphere* Enemy = new EnemySphere(fpac->pD3DDevice, EnemyDiffuse, EnemySpecular, EnemyAmbient, fpac->m_pTexMgr->addTexture(fpac->pD3DDevice,L"Enemy.jpg"));
 			Enemy->AddEnemy(D3DXVECTOR3( 1.0f, 1.0f, 1.0f ),     //スケール
-							D3DXVECTOR3( 0.0f, 0.0f, 0.0f ),     //レクト
+							D3DXVECTOR3( 0.0f, 0.0f, 0.0f ),     //角度
 							D3DXVECTOR3( 20.0f, 20.0f, 0.0f ),   //ポジション
 							EnemyDiffuse,
 							EnemySpecular,
