@@ -731,6 +731,12 @@ void PlayerCoil::Update_StateMove(){
 	//移動分を加算
 	m_vPos += m_vMove;
 
+	if(m_vPos.x <= 0){
+		m_vPos.x = 0.0f;
+	}
+	if(m_vPos.x >= 39.0f){
+		m_vPos.x = 39.0f;		
+	}
 };
 
 /////////////////// ////////////////////
@@ -751,12 +757,12 @@ void PlayerCoil::Update_StateSuper( UpdatePacket& i_UpdatePacket ){
 	//移動
 	Update_StateMove();
 	
-	static float s_iTimeCount = 0;
-	s_iTimeCount += (float)i_UpdatePacket.pTime->getElapsedTime();
+	static float s_fTimeCount = 0;
+	s_fTimeCount += (float)i_UpdatePacket.pTime->getElapsedTime();
 	
 	static bool s_bIsColorChange = false;
 	//色の点滅
-	if( (int(s_iTimeCount*10)%10)%2 == 0){
+	if( (int(s_fTimeCount*10)%10)%2 == 0){
 		if(s_bIsColorChange){
 			s_bIsColorChange = false;
 			switch(getMagnetPole()){
@@ -775,9 +781,9 @@ void PlayerCoil::Update_StateSuper( UpdatePacket& i_UpdatePacket ){
 	}
 
 	//無敵モード終了
-	if(s_iTimeCount >= 5.0f){
+	if(s_fTimeCount >= COIL_SUPER_MODE_TIME){
 		m_enumCoilState = COIL_STATE_MOVE;
-		s_iTimeCount = 0.0f;
+		s_fTimeCount = 0.0f;
 		switch(getMagnetPole()){
 			case POLE_S:
 				setColorS();
