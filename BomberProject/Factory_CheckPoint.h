@@ -22,9 +22,9 @@ class CheckPoint : public Cylinder{
 protected:
 	struct ITEM{
 		float	fPosY ;
-
-		ITEM(float i_fPosY)
-			:fPosY( i_fPosY )
+		D3DXVECTOR3 vStartPos;
+		ITEM(D3DXVECTOR3 i_vPos)
+			:fPosY( i_vPos.y ),vStartPos(i_vPos)
 		{}
 	};
 	typedef vector< ITEM* > ITEMCONTAINER ;
@@ -103,8 +103,8 @@ public:
 //// îıçl       ÅF
 ////            ÅF
 ////
-	void add(float fPosY){
-		m_ItemContainer.push_back( new ITEM( fPosY ) );
+	void add(D3DXVECTOR3 i_vPos){
+		m_ItemContainer.push_back( new ITEM( i_vPos ) );
 	}
 
 

@@ -50,11 +50,12 @@ void CheckPoint::Update( UpdatePacket& i_UpdatePacket ){
 	if( !m_pCamera ) m_pCamera = (    Camera*)SearchObjectFromID( i_UpdatePacket.pVec, OBJID_SYS_CAMERA );
 	
 	if( m_pCoil && m_ActiveItem < m_ItemContainer.size()){
-
 		float fPosY		= m_ItemContainer[ m_ActiveItem ]->fPosY;
 		float fCoilPosY = m_pCoil->getPos().y;
 		if(fPosY <= fCoilPosY){
-			m_pCoil->setStartPos(m_ItemContainer[ m_ActiveItem ]->fPosY);
+			m_pCoil->setStartPos(m_ItemContainer[ m_ActiveItem ]->vStartPos);
+			m_ActiveItem++ ;
+			if(m_ActiveItem <= m_ItemContainer.size()) return ;
 		}
 	}
 };
@@ -76,11 +77,6 @@ void CheckPoint::Update( UpdatePacket& i_UpdatePacket ){
 void CheckPoint::Draw( DrawPacket& i_DrawPacket ){
 	if( m_pCamera && m_ActiveItem < m_ItemContainer.size()){
 
-		float DrawEndLength = m_pCamera->getPosY() - DRAW_TOLERANCE ;
-		if(  DrawEndLength > m_ItemContainer[ m_ActiveItem ]->fPosY ){
-			m_ActiveItem++ ;
-			if(m_ActiveItem <= m_ItemContainer.size()) return ;
-		}
 
 		float DrawBeginLength = m_pCamera->getPosY() + DRAW_TOLERANCE ;
 		if( DrawBeginLength > m_ItemContainer[ m_ActiveItem ]->fPosY ){
@@ -118,13 +114,8 @@ void CheckPoint::Draw( DrawPacket& i_DrawPacket ){
 			fpac->m_pVec->push_back(
 				pcp = new CheckPoint( fpac->pD3DDevice, 100.0f)
 			);
-			pcp->add( 30.0f );
-
-			CheckPoint* pcp2 ;
-			fpac->m_pVec->push_back(
-				pcp2 = new CheckPoint( fpac->pD3DDevice, 100.0f)
-			);
-			pcp2->add( 40.0f );
+			pcp->add( D3DXVECTOR3(12.0f,45.0f,0.0f) );
+			//pcp->add( D3DXVECTOR3(10.0f,40.0f,0.0f) );
 
 		}
 		
