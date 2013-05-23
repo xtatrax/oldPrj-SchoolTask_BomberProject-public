@@ -28,12 +28,15 @@ namespace wiz{
 //**************************************************************************//	
 	class EnemySphere : public PrimitiveSphere {
 		Camera*	m_pCamera;
-		ProvisionalPlayer3D* m_pPlayer ;
+		ProvisionalPlayer3D*	m_pPlayer ;
+		PlayerCoil*				m_pCoil;
+		bool					m_bReset;
 		struct EnemyItem{
 			D3DMATERIAL9 m_Material;
 			D3DXMATRIX   m_Matrix;
 			D3DXVECTOR3  m_vScale ;
 			D3DXVECTOR3  m_vPos ;
+			D3DXVECTOR3  m_vStartPos ;
 			D3DXQUATERNION	m_vRot;
 			bool			m_bPole;
 			virtual ~EnemyItem(){}

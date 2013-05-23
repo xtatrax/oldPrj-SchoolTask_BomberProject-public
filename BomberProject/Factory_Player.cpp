@@ -133,6 +133,7 @@ ProvisionalPlayer3D::ProvisionalPlayer3D(
 ,m_bLastMouseLB(false)
 //,m_bField(false)
 ,m_bCoilWasFired(false)
+,m_bDrawing(false)
 {
 	::ZeroMemory( &m_Material, sizeof(D3DMATERIAL9) ) ;
 	D3DXMatrixIdentity( &m_Matrix ) ;
@@ -154,7 +155,7 @@ ProvisionalPlayer3D::ProvisionalPlayer3D(
 void ProvisionalPlayer3D::Draw(DrawPacket& i_DrawPacket)
 {
 	if( m_bCoilWasFired ){
-		if( g_bMouseLB || g_bMouseRB ){ 
+		if( m_bDrawing ){ 
 			//テクスチャがある場合
 			if(m_pTexture){
 				DWORD wkdword;
@@ -248,6 +249,7 @@ void ProvisionalPlayer3D::Update( UpdatePacket& i_UpdatePacket ){
 					setPoleN() ;
 				if( g_bMouseRB )
 					setPoleS() ;
+
 			}
 
 			//	: 拡大縮小
@@ -274,10 +276,13 @@ void ProvisionalPlayer3D::Update( UpdatePacket& i_UpdatePacket ){
 			//	: マウスのフラグ
 			//g_bMouseLB = false ;
 			//g_bMouseRB = false ;
+			m_bDrawing	= true;
 		}else{
-			
+			m_bDrawing	= false;
 		}
-	}
+	}else{
+			m_bDrawing	= false;
+		}
 	m_bLastMouseLB = g_bMouseLB ;
 	m_bLastMouseRB = g_bMouseRB ;
 

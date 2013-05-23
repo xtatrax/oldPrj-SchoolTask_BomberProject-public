@@ -299,10 +299,10 @@ void WallObject::Update( UpdatePacket& i_UpdatePacket ){
 	//***********************************************************************************
 
 	++m_Ptn;
-	//static	int	s_Time	= 0;
+	static	int	s_Time	= 0;
 	//++s_Time;
 
-	//if( s_Time ==  ){
+	//if( s_Time == 2 ){
 	//	++m_Ptn;
 	//	if( m_Ptn > 3 )
 	//		m_Ptn	%= 4;
