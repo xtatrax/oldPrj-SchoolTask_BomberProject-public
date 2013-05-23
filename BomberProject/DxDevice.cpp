@@ -196,13 +196,13 @@ LPDIRECT3DDEVICE9 DxDevice::getDevice(){
 ////            ：
 ////
 void DxDevice::End(){
-#ifndef CF_SINGLETHREAD
-/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
-	//	: シングルスレッドモードじゃなかったら
-	//	: アップデート用スレッドをクローズする
-	CloseHandle(m_hUpdateThread);
-/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
-#endif
+//#ifndef CF_SINGLETHREAD
+///*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
+//	//	: シングルスレッドモードじゃなかったら
+//	//	: アップデート用スレッドをクローズする
+//	CloseHandle(m_hUpdateThread);
+///*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
+//#endif
 	m_PrgState = PROGRAM_END;
 };
 /////////////////// ////////////////////
@@ -287,8 +287,9 @@ int DxDevice::MainThreadRun(){
 
         }
 		if(m_PrgState == PROGRAM_END){
-			::WaitForSingleObject( m_hUpdateThread , INFINITE );
-			SAFE_DELETE( pScene );
+			if( m_hUpdateThread )
+				::WaitForSingleObject( m_hUpdateThread , INFINITE );
+			SafeDelete( pScene );
 			break;
 		}
     }

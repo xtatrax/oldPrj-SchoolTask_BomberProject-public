@@ -160,11 +160,8 @@ Scene::~Scene()
 ////            ：
 ////
 void Scene::Update(UpdatePacket& i_UpdatePacket){
-	//static bool はんかくにしろし！ = false;
-	//if(pCntlState->Gamepad.wPressedButtons.XConState.START)
-	//	はんかくにしろし！ == true ? はんかくにしろし！ = false : はんかくにしろし！ = true;
-	//if(m_pRootStage && はんかくにしろし！ == false ){
-	 if(m_pRootStage){
+
+	if(m_pRootStage){
 
 #if defined(DEBUG) | defined(_DEBUG) | defined(ON_DEBUGGINGPROCESS)
 		//	:  バックボタンでデバッグメニューへ

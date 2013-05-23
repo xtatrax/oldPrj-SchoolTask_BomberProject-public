@@ -451,6 +451,18 @@
 						>
 					</File>
 				</Filter>
+				<Filter
+					Name="MinimapFactory"
+					>
+					<File
+						RelativePath=".\Factory_Minimap.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Factory_Minimap.h"
+						>
+					</File>
+				</Filter>
 			</Filter>
 			<Filter
 				Name="Prim"

@@ -425,6 +425,8 @@ Stage* getActiveStage();
 //// ”õl       F
 	void DefaultRender();
 
+	TextureManager getTexMger ;
+
 };
 /*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*/
 

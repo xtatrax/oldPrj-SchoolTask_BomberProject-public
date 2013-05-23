@@ -46,8 +46,17 @@ CheckPoint::~CheckPoint(){
 ////            ：
 ////
 void CheckPoint::Update( UpdatePacket& i_UpdatePacket ){
-	if( !m_pCoil   ) m_pCoil   = (PlayerCoil*)SearchObjectFromID( i_UpdatePacket.pVec, OBJID_3D_COIL    );
+	if( !m_pCoil   ) m_pCoil   = (PlayerCoil*)SearchObjectFromTypeID( i_UpdatePacket.pVec, typeid(PlayerCoil) );
 	if( !m_pCamera ) m_pCamera = (    Camera*)SearchObjectFromID( i_UpdatePacket.pVec, OBJID_SYS_CAMERA );
+	
+	if( m_pCoil && m_ActiveItem < m_ItemContainer.size()){
+
+		float fPosY		= m_ItemContainer[ m_ActiveItem ]->fPosY;
+		float fCoilPosY = m_pCoil->getPos().y;
+		if(fPosY <= fCoilPosY){
+			m_pCoil->setStartPos(m_ItemContainer[ m_ActiveItem ]->fPosY);
+		}
+	}
 };
 
 /////////////////// ////////////////////
@@ -60,7 +69,7 @@ void CheckPoint::Update( UpdatePacket& i_UpdatePacket ){
 ////            ：  ├ Tempus2*            i_DrawPacket.pTime	   // 時間を管理するクラスへのポインター
 ////            ：  └ Command             i_DrawPacket.pCommand   // コマンド
 //// 戻値       ：無し
-//// 担当者     ：鴫原 徹
+//// 担当者     ：鴫原 徹 本多寛之(編集)
 //// 備考       ：
 ////            ：
 ////
@@ -109,12 +118,13 @@ void CheckPoint::Draw( DrawPacket& i_DrawPacket ){
 			fpac->m_pVec->push_back(
 				pcp = new CheckPoint( fpac->pD3DDevice, 100.0f)
 			);
-			pcp->add( 10.0f );
+			pcp->add( 30.0f );
 
+			CheckPoint* pcp2 ;
 			fpac->m_pVec->push_back(
-				new Cylinder( fpac->pD3DDevice, 1.0f, 1.0f, 1.0f, D3DXVECTOR3( 3.0f, 3.0f, 0.5f), g_vZero, Diffuse, Specular, Ambient, OBJID_3D_CYLINDER, false, NULL, 18 )
+				pcp2 = new CheckPoint( fpac->pD3DDevice, 100.0f)
 			);
-			
+			pcp2->add( 40.0f );
 
 		}
 		

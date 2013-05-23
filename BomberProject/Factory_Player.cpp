@@ -131,7 +131,8 @@ ProvisionalPlayer3D::ProvisionalPlayer3D(
 ,m_Camera(NULL)
 ,m_bLastMouseRB(false)
 ,m_bLastMouseLB(false)
-,m_bCoilWasFired(true)
+//,m_bField(false)
+,m_bCoilWasFired(false)
 {
 	::ZeroMemory( &m_Material, sizeof(D3DMATERIAL9) ) ;
 	D3DXMatrixIdentity( &m_Matrix ) ;
@@ -514,13 +515,15 @@ PlayerCoil::PlayerCoil(
 ,m_vPos(vPos)
 ,m_vRot(vRot)
 ,m_vScale(vScale)
+,m_vMove(D3DXVECTOR3( 1.0f, 0.0f, 0.0f))
 ,m_fMoveDir(PLAYER_BASSROT)
 ,m_fMovdSpeed(PLAYER_SPEED)
+,m_vStartPos(vPos)
+,m_fTurnAngle(PLAYER_TURN_ANGLE_Lv1)
 ,m_pPlayer(NULL)
 ,m_pMagneticumObject(NULL)
 ,m_pCamera(NULL)
 ,m_enumCoilState(COIL_STATE_START)
-,m_vMove(D3DXVECTOR3( 1.0f, 0.0f, 0.0f))
 #if defined( ON_DEBUGGINGPROCESS )
 ,m_pDSPH(NULL)
 #endif
@@ -609,6 +612,7 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 			case COIL_STATE_STICK:
 				break;
 			case COIL_STATE_SUPER:
+				Update_StateSuper();
 				break;
 			case COIL_STATE_DEAD:
 				break;
@@ -683,6 +687,8 @@ void PlayerCoil::Update_StateStart(){
 	float fLng  = (float)TwoPointToBassLength( vPlayer, m_vPos ) ;
 	if(g_bMouseLB && fLng <= START_EFFECTIVE_RANGE_QUAD){
 		m_enumCoilState = COIL_STATE_MOVE;
+		//m_enumCoilState = COIL_STATE_SUPER;
+		m_pPlayer->CoilWasFired(true);
 	}
 };
 
@@ -714,11 +720,33 @@ void PlayerCoil::Update_StateMove(){
 		++it;
 	}
 
-	//	: 指定方向へ指定距離移動
+	//指定方向へ指定距離移動
 	ArcMove( m_vMove , m_fMovdSpeed, m_fMoveDir);
 	//移動分を加算
 	m_vPos += m_vMove;
 
+};
+
+/////////////////// ////////////////////
+//// 関数名     ：PlayerCoil::Update_StateSuper()
+//// カテゴリ   ：
+//// 用途       ：STATE_SUPER時の動き
+//// 引数       ：
+//// 戻値       ：なし
+//// 担当       ：本多寛之
+//// 備考       ：
+////            ：
+////
+void PlayerCoil::Update_StateSuper(){
+	Update_StateMove();	
+	switch(getMagnetPole()){
+		case POLE_S:
+			setColorSuper();
+			break;
+		case POLE_N:
+			setColorSuper();
+			break;
+	}
 };
 
 /////////////////// ////////////////////
@@ -745,7 +773,7 @@ void PlayerCoil::Draw(DrawPacket& i_DrawPacket){
 
 		//i_DrawPacket.pD3DDevice->SetFVF(PlateFVF);
 		// マトリックスをレンダリングパイプラインに設定
-		i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &/*it->second->*/m_Matrix);
+		i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &m_Matrix);
 		//コモンメッシュのDraw()を呼ぶ
 		CommonMesh::Draw(i_DrawPacket);
 		i_DrawPacket.pD3DDevice->SetTexture(0,0);
@@ -789,11 +817,11 @@ float PlayerCoil::MagneticDecision( float i_fCoilDir, D3DXVECTOR3& i_vMagnetPos,
 	if(i_bMagnetPole_Field != this->getMagnetPole()){
 		if(i_fCoilDir < fTargetDir){
 			if(fTargetDir - i_fCoilDir <= 180.0f){
-				i_fCoilDir += PLAYER_TURN_ANGLE;
+				i_fCoilDir += m_fTurnAngle;
 				i_fCoilDir = float(int(i_fCoilDir) % 360);						
 			}
 			else{
-				i_fCoilDir -= PLAYER_TURN_ANGLE;
+				i_fCoilDir -= m_fTurnAngle;
 				if(i_fCoilDir < 0.0f){
 					i_fCoilDir += 360.0f;
 				}
@@ -801,13 +829,13 @@ float PlayerCoil::MagneticDecision( float i_fCoilDir, D3DXVECTOR3& i_vMagnetPos,
 		}
 		else if(i_fCoilDir > fTargetDir){
 			if(i_fCoilDir - fTargetDir <= 180.0f){
-				i_fCoilDir -= PLAYER_TURN_ANGLE;
+				i_fCoilDir -= m_fTurnAngle;
 				if(i_fCoilDir < 0.0f){
 					i_fCoilDir += 360.0f;
 				}
 			}
 			else{
-				i_fCoilDir += PLAYER_TURN_ANGLE;
+				i_fCoilDir += m_fTurnAngle;
 				i_fCoilDir = float(int(i_fCoilDir) % 360);												
 			}
 		}
@@ -816,23 +844,23 @@ float PlayerCoil::MagneticDecision( float i_fCoilDir, D3DXVECTOR3& i_vMagnetPos,
 		if(fReverse != fTargetDir){
 			if(i_fCoilDir < fTargetDir){
 				if(fTargetDir - i_fCoilDir <= 180.0f){
-					i_fCoilDir -= PLAYER_TURN_ANGLE;
+					i_fCoilDir -= m_fTurnAngle;
 					if(i_fCoilDir < 0.0f){
 						i_fCoilDir += 360.0f;
 					}
 				}
 				else{
-					i_fCoilDir += PLAYER_TURN_ANGLE;
+					i_fCoilDir += m_fTurnAngle;
 					i_fCoilDir = float(int(i_fCoilDir) % 360);						
 				}
 			}
 			else if(i_fCoilDir > fTargetDir){
 				if(i_fCoilDir - fTargetDir <= 180.0f){
-					i_fCoilDir += PLAYER_TURN_ANGLE;
+					i_fCoilDir += m_fTurnAngle;
 					i_fCoilDir = float(int(i_fCoilDir) % 360);												
 				}
 				else{
-					i_fCoilDir -= PLAYER_TURN_ANGLE;
+					i_fCoilDir -= m_fTurnAngle;
 					if(i_fCoilDir < 0.0f){
 						i_fCoilDir += 360.0f;
 					}
@@ -842,6 +870,36 @@ float PlayerCoil::MagneticDecision( float i_fCoilDir, D3DXVECTOR3& i_vMagnetPos,
 	}
 	return i_fCoilDir;
 };
+
+/////////////////// ////////////////////
+//// 用途       ：bool PlayerCoil::CheckDistance( D3DXVECTOR3& i_vMagneticFieldPos, D3DXVECTOR3& i_vCoilPos ) const
+//// カテゴリ   ：関数
+//// 用途       ：距離を判定
+//// 引数       ：D3DXVECTOR3& i_vMagneticFieldPos //磁界の位置 
+////　　　　　　：D3DXVECTOR3& i_vCoilPos          //コイルの位置
+////　　　　　　：float        i_iBorder           //判定する値
+//// 戻値       ：true , false
+//// 担当者     ：本多寛之
+//// 備考       ：
+bool PlayerCoil::CheckDistance( D3DXVECTOR3& i_vMagneticFieldPos, D3DXVECTOR3& i_vCoilPos, float i_iBorder ){
+	float Lng  = (float)TwoPointToBassLength( i_vMagneticFieldPos, i_vCoilPos ) ;
+	if( Lng <= i_iBorder ){
+		float fBorderLv = i_iBorder/3;
+		if(Lng <= fBorderLv){
+			m_fTurnAngle = PLAYER_TURN_ANGLE_Lv3;
+		}
+		else if(Lng <= fBorderLv*2){
+			m_fTurnAngle = PLAYER_TURN_ANGLE_Lv2;
+		}
+		else{
+			m_fTurnAngle = PLAYER_TURN_ANGLE_Lv1;
+		}
+		return true;
+	}
+	else{
+		return false;
+	}
+}
 
 /**************************************************************************
  Factory_Player 定義部

@@ -17,6 +17,8 @@ namespace wiz {
 /**************************************************************************
  TextureManager 定義部
 /***************************************************************************/
+vector< TextureManager::Texture* > TextureManager::m_vecTextures;
+
 /////////////////// ////////////////////
 //// 用途       ：TextureManager::TextureManager()
 //// カテゴリ   ：コンストラクタ
