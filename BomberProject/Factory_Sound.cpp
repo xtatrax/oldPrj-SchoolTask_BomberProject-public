@@ -187,7 +187,7 @@ m_SoundBankFileName(L"")
 				);
 		}
 		m_WavBankFileName = pWavBankFileName;
-		if(pSoundBankFileName){
+		if( pSoundBankFileName ){
 			m_SoundBankFileName = pSoundBankFileName;
 		}
 		CreateInctance();
@@ -262,9 +262,16 @@ void Sound::Draw( DrawPacket& i_DrawPacket ){
 OneSound::OneSound(const wchar_t* pWavBankFileName,const wchar_t* pSoundBankFileName,PCSTR pSoundName,wiz::OBJID id)
 :Sound(pWavBankFileName, pSoundBankFileName, id )
 {
-
-	i_iSoundNum = m_pWaveBank->GetWaveIndex( pSoundName );
-
+	if(m_pEngine && m_pWaveBank && m_pSoundBank){
+		i_iSoundNum = m_pWaveBank->GetWaveIndex( pSoundName );
+	}
+}
+OneSound::OneSound(const wchar_t* pWavBankFileName,const wchar_t* pSoundBankFileName,const XACTINDEX iSoundNum,wiz::OBJID id)
+:Sound(pWavBankFileName, pSoundBankFileName, id )
+{
+	if(m_pEngine && m_pWaveBank && m_pSoundBank){
+		i_iSoundNum = iSoundNum ;
+	}
 }
 void OneSound::PlaySound(BYTE count){
 	if(m_pWaveBank){
