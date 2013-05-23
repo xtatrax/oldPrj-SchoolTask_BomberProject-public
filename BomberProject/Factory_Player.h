@@ -23,6 +23,7 @@ const float PLAYER_BASSROT				= 90.0f;
 const float PLAYER_TURN_ANGLE_Lv1		= 1.0f;
 const float PLAYER_TURN_ANGLE_Lv2		= 2.0f;
 const float PLAYER_TURN_ANGLE_Lv3		= 3.0f;
+const float COIL_SUPER_MODE_TIME		= 5.0f;
 
 enum COIL_STATE{			//自機の状態
 	COIL_STATE_START,		//スタート
