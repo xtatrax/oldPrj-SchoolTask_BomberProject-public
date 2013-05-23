@@ -16,8 +16,8 @@ Global Settings
     Header File = MagneticaSoundProject.h;
     Exclude Category Names = 0;
     Exclude Variable Names = 0;
-    Last Modified Low = 2680502581;
-    Last Modified High = 30300056;
+    Last Modified Low = 3513007171;
+    Last Modified High = 30300195;
 
     Category
     {
@@ -236,14 +236,17 @@ Wave Bank
     Windows File = Win\MagneticaWave.xwb;
     Xbox Bank Path Edited = 0;
     Windows Bank Path Edited = 1;
+    Entry Names = 1;
     Seek Tables = 1;
     Compression Preset Name = Compression Preset;
     Xbox Bank Last Modified Low = 0;
     Xbox Bank Last Modified High = 0;
-    PC Bank Last Modified Low = 2680622588;
-    PC Bank Last Modified High = 30300056;
-    Bank Last Revised Low = 1854112039;
-    Bank Last Revised High = 30300058;
+    PC Bank Last Modified Low = 3513037173;
+    PC Bank Last Modified High = 30300195;
+    Header Last Modified Low = 0;
+    Header Last Modified High = 0;
+    Bank Last Revised Low = 3361738519;
+    Bank Last Revised High = 30300195;
 
     Wave
     {
@@ -299,6 +302,10 @@ Sound Bank
     Windows File = Win\MagneticaSound.xsb;
     Xbox Bank Path Edited = 0;
     Windows Bank Path Edited = 1;
+    Bank Last Modified Low = 745227225;
+    Bank Last Modified High = 30300196;
+    Header Last Modified High = 0;
+    Header Last Modified Low = 0;
 
     Sound
     {
@@ -319,6 +326,7 @@ Sound Bank
 
             Play Wave Event
             {
+                Loop Count = 255;
                 Break Loop = 0;
                 Use Speaker Position = 0;
                 Use Center Speaker = 1;

@@ -33,6 +33,9 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
             ::DestroyWindow(hWnd);       // アプリケーションを終了する
             return 0;
         break;
+		case WM_DESTROY:
+			wiz::DxDevice::Destroy();
+			return 0;
         case WM_KEYDOWN: 
 			// キーが押された
 			if (wParam == VK_ESCAPE) {  // 押されたのはESCキーだ
@@ -221,8 +224,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE
 		/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 		// 
         // DirectXデバイスオブジェクトの初期化
-        wiz::DxDevice device(hWnd, isFullScreen,iClientWidth,iClientHeight);
-		return (int) device.MainThreadRun();
+        wiz::DxDevice* device = new wiz::DxDevice(hWnd, isFullScreen,iClientWidth,iClientHeight);
+		int ret =  (int) device->MainThreadRun();
+		SafeDelete( device );
+		return ret ;
 		/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 	}
     catch(wiz::BaseException& e){

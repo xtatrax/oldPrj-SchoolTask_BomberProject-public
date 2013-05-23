@@ -274,9 +274,15 @@ OneSound::OneSound(const wchar_t* pWavBankFileName,const wchar_t* pSoundBankFile
 	}
 }
 void OneSound::PlaySound(BYTE count){
+	/*/
 	if(m_pWaveBank){
 		m_pWaveBank->Play(i_iSoundNum, XACT_FLAG_UNITS_MS,0,count,NULL);
 	}
+	/*/
+	if(m_pSoundBank){
+		m_pSoundBank->Play(i_iSoundNum, 0,0 ,NULL );
+	}
+	//*/
 }
 
 

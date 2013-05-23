@@ -20,7 +20,6 @@
 #include <process.h>
 
 namespace wiz{
-bool GameQuitFlag = false ;
 /**************************************************************************
  DxDevice 定義部
 ***************************************************************************/
@@ -29,6 +28,8 @@ D3DXVECTOR2	DxDevice::m_v2AspectRate  ;		// 基準解像度と現在の解像度の比率
 HWND		DxDevice::m_hWnd			= NULL;		// メインウインドウのハンドル
 HANDLE		DxDevice::m_hUpdateThread	= NULL;		// アップデート用スレッドのハンドル
 HANDLE		DxDevice::m_hLoadingThread	= NULL;		// ロード画面用スレッドのハンドル
+bool		DxDevice::m_bDestroy = false ;
+
 /**************************************************************************
  DxDevice::DxDevice(
     HWND hWnd,          //ウインドウのハンドル
@@ -127,10 +128,10 @@ void DxDevice::Clear(){
     SafeRelease(m_pController);
     // デバイスオブジェクトの解放
     SafeRelease(m_pD3DDevice);
-    // DirectXGraphicsの解放
-    SafeRelease(m_pD3D);
 	// シーンの削除
 	SafeDelete(pScene);
+    // DirectXGraphicsの解放
+    SafeRelease(m_pD3D);
 }
 /**************************************************************************
  DxDevice::DxDevice(
@@ -205,6 +206,15 @@ void DxDevice::End(){
 //#endif
 	m_PrgState = PROGRAM_END;
 };
+
+/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
+/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
+/*★*☆                                                             ★*☆*★*/
+/*★*☆                    アイドリングループ                       ★*☆*★*/
+/*★*☆                                                             ★*☆*★*/
+/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
+/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
+
 /////////////////// ////////////////////
 //// 関数名     ：int MainThreadRun()
 //// カテゴリ   ：関数
@@ -232,27 +242,25 @@ int DxDevice::MainThreadRun(){
 	MSG msg;    //メッセージ構造体の宣言定義
 	//	: メインスレッドループ
 	while(true){
+
+		if( m_bDestroy ){
+			#ifndef CF_SINGLETHREAD
+				CloseHandle(m_hUpdateThread);
+			#endif
+
+			return 0;
+		}
+
+		//	: メセージ解決
+		//	: またわ
+		//	: シーンの描画
 		if(::PeekMessage(&msg,NULL,0,0,PM_REMOVE)){
             switch(msg.message){ 
 
-				case WM_DESTROY:
-	 				this->End();
-					if( m_hUpdateThread ){
-						DWORD thrInfo;
-						::GetExitCodeThread( m_hUpdateThread, &thrInfo);
-						do{
-							CloseHandle(m_hUpdateThread);
-						}while ( thrInfo != STILL_ACTIVE );
-					}
-					break;
-
-				case WM_DROPFILES: // ファイルがドロップされた
-					TCHAR szDropFile[MAX_PATH + 1];
-					DragQueryFile((HDROP)msg.wParam,0,szDropFile,MAX_PATH);
-
-					// 構造体のハンドルで使ったメモリを解放する
-					DragFinish((HDROP)msg.wParam);
-					break;
+				#ifdef CF_SINGLETHREAD
+				/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
+					//	: シングルスレッド宣言がされていたら
+					//	: ここでマウスの状態を獲得する
 				case WM_LBUTTONDOWN :
 					g_bMouseLB = true;
 					break ; 
@@ -265,6 +273,8 @@ int DxDevice::MainThreadRun(){
 				case WM_RBUTTONUP:
 					g_bMouseRB = false;
 					break;
+				/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
+				#endif
 
 				default:
 	                // メッセージの翻訳とディスパッチ
@@ -295,12 +305,6 @@ int DxDevice::MainThreadRun(){
             }
 
         }
-		if(m_PrgState == PROGRAM_END){
-			if( m_hUpdateThread )
-				::WaitForSingleObject( m_hUpdateThread , INFINITE );
-			SafeDelete( pScene );
-			break;
-		}
     }
 
 	return (int) msg.wParam;
@@ -322,18 +326,10 @@ int DxDevice::UpdateThreadRun(){
 	MSG msg;    //メッセージ構造体の宣言定義
 	//メッセージループ
     while(true){
-		g_bMouseLB = false ;
-		g_bMouseRB = false ;
+
 
 		if(::PeekMessage(&msg,NULL,0,0,PM_REMOVE)){
             switch(msg.message){ 
-				//	: キーボード
-				//case WM_KEYDOWN:                // キーが押された
-				//	if (wParam == VK_ESCAPE) {  // 押されたのはESCキーだ
-				//		::DestroyWindow(hWnd);  // ウインドウを破棄するよう要求する
-				//	}
-				//	break;
-				//	: マウスLボタン押し
 				case WM_LBUTTONDOWN :
 					g_bMouseLB = true;
 					break ; 
@@ -350,12 +346,6 @@ int DxDevice::UpdateThreadRun(){
 					g_bMouseRB = false;
 					break;
 
-				/////////
-				//	: 破棄要求
-				case WM_DESTROY:
-					this->End();
-					SuspendThread(m_hUpdateThread);
-					break;
 				//	:  削除
 				default:
 	                // メッセージの翻訳とディスパッチ
@@ -370,6 +360,16 @@ int DxDevice::UpdateThreadRun(){
     }
 	return 0;
 }
+
+/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
+/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
+/*★*☆                                                             ★*☆*★*/
+/*★*☆                      シーンアクセス                         ★*☆*★*/
+/*★*☆                                                             ★*☆*★*/
+/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
+/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
+
+
 /**************************************************************************
  void DxDevice::UpdateScene(
  Scene* pScene  // シーンへのポインタ
@@ -458,7 +458,7 @@ void DxDevice::RenderScene()
 			pScene->Draw(m_DrawPacket);///**************************
 
 			Debugger::DBGSTR::Draw();
-			TMemoryManager::Draw();
+			//TMemoryManager::Draw();
 			// 描画終了宣言
 			m_pD3DDevice->EndScene();
 		}
@@ -485,7 +485,7 @@ void DxDevice::RenderScene()
 
 			}catch(exception& e){
 				
-				throw e;
+				throw ;
 			}
 			catch(...){
 				throw;
@@ -513,6 +513,12 @@ void DxDevice::RenderScene()
         //再スロー
         throw;
     }
+
+
+
+
+
+
 }
 void DxDevice::StartUpdateThread(){
 	m_hUpdateThread = (HANDLE) _beginthreadex(
@@ -525,7 +531,7 @@ void DxDevice::StartUpdateThread(){
 
 }
 unsigned __stdcall DxDevice::updateThreadLauncher(void *args){
-	reinterpret_cast<DxDevice*>(args)->UpdateThreadRun();
+	//reinterpret_cast<DxDevice*>(args)->UpdateThreadRun();
 	return 0;
 }
 

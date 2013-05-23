@@ -45,11 +45,11 @@ TitleStage::TitleStage(LPDIRECT3DDEVICE9 pD3DDevice,Stage* pStage)
 			pSound = new OneSound(
 				L"media/Sound/MagneticaWave.xwb",
 				L"media/Sound/MagneticaSound.xsb",
-				"BGMTITLE",
+				"BGM_TITLE",
 				OBJID_SOUND_BGM_TITLE
 			)
 		);
-		pSound->PlaySound(255);
+		pSound->PlaySound();
 		Factory_Title	resultF( &FPac );
 	}
 	catch(...){

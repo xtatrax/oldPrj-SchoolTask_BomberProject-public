@@ -49,7 +49,7 @@ PlayStage::PlayStage(LPDIRECT3DDEVICE9 pD3DDevice,Stage* pStage)
 			pSound = new OneSound(
 				L"media/Sound/MagneticaWave.xwb",
 				L"media/Sound/MagneticaSound.xsb",
-				"BGM_PLAY",
+				2,
 				OBJID_SOUND_BGM_PLAY
 			)
 		);
