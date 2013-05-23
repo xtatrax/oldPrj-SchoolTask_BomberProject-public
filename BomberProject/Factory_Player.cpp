@@ -611,6 +611,7 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 			case COIL_STATE_STOP:
 				break;
 			case COIL_STATE_STICK:
+				Update_StateStick();
 				break;
 			case COIL_STATE_SUPER:
 				Update_StateSuper( i_UpdatePacket );
@@ -731,7 +732,47 @@ void PlayerCoil::Update_StateMove(){
 	//移動分を加算
 	m_vPos += m_vMove;
 
+	if(m_vPos.x <= 0){
+		m_vPos.x = 0.0f;
+	}
+	if(m_vPos.x >= 39.0f){
+		m_vPos.x = 39.0f;		
+	}
 };
+
+/////////////////// ////////////////////
+//// 関数名     ：void Update_StateStick()
+//// カテゴリ   ：
+//// 用途       ：STATE_STICK時の動き
+//// 引数       ：
+//// 戻値       ：なし
+//// 担当       ：本多寛之
+//// 備考       ：
+////            ：
+////
+void PlayerCoil::Update_StateStick(){
+	D3DXVECTOR3 vPlayer = g_vZero;
+	float		fTargetDir = NULL;
+	m_fMoveDir += 5.0f;
+	if(m_fMoveDir > 360.0f)m_fMoveDir = float(int(m_fMoveDir) % 360);
+
+	//S青右N赤左
+	switch(getMagnetPole()){
+		case POLE_S:
+			if(!g_bMouseLB){
+				setPoleN();
+				m_enumCoilState = COIL_STATE_MOVE;
+			}
+			break;
+		case POLE_N:
+			if(!g_bMouseRB){
+				setPoleS();
+				m_enumCoilState = COIL_STATE_MOVE;
+			}
+			break;
+	}
+};
+
 
 /////////////////// ////////////////////
 //// 関数名     ：PlayerCoil::Update_StateSuper()
@@ -751,12 +792,12 @@ void PlayerCoil::Update_StateSuper( UpdatePacket& i_UpdatePacket ){
 	//移動
 	Update_StateMove();
 	
-	static float s_iTimeCount = 0;
-	s_iTimeCount += (float)i_UpdatePacket.pTime->getElapsedTime();
+	static float s_fTimeCount = 0;
+	s_fTimeCount += (float)i_UpdatePacket.pTime->getElapsedTime();
 	
 	static bool s_bIsColorChange = false;
 	//色の点滅
-	if( (int(s_iTimeCount*10)%10)%2 == 0){
+	if( (int(s_fTimeCount*10)%10)%2 == 0){
 		if(s_bIsColorChange){
 			s_bIsColorChange = false;
 			switch(getMagnetPole()){
@@ -775,9 +816,9 @@ void PlayerCoil::Update_StateSuper( UpdatePacket& i_UpdatePacket ){
 	}
 
 	//無敵モード終了
-	if(s_iTimeCount >= 5.0f){
+	if(s_fTimeCount >= COIL_SUPER_MODE_TIME){
 		m_enumCoilState = COIL_STATE_MOVE;
-		s_iTimeCount = 0.0f;
+		s_fTimeCount = 0.0f;
 		switch(getMagnetPole()){
 			case POLE_S:
 				setColorS();
@@ -942,6 +983,11 @@ bool PlayerCoil::CheckDistance( D3DXVECTOR3& i_vMagneticFieldPos, D3DXVECTOR3& i
 	float Lng  = (float)TwoPointToBassLength( i_vMagneticFieldPos, i_vCoilPos ) ;
 	if( Lng <= i_iBorder ){
 		float fBorderLv = i_iBorder/3;
+		if(Lng <= fBorderLv/30 && getMagnetPole() != m_pPlayer->getMagnetPole()){
+			m_vPos = m_pPlayer->getPos();
+			m_enumCoilState = COIL_STATE_STICK;
+			return false;
+		}
 		if(Lng <= fBorderLv){
 			m_fTurnAngle = PLAYER_TURN_ANGLE_Lv3;
 		}

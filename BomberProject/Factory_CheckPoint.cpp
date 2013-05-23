@@ -115,7 +115,7 @@ void CheckPoint::Draw( DrawPacket& i_DrawPacket ){
 				pcp = new CheckPoint( fpac->pD3DDevice, 100.0f)
 			);
 			pcp->add( D3DXVECTOR3(12.0f,45.0f,0.0f) );
-			//pcp->add( D3DXVECTOR3(10.0f,40.0f,0.0f) );
+			pcp->add( D3DXVECTOR3(5.0f,120.0f,0.0f) );
 
 		}
 		

@@ -29,14 +29,15 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		case WM_CREATE:
 			DragAcceptFiles(hWnd,TRUE); // D&D を許可する
 			return 0;
-        case WM_DESTROY:                // ウインドウが破棄されようとしている
-            ::PostQuitMessage(0);       // アプリケーションを終了する
+        case WM_CLOSE:                // ウインドウが破棄されようとしている
+            ::DestroyWindow(hWnd);       // アプリケーションを終了する
             return 0;
         break;
-        case WM_KEYDOWN:                // キーが押された
-            if (wParam == VK_ESCAPE) {  // 押されたのはESCキーだ
-                ::DestroyWindow(hWnd);  // ウインドウを破棄するよう要求する
-            }
+        case WM_KEYDOWN: 
+			// キーが押された
+			if (wParam == VK_ESCAPE) {  // 押されたのはESCキーだ
+				::DestroyWindow(hWnd);  // ウインドウを破棄するよう要求する
+			}
 			if (wParam == (VK_MENU | VK_RETURN)) {  // 押されたのはESCキーだ
             }
             return 0;

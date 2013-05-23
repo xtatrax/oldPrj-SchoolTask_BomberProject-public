@@ -70,6 +70,17 @@ class WallObject : public PrimitiveBox{
 	multimap<float,WallItem*> m_ItemMap_Target; //描画対象のWallItem
 	//std::find
 	multimap<float,PolyItem*> m_ItemMap_Poly;	//全てのPolyItem
+protected:
+
+/////////////////// ////////////////////
+//// 用途       ：WallObject(	LPDIRECT3DDEVICE9 pD3DDevice,LPDIRECT3DTEXTURE9 pTexture,wiz::OBJID id = OBJID_3D_WALL);
+//// カテゴリ   ：コンストラクタ
+//// 用途       ：関数
+//// 引数       ：なし
+//// 戻値       ：なし
+//// 担当者     ：鴫原 徹
+//// 備考       ：
+	void UpdateTargetItem();
 
 public:
 	/////////////////// ////////////////////
@@ -90,7 +101,7 @@ public:
 
 	bool HitTest2DRectAndCircle( D3DXVECTOR3& i_vPos, float i_fRadius );
 
-
+	
 
 	///////////////////// ////////////////////
 	////// 用途       ：void GetOBB( size_t Index, OBB& obb )
@@ -155,7 +166,6 @@ public:
 
 
 	bool HitTest3DAddWall( MultiBox* pBox, size_t& Index, D3DXVECTOR3& Vec, D3DXVECTOR3& ElsePos );
-
 
 };
 

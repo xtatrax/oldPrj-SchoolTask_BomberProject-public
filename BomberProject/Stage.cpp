@@ -1098,14 +1098,22 @@ void Stage::Render(RenderPacket& i_RenderPacket){
 ***************************************************************************/
 void Stage::Draw(DrawPacket& i_DrawPacket)
 {
-	i_DrawPacket.pVec = &m_Vec ;
-	//配置オブジェクトの描画
-	vector<Object*>::size_type sz = m_Vec.size();
-	for(vector<Object*>::size_type i = 0;i < sz;i++){
-		m_Vec[i]->AccessBegin();
-		m_Vec[i]->Draw(i_DrawPacket);
-		m_Vec[i]->AccessEnd();
+	try{
+		i_DrawPacket.pVec = &m_Vec ;
+		//配置オブジェクトの描画
+		vector<Object*>::size_type sz = m_Vec.size();
+		for(vector<Object*>::size_type i = 0;i < sz;i++){
+			m_Vec[i]->AccessBegin();
+			m_Vec[i]->Draw(i_DrawPacket);
+			m_Vec[i]->AccessEnd();
+		}
 	}
+	catch(exception& e){
+        throw;
+	}
+    catch(...){
+        throw;
+    }
 }
 /////////////////// ////////////////////
 //// 用途       ：

@@ -146,7 +146,7 @@ inline void operator delete(void* pv){
 	return TMemoryManager::remove(pv);
 };
 
-#define new new(__FILE__, __FUNCTION__, __LINE__)
+#define NEW new(__FILE__, __FUNCTION__, __LINE__)
 
 
 //////////

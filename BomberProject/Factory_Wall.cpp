@@ -50,6 +50,20 @@ WallObject::WallObject( LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTextur
 
 }
 
+/////////////////// ////////////////////
+//// 用途       ：WallObject(	LPDIRECT3DDEVICE9 pD3DDevice,LPDIRECT3DTEXTURE9 pTexture,wiz::OBJID id = OBJID_3D_WALL);
+//// カテゴリ   ：コンストラクタ
+//// 用途       ：関数
+//// 引数       ：なし
+//// 戻値       ：なし
+//// 担当者     ：鴫原 徹
+//// 備考       ：
+void WallObject::UpdateTargetItem(){
+	
+	
+}
+
+	
 bool WallObject::HitTest2DRectAndCircle(D3DXVECTOR3& i_vPos, float i_fRadius)
 {
 	//float fTH = 150 ;
@@ -252,7 +266,15 @@ void WallObject::Update( UpdatePacket& i_UpdatePacket ){
 		//}
 
 		if( m_pPlayerCoil && m_pPlayerCoil->HitTestWall( it2->second->m_Obb, 0 ) ){
-			m_pPlayerCoil->setState(COIL_STATE_DEAD);
+			switch(m_pPlayerCoil->getState()){
+				case COIL_STATE_MOVE:
+					m_pPlayerCoil->setState(COIL_STATE_DEAD);
+					break;
+				case COIL_STATE_SUPER:
+					break;
+				default:
+					break;
+			}
 		}
 
 
