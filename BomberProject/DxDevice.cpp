@@ -410,7 +410,7 @@ void DxDevice::RenderScene()
 						D3DCLEAR_STENCIL |                  // ステンシルバッファを指定
 						D3DCLEAR_TARGET |                   // バックバッファを指定
 						D3DCLEAR_ZBUFFER,                   // 深度バッファ（Zバッファ）を指定
-						D3DXCOLOR(0.8f, 0.8f, 0.8f, 1.0f),  // 初期化する色
+						D3DXCOLOR(0.0f, 0.0f, 0.0f, 1.0f),  // 初期化する色
 						1.0f,                               // 初期化する深度バッファ（Zバッファ）の値
 						0))){                               // 初期化するステンシルバッファの値
 			//失敗したらスロー
