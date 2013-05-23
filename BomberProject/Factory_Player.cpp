@@ -155,7 +155,6 @@ void ProvisionalPlayer3D::Draw(DrawPacket& i_DrawPacket)
 {
 	if( m_bCoilWasFired ){
 		if( g_bMouseLB || g_bMouseRB ){ 
-
 			//テクスチャがある場合
 			if(m_pTexture){
 				DWORD wkdword;
@@ -519,6 +518,8 @@ PlayerCoil::PlayerCoil(
 ,m_fMoveDir(PLAYER_BASSROT)
 ,m_fMovdSpeed(PLAYER_SPEED)
 ,m_vStartPos(vPos)
+,m_bLastMouseRB(false)
+,m_bLastMouseLB(false)
 ,m_fTurnAngle(PLAYER_TURN_ANGLE_Lv1)
 ,m_pPlayer(NULL)
 ,m_pMagneticumObject(NULL)
@@ -557,7 +558,7 @@ bool PlayerCoil::HitTestWall( OBB Obb, float Index ){
 	//通常の衝突判定
 	D3DXVECTOR3 Vec ;
 	if(HitTest::SPHERE_OBB(sp,Obb,Vec)){
-		MessageBox( NULL, L"当たった！！", L"当たり判定", NULL) ;
+		//MessageBox( NULL, L"当たった！！", L"当たり判定", NULL) ;
 		return true;
 	}
 	return false;
@@ -612,9 +613,10 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 			case COIL_STATE_STICK:
 				break;
 			case COIL_STATE_SUPER:
-				Update_StateSuper();
+				Update_StateSuper( i_UpdatePacket );
 				break;
 			case COIL_STATE_DEAD:
+				Update_StateDead();
 				break;
 			default:
 				break;
@@ -683,11 +685,15 @@ void PlayerCoil::Update_StateStart(){
 	fTargetDir = TwoPoint2Degree( vPlayer , m_vPos );
 	//角度の更新
 	m_fMoveDir = fTargetDir;
-	//左クリックが押されたらMOVE状態に変更
+	//左クリックが押し、離したらMOVE状態に変更
 	float fLng  = (float)TwoPointToBassLength( vPlayer, m_vPos ) ;
 	if(g_bMouseLB && fLng <= START_EFFECTIVE_RANGE_QUAD){
+		m_bLastMouseLB = true;
+	}
+	if(!g_bMouseLB && m_bLastMouseLB){
 		m_enumCoilState = COIL_STATE_MOVE;
 		//m_enumCoilState = COIL_STATE_SUPER;
+		m_bLastMouseLB = false;
 		m_pPlayer->CoilWasFired(true);
 	}
 };
@@ -731,23 +737,74 @@ void PlayerCoil::Update_StateMove(){
 //// 関数名     ：PlayerCoil::Update_StateSuper()
 //// カテゴリ   ：
 //// 用途       ：STATE_SUPER時の動き
+//// 引数       ：  DrawPacket& i_DrawPacket             // 画面描画時に必要なデータ群 ↓内容下記
+////			  ：  ├ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 インターフェイスへのポインタ
+////			  ：  ├ vector<Object*>&    Vec                     // オブジェクトの配列
+////			  ：  ├ Tempus2*            i_DrawPacket.pTime	   // 時間を管理するクラスへのポインター
+////              ：  └ Command             i_DrawPacket.pCommand   // コマンド
+//// 戻値       ：なし
+//// 担当       ：本多寛之
+//// 備考       ：
+////			  ：
+////
+void PlayerCoil::Update_StateSuper( UpdatePacket& i_UpdatePacket ){
+	//移動
+	Update_StateMove();
+	
+	static float s_iTimeCount = 0;
+	s_iTimeCount += (float)i_UpdatePacket.pTime->getElapsedTime();
+	
+	static bool s_bIsColorChange = false;
+	//色の点滅
+	if( (int(s_iTimeCount*10)%10)%2 == 0){
+		if(s_bIsColorChange){
+			s_bIsColorChange = false;
+			switch(getMagnetPole()){
+				case POLE_S:
+					setColorS();
+					break;
+				case POLE_N:
+					setColorN();
+					break;
+			}
+		}
+		else{
+			s_bIsColorChange  = true;
+			setColorSuper();
+		}
+	}
+
+	//無敵モード終了
+	if(s_iTimeCount >= 5.0f){
+		m_enumCoilState = COIL_STATE_MOVE;
+		s_iTimeCount = 0.0f;
+		switch(getMagnetPole()){
+			case POLE_S:
+				setColorS();
+				break;
+			case POLE_N:
+				setColorN();
+				break;
+		}
+	}
+};
+
+/////////////////// ////////////////////
+//// 関数名     ：void PlayerCoil::Update_StateDead()
+//// カテゴリ   ：
+//// 用途       ：STATE_DEAD時の動き
 //// 引数       ：
 //// 戻値       ：なし
 //// 担当       ：本多寛之
 //// 備考       ：
 ////            ：
 ////
-void PlayerCoil::Update_StateSuper(){
-	Update_StateMove();	
-	switch(getMagnetPole()){
-		case POLE_S:
-			setColorSuper();
-			break;
-		case POLE_N:
-			setColorSuper();
-			break;
-	}
-};
+void PlayerCoil::Update_StateDead(){
+	m_enumCoilState = COIL_STATE_START;
+	m_vPos = m_vStartPos;
+	m_pCamera->setPosY(m_vStartPos.y);
+	m_pPlayer->CoilWasFired(false);
+}
 
 /////////////////// ////////////////////
 //// 用途       ：virtual void Draw( DrawPacket& i_DrawPacket )

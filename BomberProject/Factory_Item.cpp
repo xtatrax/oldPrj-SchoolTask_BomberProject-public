@@ -429,7 +429,7 @@ Factory_Item::Factory_Item(FactoryPacket* fpac){
         D3DCOLORVALUE BallAmbient = {0.0f,0.7f,0.7f,1.0f};
 		Item*	it	=	new	Item(fpac,NULL,OBJID_UNK);
 		for(int i = 0; i < 7; i++){
-			for(int j = 0; j < 7; j++){
+			for(int j = 0; j < 50; j++){
 				it->addItem(D3DXVECTOR3((float(i)*5.0f+float(rand()%100*0.05f))+1.5f,
 										(float(j)*2.75f+float(rand()%100*0.05f))+1.5f,0.0f),
 							D3DXVECTOR3(0.5f,0.5f,0.5f),

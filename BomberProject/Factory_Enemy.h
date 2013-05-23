@@ -34,7 +34,8 @@ namespace wiz{
 			D3DXMATRIX   m_Matrix;
 			D3DXVECTOR3  m_vScale ;
 			D3DXVECTOR3  m_vPos ;
-			D3DXQUATERNION m_vRot;
+			D3DXQUATERNION	m_vRot;
+			bool			m_bPole;
 			virtual ~EnemyItem(){}
 		};
 		

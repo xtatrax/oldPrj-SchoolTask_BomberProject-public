@@ -22,7 +22,6 @@ extern class PlayerCoil ;
 
 const int DRAWING_RANGE = 20;
 
-
 /**************************************************************************
  WallObject 定義部
 ****************************************************************************/
@@ -34,8 +33,12 @@ const int DRAWING_RANGE = 20;
 // 用途    : 壁
 //**************************************************************************//
 class WallObject : public PrimitiveBox{
+	int			m_Ptn;
 	PlayerCoil* m_pPlayerCoil ;
 	Camera*	    m_pCamera;
+	LPDIRECT3DTEXTURE9 m_pWallTex;
+	LPDIRECT3DTEXTURE9 m_pPolyTex;
+
 	struct WallItem{
 		D3DMATERIAL9   m_Material;
 		D3DXMATRIX	   m_Matrix;
@@ -52,10 +55,21 @@ class WallObject : public PrimitiveBox{
 #endif
 		{}
 	};
+
+	struct PolyItem{
+		D3DMATERIAL9   m_Material;
+		D3DXMATRIX	   m_Matrix;
+		D3DXVECTOR3    m_vScale ;
+		D3DXVECTOR3	   m_vPos ;
+		D3DXQUATERNION m_vRot;
+		virtual ~PolyItem(){}
+	};
+
 	//map<オブジェクトのポジション,WallItem>
 	multimap<float,WallItem*> m_ItemMap_All;	//全てのWallItem
 	multimap<float,WallItem*> m_ItemMap_Target; //描画対象のWallItem
 	//std::find
+	multimap<float,PolyItem*> m_ItemMap_Poly;	//全てのPolyItem
 protected:
 
 /////////////////// ////////////////////
@@ -81,6 +95,7 @@ public:
 	//// 備考       ：
 	WallObject(	LPDIRECT3DDEVICE9 pD3DDevice,
 				LPDIRECT3DTEXTURE9 pTexture,
+				LPDIRECT3DTEXTURE9 pTexture2,
 				wiz::OBJID id = OBJID_3D_WALL
 				);
 

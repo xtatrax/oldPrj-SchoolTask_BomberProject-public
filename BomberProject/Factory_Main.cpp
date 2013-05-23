@@ -67,7 +67,7 @@ Factory_Main::Factory_Main(FactoryPacket* fpac){
 		Factory_Player Pfac( fpac );
 		//Factory_Wall   Wfac( fpac );
 		Factory_Magnetic Mfac( fpac ) ;
-		Factory_Enemy Efac( fpac ) ;
+		//Factory_Enemy Efac( fpac ) ;
 		Factory_CheckPoint CPfac( fpac ) ;
 		Factory_Item   Ifac( fpac ) ;
 

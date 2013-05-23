@@ -121,10 +121,11 @@ Factory_Title::Factory_Title(FactoryPacket* fpac){
 		fpac->m_pVec->push_back(
 			new SpriteObject(
 				fpac->pD3DDevice,
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"title.png" ),
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, /*L"Lightning.tga"*/L"title.png" ),
 				g_vOne,
 				g_vZero,
 				D3DXVECTOR3( 240.0f, 100.0f, 0.0f ),
+				//D3DXVECTOR3( 0.0f, 0.0f, 0.0f ),
 				NULL,
 				g_vZero,
 				g_vZero,
