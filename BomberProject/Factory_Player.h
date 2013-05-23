@@ -142,6 +142,9 @@ public:
 	void	setPole( bool pole ){
 		m_Pole	= pole;
 	}
+	bool	getPole(){
+		return	m_Pole;
+	}
 };
 
 //**************************************************************************//
