@@ -611,6 +611,7 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 			case COIL_STATE_STOP:
 				break;
 			case COIL_STATE_STICK:
+				Update_StateStick();
 				break;
 			case COIL_STATE_SUPER:
 				Update_StateSuper( i_UpdatePacket );
@@ -738,6 +739,40 @@ void PlayerCoil::Update_StateMove(){
 		m_vPos.x = 39.0f;		
 	}
 };
+
+/////////////////// ////////////////////
+//// 関数名     ：void Update_StateStick()
+//// カテゴリ   ：
+//// 用途       ：STATE_STICK時の動き
+//// 引数       ：
+//// 戻値       ：なし
+//// 担当       ：本多寛之
+//// 備考       ：
+////            ：
+////
+void PlayerCoil::Update_StateStick(){
+	D3DXVECTOR3 vPlayer = g_vZero;
+	float		fTargetDir = NULL;
+	m_fMoveDir += 5.0f;
+	if(m_fMoveDir > 360.0f)m_fMoveDir = float(int(m_fMoveDir) % 360);
+
+	//S青右N赤左
+	switch(getMagnetPole()){
+		case POLE_S:
+			if(!g_bMouseLB){
+				setPoleN();
+				m_enumCoilState = COIL_STATE_MOVE;
+			}
+			break;
+		case POLE_N:
+			if(!g_bMouseRB){
+				setPoleS();
+				m_enumCoilState = COIL_STATE_MOVE;
+			}
+			break;
+	}
+};
+
 
 /////////////////// ////////////////////
 //// 関数名     ：PlayerCoil::Update_StateSuper()
@@ -948,6 +983,11 @@ bool PlayerCoil::CheckDistance( D3DXVECTOR3& i_vMagneticFieldPos, D3DXVECTOR3& i
 	float Lng  = (float)TwoPointToBassLength( i_vMagneticFieldPos, i_vCoilPos ) ;
 	if( Lng <= i_iBorder ){
 		float fBorderLv = i_iBorder/3;
+		if(Lng <= fBorderLv/30 && getMagnetPole() != m_pPlayer->getMagnetPole()){
+			m_vPos = m_pPlayer->getPos();
+			m_enumCoilState = COIL_STATE_STICK;
+			return false;
+		}
 		if(Lng <= fBorderLv){
 			m_fTurnAngle = PLAYER_TURN_ANGLE_Lv3;
 		}

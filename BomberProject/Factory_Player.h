@@ -22,7 +22,7 @@ const float PLAYER_SPEED				= 0.08f;
 const float PLAYER_BASSROT				= 90.0f;
 const float PLAYER_TURN_ANGLE_Lv1		= 1.0f;
 const float PLAYER_TURN_ANGLE_Lv2		= 2.0f;
-const float PLAYER_TURN_ANGLE_Lv3		= 3.0f;
+const float PLAYER_TURN_ANGLE_Lv3		= 2.5f;
 const float COIL_SUPER_MODE_TIME		= 5.0f;
 
 enum COIL_STATE{			//自機の状態
@@ -275,6 +275,18 @@ public:
 	////            ：
 	////
 	void Update_StateMove();
+
+	/////////////////// ////////////////////
+	//// 関数名     ：void Update_StateStick()
+	//// カテゴリ   ：
+	//// 用途       ：STATE_STICK時の動き
+	//// 引数       ：
+	//// 戻値       ：なし
+	//// 担当       ：本多寛之
+	//// 備考       ：
+	////            ：
+	////
+	void Update_StateStick();
 
 	/////////////////// ////////////////////
 	//// 関数名     ：void Update_StateSuper()
