@@ -71,6 +71,7 @@ class ProvisionalPlayer3D : public MagneticumObject3D{
 	bool			m_bLastMouseRB;
 	bool			m_bLastMouseLB;
 	bool			m_bCoilWasFired;
+	bool			m_bDrawing;
 public:
 	//	: 
 	ProvisionalPlayer3D( FactoryPacket* fpac, LPDIRECT3DTEXTURE9 pTexture,
@@ -120,6 +121,19 @@ public:
 	////            ：
 	void CoilWasFired(bool i_bFlg){
 		m_bCoilWasFired = i_bFlg;
+	}
+
+	/****************************************
+	関数名　：bool	getDrawing()
+	カテゴリ：関数
+	用途　　：描画フラグの取得
+	引数　　：なし
+	戻り値　：描画しているかのフラグ
+	担当　　：佐藤涼
+	備考　　：
+	****************************************/
+	bool	getDrawing(){
+		return	m_bDrawing;
 	}
 };
 
