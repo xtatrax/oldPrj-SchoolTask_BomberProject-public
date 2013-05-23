@@ -46,6 +46,20 @@ WallObject::WallObject( LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTextur
 	m_pCamera = NULL;	
 }
 
+/////////////////// ////////////////////
+//// 用途       ：WallObject(	LPDIRECT3DDEVICE9 pD3DDevice,LPDIRECT3DTEXTURE9 pTexture,wiz::OBJID id = OBJID_3D_WALL);
+//// カテゴリ   ：コンストラクタ
+//// 用途       ：関数
+//// 引数       ：なし
+//// 戻値       ：なし
+//// 担当者     ：鴫原 徹
+//// 備考       ：
+void WallObject::UpdateTargetItem(){
+	
+	
+}
+
+	
 bool WallObject::HitTest2DRectAndCircle(D3DXVECTOR3& i_vPos, float i_fRadius)
 {
 	//float fTH = 150 ;
