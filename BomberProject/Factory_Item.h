@@ -16,10 +16,13 @@
 #include "StdAfx.h"
 #include "Object.h"
 #include "BassItems.h"
+#include "Factory_Player.h"
 
 const	float	VanishArea	= 1.0f;		//	: アイテムを消すエリア
 const	float	SuctionArea	= 5.0f;		//	: アイテムが吸いよる範囲
 const	float	SpeedRate	= 0.05f;	//	: アイテムの速さ調整倍率
+const	int		GAGE_MAX	= 254;
+const	int		RECOVERY_POINT	= 5;
 
 namespace wiz{
 
@@ -76,9 +79,13 @@ public:
 		wiz::OBJID id	=OBJID_UNK		//	: ID
 	);
 
-	void	Recovery();	//	: エネルギーの回復
-	void	Consume();	//	: エネルギーの消費
+	void	Recovery( int i_iValue );	//	: エネルギーの回復
+	void	Consume( int i_iValue );	//	: エネルギーの消費
     void	Draw(DrawPacket& i_DrawPacket) ;
+	
+	RECT getRect2()const{
+		return m_Rect2;
+	}
 };
 
 /************************************************

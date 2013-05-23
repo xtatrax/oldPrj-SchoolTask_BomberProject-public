@@ -266,7 +266,15 @@ void WallObject::Update( UpdatePacket& i_UpdatePacket ){
 		//}
 
 		if( m_pPlayerCoil && m_pPlayerCoil->HitTestWall( it2->second->m_Obb, 0 ) ){
-			m_pPlayerCoil->setState(COIL_STATE_DEAD);
+			switch(m_pPlayerCoil->getState()){
+				case COIL_STATE_MOVE:
+					m_pPlayerCoil->setState(COIL_STATE_DEAD);
+					break;
+				case COIL_STATE_SUPER:
+					break;
+				default:
+					break;
+			}
 		}
 
 
