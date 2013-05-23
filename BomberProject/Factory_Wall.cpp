@@ -204,8 +204,8 @@ void WallObject::Update( UpdatePacket& i_UpdatePacket ){
 		//	m_pPlayerCoil->HitTestWall( obb, 0 ) ;
 		//}
 
-		if( m_pPlayerCoil ){
-			m_pPlayerCoil->HitTestWall( it2->second->m_Obb, 0 ) ;
+		if( m_pPlayerCoil && m_pPlayerCoil->HitTestWall( it2->second->m_Obb, 0 ) ){
+			m_pPlayerCoil->setState(COIL_STATE_DEAD);
 		}
 
 		DrawOBB::Add( i_UpdatePacket.pD3DDevice, *i_UpdatePacket.pVec, it2->second->m_Obb, 0xFFFFFFFF ) ;

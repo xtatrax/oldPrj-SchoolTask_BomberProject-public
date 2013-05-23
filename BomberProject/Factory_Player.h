@@ -161,6 +161,8 @@ class PlayerCoil : public MagneticumObject3D{
 	float			m_fMovdSpeed ;//速度
 	D3DXVECTOR3		m_vStartPos;
 	float			m_fTurnAngle;
+	bool			m_bLastMouseRB;
+	bool			m_bLastMouseLB;
 
 	ProvisionalPlayer3D*	m_pPlayer;
 
@@ -231,7 +233,11 @@ public:
 	//// 関数名     ：void Update( UpdatePacket& i_UpdatePacket )
 	//// カテゴリ   ：
 	//// 用途       ：
-	//// 引数       ：
+	//// 引数       ：  DrawPacket& i_DrawPacket             // 画面描画時に必要なデータ群 ↓内容下記
+	////			  ：  ├ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 インターフェイスへのポインタ
+	////			  ：  ├ vector<Object*>&    Vec                     // オブジェクトの配列
+	////			  ：  ├ Tempus2*            i_DrawPacket.pTime	   // 時間を管理するクラスへのポインター
+	////              ：  └ Command             i_DrawPacket.pCommand   // コマンド
 	//// 戻値       ：なし
 	//// 担当       ：鴫原 徹
 	//// 備考       ：
@@ -267,13 +273,29 @@ public:
 	//// 関数名     ：void Update_StateSuper()
 	//// カテゴリ   ：
 	//// 用途       ：STATE_SUPER時の動き
+	//// 引数       ：  DrawPacket& i_DrawPacket             // 画面描画時に必要なデータ群 ↓内容下記
+	////			  ：  ├ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 インターフェイスへのポインタ
+	////			  ：  ├ vector<Object*>&    Vec                     // オブジェクトの配列
+	////			  ：  ├ Tempus2*            i_DrawPacket.pTime	   // 時間を管理するクラスへのポインター
+	////              ：  └ Command             i_DrawPacket.pCommand   // コマンド
+	//// 戻値       ：なし
+	//// 担当       ：本多寛之
+	//// 備考       ：
+	////            ：
+	////
+	void Update_StateSuper( UpdatePacket& i_UpdatePacket );
+
+	/////////////////// ////////////////////
+	//// 関数名     ：void Update_StateDead()
+	//// カテゴリ   ：
+	//// 用途       ：STATE_DEAD時の動き
 	//// 引数       ：
 	//// 戻値       ：なし
 	//// 担当       ：本多寛之
 	//// 備考       ：
 	////            ：
 	////
-	void Update_StateSuper();
+	void Update_StateDead();
 
 	/////////////////// ////////////////////
 	//// 用途       ：virtual void Draw( DrawPacket& i_DrawPacket )
@@ -346,6 +368,17 @@ public:
 	COIL_STATE getState() const { return m_enumCoilState;	}	;
 
 	/////////////////// ////////////////////
+	//// 関数名     ：void setState( COIL_STATE i_State )
+	//// カテゴリ   ：セッター
+	//// 用途       ：状態を変更
+	//// 引数       ：COIL_STATE i_State
+	//// 戻値       ：なし
+	//// 担当       ：本多寛之
+	//// 備考       ：
+	////            ：
+	void setState( COIL_STATE i_State ){ m_enumCoilState = i_State; }	;
+
+	/////////////////// ////////////////////
 	//// 関数名     ：void setStartPos(float i_fPosY)
 	//// カテゴリ   ：セッター
 	//// 用途       ：
@@ -354,8 +387,8 @@ public:
 	//// 担当       ：本多寛之
 	//// 備考       ：
 	////            ：
-	void setStartPos(float i_fPosY){
-		m_vStartPos = D3DXVECTOR3(15.0f,i_fPosY,0.0f);
+	void setStartPos(D3DXVECTOR3 i_vPos){
+		m_vStartPos = i_vPos;
 	}
 };
 
