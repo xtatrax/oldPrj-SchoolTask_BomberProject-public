@@ -239,7 +239,6 @@ void WallObject::Update( UpdatePacket& i_UpdatePacket ){
 
 	multimap<float,WallItem*>::iterator it2 = m_ItemMap_Target.begin();
 	while(it2 != m_ItemMap_Target.end()){
-		//åvéZÇÕUpdateÇ≈
 		//ägëÂèkè¨
 		D3DXMATRIX mScale;
 		D3DXMatrixIdentity(&mScale);
@@ -268,9 +267,9 @@ void WallObject::Update( UpdatePacket& i_UpdatePacket ){
 		if( m_pPlayerCoil && m_pPlayerCoil->HitTestWall( it2->second->m_Obb, 0 ) ){
 			switch(m_pPlayerCoil->getState()){
 				case COIL_STATE_MOVE:
-					m_pPlayerCoil->setState(COIL_STATE_DEAD);
-					break;
-				case COIL_STATE_SUPER:
+					if(!m_pPlayerCoil->getSuperMode()){
+						m_pPlayerCoil->setState(COIL_STATE_DEAD);
+					}
 					break;
 				default:
 					break;
@@ -284,7 +283,6 @@ void WallObject::Update( UpdatePacket& i_UpdatePacket ){
 
 	multimap<float,PolyItem*>::iterator it3 = m_ItemMap_Poly.begin();
 	while(it3 != m_ItemMap_Poly.end()){
-		//åvéZÇÕUpdateÇ≈
 		//ägëÂèkè¨
 		D3DXMATRIX mScale;
 		D3DXMatrixIdentity(&mScale);

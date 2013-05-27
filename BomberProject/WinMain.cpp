@@ -142,7 +142,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE
     HWND hWnd;
     // ウィンドウの作成
     if(isFullScreen) { // フルスクリーン
-		ShowCursor(false);
+		DEVMODE    devMode;
+		ShowCursor(DRAW_MOUSE);
         // 画面全体の幅と高さを取得
         iClientWidth = ::GetSystemMetrics(SM_CXSCREEN);
         iClientHeight = ::GetSystemMetrics(SM_CYSCREEN);
@@ -153,8 +154,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE
             WS_POPUP,           // ウインドウスタイル（ポップアップウインドウを作成）
             0,                  // ウインドウの横方向の位置
             0,                  // ウインドウの縦方向の位置
-            iClientWidth,       // フルスクリーンウインドウの幅
-            iClientHeight,      // フルスクリーンウインドウの高さ
+            BASE_CLIENT_WIDTH,       // フルスクリーンウインドウの幅
+            BASE_CLIENT_HEIGHT,      // フルスクリーンウインドウの高さ
             NULL,               // 親ウインドウのハンドル（なし）
             NULL,               // メニューや子ウインドウのハンドル
             hInstance,          // アプリケーションインスタンスのハンドル
@@ -165,6 +166,14 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE
             ::MessageBox(0,L"ウインドウ作成に失敗しました",L"エラー",MB_OK);
             return 1;   //エラー終了
         }
+		devMode.dmSize       = sizeof(DEVMODE);
+		devMode.dmFields     = DM_PELSWIDTH | DM_PELSHEIGHT;
+		devMode.dmPelsWidth  = BASE_CLIENT_WIDTH;
+		devMode.dmPelsHeight = BASE_CLIENT_HEIGHT;
+
+		ChangeDisplaySettings(&devMode, CDS_FULLSCREEN);
+
+
     }
     else {
 		ShowCursor(true);
