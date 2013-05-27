@@ -45,6 +45,7 @@ private:
 	RenderPacket			m_RenderPacket	;	// レンダースレッドの処理に流すデータ群
 	DrawPacket				m_DrawPacket	;	// ドロースレッドの処理に流すデータ群
 	Scene*					pScene			;	// 
+	static bool				m_bDestroy		;	//
 	static Rect				m_WindowRect	;	// ゲームの描画範囲の大きさを表す矩形
 	static D3DXVECTOR2		m_v2AspectRate	;		// 基準解像度と現在の解像度の比率
 	static HWND				m_hWnd				;	// メインウインドウのハンドル

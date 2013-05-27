@@ -176,7 +176,7 @@ DxDevice::DxDevice(HWND hWnd,bool isFullScreen,int Width,int Height)
 ***************************************************************************/
 DxDevice::~DxDevice(){
     //オブジェクトの破棄
-    Clear();
+    this->Clear();
 }
 /**************************************************************************
  LPDIRECT3DDEVICE9 DxDevice::getDevice();
@@ -232,11 +232,20 @@ int DxDevice::MainThreadRun(){
 	MSG msg;    //メッセージ構造体の宣言定義
 	//	: メインスレッドループ
 	while(true){
-        if(::PeekMessage(&msg,NULL,0,0,PM_REMOVE)){
+		if(::PeekMessage(&msg,NULL,0,0,PM_REMOVE)){
             switch(msg.message){ 
-				case WM_QUIT:// PostQuitMessage()が呼ばれた
-	 				End();
+
+				case WM_DESTROY:
+	 				this->End();
+					if( m_hUpdateThread ){
+						DWORD thrInfo;
+						::GetExitCodeThread( m_hUpdateThread, &thrInfo);
+						do{
+							CloseHandle(m_hUpdateThread);
+						}while ( thrInfo != STILL_ACTIVE );
+					}
 					break;
+
 				case WM_DROPFILES: // ファイルがドロップされた
 					TCHAR szDropFile[MAX_PATH + 1];
 					DragQueryFile((HDROP)msg.wParam,0,szDropFile,MAX_PATH);
@@ -318,16 +327,36 @@ int DxDevice::UpdateThreadRun(){
 
 		if(::PeekMessage(&msg,NULL,0,0,PM_REMOVE)){
             switch(msg.message){ 
-				case WM_QUIT:// PostQuitMessage()が呼ばれた
-	 				End();
+				//	: キーボード
+				//case WM_KEYDOWN:                // キーが押された
+				//	if (wParam == VK_ESCAPE) {  // 押されたのはESCキーだ
+				//		::DestroyWindow(hWnd);  // ウインドウを破棄するよう要求する
+				//	}
+				//	break;
+				//	: マウスLボタン押し
+				case WM_LBUTTONDOWN :
+					g_bMouseLB = true;
+					break ; 
+				//	: マウスLボタン離し
+				case WM_LBUTTONUP:
+					g_bMouseLB = false;
 					break;
-				case WM_DROPFILES: // ファイルがドロップされた
-					TCHAR szDropFile[MAX_PATH + 1];
-					DragQueryFile((HDROP)msg.wParam,0,szDropFile,MAX_PATH);
+				//	: マウスRボタン押し
+				case WM_RBUTTONDOWN :
+					g_bMouseRB = true;
+					break ;
+				//	: マウスRボタン離し
+				case WM_RBUTTONUP:
+					g_bMouseRB = false;
+					break;
 
-					// 構造体のハンドルで使ったメモリを解放する
-					DragFinish((HDROP)msg.wParam);
+				/////////
+				//	: 破棄要求
+				case WM_DESTROY:
+					this->End();
+					SuspendThread(m_hUpdateThread);
 					break;
+				//	:  削除
 				default:
 	                // メッセージの翻訳とディスパッチ
 					::TranslateMessage(&msg);
@@ -436,6 +465,11 @@ void DxDevice::RenderScene()
 
 		// 描画結果の転送
 		if(FAILED(m_pD3DDevice->Present( 0, 0, 0, 0 ))) {
+			try{
+			//***********************************************************************************//
+			//***********************************************************************************//
+			//***********************************************************************************//
+			//***********************************************************************************//
 			// デバイス消失から復帰
 			if(m_pD3DDevice->Reset(&m_D3DPP)!= D3D_OK){
 				//デバイスの復帰に失敗したらスロー
@@ -444,14 +478,35 @@ void DxDevice::RenderScene()
 					L"DxDevice::RenderScene()"
 					);
 			}
+			//***********************************************************************************//
+			//***********************************************************************************//
+			//***********************************************************************************//
+			//***********************************************************************************//
+
+			}catch(exception& e){
+				
+				throw e;
+			}
+			catch(...){
+				throw;
+			}
 		}
+
+#ifndef CF_SINGLETHREAD 
 		if(pScene->getUpdateThreadResumeRequest()){
 			ResumeThread(m_hUpdateThread);
 			pScene->setUpdateThreadResume();
 		}
+#endif
 		//タイミングをあわせる
 		//::Sleep(10);
     }
+	catch(exception& e){
+		
+        Clear();
+        //再スロー
+        throw e;
+	}
     catch(...){
         //破棄処理
         Clear();

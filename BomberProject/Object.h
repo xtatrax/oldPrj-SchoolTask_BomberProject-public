@@ -39,48 +39,56 @@ class Object{
 		virtual ~Object(){}
 /////////////////// ////////////////////
 //// 関数名     ：void getID()
-//// カテゴリ   ：セッター
-//// 用途       ：死亡フラグを設定
+//// カテゴリ   ：ゲッター
+//// 用途       ：この物体のIDを獲得します
 //// 引数       ：なし
-//// 戻値       ：なし
+//// 戻値       ： OBJID番号(DWORD)
 //// 担当者     ：鴫原 徹
 //// 備考       ：
 ////            ：
 ////
 	DWORD getID() const { return m_dwID ; }
+
+
 /////////////////// ////////////////////
 //// 関数名     ：void setDead()
 //// カテゴリ   ：セッター
-//// 用途       ：死亡フラグを設定
+//// 用途       ：死亡フラグをセットする
 //// 引数       ：なし
 //// 戻値       ：なし
 //// 担当者     ：鴫原 徹
-//// 備考       ：
+//// 備考       ：この関数を呼ぶとメモリから削除されます
 ////            ：
 ////
 	void setDead(){	m_bDead = true ; }
+
+
 /////////////////// ////////////////////
 //// 関数名     ：bool getDead()
 //// カテゴリ   ：ゲッター
-//// 用途       ：DEAD OR ALIVE
+//// 用途       ：削除予約の状態を獲得する
 //// 引数       ：なし
 //// 戻値       ：なし
 //// 担当者     ：鴫原 徹
-//// 備考       ：
-////            ：
+//// 備考       ：削除予定の場合 true
+////            ：そうでない場合 false
 ////
 	bool getDead() const { return m_bDead; }
+
+
 ///////////////////// ////////////////////
 //// 関数名     ：D3DXVECTOR3 getPos() const { return g_vZero; }
 //// カテゴリ   ：ゲッター
-//// 用途       ：DEAD OR ALIVE
+//// 用途       ：仮想関数
 //// 引数       ：なし
-//// 戻値       ：なし
+//// 戻値       ：座標
 //// 担当者     ：鴫原 徹
-//// 備考       ：
+//// 備考       ：派生先で必要ならば書く
 ////            ：
 ////
-	D3DXVECTOR3 getPos() const { return g_vZero; }
+	virtual D3DXVECTOR3 getPos() const { return g_vZero; }
+
+
 /////////////////// ////////////////////
 //// 関数名     ：void AccessBegin()
 //// カテゴリ   ：メンバ関数
@@ -91,7 +99,9 @@ class Object{
 //// 備考       ：マルチスレッドを利用する際に複数のスレッドが同時にデータを書き換えるのを防ぐ
 ////            ：下記の関数 ( void AccessEnd() ) とセット
 ////
-	void AccessBegin(){	while(m_bAccessLock){ Sleep(1); } m_bAccessLock = true; };
+	void AccessBegin(){	while(m_bAccessLock){ Sleep(1); } m_bAccessLock = true; }
+
+
 /////////////////// ////////////////////
 //// 関数名     ：void AccessEnd()
 //// カテゴリ   ：メンバ関数
@@ -103,6 +113,8 @@ class Object{
 ////            ：上記の関数 ( void AccessBegin() ) とセット
 ////
 	void AccessEnd(){ m_bAccessLock = false; }
+
+
 /////////////////// ////////////////////
 //// 関数名     ：virtual bool HitTest(D3DXVECTOR3 Pos)
 //// カテゴリ   ：仮想関数
@@ -114,6 +126,8 @@ class Object{
 ////            ：  
 ////
     virtual bool HitTest(D3DXVECTOR3 Pos){ return false; }
+
+
 /////////////////// ////////////////////
 //// 用途       ：virtual bool HitTest(Object* other)
 //// カテゴリ   ：仮想関数
@@ -125,6 +139,8 @@ class Object{
 ////            ：
 ////
     virtual bool HitTest(Object* other){ return false; }
+
+
 /**************************************************************************
 	virtual void ChangeDevice(
     LPDIRECT3DDEVICE9 pD3DDevice    //IDirect3DDevice9 インターフェイスへのポインタ
