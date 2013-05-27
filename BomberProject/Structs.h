@@ -45,7 +45,7 @@ struct MapPartsStatus{
 	D3DCOLORVALUE   Diffuse   ;
 	D3DCOLORVALUE   Specular  ;
 	D3DCOLORVALUE   Ambient   ;
-	bool			bPool     ;
+	POLE			bPool     ;
 
 	//	: ƒIƒvƒVƒ‡ƒ“
 	wstring			sTexturePath	;

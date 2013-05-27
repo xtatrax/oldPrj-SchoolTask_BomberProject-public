@@ -23,14 +23,14 @@ const float PLAYER_BASSROT				= 90.0f;
 const float PLAYER_TURN_ANGLE_Lv1		= 1.0f;
 const float PLAYER_TURN_ANGLE_Lv2		= 2.0f;
 const float PLAYER_TURN_ANGLE_Lv3		= 2.5f;
-const float COIL_SUPER_MODE_TIME		= 5.0f;
+const float COIL_SUPER_MODE_TIME		= 8.0f;
 
 enum COIL_STATE{			//自機の状態
 	COIL_STATE_START,		//スタート
 	COIL_STATE_MOVE,		//移動
 	COIL_STATE_STOP,		//停止
 	COIL_STATE_STICK,		//吸着
-	COIL_STATE_SUPER,		//無敵
+	//COIL_STATE_SUPER,		//無敵
 	COIL_STATE_DEAD			//死亡
 };
 
@@ -44,15 +44,15 @@ namespace wiz{
 // 担当者  : 鴫原 徹
 // 用途    : 仮のユーザー設置磁界
 //**************************************************************************//
-class ProvisionalPlayer : public MagneticumObject{
-public:
-	//	: 
-	ProvisionalPlayer( LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTexture,
-		D3DXVECTOR3 &vScale, D3DXVECTOR3 &vRot, D3DXVECTOR3 &vPos, RECT* pRect,
-		Color color = 0xFFFFFFFF, wiz::OBJID id = OBJID_3D_MAGNET );
-	//	: 
-	void Update( UpdatePacket& i_UpdatePacket );
-};
+//class ProvisionalPlayer : public MagneticumObject{
+//public:
+//	//	: 
+//	ProvisionalPlayer( LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTexture,
+//		D3DXVECTOR3 &vScale, D3DXVECTOR3 &vRot, D3DXVECTOR3 &vPos, RECT* pRect,
+//		Color color = 0xFFFFFFFF, wiz::OBJID id = OBJID_3D_MAGNET );
+//	//	: 
+//	void Update( UpdatePacket& i_UpdatePacket );
+//};
 
 // 3D用
 //**************************************************************************//
@@ -72,9 +72,21 @@ class ProvisionalPlayer3D : public MagneticumObject3D{
 	bool			m_bLastMouseLB;
 	bool			m_bCoilWasFired;
 	bool			m_bDrawing;
+
+	struct PolyItem{
+		LPDIRECT3DTEXTURE9 m_pTexture;
+		D3DMATERIAL9   m_Material;
+		D3DXMATRIX	   m_Matrix;
+		D3DXVECTOR3    m_vScale ;
+		D3DXVECTOR3	   m_vPos ;
+		D3DXQUATERNION m_vRot;
+		virtual ~PolyItem(){}
+	};
+	PolyItem				m_Item_Poly;
+
 public:
 	//	: 
-	ProvisionalPlayer3D( FactoryPacket* fpac, LPDIRECT3DTEXTURE9 pTexture,
+	ProvisionalPlayer3D( FactoryPacket* fpac, LPDIRECT3DTEXTURE9 pTexture, LPDIRECT3DTEXTURE9 pTexture2,
 		D3DXVECTOR3 &vScale, D3DXQUATERNION &vRot, D3DXVECTOR3 &vPos,
 		wiz::OBJID id = OBJID_3D_PLAYER );
 	//	:
@@ -144,7 +156,7 @@ class MagneticField : public Cylinder
 用途	: 磁界の範囲
 ************************************************************************/
 class	MagneticField : public Cylinder{
-	bool	m_Pole;	//磁界の極：t=S極, f=N極
+	POLE	m_Pole;	//磁界の極：t=S極, f=N極
 	bool		m_bEffect;
 	D3DXVECTOR3	m_vNormalSize;
 	D3DXMATRIX	m_mMatrix;
@@ -154,10 +166,10 @@ public:
     void	Draw(DrawPacket& i_DrawPacket) ;
 	void	Update(UpdatePacket& i_UpdatePacket);
 
-	void	setPole( bool pole ){
+	void	setPole( POLE pole ){
 		m_Pole	= pole;
 	}
-	bool	getPole(){
+	POLE	getPole(){
 		return	m_Pole;
 	}
 };
@@ -204,7 +216,9 @@ class PlayerCoil : public MagneticumObject3D{
 	bool			m_bLastMouseRB;
 	bool			m_bLastMouseLB;
 
-	StartField*		m_pStartField;
+	bool			m_bIsSuperMode;//無敵状態のフラグ (無敵状態は他の状態と重なるのでCOIL_STATEに入れない)
+
+	StartField*				m_pStartField;
 	
 	ProvisionalPlayer3D*	m_pPlayer;
 
@@ -212,7 +226,7 @@ class PlayerCoil : public MagneticumObject3D{
 
 	Camera*					m_pCamera;
 	
-	COIL_STATE		m_enumCoilState;
+	COIL_STATE				m_enumCoilState;
 
 public:
 	/////////////////// ////////////////////
@@ -324,7 +338,7 @@ public:
 	void Update_StateStick();
 
 	/////////////////// ////////////////////
-	//// 関数名     ：void Update_StateSuper()
+	//// 関数名     ：void SuperMode()
 	//// カテゴリ   ：
 	//// 用途       ：STATE_SUPER時の動き
 	//// 引数       ：  DrawPacket& i_DrawPacket             // 画面描画時に必要なデータ群 ↓内容下記
@@ -337,7 +351,7 @@ public:
 	//// 備考       ：
 	////            ：
 	////
-	void Update_StateSuper( UpdatePacket& i_UpdatePacket );
+	void SuperMode( UpdatePacket& i_UpdatePacket );
 
 	/////////////////// ////////////////////
 	//// 関数名     ：void Update_StateDead()
@@ -374,19 +388,20 @@ public:
 	//// 担当       ：本多寛之
 	//// 備考       ：
 	////　　　　　　：
-	float MagneticDecision( float i_fCoilDir, D3DXVECTOR3& i_vMagnetPos, bool i_bMagnetPole_Field ) const;
+	float MagneticDecision( float i_fCoilDir, D3DXVECTOR3& i_vMagnetPos, POLE i_bMagnetPole_Field ) const;
 
 	/////////////////// ////////////////////
-	//// 用途       ：bool CheckDistance( D3DXVECTOR3& i_vMagneticFieldPos, D3DXVECTOR3& i_vCoilPos ) const
+	//// 用途       ：bool CheckDistance( D3DXVECTOR3& i_vMagneticFieldPos, D3DXVECTOR3& i_vCoilPos, float i_iBorder, bool IsPlayer )
 	//// カテゴリ   ：関数
 	//// 用途       ：距離を判定
 	//// 引数       ：D3DXVECTOR3& i_vMagneticFieldPos //磁界の位置 
 	////　　　　　　：D3DXVECTOR3& i_vCoilPos          //コイルの位置
 	////　　　　　　：float        i_iBorder           //判定する値
+	////　　　　　　：bool　　　　IsPlayer　　　　　//相手がプレイヤーかどうか
 	//// 戻値       ：true , false
 	//// 担当者     ：本多寛之
 	//// 備考       ：
-	bool CheckDistance( D3DXVECTOR3& i_vMagneticFieldPos, D3DXVECTOR3& i_vCoilPos, float i_iBorder );
+	bool CheckDistance( D3DXVECTOR3& i_vMagneticFieldPos, D3DXVECTOR3& i_vCoilPos, float i_iBorder, bool IsPlayer );
 
 	/////////////////// ////////////////////
 	//// 関数名     ：D3DXVECTOR3 getPos() const
@@ -444,6 +459,33 @@ public:
 	void setStartPos(D3DXVECTOR3 i_vPos){
 		m_vStartPos = i_vPos;
 	}
+
+	/////////////////// ////////////////////
+	//// 関数名     ：void getSuperMode()
+	//// カテゴリ   ：ゲッター
+	//// 用途       ：無敵状態を獲得
+	//// 引数       ：なし
+	//// 戻値       ：なし
+	//// 担当       ：本多寛之
+	//// 備考       ：
+	////            ：
+	bool getSuperMode() const{
+		return m_bIsSuperMode;
+	}
+
+	/////////////////// ////////////////////
+	//// 関数名     ：void setStartPos(float i_fPosY)
+	//// カテゴリ   ：セッター
+	//// 用途       ：
+	//// 引数       ：なし
+	//// 戻値       ：なし
+	//// 担当       ：本多寛之
+	//// 備考       ：
+	////            ：
+	void setSuperMode(bool i_vFlg){
+		m_bIsSuperMode = i_vFlg;
+	}
+
 };
 
 /**************************************************************************
