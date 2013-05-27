@@ -30,7 +30,7 @@
 	
 	#define ___MLP_DEBUG_TIMEDRAW_ 
 	//#define ON_GUIDELINE
-	//#define CF_FULLSCREEN				/* フルスクリーンモード       */
+	#define CF_FULLSCREEN				/* フルスクリーンモード       */
 
 #else
 	#define CF_FULLSCREEN				/* フルスクリーンモード       */

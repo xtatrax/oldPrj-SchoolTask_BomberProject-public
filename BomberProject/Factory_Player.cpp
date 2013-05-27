@@ -221,6 +221,12 @@ void ProvisionalPlayer3D::Update( UpdatePacket& i_UpdatePacket ){
 		m_Camera = (Camera*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_SYS_CAMERA);
 		m_Camera && (m_MovePosY	= m_Camera->getPosY());
 	}
+				RECT rc;
+				::GetClientRect(g_hWnd, &rc);
+
+				Debugger::DBGSTR::addStr( L" WindowRECT :      TOP( %d ) \n", rc.top );
+				Debugger::DBGSTR::addStr( L"            : RIGHT( %d ) LEFT( %d ) \n", rc.right, rc.left );
+				Debugger::DBGSTR::addStr( L"            :     BOTTOM( %d ) \n", rc.bottom );
 	if( m_bCoilWasFired ){
 		if( g_bMouseLB || g_bMouseRB ){ 
 			if( !m_bLastMouseLB && !m_bLastMouseRB ){
@@ -229,7 +235,8 @@ void ProvisionalPlayer3D::Update( UpdatePacket& i_UpdatePacket ){
 				Point MousePos ;
 				GetCursorPos( &MousePos ) ;
 				ScreenToClient( g_hWnd , &MousePos) ;
-				
+
+
 				m_vPos.x = (float)MousePos.x / DRAW_CLIENT_MAGNIFICATION - MAGNETIC_RADIUS ;
 				m_vPos.y = (( STANDARD_WINDOW_HEIGHT - MousePos.y ) - UI_HEIGHT ) / DRAW_CLIENT_MAGNIFICATION - MAGNETIC_RADIUS + ( m_Camera->getPosY() - m_MovePosY ) ;
 
