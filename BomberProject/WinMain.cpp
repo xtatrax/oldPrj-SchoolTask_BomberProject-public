@@ -148,8 +148,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE
 		DEVMODE    devMode;
 		ShowCursor(DRAW_MOUSE);
         // 画面全体の幅と高さを取得
-        iClientWidth = ::GetSystemMetrics(SM_CXSCREEN);
-        iClientHeight = ::GetSystemMetrics(SM_CYSCREEN);
+        //iClientWidth = ::GetSystemMetrics(SM_CXSCREEN);
+        //iClientHeight = ::GetSystemMetrics(SM_CYSCREEN);
         hWnd = ::CreateWindowEx( 
             WS_EX_ACCEPTFILES,  //オプションのウィンドウスタイル
             pClassName,         // 登録されているクラス名
@@ -169,12 +169,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE
             ::MessageBox(0,L"ウインドウ作成に失敗しました",L"エラー",MB_OK);
             return 1;   //エラー終了
         }
-		devMode.dmSize       = sizeof(DEVMODE);
-		devMode.dmFields     = DM_PELSWIDTH | DM_PELSHEIGHT;
-		devMode.dmPelsWidth  = (DWORD)BASE_CLIENT_WIDTH;
-		devMode.dmPelsHeight = (DWORD)BASE_CLIENT_HEIGHT;
+		//devMode.dmSize       = sizeof(DEVMODE);
+		//devMode.dmFields     = DM_PELSWIDTH | DM_PELSHEIGHT;
+		//devMode.dmPelsWidth  = (DWORD)BASE_CLIENT_WIDTH;
+		//devMode.dmPelsHeight = (DWORD)BASE_CLIENT_HEIGHT;
 
-		ChangeDisplaySettings(&devMode, CDS_FULLSCREEN);
+		//ChangeDisplaySettings(&devMode, CDS_FULLSCREEN);
 
 
     }
