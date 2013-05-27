@@ -299,7 +299,7 @@ Factory_Sound::Factory_Sound(FactoryPacket* fpac){
 			new OneSound(
 				L"media/Sound/MagneticaWave.xwb",
 				L"media/Sound/MagneticaSound.xsb",
-				"bgm001",
+				"BGM-TITLE",
 				OBJID_SOUND_BGM_TITLE
 			)
 		);
@@ -307,10 +307,131 @@ Factory_Sound::Factory_Sound(FactoryPacket* fpac){
 			new OneSound(
 				L"media/Sound/MagneticaWave.xwb",
 				L"media/Sound/MagneticaSound.xsb",
-				"bgm002",
+				"BGM-PLAY001",
 				OBJID_SOUND_BGM_PLAY
 			)
 		);
+				fpac->m_pVec->push_back(
+			new OneSound(
+				L"media/Sound/MagneticaWave.xwb",
+				L"media/Sound/MagneticaSound.xsb",
+				"BGM-CLEAR",
+				OBJID_SOUND_BGM_CLEAR
+			)
+		);
+		
+				fpac->m_pVec->push_back(
+			new OneSound(
+				L"media/Sound/MagneticaWave.xwb",
+				L"media/Sound/MagneticaSound.xsb",
+				"BGM-GAME_OVER",
+				OBJID_SOUND_BGM_GAME_OVER
+			)
+		);
+		
+				fpac->m_pVec->push_back(
+			new OneSound(
+				L"media/Sound/MagneticaWave.xwb",
+				L"media/Sound/MagneticaSound.xsb",
+				"SE-ALERT002",
+				OBJID_SOUND_SE_ALERT
+			)
+		);
+		
+				fpac->m_pVec->push_back(
+			new OneSound(
+				L"media/Sound/MagneticaWave.xwb",
+				L"media/Sound/MagneticaSound.xsb",
+				"SE-BLOKEN_ENEMY",
+				OBJID_SOUND_SE_BLOKEN_ENEMY
+			)
+		);
+		
+				fpac->m_pVec->push_back(
+			new OneSound(
+				L"media/Sound/MagneticaWave.xwb",
+				L"media/Sound/MagneticaSound.xsb",
+				"SE-BLOKEN_ENEMY",
+				OBJID_SOUND_SE_BLOKEN_ENEMY
+			)
+		);
+		
+				fpac->m_pVec->push_back(
+			new OneSound(
+				L"media/Sound/MagneticaWave.xwb",
+				L"media/Sound/MagneticaSound.xsb",
+				"SE-CHACK_POINT",
+				OBJID_SOUND_SE_CHACK_POINT
+			)
+		);
+		
+				fpac->m_pVec->push_back(
+			new OneSound(
+				L"media/Sound/MagneticaWave.xwb",
+				L"media/Sound/MagneticaSound.xsb",
+				"SE-CLEAR",
+				OBJID_SOUND_SE_CLEAR
+			)
+		);
+		
+				fpac->m_pVec->push_back(
+			new OneSound(
+				L"media/Sound/MagneticaWave.xwb",
+				L"media/Sound/MagneticaSound.xsb",
+				"SE-ENTER",
+				OBJID_SOUND_SE_ENTER
+			)
+		);
+		
+				fpac->m_pVec->push_back(
+			new OneSound(
+				L"media/Sound/MagneticaWave.xwb",
+				L"media/Sound/MagneticaSound.xsb",
+				"SE-CHACK_FIRE",
+				OBJID_SOUND_SE_FIRE
+			)
+		);
+		
+				fpac->m_pVec->push_back(
+			new OneSound(
+				L"media/Sound/MagneticaWave.xwb",
+				L"media/Sound/MagneticaSound.xsb",
+				"SE-GOAL",
+				OBJID_SOUND_SE_GOAL
+			)
+		);
+		
+				fpac->m_pVec->push_back(
+			new OneSound(
+				L"media/Sound/MagneticaWave.xwb",
+				L"media/Sound/MagneticaSound.xsb",
+				"SE-HIT_ENEMY",
+				OBJID_SOUND_SE_HIT_ENEMY
+			)
+		);
+		
+				fpac->m_pVec->push_back(
+			new OneSound(
+				L"media/Sound/MagneticaWave.xwb",
+				L"media/Sound/MagneticaSound.xsb",
+				"SE-INVINGVLE",
+				OBJID_SOUND_SE_INVINGVLE
+			)
+		);
+		
+				fpac->m_pVec->push_back(
+			new OneSound(
+				L"media/Sound/MagneticaWave.xwb",
+				L"media/Sound/MagneticaSound.xsb",
+				"SE-SPARK002",
+				OBJID_SOUND_SE_SPARK
+			)
+		);
+
+
+
+
+
 
 	}
 	catch(...){
