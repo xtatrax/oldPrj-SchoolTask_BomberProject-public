@@ -88,6 +88,7 @@ class OneSound : public Sound{
 	XACTINDEX i_iSoundNum ;
 public:
 	OneSound(const wchar_t* pWavBankFileName,const wchar_t* pSoundBankFileName,PCSTR pSoundName,wiz::OBJID id);
+	OneSound(const wchar_t* pWavBankFileName,const wchar_t* pSoundBankFileName,const XACTINDEX iSoundNum,wiz::OBJID id);
 	void PlaySound(BYTE count = 0);
 
 };

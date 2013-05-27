@@ -162,10 +162,29 @@ public:
 	}
 };
 
+/************************************************************************
+class	StartField : public Cylinder
+
+íSìñé“	: ñ{ëΩä∞îV
+ópìr	: ÉXÉ^Å[ÉgÇÃîÕàÕ
+************************************************************************/
+class	StartField : public Cylinder{
+public:
+	StartField(LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTexture,
+		float Radius1,
+		float Radius2,
+		float Lenght,
+		D3DXVECTOR3 &vRot, D3DXVECTOR3 &vPos,
+		D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient
+);
+    void	Draw(DrawPacket& i_DrawPacket) ;
+	void	Update(UpdatePacket& i_UpdatePacket);
+};
+
 //**************************************************************************//
 // class PlayerCoil : public MagneticumObject ;
 //
-// íSìñé“  : é∞å¥ ìO ñ{ëΩä∞îV(ï“èW)
+// íSìñé“  : é∞å¥ ìO ñ{ëΩä∞îV
 // ópìr    : ÉRÉCÉã
 //**************************************************************************//
 class PlayerCoil : public MagneticumObject3D{
@@ -185,6 +204,8 @@ class PlayerCoil : public MagneticumObject3D{
 	bool			m_bLastMouseRB;
 	bool			m_bLastMouseLB;
 
+	StartField*		m_pStartField;
+	
 	ProvisionalPlayer3D*	m_pPlayer;
 
 	MagneticumObject3D*		m_pMagneticumObject;
@@ -424,8 +445,6 @@ public:
 		m_vStartPos = i_vPos;
 	}
 };
-
-
 
 /**************************************************************************
  class Factory_Player;

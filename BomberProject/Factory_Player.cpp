@@ -294,18 +294,6 @@ void ProvisionalPlayer3D::Update( UpdatePacket& i_UpdatePacket ){
  MagneticField 定義部
 ****************************************************************************/
 /***************************************************************************
-関数名     ：MagneticField( FactoryPacket* fpac,			//	: デバイスなど
-					 LPDIRECT3DTEXTURE9 pTexture,	//	: テクスチャ―
-					 wiz::OBJID id )				//	: ID
-用途       ：コンストラクタ
-****************************************************************************/
-//MagneticField::MagneticField(
-//	LPDIRECT3DDEVICE9 pD3DDevice,						//	: デバイス
-//	LPDIRECT3DTEXTURE9 pTexture,						//	: テクスチャー
-//	D3DXVECTOR3		   &vScale,							//	: 伸縮
-//	D3DXQUATERNION	   &vRot,							//	: 回転
-//	D3DXVECTOR3	       &vPos							//	: 位置
-/***************************************************************************
 関数名    ：MagneticField(
                    LPDIRECT3DDEVICE9   pD3DDevice,
                    LPDIRECT3DTEXTURE9  pTexture,
@@ -477,6 +465,123 @@ void	MagneticField::Update(UpdatePacket& i_UpdatePacket)
 };
 
 /**************************************************************************
+ StartField 定義部
+****************************************************************************/
+/***************************************************************************
+関数名    ：StartField(
+                   LPDIRECT3DDEVICE9   pD3DDevice,
+                   LPDIRECT3DTEXTURE9  pTexture,
+                   D3DXVECTOR3         &vScale,
+                   D3DXQUATERNION      &vRot,
+                   D3DXVECTOR3         &vPos
+              )
+カテゴリ　：コンストラクタ
+用途      ：
+引数　　　：LPDIRECT3DDEVICE9   pD3DDevice    //デバイスなど
+　　　　　：LPDIRECT3DTEXTURE9  pTexture      //テクスチャ
+　　　　　：D3DXVECTOR3         &vScale       //伸縮
+　　　　　：D3DXQUATERNION      &vRot         //回転
+　　　　　：D3DXVECTOR3         &vPos         //位置
+			:D3DCOLORVALUE&      Diffuse,
+			:D3DCOLORVALUE&      Specular,
+			:D3DCOLORVALUE&      bAmbient,
+戻り値　　：
+担当者　　：本多寛之
+備考　　　：
+****************************************************************************/
+StartField::StartField(
+	LPDIRECT3DDEVICE9 pD3DDevice,						//	: デバイス
+	LPDIRECT3DTEXTURE9 pTexture,						//	: テクスチャー
+	float Radius1,
+	float Radius2,
+	float Lenght,
+	D3DXVECTOR3			&vRot,							//	: 回転
+	D3DXVECTOR3	       &vPos,							//	: 位置
+	D3DCOLORVALUE&     Diffuse,
+	D3DCOLORVALUE&     Specular,
+	D3DCOLORVALUE&     Ambient
+)
+:Cylinder(pD3DDevice,Radius1,Radius2,Lenght,vPos,vRot,Diffuse,Specular,Ambient)
+
+{
+	try{
+		//D3DXMatrixIdentity(&m_mMatrix);
+        // D3DMATERIAL9構造体を0でクリア
+        //::ZeroMemory( &m_Material, sizeof(D3DMATERIAL9));
+	}
+	catch(...){
+		//再スロー
+		throw;
+	}
+}
+
+/**************************************************************
+関数名     ：void	 MagneticField::Draw(DrawPacket &i_DrawPacket)
+用途       ：オブジェクトの描画
+=======
+関数名　　：void MagneticField::Draw(DrawPacket &i_DrawPacket)
+カテゴリ　：関数
+用途　　　：オブジェクトの描画
+引数　　　：DrawPacket &i_DrawPacket     //もろもろのデータ
+戻り値　　：
+担当者　　：本多寛之
+備考　　　：
+***************************************************************/
+void	StartField::Draw(DrawPacket &i_DrawPacket){
+	////テクスチャがある場合
+	//if(m_pTexture){
+	//	DWORD wkdword;
+	//	//現在のテクスチャステータスを得る
+	//	i_DrawPacket.pD3DDevice->GetTextureStageState(0,D3DTSS_COLOROP,&wkdword);
+	//	//ステージの設定
+	//	i_DrawPacket.pD3DDevice->SetTexture(0,m_pTexture);
+	//	//デフィーズ色とテクスチャを掛け合わせる設定
+	//	i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLOROP, D3DTOP_MODULATE4X );
+	//	i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLORARG1, D3DTA_TEXTURE );
+	//	i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLORARG2, D3DTA_DIFFUSE );
+
+	//	//i_DrawPacket.pD3DDevice->SetFVF(PlateFVF);
+	//	// マトリックスをレンダリングパイプラインに設定
+	//	i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &m_mMatrix);
+	//	//コモンメッシュのDraw()を呼ぶ
+	//	CommonMesh::Draw(i_DrawPacket);
+	//	i_DrawPacket.pD3DDevice->SetTexture(0,0);
+	//	//ステージを元に戻す
+	//	i_DrawPacket.pD3DDevice->SetTextureStageState(0,D3DTSS_COLOROP,wkdword);
+	//}
+	//else{
+	////テクスチャがない場合
+	//	// マトリックスをレンダリングパイプラインに設定
+	//	i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &m_mMatrix);
+	//	//コモンメッシュのDraw()を呼ぶ
+	//	CommonMesh::Draw(i_DrawPacket);
+	//}
+	Cylinder::Draw(i_DrawPacket);
+};
+
+/*******************************************************************
+関数名　　：void StartField::Update(UpdatePacket& i_UpdatePacket)
+カテゴリ　：関数
+用途　　　：データ更新
+引数　　　：UpdatePacket& i_UpdatePacket     //もろもろのデータ
+戻り値　　：
+担当者　　：本多寛之
+備考　　　：
+********************************************************************/
+void	StartField::Update(UpdatePacket& i_UpdatePacket)
+{
+	D3DXMATRIX mMove, mScale;
+	D3DXMatrixIdentity(&mMove);
+	D3DXMatrixIdentity(&mScale);
+	//this->SetBasePos(m_Pos);
+	this->SetBaseScale(D3DXVECTOR3(m_Radius1,m_Radius2,1.0f));
+	this->CalcWorldMatrix();
+	//D3DXMatrixTranslation(&mMove, m_Pos.x, m_Pos.y, m_Pos.z);
+	//D3DXMatrixScaling( &mScale, m_Radius1, m_Radius2, 1.0f );
+	//m_mMatrix	= mScale * mMove;
+};
+
+/**************************************************************************
  PlayerCoil 定義部
 ****************************************************************************/
 /////////////////// ////////////////////
@@ -537,6 +642,10 @@ PlayerCoil::PlayerCoil(
 	::ZeroMemory( &m_Material, sizeof(D3DMATERIAL9) ) ;
 	D3DXMatrixIdentity( &m_Matrix ) ;
 	m_pCylinder = new Cylinder( pD3DDevice, m_Radius1, m_Radius2, m_Length, m_vPos, g_vZero, Diffuse, Specular, Ambient ) ;
+	m_pStartField = new StartField(pD3DDevice,NULL,
+									3.45f,3.45f,1.0f,
+									g_vZero,D3DXVECTOR3(vPos.x,vPos.y,2.0f),
+									Diffuse,Specular,Ambient);
 	setPoleN();
 	SetBaseRot(vRot);
 }
@@ -661,7 +770,10 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 	} else {
 		m_pPlayer = (ProvisionalPlayer3D*)SearchObjectFromTypeID( i_UpdatePacket.pVec , typeid(ProvisionalPlayer3D) );
 	}
-
+	if(m_enumCoilState == COIL_STATE_START){
+		m_pStartField->SetBasePos(D3DXVECTOR3(m_vStartPos.x,m_vStartPos.y,1.0f));
+		m_pStartField->Update(i_UpdatePacket);
+	}
 	//カメラ座標設定
 	if( m_pCamera && m_pCamera->getPosY() < m_vPos.y ){
 		m_pCamera->setPosY( m_vPos.y );
@@ -890,6 +1002,9 @@ void PlayerCoil::Draw(DrawPacket& i_DrawPacket){
 		//コモンメッシュのDraw()を呼ぶ
 		CommonMesh::Draw(i_DrawPacket);
 	}
+	if(m_enumCoilState == COIL_STATE_START){
+		m_pStartField->Draw(i_DrawPacket);
+	}
 #if defined( ON_DEBUGGINGPROCESS )
 	if( m_pDSPH ) m_pDSPH->Draw( i_DrawPacket );
 #endif
@@ -1047,9 +1162,9 @@ Factory_Player::Factory_Player( FactoryPacket* fpac ){
 				D3DXVECTOR3(0.0f,0.0f,0.0f))
 		);
 
- 		D3DCOLORVALUE CoilDiffuse = {0.7f,0.7f,0.7f,1.0f};
+ 		D3DCOLORVALUE CoilDiffuse = {1.0f,1.0f,0.0f,0.5f};
 		D3DCOLORVALUE CoilSpecular = {0.0f,0.0f,0.0f,0.0f};
-		D3DCOLORVALUE CoilAmbient = {0.5f,0.5f,0.5f,1.0f};
+		D3DCOLORVALUE CoilAmbient = {1.0f,1.0f,0.0f,0.5f};
 		fpac->m_pVec->push_back(
 			new PlayerCoil(
 				fpac->pD3DDevice,
