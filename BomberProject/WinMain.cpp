@@ -29,10 +29,10 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		case WM_CREATE:
 			DragAcceptFiles(hWnd,TRUE); // D&D を許可する
 			return 0;
-        case WM_CLOSE:                // ウインドウが破棄されようとしている
-            ::DestroyWindow(hWnd);       // アプリケーションを終了する
-            return 0;
-        break;
+        //case WM_CLOSE:                // ウインドウが破棄されようとしている
+        //    ::DestroyWindow(hWnd);       // アプリケーションを終了する
+        //    return 0;
+        //break;
 		case WM_DESTROY:
 			wiz::DxDevice::Destroy();
 			return 0;
@@ -145,7 +145,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE
     HWND hWnd;
     // ウィンドウの作成
     if(isFullScreen) { // フルスクリーン
-		DEVMODE    devMode;
+		//DEVMODE    devMode;
 		ShowCursor(DRAW_MOUSE);
         // 画面全体の幅と高さを取得
         //iClientWidth = ::GetSystemMetrics(SM_CXSCREEN);
@@ -236,6 +236,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE
         wiz::DxDevice* device = new wiz::DxDevice(hWnd, isFullScreen,iClientWidth,iClientHeight);
 		int ret =  (int) device->MainThreadRun();
 		SafeDelete( device );
+		//wiz::TextureManager::Release();
 		return ret ;
 		/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 	}

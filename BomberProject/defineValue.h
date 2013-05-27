@@ -21,19 +21,37 @@
 //////////
 //	: コンパイリングフラグ
 
-#define CF_SINGLETHREAD			/* シングルスレッドモード     */
+
+#define CF_SINGLETHREAD			/* シングルスレッドモード  ( 無効にするとマルチスレッド的になりますがバグります )   */
 #define DRAW_MOUSE	(true)		
 //#define CF_LOADINGANIMATION		/* ロード画面でアニメーション */
+
 #if defined(DEBUG) || defined(_DEBUG)
+	//-------------------------------//
+	//		デバッグモード定義       //
+	//-------------------------------//
 	#define ON_DEBUGGINGPROCESS			/* デバックモード             */
 	#define DEBUG_STRINGS_ON			/* デバッグ用文字列を有効化 */
-	
+
+	#define DRAW_MOUSE	(true)
 	#define ___MLP_DEBUG_TIMEDRAW_ 
 	//#define ON_GUIDELINE
-	#define CF_FULLSCREEN				/* フルスクリーンモード       */
-
 #else
-	#define CF_FULLSCREEN				/* フルスクリーンモード       */
+//#elif 
+	#if defined( PRESENTATION )
+	//-------------------------------//
+	//		プレゼンモード定義       //
+	//-------------------------------//
+		#define CF_FULLSCREEN				/* フルスクリーンモード       */
+
+	#else
+	//-------------------------------//
+	//		リリースモード定義       //
+	//-------------------------------//
+
+		#define CF_FULLSCREEN				/* フルスクリーンモード       */
+	#endif
+
 #endif
 #define DEBUG_KEYBORD_ON			/* デバッグ用キーボード操作を有効化 */
 

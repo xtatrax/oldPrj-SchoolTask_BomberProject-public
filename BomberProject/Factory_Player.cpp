@@ -221,12 +221,12 @@ void ProvisionalPlayer3D::Update( UpdatePacket& i_UpdatePacket ){
 		m_Camera = (Camera*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_SYS_CAMERA);
 		m_Camera && (m_MovePosY	= m_Camera->getPosY());
 	}
-				RECT rc;
-				::GetClientRect(g_hWnd, &rc);
+	RECT rc;
+	::GetClientRect(g_hWnd, &rc);
 
-				Debugger::DBGSTR::addStr( L" WindowRECT :      TOP( %d ) \n", rc.top );
-				Debugger::DBGSTR::addStr( L"            : RIGHT( %d ) LEFT( %d ) \n", rc.right, rc.left );
-				Debugger::DBGSTR::addStr( L"            :     BOTTOM( %d ) \n", rc.bottom );
+	Debugger::DBGSTR::addStr( L" WindowRECT :      TOP( %d ) \n", rc.top );
+	Debugger::DBGSTR::addStr( L"            : RIGHT( %d ) LEFT( %d ) \n", rc.right, rc.left );
+	Debugger::DBGSTR::addStr( L"            :     BOTTOM( %d ) \n", rc.bottom );
 	if( m_bCoilWasFired ){
 		if( g_bMouseLB || g_bMouseRB ){ 
 			if( !m_bLastMouseLB && !m_bLastMouseRB ){
@@ -633,6 +633,31 @@ PlayerCoil::PlayerCoil(
 	setPoleN();
 	SetBaseRot(vRot);
 }
+/////////////////// ////////////////////
+//// 関数名     ：~PlayerCoil()
+//// カテゴリ   ：デストラクタ
+//// 用途       ：
+//// 引数       ：
+//// 戻値       ：なし
+//// 担当       ： 鴫原 徹
+//// 備考       ：
+////            ：
+////
+PlayerCoil::~PlayerCoil(){
+
+#if defined( ON_DEBUGGINGPROCESS ) | defined( PRESENTATION )
+	SafeDelete( m_pDSPH );
+#endif
+
+	SafeDelete( m_pCylinder );
+	SafeDelete( m_pStartField );
+
+	m_pPlayer				= NULL ;
+	m_pMagneticumObject		= NULL ;
+	m_pCamera				= NULL ;
+	
+};
+
 /////////////////////// ////////////////////
 //////// 用途       ：bool PlayerCoil::HitTestWall( SPHERE& Coil )
 //////// カテゴリ   ：MultiBoxとの衝突判定
@@ -650,7 +675,7 @@ bool PlayerCoil::HitTestWall( OBB Obb, float Index ){
 	SPHERE sp;
 	sp.m_Center = m_vPos;
 	sp.m_Radius = m_pCylinder->getRadius2() ;
-#if defined( ON_DEBUGGINGPROCESS )
+#if defined( ON_DEBUGGINGPROCESS ) | defined( PRESENTATION )
 	if( m_pDSPH ) m_pDSPH->UpdateSPHERE(sp);
 #endif
 	//通常の衝突判定
@@ -673,7 +698,7 @@ bool PlayerCoil::HitTestWall( OBB Obb, float Index ){
 ////
 void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 
-#if defined( ON_DEBUGGINGPROCESS )
+#if defined( ON_DEBUGGINGPROCESS ) | defined( PRESENTATION )
 	if( !m_pDSPH ){
 		SPHERE sp;
 		sp.m_Center = g_vMax ;
