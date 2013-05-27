@@ -4639,6 +4639,7 @@ bool DrawSphere::isEnableDraw = true ;
 ////
 DrawOBB::DrawOBB(LPDIRECT3DDEVICE9 pD3DDevice, OBB i_OBB, Color i_Color, wiz::OBJID id)
 :Object(id),m_pVB(0),m_TargetObb(i_OBB)
+,m_fTimeAccumulator(100.0f)
 {
     try{
 		//setDead() ;
@@ -4739,9 +4740,13 @@ DrawOBB::~DrawOBB(){
 ////            ：
 ////
 void DrawOBB::Draw( DrawPacket& i_DrawPacket ) {
+#if defined(ON_DEBUGGINGPROCESS) | defined( PRESENTATION )
+
 	//if(GetAsyncKeyState( MYVK_DEBUG_OBB_DRAW )){
-	if(GetAsyncKeyState( MYVK_DEBUG_OBB_DRAW )){
-		isEnableDraw ? isEnableDraw = false : isEnableDraw = true ;
+	if( m_fTimeAccumulator < 0.5f && ( m_fTimeAccumulator += (float)i_DrawPacket.pTime->getElapsedTime() ) ){
+		if(GetAsyncKeyState( MYVK_DEBUG_OBB_DRAW )){
+			isEnableDraw ? isEnableDraw = false : isEnableDraw = true ;
+		}
 	}
 	if( isEnableDraw ){
 
@@ -4766,10 +4771,30 @@ void DrawOBB::Draw( DrawPacket& i_DrawPacket ) {
 		pD3DDevice->SetRenderState( D3DRS_LIGHTING,TRUE);
 		pD3DDevice->LightEnable( 0, TRUE );
 	}
+#endif
 }
+#if defined( ON_DEBUGGINGPROCESS )
+	//////////
+	//	: デバッグモード
 
-bool DrawOBB::isEnableDraw = true ;
-
+	bool DrawOBB::isEnableDraw = true ;
+	//	: 
+	//////////
+#else
+#if defined( PRESENTATION )
+	//////////
+	//	: プレゼンモード
+	bool DrawOBB::isEnableDraw = false ;
+	//	: 
+	//////////
+#else
+	//////////
+	//	: リリースモード
+	bool DrawOBB::isEnableDraw = false ;
+	//	: 
+	//////////
+#endif
+#endif
 /**************************************************************************
  class DrawOBBLite 定義部
 ****************************************************************************/
@@ -4785,6 +4810,8 @@ bool DrawOBB::isEnableDraw = true ;
 ////
 DrawOBBLite::DrawOBBLite(LPDIRECT3DDEVICE9 pD3DDevice, OBB i_OBB, Color i_Color, wiz::OBJID id)
 :Object(id),m_pVB(0),m_TargetObb(i_OBB)
+,m_fTimeAccumulator(100.0f)
+
 {
     try{
 		//setDead() ;
@@ -4885,9 +4912,12 @@ DrawOBBLite::~DrawOBBLite(){
 ////            ：
 ////
 void DrawOBBLite::Draw( DrawPacket& i_DrawPacket ) {
+#if defined(ON_DEBUGGINGPROCESS) | defined( PRESENTATION )
 	//if(GetAsyncKeyState( MYVK_DEBUG_OBB_DRAW )){
-	if(GetAsyncKeyState( MYVK_DEBUG_OBB_DRAW )){
-		isEnableDraw ? isEnableDraw = false : isEnableDraw = true ;
+	if( m_fTimeAccumulator < 0.5f && ( m_fTimeAccumulator += (float)i_DrawPacket.pTime->getElapsedTime() ) ){
+		if(GetAsyncKeyState( MYVK_DEBUG_OBB_DRAW )){
+			isEnableDraw ? isEnableDraw = false : isEnableDraw = true ;
+		}
 	}
 	if( !isEnableDraw ){
 		setDead();
@@ -4914,9 +4944,31 @@ void DrawOBBLite::Draw( DrawPacket& i_DrawPacket ) {
 	pD3DDevice->SetRenderState( D3DRS_LIGHTING,TRUE);
 	pD3DDevice->LightEnable( 0, TRUE );
 	//}
+#endif
 }
 
-bool DrawOBBLite::isEnableDraw = true ;
+#if defined( ON_DEBUGGINGPROCESS )
+	//////////
+	//	: デバッグモード
+
+	bool DrawOBBLite::isEnableDraw = true ;
+	//	: 
+	//////////
+#else
+#if defined( PRESENTATION )
+	//////////
+	//	: プレゼンモード
+	bool DrawOBBLite::isEnableDraw = false ;
+	//	: 
+	//////////
+#else
+	//////////
+	//	: リリースモード
+	bool DrawOBBLite::isEnableDraw = false ;
+	//	: 
+	//////////
+#endif
+#endif
 
 
 }//end of namespace	baseobject.

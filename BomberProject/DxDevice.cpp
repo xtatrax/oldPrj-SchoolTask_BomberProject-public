@@ -458,7 +458,7 @@ void DxDevice::RenderScene()
 			pScene->Draw(m_DrawPacket);///**************************
 
 			Debugger::DBGSTR::Draw();
-			//TMemoryManager::Draw();
+			TMemoryManager::Draw();
 			// •`‰æI—¹éŒ¾
 			m_pD3DDevice->EndScene();
 		}

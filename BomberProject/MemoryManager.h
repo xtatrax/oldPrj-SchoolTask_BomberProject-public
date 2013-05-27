@@ -21,132 +21,135 @@
 #include "DebugFunctions.h"
 
 //namespace TLIB{
-//class TMemoryManager{
-//public:
-//	//	: new されたデータの情報構造
-//	struct itemInfo{
-//		void*		pPointer;
-//		size_t		iSize	;
-//		std::string	sFile	;
-//		std::string	sFunc	;
-//		UINT		iLine	;
-//
-//		//	: コンストラクタ
-//		itemInfo(void* i_pPointer,size_t i_iSize,std::string i_sFile, std::string i_sFunc, UINT i_iLine)
-//			:pPointer(i_pPointer),iSize(i_iSize),sFile(i_sFile), sFunc(i_sFunc), iLine(i_iLine)
-//		{}
-//		//	: 検索用オーバーライド?
-//		bool operator () ( const void* other ) const {
-//			return this->pPointer == other ;
-//		}
-//		//	: 検索用オーバーライド?
-//		bool operator == ( const void* other ) const {
-//			return this->pPointer == other ;
-//		}
-//	};
-//
-//	//	: newされた情報リスト
-//	static std::list<itemInfo> m_ItemInfo ;
-//
-//	//	: 追加
-//	static void* add(size_t i_iSize,std::string i_sFile, std::string i_sFunc, UINT i_iLine){
-//		void* pPointer = malloc(i_iSize);
-//		m_ItemInfo.push_back(itemInfo( pPointer, i_iSize , i_sFile,  i_sFunc, i_iLine));
-//		return pPointer ; 
-//	}
-//
-//	//	: 削除
-//	static void remove( void* i_pPointer ){
-//		std::list<itemInfo>::iterator it ;
-//		for( it = m_ItemInfo.begin() ; it != m_ItemInfo.end() ; it++ ){
-//			if( it->pPointer == i_pPointer ){
-//				free(it->pPointer);		
-//				it->pPointer = NULL;
-//				it = m_ItemInfo.erase( it );
-//				return;
-//			}
-//		}
-//	}
-//	
-//	//	: グラフィカル化する!
-//	//	: メモリ状態の描画
-//	static void Draw(){
-//		std::list<itemInfo>::iterator it  = m_ItemInfo.begin();
-//		std::list<itemInfo>::iterator end = m_ItemInfo.end();
-//		if( GetAsyncKeyState( MYVK_DEBUG_OUTPUT_MEMORY ) ){
-//			time_t timer;
-//			struct tm local;
-//
-//			/* 現在時刻を取得 */
-//			timer = time(NULL);
-//
-//			localtime_s(&local, &timer); /* 地方時に変換 */
-//
-//			/* 地方時 変換後表示 */
-//			printf("地方時: ");
-//			printf("%4d/", local.tm_year + 1900);
-//			printf("%2d/", local.tm_mon + 1);
-//			printf("%2d ", local.tm_mday);
-//			printf("%2d:", local.tm_hour);
-//			printf("%2d:", local.tm_min);
-//			printf("%2d", local.tm_sec);
-//			printf(" %d\n", local.tm_isdst);
-//
-//
-//			Debugger::DBGWRITINGLOGTEXT::addStrToFile( L"めもり.txt" , L"ローカル時間 %4d/%2d/%2d %2d:%2d:%2d %d \n",
-//				local.tm_year + 1900, local.tm_mon + 1, local.tm_mday, local.tm_hour,
-//				local.tm_min, local.tm_sec, local.tm_isdst );
-//			DWORD i = 0 ;
-//			for(  ; it != end ; it++ ){
-//				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "めもり.txt" , " %d \n"               , i                 );
-//				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "めもり.txt" , "ポインタ   : 0x%X \n" , it->pPointer      );
-//				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "めもり.txt" , "サイズ     : %d \n"   , it->iSize         );
-//				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "めもり.txt" , "ファイル名 : %s \n"   , it->sFile.c_str() );
-//				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "めもり.txt" , "関数       : %s \n"   , it->sFunc.c_str() );
-//				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "めもり.txt" , "行         : %d \n"   , it->iLine         );
-//				i ++ ;
-//			}
-//		}	
-//	}
-//
-//	//////////
-//	//	: ※危険
-//	//	: 通常は利用しない
-//	//	: いままで確保してきたメモリをすべて破棄する
-//	static void Clear(){
-//		std::list<itemInfo>::iterator it ;
-//		for( it = m_ItemInfo.begin() ; it != m_ItemInfo.end() ; it++ ){
-//			free((*it).pPointer);
-//		}
-//		m_ItemInfo.clear();
-//	}
-//	~TMemoryManager(){
-//		Clear();
-//	}
-//
+class TMemoryManager{
+public:
+	//	: new されたデータの情報構造
+	struct itemInfo{
+		void*		pPointer;
+		size_t		iSize	;
+		std::string	sFile	;
+		std::string	sFunc	;
+		UINT		iLine	;
+		DWORD		iGenerateTime ;
+
+		//	: コンストラクタ
+		itemInfo(void* i_pPointer,size_t i_iSize,std::string i_sFile, std::string i_sFunc, UINT i_iLine, DWORD i_iGTime)
+			:pPointer(i_pPointer),iSize(i_iSize),sFile(i_sFile), sFunc(i_sFunc), iLine(i_iLine) ,iGenerateTime(i_iGTime)
+		{}
+		//	: 検索用オーバーライド?
+		bool operator () ( const void* other ) const {
+			return this->pPointer == other ;
+		}
+		//	: 検索用オーバーライド?
+		bool operator == ( const void* other ) const {
+			return this->pPointer == other ;
+		}
+	};
+
+	//	: newされた情報リスト
+	static std::list<itemInfo> m_ItemInfo ;
+
+	//	: 追加
+	static void* add(size_t i_iSize,std::string i_sFile, std::string i_sFunc, UINT i_iLine){
+		void* pPointer = malloc(i_iSize);
+		m_ItemInfo.push_back(itemInfo( pPointer, i_iSize , i_sFile,  i_sFunc, i_iLine, timeGetTime() ));
+		return pPointer ; 
+	}
+
+	//	: 削除
+	static void remove( void* i_pPointer ){
+		std::list<itemInfo>::iterator it ;
+		for( it = m_ItemInfo.begin() ; it != m_ItemInfo.end() ; it++ ){
+			if( it->pPointer == i_pPointer ){
+				free(it->pPointer);		
+				it->pPointer = NULL;
+				it = m_ItemInfo.erase( it );
+				return;
+			}
+		}
+	}
+	
+	//	: グラフィカル化する!
+	//	: メモリ状態の描画
+	static void Draw(){
+		std::list<itemInfo>::iterator it  = m_ItemInfo.begin();
+		std::list<itemInfo>::iterator end = m_ItemInfo.end();
+		if( GetAsyncKeyState( MYVK_DEBUG_OUTPUT_MEMORY ) ){
+			time_t timer;
+			struct tm local;
+
+			/* 現在時刻を取得 */
+			timer = time(NULL);
+
+			localtime_s(&local, &timer); /* 地方時に変換 */
+
+			/* 地方時 変換後表示 */
+			printf("地方時: ");
+			printf("%4d/", local.tm_year + 1900);
+			printf("%2d/", local.tm_mon + 1);
+			printf("%2d ", local.tm_mday);
+			printf("%2d:", local.tm_hour);
+			printf("%2d:", local.tm_min);
+			printf("%2d", local.tm_sec);
+			printf(" %d\n", local.tm_isdst);
+
+
+			Debugger::DBGWRITINGLOGTEXT::addStrToFile( L"めもり.txt" , L"ローカル時間 %4d/%2d/%2d %2d:%2d:%2d %d \n",
+				local.tm_year + 1900, local.tm_mon + 1, local.tm_mday, local.tm_hour,
+				local.tm_min, local.tm_sec, local.tm_isdst );
+			DWORD i = 0 ;
+			for(  ; it != end ; it++ ){
+				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "めもり.txt" , "////////////\n"                           );
+				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "めもり.txt" , "データ %d \n"         , i                 );
+				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "めもり.txt" , "ポインタ   : 0x%X \n" , it->pPointer      );
+				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "めもり.txt" , "サイズ     : %d \n"   , it->iSize         );
+				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "めもり.txt" , "ファイル名 : %s \n"   , it->sFile.c_str() );
+				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "めもり.txt" , "関数       : %s \n"   , it->sFunc.c_str() );
+				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "めもり.txt" , "行         : %d \n"   , it->iLine         );
+				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "めもり.txt" , "時間       : %d \n\n" , it->iGenerateTime );
+				i ++ ;
+			}
+		}	
+	}
+
+	//////////
+	//	: ※危険
+	//	: 通常は利用しない
+	//	: いままで確保してきたメモリをすべて破棄する
+	static void Clear(){
+		std::list<itemInfo>::iterator it ;
+		for( it = m_ItemInfo.begin() ; it != m_ItemInfo.end() ; it++ ){
+			free((*it).pPointer);
+		}
+		m_ItemInfo.clear();
+	}
+	~TMemoryManager(){
+		Clear();
+	}
+
+};
+//std::list<TMemoryManager::itemInfo> TMemoryManager::m_ItemInfo ;
+
+//void* operator new(size_t iSize,LPCTSTR sFile, LPCTSTR sFunc, UINT iLine){
+//	return NULL;//TMemoryManager::add(iSize,sFile,sFunc,iLine);
 //};
-////std::list<TMemoryManager::itemInfo> TMemoryManager::m_ItemInfo ;
-//
-////void* operator new(size_t iSize,LPCTSTR sFile, LPCTSTR sFunc, UINT iLine){
-////	return NULL;//TMemoryManager::add(iSize,sFile,sFunc,iLine);
-////};
-////////////
-////	: operator new のオーバーライド
-////inline void* operator new(size_t iSize,LPCSTR  sFile =  "" , LPCSTR  sFunc = "" , UINT iLine = 0)
-//inline void* operator new(size_t iSize,LPCSTR  sFile  , LPCSTR  sFunc  , UINT iLine )
-//{
-//	return TMemoryManager::add(iSize,sFile,sFunc,iLine);
-//};
-//
-//inline void operator delete(void* pv,LPCSTR  sFile, LPCSTR  sFunc, UINT iLine){
-//	return TMemoryManager::remove(pv);
-//};
-//
-//inline void operator delete(void* pv){
-//	return TMemoryManager::remove(pv);
-//};
-//
-//#define NEW new(__FILE__, __FUNCTION__, __LINE__)
+//////////
+//	: operator new のオーバーライド
+//inline void* operator new(size_t iSize,LPCSTR  sFile =  "" , LPCSTR  sFunc = "" , UINT iLine = 0)
+inline void* operator new(size_t iSize,LPCSTR  sFile  , LPCSTR  sFunc  , UINT iLine )
+{
+	return TMemoryManager::add(iSize,sFile,sFunc,iLine);
+};
+
+inline void operator delete(void* pv,LPCSTR  sFile, LPCSTR  sFunc, UINT iLine){
+	return TMemoryManager::remove(pv);
+};
+
+inline void operator delete(void* pv){
+	return TMemoryManager::remove(pv);
+};
+
+#define new new(__FILE__, __FUNCTION__, __LINE__)
 
 
 //////////

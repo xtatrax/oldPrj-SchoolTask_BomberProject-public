@@ -2236,6 +2236,8 @@ void UpdateSPHERE( SPHERE i_SPHERE){
 //**************************************************************************
 class DrawOBB : public Object{
 	IDirect3DVertexBuffer9* m_pVB;
+	float	m_fTimeAccumulator;
+
 	//クラス内構造体
 	//ここでしか使用しないので、内部に持つ
 	struct CUSTOMVERTEX
@@ -2291,6 +2293,7 @@ virtual void Draw(DrawPacket& i_DrawPacket) ;
 //**************************************************************************
 class DrawOBBLite : public Object{
 	IDirect3DVertexBuffer9* m_pVB;
+	float m_fTimeAccumulator;
 	//クラス内構造体
 	//ここでしか使用しないので、内部に持つ
 	struct CUSTOMVERTEX
