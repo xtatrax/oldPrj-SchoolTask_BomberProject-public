@@ -47,6 +47,8 @@ namespace wiz
 						   pTexture)
 	,m_pCamera( NULL )
 	,m_pPlayer( NULL )
+	,m_pCoil( NULL )
+	,m_bReset( false )
 
 	{
 		
@@ -128,6 +130,9 @@ namespace wiz
 		if( !m_pPlayer ){
 			m_pPlayer = (ProvisionalPlayer3D*)SearchObjectFromTypeID( i_UpdatePacket.pVec,typeid(ProvisionalPlayer3D));
 		}
+		if( !m_pCoil ){
+			m_pCoil = (PlayerCoil*)SearchObjectFromTypeID( i_UpdatePacket.pVec,typeid(PlayerCoil));
+		}
 const float EnemyMove = 0.1f;
 
 
@@ -136,26 +141,40 @@ const float EnemyMove = 0.1f;
 		multimap<float,EnemyItem*>::iterator it = m_ItemMap_All.begin();
 		while(it != m_ItemMap_All.end()){
 
-//エネミーの座標を磁界の方に持っていく処理
-			if( g_bMouseRB || g_bMouseLB && m_pPlayer){
+			float DeadLine  = (float)TwoPointToBassLength( it->second->m_vPos, m_pCoil->getPos() ) ;
+			//エネミーの座標を磁界の方に持っていく処理
+			//if( g_bMouseRB || g_bMouseLB && m_pPlayer){
+			if( m_pPlayer && m_pPlayer->getDrawing() ){
+				if( m_pPlayer->getMagnetPole() != it->second->m_bPole ){
 
-				if( it->second->m_vPos.x <= m_pPlayer->getPos().x ){
-					it->second->m_vPos.x += EnemyMove;
+					float	pole	= 1.0f;
+					if( m_pPlayer->getMagnetPole() )
+							pole	=  -1.0f;
+
+					float Lng  = (float)TwoPointToBassLength( it->second->m_vPos, m_pPlayer->getPos() ) ;
+
+					if( Lng < MGPRM_MAGNETICUM_QUAD ){
+						D3DXVECTOR3	v	= ( it->second->m_vPos - m_pPlayer->getPos() ) / 30 ;
+
+						it->second->m_vPos	+= v * pole;
+					}
+
+					//if( it->second->m_vPos.x <= m_pPlayer->getPos().x ){
+					//	it->second->m_vPos.x += EnemyMove * pole;
+					//}
+					//if( it->second->m_vPos.x >= m_pPlayer->getPos().x ){
+					//	it->second->m_vPos.x -= EnemyMove * pole;
+					//
+					//}
+
+					//if( it->second->m_vPos.y <= m_pPlayer->getPos().y ){
+					//	it->second->m_vPos.y += EnemyMove * pole;
+					//}
+					//if( it->second->m_vPos.y > m_pPlayer->getPos().y ){
+					//	it->second->m_vPos.y -= EnemyMove * pole;
+					//}
+
 				}
-				if( it->second->m_vPos.x >= m_pPlayer->getPos().x ){
-					it->second->m_vPos.x -= EnemyMove;
-				
-				}
-
-				if( it->second->m_vPos.y <= m_pPlayer->getPos().y ){
-					it->second->m_vPos.y += EnemyMove;
-				}
-				if( it->second->m_vPos.y > m_pPlayer->getPos().y ){
-					it->second->m_vPos.x -= EnemyMove;
-				}
-
-
-
 			}
 			
 			if( ( +(it->first - m_pCamera->getEye().y) <= 3000) && ( +(it->first - m_pCamera->getEye().y) >= -3000 ) ){
@@ -164,12 +183,21 @@ const float EnemyMove = 0.1f;
 			
 			}
 
+			if( DeadLine < 0.5f ){
+				m_pCoil->setState(COIL_STATE_DEAD);
+				m_bReset	= true;
+			}
+
 			++it;
 		}
 
 	
 		multimap<float,EnemyItem*>::iterator it2 = m_ItemMap_Target.begin();
 		while(it2 != m_ItemMap_Target.end()){
+
+			if( m_bReset ){
+				it2->second->m_vPos	= it2->second->m_vStartPos;
+			}
 //計算はUpdateで
 
 //拡大縮小
@@ -191,6 +219,8 @@ const float EnemyMove = 0.1f;
 
 			++it2;
 		}
+
+		m_bReset	= false;
 	}
 
 /////////////////// ////////////////////
@@ -212,15 +242,16 @@ const float EnemyMove = 0.1f;
 		EnemyItem* pItem = new EnemyItem;
 		pItem->m_vScale = vScale;
 		pItem->m_vPos = vPos;
+		pItem->m_vStartPos = vPos;
 		::ZeroMemory(&pItem->m_Material,sizeof(D3DMATERIAL9));
 		pItem->m_Material.Diffuse = Diffuse;
 		pItem->m_Material.Specular = Specular;
 		pItem->m_Material.Ambient = Ambient;
 //回転の初期化
 		D3DXQuaternionRotationYawPitchRoll(&pItem->m_vRot,D3DXToRadian(vRot.y),D3DXToRadian(vRot.x),D3DXToRadian(vRot.z));
-		int	i	= rand()%2;
-		if( i = 0 )	pItem->m_bPole	= true;
-		else		pItem->m_bPole	= false;
+		int	i	= rand()%1000;
+		if( i < 500 )	pItem->m_bPole	= POLE_N;
+		else		pItem->m_bPole	= POLE_S;
 
 		m_ItemMap_All.insert(multimap<float, EnemyItem*>::value_type(pItem->m_vPos.y,pItem));	
 	}
@@ -260,13 +291,18 @@ const float EnemyMove = 0.1f;
 			
 //			fpac->m_pVec->push_back(new EnemySphere(fpac->pD3DDevice, EnemyDiffuse, EnemySpecular, EnemyAmbient, fpac->m_pTexMgr->addTexture(fpac->pD3DDevice,NULL)));
 			EnemySphere* Enemy = new EnemySphere(fpac->pD3DDevice, EnemyDiffuse, EnemySpecular, EnemyAmbient, fpac->m_pTexMgr->addTexture(fpac->pD3DDevice,L"Enemy.jpg"));
-			Enemy->AddEnemy(D3DXVECTOR3( 1.0f, 1.0f, 1.0f ),     //スケール
-							D3DXVECTOR3( 0.0f, 0.0f, 0.0f ),     //角度
-							D3DXVECTOR3( 20.0f, 20.0f, 0.0f ),   //ポジション
-							EnemyDiffuse,
-							EnemySpecular,
-							EnemyAmbient
-			);
+			for(int i = 0; i < 3; i++){
+				for(int j = 0; j < 3; j++){
+					Enemy->AddEnemy(D3DXVECTOR3( 1.0f, 1.0f, 1.0f ),     //スケール
+									D3DXVECTOR3( 0.0f, 0.0f, 0.0f ),     //角度
+									D3DXVECTOR3((float(i)*5.0f+float(rand()%100*0.3f))+1.5f,
+												(float(j)*2.75f+float(rand()%100*0.2f))+1.5f,0.0f),   //ポジション
+									EnemyDiffuse,
+									EnemySpecular,
+									EnemyAmbient
+					);
+				}
+			}
 			fpac->m_pVec->push_back(Enemy);
 
 		}

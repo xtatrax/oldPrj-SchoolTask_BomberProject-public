@@ -95,13 +95,15 @@ void Title_Select::Update(UpdatePacket& i_UpdatePacket)
 	GetCursorPos( &MousePos ) ;
 	ScreenToClient( g_hWnd , &MousePos) ;
   //*****************************************
-	if( g_bMouseLB/* || g_bMouseRB*/ ){
-		if( (MousePos.x > m_vPos.x && MousePos.x < ( m_vPos.x + m_pRect->right )) 
-			&& (MousePos.y > m_vPos.y && MousePos.y < ( m_vPos.y + m_pRect->bottom )) ){
+	if( (MousePos.x > m_vPos.x && MousePos.x < ( m_vPos.x + m_pRect->right )) 
+		&& (MousePos.y > m_vPos.y && MousePos.y < ( m_vPos.y + m_pRect->bottom )) ){
+		if( g_bMouseLB/* || g_bMouseRB*/ ){
 			//‘I‚Î‚ê‚½‰æ–Ê‚Ö‚Æ‚Ô
 			i_UpdatePacket.pCommand->m_Command	= m_dNext;
 		}
+		m_Color	= 0xFFFFFFFF;
 	}
+	else	m_Color	= 0xA0FFFFFF;
 };
 
 /**************************************************************************
