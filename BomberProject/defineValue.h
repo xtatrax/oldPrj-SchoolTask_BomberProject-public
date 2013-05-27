@@ -22,15 +22,18 @@
 //	: コンパイリングフラグ
 
 #define CF_SINGLETHREAD			/* シングルスレッドモード     */
+#define DRAW_MOUSE	(true)		
 //#define CF_LOADINGANIMATION		/* ロード画面でアニメーション */
 #if defined(DEBUG) || defined(_DEBUG)
 	#define ON_DEBUGGINGPROCESS			/* デバックモード             */
-	//#define DEBUG_STRINGS_ON			/* デバッグ用文字列を有効化 */
+	#define DEBUG_STRINGS_ON			/* デバッグ用文字列を有効化 */
 	
 	#define ___MLP_DEBUG_TIMEDRAW_ 
 	//#define ON_GUIDELINE
-#else
 	//#define CF_FULLSCREEN				/* フルスクリーンモード       */
+
+#else
+	#define CF_FULLSCREEN				/* フルスクリーンモード       */
 #endif
 #define DEBUG_KEYBORD_ON			/* デバッグ用キーボード操作を有効化 */
 
@@ -195,6 +198,11 @@ namespace wiz{
 		OBJID_END					=  0xFFFFFFFFFFFFFFFF ,
 
 	} ;
+	enum POLE{
+		POLE_S , 		/* S極 */
+		POLE_N , 		/* N極 */
+	};
+
 
 }
 //

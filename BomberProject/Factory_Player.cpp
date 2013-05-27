@@ -43,61 +43,61 @@ extern class WallObject ;
 //// 備考       ：
 ////            ：
 ////
-ProvisionalPlayer::ProvisionalPlayer(
-	LPDIRECT3DDEVICE9 pD3DDevice,				//	: デバイス
-	LPDIRECT3DTEXTURE9 pTexture,				//	: テクスチャー
-	D3DXVECTOR3 &vScale,						//	: 伸縮
-	D3DXVECTOR3 &vRot,							//	: 回転
-	D3DXVECTOR3 &vPos,							//	: 位置
-	RECT* pRect,								//	: 描画範囲
-	Color color ,								//	: 色
-	wiz::OBJID id 								//	: ID
-)
-	:MagneticumObject( pD3DDevice, pTexture, vScale, vRot, vPos, pRect, color, id )
-{
-}
-
-/////////////////// ////////////////////
-//// 関数名     ：void Update( UpdatePacket& i_UpdatePacket )
-//// カテゴリ   ：
-//// 用途       ：
-//// 引数       ：
-//// 戻値       ：なし
-//// 担当       ：鴫原 徹
-//// 備考       ：
-////            ：
-////
-void ProvisionalPlayer::Update( UpdatePacket& i_UpdatePacket ){
-	if( g_bMouseLB || g_bMouseRB){
-		wiz::CONTROLER_STATE Controller1P = i_UpdatePacket.pCntlState[0] ;
-		D3DXVECTOR3 vMove = g_vZero ;
-		Point MousePos ;
-		GetCursorPos( &MousePos );
-		ScreenToClient( g_hWnd , &MousePos);
-		m_vPos.x = (float)MousePos.x;
-		m_vPos.y = (float)MousePos.y;	
-
-		if( g_bMouseLB )
-			setPoleN() ;
-		if( g_bMouseRB )
-			setPoleS() ;
-
-		//this->m_vPos += vMove * 15.0f ;
-	
-		D3DXMATRIX mPos , mScale ;
-
-		D3DXMatrixTranslation( &mPos , this->m_vPos.x , this->m_vPos.y , this->m_vPos.z ) ;
-		D3DXMatrixScaling( &mScale, m_vScale.x, m_vScale.y, m_vScale.z );
-		m_mMatrix = mScale * mPos ;
-	}else{
-	
-
-	
-	}
-
-	//g_bMouseLB = false ;
-	//g_bMouseRB = false ;
-};
+//ProvisionalPlayer::ProvisionalPlayer(
+//	LPDIRECT3DDEVICE9 pD3DDevice,				//	: デバイス
+//	LPDIRECT3DTEXTURE9 pTexture,				//	: テクスチャー
+//	D3DXVECTOR3 &vScale,						//	: 伸縮
+//	D3DXVECTOR3 &vRot,							//	: 回転
+//	D3DXVECTOR3 &vPos,							//	: 位置
+//	RECT* pRect,								//	: 描画範囲
+//	Color color ,								//	: 色
+//	wiz::OBJID id 								//	: ID
+//)
+//	:MagneticumObject( pD3DDevice, pTexture, vScale, vRot, vPos, pRect, color, id )
+//{
+//}
+//
+///////////////////// ////////////////////
+////// 関数名     ：void Update( UpdatePacket& i_UpdatePacket )
+////// カテゴリ   ：
+////// 用途       ：
+////// 引数       ：
+////// 戻値       ：なし
+////// 担当       ：鴫原 徹
+////// 備考       ：
+//////            ：
+//////
+//void ProvisionalPlayer::Update( UpdatePacket& i_UpdatePacket ){
+//	if( g_bMouseLB || g_bMouseRB){
+//		wiz::CONTROLER_STATE Controller1P = i_UpdatePacket.pCntlState[0] ;
+//		D3DXVECTOR3 vMove = g_vZero ;
+//		Point MousePos ;
+//		GetCursorPos( &MousePos );
+//		ScreenToClient( g_hWnd , &MousePos);
+//		m_vPos.x = (float)MousePos.x;
+//		m_vPos.y = (float)MousePos.y;	
+//
+//		if( g_bMouseLB )
+//			setPoleN() ;
+//		if( g_bMouseRB )
+//			setPoleS() ;
+//
+//		//this->m_vPos += vMove * 15.0f ;
+//	
+//		D3DXMATRIX mPos , mScale ;
+//
+//		D3DXMatrixTranslation( &mPos , this->m_vPos.x , this->m_vPos.y , this->m_vPos.z ) ;
+//		D3DXMatrixScaling( &mScale, m_vScale.x, m_vScale.y, m_vScale.z );
+//		m_mMatrix = mScale * mPos ;
+//	}else{
+//	
+//
+//	
+//	}
+//
+//	//g_bMouseLB = false ;
+//	//g_bMouseRB = false ;
+//};
 
 // 3D用
 /**************************************************************************
@@ -118,6 +118,7 @@ void ProvisionalPlayer::Update( UpdatePacket& i_UpdatePacket ){
 ProvisionalPlayer3D::ProvisionalPlayer3D(
 	FactoryPacket*	fpac,								//	: デバイス
 	LPDIRECT3DTEXTURE9 pTexture,						//	: テクスチャー
+	LPDIRECT3DTEXTURE9 pTexture2,						//	: テクスチャー２
 	D3DXVECTOR3		   &vScale,							//	: 伸縮
 	D3DXQUATERNION	   &vRot,							//	: 回転
 	D3DXVECTOR3	       &vPos,							//	: 位置
@@ -138,6 +139,19 @@ ProvisionalPlayer3D::ProvisionalPlayer3D(
 	::ZeroMemory( &m_Material, sizeof(D3DMATERIAL9) ) ;
 	D3DXMatrixIdentity( &m_Matrix ) ;
 	setPoleS();
+
+	m_Item_Poly.m_pTexture = pTexture2;
+	m_Item_Poly.m_vScale.x = vScale.x;
+	m_Item_Poly.m_vScale.y = vScale.y;
+	m_Item_Poly.m_vScale.z = 0.0f;
+	m_Item_Poly.m_vPos	= vPos;
+    ::ZeroMemory(&m_Item_Poly.m_Material,sizeof(D3DMATERIAL9));
+	m_Item_Poly.m_Material.Diffuse = D3DCOLORVALUE();
+	m_Item_Poly.m_Material.Specular = D3DCOLORVALUE();
+	m_Item_Poly.m_Material.Ambient = D3DCOLORVALUE();
+	//回転の初期化
+	D3DXQuaternionRotationYawPitchRoll(&m_Item_Poly.m_vRot,
+			D3DXToRadian(vRot.y),D3DXToRadian(vRot.x),D3DXToRadian(vRot.z));
 }
 
 /////////////////// ////////////////////
@@ -220,16 +234,16 @@ void ProvisionalPlayer3D::Update( UpdatePacket& i_UpdatePacket ){
 				m_vPos.y = (( STANDARD_WINDOW_HEIGHT - MousePos.y ) - UI_HEIGHT ) / DRAW_CLIENT_MAGNIFICATION - MAGNETIC_RADIUS + ( m_Camera->getPosY() - m_MovePosY ) ;
 
 				if(g_bMouseLB){
-					m_pMagneticField->setPole(true);
-					m_pMagneticField2->setPole(true);
-					m_pMagneticField3->setPole(true);
-					m_pMagneticField4->setPole(true);
+					m_pMagneticField->setPole(POLE_N);
+					m_pMagneticField2->setPole(POLE_N);
+					m_pMagneticField3->setPole(POLE_N);
+					m_pMagneticField4->setPole(POLE_N);
 				}
 				else if(g_bMouseRB){
-					m_pMagneticField->setPole(false);
-					m_pMagneticField2->setPole(false);
-					m_pMagneticField3->setPole(false);
-					m_pMagneticField4->setPole(false);
+					m_pMagneticField->setPole(POLE_S);
+					m_pMagneticField2->setPole(POLE_S);
+					m_pMagneticField3->setPole(POLE_S);
+					m_pMagneticField4->setPole(POLE_S);
 				}
 
 				//磁界に描画地点を渡す
@@ -325,7 +339,7 @@ MagneticField::MagneticField(
 						D3DCOLORVALUE(),
 						D3DCOLORVALUE()
 	)
-,m_Pole(true)
+,m_Pole(POLE_N)
 ,m_bEffect( bEffect )
 ,m_vNormalSize(vScale)
 {
@@ -420,7 +434,7 @@ void	MagneticField::Update(UpdatePacket& i_UpdatePacket)
 	}
 
 	PlayerCoil*	pc = (PlayerCoil*)SearchObjectFromTypeID(i_UpdatePacket.pVec,typeid(PlayerCoil));
-	bool	cPole	= pc->getMagnetPole();
+	POLE	cPole	= pc->getMagnetPole();
 
 	D3DXMATRIX mMove, mScale;
 	D3DXMatrixIdentity(&mMove);
@@ -505,9 +519,6 @@ StartField::StartField(
 
 {
 	try{
-		//D3DXMatrixIdentity(&m_mMatrix);
-        // D3DMATERIAL9構造体を0でクリア
-        //::ZeroMemory( &m_Material, sizeof(D3DMATERIAL9));
 	}
 	catch(...){
 		//再スロー
@@ -516,10 +527,7 @@ StartField::StartField(
 }
 
 /**************************************************************
-関数名     ：void	 MagneticField::Draw(DrawPacket &i_DrawPacket)
-用途       ：オブジェクトの描画
-=======
-関数名　　：void MagneticField::Draw(DrawPacket &i_DrawPacket)
+関数名　　：void StartField::Draw(DrawPacket &i_DrawPacket)
 カテゴリ　：関数
 用途　　　：オブジェクトの描画
 引数　　　：DrawPacket &i_DrawPacket     //もろもろのデータ
@@ -528,34 +536,6 @@ StartField::StartField(
 備考　　　：
 ***************************************************************/
 void	StartField::Draw(DrawPacket &i_DrawPacket){
-	////テクスチャがある場合
-	//if(m_pTexture){
-	//	DWORD wkdword;
-	//	//現在のテクスチャステータスを得る
-	//	i_DrawPacket.pD3DDevice->GetTextureStageState(0,D3DTSS_COLOROP,&wkdword);
-	//	//ステージの設定
-	//	i_DrawPacket.pD3DDevice->SetTexture(0,m_pTexture);
-	//	//デフィーズ色とテクスチャを掛け合わせる設定
-	//	i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLOROP, D3DTOP_MODULATE4X );
-	//	i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLORARG1, D3DTA_TEXTURE );
-	//	i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLORARG2, D3DTA_DIFFUSE );
-
-	//	//i_DrawPacket.pD3DDevice->SetFVF(PlateFVF);
-	//	// マトリックスをレンダリングパイプラインに設定
-	//	i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &m_mMatrix);
-	//	//コモンメッシュのDraw()を呼ぶ
-	//	CommonMesh::Draw(i_DrawPacket);
-	//	i_DrawPacket.pD3DDevice->SetTexture(0,0);
-	//	//ステージを元に戻す
-	//	i_DrawPacket.pD3DDevice->SetTextureStageState(0,D3DTSS_COLOROP,wkdword);
-	//}
-	//else{
-	////テクスチャがない場合
-	//	// マトリックスをレンダリングパイプラインに設定
-	//	i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &m_mMatrix);
-	//	//コモンメッシュのDraw()を呼ぶ
-	//	CommonMesh::Draw(i_DrawPacket);
-	//}
 	Cylinder::Draw(i_DrawPacket);
 };
 
@@ -573,12 +553,8 @@ void	StartField::Update(UpdatePacket& i_UpdatePacket)
 	D3DXMATRIX mMove, mScale;
 	D3DXMatrixIdentity(&mMove);
 	D3DXMatrixIdentity(&mScale);
-	//this->SetBasePos(m_Pos);
 	this->SetBaseScale(D3DXVECTOR3(m_Radius1,m_Radius2,1.0f));
 	this->CalcWorldMatrix();
-	//D3DXMatrixTranslation(&mMove, m_Pos.x, m_Pos.y, m_Pos.z);
-	//D3DXMatrixScaling( &mScale, m_Radius1, m_Radius2, 1.0f );
-	//m_mMatrix	= mScale * mMove;
 };
 
 /**************************************************************************
@@ -606,7 +582,7 @@ void	StartField::Update(UpdatePacket& i_UpdatePacket)
 ////              :   D3DCOLORVALUE& Ambient,		//アンビエント色
 ////			  : wiz::OBJID id = OBJID_2D_PLAYER //ID
 //// 戻値       ：なし
-//// 担当       ：鴫原 徹 本多寛之(修正)
+//// 担当       ：鴫原 徹 本多寛之
 //// 備考       ：
 ////            ：
 ////
@@ -630,6 +606,7 @@ PlayerCoil::PlayerCoil(
 ,m_vStartPos(vPos)
 ,m_bLastMouseRB(false)
 ,m_bLastMouseLB(false)
+,m_bIsSuperMode(false)
 ,m_fTurnAngle(PLAYER_TURN_ANGLE_Lv1)
 ,m_pPlayer(NULL)
 ,m_pMagneticumObject(NULL)
@@ -727,9 +704,6 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 			case COIL_STATE_STICK:
 				Update_StateStick();
 				break;
-			case COIL_STATE_SUPER:
-				Update_StateSuper( i_UpdatePacket );
-				break;
 			case COIL_STATE_DEAD:
 				Update_StateDead();
 				break;
@@ -737,24 +711,10 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 				break;
 		}
 
-		bool bCheckDistance = CheckDistance( m_pPlayer->getPos(), m_vPos, m_pPlayer->getMagneticum() );
-		if( bCheckDistance ){
-			//自機と磁界の角度
-			float fTargetDir = TwoPoint2Degree( m_pPlayer->getPos() , m_vPos );
-			//fTargetDir = 360.0f - fTargetDir;
-			Debugger::DBGSTR::addStr( L"fTargetDir : %f\n", fTargetDir);
-			//自機のデカルト座標
-			D3DXVECTOR3 vDescartes = ConvertToCartesianCoordinates(m_vMove.x,m_fMoveDir);
-			Debugger::DBGSTR::addStr( L"vDescartes : %f\n", vDescartes.x);
-
-			float	fReverse = 0.0f;
-			if(m_fMoveDir > 180.0f){
-				fReverse = m_fMoveDir - 180.0f;
-			}
-			else{
-				fReverse = m_fMoveDir + 180.0f;
-			}
+		if(m_bIsSuperMode){
+			SuperMode(i_UpdatePacket);
 		}
+
 		//デバック用-----------------------------------------------------------
 		Debugger::DBGSTR::addStr( L"角度 = %f\n",m_fMoveDir);
 		//-----------------------------------------------------------------------
@@ -810,7 +770,6 @@ void PlayerCoil::Update_StateStart(){
 	}
 	if(!g_bMouseLB && m_bLastMouseLB){
 		m_enumCoilState = COIL_STATE_MOVE;
-		//m_enumCoilState = COIL_STATE_SUPER;
 		m_bLastMouseLB = false;
 		m_pPlayer->CoilWasFired(true);
 	}
@@ -828,7 +787,7 @@ void PlayerCoil::Update_StateStart(){
 ////
 void PlayerCoil::Update_StateMove(){
 	//プレイヤー磁界と自機の判定
-	bool bCheckDistance = CheckDistance( m_pPlayer->getPos(), m_vPos, (float)MGPRM_MAGNETICUM_QUAD );
+	bool bCheckDistance = CheckDistance( m_pPlayer->getPos(), m_vPos, (float)MGPRM_MAGNETICUM_QUAD, true );
 	if( bCheckDistance ){
 		m_fMoveDir = MagneticDecision(m_fMoveDir,m_pPlayer->getPos(),m_pPlayer->getMagnetPole());
 	}
@@ -837,7 +796,7 @@ void PlayerCoil::Update_StateMove(){
 	multimap<float, Magnet3DItem*> ItemMap_Target = m_pMagneticumObject->getMapTarget();
 	multimap<float,Magnet3DItem*>::iterator it = ItemMap_Target.begin();
 	while(it != ItemMap_Target.end()){
-		bool bCheckDistance = CheckDistance( it->second->m_vPos, m_vPos, (float)MGPRM_MAGNETICUM_QUAD );
+		bool bCheckDistance = CheckDistance( it->second->m_vPos, m_vPos, (float)MGPRM_MAGNETICUM_QUAD, false );
 		if( bCheckDistance ){
 			m_fMoveDir = MagneticDecision(m_fMoveDir,it->second->m_vPos,it->second->m_bMagnetPole);
 		}
@@ -873,7 +832,7 @@ void PlayerCoil::Update_StateStick(){
 	m_fMoveDir += 5.0f;
 	if(m_fMoveDir > 360.0f)m_fMoveDir = float(int(m_fMoveDir) % 360);
 
-	//S青右N赤左
+	//発射時に極を変える
 	switch(getMagnetPole()){
 		case POLE_S:
 			if(!g_bMouseLB){
@@ -892,7 +851,7 @@ void PlayerCoil::Update_StateStick(){
 
 
 /////////////////// ////////////////////
-//// 関数名     ：PlayerCoil::Update_StateSuper()
+//// 関数名     ：PlayerCoil::SuperMode()
 //// カテゴリ   ：
 //// 用途       ：STATE_SUPER時の動き
 //// 引数       ：  DrawPacket& i_DrawPacket             // 画面描画時に必要なデータ群 ↓内容下記
@@ -905,16 +864,16 @@ void PlayerCoil::Update_StateStick(){
 //// 備考       ：
 ////			  ：
 ////
-void PlayerCoil::Update_StateSuper( UpdatePacket& i_UpdatePacket ){
-	//移動
-	Update_StateMove();
+void PlayerCoil::SuperMode( UpdatePacket& i_UpdatePacket ){	
+	static float s_fTimeCount		= 0;
+	static int	s_iInterval			= 0;
+	static bool s_bIsColorChange	= false;
+
+	if(m_enumCoilState == COIL_STATE_MOVE)
+		s_fTimeCount += (float)i_UpdatePacket.pTime->getElapsedTime();
 	
-	static float s_fTimeCount = 0;
-	s_fTimeCount += (float)i_UpdatePacket.pTime->getElapsedTime();
-	
-	static bool s_bIsColorChange = false;
 	//色の点滅
-	if( (int(s_fTimeCount*10)%10)%2 == 0){
+	if(s_iInterval == 0){
 		if(s_bIsColorChange){
 			s_bIsColorChange = false;
 			switch(getMagnetPole()){
@@ -931,10 +890,12 @@ void PlayerCoil::Update_StateSuper( UpdatePacket& i_UpdatePacket ){
 			setColorSuper();
 		}
 	}
+	s_iInterval++;
+	if(s_iInterval >= 5) s_iInterval = 0;
 
 	//無敵モード終了
 	if(s_fTimeCount >= COIL_SUPER_MODE_TIME){
-		m_enumCoilState = COIL_STATE_MOVE;
+		m_bIsSuperMode = false;
 		s_fTimeCount = 0.0f;
 		switch(getMagnetPole()){
 			case POLE_S:
@@ -1022,7 +983,7 @@ void PlayerCoil::Draw(DrawPacket& i_DrawPacket){
 //// 担当       ：本多寛之
 //// 備考       ：
 ////　　　　　　：
-float PlayerCoil::MagneticDecision( float i_fCoilDir, D3DXVECTOR3& i_vMagnetPos, bool i_bMagnetPole_Field ) const{
+float PlayerCoil::MagneticDecision( float i_fCoilDir, D3DXVECTOR3& i_vMagnetPos, POLE i_bMagnetPole_Field ) const{
 	float	fTargetDir = TwoPoint2Degree( i_vMagnetPos , getPos() );
 	float	fReverse   = 0.0f;
 	if(i_fCoilDir > 180.0f){
@@ -1090,20 +1051,24 @@ float PlayerCoil::MagneticDecision( float i_fCoilDir, D3DXVECTOR3& i_vMagnetPos,
 };
 
 /////////////////// ////////////////////
-//// 用途       ：bool PlayerCoil::CheckDistance( D3DXVECTOR3& i_vMagneticFieldPos, D3DXVECTOR3& i_vCoilPos ) const
+//// 用途       ：bool PlayerCoil::CheckDistance( D3DXVECTOR3& i_vMagneticFieldPos, D3DXVECTOR3& i_vCoilPos, float i_iBorder, bool IsPlayer )
 //// カテゴリ   ：関数
 //// 用途       ：距離を判定
 //// 引数       ：D3DXVECTOR3& i_vMagneticFieldPos //磁界の位置 
 ////　　　　　　：D3DXVECTOR3& i_vCoilPos          //コイルの位置
 ////　　　　　　：float        i_iBorder           //判定する値
+////　　　　　　：bool　　　　IsPlayer　　　　　//相手がプレイヤーかどうか
 //// 戻値       ：true , false
 //// 担当者     ：本多寛之
 //// 備考       ：
-bool PlayerCoil::CheckDistance( D3DXVECTOR3& i_vMagneticFieldPos, D3DXVECTOR3& i_vCoilPos, float i_iBorder ){
+bool PlayerCoil::CheckDistance( D3DXVECTOR3& i_vMagneticFieldPos, D3DXVECTOR3& i_vCoilPos, float i_iBorder, bool IsPlayer ){
 	float Lng  = (float)TwoPointToBassLength( i_vMagneticFieldPos, i_vCoilPos ) ;
 	if( Lng <= i_iBorder ){
 		float fBorderLv = i_iBorder/3;
-		if(Lng <= fBorderLv/30 && getMagnetPole() != m_pPlayer->getMagnetPole()){
+		if(m_enumCoilState == COIL_STATE_MOVE
+						&& getMagnetPole() != m_pPlayer->getMagnetPole()
+								&& Lng <= fBorderLv/30
+									&& IsPlayer){
 			m_vPos = m_pPlayer->getPos();
 			m_enumCoilState = COIL_STATE_STICK;
 			return false;
@@ -1156,7 +1121,7 @@ Factory_Player::Factory_Player( FactoryPacket* fpac ){
 			new ProvisionalPlayer3D(
 				fpac,
 				NULL,
-				//fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"CircleP.png" ),
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Field.png" ),
 				vScale,
 				D3DXQUATERNION( 0.0f, 0.0f, 0.0f, 0.0f ),
 				D3DXVECTOR3(0.0f,0.0f,0.0f))
