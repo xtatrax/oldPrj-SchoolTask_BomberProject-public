@@ -123,7 +123,7 @@ void	Item::Update(UpdatePacket& i_UpdatePacket)
 	Debugger::DBGSTR::addStr(L"ItemAll = %d\n",m_ItemMap_All.size());
 	multimap<float,BallItem*>::iterator it = m_ItemMap_All.begin();
 	while(it != m_ItemMap_All.end()){
-		if(pc->getState() == COIL_STATE_MOVE){
+		if(pc->getState() == COIL_STATE_MOVE && !pc->getSuperMode()){
 			//	: 自分から対象までのベクトルを算出
 			D3DXVECTOR3	vTargetDir	= cPos - (it->second->m_Pos) ;
 
@@ -147,7 +147,7 @@ void	Item::Update(UpdatePacket& i_UpdatePacket)
 			}
 			//ゲージが最大になったらコイルを無敵状態に
 			if(br->getRect2().right >= GAGE_MAX){
-				pc->setState(COIL_STATE_SUPER);	
+				pc->setSuperMode(true);	
 			}
 		}
 		//移動用
@@ -164,7 +164,7 @@ void	Item::Update(UpdatePacket& i_UpdatePacket)
 
 		it++;
 	}
-	if(pc->getState() == COIL_STATE_SUPER){
+	if(pc->getState() == COIL_STATE_MOVE && pc->getSuperMode()){
 		static float s_fElapsedTime = 0;
 		static float s_fTimeTotal = 0.0f;
 		s_fElapsedTime += (float)i_UpdatePacket.pTime->getElapsedTime();
@@ -470,7 +470,7 @@ Factory_Item::Factory_Item(FactoryPacket* fpac){
 				g_vZero,
 				D3DXVECTOR3(50.0f,520.0f,0.0f),
 				Rect(0,0,256,64),
-				Rect(0,64,100,128)
+				Rect(0,64,0,128)
 			)
 		);
 
