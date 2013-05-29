@@ -49,7 +49,7 @@
 	//		リリースモード定義       //
 	//-------------------------------//
 
-		#define CF_FULLSCREEN				/* フルスクリーンモード       */
+		//#define CF_FULLSCREEN				/* フルスクリーンモード       */
 	#endif
 
 #endif

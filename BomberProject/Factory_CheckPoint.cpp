@@ -28,6 +28,8 @@ CheckPoint::CheckPoint( LPDIRECT3DDEVICE9 pD3DDevice, float fLength, wiz::OBJID 
 	
 }
 CheckPoint::~CheckPoint(){
+	m_pCoil		= NULL ;
+	m_pCamera	= NULL ;
 	SafeDeletePointerContainer( m_ItemContainer ) ;
 }
 /////////////////// ////////////////////

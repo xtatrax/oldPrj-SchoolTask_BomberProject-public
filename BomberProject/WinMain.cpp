@@ -258,6 +258,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE
         return 1;   //エラー終了
     }
     //例外処理終了
+	//COMコンポーネントのリリース
+	::CoUninitialize();
     return 1;   //エラー終了
 }
 

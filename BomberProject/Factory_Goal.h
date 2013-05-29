@@ -43,15 +43,27 @@ class	GoalObject	:public PrimitiveBox{
 	};
 	//map<オブジェクトのポジション,GoalItem>
 	multimap<float,GoalItem*> m_ItemMap_All;	//全てのGoalItem
+
 public:
 	GoalObject(	LPDIRECT3DDEVICE9 pD3DDevice,
 				LPDIRECT3DTEXTURE9 pTexture,
 				wiz::OBJID id = OBJID_3D_WALL
 				);
+	/////////////////// ////////////////////
+	//// 関数名     ：~GoalObject();
+	//// カテゴリ   ：デストラクタ
+	//// 用途       ：破棄
+	//// 引数       ：なし
+	//// 戻値       ：なし
+	//// 担当者     ：鴫原 徹
+	//// 備考       ：
+	////            ：
+	////
+	~GoalObject();
     void	Draw(DrawPacket& i_DrawPacket) ;
 	void	Update(UpdatePacket& i_UpdatePacket);
-	void addGoal(D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos,
-			D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient);
+	void	addGoal(D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos,
+				D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient);
 };
 
 /**************************************************************************

@@ -54,6 +54,20 @@ Item::Item(FactoryPacket* fpac,LPDIRECT3DTEXTURE9 pTexture, wiz::OBJID id)
 		throw;
 	}
 }
+/////////////////// ////////////////////
+//// 関数名     ：~Item();
+//// カテゴリ   ：デストラクタ
+//// 用途       ：破棄
+//// 引数       ：なし
+//// 戻値       ：なし
+//// 担当者     ：鴫原 徹
+//// 備考       ：
+////            ：
+////
+Item::~Item(){
+	SafeDeletePointerMap( m_ItemMap_All );	
+}
+
 
 /**************************************************************
 関数名　　：void Item::Draw(DrawPacket &i_DrawPacket)

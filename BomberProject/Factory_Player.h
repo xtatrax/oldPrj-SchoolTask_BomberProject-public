@@ -89,6 +89,17 @@ public:
 	ProvisionalPlayer3D( FactoryPacket* fpac, LPDIRECT3DTEXTURE9 pTexture, LPDIRECT3DTEXTURE9 pTexture2,
 		D3DXVECTOR3 &vScale, D3DXQUATERNION &vRot, D3DXVECTOR3 &vPos,
 		wiz::OBJID id = OBJID_3D_PLAYER );
+	/////////////////// ////////////////////
+	//// 関数名     ：~ProvisionalPlayer3D();
+	//// カテゴリ   ：デストラクタ
+	//// 用途       ：破棄
+	//// 引数       ：なし
+	//// 戻値       ：なし
+	//// 担当者     ：鴫原 徹
+	//// 備考       ：
+	////            ：
+	////
+	~ProvisionalPlayer3D();
 	//	:
 	void Draw( DrawPacket& i_DrawPacket );
 	//	: 

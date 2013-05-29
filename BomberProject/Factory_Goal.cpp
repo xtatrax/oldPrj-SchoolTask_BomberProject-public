@@ -54,7 +54,13 @@ GoalObject::GoalObject( LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTextur
 		throw;
 	}
 }
+GoalObject::~GoalObject(){
+	
+	m_pCoil = NULL ;
+	SafeDeletePointerMap( m_ItemMap_All ) ;
 
+
+}
 /**************************************************************
 関数名　　：void GoalObject::Draw(DrawPacket &i_DrawPacket)
 カテゴリ　：関数
