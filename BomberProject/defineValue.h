@@ -94,6 +94,7 @@
 #define MYVK_DEBUG_OUTPUT_DBGSTR	( VK_F9  )
 #define MYVK_DEBUG_OUTPUT_MEMORY	( VK_F8  )
 #define MYVK_DEBUG_OBB_DRAW			( VK_F7  )
+#define MYVK_DEBUG_COIL_INVISIBLE	( VK_F6  )
 
 //
 //////////

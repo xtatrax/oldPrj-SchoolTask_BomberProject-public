@@ -634,6 +634,7 @@ PlayerCoil::PlayerCoil(
 ,m_enumCoilState(COIL_STATE_START)
 #if defined( ON_DEBUGGINGPROCESS )
 ,m_pDSPH(NULL)
+,m_bDebugInvincibleMode( false )
 #endif
 {
 	::ZeroMemory( &m_Material, sizeof(D3DMATERIAL9) ) ;
@@ -690,6 +691,7 @@ bool PlayerCoil::HitTestWall( OBB Obb, float Index ){
 	sp.m_Radius = m_pCylinder->getRadius2() ;
 #if defined( ON_DEBUGGINGPROCESS ) | defined( PRESENTATION )
 	if( m_pDSPH ) m_pDSPH->UpdateSPHERE(sp);
+	if( m_bDebugInvincibleMode ) return false ;
 #endif
 	//í èÌÇÃè’ìÀîªíË
 	D3DXVECTOR3 Vec ;
@@ -784,6 +786,11 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 		m_pCamera->setPosY( m_vPos.y );
 	}
 
+	if( GetAsyncKeyState( MYVK_DEBUG_COIL_INVISIBLE ) )
+		m_bDebugInvincibleMode ? m_bDebugInvincibleMode = false : m_bDebugInvincibleMode = true ;
+
+	if( m_bDebugInvincibleMode )
+	Debugger::DBGSTR::addStrTop( L"**********  ñ≥ìGÉÇÅ[Éh  **********\n" );
 };
 
 /////////////////// ////////////////////
@@ -856,8 +863,8 @@ void PlayerCoil::Update_StateMove(){
 	if(m_vPos.x <= 0){
 		m_vPos.x = 0.0f;
 	}
-	if(m_vPos.x >= 39.0f){
-		m_vPos.x = 39.0f;		
+	if(m_vPos.x >= 50.0f){
+		m_vPos.x = 50.0f;		
 	}
 };
 
