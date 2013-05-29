@@ -17,6 +17,8 @@ namespace wiz {
 /**************************************************************************
  TextureManager 定義部
 /***************************************************************************/
+//vector< TextureManager::Texture* > TextureManager::m_vecTextures;
+
 /////////////////// ////////////////////
 //// 用途       ：TextureManager::TextureManager()
 //// カテゴリ   ：コンストラクタ
@@ -52,10 +54,10 @@ TextureManager::~TextureManager(){
 ////            ：
 ////
 void TextureManager::Release(){
-	for(	DWORD i = 0 , L = m_vecTextures.size() ; L > i ; i++){	
-		delete m_vecTextures[i];
-	}
-	m_vecTextures.clear();
+	//for(	DWORD i = 0 , L = m_vecTextures.size() ; L > i ; i++){	
+		SafeDeletePointerContainer( m_vecTextures );
+	//}
+	//m_vecTextures.clear();
 };
 /////////////////// ////////////////////
 //// 用途       ：LPDIRECT3DTEXTURE9 TextureManager::addTexture(LPDIRECT3DDEVICE9 pD3DDevice,

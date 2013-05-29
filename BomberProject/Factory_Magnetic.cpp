@@ -19,53 +19,53 @@
 namespace wiz{
 Camera*		MagneticumObject3D::m_pCamera = NULL;	
 
-/**************************************************************************
- MagneticumObject 定義部
-****************************************************************************/
-/////////////////// ////////////////////
-//// 関数名     ：MagneticumObject( LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTexture,
-////            ：    D3DXVECTOR3 &vScale, D3DXVECTOR3 &vRot, D3DXVECTOR3 &vPos, RECT* pRect,
-////            ：    Color color = 0xFFFFFFFF, wiz::OBJID id = OBJID_3D_PLAYER )
-//// カテゴリ   ：コンストラクタ
-//// 用途       ：
-//// 引数       ：
-//// 戻値       ：なし
-//// 担当       ：鴫原 徹
-//// 備考       ：
-////            ：
-////
-MagneticumObject::MagneticumObject(
-	LPDIRECT3DDEVICE9 pD3DDevice,				//	: デバイス
-	LPDIRECT3DTEXTURE9 pTexture,				//	: テクスチャー
-	D3DXVECTOR3 &vScale,						//	: 伸縮
-	D3DXVECTOR3 &vRot,							//	: 回転
-	D3DXVECTOR3 &vPos,							//	: 位置
-	RECT* pRect,								//	: 描画範囲
-	Color color ,								//	: 色
-	wiz::OBJID id 								//	: ID
-)
-:SpriteObject(pD3DDevice,pTexture,vScale,vRot,vPos,
-	pRect,g_vZero,g_vZero,color,id)
-,m_vPos( vPos )
-,m_vScale( vScale )
-,m_bMagnetPole( POLE_S )
-{
-}
-
-/////////////////// ////////////////////
-//// 関数名     ：void Update( UpdatePacket& i_UpdatePacket )
-//// カテゴリ   ：
-//// 用途       ：
-//// 引数       ：
-//// 戻値       ：なし
-//// 担当       ：鴫原 徹
-//// 備考       ：
-////            ：
-////
-void MagneticumObject::Update( UpdatePacket& i_UpdatePacket ){
-
-};
-
+///**************************************************************************
+// MagneticumObject 定義部
+//****************************************************************************/
+///////////////////// ////////////////////
+////// 関数名     ：MagneticumObject( LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTexture,
+//////            ：    D3DXVECTOR3 &vScale, D3DXVECTOR3 &vRot, D3DXVECTOR3 &vPos, RECT* pRect,
+//////            ：    Color color = 0xFFFFFFFF, wiz::OBJID id = OBJID_3D_PLAYER )
+////// カテゴリ   ：コンストラクタ
+////// 用途       ：
+////// 引数       ：
+////// 戻値       ：なし
+////// 担当       ：鴫原 徹
+////// 備考       ：
+//////            ：
+//////
+//MagneticumObject::MagneticumObject(
+//	LPDIRECT3DDEVICE9 pD3DDevice,				//	: デバイス
+//	LPDIRECT3DTEXTURE9 pTexture,				//	: テクスチャー
+//	D3DXVECTOR3 &vScale,						//	: 伸縮
+//	D3DXVECTOR3 &vRot,							//	: 回転
+//	D3DXVECTOR3 &vPos,							//	: 位置
+//	RECT* pRect,								//	: 描画範囲
+//	Color color ,								//	: 色
+//	wiz::OBJID id 								//	: ID
+//)
+//:SpriteObject(pD3DDevice,pTexture,vScale,vRot,vPos,
+//	pRect,g_vZero,g_vZero,color,id)
+//,m_vPos( vPos )
+//,m_vScale( vScale )
+//,m_bMagnetPole( POLE_S )
+//{
+//}
+//
+///////////////////// ////////////////////
+////// 関数名     ：void Update( UpdatePacket& i_UpdatePacket )
+////// カテゴリ   ：
+////// 用途       ：
+////// 引数       ：
+////// 戻値       ：なし
+////// 担当       ：鴫原 徹
+////// 備考       ：
+//////            ：
+//////
+//void MagneticumObject::Update( UpdatePacket& i_UpdatePacket ){
+//
+//};
+//
 
 
 //3D変換用
@@ -174,6 +174,26 @@ MagneticumObject3D::MagneticumObject3D(
 {
 	::ZeroMemory( &m_Material, sizeof(D3DMATERIAL9) ) ;
 }
+/////////////////// ////////////////////
+//// 用途       ：  ~MagneticumObject3D()
+//// カテゴリ   ：コンストラクタ
+//// 用途       ：Player用のコンストラクタ
+//// 引数       ：なし
+//// 戻値       ：なし
+//// 担当者     ：鴫原 徹
+//// 備考       ：
+////	
+MagneticumObject3D::~MagneticumObject3D(){
+	//磁界　外側
+	SafeDelete( m_pMagneticField  );
+	SafeDelete( m_pMagneticField2 );
+	SafeDelete( m_pMagneticField3 );
+	SafeDelete( m_pMagneticField4 );
+	SafeDeletePointerMap( m_ItemMap_All );
+	m_ItemMap_All.clear();
+	m_ItemMap_Target.clear();
+
+}
 
 /////////////////// ////////////////////
 //// 用途       ：void Draw( DrawPacket& i_DrawPacket )
@@ -191,6 +211,7 @@ void MagneticumObject3D::Draw(DrawPacket& i_DrawPacket)
 {
 	multimap<float,Magnet3DItem*>::iterator it = m_ItemMap_Target.begin();
 	while(it != m_ItemMap_Target.end()){
+		setPole( it->second->m_bMagnetPole );
 		//テクスチャがある場合
 		if(m_pTexture){
 			DWORD wkdword;
@@ -253,6 +274,8 @@ void MagneticumObject3D::Update( UpdatePacket& i_UpdatePacket ){
 	}
 	multimap<float,Magnet3DItem*>::iterator it2 = m_ItemMap_Target.begin();
 	while(it2 != m_ItemMap_Target.end()){
+		setPole( it2->second->m_bMagnetPole );
+
 		//計算はUpdateで
 		//拡大縮小
 		D3DXMATRIX mScale;
@@ -310,7 +333,7 @@ void MagneticumObject3D::Update( UpdatePacket& i_UpdatePacket ){
 //// 戻値       ：無し
 //// 担当者     ：曳地 大洋
 //// 備考       ：
-void MagneticumObject3D::AddMagnetic(D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos,bool vPole,
+void MagneticumObject3D::AddMagnetic(D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos,POLE vPole,
 			D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient)
 {
 	Magnet3DItem* pItem		= new Magnet3DItem ;
@@ -374,13 +397,13 @@ Factory_Magnetic::Factory_Magnetic(FactoryPacket *fpac){
 		);
 		fpac->m_pVec->push_back(Magnet);
 
-		//Magnet->AddMagnetic(D3DXVECTOR3(1.0f,1.0f,1.0f),
-		//			  D3DXVECTOR3(0.0f,0.0f,0.0f),
-		//			  D3DXVECTOR3(10.0f,10.0f,0.0f),
-		//			  true,
-		//			  MagnetDiffuse,
-		//			  MagnetSpecular,
-		//			  MagnetAmbient);
+		Magnet->AddMagnetic(D3DXVECTOR3(1.0f,1.0f,1.0f),
+					  D3DXVECTOR3(0.0f,0.0f,0.0f),
+					  D3DXVECTOR3(10.0f,20.0f,0.0f),
+					  POLE_N,
+					  MagnetDiffuse,
+					  MagnetSpecular,
+					  MagnetAmbient);
 		//Magnet->AddMagnetic(D3DXVECTOR3(1.0f,1.0f,1.0f),
 		//			  D3DXVECTOR3(0.0f,0.0f,0.0f),
 		//			  D3DXVECTOR3(1.0f,0.0f,0.0f),

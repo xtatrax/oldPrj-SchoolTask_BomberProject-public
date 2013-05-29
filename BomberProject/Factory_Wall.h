@@ -22,7 +22,6 @@ extern class PlayerCoil ;
 
 const int DRAWING_RANGE = 20;
 
-
 /**************************************************************************
  WallObject 定義部
 ****************************************************************************/
@@ -30,12 +29,17 @@ const int DRAWING_RANGE = 20;
 // cclass WallObject : public PrimitiveBox
 //
 // 担当者  : 本多寛之
-//            曳地 大洋
+//         : 曳地 大洋
+// 編集    : 鴫原 徹
 // 用途    : 壁
 //**************************************************************************//
 class WallObject : public PrimitiveBox{
+	int			m_Ptn;
 	PlayerCoil* m_pPlayerCoil ;
 	Camera*	    m_pCamera;
+	LPDIRECT3DTEXTURE9 m_pWallTex;
+	LPDIRECT3DTEXTURE9 m_pPolyTex;
+
 	struct WallItem{
 		D3DMATERIAL9   m_Material;
 		D3DXMATRIX	   m_Matrix;
@@ -43,12 +47,43 @@ class WallObject : public PrimitiveBox{
 		D3DXVECTOR3	   m_vPos ;
 		D3DXQUATERNION m_vRot;
 		OBB			   m_Obb;
-		virtual ~WallItem(){}
+#if defined(ON_DEBUGGINGPROCESS) | defined( PRESENTATION )
+		DrawOBB*       m_pDOB ;
+		~WallItem(){SafeDelete(m_pDOB);}
+		WallItem()
+		:m_pDOB()
+#else
+		WallItem()
+#endif
+		{}
+
 	};
+
+	struct PolyItem{
+		D3DMATERIAL9   m_Material;
+		D3DXMATRIX	   m_Matrix;
+		D3DXVECTOR3    m_vScale ;
+		D3DXVECTOR3	   m_vPos ;
+		D3DXQUATERNION m_vRot;
+		virtual ~PolyItem(){}
+	};
+
 	//map<オブジェクトのポジション,WallItem>
 	multimap<float,WallItem*> m_ItemMap_All;	//全てのWallItem
-	multimap<float,WallItem*> m_ItemMap_Target;//描画対象のWallItem
-	//std::find
+	multimap<float,WallItem*> m_ItemMap_Target; //描画対象のWallItem
+	multimap<float,PolyItem*> m_ItemMap_Poly;	//全てのPolyItem
+
+protected:
+
+/////////////////// ////////////////////
+//// 用途       ：WallObject(	LPDIRECT3DDEVICE9 pD3DDevice,LPDIRECT3DTEXTURE9 pTexture,wiz::OBJID id = OBJID_3D_WALL);
+//// カテゴリ   ：コンストラクタ
+//// 用途       ：関数
+//// 引数       ：なし
+//// 戻値       ：なし
+//// 担当者     ：鴫原 徹
+//// 備考       ：
+	void UpdateTargetItem();
 
 public:
 	/////////////////// ////////////////////
@@ -63,12 +98,22 @@ public:
 	//// 備考       ：
 	WallObject(	LPDIRECT3DDEVICE9 pD3DDevice,
 				LPDIRECT3DTEXTURE9 pTexture,
+				LPDIRECT3DTEXTURE9 pTexture2,
 				wiz::OBJID id = OBJID_3D_WALL
 				);
+	/////////////////// ////////////////////
+	//// 用途       ：~WallObject();
+	//// カテゴリ   ：デストラクタ
+	//// 用途       ：
+	//// 引数       ：
+	//// 戻値       ：無し
+	//// 担当者     ：鴫原 徹
+	//// 備考       ：
+	~WallObject();
 
 	bool HitTest2DRectAndCircle( D3DXVECTOR3& i_vPos, float i_fRadius );
 
-
+	
 
 	///////////////////// ////////////////////
 	////// 用途       ：void GetOBB( size_t Index, OBB& obb )
@@ -133,7 +178,6 @@ public:
 
 
 	bool HitTest3DAddWall( MultiBox* pBox, size_t& Index, D3DXVECTOR3& Vec, D3DXVECTOR3& ElsePos );
-
 
 };
 

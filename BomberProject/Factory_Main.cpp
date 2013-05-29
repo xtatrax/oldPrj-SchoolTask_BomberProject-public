@@ -75,20 +75,20 @@ Factory_Main::Factory_Main(FactoryPacket* fpac){
 
 		Factory_Goal GPfac( fpac ) ;
 
-		//	: スプライト
-		fpac->m_pVec->push_back(
-			new SpriteObject(
-				fpac->pD3DDevice,
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"display.png" ),
-				g_vOne,
-				g_vZero,
-				g_vZero,
-				NULL,
-				g_vZero,
-				g_vZero,
-				0xFFFFFFFF
-			)
-		);
+		////	: スプライト
+		//fpac->m_pVec->push_back(
+		//	new SpriteObject(
+		//		fpac->pD3DDevice,
+		//		fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"display.png" ),
+		//		g_vOne,
+		//		g_vZero,
+		//		g_vZero,
+		//		NULL,
+		//		g_vZero,
+		//		g_vZero,
+		//		0xFFFFFFFF
+		//	)
+		//);
 
 
 		}

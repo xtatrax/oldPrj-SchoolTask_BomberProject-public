@@ -45,7 +45,7 @@ struct MapPartsStatus{
 	D3DCOLORVALUE   Diffuse   ;
 	D3DCOLORVALUE   Specular  ;
 	D3DCOLORVALUE   Ambient   ;
-	bool			bPool     ;
+	POLE			bPool     ;
 
 	//	: ƒIƒvƒVƒ‡ƒ“
 	wstring			sTexturePath	;
@@ -55,7 +55,7 @@ struct MapPartsStatus{
 	float			fTracSpeed		;
 	//MapPartsStatus(){};
 	//MapPartsStatus(DWORD i_dwClassID, D3DXVECTOR3 i_vScale, D3DXVECTOR3 i_vRot, D3DXVECTOR3 i_vPos,
-	//	wstring i_wsPath = L"", wstring i_wsTexPath = L"",
+	//	bool i_bPool = false, wstring i_wsTexPath = L"",wstring i_wsPath = L"", 
 	//	DWORD i_dwMotionNum = 0, float i_fTracSpeed = 1.0f)
 	//{
 	//	enClassid		= i_dwClassID	;
@@ -63,7 +63,10 @@ struct MapPartsStatus{
 	//	vRot			= i_vRot		;
 	//	vPos			= i_vPos		;
 	//	sFilePath		= i_wsPath		;
+	//	bPool			= i_bPool		;
+
 	//	sTexturePath	= i_wsTexPath	;
+
 	//	vScale			= i_vScale		;
 	//	dwMotionNum		= i_dwMotionNum	;
 	//	fTracSpeed		= i_fTracSpeed	;

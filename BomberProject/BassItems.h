@@ -27,7 +27,7 @@ namespace wiz {
 			public:
 				//Boxのテクスチャパターン
 				//パターンは呼び出し側で指定するので、これだけpublicにする
-				enum {PtnUV_1_1 = 0, PtnUV_6_1,PtnUV_YWrap,PtnUV_ZWrap};
+				enum {PtnUV_1_1 = 0, PtnUV_6_1,PtnUV_YWrap,PtnUV_ZWrap, PtnUV_1_4};
 			protected:
 				//以下は派生クラスから呼ばれる
 				//メッシュ
@@ -102,6 +102,19 @@ namespace wiz {
  float& uとfloat& vに変換後の値を代入
 ***************************************************************************/
 				static void BoxVecNomal2UV_6_1(D3DXVECTOR3 vec,D3DXVECTOR3 normal,float& u,float& v);
+/**************************************************************************
+ static void BoxVecNomal2UV_1_4(
+	D3DXVECTOR3 vec,	//頂点
+	D3DXVECTOR3 normal,	//法線
+	float& u,	//変換するu（テクスチャ上のU座標）
+	float& v	//変換するv（テクスチャ上のV座標）
+	);
+ 用途: BoxのVectorと法線からUとVを作り出す
+ テクスチャが4×1の画像になってる場合
+ 戻り値: なし
+ float& uとfloat& vに変換後の値を代入
+***************************************************************************/
+				static void BoxVecNomal2UV_1_4(D3DXVECTOR3 vec,D3DXVECTOR3 normal,int ptn,float& u,float& v);
 /**************************************************************************
  static void SphereVec2UV(
 	float x,	//xの値
@@ -1727,7 +1740,7 @@ bool val		//したいしたい値（trueかfalse）
  virtual ~Sphere();
  用途: デストラクタ
  戻り値: なし
-***************************************************************************/
+*****************llllllllllllllllll**********************************************************/
 				virtual ~Sphere();
 /**************************************************************************
 	virtual void ChangeDevice(
@@ -2132,7 +2145,7 @@ public:
         D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,
 		wiz::OBJID id = OBJID_3D_BOX,
 		LPDIRECT3DTEXTURE9 pTexture = 0)
-		:Box(pD3DDevice,g_vOne, g_vZero, g_vZero, Diffuse, Specular, Ambient, id, false, pTexture)
+		:Box(pD3DDevice,g_vOne, g_vZero, g_vZero, Diffuse, Specular, Ambient, id, false, pTexture, PtnUV_1_4)
 	{
 	}
 
@@ -2149,6 +2162,73 @@ class PrimitiveSphere : public Sphere {
 
 
 //**************************************************************************
+// class DrawSphere : public Object;
+//
+// 担当者  ; 鴫原 徹
+// 用途    : Sphereの可視化
+//**************************************************************************
+class DrawSphere : public Sphere{
+	IDirect3DVertexBuffer9* m_pVB;
+	//クラス内構造体
+	//ここでしか使用しないので、内部に持つ
+	SPHERE m_TargetSphere ;
+	static bool isEnableDraw ;
+public:
+/////////////////// ////////////////////
+//// 関数名     ：DrawSphere(LPDIRECT3DDEVICE9 pD3DDevice)
+//// カテゴリ   ：コンストラクタ
+//// 用途       ：Sphere
+//// 引数       ：  
+//// 戻値       ：なし（失敗時は例外をthrow）
+//// 担当者     ：
+//// 備考       ：
+////            ：
+////
+	DrawSphere(LPDIRECT3DDEVICE9 pD3DDevice, SPHERE i_Sphere, Color i_Color = 0xFF0000FF, wiz::OBJID id = OBJID_3D_DRAWOBB);
+/////////////////// ////////////////////
+//// 関数名     ：DrawSphere::~DrawSphere()
+//// カテゴリ   ：デストラクタ
+//// 用途       ：ガイドライン破棄時処理
+//// 引数       ：なし
+//// 戻値       ：なし
+//// 担当者     ：(山ノ井先生のひな形より)
+//// 備考       ：
+////            ：
+////
+virtual ~DrawSphere();
+/////////////////// ////////////////////
+//// 関数名     ：void Draw( LPDIRECT3DDEVICE9 pD3DDevice , vector<Object*>& Vec)
+//// カテゴリ   ：仮想関数
+//// 用途       ：ガイドラインを描画
+//// 引数       ：  LPDIRECT3DDEVICE9 pD3DDevice		//IDirect3DDevice9 インターフェイスへのポインタ
+////            ：  vector<Object*>& Vec,				//オブジェクトの配列
+//// 戻値       ：なし
+//// 担当者     ：(山ノ井先生のひな形より)
+//// 備考       ：Objectクラスの純粋仮想関数
+////            ：
+////
+virtual void Draw(DrawPacket& i_DrawPacket) ;
+
+/////////////////// ////////////////////
+//// 関数名     ：
+//// カテゴリ   ：
+//// 用途       ：
+//// 引数       ：
+////            ：
+//// 戻値       ：
+//// 担当者     ：
+//// 備考       ：
+////            ：
+////
+void UpdateSPHERE( SPHERE i_SPHERE){
+	m_TargetSphere = i_SPHERE ;
+	SetBaseScale( g_vOne * i_SPHERE.m_Radius );
+	SetBasePos( m_TargetSphere.m_Center );
+}
+};
+
+
+//**************************************************************************
 // class DrawOBB : public Object;
 //
 // 担当者  ; 鴫原 徹
@@ -2156,6 +2236,8 @@ class PrimitiveSphere : public Sphere {
 //**************************************************************************
 class DrawOBB : public Object{
 	IDirect3DVertexBuffer9* m_pVB;
+	float	m_fTimeAccumulator;
+
 	//クラス内構造体
 	//ここでしか使用しないので、内部に持つ
 	struct CUSTOMVERTEX
@@ -2164,6 +2246,8 @@ class DrawOBB : public Object{
 		DWORD color;
 	};
 	OBB m_TargetObb ;
+	static bool isEnableDraw ;
+public:
 /////////////////// ////////////////////
 //// 関数名     ：Guide(LPDIRECT3DDEVICE9 pD3DDevice)
 //// カテゴリ   ：コンストラクタ
@@ -2174,8 +2258,7 @@ class DrawOBB : public Object{
 //// 備考       ：
 ////            ：
 ////
-	DrawOBB(LPDIRECT3DDEVICE9 pD3DDevice, OBB i_OBB, Color i_Color, wiz::OBJID id = OBJID_3D_DRAWOBB);
-public:
+	DrawOBB(LPDIRECT3DDEVICE9 pD3DDevice, OBB i_OBB, Color i_Color = 0xFFFF0000, wiz::OBJID id = OBJID_3D_DRAWOBB);
 /////////////////// ////////////////////
 //// 関数名     ：Guide::~Guide()
 //// カテゴリ   ：デストラクタ
@@ -2200,10 +2283,66 @@ virtual ~DrawOBB();
 ////
 virtual void Draw(DrawPacket& i_DrawPacket) ;
 
+
+};
+//**************************************************************************
+// class DrawOBBLite : public Object;
+//
+// 担当者  ; 鴫原 徹
+// 用途    : OBBの可視化
+//**************************************************************************
+class DrawOBBLite : public Object{
+	IDirect3DVertexBuffer9* m_pVB;
+	float m_fTimeAccumulator;
+	//クラス内構造体
+	//ここでしか使用しないので、内部に持つ
+	struct CUSTOMVERTEX
+	{
+		D3DXVECTOR3 vec;
+		DWORD color;
+	};
+	OBB m_TargetObb ;
+	static bool isEnableDraw ;
+/////////////////// ////////////////////
+//// 関数名     ：Guide(LPDIRECT3DDEVICE9 pD3DDevice)
+//// カテゴリ   ：コンストラクタ
+//// 用途       ：ガイドライン生成時処理
+//// 引数       ：  LPDIRECT3DDEVICE9 pD3DDevice    //IDirect3DDevice9インターフェイスへのポインタ
+//// 戻値       ：なし（失敗時は例外をthrow）
+//// 担当者     ：(山ノ井先生のひな形より)
+//// 備考       ：
+////            ：
+////
+	DrawOBBLite(LPDIRECT3DDEVICE9 pD3DDevice, OBB i_OBB, Color i_Color, wiz::OBJID id = OBJID_3D_DRAWOBB);
+public:
+/////////////////// ////////////////////
+//// 関数名     ：Guide::~Guide()
+//// カテゴリ   ：デストラクタ
+//// 用途       ：ガイドライン破棄時処理
+//// 引数       ：なし
+//// 戻値       ：なし
+//// 担当者     ：(山ノ井先生のひな形より)
+//// 備考       ：
+////            ：
+////
+virtual ~DrawOBBLite();
+/////////////////// ////////////////////
+//// 関数名     ：void Draw( LPDIRECT3DDEVICE9 pD3DDevice , vector<Object*>& Vec)
+//// カテゴリ   ：仮想関数
+//// 用途       ：ガイドラインを描画
+//// 引数       ：  LPDIRECT3DDEVICE9 pD3DDevice		//IDirect3DDevice9 インターフェイスへのポインタ
+////            ：  vector<Object*>& Vec,				//オブジェクトの配列
+//// 戻値       ：なし
+//// 担当者     ：(山ノ井先生のひな形より)
+//// 備考       ：Objectクラスの純粋仮想関数
+////            ：
+////
+virtual void Draw(DrawPacket& i_DrawPacket) ;
+
 static void Add(LPDIRECT3DDEVICE9 pD3DDevice,vector<Object*>& Vec, OBB i_OBB, Color i_Color = 0xFFFF0000){
 	#ifdef ON_DEBUGGINGPROCESS
-		if(GetAsyncKeyState( MYVK_DEBUG_OBB_DRAW )){
-			Vec.push_back( new DrawOBB(pD3DDevice, i_OBB, i_Color) );
+		if( isEnableDraw ){
+			Vec.push_back( new DrawOBBLite(pD3DDevice, i_OBB, i_Color) );
 		}
 	#endif
 }
