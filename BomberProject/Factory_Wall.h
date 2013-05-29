@@ -29,7 +29,8 @@ const int DRAWING_RANGE = 20;
 // cclass WallObject : public PrimitiveBox
 //
 // 担当者  : 本多寛之
-//            曳地 大洋
+//         : 曳地 大洋
+// 編集    : 鴫原 徹
 // 用途    : 壁
 //**************************************************************************//
 class WallObject : public PrimitiveBox{
@@ -46,14 +47,16 @@ class WallObject : public PrimitiveBox{
 		D3DXVECTOR3	   m_vPos ;
 		D3DXQUATERNION m_vRot;
 		OBB			   m_Obb;
-#if defined( ON_DEBUGGINGPROCESS ) 
+#if defined(ON_DEBUGGINGPROCESS) | defined( PRESENTATION )
 		DrawOBB*       m_pDOB ;
-#endif 
+		~WallItem(){SafeDelete(m_pDOB);}
 		WallItem()
-#if defined( ON_DEBUGGINGPROCESS )
 		:m_pDOB()
+#else
+		WallItem()
 #endif
 		{}
+
 	};
 
 	struct PolyItem{
@@ -68,8 +71,8 @@ class WallObject : public PrimitiveBox{
 	//map<オブジェクトのポジション,WallItem>
 	multimap<float,WallItem*> m_ItemMap_All;	//全てのWallItem
 	multimap<float,WallItem*> m_ItemMap_Target; //描画対象のWallItem
-	//std::find
 	multimap<float,PolyItem*> m_ItemMap_Poly;	//全てのPolyItem
+
 protected:
 
 /////////////////// ////////////////////
@@ -98,6 +101,15 @@ public:
 				LPDIRECT3DTEXTURE9 pTexture2,
 				wiz::OBJID id = OBJID_3D_WALL
 				);
+	/////////////////// ////////////////////
+	//// 用途       ：~WallObject();
+	//// カテゴリ   ：デストラクタ
+	//// 用途       ：
+	//// 引数       ：
+	//// 戻値       ：無し
+	//// 担当者     ：鴫原 徹
+	//// 備考       ：
+	~WallObject();
 
 	bool HitTest2DRectAndCircle( D3DXVECTOR3& i_vPos, float i_fRadius );
 

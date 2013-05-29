@@ -29,10 +29,13 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		case WM_CREATE:
 			DragAcceptFiles(hWnd,TRUE); // D&D を許可する
 			return 0;
-        case WM_CLOSE:                // ウインドウが破棄されようとしている
-            ::DestroyWindow(hWnd);       // アプリケーションを終了する
-            return 0;
-        break;
+        //case WM_CLOSE:                // ウインドウが破棄されようとしている
+        //    ::DestroyWindow(hWnd);       // アプリケーションを終了する
+        //    return 0;
+        //break;
+		case WM_DESTROY:
+			wiz::DxDevice::Destroy();
+			break ;
         case WM_KEYDOWN: 
 			// キーが押された
 			if (wParam == VK_ESCAPE) {  // 押されたのはESCキーだ
@@ -142,11 +145,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE
     HWND hWnd;
     // ウィンドウの作成
     if(isFullScreen) { // フルスクリーン
-		DEVMODE    devMode;
+		//DEVMODE    devMode;
 		ShowCursor(DRAW_MOUSE);
         // 画面全体の幅と高さを取得
-        iClientWidth = ::GetSystemMetrics(SM_CXSCREEN);
-        iClientHeight = ::GetSystemMetrics(SM_CYSCREEN);
+        //iClientWidth = ::GetSystemMetrics(SM_CXSCREEN);
+        //iClientHeight = ::GetSystemMetrics(SM_CYSCREEN);
         hWnd = ::CreateWindowEx( 
             WS_EX_ACCEPTFILES,  //オプションのウィンドウスタイル
             pClassName,         // 登録されているクラス名
@@ -166,12 +169,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE
             ::MessageBox(0,L"ウインドウ作成に失敗しました",L"エラー",MB_OK);
             return 1;   //エラー終了
         }
-		devMode.dmSize       = sizeof(DEVMODE);
-		devMode.dmFields     = DM_PELSWIDTH | DM_PELSHEIGHT;
-		devMode.dmPelsWidth  = (DWORD)BASE_CLIENT_WIDTH;
-		devMode.dmPelsHeight = (DWORD)BASE_CLIENT_HEIGHT;
+		//devMode.dmSize       = sizeof(DEVMODE);
+		//devMode.dmFields     = DM_PELSWIDTH | DM_PELSHEIGHT;
+		//devMode.dmPelsWidth  = (DWORD)BASE_CLIENT_WIDTH;
+		//devMode.dmPelsHeight = (DWORD)BASE_CLIENT_HEIGHT;
 
-		ChangeDisplaySettings(&devMode, CDS_FULLSCREEN);
+		//ChangeDisplaySettings(&devMode, CDS_FULLSCREEN);
 
 
     }
@@ -230,8 +233,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE
 		/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 		// 
         // DirectXデバイスオブジェクトの初期化
-        wiz::DxDevice device(hWnd, isFullScreen,iClientWidth,iClientHeight);
-		return (int) device.MainThreadRun();
+        wiz::DxDevice* device = new wiz::DxDevice(hWnd, isFullScreen,iClientWidth,iClientHeight);
+		int ret =  (int) device->MainThreadRun();
+		SafeDelete( device );
+		::PostQuitMessage(0);
+		//wiz::TextureManager::Release();
+		return ret ;
 		/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 	}
     catch(wiz::BaseException& e){

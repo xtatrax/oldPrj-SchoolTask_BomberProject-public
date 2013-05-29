@@ -20,6 +20,7 @@ const int	MGPRM_MAGNETICUM			= 10 ; /* 磁界の影響半径*/
 const int	MGPRM_MAGNETICUM_QUAD		= ( MGPRM_MAGNETICUM * MGPRM_MAGNETICUM );
 
 
+
 namespace wiz{
 
 
@@ -246,6 +247,18 @@ public:
 		D3DCOLORVALUE& Ambient,
 		wiz::OBJID id = OBJID_3D_MAGNET
 		) ;
+
+
+	/////////////////// ////////////////////
+	//// 用途       ：  ~MagneticumObject3D()
+	//// カテゴリ   ：コンストラクタ
+	//// 用途       ：Player用のコンストラクタ
+	//// 引数       ：なし
+	//// 戻値       ：なし
+	//// 担当者     ：鴫原 徹
+	//// 備考       ：
+	////	
+	~MagneticumObject3D();
 
 	/////////////////// ////////////////////
 	//// 用途       ：void Draw( DrawPacket& i_DrawPacket )

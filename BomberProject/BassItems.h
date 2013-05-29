@@ -77,6 +77,19 @@ namespace wiz {
 ***************************************************************************/
 				static void PolygonVec2UV(float x,float y,float z,float r,float& u,float& v);
 /**************************************************************************
+ static void BoxVecNomalUV(
+	D3DXVECTOR3 vec,	//頂点
+	D3DXVECTOR3 normal,	//法線
+	float& u,	//変換するu（テクスチャ上のU座標）
+	float& v	//変換するv（テクスチャ上のV座標）
+	);
+ 用途: BoxのVectorと法線からUとVを作り出す
+ 前面のみにテクスチャを展開する場合
+ 戻り値: なし
+ float& uとfloat& vに変換後の値を代入
+***************************************************************************/
+				static void BoxVecNomalUV(D3DXVECTOR3 vec,D3DXVECTOR3 normal,float& u,float& v);
+/**************************************************************************
  static void BoxVecNomal2UV(
 	D3DXVECTOR3 vec,	//頂点
 	D3DXVECTOR3 normal,	//法線
@@ -2236,6 +2249,8 @@ void UpdateSPHERE( SPHERE i_SPHERE){
 //**************************************************************************
 class DrawOBB : public Object{
 	IDirect3DVertexBuffer9* m_pVB;
+	float	m_fTimeAccumulator;
+
 	//クラス内構造体
 	//ここでしか使用しないので、内部に持つ
 	struct CUSTOMVERTEX
@@ -2291,6 +2306,7 @@ virtual void Draw(DrawPacket& i_DrawPacket) ;
 //**************************************************************************
 class DrawOBBLite : public Object{
 	IDirect3DVertexBuffer9* m_pVB;
+	float m_fTimeAccumulator;
 	//クラス内構造体
 	//ここでしか使用しないので、内部に持つ
 	struct CUSTOMVERTEX
