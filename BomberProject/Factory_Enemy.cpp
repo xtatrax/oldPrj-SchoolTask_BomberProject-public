@@ -159,21 +159,6 @@ const float EnemyMove = 0.1f;
 						it->second->m_vPos	+= v * pole;
 					}
 
-					//if( it->second->m_vPos.x <= m_pPlayer->getPos().x ){
-					//	it->second->m_vPos.x += EnemyMove * pole;
-					//}
-					//if( it->second->m_vPos.x >= m_pPlayer->getPos().x ){
-					//	it->second->m_vPos.x -= EnemyMove * pole;
-					//
-					//}
-
-					//if( it->second->m_vPos.y <= m_pPlayer->getPos().y ){
-					//	it->second->m_vPos.y += EnemyMove * pole;
-					//}
-					//if( it->second->m_vPos.y > m_pPlayer->getPos().y ){
-					//	it->second->m_vPos.y -= EnemyMove * pole;
-					//}
-
 				}
 			}
 			
