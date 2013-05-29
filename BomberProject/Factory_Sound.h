@@ -21,7 +21,7 @@ namespace wiz{
  class Sound: public Object;
  用途: サウンドクラス
 ****************************************************************************/
-class Sound : public Object{
+class _Sound : public Object{
 protected:
 	IXACT3Engine* m_pEngine;
 	XACT_NOTIFICATION_CALLBACK m_fnNotificationCallback;
@@ -48,14 +48,14 @@ public:
  用途: コンストラクタ
  戻り値: なし
 ***************************************************************************/
-	Sound(const wchar_t* pWavBankFileName,const wchar_t* pSoundBankFileName ,wiz::OBJID id,
+	_Sound(const wchar_t* pWavBankFileName,const wchar_t* pSoundBankFileName ,wiz::OBJID id,
 		XACT_NOTIFICATION_CALLBACK fnNotificationCallback = 0);
 /**************************************************************************
  virtual ~Sound();
  用途: デストラクタ
  戻り値: なし
 ***************************************************************************/
-	virtual ~Sound();
+	virtual ~_Sound();
 /**************************************************************************
 	virtual void ReleaseObj();
  用途: デバイス喪失によるリソースの開放（仮想関数）
@@ -84,7 +84,8 @@ public:
 ***************************************************************************/
     virtual void Draw( DrawPacket& i_DrawPacket );
 };
-class OneSound : public Sound{
+namespace Avoidance{
+class OneSound : public _Sound{
 	XACTINDEX i_iSoundNum ;
 public:
 	OneSound(const wchar_t* pWavBankFileName,const wchar_t* pSoundBankFileName,PCSTR pSoundName,wiz::OBJID id);
@@ -92,6 +93,100 @@ public:
 	void PlaySound(BYTE count = 0);
 
 };
+}
+
+class Sound : public _Sound{
+
+	typedef  map< PCSTR , XACTINDEX > SOUNDLISTMAP;
+	SOUNDLISTMAP  m_SoundMap ;
+	SOUNDLISTMAP  m_WaveMap ;
+	/////////////////// ////////////////////
+	//// 用途       ：
+	//// カテゴリ   ：
+	//// 用途       ：
+	//// 引数       ：
+	//// 戻値       ：
+	//// 担当者     ：鴫原 徹
+	//// 備考       ：
+	////            ：
+	////
+	bool SearchSoundMap(PCSTR  pSoundName , XACTINDEX& o_SoundNum);
+
+	/////////////////// ////////////////////
+	//// 用途       ：
+	//// カテゴリ   ：
+	//// 用途       ：
+	//// 引数       ：
+	//// 戻値       ：
+	//// 担当者     ：鴫原 徹
+	//// 備考       ：
+	////            ：
+	////
+	bool SearchSoundBank(PCSTR  pSoundName , XACTINDEX& o_SoundNum);
+
+	/////////////////// ////////////////////
+	//// 用途       ：
+	//// カテゴリ   ：
+	//// 用途       ：
+	//// 引数       ：
+	//// 戻値       ：
+	//// 担当者     ：鴫原 徹
+	//// 備考       ：
+	////            ：
+	////
+	bool SearchWaveMap( PCSTR  pWaveName , XACTINDEX& o_WaveNum );
+
+	/////////////////// ////////////////////
+	//// 用途       ：
+	//// カテゴリ   ：
+	//// 用途       ：
+	//// 引数       ：
+	//// 戻値       ：
+	//// 担当者     ：鴫原 徹
+	//// 備考       ：
+	////            ：
+	////
+	bool SearchWaveBank(PCSTR  pWaveName , XACTINDEX& o_WaveNum);
+
+
+public:
+	/////////////////// ////////////////////
+	//// 用途       ：
+	//// カテゴリ   ：
+	//// 用途       ：
+	//// 引数       ：
+	//// 戻値       ：
+	//// 担当者     ：鴫原 徹
+	//// 備考       ：
+	////            ：
+	////
+	Sound(const wchar_t* pWavBankFileName,const wchar_t* pSoundBankFileName ,wiz::OBJID id);
+	
+	/////////////////// ////////////////////
+	//// 用途       ：
+	//// カテゴリ   ：
+	//// 用途       ：
+	//// 引数       ：
+	//// 戻値       ：
+	//// 担当者     ：鴫原 徹
+	//// 備考       ：
+	////            ：
+	////
+	bool SearchSoundAndPlay(PCSTR pSoundName);
+	
+	/////////////////// ////////////////////
+	//// 用途       ：
+	//// カテゴリ   ：
+	//// 用途       ：
+	//// 引数       ：
+	//// 戻値       ：
+	//// 担当者     ：鴫原 徹
+	//// 備考       ：BGMを再生するときにはこちらを利用してください
+	////            ：
+	////
+	bool SearchWaveAndPlay(PCSTR pSoundName, BYTE count = 0);
+};
+
 /**************************************************************************
 class Factory_Sound;
 

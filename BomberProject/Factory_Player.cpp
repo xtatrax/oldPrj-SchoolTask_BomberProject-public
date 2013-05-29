@@ -767,7 +767,7 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 		m_pStartField->Update(i_UpdatePacket);
 	}
 	//ƒJƒƒ‰À•WÝ’è
-	if( m_pCamera && m_pCamera->getPosY() < m_vPos.y ){
+	if( m_pCamera ){
 		m_pCamera->setPosY( m_vPos.y );
 	}
 
