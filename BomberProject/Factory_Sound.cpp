@@ -462,7 +462,7 @@ bool Sound::SearchWaveAndPlay(PCSTR pWaveName, BYTE count){
 ***************************************************************************/
 Factory_Sound::Factory_Sound(FactoryPacket* fpac){
 	try{
-
+		//	:BGM-TITLE----------:ƒ^ƒCƒgƒ‹‰æ–Ê‚Å—¬‚ê‚éBGM
 
 	}
 	catch(...){
