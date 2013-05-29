@@ -153,7 +153,6 @@ void CheckEffect::update( int i ){
 	//ミックス行列
 	m_Matrix	= mScale * mRot * mMove;
 
-	//m_fWide	-= 1;
 	if( m_fWide > 0.0f )
 		Reduction();
 }
@@ -216,8 +215,8 @@ void CheckPoint::Update( UpdatePacket& i_UpdatePacket ){
 		if(fPosY <= fCoilPosY){
 			m_pCoil->setStartPos(m_ItemContainer[ m_ActiveItem ]->vStartPos);
 			m_ActiveItem++ ;
-			m_pEffect	= new CheckEffect( i_UpdatePacket.pD3DDevice, m_pCoil->getPos(),m_Length,
-					i_UpdatePacket.pTxMgr->addTexture( i_UpdatePacket.pD3DDevice, L"media/Textures/particle.png") );
+			//m_pEffect	= new CheckEffect( i_UpdatePacket.pD3DDevice, m_pCoil->getPos(),m_Length,
+			//		i_UpdatePacket.pTxMgr->addTexture( i_UpdatePacket.pD3DDevice, L"particle.png" ) );
 			if(m_ActiveItem <= m_ItemContainer.size()) return ;
 		}
 	}
