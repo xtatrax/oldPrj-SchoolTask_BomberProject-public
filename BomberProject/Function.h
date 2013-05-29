@@ -759,6 +759,24 @@ inline D3DCOLORVALUE getD3DCOLORVALUE(float a, float r, float g, float b){
 	return c ;
 }
 
+inline D3DCOLORVALUE COLOR2D3DCOLORVALUE(Color i_Color, float i_fRate = 1.0f){
+	
+	D3DCOLORVALUE c = {
+		(float)i_Color.byteColor.r / (float)UCHAR_MAX ,
+		(float)i_Color.byteColor.g / (float)UCHAR_MAX ,
+		(float)i_Color.byteColor.b / (float)UCHAR_MAX ,
+		(float)i_Color.byteColor.a / (float)UCHAR_MAX
+	};
+	return c ;
+}
+
+inline D3DCOLORVALUE COLOR2DIFFUSE(Color i_Color, float i_fRate = 0.7f){
+	return COLOR2D3DCOLORVALUE(i_Color,i_fRate) ;
+}
+
+inline D3DCOLORVALUE COLOR2AMBIENT(Color i_Color, float i_fRate = 0.3f){
+	return COLOR2D3DCOLORVALUE(i_Color,i_fRate) ;
+}
 
 ////////////////////////////////////////
 ////// Non-environment-dependent ///////

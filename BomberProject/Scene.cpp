@@ -90,7 +90,7 @@ Scene::Scene(LPDIRECT3DDEVICE9 pD3DDevice)
 #else 
 //	: リリース用設定
 		//ルートのステージにタイトルメニューを設定
-		//m_pRootStage = new TitleMenu(pD3DDevice);
+		m_pRootStage = new TitleStage(pD3DDevice);
 #endif
 //
 //////////
@@ -160,11 +160,8 @@ Scene::~Scene()
 ////            ：
 ////
 void Scene::Update(UpdatePacket& i_UpdatePacket){
-	//static bool はんかくにしろし！ = false;
-	//if(pCntlState->Gamepad.wPressedButtons.XConState.START)
-	//	はんかくにしろし！ == true ? はんかくにしろし！ = false : はんかくにしろし！ = true;
-	//if(m_pRootStage && はんかくにしろし！ == false ){
-	 if(m_pRootStage){
+
+	if(m_pRootStage){
 
 #if defined(DEBUG) | defined(_DEBUG) | defined(ON_DEBUGGINGPROCESS)
 		//	:  バックボタンでデバッグメニューへ

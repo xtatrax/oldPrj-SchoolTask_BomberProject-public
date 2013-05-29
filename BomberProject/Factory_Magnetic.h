@@ -20,89 +20,89 @@ const int	MGPRM_MAGNETICUM			= 10 ; /* 磁界の影響半径*/
 const int	MGPRM_MAGNETICUM_QUAD		= ( MGPRM_MAGNETICUM * MGPRM_MAGNETICUM );
 
 
-#define  POLE_S true		/* S極 */
-#define  POLE_N false		/* N極 */
+
 namespace wiz{
+
 
 extern	class	MagneticField;
 
-//**************************************************************************//
-// class MagneticumObject : public SpriteObject ;
+////**************************************************************************//
+//// class MagneticumObject : public SpriteObject ;
+////
+//// 担当者  : 鴫原 徹
+//// 用途    : 磁界オブジェクト
+////         : コイルオブジェクトやユーザー設置磁界にも応用しています｡
+////**************************************************************************//
+//class MagneticumObject : public SpriteObject{
 //
-// 担当者  : 鴫原 徹
-// 用途    : 磁界オブジェクト
-//         : コイルオブジェクトやユーザー設置磁界にも応用しています｡
-//**************************************************************************//
-class MagneticumObject : public SpriteObject{
-
-//////////
-//	: 非公開
-private:
-	//	: 磁極フラグ
-	//	: S極 = POLE_S
-	//	: N極 = POLE_N
-	bool m_bMagnetPole ;
-
-//////////
-//	: プロテクト
-protected:
-	//	: 座標
-	D3DXVECTOR3 m_vPos ;
-	D3DXVECTOR3 m_vScale ;
-
-	void setPoleS(){ m_bMagnetPole = POLE_S  ; m_Color = 0xFF0000FF	; } ;
-	void setPoleN(){ m_bMagnetPole = POLE_N	 ; m_Color = 0xFFFF0000	; } ;
-/////////////////// ////////////////////
-//// 関数名     ：void ChangePole()
-//// カテゴリ   ：非公開アクセッサ
-//// 用途       ：磁極を反転させる
-//// 引数       ：なし
-//// 戻値       ：なし
-//// 担当       ：鴫原 徹
-//// 備考       ： 磁極フラグとカラーを変更する
-////            ：
-////
-	bool ChangePole(){
-		if( m_bMagnetPole == POLE_S )	{ setPoleN() ; }
-		else							{ setPoleS() ; }
-		return true ;
-	}
-
-//////////
-//	: 公開
-public:
-	MagneticumObject( LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTexture,
-		D3DXVECTOR3 &vScale, D3DXVECTOR3 &vRot, D3DXVECTOR3 &vPos, RECT* pRect,
-		Color color = 0xFFFFFFFF, wiz::OBJID id = OBJID_3D_MAGNET );
-	//	: 
-	void Update( UpdatePacket& i_UpdatePacket );
-/////////////////// ////////////////////
-//// 関数名     ：void ChangePole()
-//// カテゴリ   ：ゲッター
-//// 用途       ：磁極を獲得
-//// 引数       ：なし
-//// 戻値       ：なし
-//// 担当       ：鴫原 徹
-//// 備考       ： S極 = POLE_S = false
-////            ： N極 = POLE_N = true
-	bool getMagnetPole() const { return m_bMagnetPole	;	}	;
+////////////
+////	: 非公開
+//private:
+//	//	: 磁極フラグ
+//	//	: S極 = POLE_S
+//	//	: N極 = POLE_N
+//	POLE m_bMagnetPole ;
+//
+////////////
+////	: プロテクト
+//protected:
+//	//	: 座標
+//	D3DXVECTOR3 m_vPos ;
+//	D3DXVECTOR3 m_vScale ;
+//
+//	void setPoleS(){ m_bMagnetPole = POLE_S  ; m_Color = 0xFF0000FF	; } ;
+//	void setPoleN(){ m_bMagnetPole = POLE_N	 ; m_Color = 0xFFFF0000	; } ;
 ///////////////////// ////////////////////
-//// 関数名     ：D3DXVECTOR3 getPos() const { return g_vZero; }
-//// カテゴリ   ：ゲッター
-//// 用途       ：DEAD OR ALIVE
-//// 引数       ：なし
-//// 戻値       ：なし
-//// 担当者     ：鴫原 徹
-//// 備考       ：
-////            ：
-////
-	D3DXVECTOR3 getPos() const {
-		return m_vPos; 
-	}
-
-};
-
-
+////// 関数名     ：void ChangePole()
+////// カテゴリ   ：非公開アクセッサ
+////// 用途       ：磁極を反転させる
+////// 引数       ：なし
+////// 戻値       ：なし
+////// 担当       ：鴫原 徹
+////// 備考       ： 磁極フラグとカラーを変更する
+//////            ：
+//////
+//	bool ChangePole(){
+//		if( m_bMagnetPole == POLE_S )	{ setPoleN() ; }
+//		else							{ setPoleS() ; }
+//		return true ;
+//	}
+//
+////////////
+////	: 公開
+//public:
+//	MagneticumObject( LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTexture,
+//		D3DXVECTOR3 &vScale, D3DXVECTOR3 &vRot, D3DXVECTOR3 &vPos, RECT* pRect,
+//		Color color = 0xFFFFFFFF, wiz::OBJID id = OBJID_3D_MAGNET );
+//	//	: 
+//	void Update( UpdatePacket& i_UpdatePacket );
+///////////////////// ////////////////////
+////// 関数名     ：void ChangePole()
+////// カテゴリ   ：ゲッター
+////// 用途       ：磁極を獲得
+////// 引数       ：なし
+////// 戻値       ：なし
+////// 担当       ：鴫原 徹
+////// 備考       ： S極 = POLE_S = false
+//////            ： N極 = POLE_N = true
+//	POLE getMagnetPole() const { return m_bMagnetPole	;	}	;
+/////////////////////// ////////////////////
+////// 関数名     ：D3DXVECTOR3 getPos() const { return g_vZero; }
+////// カテゴリ   ：ゲッター
+////// 用途       ：DEAD OR ALIVE
+////// 引数       ：なし
+////// 戻値       ：なし
+////// 担当者     ：鴫原 徹
+////// 備考       ：
+//////            ：
+//////
+//	D3DXVECTOR3 getPos() const {
+//		return m_vPos; 
+//	}
+//
+//};
+//
+//
 
 
 //3D変換用
@@ -127,7 +127,7 @@ private:
 	//	: 磁極フラグ
 	//	: S極 = POLE_S
 	//	: N極 = POLE_N
-	bool  m_bMagnetPole ;
+	POLE  m_bMagnetPole ;
 	float m_fMagneticum ;
 //////////
 //	: プロテクト
@@ -139,7 +139,7 @@ protected:
 		D3DXVECTOR3		m_vScale ;
 		D3DXVECTOR3		m_vPos ;
 		D3DXQUATERNION	m_vRot ;
-		bool			m_bMagnetPole ;
+		POLE			m_bMagnetPole ;
 		virtual ~Magnet3DItem(){}
 	};
 
@@ -151,6 +151,10 @@ protected:
 
 	void setPoleS(){ m_bMagnetPole = POLE_S  ; setColorS() ; }
 	void setPoleN(){ m_bMagnetPole = POLE_N	 ; setColorN() ; }
+	void setPole( POLE bPool ){
+		     if( bPool == POLE_N ) setPoleN() ;
+		else if( bPool == POLE_S ) setPoleS() ;
+	}
 	
 	void setColorS(){
 		m_Material.Ambient.a = 1.0f ; m_Material.Ambient.b = 1.0f ; m_Material.Ambient.g = 0.0f ; m_Material.Ambient.r = 0.0f ;
@@ -244,6 +248,18 @@ public:
 		wiz::OBJID id = OBJID_3D_MAGNET
 		) ;
 
+
+	/////////////////// ////////////////////
+	//// 用途       ：  ~MagneticumObject3D()
+	//// カテゴリ   ：コンストラクタ
+	//// 用途       ：Player用のコンストラクタ
+	//// 引数       ：なし
+	//// 戻値       ：なし
+	//// 担当者     ：鴫原 徹
+	//// 備考       ：
+	////	
+	~MagneticumObject3D();
+
 	/////////////////// ////////////////////
 	//// 用途       ：void Draw( DrawPacket& i_DrawPacket )
 	//// カテゴリ   ：関数
@@ -293,7 +309,7 @@ public:
 		D3DXVECTOR3 &vScale,
 		D3DXVECTOR3 &vRot,
 		D3DXVECTOR3 &vPos,
-		bool		vPole,
+		POLE		vPole,
 		D3DCOLORVALUE& Diffuse,
 		D3DCOLORVALUE& Speular,
 		D3DCOLORVALUE& Ambient
@@ -334,7 +350,7 @@ public:
 	//// 担当       ：曳地大洋
 	//// 備考       ： S極 = POLE_S = false
 	////			 ： N極 = POLE_N = true
-	bool  getMagnetPole() const { return m_bMagnetPole	;	}	;
+	POLE  getMagnetPole() const { return m_bMagnetPole	;	}	;
 	float getMagneticum() const { return m_fMagneticum*m_fMagneticum  ;	}	;
 
 	/////////////////// ////////////////////

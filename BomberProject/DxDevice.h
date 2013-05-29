@@ -45,6 +45,7 @@ private:
 	RenderPacket			m_RenderPacket	;	// レンダースレッドの処理に流すデータ群
 	DrawPacket				m_DrawPacket	;	// ドロースレッドの処理に流すデータ群
 	Scene*					pScene			;	// 
+	static bool				m_bDestroy		;	//
 	static Rect				m_WindowRect	;	// ゲームの描画範囲の大きさを表す矩形
 	static D3DXVECTOR2		m_v2AspectRate	;		// 基準解像度と現在の解像度の比率
 	static HWND				m_hWnd				;	// メインウインドウのハンドル
@@ -162,8 +163,27 @@ public:
 ////
 	static HANDLE getLoadingThreadHandle(){return m_hLoadingThread;};
 
+/////////////////// ////////////////////
+//// 関数名     ：void Destroy()
+//// カテゴリ   ：
+//// 用途       ：
+//// 引数       ：無し
+//// 戻値       ：無し
+//// 備考       ：
+////            ：
+////
+	static void Destroy(){	m_bDestroy = true ; };
 
-
+/////////////////// ////////////////////
+//// 関数名     ：void EndUpdateThread()
+//// カテゴリ   ：メンバ関数
+//// 用途       ：シーンのアップデート用スレッドを終了する
+//// 引数       ：無し
+//// 戻値       ：無し
+//// 備考       ：
+////            ：
+////
+	// static void Destroy(){	m_bDestroy = true ; };
 
 /*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 //	: 非公開関数
@@ -243,16 +263,6 @@ private:
 //// 備考       ：
 ////            ：
 ////
-/////////////////// ////////////////////
-//// 関数名     ：void EndUpdateThread()
-//// カテゴリ   ：メンバ関数
-//// 用途       ：シーンのアップデート用スレッドを終了する
-//// 引数       ：無し
-//// 戻値       ：無し
-//// 備考       ：
-////            ：
-////
-
 };
 }
 //end of namespace wiz.

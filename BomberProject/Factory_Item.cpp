@@ -123,25 +123,31 @@ void	Item::Update(UpdatePacket& i_UpdatePacket)
 	Debugger::DBGSTR::addStr(L"ItemAll = %d\n",m_ItemMap_All.size());
 	multimap<float,BallItem*>::iterator it = m_ItemMap_All.begin();
 	while(it != m_ItemMap_All.end()){
-		//	: 自分から対象までのベクトルを算出
-		D3DXVECTOR3	vTargetDir	= cPos - (it->second->m_Pos) ;
+		if(pc->getState() == COIL_STATE_MOVE && !pc->getSuperMode()){
+			//	: 自分から対象までのベクトルを算出
+			D3DXVECTOR3	vTargetDir	= cPos - (it->second->m_Pos) ;
 
-		//	: 自分と対象までの距離を求める
-		double dirX = vTargetDir.x * vTargetDir.x;
-		double dirY = vTargetDir.y * vTargetDir.y;
-		it->second->m_fDistance	 = (float)sqrt(dirX + dirY);
+			//	: 自分と対象までの距離を求める
+			double dirX = vTargetDir.x * vTargetDir.x;
+			double dirY = vTargetDir.y * vTargetDir.y;
+			it->second->m_fDistance	 = (float)sqrt(dirX + dirY);
 
-		//距離が5以内ならよっていく
-		if( it->second->m_fDistance < SuctionArea ){
-			it->second->m_Pos	+= vTargetDir/**SpeedRate*/ * pc->getSpeed();
+			//距離が5以内ならよっていく
+			if( it->second->m_fDistance < SuctionArea ){
+				it->second->m_Pos	+= vTargetDir/**SpeedRate*/ * pc->getSpeed();
 
-			//プレイヤーと限りなく近くなったら、消滅
-			if( it->second->m_fDistance < VanishArea ){
-				//エネルギー回復
-				br->Recovery();
-				SafeDelete( it->second );
-				it = m_ItemMap_All.erase( it );
-				continue;
+				//プレイヤーと限りなく近くなったら、消滅
+				if( it->second->m_fDistance < VanishArea ){
+					//エネルギー回復
+					br->Recovery(RECOVERY_POINT);
+					SafeDelete( it->second );
+					it = m_ItemMap_All.erase( it );
+					continue;
+				}
+			}
+			//ゲージが最大になったらコイルを無敵状態に
+			if(br->getRect2().right >= GAGE_MAX){
+				pc->setSuperMode(true);	
 			}
 		}
 		//移動用
@@ -157,6 +163,21 @@ void	Item::Update(UpdatePacket& i_UpdatePacket)
 		it->second->m_mMatrix	= mScale * mMove;
 
 		it++;
+	}
+	if(pc->getState() == COIL_STATE_MOVE && pc->getSuperMode()){
+		static float s_fElapsedTime = 0;
+		static float s_fTimeTotal = 0.0f;
+		s_fElapsedTime += (float)i_UpdatePacket.pTime->getElapsedTime();
+		s_fTimeTotal += (float)GAGE_MAX / (float)COIL_SUPER_MODE_TIME * (float)i_UpdatePacket.pTime->getElapsedTime();
+		if(s_fTimeTotal >= 1.0f){
+			br->Consume((int)s_fTimeTotal);
+			s_fTimeTotal -= 1.0f;
+		}
+		//s_fTimeTotal = (float)GAGE_MAX/(float)COIL_SUPER_MODE_TIME/60;
+		//if(s_fElapsedTime >= s_fTimeTotal){
+		//	br->Consume(1);
+		//	s_fElapsedTime = 0.0f;
+		//}
 	}
 }
 
@@ -255,11 +276,11 @@ Gage::Gage(
 担当者　　：佐藤涼
 備考　　　：
 *****************************************/
-void Gage::Recovery(){
-	if(m_Rect2.right < 254){
-		m_pRect->right	+= 5;
-		if( m_Rect2.right > 254 )
-			m_pRect->right	= 254;
+void Gage::Recovery( int i_iValue ){
+	if(m_Rect2.right < GAGE_MAX){
+		m_pRect->right	+= i_iValue;
+		if( m_Rect2.right > GAGE_MAX )
+			m_pRect->right	= GAGE_MAX;
 	}
 }
 /*****************************************
@@ -271,10 +292,10 @@ void Gage::Recovery(){
  担当者　　：佐藤涼
  備考　　　：
  *****************************************/
-void Gage::Consume(){
+void Gage::Consume( int i_iValue ){
 	if(m_Rect2.right > 0){
-		m_Rect2.right	-= 3;
-		if(m_Rect2.right > 0){
+		m_Rect2.right	-= i_iValue;
+		if(m_Rect2.right < 0){
 			m_Rect2.right	= 0;
 		}
 	}
@@ -429,7 +450,7 @@ Factory_Item::Factory_Item(FactoryPacket* fpac){
         D3DCOLORVALUE BallAmbient = {0.0f,0.7f,0.7f,1.0f};
 		Item*	it	=	new	Item(fpac,NULL,OBJID_UNK);
 		for(int i = 0; i < 7; i++){
-			for(int j = 0; j < 7; j++){
+			for(int j = 0; j < 50; j++){
 				it->addItem(D3DXVECTOR3((float(i)*5.0f+float(rand()%100*0.05f))+1.5f,
 										(float(j)*2.75f+float(rand()%100*0.05f))+1.5f,0.0f),
 							D3DXVECTOR3(0.5f,0.5f,0.5f),
@@ -449,7 +470,7 @@ Factory_Item::Factory_Item(FactoryPacket* fpac){
 				g_vZero,
 				D3DXVECTOR3(50.0f,520.0f,0.0f),
 				Rect(0,0,256,64),
-				Rect(0,64,100,128)
+				Rect(0,64,0,128)
 			)
 		);
 
