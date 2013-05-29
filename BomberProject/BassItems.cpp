@@ -55,6 +55,39 @@ void CommonMesh::PolygonVec2UV(float x,float y,float z,float r,float& u,float& v
 	u = (x + r ) / (2.0f * r);
 	v = 1.0f - (y + r ) / (2.0f * r);
 }
+
+/**************************************************************************
+ static void CommonMesh::BoxVecNomalUV(
+	D3DXVECTOR3 vec,	//頂点
+	D3DXVECTOR3 normal,	//法線
+	float& u,	//変換するu（テクスチャ上のU座標）
+	float& v	//変換するv（テクスチャ上のV座標）
+	);
+ 用途: BoxのVectorと法線からUとVを作り出す
+ 前面のみにテクスチャを展開する場合
+ 戻り値: なし
+ float& uとfloat& vに変換後の値を代入
+***************************************************************************/
+void CommonMesh::BoxVecNomalUV(D3DXVECTOR3 vec,D3DXVECTOR3 normal,float& u,float& v){
+	if(normal.z < 0){ //0面
+		if(vec.x < 0 && vec.y > 0 && vec.z < 0){//左上
+			u = 0.0f;
+			v = 0.0f;
+		}
+		else if(vec.x > 0 && vec.y > 0 && vec.z < 0){//左下
+			u = 1.0f;
+			v = 0.0f;
+		}
+		else if(vec.x > 0 && vec.y < 0 && vec.z < 0){//右上
+			u = 1.0f;
+			v = 1.0f;
+		}
+		else{ //右下
+			u = 0.0f;
+			v = 1.0f;
+		}
+	}
+}
 /**************************************************************************
  static void CommonMesh::BoxVecNomal2UV(
 	D3DXVECTOR3 vec,	//頂点
@@ -259,96 +292,6 @@ void CommonMesh::BoxVecNomal2UV_1_4(D3DXVECTOR3 vec,D3DXVECTOR3 normal,int ptn,f
 			v = v_prim * ptn;
 		}
 	}
-	//if(normal.x > 0){ //1面（右側面）
-	//	if(vec.x > 0 && vec.y > 0 && vec.z < 0){//左上
-	//		u = u_prim * 1.0f;
-	//		v = 0.0f;
-	//	}
-	//	else if(vec.x > 0 && vec.y > 0 && vec.z > 0){//右上
-	//		u = u_prim * 2.0f;
-	//		v = 0.0f;
-	//	}
-	//	else if(vec.x > 0 && vec.y < 0 && vec.z > 0){//右下
-	//		u = u_prim * 2.0f;
-	//		v = 1.0f;
-	//	}
-	//	else{ //左下
-	//		u = u_prim * 1.0f;
-	//		v = 1.0f;
-	//	}
-	//}
-	//if(normal.z > 0){ //2面（裏面）
-	//	if(vec.x > 0 && vec.y > 0 && vec.z > 0){//左上
-	//		u = u_prim * 2.0f;
-	//		v = 0.0f;
-	//	}
-	//	else if(vec.x < 0 && vec.y > 0 && vec.z > 0){//右上
-	//		u = u_prim * 3.0f;
-	//		v = 0.0f;
-	//	}
-	//	else if(vec.x < 0 && vec.y < 0 && vec.z > 0){//右下
-	//		u = u_prim * 3.0f;
-	//		v = 1.0f;
-	//	}
-	//	else{ //左下
-	//		u = u_prim * 2.0f;
-	//		v = 1.0f;
-	//	}
-	//}
-	//if(normal.x < 0){ //3面（左側面）
-	//	if(vec.x < 0 && vec.y > 0 && vec.z > 0){//左上
-	//		u = u_prim * 3.0f;
-	//		v = 0.0f;
-	//	}
-	//	else if(vec.x < 0 && vec.y > 0 && vec.z < 0){//右上
-	//		u = u_prim * 4.0f;
-	//		v = 0.0f;
-	//	}
-	//	else if(vec.x < 0 && vec.y < 0 && vec.z < 0){//右下
-	//		u = u_prim * 4.0f;
-	//		v = 1.0f;
-	//	}
-	//	else{ //左下
-	//		u = u_prim * 3.0f;
-	//		v = 1.0f;
-	//	}
-	//}
-	//if(normal.y > 0){ //4面（上面）
-	//	if(vec.x < 0 && vec.y > 0 && vec.z > 0){//左上
-	//		u = u_prim * 4.0f;
-	//		v = 0.0f;
-	//	}
-	//	else if(vec.x > 0 && vec.y > 0 && vec.z > 0){//右上
-	//		u = u_prim * 5.0f;
-	//		v = 0.0f;
-	//	}
-	//	else if(vec.x > 0 && vec.y > 0 && vec.z < 0){//右下
-	//		u = u_prim * 5.0f;
-	//		v = 1.0f;
-	//	}
-	//	else{ //左下
-	//		u = u_prim * 4.0f;
-	//		v = 1.0f;
-	//	}
-	//}
-	//if(normal.y < 0){ //5面（下面）
-	//	if(vec.x < 0 && vec.y < 0 && vec.z < 0){//左上
-	//		u = u_prim * 5.0f;
-	//		v = 0.0f;
-	//	}
-	//	else if(vec.x > 0 && vec.y < 0 && vec.z < 0){//右上
-	//		u = 1.0f; // u_prim * 6.0f;
-	//		v = 0.0f;
-	//	}
-	//	else if(vec.x > 0 && vec.y < 0 && vec.z > 0){//右下
-	//		u = 1.0f; //u_prim * 6.0f;
-	//		v = 1.0f;
-	//	}
-	//	else{ //左下
-	//		u = u_prim * 5.0f;
-	//		v = 1.0f;
-	//	}
-	//}
 }
 
 /**************************************************************************
@@ -4639,6 +4582,7 @@ bool DrawSphere::isEnableDraw = true ;
 ////
 DrawOBB::DrawOBB(LPDIRECT3DDEVICE9 pD3DDevice, OBB i_OBB, Color i_Color, wiz::OBJID id)
 :Object(id),m_pVB(0),m_TargetObb(i_OBB)
+,m_fTimeAccumulator(100.0f)
 {
     try{
 		//setDead() ;
@@ -4739,9 +4683,13 @@ DrawOBB::~DrawOBB(){
 ////            ：
 ////
 void DrawOBB::Draw( DrawPacket& i_DrawPacket ) {
+#if defined(ON_DEBUGGINGPROCESS) | defined( PRESENTATION )
+
 	//if(GetAsyncKeyState( MYVK_DEBUG_OBB_DRAW )){
-	if(GetAsyncKeyState( MYVK_DEBUG_OBB_DRAW )){
-		isEnableDraw ? isEnableDraw = false : isEnableDraw = true ;
+	if( m_fTimeAccumulator < 0.5f && ( m_fTimeAccumulator += (float)i_DrawPacket.pTime->getElapsedTime() ) ){
+		if(GetAsyncKeyState( MYVK_DEBUG_OBB_DRAW )){
+			isEnableDraw ? isEnableDraw = false : isEnableDraw = true ;
+		}
 	}
 	if( isEnableDraw ){
 
@@ -4766,10 +4714,30 @@ void DrawOBB::Draw( DrawPacket& i_DrawPacket ) {
 		pD3DDevice->SetRenderState( D3DRS_LIGHTING,TRUE);
 		pD3DDevice->LightEnable( 0, TRUE );
 	}
+#endif
 }
+#if defined( ON_DEBUGGINGPROCESS )
+	//////////
+	//	: デバッグモード
 
-bool DrawOBB::isEnableDraw = true ;
-
+	bool DrawOBB::isEnableDraw = true ;
+	//	: 
+	//////////
+#else
+#if defined( PRESENTATION )
+	//////////
+	//	: プレゼンモード
+	bool DrawOBB::isEnableDraw = false ;
+	//	: 
+	//////////
+#else
+	//////////
+	//	: リリースモード
+	bool DrawOBB::isEnableDraw = false ;
+	//	: 
+	//////////
+#endif
+#endif
 /**************************************************************************
  class DrawOBBLite 定義部
 ****************************************************************************/
@@ -4785,6 +4753,8 @@ bool DrawOBB::isEnableDraw = true ;
 ////
 DrawOBBLite::DrawOBBLite(LPDIRECT3DDEVICE9 pD3DDevice, OBB i_OBB, Color i_Color, wiz::OBJID id)
 :Object(id),m_pVB(0),m_TargetObb(i_OBB)
+,m_fTimeAccumulator(100.0f)
+
 {
     try{
 		//setDead() ;
@@ -4885,9 +4855,12 @@ DrawOBBLite::~DrawOBBLite(){
 ////            ：
 ////
 void DrawOBBLite::Draw( DrawPacket& i_DrawPacket ) {
+#if defined(ON_DEBUGGINGPROCESS) | defined( PRESENTATION )
 	//if(GetAsyncKeyState( MYVK_DEBUG_OBB_DRAW )){
-	if(GetAsyncKeyState( MYVK_DEBUG_OBB_DRAW )){
-		isEnableDraw ? isEnableDraw = false : isEnableDraw = true ;
+	if( m_fTimeAccumulator < 0.5f && ( m_fTimeAccumulator += (float)i_DrawPacket.pTime->getElapsedTime() ) ){
+		if(GetAsyncKeyState( MYVK_DEBUG_OBB_DRAW )){
+			isEnableDraw ? isEnableDraw = false : isEnableDraw = true ;
+		}
 	}
 	if( !isEnableDraw ){
 		setDead();
@@ -4914,9 +4887,31 @@ void DrawOBBLite::Draw( DrawPacket& i_DrawPacket ) {
 	pD3DDevice->SetRenderState( D3DRS_LIGHTING,TRUE);
 	pD3DDevice->LightEnable( 0, TRUE );
 	//}
+#endif
 }
 
-bool DrawOBBLite::isEnableDraw = true ;
+#if defined( ON_DEBUGGINGPROCESS )
+	//////////
+	//	: デバッグモード
+
+	bool DrawOBBLite::isEnableDraw = true ;
+	//	: 
+	//////////
+#else
+#if defined( PRESENTATION )
+	//////////
+	//	: プレゼンモード
+	bool DrawOBBLite::isEnableDraw = false ;
+	//	: 
+	//////////
+#else
+	//////////
+	//	: リリースモード
+	bool DrawOBBLite::isEnableDraw = false ;
+	//	: 
+	//////////
+#endif
+#endif
 
 
 }//end of namespace	baseobject.

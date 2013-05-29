@@ -1,2 +1,29 @@
 
+
+
+#if defined( ON_DEBUGGINGPROCESS )
+	//////////
+	//	: デバッグモード
+
+	bool DrawOBB::isEnableDraw = true ;
+	//	: 
+	//////////
+#else
+#if defined( PRESENTATION )
+	//////////
+	//	: プレゼンモード
+
+	//	: 
+	//////////
+#else
+	//////////
+	//	: リリースモード
+
+	//	: 
+	//////////
+#endif
+#endif
+
+
+
 ・プリミティブ

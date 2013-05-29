@@ -23,7 +23,7 @@ namespace wiz {
 //**************************************************************************
 class TextureManager{
 	class Texture;
-	static vector< Texture* > m_vecTextures;
+	vector< Texture* > m_vecTextures;
 public:
 /////////////////// ////////////////////
 //// 用途       ：TextureManager()
@@ -57,7 +57,7 @@ public:
 //// 備考       ：
 ////            ：
 ////
-	static void Release();
+	void Release();
 /////////////////// ////////////////////
 //// 用途       ：LPDIRECT3DTEXTURE9 addTexture(LPDIRECT3DDEVICE9 pD3DDevice,
 ////            ：  	const wchar_t *filepath, const wchar_t *texturename )
@@ -71,7 +71,7 @@ public:
 //// 備考       ：
 ////            ：
 ////
-	static LPDIRECT3DTEXTURE9 addTexture(LPDIRECT3DDEVICE9 pD3DDevice,
+	LPDIRECT3DTEXTURE9 addTexture(LPDIRECT3DDEVICE9 pD3DDevice,
 		const wchar_t* filepath,const wchar_t* texturename = L"");
 /////////////////// ////////////////////
 //// 用途       ：LPDIRECT3DTEXTURE9 addTextureEx(LPDIRECT3DDEVICE9 pD3DDevice,const wchar_t* filepath,
@@ -98,7 +98,7 @@ public:
 //// 備考       ：
 ////            ：
 ////
-	static LPDIRECT3DTEXTURE9 addTextureEx(LPDIRECT3DDEVICE9 pD3DDevice,const wchar_t* filepath,
+	LPDIRECT3DTEXTURE9 addTextureEx(LPDIRECT3DDEVICE9 pD3DDevice,const wchar_t* filepath,
 		UINT Width, UINT Height, UINT MipLevels, DWORD Usage, D3DFORMAT Format, D3DPOOL Pool, DWORD Filter,
 		DWORD MipFilter, D3DCOLOR ColorKey, D3DXIMAGE_INFO *pSrcInfo, PALETTEENTRY *pPalette, const wchar_t* texturename = L"" );
 /////////////////// ////////////////////
@@ -117,7 +117,7 @@ public:
 //// 備考       ：
 ////            ：
 ////
-	static LPDIRECT3DTEXTURE9 addTextureExLight(LPDIRECT3DDEVICE9 pD3DDevice,const wchar_t* filepath,
+	LPDIRECT3DTEXTURE9 addTextureExLight(LPDIRECT3DDEVICE9 pD3DDevice,const wchar_t* filepath,
 		DWORD Usage, D3DFORMAT Format, D3DCOLOR ColorKey,  const wchar_t* texturename = L"" );
 /////////////////// ////////////////////
 //// 用途       ：LPDIRECT3DTEXTURE9 TextureSearchFromName(const wchar_t* filename)
@@ -129,7 +129,7 @@ public:
 //// 備考       ：
 ////            ：
 ////
-	static LPDIRECT3DTEXTURE9 TextureSearchFromName(const wchar_t* filename) ;
+	LPDIRECT3DTEXTURE9 TextureSearchFromName(const wchar_t* filename) ;
 /////////////////// ////////////////////
 //// 用途       ：LPDIRECT3DTEXTURE9 TextureSearchFromFilePath(const wchar_t* path)
 //// カテゴリ   ：関数
@@ -140,7 +140,7 @@ public:
 //// 備考       ：
 ////            ：
 ////
-	static LPDIRECT3DTEXTURE9 TextureSearchFromFilePath(const wchar_t* path) ;
+	LPDIRECT3DTEXTURE9 TextureSearchFromFilePath(const wchar_t* path) ;
 
 
 };//【END】TextureManager
