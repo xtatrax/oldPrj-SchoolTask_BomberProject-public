@@ -399,8 +399,6 @@ void	MagneticField::Draw(DrawPacket &i_DrawPacket){
 };
 
 /*******************************************************************
-関数名     ：void	 MagneticField::Update(UpdatePacket& i_UpdatePacket)
-用途       ：データ更新
 関数名　　：void MagneticField::Update(UpdatePacket& i_UpdatePacket)
 カテゴリ　：関数
 用途　　　：データ更新
