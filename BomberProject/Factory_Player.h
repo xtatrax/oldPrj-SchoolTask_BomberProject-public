@@ -28,10 +28,10 @@ const float COIL_SUPER_MODE_TIME		= 8.0f;
 enum COIL_STATE{			//自機の状態
 	COIL_STATE_START,		//スタート
 	COIL_STATE_MOVE,		//移動
-	COIL_STATE_STOP,		//停止
 	COIL_STATE_STICK,		//吸着
 	//COIL_STATE_SUPER,		//無敵
-	COIL_STATE_DEAD			//死亡
+	COIL_STATE_DEAD,		//死亡
+	COIL_STATE_CONTINUE		//コンティニュー
 };
 
 namespace wiz{
@@ -73,16 +73,16 @@ class ProvisionalPlayer3D : public MagneticumObject3D{
 	bool			m_bCoilWasFired;
 	bool			m_bDrawing;
 
-	struct PolyItem{
-		LPDIRECT3DTEXTURE9 m_pTexture;
-		D3DMATERIAL9   m_Material;
-		D3DXMATRIX	   m_Matrix;
-		D3DXVECTOR3    m_vScale ;
-		D3DXVECTOR3	   m_vPos ;
-		D3DXQUATERNION m_vRot;
-		virtual ~PolyItem(){}
-	};
-	PolyItem				m_Item_Poly;
+	//struct PolyItem{
+	//	LPDIRECT3DTEXTURE9 m_pTexture;
+	//	D3DMATERIAL9   m_Material;
+	//	D3DXMATRIX	   m_Matrix;
+	//	D3DXVECTOR3    m_vScale ;
+	//	D3DXVECTOR3	   m_vPos ;
+	//	D3DXQUATERNION m_vRot;
+	//	virtual ~PolyItem(){}
+	//};
+	//PolyItem				m_Item_Poly;
 
 public:
 	//	: 
@@ -167,7 +167,7 @@ class MagneticField : public Cylinder
 用途	: 磁界の範囲
 ************************************************************************/
 class	MagneticField : public Cylinder{
-	POLE	m_Pole;	//磁界の極：t=S極, f=N極
+	POLE		m_Pole;	//磁界の極：t=S極, f=N極
 	bool		m_bEffect;
 	D3DXVECTOR3	m_vNormalSize;
 	D3DXMATRIX	m_mMatrix;
@@ -388,6 +388,18 @@ public:
 	////            ：
 	////
 	void Update_StateDead();
+
+	/////////////////// ////////////////////
+	//// 関数名     ：void Update_StateContinue()
+	//// カテゴリ   ：
+	//// 用途       ：STATE_CONTINUE時の動き
+	//// 引数       ：
+	//// 戻値       ：なし
+	//// 担当       ：本多寛之
+	//// 備考       ：
+	////            ：
+	////
+	void Update_StateContinue();
 
 	/////////////////// ////////////////////
 	//// 用途       ：virtual void Draw( DrawPacket& i_DrawPacket )
