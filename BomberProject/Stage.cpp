@@ -1015,7 +1015,7 @@ StageLoader2::StageLoader2(LPDIRECT3DDEVICE9 pD3DDevice, vector<Object*>& Vec, T
 void Stage::Clear(){
 	SafeDelete(m_pChildStage);
 	//SafeDelete(m_pParStage);
-	SAFE_DELETE_VECTOR(m_Vec);
+	SafeDeletePointerContainer(m_Vec);
 	m_TexMgr.Release();
 }
 

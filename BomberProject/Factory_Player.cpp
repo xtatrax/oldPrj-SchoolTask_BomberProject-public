@@ -153,6 +153,19 @@ ProvisionalPlayer3D::ProvisionalPlayer3D(
 	D3DXQuaternionRotationYawPitchRoll(&m_Item_Poly.m_vRot,
 			D3DXToRadian(vRot.y),D3DXToRadian(vRot.x),D3DXToRadian(vRot.z));
 }
+/////////////////// ////////////////////
+//// 関数名     ：~ProvisionalPlayer3D();
+//// カテゴリ   ：デストラクタ
+//// 用途       ：破棄
+//// 引数       ：なし
+//// 戻値       ：なし
+//// 担当者     ：鴫原 徹
+//// 備考       ：
+////            ：
+////
+ProvisionalPlayer3D::~ProvisionalPlayer3D(){
+	m_Camera = NULL ;
+}
 
 /////////////////// ////////////////////
 //// 用途       ：void Draw( DrawPacket& i_DrawPacket )

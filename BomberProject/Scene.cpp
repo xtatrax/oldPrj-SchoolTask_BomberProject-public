@@ -355,7 +355,7 @@ void Scene::SafeDeleteStage(Stage* &pStage){
 		}
 	#endif
 	//	: シーンを削除
-	SAFE_DELETE( pStage );
+	SafeDelete( pStage );
 	pStage = NULL;
 	#ifndef CF_SINGLETHREAD
 		//	: 休止したスレッドを再開させる

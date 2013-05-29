@@ -61,7 +61,7 @@ public:
 		std::list<itemInfo>::iterator it ;
 		for( it = m_ItemInfo.begin() ; it != m_ItemInfo.end() ; it++ ){
 			if( it->pPointer == i_pPointer ){
-				free(it->pPointer);		
+				free(it->pPointer);
 				it->pPointer = NULL;
 				it = m_ItemInfo.erase( it );
 				return;
