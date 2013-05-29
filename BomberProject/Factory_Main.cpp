@@ -22,7 +22,11 @@
 #include "Factory_Item.h"
 #include "Factory_Goal.h"
 #include "Factory_Stage1.h"
+<<<<<<< HEAD
 #include "Factory_Description.h"
+=======
+#include "Factory_Cursor.h"
+>>>>>>> warkspace
 #include "BassItems.h"
 
 namespace wiz{
@@ -75,7 +79,11 @@ Factory_Main::Factory_Main(FactoryPacket* fpac){
 		Factory_Stage1 Sfac( fpac ) ;
 
 		Factory_Goal GPfac( fpac ) ;
+<<<<<<< HEAD
 		Factory_Description Dfac( fpac ) ;
+=======
+		Factory_Cursor MCfac( fpac )  ; 
+>>>>>>> warkspace
 
 		////	: スプライト
 		//fpac->m_pVec->push_back(
