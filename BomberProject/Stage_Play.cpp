@@ -44,16 +44,6 @@ PlayStage::PlayStage(LPDIRECT3DDEVICE9 pD3DDevice,Stage* pStage)
 		FPac.m_pVec     = &this->m_Vec      ;
 		FPac.pD3DDevice =  pD3DDevice       ;
 
-		OneSound* pSound ;
-		m_Vec.push_back(
-			pSound = new OneSound(
-				L"media/Sound/MagneticaWave.xwb",
-				L"media/Sound/MagneticaSound.xsb",
-				2,
-				OBJID_SOUND_BGM_PLAY
-			)
-		);
-		pSound->PlaySound(255);
 		Factory_Main mainF( &FPac );
 
 	}

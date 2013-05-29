@@ -35,7 +35,7 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
         //break;
 		case WM_DESTROY:
 			wiz::DxDevice::Destroy();
-			return 0;
+			break ;
         case WM_KEYDOWN: 
 			// キーが押された
 			if (wParam == VK_ESCAPE) {  // 押されたのはESCキーだ
@@ -236,6 +236,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE
         wiz::DxDevice* device = new wiz::DxDevice(hWnd, isFullScreen,iClientWidth,iClientHeight);
 		int ret =  (int) device->MainThreadRun();
 		SafeDelete( device );
+		::PostQuitMessage(0);
 		//wiz::TextureManager::Release();
 		return ret ;
 		/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
