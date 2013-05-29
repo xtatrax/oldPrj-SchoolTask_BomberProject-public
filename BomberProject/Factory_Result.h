@@ -14,7 +14,6 @@
 
 #include "StdAfx.h"
 #include "Object.h"
-#include "Factory_Result.h"
 
 namespace wiz{
 

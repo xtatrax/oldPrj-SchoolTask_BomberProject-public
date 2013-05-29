@@ -30,10 +30,11 @@ public:
 		std::string	sFile	;
 		std::string	sFunc	;
 		UINT		iLine	;
+		DWORD		iGenerateTime ;
 
 		//	: コンストラクタ
-		itemInfo(void* i_pPointer,size_t i_iSize,std::string i_sFile, std::string i_sFunc, UINT i_iLine)
-			:pPointer(i_pPointer),iSize(i_iSize),sFile(i_sFile), sFunc(i_sFunc), iLine(i_iLine)
+		itemInfo(void* i_pPointer,size_t i_iSize,std::string i_sFile, std::string i_sFunc, UINT i_iLine, DWORD i_iGTime)
+			:pPointer(i_pPointer),iSize(i_iSize),sFile(i_sFile), sFunc(i_sFunc), iLine(i_iLine) ,iGenerateTime(i_iGTime)
 		{}
 		//	: 検索用オーバーライド?
 		bool operator () ( const void* other ) const {
@@ -51,7 +52,7 @@ public:
 	//	: 追加
 	static void* add(size_t i_iSize,std::string i_sFile, std::string i_sFunc, UINT i_iLine){
 		void* pPointer = malloc(i_iSize);
-		m_ItemInfo.push_back(itemInfo( pPointer, i_iSize , i_sFile,  i_sFunc, i_iLine));
+		m_ItemInfo.push_back(itemInfo( pPointer, i_iSize , i_sFile,  i_sFunc, i_iLine, timeGetTime() ));
 		return pPointer ; 
 	}
 
@@ -98,12 +99,14 @@ public:
 				local.tm_min, local.tm_sec, local.tm_isdst );
 			DWORD i = 0 ;
 			for(  ; it != end ; it++ ){
-				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "めもり.txt" , " %d \n"               , i                 );
+				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "めもり.txt" , "////////////\n"                           );
+				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "めもり.txt" , "データ %d \n"         , i                 );
 				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "めもり.txt" , "ポインタ   : 0x%X \n" , it->pPointer      );
 				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "めもり.txt" , "サイズ     : %d \n"   , it->iSize         );
 				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "めもり.txt" , "ファイル名 : %s \n"   , it->sFile.c_str() );
 				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "めもり.txt" , "関数       : %s \n"   , it->sFunc.c_str() );
 				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "めもり.txt" , "行         : %d \n"   , it->iLine         );
+				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "めもり.txt" , "時間       : %d \n\n" , it->iGenerateTime );
 				i ++ ;
 			}
 		}	
@@ -146,7 +149,7 @@ inline void operator delete(void* pv){
 	return TMemoryManager::remove(pv);
 };
 
-#define NEW new(__FILE__, __FUNCTION__, __LINE__)
+#define new new(__FILE__, __FUNCTION__, __LINE__)
 
 
 //////////

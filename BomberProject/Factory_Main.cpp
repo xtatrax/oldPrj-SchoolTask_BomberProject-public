@@ -22,6 +22,7 @@
 #include "Factory_Item.h"
 #include "Factory_Goal.h"
 #include "Factory_Stage1.h"
+#include "Factory_Description.h"
 #include "BassItems.h"
 
 namespace wiz{
@@ -74,21 +75,22 @@ Factory_Main::Factory_Main(FactoryPacket* fpac){
 		Factory_Stage1 Sfac( fpac ) ;
 
 		Factory_Goal GPfac( fpac ) ;
+		Factory_Description Dfac( fpac ) ;
 
-		//	: スプライト
-		fpac->m_pVec->push_back(
-			new SpriteObject(
-				fpac->pD3DDevice,
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"display.png" ),
-				g_vOne,
-				g_vZero,
-				g_vZero,
-				NULL,
-				g_vZero,
-				g_vZero,
-				0xFFFFFFFF
-			)
-		);
+		////	: スプライト
+		//fpac->m_pVec->push_back(
+		//	new SpriteObject(
+		//		fpac->pD3DDevice,
+		//		fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"display.png" ),
+		//		g_vOne,
+		//		g_vZero,
+		//		g_vZero,
+		//		NULL,
+		//		g_vZero,
+		//		g_vZero,
+		//		0xFFFFFFFF
+		//	)
+		//);
 
 
 		}

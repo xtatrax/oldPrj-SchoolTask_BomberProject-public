@@ -200,7 +200,7 @@ public:
 // 用途    : コイル
 //**************************************************************************//
 class PlayerCoil : public MagneticumObject3D{
-#if defined( ON_DEBUGGINGPROCESS )
+#if defined( ON_DEBUGGINGPROCESS ) | defined( PRESENTATION )
 	DrawSphere*		m_pDSPH ;
 #endif
 	Cylinder*		m_pCylinder ;
@@ -269,6 +269,18 @@ public:
 		D3DCOLORVALUE& Ambient,
 		wiz::OBJID id = OBJID_3D_PLAYER
 	);
+
+	/////////////////// ////////////////////
+	//// 関数名     ：~PlayerCoil()
+	//// カテゴリ   ：デストラクタ
+	//// 用途       ：
+	//// 引数       ：
+	//// 戻値       ：なし
+	//// 担当       ： 鴫原 徹
+	//// 備考       ：
+	////            ：
+	////
+	~PlayerCoil();
 
 	/////////////////////// ////////////////////
 	//////// 用途       ：	bool HitTestMultiBox(MultiBox* pBox,size_t& Index,D3DXVECTOR3& Vec,D3DXVECTOR3& ElsePos)
