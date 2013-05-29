@@ -55,6 +55,39 @@ void CommonMesh::PolygonVec2UV(float x,float y,float z,float r,float& u,float& v
 	u = (x + r ) / (2.0f * r);
 	v = 1.0f - (y + r ) / (2.0f * r);
 }
+
+/**************************************************************************
+ static void CommonMesh::BoxVecNomalUV(
+	D3DXVECTOR3 vec,	//頂点
+	D3DXVECTOR3 normal,	//法線
+	float& u,	//変換するu（テクスチャ上のU座標）
+	float& v	//変換するv（テクスチャ上のV座標）
+	);
+ 用途: BoxのVectorと法線からUとVを作り出す
+ 前面のみにテクスチャを展開する場合
+ 戻り値: なし
+ float& uとfloat& vに変換後の値を代入
+***************************************************************************/
+void CommonMesh::BoxVecNomalUV(D3DXVECTOR3 vec,D3DXVECTOR3 normal,float& u,float& v){
+	if(normal.z < 0){ //0面
+		if(vec.x < 0 && vec.y > 0 && vec.z < 0){//左上
+			u = 0.0f;
+			v = 0.0f;
+		}
+		else if(vec.x > 0 && vec.y > 0 && vec.z < 0){//左下
+			u = 1.0f;
+			v = 0.0f;
+		}
+		else if(vec.x > 0 && vec.y < 0 && vec.z < 0){//右上
+			u = 1.0f;
+			v = 1.0f;
+		}
+		else{ //右下
+			u = 0.0f;
+			v = 1.0f;
+		}
+	}
+}
 /**************************************************************************
  static void CommonMesh::BoxVecNomal2UV(
 	D3DXVECTOR3 vec,	//頂点
@@ -259,96 +292,6 @@ void CommonMesh::BoxVecNomal2UV_1_4(D3DXVECTOR3 vec,D3DXVECTOR3 normal,int ptn,f
 			v = v_prim * ptn;
 		}
 	}
-	//if(normal.x > 0){ //1面（右側面）
-	//	if(vec.x > 0 && vec.y > 0 && vec.z < 0){//左上
-	//		u = u_prim * 1.0f;
-	//		v = 0.0f;
-	//	}
-	//	else if(vec.x > 0 && vec.y > 0 && vec.z > 0){//右上
-	//		u = u_prim * 2.0f;
-	//		v = 0.0f;
-	//	}
-	//	else if(vec.x > 0 && vec.y < 0 && vec.z > 0){//右下
-	//		u = u_prim * 2.0f;
-	//		v = 1.0f;
-	//	}
-	//	else{ //左下
-	//		u = u_prim * 1.0f;
-	//		v = 1.0f;
-	//	}
-	//}
-	//if(normal.z > 0){ //2面（裏面）
-	//	if(vec.x > 0 && vec.y > 0 && vec.z > 0){//左上
-	//		u = u_prim * 2.0f;
-	//		v = 0.0f;
-	//	}
-	//	else if(vec.x < 0 && vec.y > 0 && vec.z > 0){//右上
-	//		u = u_prim * 3.0f;
-	//		v = 0.0f;
-	//	}
-	//	else if(vec.x < 0 && vec.y < 0 && vec.z > 0){//右下
-	//		u = u_prim * 3.0f;
-	//		v = 1.0f;
-	//	}
-	//	else{ //左下
-	//		u = u_prim * 2.0f;
-	//		v = 1.0f;
-	//	}
-	//}
-	//if(normal.x < 0){ //3面（左側面）
-	//	if(vec.x < 0 && vec.y > 0 && vec.z > 0){//左上
-	//		u = u_prim * 3.0f;
-	//		v = 0.0f;
-	//	}
-	//	else if(vec.x < 0 && vec.y > 0 && vec.z < 0){//右上
-	//		u = u_prim * 4.0f;
-	//		v = 0.0f;
-	//	}
-	//	else if(vec.x < 0 && vec.y < 0 && vec.z < 0){//右下
-	//		u = u_prim * 4.0f;
-	//		v = 1.0f;
-	//	}
-	//	else{ //左下
-	//		u = u_prim * 3.0f;
-	//		v = 1.0f;
-	//	}
-	//}
-	//if(normal.y > 0){ //4面（上面）
-	//	if(vec.x < 0 && vec.y > 0 && vec.z > 0){//左上
-	//		u = u_prim * 4.0f;
-	//		v = 0.0f;
-	//	}
-	//	else if(vec.x > 0 && vec.y > 0 && vec.z > 0){//右上
-	//		u = u_prim * 5.0f;
-	//		v = 0.0f;
-	//	}
-	//	else if(vec.x > 0 && vec.y > 0 && vec.z < 0){//右下
-	//		u = u_prim * 5.0f;
-	//		v = 1.0f;
-	//	}
-	//	else{ //左下
-	//		u = u_prim * 4.0f;
-	//		v = 1.0f;
-	//	}
-	//}
-	//if(normal.y < 0){ //5面（下面）
-	//	if(vec.x < 0 && vec.y < 0 && vec.z < 0){//左上
-	//		u = u_prim * 5.0f;
-	//		v = 0.0f;
-	//	}
-	//	else if(vec.x > 0 && vec.y < 0 && vec.z < 0){//右上
-	//		u = 1.0f; // u_prim * 6.0f;
-	//		v = 0.0f;
-	//	}
-	//	else if(vec.x > 0 && vec.y < 0 && vec.z > 0){//右下
-	//		u = 1.0f; //u_prim * 6.0f;
-	//		v = 1.0f;
-	//	}
-	//	else{ //左下
-	//		u = u_prim * 5.0f;
-	//		v = 1.0f;
-	//	}
-	//}
 }
 
 /**************************************************************************
