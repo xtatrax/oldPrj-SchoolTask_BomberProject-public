@@ -174,6 +174,26 @@ MagneticumObject3D::MagneticumObject3D(
 {
 	::ZeroMemory( &m_Material, sizeof(D3DMATERIAL9) ) ;
 }
+/////////////////// ////////////////////
+//// 用途       ：  ~MagneticumObject3D()
+//// カテゴリ   ：コンストラクタ
+//// 用途       ：Player用のコンストラクタ
+//// 引数       ：なし
+//// 戻値       ：なし
+//// 担当者     ：鴫原 徹
+//// 備考       ：
+////	
+MagneticumObject3D::~MagneticumObject3D(){
+	//磁界　外側
+	SafeDelete( m_pMagneticField  );
+	SafeDelete( m_pMagneticField2 );
+	SafeDelete( m_pMagneticField3 );
+	SafeDelete( m_pMagneticField4 );
+	SafeDeletePointerMap( m_ItemMap_All );
+	m_ItemMap_All.clear();
+	m_ItemMap_Target.clear();
+
+}
 
 /////////////////// ////////////////////
 //// 用途       ：void Draw( DrawPacket& i_DrawPacket )

@@ -17,7 +17,7 @@ namespace wiz {
 /**************************************************************************
  TextureManager ’è‹`•”
 /***************************************************************************/
-vector< TextureManager::Texture* > TextureManager::m_vecTextures;
+//vector< TextureManager::Texture* > TextureManager::m_vecTextures;
 
 /////////////////// ////////////////////
 //// —p“r       FTextureManager::TextureManager()

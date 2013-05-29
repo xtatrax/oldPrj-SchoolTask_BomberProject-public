@@ -49,6 +49,24 @@ WallObject::WallObject( LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTextur
 	m_pCamera = NULL;
 
 }
+/////////////////// ////////////////////
+//// 用途       ：~WallObject();
+//// カテゴリ   ：デストラクタ
+//// 用途       ：
+//// 引数       ：
+//// 戻値       ：無し
+//// 担当者     ：鴫原 徹
+//// 備考       ：
+WallObject::~WallObject(){
+	m_pCamera		= NULL ;
+	m_pPlayerCoil	= NULL ;
+	SafeDeletePointerMap( m_ItemMap_All );
+	SafeDeletePointerMap( m_ItemMap_Poly );
+
+	m_ItemMap_All.clear() ;
+	m_ItemMap_Target.clear() ;	//	: この子はClearのみ
+	m_ItemMap_Poly.clear() ;
+}
 
 /////////////////// ////////////////////
 //// 用途       ：WallObject(	LPDIRECT3DDEVICE9 pD3DDevice,LPDIRECT3DTEXTURE9 pTexture,wiz::OBJID id = OBJID_3D_WALL);
@@ -159,7 +177,7 @@ void WallObject::Draw(DrawPacket& i_DrawPacket)
 		//	//コモンメッシュのDraw()を呼ぶ
 		//	CommonMesh::Draw(i_DrawPacket);
 		//}
-#if defined( ON_DEBUGGINGPROCESS )
+#if defined(ON_DEBUGGINGPROCESS) | defined( PRESENTATION )
 		if( it->second->m_pDOB ){
 			it->second->m_pDOB->Draw(i_DrawPacket);
 		}else{
