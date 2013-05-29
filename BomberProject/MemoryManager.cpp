@@ -11,5 +11,5 @@
 #include "stdafx.h"
 #include "MemoryManager.h"
 
-std::list<TMemoryManager::itemInfo> TMemoryManager::m_ItemInfo ;
+//std::list<TMemoryManager::itemInfo> TMemoryManager::m_ItemInfo ;
 

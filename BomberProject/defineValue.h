@@ -22,15 +22,18 @@
 //	: コンパイリングフラグ
 
 #define CF_SINGLETHREAD			/* シングルスレッドモード     */
+#define DRAW_MOUSE	(true)		
 //#define CF_LOADINGANIMATION		/* ロード画面でアニメーション */
 #if defined(DEBUG) || defined(_DEBUG)
 	#define ON_DEBUGGINGPROCESS			/* デバックモード             */
-	//#define DEBUG_STRINGS_ON			/* デバッグ用文字列を有効化 */
+	#define DEBUG_STRINGS_ON			/* デバッグ用文字列を有効化 */
 	
 	#define ___MLP_DEBUG_TIMEDRAW_ 
 	//#define ON_GUIDELINE
-#else
 	//#define CF_FULLSCREEN				/* フルスクリーンモード       */
+
+#else
+	#define CF_FULLSCREEN				/* フルスクリーンモード       */
 #endif
 #define DEBUG_KEYBORD_ON			/* デバッグ用キーボード操作を有効化 */
 
@@ -139,8 +142,26 @@ namespace wiz{
 		OBJID_SYS_RENDERTARGET		,	//	: レンダーターゲット
 		OBJID_SYS_END				,	
 
+
+		//	:サウンドまわり
+		//	:BGM
 		OBJID_SOUND_BGM_TITLE		,
 		OBJID_SOUND_BGM_PLAY		,
+		OBJID_SOUND_BGM_CLEAR		,
+		OBJID_SOUND_BGM_GAME_OVER	,
+
+		//	:効果音
+		OBJID_SOUND_SE_ALERT		,
+		OBJID_SOUND_SE_BLOKEN_ENEMY	,
+		OBJID_SOUND_SE_CHACK_POINT	,
+		OBJID_SOUND_SE_CLEAR		,
+		OBJID_SOUND_SE_ENTER		,
+		OBJID_SOUND_SE_FIRE			,
+		OBJID_SOUND_SE_GOAL			,
+		OBJID_SOUND_SE_HIT_ENEMY	,
+		OBJID_SOUND_SE_INVINGVLE	,
+		OBJID_SOUND_SE_MAGNETIC_FIELD,
+		OBJID_SOUND_SE_SPARK		,
 
 
 		//	: UI周り
@@ -195,6 +216,11 @@ namespace wiz{
 		OBJID_END					=  0xFFFFFFFFFFFFFFFF ,
 
 	} ;
+	enum POLE{
+		POLE_S , 		/* S極 */
+		POLE_N , 		/* N極 */
+	};
+
 
 }
 //

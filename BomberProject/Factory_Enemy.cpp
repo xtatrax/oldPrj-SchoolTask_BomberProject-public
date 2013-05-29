@@ -250,8 +250,8 @@ const float EnemyMove = 0.1f;
 //‰ñ“]‚Ì‰Šú‰»
 		D3DXQuaternionRotationYawPitchRoll(&pItem->m_vRot,D3DXToRadian(vRot.y),D3DXToRadian(vRot.x),D3DXToRadian(vRot.z));
 		int	i	= rand()%1000;
-		if( i < 500 )	pItem->m_bPole	= true;
-		else		pItem->m_bPole	= false;
+		if( i < 500 )	pItem->m_bPole	= POLE_N;
+		else		pItem->m_bPole	= POLE_S;
 
 		m_ItemMap_All.insert(multimap<float, EnemyItem*>::value_type(pItem->m_vPos.y,pItem));	
 	}

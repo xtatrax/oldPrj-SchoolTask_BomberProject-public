@@ -274,9 +274,15 @@ OneSound::OneSound(const wchar_t* pWavBankFileName,const wchar_t* pSoundBankFile
 	}
 }
 void OneSound::PlaySound(BYTE count){
+	/*/
 	if(m_pWaveBank){
 		m_pWaveBank->Play(i_iSoundNum, XACT_FLAG_UNITS_MS,0,count,NULL);
 	}
+	/*/
+	if(m_pSoundBank){
+		m_pSoundBank->Play(i_iSoundNum, 0,0 ,NULL );
+	}
+	//*/
 }
 
 
@@ -294,23 +300,146 @@ void OneSound::PlaySound(BYTE count){
 ***************************************************************************/
 Factory_Sound::Factory_Sound(FactoryPacket* fpac){
 	try{
-
+		//	:BGM-TITLE----------:タイトル画面で流れるBGM
 		fpac->m_pVec->push_back(
 			new OneSound(
 				L"media/Sound/MagneticaWave.xwb",
 				L"media/Sound/MagneticaSound.xsb",
-				"bgm001",
+				"BGM-TITLE",
 				OBJID_SOUND_BGM_TITLE
 			)
 		);
+		//	:BGM-PLAY001--------:１面で流れるBGM
 		fpac->m_pVec->push_back(
 			new OneSound(
 				L"media/Sound/MagneticaWave.xwb",
 				L"media/Sound/MagneticaSound.xsb",
-				"bgm002",
+				"BGM-PLAY001",
 				OBJID_SOUND_BGM_PLAY
 			)
 		);
+		//	:BGM-CLEAR----------:ゲームクリア時に流れるBGM
+				fpac->m_pVec->push_back(
+			new OneSound(
+				L"media/Sound/MagneticaWave.xwb",
+				L"media/Sound/MagneticaSound.xsb",
+				"BGM-CLEAR",
+				OBJID_SOUND_BGM_CLEAR
+			)
+		);
+		//	:BGM-GAME_OVER------:ゲームオーバー時に流れるBGM
+				fpac->m_pVec->push_back(
+			new OneSound(
+				L"media/Sound/MagneticaWave.xwb",
+				L"media/Sound/MagneticaSound.xsb",
+				"BGM-GAME_OVER",
+				OBJID_SOUND_BGM_GAME_OVER
+			)
+		);
+		//	:SE-ALERT002--------:敵が近づいてることを知らせるSE
+				fpac->m_pVec->push_back(
+			new OneSound(
+				L"media/Sound/MagneticaWave.xwb",
+				L"media/Sound/MagneticaSound.xsb",
+				"SE-ALERT002",
+				OBJID_SOUND_SE_ALERT
+			)
+		);
+		//	:SE-BLOKEN_ENEMY----:敵が壊れるときのSE
+				fpac->m_pVec->push_back(
+			new OneSound(
+				L"media/Sound/MagneticaWave.xwb",
+				L"media/Sound/MagneticaSound.xsb",
+				"SE-BLOKEN_ENEMY",
+				OBJID_SOUND_SE_BLOKEN_ENEMY
+			)
+		);
+		//	:SE-CHACK_POINT-----:チェックポイントを通過したときのSE
+				fpac->m_pVec->push_back(
+			new OneSound(
+				L"media/Sound/MagneticaWave.xwb",
+				L"media/Sound/MagneticaSound.xsb",
+				"SE-CHACK_POINT",
+				OBJID_SOUND_SE_CHACK_POINT
+			)
+		);
+		//	:SE-CLEAR-----------:クリア画面で流れるSE
+				fpac->m_pVec->push_back(
+			new OneSound(
+				L"media/Sound/MagneticaWave.xwb",
+				L"media/Sound/MagneticaSound.xsb",
+				"SE-CLEAR",
+				OBJID_SOUND_SE_CLEAR
+			)
+		);
+		//	:SE-ENTER-----------:タイトル画面でクリックしたときのSE
+				fpac->m_pVec->push_back(
+			new OneSound(
+				L"media/Sound/MagneticaWave.xwb",
+				L"media/Sound/MagneticaSound.xsb",
+				"SE-ENTER",
+				OBJID_SOUND_SE_ENTER
+			)
+		);
+		//	:SE-FIRE------------:一番最初に自機が発射された時のSE
+				fpac->m_pVec->push_back(
+			new OneSound(
+				L"media/Sound/MagneticaWave.xwb",
+				L"media/Sound/MagneticaSound.xsb",
+				"SE-FIRE",
+				OBJID_SOUND_SE_FIRE
+			)
+		);
+		//	:SE-GOAL------------:自機がゴールした時のSE
+				fpac->m_pVec->push_back(
+			new OneSound(
+				L"media/Sound/MagneticaWave.xwb",
+				L"media/Sound/MagneticaSound.xsb",
+				"SE-GOAL",
+				OBJID_SOUND_SE_GOAL
+			)
+		);
+		//	:SE-HIT_ENEMY-------:敵が自機に当たった時のSE
+				fpac->m_pVec->push_back(
+			new OneSound(
+				L"media/Sound/MagneticaWave.xwb",
+				L"media/Sound/MagneticaSound.xsb",
+				"SE-HIT_ENEMY",
+				OBJID_SOUND_SE_HIT_ENEMY
+			)
+		);
+		//	:SE-INVINGVLE-------:自機が無敵モードのときのSE
+				fpac->m_pVec->push_back(
+			new OneSound(
+				L"media/Sound/MagneticaWave.xwb",
+				L"media/Sound/MagneticaSound.xsb",
+				"SE-INVINGVLE",
+				OBJID_SOUND_SE_INVINGVLE
+			)
+		);
+		//	:SE-MAGNETIC_FIELD--:プレイヤーが磁界を発生させているときのSE
+				fpac->m_pVec->push_back(
+			new OneSound(
+				L"media/Sound/MagneticaWave.xwb",
+				L"media/Sound/MagneticaSound.xsb",
+				"SE-MAGNETIC_FIELD",
+				OBJID_SOUND_SE_MAGNETIC_FIELD
+			)
+		);
+		//	:SE-SPARK002--------:ステージのビリビリのSE
+				fpac->m_pVec->push_back(
+			new OneSound(
+				L"media/Sound/MagneticaWave.xwb",
+				L"media/Sound/MagneticaSound.xsb",
+				"SE-SPARK002",
+				OBJID_SOUND_SE_SPARK
+			)
+		);
+
+
+
+
+
 
 	}
 	catch(...){
