@@ -550,6 +550,18 @@
 						>
 					</File>
 				</Filter>
+				<Filter
+					Name="DescriptionFactory"
+					>
+					<File
+						RelativePath=".\Factory_Description.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Factory_Description.h"
+						>
+					</File>
+				</Filter>
 			</Filter>
 			<Filter
 				Name="Prim"

@@ -446,7 +446,7 @@ void	MagneticField::Update(UpdatePacket& i_UpdatePacket)
 	D3DXMATRIX mMove, mScale;
 	D3DXMatrixIdentity(&mMove);
 	D3DXMatrixIdentity(&mScale);
-	if(m_Pole != cPole){
+	if(m_Pole == cPole){
 		//反発のエフェクト
 		if( m_bEffect ){
 			m_Radius1	+= 0.2f;
@@ -1120,6 +1120,7 @@ bool PlayerCoil::CheckDistance( D3DXVECTOR3& i_vMagneticFieldPos, D3DXVECTOR3& i
 		return false;
 	}
 }
+
 
 /**************************************************************************
  Factory_Player 定義部
