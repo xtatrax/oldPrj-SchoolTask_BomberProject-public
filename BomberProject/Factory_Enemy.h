@@ -38,7 +38,7 @@ namespace wiz{
 			D3DXVECTOR3  m_vPos ;
 			D3DXVECTOR3  m_vStartPos ;
 			D3DXQUATERNION	m_vRot;
-			bool			m_bPole;
+			POLE			m_bPole;
 			virtual ~EnemyItem(){}
 		};
 		
