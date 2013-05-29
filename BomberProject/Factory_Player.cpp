@@ -140,18 +140,18 @@ ProvisionalPlayer3D::ProvisionalPlayer3D(
 	D3DXMatrixIdentity( &m_Matrix ) ;
 	setPoleS();
 
-	m_Item_Poly.m_pTexture = pTexture2;
-	m_Item_Poly.m_vScale.x = vScale.x;
-	m_Item_Poly.m_vScale.y = vScale.y;
-	m_Item_Poly.m_vScale.z = 0.0f;
-	m_Item_Poly.m_vPos	= vPos;
-    ::ZeroMemory(&m_Item_Poly.m_Material,sizeof(D3DMATERIAL9));
-	m_Item_Poly.m_Material.Diffuse = D3DCOLORVALUE();
-	m_Item_Poly.m_Material.Specular = D3DCOLORVALUE();
-	m_Item_Poly.m_Material.Ambient = D3DCOLORVALUE();
-	//回転の初期化
-	D3DXQuaternionRotationYawPitchRoll(&m_Item_Poly.m_vRot,
-			D3DXToRadian(vRot.y),D3DXToRadian(vRot.x),D3DXToRadian(vRot.z));
+	//m_Item_Poly.m_pTexture = pTexture2;
+	//m_Item_Poly.m_vScale.x = vScale.x;
+	//m_Item_Poly.m_vScale.y = vScale.y;
+	//m_Item_Poly.m_vScale.z = 0.0f;
+	//m_Item_Poly.m_vPos	= vPos;
+ //   ::ZeroMemory(&m_Item_Poly.m_Material,sizeof(D3DMATERIAL9));
+	//m_Item_Poly.m_Material.Diffuse = D3DCOLORVALUE();
+	//m_Item_Poly.m_Material.Specular = D3DCOLORVALUE();
+	//m_Item_Poly.m_Material.Ambient = D3DCOLORVALUE();
+	////回転の初期化
+	//D3DXQuaternionRotationYawPitchRoll(&m_Item_Poly.m_vRot,
+	//		D3DXToRadian(vRot.y),D3DXToRadian(vRot.x),D3DXToRadian(vRot.z));
 }
 /////////////////// ////////////////////
 //// 関数名     ：~ProvisionalPlayer3D();
@@ -419,8 +419,6 @@ void	MagneticField::Draw(DrawPacket &i_DrawPacket){
 };
 
 /*******************************************************************
-関数名     ：void	 MagneticField::Update(UpdatePacket& i_UpdatePacket)
-用途       ：データ更新
 関数名　　：void MagneticField::Update(UpdatePacket& i_UpdatePacket)
 カテゴリ　：関数
 用途　　　：データ更新
@@ -746,13 +744,14 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 			case COIL_STATE_MOVE:
 				Update_StateMove();
 				break;
-			case COIL_STATE_STOP:
-				break;
 			case COIL_STATE_STICK:
 				Update_StateStick();
 				break;
 			case COIL_STATE_DEAD:
 				Update_StateDead();
+				break;
+			case COIL_STATE_CONTINUE:
+				Update_StateContinue();
 				break;
 			default:
 				break;
@@ -777,7 +776,7 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 	} else {
 		m_pPlayer = (ProvisionalPlayer3D*)SearchObjectFromTypeID( i_UpdatePacket.pVec , typeid(ProvisionalPlayer3D) );
 	}
-	if(m_enumCoilState == COIL_STATE_START){
+	if(m_enumCoilState == COIL_STATE_START || m_enumCoilState == COIL_STATE_CONTINUE){
 		m_pStartField->SetBasePos(D3DXVECTOR3(m_vStartPos.x,m_vStartPos.y,1.0f));
 		m_pStartField->Update(i_UpdatePacket);
 	}
@@ -960,6 +959,7 @@ void PlayerCoil::SuperMode( UpdatePacket& i_UpdatePacket ){
 	}
 };
 
+
 /////////////////// ////////////////////
 //// 関数名     ：void PlayerCoil::Update_StateDead()
 //// カテゴリ   ：
@@ -971,11 +971,45 @@ void PlayerCoil::SuperMode( UpdatePacket& i_UpdatePacket ){
 ////            ：
 ////
 void PlayerCoil::Update_StateDead(){
-	m_enumCoilState = COIL_STATE_START;
+	m_enumCoilState = COIL_STATE_CONTINUE;
 	m_vPos = m_vStartPos;
 	m_pCamera->setPosY(m_vStartPos.y);
 	m_pPlayer->CoilWasFired(false);
 }
+
+/////////////////// ////////////////////
+//// 関数名     ：void PlayerCoil::Update_StateContinue()
+//// カテゴリ   ：
+//// 用途       ：STATE_START時の動き
+//// 引数       ：
+//// 戻値       ：なし
+//// 担当       ：本多寛之
+//// 備考       ：
+////            ：
+////
+void PlayerCoil::Update_StateContinue(){
+	D3DXVECTOR3 vPlayer = g_vZero;
+	float		fTargetDir = NULL;
+	//マウス座標計算
+	Point MousePos ;
+	GetCursorPos( &MousePos ) ;
+	ScreenToClient( g_hWnd , &MousePos) ;
+	vPlayer.x = (float)MousePos.x / DRAW_CLIENT_MAGNIFICATION - MAGNETIC_RADIUS ;
+	vPlayer.y = (( STANDARD_WINDOW_HEIGHT - MousePos.y ) - UI_HEIGHT ) / DRAW_CLIENT_MAGNIFICATION - MAGNETIC_RADIUS + ( m_pCamera->getPosY() - m_pPlayer->getMoveY() ) ;
+	fTargetDir = TwoPoint2Degree( vPlayer , m_vPos );
+	//角度の更新
+	m_fMoveDir = fTargetDir;
+	//左クリックが押し、離したらMOVE状態に変更
+	float fLng  = (float)TwoPointToBassLength( vPlayer, m_vPos ) ;
+	if(g_bMouseLB && fLng <= START_EFFECTIVE_RANGE_QUAD){
+		m_bLastMouseLB = true;
+	}
+	if(!g_bMouseLB && m_bLastMouseLB){
+		m_enumCoilState = COIL_STATE_MOVE;
+		m_bLastMouseLB = false;
+		m_pPlayer->CoilWasFired(true);
+	}
+};
 
 /////////////////// ////////////////////
 //// 用途       ：virtual void Draw( DrawPacket& i_DrawPacket )
