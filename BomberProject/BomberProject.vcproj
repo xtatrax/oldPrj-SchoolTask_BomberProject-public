@@ -475,6 +475,18 @@
 						>
 					</File>
 				</Filter>
+				<Filter
+					Name="CorsorFactory"
+					>
+					<File
+						RelativePath=".\Factory_Cursor.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Factory_Cursor.h"
+						>
+					</File>
+				</Filter>
 			</Filter>
 			<Filter
 				Name="Prim"

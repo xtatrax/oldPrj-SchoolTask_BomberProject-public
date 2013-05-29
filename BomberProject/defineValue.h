@@ -178,6 +178,8 @@ namespace wiz{
 		OBJID_3D_WALL				,	//	: 壁
 		OBJID_3D_ITEM				,	//	: アイテム
 
+		OBJID_3D_Cursor				,	//	: カーソル
+
 		//	:
 		OBJID_3D_PLAYER				,
 		OBJID_3D_USERMAGNET			,	//	: ユーザー
