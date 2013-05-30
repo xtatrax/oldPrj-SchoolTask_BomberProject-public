@@ -460,6 +460,19 @@ public:
 	////            ：
 	COIL_STATE getState() const { return m_enumCoilState;	}	;
 
+		/////////////////// ////////////////////
+	//// 関数名     ：D3DXVECTOR3 getStartPos()
+	//// カテゴリ   ：ゲッター
+	//// 用途       ：
+	//// 引数       ：なし
+	//// 戻値       ：座標データ
+	//// 担当       ：佐藤涼
+	//// 備考       ：
+	////            ：
+	D3DXVECTOR3 getStartPos(){
+		return	m_vStartPos;
+	}
+
 	/////////////////// ////////////////////
 	//// 関数名     ：void setState( COIL_STATE i_State )
 	//// カテゴリ   ：セッター
