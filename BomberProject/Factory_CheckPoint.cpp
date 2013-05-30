@@ -47,10 +47,12 @@ CheckEffect::CheckEffect(LPDIRECT3DDEVICE9 pD3DDevice,
 ,m_Num( (int)(fLength) )
 ,m_fWide( EFFECT_SIZE*4 )
 ,m_fHight( EFFECT_SIZE )
+,m_bMark( false )
+,m_pCoil( NULL )
 {
 	::ZeroMemory( &m_Material, sizeof(D3DMATERIAL9));
 
-	D3DCOLORVALUE Diffuse = {1.0f,1.0f,0.0f,0.0f};
+	D3DCOLORVALUE Diffuse = {0.0f,0.0f,0.0f,0.0f};
 	D3DCOLORVALUE Specular = {0.0f,0.0f,0.0f,0.0f};
 	D3DCOLORVALUE Ambient = {1.0f,1.0f,0.0f,0.0f};
 
@@ -85,8 +87,12 @@ CheckEffect::CheckEffect(LPDIRECT3DDEVICE9 pD3DDevice,
 //// 備考       ：
 void CheckEffect::Draw(DrawPacket& i_DrawPacket)
 {
-	for( int i = 1; i <= m_Num; i++ ){
-		update( i );
+	int	num	= 0;
+	if( m_bMark )	num	= 1;
+	else			num	= m_Num;
+
+	for( int i = 1; i <= num; i++ ){
+		update( i ,i_DrawPacket);
 
 	//テクスチャがある場合
 		if(m_pTexture){
@@ -134,10 +140,24 @@ void CheckEffect::Draw(DrawPacket& i_DrawPacket)
 //// 備考       ：
 ////            ：
 ////
-void CheckEffect::update( int i ){
+void CheckEffect::update( int i ,DrawPacket& i_DrawPacket){
 
-	m_vPos.x	= float(i*2-1);
-
+	if( !m_bMark ){
+		m_vPos.x	= float(i*2-1);
+		if( m_fWide > 0.0f )
+				Reduction();
+		else{
+			m_bMark	= true;
+			m_Material.Ambient.r	= 0;
+			m_Material.Ambient.g	= 0;
+		}
+	}
+	else{
+		if( !m_pCoil   ) m_pCoil   = (PlayerCoil*)SearchObjectFromTypeID( i_DrawPacket.pVec, typeid(PlayerCoil) );
+		m_vPos	= m_pCoil->getStartPos();
+		if( m_fWide < EFFECT_SIZE*3 )
+			Expansion();
+	}
 	//計算はUpdateで
 	//拡大縮小
 	D3DXMATRIX mScale;
@@ -153,13 +173,11 @@ void CheckEffect::update( int i ){
 	//ミックス行列
 	m_Matrix	= mScale * mRot * mMove;
 
-	if( m_fWide > 0.0f )
-		Reduction();
 }
 
 /*************************************
 関数名　：
-用途　　：サイズ変更
+用途　　：サイズ縮小
 カテゴリ：
 引数　　：
 戻り値　：
@@ -173,9 +191,29 @@ void	CheckEffect::Reduction(){
 	m_fHight	-= 0.001f;
 }
 
+/*************************************
+関数名　：
+用途　　：サイズ拡大（拡大率は縦横等価）
+カテゴリ：
+引数　　：
+戻り値　：
+担当者　：佐藤涼
+備考　　：
+*************************************/
+void	CheckEffect::Expansion(){
+	m_fWide		+= 0.04f;
+	m_fHight	+= 0.04f;
+
+	float rate	= (EFFECT_SIZE*3) / 0.04f;
+
+	m_Material.Ambient.r	+= rate;
+	m_Material.Ambient.g	+= rate;
+	m_Material.Ambient.b	+= rate;
+}
+
 /****************************************************************************
 ****************************************************************************/
-CheckPoint::CheckPoint( LPDIRECT3DDEVICE9 pD3DDevice, float fLength, wiz::OBJID id  )
+CheckPoint::CheckPoint( LPDIRECT3DDEVICE9 pD3DDevice, float fLength,LPDIRECT3DTEXTURE9 pTexture, wiz::OBJID id  )
 : Cylinder( pD3DDevice, CHECK_POINT_RADIUS, CHECK_POINT_RADIUS, fLength, g_vZero, D3DXVECTOR3( 0.0f,D3DXToRadian( 90.0f )
 		   , 0.0f ), CHECKPOINTCOLOR, D3DCOLORVALUE(), CHECKPOINTCOLOR, id, false, NULL, 18) 
 , m_pCoil( NULL )
@@ -185,6 +223,7 @@ CheckPoint::CheckPoint( LPDIRECT3DDEVICE9 pD3DDevice, float fLength, wiz::OBJID 
 , m_Color( CHECKPOINTCOLOR )
 , m_Thicken( 1.0f )
 , m_Length( fLength )
+, m_pTexture( pTexture )
 {
 }
 CheckPoint::~CheckPoint(){
@@ -215,8 +254,8 @@ void CheckPoint::Update( UpdatePacket& i_UpdatePacket ){
 		if(fPosY <= fCoilPosY){
 			m_pCoil->setStartPos(m_ItemContainer[ m_ActiveItem ]->vStartPos);
 			m_ActiveItem++ ;
-			//m_pEffect	= new CheckEffect( i_UpdatePacket.pD3DDevice, m_pCoil->getPos(),m_Length,
-			//		i_UpdatePacket.pTxMgr->addTexture( i_UpdatePacket.pD3DDevice, L"particle.png" ) );
+			SafeDelete( m_pEffect );
+			m_pEffect	= new CheckEffect( i_UpdatePacket.pD3DDevice, m_pCoil->getPos(),m_Length,m_pTexture );
 			if(m_ActiveItem <= m_ItemContainer.size()) return ;
 		}
 	}
@@ -311,7 +350,7 @@ void	CheckPoint::Blink(){
 			
 			CheckPoint* pcp ;
 			fpac->m_pVec->push_back(
-				pcp = new CheckPoint( fpac->pD3DDevice, 100.0f)
+				pcp = new CheckPoint( fpac->pD3DDevice, 100.0f, fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"particle.png" ))
 			);
 			pcp->add( D3DXVECTOR3(12.0f,45.0f,0.0f) );
 			pcp->add( D3DXVECTOR3(5.0f,120.0f,0.0f) );
