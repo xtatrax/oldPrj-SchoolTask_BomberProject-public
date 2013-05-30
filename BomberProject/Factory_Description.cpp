@@ -54,6 +54,21 @@ Description::Description( LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pText
 	pVB->Unlock();
 
 }
+/////////////////// ////////////////////
+//// 用途       ：~Description;
+//// カテゴリ   ：コンストラクタ
+//// 用途       ：
+//// 引数       ：
+//// 戻値       ：無し
+//// 担当者     ：鴫原 トオル
+//// 備考       ：
+Description::~Description(){
+	m_pCamera  = NULL ;
+	m_pCoil    = NULL ;
+	SafeDeletePointerMap( m_ItemMap_Desc );
+	m_ItemMap_Desc.clear();
+	m_ItemMap_Target.clear();
+}
 
 /////////////////// ////////////////////
 //// 用途       ：void Draw( DrawPacket& i_DrawPacket )

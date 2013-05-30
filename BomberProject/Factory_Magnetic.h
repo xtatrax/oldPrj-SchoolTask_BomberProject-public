@@ -116,7 +116,7 @@ extern	class	MagneticField;
 //**************************************************************************//
 class MagneticumObject3D : public PrimitiveCylinder{
 protected:
-	static Camera*	   m_pCamera ;
+	static Camera*		m_pCamera ;
 	MagneticField*		m_pMagneticField;
 	MagneticField*		m_pMagneticField2;
 	MagneticField*		m_pMagneticField3;

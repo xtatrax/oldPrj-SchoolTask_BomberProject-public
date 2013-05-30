@@ -23,6 +23,7 @@
 #include "Factory_Goal.h"
 #include "Factory_Stage1.h"
 #include "Factory_Description.h"
+#include "Factory_Cursor.h"
 #include "BassItems.h"
 
 namespace wiz{
@@ -76,6 +77,7 @@ Factory_Main::Factory_Main(FactoryPacket* fpac){
 
 		Factory_Goal GPfac( fpac ) ;
 		Factory_Description Dfac( fpac ) ;
+		Factory_Cursor MCfac( fpac )  ; 
 
 		////	: スプライト
 		//fpac->m_pVec->push_back(
