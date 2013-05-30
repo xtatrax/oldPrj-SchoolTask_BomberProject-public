@@ -562,6 +562,18 @@
 						>
 					</File>
 				</Filter>
+				<Filter
+					Name="GageFactory"
+					>
+					<File
+						RelativePath=".\Factory_Gage.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Factory_Gage.h"
+						>
+					</File>
+				</Filter>
 			</Filter>
 			<Filter
 				Name="Prim"

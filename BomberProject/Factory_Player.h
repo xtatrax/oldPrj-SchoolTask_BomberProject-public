@@ -12,18 +12,21 @@
 #pragma once
 
 #include "StdAfx.h"
-#include "Object.h"
-#include "BassItems.h"
 #include "Factory_Magnetic.h"
+#include "Factory_Gage.h"
 
 const int	START_EFFECTIVE_RANGE		= 12;
 const int 	START_EFFECTIVE_RANGE_QUAD	= (START_EFFECTIVE_RANGE * START_EFFECTIVE_RANGE);
 const float PLAYER_SPEED				= 0.08f;
+const float PLAYER_SPEED_SUPER			= 0.12f;
 const float PLAYER_BASSROT				= 90.0f;
 const float PLAYER_TURN_ANGLE_Lv1		= 1.0f;
 const float PLAYER_TURN_ANGLE_Lv2		= 2.0f;
 const float PLAYER_TURN_ANGLE_Lv3		= 2.5f;
-const float COIL_SUPER_MODE_TIME		= 8.0f;
+const float COIL_SUPER_MODE_TIME		= 5.0f;
+const int	PLAYER_RECOVERY_POINT		= 1;
+const int	PLAYER_CONSUME_POIMT		= 1;
+const int	PLAYER_INVOCATION_POINT		= 40;
 
 enum COIL_STATE{			//自機の状態
 	COIL_STATE_START,		//スタート
@@ -35,7 +38,6 @@ enum COIL_STATE{			//自機の状態
 };
 
 namespace wiz{
-
 
 
 //**************************************************************************//
@@ -63,6 +65,8 @@ namespace wiz{
 //**************************************************************************//
 class ProvisionalPlayer3D : public MagneticumObject3D{
 	Camera*			m_Camera;
+	MagneticGage_N* m_MGage_N;
+	MagneticGage_S* m_MGage_S;
 	D3DXMATRIX		m_Matrix ;
 	D3DXVECTOR3		m_vPos ;
 	D3DXQUATERNION	m_vRot ;
@@ -70,9 +74,9 @@ class ProvisionalPlayer3D : public MagneticumObject3D{
 	float			m_MovePosY;
 	bool			m_bLastMouseRB;
 	bool			m_bLastMouseLB;
-	bool			m_bCoilWasFired;
+	bool			m_bCoilWasStarting;
 	bool			m_bDrawing;
-
+	COIL_STATE		m_enumCoilState;
 	//struct PolyItem{
 	//	LPDIRECT3DTEXTURE9 m_pTexture;
 	//	D3DMATERIAL9   m_Material;
@@ -125,14 +129,14 @@ public:
 	/////////////////// ////////////////////
 	//// 関数名     ：void CoilWasFired(bool i_bFlg)
 	//// カテゴリ   ：関数
-	//// 用途       ：m_bCoilWasFiredに値を入れる
+	//// 用途       ：m_bCoilWasStartingに値を入れる
 	//// 引数       ：bool i_bFlg
 	//// 戻値       ：なし
 	//// 担当       ：本多寛之
 	//// 備考       ：
 	////            ：
 	void CoilWasFired(bool i_bFlg){
-		m_bCoilWasFired = i_bFlg;
+		m_bCoilWasStarting = i_bFlg;
 	}
 
 	/****************************************
@@ -147,6 +151,16 @@ public:
 	bool	getDrawing(){
 		return	m_bDrawing;
 	}
+	/////////////////// ////////////////////
+	//// 関数名     ：void setState( COIL_STATE i_State )
+	//// カテゴリ   ：セッター
+	//// 用途       ：状態を変更
+	//// 引数       ：COIL_STATE i_State
+	//// 戻値       ：なし
+	//// 担当       ：本多寛之
+	//// 備考       ：
+	////            ：
+	void setState( COIL_STATE i_State ){ m_enumCoilState = i_State; }	;
 };
 
 /************************************************************************

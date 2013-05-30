@@ -351,6 +351,7 @@ public:
 	//// îıçl       ÅF Sã… = POLE_S = false
 	////			 ÅF Nã… = POLE_N = true
 	POLE  getMagnetPole() const { return m_bMagnetPole	;	}	;
+
 	float getMagneticum() const { return m_fMagneticum*m_fMagneticum  ;	}	;
 
 	/////////////////// ////////////////////
