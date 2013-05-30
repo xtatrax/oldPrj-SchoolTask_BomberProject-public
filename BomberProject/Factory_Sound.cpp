@@ -398,7 +398,28 @@ bool Sound::SearchWaveBank(PCSTR  pWaveName , XACTINDEX& o_WaveNum){
 Sound::Sound(const wchar_t* pWavBankFileName,const wchar_t* pSoundBankFileName ,wiz::OBJID id)
 :_Sound(pWavBankFileName, pSoundBankFileName, id )
 {
+}
+
+/////////////////// ////////////////////
+//// 用途       ：
+//// カテゴリ   ：
+//// 用途       ：
+//// 引数       ：
+//// 戻値       ：
+//// 担当者     ：鴫原 徹
+//// 備考       ：
+////            ：
+////
+void Sound::Update( UpdatePacket& i_UpdatePacket ){
+#if defined( ON_DEBUGGINGPROCESS ) | defined( PRESENTATION )
+	if( GetAsyncKeyState( MYVK_DEBUG_SWITCHING_SOUND ) )
+		DxDevice::SwitchingSoundOnOff();
+	if( DxDevice::getIsPlaySound() )
+		Debugger::DBGSTR::addStrTop( L"[F6]Sound ON\n" );
+	else
+		Debugger::DBGSTR::addStrTop( L"[F6]Sound OFF\n" );
 	
+#endif
 }
 
 /////////////////// ////////////////////
@@ -414,7 +435,7 @@ Sound::Sound(const wchar_t* pWavBankFileName,const wchar_t* pSoundBankFileName ,
 bool Sound::SearchSoundAndPlay(PCSTR pSoundName){
 
 	//	: ぬるぽ->ガッ
-	if(m_pEngine && m_pWaveBank && m_pSoundBank){
+	if( DxDevice::getIsPlaySound() && m_pEngine && m_pWaveBank && m_pSoundBank ){
 		XACTINDEX SoundNum ;
 		if(SearchSoundMap( pSoundName, SoundNum ) || SearchSoundBank( pSoundName, SoundNum ) ){
 			m_pSoundBank->Play( SoundNum, 0,0 ,NULL );
@@ -438,7 +459,7 @@ bool Sound::SearchSoundAndPlay(PCSTR pSoundName){
 bool Sound::SearchWaveAndPlay(PCSTR pWaveName, BYTE count){
 
 	//	: ぬるぽ->ガッ
-	if(m_pEngine && m_pWaveBank && m_pSoundBank){
+	if( DxDevice::getIsPlaySound() && m_pEngine && m_pWaveBank && m_pSoundBank ){
 		XACTINDEX WaveNum ;
 		if(SearchWaveMap( pWaveName, WaveNum ) || SearchWaveBank( pWaveName, WaveNum ) ){
 			m_pWaveBank->Play( WaveNum, XACT_FLAG_UNITS_MS, 0, count, NULL );
