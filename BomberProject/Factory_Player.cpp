@@ -130,11 +130,13 @@ ProvisionalPlayer3D::ProvisionalPlayer3D(
 ,m_vScale(vScale)
 ,m_MovePosY(0)
 ,m_Camera(NULL)
+,m_MGage_N(NULL)
+,m_MGage_S(NULL)
 ,m_bLastMouseRB(false)
 ,m_bLastMouseLB(false)
-//,m_bField(false)
-,m_bCoilWasFired(false)
+,m_bCoilWasStarting(false)
 ,m_bDrawing(false)
+,m_enumCoilState(COIL_STATE_START)
 {
 	::ZeroMemory( &m_Material, sizeof(D3DMATERIAL9) ) ;
 	D3DXMatrixIdentity( &m_Matrix ) ;
@@ -181,7 +183,7 @@ ProvisionalPlayer3D::~ProvisionalPlayer3D(){
 //// 備考       ：
 void ProvisionalPlayer3D::Draw(DrawPacket& i_DrawPacket)
 {
-	if( m_bCoilWasFired ){
+	if( m_bCoilWasStarting ){
 		if( m_bDrawing ){ 
 			//テクスチャがある場合
 			if(m_pTexture){
@@ -234,94 +236,128 @@ void ProvisionalPlayer3D::Update( UpdatePacket& i_UpdatePacket ){
 		m_Camera = (Camera*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_SYS_CAMERA);
 		m_Camera && (m_MovePosY	= m_Camera->getPosY());
 	}
+	if( !m_MGage_N )	 m_MGage_N	= (MagneticGage_N*)SearchObjectFromTypeID(i_UpdatePacket.pVec,typeid(MagneticGage_N));
+	if( !m_MGage_S )	 m_MGage_S	= (MagneticGage_S*)SearchObjectFromTypeID(i_UpdatePacket.pVec,typeid(MagneticGage_S));
+
 	RECT rc;
 	::GetClientRect(g_hWnd, &rc);
 
 	Debugger::DBGSTR::addStr( L" WindowRECT :      TOP( %d ) \n", rc.top );
 	Debugger::DBGSTR::addStr( L"            : RIGHT( %d ) LEFT( %d ) \n", rc.right, rc.left );
 	Debugger::DBGSTR::addStr( L"            :     BOTTOM( %d ) \n", rc.bottom );
-	if( m_bCoilWasFired ){
-		if( g_bMouseLB || g_bMouseRB ){ 
-			if( !m_bLastMouseLB && !m_bLastMouseRB ){
-				wiz::CONTROLER_STATE Controller1P = i_UpdatePacket.pCntlState[0] ;
-				D3DXVECTOR3 vMove = g_vZero ;
-				Point MousePos ;
-				GetCursorPos( &MousePos ) ;
-				ScreenToClient( g_hWnd , &MousePos) ;
 
+	//if((g_bMouseLB && m_MGage_N->getRect2().right >= MAGNETIC_GAGE_MAX) || (g_bMouseRB && m_MGage_S->getRect2().right >= MAGNETIC_GAGE_MAX)){
+	//if(g_bMouseLB)m_MGage_N->Consume(MAGNETIC_GAGE_MAX);
+	//if(g_bMouseRB)m_MGage_S->Consume(MAGNETIC_GAGE_MAX);
+	//if(g_bMouseLB)m_MGage_N->Consume(1);
+	//if(g_bMouseRB)m_MGage_S->Consume(1);
+	//m_MGage_N->Recovery(1,MAGNETIC_GAGE_MAX);
+	//m_MGage_S->Recovery(1,MAGNETIC_GAGE_MAX);
 
-				m_vPos.x = (float)MousePos.x / DRAW_CLIENT_MAGNIFICATION - MAGNETIC_RADIUS ;
-				m_vPos.y = (( STANDARD_WINDOW_HEIGHT - MousePos.y ) - UI_HEIGHT ) / DRAW_CLIENT_MAGNIFICATION - MAGNETIC_RADIUS + ( m_Camera->getPosY() - m_MovePosY ) ;
+	if( m_bCoilWasStarting ){
+		if( (g_bMouseLB || g_bMouseRB) && !(g_bMouseLB && g_bMouseRB)){ 
+			if( (g_bMouseLB && m_MGage_N->getRect2().right > 0) || (g_bMouseRB && m_MGage_S->getRect2().right > 0) ){				
+				if( !m_bLastMouseLB && !m_bLastMouseRB){
+					if(g_bMouseLB)m_MGage_N->Consume(PLAYER_INVOCATION_POINT);
+					if(g_bMouseRB)m_MGage_S->Consume(PLAYER_INVOCATION_POINT);
+					if( (g_bMouseLB && m_MGage_N->getRect2().right > 0) || (g_bMouseRB && m_MGage_S->getRect2().right > 0) ){
+						wiz::CONTROLER_STATE Controller1P = i_UpdatePacket.pCntlState[0] ;
+						D3DXVECTOR3 vMove = g_vZero ;
+						Point MousePos ;
+						GetCursorPos( &MousePos ) ;
+						ScreenToClient( g_hWnd , &MousePos) ;
 
-				if(g_bMouseLB){
-					m_pMagneticField->setPole(POLE_N);
-					m_pMagneticField2->setPole(POLE_N);
-					m_pMagneticField3->setPole(POLE_N);
-					m_pMagneticField4->setPole(POLE_N);
+						m_vPos.x = (float)MousePos.x / DRAW_CLIENT_MAGNIFICATION - MAGNETIC_RADIUS ;
+						m_vPos.y = (( STANDARD_WINDOW_HEIGHT - MousePos.y ) - UI_HEIGHT ) / DRAW_CLIENT_MAGNIFICATION - MAGNETIC_RADIUS + ( m_Camera->getPosY() - m_MovePosY ) ;
+
+						if(g_bMouseLB){
+							m_pMagneticField->setPole(POLE_N);
+							m_pMagneticField2->setPole(POLE_N);
+							m_pMagneticField3->setPole(POLE_N);
+							m_pMagneticField4->setPole(POLE_N);
+						}
+						else if(g_bMouseRB){
+							m_pMagneticField->setPole(POLE_S);
+							m_pMagneticField2->setPole(POLE_S);
+							m_pMagneticField3->setPole(POLE_S);
+							m_pMagneticField4->setPole(POLE_S);
+						}
+
+						//磁界に描画地点を渡す
+						m_pMagneticField->SetPos(m_vPos);
+						m_pMagneticField2->SetPos(m_vPos);
+						m_pMagneticField3->SetPos(m_vPos);
+						m_pMagneticField4->SetPos(m_vPos);
+
+						m_pMagneticField->Update(i_UpdatePacket);
+						m_pMagneticField2->Update(i_UpdatePacket);
+						m_pMagneticField3->Update(i_UpdatePacket);
+
+						m_pMagneticField4->SetPos(m_vPos);
+						m_pMagneticField4->Update(i_UpdatePacket);
+
+						if( g_bMouseLB )
+							setPoleN() ;
+						if( g_bMouseRB )
+							setPoleS() ;
+					}
 				}
-				else if(g_bMouseRB){
-					m_pMagneticField->setPole(POLE_S);
-					m_pMagneticField2->setPole(POLE_S);
-					m_pMagneticField3->setPole(POLE_S);
-					m_pMagneticField4->setPole(POLE_S);
+				if( (g_bMouseLB && m_MGage_N->getRect2().right > 0) || (g_bMouseRB && m_MGage_S->getRect2().right > 0) ){	
+
+					if( g_bMouseLB  && !g_bMouseRB )m_MGage_N->Consume(PLAYER_CONSUME_POIMT);
+					if( !g_bMouseLB && g_bMouseRB  )m_MGage_S->Consume(PLAYER_CONSUME_POIMT);
+
+					if( !g_bMouseLB && g_bMouseRB  )m_MGage_N->Recovery(PLAYER_RECOVERY_POINT,MAGNETIC_GAGE_MAX);
+					if( g_bMouseLB  && !g_bMouseRB )m_MGage_S->Recovery(PLAYER_RECOVERY_POINT,MAGNETIC_GAGE_MAX);
+
+					//	: 拡大縮小
+					D3DXMATRIX mScale ;
+					D3DXMatrixIdentity( &mScale ) ;
+					D3DXMatrixScaling( &mScale, m_vScale.x, m_vScale.y, m_vScale.z ) ;
+					
+					//	: 回転
+					D3DXMATRIX mRot ;
+					D3DXMatrixIdentity( &mRot ) ;
+					D3DXMatrixRotationQuaternion( &mRot, &m_vRot ) ;
+					
+					//	: 移動用
+					D3DXMATRIX mMove ;
+					D3DXMatrixIdentity( &mMove ) ;
+					D3DXMatrixTranslation( &mMove, m_vPos.x, m_vPos.y, m_vPos.z ) ;
+					
+					//	: ミックス行列
+					m_Matrix = mScale * mRot * mMove ;
+
+					//	: マティリアル設定
+					m_Material = m_Material ;
+
+					//	: マウスのフラグ
+					//g_bMouseLB = false ;
+					//g_bMouseRB = false ;
+					m_bDrawing	= true;
 				}
-
-				//磁界に描画地点を渡す
-				m_pMagneticField->SetPos(m_vPos);
-				m_pMagneticField2->SetPos(m_vPos);
-				m_pMagneticField3->SetPos(m_vPos);
-				m_pMagneticField4->SetPos(m_vPos);
-
-				m_pMagneticField->Update(i_UpdatePacket);
-				m_pMagneticField2->Update(i_UpdatePacket);
-				m_pMagneticField3->Update(i_UpdatePacket);
-
-				m_pMagneticField4->SetPos(m_vPos);
-				m_pMagneticField4->Update(i_UpdatePacket);
-
-				if( g_bMouseLB )
-					setPoleN() ;
-				if( g_bMouseRB )
-					setPoleS() ;
-
 			}
-
-			//	: 拡大縮小
-			D3DXMATRIX mScale ;
-			D3DXMatrixIdentity( &mScale ) ;
-			D3DXMatrixScaling( &mScale, m_vScale.x, m_vScale.y, m_vScale.z ) ;
-			
-			//	: 回転
-			D3DXMATRIX mRot ;
-			D3DXMatrixIdentity( &mRot ) ;
-			D3DXMatrixRotationQuaternion( &mRot, &m_vRot ) ;
-			
-			//	: 移動用
-			D3DXMATRIX mMove ;
-			D3DXMatrixIdentity( &mMove ) ;
-			D3DXMatrixTranslation( &mMove, m_vPos.x, m_vPos.y, m_vPos.z ) ;
-			
-			//	: ミックス行列
-			m_Matrix = mScale * mRot * mMove ;
-
-			//	: マティリアル設定
-			m_Material = m_Material ;
-
-			//	: マウスのフラグ
-			//g_bMouseLB = false ;
-			//g_bMouseRB = false ;
-			m_bDrawing	= true;
+			else{
+				m_bDrawing	= false;
+			}
 		}else{
 			m_bDrawing	= false;
+			m_MGage_N->Recovery(PLAYER_RECOVERY_POINT,MAGNETIC_GAGE_MAX);
+			m_MGage_S->Recovery(PLAYER_RECOVERY_POINT,MAGNETIC_GAGE_MAX);
 		}
 	}else{
 			m_bDrawing	= false;
-		}
+	}
 	m_bLastMouseLB = g_bMouseLB ;
 	m_bLastMouseRB = g_bMouseRB ;
 
 	//磁界のエフェクトを動かす
 	m_pMagneticField4->Update(i_UpdatePacket);
+
+	if(m_enumCoilState == COIL_STATE_CONTINUE){
+		m_MGage_N->setRect2_Right(MAGNETIC_GAGE_MAX);
+		m_MGage_S->setRect2_Right(MAGNETIC_GAGE_MAX);
+	}
 };
 
 /**************************************************************************
@@ -568,9 +604,9 @@ void	StartField::Draw(DrawPacket &i_DrawPacket){
 ********************************************************************/
 void	StartField::Update(UpdatePacket& i_UpdatePacket)
 {
-	D3DXMATRIX mMove, mScale;
-	D3DXMatrixIdentity(&mMove);
-	D3DXMatrixIdentity(&mScale);
+	//D3DXMATRIX mMove, mScale;
+	//D3DXMatrixIdentity(&mMove);
+	//D3DXMatrixIdentity(&mScale);
 	this->SetBaseScale(D3DXVECTOR3(m_Radius1,m_Radius2,1.0f));
 	this->CalcWorldMatrix();
 };
@@ -729,7 +765,6 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 	if( !m_pMagneticumObject ){ 
 		m_pMagneticumObject = ( MagneticumObject3D* ) SearchObjectFromTypeID( i_UpdatePacket.pVec, typeid(MagneticumObject3D) ) ; 
 	}
-
 	if( m_pPlayer ){
 		//デバック用-----------------------------------------------------------
 		// 磁界反転
@@ -776,6 +811,7 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 	} else {
 		m_pPlayer = (ProvisionalPlayer3D*)SearchObjectFromTypeID( i_UpdatePacket.pVec , typeid(ProvisionalPlayer3D) );
 	}
+	m_pPlayer->setState(m_enumCoilState);
 	if(m_enumCoilState == COIL_STATE_START || m_enumCoilState == COIL_STATE_CONTINUE){
 		m_pStartField->SetBasePos(D3DXVECTOR3(m_vStartPos.x,m_vStartPos.y,1.0f));
 		m_pStartField->Update(i_UpdatePacket);
@@ -839,7 +875,7 @@ void PlayerCoil::Update_StateStart(){
 void PlayerCoil::Update_StateMove(){
 	//プレイヤー磁界と自機の判定
 	bool bCheckDistance = CheckDistance( m_pPlayer->getPos(), m_vPos, (float)MGPRM_MAGNETICUM_QUAD, true );
-	if( bCheckDistance ){
+	if( m_pPlayer->getDrawing() && bCheckDistance ){
 		m_fMoveDir = MagneticDecision(m_fMoveDir,m_pPlayer->getPos(),m_pPlayer->getMagnetPole());
 	}
 
@@ -854,6 +890,9 @@ void PlayerCoil::Update_StateMove(){
 		++it;
 	}
 
+	//速度指定
+	if(m_bIsSuperMode) m_fMovdSpeed = PLAYER_SPEED_SUPER;
+	else			   m_fMovdSpeed = PLAYER_SPEED;
 	//指定方向へ指定距離移動
 	ArcMove( m_vMove , m_fMovdSpeed, m_fMoveDir);
 	//移動分を加算
@@ -864,6 +903,9 @@ void PlayerCoil::Update_StateMove(){
 	}
 	if(m_vPos.x >= 50.0f){
 		m_vPos.x = 50.0f;		
+	}
+	if(m_vPos.y <= 0){
+		m_vPos.y = 0.0f;
 	}
 };
 
@@ -886,13 +928,13 @@ void PlayerCoil::Update_StateStick(){
 	//発射時に極を変える
 	switch(getMagnetPole()){
 		case POLE_S:
-			if(!g_bMouseLB){
+			if(!g_bMouseLB || !m_pPlayer->getDrawing()){
 				setPoleN();
 				m_enumCoilState = COIL_STATE_MOVE;
 			}
 			break;
 		case POLE_N:
-			if(!g_bMouseRB){
+			if(!g_bMouseRB || !m_pPlayer->getDrawing()){
 				setPoleS();
 				m_enumCoilState = COIL_STATE_MOVE;
 			}
@@ -1049,7 +1091,7 @@ void PlayerCoil::Draw(DrawPacket& i_DrawPacket){
 		//コモンメッシュのDraw()を呼ぶ
 		CommonMesh::Draw(i_DrawPacket);
 	}
-	if(m_enumCoilState == COIL_STATE_START){
+	if(m_enumCoilState == COIL_STATE_START || m_enumCoilState == COIL_STATE_CONTINUE){
 		m_pStartField->Draw(i_DrawPacket);
 	}
 #if defined( ON_DEBUGGINGPROCESS )
@@ -1159,10 +1201,10 @@ bool PlayerCoil::CheckDistance( D3DXVECTOR3& i_vMagneticFieldPos, D3DXVECTOR3& i
 			m_enumCoilState = COIL_STATE_STICK;
 			return false;
 		}
-		if(Lng <= fBorderLv){
+		if(Lng <= fBorderLv && IsPlayer){
 			m_fTurnAngle = PLAYER_TURN_ANGLE_Lv3;
 		}
-		else if(Lng <= fBorderLv*2){
+		else if(Lng <= fBorderLv*2 && IsPlayer){
 			m_fTurnAngle = PLAYER_TURN_ANGLE_Lv2;
 		}
 		else{
