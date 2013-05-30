@@ -31,7 +31,8 @@ enum COIL_STATE{			//自機の状態
 	COIL_STATE_STICK,		//吸着
 	//COIL_STATE_SUPER,		//無敵
 	COIL_STATE_DEAD,		//死亡
-	COIL_STATE_CONTINUE		//コンティニュー
+	COIL_STATE_CONTINUE,	//コンティニュー
+	COIL_STATE_CLEAR		//クリア
 };
 
 namespace wiz{
@@ -439,6 +440,28 @@ public:
 	D3DXVECTOR3 getPos() const { return m_vPos;	}	;
 
 	/////////////////// ////////////////////
+	//// 関数名     ：D3DXVECTOR3 getScale() const
+	//// カテゴリ   ：ゲッター
+	//// 用途       ：大きさを獲得
+	//// 引数       ：なし
+	//// 戻値       ：なし
+	//// 担当       ：佐藤涼
+	//// 備考       ：
+	////            ：
+	D3DXVECTOR3 getScale() const { return m_vScale;	}	;
+
+	/////////////////// ////////////////////
+	//// 関数名     ：D3DXVECTOR3 getDir() const
+	//// カテゴリ   ：ゲッター
+	//// 用途       ：向きを獲得
+	//// 引数       ：なし
+	//// 戻値       ：なし
+	//// 担当       ：佐藤涼
+	//// 備考       ：
+	////            ：
+	float getDir() const { return m_fMoveDir;	}	;
+
+	/////////////////// ////////////////////
 	//// 関数名     ：D3DXVECTOR3 getSpeed() const
 	//// カテゴリ   ：ゲッター
 	//// 用途       ：速度を獲得
@@ -460,7 +483,7 @@ public:
 	////            ：
 	COIL_STATE getState() const { return m_enumCoilState;	}	;
 
-		/////////////////// ////////////////////
+	///////////////////////////////////////
 	//// 関数名     ：D3DXVECTOR3 getStartPos()
 	//// カテゴリ   ：ゲッター
 	//// 用途       ：
@@ -483,6 +506,45 @@ public:
 	//// 備考       ：
 	////            ：
 	void setState( COIL_STATE i_State ){ m_enumCoilState = i_State; }	;
+
+	/////////////////// ////////////////////
+	//// 関数名     ：void setPos(D3DXVECTOR3 i_vPos)
+	//// カテゴリ   ：セッター
+	//// 用途       ：
+	//// 引数       ：なし
+	//// 戻値       ：なし
+	//// 担当       ：佐藤涼
+	//// 備考       ：
+	////            ：
+	void setPos(D3DXVECTOR3 i_vPos){
+		m_vPos = i_vPos;
+	}
+
+	/////////////////// ////////////////////
+	//// 関数名     ：void setScale(D3DXVECTOR3 i_vScale)
+	//// カテゴリ   ：セッター
+	//// 用途       ：
+	//// 引数       ：なし
+	//// 戻値       ：なし
+	//// 担当       ：佐藤涼
+	//// 備考       ：
+	////            ：
+	void setScale(D3DXVECTOR3 i_vScale){
+		m_vScale = i_vScale;
+	}
+
+	/////////////////// ////////////////////
+	//// 関数名     ：void setDir(float i_vDir)
+	//// カテゴリ   ：セッター
+	//// 用途       ：
+	//// 引数       ：なし
+	//// 戻値       ：なし
+	//// 担当       ：佐藤涼
+	//// 備考       ：
+	////            ：
+	void setDir(float i_vDir){
+		m_fMoveDir = i_vDir;
+	}
 
 	/////////////////// ////////////////////
 	//// 関数名     ：void setStartPos(float i_fPosY)

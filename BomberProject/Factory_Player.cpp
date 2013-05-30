@@ -738,6 +738,8 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 			case COIL_STATE_CONTINUE:
 				Update_StateContinue();
 				break;
+			case COIL_STATE_CLEAR:
+				break;
 			default:
 				break;
 		}
