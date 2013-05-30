@@ -563,7 +563,7 @@
 					</File>
 				</Filter>
 				<Filter
-					Name="CorsorFactory"
+					Name="CursorFactory"
 					>
 					<File
 						RelativePath=".\Factory_Cursor.cpp"
