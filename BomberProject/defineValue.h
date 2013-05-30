@@ -13,24 +13,24 @@
 static const wchar_t*		RCTEXT_SOUND_WAVEBANK		= L"media/Sound/MagneticaWave.xwb"  ;
 static const wchar_t*		RCTEXT_SOUND_SOUNDBANK		= L"media/Sound/MagneticaSound.xsb" ;
 
-static const char*		RCTEXT_SOUND_BGM_CLEAR		= "BGM-CLEAR"			;
-static const char*		RCTEXT_SOUND_BGM_GAMEOVER	= "BGM-GAME_OVER"		;
-static const char*		RCTEXT_SOUND_BGM_PLAY		= "BGM-PLAY001"			;
-static const char*		RCTEXT_SOUND_BGM_TITLE		= "BGM-TITLE"			;
-static const char*		RCTEXT_SOUND_SE_ALERT		= "SE-ALERT002"			;
-static const char*		RCTEXT_SOUND_SE_BREAKENEMY	= "SE-BLOKEN_ENEMY"		;
-static const char*		RCTEXT_SOUND_SE_CHECKPOINT	= "SE-CHACK_POINT"		;
-static const char*		RCTEXT_SOUND_SE_CLEAR		= "SE-CLEAR"			;
-static const char*		RCTEXT_SOUND_SE_ENTER		= "SE-ENTER"			;
-static const char*		RCTEXT_SOUND_SE_FIRE		= "SE-FIRE"				;
-static const char*		RCTEXT_SOUND_SE_GOAL		= "SE-GOAL"				;
-static const char*		RCTEXT_SOUND_SE_HITENEMY	= "SE-HIT_ENEMY"		;
-static const char*		RCTEXT_SOUND_SE_INVISIBLE	= "SE-INVINGVLE"		;
-static const char*		RCTEXT_SOUND_SE_SETFIELD	= "SE-MAGNETIC_FIELD"	;
-static const char*		RCTEXT_SOUND_SE_SPARK		= "SE-SPARK002"			;
+static const char*			RCTEXT_SOUND_BGM_CLEAR		= "BGM-CLEAR"			;
+static const char*			RCTEXT_SOUND_BGM_GAMEOVER	= "BGM-GAME_OVER"		;
+static const char*			RCTEXT_SOUND_BGM_PLAY		= "BGM-PLAY001"			;
+static const char*			RCTEXT_SOUND_BGM_TITLE		= "BGM-TITLE"			;
+static const char*			RCTEXT_SOUND_SE_ALERT		= "SE-ALERT002"			;
+static const char*			RCTEXT_SOUND_SE_BREAKENEMY	= "SE-BLOKEN_ENEMY"		;
+static const char*			RCTEXT_SOUND_SE_CHECKPOINT	= "SE-CHACK_POINT"		;
+static const char*			RCTEXT_SOUND_SE_CLEAR		= "SE-CLEAR"			;
+static const char*			RCTEXT_SOUND_SE_ENTER		= "SE-ENTER"			;
+static const char*			RCTEXT_SOUND_SE_FIRE		= "SE-FIRE"				;
+static const char*			RCTEXT_SOUND_SE_GOAL		= "SE-GOAL"				;
+static const char*			RCTEXT_SOUND_SE_HITENEMY	= "SE-HIT_ENEMY"		;
+static const char*			RCTEXT_SOUND_SE_INVISIBLE	= "SE-INVINGVLE"		;
+static const char*			RCTEXT_SOUND_SE_SETFIELD	= "SE-MAGNETIC_FIELD"	;
+static const char*			RCTEXT_SOUND_SE_SPARK		= "SE-SPARK002"			;
 
-static const int		MGPRM_MAGNETICUM			= 10 ; /* Ž¥ŠE‚Ì‰e‹¿”¼Œa*/
-static const int		MGPRM_MAGNETICUM_QUAD		= ( MGPRM_MAGNETICUM * MGPRM_MAGNETICUM );
+static const int			MGPRM_MAGNETICUM			= 10 ; /* Ž¥ŠE‚Ì‰e‹¿”¼Œa*/
+static const int			MGPRM_MAGNETICUM_QUAD		= ( MGPRM_MAGNETICUM * MGPRM_MAGNETICUM );
 
 
 //////////

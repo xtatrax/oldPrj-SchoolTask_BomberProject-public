@@ -30,19 +30,33 @@ namespace wiz{
  担当：本多寛之
 ***************************************************************************/
 MouseCursor::MouseCursor( LPDIRECT3DDEVICE9 pD3DDevice, TextureManager* m_pTexMgr)
-:Cylinder( pD3DDevice, 1.0f, 1.0f, 0.01f,g_vZero,g_vZero, COLOR2D3DCOLORVALUE(0x0FFFFF0F), COLOR2D3DCOLORVALUE(0x0FFFFF0F), COLOR2D3DCOLORVALUE(0x0FFFFF0F),  OBJID_3D_CURSOR)
+:Box( pD3DDevice, D3DXVECTOR3( 1.0f, 1.0f, 1.0f), g_vZero, g_vZero, COLOR2D3DCOLORVALUE(0x0FFFFF0F), COLOR2D3DCOLORVALUE(0x0FFFFF0F), COLOR2D3DCOLORVALUE(0x0FFFFF0F),  OBJID_3D_CURSOR, false, m_pTexMgr->addTexture( pD3DDevice, L"Field.png" ) )
 ,PrimitiveSprite(pD3DDevice, m_pTexMgr->addTexture( pD3DDevice, L"MouseCursor.png" ), NULL, D3DXVECTOR3( 22.0f, 22.0f, 0.0f ), g_vZero)
-,m_pMouseTex( m_pTexMgr->addTexture( pD3DDevice, L"MouseCursor.png" ) )
 ,m_Ptn(0)
 ,m_MovePosY(0)
 {
 
 	D3DXVECTOR3 vScale = D3DXVECTOR3(0.5f,0.5f,0.0f);
 	D3DXMatrixScaling( &m_mScale, vScale.x, vScale.y, vScale.z );
-	Cylinder::SetBaseScale( D3DXVECTOR3( (float)MGPRM_MAGNETICUM, (float)MGPRM_MAGNETICUM, 0.0f) );
+
+	Box::SetBaseScale( D3DXVECTOR3( (float)MGPRM_MAGNETICUM*2, (float)MGPRM_MAGNETICUM*2, 0.0f) );
 	m_pCamera = NULL;
 
 }
+
+/////////////////// ////////////////////
+//// 用途       ：~MouseCursor();
+//// カテゴリ   ：コンストラクタ
+//// 用途       ：
+//// 引数       ：
+//// 戻値       ：無し
+//// 担当者     ：鴫原 徹
+//// 備考       ：
+MouseCursor::~MouseCursor(){
+
+}
+
+
 /////////////////// ////////////////////
 //// 用途       ：void Update( UpdatePacket& i_UpdatePacket )
 //// カテゴリ   ：関数
@@ -92,7 +106,7 @@ void MouseCursor::Update( UpdatePacket& i_UpdatePacket ){
 
 		Debugger::DBGSTR::addStr( L" Pos( %f, %f, %f )\n" , vCursol.x , vCursol.y, vCursol.z ) ;
 
-		Cylinder::CalcWorldMatrix();
+		Box::CalcWorldMatrix();
 
 	}
 	++m_Ptn;
@@ -113,7 +127,7 @@ void MouseCursor::Update( UpdatePacket& i_UpdatePacket ){
 void MouseCursor::Draw(DrawPacket& i_DrawPacket)
 {
 	PrimitiveSprite::Draw(i_DrawPacket);
-	Cylinder::Draw(i_DrawPacket);
+	Box::Draw(i_DrawPacket);
 }
 
 
@@ -131,6 +145,7 @@ void MouseCursor::Draw(DrawPacket& i_DrawPacket)
 ***************************************************************************/
 Factory_Cursor::Factory_Cursor(FactoryPacket* fpac){
 	try{
+
  		D3DCOLORVALUE MouseDiffuse = {0.7f,0.7f,0.7f,0.0f};
 		D3DCOLORVALUE MouseSpecular = {0.0f,0.0f,0.0f,0.0f};
 		D3DCOLORVALUE MouseAmbient = {0.5f,0.5f,0.5f,0.0f};
@@ -139,7 +154,6 @@ Factory_Cursor::Factory_Cursor(FactoryPacket* fpac){
 			new MouseCursor( 
 						fpac->pD3DDevice,
 						fpac->m_pTexMgr
-						
 			)
 		);
 	}
