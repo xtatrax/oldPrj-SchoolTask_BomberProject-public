@@ -171,6 +171,11 @@ MagneticumObject3D::MagneticumObject3D(
 		   Diffuse,Specular,Ambient,
 		   id)
 ,m_bMagnetPole( POLE_N )
+,m_pMagneticField ( NULL )
+,m_pMagneticField2( NULL )
+,m_pMagneticField3( NULL )
+,m_pMagneticField4( NULL )
+
 {
 	::ZeroMemory( &m_Material, sizeof(D3DMATERIAL9) ) ;
 }
