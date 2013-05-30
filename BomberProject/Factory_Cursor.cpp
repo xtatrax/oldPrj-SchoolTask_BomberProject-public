@@ -29,14 +29,8 @@ namespace wiz{
  戻り値: なし
  担当：本多寛之
 ***************************************************************************/
-MouseCursor::MouseCursor(
-		LPDIRECT3DDEVICE9 pD3DDevice,
-		TextureManager* m_pTexMgr)
-:PrimitiveBox(pD3DDevice,
-			  COLOR2D3DCOLORVALUE(0),
-			  COLOR2D3DCOLORVALUE(0),
-			  COLOR2D3DCOLORVALUE(0),
-			  OBJID_3D_CURSOR)
+MouseCursor::MouseCursor( LPDIRECT3DDEVICE9 pD3DDevice, TextureManager* m_pTexMgr)
+:Cylinder( pD3DDevice, 1.0f, 1.0f, 0.01f,g_vZero,g_vZero, COLOR2D3DCOLORVALUE(0x0FFFFF0F), COLOR2D3DCOLORVALUE(0x0FFFFF0F), COLOR2D3DCOLORVALUE(0x0FFFFF0F),  OBJID_3D_CURSOR)
 ,PrimitiveSprite(pD3DDevice, m_pTexMgr->addTexture( pD3DDevice, L"MouseCursor.png" ), NULL, D3DXVECTOR3( 22.0f, 22.0f, 0.0f ), g_vZero)
 ,m_pMouseTex( m_pTexMgr->addTexture( pD3DDevice, L"MouseCursor.png" ) )
 ,m_Ptn(0)
@@ -45,7 +39,7 @@ MouseCursor::MouseCursor(
 
 	D3DXVECTOR3 vScale = D3DXVECTOR3(0.5f,0.5f,0.0f);
 	D3DXMatrixScaling( &m_mScale, vScale.x, vScale.y, vScale.z );
-	PrimitiveBox::SetBaseScale( vScale );
+	Cylinder::SetBaseScale( D3DXVECTOR3( (float)MGPRM_MAGNETICUM, (float)MGPRM_MAGNETICUM, 0.0f) );
 	m_pCamera = NULL;
 
 }
@@ -77,9 +71,11 @@ void MouseCursor::Update( UpdatePacket& i_UpdatePacket ){
 	GetCursorPos( &MousePos ) ;
 	ScreenToClient( g_hWnd , &MousePos) ;
 	
+	//	: 座標の更新
 	D3DXMATRIX mPos ;
 	D3DXMatrixTranslation( &mPos, (float)MousePos.x, (float)MousePos.y, 0.0f);
 
+	//	: 行列の算出
 	m_mMatrix = m_mScale * mPos ;
 
 
@@ -96,7 +92,7 @@ void MouseCursor::Update( UpdatePacket& i_UpdatePacket ){
 
 		Debugger::DBGSTR::addStr( L" Pos( %f, %f, %f )\n" , vCursol.x , vCursol.y, vCursol.z ) ;
 
-		CalcWorldMatrix();
+		Cylinder::CalcWorldMatrix();
 
 	}
 	++m_Ptn;
@@ -117,7 +113,7 @@ void MouseCursor::Update( UpdatePacket& i_UpdatePacket ){
 void MouseCursor::Draw(DrawPacket& i_DrawPacket)
 {
 	PrimitiveSprite::Draw(i_DrawPacket);
-	PrimitiveBox::Draw(i_DrawPacket);
+	Cylinder::Draw(i_DrawPacket);
 }
 
 

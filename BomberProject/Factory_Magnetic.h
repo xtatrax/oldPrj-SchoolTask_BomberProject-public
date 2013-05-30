@@ -16,8 +16,6 @@
 #include "BassItems.h"
 //#include "Factory_Player.h"
 
-const int	MGPRM_MAGNETICUM			= 10 ; /* Ž¥ŠE‚Ì‰e‹¿”¼Œa*/
-const int	MGPRM_MAGNETICUM_QUAD		= ( MGPRM_MAGNETICUM * MGPRM_MAGNETICUM );
 
 
 
