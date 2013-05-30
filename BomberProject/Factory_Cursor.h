@@ -91,7 +91,7 @@ inline D3DXVECTOR3* CalcScreenToXZ(
 // 担当者  : 曳地 大洋
 // 用途    : マウスカーソル
 //**************************************************************************//
-class MouseCursor : public PrimitiveBox , public  PrimitiveSprite{
+class MouseCursor : public Cylinder , public  PrimitiveSprite{
 	int			m_Ptn;
 	float		m_MovePosY;
 
