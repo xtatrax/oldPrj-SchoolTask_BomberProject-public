@@ -91,11 +91,9 @@ inline D3DXVECTOR3* CalcScreenToXZ(
 // 担当者  : 曳地 大洋
 // 用途    : マウスカーソル
 //**************************************************************************//
-class MouseCursor : public Cylinder , public  PrimitiveSprite{
+class MouseCursor : public Box , public  PrimitiveSprite{
 	int			m_Ptn;
 	float		m_MovePosY;
-
-	LPDIRECT3DTEXTURE9 m_pMouseTex;
 	Camera*	    m_pCamera;
 	D3DXMATRIX	m_mScale;
 
@@ -116,14 +114,22 @@ public:
 	//// カテゴリ   ：コンストラクタ
 	//// 用途       ：
 	//// 引数       ：LPDIRECT3DDEVICE9 pD3DDevice //デバイス
-	////			  : LPDIRECT3DTEXTURE9 pTexture  //テクスチャ
-	////			  : pTexture,wiz::OBJID id = OBJID_3D_WALL //ID
+	////			： LPDIRECT3DTEXTURE9 pTexture  //テクスチャ
+	////            ：pTexture,wiz::OBJID id = OBJID_3D_WALL //ID
 	//// 戻値       ：無し
 	//// 担当者     ：本多寛之
 	//// 備考       ：
 	MouseCursor(LPDIRECT3DDEVICE9  pD3DDevice,TextureManager* m_TexMgr);
 
-	//bool HitTest2DRectAndCircle( D3DXVECTOR3& i_vPos, float i_fRadius );
+	/////////////////// ////////////////////
+	//// 用途       ：~MouseCursor();
+	//// カテゴリ   ：コンストラクタ
+	//// 用途       ：
+	//// 引数       ：
+	//// 戻値       ：無し
+	//// 担当者     ：鴫原 徹
+	//// 備考       ：
+	~MouseCursor();
 
 	/////////////////// ////////////////////
 	//// 用途       ：void Draw( DrawPacket& i_DrawPacket )
