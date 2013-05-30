@@ -12,17 +12,17 @@
 #include "StdAfx.h"
 #include "Object.h"
 #include "Scene.h"
-#include "Factory_Main.h"
-#include "Factory_Player.h"
-#include "Factory_Wall.h"
 #include "Factory_CheckPoint.h"
-#include "Factory_Goal.h"
-#include "Factory_Enemy.h"
-#include "Factory_Magnetic.h"
-#include "Factory_Item.h"
-#include "Factory_Goal.h"
-#include "Factory_Stage1.h"
 #include "Factory_Description.h"
+#include "Factory_Enemy.h"
+#include "Factory_Goal.h"
+#include "Factory_Gage.h"
+#include "Factory_Item.h"
+#include "Factory_Main.h"
+#include "Factory_Magnetic.h"
+#include "Factory_Player.h"
+#include "Factory_Stage1.h"
+#include "Factory_Wall.h"
 #include "BassItems.h"
 
 namespace wiz{
@@ -71,7 +71,7 @@ Factory_Main::Factory_Main(FactoryPacket* fpac){
 		Factory_Enemy Efac( fpac ) ;
 		Factory_CheckPoint CPfac( fpac ) ;
 		Factory_Item   Ifac( fpac ) ;
-
+		Factory_Gage	Gfac( fpac );
 		Factory_Stage1 Sfac( fpac ) ;
 
 		Factory_Goal GPfac( fpac ) ;
