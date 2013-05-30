@@ -46,6 +46,7 @@ private:
 	DrawPacket				m_DrawPacket	;	// ドロースレッドの処理に流すデータ群
 	Scene*					pScene			;	// 
 	static bool				m_bDestroy		;	//
+	static bool				m_bOnPlaySound	;	//
 	static Rect				m_WindowRect	;	// ゲームの描画範囲の大きさを表す矩形
 	static D3DXVECTOR2		m_v2AspectRate	;		// 基準解像度と現在の解像度の比率
 	static HWND				m_hWnd				;	// メインウインドウのハンドル
@@ -162,6 +163,29 @@ public:
 ////            ：
 ////
 	static HANDLE getLoadingThreadHandle(){return m_hLoadingThread;};
+
+/////////////////// ////////////////////
+//// 関数名     ：static bool getIsPlaySound() ;
+//// カテゴリ   ：静的メンバ関数
+//// 用途       ：音声を再生させるかどうかを返す
+//// 引数       ：なしし
+//// 戻値       ： true  : 再生
+////            ： false : 停止
+//// 備考       ：
+////            ：
+////
+	static bool getIsPlaySound(){return m_bOnPlaySound;};
+
+/////////////////// ////////////////////
+//// 関数名     ：static bool getSwitchingSoundOnOff()
+//// カテゴリ   ：静的メンバ関数
+//// 用途       ：音声のONとOFFを切り替える
+//// 引数       ：なし
+//// 戻値       ：なし
+//// 備考       ：
+////            ：
+////
+	static void SwitchingSoundOnOff(){ m_bOnPlaySound ? m_bOnPlaySound = false : m_bOnPlaySound = true ; } ;
 
 /////////////////// ////////////////////
 //// 関数名     ：void Destroy()
