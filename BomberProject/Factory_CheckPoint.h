@@ -30,6 +30,8 @@ class CheckEffect : public PrimitiveBox{
 	int				m_Num;
 	float			m_fWide;
 	float			m_fHight;
+	bool			m_bMark;
+	PlayerCoil*		m_pCoil;
 public:
 	/////////////////// ////////////////////
 	//// 用途       ：Description(	LPDIRECT3DDEVICE9 pD3DDevice,LPDIRECT3DTEXTURE9 pTexture,wiz::OBJID id = OBJID_3D_WALL);
@@ -72,11 +74,11 @@ public:
 	//// 備考       ：
 	////            ：
 	////
-	void update( int i );
+	void update( int i ,DrawPacket& i_DrawPacket);
 
 /*************************************
 関数名　：
-用途　　：サイズ変更
+用途　　：サイズ縮小
 カテゴリ：
 引数　　：
 戻り値　：
@@ -84,6 +86,17 @@ public:
 備考　　：
 *************************************/
 	void	Reduction();
+
+/*************************************
+関数名　：
+用途　　：サイズ拡大（拡大率は縦横等価）
+カテゴリ：
+引数　　：
+戻り値　：
+担当者　：佐藤涼
+備考　　：
+*************************************/
+	void	Expansion();
 };
 
 /******************************************************:
@@ -106,7 +119,7 @@ protected:
 	float					m_Thicken;
 	float					m_Length;
 	CheckEffect*			m_pEffect;
-
+	LPDIRECT3DTEXTURE9		m_pTexture;
 /////////////////// ////////////////////
 //// 関数名     ：bool HitTestIntersect(OBB i_obb, D3DXVECTOR3 i_vMove, HITGROUNDVECTOR& o_HitListVec)
 //// カテゴリ   ：メンバ関数
@@ -133,7 +146,7 @@ protected:
 	void RemoveTarget();
 
 public:
-	CheckPoint( LPDIRECT3DDEVICE9 pD3DDevice, float fLength, wiz::OBJID id = OBJID_SYS_CHECKPOINT );
+	CheckPoint( LPDIRECT3DDEVICE9 pD3DDevice, float fLength,LPDIRECT3DTEXTURE9 pTexture, wiz::OBJID id = OBJID_SYS_CHECKPOINT );
 	~CheckPoint();
 /////////////////// ////////////////////
 //// 用途       ：virtual void Update( UpdatePacket& i_UpdatePacket )
