@@ -179,7 +179,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE
 
     }
     else {
-		ShowCursor(true);
         //ウインドウの作成
         hWnd = ::CreateWindowEx(
             0,                              //オプションのウィンドウスタイル
@@ -216,6 +215,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE
         // ウインドウサイズの再設定
         ::SetWindowPos(hWnd,HWND_TOP,0,0,w_width,w_height,SWP_NOMOVE);
     }
+	ShowCursor(DRAW_MOUSE);
 	wiz::__GetClientSize(wiz::Rect(0,0,iClientWidth,iClientHeight));
 	wiz::DxDevice::setClientRect(wiz::Rect(0,0,iClientWidth,iClientHeight));
 	g_hWnd = hWnd ;

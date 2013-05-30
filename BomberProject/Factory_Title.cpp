@@ -13,6 +13,7 @@
 #include "Object.h"
 #include "Scene.h"
 #include "Factory_Title.h"
+#include "Factory_Cursor.h"
 #include "BassItems.h"
 
 namespace wiz{
@@ -166,6 +167,24 @@ Factory_Title::Factory_Title(FactoryPacket* fpac){
 					0xFFFFFFFF
 				)
 		);
+
+		fpac->m_pVec->push_back(
+			new MouseCursor( 
+						fpac->pD3DDevice,
+						fpac->m_pTexMgr
+
+			)
+		);
+		Sound* pSound = NULL;
+		fpac->m_pVec->push_back(
+			pSound = new Sound( 
+				RCTEXT_SOUND_WAVEBANK,
+				RCTEXT_SOUND_SOUNDBANK,
+				OBJID_SYS_SOUND
+			)
+		);
+		pSound->SearchSoundAndPlay( RCTEXT_SOUND_BGM_TITLE );
+
 	}
 	catch(...){
 		//çƒthrow

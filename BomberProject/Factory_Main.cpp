@@ -12,18 +12,19 @@
 #include "StdAfx.h"
 #include "Object.h"
 #include "Scene.h"
-#include "Factory_Main.h"
-#include "Factory_Player.h"
-#include "Factory_Wall.h"
 #include "Factory_CheckPoint.h"
-#include "Factory_Goal.h"
+#include "Factory_Description.h"
 #include "Factory_Enemy.h"
-#include "Factory_Magnetic.h"
-#include "Factory_Item.h"
 #include "Factory_Goal.h"
+#include "Factory_Gage.h"
+#include "Factory_Item.h"
+#include "Factory_Main.h"
+#include "Factory_Magnetic.h"
+#include "Factory_Player.h"
 #include "Factory_Stage1.h"
 #include "Factory_Description.h"
 #include "Factory_Cursor.h"
+#include "Factory_Wall.h"
 #include "BassItems.h"
 
 namespace wiz{
@@ -72,7 +73,7 @@ Factory_Main::Factory_Main(FactoryPacket* fpac){
 		Factory_Enemy Efac( fpac ) ;
 		Factory_CheckPoint CPfac( fpac ) ;
 		Factory_Item   Ifac( fpac ) ;
-
+		Factory_Gage	Gfac( fpac );
 		Factory_Stage1 Sfac( fpac ) ;
 
 		Factory_Goal GPfac( fpac ) ;
@@ -93,23 +94,32 @@ Factory_Main::Factory_Main(FactoryPacket* fpac){
 		//		0xFFFFFFFF
 		//	)
 		//);
+		Sound* pSound = NULL;
+		fpac->m_pVec->push_back(
+			pSound = new Sound( 
+				RCTEXT_SOUND_WAVEBANK,
+				RCTEXT_SOUND_SOUNDBANK,
+				OBJID_SYS_SOUND
+			)
+		);
+		pSound->SearchSoundAndPlay( RCTEXT_SOUND_BGM_PLAY );
 
-
-		}
-		catch(...){
-			//再throw
-			throw;
-		}
 
 	}
+	catch(...){
+		//再throw
+		throw;
+	}
+
+}
 /**************************************************************************
  Factory_Main::~Factory_Main();
  用途: デストラクタ
  戻り値: なし
 ***************************************************************************/
-	Factory_Main::~Factory_Main(){
-		//なにもしない
-	}
+Factory_Main::~Factory_Main(){
+	//なにもしない
+}
 
 }
 //end of namespace wiz.
