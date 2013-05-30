@@ -93,23 +93,32 @@ Factory_Main::Factory_Main(FactoryPacket* fpac){
 		//		0xFFFFFFFF
 		//	)
 		//);
+		Sound* pSound = NULL;
+		fpac->m_pVec->push_back(
+			pSound = new Sound( 
+				RCTEXT_SOUND_WAVEBANK,
+				RCTEXT_SOUND_SOUNDBANK,
+				OBJID_SYS_SOUND
+			)
+		);
+		pSound->SearchSoundAndPlay( RCTEXT_SOUND_BGM_PLAY );
 
-
-		}
-		catch(...){
-			//再throw
-			throw;
-		}
 
 	}
+	catch(...){
+		//再throw
+		throw;
+	}
+
+}
 /**************************************************************************
  Factory_Main::~Factory_Main();
  用途: デストラクタ
  戻り値: なし
 ***************************************************************************/
-	Factory_Main::~Factory_Main(){
-		//なにもしない
-	}
+Factory_Main::~Factory_Main(){
+	//なにもしない
+}
 
 }
 //end of namespace wiz.

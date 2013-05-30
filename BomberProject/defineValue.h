@@ -9,6 +9,28 @@
 //
 #ifndef	__Define_Value__
 #define	__Define_Value__
+ 
+static wchar_t*		RCTEXT_SOUND_WAVEBANK		= L"media/Sound/MagneticaWave.xwb"  ;
+static wchar_t*		RCTEXT_SOUND_SOUNDBANK		= L"media/Sound/MagneticaSound.xsb" ;
+
+static char*		RCTEXT_SOUND_BGM_CLEAR		= "BGM-CLEAR"			;
+static char*		RCTEXT_SOUND_BGM_GAMEOVER	= "BGM-GAME_OVER"		;
+static char*		RCTEXT_SOUND_BGM_PLAY		= "BGM-PLAY001"			;
+static char*		RCTEXT_SOUND_BGM_TITLE		= "BGM-TITLE"			;
+static char*		RCTEXT_SOUND_SE_ALERT		= "SE-ALERT002"			;
+static char*		RCTEXT_SOUND_SE_BREAKENEMY	= "SE-BLOKEN_ENEMY"		;
+static char*		RCTEXT_SOUND_SE_CHECKPOINT	= "SE-CHACK_POINT"		;
+static char*		RCTEXT_SOUND_SE_CLEAR		= "SE-CLEAR"			;
+static char*		RCTEXT_SOUND_SE_ENTER		= "SE-ENTER"			;
+static char*		RCTEXT_SOUND_SE_FIRE		= "SE-FIRE"				;
+static char*		RCTEXT_SOUND_SE_GOAL		= "SE-GOAL"				;
+static char*		RCTEXT_SOUND_SE_HITENEMY	= "SE-HIT_ENEMY"		;
+static char*		RCTEXT_SOUND_SE_INVISIBLE	= "SE-INVINGVLE"		;
+static char*		RCTEXT_SOUND_SE_SETFIELD	= "SE-MAGNETIC_FIELD"	;
+static char*		RCTEXT_SOUND_SE_SPARK		= "SE-SPARK002"			;
+
+
+
 //////////
 // マクロ関数
 
@@ -23,7 +45,7 @@
 
 
 #define CF_SINGLETHREAD			/* シングルスレッドモード  ( 無効にするとマルチスレッド的になりますがバグります )   */
-#define DRAW_MOUSE	(true)		
+#define DRAW_MOUSE	(false)		
 //#define CF_LOADINGANIMATION		/* ロード画面でアニメーション */
 
 #if defined(DEBUG) || defined(_DEBUG)
@@ -33,7 +55,7 @@
 	#define ON_DEBUGGINGPROCESS			/* デバックモード             */
 	#define DEBUG_STRINGS_ON			/* デバッグ用文字列を有効化 */
 
-	#define DRAW_MOUSE	(true)
+	#define DRAW_MOUSE	(false)
 	#define ___MLP_DEBUG_TIMEDRAW_ 
 	//#define ON_GUIDELINE
 #else
@@ -42,14 +64,14 @@
 	//-------------------------------//
 	//		プレゼンモード定義       //
 	//-------------------------------//
-		#define CF_FULLSCREEN				/* フルスクリーンモード       */
+		//#define CF_FULLSCREEN				/* フルスクリーンモード       */
 
 	#else
 	//-------------------------------//
 	//		リリースモード定義       //
 	//-------------------------------//
 
-		//#define CF_FULLSCREEN				/* フルスクリーンモード       */
+		#define CF_FULLSCREEN				/* フルスクリーンモード       */
 	#endif
 
 #endif
@@ -89,12 +111,13 @@
 #define MYVK_GAMEPAD_STICK_LEFT		( 'J' )
 
 
-#define MYVK_DEBUG_STOP_UPDATE		( VK_F12 )
-#define MYVK_DEBUG_SLOW_UPDATE		( VK_F11 )
-#define MYVK_DEBUG_OUTPUT_DBGSTR	( VK_F9  )
-#define MYVK_DEBUG_OUTPUT_MEMORY	( VK_F8  )
-#define MYVK_DEBUG_OBB_DRAW			( VK_F7  )
-#define MYVK_DEBUG_COIL_INVISIBLE	( VK_F6  )
+#define MYVK_DEBUG_STOP_UPDATE		( VK_F12     )
+#define MYVK_DEBUG_SLOW_UPDATE		( VK_F11     )
+#define MYVK_DEBUG_OUTPUT_DBGSTR	( VK_F9      )
+#define MYVK_DEBUG_OUTPUT_MEMORY	( VK_F8      )
+#define MYVK_DEBUG_OBB_DRAW			( VK_F7      )
+#define MYVK_DEBUG_COIL_INVISIBLE	( VK_CONTROL )
+#define MYVK_DEBUG_SWITCHING_SOUND	( VK_F6      )
 
 //
 //////////
@@ -146,6 +169,15 @@ namespace wiz{
 	////	CLASSID_END			=  0xFFFFFFFFFFFFFFFF ,
 	////};
 
+	//////////////////////////////////////////////////
+	//                                              //
+	//                                              //
+	//   オブジェクト識別するために利用知るのID     //
+	//                                              //
+	//   追加の際はすべて大文字で記述してください   //
+	//                                              //
+	//                                              //
+	//////////////////////////////////////////////////
 	enum OBJID{
 		OBJID_NONE					= 0x0000,	//	: なし
 		OBJID_UNK					= 0x0001,	//	: 未定オブジェ
@@ -218,7 +250,7 @@ namespace wiz{
 		OBJID_3D_WALL				,	//	: 壁
 		OBJID_3D_ITEM				,	//	: アイテム
 
-		OBJID_3D_Cursor				,	//	: カーソル
+		OBJID_3D_CURSOR				,	//	: カーソル
 
 		//	:
 		OBJID_3D_PLAYER				,

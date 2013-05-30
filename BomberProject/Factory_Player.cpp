@@ -15,13 +15,8 @@
 #include "Factory_Player.h"
 #include "BassItems.h"
 #include "Factory_Wall.h"
+#include "Factory_Cursor.h"
 
-//	: UIÇÃçÇÇ≥
-#define UI_HEIGHT					( 88.0f )
-//	: ï\é¶âÊñ ÇÃî{ó¶ x=800, y=512 : x=40, y=25.6
-#define DRAW_CLIENT_MAGNIFICATION	( 20.0f )
-//	: é•äEÇÃîºåa
-#define MAGNETIC_RADIUS				( 0.5f )
 
 namespace wiz{
 
@@ -234,12 +229,8 @@ void ProvisionalPlayer3D::Update( UpdatePacket& i_UpdatePacket ){
 		m_Camera = (Camera*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_SYS_CAMERA);
 		m_Camera && (m_MovePosY	= m_Camera->getPosY());
 	}
-	RECT rc;
-	::GetClientRect(g_hWnd, &rc);
 
-	Debugger::DBGSTR::addStr( L" WindowRECT :      TOP( %d ) \n", rc.top );
-	Debugger::DBGSTR::addStr( L"            : RIGHT( %d ) LEFT( %d ) \n", rc.right, rc.left );
-	Debugger::DBGSTR::addStr( L"            :     BOTTOM( %d ) \n", rc.bottom );
+	Debugger::DBGSTR::addStr( L" Pos( %f, %f, %f )\n" , m_vPos.x , m_vPos.y, m_vPos.z ) ;
 	if( m_bCoilWasFired ){
 		if( g_bMouseLB || g_bMouseRB ){ 
 			if( !m_bLastMouseLB && !m_bLastMouseRB ){
@@ -630,7 +621,7 @@ PlayerCoil::PlayerCoil(
 ,m_pMagneticumObject(NULL)
 ,m_pCamera(NULL)
 ,m_enumCoilState(COIL_STATE_START)
-#if defined( ON_DEBUGGINGPROCESS )
+#if defined( ON_DEBUGGINGPROCESS ) | defined( PRESENTATION )
 ,m_pDSPH(NULL)
 ,m_bDebugInvincibleMode( false )
 #endif
@@ -784,12 +775,12 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 	if( m_pCamera ){
 		m_pCamera->setPosY( m_vPos.y );
 	}
-
+#if defined( ON_DEBUGGINGPROCESS ) | defined( PRESENTATION )
 	if( GetAsyncKeyState( MYVK_DEBUG_COIL_INVISIBLE ) )
 		m_bDebugInvincibleMode ? m_bDebugInvincibleMode = false : m_bDebugInvincibleMode = true ;
-
 	if( m_bDebugInvincibleMode )
 	Debugger::DBGSTR::addStrTop( L"**********  ñ≥ìGÉÇÅ[Éh  **********\n" );
+#endif 
 };
 
 /////////////////// ////////////////////
