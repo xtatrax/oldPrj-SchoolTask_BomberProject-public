@@ -89,6 +89,17 @@ public:
 	ProvisionalPlayer3D( FactoryPacket* fpac, LPDIRECT3DTEXTURE9 pTexture, LPDIRECT3DTEXTURE9 pTexture2,
 		D3DXVECTOR3 &vScale, D3DXQUATERNION &vRot, D3DXVECTOR3 &vPos,
 		wiz::OBJID id = OBJID_3D_PLAYER );
+	/////////////////// ////////////////////
+	//// 関数名     ：~ProvisionalPlayer3D();
+	//// カテゴリ   ：デストラクタ
+	//// 用途       ：破棄
+	//// 引数       ：なし
+	//// 戻値       ：なし
+	//// 担当者     ：鴫原 徹
+	//// 備考       ：
+	////            ：
+	////
+	~ProvisionalPlayer3D();
 	//	:
 	void Draw( DrawPacket& i_DrawPacket );
 	//	: 
@@ -201,22 +212,23 @@ public:
 //**************************************************************************//
 class PlayerCoil : public MagneticumObject3D{
 #if defined( ON_DEBUGGINGPROCESS ) | defined( PRESENTATION )
-	DrawSphere*		m_pDSPH ;
+	DrawSphere*		m_pDSPH		;
+	bool			m_bDebugInvincibleMode;
 #endif
-	Cylinder*		m_pCylinder ;
-	D3DXMATRIX		m_Matrix ;
-	D3DXVECTOR3		m_vPos ;
-	D3DXQUATERNION	m_vRot ;
-	D3DXVECTOR3		m_vScale ;
-	D3DXVECTOR3		m_vMove;
-	float			m_fMoveDir   ;//角度
-	float			m_fMovdSpeed ;//速度
-	D3DXVECTOR3		m_vStartPos;
-	float			m_fTurnAngle;
-	bool			m_bLastMouseRB;
-	bool			m_bLastMouseLB;
+	Cylinder*		m_pCylinder		;
+	D3DXMATRIX		m_Matrix		;
+	D3DXVECTOR3		m_vPos			;
+	D3DXQUATERNION	m_vRot			;
+	D3DXVECTOR3		m_vScale		;
+	D3DXVECTOR3		m_vMove			;
+	float			m_fMoveDir		;//角度
+	float			m_fMovdSpeed	;//速度
+	D3DXVECTOR3		m_vStartPos		;
+	float			m_fTurnAngle	;
+	bool			m_bLastMouseRB	;
+	bool			m_bLastMouseLB	;
 
-	bool			m_bIsSuperMode;//無敵状態のフラグ (無敵状態は他の状態と重なるのでCOIL_STATEに入れない)
+	bool			m_bIsSuperMode	;//無敵状態のフラグ (無敵状態は他の状態と重なるのでCOIL_STATEに入れない)
 
 	StartField*				m_pStartField;
 	

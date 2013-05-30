@@ -1015,7 +1015,7 @@ StageLoader2::StageLoader2(LPDIRECT3DDEVICE9 pD3DDevice, vector<Object*>& Vec, T
 void Stage::Clear(){
 	SafeDelete(m_pChildStage);
 	//SafeDelete(m_pParStage);
-	SAFE_DELETE_VECTOR(m_Vec);
+	SafeDeletePointerContainer(m_Vec);
 	m_TexMgr.Release();
 }
 
@@ -1116,7 +1116,8 @@ void Stage::Update(UpdatePacket& i_UpdatePacket)
 ////            ：
 ////
 void Stage::Render(RenderPacket& i_RenderPacket){
-	i_RenderPacket.pVec = &m_Vec ;
+	i_RenderPacket.pVec		= &m_Vec	;
+	i_RenderPacket.pTxMgr	= &m_TexMgr ; 
 	//配置オブジェクトの描画
 	vector<Object*>::iterator it = m_Vec.begin();
 	while( it != m_Vec.end() ){
@@ -1148,6 +1149,7 @@ void Stage::Draw(DrawPacket& i_DrawPacket)
 {
 	try{
 		i_DrawPacket.pVec = &m_Vec ;
+		i_DrawPacket.pTxMgr	= &m_TexMgr ; 
 		//配置オブジェクトの描画
 		vector<Object*>::size_type sz = m_Vec.size();
 		for(vector<Object*>::size_type i = 0;i < sz;i++){

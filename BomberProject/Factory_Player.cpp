@@ -153,6 +153,19 @@ ProvisionalPlayer3D::ProvisionalPlayer3D(
 	//D3DXQuaternionRotationYawPitchRoll(&m_Item_Poly.m_vRot,
 	//		D3DXToRadian(vRot.y),D3DXToRadian(vRot.x),D3DXToRadian(vRot.z));
 }
+/////////////////// ////////////////////
+//// 関数名     ：~ProvisionalPlayer3D();
+//// カテゴリ   ：デストラクタ
+//// 用途       ：破棄
+//// 引数       ：なし
+//// 戻値       ：なし
+//// 担当者     ：鴫原 徹
+//// 備考       ：
+////            ：
+////
+ProvisionalPlayer3D::~ProvisionalPlayer3D(){
+	m_Camera = NULL ;
+}
 
 /////////////////// ////////////////////
 //// 用途       ：void Draw( DrawPacket& i_DrawPacket )
@@ -406,8 +419,6 @@ void	MagneticField::Draw(DrawPacket &i_DrawPacket){
 };
 
 /*******************************************************************
-関数名     ：void	 MagneticField::Update(UpdatePacket& i_UpdatePacket)
-用途       ：データ更新
 関数名　　：void MagneticField::Update(UpdatePacket& i_UpdatePacket)
 カテゴリ　：関数
 用途　　　：データ更新
@@ -621,6 +632,7 @@ PlayerCoil::PlayerCoil(
 ,m_enumCoilState(COIL_STATE_START)
 #if defined( ON_DEBUGGINGPROCESS )
 ,m_pDSPH(NULL)
+,m_bDebugInvincibleMode( false )
 #endif
 {
 	::ZeroMemory( &m_Material, sizeof(D3DMATERIAL9) ) ;
@@ -677,6 +689,7 @@ bool PlayerCoil::HitTestWall( OBB Obb, float Index ){
 	sp.m_Radius = m_pCylinder->getRadius2() ;
 #if defined( ON_DEBUGGINGPROCESS ) | defined( PRESENTATION )
 	if( m_pDSPH ) m_pDSPH->UpdateSPHERE(sp);
+	if( m_bDebugInvincibleMode ) return false ;
 #endif
 	//通常の衝突判定
 	D3DXVECTOR3 Vec ;
@@ -772,6 +785,11 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 		m_pCamera->setPosY( m_vPos.y );
 	}
 
+	if( GetAsyncKeyState( MYVK_DEBUG_COIL_INVISIBLE ) )
+		m_bDebugInvincibleMode ? m_bDebugInvincibleMode = false : m_bDebugInvincibleMode = true ;
+
+	if( m_bDebugInvincibleMode )
+	Debugger::DBGSTR::addStrTop( L"**********  無敵モード  **********\n" );
 };
 
 /////////////////// ////////////////////
@@ -844,8 +862,8 @@ void PlayerCoil::Update_StateMove(){
 	if(m_vPos.x <= 0){
 		m_vPos.x = 0.0f;
 	}
-	if(m_vPos.x >= 39.0f){
-		m_vPos.x = 39.0f;		
+	if(m_vPos.x >= 50.0f){
+		m_vPos.x = 50.0f;		
 	}
 };
 
