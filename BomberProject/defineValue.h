@@ -49,7 +49,7 @@
 	//		リリースモード定義       //
 	//-------------------------------//
 
-		#define CF_FULLSCREEN				/* フルスクリーンモード       */
+		//#define CF_FULLSCREEN				/* フルスクリーンモード       */
 	#endif
 
 #endif
@@ -94,6 +94,7 @@
 #define MYVK_DEBUG_OUTPUT_DBGSTR	( VK_F9  )
 #define MYVK_DEBUG_OUTPUT_MEMORY	( VK_F8  )
 #define MYVK_DEBUG_OBB_DRAW			( VK_F7  )
+#define MYVK_DEBUG_COIL_INVISIBLE	( VK_F6  )
 
 //
 //////////
@@ -216,6 +217,8 @@ namespace wiz{
 		OBJID_3D_MAGNET				,	//	: 磁石
 		OBJID_3D_WALL				,	//	: 壁
 		OBJID_3D_ITEM				,	//	: アイテム
+
+		OBJID_3D_Cursor				,	//	: カーソル
 
 		//	:
 		OBJID_3D_PLAYER				,
