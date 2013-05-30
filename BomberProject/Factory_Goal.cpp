@@ -510,7 +510,7 @@ Factory_Goal::Factory_Goal(FactoryPacket* fpac){
 
 		mt->AddMemory(	D3DXVECTOR3(20.0f,5.0f,0.0f),
 						g_vZero,
-						D3DXVECTOR3(20.0f,22.0f,0.0f),
+						D3DXVECTOR3(20.0f,20.0f * 8.0f-8.0f ,0.0f),
 						MemoryDiffuse,
 						MemorySpecular,
 						MemoryAmbient	);
@@ -519,8 +519,8 @@ Factory_Goal::Factory_Goal(FactoryPacket* fpac){
 
 		gl->addGoal(	D3DXVECTOR3( 40.0f, 2.0f, 0.0f ),
 						g_vZero,
-						D3DXVECTOR3( 20.0f, 20.0f, 0.0f ),
-						//D3DXVECTOR3( 20.0f, 20.0f * 8.0f-10.0f, 0.0f ),
+						//D3DXVECTOR3( 20.0f, 20.0f, 0.0f ),
+						D3DXVECTOR3( 20.0f, 20.0f * 8.0f-10.0f, 0.0f ),
 						GoalDiffuse,
 						GoalSpecular,
 						GoalAmbient);
