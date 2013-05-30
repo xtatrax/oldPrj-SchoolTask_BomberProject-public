@@ -104,13 +104,13 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 			if((it = m_ObjeTypeMap.find( ObjectID )) != m_ObjeTypeMap.end()){
 				//	: “o˜^‚ğŒ©‚Â‚¯‚½ê‡
 				dynamic_cast< MagneticumObject3D* >(( *m_pVec )[it->second])->AddMagnetic(
-					i_Data.vPos, i_Data.vScale, i_Data.vPos, i_Data.bPool, i_Data.Diffuse, i_Data.Specular, i_Data.Ambient
+					i_Data.vScale, i_Data.vScale, i_Data.vPos, i_Data.bPool, i_Data.Diffuse, i_Data.Specular, i_Data.Ambient
 				);
 			}else{
 				//	: “o˜^‚ª‚È‚©‚Á‚½ê‡
 				MagneticumObject3D* mgb = new MagneticumObject3D( m_pD3DDevice, m_pTexMgr->addTexture(m_pD3DDevice,L"biribiriWall.png"), ObjectID);
 				mgb->AddMagnetic(
-					i_Data.vPos, i_Data.vScale, i_Data.vPos, i_Data.bPool, i_Data.Diffuse, i_Data.Specular, i_Data.Ambient
+					i_Data.vScale, i_Data.vScale, i_Data.vPos, i_Data.bPool, i_Data.Diffuse, i_Data.Specular, i_Data.Ambient
 				);
 				m_pVec->push_back(mgb);
 				m_ObjeTypeMap.insert( make_pair( ObjectID , m_pVec->size() -1));
