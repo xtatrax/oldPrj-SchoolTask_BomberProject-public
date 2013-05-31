@@ -181,11 +181,10 @@ void ProvisionalPlayer3D::Draw(DrawPacket& i_DrawPacket)
 {
 	if( m_pSound == NULL )
 		m_pSound = (Sound*)SearchObjectFromTypeID(i_DrawPacket.pVec,typeid(Sound));
-	else
-		m_pSound->SearchSoundAndPlay( RCTEXT_SOUND_SE_SETFIELD );
 
 	if( m_bCoilWasStarting ){
 		if( m_bDrawing ){ 
+			m_pSound->SearchSoundAndPlay( RCTEXT_SOUND_SE_SETFIELD );
 			//テクスチャがある場合
 			if(m_pTexture){
 				DWORD wkdword;

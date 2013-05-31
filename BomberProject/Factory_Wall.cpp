@@ -147,11 +147,6 @@ void WallObject::GetOBBList( float Index, list<OBB>& ObbList ){
 //// 備考       ：
 void WallObject::Draw(DrawPacket& i_DrawPacket)
 {
-	if( m_pSound == NULL )
-		m_pSound = (Sound*)SearchObjectFromTypeID(i_DrawPacket.pVec,typeid(Sound));
-//	else
-//		m_pSound->SearchSoundAndPlay( RCTEXT_SOUND_SE_SPARK );
-
 	multimap<float,WallItem*>::iterator it = m_ItemMap_Target.begin();
 	while(it != m_ItemMap_Target.end()){
 		//テクスチャがある場合
