@@ -1282,7 +1282,7 @@ Factory_Player::Factory_Player( FactoryPacket* fpac ){
 				fpac->pD3DDevice,
 				//fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"CircleC.png" ),
 				NULL,
-				0.0f,0.7f,1.0f,1.0f,vScale,D3DXVECTOR3(90.0f,0.0f,0.0f),D3DXVECTOR3(10.0f,100.0f,0.0f),
+				0.0f,0.7f,1.0f,1.0f,vScale,D3DXVECTOR3(90.0f,0.0f,0.0f),D3DXVECTOR3(10.0f,10.0f,0.0f),
 				CoilDiffuse,CoilSpecular,CoilAmbient
 				)
 		);
