@@ -14,6 +14,7 @@
 #include "StdAfx.h"
 #include "Factory_Magnetic.h"
 #include "Factory_Gage.h"
+#include "Factory_Sound.h"
 
 const int	START_EFFECTIVE_RANGE		= 12;
 const int 	START_EFFECTIVE_RANGE_QUAD	= (START_EFFECTIVE_RANGE * START_EFFECTIVE_RANGE);
@@ -66,6 +67,7 @@ namespace wiz{
 //**************************************************************************//
 class ProvisionalPlayer3D : public MagneticumObject3D{
 	Camera*			m_Camera;
+	Sound*			m_pSound;
 	MagneticGage_N* m_MGage_N;
 	MagneticGage_S* m_MGage_S;
 	D3DXMATRIX		m_Matrix ;
@@ -246,7 +248,7 @@ class PlayerCoil : public MagneticumObject3D{
 	bool			m_bIsSuperMode	;//ñ≥ìGèÛë‘ÇÃÉtÉâÉO (ñ≥ìGèÛë‘ÇÕëºÇÃèÛë‘Ç∆èdÇ»ÇÈÇÃÇ≈COIL_STATEÇ…ì¸ÇÍÇ»Ç¢)
 
 	StartField*				m_pStartField;
-	
+	Sound*					m_pSound;
 	ProvisionalPlayer3D*	m_pPlayer;
 
 	MagneticumObject3D*		m_pMagneticumObject;
