@@ -93,7 +93,7 @@ public:
 	//	: 
 	ProvisionalPlayer3D( FactoryPacket* fpac, LPDIRECT3DTEXTURE9 pTexture, LPDIRECT3DTEXTURE9 pTexture2,
 		D3DXVECTOR3 &vScale, D3DXQUATERNION &vRot, D3DXVECTOR3 &vPos,
-		wiz::OBJID id = OBJID_3D_PLAYER );
+		wiz::OBJID id = OBJID_3D_USERMAGNET );
 	/////////////////// ////////////////////
 	//// 関数名     ：~ProvisionalPlayer3D();
 	//// カテゴリ   ：デストラクタ
@@ -294,7 +294,7 @@ public:
 		D3DCOLORVALUE& Diffuse,
 		D3DCOLORVALUE& Specular,
 		D3DCOLORVALUE& Ambient,
-		wiz::OBJID id = OBJID_3D_PLAYER
+		wiz::OBJID id = OBJID_3D_COIL
 	);
 
 	/////////////////// ////////////////////

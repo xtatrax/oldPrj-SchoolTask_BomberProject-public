@@ -248,16 +248,17 @@ namespace wiz{
 		////
 
 		//	: 
-		OBJID_3D_MAGNET				,	//	: 磁石
+		//OBJID_3D_MAGNET				,	//	: 磁石
 		OBJID_3D_WALL				,	//	: 壁
 		OBJID_3D_ITEM				,	//	: アイテム
 
 		OBJID_3D_CURSOR				,	//	: カーソル
 
 		//	:
-		OBJID_3D_PLAYER				,
+		//OBJID_3D_PLAYER				,
 		OBJID_3D_USERMAGNET			,	//	: ユーザー
 		OBJID_3D_COIL				,	//	: プレイヤー
+		OBJID_3D_STATIC_MAGNET		,	//	: 磁石
 		OBJID_3D_EFFECT				,	//	: エフェクト
 		OBJID_3D_ENEMY				,	//	: 敵
 

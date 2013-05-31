@@ -643,7 +643,7 @@ PlayerCoil::PlayerCoil(
 	)
 :MagneticumObject3D(pD3DDevice,pTexture,
 					Radius1,Radius2,Lenght,vRot,vPos,
-					Diffuse,Specular,Ambient)
+					Diffuse,Specular,Ambient,id)
 ,m_vPos(vPos)
 ,m_vRot(vRot)
 ,m_vScale(vScale)
@@ -756,7 +756,7 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 	}
 
 	if( !m_pMagneticumObject ){ 
-		m_pMagneticumObject = ( MagneticumObject3D* ) SearchObjectFromTypeID( i_UpdatePacket.pVec, typeid(MagneticumObject3D) ) ; 
+		m_pMagneticumObject = ( MagneticumObject3D* ) SearchObjectFromID( i_UpdatePacket.pVec, OBJID_3D_STATIC_MAGNET) ; 
 	}
 	if( m_pPlayer ){
 		//デバック用-----------------------------------------------------------

@@ -346,14 +346,14 @@ void MagneticumObject3D::Update( UpdatePacket& i_UpdatePacket ){
 void MagneticumObject3D::AddMagnetic(D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos,POLE vPole,
 			D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient)
 {
-	Magnet3DItem* pItem		= new Magnet3DItem ;
-	pItem->m_vScale			= vScale ;
-	pItem->m_vPos			= vPos ;
-	pItem->m_bMagnetPole	= vPole;
+	Magnet3DItem* pItem			= new Magnet3DItem ;
+	pItem->m_vScale				= vScale ;
+	pItem->m_vPos				= vPos ;
+	pItem->m_bMagnetPole		= vPole;
     ::ZeroMemory(&pItem->m_Material,sizeof(D3DMATERIAL9)) ;
-	pItem->m_Material.Diffuse  = Diffuse ;
-	pItem->m_Material.Specular = Specular ;
-	pItem->m_Material.Ambient  = Ambient ;
+	pItem->m_Material.Diffuse	= Diffuse ;
+	pItem->m_Material.Specular	= Specular ;
+	pItem->m_Material.Ambient	= Ambient ;
 	//‰ñ“]‚Ì‰Šú‰»
 	D3DXQuaternionRotationYawPitchRoll(&pItem->m_vRot,
 			D3DXToRadian(vRot.y),D3DXToRadian(vRot.x),D3DXToRadian(vRot.z)) ;
@@ -401,11 +401,11 @@ Factory_Magnetic::Factory_Magnetic(FactoryPacket *fpac){
 		D3DCOLORVALUE MagnetSpecular = { 0.0f, 0.0f, 0.0f, 0.0f } ;
 		D3DCOLORVALUE MagnetAmbient  = { 1.0f, 1.0f, 1.0f, 1.0f } ;
 		// Ž¥ŠE‚Ì•\Ž¦
-		MagneticumObject3D* Magnet = new MagneticumObject3D(
-			fpac->pD3DDevice,
-			NULL//fpac->m_pTexMgr->addTexture(fpac->pD3DDevice,L"ddn.jpg")
-		);
-		fpac->m_pVec->push_back(Magnet);
+		//MagneticumObject3D* Magnet = new MagneticumObject3D(
+		//	fpac->pD3DDevice,
+		//	NULL,//fpac->m_pTexMgr->addTexture(fpac->pD3DDevice,L"ddn.jpg")
+		//);
+		//fpac->m_pVec->push_back(Magnet);
 
 		//Magnet->AddMagnetic(D3DXVECTOR3(1.0f,1.0f,1.0f),
 		//			  D3DXVECTOR3(0.0f,0.0f,0.0f),
