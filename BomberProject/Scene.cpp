@@ -85,8 +85,8 @@ Scene::Scene(LPDIRECT3DDEVICE9 pD3DDevice)
 //	: デバッグ用設定
 #if defined(DEBUG) || defined(_DEBUG) || defined(ON_DEBUGGINGPROCESS)
 		//ルートのステージにデバッグメニューを設定
-		//m_pRootStage = new PlayStage(pD3DDevice);
-		m_pRootStage = new TitleStage(pD3DDevice);
+		m_pRootStage = new PlayStage(pD3DDevice);
+		//m_pRootStage = new TitleStage(pD3DDevice);
 #else 
 //	: リリース用設定
 		//ルートのステージにタイトルメニューを設定
