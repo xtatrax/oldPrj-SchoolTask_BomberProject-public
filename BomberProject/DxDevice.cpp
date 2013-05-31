@@ -29,7 +29,7 @@ HWND		DxDevice::m_hWnd			= NULL;		// メインウインドウのハンドル
 HANDLE		DxDevice::m_hUpdateThread	= NULL;		// アップデート用スレッドのハンドル
 HANDLE		DxDevice::m_hLoadingThread	= NULL;		// ロード画面用スレッドのハンドル
 bool		DxDevice::m_bDestroy		= false ;
-bool		DxDevice::m_bOnPlaySound	= false ;
+bool		DxDevice::m_bOnPlaySound	= true ;
 
 /**************************************************************************
  DxDevice::DxDevice(

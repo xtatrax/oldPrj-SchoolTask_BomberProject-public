@@ -87,11 +87,13 @@ CheckEffect::CheckEffect(LPDIRECT3DDEVICE9 pD3DDevice,
 //// 備考       ：
 void CheckEffect::Draw(DrawPacket& i_DrawPacket)
 {
+	//描画する個数を設定
 	int	num	= 0;
 	if( m_bMark )	num	= 1;
 	else			num	= m_Num;
 
 	for( int i = 1; i <= num; i++ ){
+		//updateで描画位置を決定
 		update( i ,i_DrawPacket);
 
 	//テクスチャがある場合
@@ -142,6 +144,7 @@ void CheckEffect::Draw(DrawPacket& i_DrawPacket)
 ////
 void CheckEffect::update( int i ,DrawPacket& i_DrawPacket){
 
+	//スタート位置にエフェクトを出すか
 	if( !m_bMark ){
 		m_vPos.x	= float(i*2-1);
 		if( m_fWide > 0.0f )
@@ -176,11 +179,11 @@ void CheckEffect::update( int i ,DrawPacket& i_DrawPacket){
 }
 
 /*************************************
-関数名　：
+関数名　：void	CheckEffect::Reduction()
 用途　　：サイズ縮小
-カテゴリ：
-引数　　：
-戻り値　：
+カテゴリ：関数
+引数　　：なし
+戻り値　：なし
 担当者　：佐藤涼
 備考　　：
 *************************************/
@@ -192,11 +195,11 @@ void	CheckEffect::Reduction(){
 }
 
 /*************************************
-関数名　：
+関数名　：void	CheckEffect::Expansion()
 用途　　：サイズ拡大（拡大率は縦横等価）
-カテゴリ：
-引数　　：
-戻り値　：
+カテゴリ：関数
+引数　　：なし
+戻り値　：なし
 担当者　：佐藤涼
 備考　　：
 *************************************/
@@ -212,6 +215,7 @@ void	CheckEffect::Expansion(){
 }
 
 /****************************************************************************
+CheckPoint 定義部
 ****************************************************************************/
 CheckPoint::CheckPoint( LPDIRECT3DDEVICE9 pD3DDevice, float fLength,LPDIRECT3DTEXTURE9 pTexture, wiz::OBJID id  )
 : Cylinder( pD3DDevice, CHECK_POINT_RADIUS, CHECK_POINT_RADIUS, fLength, g_vZero, D3DXVECTOR3( 0.0f,D3DXToRadian( 90.0f )

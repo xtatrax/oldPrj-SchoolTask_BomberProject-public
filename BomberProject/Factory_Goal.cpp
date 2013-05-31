@@ -331,6 +331,8 @@ GoalObject::GoalObject( LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTextur
 					id,
 					pTexture)
 ,m_pCoil(NULL)
+,m_pSound( NULL )
+,m_bPlaySound( true )
 {
 	try{
         // D3DMATERIAL9構造体を0でクリア
@@ -404,6 +406,9 @@ void	GoalObject::Draw(DrawPacket &i_DrawPacket){
 ********************************************************************/
 void	GoalObject::Update(UpdatePacket& i_UpdatePacket)
 {
+	if( m_pSound == NULL )
+		m_pSound = (Sound*)SearchObjectFromTypeID(i_UpdatePacket.pVec,typeid(Sound));
+
 	multimap<float,GoalItem*>::iterator it = m_ItemMap_All.begin();
 	while(it != m_ItemMap_All.end()){
 		//計算はUpdateで
@@ -430,6 +435,10 @@ void	GoalObject::Update(UpdatePacket& i_UpdatePacket)
 		m_pCoil = (PlayerCoil*)SearchObjectFromTypeID(i_UpdatePacket.pVec, typeid(PlayerCoil) ) ;
 		if( m_pCoil && m_pCoil->HitTestWall( it->second->m_Obb, 0) ){
 			m_pCoil->setState( COIL_STATE_CLEAR );
+			if( m_bPlaySound ){
+				m_pSound->SearchSoundAndPlay( RCTEXT_SOUND_SE_GOAL );
+				m_bPlaySound	= false;
+			}
 			//i_UpdatePacket.pCommand->m_Command	= GM_OPENSTAGE_RESULT;
 		}
 
