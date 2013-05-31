@@ -122,6 +122,7 @@ protected:
 	CheckEffect*			m_pEffect;
 	Sound*					m_pSound;
 	LPDIRECT3DTEXTURE9		m_pTexture;
+	D3DXVECTOR3				m_vPos;
 /////////////////// ////////////////////
 //// 関数名     ：bool HitTestIntersect(OBB i_obb, D3DXVECTOR3 i_vMove, HITGROUNDVECTOR& o_HitListVec)
 //// カテゴリ   ：メンバ関数
@@ -193,6 +194,7 @@ public:
 ////            ：
 ////
 	void add(D3DXVECTOR3 i_vPos){
+		m_vPos	= i_vPos;
 		m_ItemContainer.push_back( new ITEM( i_vPos ) );
 	}
 
