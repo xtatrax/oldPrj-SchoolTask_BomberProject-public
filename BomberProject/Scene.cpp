@@ -54,6 +54,7 @@ void Scene::setStages(){
 ////            ÅF
 ////
 void Scene::Clear(){
+	SafeDeleteStage(m_pRootStage);
 }
 /////////////////// ////////////////////
 //// ä÷êîñº     ÅFScene(LPDIRECT3DDEVICE9 pD3DDevice)
