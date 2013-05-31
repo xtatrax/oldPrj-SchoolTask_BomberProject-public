@@ -16,8 +16,8 @@ Global Settings
     Header File = MagneticaSoundProject.h;
     Exclude Category Names = 0;
     Exclude Variable Names = 0;
-    Last Modified Low = 1315474787;
-    Last Modified High = 30301636;
+    Last Modified Low = 30301636;
+    Last Modified High = 1315474787;
 
     Category
     {
@@ -230,8 +230,8 @@ Wave Bank
     Xbox Bank Last Modified High = 0;
     PC Bank Last Modified Low = 1315564792;
     PC Bank Last Modified High = 30301636;
-    Bank Last Revised Low = 1258171510;
-    Bank Last Revised High = 30301636;
+    Bank Last Revised Low = 2631138573;
+    Bank Last Revised High = 30301643;
 
     Wave
     {
@@ -488,7 +488,7 @@ Wave Bank
 
     Wave
     {
-        Name = SE-HIT_ENEMY;
+        Name = SE-PLAYER_BLOKEN;
         File = GameSounds\SE-HIT_ENEMY.wav;
         Build Settings Last Modified Low = 4090985175;
         Build Settings Last Modified High = 30301635;
@@ -586,10 +586,6 @@ Sound Bank
     Windows File = Win\MagneticaSound.xsb;
     Xbox Bank Path Edited = 0;
     Windows Bank Path Edited = 0;
-    Bank Last Modified Low = 1316054820;
-    Bank Last Modified High = 30301636;
-    Header Last Modified High = 0;
-    Header Last Modified Low = 0;
 
     Sound
     {
@@ -737,7 +733,7 @@ Sound Bank
 
     Sound
     {
-        Name = SE-HIT_ENEMY;
+        Name = SE-PLAYER_BLOKEN;
         Volume = -1200;
         Pitch = 0;
         Priority = 0;
@@ -773,7 +769,7 @@ Sound Bank
                 {
                     Bank Name = MagneticaWave;
                     Bank Index = 0;
-                    Entry Name = SE-HIT_ENEMY;
+                    Entry Name = SE-PLAYER_BLOKEN;
                     Entry Index = 11;
                     Weight = 255;
                     Weight Min = 0;
@@ -1366,7 +1362,7 @@ Sound Bank
 
     Cue
     {
-        Name = SE-HIT_ENEMY;
+        Name = SE-PLAYER_BLOKEN;
 
         Variation
         {
@@ -1377,7 +1373,7 @@ Sound Bank
 
         Sound Entry
         {
-            Name = SE-HIT_ENEMY;
+            Name = SE-PLAYER_BLOKEN;
             Index = 3;
             Weight Min = 0;
             Weight Max = 255;
