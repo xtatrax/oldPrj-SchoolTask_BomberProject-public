@@ -138,7 +138,8 @@ void	Item::Update(UpdatePacket& i_UpdatePacket)
 	Debugger::DBGSTR::addStr(L"ItemAll = %d\n",m_ItemMap_All.size());
 	multimap<float,BallItem*>::iterator it = m_ItemMap_All.begin();
 	while(it != m_ItemMap_All.end()){
-		if(m_pPlayerCoil->getState() == COIL_STATE_MOVE && !m_pPlayerCoil->getSuperMode()){
+		if( (m_pPlayerCoil->getState() == COIL_STATE_MOVE || m_pPlayerCoil->getState() == COIL_STATE_STICK )
+			&& !m_pPlayerCoil->getSuperMode()){
 			//	: 自分から対象までのベクトルを算出
 			D3DXVECTOR3	vTargetDir	= cPos - (it->second->m_Pos) ;
 
