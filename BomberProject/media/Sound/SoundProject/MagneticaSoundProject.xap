@@ -16,13 +16,8 @@ Global Settings
     Header File = MagneticaSoundProject.h;
     Exclude Category Names = 0;
     Exclude Variable Names = 0;
-<<<<<<< HEAD
-    Last Modified Low = 2680502581;
-    Last Modified High = 30300056;
-=======
-    Last Modified Low = 3030336908;
-    Last Modified High = 30301200;
->>>>>>> b47772f41746ab306f727cb0a9ea691de9966087
+    Last Modified Low = 1315474787;
+    Last Modified High = 30301636;
 
     Category
     {
@@ -219,48 +214,10 @@ Global Settings
         Min = 0.000000;
         Max = 1000000.000000;
     }
-<<<<<<< HEAD
-
-    Compression Preset
-    {
-        Name = Compression Preset;
-        Xbox Format Tag = 357;
-        Target Sample Rate = 48000;
-        XMA Quality = 60;
-        Find Best Quality = 0;
-        High Freq Cut = 0;
-        Loop = 0;
-        PC Format Tag = 2;
-        Samples Per Block = 128;
-    }
-=======
->>>>>>> b47772f41746ab306f727cb0a9ea691de9966087
 }
 
 Wave Bank
 {
-<<<<<<< HEAD
-    Name = Wave Bank;
-    Xbox File = Xbox\Wave Bank.xwb;
-    Windows File = Win\MagneticaWave.xwb;
-    Xbox Bank Path Edited = 0;
-    Windows Bank Path Edited = 1;
-    Seek Tables = 1;
-    Compression Preset Name = Compression Preset;
-    Xbox Bank Last Modified Low = 0;
-    Xbox Bank Last Modified High = 0;
-    PC Bank Last Modified Low = 2680622588;
-    PC Bank Last Modified High = 30300056;
-    Bank Last Revised Low = 1854112039;
-    Bank Last Revised High = 30300058;
-
-    Wave
-    {
-        Name = BGM_PLAY;
-        File = bgm_Play.wav;
-        Build Settings Last Modified Low = 2431038313;
-        Build Settings Last Modified High = 30300056;
-=======
     Name = MagneticaWave;
     Xbox File = Xbox\MagneticaWave.xwb;
     Windows File = Win\MagneticaWave.xwb;
@@ -271,17 +228,17 @@ Wave Bank
     Compression Preset Name = <none>;
     Xbox Bank Last Modified Low = 0;
     Xbox Bank Last Modified High = 0;
-    PC Bank Last Modified Low = 1229372261;
-    PC Bank Last Modified High = 30301201;
-    Bank Last Revised Low = 1164458548;
-    Bank Last Revised High = 30301201;
+    PC Bank Last Modified Low = 1315564792;
+    PC Bank Last Modified High = 30301636;
+    Bank Last Revised Low = 1258171510;
+    Bank Last Revised High = 30301636;
 
     Wave
     {
         Name = BGM-CLEAR;
-        File = C:\Users\COS_MOS\Desktop\Sound\チェック完了\BGM-CLEAR.wav;
-        Build Settings Last Modified Low = 3565653088;
-        Build Settings Last Modified High = 30301047;
+        File = GameSounds\BGM-CLEAR.wav;
+        Build Settings Last Modified Low = 4090945173;
+        Build Settings Last Modified High = 30301635;
 
         Cache
         {
@@ -294,17 +251,17 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 1407305216;
-            Last Modified High = 29441729;
+            Last Modified Low = 1447352158;
+            Last Modified High = 30301630;
         }
     }
 
     Wave
     {
         Name = BGM-GAME_OVER;
-        File = C:\Users\COS_MOS\Desktop\Sound\チェック完了\BGM-GAME_OVER.wav;
-        Build Settings Last Modified Low = 3565653088;
-        Build Settings Last Modified High = 30301047;
+        File = GameSounds\BGM-GAME_OVER.wav;
+        Build Settings Last Modified Low = 4090955173;
+        Build Settings Last Modified High = 30301635;
 
         Cache
         {
@@ -317,17 +274,17 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 1594631424;
-            Last Modified High = 29450056;
+            Last Modified Low = 1447372159;
+            Last Modified High = 30301630;
         }
     }
 
     Wave
     {
         Name = BGM-PLAY001;
-        File = C:\Users\COS_MOS\Desktop\Sound\チェック完了\BGM-PLAY001.wav;
-        Build Settings Last Modified Low = 3565663089;
-        Build Settings Last Modified High = 30301047;
+        File = GameSounds\BGM-PLAY001.wav;
+        Build Settings Last Modified Low = 4090955173;
+        Build Settings Last Modified High = 30301635;
 
         Cache
         {
@@ -340,17 +297,17 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 2027297792;
-            Last Modified High = 30300798;
+            Last Modified Low = 1448152203;
+            Last Modified High = 30301630;
         }
     }
 
     Wave
     {
         Name = BGM-TITLE;
-        File = C:\Users\COS_MOS\Desktop\Sound\チェック完了\BGM-TITLE.wav;
-        Build Settings Last Modified Low = 3565663089;
-        Build Settings Last Modified High = 30301047;
+        File = GameSounds\BGM-TITLE.wav;
+        Build Settings Last Modified Low = 4090955173;
+        Build Settings Last Modified High = 30301635;
 
         Cache
         {
@@ -363,17 +320,17 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 1562830861;
-            Last Modified High = 30300854;
+            Last Modified Low = 1448242209;
+            Last Modified High = 30301630;
         }
     }
 
     Wave
     {
         Name = SE-ALERT002;
-        File = C:\Users\COS_MOS\Desktop\Sound\チェック完了\SE-ALERT002.wav;
-        Build Settings Last Modified Low = 3565663089;
-        Build Settings Last Modified High = 30301047;
+        File = GameSounds\SE-ALERT002.wav;
+        Build Settings Last Modified Low = 4090965174;
+        Build Settings Last Modified High = 30301635;
 
         Cache
         {
@@ -386,17 +343,17 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 828107199;
-            Last Modified High = 30300855;
+            Last Modified Low = 1448272210;
+            Last Modified High = 30301630;
         }
     }
 
     Wave
     {
         Name = SE-BLOKEN_ENEMY;
-        File = C:\Users\COS_MOS\Desktop\Sound\チェック完了\SE-BLOKEN_ENEMY.wav;
-        Build Settings Last Modified Low = 3565673089;
-        Build Settings Last Modified High = 30301047;
+        File = GameSounds\SE-BLOKEN_ENEMY.wav;
+        Build Settings Last Modified Low = 4090965174;
+        Build Settings Last Modified High = 30301635;
 
         Cache
         {
@@ -409,17 +366,17 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 818802176;
-            Last Modified High = 30300844;
+            Last Modified Low = 1448322213;
+            Last Modified High = 30301630;
         }
     }
 
     Wave
     {
         Name = SE-CHACK_POINT;
-        File = C:\Users\COS_MOS\Desktop\Sound\チェック完了\SE-CHACK_POINT.wav;
-        Build Settings Last Modified Low = 3565673089;
-        Build Settings Last Modified High = 30301047;
+        File = GameSounds\SE-CHACK_POINT.wav;
+        Build Settings Last Modified Low = 4090965174;
+        Build Settings Last Modified High = 30301635;
 
         Cache
         {
@@ -432,17 +389,17 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 1332330496;
-            Last Modified High = 30300799;
+            Last Modified Low = 1448372216;
+            Last Modified High = 30301630;
         }
     }
 
     Wave
     {
         Name = SE-CLEAR;
-        File = C:\Users\COS_MOS\Desktop\Sound\チェック完了\SE-CLEAR.wav;
-        Build Settings Last Modified Low = 3565673089;
-        Build Settings Last Modified High = 30301047;
+        File = GameSounds\SE-CLEAR.wav;
+        Build Settings Last Modified Low = 4090975175;
+        Build Settings Last Modified High = 30301635;
 
         Cache
         {
@@ -455,17 +412,17 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 803965696;
-            Last Modified High = 30300849;
+            Last Modified Low = 1448432219;
+            Last Modified High = 30301630;
         }
     }
 
     Wave
     {
         Name = SE-ENTER;
-        File = C:\Users\COS_MOS\Desktop\Sound\チェック完了\SE-ENTER.wav;
-        Build Settings Last Modified Low = 3565683090;
-        Build Settings Last Modified High = 30301047;
+        File = GameSounds\SE-ENTER.wav;
+        Build Settings Last Modified Low = 4090975175;
+        Build Settings Last Modified High = 30301635;
 
         Cache
         {
@@ -478,17 +435,17 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 1262395904;
-            Last Modified High = 30300801;
+            Last Modified Low = 1448482222;
+            Last Modified High = 30301630;
         }
     }
 
     Wave
     {
         Name = SE-FIRE;
-        File = C:\Users\COS_MOS\Desktop\Sound\チェック完了\SE-FIRE.wav;
-        Build Settings Last Modified Low = 3565683090;
-        Build Settings Last Modified High = 30301047;
+        File = GameSounds\SE-FIRE.wav;
+        Build Settings Last Modified Low = 4090975175;
+        Build Settings Last Modified High = 30301635;
 
         Cache
         {
@@ -501,17 +458,17 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 402330496;
-            Last Modified High = 30300799;
+            Last Modified Low = 1448512224;
+            Last Modified High = 30301630;
         }
     }
 
     Wave
     {
         Name = SE-GOAL;
-        File = C:\Users\COS_MOS\Desktop\Sound\チェック完了\SE-GOAL.wav;
-        Build Settings Last Modified Low = 3565683090;
-        Build Settings Last Modified High = 30301047;
+        File = GameSounds\SE-GOAL.wav;
+        Build Settings Last Modified Low = 4090975175;
+        Build Settings Last Modified High = 30301635;
 
         Cache
         {
@@ -524,17 +481,17 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 4047428608;
-            Last Modified High = 30300802;
+            Last Modified Low = 1448572227;
+            Last Modified High = 30301630;
         }
     }
 
     Wave
     {
         Name = SE-HIT_ENEMY;
-        File = C:\Users\COS_MOS\Desktop\Sound\チェック完了\SE-HIT_ENEMY.wav;
-        Build Settings Last Modified Low = 3565683090;
-        Build Settings Last Modified High = 30301047;
+        File = GameSounds\SE-HIT_ENEMY.wav;
+        Build Settings Last Modified Low = 4090985175;
+        Build Settings Last Modified High = 30301635;
 
         Cache
         {
@@ -547,18 +504,17 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 3093769472;
-            Last Modified High = 30300843;
+            Last Modified Low = 1448612230;
+            Last Modified High = 30301630;
         }
     }
 
     Wave
     {
         Name = SE-INVINGVLE;
-        File = C:\Users\COS_MOS\Desktop\Sound\チェック完了\SE-INVINGVLE.wav;
-        Build Settings Last Modified Low = 3565693090;
-        Build Settings Last Modified High = 30301047;
->>>>>>> b47772f41746ab306f727cb0a9ea691de9966087
+        File = GameSounds\SE-INVINGVLE.wav;
+        Build Settings Last Modified Low = 4090985175;
+        Build Settings Last Modified High = 30301635;
 
         Cache
         {
@@ -567,37 +523,21 @@ Wave Bank
             Sampling Rate = 44100;
             Bits Per Sample = 1;
             Play Region Offset = 4096;
-<<<<<<< HEAD
-            Play Region Length = 4838888;
-            Loop Region Offset = 0;
-            Loop Region Length = 0;
-            File Type = 1;
-            Last Modified Low = 4019630813;
-            Last Modified High = 30300055;
-=======
             Play Region Length = 693376;
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 3649652480;
-            Last Modified High = 30300870;
->>>>>>> b47772f41746ab306f727cb0a9ea691de9966087
+            Last Modified Low = 1448692234;
+            Last Modified High = 30301630;
         }
     }
 
     Wave
     {
-<<<<<<< HEAD
-        Name = BGM_TITLE;
-        File = bgm_Title.wav;
-        Build Settings Last Modified Low = 2431038313;
-        Build Settings Last Modified High = 30300056;
-=======
         Name = SE-MAGNETIC_FIELD;
-        File = C:\Users\COS_MOS\Desktop\Sound\チェック完了\SE-MAGNETIC_FIELD.wav;
-        Build Settings Last Modified Low = 3565693090;
-        Build Settings Last Modified High = 30301047;
->>>>>>> b47772f41746ab306f727cb0a9ea691de9966087
+        File = GameSounds\SE-MAGNETIC_FIELD.wav;
+        Build Settings Last Modified Low = 4090985175;
+        Build Settings Last Modified High = 30301635;
 
         Cache
         {
@@ -606,29 +546,21 @@ Wave Bank
             Sampling Rate = 44100;
             Bits Per Sample = 1;
             Play Region Offset = 4096;
-<<<<<<< HEAD
-            Play Region Length = 3529856;
-            Loop Region Offset = 0;
-            Loop Region Length = 0;
-            File Type = 1;
-            Last Modified Low = 4004909971;
-            Last Modified High = 30300055;
-=======
             Play Region Length = 356480;
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 2003834880;
-            Last Modified High = 30300845;
+            Last Modified Low = 1448732237;
+            Last Modified High = 30301630;
         }
     }
 
     Wave
     {
         Name = SE-SPARK002;
-        File = C:\Users\COS_MOS\Desktop\Sound\チェック完了\SE-SPARK002.wav;
-        Build Settings Last Modified Low = 3565693090;
-        Build Settings Last Modified High = 30301047;
+        File = GameSounds\SE-SPARK002.wav;
+        Build Settings Last Modified Low = 4090995176;
+        Build Settings Last Modified High = 30301635;
 
         Cache
         {
@@ -641,40 +573,27 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 1214947687;
-            Last Modified High = 30300856;
->>>>>>> b47772f41746ab306f727cb0a9ea691de9966087
+            Last Modified Low = 1448772239;
+            Last Modified High = 30301630;
         }
     }
 }
 
 Sound Bank
 {
-<<<<<<< HEAD
-    Name = Sound Bank;
-    Xbox File = Xbox\Sound Bank.xsb;
-    Windows File = Win\MagneticaSound.xsb;
-    Xbox Bank Path Edited = 0;
-    Windows Bank Path Edited = 1;
-
-    Sound
-    {
-        Name = BGM_TITLE;
-=======
     Name = MagneticaSound;
     Xbox File = Xbox\MagneticaSound.xsb;
     Windows File = Win\MagneticaSound.xsb;
     Xbox Bank Path Edited = 0;
     Windows Bank Path Edited = 0;
-    Bank Last Modified Low = 1229522270;
-    Bank Last Modified High = 30301201;
+    Bank Last Modified Low = 1316054820;
+    Bank Last Modified High = 30301636;
     Header Last Modified High = 0;
     Header Last Modified Low = 0;
 
     Sound
     {
         Name = SE-SPARK002;
->>>>>>> b47772f41746ab306f727cb0a9ea691de9966087
         Volume = -1200;
         Pitch = 0;
         Priority = 0;
@@ -691,6 +610,7 @@ Sound Bank
 
             Play Wave Event
             {
+                Loop Count = 255;
                 Break Loop = 0;
                 Use Speaker Position = 0;
                 Use Center Speaker = 1;
@@ -708,17 +628,10 @@ Sound Bank
 
                 Wave Entry
                 {
-<<<<<<< HEAD
-                    Bank Name = Wave Bank;
-                    Bank Index = 0;
-                    Entry Name = BGM_TITLE;
-                    Entry Index = 1;
-=======
                     Bank Name = MagneticaWave;
                     Bank Index = 0;
                     Entry Name = SE-SPARK002;
                     Entry Index = 14;
->>>>>>> b47772f41746ab306f727cb0a9ea691de9966087
                     Weight = 255;
                     Weight Min = 0;
                 }
@@ -728,11 +641,7 @@ Sound Bank
 
     Sound
     {
-<<<<<<< HEAD
-        Name = BGM_PLAY;
-=======
         Name = SE-INVINGVLE;
->>>>>>> b47772f41746ab306f727cb0a9ea691de9966087
         Volume = -1200;
         Pitch = 0;
         Priority = 0;
@@ -749,6 +658,7 @@ Sound Bank
 
             Play Wave Event
             {
+                Loop Count = 255;
                 Break Loop = 0;
                 Use Speaker Position = 0;
                 Use Center Speaker = 1;
@@ -766,17 +676,10 @@ Sound Bank
 
                 Wave Entry
                 {
-<<<<<<< HEAD
-                    Bank Name = Wave Bank;
-                    Bank Index = 0;
-                    Entry Name = BGM_PLAY;
-                    Entry Index = 0;
-=======
                     Bank Name = MagneticaWave;
                     Bank Index = 0;
                     Entry Name = SE-INVINGVLE;
                     Entry Index = 12;
->>>>>>> b47772f41746ab306f727cb0a9ea691de9966087
                     Weight = 255;
                     Weight Min = 0;
                 }
@@ -784,35 +687,6 @@ Sound Bank
         }
     }
 
-<<<<<<< HEAD
-    Cue
-    {
-        Name = BGM_TITLE;
-
-        Variation
-        {
-            Variation Type = 3;
-            Variation Table Type = 1;
-            New Variation on Loop = 0;
-        }
-
-        Sound Entry
-        {
-            Name = BGM_TITLE;
-            Index = 0;
-            Weight Min = 0;
-            Weight Max = 255;
-        }
-    }
-
-    Cue
-    {
-        Name = bgm_Play;
-
-        Variation
-        {
-            Variation Type = 3;
-=======
     Sound
     {
         Name = SE-MAGNETIC_FIELD;
@@ -832,6 +706,7 @@ Sound Bank
 
             Play Wave Event
             {
+                Loop Count = 255;
                 Break Loop = 0;
                 Use Speaker Position = 0;
                 Use Center Speaker = 1;
@@ -1208,6 +1083,7 @@ Sound Bank
 
             Play Wave Event
             {
+                Loop Count = 255;
                 Break Loop = 0;
                 Use Speaker Position = 0;
                 Use Center Speaker = 1;
@@ -1455,25 +1331,18 @@ Sound Bank
         Variation
         {
             Variation Type = 3;
->>>>>>> b47772f41746ab306f727cb0a9ea691de9966087
             Variation Table Type = 1;
             New Variation on Loop = 0;
         }
 
         Sound Entry
         {
-<<<<<<< HEAD
-            Name = BGM_PLAY;
-=======
             Name = SE-INVINGVLE;
->>>>>>> b47772f41746ab306f727cb0a9ea691de9966087
             Index = 1;
             Weight Min = 0;
             Weight Max = 255;
         }
     }
-<<<<<<< HEAD
-=======
 
     Cue
     {
@@ -1734,5 +1603,4 @@ Sound Bank
             Weight Max = 255;
         }
     }
->>>>>>> b47772f41746ab306f727cb0a9ea691de9966087
 }
