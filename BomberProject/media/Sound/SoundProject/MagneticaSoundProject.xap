@@ -16,8 +16,8 @@ Global Settings
     Header File = MagneticaSoundProject.h;
     Exclude Category Names = 0;
     Exclude Variable Names = 0;
-    Last Modified Low = 3164449077;
-    Last Modified High = 30301643;
+    Last Modified Low = 2217043423;
+    Last Modified High = 30301650;
 
     Category
     {
@@ -228,17 +228,19 @@ Wave Bank
     Compression Preset Name = <none>;
     Xbox Bank Last Modified Low = 0;
     Xbox Bank Last Modified High = 0;
-    PC Bank Last Modified Low = 3164509080;
-    PC Bank Last Modified High = 30301643;
-    Bank Last Revised Low = 2631138573;
-    Bank Last Revised High = 30301643;
+    PC Bank Last Modified Low = 2217093426;
+    PC Bank Last Modified High = 30301650;
+    Header Last Modified Low = 0;
+    Header Last Modified High = 0;
+    Bank Last Revised Low = 2129518417;
+    Bank Last Revised High = 30301650;
 
     Wave
     {
         Name = BGM-CLEAR;
         File = GameSounds\BGM-CLEAR.wav;
-        Build Settings Last Modified Low = 4090945173;
-        Build Settings Last Modified High = 30301635;
+        Build Settings Last Modified Low = 179550161;
+        Build Settings Last Modified High = 30301648;
 
         Cache
         {
@@ -260,8 +262,8 @@ Wave Bank
     {
         Name = BGM-GAME_OVER;
         File = GameSounds\BGM-GAME_OVER.wav;
-        Build Settings Last Modified Low = 4090955173;
-        Build Settings Last Modified High = 30301635;
+        Build Settings Last Modified Low = 179560162;
+        Build Settings Last Modified High = 30301648;
 
         Cache
         {
@@ -283,8 +285,8 @@ Wave Bank
     {
         Name = BGM-PLAY001;
         File = GameSounds\BGM-PLAY001.wav;
-        Build Settings Last Modified Low = 4090955173;
-        Build Settings Last Modified High = 30301635;
+        Build Settings Last Modified Low = 179560162;
+        Build Settings Last Modified High = 30301648;
 
         Cache
         {
@@ -306,8 +308,8 @@ Wave Bank
     {
         Name = BGM-TITLE;
         File = GameSounds\BGM-TITLE.wav;
-        Build Settings Last Modified Low = 4090955173;
-        Build Settings Last Modified High = 30301635;
+        Build Settings Last Modified Low = 179560162;
+        Build Settings Last Modified High = 30301648;
 
         Cache
         {
@@ -329,8 +331,8 @@ Wave Bank
     {
         Name = SE-ALERT002;
         File = GameSounds\SE-ALERT002.wav;
-        Build Settings Last Modified Low = 4090965174;
-        Build Settings Last Modified High = 30301635;
+        Build Settings Last Modified Low = 179570162;
+        Build Settings Last Modified High = 30301648;
 
         Cache
         {
@@ -352,8 +354,8 @@ Wave Bank
     {
         Name = SE-BLOKEN_ENEMY;
         File = GameSounds\SE-BLOKEN_ENEMY.wav;
-        Build Settings Last Modified Low = 4090965174;
-        Build Settings Last Modified High = 30301635;
+        Build Settings Last Modified Low = 179570162;
+        Build Settings Last Modified High = 30301648;
 
         Cache
         {
@@ -375,8 +377,8 @@ Wave Bank
     {
         Name = SE-CHACK_POINT;
         File = GameSounds\SE-CHACK_POINT.wav;
-        Build Settings Last Modified Low = 4090965174;
-        Build Settings Last Modified High = 30301635;
+        Build Settings Last Modified Low = 179570162;
+        Build Settings Last Modified High = 30301648;
 
         Cache
         {
@@ -398,8 +400,8 @@ Wave Bank
     {
         Name = SE-CLEAR;
         File = GameSounds\SE-CLEAR.wav;
-        Build Settings Last Modified Low = 4090975175;
-        Build Settings Last Modified High = 30301635;
+        Build Settings Last Modified Low = 179570162;
+        Build Settings Last Modified High = 30301648;
 
         Cache
         {
@@ -421,8 +423,8 @@ Wave Bank
     {
         Name = SE-ENTER;
         File = GameSounds\SE-ENTER.wav;
-        Build Settings Last Modified Low = 4090975175;
-        Build Settings Last Modified High = 30301635;
+        Build Settings Last Modified Low = 179580163;
+        Build Settings Last Modified High = 30301648;
 
         Cache
         {
@@ -444,8 +446,8 @@ Wave Bank
     {
         Name = SE-FIRE;
         File = GameSounds\SE-FIRE.wav;
-        Build Settings Last Modified Low = 4090975175;
-        Build Settings Last Modified High = 30301635;
+        Build Settings Last Modified Low = 179580163;
+        Build Settings Last Modified High = 30301648;
 
         Cache
         {
@@ -467,8 +469,8 @@ Wave Bank
     {
         Name = SE-GOAL;
         File = GameSounds\SE-GOAL.wav;
-        Build Settings Last Modified Low = 4090975175;
-        Build Settings Last Modified High = 30301635;
+        Build Settings Last Modified Low = 179580163;
+        Build Settings Last Modified High = 30301648;
 
         Cache
         {
@@ -488,33 +490,10 @@ Wave Bank
 
     Wave
     {
-        Name = SE-PLAYER_BLOKEN;
-        File = GameSounds\SE-HIT_ENEMY.wav;
-        Build Settings Last Modified Low = 4090985175;
-        Build Settings Last Modified High = 30301635;
-
-        Cache
-        {
-            Format Tag = 0;
-            Channels = 2;
-            Sampling Rate = 44100;
-            Bits Per Sample = 1;
-            Play Region Offset = 4096;
-            Play Region Length = 374912;
-            Loop Region Offset = 0;
-            Loop Region Length = 0;
-            File Type = 1;
-            Last Modified Low = 1448612230;
-            Last Modified High = 30301630;
-        }
-    }
-
-    Wave
-    {
         Name = SE-INVINGVLE;
         File = GameSounds\SE-INVINGVLE.wav;
-        Build Settings Last Modified Low = 4090985175;
-        Build Settings Last Modified High = 30301635;
+        Build Settings Last Modified Low = 179580163;
+        Build Settings Last Modified High = 30301648;
 
         Cache
         {
@@ -536,8 +515,8 @@ Wave Bank
     {
         Name = SE-MAGNETIC_FIELD;
         File = GameSounds\SE-MAGNETIC_FIELD.wav;
-        Build Settings Last Modified Low = 4090985175;
-        Build Settings Last Modified High = 30301635;
+        Build Settings Last Modified Low = 179590163;
+        Build Settings Last Modified High = 30301648;
 
         Cache
         {
@@ -557,10 +536,33 @@ Wave Bank
 
     Wave
     {
+        Name = SE-PLAYER_BLOKEN;
+        File = GameSounds\SE-PLAYER_BLOKEN.wav;
+        Build Settings Last Modified Low = 179590163;
+        Build Settings Last Modified High = 30301648;
+
+        Cache
+        {
+            Format Tag = 0;
+            Channels = 2;
+            Sampling Rate = 44100;
+            Bits Per Sample = 1;
+            Play Region Offset = 4096;
+            Play Region Length = 374912;
+            Loop Region Offset = 0;
+            Loop Region Length = 0;
+            File Type = 1;
+            Last Modified Low = 2730780997;
+            Last Modified High = 30301645;
+        }
+    }
+
+    Wave
+    {
         Name = SE-SPARK002;
         File = GameSounds\SE-SPARK002.wav;
-        Build Settings Last Modified Low = 4090995176;
-        Build Settings Last Modified High = 30301635;
+        Build Settings Last Modified Low = 179590163;
+        Build Settings Last Modified High = 30301648;
 
         Cache
         {
@@ -586,10 +588,104 @@ Sound Bank
     Windows File = Win\MagneticaSound.xsb;
     Xbox Bank Path Edited = 0;
     Windows Bank Path Edited = 0;
-    Bank Last Modified Low = 3165139116;
-    Bank Last Modified High = 30301643;
+    Bank Last Modified Low = 2217603455;
+    Bank Last Modified High = 30301650;
     Header Last Modified High = 0;
     Header Last Modified Low = 0;
+
+    Sound
+    {
+        Name = SE-MAGNETIC_FIELD;
+        Volume = -1200;
+        Pitch = 0;
+        Priority = 0;
+
+        Category Entry
+        {
+            Name = Default;
+        }
+
+        Track
+        {
+            Volume = 0;
+            Use Filter = 0;
+
+            Play Wave Event
+            {
+                Break Loop = 0;
+                Use Speaker Position = 0;
+                Use Center Speaker = 1;
+                New Speaker Position On Loop = 1;
+                Speaker Position Angle = 0.000000;
+                Speaker Position Arc = 0.000000;
+
+                Event Header
+                {
+                    Timestamp = 0;
+                    Relative = 0;
+                    Random Recurrence = 0;
+                    Random Offset = 0;
+                }
+
+                Wave Entry
+                {
+                    Bank Name = MagneticaWave;
+                    Bank Index = 0;
+                    Entry Name = SE-MAGNETIC_FIELD;
+                    Entry Index = 12;
+                    Weight = 255;
+                    Weight Min = 0;
+                }
+            }
+        }
+    }
+
+    Sound
+    {
+        Name = SE-PLAYER_BLOKEN;
+        Volume = -1200;
+        Pitch = 0;
+        Priority = 0;
+
+        Category Entry
+        {
+            Name = Default;
+        }
+
+        Track
+        {
+            Volume = 0;
+            Use Filter = 0;
+
+            Play Wave Event
+            {
+                Break Loop = 0;
+                Use Speaker Position = 0;
+                Use Center Speaker = 1;
+                New Speaker Position On Loop = 1;
+                Speaker Position Angle = 0.000000;
+                Speaker Position Arc = 0.000000;
+
+                Event Header
+                {
+                    Timestamp = 0;
+                    Relative = 0;
+                    Random Recurrence = 0;
+                    Random Offset = 0;
+                }
+
+                Wave Entry
+                {
+                    Bank Name = MagneticaWave;
+                    Bank Index = 0;
+                    Entry Name = SE-PLAYER_BLOKEN;
+                    Entry Index = 13;
+                    Weight = 255;
+                    Weight Min = 0;
+                }
+            }
+        }
+    }
 
     Sound
     {
@@ -658,7 +754,6 @@ Sound Bank
 
             Play Wave Event
             {
-                Loop Count = 255;
                 Break Loop = 0;
                 Use Speaker Position = 0;
                 Use Center Speaker = 1;
@@ -679,101 +774,6 @@ Sound Bank
                     Bank Name = MagneticaWave;
                     Bank Index = 0;
                     Entry Name = SE-INVINGVLE;
-                    Entry Index = 12;
-                    Weight = 255;
-                    Weight Min = 0;
-                }
-            }
-        }
-    }
-
-    Sound
-    {
-        Name = SE-MAGNETIC_FIELD;
-        Volume = -1200;
-        Pitch = 0;
-        Priority = 0;
-
-        Category Entry
-        {
-            Name = Default;
-        }
-
-        Track
-        {
-            Volume = 0;
-            Use Filter = 0;
-
-            Play Wave Event
-            {
-                Loop Count = 255;
-                Break Loop = 0;
-                Use Speaker Position = 0;
-                Use Center Speaker = 1;
-                New Speaker Position On Loop = 1;
-                Speaker Position Angle = 0.000000;
-                Speaker Position Arc = 0.000000;
-
-                Event Header
-                {
-                    Timestamp = 0;
-                    Relative = 0;
-                    Random Recurrence = 0;
-                    Random Offset = 0;
-                }
-
-                Wave Entry
-                {
-                    Bank Name = MagneticaWave;
-                    Bank Index = 0;
-                    Entry Name = SE-MAGNETIC_FIELD;
-                    Entry Index = 13;
-                    Weight = 255;
-                    Weight Min = 0;
-                }
-            }
-        }
-    }
-
-    Sound
-    {
-        Name = SE-PLAYER_BLOKEN;
-        Volume = -1200;
-        Pitch = 0;
-        Priority = 0;
-
-        Category Entry
-        {
-            Name = Default;
-        }
-
-        Track
-        {
-            Volume = 0;
-            Use Filter = 0;
-
-            Play Wave Event
-            {
-                Break Loop = 0;
-                Use Speaker Position = 0;
-                Use Center Speaker = 1;
-                New Speaker Position On Loop = 1;
-                Speaker Position Angle = 0.000000;
-                Speaker Position Arc = 0.000000;
-
-                Event Header
-                {
-                    Timestamp = 0;
-                    Relative = 0;
-                    Random Recurrence = 0;
-                    Random Offset = 0;
-                }
-
-                Wave Entry
-                {
-                    Bank Name = MagneticaWave;
-                    Bank Index = 0;
-                    Entry Name = SE-PLAYER_BLOKEN;
                     Entry Index = 11;
                     Weight = 255;
                     Weight Min = 0;
@@ -1083,7 +1083,6 @@ Sound Bank
 
             Play Wave Event
             {
-                Loop Count = 255;
                 Break Loop = 0;
                 Use Speaker Position = 0;
                 Use Center Speaker = 1;
@@ -1306,46 +1305,6 @@ Sound Bank
 
     Cue
     {
-        Name = SE-SPARK002;
-
-        Variation
-        {
-            Variation Type = 3;
-            Variation Table Type = 1;
-            New Variation on Loop = 0;
-        }
-
-        Sound Entry
-        {
-            Name = SE-SPARK002;
-            Index = 0;
-            Weight Min = 0;
-            Weight Max = 255;
-        }
-    }
-
-    Cue
-    {
-        Name = SE-INVINGVLE;
-
-        Variation
-        {
-            Variation Type = 3;
-            Variation Table Type = 1;
-            New Variation on Loop = 0;
-        }
-
-        Sound Entry
-        {
-            Name = SE-INVINGVLE;
-            Index = 1;
-            Weight Min = 0;
-            Weight Max = 255;
-        }
-    }
-
-    Cue
-    {
         Name = SE-MAGNETIC_FIELD;
 
         Variation
@@ -1358,7 +1317,7 @@ Sound Bank
         Sound Entry
         {
             Name = SE-MAGNETIC_FIELD;
-            Index = 2;
+            Index = 0;
             Weight Min = 0;
             Weight Max = 255;
         }
@@ -1378,6 +1337,46 @@ Sound Bank
         Sound Entry
         {
             Name = SE-PLAYER_BLOKEN;
+            Index = 1;
+            Weight Min = 0;
+            Weight Max = 255;
+        }
+    }
+
+    Cue
+    {
+        Name = SE-SPARK002;
+
+        Variation
+        {
+            Variation Type = 3;
+            Variation Table Type = 1;
+            New Variation on Loop = 0;
+        }
+
+        Sound Entry
+        {
+            Name = SE-SPARK002;
+            Index = 2;
+            Weight Min = 0;
+            Weight Max = 255;
+        }
+    }
+
+    Cue
+    {
+        Name = SE-INVINGVLE;
+
+        Variation
+        {
+            Variation Type = 3;
+            Variation Table Type = 1;
+            New Variation on Loop = 0;
+        }
+
+        Sound Entry
+        {
+            Name = SE-INVINGVLE;
             Index = 3;
             Weight Min = 0;
             Weight Max = 255;
