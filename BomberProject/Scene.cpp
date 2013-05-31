@@ -265,7 +265,7 @@ void Scene::CommandTranslator(DrawPacket& i_DrawPacket){
 			m_pRootStage = new DebugStage_Loader(i_DrawPacket.pD3DDevice);
 			break;
 		case GM_EXIT:
-			PostQuitMessage(0);
+			::DestroyWindow(g_hWnd);
 			break;
 	}
 	if(m_bLoadingComplete){

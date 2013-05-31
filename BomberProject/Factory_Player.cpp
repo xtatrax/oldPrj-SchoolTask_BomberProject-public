@@ -127,6 +127,7 @@ ProvisionalPlayer3D::ProvisionalPlayer3D(
 ,m_Camera(NULL)
 ,m_MGage_N(NULL)
 ,m_MGage_S(NULL)
+,m_pSound( NULL )
 ,m_bLastMouseRB(false)
 ,m_bLastMouseLB(false)
 ,m_bCoilWasStarting(false)
@@ -178,6 +179,11 @@ ProvisionalPlayer3D::~ProvisionalPlayer3D(){
 //// 備考       ：
 void ProvisionalPlayer3D::Draw(DrawPacket& i_DrawPacket)
 {
+	if( m_pSound == NULL )
+		m_pSound = (Sound*)SearchObjectFromTypeID(i_DrawPacket.pVec,typeid(Sound));
+	else
+		m_pSound->SearchSoundAndPlay( RCTEXT_SOUND_SE_SETFIELD );
+
 	if( m_bCoilWasStarting ){
 		if( m_bDrawing ){ 
 			//テクスチャがある場合
@@ -388,7 +394,7 @@ MagneticField::MagneticField(
 						D3DCOLORVALUE(),
 						D3DCOLORVALUE()
 	)
-,m_Pole(POLE_N)
+,m_Pole( POLE_N )
 ,m_bEffect( bEffect )
 ,m_vNormalSize(vScale)
 {
@@ -658,6 +664,7 @@ PlayerCoil::PlayerCoil(
 ,m_pPlayer(NULL)
 ,m_pMagneticumObject(NULL)
 ,m_pCamera(NULL)
+,m_pSound( NULL )
 ,m_enumCoilState(COIL_STATE_START)
 #if defined( ON_DEBUGGINGPROCESS ) | defined( PRESENTATION )
 ,m_pDSPH(NULL)
@@ -755,6 +762,9 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 		m_pCamera = ( Camera* ) SearchObjectFromID( i_UpdatePacket.pVec, OBJID_SYS_CAMERA ) ; 
 	}
 
+	if( m_pSound == NULL )
+		m_pSound = (Sound*)SearchObjectFromTypeID(i_UpdatePacket.pVec,typeid(Sound));
+
 	if( !m_pMagneticumObject ){ 
 		m_pMagneticumObject = ( MagneticumObject3D* ) SearchObjectFromTypeID( i_UpdatePacket.pVec, typeid(MagneticumObject3D) ) ; 
 	}
@@ -789,6 +799,7 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 
 		if(m_bIsSuperMode){
 			SuperMode(i_UpdatePacket);
+			m_pSound->SearchSoundAndPlay( RCTEXT_SOUND_SE_INVISIBLE );
 		}
 
 		//デバック用-----------------------------------------------------------
@@ -834,6 +845,9 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 ////            ：
 ////
 void PlayerCoil::Update_StateStart(){
+	//if( m_pSound == NULL )
+	//	m_pSound = (Sound*)SearchObjectFromTypeID(i_UpdatePacket.pVec,typeid(Sound));
+
 	D3DXVECTOR3 vPlayer = g_vZero;
 	float		fTargetDir = NULL;
 	//マウス座標計算
@@ -851,6 +865,7 @@ void PlayerCoil::Update_StateStart(){
 		m_bLastMouseLB = true;
 	}
 	if(!g_bMouseLB && m_bLastMouseLB){
+		m_pSound->SearchSoundAndPlay( RCTEXT_SOUND_SE_FIRE );
 		m_enumCoilState = COIL_STATE_MOVE;
 		m_bLastMouseLB = false;
 		m_pPlayer->CoilWasFired(true);
