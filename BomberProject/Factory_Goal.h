@@ -15,6 +15,7 @@
 #include "StdAfx.h"
 #include "Object.h"
 #include "Factory_Player.h"
+#include "Factory_Sound.h"
 
 namespace wiz{
 
@@ -126,6 +127,8 @@ class Item : public PrimitiveSphere
 *******************************************************/
 class	GoalObject	:public PrimitiveBox{
 	PlayerCoil*	m_pCoil;
+	Sound*		m_pSound;
+	bool		m_bPlaySound;
 	struct GoalItem{
 		D3DMATERIAL9 m_Material;
 		D3DXMATRIX	m_Matrix;

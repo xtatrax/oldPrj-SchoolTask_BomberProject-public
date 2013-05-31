@@ -102,7 +102,7 @@ Factory_Main::Factory_Main(FactoryPacket* fpac){
 				OBJID_SYS_SOUND
 			)
 		);
-		pSound->SearchSoundAndPlay( RCTEXT_SOUND_BGM_PLAY );
+		//pSound->SearchSoundAndPlay( RCTEXT_SOUND_BGM_PLAY );
 
 
 	}

@@ -43,6 +43,7 @@ WallObject::WallObject( LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTextur
 ,m_pWallTex( pTexture )
 ,m_pPolyTex( pTexture2 )
 ,m_Ptn(0)
+,m_pSound( NULL )
 {
 	::ZeroMemory( &m_Material, sizeof(D3DMATERIAL9));
 	m_pPlayerCoil = NULL ;
@@ -146,6 +147,11 @@ void WallObject::GetOBBList( float Index, list<OBB>& ObbList ){
 //// 備考       ：
 void WallObject::Draw(DrawPacket& i_DrawPacket)
 {
+	if( m_pSound == NULL )
+		m_pSound = (Sound*)SearchObjectFromTypeID(i_DrawPacket.pVec,typeid(Sound));
+//	else
+//		m_pSound->SearchSoundAndPlay( RCTEXT_SOUND_SE_SPARK );
+
 	multimap<float,WallItem*>::iterator it = m_ItemMap_Target.begin();
 	while(it != m_ItemMap_Target.end()){
 		//テクスチャがある場合
