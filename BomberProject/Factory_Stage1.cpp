@@ -139,7 +139,7 @@ Factory_Stage1::Factory_Stage1(FactoryPacket *fpac){
 
 
 			//{ OBJID_3D_ITEM,	 D3DXVECTOR3( 2.0f, 2.0f, 0.0f), D3DXVECTOR3( 0.0f, 0.0f, 0.0f), D3DXVECTOR3(30.0f,0.0f, 0.0f), getD3DCOLORVALUE( 0.5f, 0.5f, 0.5f, 0.5f), getD3DCOLORVALUE( 0.0f, 0.0f, 0.0f, 0.0f), getD3DCOLORVALUE( 0.7f, 0.7f, 0.7f, 0.7f) },
-			//{ OBJID_3D_MAGNET,	 D3DXVECTOR3( 2.0f, 2.0f, 0.0f), D3DXVECTOR3( 0.0f, 0.0f, 0.0f), D3DXVECTOR3(37.0f, 5.0f, 0.0f), getD3DCOLORVALUE( 0.5f, 0.5f, 0.5f, 0.5f), getD3DCOLORVALUE( 0.0f, 0.0f, 0.0f, 0.0f), getD3DCOLORVALUE( 0.7f, 0.7f, 0.7f, 0.7f) },
+			{ OBJID_3D_MAGNET,	 D3DXVECTOR3( 2.0f, 2.0f, 0.0f), D3DXVECTOR3( 0.0f, 0.0f, 0.0f), D3DXVECTOR3(37.0f, 5.0f, 0.0f), getD3DCOLORVALUE( 0.5f, 0.5f, 0.5f, 0.5f), getD3DCOLORVALUE( 0.0f, 0.0f, 0.0f, 0.0f), getD3DCOLORVALUE( 0.7f, 0.7f, 0.7f, 0.7f), POLE_N },
 		
 			{ OBJID_END }
 		

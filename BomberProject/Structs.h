@@ -190,6 +190,8 @@ public:
 // 担当者  : 鴫原 徹
 // 用途    : アップデート関数郡に流れるデータ
 //**************************************************************************//
+extern struct DrawPacket	;
+extern struct RenderPacket	;
 struct BassPacket{
 	LPDIRECT3DDEVICE9		pD3DDevice	;	// デバイス
 	vector<Object*>*		pVec		;	// オブジェコンテナ
@@ -214,15 +216,9 @@ struct BassPacket{
 //**************************************************************************//
 struct UpdatePacket : public BassPacket{
 	const CONTROLER_STATE*	pCntlState	;
-	UpdatePacket()
-		:pCntlState( NULL )
-	{
-	}
-
+	UpdatePacket::UpdatePacket();
+	UpdatePacket::UpdatePacket( DrawPacket i_DrawPacket )	;
 };
-/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
-
-/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 //**************************************************************************//
 // struct RenderPacket;
 //
@@ -231,9 +227,6 @@ struct UpdatePacket : public BassPacket{
 //**************************************************************************//
 struct RenderPacket : public BassPacket{
 };
-/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
-
-/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 //**************************************************************************//
 // struct DrawPacket;
 //
@@ -242,6 +235,22 @@ struct RenderPacket : public BassPacket{
 //**************************************************************************//
 struct DrawPacket : public BassPacket{
 };
+
+inline UpdatePacket::UpdatePacket()
+	:pCntlState( NULL )
+{
+}
+inline UpdatePacket::UpdatePacket( DrawPacket i_DrawPacket )
+	:pCntlState( NULL )
+{
+	this->pD3DDevice	= i_DrawPacket.pD3DDevice	;
+	this->pCommand		= i_DrawPacket.pCommand		;
+	this->pTxMgr		= i_DrawPacket.pTxMgr		;
+	this->pTime			= i_DrawPacket.pTime		;
+	this->pVec			= i_DrawPacket.pVec			;
+}
+
+
 /*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 
 
