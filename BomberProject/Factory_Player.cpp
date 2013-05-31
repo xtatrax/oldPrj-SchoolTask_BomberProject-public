@@ -618,8 +618,9 @@ void	StartField::Update(UpdatePacket& i_UpdatePacket)
 //// 用途       ：
 //// 引数       ：  LPDIRECT3DDEVICE9 pD3DDevice,	//デバイス
 ////			  :   LPDIRECT3DTEXTURE9 pTexture,  //テクスチャ	
-////		      :   float Radius1						//円の直径1
-////		      :   float Radius2						//円の直径2
+////		      :   float Radius1						//錐の直径1
+////		      :   float Radius2						//錐の直径2
+////		      :   float Radius3						//球の直径
 ////			  :   flaot Lenght						//高さ
 ////			  :   D3DXVECTOR3 &vScale
 ////		      :   D3DXVECTOR3 &vRot				//回転角
@@ -636,7 +637,7 @@ void	StartField::Update(UpdatePacket& i_UpdatePacket)
 PlayerCoil::PlayerCoil(
 
 		LPDIRECT3DDEVICE9 pD3DDevice,LPDIRECT3DTEXTURE9 pTexture,
-		float Radius1,float Radius2,float Lenght,
+		float Radius1,float Radius2,float Radius3,float Lenght,
 		D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos,
 		D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,
 		wiz::OBJID id
@@ -647,6 +648,7 @@ PlayerCoil::PlayerCoil(
 ,m_vPos(vPos)
 ,m_vRot(vRot)
 ,m_vScale(vScale)
+,m_OBBRadius(Radius3)
 ,m_vMove(D3DXVECTOR3( 1.0f, 0.0f, 0.0f))
 ,m_fMoveDir(PLAYER_BASSROT)
 ,m_fMovdSpeed(PLAYER_SPEED)
@@ -666,7 +668,7 @@ PlayerCoil::PlayerCoil(
 {
 	::ZeroMemory( &m_Material, sizeof(D3DMATERIAL9) ) ;
 	D3DXMatrixIdentity( &m_Matrix ) ;
-	m_pCylinder = new Cylinder( pD3DDevice, m_Radius1, m_Radius2, m_Length, m_vPos, g_vZero, Diffuse, Specular, Ambient ) ;
+	m_pSphere	  = new Sphere(pD3DDevice,Radius3,vPos,vRot,Diffuse,Specular,Ambient);
 	m_pStartField = new StartField(pD3DDevice,NULL,
 									3.45f,3.45f,1.0f,
 									g_vZero,D3DXVECTOR3(vPos.x,vPos.y,2.0f),
@@ -690,7 +692,6 @@ PlayerCoil::~PlayerCoil(){
 	SafeDelete( m_pDSPH );
 #endif
 
-	SafeDelete( m_pCylinder );
 	SafeDelete( m_pStartField );
 
 	m_pPlayer				= NULL ;
@@ -712,10 +713,9 @@ PlayerCoil::~PlayerCoil(){
 //////// 担当者     ：曳地 大洋
 //////// 備考       ：
 bool PlayerCoil::HitTestWall( OBB Obb, float Index ){
-	D3DXVECTOR3 Pos = GetPos();
 	SPHERE sp;
 	sp.m_Center = m_vPos;
-	sp.m_Radius = m_pCylinder->getRadius2() ;
+	sp.m_Radius = m_OBBRadius;
 #if defined( ON_DEBUGGINGPROCESS ) | defined( PRESENTATION )
 	if( m_pDSPH ) m_pDSPH->UpdateSPHERE(sp);
 	if( m_bDebugInvincibleMode ) return false ;
@@ -796,12 +796,17 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 		//-----------------------------------------------------------------------
 
 		//マトリクス計算
-		D3DXMATRIX mPos, mScale, mRotZ, mRotX;
-		D3DXMatrixTranslation( &mPos  , m_vPos.x , m_vPos.y , m_vPos.z ) ;
+		D3DXMATRIX mPos, mPos2, mScale, mRotZ, mRotX;
+		D3DXVECTOR3 vCartesian  = ConvertToCartesianCoordinates(1.6f, m_fMoveDir);
+		D3DXMatrixTranslation( &mPos  , m_vPos.x , m_vPos.y , m_vPos.z ) ;		//球のPos
+		D3DXMatrixTranslation( &mPos2 , m_vPos.x + vCartesian.x , m_vPos.y + vCartesian.y , m_vPos.z ) ;		//錐のPos
 		D3DXMatrixScaling( &mScale, m_vScale.x, m_vScale.y, m_vScale.z);
 		D3DXMatrixRotationZ( &mRotZ, D3DXToRadian( m_fMoveDir - PLAYER_BASSROT ) ) ;
 		D3DXMatrixRotationX( &mRotX, D3DXToRadian( m_vRot.x ) );
-		m_Matrix = mScale * (mRotX*mRotZ) * mPos ;
+		m_pSphere->CalcMatrix(mPos,mScale,mRotZ);
+		m_Matrix = mScale * (mRotX*mRotZ) * mPos2 ;
+
+		m_pSphere->SetMaterial(this->m_Material );
 
 	} else {
 		m_pPlayer = (ProvisionalPlayer3D*)SearchObjectFromTypeID( i_UpdatePacket.pVec , typeid(ProvisionalPlayer3D) );
@@ -1075,6 +1080,7 @@ void PlayerCoil::Draw(DrawPacket& i_DrawPacket){
 		i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &m_Matrix);
 		//コモンメッシュのDraw()を呼ぶ
 		CommonMesh::Draw(i_DrawPacket);
+		m_pSphere->Draw(i_DrawPacket);
 		i_DrawPacket.pD3DDevice->SetTexture(0,0);
 		//ステージを元に戻す
 		i_DrawPacket.pD3DDevice->SetTextureStageState(0,D3DTSS_COLOROP,wkdword);
@@ -1085,7 +1091,9 @@ void PlayerCoil::Draw(DrawPacket& i_DrawPacket){
 		i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &m_Matrix);
 		//コモンメッシュのDraw()を呼ぶ
 		CommonMesh::Draw(i_DrawPacket);
+		m_pSphere->Draw(i_DrawPacket);
 	}
+	//スタート、コンティニュー時に発射クリック範囲描画
 	if(m_enumCoilState == COIL_STATE_START || m_enumCoilState == COIL_STATE_CONTINUE){
 		m_pStartField->Draw(i_DrawPacket);
 	}
@@ -1191,7 +1199,8 @@ bool PlayerCoil::CheckDistance( D3DXVECTOR3& i_vMagneticFieldPos, D3DXVECTOR3& i
 		if(m_enumCoilState == COIL_STATE_MOVE
 						&& getMagnetPole() != m_pPlayer->getMagnetPole()
 								&& Lng <= fBorderLv/30
-									&& IsPlayer){
+									&& IsPlayer
+										&& m_pPlayer->getDrawing()){
 			m_vPos = m_pPlayer->getPos();
 			m_enumCoilState = COIL_STATE_STICK;
 			return false;
@@ -1259,7 +1268,7 @@ Factory_Player::Factory_Player( FactoryPacket* fpac ){
 				fpac->pD3DDevice,
 				//fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"CircleC.png" ),
 				NULL,
-				0.0f,1.0f,3.0f,vScale,D3DXVECTOR3(90.0f,0.0f,0.0f),D3DXVECTOR3(10.0f,10.0f,0.0f),
+				0.0f,0.7f,1.0f,1.0f,vScale,D3DXVECTOR3(90.0f,0.0f,0.0f),D3DXVECTOR3(10.0f,10.0f,0.0f),
 				CoilDiffuse,CoilSpecular,CoilAmbient
 				)
 		);
