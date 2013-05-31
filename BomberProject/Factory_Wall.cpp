@@ -290,7 +290,7 @@ void WallObject::Update( UpdatePacket& i_UpdatePacket ){
 			switch(m_pPlayerCoil->getState()){
 				case COIL_STATE_MOVE:
 					if(!m_pPlayerCoil->getSuperMode()){
-						m_pSound->SearchWaveAndPlay( RCTEXT_SOUND_SE_HITENEMY );
+						m_pSound->SearchWaveAndPlay( RCTEXT_SOUND_SE_PLAYERBLOKEN );
 						m_pPlayerCoil->setState(COIL_STATE_DEAD);
 					}
 					break;
