@@ -31,7 +31,6 @@ namespace wiz{
 ***************************************************************************/
 ResultStage::ResultStage(LPDIRECT3DDEVICE9 pD3DDevice,Stage* pStage)
 	:Stage(pStage)
-
 {
 	try{
 		FactoryPacket FPac;

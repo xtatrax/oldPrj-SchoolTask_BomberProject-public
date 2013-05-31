@@ -24,7 +24,7 @@ static const char*			RCTEXT_SOUND_SE_CLEAR		= "SE-CLEAR"			;
 static const char*			RCTEXT_SOUND_SE_ENTER		= "SE-ENTER"			;
 static const char*			RCTEXT_SOUND_SE_FIRE		= "SE-FIRE"				;
 static const char*			RCTEXT_SOUND_SE_GOAL		= "SE-GOAL"				;
-static const char*			RCTEXT_SOUND_SE_HITENEMY	= "SE-HIT_ENEMY"		;
+static const char*			RCTEXT_SOUND_SE_PLAYERBLOKEN= "SE-PLAYER_BLOKEN"	;
 static const char*			RCTEXT_SOUND_SE_INVISIBLE	= "SE-INVINGVLE"		;
 static const char*			RCTEXT_SOUND_SE_SETFIELD	= "SE-MAGNETIC_FIELD"	;
 static const char*			RCTEXT_SOUND_SE_SPARK		= "SE-SPARK002"			;
@@ -211,7 +211,7 @@ namespace wiz{
 		OBJID_SOUND_SE_ENTER		,
 		OBJID_SOUND_SE_FIRE			,
 		OBJID_SOUND_SE_GOAL			,
-		OBJID_SOUND_SE_HIT_ENEMY	,
+		OBJID_SOUND_SE_PLAYER_BLOKEN,
 		OBJID_SOUND_SE_INVINGVLE	,
 		OBJID_SOUND_SE_MAGNETIC_FIELD,
 		OBJID_SOUND_SE_SPARK		,
