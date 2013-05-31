@@ -47,6 +47,9 @@ Title_Select::Title_Select(LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTex
 :SpriteObject( pD3DDevice, pTexture, vScale, vRot, vPos, pRect, vCenter, vOffsetPos, color )
 ,m_vPos( vPos )
 ,m_dNext( next )
+,m_pSound( NULL )
+,m_iTime( 0 )
+,m_bPush( false )
 {
 	try{
 		//	: 初期マトリックスを計算
@@ -91,6 +94,8 @@ void Title_Select::Draw(DrawPacket& i_DrawPacket)
 ////
 void Title_Select::Update(UpdatePacket& i_UpdatePacket)
 {
+	if( m_pSound == NULL )
+		m_pSound = (Sound*)SearchObjectFromTypeID(i_UpdatePacket.pVec,typeid(Sound));
   //マウス用データ*************************
 	Point MousePos ;
 	GetCursorPos( &MousePos ) ;
@@ -99,12 +104,20 @@ void Title_Select::Update(UpdatePacket& i_UpdatePacket)
 	if( (MousePos.x > m_vPos.x && MousePos.x < ( m_vPos.x + m_pRect->right )) 
 		&& (MousePos.y > m_vPos.y && MousePos.y < ( m_vPos.y + m_pRect->bottom )) ){
 		if( g_bMouseLB/* || g_bMouseRB*/ ){
-			//選ばれた画面へとぶ
-			i_UpdatePacket.pCommand->m_Command	= m_dNext;
+			if( !m_bPush )
+				m_pSound->SearchWaveAndPlay( RCTEXT_SOUND_SE_ENTER );
+			m_bPush		= true;
 		}
 		m_Color	= 0xFFFFFFFF;
 	}
 	else	m_Color	= 0xA0FFFFFF;
+
+	if( m_bPush ){
+		m_iTime++;
+		if( m_iTime > 30 )
+			//選ばれた画面へとぶ
+			i_UpdatePacket.pCommand->m_Command	= m_dNext;
+	}
 };
 
 /**************************************************************************

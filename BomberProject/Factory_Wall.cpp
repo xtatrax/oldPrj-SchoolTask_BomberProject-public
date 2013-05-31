@@ -243,6 +243,9 @@ void WallObject::Update( UpdatePacket& i_UpdatePacket ){
 	if(m_pCamera == NULL){
 		m_pCamera = (Camera*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_SYS_CAMERA);
 	}
+	if(m_pSound == NULL){
+		m_pSound = (Sound*)SearchObjectFromTypeID(i_UpdatePacket.pVec,typeid(Sound));
+	}
 	if(m_pPlayerCoil == NULL){
 		m_pPlayerCoil = (PlayerCoil*)SearchObjectFromTypeID(i_UpdatePacket.pVec,typeid(PlayerCoil));
 	}
@@ -287,6 +290,7 @@ void WallObject::Update( UpdatePacket& i_UpdatePacket ){
 			switch(m_pPlayerCoil->getState()){
 				case COIL_STATE_MOVE:
 					if(!m_pPlayerCoil->getSuperMode()){
+						m_pSound->SearchWaveAndPlay( RCTEXT_SOUND_SE_HITENEMY );
 						m_pPlayerCoil->setState(COIL_STATE_DEAD);
 					}
 					break;

@@ -223,6 +223,7 @@ CheckPoint::CheckPoint( LPDIRECT3DDEVICE9 pD3DDevice, float fLength,LPDIRECT3DTE
 , m_pCoil( NULL )
 , m_pCamera( NULL )
 , m_pEffect( NULL )
+, m_pSound( NULL )
 , m_ActiveItem( NULL )
 , m_Color( CHECKPOINTCOLOR )
 , m_Thicken( 1.0f )
@@ -252,6 +253,7 @@ CheckPoint::~CheckPoint(){
 ////
 void CheckPoint::Update( UpdatePacket& i_UpdatePacket ){
 	if( !m_pCoil   ) m_pCoil   = (PlayerCoil*)SearchObjectFromTypeID( i_UpdatePacket.pVec, typeid(PlayerCoil) );
+	if( !m_pSound  ) m_pSound  = (     Sound*)SearchObjectFromTypeID( i_UpdatePacket.pVec, typeid(Sound) );
 	if( !m_pCamera ) m_pCamera = (    Camera*)SearchObjectFromID( i_UpdatePacket.pVec, OBJID_SYS_CAMERA );
 	
 	if( m_pCoil && m_ActiveItem < m_ItemContainer.size()){
@@ -260,6 +262,7 @@ void CheckPoint::Update( UpdatePacket& i_UpdatePacket ){
 		if(fPosY <= fCoilPosY){
 			m_pCoil->setStartPos(m_ItemContainer[ m_ActiveItem ]->vStartPos);
 			m_ActiveItem++ ;
+			m_pSound->SearchWaveAndPlay( RCTEXT_SOUND_SE_CHECKPOINT );
 			SafeDelete( m_pEffect );
 			m_pEffect	= new CheckEffect( i_UpdatePacket.pD3DDevice, m_pCoil->getPos(),m_Length,m_pTexture );
 			if(m_ActiveItem <= m_ItemContainer.size()) return ;
