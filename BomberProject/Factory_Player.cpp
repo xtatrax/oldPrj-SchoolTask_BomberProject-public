@@ -184,7 +184,7 @@ void ProvisionalPlayer3D::Draw(DrawPacket& i_DrawPacket)
 
 	if( m_bCoilWasStarting ){
 		if( m_bDrawing ){ 
-			m_pSound->SearchSoundAndPlay( RCTEXT_SOUND_SE_SETFIELD );
+			m_pSound->SearchWaveAndPlay( RCTEXT_SOUND_SE_SETFIELD );
 			//テクスチャがある場合
 			if(m_pTexture){
 				DWORD wkdword;

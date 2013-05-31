@@ -15,6 +15,7 @@
 #include "Object.h"
 #include "BassItems.h"
 #include "Factory_Player.h"
+#include "Factory_Sound.h"
 
 namespace wiz{
 
@@ -119,6 +120,7 @@ protected:
 	float					m_Thicken;
 	float					m_Length;
 	CheckEffect*			m_pEffect;
+	Sound*					m_pSound;
 	LPDIRECT3DTEXTURE9		m_pTexture;
 /////////////////// ////////////////////
 //// ä÷êîñº     ÅFbool HitTestIntersect(OBB i_obb, D3DXVECTOR3 i_vMove, HITGROUNDVECTOR& o_HitListVec)

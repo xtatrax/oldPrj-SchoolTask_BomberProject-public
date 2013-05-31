@@ -29,7 +29,8 @@ namespace wiz{
  用途: コンストラクタ（サンプルオブジェクトを配列に追加する）
  戻り値: なし
 ***************************************************************************/
-Factory_Result::Factory_Result(FactoryPacket* fpac){
+Factory_Result::Factory_Result(FactoryPacket* fpac)
+{
 	try{
 
 		fpac->m_pVec->push_back(
@@ -45,6 +46,16 @@ Factory_Result::Factory_Result(FactoryPacket* fpac){
 				0xFFFFFFFF
 				)
 		);
+
+		Sound* pSound = NULL;
+		fpac->m_pVec->push_back(
+			pSound = new Sound( 
+				RCTEXT_SOUND_WAVEBANK,
+				RCTEXT_SOUND_SOUNDBANK,
+				OBJID_SYS_SOUND
+			)
+		);
+		pSound->SearchSoundAndPlay( RCTEXT_SOUND_BGM_CLEAR );
 
 	}
 	catch(...){
