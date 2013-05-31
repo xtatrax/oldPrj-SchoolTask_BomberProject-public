@@ -232,12 +232,13 @@ class PlayerCoil : public MagneticumObject3D{
 	DrawSphere*		m_pDSPH		;
 	bool			m_bDebugInvincibleMode;
 #endif
-	Cylinder*		m_pCylinder		;
+	Sphere*			m_pSphere		;
 	D3DXMATRIX		m_Matrix		;
 	D3DXVECTOR3		m_vPos			;
 	D3DXQUATERNION	m_vRot			;
 	D3DXVECTOR3		m_vScale		;
 	D3DXVECTOR3		m_vMove			;
+	float			m_OBBRadius		;
 	float			m_fMoveDir		;//äpìx
 	float			m_fMovdSpeed	;//ë¨ìx
 	D3DXVECTOR3		m_vStartPos		;
@@ -269,8 +270,9 @@ public:
 	//// ópìr       ÅF
 	//// à¯êî       ÅF  LPDIRECT3DDEVICE9 pD3DDevice,	//ÉfÉoÉCÉX
 	////			  :   LPDIRECT3DTEXTURE9 pTexture,  //ÉeÉNÉXÉ`ÉÉ	
-	////		      :   float Radius1						//â~ÇÃíºåa1
-	////		      :   float Radius2						//â~ÇÃíºåa2
+	////		      :   float Radius1						//êçÇÃíºåa1
+	////		      :   float Radius2						//êçÇÃíºåa2
+	////		      :   float Radius3						//ãÖÇÃíºåa
 	////			  :   flaot Lenght						//çÇÇ≥
 	////			  :   D3DXVECTOR3 &vScale
 	////		      :   D3DXVECTOR3 &vRot				//âÒì]äp
@@ -289,6 +291,7 @@ public:
 		LPDIRECT3DTEXTURE9 pTexture,
 		float Radius1,
 		float Radius2,
+		float Radius3,
 		float Lenght,
 		D3DXVECTOR3 &vScale,	
 		D3DXVECTOR3 &vRot,
