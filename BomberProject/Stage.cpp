@@ -98,7 +98,7 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 				m_ObjeTypeMap.insert( make_pair( ObjectID , m_pVec->size() -1));
 			}
 			break;
-		case OBJID_3D_MAGNET :
+		case OBJID_3D_STATIC_MAGNET :
 			//////////
 			//	: アイテム
 			if((it = m_ObjeTypeMap.find( ObjectID )) != m_ObjeTypeMap.end()){
@@ -555,9 +555,9 @@ void StageLoader2::PartsGenerator(MapPartsStatus i_Data){
 				m_ObjeTypeMap.insert( make_pair( ObjectID , m_pVec->size() -1));
 			}
 			break;
-		case OBJID_3D_MAGNET :
+		case OBJID_3D_STATIC_MAGNET :
 			//////////
-			//	: アイテム
+			//	: 初期配置磁界
 			if((it = m_ObjeTypeMap.find( ObjectID )) != m_ObjeTypeMap.end()){
 				//	: 登録を見つけた場合
 				dynamic_cast< MagneticumObject3D* >(( *m_pVec )[it->second])->AddMagnetic(

@@ -2099,7 +2099,7 @@ public:
           D3DCOLORVALUE& Diffuse,
 		  D3DCOLORVALUE& Specular,
 		  D3DCOLORVALUE& Ambient,
-		  wiz::OBJID id = OBJID_3D_MAGNET,
+		  wiz::OBJID id = OBJID_3D_CYLINDER,
 		  LPDIRECT3DTEXTURE9 pTexture = 0 )
 	:Cylinder(pD3DDevice, 0.5, 0.5, 1, g_vZero, g_vZero, Diffuse, Specular, Ambient,id, false, pTexture)
 	{
@@ -2140,7 +2140,7 @@ public:
 			D3DCOLORVALUE& Diffuse,
 			D3DCOLORVALUE& Specular,
 			D3DCOLORVALUE& Ambient,
-			wiz::OBJID id = OBJID_3D_MAGNET)
+			wiz::OBJID id = OBJID_3D_CYLINDER)
     :Cylinder(pD3DDevice, Radius1, Radius2, Lenght,
 			  vPos, vRot, Diffuse, Specular, Ambient,id, false, pTexture)
 	{
