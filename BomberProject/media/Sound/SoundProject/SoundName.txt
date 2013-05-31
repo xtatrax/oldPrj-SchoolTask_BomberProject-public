@@ -9,7 +9,7 @@ SE-CLEAR-----------:クリア画面で流れるSE
 SE-ENTER-----------:タイトル画面でクリックしたときのSE
 SE-FIRE------------:一番最初に自機が発射された時のSE
 SE-GOAL------------:自機がゴールした時のSE
-SE-HIT_ENEMY-------:敵が自機に当たった時のSE
+SE-PLAYER_BLOKEN---:自機がやられる時のSE
 SE-INVINGVLE-------:自機が無敵モードのときのSE
 SE-MAGNETIC_FIELD--:プレイヤーが磁界を発生させているときのSE
 SE-SPARK002--------:ステージのビリビリのSE
