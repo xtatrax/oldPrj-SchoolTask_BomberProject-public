@@ -249,6 +249,22 @@ void MagneticumObject3D::Draw(DrawPacket& i_DrawPacket)
 			//ƒRƒ‚ƒ“ƒƒbƒVƒ…‚ÌDraw()‚ðŒÄ‚Ô
 			CommonMesh::Draw(i_DrawPacket);
 		}
+		m_pMagneticField->SetPos(it->second->m_vPos);
+		m_pMagneticField->setPole(it->second->m_bMagnetPole);
+		m_pMagneticField->Update( UpdatePacket( i_DrawPacket ) );
+
+		m_pMagneticField2->SetPos(it->second->m_vPos);
+		m_pMagneticField2->setPole(it->second->m_bMagnetPole);
+		m_pMagneticField2->Update( UpdatePacket( i_DrawPacket ) );
+
+		m_pMagneticField3->SetPos(it->second->m_vPos);
+		m_pMagneticField3->setPole(it->second->m_bMagnetPole);
+		m_pMagneticField3->Update( UpdatePacket( i_DrawPacket ) );
+
+		m_pMagneticField4->SetPos(it->second->m_vPos);
+		m_pMagneticField4->setPole(it->second->m_bMagnetPole);
+		m_pMagneticField4->Update( UpdatePacket( i_DrawPacket ) );
+
 		m_pMagneticField->Draw(i_DrawPacket);
 		m_pMagneticField2->Draw(i_DrawPacket);
 		m_pMagneticField3->Draw(i_DrawPacket);
@@ -307,21 +323,6 @@ void MagneticumObject3D::Update( UpdatePacket& i_UpdatePacket ){
 
 		//m_pMagneticField->Update(i_UpdatePacket);
 
-		m_pMagneticField->SetPos(it2->second->m_vPos);
-		m_pMagneticField->setPole(it2->second->m_bMagnetPole);
-		m_pMagneticField->Update(i_UpdatePacket);
-
-		m_pMagneticField2->SetPos(it2->second->m_vPos);
-		m_pMagneticField2->setPole(it2->second->m_bMagnetPole);
-		m_pMagneticField2->Update(i_UpdatePacket);
-
-		m_pMagneticField3->SetPos(it2->second->m_vPos);
-		m_pMagneticField3->setPole(it2->second->m_bMagnetPole);
-		m_pMagneticField3->Update(i_UpdatePacket);
-
-		m_pMagneticField4->SetPos(it2->second->m_vPos);
-		m_pMagneticField4->setPole(it2->second->m_bMagnetPole);
-		m_pMagneticField4->Update(i_UpdatePacket);
 
 		++it2;
 	}
@@ -345,14 +346,14 @@ void MagneticumObject3D::Update( UpdatePacket& i_UpdatePacket ){
 void MagneticumObject3D::AddMagnetic(D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos,POLE vPole,
 			D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient)
 {
-	Magnet3DItem* pItem		= new Magnet3DItem ;
-	pItem->m_vScale			= vScale ;
-	pItem->m_vPos			= vPos ;
-	pItem->m_bMagnetPole	= vPole;
+	Magnet3DItem* pItem			= new Magnet3DItem ;
+	pItem->m_vScale				= vScale ;
+	pItem->m_vPos				= vPos ;
+	pItem->m_bMagnetPole		= vPole;
     ::ZeroMemory(&pItem->m_Material,sizeof(D3DMATERIAL9)) ;
-	pItem->m_Material.Diffuse  = Diffuse ;
-	pItem->m_Material.Specular = Specular ;
-	pItem->m_Material.Ambient  = Ambient ;
+	pItem->m_Material.Diffuse	= Diffuse ;
+	pItem->m_Material.Specular	= Specular ;
+	pItem->m_Material.Ambient	= Ambient ;
 	//‰ñ“]‚Ì‰Šú‰»
 	D3DXQuaternionRotationYawPitchRoll(&pItem->m_vRot,
 			D3DXToRadian(vRot.y),D3DXToRadian(vRot.x),D3DXToRadian(vRot.z)) ;
@@ -400,15 +401,15 @@ Factory_Magnetic::Factory_Magnetic(FactoryPacket *fpac){
 		D3DCOLORVALUE MagnetSpecular = { 0.0f, 0.0f, 0.0f, 0.0f } ;
 		D3DCOLORVALUE MagnetAmbient  = { 1.0f, 1.0f, 1.0f, 1.0f } ;
 		// Ž¥ŠE‚Ì•\Ž¦
-		MagneticumObject3D* Magnet = new MagneticumObject3D(
-			fpac->pD3DDevice,
-			NULL//fpac->m_pTexMgr->addTexture(fpac->pD3DDevice,L"ddn.jpg")
-		);
-		fpac->m_pVec->push_back(Magnet);
+		//MagneticumObject3D* Magnet = new MagneticumObject3D(
+		//	fpac->pD3DDevice,
+		//	NULL,//fpac->m_pTexMgr->addTexture(fpac->pD3DDevice,L"ddn.jpg")
+		//);
+		//fpac->m_pVec->push_back(Magnet);
 
 		//Magnet->AddMagnetic(D3DXVECTOR3(1.0f,1.0f,1.0f),
 		//			  D3DXVECTOR3(0.0f,0.0f,0.0f),
-		//			  D3DXVECTOR3(10.0f,20.0f,0.0f),
+		//			  D3DXVECTOR3(30.0f,10.0f,0.0f),
 		//			  POLE_N,
 		//			  MagnetDiffuse,
 		//			  MagnetSpecular,
@@ -416,8 +417,8 @@ Factory_Magnetic::Factory_Magnetic(FactoryPacket *fpac){
 
 		//Magnet->AddMagnetic(D3DXVECTOR3(1.0f,1.0f,1.0f),
 		//			  D3DXVECTOR3(0.0f,0.0f,0.0f),
-		//			  D3DXVECTOR3(30.0f,20.0f,0.0f),
-		//			  POLE_N,
+		//			  D3DXVECTOR3(30.0f,30.0f,0.0f),
+		//			  POLE_S,
 		//			  MagnetDiffuse,
 		//			  MagnetSpecular,
 		//			  MagnetAmbient);

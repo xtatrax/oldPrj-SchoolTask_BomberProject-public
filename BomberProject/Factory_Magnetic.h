@@ -204,7 +204,7 @@ public:
 	MagneticumObject3D(
 		LPDIRECT3DDEVICE9 pD3DDevice,
 		LPDIRECT3DTEXTURE9 pTexture,
-		wiz::OBJID id = OBJID_3D_MAGNET
+		wiz::OBJID id 
 		) ;
 
 	/////////////////// ////////////////////
@@ -242,7 +242,7 @@ public:
 		D3DCOLORVALUE& Diffuse,
 		D3DCOLORVALUE& Specular,
 		D3DCOLORVALUE& Ambient,
-		wiz::OBJID id = OBJID_3D_MAGNET
+		wiz::OBJID id 
 		) ;
 
 

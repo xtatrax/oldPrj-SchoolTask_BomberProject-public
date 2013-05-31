@@ -23,6 +23,13 @@ namespace wiz{
 ****************************************************************************/
 class _Sound : public Object{
 protected:
+	class MyQue{
+		XACTINDEX CueNum	;
+		IXACT3Cue *m_pCue	;
+		
+	};
+
+protected:
 	IXACT3Engine* m_pEngine;
 	XACT_NOTIFICATION_CALLBACK m_fnNotificationCallback;
 	//通知用のコールバック関数
@@ -32,6 +39,10 @@ protected:
 	VOID* m_pbSoundBank; // Pointer to sound bank data.  Call delete on it when the sound bank is destroyed
 	wstring m_WavBankFileName;
 	wstring m_SoundBankFileName;
+
+
+	IXACT3Cue *m_pCue[0xFF];
+
 /**************************************************************************
  void CreateInctance();
  用途: インスタンスの構築
