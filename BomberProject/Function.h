@@ -81,6 +81,20 @@ public:
     }
 };
 
+class LoaderException : public BaseException {
+public:
+	LoaderException(const wchar_t* m1,const wchar_t* m2)
+		:BaseException( m1 , m2 )
+	{}
+	//LoaderException(const LoaderException other)
+	//	:BaseException( other.m_Message )
+	//{}
+	//LoaderException(const wstring other)
+	//	:BaseException( other )
+	//{}
+};
+
+
 /**************************************************************************
  class Math;
  用途: 計算用のユーティリティ

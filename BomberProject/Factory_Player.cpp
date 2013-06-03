@@ -23,77 +23,6 @@ namespace wiz{
 //Camera*	ProvisionalPlayer3D::m_Camera	= NULL;
 extern class WallObject ;
 
-/**************************************************************************
- ProvisionalPlayer 定義部
-****************************************************************************/
-/////////////////// ////////////////////
-//// 関数名     ：ProvisionalPlayer( LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTexture,
-////            ：    D3DXVECTOR3 &vScale, D3DXVECTOR3 &vRot, D3DXVECTOR3 &vPos, RECT* pRect,
-////            ：    Color color = 0xFFFFFFFF, wiz::OBJID id = OBJID_3D_PLAYER )
-//// カテゴリ   ：コンストラクタ
-//// 用途       ：
-//// 引数       ：
-//// 戻値       ：なし
-//// 担当       ：鴫原 徹
-//// 備考       ：
-////            ：
-////
-//ProvisionalPlayer::ProvisionalPlayer(
-//	LPDIRECT3DDEVICE9 pD3DDevice,				//	: デバイス
-//	LPDIRECT3DTEXTURE9 pTexture,				//	: テクスチャー
-//	D3DXVECTOR3 &vScale,						//	: 伸縮
-//	D3DXVECTOR3 &vRot,							//	: 回転
-//	D3DXVECTOR3 &vPos,							//	: 位置
-//	RECT* pRect,								//	: 描画範囲
-//	Color color ,								//	: 色
-//	wiz::OBJID id 								//	: ID
-//)
-//	:MagneticumObject( pD3DDevice, pTexture, vScale, vRot, vPos, pRect, color, id )
-//{
-//}
-//
-///////////////////// ////////////////////
-////// 関数名     ：void Update( UpdatePacket& i_UpdatePacket )
-////// カテゴリ   ：
-////// 用途       ：
-////// 引数       ：
-////// 戻値       ：なし
-////// 担当       ：鴫原 徹
-////// 備考       ：
-//////            ：
-//////
-//void ProvisionalPlayer::Update( UpdatePacket& i_UpdatePacket ){
-//	if( g_bMouseLB || g_bMouseRB){
-//		wiz::CONTROLER_STATE Controller1P = i_UpdatePacket.pCntlState[0] ;
-//		D3DXVECTOR3 vMove = g_vZero ;
-//		Point MousePos ;
-//		GetCursorPos( &MousePos );
-//		ScreenToClient( g_hWnd , &MousePos);
-//		m_vPos.x = (float)MousePos.x;
-//		m_vPos.y = (float)MousePos.y;	
-//
-//		if( g_bMouseLB )
-//			setPoleN() ;
-//		if( g_bMouseRB )
-//			setPoleS() ;
-//
-//		//this->m_vPos += vMove * 15.0f ;
-//	
-//		D3DXMATRIX mPos , mScale ;
-//
-//		D3DXMatrixTranslation( &mPos , this->m_vPos.x , this->m_vPos.y , this->m_vPos.z ) ;
-//		D3DXMatrixScaling( &mScale, m_vScale.x, m_vScale.y, m_vScale.z );
-//		m_mMatrix = mScale * mPos ;
-//	}else{
-//	
-//
-//	
-//	}
-//
-//	//g_bMouseLB = false ;
-//	//g_bMouseRB = false ;
-//};
-
 // 3D用
 /**************************************************************************
  ProvisionalPlayer3D 定義部
@@ -120,14 +49,14 @@ ProvisionalPlayer3D::ProvisionalPlayer3D(
 	wiz::OBJID id 										//	: ID
 )
 	:MagneticumObject3D( fpac->pD3DDevice, pTexture, id )
-,m_vPos(vPos)
-,m_vRot(vRot)
-,m_vScale(vScale)
-,m_MovePosY(0)
 ,m_Camera(NULL)
 ,m_MGage_N(NULL)
 ,m_MGage_S(NULL)
 ,m_pSound( NULL )
+,m_vPos(vPos)
+,m_vRot(vRot)
+,m_vScale(vScale)
+,m_MovePosY(0)
 ,m_bLastMouseRB(false)
 ,m_bLastMouseLB(false)
 ,m_bCoilWasStarting(false)
@@ -184,7 +113,7 @@ void ProvisionalPlayer3D::Draw(DrawPacket& i_DrawPacket)
 
 	if( m_bCoilWasStarting ){
 		if( m_bDrawing ){ 
-			m_pSound->SearchWaveAndPlay( RCTEXT_SOUND_SE_SETFIELD );
+			if( m_pSound ) m_pSound->SearchWaveAndPlay( RCTEXT_SOUND_SE_SETFIELD ) ;
 			//テクスチャがある場合
 			if(m_pTexture){
 				DWORD wkdword;
@@ -849,7 +778,7 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 ////            ：
 ////
 void PlayerCoil::Update_StateStart(){
-	//if( m_pSound == NULL )
+	//if( m_pSou nd == NULL )
 	//	m_pSound = (Sound*)SearchObjectFromTypeID(i_UpdatePacket.pVec,typeid(Sound));
 
 	D3DXVECTOR3 vPlayer = g_vZero;
@@ -864,8 +793,8 @@ void PlayerCoil::Update_StateStart(){
 	//角度の更新
 	m_fMoveDir = fTargetDir;
 	//左クリックが押し、離したらMOVE状態に変更
-	float fLng  = (float)TwoPointToBassLength( vPlayer, m_vPos ) ;
-	if(g_bMouseLB && fLng <= START_EFFECTIVE_RANGE_QUAD){
+	//float fLng  = (float)TwoPointToBassLength( vPlayer, m_vPos ) ;
+	if(g_bMouseLB /*&& fLng <= START_EFFECTIVE_RANGE_QUAD*/){
 		m_bLastMouseLB = true;
 	}
 	if(!g_bMouseLB && m_bLastMouseLB){
@@ -894,16 +823,18 @@ void PlayerCoil::Update_StateMove(){
 	}
 
 	//設置磁界と自機の判定
-	multimap<float, Magnet3DItem*> ItemMap_Target = m_pMagneticumObject->getMapTarget();
-	multimap<float,Magnet3DItem*>::iterator it = ItemMap_Target.begin();
-	while(it != ItemMap_Target.end()){
-		bool bCheckDistance = CheckDistance( it->second->m_vPos, m_vPos, (float)MGPRM_MAGNETICUM_QUAD, false );
-		if( bCheckDistance ){
-			m_fMoveDir = MagneticDecision(m_fMoveDir,it->second->m_vPos,it->second->m_bMagnetPole);
-		}
-		++it;
-	}
 
+	if( m_pMagneticumObject ){
+		multimap<float, Magnet3DItem*> ItemMap_Target = m_pMagneticumObject->getMapTarget();
+		multimap<float,Magnet3DItem*>::iterator it = ItemMap_Target.begin();
+		while(it != ItemMap_Target.end()){
+			bool bCheckDistance = CheckDistance( it->second->m_vPos, m_vPos, (float)MGPRM_MAGNETICUM_QUAD, false );
+			if( bCheckDistance ){
+				m_fMoveDir = MagneticDecision(m_fMoveDir,it->second->m_vPos,it->second->m_bMagnetPole);
+			}
+			++it;
+		}
+	}
 	//速度指定
 	if(m_bIsSuperMode) m_fMovdSpeed = PLAYER_SPEED_SUPER;
 	else			   m_fMovdSpeed = PLAYER_SPEED;
@@ -1108,9 +1039,9 @@ void PlayerCoil::Draw(DrawPacket& i_DrawPacket){
 		m_pSphere->Draw(i_DrawPacket);
 	}
 	//スタート、コンティニュー時に発射クリック範囲描画
-	if(m_enumCoilState == COIL_STATE_START || m_enumCoilState == COIL_STATE_CONTINUE){
-		m_pStartField->Draw(i_DrawPacket);
-	}
+	//if(m_enumCoilState == COIL_STATE_START || m_enumCoilState == COIL_STATE_CONTINUE){
+	//	m_pStartField->Draw(i_DrawPacket);
+	//}
 #if defined( ON_DEBUGGINGPROCESS )
 	if( m_pDSPH ) m_pDSPH->Draw( i_DrawPacket );
 #endif

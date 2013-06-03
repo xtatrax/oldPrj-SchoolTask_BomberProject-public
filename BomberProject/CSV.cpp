@@ -43,7 +43,7 @@ namespace wiz{
 		strvec.push_back(wks);
 	}
 
-	void readcsv(wstring FileName,vector<vector<wstring>>& vecvecData)
+	bool readcsv(wstring FileName,vector<vector<wstring>>& vecvecData)
 	{
 		
 		//CSVの読み込み
@@ -51,8 +51,8 @@ namespace wiz{
 		std::wfstream ifs;
 		ifs.open(FileName.c_str());
 		if(!ifs){
-			::MessageBox(NULL,L"CSV読み込みエラー",L"エラー",MB_OK);
-			return;
+			::MessageBox(NULL,L"CSV読み込みエラー\nファイルパスを確認してください",L"エラー",MB_OK);
+			return false;
 		}
 		//以下重要！！！！
 		//これによりSJISファイルがUNICODE環境で開ける。
@@ -74,8 +74,9 @@ namespace wiz{
 			//}
 			wstrvec.clear();
 		}	
+		return true ;
 	}
-	void readcsv(wstring FileName,vector<vector<string>>& vecvecData)
+	bool readcsv(wstring FileName,vector<vector<string>>& vecvecData)
 	{
 		
 		//CSVの読み込み
@@ -83,8 +84,8 @@ namespace wiz{
 		std::fstream ifs;
 		ifs.open(FileName.c_str());
 		if(!ifs){
-			::MessageBox(NULL,L"読み込みエラー",L"エラー",MB_OK);
-			return;
+			::MessageBox(NULL,L"CSV読み込みエラー\nファイルパスを確認してください",L"エラー",MB_OK);
+			return false;
 		}
 		//以下重要！！！！
 		//これによりSJISファイルがUNICODE環境で開ける。
@@ -106,5 +107,6 @@ namespace wiz{
 			//}
 			strvec.clear();
 		}	
+		return true ;
 	}
 }

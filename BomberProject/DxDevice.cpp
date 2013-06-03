@@ -248,7 +248,7 @@ int DxDevice::MainThreadRun(){
 			#ifndef CF_SINGLETHREAD
 				CloseHandle(m_hUpdateThread);
 			#endif
-
+			Clear();
 			return 0;
 		}
 

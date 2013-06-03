@@ -29,19 +29,19 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		case WM_CREATE:
 			DragAcceptFiles(hWnd,TRUE); // D&D を許可する
 			return 0;
-        //case WM_CLOSE:                // ウインドウが破棄されようとしている
-        //    ::DestroyWindow(hWnd);       // アプリケーションを終了する
-        //    return 0;
-        //break;
-		case WM_DESTROY:
+        case WM_CLOSE:                // ウインドウが破棄されようとしている
 			wiz::DxDevice::Destroy();
+            return 0;
+        break;
+		case WM_DESTROY:
+			
 			break ;
         case WM_KEYDOWN: 
 			// キーが押された
 			if (wParam == VK_ESCAPE) {  // 押されたのはESCキーだ
-				::DestroyWindow(hWnd);  // ウインドウを破棄するよう要求する
+				wiz::DxDevice::Destroy();  // ウインドウを破棄するよう要求する
 			}
-			if (wParam == (VK_MENU | VK_RETURN)) {  // 押されたのはESCキーだ
+			if (wParam == (VK_MENU | VK_RETURN)) { 
             }
             return 0;
         break;
@@ -237,6 +237,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE
 		int ret =  (int) device->MainThreadRun();
 		SafeDelete( device );
 		::PostQuitMessage(0);
+		ShowCursor(true);
 		//wiz::TextureManager::Release();
 		return ret ;
 		/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/

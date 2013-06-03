@@ -71,7 +71,7 @@ DebugMenu::DebugMenu(LPDIRECT3DDEVICE9 pD3DDevice,Stage* Par)
 		);
 
 		//	: ƒ^ƒCƒgƒ‹
-		pTex = m_TexMgr.addTexture(pD3DDevice,L"DBG_.png");
+		pTex = m_TexMgr.addTexture(pD3DDevice,L"DBG_TITLE.png");
 		m_Vec.push_back((pButton = new ButtonSprite(
 			pD3DDevice,
 			pTex,

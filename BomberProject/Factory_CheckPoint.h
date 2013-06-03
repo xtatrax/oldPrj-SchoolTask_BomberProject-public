@@ -111,18 +111,18 @@ protected:
 			:fPosY( i_vPos.y ),vStartPos(i_vPos)
 		{}
 	};
-	typedef vector< ITEM* > ITEMCONTAINER ;
+	typedef vector< ITEM* > ITEMCONTAINER	;
 	ITEMCONTAINER			m_ItemContainer ;
 	size_t					m_ActiveItem    ;
-	PlayerCoil*				m_pCoil			;
 	Camera*					m_pCamera		;
-	D3DCOLORVALUE			m_Color;
-	float					m_Thicken;
-	float					m_Length;
-	CheckEffect*			m_pEffect;
-	Sound*					m_pSound;
-	LPDIRECT3DTEXTURE9		m_pTexture;
-	D3DXVECTOR3				m_vPos;
+	PlayerCoil*				m_pCoil			;
+	CheckEffect*			m_pEffect		;
+	Sound*					m_pSound		;
+	D3DCOLORVALUE			m_Color			;
+	float					m_Thicken		;
+	float					m_Length		;
+	LPDIRECT3DTEXTURE9		m_pTexture		;
+	D3DXVECTOR3				m_vPos			;
 /////////////////// ////////////////////
 //// 関数名     ：bool HitTestIntersect(OBB i_obb, D3DXVECTOR3 i_vMove, HITGROUNDVECTOR& o_HitListVec)
 //// カテゴリ   ：メンバ関数

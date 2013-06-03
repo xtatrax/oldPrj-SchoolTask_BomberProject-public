@@ -24,7 +24,6 @@
 namespace wiz{
 
 
-
 /**************************************************************************
  Scene 定義部
 ***************************************************************************/
@@ -227,9 +226,23 @@ void Scene::CommandTranslator(DrawPacket& i_DrawPacket){
 			m_pRootStage = new TitleStage(i_DrawPacket.pD3DDevice);
 			break;
 		case GM_OPENSTAGE_PLAY:
-			SafeDeleteStage(m_pRootStage);
-			//	: ゲームステージ
-			m_pRootStage = new PlayStage(i_DrawPacket.pD3DDevice);
+			try{
+				//	: ゲームステージ
+				this->m_pStgBuf = new PlayStage(i_DrawPacket.pD3DDevice);
+				//	: 
+				SafeDeleteStage(m_pRootStage);
+				m_pRootStage = this->m_pStgBuf;
+				this->m_pStgBuf = NULL ;
+			}
+			catch(LoaderException& e){
+				//	: ロード失敗
+				::MessageBox(g_hWnd,e.what_w(),L"エラー",MB_OK);
+				SafeDeleteStage(this->m_pStgBuf);
+			}
+			catch(...){
+				throw ;
+			}
+
 			break;
 		case GM_OPENDEBUGSTAGE_DEBUGMENU:
 			SafeDeleteStage(m_pRootStage);
@@ -258,8 +271,24 @@ void Scene::CommandTranslator(DrawPacket& i_DrawPacket){
 			break ; 
 		//	: デバッグステージ
 		case GM_OPENDEBUGSTAGE_TATEAWORKSPACE:
-			SafeDeleteStage(m_pRootStage);
-			m_pRootStage = new DebugStage_TATRA(i_DrawPacket.pD3DDevice);
+			try{
+				//	: ゲームステージ
+				this->m_pStgBuf = new DebugStage_TATRA(i_DrawPacket.pD3DDevice);
+				//	: 
+				SafeDeleteStage(m_pRootStage);
+				m_pRootStage = this->m_pStgBuf;
+				this->m_pStgBuf = NULL ;
+			}
+			catch(LoaderException& e){
+				//	: ロード失敗
+				::MessageBox(g_hWnd,e.what_w(),L"エラー",MB_OK);
+				SafeDeleteStage(this->m_pStgBuf);
+			}
+			catch(...){
+				throw ;
+			}
+			//SafeDeleteStage(m_pRootStage);
+			//m_pRootStage = new DebugStage_TATRA(i_DrawPacket.pD3DDevice);
 			break;
 
 		case GM_OPENDEBUGSTAGE_STAGELOADERTEST:
