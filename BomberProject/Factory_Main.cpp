@@ -112,6 +112,12 @@ Factory_Main::Factory_Main(FactoryPacket* fpac){
 
 
 	}
+	catch(LoaderException& e){
+		throw LoaderException(
+				e.what_w(),
+				L"Å™Factory_Main::Factory_Main()"
+				);
+	}
 	catch(...){
 		//çƒthrow
 		throw;

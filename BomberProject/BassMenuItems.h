@@ -105,9 +105,10 @@ public:
 ***************************************************************************/
 	Command CommandIssue(){
 		Command Com;
-		Com.m_Command = m_Command;
-		Com.m_Param1  = 0;
-		Com.m_Param2  = 0;
+		Com.m_Command	= m_Command;
+		Com.m_Param1	= 0;
+		Com.m_Param2	= 0;
+		m_IsPressed		= false;
 		return Com;
 	}
 /**************************************************************************

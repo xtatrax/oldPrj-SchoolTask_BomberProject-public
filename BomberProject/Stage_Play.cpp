@@ -47,6 +47,12 @@ PlayStage::PlayStage(LPDIRECT3DDEVICE9 pD3DDevice,Stage* pStage)
 		Factory_Main mainF( &FPac );
 
 	}
+	catch(LoaderException& e){
+		throw LoaderException(
+				e.what_w(),
+				L"Å™PlayStage::PlayStage()"
+				);
+	}
 	catch(exception& e){
 		Clear();
 		//çƒÉXÉçÅ[

@@ -53,7 +53,7 @@ class StageLoader{
 		//	: çs
 		UINT Line ;
 		//	: óÒ
-		struct {
+		struct ___ST{
 			UINT	uiNumber			;	//	î‘çÜ
 			UINT	uiType				;	//	éÌóﬁ
 			UINT	uiPath				;	//	FILE
@@ -63,6 +63,31 @@ class StageLoader{
 			UINT	uiScaleX			;	//	XêLèk
 			UINT	uiScaleY			;	//	YêLèk
 			UINT	uiScaleZ			;	//	ZêLèk
+			UINT	uiRotX				;	//	XâÒì]
+			UINT	uiRotY				;	//	YâÒì]
+			UINT	uiRotZ				;	//	ZâÒì]
+			UINT	uiPosX				;	//	Xà⁄ìÆ
+			UINT	uiPosY				;	//	Yà⁄ìÆ
+			UINT	uiPosZ				;	//	Zà⁄ìÆ
+			UINT	uiPool				;	//	Zà⁄ìÆ
+			___ST(){
+				uiNumber	= UINT_MAX	;
+				uiType		= UINT_MAX	;
+				uiPath		= UINT_MAX	;
+				uiTexPath	= UINT_MAX	;
+				uiMotionNum	= UINT_MAX	;
+				uiTracSpeed	= UINT_MAX	;
+				uiScaleX	= UINT_MAX	;
+				uiScaleY	= UINT_MAX	;
+				uiScaleZ	= UINT_MAX	;
+				uiRotX		= UINT_MAX	;
+				uiRotY		= UINT_MAX	;
+				uiRotZ		= UINT_MAX	;
+				uiPosX		= UINT_MAX	;
+				uiPosY		= UINT_MAX	;
+				uiPosZ		= UINT_MAX	;
+				uiPool		= UINT_MAX	;
+			}
 		}Column;
 	};
 	map<UINT,MapPartsStatus>		m_ObjeMap;
