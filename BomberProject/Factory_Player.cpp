@@ -666,7 +666,7 @@ PlayerCoil::PlayerCoil(
 ,m_pMagneticumObject(NULL)
 ,m_pCamera(NULL)
 ,m_pSound( NULL )
-,m_enumCoilState(COIL_STATE_START)
+,m_enumCoilState(COIL_STATE_STOP)
 #if defined( ON_DEBUGGINGPROCESS ) | defined( PRESENTATION )
 ,m_pDSPH(NULL)
 ,m_bDebugInvincibleMode( false )
