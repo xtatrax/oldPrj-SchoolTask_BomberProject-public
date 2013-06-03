@@ -18,6 +18,105 @@
 namespace wiz{
 
 /**************************************************************************
+ StartSprite 定義部
+**************************************************************************/
+/**************************************************************************
+ StartSprite(LPDIRECT3DDEVICE9	pD3DDevice,
+				LPDIRECT3DTEXTURE9	pTexture,
+				D3DXVECTOR3	vScale,
+				D3DXVECTOR3	vPos,
+				Rect		rect,
+				D3DXVECTOR3	vCenter)
+ 用途　：コンストラクタ
+ 戻り値：なし
+ 担当者：佐藤涼
+***************************************************************************/
+StartSprite::StartSprite(LPDIRECT3DDEVICE9	pD3DDevice,
+				LPDIRECT3DTEXTURE9	pTexture,
+				D3DXVECTOR3	&vScale,
+				D3DXVECTOR3	&vPos,
+				Rect*		Rect)
+:SpriteObject( pD3DDevice, pTexture, vScale, g_vZero, vPos, Rect, g_vZero, g_vZero, 0x00FFFFFF )
+,m_vPos( vPos )
+,m_vScale( vScale )
+,m_vRelayPosY( vPos.y + 40.0f )
+,m_iTime( 0 )
+,m_pCoil( NULL )
+{
+}
+
+/**************************************************************************
+ ~StartSprite()
+ 用途　：デストラクタ
+ 戻り値：なし
+ 担当者：佐藤涼
+***************************************************************************/
+StartSprite::~StartSprite()
+{
+}
+
+/**************************************************************************
+ 関数名：Draw( DrawPacket& i_DrawPacket )
+ 用途　：描画
+ 引数　：DrawPacket& i_DrawPacket
+ 戻り値：なし
+ 担当者：佐藤涼
+***************************************************************************/
+void	StartSprite::Draw( DrawPacket& i_DrawPacket )
+{
+	SpriteObject::Draw( i_DrawPacket );
+}
+
+/**************************************************************************
+ 関数名：Update( UpdatePacket& i_UpdatePacket )
+ 用途　：更新
+ 引数　：UpdatePacket& i_UpdatePacket
+ 戻り値：なし
+ 担当者：佐藤涼
+***************************************************************************/
+void	StartSprite::Update( UpdatePacket& i_UpdatePacket )
+{
+	if(m_pCoil == NULL){
+		m_pCoil = (PlayerCoil*)SearchObjectFromTypeID(i_UpdatePacket.pVec,typeid(PlayerCoil));
+	}
+	int	rate	= 0;
+
+	if( m_vRelayPosY > m_vPos.y ){
+		m_vPos.y	+= 1.0f;
+		rate		 = 1;
+	}
+	else if( m_vRelayPosY == m_vPos.y ){
+		rate	= 0;
+		++m_iTime;
+		if( m_iTime > 20 )
+			m_vPos.y	+= 1.0f;
+	}
+	else if( m_vRelayPosY < m_vPos.y ){
+		rate	= -1;
+		m_vPos.y	+= 1.0f;
+	}
+
+	if( rate == 1 ){
+		if( m_Color.byteColor.a >= 250 )
+			m_Color.byteColor.a	 = 255;
+		else
+			m_Color.byteColor.a	+= (255/40);
+	}
+	else if( rate == -1 ){
+		if( m_Color.byteColor.a <= 5 ){
+			m_Color.byteColor.a	 = 0;
+		}
+		else
+			m_Color.byteColor.a	-= (255/40);
+	}
+
+	D3DXMATRIX mScale,mRot,mPos;
+	D3DXMatrixScaling(&mScale,m_vScale.x,m_vScale.y,m_vScale.z);
+	D3DXMatrixTranslation(&mPos,m_vPos.x,m_vPos.y,m_vPos.z);
+	m_mMatrix = mScale * mPos ;
+}
+
+/**************************************************************************
  Description 定義部
 ****************************************************************************/
 /**************************************************************************
@@ -256,6 +355,18 @@ Factory_Description::Factory_Description(FactoryPacket* fpac){
 					  DescAmbient);
 
 		fpac->m_pVec->push_back(Desc);
+
+		//スタートロゴ
+		fpac->m_pVec->push_back(
+			new StartSprite(
+					fpac->pD3DDevice,
+					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"StartRogo.png" ),
+					D3DXVECTOR3( 1.0f, 1.0f, 0.0f ),
+					D3DXVECTOR3( 300.0f, 200.0f, 0.0f ),
+					&Rect( 0, 0, 240, 64 )
+			)	
+		);
+
 	}
 	catch(...){
 		//再throw
