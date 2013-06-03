@@ -435,7 +435,7 @@ void Sound::Update( UpdatePacket& i_UpdatePacket ){
 bool Sound::SearchSoundAndPlay(PCSTR pSoundName){
 
 	//	: ‚Ê‚é‚Û->ƒKƒb
-	if( DxDevice::getIsPlaySound() && m_pEngine && m_pWaveBank && m_pSoundBank ){
+	if( this != NULL && DxDevice::getIsPlaySound() && m_pEngine && m_pWaveBank && m_pSoundBank ){
 		XACTINDEX SoundNum ;
 		if(SearchSoundMap( pSoundName, SoundNum ) || SearchSoundBank( pSoundName, SoundNum ) ){
 			m_pSoundBank->Play( SoundNum, 0,0 ,NULL );

@@ -37,10 +37,10 @@ Description::Description( LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pText
 					D3DCOLORVALUE(),
 					id,
 					pTexture)
+	,m_pCamera( NULL )
+	,m_pCoil( NULL )
 {
 	::ZeroMemory( &m_Material, sizeof(D3DMATERIAL9));
-	m_pCamera	= NULL;
-	m_pCoil		= NULL;
 
 	LPDIRECT3DVERTEXBUFFER9 pVB = 0;
 	CommonMeshVertex* pVer = 0;

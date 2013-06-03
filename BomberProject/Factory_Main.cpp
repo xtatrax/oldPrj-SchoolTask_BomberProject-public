@@ -12,6 +12,8 @@
 #include "StdAfx.h"
 #include "Object.h"
 #include "Scene.h"
+#include "StageLoader.h"
+
 #include "Factory_CheckPoint.h"
 #include "Factory_Description.h"
 #include "Factory_Enemy.h"
@@ -74,7 +76,8 @@ Factory_Main::Factory_Main(FactoryPacket* fpac){
 		Factory_CheckPoint CPfac( fpac ) ;
 		Factory_Item   Ifac( fpac ) ;
 		Factory_Gage	Gfac( fpac );
-		Factory_Stage1 Sfac( fpac ) ;
+		// Factory_Stage1 Sfac( fpac ) ;
+		StageLoader loader(fpac->pD3DDevice,L"media/Map/Stages.csv",1,*fpac->m_pVec,*fpac->m_pTexMgr);
 
 		Factory_Goal GPfac( fpac ) ;
 		Factory_Description Dfac( fpac ) ;

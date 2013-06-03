@@ -261,11 +261,10 @@ void CheckPoint::Update( UpdatePacket& i_UpdatePacket ){
 		float fCoilPosY = m_pCoil->getPos().y;
 		if(fPosY <= fCoilPosY){
 			m_pCoil->setStartPos(m_ItemContainer[ m_ActiveItem ]->vStartPos);
-			m_ActiveItem++ ;
 			m_pSound->SearchWaveAndPlay( RCTEXT_SOUND_SE_CHECKPOINT );
 			SafeDelete( m_pEffect );
 			m_pEffect	= new CheckEffect( i_UpdatePacket.pD3DDevice, m_vPos, m_Length, m_pTexture );
-			if(m_ActiveItem <= m_ItemContainer.size()) return ;
+ 			if(m_ActiveItem <= m_ItemContainer.size()) return ;
 		}
 	}
 

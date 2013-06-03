@@ -11,6 +11,7 @@
 //
 #include "StdAfx.h"
 #include "Stage.h"
+#include "StageLoader.h"
 #include "Factory_Stage1.h"
 #include "Factory_Player.h"
 

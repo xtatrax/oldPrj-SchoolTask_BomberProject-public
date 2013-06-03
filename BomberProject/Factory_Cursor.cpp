@@ -34,13 +34,13 @@ MouseCursor::MouseCursor( LPDIRECT3DDEVICE9 pD3DDevice, TextureManager* m_pTexMg
 ,PrimitiveSprite(pD3DDevice, m_pTexMgr->addTexture( pD3DDevice, L"MouseCursor.png" ), NULL, D3DXVECTOR3( 22.0f, 22.0f, 0.0f ), g_vZero)
 ,m_Ptn(0)
 ,m_MovePosY(0)
+,m_pCamera( NULL )
 {
 
 	D3DXVECTOR3 vScale = D3DXVECTOR3(0.5f,0.5f,0.0f);
 	D3DXMatrixScaling( &m_mScale, vScale.x, vScale.y, vScale.z );
 
 	Box::SetBaseScale( D3DXVECTOR3( (float)MGPRM_MAGNETICUM*2, (float)MGPRM_MAGNETICUM*2, 0.0f) );
-	m_pCamera = NULL;
 
 }
 

@@ -149,7 +149,7 @@ inline void operator delete(void* pv){
 	return TMemoryManager::remove(pv);
 };
 
-#define new new(__FILE__, __FUNCTION__, __LINE__)
+#define New new(__FILE__, __FUNCTION__, __LINE__)
 
 
 //////////
@@ -242,13 +242,17 @@ inline void SafeDeletePointerMap(T& c){
 ////
 template<typename T>
 inline void SafeDeletePointerContainer(T& c){
-	T::iterator	it  = c.begin()	;
-	while(it != c.end()){
-		delete *it ;
-		*it = NULL ;
-		it++;
+	try{
+		T::iterator	it  = c.begin()	;
+		while(it != c.end()){
+			SafeDelete( *it );
+			//*it = NULL ;
+			it++;
+		}
+		c.clear();
+	}catch(...){
+		throw ;
 	}
-	c.clear();
 }
 
 /////////////////// ////////////////////

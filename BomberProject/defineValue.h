@@ -88,8 +88,8 @@ static const int			MGPRM_MAGNETICUM_QUAD		= ( MGPRM_MAGNETICUM * MGPRM_MAGNETICU
 #define STANDARD_WINDOW_WIDTH   ( 1024.0f)	/* ウインドウモードの幅     */
 #define DRAW_TOLERANCE			(   20.0f)	/* カメラからの描画距離 */
 
-#define DEFAULT_WINDOW_TITLE		( L"ウインドウタイトル" )
-#define DEFAULT_WINDOW_CLASS_NAME	( L"ウインドウクラスネーム" )
+#define DEFAULT_WINDOW_TITLE		( L"Magnetica" )
+#define DEFAULT_WINDOW_CLASS_NAME	( L"MagneticWindow" )
 
 //	キーボード定義
 #define MYVK_GAMEPAD_A				( 'X' )
@@ -248,7 +248,7 @@ namespace wiz{
 		////
 
 		//	: 
-		//OBJID_3D_MAGNET				,	//	: 磁石
+		//OBJID_3D_MAGNET			,	//	: 磁石
 		OBJID_3D_WALL				,	//	: 壁
 		OBJID_3D_ITEM				,	//	: アイテム
 
