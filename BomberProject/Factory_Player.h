@@ -36,7 +36,8 @@ enum COIL_STATE{			//自機の状態
 	//COIL_STATE_SUPER,		//無敵
 	COIL_STATE_DEAD,		//死亡
 	COIL_STATE_CONTINUE,	//コンティニュー
-	COIL_STATE_CLEAR		//クリア
+	COIL_STATE_CLEAR,		//クリア
+	COIL_STATE_STOP			//プレイヤー停止
 };
 
 namespace wiz{
