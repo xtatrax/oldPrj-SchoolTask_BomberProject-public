@@ -41,6 +41,7 @@ StartSprite::StartSprite(LPDIRECT3DDEVICE9	pD3DDevice,
 ,m_vScale( vScale )
 ,m_vRelayPosY( vPos.y + 40.0f )
 ,m_iTime( 0 )
+,m_bFirst( true )
 ,m_pCoil( NULL )
 {
 }
@@ -105,7 +106,10 @@ void	StartSprite::Update( UpdatePacket& i_UpdatePacket )
 	else if( rate == -1 ){
 		if( m_Color.byteColor.a <= 5 ){
 			m_Color.byteColor.a	 = 0;
-			m_pCoil->setState( COIL_STATE_START );
+			if( m_bFirst ){
+				m_pCoil->setState( COIL_STATE_START );
+				m_bFirst	= false;
+			}
 		}
 		else
 			m_Color.byteColor.a	-= (255/40);
