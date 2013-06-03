@@ -33,7 +33,8 @@ enum COIL_STATE{			//自機の状態
 	//COIL_STATE_SUPER,		//無敵
 	COIL_STATE_DEAD,		//死亡
 	COIL_STATE_CONTINUE,	//コンティニュー
-	COIL_STATE_CLEAR		//クリア
+	COIL_STATE_CLEAR,		//クリア
+	COIL_STATE_STOP			//停止状態
 };
 
 namespace wiz{
@@ -257,6 +258,18 @@ public:
 	////            ：
 	////
 	void Update_StateContinue();
+
+	/////////////////// ////////////////////
+	//// 関数名     ：void Update_StateStop()
+	//// カテゴリ   ：
+	//// 用途       ：STATE_STOP時の動き
+	//// 引数       ：
+	//// 戻値       ：なし
+	//// 担当       ：佐藤涼
+	//// 備考       ：
+	////            ：
+	////
+	void Update_StateStop();
 
 	/////////////////// ////////////////////
 	//// 用途       ：virtual void Draw( DrawPacket& i_DrawPacket )
