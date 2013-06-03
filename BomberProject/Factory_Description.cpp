@@ -105,6 +105,7 @@ void	StartSprite::Update( UpdatePacket& i_UpdatePacket )
 	else if( rate == -1 ){
 		if( m_Color.byteColor.a <= 5 ){
 			m_Color.byteColor.a	 = 0;
+			m_pCoil->setState( COIL_STATE_START );
 		}
 		else
 			m_Color.byteColor.a	-= (255/40);
