@@ -30,6 +30,7 @@ class StartSprite : public SpriteObject{
 	float		m_vRelayPosY;
 	int			m_iTime;
 	PlayerCoil*	m_pCoil;
+	bool		m_bFirst;
 public:
 	StartSprite(LPDIRECT3DDEVICE9	pD3DDevice,
 				LPDIRECT3DTEXTURE9	pTexture,

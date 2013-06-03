@@ -47,6 +47,7 @@ Item::Item(FactoryPacket* fpac,LPDIRECT3DTEXTURE9 pTexture, wiz::OBJID id)
 	)
 	,m_pPlayerCoil(NULL)
 	,m_pSuperGage(NULL)
+	,m_pSound(NULL)
 {
 	try{
 		//D3DXMatrixIdentity(&m_mMatrix);
@@ -129,8 +130,9 @@ void	Item::Update(UpdatePacket& i_UpdatePacket)
 {
 	vector<Object*>	Vec	= *(i_UpdatePacket.pVec);
 
-	if( !m_pPlayerCoil ) m_pPlayerCoil	= (PlayerCoil*)SearchObjectFromTypeID(&Vec,typeid(PlayerCoil));
-	if( !m_pSuperGage )	 m_pSuperGage	= (SuperGage*)SearchObjectFromTypeID(&Vec,typeid(SuperGage));
+	if( !m_pPlayerCoil )	m_pPlayerCoil	= (PlayerCoil*)SearchObjectFromTypeID(&Vec,typeid(PlayerCoil));
+	if( !m_pSuperGage )		m_pSuperGage	= (SuperGage*)SearchObjectFromTypeID(&Vec,typeid(SuperGage));
+	if( !m_pSound )			m_pSound		= (Sound*)SearchObjectFromTypeID(&Vec,typeid(Sound));
 
 	//コイルの位置取得
 	D3DXVECTOR3	cPos	= m_pPlayerCoil->getPos();
@@ -154,6 +156,7 @@ void	Item::Update(UpdatePacket& i_UpdatePacket)
 
 				//プレイヤーと限りなく近くなったら、消滅
 				if( it->second->m_fDistance < VanishArea ){
+					m_pSound->SearchWaveAndPlay( RCTEXT_SOUND_SE_ITEMS );
 					//エネルギー回復
 					m_pSuperGage->Recovery(RECOVERY_POINT,SUPER_GAGE_MAX);
 					SafeDelete( it->second );
