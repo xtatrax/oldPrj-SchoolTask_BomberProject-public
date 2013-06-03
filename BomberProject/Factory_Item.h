@@ -15,7 +15,9 @@
 #include "StdAfx.h"
 #include "Object.h"
 #include "Factory_Player.h"
+#include "Factory_Coil.h"
 #include "Factory_Gage.h"
+#include "Factory_Sound.h"
 
 const	float	VanishArea	= 1.0f;		//	: アイテムを消すエリア
 const	float	SuctionArea	= 5.0f;		//	: アイテムが吸いよる範囲
@@ -30,9 +32,10 @@ class  Item : public PrimitiveSphere
 担当者：佐藤涼
 *******************************************************/
 class	Item	: public PrimitiveSphere {
+	Sound*		m_pSound;
 protected:
 	PlayerCoil*	m_pPlayerCoil;
-	SuperGage* m_pSuperGage;
+	SuperGage*	m_pSuperGage;
 	struct BallItem{
 		//マテリアル
 		D3DMATERIAL9 m_Material;

@@ -13,11 +13,35 @@
 
 #include "StdAfx.h"
 #include "Object.h"
-#include "Factory_Description.h"
 #include "BassItems.h"
-#include "Factory_Player.h"
+#include "Factory_Coil.h"
 
 namespace wiz{
+
+/**************************************************************************
+class StartSprite;
+
+用途　：開始時のスタート文
+担当者：佐藤涼
+**************************************************************************/
+class StartSprite : public SpriteObject{
+	D3DXVECTOR3	m_vPos;
+	D3DXVECTOR3	m_vScale;
+	float		m_vRelayPosY;
+	int			m_iTime;
+	PlayerCoil*	m_pCoil;
+	bool		m_bFirst;
+public:
+	StartSprite(LPDIRECT3DDEVICE9	pD3DDevice,
+				LPDIRECT3DTEXTURE9	pTexture,
+				D3DXVECTOR3	&vScale,
+				D3DXVECTOR3	&vPos,
+				Rect*	Rect	= NULL);
+
+	~StartSprite();
+	void	Draw( DrawPacket& i_DrawPacket );
+	void	Update( UpdatePacket& i_UpdatePacket );
+};
 
 /**************************************************************************
 class Description;
