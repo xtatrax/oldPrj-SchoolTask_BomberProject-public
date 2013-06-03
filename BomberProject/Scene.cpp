@@ -84,10 +84,22 @@ Scene::Scene(LPDIRECT3DDEVICE9 pD3DDevice)
 //////////
 //	: デバッグ用設定
 #if defined(DEBUG) || defined(_DEBUG) || defined(ON_DEBUGGINGPROCESS)
-		//ルートのステージにデバッグメニューを設定
-		m_pRootStage = new PlayStage(pD3DDevice);
-		//m_pRootStage = new TitleStage(pD3DDevice);
-		//m_pRootStage = new ResultStage(pD3DDevice);
+		try{
+			//ルートのステージにデバッグメニューを設定
+			m_pRootStage	= new PlayStage(pD3DDevice);
+			//m_pRootStage	= new TitleStage(pD3DDevice);
+			//m_pRootStage	= new ResultStage(pD3DDevice);
+		}
+		catch(LoaderException& e){
+			//	: ロード失敗
+			::MessageBox(g_hWnd,e.what_w(),L"エラー",MB_OK);
+			if( !m_pRootStage ) m_pRootStage = new TitleStage(pD3DDevice);
+			//SafeDeleteStage(this->m_pStgBuf);
+		}
+		catch(...){
+			throw ;
+		}
+
 #else 
 //	: リリース用設定
 		//ルートのステージにタイトルメニューを設定
@@ -237,6 +249,7 @@ void Scene::CommandTranslator(DrawPacket& i_DrawPacket){
 			catch(LoaderException& e){
 				//	: ロード失敗
 				::MessageBox(g_hWnd,e.what_w(),L"エラー",MB_OK);
+				if( !m_pRootStage ) m_pRootStage = new TitleStage(i_DrawPacket.pD3DDevice);
 				SafeDeleteStage(this->m_pStgBuf);
 			}
 			catch(...){

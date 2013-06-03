@@ -125,11 +125,23 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 //// 備考       ：CSVから読み取った情報を解析&インスタンス化します
 ////            ：PointSearch関数から呼ばれます
 ////
+float	getCsvFloat(	vector<vector<wstring>> vvCsvData, vector<vector<wstring>>::size_type Line, UINT Num, float		Default = 0.0f){
+	if( Num == UINT_MAX ) return Default ;
+	return (float)wcstod( vvCsvData[ Line ][ Num ].c_str(), NULL);
+};
+LONG	getCsvLong(		vector<vector<wstring>> vvCsvData, vector<vector<wstring>>::size_type Line, UINT Num, LONG		Default = 0){
+	if( Num == UINT_MAX ) return Default ;
+	return wcstol( vvCsvData[ Line ][ Num ].c_str(), NULL, 10);
+};
+wstring	getCsvString(		vector<vector<wstring>> vvCsvData, vector<vector<wstring>>::size_type Line, UINT Num, wstring	Default = L"" ){
+	if( Num == UINT_MAX ) return Default ;
+	return vvCsvData[ Line ][ Num ] ;
+};
 void StageLoader::ObjectsLoader(wstring i_sFileName){
 	vector<vector<wstring>> vvCsvData;		//	: CSVデータを受け取るための変数
 	if( !readcsv(i_sFileName,vvCsvData) ){	//	: CSVデータの受け取り
 		throw LoaderException(
-			L"パスが正しいか、データが破損していないか確認してください",
+			L"オブジェクト定義ファイルのパスが正しいか、データが破損していないか確認してください",
 			L"StageLoader::ObjectsLoader()"
 		);
 	}
@@ -151,22 +163,27 @@ void StageLoader::ObjectsLoader(wstring i_sFileName){
 		//////////
 		//	: このひとかたまりで一行
 		Line				= o_CsvMatrix.Line + i ;
-		int		iNumber		=        wcstol( vvCsvData[ Line ][ o_CsvMatrix.Column.uiNumber    ].c_str(), NULL  , 10);
-		Status.enClassid	=        wcstol( vvCsvData[ Line ][ o_CsvMatrix.Column.uiType      ].c_str(), NULL  , 10);
-		Status.dwMotionNum	=        wcstol( vvCsvData[ Line ][ o_CsvMatrix.Column.uiMotionNum ].c_str(), NULL  , 10);
-		Status.fTracSpeed	= (float)wcstod( vvCsvData[ Line ][ o_CsvMatrix.Column.uiTracSpeed ].c_str(), NULL );
-		Status.sFilePath	= vvCsvData[ Line ][ o_CsvMatrix.Column.uiPath    ] ;
-		Status.sTexturePath	= vvCsvData[ Line ][ o_CsvMatrix.Column.uiTexPath ] ;
-		Status.vScale		= D3DXVECTOR3(
-			(float)wcstod( vvCsvData[ Line ][ o_CsvMatrix.Column.uiScaleX ].c_str(), NULL),
-			(float)wcstod( vvCsvData[ Line ][ o_CsvMatrix.Column.uiScaleY ].c_str(), NULL),
-			(float)wcstod( vvCsvData[ Line ][ o_CsvMatrix.Column.uiScaleZ ].c_str(), NULL)
-		);
+		int		iNumber		= getCsvLong(	vvCsvData, Line, o_CsvMatrix.Column.uiNumber			) ;
+		Status.enClassid	= getCsvLong(	vvCsvData, Line, o_CsvMatrix.Column.uiType				) ;
+		Status.dwMotionNum	= getCsvLong(	vvCsvData, Line, o_CsvMatrix.Column.uiMotionNum			) ;
+		Status.fTracSpeed	= getCsvFloat(	vvCsvData, Line, o_CsvMatrix.Column.uiTracSpeed, 1.0f	) ;
+		Status.sFilePath	= getCsvString( vvCsvData, Line, o_CsvMatrix.Column.uiPath				) ;
+		Status.sTexturePath	= getCsvString( vvCsvData, Line, o_CsvMatrix.Column.uiTexPath			) ;
+		Status.vScale.x		= getCsvFloat(	vvCsvData, Line, o_CsvMatrix.Column.uiScaleX			) ;
+		Status.vScale.y		= getCsvFloat(	vvCsvData, Line, o_CsvMatrix.Column.uiScaleY			) ;
+		Status.vScale.z		= getCsvFloat(	vvCsvData, Line, o_CsvMatrix.Column.uiScaleZ			) ;
+		Status.vRot.x		= getCsvFloat(	vvCsvData, Line, o_CsvMatrix.Column.uiRotX				) ;
+		Status.vRot.y		= getCsvFloat(	vvCsvData, Line, o_CsvMatrix.Column.uiRotY				) ;
+		Status.vRot.z		= getCsvFloat(	vvCsvData, Line, o_CsvMatrix.Column.uiRotZ				) ;
+		Status.vPos.x		= getCsvFloat(	vvCsvData, Line, o_CsvMatrix.Column.uiPosX				) ;
+		Status.vPos.y		= getCsvFloat(	vvCsvData, Line, o_CsvMatrix.Column.uiPosY				) ;
+		Status.vPos.z		= getCsvFloat(	vvCsvData, Line, o_CsvMatrix.Column.uiPosZ				) ;
+
 		Status.Ambient		= Ambient	;
 		Status.Specular		= Specular	;
 		Status.Diffuse		= Diffuse	;
-		Status.vRot			= g_vZero	;
-		Status.vPos			= g_vZero	;
+		//Status.vRot			= g_vZero	;
+		//Status.vPos			= g_vZero	;
 		//	: このひとかたまりで一行
 		//////////
 		m_ObjeMap[iNumber] = Status;
@@ -187,7 +204,7 @@ void StageLoader::StageGenerator(wstring i_sFileName){
 	//readcsv(i_sFileName,vvCsvData);		//	: CSVデータの受け取り
 	if( !readcsv(i_sFileName,vvCsvData) ){	//	: CSVデータの受け取り
 		throw LoaderException(
-			L"パスが正しいか、データが破損していないか確認してください",
+			L"ステージ定義ファイルのパスが正しいか、データが破損していないか確認してください",
 			L"StageLoader::StageGenerator()"
 		);
 
@@ -222,17 +239,25 @@ void StageLoader::PointSearch( vector<vector<wstring>>& i_vvCsvData, CSVMATRIX& 
 {
 	try{
 		enum{
-			STAGE_NUMBER = 0x0001,
-			OBJECT_TYPE  = 0x0002,
-			FILE_PATH    = 0x0004,
-			TEX_PATH     = 0x0008,
-			MOTION_NUM   = 0x0010,
-			TRAC_SPEED   = 0x0020,
-			SCALE_X      = 0x0040,
-			SCALE_Y      = 0x0080,
-			SCALE_Z      = 0x0100,
-			IS_OK        = STAGE_NUMBER | OBJECT_TYPE | FILE_PATH | TEX_PATH | MOTION_NUM | TRAC_SPEED ,
-			ALL_OK       = STAGE_NUMBER | OBJECT_TYPE | FILE_PATH | TEX_PATH | MOTION_NUM | TRAC_SPEED | SCALE_X   |  SCALE_Y   | SCALE_Z ,
+			STAGE_NUMBER	= 0x0001,
+			OBJECT_TYPE		= 0x0002,
+			FILE_PATH		= 0x0004,
+			TEX_PATH		= 0x0008,
+			MOTION_NUM		= 0x0010,
+			TRAC_SPEED		= 0x0020,
+			SCALE_X			= 0x0040,
+			SCALE_Y			= 0x0080,
+			SCALE_Z			= 0x0100,
+			ROT_X			= 0x0200,
+			ROT_Y			= 0x0400,
+			ROT_Z			= 0x0800,
+			POS_X			= 0x1000,
+			POS_Y			= 0x2000,
+			POS_Z			= 0x4000,
+			POOL			= 0x8000,
+
+			IS_OK			= STAGE_NUMBER | OBJECT_TYPE ,
+			ALL_OK			= STAGE_NUMBER | OBJECT_TYPE | FILE_PATH | TEX_PATH | MOTION_NUM | TRAC_SPEED | SCALE_X   |  SCALE_Y   | SCALE_Z ,
 		};
 
 		WORD  SearchFlag = 0 ;
@@ -241,20 +266,29 @@ void StageLoader::PointSearch( vector<vector<wstring>>& i_vvCsvData, CSVMATRIX& 
 
 				//	: 読み込み位置の設定
 				if(i_vvCsvData[i][j] == L"Number"	){ o_CsvMatrix.Column.uiNumber		= j ; SearchFlag |= STAGE_NUMBER ; o_CsvMatrix.Line = i ; }
+			///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 				if(i_vvCsvData[i][j] == L"Type"		){ o_CsvMatrix.Column.uiType		= j ; SearchFlag |= OBJECT_TYPE  ; }
 				if(i_vvCsvData[i][j] == L"Path"		){ o_CsvMatrix.Column.uiPath		= j ; SearchFlag |= FILE_PATH    ; }
 				if(i_vvCsvData[i][j] == L"TexPath"	){ o_CsvMatrix.Column.uiTexPath		= j ; SearchFlag |= TEX_PATH     ; }
 				if(i_vvCsvData[i][j] == L"MotionNum"){ o_CsvMatrix.Column.uiMotionNum	= j ; SearchFlag |= MOTION_NUM   ; }
 				if(i_vvCsvData[i][j] == L"TracSpeed"){ o_CsvMatrix.Column.uiTracSpeed	= j ; SearchFlag |= TRAC_SPEED   ; }
+			///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 				if(i_vvCsvData[i][j] == L"ScaleX"	){ o_CsvMatrix.Column.uiScaleX		= j ; SearchFlag |= SCALE_X      ; }
 				if(i_vvCsvData[i][j] == L"ScaleY"	){ o_CsvMatrix.Column.uiScaleY		= j ; SearchFlag |= SCALE_Y      ; }
 				if(i_vvCsvData[i][j] == L"ScaleZ"	){ o_CsvMatrix.Column.uiScaleZ		= j ; SearchFlag |= SCALE_Z      ; }
+				if(i_vvCsvData[i][j] == L"RotX"		){ o_CsvMatrix.Column.uiRotX		= j ; SearchFlag |= ROT_X        ; }
+				if(i_vvCsvData[i][j] == L"RotY"		){ o_CsvMatrix.Column.uiRotY		= j ; SearchFlag |= ROT_Y        ; }
+				if(i_vvCsvData[i][j] == L"RotZ"		){ o_CsvMatrix.Column.uiRotZ		= j ; SearchFlag |= ROT_Z        ; }
+				if(i_vvCsvData[i][j] == L"PosX"		){ o_CsvMatrix.Column.uiPosX		= j ; SearchFlag |= POS_X        ; }
+				if(i_vvCsvData[i][j] == L"PosY"		){ o_CsvMatrix.Column.uiPosX		= j ; SearchFlag |= POS_Y        ; }
+				if(i_vvCsvData[i][j] == L"PosZ"		){ o_CsvMatrix.Column.uiPosX		= j ; SearchFlag |= POS_Z        ; }
+				if(i_vvCsvData[i][j] == L"Pool"		){ o_CsvMatrix.Column.uiPool		= j ; SearchFlag |= POOL         ; }
 				
 				//	: すべての読み込みを完了
 				if(SearchFlag == ALL_OK) return ;
 			}
 			//	: 一部読み込めなくても問題なし!
-			if(SearchFlag == IS_OK) return ;
+			if(SearchFlag & IS_OK) return ;
 		}
 //////////
 //
@@ -393,7 +427,7 @@ void StageLoader::StageListLoader(wstring i_sFileName, BYTE i_byStageNum){
 		vector<vector<wstring>> vvCsvData;	//	: CSVデータを受け取るための変数
 		if( !readcsv(i_sFileName,vvCsvData) ){	//	: CSVデータの受け取り
 			throw LoaderException(
-				L"パスが正しいか、データが破損していないか確認してください",
+				L"Stages.csvのパスが正しいか、データが破損していないか確認してください",
 				L"StageLoader::StageListLoader()"
 			);
 
