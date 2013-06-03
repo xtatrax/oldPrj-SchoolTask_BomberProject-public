@@ -13,3 +13,4 @@ SE-PLAYER_BLOKEN---:自機がやられる時のSE
 SE-INVINGVLE-------:自機が無敵モードのときのSE
 SE-MAGNETIC_FIELD--:プレイヤーが磁界を発生させているときのSE
 SE-SPARK002--------:ステージのビリビリのSE
+SE-ITEMS-----------:アイテムをとった時のSE
