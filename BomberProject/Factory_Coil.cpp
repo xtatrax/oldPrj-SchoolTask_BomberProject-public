@@ -82,7 +82,7 @@ PlayerCoil::PlayerCoil(
 ,m_pMagneticumObject(NULL)
 ,m_pCamera(NULL)
 ,m_pSound( NULL )
-,m_enumCoilState(COIL_STATE_START)
+,m_enumCoilState(COIL_STATE_STOP)
 #if defined( ON_DEBUGGINGPROCESS ) | defined( PRESENTATION )
 ,m_pDSPH(NULL)
 ,m_bDebugInvincibleMode( false )
@@ -207,7 +207,8 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 				Update_StateContinue();
 				break;
 			//クリア
-			case COIL_STATE_CLEAR:
+			case COIL_STATE_STOP:
+				Update_StateStop();
 				break;
 			default:
 				break;
@@ -289,12 +290,6 @@ void PlayerCoil::Update_StateStart(){
 			m_bLastMouseLB  = false;
 			m_bLastMouseRB  = false;
 			m_bReadyToStart = false;
-		}
-	}else{
-		m_vScale += COIL_MAGNIFICATION_VALUE;
-		if( m_vScale.x >= m_vOriginScale.x && m_vScale.y >= m_vOriginScale.y ){
-			m_vScale = m_vOriginScale;
-			m_bReadyToStart = true;
 		}
 	}
 };
@@ -500,6 +495,36 @@ void PlayerCoil::Update_StateContinue(){
 			m_vScale = m_vOriginScale;
 			m_bReadyToStart = true;
 		}
+	}
+};
+
+/////////////////// ////////////////////
+//// 関数名     ：void PlayerCoil::Update_StateStop()
+//// カテゴリ   ：
+//// 用途       ：STATE_STOP時の動き
+//// 引数       ：
+//// 戻値       ：なし
+//// 担当       ：佐藤涼
+//// 備考       ：
+////            ：
+////
+void PlayerCoil::Update_StateStop(){
+	D3DXVECTOR3 vPlayer = g_vZero;
+	float		fTargetDir = NULL;
+	//マウス座標計算
+	Point MousePos ;
+	GetCursorPos( &MousePos ) ;
+	ScreenToClient( g_hWnd , &MousePos) ;
+	vPlayer.x = (float)MousePos.x / DRAW_CLIENT_MAGNIFICATION - MAGNETIC_RADIUS ;
+	vPlayer.y = (( STANDARD_WINDOW_HEIGHT - MousePos.y ) - UI_HEIGHT ) / DRAW_CLIENT_MAGNIFICATION - MAGNETIC_RADIUS + ( m_pCamera->getPosY() - m_pPlayer->getMoveY() ) ;
+	fTargetDir = TwoPoint2Degree( vPlayer , m_vPos );
+	//角度の更新
+	m_fMoveDir = fTargetDir;
+
+	m_vScale += COIL_MAGNIFICATION_VALUE;
+	if( m_vScale.x >= m_vOriginScale.x && m_vScale.y >= m_vOriginScale.y ){
+		m_vScale = m_vOriginScale;
+		m_bReadyToStart = true;
 	}
 };
 
