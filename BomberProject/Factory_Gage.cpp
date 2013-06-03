@@ -19,6 +19,7 @@
 #include "BassItems.h"
 #include "Factory_Gage.h"
 #include "Factory_Player.h"
+#include "Factory_Coil.h"
 
 namespace wiz{
 
