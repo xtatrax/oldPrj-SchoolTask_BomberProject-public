@@ -120,6 +120,8 @@ Factory_Stage1::Factory_Stage1(FactoryPacket *fpac){
 			////17
 			//{ OBJID_3D_WALL, PartsWallSize10, WallRot2, D3DXVECTOR3(5.0f, 145.0, 0.0f), WallDiffuse, WallSpecular, WallAmbient },
 
+			//	: MAP“à‚ÌŽ¥ŠE
+			{ OBJID_3D_STATIC_MAGNET, D3DXVECTOR3( 1.0f,1.0f, 0.0f), WallRot1, D3DXVECTOR3(30.0f, 10.0, 0.0f), MagDiffuse, MagSpecular, WallAmbient, POLE_N },
 			{ OBJID_3D_STATIC_MAGNET, D3DXVECTOR3( 1.0f,1.0f, 0.0f), WallRot1, D3DXVECTOR3(30.0f, 10.0, 0.0f), MagDiffuse, MagSpecular, WallAmbient, POLE_N },
 
 			{ OBJID_END }
