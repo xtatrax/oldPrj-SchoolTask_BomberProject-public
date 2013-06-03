@@ -15,6 +15,7 @@
 #include "StdAfx.h"
 #include "Object.h"
 #include "Factory_Player.h"
+#include "Factory_Coil.h"
 #include "Factory_Gage.h"
 #include "Factory_Sound.h"
 

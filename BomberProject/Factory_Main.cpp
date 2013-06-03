@@ -21,6 +21,7 @@
 #include "Factory_Main.h"
 #include "Factory_Magnetic.h"
 #include "Factory_Player.h"
+#include "Factory_Coil.h"
 #include "Factory_Stage1.h"
 #include "Factory_Description.h"
 #include "Factory_Cursor.h"
@@ -68,6 +69,7 @@ Factory_Main::Factory_Main(FactoryPacket* fpac){
 		);
 
 		Factory_Player Pfac( fpac );
+		Factory_Coil Cfac( fpac );
 		//Factory_Wall   Wfac( fpac );
 		Factory_Magnetic Mfac( fpac ) ;
 		Factory_Enemy Efac( fpac ) ;
