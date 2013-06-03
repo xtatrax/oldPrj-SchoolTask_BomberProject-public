@@ -13,7 +13,6 @@
 #include "Object.h"
 #include "Scene.h"
 #include "Factory_CheckPoint.h"
-#include "Factory_Player.h"
 #include "BassItems.h"
 const float CHECK_POINT_RADIUS = 0.25f ;
 const float EFFECT_SIZE	= 2.0f;
