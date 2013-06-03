@@ -15,6 +15,7 @@
 #include "Object.h"
 #include "BassItems.h"
 #include "Factory_Player.h"
+#include "Factory_Coil.h"
 #include "Factory_Sound.h"
 
 namespace wiz{

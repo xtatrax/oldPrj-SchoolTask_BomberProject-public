@@ -14,6 +14,7 @@
 #include "Scene.h"
 #include "Factory_Magnetic.h"
 #include "Factory_Player.h"
+#include "Factory_Coil.h"
 #include "BassItems.h"
 
 namespace wiz{
