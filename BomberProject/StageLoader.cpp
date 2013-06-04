@@ -58,45 +58,93 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 			//	: 壁
 			if((it = m_ObjeTypeMap.find( ObjectID )) != m_ObjeTypeMap.end()){
 				//	: 登録を見つけた場合
+				//	: そのままオブジェクトを追加
 				dynamic_cast< WallObject* >(( *m_pVec )[ it->second ])->AddWall(
-					i_Data.vScale, i_Data.vRot, i_Data.vPos, i_Data.Diffuse, i_Data.Specular, i_Data.Ambient
+					i_Data.vScale		,
+					i_Data.vRot			,
+					i_Data.vPos			,
+					i_Data.Diffuse		,
+					i_Data.Specular		,
+					i_Data.Ambient
 				);
 			}else{
 				//	: 登録がなかった場合
-				WallObject* mgb = new WallObject( m_pD3DDevice, m_pTexMgr->addTexture(m_pD3DDevice,L"biribiriWall.png"),
-														m_pTexMgr->addTexture(m_pD3DDevice,L"Lightning.tga"), ObjectID);
+				WallObject* mgb ;
+				UINT Num = SOF_NOTFOUND ;
+				if( mgb = (WallObject*)SearchObjectFromID(m_pVec,OBJID_3D_WALL,&Num) ){
+					//	: オブジェクトの場所を覚えておく
+					m_ObjeTypeMap.insert( make_pair( ObjectID , Num ));
+				}else{
+					//	: インスタンスを生成
+					mgb = new WallObject(
+						m_pD3DDevice,
+						m_pTexMgr->addTexture(m_pD3DDevice,L"biribiriWall.png"),
+						m_pTexMgr->addTexture(m_pD3DDevice,L"Lightning.tga"),
+						ObjectID
+					);				
+					//	: オブジェクトリストへ登録
+					m_pVec->push_back(mgb);
+
+					//	: オブジェクトの場所を覚えておく
+					m_ObjeTypeMap.insert( make_pair( ObjectID , m_pVec->size() -1));
+				}
+				//	: アイテムの追加
 				mgb->AddWall(
-					i_Data.vScale, i_Data.vRot, i_Data.vPos, i_Data.Diffuse, i_Data.Specular, i_Data.Ambient
+					i_Data.vScale	,
+					i_Data.vRot		,
+					i_Data.vPos		,
+					i_Data.Diffuse	,
+					i_Data.Specular	,
+					i_Data.Ambient
 				);
-				m_pVec->push_back(mgb);
-				m_ObjeTypeMap.insert( make_pair( ObjectID , m_pVec->size() -1));
+
 			}
 			break;
+			//	: 壁
+			//////////
+
 		case OBJID_3D_ITEM :
 			//////////
 			//	: アイテム
 			if((it = m_ObjeTypeMap.find( ObjectID )) != m_ObjeTypeMap.end()){
 				//	: 登録を見つけた場合
+				//	: そのままオブジェクトを追加
 				dynamic_cast< Item* >(( *m_pVec )[it->second])->addItem(
-					i_Data.vPos, i_Data.vScale, i_Data.Diffuse, i_Data.Specular, i_Data.Ambient
+					i_Data.vPos			,
+					i_Data.vScale		,
+					i_Data.Diffuse		,
+					i_Data.Specular		,
+					i_Data.Ambient
 				);
 			}else{
-				FactoryPacket fpac;
-				fpac.m_pTexMgr  = m_pTexMgr		;
-				fpac.m_pVec     = m_pVec		;
-				fpac.pD3DDevice = m_pD3DDevice	;
 				//	: 登録がなかった場合
+				FactoryPacket fpac(m_pD3DDevice,false,m_pVec,m_pTexMgr);
+
+				//	: インスタンスを生成
 				Item* mgb = new Item( &fpac, NULL, ObjectID);
+
+				//	: アイテムの追加
 				mgb->addItem(
-					i_Data.vPos, i_Data.vScale, i_Data.Diffuse, i_Data.Specular, i_Data.Ambient
+					i_Data.vPos			,
+					i_Data.vScale		,
+					i_Data.Diffuse		,
+					i_Data.Specular		,
+					i_Data.Ambient
 				);
+
+				//	: オブジェクトリストへ登録
 				m_pVec->push_back(mgb);
+
+				//	: オブジェクトの場所を覚えておく
 				m_ObjeTypeMap.insert( make_pair( ObjectID , m_pVec->size() -1));
 			}
 			break;
+			//	: アイテム
+			//////////
+
 		case OBJID_3D_STATIC_MAGNET :
 			//////////
-			//	: アイテム
+			//	: 磁界
 			if((it = m_ObjeTypeMap.find( ObjectID )) != m_ObjeTypeMap.end()){
 				//	: 登録を見つけた場合
 				dynamic_cast< MagneticumObject3D* >(( *m_pVec )[it->second])->AddMagnetic(
@@ -112,6 +160,8 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 				m_ObjeTypeMap.insert( make_pair( ObjectID , m_pVec->size() -1));
 			}
 			break;
+			//	: 磁界
+			//////////
 	}
 };
 
@@ -175,9 +225,9 @@ void StageLoader::ObjectsLoader(wstring i_sFileName){
 		Status.vRot.x		= getCsvFloat(	vvCsvData, Line, o_CsvMatrix.Column.uiRotX				) ;
 		Status.vRot.y		= getCsvFloat(	vvCsvData, Line, o_CsvMatrix.Column.uiRotY				) ;
 		Status.vRot.z		= getCsvFloat(	vvCsvData, Line, o_CsvMatrix.Column.uiRotZ				) ;
-		Status.vPos.x		= getCsvFloat(	vvCsvData, Line, o_CsvMatrix.Column.uiPosX				) ;
-		Status.vPos.y		= getCsvFloat(	vvCsvData, Line, o_CsvMatrix.Column.uiPosY				) ;
-		Status.vPos.z		= getCsvFloat(	vvCsvData, Line, o_CsvMatrix.Column.uiPosZ				) ;
+		Status.vOffset.x	= getCsvFloat(	vvCsvData, Line, o_CsvMatrix.Column.uiPosX				) ;
+		Status.vOffset.y	= getCsvFloat(	vvCsvData, Line, o_CsvMatrix.Column.uiPosY				) ;
+		Status.vOffset.z	= getCsvFloat(	vvCsvData, Line, o_CsvMatrix.Column.uiPosZ				) ;
 
 		Status.Ambient		= Ambient	;
 		Status.Specular		= Specular	;
@@ -215,9 +265,12 @@ void StageLoader::StageGenerator(wstring i_sFileName){
 			UINT PartsType = wcstol( vvCsvData[i][j].c_str() , NULL , 10 ) ;
 			if( m_ObjeMap.count( PartsType ) ){
 				m_ObjeMap[ PartsType ].vPos =
-					D3DXVECTOR3((MAP_PARTS_WIDTH	*	j		)	-	MAP_PARTS_WIDTH		/	2,
-								(MAP_PARTS_HEIGHT	*	isz-i	)	-	MAP_PARTS_HEIGHT	/	2,
-								0.0f);
+					D3DXVECTOR3(
+						(MAP_PARTS_WIDTH	*	isz-i		)	-	MAP_PARTS_WIDTH		/	2,
+						(MAP_PARTS_HEIGHT	*	j	)	-	MAP_PARTS_HEIGHT	/	2,
+						0.0f
+					)
+					+ m_ObjeMap[ PartsType ].vOffset;
 
 				PartsGenerator(m_ObjeMap[ PartsType ]);
 			}

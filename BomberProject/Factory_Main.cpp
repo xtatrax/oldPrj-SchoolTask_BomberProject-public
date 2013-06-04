@@ -46,7 +46,7 @@ namespace wiz{
  用途: コンストラクタ（サンプルオブジェクトを配列に追加する）
  戻り値: なし
 ***************************************************************************/
-Factory_Main::Factory_Main(FactoryPacket* fpac){
+Factory_Main::Factory_Main(FactoryPacket* fpac, D3DXVECTOR3* vStartPos ){
 	try{
 #if defined( ON_GUIDELINE ) 
 
@@ -71,7 +71,7 @@ Factory_Main::Factory_Main(FactoryPacket* fpac){
 		);
 
 		Factory_Player		Pfac( fpac );
-		Factory_Coil		Cfac( fpac );
+		Factory_Coil		Cfac( fpac , vStartPos );
 		//Factory_Wall		Wfac( fpac );
 		Factory_Magnetic	Mfac( fpac ) ;
 		Factory_Enemy		Efac( fpac ) ;

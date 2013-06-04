@@ -114,7 +114,7 @@ void ProvisionalPlayer3D::Draw(DrawPacket& i_DrawPacket)
 	if( m_pSound == NULL )
 		m_pSound = (Sound*)SearchObjectFromTypeID(i_DrawPacket.pVec,typeid(Sound));
 
-	if( m_pPlayerCoil->getState() == COIL_STATE_MOVE || m_pPlayerCoil->getState() == COIL_STATE_STICK ){
+	if( m_pPlayerCoil && ( m_pPlayerCoil->getState() == COIL_STATE_MOVE || m_pPlayerCoil->getState() == COIL_STATE_STICK ) ){
 		if( m_bDrawing ){ 
 			if( m_pSound ) m_pSound->SearchWaveAndPlay( RCTEXT_SOUND_SE_SETFIELD ) ;
 			//テクスチャがある場合

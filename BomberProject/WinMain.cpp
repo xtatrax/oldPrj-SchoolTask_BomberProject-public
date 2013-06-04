@@ -239,6 +239,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE
 		::PostQuitMessage(0);
 		ShowCursor(true);
 		//wiz::TextureManager::Release();
+		TMemoryManager::Clear();
 		return ret ;
 		/*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*/
 	}

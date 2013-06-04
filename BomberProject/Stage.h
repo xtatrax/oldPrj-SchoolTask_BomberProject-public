@@ -134,16 +134,21 @@ Stage* getActiveStage();
 		}
 		return ret;
 	}
-/**************************************************************************
- virtual void Stage::Draw(
-    LPDIRECT3DDEVICE9 pD3DDevice,		//IDirect3DDevice9 インターフェイスへのポインタ
-    const CONTROLER_STATE* pCntlState	//コントローラーのステータス
-	Command& i_DrawPacket.pCommand		//シーンからステージ、もしくはステージからオブジェクトに
-										//渡されるコマンドの参照
- );
- 用途: シーンを描画
- 戻り値: なし。
-***************************************************************************/
+/////////////////// ////////////////////
+//// 用途       ：virtual void Update( UpdatePacket& i_UpdatePacket )
+//// カテゴリ   ：関数
+//// 用途       ：ステージを更新
+//// 引数       ：  UpdatePacket& i_UpdatePacket     // アップデート時に必要なデータ群 ↓内容下記
+////            ：  ├       LPDIRECT3DDEVICE9  pD3DDevice      // IDirect3DDevice9 インターフェイスへのポインタ
+////            ：  ├       Tempus2*           pTime           // 時間を管理するクラスへのポインター
+////            ：  ├       vector<Object*>&   Vec,            // オブジェクトの配列
+////            ：  ├ const CONTROLER_STATE*   pCntlState      // コントローラのステータス
+////            ：  └       Command            pCommand        // コマンド
+//// 戻値       ：無し
+//// 担当者     ：鴫原 徹
+//// 備考       ：
+////            ：
+////
 	virtual void Update(UpdatePacket& i_UpdatePacket);
 /////////////////// ////////////////////
 //// 関数名     ：void Render(RenderPacket& i_RenderPacket);

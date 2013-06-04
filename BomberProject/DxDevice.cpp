@@ -25,11 +25,11 @@ namespace wiz{
 ***************************************************************************/
 Rect		DxDevice::m_WindowRect		;		// ゲームの描画範囲の大きさを表す矩形
 D3DXVECTOR2	DxDevice::m_v2AspectRate	;		// 基準解像度と現在の解像度の比率
-HWND		DxDevice::m_hWnd			= NULL;		// メインウインドウのハンドル
-HANDLE		DxDevice::m_hUpdateThread	= NULL;		// アップデート用スレッドのハンドル
-HANDLE		DxDevice::m_hLoadingThread	= NULL;		// ロード画面用スレッドのハンドル
-bool		DxDevice::m_bDestroy		= false ;
-bool		DxDevice::m_bOnPlaySound	= true ;
+HWND		DxDevice::m_hWnd			= NULL	;		// メインウインドウのハンドル
+HANDLE		DxDevice::m_hUpdateThread	= NULL	;		// アップデート用スレッドのハンドル
+HANDLE		DxDevice::m_hLoadingThread	= NULL	;		// ロード画面用スレッドのハンドル
+bool		DxDevice::m_bDestroy		= false	;
+bool		DxDevice::m_bOnPlaySound	= true	;
 
 /**************************************************************************
  DxDevice::DxDevice(
@@ -248,7 +248,7 @@ int DxDevice::MainThreadRun(){
 			#ifndef CF_SINGLETHREAD
 				CloseHandle(m_hUpdateThread);
 			#endif
-			Clear();
+			this->Clear();
 			return 0;
 		}
 
@@ -395,9 +395,7 @@ void DxDevice::UpdateScene()
 		m_UpdatePacket.pCommand		= &m_Com		;
 		m_RenderPacket.pD3DDevice	= m_pD3DDevice	;
 		m_RenderPacket.pCommand		= &m_Com		;
-		#if defined(DEBUG) | defined(_DEBUG) | defined(ON_DEBUGGINGPROCESS) 
 
-		#endif
 		pScene->Update(m_UpdatePacket);
 		pScene->Render(m_RenderPacket);
 
