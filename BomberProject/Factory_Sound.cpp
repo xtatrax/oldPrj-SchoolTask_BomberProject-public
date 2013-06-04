@@ -298,11 +298,13 @@ void OneSound::PlaySound(BYTE count){
 //-----------//
 
 /////////////////// ////////////////////
-//// 用途       ：
-//// カテゴリ   ：
-//// 用途       ：
-//// 引数       ：
-//// 戻値       ：
+//// 用途       ：bool Sound::SearchSoundMap( PCSTR  i_pSoundName , XACTINDEX& o_SoundNum ) ;
+//// カテゴリ   ：サーチャー
+//// 用途       ：サウンドマップから指定された音を探し出す
+//// 引数       ：  PCSTR         i_pSoundName        //  : [ IN  ]音声名
+////            ：  XACTINDEX&    o_SoundNum          //  : [ OUT ]発見した音声番号
+//// 戻値       ：true   : 発見した
+////            ：false  : 出来なかった
 //// 担当者     ：鴫原 徹
 //// 備考       ：
 ////            ：

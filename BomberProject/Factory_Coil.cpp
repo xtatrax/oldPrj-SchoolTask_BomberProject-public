@@ -216,7 +216,6 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 		if(m_bIsSuperMode){
 			//無敵状態
 			SuperMode(i_UpdatePacket);
-			if( m_pSound ) m_pSound->SearchSoundAndPlay( RCTEXT_SOUND_SE_INVISIBLE );
 		}
 
 		//デバック用-----------------------------------------------------------
@@ -394,6 +393,12 @@ void PlayerCoil::SuperMode( UpdatePacket& i_UpdatePacket ){
 	static float s_fTimeCount		= 0;
 	static int	s_iInterval			= 0;
 	static bool s_bIsColorChange	= false;
+	static bool	s_bSound			= false;
+
+	if( m_pSound && !s_bSound){
+		m_pSound->SearchWaveAndPlay( RCTEXT_SOUND_SE_INVISIBLE );
+		s_bSound = true ;
+	}
 
 	if(m_enumCoilState == COIL_STATE_MOVE)
 		s_fTimeCount += (float)i_UpdatePacket.pTime->getElapsedTime();
@@ -421,7 +426,8 @@ void PlayerCoil::SuperMode( UpdatePacket& i_UpdatePacket ){
 
 	//無敵モード終了
 	if(s_fTimeCount >= COIL_SUPER_MODE_TIME){
-		m_bIsSuperMode = false;
+		m_bIsSuperMode	= false;
+		s_bSound		= false;
 		s_fTimeCount = 0.0f;
 		switch(getMagnetPole()){
 			case POLE_S:
