@@ -104,6 +104,7 @@ Scene::Scene(LPDIRECT3DDEVICE9 pD3DDevice)
 //	: リリース用設定
 		//ルートのステージにタイトルメニューを設定
 		m_pRootStage = new TitleStage(pD3DDevice);
+
 #endif
 //
 //////////
@@ -238,23 +239,24 @@ void Scene::CommandTranslator(DrawPacket& i_DrawPacket){
 			m_pRootStage = new TitleStage(i_DrawPacket.pD3DDevice);
 			break;
 		case GM_OPENSTAGE_PLAY:
-			try{
+			//try{
 				//	: ゲームステージ
+
 				this->m_pStgBuf = new PlayStage(i_DrawPacket.pD3DDevice);
 				//	: 
 				SafeDeleteStage(m_pRootStage);
 				m_pRootStage = this->m_pStgBuf;
 				this->m_pStgBuf = NULL ;
-			}
-			catch(LoaderException& e){
-				//	: ロード失敗
-				::MessageBox(g_hWnd,e.what_w(),L"エラー",MB_OK);
-				if( !m_pRootStage ) m_pRootStage = new TitleStage(i_DrawPacket.pD3DDevice);
-				SafeDeleteStage(this->m_pStgBuf);
-			}
-			catch(...){
-				throw ;
-			}
+			//}
+			//catch(LoaderException& e){
+			//	//	: ロード失敗
+			//	::MessageBox(g_hWnd,e.what_w(),L"エラー",MB_OK);
+			//	if( !m_pRootStage ) m_pRootStage = new TitleStage(i_DrawPacket.pD3DDevice);
+			//	SafeDeleteStage(this->m_pStgBuf);
+			//}
+			//catch(...){
+			//	throw ;
+			//}
 
 			break;
 		case GM_OPENDEBUGSTAGE_DEBUGMENU:

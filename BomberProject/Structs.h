@@ -42,6 +42,7 @@ struct MapPartsStatus{
 	D3DXVECTOR3		vScale    ;
 	D3DXVECTOR3		vRot      ;
 	D3DXVECTOR3		vPos      ;
+	D3DXVECTOR3		vOffset   ;
 	D3DCOLORVALUE   Diffuse   ;
 	D3DCOLORVALUE   Specular  ;
 	D3DCOLORVALUE   Ambient   ;
@@ -270,6 +271,13 @@ struct FactoryPacket{
 	vector<Object*>* m_pVec;
 	//テクスチャのポインタのベクトル
 	TextureManager* m_pTexMgr;
+	FactoryPacket(){};
+	FactoryPacket(		LPDIRECT3DDEVICE9 i_pD3DDevice, bool i_IsDialog, vector<Object*>* i_pVec, TextureManager* i_pTexMgr)
+		:pD3DDevice(	i_pD3DDevice	)
+		,m_IsDialog(	i_IsDialog		)
+		,m_pVec(		i_pVec			)
+		,m_pTexMgr(		i_pTexMgr		)
+	{}
 };
 /*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 

@@ -136,20 +136,20 @@ public:
 //////////
 //	: operator new のオーバーライド
 //inline void* operator new(size_t iSize,LPCSTR  sFile =  "" , LPCSTR  sFunc = "" , UINT iLine = 0)
-inline void* operator new(size_t iSize,LPCSTR  sFile  , LPCSTR  sFunc  , UINT iLine )
-{
-	return TMemoryManager::add(iSize,sFile,sFunc,iLine);
-};
-
-inline void operator delete(void* pv,LPCSTR  sFile, LPCSTR  sFunc, UINT iLine){
-	return TMemoryManager::remove(pv);
-};
-
-inline void operator delete(void* pv){
-	return TMemoryManager::remove(pv);
-};
-
-#define New new(__FILE__, __FUNCTION__, __LINE__)
+//inline void* operator new(size_t iSize,LPCSTR  sFile  , LPCSTR  sFunc  , UINT iLine )
+//{
+//	return TMemoryManager::add(iSize,sFile,sFunc,iLine);
+//};
+//
+//inline void operator delete(void* pv,LPCSTR  sFile, LPCSTR  sFunc, UINT iLine){
+//	return TMemoryManager::remove(pv);
+//};
+//
+//inline void operator delete(void* pv){
+//	return TMemoryManager::remove(pv);
+//};
+//
+//#define New new(__FILE__, __FUNCTION__, __LINE__)
 
 
 //////////

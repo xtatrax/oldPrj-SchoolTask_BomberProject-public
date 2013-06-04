@@ -703,19 +703,23 @@ bool PlayerCoil::CheckDistance( D3DXVECTOR3& i_vMagneticFieldPos, D3DXVECTOR3& i
  用途: コンストラクタ（サンプルオブジェクトを配列に追加する）
  戻り値: なし
 ***************************************************************************/
-Factory_Coil::Factory_Coil( FactoryPacket* fpac ){
+Factory_Coil::Factory_Coil( FactoryPacket* fpac, D3DXVECTOR3* vStartPos  ){
 	try{
 
 		D3DXVECTOR3 vScale( 1.0f, 1.0f, 1.0f );
+		D3DXVECTOR3 vPos( 10.0f,10.0f,0.0f );
  		D3DCOLORVALUE CoilDiffuse = {1.0f,1.0f,0.0f,0.5f};
 		D3DCOLORVALUE CoilSpecular = {0.0f,0.0f,0.0f,0.0f};
 		D3DCOLORVALUE CoilAmbient = {1.0f,1.0f,0.0f,0.5f};
+		if( vStartPos ){
+			vPos = *vStartPos ;
+		}
 		fpac->m_pVec->push_back(
 			new PlayerCoil(
 				fpac->pD3DDevice,
 				//fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"CircleC.png" ),
 				NULL,
-				0.0f,0.7f,1.0f,1.0f,vScale,D3DXVECTOR3(90.0f,0.0f,0.0f),D3DXVECTOR3(10.0f,10.0f,0.0f),
+				0.0f,0.7f,1.0f,1.0f,vScale,D3DXVECTOR3(90.0f,0.0f,0.0f),vPos,
 				CoilDiffuse,CoilSpecular,CoilAmbient
 				)
 		);
