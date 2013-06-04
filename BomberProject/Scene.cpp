@@ -19,6 +19,7 @@
 #include "Stage_Result.h"
 #include "Stage_Test.h"
 #include <process.h>
+#include "Factory_Player.h"
 
 
 namespace wiz{
@@ -239,7 +240,7 @@ void Scene::CommandTranslator(DrawPacket& i_DrawPacket){
 			m_pRootStage = new TitleStage(i_DrawPacket.pD3DDevice);
 			break;
 		case GM_OPENSTAGE_PLAY:
-			//try{
+			try{
 				//	: ゲームステージ
 
 				this->m_pStgBuf = new PlayStage(i_DrawPacket.pD3DDevice);
@@ -247,16 +248,37 @@ void Scene::CommandTranslator(DrawPacket& i_DrawPacket){
 				SafeDeleteStage(m_pRootStage);
 				m_pRootStage = this->m_pStgBuf;
 				this->m_pStgBuf = NULL ;
-			//}
-			//catch(LoaderException& e){
-			//	//	: ロード失敗
-			//	::MessageBox(g_hWnd,e.what_w(),L"エラー",MB_OK);
-			//	if( !m_pRootStage ) m_pRootStage = new TitleStage(i_DrawPacket.pD3DDevice);
-			//	SafeDeleteStage(this->m_pStgBuf);
-			//}
-			//catch(...){
-			//	throw ;
-			//}
+			}
+			catch(LoaderException& e){
+				//	: ロード失敗
+				::MessageBox(g_hWnd,e.what_w(),L"エラー",MB_OK);
+				if( !m_pRootStage ) m_pRootStage = new TitleStage(i_DrawPacket.pD3DDevice);
+				SafeDeleteStage(this->m_pStgBuf);
+			}
+			catch(...){
+				throw ;
+			}
+
+			break;
+		case GM_OPENSTAGE_PLAY_RELOAD:
+			try{
+				//	: ゲームステージ
+				PlayerCoil* pc = (PlayerCoil*)i_DrawPacket.pCommand->m_Param1 ;
+				this->m_pStgBuf = new PlayStage( i_DrawPacket.pD3DDevice, pc->getPos() );
+				//	: 
+				SafeDeleteStage(m_pRootStage);
+				m_pRootStage = this->m_pStgBuf;
+				this->m_pStgBuf = NULL ;
+			}
+			catch(LoaderException& e){
+				//	: ロード失敗
+				::MessageBox(g_hWnd,e.what_w(),L"エラー",MB_OK);
+				if( !m_pRootStage ) m_pRootStage = new TitleStage(i_DrawPacket.pD3DDevice);
+				SafeDeleteStage(this->m_pStgBuf);
+			}
+			catch(...){
+				throw ;
+			}
 
 			break;
 		case GM_OPENDEBUGSTAGE_DEBUGMENU:

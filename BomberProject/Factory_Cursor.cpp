@@ -53,7 +53,7 @@ MouseCursor::MouseCursor( LPDIRECT3DDEVICE9 pD3DDevice, TextureManager* m_pTexMg
 //// ’S“–ŽÒ     FŽ°Œ´ “O
 //// ”õl       F
 MouseCursor::~MouseCursor(){
-
+	m_MovePosY = 0 ;
 }
 
 
@@ -95,11 +95,12 @@ void MouseCursor::Update( UpdatePacket& i_UpdatePacket ){
 
 	if( m_pCamera ){
 
+		float fYPosCorrection = 10.0f ;
 		//	: ƒ}ƒEƒXÀ•W‚Ì‚R‚c•ÏŠ·
 		D3DXVECTOR3 vCursol = D3DXVECTOR3( 
 			(float)MousePos.x / DRAW_CLIENT_MAGNIFICATION - MAGNETIC_RADIUS ,
 			(( STANDARD_WINDOW_HEIGHT - MousePos.y ) - UI_HEIGHT ) / DRAW_CLIENT_MAGNIFICATION -
-											MAGNETIC_RADIUS + ( m_pCamera->getPosY() - m_MovePosY ) ,
+											MAGNETIC_RADIUS +  m_pCamera->getPosY() - fYPosCorrection  ,
 			0.0f
 		);
 		SetBasePos( vCursol );
