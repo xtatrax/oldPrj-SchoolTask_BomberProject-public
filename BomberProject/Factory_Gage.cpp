@@ -69,7 +69,9 @@ Gage::Gage(
 
 {
 }
-
+Gage::~Gage(){
+	m_pRect = NULL ;
+}
 /****************************************
 関数名　　：void Gage::Recovery()
 カテゴリ　：関数

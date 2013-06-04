@@ -15,6 +15,7 @@
 #include "Factory_Sound.h"
 #include "Stage_Play.h"
 #include "stage.h"
+#include "Factory_Player.h"
 
 namespace wiz{
 
@@ -46,7 +47,7 @@ PlayStage::PlayStage( LPDIRECT3DDEVICE9 pD3DDevice, D3DXVECTOR3 vStartPos, Stage
 		if( vStartPos != g_vMax )
 			vp = &vStartPos;
 
-		Factory_Main mainF( &FPac , &vStartPos );
+		Factory_Main mainF( &FPac , vp );
 
 	}
 	catch(LoaderException& e){
@@ -93,12 +94,17 @@ void PlayStage::Update(UpdatePacket& i_UpdatePacket){
 #if defined( ON_DEBUGGINGPROCESS ) | defined( PRESENTATION )
 
 	//	:  エンターで再スタート
-	if( GetAsyncKeyState( MYVK_DEBUG_STAGE_RESTART ) )
-		i_UpdatePacket.pCommand->m_Command = GM_OPENSTAGE_PLAY ;
+	if( GetAsyncKeyState( MYVK_DEBUG_STAGE_RESTART ) ){
+		//	:  Alt+ENTERで再読み込み
+		if( GetAsyncKeyState( MYVK_DEBUG_STAGE_RELOAD ) ){
+			PlayerCoil* pc = (PlayerCoil*)SearchObjectFromID( i_UpdatePacket.pVec, OBJID_3D_COIL );
+			i_UpdatePacket.pCommand->m_Command = GM_OPENSTAGE_PLAY_RELOAD ;
+			i_UpdatePacket.pCommand->m_Param1 = (DWORD)pc ;
 
-	//	:  Alt+ENTERで再読み込み
-	if( GetAsyncKeyState( MYVK_DEBUG_STAGE_RESTART ) )
-		i_UpdatePacket.pCommand->m_Command = GM_OPENSTAGE_PLAY ;
+		}else{
+			i_UpdatePacket.pCommand->m_Command = GM_OPENSTAGE_PLAY ;
+		}
+	}
 #endif
 	Stage::Update( i_UpdatePacket );
 }

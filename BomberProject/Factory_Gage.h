@@ -44,7 +44,7 @@ public:
 		RECT* vRect2 = NULL,				//	: 描画範囲
 		wiz::OBJID id	=OBJID_UI_GAUGE	//	: ID
 	);
-
+	~Gage();
 	void	Recovery( int i_iValue, int i_iMaxValue );	//	: エネルギーの回復
 	void	Consume( int i_iValue );	//	: エネルギーの消費
     void	Draw(DrawPacket& i_DrawPacket) ;
