@@ -16,8 +16,8 @@ Global Settings
     Header File = MagneticaSoundProject.h;
     Exclude Category Names = 0;
     Exclude Variable Names = 0;
-    Last Modified Low = 30302198;
-    Last Modified High = 979604160;
+    Last Modified Low = 2507591154;
+    Last Modified High = 30302460;
 
     Category
     {
@@ -226,8 +226,12 @@ Wave Bank
     Entry Names = 1;
     Seek Tables = 1;
     Compression Preset Name = <none>;
-    Bank Last Revised Low = 2561045849;
-    Bank Last Revised High = 30302459;
+    Xbox Bank Last Modified Low = 0;
+    Xbox Bank Last Modified High = 0;
+    PC Bank Last Modified Low = 2507641157;
+    PC Bank Last Modified High = 30302460;
+    Bank Last Revised Low = 2436297076;
+    Bank Last Revised High = 30302460;
 
     Wave
     {
@@ -569,8 +573,8 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 3269156752;
-            Last Modified High = 30302197;
+            Last Modified Low = 2396347176;
+            Last Modified High = 30302209;
         }
     }
 
@@ -605,6 +609,10 @@ Sound Bank
     Windows File = Win\MagneticaSound.xsb;
     Xbox Bank Path Edited = 0;
     Windows Bank Path Edited = 0;
+    Bank Last Modified Low = 2508141185;
+    Bank Last Modified High = 30302460;
+    Header Last Modified High = 0;
+    Header Last Modified Low = 0;
 
     Sound
     {
@@ -1272,7 +1280,7 @@ Sound Bank
     Sound
     {
         Name = SE-ITEMS;
-        Volume = -1200;
+        Volume = -2440;
         Pitch = 0;
         Priority = 0;
 
@@ -1319,7 +1327,7 @@ Sound Bank
     Sound
     {
         Name = SE-INVINGVLE;
-        Volume = -1200;
+        Volume = -1560;
         Pitch = 0;
         Priority = 0;
 
