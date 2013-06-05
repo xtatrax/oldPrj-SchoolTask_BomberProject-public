@@ -33,7 +33,8 @@ namespace wiz{
  ñﬂÇËíl: Ç»Çµ
  íSìñÅFñ{ëΩä∞îV
 ***************************************************************************/
-WallObject::WallObject( LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTexture, LPDIRECT3DTEXTURE9 pTexture2,wiz::OBJID id)
+WallObject::WallObject( LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTexture,LPDIRECT3DTEXTURE9 pTexture2,
+					   LPDIRECT3DTEXTURE9 pTexture3,wiz::OBJID id)
 	:PrimitiveBox(pD3DDevice,
 					D3DCOLORVALUE(),
 					D3DCOLORVALUE(),
@@ -42,13 +43,15 @@ WallObject::WallObject( LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTextur
 					pTexture)
 ,m_pWallTex( pTexture )
 ,m_pPolyTex( pTexture2 )
+,m_pDeadTex( pTexture3 )
 ,m_Ptn(0)
 ,m_pSound( NULL )
 {
 	::ZeroMemory( &m_Material, sizeof(D3DMATERIAL9));
-	m_pPlayerCoil = NULL ;
-	m_pCamera = NULL;
-
+	m_pPlayerCoil	= NULL;
+	m_pCamera		= NULL;
+	for( int i = 0; i < PARTICLS_NUM; i++ )
+		m_pDeadEffect[i]	= NULL;
 }
 /////////////////// ////////////////////
 //// ópìr       ÅF~WallObject();
@@ -61,6 +64,9 @@ WallObject::WallObject( LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTextur
 WallObject::~WallObject(){
 	m_pCamera		= NULL ;
 	m_pPlayerCoil	= NULL ;
+	for( int i = 0; i < PARTICLS_NUM; i++ )
+		m_pDeadEffect[i]	= NULL;
+
 	SafeDeletePointerMap( m_ItemMap_All );
 	SafeDeletePointerMap( m_ItemMap_Poly );
 
@@ -222,6 +228,13 @@ void WallObject::Draw(DrawPacket& i_DrawPacket)
 
 		++it2;
 	}
+
+	if( m_pDeadEffect[0] != NULL ){
+		for( int i = 0; i < PARTICLS_NUM; i++ ){
+			m_pDeadEffect[i]->Draw( i_DrawPacket );
+		}
+	}
+
 }
 
 /////////////////// ////////////////////
@@ -290,6 +303,11 @@ void WallObject::Update( UpdatePacket& i_UpdatePacket ){
 			switch(m_pPlayerCoil->getState()){
 				case COIL_STATE_MOVE:
 					if(!m_pPlayerCoil->getSuperMode()){
+						for( int i = 0; i < PARTICLS_NUM; i++ ){
+							SafeDelete( m_pDeadEffect[i] );
+							m_pDeadEffect[i]	= new DeadEffect( i_UpdatePacket.pD3DDevice, m_pPlayerCoil->getPos(),
+										float((360/PARTICLS_NUM) * i), m_pDeadTex/*i_UpdatePacket.pTxMgr->addTexture(i_UpdatePacket.pD3DDevice, L"DeadPerticul.png")*/);
+						}
 						m_pSound->SearchWaveAndPlay( RCTEXT_SOUND_SE_PLAYERBLOKEN );
 						m_pPlayerCoil->setState(COIL_STATE_DEAD);
 					}
@@ -299,6 +317,15 @@ void WallObject::Update( UpdatePacket& i_UpdatePacket ){
 			}
 		}
 
+		if( m_pDeadEffect[0] != NULL ){
+			for( int i = 0; i < PARTICLS_NUM; i++ ){
+				m_pDeadEffect[i]->Update( i_UpdatePacket );
+				if(m_pDeadEffect[i]->getColor() <= 0.0f){
+					SafeDelete( m_pDeadEffect[i] );
+					break;
+				}
+			}
+		}
 
 
 		++it2;
@@ -444,7 +471,8 @@ Factory_Wall::Factory_Wall(FactoryPacket* fpac){
 
 		WallObject* Wall = new WallObject(fpac->pD3DDevice,
 			fpac->m_pTexMgr->addTexture(fpac->pD3DDevice,L"biribiriWall.png"),
-			fpac->m_pTexMgr->addTexture(fpac->pD3DDevice,L"Lightning.tga"));
+			fpac->m_pTexMgr->addTexture(fpac->pD3DDevice,L"Lightning.tga"),
+			fpac->m_pTexMgr->addTexture(fpac->pD3DDevice,L"DeadPerticul.png"));
 		//Ç®ééÇµ
 		//Wall->AddWall(D3DXVECTOR3(10.0f,25.0f,0.5f),
 		//			  D3DXVECTOR3(0.0f,0.0f,0.0f),
