@@ -322,6 +322,7 @@ void WallObject::Update( UpdatePacket& i_UpdatePacket ){
 				m_pDeadEffect[i]->Update( i_UpdatePacket );
 				if(m_pDeadEffect[i]->getColor() <= 0.0f){
 					SafeDelete( m_pDeadEffect[i] );
+					m_pPlayerCoil->setReadyContinue(true);
 					break;
 				}
 			}
