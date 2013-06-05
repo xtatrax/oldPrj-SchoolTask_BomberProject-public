@@ -157,7 +157,6 @@ void DeadEffect::Update( UpdatePacket& i_UpdatePacket ){
 
 	const float MoveRate	= 0.003f;
 	const float ColorRate	= 0.003f;
-	//const float Accele		= -0.005f;
 	m_vPos.x	+= cosf( m_fDir )*MoveRate*m_fSpeed;
 	m_vPos.y	+= sinf( m_fDir )*MoveRate*m_fSpeed;
 	m_vPos.z	+= cosf( m_fDir )*MoveRate*m_fSpeed*5*m_iDirZ;

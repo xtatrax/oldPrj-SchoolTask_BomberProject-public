@@ -76,6 +76,7 @@ PlayerCoil::PlayerCoil(
 ,m_bLastMouseRB(false)
 ,m_bLastMouseLB(false)
 ,m_bReadyToStart(false)
+,m_bReadyContinue(false)
 ,m_bIsSuperMode(false)
 ,m_fTurnAngle(PLAYER_TURN_ANGLE_Lv1)
 ,m_pPlayer(NULL)
@@ -452,10 +453,13 @@ void PlayerCoil::SuperMode( UpdatePacket& i_UpdatePacket ){
 ////            F
 ////
 void PlayerCoil::Update_StateDead(){
-	m_enumCoilState = COIL_STATE_CONTINUE;
-	m_vPos = m_vStartPos;
-	m_pCamera->setPosY(m_vStartPos.y);
 	m_vScale = g_vZero;
+	if( m_bReadyContinue ){
+		m_enumCoilState = COIL_STATE_CONTINUE;
+		m_vPos = m_vStartPos;
+		m_pCamera->setPosY(m_vStartPos.y);
+		m_bReadyContinue	= false;
+	}
 }
 
 /////////////////// ////////////////////

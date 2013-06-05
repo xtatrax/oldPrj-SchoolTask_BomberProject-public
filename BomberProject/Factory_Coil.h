@@ -84,6 +84,7 @@ class PlayerCoil : public MagneticumObject3D{
 	bool			m_bLastMouseRB	;
 	bool			m_bLastMouseLB	;
 	bool			m_bReadyToStart ;
+	bool			m_bReadyContinue;
 
 	bool			m_bIsSuperMode	;//無敵状態のフラグ (無敵状態は他の状態と重なるのでCOIL_STATEに入れない)
 
@@ -440,6 +441,9 @@ public:
 		m_vStartPos = i_vPos;
 	}
 
+	void	setReadyContinue( bool b ){
+		m_bReadyContinue	= b;
+	}
 	/////////////////// ////////////////////
 	//// 関数名     ：void getSuperMode()
 	//// カテゴリ   ：ゲッター
