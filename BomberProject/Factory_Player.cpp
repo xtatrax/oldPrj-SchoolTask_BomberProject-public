@@ -116,7 +116,9 @@ void ProvisionalPlayer3D::Draw(DrawPacket& i_DrawPacket)
 
 	if( m_pPlayerCoil && ( m_pPlayerCoil->getState() == COIL_STATE_MOVE || m_pPlayerCoil->getState() == COIL_STATE_STICK ) ){
 		if( m_bDrawing ){ 
-			if( m_pSound ) m_pSound->SearchWaveAndPlay( RCTEXT_SOUND_SE_SETFIELD ) ;
+			if( m_pSound ){
+				m_pSound->SearchWaveAndPlay( RCTEXT_SOUND_SE_SETFIELD ) ;
+			}
 			//テクスチャがある場合
 			if(m_pTexture){
 				DWORD wkdword;
@@ -150,6 +152,7 @@ void ProvisionalPlayer3D::Draw(DrawPacket& i_DrawPacket)
 			m_pMagneticField3->Draw(i_DrawPacket);
 			m_pMagneticField4->Draw(i_DrawPacket);
 		}
+		else	m_pSound->SoundPause(RCTEXT_SOUND_SE_SETFIELD);
 	}
 }
 

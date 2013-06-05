@@ -74,7 +74,7 @@ DeadEffect::DeadEffect(LPDIRECT3DDEVICE9 pD3DDevice,
 	pVB->Unlock();
 
 	m_iDirZ	= rand()%100;
-	if( m_iDirZ <= 50 )
+	if( m_iDirZ < 50 )
 		m_iDirZ	= 1;
 	else
 		m_iDirZ	= -1;
