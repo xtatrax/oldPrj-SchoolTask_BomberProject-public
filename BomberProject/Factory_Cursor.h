@@ -15,6 +15,8 @@
 #include "Object.h"
 
 namespace wiz{
+namespace bomberobject{
+
 //	: UIÇÃçÇÇ≥
 #define UI_HEIGHT					( 88.0f )
 //	: ï\é¶âÊñ ÇÃî{ó¶ x=800, y=512 : x=40, y=25.6
@@ -187,5 +189,7 @@ public:
 ***************************************************************************/
 	~Factory_Cursor();
 };
+}
+//end of namespace bomberobject.
 }
 //end of namespace wiz.

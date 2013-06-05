@@ -38,6 +38,7 @@ enum COIL_STATE{			//é©ã@ÇÃèÛë‘
 };
 
 namespace wiz{
+namespace bomberobject{
 extern class ProvisionalPlayer3D ;
 
 /************************************************************************
@@ -489,5 +490,7 @@ public:
 ***************************************************************************/
 	~Factory_Coil();
 };
+}
+//end of namespace bomberobject.
 }
 //end of namespace wiz.

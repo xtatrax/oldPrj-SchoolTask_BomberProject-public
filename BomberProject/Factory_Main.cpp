@@ -31,6 +31,7 @@
 #include "BassItems.h"
 
 namespace wiz{
+namespace bomberobject{
 
 
 	
@@ -132,6 +133,7 @@ Factory_Main::Factory_Main(FactoryPacket* fpac, D3DXVECTOR3* vStartPos ){
 Factory_Main::~Factory_Main(){
 	//‚È‚É‚à‚µ‚È‚¢
 }
-
+}
+//end of namespace bomberobject.
 }
 //end of namespace wiz.

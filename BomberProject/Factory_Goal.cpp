@@ -18,6 +18,8 @@
 #include "BassItems.h"
 
 namespace wiz{
+namespace bomberobject{
+
 /**************************************************************************
  FMemoryTex ’è‹`•”
 ****************************************************************************/
@@ -558,5 +560,7 @@ Factory_Goal::~Factory_Goal(){
     //‚È‚É‚à‚µ‚È‚¢
 }
 
+}
+//end of namespace bomberobject.
 }
 //end of namespace wiz.

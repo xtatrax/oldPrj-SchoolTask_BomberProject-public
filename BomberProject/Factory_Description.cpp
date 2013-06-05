@@ -16,6 +16,7 @@
 #include "Factory_Wall.h"
 
 namespace wiz{
+namespace bomberobject{
 
 /**************************************************************************
  StartSprite ’è‹`•”
@@ -395,6 +396,6 @@ Factory_Description::~Factory_Description(){
 }
 
 }
-
-
+//end of namespace bomberobject.
+}
 //end of namespace wiz.

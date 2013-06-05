@@ -19,6 +19,7 @@
 
 
 namespace wiz{
+namespace bomberobject{
 
 //Camera*	ProvisionalPlayer3D::m_Camera	= NULL;
 extern class WallObject ;
@@ -511,6 +512,8 @@ Factory_Player::Factory_Player( FactoryPacket* fpac ){
 Factory_Player::~Factory_Player(){
     //‚È‚É‚à‚µ‚È‚¢
 }
+}
+//end of namespace bomberobject.
 
 }
 //end of namespace wiz.

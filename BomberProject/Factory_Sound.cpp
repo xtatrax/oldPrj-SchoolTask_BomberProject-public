@@ -16,6 +16,8 @@
 #include "BassItems.h"
 
 namespace wiz{
+namespace bomberobject{
+
 /**************************************************************************
  _Sound ’è‹`•”
 ****************************************************************************/
@@ -504,6 +506,6 @@ Factory_Sound::~Factory_Sound(){
 }
 
 }
-
-
+//end of namespace bomberobject.
+}
 //end of namespace wiz.

@@ -16,6 +16,8 @@
 #include "Factory_Cursor.h"
 
 namespace wiz{
+namespace bomberobject{
+
 /**************************************************************************
  MouseCursor ’è‹`•”
 ****************************************************************************/
@@ -31,7 +33,7 @@ namespace wiz{
 ***************************************************************************/
 MouseCursor::MouseCursor( LPDIRECT3DDEVICE9 pD3DDevice, TextureManager* m_pTexMgr)
 :Box( pD3DDevice, D3DXVECTOR3( 1.0f, 1.0f, 1.0f), g_vZero, g_vZero, COLOR2D3DCOLORVALUE(0x0FFFFF0F), COLOR2D3DCOLORVALUE(0x0FFFFF0F), COLOR2D3DCOLORVALUE(0x0FFFFF0F),  OBJID_SYS_CURSOR, false, m_pTexMgr->addTexture( pD3DDevice, L"Field.png" ) )
-,PrimitiveSprite(pD3DDevice, m_pTexMgr->addTexture( pD3DDevice, L"MouseCursor.png" ), NULL, D3DXVECTOR3( 22.0f, 22.0f, 0.0f ), g_vZero)
+,PrimitiveSprite(pD3DDevice, m_pTexMgr->addTexture( pD3DDevice, L"CARSOL.tga" ), NULL, D3DXVECTOR3( 92.0f, 67.0f, 0.0f ), g_vZero)
 ,m_Ptn(0)
 ,m_MovePosY(0)
 ,m_pCamera( NULL )
@@ -173,5 +175,7 @@ Factory_Cursor::~Factory_Cursor(){
     //‚È‚É‚à‚µ‚È‚¢
 }
 
+}
+//end of namespace bomberobject.
 }
 //end of namespace wiz.

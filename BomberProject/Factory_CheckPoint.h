@@ -18,7 +18,7 @@
 #include "Factory_Sound.h"
 
 namespace wiz{
-
+namespace bomberobject{
 /**************************************************************************
 class CheckEffect;
 
@@ -235,5 +235,7 @@ public:
 ***************************************************************************/
 	~Factory_CheckPoint();
 };
+}
+//end of namespace bomberobject.
 }
 //end of namespace wiz.
