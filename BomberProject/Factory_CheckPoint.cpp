@@ -50,7 +50,7 @@ DeadEffect::DeadEffect(LPDIRECT3DDEVICE9 pD3DDevice,
 ,m_fLife(5.0f)
 ,m_fDir(vDir)
 ,m_fSpeed( float(rand()%30)+30 )
-,m_fAccele( -(m_fSpeed / 5000) )
+,m_fAccele( -(m_fSpeed / 1000) )
 {
 	::ZeroMemory( &m_Material, sizeof(D3DMATERIAL9));
 
@@ -155,8 +155,8 @@ void DeadEffect::Update( UpdatePacket& i_UpdatePacket ){
 		m_pCoil = (PlayerCoil*)SearchObjectFromTypeID(i_UpdatePacket.pVec,typeid(PlayerCoil));
 	}
 
-	const float MoveRate	= 0.0002f;
-	const float ColorRate	= 0.0003f;
+	const float MoveRate	= 0.003f;
+	const float ColorRate	= 0.003f;
 	//const float Accele		= -0.005f;
 	m_vPos.x	+= cosf( m_fDir )*MoveRate*m_fSpeed;
 	m_vPos.y	+= sinf( m_fDir )*MoveRate*m_fSpeed;
