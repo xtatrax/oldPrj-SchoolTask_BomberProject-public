@@ -23,7 +23,7 @@
 
 
 namespace wiz{
-
+using namespace bomberobject;
 
 /**************************************************************************
  Scene ’è‹`•”

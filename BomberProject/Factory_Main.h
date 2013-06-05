@@ -16,6 +16,7 @@
 #include "BassItems.h"
 
 namespace wiz{
+namespace bomberobject{
 
 
 
@@ -43,5 +44,7 @@ public:
 ***************************************************************************/
 	~Factory_Main();
 };
+}
+//end of namespace bomberobject.
 }
 //end of namespace wiz.

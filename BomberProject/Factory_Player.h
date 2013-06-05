@@ -25,6 +25,7 @@ const float	PLAYER_INVOCATION_POINT		= 0.006f;
 
 
 namespace wiz{
+namespace bomberobject{
 
 
 //**************************************************************************//
@@ -184,5 +185,7 @@ public:
 ***************************************************************************/
 	~Factory_Player();
 };
+}
+//end of namespace bomberobject.
 }
 //end of namespace wiz.

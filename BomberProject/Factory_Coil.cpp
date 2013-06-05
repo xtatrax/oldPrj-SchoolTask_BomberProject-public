@@ -19,6 +19,7 @@
 
 
 namespace wiz{
+namespace bomberobject{
 
 //Camera*	ProvisionalPlayer3D::m_Camera	= NULL;
 extern class WallObject ;
@@ -746,5 +747,7 @@ Factory_Coil::~Factory_Coil(){
 
 }
 
+}
+//end of namespace bomberobject.
 }
 //end of namespace wiz.

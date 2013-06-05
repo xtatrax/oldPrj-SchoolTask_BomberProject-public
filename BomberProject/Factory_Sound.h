@@ -17,6 +17,8 @@
 #include "Factory_Sound.h"
 
 namespace wiz{
+namespace bomberobject{
+
 /**************************************************************************
  class Sound: public Object;
  用途: サウンドクラス
@@ -232,6 +234,9 @@ public:
 ***************************************************************************/
 	~Factory_Sound();
 };
+
+}
+//end of namespace bomberobject.
 
 }
 //end of namespace wiz.

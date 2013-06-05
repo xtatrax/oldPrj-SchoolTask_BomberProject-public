@@ -24,6 +24,7 @@ const static BYTE	byGaugeAlpha = 0x70 ;
 //const static float	 = 0xA0 ;
 //const static float	byGaugeAlpha = 0xA0 ;
 namespace wiz{
+namespace bomberobject{
 
 /**************************************************************************
  Gage ’è‹`•”
@@ -448,5 +449,7 @@ Factory_Gage::~Factory_Gage(){
     //‚È‚É‚à‚µ‚È‚¢
 }
 
+}
+//end of namespace bomberobject.
 }
 //end of namespace wiz.

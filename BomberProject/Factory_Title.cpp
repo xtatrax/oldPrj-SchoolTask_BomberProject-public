@@ -17,6 +17,8 @@
 #include "BassItems.h"
 
 namespace wiz{
+namespace bomberobject{
+
 /************************************************************************
 Title_Select ’è‹`•”
 ************************************************************************/
@@ -216,5 +218,7 @@ Factory_Title::~Factory_Title(){
     //‚È‚É‚à‚µ‚È‚¢
 }
 
+}
+//end of namespace bomberobject.
 }
 //end of namespace wiz.

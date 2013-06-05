@@ -23,6 +23,8 @@
 
 
 namespace wiz{
+using namespace bomberobject;
+
 /////////////////// ////////////////////
 //// 関数名     ：
 //// カテゴリ   ：
@@ -266,8 +268,8 @@ void StageLoader::StageGenerator(wstring i_sFileName){
 			if( m_ObjeMap.count( PartsType ) ){
 				m_ObjeMap[ PartsType ].vPos =
 					D3DXVECTOR3(
-						(MAP_PARTS_WIDTH	*	isz-i		)	-	MAP_PARTS_WIDTH		/	2,
-						(MAP_PARTS_HEIGHT	*	j	)	-	MAP_PARTS_HEIGHT	/	2,
+						(MAP_PARTS_WIDTH	*	j		)	-	MAP_PARTS_WIDTH		/	2 + 1.0f,
+						(MAP_PARTS_HEIGHT	*	/*isz-*/i	)	-	MAP_PARTS_HEIGHT	/	2,
 						0.0f
 					)
 					+ m_ObjeMap[ PartsType ].vOffset;

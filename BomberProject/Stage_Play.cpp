@@ -18,6 +18,7 @@
 #include "Factory_Player.h"
 
 namespace wiz{
+using namespace bomberobject;
 
 
 

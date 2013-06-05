@@ -23,6 +23,7 @@ const	int		SUPER_GAGE_MAX		= 512;
 const	int		MAGNETIC_GAGE_MAX	= 256;
 
 namespace wiz{
+namespace bomberobject{
 
 /************************************************
 class Gage : public SpriteObject
@@ -202,5 +203,7 @@ class Factory_Gage{
 	***************************************************************************/
 		~Factory_Gage();
 	};
+}
+//end of namespace bomberobject.
 }
 //end of namespace wiz.

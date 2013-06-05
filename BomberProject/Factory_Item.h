@@ -25,6 +25,8 @@ const	float	SpeedRate	= 0.05f;	//	: ÉAÉCÉeÉÄÇÃë¨Ç≥í≤êÆî{ó¶
 const	float	RECOVERY_POINT	= 0.010f;
 
 namespace wiz{
+namespace bomberobject{
+
 /******************************************************
 class  Item : public PrimitiveSphere
 
@@ -94,5 +96,7 @@ public:
 ***************************************************************************/
 	~Factory_Item();
 };
+}
+//end of namespace bomberobject.
 }
 //end of namespace wiz.

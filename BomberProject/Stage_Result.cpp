@@ -16,6 +16,7 @@
 #include "stage.h"
 
 namespace wiz{
+using namespace bomberobject;
 
 /**************************************************************************
  ResultStage ’è‹`•”

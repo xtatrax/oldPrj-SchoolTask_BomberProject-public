@@ -17,6 +17,7 @@
 #include "BassItems.h"
 
 namespace wiz{
+namespace bomberobject{
 
 
 /**************************************************************************
@@ -48,4 +49,5 @@ namespace wiz{
 	Factory_Minimap::~Factory_Minimap(){
 //‚È‚É‚à‚µ‚È‚¢
 	}
+}//end of namespace bomberobject.
 }//end of namespace wiz.

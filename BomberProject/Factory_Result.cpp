@@ -16,6 +16,7 @@
 #include "BassItems.h"
 
 namespace wiz{
+namespace bomberobject{
 
 /**************************************************************************
  Factory_Result ’è‹`•”
@@ -72,8 +73,8 @@ Factory_Result::Factory_Result(FactoryPacket* fpac)
 Factory_Result::~Factory_Result(){
     //‚È‚É‚à‚µ‚È‚¢
 }
+}
+//end of namespace bomberobject.
 
 }
-
-
 //end of namespace wiz.
