@@ -20,7 +20,9 @@
 #include "Factory_Gage.h"
 #include "Factory_Player.h"
 #include "Factory_Coil.h"
-
+const static BYTE	byGaugeAlpha = 0x70 ;
+//const static float	 = 0xA0 ;
+//const static float	byGaugeAlpha = 0xA0 ;
 namespace wiz{
 
 /**************************************************************************
@@ -52,22 +54,24 @@ namespace wiz{
 備考　　：
 *************************************************************************/
 Gage::Gage(
-	LPDIRECT3DDEVICE9 pD3DDevice,
-	LPDIRECT3DTEXTURE9 pTex,
-	D3DXVECTOR3 &vScale,
-	D3DXVECTOR3 &vRot,
-	D3DXVECTOR3 &vPos,
-	D3DXVECTOR3 &vDirOffset,
-	RECT* vRect,
-	RECT* vRect2,
-	wiz::OBJID id
+	LPDIRECT3DDEVICE9	pD3DDevice	,
+	LPDIRECT3DTEXTURE9	pTex		,
+	D3DXVECTOR3			&vScale		,
+	D3DXVECTOR3			&vRot		,
+	D3DXVECTOR3			&vPos		,
+	D3DXVECTOR3			&vDirOffset	,
+	RECT				GaugeRect	,		//	: 描画範囲
+	RECT				FrameRect	,		//	: 描画範囲
+	wiz::OBJID			id
 )
 :SpriteObject(pD3DDevice,pTex,vScale,vRot,vPos,
-	vRect,g_vZero,vDirOffset,0xFFFFFFFF,id)
-,m_Rect( vRect )
-,m_Rect2( vRect2 )
-
+	NULL,g_vZero,vDirOffset,0xFFFFFFFF,id)
+,m_BassRect(  GaugeRect )
+,m_GaugeRect( GaugeRect )
+,m_FrameRect( FrameRect )
+,m_fRate( 1.0f )
 {
+	m_mGaugeMatrix = m_mMatrix ;
 }
 Gage::~Gage(){
 	m_pRect = NULL ;
@@ -82,11 +86,10 @@ Gage::~Gage(){
 担当者　　：佐藤涼 本多寛之(編集)
 備考　　　：
 *****************************************/
-void Gage::Recovery( int i_iValue, int i_iMaxValue ){
-	if(m_Rect2.right < i_iMaxValue){
-		m_pRect->right	+= i_iValue;
-		if( m_Rect2.right > i_iMaxValue )
-			m_pRect->right	= i_iMaxValue;
+void Gage::Recovery( float fAddValue ){
+	m_fRate += fAddValue ;
+	if( m_fRate >= 1.0f ){
+		m_fRate = 1.0f ;
 	}
 }
 /*****************************************
@@ -98,13 +101,33 @@ void Gage::Recovery( int i_iValue, int i_iMaxValue ){
  担当者　　：佐藤涼 本多寛之(編集)
  備考　　　：
  *****************************************/
-void Gage::Consume( int i_iValue ){
-	if(m_Rect2.right > 0){
-		m_Rect2.right	-= i_iValue;
-		if(m_Rect2.right < 0){
-			m_Rect2.right	= 0;
-		}
+void Gage::Consume( float fSubValue ){
+	m_fRate -= fSubValue ;
+	if( m_fRate <= 0.0f ){
+		m_fRate = 0.0f ;
 	}
+}
+/////////////////// ////////////////////
+//// 用途       ：void Update( UpdatePacket& i_UpdatePacket )
+//// カテゴリ   ：関数
+//// 用途       ：オブジェクトを更新
+//// 引数       ：  UpdatePacket& i_UpdatePacket     // アップデート時に必要なデータ群 ↓内容下記
+////            ：  ├       LPDIRECT3DDEVICE9  pD3DDevice      // IDirect3DDevice9 インターフェイスへのポインタ
+////            ：  ├       Tempus2*           pTime           // 時間を管理するクラスへのポインター
+////            ：  ├       vector<Object*>&   Vec,            // オブジェクトの配列
+////            ：  ├ const CONTROLER_STATE*   pCntlState      // コントローラのステータス
+////            ：  └       Command            pCommand        // コマンド
+//// 戻値       ：無し
+//// 担当者     ：鴫原 徹
+//// 備考       ：
+////            ：
+////
+void Gage::Update( UpdatePacket& i_UpdatePacket ){
+	//ゲージの描画
+	m_GaugeRect.top  = m_BassRect.bottom - m_BassRect.top ;
+	m_GaugeRect.top *= 1.0f - m_fRate ;
+	
+	Debugger::DBGSTR::addStr( L" Rate = %f \n", m_fRate);
 }
 
 /**************************************************************
@@ -117,11 +140,12 @@ void Gage::Consume( int i_iValue ){
 備考　　　：
 ***************************************************************/
 void Gage::Draw(DrawPacket& i_DrawPacket){
-	//枠の描画
-	m_pRect	= m_Rect;
-	SpriteObject::Draw( i_DrawPacket );
 	//ゲージの描画
-	m_pRect	= m_Rect2;
+	m_pRect	= m_GaugeRect;
+	SpriteObject::Draw( i_DrawPacket );
+	//枠の描画
+	m_mMatrix = m_mGaugeMatrix ;
+	m_pRect	= m_FrameRect;
 	SpriteObject::Draw( i_DrawPacket );
 }
 
@@ -154,18 +178,20 @@ void Gage::Draw(DrawPacket& i_DrawPacket){
 備考　　：
 *************************************************************************/
 SuperGage::SuperGage(
-	LPDIRECT3DDEVICE9 pD3DDevice,
-	LPDIRECT3DTEXTURE9 pTex,
-	D3DXVECTOR3 &vScale,
-	D3DXVECTOR3 &vRot,
-	D3DXVECTOR3 &vPos,
-	RECT* vRect,
-	RECT* vRect2,
-	wiz::OBJID id
+	LPDIRECT3DDEVICE9	pD3DDevice	,
+	LPDIRECT3DTEXTURE9	pTex		,
+	D3DXVECTOR3			&vScale		,
+	D3DXVECTOR3			&vRot		,
+	D3DXVECTOR3			&vPos		,
+	RECT				GaugeRect	,
+	RECT				FrameRect	,
+	wiz::OBJID			id
 )
 :Gage(pD3DDevice,pTex,vScale,vRot,vPos,g_vZero,
-	vRect,vRect2)
+	GaugeRect,FrameRect)
+,m_vBassPos(vPos)
 {
+	m_fRate = 0.0f;
 }
 
 /**************************************************************
@@ -178,6 +204,15 @@ SuperGage::SuperGage(
 備考　　　：
 ***************************************************************/
 void SuperGage::Draw(DrawPacket& i_DrawPacket){
+
+	D3DXMATRIX	mPos ;
+	D3DXVECTOR3 vPos ;
+	vPos.x	= m_vBassPos.x	;
+	vPos.y	= m_vBassPos.y +  m_GaugeRect.top	;
+	vPos.z	= 0.0f	;
+	D3DXMatrixTranslation( &mPos, vPos.x, vPos.y, vPos.z);
+	m_mMatrix	= mPos ;
+
 	Gage::Draw( i_DrawPacket );
 }
 
@@ -209,19 +244,45 @@ void SuperGage::Draw(DrawPacket& i_DrawPacket){
 備考　　：
 *************************************************************************/
 MagneticGage_N::MagneticGage_N(
-	LPDIRECT3DDEVICE9	pD3DDevice,
-	LPDIRECT3DTEXTURE9	pTex,
-	D3DXVECTOR3			&vScale,
-	D3DXVECTOR3			&vRot,
-	D3DXVECTOR3			&vPos,
-	RECT*				vRect,
-	RECT*				vRect2,
+	LPDIRECT3DDEVICE9	pD3DDevice	,
+	LPDIRECT3DTEXTURE9	pTex		,
+	D3DXVECTOR3			&vPos		,
+	RECT				GaugeRect	,
+	RECT				FrameRect	,
 	wiz::OBJID			id
 )
-:Gage(pD3DDevice,pTex,vScale,vRot,vPos,g_vZero,
-	  vRect,vRect2)
-
+:Gage(pD3DDevice,pTex,g_vOne,g_vZero,g_vZero,vPos,
+	  GaugeRect,FrameRect)
+,m_pCursor( NULL )
 {
+	this->m_Color.byteColor.a = byGaugeAlpha ;
+}
+/////////////////// ////////////////////
+//// 用途       ：void Update( UpdatePacket& i_UpdatePacket )
+//// カテゴリ   ：関数
+//// 用途       ：オブジェクトを更新
+//// 引数       ：  UpdatePacket& i_UpdatePacket     // アップデート時に必要なデータ群 ↓内容下記
+////            ：  ├       LPDIRECT3DDEVICE9  pD3DDevice      // IDirect3DDevice9 インターフェイスへのポインタ
+////            ：  ├       Tempus2*           pTime           // 時間を管理するクラスへのポインター
+////            ：  ├       vector<Object*>&   Vec,            // オブジェクトの配列
+////            ：  ├ const CONTROLER_STATE*   pCntlState      // コントローラのステータス
+////            ：  └       Command            pCommand        // コマンド
+//// 戻値       ：無し
+//// 担当者     ：鴫原 徹
+//// 備考       ：
+////            ：
+////
+void MagneticGage_N::Update( UpdatePacket& i_UpdatePacket ){
+	if( !m_pCursor ) m_pCursor = (MouseCursor*)SearchObjectFromID(i_UpdatePacket.pVec, OBJID_SYS_CURSOR);
+	Gage::Update(i_UpdatePacket);
+	D3DXMATRIX	mPos ;
+	D3DXVECTOR3 vPos ;
+	vPos.x	= (float)m_pCursor->get2DPos().x	;
+	vPos.y	= (float)m_pCursor->get2DPos().y +  m_GaugeRect.top	;
+	vPos.z	= 0.0f	;
+	D3DXMatrixTranslation( &mPos, vPos.x, vPos.y, vPos.z);
+	m_mMatrix	= mPos ;
+
 }
 
 /**************************************************************
@@ -265,19 +326,46 @@ void MagneticGage_N::Draw(DrawPacket& i_DrawPacket){
 備考　　：
 *************************************************************************/
 MagneticGage_S::MagneticGage_S(
-	LPDIRECT3DDEVICE9	pD3DDevice,
-	LPDIRECT3DTEXTURE9	pTex,
-	D3DXVECTOR3			&vScale,
-	D3DXVECTOR3			&vRot,
-	D3DXVECTOR3			&vPos,
-	RECT*				vRect,
-	RECT*				vRect2,
+	LPDIRECT3DDEVICE9	pD3DDevice	,
+	LPDIRECT3DTEXTURE9	pTex		,
+	D3DXVECTOR3			&vPos		,
+	RECT				GaugeRect	,
+	RECT				FrameRect	,
 	wiz::OBJID			id
 )
-:Gage(pD3DDevice,pTex,vScale,vRot,vPos,g_vZero,
-	  vRect,vRect2)
-
+:Gage(pD3DDevice,pTex,g_vOne,g_vZero,g_vZero,vPos,
+	  GaugeRect,FrameRect)
+,m_pCursor( NULL )
 {
+	this->m_Color.byteColor.a = byGaugeAlpha ;
+}
+/////////////////// ////////////////////
+//// 用途       ：void Update( UpdatePacket& i_UpdatePacket )
+//// カテゴリ   ：関数
+//// 用途       ：オブジェクトを更新
+//// 引数       ：  UpdatePacket& i_UpdatePacket     // アップデート時に必要なデータ群 ↓内容下記
+////            ：  ├       LPDIRECT3DDEVICE9  pD3DDevice      // IDirect3DDevice9 インターフェイスへのポインタ
+////            ：  ├       Tempus2*           pTime           // 時間を管理するクラスへのポインター
+////            ：  ├       vector<Object*>&   Vec,            // オブジェクトの配列
+////            ：  ├ const CONTROLER_STATE*   pCntlState      // コントローラのステータス
+////            ：  └       Command            pCommand        // コマンド
+//// 戻値       ：無し
+//// 担当者     ：鴫原 徹
+//// 備考       ：
+////            ：
+////
+void MagneticGage_S::Update( UpdatePacket& i_UpdatePacket ){
+	if( !m_pCursor ) m_pCursor = (MouseCursor*)SearchObjectFromID(i_UpdatePacket.pVec, OBJID_SYS_CURSOR);
+	Gage::Update(i_UpdatePacket);
+	D3DXMATRIX	mPos ;
+	D3DXVECTOR3 vPos ;
+	vPos.x	 = (float)m_pCursor->get2DPos().x	;
+	vPos.y	 = (float)m_pCursor->get2DPos().y +  m_GaugeRect.top	;
+	vPos.z	 = 0.0f	;
+	//vPos	+= m_v;
+	D3DXMatrixTranslation( &mPos, vPos.x, vPos.y, vPos.z);
+	m_mMatrix	= mPos ;
+
 }
 
 /**************************************************************
@@ -311,12 +399,12 @@ Factory_Gage::Factory_Gage(FactoryPacket* fpac){
 		fpac->m_pVec->push_back(
 			new SuperGage(
 				fpac->pD3DDevice,
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Gauge_Super.png" ),
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"MagnetGauge_Arc.png" ),
 				D3DXVECTOR3(1.0f,1.0f,0.0f),
 				g_vZero,
-				D3DXVECTOR3(144.0f,550.0f,0.0f),
-				Rect(0,0,512,32),
-				Rect(0,32,0,256)
+				D3DXVECTOR3(950.0,30.0f,0.0f),
+				Rect(112,0,143,272),
+				Rect(144,0,175,272)
 			)
 		);
 
@@ -324,24 +412,20 @@ Factory_Gage::Factory_Gage(FactoryPacket* fpac){
 		fpac->m_pVec->push_back(
 			new MagneticGage_N(
 				fpac->pD3DDevice,
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Gauge_N.png" ),
-				D3DXVECTOR3(1.0f,1.0f,0.0f),
-				g_vZero,
-				D3DXVECTOR3(120.0f,500.0f,0.0f),
-				Rect(0,0,256,32),
-				Rect(0,32,256,64)
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"MagnetGauge_Arc.png" ),
+				D3DXVECTOR3(-170.0f,-140.0f,0.0f),
+				Rect(0,0,113,272),
+				Rect(0,0,0,0)
 			)
 		);
 		//磁界用Sゲージ
 		fpac->m_pVec->push_back(
 			new MagneticGage_S(
 				fpac->pD3DDevice,
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Gauge_S.png" ),
-				D3DXVECTOR3(1.0f,1.0f,0.0f),
-				g_vZero,
-				D3DXVECTOR3(420.0f,500.0f,0.0f),
-				Rect(0,0,256,32),
-				Rect(0,32,256,64)
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"MagnetGauge_Arc.png" ),
+				D3DXVECTOR3( +60.0f,-140.0f,0.0f),
+				Rect(179,0,290,272),
+				Rect(0,0,0,0)
 			)
 		);
 	}

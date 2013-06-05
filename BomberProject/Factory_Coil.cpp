@@ -354,7 +354,7 @@ void PlayerCoil::Update_StateMove(){
 void PlayerCoil::Update_StateStick(){
 	D3DXVECTOR3 vPlayer = g_vZero;
 	float		fTargetDir = NULL;
-	m_fMoveDir += 8.0f;
+	m_fMoveDir += 20.0f;
 	if(m_fMoveDir > 360.0f)m_fMoveDir = float(int(m_fMoveDir) % 360);
 
 	//”­ŽËŽž‚É‹É‚ð•Ï‚¦‚é
@@ -396,7 +396,7 @@ void PlayerCoil::SuperMode( UpdatePacket& i_UpdatePacket ){
 	static bool	s_bSound			= false;
 
 	if( m_pSound && !s_bSound){
-		m_pSound->SearchWaveAndPlay( RCTEXT_SOUND_SE_INVISIBLE );
+		m_pSound->SearchWaveAndPlay( RCTEXT_SOUND_SE_INVISIBLE , (BYTE)(COIL_SUPER_MODE_TIME / MGPRM_INVISIBLESOUND_TIME) +1 );
 		s_bSound = true ;
 	}
 

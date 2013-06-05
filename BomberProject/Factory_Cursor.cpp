@@ -30,7 +30,7 @@ namespace wiz{
  担当：本多寛之
 ***************************************************************************/
 MouseCursor::MouseCursor( LPDIRECT3DDEVICE9 pD3DDevice, TextureManager* m_pTexMgr)
-:Box( pD3DDevice, D3DXVECTOR3( 1.0f, 1.0f, 1.0f), g_vZero, g_vZero, COLOR2D3DCOLORVALUE(0x0FFFFF0F), COLOR2D3DCOLORVALUE(0x0FFFFF0F), COLOR2D3DCOLORVALUE(0x0FFFFF0F),  OBJID_3D_CURSOR, false, m_pTexMgr->addTexture( pD3DDevice, L"Field.png" ) )
+:Box( pD3DDevice, D3DXVECTOR3( 1.0f, 1.0f, 1.0f), g_vZero, g_vZero, COLOR2D3DCOLORVALUE(0x0FFFFF0F), COLOR2D3DCOLORVALUE(0x0FFFFF0F), COLOR2D3DCOLORVALUE(0x0FFFFF0F),  OBJID_SYS_CURSOR, false, m_pTexMgr->addTexture( pD3DDevice, L"Field.png" ) )
 ,PrimitiveSprite(pD3DDevice, m_pTexMgr->addTexture( pD3DDevice, L"MouseCursor.png" ), NULL, D3DXVECTOR3( 22.0f, 22.0f, 0.0f ), g_vZero)
 ,m_Ptn(0)
 ,m_MovePosY(0)
@@ -41,7 +41,7 @@ MouseCursor::MouseCursor( LPDIRECT3DDEVICE9 pD3DDevice, TextureManager* m_pTexMg
 	D3DXMatrixScaling( &m_mScale, vScale.x, vScale.y, vScale.z );
 
 	Box::SetBaseScale( D3DXVECTOR3( (float)MGPRM_MAGNETICUM*2, (float)MGPRM_MAGNETICUM*2, 0.0f) );
-
+	
 }
 
 /////////////////// ////////////////////
@@ -78,38 +78,21 @@ void MouseCursor::Update( UpdatePacket& i_UpdatePacket ){
 		m_pCamera && (m_MovePosY	= m_pCamera->getPosY());
 	}
 
-
 	//	: カーソルの設定
 	//	: マウスのクライアント座標を獲得
-	Point MousePos ;
-	GetCursorPos( &MousePos ) ;
-	ScreenToClient( g_hWnd , &MousePos) ;
+	GetCursorPos( &m_v2DPos ) ;
+	ScreenToClient( g_hWnd , &m_v2DPos) ;
 	
 	//	: 座標の更新
 	D3DXMATRIX mPos ;
-	D3DXMatrixTranslation( &mPos, (float)MousePos.x, (float)MousePos.y, 0.0f);
+	D3DXMatrixTranslation( &mPos, (float)m_v2DPos.x, (float)m_v2DPos.y, 0.0f);
 
 	//	: 行列の算出
 	m_mMatrix = m_mScale * mPos ;
 
 
-	if( m_pCamera ){
+	UpdateCursor();
 
-		float fYPosCorrection = 10.0f ;
-		//	: マウス座標の３Ｄ変換
-		D3DXVECTOR3 vCursol = D3DXVECTOR3( 
-			(float)MousePos.x / DRAW_CLIENT_MAGNIFICATION - MAGNETIC_RADIUS ,
-			(( STANDARD_WINDOW_HEIGHT - MousePos.y ) - UI_HEIGHT ) / DRAW_CLIENT_MAGNIFICATION -
-											MAGNETIC_RADIUS +  m_pCamera->getPosY() - fYPosCorrection  ,
-			0.0f
-		);
-		SetBasePos( vCursol );
-
-		Debugger::DBGSTR::addStr( L" Pos( %f, %f, %f )\n" , vCursol.x , vCursol.y, vCursol.z ) ;
-
-		Box::CalcWorldMatrix();
-
-	}
 	++m_Ptn;
 }
 
@@ -131,7 +114,24 @@ void MouseCursor::Draw(DrawPacket& i_DrawPacket)
 	Box::Draw(i_DrawPacket);
 }
 
+void MouseCursor::UpdateCursor(){
+	if( m_pCamera ){
 
+		float fYPosCorrection = 10.0f ;
+		//	: マウス座標の３Ｄ変換
+		m_v3DPos = D3DXVECTOR3( 
+			(float)m_v2DPos.x / DRAW_CLIENT_MAGNIFICATION - MAGNETIC_RADIUS ,
+			(( STANDARD_WINDOW_HEIGHT - m_v2DPos.y ) - UI_HEIGHT ) / DRAW_CLIENT_MAGNIFICATION -
+											MAGNETIC_RADIUS +  m_pCamera->getPosY() - fYPosCorrection  ,
+			0.0f
+		);
+		SetBasePos( m_v3DPos );
+
+		Debugger::DBGSTR::addStr( L" Pos( %f, %f, %f )\n" , m_v3DPos.x , m_v3DPos.y, m_v3DPos.z ) ;
+
+		Box::CalcWorldMatrix();
+	}
+}
 /**************************************************************************
  Factory_Cursor 定義部
 ****************************************************************************/

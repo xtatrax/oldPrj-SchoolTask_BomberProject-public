@@ -158,14 +158,14 @@ void	Item::Update(UpdatePacket& i_UpdatePacket)
 				if( it->second->m_fDistance < VanishArea ){
 					m_pSound->SearchWaveAndPlay( RCTEXT_SOUND_SE_ITEMS );
 					//エネルギー回復
-					m_pSuperGage->Recovery(RECOVERY_POINT,SUPER_GAGE_MAX);
+					m_pSuperGage->Recovery(RECOVERY_POINT);
 					SafeDelete( it->second );
 					it = m_ItemMap_All.erase( it );
 					continue;
 				}
 			}
 			//ゲージが最大になったらコイルを無敵状態に
-			if(m_pSuperGage->getRect2().right >= SUPER_GAGE_MAX){
+			if(m_pSuperGage->getRate() >= 1.0f){
 				m_pPlayerCoil->setSuperMode(true);	
 			}
 		}
@@ -187,7 +187,7 @@ void	Item::Update(UpdatePacket& i_UpdatePacket)
 		static float s_fTimeTotal = 0.0f;
 		s_fTimeTotal += (float)SUPER_GAGE_MAX / (float)COIL_SUPER_MODE_TIME * (float)i_UpdatePacket.pTime->getElapsedTime();
 		if(s_fTimeTotal >= 1.0f){
-			m_pSuperGage->Consume((int)s_fTimeTotal);
+			m_pSuperGage->Consume( 1.0f / COIL_SUPER_MODE_TIME * (float)i_UpdatePacket.pTime->getElapsedTime() );
 			s_fTimeTotal -= (int)s_fTimeTotal;
 		}
 	}
