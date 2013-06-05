@@ -22,7 +22,7 @@
 const	float	VanishArea	= 1.0f;		//	: アイテムを消すエリア
 const	float	SuctionArea	= 5.0f;		//	: アイテムが吸いよる範囲
 const	float	SpeedRate	= 0.05f;	//	: アイテムの速さ調整倍率
-const	int		RECOVERY_POINT	= 10;
+const	float	RECOVERY_POINT	= 0.010f;
 
 namespace wiz{
 /******************************************************
