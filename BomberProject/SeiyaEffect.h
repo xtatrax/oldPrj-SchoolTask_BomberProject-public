@@ -1416,7 +1416,7 @@ public :
 	用途 : 渡されたポジションの数だけ位置をセットする
 	戻り値 : なし
 	****************************************************************/
-	void setPos( const vector<D3DXVECTOR3*>& i_vPosVec ); 
+	void setPos( const D3DXVECTOR3& i_vPosVec ); 
 };
 }
 using namespace seiyasource;

@@ -1384,22 +1384,10 @@ void NameLineEffect::setPos(
 用途 : 渡されたポジションの数だけ位置をセットする
 戻り値 : なし
 ****************************************************************/
-void NameLineEffect::setPos( const vector<D3DXVECTOR3*>& i_vPosVec )
+void NameLineEffect::setPos( const D3DXVECTOR3& i_vPosVec )
 {
-	vector<D3DXVECTOR3*>::size_type vPosIndex		= 0 ;
-	vector<D3DXVECTOR3*>::size_type vPosIndexEnd	= i_vPosVec.size();
 
-	vector<NameLineEffectState*>::size_type StateIndex		= 0 ;
-	vector<NameLineEffectState*>::size_type StateIndexEnd	= m_StateVec.size();
-
-	while(	vPosIndex  < vPosIndexEnd &&
-			StateIndex < StateIndexEnd ){
-
-			m_StateVec[StateIndex]->m_vPos  = *( i_vPosVec[vPosIndex] ) ;
-
-			vPosIndex++ ;
-			StateIndex++ ;
-	}
+	!m_StateVec.empty() && ( m_StateVec[0]->m_vPos  = i_vPosVec ) ;
 }
 
 }
