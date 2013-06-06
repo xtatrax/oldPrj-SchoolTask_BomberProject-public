@@ -16,6 +16,8 @@
 #include "BassItems.h"
 
 namespace wiz{
+namespace bomberobject{
+
 /**************************************************************************
  _Sound 定義部
 ****************************************************************************/
@@ -298,11 +300,13 @@ void OneSound::PlaySound(BYTE count){
 //-----------//
 
 /////////////////// ////////////////////
-//// 用途       ：
-//// カテゴリ   ：
-//// 用途       ：
-//// 引数       ：
-//// 戻値       ：
+//// 用途       ：bool Sound::SearchSoundMap( PCSTR  i_pSoundName , XACTINDEX& o_SoundNum ) ;
+//// カテゴリ   ：サーチャー
+//// 用途       ：サウンドマップから指定された音を探し出す
+//// 引数       ：  PCSTR         i_pSoundName        //  : [ IN  ]音声名
+////            ：  XACTINDEX&    o_SoundNum          //  : [ OUT ]発見した音声番号
+//// 戻値       ：true   : 発見した
+////            ：false  : 出来なかった
 //// 担当者     ：鴫原 徹
 //// 備考       ：
 ////            ：
@@ -435,7 +439,7 @@ void Sound::Update( UpdatePacket& i_UpdatePacket ){
 bool Sound::SearchSoundAndPlay(PCSTR pSoundName){
 
 	//	: ぬるぽ->ガッ
-	if( DxDevice::getIsPlaySound() && m_pEngine && m_pWaveBank && m_pSoundBank ){
+	if( this != NULL && DxDevice::getIsPlaySound() && m_pEngine && m_pWaveBank && m_pSoundBank ){
 		XACTINDEX SoundNum ;
 		if(SearchSoundMap( pSoundName, SoundNum ) || SearchSoundBank( pSoundName, SoundNum ) ){
 			m_pSoundBank->Play( SoundNum, 0,0 ,NULL );
@@ -467,6 +471,15 @@ bool Sound::SearchWaveAndPlay(PCSTR pWaveName, BYTE count){
 	}
 
 	return false ;
+}
+
+void	Sound::SoundPause(PCSTR pWaveName, BYTE count){
+	if( m_pEngine && m_pWaveBank && m_pSoundBank ){
+		XACTINDEX WaveNum ;
+		if(SearchWaveMap( pWaveName, WaveNum ) || SearchWaveBank( pWaveName, WaveNum ) ){
+			m_pWaveBank->Stop( WaveNum, true );
+		}
+	}
 }
 
 /**************************************************************************
@@ -502,6 +515,6 @@ Factory_Sound::~Factory_Sound(){
 }
 
 }
-
-
+//end of namespace bomberobject.
+}
 //end of namespace wiz.

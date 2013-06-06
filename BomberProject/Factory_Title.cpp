@@ -17,6 +17,8 @@
 #include "BassItems.h"
 
 namespace wiz{
+namespace bomberobject{
+
 /************************************************************************
 Title_Select ’è‹`•”
 ************************************************************************/
@@ -114,9 +116,11 @@ void Title_Select::Update(UpdatePacket& i_UpdatePacket)
 
 	if( m_bPush ){
 		m_iTime++;
-		if( m_iTime > 30 )
+		if( m_iTime > 30 ){
 			//‘I‚Î‚ê‚½‰æ–Ê‚Ö‚Æ‚Ô
 			i_UpdatePacket.pCommand->m_Command	= m_dNext;
+			m_bPush = false ;
+		}
 	}
 };
 
@@ -214,5 +218,7 @@ Factory_Title::~Factory_Title(){
     //‚È‚É‚à‚µ‚È‚¢
 }
 
+}
+//end of namespace bomberobject.
 }
 //end of namespace wiz.

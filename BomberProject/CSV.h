@@ -12,6 +12,6 @@
 #pragma once
 
 namespace wiz{
-	void readcsv(wstring FileName,vector<vector<wstring>>& vecvecData);
-	void readcsv(wstring FileName,vector<vector<string>>& vecvecData);
+	bool readcsv(wstring FileName,vector<vector<wstring>>& vecvecData);
+	bool readcsv(wstring FileName,vector<vector<string>>& vecvecData);
 }

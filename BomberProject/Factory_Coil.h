@@ -26,6 +26,7 @@ const float			PLAYER_TURN_ANGLE_Lv3			= 2.5f;
 const float			COIL_SUPER_MODE_TIME			= 5.0f;
 const float			COIL_ROTATION_ANGLE				= 15.0f;
 const D3DXVECTOR3	COIL_SCALE_ADD_VALUE_START		= D3DXVECTOR3(0.03f,0.03f,0.03f);
+const D3DXVECTOR3	COIL_SCALE_ADD_VALUE_STOP		= D3DXVECTOR3(0.03f,0.03f,0.03f);
 const D3DXVECTOR3	COIL_SCALE_ADD_VALUE_STICK		= D3DXVECTOR3(0.045f,0.045f,0.045f);
 const float			COIL_EXPANSION_VALUE_STICK		= 1.5f;
 
@@ -36,10 +37,12 @@ enum COIL_STATE{			//自機の状態
 	//COIL_STATE_SUPER,		//無敵
 	COIL_STATE_DEAD,		//死亡
 	COIL_STATE_CONTINUE,	//コンティニュー
-	COIL_STATE_CLEAR		//クリア
+	COIL_STATE_CLEAR,		//クリア
+	COIL_STATE_STOP			//停止状態
 };
 
 namespace wiz{
+namespace bomberobject{
 extern class ProvisionalPlayer3D ;
 
 /************************************************************************
@@ -86,6 +89,7 @@ class PlayerCoil : public MagneticumObject3D{
 	bool			m_bLastMouseRB	;
 	bool			m_bLastMouseLB	;
 	bool			m_bReadyToStart ;
+	bool			m_bReadyContinue;
 
 	bool			m_bIsSuperMode	;//無敵状態のフラグ (無敵状態は他の状態と重なるのでCOIL_STATEに入れない)
 
@@ -262,6 +266,18 @@ public:
 	void Update_StateContinue();
 
 	/////////////////// ////////////////////
+	//// 関数名     ：void Update_StateStop()
+	//// カテゴリ   ：
+	//// 用途       ：STATE_STOP時の動き
+	//// 引数       ：
+	//// 戻値       ：なし
+	//// 担当       ：佐藤涼
+	//// 備考       ：
+	////            ：
+	////
+	void Update_StateStop();
+
+	/////////////////// ////////////////////
 	//// 用途       ：virtual void Draw( DrawPacket& i_DrawPacket )
 	//// カテゴリ   ：
 	//// 用途       ：
@@ -430,6 +446,9 @@ public:
 		m_vStartPos = i_vPos;
 	}
 
+	void	setReadyContinue( bool b ){
+		m_bReadyContinue	= b;
+	}
 	/////////////////// ////////////////////
 	//// 関数名     ：void getSuperMode()
 	//// カテゴリ   ：ゲッター
@@ -471,7 +490,7 @@ public:
  用途: コンストラクタ（サンプルオブジェクトを配列に追加する）
  戻り値: なし
 ***************************************************************************/
-	Factory_Coil( FactoryPacket* fpac );
+	Factory_Coil( FactoryPacket* fpac , D3DXVECTOR3* vStartPos = NULL );
 /**************************************************************************
  ~MyFactory();
  用途: デストラクタ
@@ -479,5 +498,7 @@ public:
 ***************************************************************************/
 	~Factory_Coil();
 };
+}
+//end of namespace bomberobject.
 }
 //end of namespace wiz.

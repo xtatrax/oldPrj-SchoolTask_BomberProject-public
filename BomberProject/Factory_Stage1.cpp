@@ -11,11 +11,13 @@
 //
 #include "StdAfx.h"
 #include "Stage.h"
+#include "StageLoader.h"
 #include "Factory_Stage1.h"
 #include "Factory_Player.h"
 
 
 namespace wiz{
+namespace bomberobject{
 
 /**************************************************************************
  Factory_Stage1 íËã`ïî
@@ -67,48 +69,48 @@ Factory_Stage1::Factory_Stage1(FactoryPacket *fpac){
 		MapPartsStatus MapData[] = {
 			//	:			 scale		   Rot		   Pos							          Diffuse	   Specular	     Ambient
 			//â°â∫
-			{ OBJID_3D_WALL, BaseWallSize, WallRot2, D3DXVECTOR3( 12.0f,  0.0f,     0.0f ), WallDiffuse, WallSpecular, WallAmbient },
-			{ OBJID_3D_WALL, BaseWallSize, WallRot2, D3DXVECTOR3( 38.0f,  0.0f,     0.0f ), WallDiffuse, WallSpecular, WallAmbient },
-			//ècç∂ï«
-			{ OBJID_3D_WALL, BaseWallSize, WallRot1, D3DXVECTOR3(  0.5f, 13.0f,	    0.0f ), WallDiffuse, WallSpecular, WallAmbient },
-			{ OBJID_3D_WALL, BaseWallSize, WallRot1, D3DXVECTOR3(  0.5f, 13.0f+i*1, 0.0f ), WallDiffuse, WallSpecular, WallAmbient },
-			{ OBJID_3D_WALL, BaseWallSize, WallRot1, D3DXVECTOR3(  0.5f, 13.0f+i*2, 0.0f ), WallDiffuse, WallSpecular, WallAmbient },
-			{ OBJID_3D_WALL, BaseWallSize, WallRot1, D3DXVECTOR3(  0.5f, 13.0f+i*3, 0.0f ), WallDiffuse, WallSpecular, WallAmbient },
-			{ OBJID_3D_WALL, BaseWallSize, WallRot1, D3DXVECTOR3(  0.5f, 13.0f+i*4, 0.0f ), WallDiffuse, WallSpecular, WallAmbient },
-			{ OBJID_3D_WALL, BaseWallSize, WallRot1, D3DXVECTOR3(  0.5f, 13.0f+i*5, 0.0f ), WallDiffuse, WallSpecular, WallAmbient },
-			//ècâEï«
-			{ OBJID_3D_WALL, BaseWallSize, WallRot1, D3DXVECTOR3( 49.5f, 13.0f,     0.0f ), WallDiffuse, WallSpecular, WallAmbient },
-			{ OBJID_3D_WALL, BaseWallSize, WallRot1, D3DXVECTOR3( 49.5f, 13.0f+i*1, 0.0f ), WallDiffuse, WallSpecular, WallAmbient },
-			{ OBJID_3D_WALL, BaseWallSize, WallRot1, D3DXVECTOR3( 49.5f, 13.0f+i*2, 0.0f ), WallDiffuse, WallSpecular, WallAmbient },
-			{ OBJID_3D_WALL, BaseWallSize, WallRot1, D3DXVECTOR3( 49.5f, 13.0f+i*3, 0.0f ), WallDiffuse, WallSpecular, WallAmbient },
-			{ OBJID_3D_WALL, BaseWallSize, WallRot1, D3DXVECTOR3( 49.5f, 13.0f+i*4, 0.0f ), WallDiffuse, WallSpecular, WallAmbient },
-			{ OBJID_3D_WALL, BaseWallSize, WallRot1, D3DXVECTOR3( 49.5f, 13.0f+i*5, 0.0f ), WallDiffuse, WallSpecular, WallAmbient },
+			//{ OBJID_3D_WALL, BaseWallSize, WallRot2, D3DXVECTOR3( 12.0f,  0.0f,     0.0f ), WallDiffuse, WallSpecular, WallAmbient },
+			//{ OBJID_3D_WALL, BaseWallSize, WallRot2, D3DXVECTOR3( 38.0f,  0.0f,     0.0f ), WallDiffuse, WallSpecular, WallAmbient },
+			////ècç∂ï«
+			//{ OBJID_3D_WALL, BaseWallSize, WallRot1, D3DXVECTOR3(  0.5f, 13.0f,	    0.0f ), WallDiffuse, WallSpecular, WallAmbient },
+			//{ OBJID_3D_WALL, BaseWallSize, WallRot1, D3DXVECTOR3(  0.5f, 13.0f+i*1, 0.0f ), WallDiffuse, WallSpecular, WallAmbient },
+			//{ OBJID_3D_WALL, BaseWallSize, WallRot1, D3DXVECTOR3(  0.5f, 13.0f+i*2, 0.0f ), WallDiffuse, WallSpecular, WallAmbient },
+			//{ OBJID_3D_WALL, BaseWallSize, WallRot1, D3DXVECTOR3(  0.5f, 13.0f+i*3, 0.0f ), WallDiffuse, WallSpecular, WallAmbient },
+			//{ OBJID_3D_WALL, BaseWallSize, WallRot1, D3DXVECTOR3(  0.5f, 13.0f+i*4, 0.0f ), WallDiffuse, WallSpecular, WallAmbient },
+			//{ OBJID_3D_WALL, BaseWallSize, WallRot1, D3DXVECTOR3(  0.5f, 13.0f+i*5, 0.0f ), WallDiffuse, WallSpecular, WallAmbient },
+			////ècâEï«
+			//{ OBJID_3D_WALL, BaseWallSize, WallRot1, D3DXVECTOR3( 49.5f, 13.0f,     0.0f ), WallDiffuse, WallSpecular, WallAmbient },
+			//{ OBJID_3D_WALL, BaseWallSize, WallRot1, D3DXVECTOR3( 49.5f, 13.0f+i*1, 0.0f ), WallDiffuse, WallSpecular, WallAmbient },
+			//{ OBJID_3D_WALL, BaseWallSize, WallRot1, D3DXVECTOR3( 49.5f, 13.0f+i*2, 0.0f ), WallDiffuse, WallSpecular, WallAmbient },
+			//{ OBJID_3D_WALL, BaseWallSize, WallRot1, D3DXVECTOR3( 49.5f, 13.0f+i*3, 0.0f ), WallDiffuse, WallSpecular, WallAmbient },
+			//{ OBJID_3D_WALL, BaseWallSize, WallRot1, D3DXVECTOR3( 49.5f, 13.0f+i*4, 0.0f ), WallDiffuse, WallSpecular, WallAmbient },
+			//{ OBJID_3D_WALL, BaseWallSize, WallRot1, D3DXVECTOR3( 49.5f, 13.0f+i*5, 0.0f ), WallDiffuse, WallSpecular, WallAmbient },
 
-			//í«â¡
-			//1
-			{ OBJID_3D_WALL, PartsWallSize20, WallRot1, D3DXVECTOR3(25.0f,  30.0, 0.0f), WallDiffuse, WallSpecular, WallAmbient },
-			//2
-			{ OBJID_3D_WALL, PartsWallSize35, WallRot2, D3DXVECTOR3(35.0f,  65.0, 0.0f), WallDiffuse, WallSpecular, WallAmbient },
-			//3
-			{ OBJID_3D_WALL, PartsWallSize40, WallRot2, D3DXVECTOR3(20.0f,  90.0, 0.0f), WallDiffuse, WallSpecular, WallAmbient },
-			//4
-			{ OBJID_3D_WALL, PartsWallSize40, WallRot2, D3DXVECTOR3(30.0f, 105.0, 0.0f), WallDiffuse, WallSpecular, WallAmbient },
-			//5
-			{ OBJID_3D_WALL, PartsWallSize25, WallRot1, D3DXVECTOR3(10.0f, 140.0, 0.0f), WallDiffuse, WallSpecular, WallAmbient },
-			//6
-			{ OBJID_3D_WALL, PartsWallSize25, WallRot1, D3DXVECTOR3(20.0f, 140.0, 0.0f), WallDiffuse, WallSpecular, WallAmbient },
-			//7
-			{ OBJID_3D_WALL, PartsWallSize25, WallRot1, D3DXVECTOR3(30.0f, 140.0, 0.0f), WallDiffuse, WallSpecular, WallAmbient },
-			//8
-			{ OBJID_3D_WALL, PartsWallSize25, WallRot1, D3DXVECTOR3(40.0f, 140.0, 0.0f), WallDiffuse, WallSpecular, WallAmbient },
-			//9
-			{ OBJID_3D_WALL, PartsWallSize10, WallRot2, D3DXVECTOR3( 5.0f, 148.0, 0.0f), WallDiffuse, WallSpecular, WallAmbient },
-			//10
-			{ OBJID_3D_WALL, PartsWallSize10, WallRot2, D3DXVECTOR3(15.0f, 148.0, 0.0f), WallDiffuse, WallSpecular, WallAmbient },
-			//11
-			{ OBJID_3D_WALL, PartsWallSize10, WallRot2, D3DXVECTOR3(25.0f, 148.0, 0.0f), WallDiffuse, WallSpecular, WallAmbient },
-			//12
-			{ OBJID_3D_WALL, PartsWallSize10, WallRot2, D3DXVECTOR3(45.0f, 148.0, 0.0f), WallDiffuse, WallSpecular, WallAmbient },
+			////í«â¡
+			////1
+			//{ OBJID_3D_WALL, PartsWallSize20, WallRot1, D3DXVECTOR3(25.0f,  30.0, 0.0f), WallDiffuse, WallSpecular, WallAmbient },
+			////2
+			//{ OBJID_3D_WALL, PartsWallSize35, WallRot2, D3DXVECTOR3(35.0f,  65.0, 0.0f), WallDiffuse, WallSpecular, WallAmbient },
+			////3
+			//{ OBJID_3D_WALL, PartsWallSize40, WallRot2, D3DXVECTOR3(20.0f,  90.0, 0.0f), WallDiffuse, WallSpecular, WallAmbient },
+			////4
+			//{ OBJID_3D_WALL, PartsWallSize40, WallRot2, D3DXVECTOR3(30.0f, 105.0, 0.0f), WallDiffuse, WallSpecular, WallAmbient },
+			////5
+			//{ OBJID_3D_WALL, PartsWallSize25, WallRot1, D3DXVECTOR3(10.0f, 140.0, 0.0f), WallDiffuse, WallSpecular, WallAmbient },
+			////6
+			//{ OBJID_3D_WALL, PartsWallSize25, WallRot1, D3DXVECTOR3(20.0f, 140.0, 0.0f), WallDiffuse, WallSpecular, WallAmbient },
+			////7
+			//{ OBJID_3D_WALL, PartsWallSize25, WallRot1, D3DXVECTOR3(30.0f, 140.0, 0.0f), WallDiffuse, WallSpecular, WallAmbient },
+			////8
+			//{ OBJID_3D_WALL, PartsWallSize25, WallRot1, D3DXVECTOR3(40.0f, 140.0, 0.0f), WallDiffuse, WallSpecular, WallAmbient },
+			////9
+			//{ OBJID_3D_WALL, PartsWallSize10, WallRot2, D3DXVECTOR3( 5.0f, 148.0, 0.0f), WallDiffuse, WallSpecular, WallAmbient },
+			////10
+			//{ OBJID_3D_WALL, PartsWallSize10, WallRot2, D3DXVECTOR3(15.0f, 148.0, 0.0f), WallDiffuse, WallSpecular, WallAmbient },
+			////11
+			//{ OBJID_3D_WALL, PartsWallSize10, WallRot2, D3DXVECTOR3(25.0f, 148.0, 0.0f), WallDiffuse, WallSpecular, WallAmbient },
+			////12
+			//{ OBJID_3D_WALL, PartsWallSize10, WallRot2, D3DXVECTOR3(45.0f, 148.0, 0.0f), WallDiffuse, WallSpecular, WallAmbient },
 			////13
 			//{ OBJID_3D_WALL, PartsWallSize25, WallRot1, D3DXVECTOR3(10.0f, 140.0, 0.0f), WallDiffuse, WallSpecular, WallAmbient },
 			////14
@@ -120,7 +122,9 @@ Factory_Stage1::Factory_Stage1(FactoryPacket *fpac){
 			////17
 			//{ OBJID_3D_WALL, PartsWallSize10, WallRot2, D3DXVECTOR3(5.0f, 145.0, 0.0f), WallDiffuse, WallSpecular, WallAmbient },
 
-			{ OBJID_3D_STATIC_MAGNET, D3DXVECTOR3( 1.0f,1.0f, 0.0f), WallRot1, D3DXVECTOR3(30.0f, 10.0, 0.0f), MagDiffuse, MagSpecular, WallAmbient, POLE_N },
+			//	: MAPì‡ÇÃé•äE
+			//{ OBJID_3D_STATIC_MAGNET, D3DXVECTOR3( 1.0f,1.0f, 0.0f), WallRot1, D3DXVECTOR3(30.0f, 10.0, 0.0f), MagDiffuse, MagSpecular, WallAmbient, POLE_N },
+			//{ OBJID_3D_STATIC_MAGNET, D3DXVECTOR3( 1.0f,1.0f, 0.0f), WallRot1, D3DXVECTOR3(30.0f, 10.0, 0.0f), MagDiffuse, MagSpecular, WallAmbient, POLE_N },
 
 			{ OBJID_END }
 		
@@ -134,5 +138,7 @@ Factory_Stage1::Factory_Stage1(FactoryPacket *fpac){
 
 }
 
+}
+//end of namespace bomberobject.
 }
 //end of namespace wiz.

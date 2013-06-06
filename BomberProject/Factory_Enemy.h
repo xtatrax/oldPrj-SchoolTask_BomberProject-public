@@ -17,6 +17,8 @@
 #include "Factory_Coil.h"
 
 namespace wiz{
+namespace bomberobject{
+
 /**************************************************************************
  EnemySphere ’è‹`•”
 ****************************************************************************/
@@ -147,4 +149,5 @@ namespace wiz{
 ***************************************************************************/
 		~Factory_Enemy();
 	};
+}//end of namespace bomberobject.
 }//end of namespace wiz.

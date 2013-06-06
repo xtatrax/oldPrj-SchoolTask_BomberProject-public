@@ -19,12 +19,13 @@
 
 const int	START_EFFECTIVE_RANGE		= 12;
 const int 	START_EFFECTIVE_RANGE_QUAD	= (START_EFFECTIVE_RANGE * START_EFFECTIVE_RANGE);
-const int	PLAYER_RECOVERY_POINT		= 1;
-const int	PLAYER_CONSUME_POIMT		= 1;
-const int	PLAYER_INVOCATION_POINT		= 40;
+const float	PLAYER_RECOVERY_POINT		= 0.01f;
+const float	PLAYER_CONSUME_POIMT		= 0.006f;
+const float	PLAYER_INVOCATION_POINT		= 0.006f;
 
 
 namespace wiz{
+namespace bomberobject{
 
 
 //**************************************************************************//
@@ -184,5 +185,7 @@ public:
 ***************************************************************************/
 	~Factory_Player();
 };
+}
+//end of namespace bomberobject.
 }
 //end of namespace wiz.

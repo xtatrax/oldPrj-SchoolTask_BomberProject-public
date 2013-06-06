@@ -26,11 +26,12 @@ static const char*			RCTEXT_SOUND_SE_FIRE		= "SE-FIRE"				;
 static const char*			RCTEXT_SOUND_SE_GOAL		= "SE-GOAL"				;
 static const char*			RCTEXT_SOUND_SE_PLAYERBLOKEN= "SE-PLAYER_BLOKEN"	;
 static const char*			RCTEXT_SOUND_SE_INVISIBLE	= "SE-INVINGVLE"		;
-static const char*			RCTEXT_SOUND_SE_ITEMS		= "SE-ITEMS"		;
+static const char*			RCTEXT_SOUND_SE_ITEMS		= "SE-ITEMS"			;
 static const char*			RCTEXT_SOUND_SE_SETFIELD	= "SE-MAGNETIC_FIELD"	;
 static const char*			RCTEXT_SOUND_SE_SPARK		= "SE-SPARK002"			;
 
-static const int			MGPRM_MAGNETICUM			= 10 ; /* 磁界の影響半径*/
+static const float			MGPRM_INVISIBLESOUND_TIME	= 0.7f	; /* 磁界の影響半径*/
+static const int			MGPRM_MAGNETICUM			= 10	; /* 磁界の影響半径*/
 static const int			MGPRM_MAGNETICUM_QUAD		= ( MGPRM_MAGNETICUM * MGPRM_MAGNETICUM );
 
 
@@ -58,8 +59,7 @@ static const int			MGPRM_MAGNETICUM_QUAD		= ( MGPRM_MAGNETICUM * MGPRM_MAGNETICU
 	#define ON_DEBUGGINGPROCESS			/* デバックモード             */
 	#define DEBUG_STRINGS_ON			/* デバッグ用文字列を有効化 */
 
-	#define DRAW_MOUSE	(false)
-	#define ___MLP_DEBUG_TIMEDRAW_ 
+	//#define ___MLP_DEBUG_TIMEDRAW_ 
 	//#define ON_GUIDELINE
 #else
 //#elif 
@@ -89,8 +89,8 @@ static const int			MGPRM_MAGNETICUM_QUAD		= ( MGPRM_MAGNETICUM * MGPRM_MAGNETICU
 #define STANDARD_WINDOW_WIDTH   ( 1024.0f)	/* ウインドウモードの幅     */
 #define DRAW_TOLERANCE			(   20.0f)	/* カメラからの描画距離 */
 
-#define DEFAULT_WINDOW_TITLE		( L"ウインドウタイトル" )
-#define DEFAULT_WINDOW_CLASS_NAME	( L"ウインドウクラスネーム" )
+#define DEFAULT_WINDOW_TITLE		( L"Magnetica" )
+#define DEFAULT_WINDOW_CLASS_NAME	( L"MagneticWindow" )
 
 //	キーボード定義
 #define MYVK_GAMEPAD_A				( 'X' )
@@ -119,8 +119,10 @@ static const int			MGPRM_MAGNETICUM_QUAD		= ( MGPRM_MAGNETICUM * MGPRM_MAGNETICU
 #define MYVK_DEBUG_OUTPUT_DBGSTR	( VK_F9      )
 #define MYVK_DEBUG_OUTPUT_MEMORY	( VK_F8      )
 #define MYVK_DEBUG_OBB_DRAW			( VK_F7      )
-#define MYVK_DEBUG_COIL_INVISIBLE	( VK_CONTROL )
 #define MYVK_DEBUG_SWITCHING_SOUND	( VK_F6      )
+#define MYVK_DEBUG_COIL_INVISIBLE	( VK_CONTROL )
+#define MYVK_DEBUG_STAGE_RESTART	( VK_RETURN  )
+#define MYVK_DEBUG_STAGE_RELOAD		( VK_MENU    )
 
 //
 //////////
@@ -132,22 +134,23 @@ static const int			MGPRM_MAGNETICUM_QUAD		= ( MGPRM_MAGNETICUM * MGPRM_MAGNETICU
 namespace wiz{
 	//	: ゲーム内メセージ
 	enum{
-		GM_WITHOUT				,
-		GM_OPENSTAGE_TITLE		,
-		GM_OPENSTAGE_PLAY		,
-		GM_OPENSTAGE_RESULT		,
-		GM_OPENSTAGE_RANKING	,
-		GM_OPENSTAGE_OPTION		,
-		GM_OPENSTAGE_GAMECLEAR	,
-		GM_OPENSTAGE_GAMEOVER	,
-		GM_EXIT					,
+		GM_WITHOUT					,
+		GM_OPENSTAGE_TITLE			,
+		GM_OPENSTAGE_PLAY			,
+		GM_OPENSTAGE_PLAY_RELOAD	,
+		GM_OPENSTAGE_RESULT			,
+		GM_OPENSTAGE_RANKING		,
+		GM_OPENSTAGE_OPTION			,
+		GM_OPENSTAGE_GAMECLEAR		,
+		GM_OPENSTAGE_GAMEOVER		,
+		GM_EXIT						,
 
-		GM_OPENDEBUGSTAGE_DEBUGMENU      ,
-		GM_OPENDEBUGSTAGE_STAGELOADERTEST,
-		GM_OPENDEBUGSTAGE_TATEAWORKSPACE ,
-		GM_OPENDEBUGSTAGE_TOJIWORKSPACE  ,
-		GM_OPENDEBUGSTAGE_HSWORKSPACE    ,
-		GM_OPENDEBUGSTAGE_STAGECREATE    ,
+		GM_OPENDEBUGSTAGE_DEBUGMENU			,
+		GM_OPENDEBUGSTAGE_STAGELOADERTEST	,
+		GM_OPENDEBUGSTAGE_TATEAWORKSPACE	,
+		GM_OPENDEBUGSTAGE_TOJIWORKSPACE		,
+		GM_OPENDEBUGSTAGE_HSWORKSPACE		,
+		GM_OPENDEBUGSTAGE_STAGECREATE		,
 
 		//////////
 		//	: 
@@ -225,6 +228,8 @@ namespace wiz{
 		OBJID_UI_SPRITEBUTTON		,	//	: スプライトボタンのUI
 		OBJID_UI_LIFE				,	//	: ライフ( 念のため )
 		OBJID_UI_GAUGE				,	//	: ゲージ
+		OBJID_UI_MAGNETGAUGE_N		,	//	: N極ゲージ
+		OBJID_UI_MAGNETGAUGE_S		,	//	: S極ゲージ
 		OBJID_UI_SCORE				,	//	: スコア
 		OBJID_UI_TIME				,	//	: 時間( いる? )
 		OBJID_UI_END				,
@@ -250,11 +255,11 @@ namespace wiz{
 		////
 
 		//	: 
-		//OBJID_3D_MAGNET				,	//	: 磁石
+		//OBJID_3D_MAGNET			,	//	: 磁石
 		OBJID_3D_WALL				,	//	: 壁
 		OBJID_3D_ITEM				,	//	: アイテム
 
-		OBJID_3D_CURSOR				,	//	: カーソル
+		OBJID_SYS_CURSOR				,	//	: カーソル
 
 		//	:
 		//OBJID_3D_PLAYER				,
