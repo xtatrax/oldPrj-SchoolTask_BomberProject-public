@@ -49,6 +49,7 @@ Title_Select::Title_Select(LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTex
 ,m_vPos( vPos )
 ,m_dNext( next )
 ,m_pSound( NULL )
+,m_iTime( 0 )
 ,m_bPush( false )
 {
 	try{
@@ -113,9 +114,12 @@ void Title_Select::Update(UpdatePacket& i_UpdatePacket)
 	else	m_Color	= 0xA0FFFFFF;
 
 	if( m_bPush ){
-		//‘I‚Î‚ê‚½‰æ–Ê‚Ö‚Æ‚Ô
-		i_UpdatePacket.pCommand->m_Command	= m_dNext;
-		m_bPush = false ;
+		m_iTime++;
+		if( m_iTime > 30 ){
+			//‘I‚Î‚ê‚½‰æ–Ê‚Ö‚Æ‚Ô
+			i_UpdatePacket.pCommand->m_Command	= m_dNext;
+			m_bPush = false ;
+		}
 	}
 };
 
@@ -180,13 +184,6 @@ Factory_Title::Factory_Title(FactoryPacket* fpac){
 				)
 		);
 
-		//fpac->m_pVec->push_back(
-		//	new MouseCursor( 
-		//				fpac->pD3DDevice,
-		//				fpac->m_pTexMgr
-
-		//	)
-		//);
 		Sound* pSound = NULL;
 		fpac->m_pVec->push_back(
 			pSound = new Sound( 
