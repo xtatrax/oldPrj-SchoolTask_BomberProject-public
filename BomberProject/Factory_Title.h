@@ -31,6 +31,7 @@ class	Title_Select	: public SpriteObject{
 	Sound*			m_pSound;
 	int				m_iTime;
 	bool			m_bPush;
+
 public:
 	Title_Select( LPDIRECT3DDEVICE9 pD3DDevice,LPDIRECT3DTEXTURE9 pTexture,DWORD next,
 			D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos, RECT* pRect,

@@ -159,7 +159,7 @@ void	Item::Update(UpdatePacket& i_UpdatePacket)
 				if( it->second->m_fDistance < VanishArea ){
 					m_pSound->SearchWaveAndPlay( RCTEXT_SOUND_SE_ITEMS );
 					//ƒGƒlƒ‹ƒM[‰ñ•œ
-					m_pSuperGage->Recovery(RECOVERY_POINT);
+					m_pSuperGage->Recovery(-RECOVERY_POINT);
 					SafeDelete( it->second );
 					it = m_ItemMap_All.erase( it );
 					continue;
@@ -188,7 +188,7 @@ void	Item::Update(UpdatePacket& i_UpdatePacket)
 		static float s_fTimeTotal = 0.0f;
 		s_fTimeTotal += (float)SUPER_GAGE_MAX / (float)COIL_SUPER_MODE_TIME * (float)i_UpdatePacket.pTime->getElapsedTime();
 		if(s_fTimeTotal >= 1.0f){
-			m_pSuperGage->Consume( 1.0f / COIL_SUPER_MODE_TIME * (float)i_UpdatePacket.pTime->getElapsedTime() );
+			m_pSuperGage->Consume( -(1.0f / COIL_SUPER_MODE_TIME * (float)i_UpdatePacket.pTime->getElapsedTime()) );
 			s_fTimeTotal -= (int)s_fTimeTotal;
 		}
 	}
