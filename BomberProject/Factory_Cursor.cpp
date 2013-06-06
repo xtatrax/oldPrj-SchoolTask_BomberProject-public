@@ -43,7 +43,10 @@ MouseCursor::MouseCursor( LPDIRECT3DDEVICE9 pD3DDevice, TextureManager* m_pTexMg
 	D3DXMatrixScaling( &m_mScale, vScale.x, vScale.y, vScale.z );
 
 	Box::SetBaseScale( D3DXVECTOR3( (float)MGPRM_MAGNETICUM*2, (float)MGPRM_MAGNETICUM*2, 0.0f) );
-	
+
+
+	m_pCursorLine = new NameLineEffect( pD3DDevice, NULL, 1);
+
 }
 
 /////////////////// ////////////////////

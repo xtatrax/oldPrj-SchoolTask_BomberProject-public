@@ -13,6 +13,7 @@
 
 #include "StdAfx.h"
 #include "Object.h"
+#include "seiyaEffect.h"
 
 namespace wiz{
 namespace bomberobject{
@@ -96,12 +97,13 @@ inline D3DXVECTOR3* CalcScreenToXZ(
 //**************************************************************************//
 class MouseCursor : public Box , public  PrimitiveSprite{
 
-	int				m_Ptn		;
-	float			m_MovePosY	;
-	Camera*			m_pCamera	;
-	D3DXMATRIX		m_mScale	;
-	D3DXVECTOR3		m_v3DPos	;
-	Point			m_v2DPos	;
+	int					m_Ptn			;
+	float				m_MovePosY		;
+	Camera*				m_pCamera		;
+	NameLineEffect*		m_pCursorLine	;
+	D3DXMATRIX			m_mScale		;
+	D3DXVECTOR3			m_v3DPos		;
+	Point				m_v2DPos		;
 //protected:
 
 public:
