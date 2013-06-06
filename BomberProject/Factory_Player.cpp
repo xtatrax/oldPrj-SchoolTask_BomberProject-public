@@ -268,9 +268,11 @@ void ProvisionalPlayer3D::Update( UpdatePacket& i_UpdatePacket ){
 				m_bDrawing	= false;
 			}
 		}else{
-			m_bDrawing	= false;
-			if( m_pMGage_N ) m_pMGage_N->Recovery(PLAYER_RECOVERY_POINT);
-			if( m_pMGage_S ) m_pMGage_S->Recovery(PLAYER_RECOVERY_POINT);
+			if(m_pPlayerCoil->getState() != COIL_STATE_STICK){
+				m_bDrawing	= false;
+				if( m_pMGage_N ) m_pMGage_N->Recovery(PLAYER_RECOVERY_POINT);
+				if( m_pMGage_S ) m_pMGage_S->Recovery(PLAYER_RECOVERY_POINT);
+			}
 		}
 	}else{
 			m_bDrawing	= false;

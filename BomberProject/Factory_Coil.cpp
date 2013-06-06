@@ -222,6 +222,7 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 
 		//デバック用-----------------------------------------------------------
 		Debugger::DBGSTR::addStr( L"角度 = %f\n",m_fMoveDir);
+		Debugger::DBGSTR::addStr( L"状態 = %d\n",m_enumCoilState);
 		//-----------------------------------------------------------------------
 
 		//マトリクス計算
@@ -292,6 +293,12 @@ void PlayerCoil::Update_StateStart(){
 			m_bLastMouseRB  = false;
 			m_bReadyToStart = false;
 		}
+	}else{
+		m_vScale += COIL_SCALE_ADD_VALUE_START;
+		if( m_vScale.x >= m_vOriginScale.x && m_vScale.y >= m_vOriginScale.y ){
+			m_vScale = m_vOriginScale;
+			m_bReadyToStart = true;
+		}
 	}
 };
 
@@ -354,26 +361,47 @@ void PlayerCoil::Update_StateMove(){
 ////            ：
 ////
 void PlayerCoil::Update_StateStick(){
-	D3DXVECTOR3 vPlayer = g_vZero;
-	float		fTargetDir = NULL;
-	m_fMoveDir += 20.0f;
-	if(m_fMoveDir > 360.0f)m_fMoveDir = float(int(m_fMoveDir) % 360);
-
-	//発射時に極を変える
-	switch(getMagnetPole()){
-		case POLE_S:
-			if(!g_bMouseLB || !m_pPlayer->getDrawing()){
-				setPoleN();
-				m_enumCoilState = COIL_STATE_MOVE;
+	if(m_bReadyToStart){
+		m_fMoveDir += COIL_ROTATION_ANGLE;
+		if(m_fMoveDir > 360.0f)m_fMoveDir = float(int(m_fMoveDir) % 360);
+		switch(getMagnetPole()){
+			case POLE_S:
+				if(!g_bMouseRB || !m_pPlayer->getDrawing()){
+					m_enumCoilState = COIL_STATE_MOVE;
+					m_bReadyToStart = false;
+				}
+				break;
+			case POLE_N:
+				if(!g_bMouseLB || !m_pPlayer->getDrawing()){
+					m_enumCoilState = COIL_STATE_MOVE;
+					m_bReadyToStart = false;
+				}
+				break;
+		}
+	}else{
+		static bool s_bExpanding = true;
+		if(s_bExpanding){
+			m_vScale += COIL_SCALE_ADD_VALUE_STICK;
+			if(m_vScale.x >= m_vOriginScale.x * COIL_EXPANSION_VALUE_STICK){
+				s_bExpanding = false;
+				switch(getMagnetPole()){
+					case POLE_S:
+						setPoleN();
+						break;
+					case POLE_N:
+						setPoleS();
+						break;
+				}
 			}
-			break;
-		case POLE_N:
-			if(!g_bMouseRB || !m_pPlayer->getDrawing()){
-				setPoleS();
-				m_enumCoilState = COIL_STATE_MOVE;
+		}else{
+			m_vScale -= COIL_SCALE_ADD_VALUE_STICK;
+			if( m_vScale.x <= m_vOriginScale.x && m_vScale.y <= m_vOriginScale.y ){
+				s_bExpanding = true;	
+				m_bReadyToStart = true;
 			}
-			break;
+		}
 	}
+
 };
 
 
@@ -501,7 +529,7 @@ void PlayerCoil::Update_StateContinue(){
 			m_bReadyToStart = false;
 		}
 	}else{
-		m_vScale += COIL_MAGNIFICATION_VALUE;
+		m_vScale += COIL_SCALE_ADD_VALUE_START;
 		if( m_vScale.x >= m_vOriginScale.x && m_vScale.y >= m_vOriginScale.y ){
 			m_vScale = m_vOriginScale;
 			m_bReadyToStart = true;
@@ -532,7 +560,7 @@ void PlayerCoil::Update_StateStop(){
 	//角度の更新
 	m_fMoveDir = fTargetDir;
 
-	m_vScale += COIL_MAGNIFICATION_VALUE;
+	m_vScale += COIL_SCALE_ADD_VALUE_STOP;
 	if( m_vScale.x >= m_vOriginScale.x && m_vScale.y >= m_vOriginScale.y ){
 		m_vScale = m_vOriginScale;
 		m_bReadyToStart = true;
