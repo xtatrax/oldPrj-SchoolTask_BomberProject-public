@@ -302,6 +302,7 @@ void WallObject::Update( UpdatePacket& i_UpdatePacket ){
 		//}
 
 		if( m_pPlayerCoil && m_pPlayerCoil->HitTestWall( it2->second->m_Obb, 0 ) ){
+
 			switch(m_pPlayerCoil->getState()){
 				case COIL_STATE_MOVE:
 					if(!m_pPlayerCoil->getSuperMode()){
@@ -413,7 +414,8 @@ void WallObject::AddWall(D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos
 			D3DXToRadian(vRot.y),D3DXToRadian(vRot.x),D3DXToRadian(vRot.z));
 
 	//Õ“Ë”»’è—p‚ÌOBB‚Ì‰Šú‰»
-	pItem->m_Obb = OBB( vScale, pItem->m_vRot, vPos ) ;
+	D3DXVECTOR3 vOBBScale = D3DXVECTOR3(vScale.x/8,vScale.y,vScale.z);
+	pItem->m_Obb = OBB( vOBBScale, pItem->m_vRot, vPos ) ;
 	D3DXMATRIX mRot;
 	D3DXMatrixIdentity(&mRot);
 	D3DXMatrixRotationYawPitchRoll(&mRot,
