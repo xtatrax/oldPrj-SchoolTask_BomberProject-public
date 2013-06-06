@@ -515,7 +515,7 @@ Factory_Goal::Factory_Goal(FactoryPacket* fpac){
         D3DCOLORVALUE GoalAmbient = {0.0f,1.0f,1.0f,0.3f};
 
 		FMemoryTex* mt = new FMemoryTex(fpac->pD3DDevice,fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"memory.png" ));
-		GoalObject* gl = new GoalObject(fpac->pD3DDevice,NULL);
+		// GoalObject* gl = new GoalObject(fpac->pD3DDevice,NULL);
 		////‚¨ŽŽ‚µ
 		//gl->addGoal(	D3DXVECTOR3( 10.0f, 3.0f, 1.0f ),
 		//				D3DXVECTOR3( 0.0f, 0.0f, 90.0f ),
@@ -533,14 +533,14 @@ Factory_Goal::Factory_Goal(FactoryPacket* fpac){
 
 		fpac->m_pVec->push_back( mt );
 
-		gl->addGoal(	D3DXVECTOR3( 50.0f, 2.0f, 0.0f ),
-						g_vZero,
-						//D3DXVECTOR3( 20.0f, 20.0f, 0.0f ),
-						D3DXVECTOR3( 25.0f, 20.0f * 8.0f-10.0f, 0.0f ),
-						GoalDiffuse,
-						GoalSpecular,
-						GoalAmbient);
-		fpac->m_pVec->push_back(gl);
+		//gl->addGoal(	D3DXVECTOR3( 50.0f, 2.0f, 0.0f ),
+		//				g_vZero,
+		//				//D3DXVECTOR3( 20.0f, 20.0f, 0.0f ),
+		//				D3DXVECTOR3( 25.0f, 20.0f * 8.0f-10.0f, 0.0f ),
+		//				GoalDiffuse,
+		//				GoalSpecular,
+		//				GoalAmbient);
+		//fpac->m_pVec->push_back(gl);
 
 	}
 	catch(...){

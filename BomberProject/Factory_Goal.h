@@ -144,7 +144,7 @@ class	GoalObject	:public PrimitiveBox{
 public:
 	GoalObject(	LPDIRECT3DDEVICE9 pD3DDevice,
 				LPDIRECT3DTEXTURE9 pTexture,
-				wiz::OBJID id = OBJID_3D_WALL
+				wiz::OBJID id = OBJID_SYS_CLEARAREA
 				);
 	/////////////////// ////////////////////
 	//// ä÷êîñº     ÅF~GoalObject();
