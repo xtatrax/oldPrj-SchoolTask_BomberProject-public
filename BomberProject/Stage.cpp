@@ -48,6 +48,7 @@ void Stage::Clear(){
 ***************************************************************************/
 Stage::Stage(Stage* Par)
 :m_pParStage(Par),m_pChildStage(0),m_IsDialog(false)
+,m_bUpdate( true )
 #if defined(DEBUG) | defined(_DEBUG) | defined(ON_DEBUGGINGPROCESS)
 ,m_bSlow(false)
 #endif
@@ -114,15 +115,16 @@ void Stage::Update(UpdatePacket& i_UpdatePacket)
 	fSlowAccumulator = 0 ;
 #endif
 	if(m_bUpdate){
-	//配置オブジェクトの描画
-	vector<Object*>::size_type sz = m_Vec.size();
-	for(vector<Object*>::size_type i = 0;i < sz;i++){
-		if(!m_Vec[i]->getDead()){
-			m_Vec[i]->AccessBegin();
-			m_Vec[i]->Update(i_UpdatePacket) ;
-			m_Vec[i]->AccessEnd();
+		//配置オブジェクトの描画
+		vector<Object*>::size_type sz = m_Vec.size();
+		for(vector<Object*>::size_type i = 0;i < sz;i++){
+			if(!m_Vec[i]->getDead()){
+				m_Vec[i]->AccessBegin();
+				m_Vec[i]->Update(i_UpdatePacket) ;
+				m_Vec[i]->AccessEnd();
+			}
+	//::MessageBoxA( g_hWnd,"アップデート","kita",0);
 		}
-	}
 	}
 }
 /////////////////// ////////////////////
@@ -145,6 +147,7 @@ void Stage::Render(RenderPacket& i_RenderPacket){
 			(*it)->AccessBegin();
 			(*it)->TargetRender(i_RenderPacket);
 			(*it)->AccessEnd();
+	//::MessageBoxA( g_hWnd,"rennda-","kita",0);
 		} else {
 			
 			SAFE_DELETE( (*it) ) ;
@@ -176,6 +179,7 @@ void Stage::Draw(DrawPacket& i_DrawPacket)
 			m_Vec[i]->AccessBegin();
 			m_Vec[i]->Draw(i_DrawPacket);
 			m_Vec[i]->AccessEnd();
+	//::MessageBoxA( g_hWnd,"doro-","kita",0);
 		}
 	}
 	catch(exception& e){
