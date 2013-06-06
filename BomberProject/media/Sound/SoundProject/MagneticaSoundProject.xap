@@ -16,8 +16,8 @@ Global Settings
     Header File = MagneticaSoundProject.h;
     Exclude Category Names = 0;
     Exclude Variable Names = 0;
-    Last Modified Low = 2405646754;
-    Last Modified High = 30302819;
+    Last Modified Low = 2114785376;
+    Last Modified High = 30302828;
 
     Category
     {
@@ -228,12 +228,10 @@ Wave Bank
     Compression Preset Name = <none>;
     Xbox Bank Last Modified Low = 0;
     Xbox Bank Last Modified High = 0;
-    PC Bank Last Modified Low = 2405696757;
-    PC Bank Last Modified High = 30302819;
-    Header Last Modified Low = 0;
-    Header Last Modified High = 0;
-    Bank Last Revised Low = 2347543430;
-    Bank Last Revised High = 30302819;
+    PC Bank Last Modified Low = 2114865381;
+    PC Bank Last Modified High = 30302828;
+    Bank Last Revised Low = 1824998801;
+    Bank Last Revised High = 30302828;
 
     Wave
     {
@@ -559,29 +557,6 @@ Wave Bank
 
     Wave
     {
-        Name = SE-ITEMS;
-        File = GameSounds\SE-ITEMS.wav;
-        Build Settings Last Modified Low = 346117926;
-        Build Settings Last Modified High = 30302198;
-
-        Cache
-        {
-            Format Tag = 0;
-            Channels = 2;
-            Sampling Rate = 44100;
-            Bits Per Sample = 1;
-            Play Region Offset = 44;
-            Play Region Length = 31104;
-            Loop Region Offset = 0;
-            Loop Region Length = 0;
-            File Type = 1;
-            Last Modified Low = 2396347176;
-            Last Modified High = 30302209;
-        }
-    }
-
-    Wave
-    {
         Name = SE-INVINGVLE;
         File = C:\Users\COS_MOS\Desktop\SE-INVINGVLE.wav;
         Build Settings Last Modified Low = 2320992119;
@@ -602,6 +577,29 @@ Wave Bank
             Last Modified High = 30302457;
         }
     }
+
+    Wave
+    {
+        Name = SE-ITEMS;
+        File = GameSounds\SE-ITEMS.wav;
+        Build Settings Last Modified Low = 1567124052;
+        Build Settings Last Modified High = 30302828;
+
+        Cache
+        {
+            Format Tag = 0;
+            Channels = 2;
+            Sampling Rate = 44100;
+            Bits Per Sample = 1;
+            Play Region Offset = 44;
+            Play Region Length = 31104;
+            Loop Region Offset = 0;
+            Loop Region Length = 0;
+            File Type = 1;
+            Last Modified Low = 1276947282;
+            Last Modified High = 30302822;
+        }
+    }
 }
 
 Sound Bank
@@ -611,8 +609,8 @@ Sound Bank
     Windows File = Win\MagneticaSound.xsb;
     Xbox Bank Path Edited = 0;
     Windows Bank Path Edited = 0;
-    Bank Last Modified Low = 2409106952;
-    Bank Last Modified High = 30302819;
+    Bank Last Modified Low = 2115365409;
+    Bank Last Modified High = 30302828;
     Header Last Modified High = 0;
     Header Last Modified Low = 0;
 
@@ -1281,53 +1279,6 @@ Sound Bank
 
     Sound
     {
-        Name = SE-ITEMS;
-        Volume = -4230;
-        Pitch = 0;
-        Priority = 0;
-
-        Category Entry
-        {
-            Name = Default;
-        }
-
-        Track
-        {
-            Volume = 0;
-            Use Filter = 0;
-
-            Play Wave Event
-            {
-                Break Loop = 0;
-                Use Speaker Position = 0;
-                Use Center Speaker = 1;
-                New Speaker Position On Loop = 1;
-                Speaker Position Angle = 0.000000;
-                Speaker Position Arc = 0.000000;
-
-                Event Header
-                {
-                    Timestamp = 0;
-                    Relative = 0;
-                    Random Recurrence = 0;
-                    Random Offset = 0;
-                }
-
-                Wave Entry
-                {
-                    Bank Name = MagneticaWave;
-                    Bank Index = 0;
-                    Entry Name = SE-ITEMS;
-                    Entry Index = 14;
-                    Weight = 255;
-                    Weight Min = 0;
-                }
-            }
-        }
-    }
-
-    Sound
-    {
         Name = SE-INVINGVLE;
         Volume = -1560;
         Pitch = 0;
@@ -1366,6 +1317,53 @@ Sound Bank
                     Bank Name = MagneticaWave;
                     Bank Index = 0;
                     Entry Name = SE-INVINGVLE;
+                    Entry Index = 14;
+                    Weight = 255;
+                    Weight Min = 0;
+                }
+            }
+        }
+    }
+
+    Sound
+    {
+        Name = SE-ITEMS;
+        Volume = -1200;
+        Pitch = 0;
+        Priority = 0;
+
+        Category Entry
+        {
+            Name = Default;
+        }
+
+        Track
+        {
+            Volume = 0;
+            Use Filter = 0;
+
+            Play Wave Event
+            {
+                Break Loop = 0;
+                Use Speaker Position = 0;
+                Use Center Speaker = 1;
+                New Speaker Position On Loop = 1;
+                Speaker Position Angle = 0.000000;
+                Speaker Position Arc = 0.000000;
+
+                Event Header
+                {
+                    Timestamp = 0;
+                    Relative = 0;
+                    Random Recurrence = 0;
+                    Random Offset = 0;
+                }
+
+                Wave Entry
+                {
+                    Bank Name = MagneticaWave;
+                    Bank Index = 0;
+                    Entry Name = SE-ITEMS;
                     Entry Index = 15;
                     Weight = 255;
                     Weight Min = 0;
@@ -1656,26 +1654,6 @@ Sound Bank
 
     Cue
     {
-        Name = SE-ITEMS;
-
-        Variation
-        {
-            Variation Type = 3;
-            Variation Table Type = 1;
-            New Variation on Loop = 0;
-        }
-
-        Sound Entry
-        {
-            Name = SE-ITEMS;
-            Index = 14;
-            Weight Min = 0;
-            Weight Max = 255;
-        }
-    }
-
-    Cue
-    {
         Name = SE-INVINGVLE;
 
         Variation
@@ -1688,6 +1666,26 @@ Sound Bank
         Sound Entry
         {
             Name = SE-INVINGVLE;
+            Index = 14;
+            Weight Min = 0;
+            Weight Max = 255;
+        }
+    }
+
+    Cue
+    {
+        Name = SE-ITEMS;
+
+        Variation
+        {
+            Variation Type = 3;
+            Variation Table Type = 1;
+            New Variation on Loop = 0;
+        }
+
+        Sound Entry
+        {
+            Name = SE-ITEMS;
             Index = 15;
             Weight Min = 0;
             Weight Max = 255;
