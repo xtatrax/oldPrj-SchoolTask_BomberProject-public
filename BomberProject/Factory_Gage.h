@@ -77,7 +77,7 @@ public:
 	}
 
 	void ResetGauge(){
-		m_fRate = 1.0f ;
+		m_fRate = 0.0f ;
 	}
 
 	//void getGaugeRot_Right(int i_iValue){

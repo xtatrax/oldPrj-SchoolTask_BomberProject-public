@@ -60,17 +60,5 @@ TitleStage::~TitleStage(){
 	
 }
 
-//void	TitleStage::Update(UpdatePacket &i_UpdatePacket){
-//  //マウス用データ*************************
-//	Point MousePos ;
-//	GetCursorPos( &MousePos ) ;
-//	ScreenToClient( g_hWnd , &MousePos) ;
-//  //*****************************************
-//	if( g_bMouseLB/* || g_bMouseRB*/ ){
-//		//選ばれた画面へとぶ
-//		i_UpdatePacket.pCommand->m_Command	= GM_OPENSTAGE_PLAY;
-//	}
-//}
-
 }
 //end of namespace wiz.

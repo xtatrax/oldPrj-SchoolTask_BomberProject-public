@@ -17,13 +17,16 @@
 #include "Factory_Sound.h"
 
 
-const float			PLAYER_SPEED					= 0.08f;
-const float			PLAYER_SPEED_SUPER				= 0.12f;
-const float			PLAYER_BASSROT					= 90.0f;
+const float			COIL_SPEED						= 0.08f;
+const float			COIL_SPEED_SUPER				= 0.12f;
+const float			COIL_ACCELERATION_VALUE			= 0.25f;
+const float			COIL_ACCELERATION_DECREASE		= 0.005f;
+const float			COIL_BASSROT					= 90.0f;
 const float			PLAYER_TURN_ANGLE_Lv1			= 1.0f;
 const float			PLAYER_TURN_ANGLE_Lv2			= 2.0f;
 const float			PLAYER_TURN_ANGLE_Lv3			= 2.5f;
 const float			COIL_SUPER_MODE_TIME			= 5.0f;
+const D3DXVECTOR3	COIL_SUPER_MODE_FIELD_SCALE		= D3DXVECTOR3(10.0f,10.0f,0.0f);
 const float			COIL_ROTATION_ANGLE				= 15.0f;
 const D3DXVECTOR3	COIL_SCALE_ADD_VALUE_START		= D3DXVECTOR3(0.03f,0.03f,0.03f);
 const D3DXVECTOR3	COIL_SCALE_ADD_VALUE_STOP		= D3DXVECTOR3(0.03f,0.03f,0.03f);
@@ -84,6 +87,7 @@ class PlayerCoil : public MagneticumObject3D{
 	float			m_OBBRadius		;
 	float			m_fMoveDir		;//äpìx
 	float			m_fMovdSpeed	;//ë¨ìx
+	float			m_fAcceleration	;//â¡ë¨
 	D3DXVECTOR3		m_vStartPos		;
 	float			m_fTurnAngle	;
 	bool			m_bLastMouseRB	;
@@ -92,6 +96,7 @@ class PlayerCoil : public MagneticumObject3D{
 	bool			m_bReadyContinue;
 
 	bool			m_bIsSuperMode	;//ñ≥ìGèÛë‘ÇÃÉtÉâÉO (ñ≥ìGèÛë‘ÇÕëºÇÃèÛë‘Ç∆èdÇ»ÇÈÇÃÇ≈COIL_STATEÇ…ì¸ÇÍÇ»Ç¢)
+	Box*			m_pSuperField	;
 
 	Sound*					m_pSound;
 	ProvisionalPlayer3D*	m_pPlayer;
@@ -133,6 +138,7 @@ public:
 	PlayerCoil(
 		LPDIRECT3DDEVICE9 pD3DDevice,
 		LPDIRECT3DTEXTURE9 pTexture,
+		LPDIRECT3DTEXTURE9 pTexture_Super,
 		float Radius1,
 		float Radius2,
 		float Radius3,
