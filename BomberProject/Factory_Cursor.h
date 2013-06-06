@@ -25,6 +25,8 @@ namespace bomberobject{
 //	: 磁界の半径
 #define MAGNETIC_RADIUS				( 0.5f )
 
+const float	CURSOR_FIELD			= 10.0f;
+
 // スクリーン座標をワールド座標に変換
 inline D3DXVECTOR3* CalcScreenToWorld(
    D3DXVECTOR3* pout,
@@ -100,8 +102,10 @@ class MouseCursor : public Box , public  PrimitiveSprite{
 	D3DXMATRIX			m_mScale	;
 	D3DXVECTOR3			m_v3DPos	;
 	Point				m_v2DPos	;
-	Line*				m_pLine;
-	Line*				m_pLine2;
+	Line*				m_pLine		;
+	Line*				m_pLine2	;
+	Torus*				m_pTorus	;
+	float				m_fTorusMagnification;
 //protected:
 
 public:
