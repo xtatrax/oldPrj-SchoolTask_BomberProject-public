@@ -49,7 +49,7 @@ public:
 		D3DXVECTOR3			&vDirOffset	,		//	: 描画オフセット
 		RECT				GaugeRect	,		//	: 描画範囲
 		RECT				FrameRect	,		//	: 描画範囲
-		wiz::OBJID			id=OBJID_UI_GAUGE	//	: ID
+		wiz::OBJID			id	//	: ID
 	);
 	~Gage();
 	void	Recovery( float fAddValue );	//	: エネルギーの回復
@@ -102,7 +102,7 @@ public:
 		D3DXVECTOR3			&vPos		,		//	: 位置
 		RECT				GaugeRect	,		//	: 描画範囲
 		RECT				FrameRect	,		//	: 描画範囲
-		wiz::OBJID			id=OBJID_UI_GAUGE	//	: ID
+		wiz::OBJID			id=OBJID_UI_SUPERGAUGE	//	: ID
 	);
 
     void	Draw(DrawPacket& i_DrawPacket) ;
@@ -126,7 +126,7 @@ public:
 		D3DXVECTOR3			&vScale		,		//	: 大きさ
 		RECT				GaugeRect	,		//	: 描画範囲
 		RECT				FrameRect	,		//	: 描画範囲
-		wiz::OBJID			id=OBJID_UI_GAUGE	//	: ID
+		wiz::OBJID			id=OBJID_UI_MAGNETGAUGE_N	//	: ID
 	);
 
 	/////////////////// ////////////////////
@@ -165,7 +165,7 @@ public:
 		D3DXVECTOR3			&vScale		,		//	: 大きさ
 		RECT				GaugeRect	,		//	: 描画範囲
 		RECT				FrameRect	,		//	: 描画範囲
-		wiz::OBJID			id = OBJID_UI_GAUGE	//	: ID
+		wiz::OBJID			id = OBJID_UI_MAGNETGAUGE_S	//	: ID
 	);
 
 	/////////////////// ////////////////////

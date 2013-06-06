@@ -49,6 +49,7 @@ Item::Item(FactoryPacket* fpac,LPDIRECT3DTEXTURE9 pTexture, wiz::OBJID id)
 	,m_pPlayerCoil(NULL)
 	,m_pSuperGage(NULL)
 	,m_pSound(NULL)
+	,m_pCamera(NULL)
 {
 	try{
 		//D3DXMatrixIdentity(&m_mMatrix);
@@ -118,6 +119,26 @@ void	Item::Draw(DrawPacket &i_DrawPacket){
 	}
 }
 
+
+void Item::setDrawTarget(){
+
+	//////////
+	//	描画対象の追加
+	//
+	ALLCONTAINER::iterator	AIMit  = m_ItemMap_All.lower_bound( m_pCamera->getPosY()  -20 ),
+							AIMend = m_ItemMap_All.upper_bound( m_pCamera->getPosY()  +20 );
+	while( AIMit != AIMend ){
+		if( AIMit->second->m_bHidden == true ){
+			AIMit->second->m_bHidden = false ;
+			m_ItemMap_Target.push_back( AIMit->second );
+		}
+		AIMit++ ;
+	}
+	//
+	//
+	//////////
+}
+
 /*******************************************************************
 関数名　　：void Item::Update(UpdatePacket& i_UpdatePacket)
 カテゴリ　：関数
@@ -125,43 +146,67 @@ void	Item::Draw(DrawPacket &i_DrawPacket){
 引数　　　：UpdatePacket& i_UpdatePacket  // 更新用データもろもろ
 戻り値　　：
 担当者　　：佐藤涼
+編集      ：鴫原 徹
 備考　　　：
 ********************************************************************/
 void	Item::Update(UpdatePacket& i_UpdatePacket)
 {
+	DWORD dwSTime = TLIB::Tempus::TimeGetTime();
+
 	vector<Object*>	Vec	= *(i_UpdatePacket.pVec);
 
-	if( !m_pPlayerCoil )	m_pPlayerCoil	= (PlayerCoil*)SearchObjectFromTypeID(&Vec,typeid(PlayerCoil));
-	if( !m_pSuperGage )		m_pSuperGage	= (SuperGage*)SearchObjectFromTypeID(&Vec,typeid(SuperGage));
-	if( !m_pSound )			m_pSound		= (Sound*)SearchObjectFromTypeID(&Vec,typeid(Sound));
+	if( !m_pPlayerCoil )	m_pPlayerCoil	= (PlayerCoil*)SearchObjectFromID(&Vec,OBJID_3D_COIL);
+	if( !m_pSuperGage )		m_pSuperGage	= (SuperGage*)SearchObjectFromID(&Vec,OBJID_UI_SUPERGAUGE);
+	if( !m_pSound )			m_pSound		= (Sound*)SearchObjectFromID(&Vec,OBJID_SYS_SOUND);
+	if( !m_pCamera )		m_pCamera		= (Camera*)SearchObjectFromID(&Vec, OBJID_SYS_CAMERA);
 
 	//コイルの位置取得
 	D3DXVECTOR3	cPos	= m_pPlayerCoil->getPos();
 
-	Debugger::DBGSTR::addStr(L"ItemAll = %d\n",m_ItemMap_All.size());
-	multimap<float,BallItem*>::iterator it = m_ItemMap_All.begin();
-	while(it != m_ItemMap_All.end()){
-		if( (m_pPlayerCoil->getState() == COIL_STATE_MOVE || m_pPlayerCoil->getState() == COIL_STATE_STICK )
-			&& !m_pPlayerCoil->getSuperMode()){
+	setDrawTarget();
+
+	Debugger::DBGSTR::addStr(L"ItemAll = %d\n",m_ItemMap_Target.size());
+
+	TARGETCONTAINER::iterator it = m_ItemMap_Target.begin();
+
+	while(it != m_ItemMap_Target.end()){
+
+		if( (m_pPlayerCoil->getState() == COIL_STATE_MOVE		//	: コイルが移動中
+			|| m_pPlayerCoil->getState() == COIL_STATE_STICK )	//	: もしくは	アイテムを吸収中
+			&& !m_pPlayerCoil->getSuperMode())					//	: なおかつ	スーパーモードじゃなかったら
+		{
 			//	: 自分から対象までのベクトルを算出
-			D3DXVECTOR3	vTargetDir	= cPos - (it->second->m_Pos) ;
+			D3DXVECTOR3	vTargetDir	= cPos - ((*it)->m_Pos) ;
 
 			//	: 自分と対象までの距離を求める
 			double dirX = vTargetDir.x * vTargetDir.x;
 			double dirY = vTargetDir.y * vTargetDir.y;
-			it->second->m_fDistance	 = (float)sqrt(dirX + dirY);
+			(*it)->m_fDistance	 = (float)sqrt(dirX + dirY);
 
 			//距離が5以内ならよっていく
-			if( it->second->m_fDistance < SuctionArea ){
-				it->second->m_Pos	+= vTargetDir/**SpeedRate*/ * m_pPlayerCoil->getSpeed();
+			if( (*it)->m_fDistance < SuctionArea ){
+				(*it)->m_Pos	+= vTargetDir/**SpeedRate*/ * m_pPlayerCoil->getSpeed();
 
 				//プレイヤーと限りなく近くなったら、消滅
-				if( it->second->m_fDistance < VanishArea ){
+				if( (*it)->m_fDistance < VanishArea ){
 					m_pSound->SearchWaveAndPlay( RCTEXT_SOUND_SE_ITEMS );
+					//m_ItemMap_All.value_comp();
+					ALLCONTAINER::size_type		count	= m_ItemMap_All.count((*it)->m_fMapKey) , 
+												i		;
+					ALLCONTAINER::iterator		ait		= m_ItemMap_All.find((*it)->m_fMapKey);
 					//エネルギー回復
 					m_pSuperGage->Recovery(-RECOVERY_POINT);
-					SafeDelete( it->second );
-					it = m_ItemMap_All.erase( it );
+					(*it)->m_bHidden = true ;
+					// SafeDelete( (*it) );
+					for( i = 0 ; i < count ; i++ ){
+						if( ait->second == (*it) ){
+							SafeDelete(ait->second);
+							m_ItemMap_All.erase(ait);
+							break ;
+						}
+						ait++ ;
+					}
+					it = m_ItemMap_Target.erase( it );
 					continue;
 				}
 			}
@@ -170,17 +215,22 @@ void	Item::Update(UpdatePacket& i_UpdatePacket)
 				m_pPlayerCoil->setSuperMode(true);	
 			}
 		}
+		if( (*it)->m_fMapKey > m_pCamera->getPosY() +20 ||
+			(*it)->m_fMapKey < m_pCamera->getPosY() -20 ){
+				it = m_ItemMap_Target.erase(it);
+				continue;
+		}
 		//移動用
 		D3DXMATRIX mMove, mScale;
 		D3DXMatrixIdentity(&mMove);
 		D3DXMatrixTranslation(&mMove,
-			it->second->m_Pos.x,it->second->m_Pos.y,it->second->m_Pos.z);
+			(*it)->m_Pos.x,(*it)->m_Pos.y,(*it)->m_Pos.z);
 		D3DXMatrixScaling(&mScale,
-			it->second->m_Size.x,it->second->m_Size.y,it->second->m_Size.z);
+			(*it)->m_Size.x,(*it)->m_Size.y,(*it)->m_Size.z);
 
 		//マティリアル設定
-		m_Material = it->second->m_Material;
-		it->second->m_mMatrix	= mScale * mMove;
+		m_Material = (*it)->m_Material;
+		(*it)->m_mMatrix	= mScale * mMove;
 
 		it++;
 	}
@@ -192,6 +242,9 @@ void	Item::Update(UpdatePacket& i_UpdatePacket)
 			s_fTimeTotal -= (int)s_fTimeTotal;
 		}
 	}
+	DWORD dwETime = TLIB::Tempus::TimeGetTime();
+	Debugger::DBGSTR::addStr( L"Item::Update : %f\n", TLIB::Tempus::TwoDwTime2ElapsedTime(dwSTime,dwETime));
+
 }
 
 /***********************************************
@@ -218,6 +271,8 @@ void	Item::addItem(D3DXVECTOR3 pos, D3DXVECTOR3 size,
 	try{
 		BallItem* bItem = new BallItem;
 		bItem->m_Pos = pos;
+		bItem->m_fMapKey = pos.y ;
+		bItem->m_bHidden = true ;
 		bItem->m_Size = size;
 		bItem->m_fDistance = 6.0f;
         // D3DMATERIAL9構造体を0でクリア
@@ -253,7 +308,7 @@ Factory_Item::Factory_Item(FactoryPacket* fpac){
 		Item*	it	=	new	Item(fpac,NULL,OBJID_UNK);
 
 		for(int i = 0; i < 9; i++){
-			for(int j = 0; j < 50; j++){
+			for(int j = 0; j < 300; j++){
 				it->addItem(D3DXVECTOR3((float(i)*5.0f+float(rand()%100*0.05f))+1.5f,
 										(float(j)*2.75f+float(rand()%100*0.05f))+1.5f,0.0f),
 							D3DXVECTOR3(0.5f,0.5f,0.5f),

@@ -32,29 +32,31 @@ class  Item : public PrimitiveSphere
 
 用途　：アイテム
 担当者：佐藤涼
+編集  ：鴫原 徹
 *******************************************************/
 class	Item	: public PrimitiveSphere {
-	Sound*		m_pSound;
 protected:
-	PlayerCoil*	m_pPlayerCoil;
-	SuperGage*	m_pSuperGage;
+	Sound*		m_pSound		;
+	PlayerCoil*	m_pPlayerCoil	;
+	SuperGage*	m_pSuperGage	;
+	Camera*		m_pCamera		;
 	struct BallItem{
-		//マテリアル
-		D3DMATERIAL9 m_Material;
-		//マトリックス
-		D3DXMATRIX m_mMatrix;
-		//サイズ
-		D3DXVECTOR3	m_Size;
-		//対象との距離
-		float	m_fDistance;
-		//オブジェクトの位置(中心)
-		D3DXVECTOR3	m_Pos;
+		D3DMATERIAL9	m_Material	;		//マテリアル
+		D3DXMATRIX		m_mMatrix	;		//マトリックス
+		D3DXVECTOR3		m_Size		;		//サイズ
+		float			m_fDistance	;		//対象との距離
+		D3DXVECTOR3		m_Pos		;		//オブジェクトの位置(中心)
+		float			m_fMapKey	;
+		bool			m_bHidden	;
 		//派生クラスを作ってもClear()関数で
 		//削除できるように仮想デストラクタにしておく
 		virtual ~BallItem(){}
 	};
-	multimap<float,BallItem*> m_ItemMap_All;	//全てのBallItem
-
+	typedef multimap<float,BallItem*>	ALLCONTAINER	;
+	typedef list<BallItem*>				TARGETCONTAINER ;
+	ALLCONTAINER		m_ItemMap_All		;	//全てのBallItem
+	TARGETCONTAINER		m_ItemMap_Target	;	//描画対象のアイテム
+	void	setDrawTarget();
 public:
 	Item(FactoryPacket* fpac,LPDIRECT3DTEXTURE9 pTexture, wiz::OBJID id);
 	/////////////////// ////////////////////
