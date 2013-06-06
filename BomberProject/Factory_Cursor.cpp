@@ -39,6 +39,8 @@ MouseCursor::MouseCursor( LPDIRECT3DDEVICE9 pD3DDevice, TextureManager* m_pTexMg
 ,m_pCamera( NULL )
 ,m_pLine( NULL )
 ,m_pLine2( NULL )
+,m_pTorus( NULL )
+,m_fTorusMagnification(0)
 {
 
 	D3DXVECTOR3 vScale = D3DXVECTOR3(0.5f,0.5f,0.0f);
@@ -50,7 +52,23 @@ MouseCursor::MouseCursor( LPDIRECT3DDEVICE9 pD3DDevice, TextureManager* m_pTexMg
 	const	D3DXVECTOR3	vDir2	= D3DXVECTOR3( cosf( D3DXToRadian(0.0f) ), sinf( D3DXToRadian(0.0f) ), 0.0f );
 	const	float		fRange	= 100.0f;
 	m_pLine		= new Line( g_vZero, vDir, fRange, 0xFFFFFF00 );
-	m_pLine2	= new Line( m_pLine->getEndPos(), vDir2, fRange*2, 0xFFFFFF00 );
+	m_pLine2		= new Line( m_pLine->getEndPos(), vDir2, fRange*2, 0xFFFFFF00 );
+
+	m_pTorus	= new Torus(
+		pD3DDevice,
+		0.01f,
+		1.0f,
+		g_vZero,
+		g_vZero,
+		COLOR2D3DCOLORVALUE(0x80FFFFFF),
+		COLOR2D3DCOLORVALUE(0x80FFFFFF),
+		COLOR2D3DCOLORVALUE(0x80FFFFFF),
+		OBJID_UNK,
+		false,
+		NULL,
+		36,
+		150
+	);
 	
 }
 
@@ -102,12 +120,20 @@ void MouseCursor::Update( UpdatePacket& i_UpdatePacket ){
 	//	: s—ñ‚ÌŽZo
 	m_mMatrix = m_mScale * mPos ;
 
-
-
 	UpdateCursor();
 
 	m_pLine->setMatrix( m_mMatrix );
 	m_pLine2->setMatrix( m_mMatrix );
+
+	D3DXMATRIX mPos2, mScale, mRot;
+	D3DXMatrixTranslation(&mPos2, m_v3DPos.x, m_v3DPos.y, m_v3DPos.z);
+	D3DXMatrixScaling(&mScale, m_fTorusMagnification,m_fTorusMagnification,0.0f);
+	D3DXMatrixRotationZ(&mRot, 0.0f);
+	m_pTorus->CalcMatrix(mPos2, mScale, mRot);
+
+	m_fTorusMagnification += CURSOR_FIELD * i_UpdatePacket.pTime->getElapsedTime();
+	if(m_fTorusMagnification >= CURSOR_FIELD)m_fTorusMagnification = 0.0f;
+
 	++m_Ptn;
 }
 
@@ -129,6 +155,7 @@ void MouseCursor::Draw(DrawPacket& i_DrawPacket)
 	//Box::Draw(i_DrawPacket);
 	m_pLine->draw(i_DrawPacket.pD3DDevice);
 	m_pLine2->draw(i_DrawPacket.pD3DDevice);
+	if(m_pCamera)m_pTorus->Draw(i_DrawPacket);
 }
 
 void MouseCursor::UpdateCursor(){
@@ -139,8 +166,7 @@ void MouseCursor::UpdateCursor(){
 		m_v3DPos = D3DXVECTOR3( 
 			(float)m_v2DPos.x / DRAW_CLIENT_MAGNIFICATION - MAGNETIC_RADIUS ,
 			(( STANDARD_WINDOW_HEIGHT - m_v2DPos.y ) - UI_HEIGHT ) / DRAW_CLIENT_MAGNIFICATION -
-											MAGNETIC_RADIUS +  m_pCamera->getPosY() - fYPosCorrection  ,
-			0.0f
+											MAGNETIC_RADIUS +  m_pCamera->getPosY() - fYPosCorrection  , 0.0f
 		);
 		SetBasePos( m_v3DPos );
 
