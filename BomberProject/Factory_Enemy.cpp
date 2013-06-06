@@ -304,12 +304,12 @@ EnemySphere::~EnemySphere(){
 ***************************************************************************/
 Factory_Enemy::Factory_Enemy(FactoryPacket* fpac){
 	try{
-		D3DCOLORVALUE EnemyDiffuse = {1.0f,1.0f,1.0f,1.0f};
-		D3DCOLORVALUE EnemySpecular = {1.0f,1.0f,1.0f,1.0f};
-		D3DCOLORVALUE EnemyAmbient = {1.0f,1.0f,1.0f,1.0f};
-		
+		//D3DCOLORVALUE EnemyDiffuse = {1.0f,1.0f,1.0f,1.0f};
+		//D3DCOLORVALUE EnemySpecular = {1.0f,1.0f,1.0f,1.0f};
+		//D3DCOLORVALUE EnemyAmbient = {1.0f,1.0f,1.0f,1.0f};
+		//
 		//			fpac->m_pVec->push_back(new EnemySphere(fpac->pD3DDevice, EnemyDiffuse, EnemySpecular, EnemyAmbient, fpac->m_pTexMgr->addTexture(fpac->pD3DDevice,NULL)));
-		EnemySphere* Enemy = new EnemySphere(fpac->pD3DDevice, EnemyDiffuse, EnemySpecular, EnemyAmbient, fpac->m_pTexMgr->addTexture(fpac->pD3DDevice,L"Enemy.jpg"));
+		//EnemySphere* Enemy = new EnemySphere(fpac->pD3DDevice, EnemyDiffuse, EnemySpecular, EnemyAmbient, fpac->m_pTexMgr->addTexture(fpac->pD3DDevice,L"Enemy.jpg"));
 		//for(int i = 0; i < 3; i++){
 		//	for(int j = 0; j < 3; j++){
 		//		Enemy->AddEnemy(D3DXVECTOR3( 1.0f, 1.0f, 1.0f ),     //ƒXƒP[ƒ‹
@@ -322,7 +322,7 @@ Factory_Enemy::Factory_Enemy(FactoryPacket* fpac){
 		//		);
 		//	}
 		//}
-		fpac->m_pVec->push_back(Enemy);
+		//fpac->m_pVec->push_back(Enemy);
 
 	}
 	catch(...){

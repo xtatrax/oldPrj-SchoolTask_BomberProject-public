@@ -20,6 +20,7 @@
 #include "Factory_Item.h"
 #include "Factory_Magnetic.h"
 #include "Factory_Goal.h"
+#include "Factory_Enemy.h"
 
 
 
@@ -220,6 +221,85 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 					i_Data.bPool	,
 					i_Data.Diffuse	,
 					i_Data.Specular	,
+					i_Data.Ambient
+				);
+			}
+			//	: 磁界
+			//////////
+		}
+		break;
+		case OBJID_3D_ENEMY :	//	: 12307
+		{
+			//////////
+			//	: 磁界
+
+			//	: たーげっと。
+			typedef EnemySphere TARGET_CLASS;
+		//EnemySphere* Enemy = new EnemySphere(fpac->pD3DDevice, EnemyDiffuse, EnemySpecular, EnemyAmbient, fpac->m_pTexMgr->addTexture(fpac->pD3DDevice,L"Enemy.jpg"));
+		//for(int i = 0; i < 3; i++){
+		//	for(int j = 0; j < 3; j++){
+		//		Enemy->AddEnemy(
+		//						D3DXVECTOR3( 1.0f, 1.0f, 1.0f ),     //スケール
+		//						D3DXVECTOR3( 0.0f, 0.0f, 0.0f ),     //角度
+		//						D3DXVECTOR3((float(i)*5.0f+float(rand()%100*0.3f))+1.5f,
+		//									(float(j)*2.75f+float(rand()%100*0.2f))+1.5f,0.0f),   //ポジション
+		//						EnemyDiffuse,
+		//						EnemySpecular,
+		//						EnemyAmbient
+		//		);
+		//	}
+		//}
+		//fpac->m_pVec->push_back(Enemy);
+
+			if((it = m_ObjeTypeMap.find( ObjectID )) != m_ObjeTypeMap.end()){
+				//	: 登録を見つけた場合
+				dynamic_cast< TARGET_CLASS* >(( *m_pVec )[it->second])->AddEnemy(
+					g_vOne		,
+					g_vZero			,
+					i_Data.vPos			,
+					//i_Data.bPool		,
+					i_Data.Diffuse		,
+					i_Data.Specular		,
+					i_Data.Ambient
+				);
+			}else{
+				//	: 登録がなかった場合
+				TARGET_CLASS* mgb;
+				UINT Num = SOF_NOTFOUND ;
+				if( mgb = (TARGET_CLASS*)SearchObjectFromID(m_pVec,OBJID_3D_ITEM,&Num) ){
+
+					//	: オブジェクトの場所を覚えておく
+					m_ObjeTypeMap.insert( make_pair( ObjectID , Num ));
+
+				}else{
+					//	: 登録がなかった場合
+					D3DCOLORVALUE EnemyDiffuse	= {1.0f,1.0f,1.0f,1.0f};
+					D3DCOLORVALUE EnemySpecular	= {1.0f,1.0f,1.0f,1.0f};
+					D3DCOLORVALUE EnemyAmbient	= {1.0f,1.0f,1.0f,1.0f};
+					//	: インスタンスを生成
+					mgb = new EnemySphere(
+						m_pD3DDevice,
+						EnemyDiffuse,
+						EnemySpecular,
+						EnemyAmbient,
+						m_pTexMgr->addTexture(m_pD3DDevice,L"Enemy.jpg")
+					);
+
+					//	: オブジェクトリストへ登録
+					m_pVec->push_back(mgb);
+
+					//	: オブジェクトの場所を覚えておく
+					m_ObjeTypeMap.insert( make_pair( ObjectID , m_pVec->size() -1));
+				}
+
+				//	: 登録がなかった場合
+				mgb->AddEnemy(
+					g_vOne		,
+					g_vZero			,
+					i_Data.vPos			,
+					//i_Data.bPool		,
+					i_Data.Diffuse		,
+					i_Data.Specular		,
 					i_Data.Ambient
 				);
 			}
