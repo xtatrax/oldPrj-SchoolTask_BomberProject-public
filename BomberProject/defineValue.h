@@ -49,7 +49,7 @@ static const int			MGPRM_MAGNETICUM_QUAD		= ( MGPRM_MAGNETICUM * MGPRM_MAGNETICU
 
 
 #define CF_SINGLETHREAD			/* シングルスレッドモード  ( 無効にするとマルチスレッド的になりますがバグります )   */
-#define DRAW_MOUSE	(true)
+#define DRAW_MOUSE	(false)
 
 //#define CF_LOADINGANIMATION		/* ロード画面でアニメーション */
 

@@ -105,8 +105,10 @@ void Title_Select::Update(UpdatePacket& i_UpdatePacket)
 	if( (MousePos.x > m_vPos.x && MousePos.x < ( m_vPos.x + m_pRect->right )) 
 		&& (MousePos.y > m_vPos.y && MousePos.y < ( m_vPos.y + m_pRect->bottom )) ){
 		if( g_bMouseLB/* || g_bMouseRB*/ ){
-			if( !m_bPush )
-				m_pSound->SearchWaveAndPlay( RCTEXT_SOUND_SE_ENTER );
+			if( !m_bPush ){
+				//if( m_pSound != NULL )
+					m_pSound->SearchWaveAndPlay( RCTEXT_SOUND_SE_ENTER );
+			}
 			m_bPush		= true;
 		}
 		m_Color	= 0xFFFFFFFF;
