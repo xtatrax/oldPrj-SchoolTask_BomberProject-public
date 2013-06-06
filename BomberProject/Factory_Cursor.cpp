@@ -84,6 +84,7 @@ MouseCursor::~MouseCursor(){
 	m_MovePosY	= 0 ;
 	m_pLine		= NULL;
 	m_pLine2	= NULL;
+	m_pTorus	= NULL;
 }
 
 
@@ -108,6 +109,8 @@ void MouseCursor::Update( UpdatePacket& i_UpdatePacket ){
 		m_pCamera && (m_MovePosY	= m_pCamera->getPosY());
 	}
 
+	static float s_fTimeCount = 0.0f;
+
 	//	: カーソルの設定
 	//	: マウスのクライアント座標を獲得
 	GetCursorPos( &m_v2DPos ) ;
@@ -131,8 +134,17 @@ void MouseCursor::Update( UpdatePacket& i_UpdatePacket ){
 	D3DXMatrixRotationZ(&mRot, 0.0f);
 	m_pTorus->CalcMatrix(mPos2, mScale, mRot);
 
-	m_fTorusMagnification += CURSOR_FIELD * i_UpdatePacket.pTime->getElapsedTime();
-	if(m_fTorusMagnification >= CURSOR_FIELD)m_fTorusMagnification = 0.0f;
+	if(m_fTorusMagnification >= CURSOR_FIELD_LENGHT){
+		m_fTorusMagnification = CURSOR_FIELD_LENGHT;
+		s_fTimeCount += (float)i_UpdatePacket.pTime->getElapsedTime();
+		if(s_fTimeCount >= CURSOR_FIELD_TIME){		
+			m_fTorusMagnification = 0.0f;
+			s_fTimeCount		  = 0.0f;
+		}
+	}
+	else{
+		m_fTorusMagnification += CURSOR_FIELD_LENGHT * i_UpdatePacket.pTime->getElapsedTime();
+	}
 
 	++m_Ptn;
 }
