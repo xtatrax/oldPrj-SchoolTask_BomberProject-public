@@ -29,7 +29,6 @@ class	Title_Select	: public SpriteObject{
 	D3DXVECTOR3		m_vPos;
 	DWORD			m_dNext;
 	Sound*			m_pSound;
-	int				m_iTime;
 	bool			m_bPush;
 public:
 	Title_Select( LPDIRECT3DDEVICE9 pD3DDevice,LPDIRECT3DTEXTURE9 pTexture,DWORD next,
