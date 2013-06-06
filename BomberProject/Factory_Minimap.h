@@ -17,6 +17,8 @@
 #include "Factory_Player.h"
 
 namespace wiz{
+namespace bomberobject{
+
 class MiniMap : public Object{
 	LPDIRECT3DTEXTURE9	m_Texture ;
 public:
@@ -45,5 +47,7 @@ public:
 ***************************************************************************/
 	~Factory_Minimap();
 };
+}
+//end of namespace bomberobject.
 }
 //end of namespace wiz.

@@ -16,8 +16,9 @@
 #include "Factory_Player.h"
 #include "BassItems.h"
 
-namespace wiz
-{
+namespace wiz{
+namespace bomberobject{
+
 /**************************************************************************
  EnemySphere ’è‹`•”
 ***************************************************************************/
@@ -338,4 +339,5 @@ Factory_Enemy::Factory_Enemy(FactoryPacket* fpac){
 	Factory_Enemy::~Factory_Enemy(){
 //‚È‚É‚à‚µ‚È‚¢
 	}
+}//end of namespace bomberobject.
 }//end of namespace wiz.

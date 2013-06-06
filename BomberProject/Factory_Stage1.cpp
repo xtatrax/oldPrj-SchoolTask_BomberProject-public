@@ -17,6 +17,7 @@
 
 
 namespace wiz{
+namespace bomberobject{
 
 /**************************************************************************
  Factory_Stage1 ’è‹`•”
@@ -137,5 +138,7 @@ Factory_Stage1::Factory_Stage1(FactoryPacket *fpac){
 
 }
 
+}
+//end of namespace bomberobject.
 }
 //end of namespace wiz.

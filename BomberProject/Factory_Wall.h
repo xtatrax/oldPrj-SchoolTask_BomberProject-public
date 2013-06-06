@@ -20,6 +20,7 @@
 #include "Factory_CheckPoint.h"
 
 namespace wiz{
+namespace bomberobject{
 
 extern class PlayerCoil ;
 
@@ -222,5 +223,7 @@ public:
 ***************************************************************************/
 	~Factory_Wall();
 };
+}
+//end of namespace bomberobject.
 }
 //end of namespace wiz.

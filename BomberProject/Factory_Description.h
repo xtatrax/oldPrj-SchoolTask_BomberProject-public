@@ -17,6 +17,7 @@
 #include "Factory_Coil.h"
 
 namespace wiz{
+namespace bomberobject{
 
 /**************************************************************************
 class StartSprite;
@@ -165,5 +166,7 @@ public:
 	~Factory_Description();
 };
 
+}
+//end of namespace bomberobject.
 }
 //end of namespace wiz.

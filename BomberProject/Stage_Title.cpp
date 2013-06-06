@@ -12,10 +12,11 @@
 #include "StdAfx.h"
 #include "Scene.h"
 #include "Stage_Title.h"
-#include "Factory_Title.h"
 #include "stage.h"
+#include "Factory_Cursor.h"
 
 namespace wiz{
+using namespace bomberobject;
 
 /**************************************************************************
  TitleStage 定義部
@@ -41,6 +42,8 @@ TitleStage::TitleStage(LPDIRECT3DDEVICE9 pD3DDevice,Stage* pStage)
 		FPac.pD3DDevice =  pD3DDevice       ;
 
 		Factory_Title	resultF( &FPac );
+		Factory_Cursor	MCfac( &FPac )  ; 
+
 	}
 	catch(...){
 		Clear();
@@ -56,6 +59,18 @@ TitleStage();
 TitleStage::~TitleStage(){
 	
 }
+
+//void	TitleStage::Update(UpdatePacket &i_UpdatePacket){
+//  //マウス用データ*************************
+//	Point MousePos ;
+//	GetCursorPos( &MousePos ) ;
+//	ScreenToClient( g_hWnd , &MousePos) ;
+//  //*****************************************
+//	if( g_bMouseLB/* || g_bMouseRB*/ ){
+//		//選ばれた画面へとぶ
+//		i_UpdatePacket.pCommand->m_Command	= GM_OPENSTAGE_PLAY;
+//	}
+//}
 
 }
 //end of namespace wiz.

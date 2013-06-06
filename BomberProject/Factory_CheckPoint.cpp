@@ -19,6 +19,7 @@ const float CHECK_POINT_RADIUS = 0.25f ;
 const float EFFECT_SIZE	= 2.0f;
 D3DCOLORVALUE CHECKPOINTCOLOR = { 1.0f, 1.0f, 1.0f, 1.0f } ;
 namespace wiz{
+namespace bomberobject{
 
 /**************************************************************************
  DeadEffect ’è‹`•”
@@ -74,7 +75,7 @@ DeadEffect::DeadEffect(LPDIRECT3DDEVICE9 pD3DDevice,
 	pVB->Unlock();
 
 	m_iDirZ	= rand()%100;
-	if( m_iDirZ <= 50 )
+	if( m_iDirZ < 50 )
 		m_iDirZ	= 1;
 	else
 		m_iDirZ	= -1;
@@ -541,4 +542,5 @@ void	CheckPoint::Blink(){
 	Factory_CheckPoint::~Factory_CheckPoint(){
 //‚È‚É‚à‚µ‚È‚¢
 	}
+}//end of namespace bomberobject.
 }//end of namespace wiz.

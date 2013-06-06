@@ -23,7 +23,7 @@
 
 
 namespace wiz{
-
+using namespace bomberobject;
 
 /**************************************************************************
  Scene 定義部
@@ -87,8 +87,8 @@ Scene::Scene(LPDIRECT3DDEVICE9 pD3DDevice)
 #if defined(DEBUG) || defined(_DEBUG) || defined(ON_DEBUGGINGPROCESS)
 		try{
 			//ルートのステージにデバッグメニューを設定
-			m_pRootStage	= new PlayStage(pD3DDevice);
-			//m_pRootStage	= new TitleStage(pD3DDevice);
+			//m_pRootStage	= new PlayStage(pD3DDevice);
+			m_pRootStage	= new TitleStage(pD3DDevice);
 			//m_pRootStage	= new ResultStage(pD3DDevice);
 		}
 		catch(LoaderException& e){
@@ -105,6 +105,8 @@ Scene::Scene(LPDIRECT3DDEVICE9 pD3DDevice)
 //	: リリース用設定
 		//ルートのステージにタイトルメニューを設定
 		m_pRootStage = new TitleStage(pD3DDevice);
+		//m_pRootStage	= new PlayStage(pD3DDevice);
+		//m_pRootStage	= new ResultStage(pD3DDevice);
 
 #endif
 //

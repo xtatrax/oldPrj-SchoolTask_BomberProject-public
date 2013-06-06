@@ -16,6 +16,8 @@
 #include "BassItems.h"
 
 namespace wiz{
+namespace bomberobject{
+
 /**************************************************************************
  _Sound ’è‹`•”
 ****************************************************************************/
@@ -471,6 +473,15 @@ bool Sound::SearchWaveAndPlay(PCSTR pWaveName, BYTE count){
 	return false ;
 }
 
+void	Sound::SoundPause(PCSTR pWaveName, BYTE count){
+	if( m_pEngine && m_pWaveBank && m_pSoundBank ){
+		XACTINDEX WaveNum ;
+		if(SearchWaveMap( pWaveName, WaveNum ) || SearchWaveBank( pWaveName, WaveNum ) ){
+			m_pWaveBank->Stop( WaveNum, true );
+		}
+	}
+}
+
 /**************************************************************************
  Factory_Sound ’è‹`•”
 ****************************************************************************/
@@ -504,6 +515,6 @@ Factory_Sound::~Factory_Sound(){
 }
 
 }
-
-
+//end of namespace bomberobject.
+}
 //end of namespace wiz.

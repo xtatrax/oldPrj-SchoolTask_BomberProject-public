@@ -33,6 +33,7 @@
 
 
 namespace wiz{
+using namespace bomberobject;
 
 /**************************************************************************
  PlayStage ’è‹`•”

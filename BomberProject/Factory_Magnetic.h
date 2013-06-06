@@ -19,6 +19,7 @@
 
 
 namespace wiz{
+namespace bomberobject{
 
 
 extern	class	MagneticField;
@@ -518,5 +519,7 @@ public:
 ***************************************************************************/
 ~Factory_Magnetic() ;
 };
+}
+//end of namespace bomberobject.
 }
 //end of namespace wiz.

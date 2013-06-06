@@ -841,6 +841,18 @@
 					>
 				</File>
 			</Filter>
+			<Filter
+				Name="SCS"
+				>
+				<File
+					RelativePath=".\SeiyaEffect.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\SeiyaEffect.h"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<File
 			RelativePath=".\ClassDiagram1.cd"

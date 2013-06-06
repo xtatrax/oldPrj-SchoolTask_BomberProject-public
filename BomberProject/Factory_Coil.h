@@ -17,14 +17,18 @@
 #include "Factory_Sound.h"
 
 
-const float PLAYER_SPEED					= 0.08f;
-const float PLAYER_SPEED_SUPER				= 0.12f;
-const float PLAYER_BASSROT					= 90.0f;
-const float PLAYER_TURN_ANGLE_Lv1			= 1.0f;
-const float PLAYER_TURN_ANGLE_Lv2			= 2.0f;
-const float PLAYER_TURN_ANGLE_Lv3			= 2.5f;
-const float COIL_SUPER_MODE_TIME			= 5.0f;
-const D3DXVECTOR3 COIL_MAGNIFICATION_VALUE	= D3DXVECTOR3(0.03f,0.03f,0.03f);
+const float			PLAYER_SPEED					= 0.08f;
+const float			PLAYER_SPEED_SUPER				= 0.12f;
+const float			PLAYER_BASSROT					= 90.0f;
+const float			PLAYER_TURN_ANGLE_Lv1			= 1.0f;
+const float			PLAYER_TURN_ANGLE_Lv2			= 2.0f;
+const float			PLAYER_TURN_ANGLE_Lv3			= 2.5f;
+const float			COIL_SUPER_MODE_TIME			= 5.0f;
+const float			COIL_ROTATION_ANGLE				= 15.0f;
+const D3DXVECTOR3	COIL_SCALE_ADD_VALUE_START		= D3DXVECTOR3(0.03f,0.03f,0.03f);
+const D3DXVECTOR3	COIL_SCALE_ADD_VALUE_STOP		= D3DXVECTOR3(0.03f,0.03f,0.03f);
+const D3DXVECTOR3	COIL_SCALE_ADD_VALUE_STICK		= D3DXVECTOR3(0.045f,0.045f,0.045f);
+const float			COIL_EXPANSION_VALUE_STICK		= 1.5f;
 
 enum COIL_STATE{			//自機の状態
 	COIL_STATE_START,		//スタート
@@ -38,6 +42,7 @@ enum COIL_STATE{			//自機の状態
 };
 
 namespace wiz{
+namespace bomberobject{
 extern class ProvisionalPlayer3D ;
 
 /************************************************************************
@@ -493,5 +498,7 @@ public:
 ***************************************************************************/
 	~Factory_Coil();
 };
+}
+//end of namespace bomberobject.
 }
 //end of namespace wiz.
