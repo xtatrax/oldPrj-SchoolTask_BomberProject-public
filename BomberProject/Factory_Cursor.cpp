@@ -37,12 +37,20 @@ MouseCursor::MouseCursor( LPDIRECT3DDEVICE9 pD3DDevice, TextureManager* m_pTexMg
 ,m_Ptn(0)
 ,m_MovePosY(0)
 ,m_pCamera( NULL )
+,m_pLine( NULL )
+,m_pLine2( NULL )
 {
 
 	D3DXVECTOR3 vScale = D3DXVECTOR3(0.5f,0.5f,0.0f);
 	D3DXMatrixScaling( &m_mScale, vScale.x, vScale.y, vScale.z );
 
 	Box::SetBaseScale( D3DXVECTOR3( (float)MGPRM_MAGNETICUM*2, (float)MGPRM_MAGNETICUM*2, 0.0f) );
+	
+	const	D3DXVECTOR3	vDir	= D3DXVECTOR3( cosf( D3DXToRadian(-55.0f) ), sinf( D3DXToRadian(-55.0f) ), 0.0f );
+	const	D3DXVECTOR3	vDir2	= D3DXVECTOR3( cosf( D3DXToRadian(0.0f) ), sinf( D3DXToRadian(0.0f) ), 0.0f );
+	const	float		fRange	= 100.0f;
+	m_pLine		= new Line( g_vZero, vDir, fRange, 0xFFFFFF00 );
+	m_pLine2		= new Line( m_pLine->getEndPos(), vDir2, fRange*2, 0xFFFFFF00 );
 	
 }
 
@@ -56,6 +64,7 @@ MouseCursor::MouseCursor( LPDIRECT3DDEVICE9 pD3DDevice, TextureManager* m_pTexMg
 //// 備考       ：
 MouseCursor::~MouseCursor(){
 	m_MovePosY = 0 ;
+	m_pLine	= NULL;
 }
 
 
@@ -95,6 +104,9 @@ void MouseCursor::Update( UpdatePacket& i_UpdatePacket ){
 
 	UpdateCursor();
 
+	m_pLine->setMatrix( m_mMatrix );
+	m_pLine2->setMatrix( m_mMatrix );
+
 	++m_Ptn;
 }
 
@@ -112,8 +124,10 @@ void MouseCursor::Update( UpdatePacket& i_UpdatePacket ){
 //// 備考       ：
 void MouseCursor::Draw(DrawPacket& i_DrawPacket)
 {
-	PrimitiveSprite::Draw(i_DrawPacket);
-	Box::Draw(i_DrawPacket);
+	//PrimitiveSprite::Draw(i_DrawPacket);
+	//Box::Draw(i_DrawPacket);
+	m_pLine->draw(i_DrawPacket.pD3DDevice);
+	m_pLine2->draw(i_DrawPacket.pD3DDevice);
 }
 
 void MouseCursor::UpdateCursor(){

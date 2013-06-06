@@ -585,6 +585,14 @@
 						RelativePath=".\Factory_Cursor.h"
 						>
 					</File>
+					<File
+						RelativePath=".\Line.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Line.h"
+						>
+					</File>
 				</Filter>
 				<Filter
 					Name="GageFactory"
