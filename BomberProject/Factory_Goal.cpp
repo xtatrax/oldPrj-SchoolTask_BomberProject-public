@@ -18,6 +18,8 @@
 #include "BassItems.h"
 
 namespace wiz{
+namespace bomberobject{
+
 /**************************************************************************
  FMemoryTex ’è‹`•”
 ****************************************************************************/
@@ -38,10 +40,10 @@ FMemoryTex::FMemoryTex( LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTextur
 					D3DCOLORVALUE(),
 					id,
 					pTexture)
+	,m_pCamera( NULL )
+	,m_pCoil( NULL )
 {
 	::ZeroMemory( &m_Material, sizeof(D3DMATERIAL9));
-	m_pCamera	= NULL;
-	m_pCoil		= NULL;
 	m_iPtn		= 1;
 
 	LPDIRECT3DVERTEXBUFFER9 pVB = 0;
@@ -330,7 +332,7 @@ GoalObject::GoalObject( LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTextur
 					D3DCOLORVALUE(),
 					id,
 					pTexture)
-,m_pCoil(NULL)
+,m_pCoil( NULL )
 ,m_pSound( NULL )
 ,m_bPlaySound( true )
 {
@@ -558,5 +560,7 @@ Factory_Goal::~Factory_Goal(){
     //‚È‚É‚à‚µ‚È‚¢
 }
 
+}
+//end of namespace bomberobject.
 }
 //end of namespace wiz.

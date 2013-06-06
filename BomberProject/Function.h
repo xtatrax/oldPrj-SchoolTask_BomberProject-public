@@ -81,6 +81,20 @@ public:
     }
 };
 
+class LoaderException : public BaseException {
+public:
+	LoaderException(const wchar_t* m1,const wchar_t* m2)
+		:BaseException( m1 , m2 )
+	{}
+	//LoaderException(const LoaderException other)
+	//	:BaseException( other.m_Message )
+	//{}
+	//LoaderException(const wstring other)
+	//	:BaseException( other )
+	//{}
+};
+
+
 /**************************************************************************
  class Math;
  用途: 計算用のユーティリティ
@@ -687,7 +701,7 @@ inline void ChangeRenderStateArray(const LPDIRECT3DDEVICE9 i_pDevice,RENDERSTATE
 
 
 /////////////////// ////////////////////
-//// 関数名     ：inline Object* SearchObjectFromOBJID(vector<Object*>* i_pVec,DWORD i_dwID, vector<Object*>* o_pVec = NULL)
+//// 関数名     ：inline Object* SearchObjectFromID(vector<Object*>* i_pVec,DWORD i_dwID, vector<Object*>* o_pVec = NULL)
 //// カテゴリ   ：グローバル関数
 //// 用途       ：OBJIDを元にオブジェクトを探す
 //// 引数       ：    vector<Object*>*   i_pVec     //   [in] 対象オブジェクトが格納されているvector<>へのポインタ
@@ -695,26 +709,41 @@ inline void ChangeRenderStateArray(const LPDIRECT3DDEVICE9 i_pDevice,RENDERSTATE
 ////            ：    vector<Object*>*   o_pVec	    //  [out] (Option) 発見したオブジェクト一覧 ( 
 //// 戻値       ：一番最初に発見したオブジェクトへのポインタ
 //// 担当       ：鴫原 徹
-//// 備考       ：現在SearchObjectFromTypeIDでも同じようなことはできますが原則SearchObjectFromOBJIDを利用してください
+//// 備考       ：現在SearchObjectFromTypeIDでも同じようなことはできますが原則SearchObjectFromIDを利用してください
 ////            ：
 ////            ：
 ////            ：
-inline Object* SearchObjectFromID(vector<Object*>* i_pVec,DWORD i_dwID, vector<Object*>* o_pVec = NULL){
+#define SOF_NOTFOUND ( UINT_MAX )
+inline Object* SearchObjectFromID(vector<Object*>* i_pVec, DWORD i_dwID, vector<Object*>::size_type* o_Point = NULL, vector<Object*>* o_pVec = NULL, vector<vector<Object*>::size_type>* o_PointList = NULL){
 
 	vector<Object*>::size_type	sz = i_pVec->size(),
 								 i = 0 ;
+
 	for( i = 0; i < sz ; i++ ){
 		const DWORD id = (*i_pVec)[i]->getID() ;
+
+		//	: IDと一致するオブジェクトを発見
 		if( id == i_dwID ) {
-			if( o_pVec )
+
+			//	: もしヒットリストを要求されたら
+			//	: リストに登録して次を検索
+			//	: なければ見つけたオブジェクトを返す
+			if( o_pVec ){
+				if( o_PointList ) o_PointList->push_back(i) ;
+				o_pVec->size() == 0 && o_Point && ( *o_Point = i ) ;
 				(*o_pVec).push_back( (*i_pVec)[i] );
-			else
+			}
+			else{
+				o_Point && ( *o_Point = i ) ;
 				return  (*i_pVec)[i] ;
+			}
 		}
 	}
+
 	if( o_pVec && o_pVec->size() ){
 		return (*o_pVec)[0] ;
 	}else{
+		o_Point && ( *o_Point = SOF_NOTFOUND ) ;
 		return NULL;
 	}
 };

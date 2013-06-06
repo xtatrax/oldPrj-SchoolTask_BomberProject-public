@@ -19,6 +19,7 @@
 
 
 namespace wiz{
+namespace bomberobject{
 
 //Camera*	ProvisionalPlayer3D::m_Camera	= NULL;
 extern class WallObject ;
@@ -76,13 +77,14 @@ PlayerCoil::PlayerCoil(
 ,m_bLastMouseRB(false)
 ,m_bLastMouseLB(false)
 ,m_bReadyToStart(false)
+,m_bReadyContinue(false)
 ,m_bIsSuperMode(false)
 ,m_fTurnAngle(PLAYER_TURN_ANGLE_Lv1)
 ,m_pPlayer(NULL)
 ,m_pMagneticumObject(NULL)
 ,m_pCamera(NULL)
 ,m_pSound( NULL )
-,m_enumCoilState(COIL_STATE_START)
+,m_enumCoilState(COIL_STATE_STOP)
 #if defined( ON_DEBUGGINGPROCESS ) | defined( PRESENTATION )
 ,m_pDSPH(NULL)
 ,m_bDebugInvincibleMode( false )
@@ -207,7 +209,8 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 				Update_StateContinue();
 				break;
 			//クリア
-			case COIL_STATE_CLEAR:
+			case COIL_STATE_STOP:
+				Update_StateStop();
 				break;
 			default:
 				break;
@@ -215,7 +218,6 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 		if(m_bIsSuperMode){
 			//無敵状態
 			SuperMode(i_UpdatePacket);
-			m_pSound->SearchSoundAndPlay( RCTEXT_SOUND_SE_INVISIBLE );
 		}
 
 		//デバック用-----------------------------------------------------------
@@ -317,17 +319,18 @@ void PlayerCoil::Update_StateMove(){
 		m_fMoveDir = MagneticDecision(m_fMoveDir,m_pPlayer->getPos(),m_pPlayer->getMagnetPole());
 	}
 
-	//設置磁界と自機の判定
-	multimap<float, Magnet3DItem*> ItemMap_Target = m_pMagneticumObject->getMapTarget();
-	multimap<float,Magnet3DItem*>::iterator it = ItemMap_Target.begin();
-	while(it != ItemMap_Target.end()){
-		bool bCheckDistance = CheckDistance( it->second->m_vPos, m_vPos, (float)MGPRM_MAGNETICUM_QUAD, false );
-		if( bCheckDistance ){
-			m_fMoveDir = MagneticDecision(m_fMoveDir,it->second->m_vPos,it->second->m_bMagnetPole);
+	if( m_pMagneticumObject ){
+		//設置磁界と自機の判定
+		multimap<float, Magnet3DItem*> ItemMap_Target = m_pMagneticumObject->getMapTarget();
+		multimap<float,Magnet3DItem*>::iterator it = ItemMap_Target.begin();
+		while(it != ItemMap_Target.end()){
+			bool bCheckDistance = CheckDistance( it->second->m_vPos, m_vPos, (float)MGPRM_MAGNETICUM_QUAD, false );
+			if( bCheckDistance ){
+				m_fMoveDir = MagneticDecision(m_fMoveDir,it->second->m_vPos,it->second->m_bMagnetPole);
+			}
+			++it;
 		}
-		++it;
 	}
-
 	//速度指定
 	if(m_bIsSuperMode) m_fMovdSpeed = PLAYER_SPEED_SUPER;
 	else			   m_fMovdSpeed = PLAYER_SPEED;
@@ -420,6 +423,12 @@ void PlayerCoil::SuperMode( UpdatePacket& i_UpdatePacket ){
 	static float s_fTimeCount		= 0;
 	static int	s_iInterval			= 0;
 	static bool s_bIsColorChange	= false;
+	static bool	s_bSound			= false;
+
+	if( m_pSound && !s_bSound){
+		m_pSound->SearchWaveAndPlay( RCTEXT_SOUND_SE_INVISIBLE , (BYTE)(COIL_SUPER_MODE_TIME / MGPRM_INVISIBLESOUND_TIME) +1 );
+		s_bSound = true ;
+	}
 
 	if(m_enumCoilState == COIL_STATE_MOVE)
 		s_fTimeCount += (float)i_UpdatePacket.pTime->getElapsedTime();
@@ -447,7 +456,8 @@ void PlayerCoil::SuperMode( UpdatePacket& i_UpdatePacket ){
 
 	//無敵モード終了
 	if(s_fTimeCount >= COIL_SUPER_MODE_TIME){
-		m_bIsSuperMode = false;
+		m_bIsSuperMode	= false;
+		s_bSound		= false;
 		s_fTimeCount = 0.0f;
 		switch(getMagnetPole()){
 			case POLE_S:
@@ -472,10 +482,13 @@ void PlayerCoil::SuperMode( UpdatePacket& i_UpdatePacket ){
 ////            ：
 ////
 void PlayerCoil::Update_StateDead(){
-	m_enumCoilState = COIL_STATE_CONTINUE;
-	m_vPos = m_vStartPos;
-	m_pCamera->setPosY(m_vStartPos.y);
 	m_vScale = g_vZero;
+	if( m_bReadyContinue ){
+		m_enumCoilState = COIL_STATE_CONTINUE;
+		m_vPos = m_vStartPos;
+		m_pCamera->setPosY(m_vStartPos.y);
+		m_bReadyContinue	= false;
+	}
 }
 
 /////////////////// ////////////////////
@@ -521,6 +534,36 @@ void PlayerCoil::Update_StateContinue(){
 			m_vScale = m_vOriginScale;
 			m_bReadyToStart = true;
 		}
+	}
+};
+
+/////////////////// ////////////////////
+//// 関数名     ：void PlayerCoil::Update_StateStop()
+//// カテゴリ   ：
+//// 用途       ：STATE_STOP時の動き
+//// 引数       ：
+//// 戻値       ：なし
+//// 担当       ：佐藤涼
+//// 備考       ：
+////            ：
+////
+void PlayerCoil::Update_StateStop(){
+	D3DXVECTOR3 vPlayer = g_vZero;
+	float		fTargetDir = NULL;
+	//マウス座標計算
+	Point MousePos ;
+	GetCursorPos( &MousePos ) ;
+	ScreenToClient( g_hWnd , &MousePos) ;
+	vPlayer.x = (float)MousePos.x / DRAW_CLIENT_MAGNIFICATION - MAGNETIC_RADIUS ;
+	vPlayer.y = (( STANDARD_WINDOW_HEIGHT - MousePos.y ) - UI_HEIGHT ) / DRAW_CLIENT_MAGNIFICATION - MAGNETIC_RADIUS + ( m_pCamera->getPosY() - m_pPlayer->getMoveY() ) ;
+	fTargetDir = TwoPoint2Degree( vPlayer , m_vPos );
+	//角度の更新
+	m_fMoveDir = fTargetDir;
+
+	m_vScale += COIL_SCALE_ADD_VALUE_STOP;
+	if( m_vScale.x >= m_vOriginScale.x && m_vScale.y >= m_vOriginScale.y ){
+		m_vScale = m_vOriginScale;
+		m_bReadyToStart = true;
 	}
 };
 
@@ -699,19 +742,23 @@ bool PlayerCoil::CheckDistance( D3DXVECTOR3& i_vMagneticFieldPos, D3DXVECTOR3& i
  用途: コンストラクタ（サンプルオブジェクトを配列に追加する）
  戻り値: なし
 ***************************************************************************/
-Factory_Coil::Factory_Coil( FactoryPacket* fpac ){
+Factory_Coil::Factory_Coil( FactoryPacket* fpac, D3DXVECTOR3* vStartPos  ){
 	try{
 
 		D3DXVECTOR3 vScale( 1.0f, 1.0f, 1.0f );
+		D3DXVECTOR3 vPos( 10.0f,10.0f,0.0f );
  		D3DCOLORVALUE CoilDiffuse = {1.0f,1.0f,0.0f,0.5f};
 		D3DCOLORVALUE CoilSpecular = {0.0f,0.0f,0.0f,0.0f};
 		D3DCOLORVALUE CoilAmbient = {1.0f,1.0f,0.0f,0.5f};
+		if( vStartPos ){
+			vPos = *vStartPos ;
+		}
 		fpac->m_pVec->push_back(
 			new PlayerCoil(
 				fpac->pD3DDevice,
 				//fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"CircleC.png" ),
 				NULL,
-				0.0f,0.7f,1.0f,1.0f,vScale,D3DXVECTOR3(90.0f,0.0f,0.0f),D3DXVECTOR3(10.0f,10.0f,0.0f),
+				0.0f,0.7f,1.0f,1.0f,vScale,D3DXVECTOR3(90.0f,0.0f,0.0f),vPos,
 				CoilDiffuse,CoilSpecular,CoilAmbient
 				)
 		);
@@ -729,8 +776,10 @@ Factory_Coil::Factory_Coil( FactoryPacket* fpac ){
  戻り値: なし
 ***************************************************************************/
 Factory_Coil::~Factory_Coil(){
-    //なにもしない
+
 }
 
+}
+//end of namespace bomberobject.
 }
 //end of namespace wiz.

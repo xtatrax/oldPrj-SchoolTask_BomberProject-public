@@ -16,6 +16,7 @@
 #include "Factory_Wall.h"
 
 namespace wiz{
+namespace bomberobject{
 
 /**************************************************************************
  StartSprite ’è‹`•”
@@ -54,6 +55,7 @@ StartSprite::StartSprite(LPDIRECT3DDEVICE9	pD3DDevice,
 ***************************************************************************/
 StartSprite::~StartSprite()
 {
+	m_pCoil	= NULL;
 }
 
 /**************************************************************************
@@ -80,7 +82,9 @@ void	StartSprite::Update( UpdatePacket& i_UpdatePacket )
 	if(m_pCoil == NULL){
 		m_pCoil = (PlayerCoil*)SearchObjectFromTypeID(i_UpdatePacket.pVec,typeid(PlayerCoil));
 	}
-	int	rate	= 0;
+
+	int		rate	= 0;
+	BYTE	ChangeAlpha	= (255/40);
 
 	if( m_vRelayPosY > m_vPos.y ){
 		m_vPos.y	+= 1.0f;
@@ -101,18 +105,21 @@ void	StartSprite::Update( UpdatePacket& i_UpdatePacket )
 		if( m_Color.byteColor.a >= 250 )
 			m_Color.byteColor.a	 = 255;
 		else
-			m_Color.byteColor.a	+= (255/40);
+			m_Color.byteColor.a	+= ChangeAlpha;
 	}
 	else if( rate == -1 ){
 		if( m_Color.byteColor.a <= 5 ){
 			m_Color.byteColor.a	 = 0;
-			if( m_bFirst ){
-				m_pCoil->setState( COIL_STATE_START );
-				m_bFirst	= false;
+			++m_iTime;
+			if( m_iTime > 40 ){
+				if( m_bFirst ){
+					m_pCoil->setState( COIL_STATE_START );
+					m_bFirst	= false;
+				}
 			}
 		}
 		else
-			m_Color.byteColor.a	-= (255/40);
+			m_Color.byteColor.a	-= ChangeAlpha;
 	}
 
 	D3DXMATRIX mScale,mRot,mPos;
@@ -141,10 +148,10 @@ Description::Description( LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pText
 					D3DCOLORVALUE(),
 					id,
 					pTexture)
+	,m_pCamera( NULL )
+	,m_pCoil( NULL )
 {
 	::ZeroMemory( &m_Material, sizeof(D3DMATERIAL9));
-	m_pCamera	= NULL;
-	m_pCoil		= NULL;
 
 	LPDIRECT3DVERTEXBUFFER9 pVB = 0;
 	CommonMeshVertex* pVer = 0;
@@ -389,6 +396,6 @@ Factory_Description::~Factory_Description(){
 }
 
 }
-
-
+//end of namespace bomberobject.
+}
 //end of namespace wiz.

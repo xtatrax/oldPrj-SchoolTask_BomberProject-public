@@ -387,6 +387,18 @@
 									</File>
 								</Filter>
 							</Filter>
+							<Filter
+								Name="StageLoader"
+								>
+								<File
+									RelativePath=".\StageLoader.cpp"
+									>
+								</File>
+								<File
+									RelativePath=".\StageLoader.h"
+									>
+								</File>
+							</Filter>
 						</Filter>
 					</Filter>
 				</Filter>

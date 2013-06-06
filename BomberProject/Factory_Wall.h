@@ -17,12 +17,15 @@
 #include "Factory_Player.h"
 #include "Factory_Coil.h"
 #include "Factory_Sound.h"
+#include "Factory_CheckPoint.h"
 
 namespace wiz{
+namespace bomberobject{
 
 extern class PlayerCoil ;
 
 const int DRAWING_RANGE = 20;
+const int PARTICLS_NUM	= 50;
 
 /**************************************************************************
  WallObject 定義部
@@ -40,8 +43,10 @@ class WallObject : public PrimitiveBox{
 	PlayerCoil* m_pPlayerCoil ;
 	Sound*		m_pSound;
 	Camera*	    m_pCamera;
+	DeadEffect*	m_pDeadEffect[PARTICLS_NUM];
 	LPDIRECT3DTEXTURE9 m_pWallTex;
 	LPDIRECT3DTEXTURE9 m_pPolyTex;
+	LPDIRECT3DTEXTURE9 m_pDeadTex;
 
 	struct WallItem{
 		D3DMATERIAL9   m_Material;
@@ -102,6 +107,7 @@ public:
 	WallObject(	LPDIRECT3DDEVICE9 pD3DDevice,
 				LPDIRECT3DTEXTURE9 pTexture,
 				LPDIRECT3DTEXTURE9 pTexture2,
+				LPDIRECT3DTEXTURE9 pTexture3,
 				wiz::OBJID id = OBJID_3D_WALL
 				);
 	/////////////////// ////////////////////
@@ -193,6 +199,7 @@ public:
 //
 //};
 //
+
 /**************************************************************************
  class Factory_Wall;
  用途: メイン工場クラス
@@ -216,5 +223,7 @@ public:
 ***************************************************************************/
 	~Factory_Wall();
 };
+}
+//end of namespace bomberobject.
 }
 //end of namespace wiz.

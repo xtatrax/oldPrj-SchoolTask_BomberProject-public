@@ -17,6 +17,7 @@
 #include "Factory_Sound.h"
 
 namespace wiz{
+namespace bomberobject{
 
 /*************************************************************************
 class Title_Select  public SpriteObject
@@ -60,5 +61,7 @@ public:
 	~Factory_Title();
 };
 
+}
+//end of namespace bomberobject.
 }
 //end of namespace wiz.

@@ -12,7 +12,10 @@
 #include "StdAfx.h"
 #include "Object.h"
 #include "Scene.h"
+#include "StageLoader.h"
+
 #include "Factory_CheckPoint.h"
+#include "Factory_Coil.h"
 #include "Factory_Description.h"
 #include "Factory_Enemy.h"
 #include "Factory_Goal.h"
@@ -21,7 +24,6 @@
 #include "Factory_Main.h"
 #include "Factory_Magnetic.h"
 #include "Factory_Player.h"
-#include "Factory_Coil.h"
 #include "Factory_Stage1.h"
 #include "Factory_Description.h"
 #include "Factory_Cursor.h"
@@ -29,6 +31,7 @@
 #include "BassItems.h"
 
 namespace wiz{
+namespace bomberobject{
 
 
 	
@@ -44,13 +47,13 @@ namespace wiz{
  用途: コンストラクタ（サンプルオブジェクトを配列に追加する）
  戻り値: なし
 ***************************************************************************/
-Factory_Main::Factory_Main(FactoryPacket* fpac){
+Factory_Main::Factory_Main(FactoryPacket* fpac, D3DXVECTOR3* vStartPos ){
 	try{
-#if defined( ON_GUIDELINE ) 
-
-		//	: ガイドライン
-		fpac->m_pVec->push_back(new Guide( fpac->pD3DDevice ) );
-#endif
+//#if defined( ON_GUIDELINE ) 
+//
+//		//	: ガイドライン
+//		fpac->m_pVec->push_back(new Guide( fpac->pD3DDevice ) );
+//#endif
 		//ライトのインスタンス初期化
         D3DCOLORVALUE Diffuse = {1.0f,1.0f,1.0f,0.0f};
         D3DCOLORVALUE Specular = {1.0f,1.0f,1.0f,0.0f};
@@ -68,19 +71,20 @@ Factory_Main::Factory_Main(FactoryPacket* fpac){
 			new RenderTargetSprite((BassPacket*)fpac,800,512)
 		);
 
-		Factory_Player Pfac( fpac );
-		Factory_Coil Cfac( fpac );
-		//Factory_Wall   Wfac( fpac );
-		Factory_Magnetic Mfac( fpac ) ;
-		Factory_Enemy Efac( fpac ) ;
-		Factory_CheckPoint CPfac( fpac ) ;
-		Factory_Item   Ifac( fpac ) ;
-		Factory_Gage	Gfac( fpac );
-		Factory_Stage1 Sfac( fpac ) ;
+		StageLoader loader(fpac->pD3DDevice,L"media/Map/Stages.csv",1,*fpac->m_pVec,*fpac->m_pTexMgr);
+		Factory_Player		Pfac( fpac );
+		Factory_Coil		Cfac( fpac , vStartPos );
+		//Factory_Wall		Wfac( fpac );
+		Factory_Magnetic	Mfac( fpac ) ;
+		Factory_Enemy		Efac( fpac ) ;
+		Factory_CheckPoint	CPfac( fpac ) ;
+		Factory_Item		Ifac( fpac ) ;
+		// Factory_Stage1	Sfac( fpac ) ;
 
-		Factory_Goal GPfac( fpac ) ;
-		Factory_Description Dfac( fpac ) ;
-		Factory_Cursor MCfac( fpac )  ; 
+		Factory_Goal		GPfac( fpac ) ;
+		Factory_Description	Dfac( fpac ) ;
+		Factory_Cursor		MCfac( fpac )  ; 
+		Factory_Gage		Gfac( fpac );
 
 		////	: スプライト
 		//fpac->m_pVec->push_back(
@@ -109,6 +113,12 @@ Factory_Main::Factory_Main(FactoryPacket* fpac){
 
 
 	}
+	catch(LoaderException& e){
+		throw LoaderException(
+				e.what_w(),
+				L"↑Factory_Main::Factory_Main()"
+				);
+	}
 	catch(...){
 		//再throw
 		throw;
@@ -123,6 +133,7 @@ Factory_Main::Factory_Main(FactoryPacket* fpac){
 Factory_Main::~Factory_Main(){
 	//なにもしない
 }
-
+}
+//end of namespace bomberobject.
 }
 //end of namespace wiz.

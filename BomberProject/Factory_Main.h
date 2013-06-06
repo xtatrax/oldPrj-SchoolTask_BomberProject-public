@@ -16,6 +16,7 @@
 #include "BassItems.h"
 
 namespace wiz{
+namespace bomberobject{
 
 
 
@@ -35,7 +36,7 @@ public:
  用途: コンストラクタ（サンプルオブジェクトを配列に追加する）
  戻り値: なし
 ***************************************************************************/
-	Factory_Main(FactoryPacket* fpac);
+	Factory_Main(FactoryPacket* fpac, D3DXVECTOR3* vStartPos = NULL);
 /**************************************************************************
  ~MyFactory();
  用途: デストラクタ
@@ -43,5 +44,7 @@ public:
 ***************************************************************************/
 	~Factory_Main();
 };
+}
+//end of namespace bomberobject.
 }
 //end of namespace wiz.

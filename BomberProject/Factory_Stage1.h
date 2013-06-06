@@ -14,6 +14,7 @@
 #include "StdAfx.h"
 
 namespace wiz{
+namespace bomberobject{
 
 /**************************************************************************
  class Factory_Stage1;
@@ -36,5 +37,7 @@ public:
 ***************************************************************************/
 	//~Factory_Stage1();
 };
+}
+//end of namespace bomberobject.
 }
 //end of namespace wiz.

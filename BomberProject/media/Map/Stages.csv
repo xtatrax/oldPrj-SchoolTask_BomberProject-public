@@ -1,5 +1,5 @@
 @Stages,
+ObjectsCSV,media/map/Objects.csv
 StageNumber,FilePath
-1,media/map/Stage01.csv
-2,media/map/Stage02.csv
-3,media/map/Stage03.csv
+1,media/map/StageMAP.csv
+2,media/map/StageMAPHalf.csv

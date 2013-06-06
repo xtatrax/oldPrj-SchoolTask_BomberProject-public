@@ -79,7 +79,7 @@ PrimitiveSprite::PrimitiveSprite(LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE
 ////            ÅF
 ////
 PrimitiveSprite::~PrimitiveSprite(){
-	SAFE_DELETE(m_pRect);
+	SafeDelete(m_pRect);
 	SafeRelease(m_pSprite);
 }
 

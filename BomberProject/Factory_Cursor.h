@@ -15,6 +15,8 @@
 #include "Object.h"
 
 namespace wiz{
+namespace bomberobject{
+
 //	: UIの高さ
 #define UI_HEIGHT					( 88.0f )
 //	: 表示画面の倍率 x=800, y=512 : x=40, y=25.6
@@ -89,24 +91,18 @@ inline D3DXVECTOR3* CalcScreenToXZ(
 // class MouseCursor : public PrimitiveBox
 //
 // 担当者  : 曳地 大洋
+// 引継ぎ  : 鴫原 徹
 // 用途    : マウスカーソル
 //**************************************************************************//
 class MouseCursor : public Box , public  PrimitiveSprite{
-	int			m_Ptn;
-	float		m_MovePosY;
-	Camera*	    m_pCamera;
-	D3DXMATRIX	m_mScale;
 
+	int				m_Ptn		;
+	float			m_MovePosY	;
+	Camera*			m_pCamera	;
+	D3DXMATRIX		m_mScale	;
+	D3DXVECTOR3		m_v3DPos	;
+	Point			m_v2DPos	;
 //protected:
-	///////////////////// ////////////////////
-	////// 用途       ：MouseCursor(	LPDIRECT3DDEVICE9 pD3DDevice,LPDIRECT3DTEXTURE9 pTexture,wiz::OBJID id = OBJID_3D_WALL);
-	////// カテゴリ   ：コンストラクタ
-	////// 用途       ：関数
-	////// 引数       ：なし
-	////// 戻値       ：なし
-	////// 担当者     ：鴫原 徹
-	////// 備考       ：
-	//	void UpdateTargetItem();
 
 public:
 	/////////////////// ////////////////////
@@ -161,6 +157,13 @@ public:
 	////            ：
 	////
 	void Update( UpdatePacket& i_UpdatePacket );
+	Point		get2DPos(){ return m_v2DPos ; };
+	D3DXVECTOR3	get3DPos(){ return m_v3DPos ; };
+
+protected:
+
+	//	: 
+	void UpdateCursor();
 };
 
 /**************************************************************************
@@ -186,5 +189,7 @@ public:
 ***************************************************************************/
 	~Factory_Cursor();
 };
+}
+//end of namespace bomberobject.
 }
 //end of namespace wiz.
