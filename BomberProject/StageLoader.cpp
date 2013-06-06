@@ -19,6 +19,7 @@
 #include "Factory_Wall.h"
 #include "Factory_Item.h"
 #include "Factory_Magnetic.h"
+#include "Factory_Goal.h"
 
 
 
@@ -158,9 +159,27 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 				m_ObjeTypeMap.insert( make_pair( ObjectID , m_pVec->size() -1));
 			}
 			break;
-			//	: 磁界
-			//////////
-	}
+		//	: 磁界
+		//////////
+
+		case OBJID_SYS_CLEARAREA :	//:4102 
+			//	: インスタンスを生成
+			GoalObject* mgb = new GoalObject( m_pD3DDevice, NULL, ObjectID );
+
+			//	: ゴールの追加
+			mgb->addGoal(
+				D3DXVECTOR3( 100.0f,  2.0f, 0.0f ),
+				D3DXVECTOR3(  0.0f,  0.0f, 0.0f ),
+				D3DXVECTOR3( 20.0f, i_Data.vPos.y,  0.0f ),
+				i_Data.Diffuse		,
+				i_Data.Specular		,
+				i_Data.Ambient
+			);
+
+			//	: オブジェクトリストへ登録
+			m_pVec->push_back(mgb);
+			break;
+		}
 };
 
 /////////////////// ////////////////////
