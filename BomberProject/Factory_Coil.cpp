@@ -120,6 +120,7 @@ PlayerCoil::~PlayerCoil(){
 	m_pMagneticumObject		= NULL ;
 	m_pCamera				= NULL ;
 	m_pSphere				= NULL;
+	m_pSuperField			= NULL;
 	
 };
 
