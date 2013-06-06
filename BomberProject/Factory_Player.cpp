@@ -183,11 +183,11 @@ void ProvisionalPlayer3D::Update( UpdatePacket& i_UpdatePacket ){
 
 	if( m_pPlayerCoil->getState() == COIL_STATE_MOVE || m_pPlayerCoil->getState() == COIL_STATE_STICK ){
 		if( (g_bMouseLB || g_bMouseRB) && !(g_bMouseLB && g_bMouseRB)){ 
-			if( (g_bMouseLB && m_pMGage_N->getRate() > 0.0f) || (g_bMouseRB && m_pMGage_S->getRate() > 0.0f) ){				
+			if( (g_bMouseLB && m_pMGage_N->getRate() < 1.0f) || (g_bMouseRB && m_pMGage_S->getRate() < 1.0f) ){				
 				if( !m_bLastMouseLB && !m_bLastMouseRB){
 					if(g_bMouseLB)m_pMGage_N->Consume(PLAYER_INVOCATION_POINT);
 					if(g_bMouseRB)m_pMGage_S->Consume(PLAYER_INVOCATION_POINT);
-					if( (g_bMouseLB && m_pMGage_N->getRate() > 0.0f) || (g_bMouseRB && m_pMGage_S->getRate() > 0.0f) ){
+					if( (g_bMouseLB && m_pMGage_N->getRate() < 1.0f) || (g_bMouseRB && m_pMGage_S->getRate() < 1.0f) ){
 						wiz::CONTROLER_STATE Controller1P = i_UpdatePacket.pCntlState[0] ;
 						D3DXVECTOR3 vMove = g_vZero ;
 						Point MousePos ;
