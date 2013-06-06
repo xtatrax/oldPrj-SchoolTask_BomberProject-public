@@ -13,6 +13,7 @@
 
 #include "StdAfx.h"
 #include "Object.h"
+#include "Line.h"
 
 namespace wiz{
 namespace bomberobject{
@@ -102,6 +103,8 @@ class MouseCursor : public Box , public  PrimitiveSprite{
 	D3DXMATRIX		m_mScale	;
 	D3DXVECTOR3		m_v3DPos	;
 	Point			m_v2DPos	;
+	Line*			m_pLine;
+	Line*			m_pLine2;
 //protected:
 
 public:
