@@ -325,11 +325,22 @@ void WallObject::Update( UpdatePacket& i_UpdatePacket ){
 				if(m_pDeadEffect[i]->getColor() <= 0.0f){
 					SafeDelete( m_pDeadEffect[i] );
 					m_pPlayerCoil->setReadyContinue(true);
-					break;
+					continue;
 				}
 			}
 		}
 
+		//if( m_pDeadEffect[0] != NULL ){
+		//	for( int i = 0; i < PARTICLS_NUM; i++ ){
+		//		m_pDeadEffect[i]->Update( i_UpdatePacket );
+		//	}
+
+		//	if(m_pDeadEffect[0]->getColor() <= 0.0f){
+		//		SafeDeleteArr( m_pDeadEffect );
+		//		m_pPlayerCoil->setReadyContinue(true);
+		//	}
+
+		//}
 
 		++it2;
 	}
