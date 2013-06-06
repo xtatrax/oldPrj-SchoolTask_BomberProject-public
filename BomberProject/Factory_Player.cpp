@@ -117,7 +117,9 @@ void ProvisionalPlayer3D::Draw(DrawPacket& i_DrawPacket)
 
 	if( m_pPlayerCoil && ( m_pPlayerCoil->getState() == COIL_STATE_MOVE || m_pPlayerCoil->getState() == COIL_STATE_STICK ) ){
 		if( m_bDrawing ){ 
-			if( m_pSound ) m_pSound->SearchWaveAndPlay( RCTEXT_SOUND_SE_SETFIELD ) ;
+			if( m_pSound ){
+				m_pSound->SearchWaveAndPlay( RCTEXT_SOUND_SE_SETFIELD ) ;
+			}
 			//テクスチャがある場合
 			if(m_pTexture){
 				DWORD wkdword;
@@ -151,6 +153,7 @@ void ProvisionalPlayer3D::Draw(DrawPacket& i_DrawPacket)
 			m_pMagneticField3->Draw(i_DrawPacket);
 			m_pMagneticField4->Draw(i_DrawPacket);
 		}
+		else	m_pSound->SoundPause(RCTEXT_SOUND_SE_SETFIELD);
 	}
 }
 
@@ -265,9 +268,11 @@ void ProvisionalPlayer3D::Update( UpdatePacket& i_UpdatePacket ){
 				m_bDrawing	= false;
 			}
 		}else{
-			m_bDrawing	= false;
-			if( m_pMGage_N ) m_pMGage_N->Recovery(PLAYER_RECOVERY_POINT);
-			if( m_pMGage_S ) m_pMGage_S->Recovery(PLAYER_RECOVERY_POINT);
+			if(m_pPlayerCoil->getState() != COIL_STATE_STICK){
+				m_bDrawing	= false;
+				if( m_pMGage_N ) m_pMGage_N->Recovery(PLAYER_RECOVERY_POINT);
+				if( m_pMGage_S ) m_pMGage_S->Recovery(PLAYER_RECOVERY_POINT);
+			}
 		}
 	}else{
 			m_bDrawing	= false;

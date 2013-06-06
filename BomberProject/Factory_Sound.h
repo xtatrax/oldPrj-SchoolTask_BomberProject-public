@@ -211,6 +211,9 @@ public:
 	////            ÅF
 	////
 	bool SearchWaveAndPlay(PCSTR pSoundName, BYTE count = 0);
+
+	void	SoundPause(PCSTR pSoundName, BYTE count = 0);
+
 };
 
 /**************************************************************************
