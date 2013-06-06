@@ -229,7 +229,7 @@ void ProvisionalPlayer3D::Update( UpdatePacket& i_UpdatePacket ){
 							setPoleS() ;
 					}
 				}
-				if( (g_bMouseLB && m_pMGage_N->getRate() > 0.0f) || (g_bMouseRB && m_pMGage_S->getRate() > 0.0f) ){	
+				if( (g_bMouseLB && m_pMGage_N->getRate() < 1.0f) || (g_bMouseRB && m_pMGage_S->getRate() < 1.0f) ){	
 
 					if( g_bMouseLB  && !g_bMouseRB && m_pPlayerCoil->getState() != COIL_STATE_STICK )m_pMGage_N->Consume(PLAYER_CONSUME_POIMT);
 					if( !g_bMouseLB && g_bMouseRB  && m_pPlayerCoil->getState() != COIL_STATE_STICK )m_pMGage_S->Consume(PLAYER_CONSUME_POIMT);
