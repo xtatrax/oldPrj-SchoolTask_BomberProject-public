@@ -85,9 +85,82 @@ inline D3DXVECTOR3* CalcScreenToXZ(
    return pout;
 }
 
-/**************************************************************************
- MouseCursor 定義部
-****************************************************************************/
+//**************************************************************************//
+// class LineCursor 
+//
+// 担当者  : 鴫原 徹
+// 用途    : マウスカーソル
+//**************************************************************************//
+class LineCursor{
+protected:
+	/*****************************************************************
+	// static Vertex
+	//
+	// 担当者  : 鴫原 徹
+	// 用途    : 3D視点頂点データ 
+	******************************************************************/
+	struct Vertex
+	{
+		D3DXVECTOR3 m_vPos ;	//ゲーム画面での位置
+		DWORD		m_dwColor ;	//色
+
+		/////////////////// ////////////////////
+		//// 用途       ：Vertex();
+		//// カテゴリ   ：デフォルトコンストラクタ
+		//// 用途       ：
+		//// 引数       ：なし
+		//// 戻値       ：なし
+		//// 担当者     ：鴫原 徹
+		//// 備考       ：
+		Vertex()	: m_vPos(g_vZero),m_dwColor(0xFFFFFFFF){}
+
+		/////////////////// ////////////////////
+		//// 用途       ：Vertex( D3DXVECTOR3 i_vPos, DWORD i_dwColor );
+		//// カテゴリ   ：コンストラクタ
+		//// 用途       ：
+		//// 引数       ：なし
+		//// 戻値       ：なし
+		//// 担当者     ：鴫原 徹
+		//// 備考       ：
+		Vertex(	D3DXVECTOR3 i_vPos, DWORD i_dwColor )
+			:m_vPos(i_vPos),m_dwColor(i_dwColor){}
+
+		/////////////////// ////////////////////
+		//// 用途       ：static DWORD Vertex::getFVF()
+		//// カテゴリ   ：ゲッター
+		//// 用途       ：FVF設定を返す
+		//// 引数       ：なし
+		//// 戻値       ：[ DWORD ] FVF設定
+		//// 担当者     ：鴫原 徹
+		//// 備考       ：
+		static DWORD Vertex::getFVF()
+		{
+			return D3DFVF_XYZ | D3DFVF_DIFFUSE  ;
+		}
+		/////////////////// ////////////////////
+		//// 用途       ：static DWORD Vertex::getSize()
+		//// カテゴリ   ：ゲッター
+		//// 用途       ：構造体の大きさを返す
+		//// 引数       ：なし
+		//// 戻値       ：[ DWORD ] 構造体の大きさ
+		//// 担当者     ：鴫原 徹
+		//// 備考       ：
+		static DWORD Vertex::getSize()
+		{
+			return sizeof(Vertex) ;
+		}
+	};
+private:
+
+	Vertex*					m_pVertex					;	//頂点データのポインタ
+	LPDIRECT3DVERTEXBUFFER9	m_pVertexBuffer				;	//バッファ
+public:
+	LineCursor( LPDIRECT3DDEVICE9 pD3DDevice );
+	void Draw(LPDIRECT3DDEVICE9 pD3DDevice , const D3DXMATRIX& i_Matrix ) ;
+
+};
+
+
 //**************************************************************************//
 // class MouseCursor : public PrimitiveBox
 //

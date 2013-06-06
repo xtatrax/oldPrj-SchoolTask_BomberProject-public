@@ -21,6 +21,58 @@ namespace bomberobject{
 /**************************************************************************
  MouseCursor 定義部
 ****************************************************************************/
+LineCursor::LineCursor( LPDIRECT3DDEVICE9 pD3DDevice ){
+
+	UINT iVertexSize = 0;
+
+	//	: 頂点バッファの生成（内包できる領域のサイズ、データの扱い、頂点データの中身、頂点データを管理するメモリ、生成されたバッファを示すアドレスが帰ってくる））
+	pD3DDevice->CreateVertexBuffer( Vertex::getSize() * iVertexSize , D3DUSAGE_WRITEONLY, Vertex::getFVF(), D3DPOOL_MANAGED, &m_pVertexBuffer, NULL );
+	m_pVertexBuffer->Lock( 0, 0, (void**)&m_pVertex ,0 );	//	: 頂点データのアドレスを取得するとともに、データへのアクセスを開始する	
+
+
+	m_pVertex[ 0 ] = Vertex(D3DXVECTOR3( 0.0f , 0.0f , 0.0f ) , 0xFFFFFFFF );
+	m_pVertex[ 1 ] = Vertex(D3DXVECTOR3( 0.2f , 1.0f , 0.0f ) , 0xFFFFFFFF );
+	m_pVertex[ 2 ] = Vertex(D3DXVECTOR3( 0.2f , 1.0f , 0.0f ) , 0xFFFFFFFF );
+	m_pVertex[ 3 ] = Vertex(D3DXVECTOR3( 1.0f , 1.0f , 0.0f ) , 0xFFFFFFFF );
+
+
+	m_pVertexBuffer->Unlock();
+
+
+
+}
+/******************************************************************************
+void VertexLineState::Draw(
+	LPDIRECT3DDEVICE9 pD3DDevice ,	//デバイス
+	const D3DXMATRIX& i_Matrix		//描画したいプレートの配列
+	)
+用途 : 正方形のプレートを描画
+戻り値 : なし
+******************************************************************************/
+void LineCursor::Draw(LPDIRECT3DDEVICE9 pD3DDevice , const D3DXMATRIX& i_Matrix )
+{
+	 pD3DDevice->SetRenderState( D3DRS_LIGHTING , FALSE );
+
+	//if( m_pTexture ) pD3DDevice->SetTexture( 0 , m_pTexture->getTexture() );			//	: テクスチャを設定（NULL の場合はテクスチャ無し）
+
+	 //ワールド変換行列を設定
+	pD3DDevice->SetTransform( D3DTS_WORLD , &i_Matrix );								//変換済み頂点の場合は無視される
+
+	//	: 頂点バッファを用いてモデルを描画する
+	pD3DDevice->SetStreamSource( 0, m_pVertexBuffer , 0 , Vertex::getSize() );		//	: 描画対象となる頂点バッファを設定
+	pD3DDevice->SetFVF( Vertex::getFVF() );											//	: 頂点データの形式を設定
+	//pD3DDevice->DrawPrimitive( m_PrimitiveType , 0, m_iDrawPrimitiveVertexNum );	//	: 頂点データの描画（描画の仕方、描画開始位置、プリミティブ数）
+
+
+	pD3DDevice->SetTexture( 0 , NULL );												//	: テクスチャを設定（NULL の場合はテクスチャ無し）
+	pD3DDevice->SetRenderState( D3DRS_LIGHTING , TRUE );
+
+}
+
+
+/**************************************************************************
+ MouseCursor 定義部
+****************************************************************************/
 /**************************************************************************
  MouseCursor::MouseCursor(
 	LPDIRECT3DDEVICE9 pD3DDevice,	//デバイス
@@ -46,7 +98,7 @@ MouseCursor::MouseCursor( LPDIRECT3DDEVICE9 pD3DDevice, TextureManager* m_pTexMg
 
 
 	m_pCursorLine = new NameLineEffect( pD3DDevice, NULL, 1);
-
+	m_pCursorLine->AddNameLineEffect( pD3DDevice, g_vZero, g_vOne);
 }
 
 /////////////////// ////////////////////
@@ -96,7 +148,9 @@ void MouseCursor::Update( UpdatePacket& i_UpdatePacket ){
 	m_mMatrix = m_mScale * mPos ;
 
 
+
 	UpdateCursor();
+	m_pCursorLine->setPos(m_v3DPos);
 
 	++m_Ptn;
 }
@@ -115,7 +169,8 @@ void MouseCursor::Update( UpdatePacket& i_UpdatePacket ){
 //// 備考       ：
 void MouseCursor::Draw(DrawPacket& i_DrawPacket)
 {
-	PrimitiveSprite::Draw(i_DrawPacket);
+	m_pCursorLine->Draw(i_DrawPacket.pD3DDevice,*i_DrawPacket.pVec,NULL,*i_DrawPacket.pCommand);
+	//PrimitiveSprite::Draw(i_DrawPacket);
 	Box::Draw(i_DrawPacket);
 }
 
