@@ -27,7 +27,6 @@
 #include "Factory_Stage1.h"
 #include "Factory_Description.h"
 #include "Factory_Cursor.h"
-#include "Factory_Wall.h"
 #include "BassItems.h"
 
 namespace wiz{
@@ -74,7 +73,7 @@ Factory_Main::Factory_Main(FactoryPacket* fpac, D3DXVECTOR3* vStartPos ){
 		StageLoader loader(fpac->pD3DDevice,L"media/Map/Stages.csv",1,*fpac->m_pVec,*fpac->m_pTexMgr);
 		Factory_Player		Pfac( fpac );
 		Factory_Coil		Cfac( fpac , vStartPos );
-		//Factory_Wall		Wfac( fpac );
+		//Factory_BG		Wfac( fpac );
 		Factory_Magnetic	Mfac( fpac ) ;
 		Factory_Enemy		Efac( fpac ) ;
 		Factory_CheckPoint	CPfac( fpac ) ;
@@ -123,7 +122,6 @@ Factory_Main::Factory_Main(FactoryPacket* fpac, D3DXVECTOR3* vStartPos ){
 		//çƒthrow
 		throw;
 	}
-
 }
 /**************************************************************************
  Factory_Main::~Factory_Main();
@@ -133,7 +131,11 @@ Factory_Main::Factory_Main(FactoryPacket* fpac, D3DXVECTOR3* vStartPos ){
 Factory_Main::~Factory_Main(){
 	//Ç»Ç…Ç‡ÇµÇ»Ç¢
 }
+
+
 }
+
+
 //end of namespace bomberobject.
 }
 //end of namespace wiz.
