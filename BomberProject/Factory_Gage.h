@@ -106,6 +106,7 @@ public:
 	);
 
     void	Draw(DrawPacket& i_DrawPacket) ;
+	void	Update( UpdatePacket& i_UpdatePacket );
 };
 
 /************************************************
@@ -116,11 +117,13 @@ class MagneticGage_N : public Gage
 *************************************************/
 class MagneticGage_N : public Gage{
 	MouseCursor* m_pCursor ;
+	D3DXVECTOR3		m_vScale;
 public:
 	MagneticGage_N(
 		LPDIRECT3DDEVICE9	pD3DDevice	,		//	: デバイス
 		LPDIRECT3DTEXTURE9	pTex		,		//	: コア部分のTexture
 		D3DXVECTOR3			&vPos		,		//	: 位置
+		D3DXVECTOR3			&vScale		,		//	: 大きさ
 		RECT				GaugeRect	,		//	: 描画範囲
 		RECT				FrameRect	,		//	: 描画範囲
 		wiz::OBJID			id=OBJID_UI_GAUGE	//	: ID
@@ -153,11 +156,13 @@ class MagneticGage_S : public Gage
 *************************************************/
 class MagneticGage_S : public Gage{
 	MouseCursor*	m_pCursor	;
+	D3DXVECTOR3		m_vScale;
 public:
 	MagneticGage_S(
 		LPDIRECT3DDEVICE9	pD3DDevice	,		//	: デバイス
 		LPDIRECT3DTEXTURE9	pTex		,		//	: コア部分のTexture
 		D3DXVECTOR3			&vPos		,		//	: 位置
+		D3DXVECTOR3			&vScale		,		//	: 大きさ
 		RECT				GaugeRect	,		//	: 描画範囲
 		RECT				FrameRect	,		//	: 描画範囲
 		wiz::OBJID			id = OBJID_UI_GAUGE	//	: ID
