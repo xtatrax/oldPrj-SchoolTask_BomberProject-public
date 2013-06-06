@@ -72,8 +72,8 @@ Factory_Main::Factory_Main(FactoryPacket* fpac, D3DXVECTOR3* vStartPos ){
 		);
 
 
-		StageLoader loader(fpac->pD3DDevice,L"media/Map/Stages.csv",1,*fpac->m_pVec,*fpac->m_pTexMgr);
 		Factory_Player		Pfac( fpac );
+		StageLoader loader(fpac->pD3DDevice,L"media/Map/Stages.csv",1,*fpac->m_pVec,*fpac->m_pTexMgr);
 		Factory_Coil		Cfac( fpac , vStartPos );
 		//Factory_Wall		Wfac( fpac );
 		Factory_Magnetic	Mfac( fpac ) ;
