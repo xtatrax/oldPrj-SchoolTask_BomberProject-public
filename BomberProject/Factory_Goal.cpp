@@ -508,15 +508,15 @@ void GoalObject::addGoal(D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos
 ***************************************************************************/
 Factory_Goal::Factory_Goal(FactoryPacket* fpac){
 	try{
-        D3DCOLORVALUE MemoryDiffuse = {1.0f,1.0f,1.0f,0.0f};
-        D3DCOLORVALUE MemorySpecular = {0.0f,0.0f,0.0f,0.0f};
-        D3DCOLORVALUE MemoryAmbient = {1.0f,1.0f,1.0f,0.0f};
+        //D3DCOLORVALUE MemoryDiffuse = {1.0f,1.0f,1.0f,0.0f};
+        //D3DCOLORVALUE MemorySpecular = {0.0f,0.0f,0.0f,0.0f};
+        //D3DCOLORVALUE MemoryAmbient = {1.0f,1.0f,1.0f,0.0f};
 
-        D3DCOLORVALUE GoalDiffuse = {0.0f,1.0f,1.0f,0.3f};
-        D3DCOLORVALUE GoalSpecular = {0.0f,0.0f,0.0f,0.0f};
-        D3DCOLORVALUE GoalAmbient = {0.0f,1.0f,1.0f,0.3f};
+        //D3DCOLORVALUE GoalDiffuse = {0.0f,1.0f,1.0f,0.3f};
+        //D3DCOLORVALUE GoalSpecular = {0.0f,0.0f,0.0f,0.0f};
+        //D3DCOLORVALUE GoalAmbient = {0.0f,1.0f,1.0f,0.3f};
 
-		FMemoryTex* mt = new FMemoryTex(fpac->pD3DDevice,fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"memory.png" ));
+		//FMemoryTex* mt = new FMemoryTex(fpac->pD3DDevice,fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"memory.png" ));
 		// GoalObject* gl = new GoalObject(fpac->pD3DDevice,NULL);
 		////‚¨ŽŽ‚µ
 		//gl->addGoal(	D3DXVECTOR3( 10.0f, 3.0f, 1.0f ),
@@ -526,14 +526,14 @@ Factory_Goal::Factory_Goal(FactoryPacket* fpac){
 		//				GoalSpecular,
 		//				GoalAmbient);
 
-		mt->AddMemory(	D3DXVECTOR3(20.0f,5.0f,0.0f),
-						g_vZero,
-						D3DXVECTOR3(20.0f,20.0f * 8.0f-8.0f ,0.0f),
-						MemoryDiffuse,
-						MemorySpecular,
-						MemoryAmbient	);
+		//mt->AddMemory(	D3DXVECTOR3(20.0f,5.0f,0.0f),
+		//				g_vZero,
+		//				D3DXVECTOR3(20.0f,20.0f * 8.0f-8.0f ,0.0f),
+		//				MemoryDiffuse,
+		//				MemorySpecular,
+		//				MemoryAmbient	);
 
-		fpac->m_pVec->push_back( mt );
+		//fpac->m_pVec->push_back( mt );
 
 		//gl->addGoal(	D3DXVECTOR3( 50.0f, 2.0f, 0.0f ),
 		//				g_vZero,
