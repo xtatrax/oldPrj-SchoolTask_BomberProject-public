@@ -335,6 +335,7 @@ void Scene::CommandTranslator(DrawPacket& i_DrawPacket){
 			m_pRootStage = new DebugStage_Loader(i_DrawPacket.pD3DDevice);
 			break;
 		case GM_EXIT:
+			SafeDeleteStage(m_pRootStage);
 			::DestroyWindow(g_hWnd);
 			break;
 	}

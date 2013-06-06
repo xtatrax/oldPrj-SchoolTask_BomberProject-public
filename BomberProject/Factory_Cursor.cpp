@@ -50,7 +50,7 @@ MouseCursor::MouseCursor( LPDIRECT3DDEVICE9 pD3DDevice, TextureManager* m_pTexMg
 	const	D3DXVECTOR3	vDir2	= D3DXVECTOR3( cosf( D3DXToRadian(0.0f) ), sinf( D3DXToRadian(0.0f) ), 0.0f );
 	const	float		fRange	= 100.0f;
 	m_pLine		= new Line( g_vZero, vDir, fRange, 0xFFFFFF00 );
-	m_pLine2		= new Line( m_pLine->getEndPos(), vDir2, fRange*2, 0xFFFFFF00 );
+	m_pLine2	= new Line( m_pLine->getEndPos(), vDir2, fRange*2, 0xFFFFFF00 );
 	
 }
 
@@ -108,7 +108,6 @@ void MouseCursor::Update( UpdatePacket& i_UpdatePacket ){
 
 	m_pLine->setMatrix( m_mMatrix );
 	m_pLine2->setMatrix( m_mMatrix );
-
 	++m_Ptn;
 }
 
