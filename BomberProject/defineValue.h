@@ -266,6 +266,8 @@ namespace wiz{
 		OBJID_3D_EFFECT				,	//	: エフェクト
 		OBJID_3D_ENEMY				,	//	: 敵
 
+
+
 		//	: 
 		OBJID_3D_TESTBOX			,	//	: テスト用の箱
 		OBJID_3D_DRAWOBB			,
