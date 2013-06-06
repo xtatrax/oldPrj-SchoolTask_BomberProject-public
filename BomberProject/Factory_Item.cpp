@@ -18,6 +18,7 @@
 //#include "Factory_Player.h"
 
 namespace wiz{
+namespace bomberobject{
 
 
 
@@ -158,14 +159,14 @@ void	Item::Update(UpdatePacket& i_UpdatePacket)
 				if( it->second->m_fDistance < VanishArea ){
 					m_pSound->SearchWaveAndPlay( RCTEXT_SOUND_SE_ITEMS );
 					//エネルギー回復
-					m_pSuperGage->Recovery(RECOVERY_POINT,SUPER_GAGE_MAX);
+					m_pSuperGage->Recovery(RECOVERY_POINT);
 					SafeDelete( it->second );
 					it = m_ItemMap_All.erase( it );
 					continue;
 				}
 			}
 			//ゲージが最大になったらコイルを無敵状態に
-			if(m_pSuperGage->getRect2().right >= SUPER_GAGE_MAX){
+			if(m_pSuperGage->getRate() >= 1.0f){
 				m_pPlayerCoil->setSuperMode(true);	
 			}
 		}
@@ -187,7 +188,7 @@ void	Item::Update(UpdatePacket& i_UpdatePacket)
 		static float s_fTimeTotal = 0.0f;
 		s_fTimeTotal += (float)SUPER_GAGE_MAX / (float)COIL_SUPER_MODE_TIME * (float)i_UpdatePacket.pTime->getElapsedTime();
 		if(s_fTimeTotal >= 1.0f){
-			m_pSuperGage->Consume((int)s_fTimeTotal);
+			m_pSuperGage->Consume( 1.0f / COIL_SUPER_MODE_TIME * (float)i_UpdatePacket.pTime->getElapsedTime() );
 			s_fTimeTotal -= (int)s_fTimeTotal;
 		}
 	}
@@ -250,7 +251,8 @@ Factory_Item::Factory_Item(FactoryPacket* fpac){
         D3DCOLORVALUE BallSpecular = {0.0f,0.0f,0.0f,0.0f};
         D3DCOLORVALUE BallAmbient = {0.0f,0.7f,0.7f,1.0f};
 		Item*	it	=	new	Item(fpac,NULL,OBJID_UNK);
-		for(int i = 0; i < 7; i++){
+
+		for(int i = 0; i < 9; i++){
 			for(int j = 0; j < 50; j++){
 				it->addItem(D3DXVECTOR3((float(i)*5.0f+float(rand()%100*0.05f))+1.5f,
 										(float(j)*2.75f+float(rand()%100*0.05f))+1.5f,0.0f),
@@ -281,6 +283,8 @@ Factory_Item::Factory_Item(FactoryPacket* fpac){
 Factory_Item::~Factory_Item(){
     //なにもしない
 }
+}
+//end of namespace bomberobject.
 
 }
 //end of namespace wiz.

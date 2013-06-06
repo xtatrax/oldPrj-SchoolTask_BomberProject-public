@@ -18,7 +18,7 @@
 #include "Factory_Sound.h"
 
 namespace wiz{
-
+namespace bomberobject{
 /**************************************************************************
 class DeadEffect;
 
@@ -302,5 +302,7 @@ public:
 ***************************************************************************/
 	~Factory_CheckPoint();
 };
+}
+//end of namespace bomberobject.
 }
 //end of namespace wiz.

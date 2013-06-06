@@ -30,7 +30,8 @@ static const char*			RCTEXT_SOUND_SE_ITEMS		= "SE-ITEMS"			;
 static const char*			RCTEXT_SOUND_SE_SETFIELD	= "SE-MAGNETIC_FIELD"	;
 static const char*			RCTEXT_SOUND_SE_SPARK		= "SE-SPARK002"			;
 
-static const int			MGPRM_MAGNETICUM			= 10 ; /* 磁界の影響半径*/
+static const float			MGPRM_INVISIBLESOUND_TIME	= 0.7f	; /* 磁界の影響半径*/
+static const int			MGPRM_MAGNETICUM			= 10	; /* 磁界の影響半径*/
 static const int			MGPRM_MAGNETICUM_QUAD		= ( MGPRM_MAGNETICUM * MGPRM_MAGNETICUM );
 
 
@@ -48,7 +49,7 @@ static const int			MGPRM_MAGNETICUM_QUAD		= ( MGPRM_MAGNETICUM * MGPRM_MAGNETICU
 
 
 #define CF_SINGLETHREAD			/* シングルスレッドモード  ( 無効にするとマルチスレッド的になりますがバグります )   */
-#define DRAW_MOUSE	(false)		
+#define DRAW_MOUSE	(true)		
 //#define CF_LOADINGANIMATION		/* ロード画面でアニメーション */
 
 #if defined(DEBUG) || defined(_DEBUG)
@@ -227,6 +228,8 @@ namespace wiz{
 		OBJID_UI_SPRITEBUTTON		,	//	: スプライトボタンのUI
 		OBJID_UI_LIFE				,	//	: ライフ( 念のため )
 		OBJID_UI_GAUGE				,	//	: ゲージ
+		OBJID_UI_MAGNETGAUGE_N		,	//	: N極ゲージ
+		OBJID_UI_MAGNETGAUGE_S		,	//	: S極ゲージ
 		OBJID_UI_SCORE				,	//	: スコア
 		OBJID_UI_TIME				,	//	: 時間( いる? )
 		OBJID_UI_END				,
@@ -256,7 +259,7 @@ namespace wiz{
 		OBJID_3D_WALL				,	//	: 壁
 		OBJID_3D_ITEM				,	//	: アイテム
 
-		OBJID_3D_CURSOR				,	//	: カーソル
+		OBJID_SYS_CURSOR				,	//	: カーソル
 
 		//	:
 		//OBJID_3D_PLAYER				,

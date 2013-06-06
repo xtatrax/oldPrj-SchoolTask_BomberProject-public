@@ -19,6 +19,7 @@
 
 
 namespace wiz{
+namespace bomberobject{
 
 //Camera*	ProvisionalPlayer3D::m_Camera	= NULL;
 extern class WallObject ;
@@ -116,7 +117,9 @@ void ProvisionalPlayer3D::Draw(DrawPacket& i_DrawPacket)
 
 	if( m_pPlayerCoil && ( m_pPlayerCoil->getState() == COIL_STATE_MOVE || m_pPlayerCoil->getState() == COIL_STATE_STICK ) ){
 		if( m_bDrawing ){ 
-			if( m_pSound ) m_pSound->SearchWaveAndPlay( RCTEXT_SOUND_SE_SETFIELD ) ;
+			if( m_pSound ){
+				m_pSound->SearchWaveAndPlay( RCTEXT_SOUND_SE_SETFIELD ) ;
+			}
 			//ƒeƒNƒXƒ`ƒƒ‚ª‚ ‚éê‡
 			if(m_pTexture){
 				DWORD wkdword;
@@ -150,6 +153,7 @@ void ProvisionalPlayer3D::Draw(DrawPacket& i_DrawPacket)
 			m_pMagneticField3->Draw(i_DrawPacket);
 			m_pMagneticField4->Draw(i_DrawPacket);
 		}
+		else	m_pSound->SoundPause(RCTEXT_SOUND_SE_SETFIELD);
 	}
 }
 
@@ -179,11 +183,11 @@ void ProvisionalPlayer3D::Update( UpdatePacket& i_UpdatePacket ){
 
 	if( m_pPlayerCoil->getState() == COIL_STATE_MOVE || m_pPlayerCoil->getState() == COIL_STATE_STICK ){
 		if( (g_bMouseLB || g_bMouseRB) && !(g_bMouseLB && g_bMouseRB)){ 
-			if( (g_bMouseLB && m_pMGage_N->getRect2().right > 0) || (g_bMouseRB && m_pMGage_S->getRect2().right > 0) ){				
+			if( (g_bMouseLB && m_pMGage_N->getRate() > 0.0f) || (g_bMouseRB && m_pMGage_S->getRate() > 0.0f) ){				
 				if( !m_bLastMouseLB && !m_bLastMouseRB){
 					if(g_bMouseLB)m_pMGage_N->Consume(PLAYER_INVOCATION_POINT);
 					if(g_bMouseRB)m_pMGage_S->Consume(PLAYER_INVOCATION_POINT);
-					if( (g_bMouseLB && m_pMGage_N->getRect2().right > 0) || (g_bMouseRB && m_pMGage_S->getRect2().right > 0) ){
+					if( (g_bMouseLB && m_pMGage_N->getRate() > 0.0f) || (g_bMouseRB && m_pMGage_S->getRate() > 0.0f) ){
 						wiz::CONTROLER_STATE Controller1P = i_UpdatePacket.pCntlState[0] ;
 						D3DXVECTOR3 vMove = g_vZero ;
 						Point MousePos ;
@@ -225,13 +229,13 @@ void ProvisionalPlayer3D::Update( UpdatePacket& i_UpdatePacket ){
 							setPoleS() ;
 					}
 				}
-				if( (g_bMouseLB && m_pMGage_N->getRect2().right > 0) || (g_bMouseRB && m_pMGage_S->getRect2().right > 0) ){	
+				if( (g_bMouseLB && m_pMGage_N->getRate() > 0.0f) || (g_bMouseRB && m_pMGage_S->getRate() > 0.0f) ){	
 
 					if( g_bMouseLB  && !g_bMouseRB && m_pPlayerCoil->getState() != COIL_STATE_STICK )m_pMGage_N->Consume(PLAYER_CONSUME_POIMT);
 					if( !g_bMouseLB && g_bMouseRB  && m_pPlayerCoil->getState() != COIL_STATE_STICK )m_pMGage_S->Consume(PLAYER_CONSUME_POIMT);
 
-					if( !g_bMouseLB && g_bMouseRB  )m_pMGage_N->Recovery(PLAYER_RECOVERY_POINT,MAGNETIC_GAGE_MAX);
-					if( g_bMouseLB  && !g_bMouseRB )m_pMGage_S->Recovery(PLAYER_RECOVERY_POINT,MAGNETIC_GAGE_MAX);
+					if( !g_bMouseLB && g_bMouseRB  )m_pMGage_N->Recovery(PLAYER_RECOVERY_POINT);
+					if( g_bMouseLB  && !g_bMouseRB )m_pMGage_S->Recovery(PLAYER_RECOVERY_POINT);
 
 					//	: Šg‘åk¬
 					D3DXMATRIX mScale ;
@@ -264,9 +268,11 @@ void ProvisionalPlayer3D::Update( UpdatePacket& i_UpdatePacket ){
 				m_bDrawing	= false;
 			}
 		}else{
-			m_bDrawing	= false;
-			m_pMGage_N->Recovery(PLAYER_RECOVERY_POINT,MAGNETIC_GAGE_MAX);
-			m_pMGage_S->Recovery(PLAYER_RECOVERY_POINT,MAGNETIC_GAGE_MAX);
+			if(m_pPlayerCoil->getState() != COIL_STATE_STICK){
+				m_bDrawing	= false;
+				if( m_pMGage_N ) m_pMGage_N->Recovery(PLAYER_RECOVERY_POINT);
+				if( m_pMGage_S ) m_pMGage_S->Recovery(PLAYER_RECOVERY_POINT);
+			}
 		}
 	}else{
 			m_bDrawing	= false;
@@ -278,8 +284,8 @@ void ProvisionalPlayer3D::Update( UpdatePacket& i_UpdatePacket ){
 	m_pMagneticField4->Update(i_UpdatePacket);
 
 	if(m_pPlayerCoil->getState() == COIL_STATE_CONTINUE){
-		m_pMGage_N->setRect2_Right(MAGNETIC_GAGE_MAX);
-		m_pMGage_S->setRect2_Right(MAGNETIC_GAGE_MAX);
+		if( m_pMGage_N ) m_pMGage_N->ResetGauge();
+		if( m_pMGage_S ) m_pMGage_S->ResetGauge();
 	}
 };
 
@@ -511,6 +517,8 @@ Factory_Player::Factory_Player( FactoryPacket* fpac ){
 Factory_Player::~Factory_Player(){
     //‚È‚É‚à‚µ‚È‚¢
 }
+}
+//end of namespace bomberobject.
 
 }
 //end of namespace wiz.

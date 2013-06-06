@@ -17,7 +17,7 @@
 #include "Factory_Sound.h"
 
 namespace wiz{
-
+namespace bomberobject{
 /**************************************************************************
 class Factory_Result;
 
@@ -40,5 +40,7 @@ public:
 	~Factory_Result();
 };
 
+}
+//end of namespace bomberobject.
 }
 //end of namespace wiz.

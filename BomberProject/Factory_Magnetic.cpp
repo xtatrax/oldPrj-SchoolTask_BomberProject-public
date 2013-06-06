@@ -18,6 +18,8 @@
 #include "BassItems.h"
 
 namespace wiz{
+namespace bomberobject{
+
 Camera*		MagneticumObject3D::m_pCamera = NULL;	
 
 ///**************************************************************************
@@ -439,5 +441,7 @@ Factory_Magnetic::~Factory_Magnetic(){
     //‚È‚É‚à‚µ‚È‚¢
 }
 
+}
+//end of namespace bomberobject.
 }
 //end of namespace wiz.

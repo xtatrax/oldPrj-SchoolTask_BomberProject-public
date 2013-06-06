@@ -17,6 +17,8 @@
 
 
 namespace wiz{
+namespace bomberobject{
+
 //PlayerCoil* WallObject::m_pPlayerCoil = NULL ;
 //Camera*		WallObject::m_pCamera = NULL;	
 
@@ -572,6 +574,9 @@ Factory_Wall::Factory_Wall(FactoryPacket* fpac){
 Factory_Wall::~Factory_Wall(){
     //‚È‚É‚à‚µ‚È‚¢
 }
+
+}
+//end of namespace bomberobject.
 
 }
 //end of namespace wiz.

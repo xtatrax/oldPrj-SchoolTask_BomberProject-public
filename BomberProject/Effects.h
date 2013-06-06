@@ -13,7 +13,7 @@
 #pragma once
 #include "BassItems.h"
 namespace wiz{
-extern class Player;
+//extern class Player;
 
 class Effect : public Object{
 protected:

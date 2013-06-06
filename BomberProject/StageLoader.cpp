@@ -24,6 +24,8 @@
 
 
 namespace wiz{
+using namespace bomberobject;
+
 /////////////////// ////////////////////
 //// 関数名     ：
 //// カテゴリ   ：

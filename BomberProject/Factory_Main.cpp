@@ -31,6 +31,7 @@
 #include "BassItems.h"
 
 namespace wiz{
+namespace bomberobject{
 
 
 	
@@ -70,6 +71,7 @@ Factory_Main::Factory_Main(FactoryPacket* fpac, D3DXVECTOR3* vStartPos ){
 			new RenderTargetSprite((BassPacket*)fpac,800,512)
 		);
 
+		StageLoader loader(fpac->pD3DDevice,L"media/Map/Stages.csv",1,*fpac->m_pVec,*fpac->m_pTexMgr);
 		Factory_Player		Pfac( fpac );
 		Factory_Coil		Cfac( fpac , vStartPos );
 		//Factory_Wall		Wfac( fpac );
@@ -77,13 +79,12 @@ Factory_Main::Factory_Main(FactoryPacket* fpac, D3DXVECTOR3* vStartPos ){
 		Factory_Enemy		Efac( fpac ) ;
 		Factory_CheckPoint	CPfac( fpac ) ;
 		Factory_Item		Ifac( fpac ) ;
-		Factory_Gage		Gfac( fpac );
-		// Factory_Stage1	Sfac( fpac ) ;
-		StageLoader loader(fpac->pD3DDevice,L"media/Map/Stages.csv",1,*fpac->m_pVec,*fpac->m_pTexMgr);
+		//Factory_Stage1	Sfac( fpac ) ;
 
 		Factory_Goal		GPfac( fpac ) ;
 		Factory_Description	Dfac( fpac ) ;
 		Factory_Cursor		MCfac( fpac )  ; 
+		Factory_Gage		Gfac( fpac );
 
 		////	: スプライト
 		//fpac->m_pVec->push_back(
@@ -132,6 +133,7 @@ Factory_Main::Factory_Main(FactoryPacket* fpac, D3DXVECTOR3* vStartPos ){
 Factory_Main::~Factory_Main(){
 	//なにもしない
 }
-
+}
+//end of namespace bomberobject.
 }
 //end of namespace wiz.

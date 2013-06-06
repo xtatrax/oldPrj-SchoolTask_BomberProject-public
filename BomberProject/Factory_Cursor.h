@@ -13,8 +13,11 @@
 
 #include "StdAfx.h"
 #include "Object.h"
+#include "seiyaEffect.h"
 
 namespace wiz{
+namespace bomberobject{
+
 //	: UIの高さ
 #define UI_HEIGHT					( 88.0f )
 //	: 表示画面の倍率 x=800, y=512 : x=40, y=25.6
@@ -82,31 +85,99 @@ inline D3DXVECTOR3* CalcScreenToXZ(
    return pout;
 }
 
-/**************************************************************************
- MouseCursor 定義部
-****************************************************************************/
+//**************************************************************************//
+// class LineCursor 
+//
+// 担当者  : 鴫原 徹
+// 用途    : マウスカーソル
+//**************************************************************************//
+class LineCursor{
+protected:
+	/*****************************************************************
+	// static Vertex
+	//
+	// 担当者  : 鴫原 徹
+	// 用途    : 3D視点頂点データ 
+	******************************************************************/
+	struct Vertex
+	{
+		D3DXVECTOR3 m_vPos ;	//ゲーム画面での位置
+		DWORD		m_dwColor ;	//色
+
+		/////////////////// ////////////////////
+		//// 用途       ：Vertex();
+		//// カテゴリ   ：デフォルトコンストラクタ
+		//// 用途       ：
+		//// 引数       ：なし
+		//// 戻値       ：なし
+		//// 担当者     ：鴫原 徹
+		//// 備考       ：
+		Vertex()	: m_vPos(g_vZero),m_dwColor(0xFFFFFFFF){}
+
+		/////////////////// ////////////////////
+		//// 用途       ：Vertex( D3DXVECTOR3 i_vPos, DWORD i_dwColor );
+		//// カテゴリ   ：コンストラクタ
+		//// 用途       ：
+		//// 引数       ：なし
+		//// 戻値       ：なし
+		//// 担当者     ：鴫原 徹
+		//// 備考       ：
+		Vertex(	D3DXVECTOR3 i_vPos, DWORD i_dwColor )
+			:m_vPos(i_vPos),m_dwColor(i_dwColor){}
+
+		/////////////////// ////////////////////
+		//// 用途       ：static DWORD Vertex::getFVF()
+		//// カテゴリ   ：ゲッター
+		//// 用途       ：FVF設定を返す
+		//// 引数       ：なし
+		//// 戻値       ：[ DWORD ] FVF設定
+		//// 担当者     ：鴫原 徹
+		//// 備考       ：
+		static DWORD Vertex::getFVF()
+		{
+			return D3DFVF_XYZ | D3DFVF_DIFFUSE  ;
+		}
+		/////////////////// ////////////////////
+		//// 用途       ：static DWORD Vertex::getSize()
+		//// カテゴリ   ：ゲッター
+		//// 用途       ：構造体の大きさを返す
+		//// 引数       ：なし
+		//// 戻値       ：[ DWORD ] 構造体の大きさ
+		//// 担当者     ：鴫原 徹
+		//// 備考       ：
+		static DWORD Vertex::getSize()
+		{
+			return sizeof(Vertex) ;
+		}
+	};
+private:
+
+	Vertex*					m_pVertex					;	//頂点データのポインタ
+	LPDIRECT3DVERTEXBUFFER9	m_pVertexBuffer				;	//バッファ
+public:
+	LineCursor( LPDIRECT3DDEVICE9 pD3DDevice );
+	void Draw(LPDIRECT3DDEVICE9 pD3DDevice , const D3DXMATRIX& i_Matrix ) ;
+
+};
+
+
 //**************************************************************************//
 // class MouseCursor : public PrimitiveBox
 //
 // 担当者  : 曳地 大洋
+// 引継ぎ  : 鴫原 徹
 // 用途    : マウスカーソル
 //**************************************************************************//
 class MouseCursor : public Box , public  PrimitiveSprite{
-	int			m_Ptn;
-	float		m_MovePosY;
-	Camera*	    m_pCamera;
-	D3DXMATRIX	m_mScale;
 
+	int					m_Ptn			;
+	float				m_MovePosY		;
+	Camera*				m_pCamera		;
+	NameLineEffect*		m_pCursorLine	;
+	D3DXMATRIX			m_mScale		;
+	D3DXVECTOR3			m_v3DPos		;
+	Point				m_v2DPos		;
 //protected:
-	///////////////////// ////////////////////
-	////// 用途       ：MouseCursor(	LPDIRECT3DDEVICE9 pD3DDevice,LPDIRECT3DTEXTURE9 pTexture,wiz::OBJID id = OBJID_3D_WALL);
-	////// カテゴリ   ：コンストラクタ
-	////// 用途       ：関数
-	////// 引数       ：なし
-	////// 戻値       ：なし
-	////// 担当者     ：鴫原 徹
-	////// 備考       ：
-	//	void UpdateTargetItem();
 
 public:
 	/////////////////// ////////////////////
@@ -161,6 +232,13 @@ public:
 	////            ：
 	////
 	void Update( UpdatePacket& i_UpdatePacket );
+	Point		get2DPos(){ return m_v2DPos ; };
+	D3DXVECTOR3	get3DPos(){ return m_v3DPos ; };
+
+protected:
+
+	//	: 
+	void UpdateCursor();
 };
 
 /**************************************************************************
@@ -186,5 +264,7 @@ public:
 ***************************************************************************/
 	~Factory_Cursor();
 };
+}
+//end of namespace bomberobject.
 }
 //end of namespace wiz.
