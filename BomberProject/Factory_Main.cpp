@@ -79,7 +79,7 @@ Factory_Main::Factory_Main(FactoryPacket* fpac, D3DXVECTOR3* vStartPos ){
 		Factory_Enemy		Efac( fpac ) ;
 		Factory_CheckPoint	CPfac( fpac ) ;
 		Factory_Item		Ifac( fpac ) ;
-		// Factory_Stage1	Sfac( fpac ) ;
+		//Factory_Stage1	Sfac( fpac ) ;
 
 		Factory_Goal		GPfac( fpac ) ;
 		Factory_Description	Dfac( fpac ) ;
