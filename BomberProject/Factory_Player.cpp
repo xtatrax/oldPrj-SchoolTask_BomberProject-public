@@ -335,9 +335,11 @@ void ProvisionalPlayer3D::Update( UpdatePacket& i_UpdatePacket ){
 				m_bDrawing	= false;
 			}
 		}else{
-			m_bDrawing	= false;
-			m_pMGage_N->Recovery(PLAYER_RECOVERY_POINT,MAGNETIC_GAGE_MAX);
-			m_pMGage_S->Recovery(PLAYER_RECOVERY_POINT,MAGNETIC_GAGE_MAX);
+			if(m_pPlayerCoil->getState() != COIL_STATE_STICK){
+				m_bDrawing	= false;
+				m_pMGage_N->Recovery(PLAYER_RECOVERY_POINT,MAGNETIC_GAGE_MAX);
+				m_pMGage_S->Recovery(PLAYER_RECOVERY_POINT,MAGNETIC_GAGE_MAX);
+			}
 		}
 	}else{
 			m_bDrawing	= false;
