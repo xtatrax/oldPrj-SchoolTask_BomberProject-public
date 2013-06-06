@@ -519,12 +519,12 @@ void	CheckPoint::Blink(){
 			D3DCOLORVALUE Specular = {1.0f,0.0f,0.0f,1.0f};
 			D3DCOLORVALUE Ambient = {1.0f,0.0f,0.0f,1.0f};
 			
-			CheckPoint* pcp ;
-			fpac->m_pVec->push_back(
-				pcp = new CheckPoint( fpac->pD3DDevice, 100.0f, fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"particle.png" ))
-			);
-			pcp->add( D3DXVECTOR3(12.0f,45.0f,0.0f) );
-			pcp->add( D3DXVECTOR3(5.0f,120.0f,0.0f) );
+			//CheckPoint* pcp ;
+			//fpac->m_pVec->push_back(
+			//	pcp = new CheckPoint( fpac->pD3DDevice, 100.0f, fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"particle.png" ),)
+			//);
+			//pcp->add( D3DXVECTOR3(12.0f,45.0f,0.0f) );
+			//pcp->add( D3DXVECTOR3(5.0f,120.0f,0.0f) );
 
 		}
 		
