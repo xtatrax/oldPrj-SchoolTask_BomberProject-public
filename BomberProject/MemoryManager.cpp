@@ -12,4 +12,4 @@
 #include "MemoryManager.h"
 
 std::list<TMemoryManager::itemInfo> TMemoryManager::m_ItemInfo ;
-
+DWORD	TMemoryManager::m_dwAreaSize = 0 ; 

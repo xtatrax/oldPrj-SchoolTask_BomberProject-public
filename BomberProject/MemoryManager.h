@@ -22,6 +22,7 @@
 
 //namespace TLIB{
 class TMemoryManager{
+	static DWORD m_dwAreaSize ;
 public:
 	//	: new されたデータの情報構造
 	struct itemInfo{
@@ -52,6 +53,7 @@ public:
 	//	: 追加
 	static void* add(size_t i_iSize,std::string i_sFile, std::string i_sFunc, UINT i_iLine){
 		void* pPointer = malloc(i_iSize);
+		m_dwAreaSize += i_iSize ;
 		m_ItemInfo.push_back(itemInfo( pPointer, i_iSize , i_sFile,  i_sFunc, i_iLine, timeGetTime() ));
 		return pPointer ; 
 	}
@@ -61,6 +63,7 @@ public:
 		std::list<itemInfo>::iterator it ;
 		for( it = m_ItemInfo.begin() ; it != m_ItemInfo.end() ; it++ ){
 			if( it->pPointer == i_pPointer ){
+				m_dwAreaSize -= it->iSize ;
 				free(it->pPointer);
 				it->pPointer = NULL;
 				it = m_ItemInfo.erase( it );
@@ -72,9 +75,10 @@ public:
 	//	: グラフィカル化する!
 	//	: メモリ状態の描画
 	static void Draw(){
-		std::list<itemInfo>::iterator it  = m_ItemInfo.begin();
-		std::list<itemInfo>::iterator end = m_ItemInfo.end();
+		Debugger::DBGSTR::addStr( L" Memory\n├ Area Size = %d Byte\n└ Instance  = %d Q'ty\n", m_dwAreaSize, m_ItemInfo.size() );
 		if( GetAsyncKeyState( MYVK_DEBUG_OUTPUT_MEMORY ) ){
+			std::list<itemInfo>::iterator it  = m_ItemInfo.begin();
+			std::list<itemInfo>::iterator end = m_ItemInfo.end();
 			time_t timer;
 			struct tm local;
 
@@ -128,28 +132,28 @@ public:
 	}
 
 };
-//std::list<TMemoryManager::itemInfo> TMemoryManager::m_ItemInfo ;
 
 //void* operator new(size_t iSize,LPCTSTR sFile, LPCTSTR sFunc, UINT iLine){
 //	return NULL;//TMemoryManager::add(iSize,sFile,sFunc,iLine);
 //};
-//////////
+////////
 //	: operator new のオーバーライド
 //inline void* operator new(size_t iSize,LPCSTR  sFile =  "" , LPCSTR  sFunc = "" , UINT iLine = 0)
-//inline void* operator new(size_t iSize,LPCSTR  sFile  , LPCSTR  sFunc  , UINT iLine )
-//{
-//	return TMemoryManager::add(iSize,sFile,sFunc,iLine);
-//};
-//
-//inline void operator delete(void* pv,LPCSTR  sFile, LPCSTR  sFunc, UINT iLine){
-//	return TMemoryManager::remove(pv);
-//};
-//
-//inline void operator delete(void* pv){
-//	return TMemoryManager::remove(pv);
-//};
-//
-//#define New new(__FILE__, __FUNCTION__, __LINE__)
+
+inline void* operator new(size_t iSize,LPCSTR  sFile  , LPCSTR  sFunc  , UINT iLine )
+{
+	return TMemoryManager::add(iSize,sFile,sFunc,iLine);
+};
+
+inline void operator delete(void* pv,LPCSTR  sFile, LPCSTR  sFunc, UINT iLine){
+	return TMemoryManager::remove(pv);
+};
+
+inline void operator delete(void* pv){
+	return TMemoryManager::remove(pv);
+};
+
+#define new new(__FILE__, __FUNCTION__, __LINE__)
 
 
 //////////

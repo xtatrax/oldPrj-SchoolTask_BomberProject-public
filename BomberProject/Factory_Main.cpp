@@ -71,6 +71,7 @@ Factory_Main::Factory_Main(FactoryPacket* fpac, D3DXVECTOR3* vStartPos ){
 			new RenderTargetSprite((BassPacket*)fpac,800,512)
 		);
 
+
 		StageLoader loader(fpac->pD3DDevice,L"media/Map/Stages.csv",1,*fpac->m_pVec,*fpac->m_pTexMgr);
 		Factory_Player		Pfac( fpac );
 		Factory_Coil		Cfac( fpac , vStartPos );

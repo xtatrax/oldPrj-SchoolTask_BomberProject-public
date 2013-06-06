@@ -114,6 +114,15 @@ DWORD Tempus::TimeGetTime(){
 	return timeGetTime() - m_dwStartGameTime;
 }
 /**************************************************************************
+ 関数名: double TwoDwTime2ElapsedTime( DWORD dwOldTime, DWORD dwNowTime );
+ 用途: 2つの時間差を浮動少数秒で返す
+ 戻り値: 起動からの経過時間(秒)
+****************************************************************************/
+double Tempus::TwoDwTime2ElapsedTime( DWORD dwOldTime, DWORD dwNowTime ){
+	return DWMSTOFS(dwNowTime - dwOldTime);
+}
+
+/**************************************************************************
  関数名: double Tempus::getWorkTime();
  用途: １フレームの経過時間を返す
  戻り値: 経過時間(秒)

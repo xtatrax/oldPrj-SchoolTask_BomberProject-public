@@ -610,6 +610,10 @@
 						>
 					</File>
 				</Filter>
+				<Filter
+					Name="BackGround"
+					>
+				</Filter>
 			</Filter>
 			<Filter
 				Name="Prim"

@@ -199,7 +199,7 @@ void VertexLineState::setVertexPos( vector<D3DXVECTOR3*> i_vPosVec )
 				throw BaseException(	L"İ’è‚µ‚½‚¢ˆÊ’u‚Ì”‚ªˆá‚¢‚Ü‚·"	,
 									L"VertexLineState::setVertexPos()");
 			#else
-				break ;
+				return ;
 			#endif
 		}else{
 			for(int i = 0 ; i < iLoadPosSize ; i++ ){

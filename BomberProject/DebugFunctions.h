@@ -159,6 +159,7 @@ public:
 	//		fclose(fp);
 	//	}
 	//}
+public:
 /////////////////// ////////////////////
 //// 関数名     ： static void addStr(const addStr* addStr,...)
 //// カテゴリ   ： メンバ関数
