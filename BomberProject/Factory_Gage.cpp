@@ -189,7 +189,7 @@ SuperGage::SuperGage(
 	wiz::OBJID			id
 )
 :Gage(pD3DDevice,pTex,vScale,vRot,vPos,g_vZero,
-	GaugeRect,FrameRect)
+	GaugeRect,FrameRect,id)
 ,m_vBassPos(vPos)
 {
 	m_fRate = 0.0f;
@@ -276,7 +276,7 @@ MagneticGage_N::MagneticGage_N(
 	wiz::OBJID			id
 )
 :Gage(pD3DDevice,pTex,g_vOne,g_vZero,g_vZero,vPos,
-	  GaugeRect,FrameRect)
+	  GaugeRect,FrameRect,id)
 ,m_pCursor( NULL )
 ,m_vScale( vScale )
 {
@@ -361,7 +361,7 @@ MagneticGage_S::MagneticGage_S(
 	wiz::OBJID			id
 )
 :Gage(pD3DDevice,pTex,g_vOne,g_vZero,g_vZero,vPos,
-	  GaugeRect,FrameRect)
+	  GaugeRect,FrameRect,id)
 ,m_pCursor( NULL )
 ,m_vScale( vScale )
 {

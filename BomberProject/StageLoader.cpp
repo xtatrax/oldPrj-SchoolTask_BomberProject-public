@@ -277,23 +277,45 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 		}
 		break;
 		case OBJID_SYS_CLEARAREA :	//:4102
+
+			D3DCOLORVALUE MemoryDiffuse = {1.0f,1.0f,1.0f,0.0f};
+			D3DCOLORVALUE MemorySpecular = {0.0f,0.0f,0.0f,0.0f};
+			D3DCOLORVALUE MemoryAmbient = {1.0f,1.0f,1.0f,0.0f};
+
+			D3DCOLORVALUE GoalDiffuse = {0.0f,1.0f,1.0f,0.3f};
+			D3DCOLORVALUE GoalSpecular = {0.0f,0.0f,0.0f,0.0f};
+			D3DCOLORVALUE GoalAmbient = {0.0f,1.0f,1.0f,0.3f};
+
 			//	: インスタンスを生成
 			GoalObject* mgb = new GoalObject(
 				m_pD3DDevice	,
 				NULL			,
 				ObjectID
 			);
-
+			FMemoryTex* mt = new FMemoryTex(
+				m_pD3DDevice,
+				m_pTexMgr->addTexture( m_pD3DDevice, L"memory.png" )
+			);
+			
 			//	: ゴールの追加
 			mgb->addGoal(
 				D3DXVECTOR3( 100.0f,  2.0f, 0.0f )			,
 				D3DXVECTOR3(  0.0f,  0.0f, 0.0f )			,
 				D3DXVECTOR3( 20.0f, i_Data.vPos.y,  0.0f )	,
-				i_Data.Diffuse								,
-				i_Data.Specular								,
-				i_Data.Ambient
+				GoalDiffuse		,
+				GoalSpecular	,
+				GoalAmbient
+			);
+			mt->AddMemory(
+				D3DXVECTOR3(20.0f,5.0f,0.0f),
+				g_vZero			,
+				D3DXVECTOR3(20.0f,i_Data.vPos.y + 2.0f ,0.0f),
+				MemoryDiffuse		,
+				MemorySpecular	,
+				MemoryAmbient
 			);
 
+			m_pVec->push_back( mt );
 			//	: オブジェクトリストへ登録
 			m_pVec->push_back(mgb);
 			break;
@@ -523,7 +545,7 @@ void StageLoader::ObjectsLoader(wstring i_sFileName){
 		Status.vOffset.x	= getCsvFloat(	vvCsvData, Line, o_CsvMatrix.Column.uiPosX				) ;
 		Status.vOffset.y	= getCsvFloat(	vvCsvData, Line, o_CsvMatrix.Column.uiPosY				) ;
 		Status.vOffset.z	= getCsvFloat(	vvCsvData, Line, o_CsvMatrix.Column.uiPosZ				) ;
-		Status.vOffset.z	= getCsvPOLE(	vvCsvData, Line, o_CsvMatrix.Column.uiPosZ				) ;
+		Status.bPool		= getCsvPOLE(	vvCsvData, Line, o_CsvMatrix.Column.uiPosZ				) ;
 
 		Status.Ambient		= Ambient	;
 		Status.Specular		= Specular	;
