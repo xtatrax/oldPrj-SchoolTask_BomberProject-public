@@ -56,7 +56,7 @@ extern class WallObject ;
 ////
 PlayerCoil::PlayerCoil(
 
-		LPDIRECT3DDEVICE9 pD3DDevice,LPDIRECT3DTEXTURE9 pTexture,
+		LPDIRECT3DDEVICE9 pD3DDevice,LPDIRECT3DTEXTURE9 pTexture,LPDIRECT3DTEXTURE9 pTexture_Super,
 		float Radius1,float Radius2,float Radius3,float Lenght,
 		D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos,
 		D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,
@@ -71,14 +71,16 @@ PlayerCoil::PlayerCoil(
 ,m_vOriginScale(vScale)
 ,m_OBBRadius(Radius3)
 ,m_vMove(D3DXVECTOR3( 1.0f, 0.0f, 0.0f))
-,m_fMoveDir(PLAYER_BASSROT)
-,m_fMovdSpeed(PLAYER_SPEED)
+,m_fMoveDir(COIL_BASSROT)
+,m_fMovdSpeed(COIL_SPEED)
+,m_fAcceleration(NULL)
 ,m_vStartPos(vPos)
 ,m_bLastMouseRB(false)
 ,m_bLastMouseLB(false)
 ,m_bReadyToStart(false)
 ,m_bReadyContinue(false)
 ,m_bIsSuperMode(false)
+,m_pSuperField(NULL)
 ,m_fTurnAngle(PLAYER_TURN_ANGLE_Lv1)
 ,m_pPlayer(NULL)
 ,m_pMagneticumObject(NULL)
@@ -93,6 +95,8 @@ PlayerCoil::PlayerCoil(
 	::ZeroMemory( &m_Material, sizeof(D3DMATERIAL9) ) ;
 	D3DXMatrixIdentity( &m_Matrix ) ;
 	m_pSphere	  = new Sphere(pD3DDevice,Radius3,vPos,vRot,Diffuse,Specular,Ambient);
+	D3DXVECTOR3	v = COIL_SUPER_MODE_FIELD_SCALE;
+	m_pSuperField = new Box(pD3DDevice,v,vPos,vRot,Diffuse,Specular,Ambient,OBJID_3D_BOX,false,pTexture_Super);
 	setPoleN();
 	SetBaseRot(vRot);
 }
@@ -231,12 +235,12 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 		D3DXMatrixTranslation( &mPos  , m_vPos.x , m_vPos.y , m_vPos.z ) ;		//球のPos
 		D3DXMatrixTranslation( &mPos2 , m_vPos.x + vCartesian.x , m_vPos.y + vCartesian.y , m_vPos.z ) ;		//錐のPos
 		D3DXMatrixScaling( &mScale, m_vScale.x, m_vScale.y, m_vScale.z);
-		D3DXMatrixRotationZ( &mRotZ, D3DXToRadian( m_fMoveDir - PLAYER_BASSROT ) ) ;
+		D3DXMatrixRotationZ( &mRotZ, D3DXToRadian( m_fMoveDir - COIL_BASSROT ) ) ;
 		D3DXMatrixRotationX( &mRotX, D3DXToRadian( m_vRot.x ) );
-		m_pSphere->CalcMatrix(mPos,mScale,mRotZ);
 		m_Matrix = mScale * (mRotX*mRotZ) * mPos2 ;
+		m_pSphere->CalcMatrix(mPos,mScale,mRotZ);
 
-		m_pSphere->SetMaterial(this->m_Material );
+		m_pSphere->SetMaterial( m_Material );
 
 	} else {
 		m_pPlayer = (ProvisionalPlayer3D*)SearchObjectFromTypeID( i_UpdatePacket.pVec , typeid(ProvisionalPlayer3D) );
@@ -288,10 +292,11 @@ void PlayerCoil::Update_StateStart(){
 		}
 		if((!g_bMouseLB && m_bLastMouseLB) || (!g_bMouseRB && m_bLastMouseRB)){
 			m_pSound->SearchSoundAndPlay( RCTEXT_SOUND_SE_FIRE );
-			m_enumCoilState = COIL_STATE_MOVE;
-			m_bLastMouseLB  = false;
-			m_bLastMouseRB  = false;
-			m_bReadyToStart = false;
+			m_enumCoilState =  COIL_STATE_MOVE;
+			m_fAcceleration += COIL_ACCELERATION_VALUE;
+			m_bLastMouseLB  =  false;
+			m_bLastMouseRB  =  false;
+			m_bReadyToStart =  false;
 		}
 	}else{
 		m_vScale += COIL_SCALE_ADD_VALUE_START;
@@ -332,10 +337,14 @@ void PlayerCoil::Update_StateMove(){
 		}
 	}
 	//速度指定
-	if(m_bIsSuperMode) m_fMovdSpeed = PLAYER_SPEED_SUPER;
-	else			   m_fMovdSpeed = PLAYER_SPEED;
+	if(m_bIsSuperMode) m_fMovdSpeed = COIL_SPEED_SUPER;
+	else			   m_fMovdSpeed = COIL_SPEED;
 	//指定方向へ指定距離移動
-	ArcMove( m_vMove , m_fMovdSpeed, m_fMoveDir);
+	ArcMove( m_vMove , m_fMovdSpeed + m_fAcceleration, m_fMoveDir);
+	if(m_fAcceleration >= 0.0f){
+		m_fAcceleration -= COIL_ACCELERATION_DECREASE;
+		if(m_fAcceleration <= 0.0f)m_fAcceleration = 0.0f;
+	}
 	//移動分を加算
 	m_vPos += m_vMove;
 
@@ -368,12 +377,14 @@ void PlayerCoil::Update_StateStick(){
 			case POLE_S:
 				if(!g_bMouseRB || !m_pPlayer->getDrawing()){
 					m_enumCoilState = COIL_STATE_MOVE;
+					m_fAcceleration += COIL_ACCELERATION_VALUE;
 					m_bReadyToStart = false;
 				}
 				break;
 			case POLE_N:
 				if(!g_bMouseLB || !m_pPlayer->getDrawing()){
 					m_enumCoilState = COIL_STATE_MOVE;
+					m_fAcceleration += COIL_ACCELERATION_VALUE;
 					m_bReadyToStart = false;
 				}
 				break;
@@ -424,6 +435,7 @@ void PlayerCoil::SuperMode( UpdatePacket& i_UpdatePacket ){
 	static int	s_iInterval			= 0;
 	static bool s_bIsColorChange	= false;
 	static bool	s_bSound			= false;
+	static float s_fSFieldRotZ		= 0.0f;
 
 	if( m_pSound && !s_bSound){
 		m_pSound->SearchWaveAndPlay( RCTEXT_SOUND_SE_INVISIBLE , (BYTE)(COIL_SUPER_MODE_TIME / MGPRM_INVISIBLESOUND_TIME) +1 );
@@ -432,6 +444,18 @@ void PlayerCoil::SuperMode( UpdatePacket& i_UpdatePacket ){
 
 	if(m_enumCoilState == COIL_STATE_MOVE)
 		s_fTimeCount += (float)i_UpdatePacket.pTime->getElapsedTime();
+
+	s_fSFieldRotZ += 5.0f;
+	if(m_fMoveDir > 360.0f)m_fMoveDir = float(int(m_fMoveDir) % 360);
+	float fScalePercentage = 1.0f - s_fTimeCount / COIL_SUPER_MODE_TIME;
+	D3DXMATRIX mPos, mScale, mRotZ;
+	D3DXMatrixTranslation( &mPos  , m_vPos.x , m_vPos.y , m_vPos.z ) ;
+	D3DXMatrixScaling( &mScale, 
+						m_vScale.x * fScalePercentage + m_OBBRadius/4, 
+						m_vScale.y * fScalePercentage + m_OBBRadius/4, 
+						m_vScale.z);
+	D3DXMatrixRotationZ( &mRotZ, D3DXToRadian( s_fSFieldRotZ ) ) ;
+	m_pSuperField->CalcMatrix(mPos,mScale,mRotZ);
 	
 	//色の点滅
 	if(s_iInterval == 0){
@@ -524,6 +548,7 @@ void PlayerCoil::Update_StateContinue(){
 		if((!g_bMouseLB && m_bLastMouseLB) || (!g_bMouseRB && m_bLastMouseRB)){
 			m_pSound->SearchSoundAndPlay( RCTEXT_SOUND_SE_FIRE );
 			m_enumCoilState = COIL_STATE_MOVE;
+			m_fAcceleration += COIL_ACCELERATION_VALUE;
 			m_bLastMouseLB  = false;
 			m_bLastMouseRB  = false;
 			m_bReadyToStart = false;
@@ -595,6 +620,7 @@ void PlayerCoil::Draw(DrawPacket& i_DrawPacket){
 		//コモンメッシュのDraw()を呼ぶ
 		CommonMesh::Draw(i_DrawPacket);
 		m_pSphere->Draw(i_DrawPacket);
+		if(m_bIsSuperMode)m_pSuperField->Draw(i_DrawPacket);
 		i_DrawPacket.pD3DDevice->SetTexture(0,0);
 		//ステージを元に戻す
 		i_DrawPacket.pD3DDevice->SetTextureStageState(0,D3DTSS_COLOROP,wkdword);
@@ -606,6 +632,7 @@ void PlayerCoil::Draw(DrawPacket& i_DrawPacket){
 		//コモンメッシュのDraw()を呼ぶ
 		CommonMesh::Draw(i_DrawPacket);
 		m_pSphere->Draw(i_DrawPacket);
+		if(m_bIsSuperMode)m_pSuperField->Draw(i_DrawPacket);
 	}
 #if defined( ON_DEBUGGINGPROCESS )
 	if( m_pDSPH ) m_pDSPH->Draw( i_DrawPacket );
@@ -747,17 +774,17 @@ Factory_Coil::Factory_Coil( FactoryPacket* fpac, D3DXVECTOR3* vStartPos  ){
 
 		D3DXVECTOR3 vScale( 1.0f, 1.0f, 1.0f );
 		D3DXVECTOR3 vPos( 10.0f,10.0f,0.0f );
- 		D3DCOLORVALUE CoilDiffuse = {1.0f,1.0f,0.0f,0.5f};
+ 		D3DCOLORVALUE CoilDiffuse = {1.0f,1.0f,1.0f,0.0f};
 		D3DCOLORVALUE CoilSpecular = {0.0f,0.0f,0.0f,0.0f};
-		D3DCOLORVALUE CoilAmbient = {1.0f,1.0f,0.0f,0.5f};
+		D3DCOLORVALUE CoilAmbient = {1.0f,1.0f,1.0f,0.0f};
 		if( vStartPos ){
 			vPos = *vStartPos ;
 		}
 		fpac->m_pVec->push_back(
 			new PlayerCoil(
 				fpac->pD3DDevice,
-				//fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"CircleC.png" ),
 				NULL,
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"SuperField.png" ),
 				0.0f,0.7f,1.0f,1.0f,vScale,D3DXVECTOR3(90.0f,0.0f,0.0f),vPos,
 				CoilDiffuse,CoilSpecular,CoilAmbient
 				)
