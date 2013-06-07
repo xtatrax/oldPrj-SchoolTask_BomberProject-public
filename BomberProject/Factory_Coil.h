@@ -20,7 +20,7 @@
 const float			COIL_SPEED						= 0.08f;
 const float			COIL_SPEED_SUPER				= 0.12f;
 const float			COIL_ACCELERATION_VALUE			= 0.25f;
-const float			COIL_ACCELERATION_DECREASE		= 0.005f;
+const float			COIL_ACCELERATION_DECREASE		= 0.01f;
 const float			COIL_BASSROT					= 90.0f;
 const float			PLAYER_TURN_ANGLE_Lv1			= 1.0f;
 const float			PLAYER_TURN_ANGLE_Lv2			= 2.0f;

@@ -49,7 +49,8 @@ static const int			MGPRM_MAGNETICUM_QUAD		= ( MGPRM_MAGNETICUM * MGPRM_MAGNETICU
 
 
 #define CF_SINGLETHREAD			/* シングルスレッドモード  ( 無効にするとマルチスレッド的になりますがバグります )   */
-#define DRAW_MOUSE	(true)		
+#define DRAW_MOUSE	(false)
+//#define CF_OVERLORDNEW_ENABLE	/* 自作のnewを強制化 */
 //#define CF_LOADINGANIMATION		/* ロード画面でアニメーション */
 
 #if defined(DEBUG) || defined(_DEBUG)
@@ -227,7 +228,7 @@ namespace wiz{
 		OBJID_UI_SPRITE				,	//	: UIに使うスプライト
 		OBJID_UI_SPRITEBUTTON		,	//	: スプライトボタンのUI
 		OBJID_UI_LIFE				,	//	: ライフ( 念のため )
-		OBJID_UI_GAUGE				,	//	: ゲージ
+		OBJID_UI_SUPERGAUGE			,	//	: ゲージ
 		OBJID_UI_MAGNETGAUGE_N		,	//	: N極ゲージ
 		OBJID_UI_MAGNETGAUGE_S		,	//	: S極ゲージ
 		OBJID_UI_SCORE				,	//	: スコア
