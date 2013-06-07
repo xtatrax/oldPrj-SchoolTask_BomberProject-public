@@ -418,8 +418,8 @@ Camera(
 ////            ÅF
 ////
 	void setPosY( float i_fYPos ){
-		if( i_fYPos < 10.0f )
-			i_fYPos = 10.0f ;
+		if( i_fYPos < 13.4f )
+			i_fYPos = 13.4f ;
 		//if( i_fYPos < 25.0f )
 		m_Eye.y = m_At.y = i_fYPos ; 
 	};

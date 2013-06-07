@@ -424,7 +424,7 @@ void CheckPoint::Update( UpdatePacket& i_UpdatePacket ){
 		if(fPosY <= fCoilPosY){
 			m_pCoil->setStartPos(m_ItemContainer[ m_ActiveItem ]->vStartPos);
 			m_ActiveItem++;
-			m_pSound->SearchWaveAndPlay( RCTEXT_SOUND_SE_CHECKPOINT );
+			m_pSound->SearchSoundAndPlay( RCTEXT_SOUND_SE_CHECKPOINT );
 			SafeDelete( m_pEffect );
 			m_pEffect	= new CheckEffect( i_UpdatePacket.pD3DDevice, m_pCoil->getStartPos()/*m_vPos*/, m_Length, m_pTexture );
 			if(m_ActiveItem <= m_ItemContainer.size()) return ;
