@@ -62,6 +62,7 @@ ProvisionalPlayer3D::ProvisionalPlayer3D(
 ,m_bLastMouseRB(false)
 ,m_bLastMouseLB(false)
 ,m_bDrawing(false)
+,m_bPlaySound(false)
 {
 	::ZeroMemory( &m_Material, sizeof(D3DMATERIAL9) ) ;
 	D3DXMatrixIdentity( &m_Matrix ) ;
@@ -117,7 +118,8 @@ void ProvisionalPlayer3D::Draw(DrawPacket& i_DrawPacket)
 
 	if( m_pPlayerCoil && ( m_pPlayerCoil->getState() == COIL_STATE_MOVE || m_pPlayerCoil->getState() == COIL_STATE_STICK ) ){
 		if( m_bDrawing ){ 
-			if( m_pSound ){
+			if( m_pSound && !m_bPlaySound ){
+				m_bPlaySound = true ;
 				m_pSound->SearchWaveAndPlay( RCTEXT_SOUND_SE_SETFIELD ) ;
 			}
 			//テクスチャがある場合
@@ -154,6 +156,9 @@ void ProvisionalPlayer3D::Draw(DrawPacket& i_DrawPacket)
 			m_pMagneticField4->Draw(i_DrawPacket);
 		}
 		else	m_pSound->SoundPause(RCTEXT_SOUND_SE_SETFIELD);
+	}else{
+		m_bPlaySound = false ;
+		m_pSound->SoundPause( RCTEXT_SOUND_SE_SETFIELD );
 	}
 }
 
