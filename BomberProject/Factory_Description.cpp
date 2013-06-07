@@ -368,13 +368,16 @@ Factory_Description::Factory_Description(FactoryPacket* fpac){
 
 		fpac->m_pVec->push_back(Desc);
 
+		float	wide	= BASE_CLIENT_WIDTH/2;
+		float	height	= BASE_CLIENT_HEIGHT/2;
+
 		//スタートロゴ
 		fpac->m_pVec->push_back(
 			new StartSprite(
 					fpac->pD3DDevice,
 					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"StartRogo.png" ),
 					D3DXVECTOR3( 1.0f, 1.0f, 0.0f ),
-					D3DXVECTOR3( 300.0f, 200.0f, 0.0f ),
+					D3DXVECTOR3( wide-120.0f, height-100.0f, 0.0f ),
 					&Rect( 0, 0, 240, 64 )
 			)	
 		);

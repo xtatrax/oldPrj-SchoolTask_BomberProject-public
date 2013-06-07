@@ -20,7 +20,7 @@
 #include "Factory_Gage.h"
 #include "Factory_Player.h"
 #include "Factory_Coil.h"
-const static BYTE	byGaugeAlpha = 0x70 ;
+const static BYTE	byGaugeAlpha = 0xFF ;
 //const static float	 = 0xA0 ;
 //const static float	byGaugeAlpha = 0xA0 ;
 namespace wiz{
@@ -191,6 +191,9 @@ SuperGage::SuperGage(
 :Gage(pD3DDevice,pTex,vScale,vRot,vPos,g_vZero,
 	GaugeRect,FrameRect,id)
 ,m_vBassPos(vPos)
+,m_vScale( vScale )
+,m_vRot( vRot )
+,m_pCursor( NULL )
 {
 	m_fRate = 0.0f;
 }
@@ -206,19 +209,11 @@ SuperGage::SuperGage(
 ***************************************************************/
 void SuperGage::Draw(DrawPacket& i_DrawPacket){
 
-	D3DXMATRIX	mPos ;
-	D3DXVECTOR3 vPos ;
-	vPos.x	= m_vBassPos.x	;
-	vPos.y	= m_vBassPos.y +  m_GaugeRect.top	;
-	vPos.z	= 0.0f	;
-	D3DXMatrixTranslation( &mPos, vPos.x, vPos.y, vPos.z);
-	m_mMatrix	= mPos ;
-
 	//ÉQÅ[ÉWÇÃï`âÊ
 	m_pRect	= m_GaugeRect;
 	SpriteObject::Draw( i_DrawPacket );
 	//ògÇÃï`âÊ
-	m_mMatrix = m_mGaugeMatrix ;
+	m_mMatrix = m_Matrix ;
 	m_pRect	= m_FrameRect;
 	SpriteObject::Draw( i_DrawPacket );
 	//Gage::Draw( i_DrawPacket );
@@ -239,6 +234,22 @@ void SuperGage::Draw(DrawPacket& i_DrawPacket){
 ////            ÅF
 ////
 void SuperGage::Update( UpdatePacket& i_UpdatePacket ){
+	if( !m_pCursor ) m_pCursor = (MouseCursor*)SearchObjectFromID(i_UpdatePacket.pVec, OBJID_SYS_CURSOR);
+
+	D3DXMATRIX	mPos, mScale, mRot ;
+	D3DXVECTOR3 vPos ;
+	vPos.x	= (float)m_pCursor->get2DPos().x + m_vBassPos.x -  m_GaugeRect.top * m_vScale.x;
+	vPos.y	= (float)m_pCursor->get2DPos().y + m_vBassPos.y;
+	vPos.z	= 0.0f	;
+	D3DXMatrixScaling( &mScale, m_vScale.x, m_vScale.y, m_vScale.z );
+	D3DXMatrixRotationYawPitchRoll( &mRot, m_vRot.x, m_vRot.y, m_vRot.z );
+	D3DXMatrixTranslation( &mPos, vPos.x, vPos.y, vPos.z);
+	m_mMatrix	= mScale * mRot * mPos ;
+
+	//ÉQÅ[ÉWópÇ…ç¿ïWÇÃÇ›çƒåvéZ
+	vPos.x		= (float)m_pCursor->get2DPos().x + m_vBassPos.x ;
+	D3DXMatrixTranslation( &mPos, vPos.x, vPos.y, vPos.z);
+	m_Matrix	= mScale * mRot * mPos ;
 	//ÉQÅ[ÉWÇÃï`âÊ
 	m_GaugeRect.top  = m_BassRect.bottom - m_BassRect.top ;
 	m_GaugeRect.top *= 1.0f - m_fRate ;
@@ -436,9 +447,11 @@ Factory_Gage::Factory_Gage(FactoryPacket* fpac){
 			new SuperGage(
 				fpac->pD3DDevice,
 				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"MagnetGauge_Arc.png" ),
-				D3DXVECTOR3(1.0f,1.0f,0.0f),
-				g_vZero,
-				D3DXVECTOR3(950.0,30.0f,0.0f),
+				D3DXVECTOR3(0.4f,0.4f,0.0f),
+				D3DXVECTOR3(0.0f,0.0f,D3DXToRadian(90.0f)),
+				//D3DXVECTOR3(950.0,30.0f,0.0f),
+				//D3DXVECTOR3(140.0,-55.0f,0.0f),
+				D3DXVECTOR3(140.0,-35.0f,0.0f),
 				Rect(112,0,143,272),
 				Rect(144,0,175,272)
 			)
@@ -449,10 +462,13 @@ Factory_Gage::Factory_Gage(FactoryPacket* fpac){
 			new MagneticGage_N(
 				fpac->pD3DDevice,
 				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Gauge_N.png" ),
-				D3DXVECTOR3( 80.0f,-220.0f,0.0f),
+				//D3DXVECTOR3( 80.0f,-170.0f,0.0f),
+				D3DXVECTOR3( 60.0f,-250.0f,0.0f),
 				D3DXVECTOR3( 0.4f, 0.4f, 0.0f ),
-				Rect(0,32,-256,64),
-				Rect(0,0,256,32)
+				Rect(0,32,-300,64),
+				Rect(0,0,300,32)
+				//Rect(0,32,-300,64),
+				//Rect(0,0,256,32)
 			)
 		);
 		//é•äEópSÉQÅ[ÉW
@@ -460,12 +476,16 @@ Factory_Gage::Factory_Gage(FactoryPacket* fpac){
 			new MagneticGage_S(
 				fpac->pD3DDevice,
 				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Gauge_S.png" ),
-				D3DXVECTOR3( 80.0f,-170.0f,0.0f),
+				//D3DXVECTOR3( 80.0f,-140.0f,0.0f),
+				D3DXVECTOR3( 60.0f,-220.0f,0.0f),
 				D3DXVECTOR3( 0.4f, 0.4f, 0.0f ),
-				Rect(0,32,-256,64),
-				Rect(0,0,256,32)
+				Rect(0,32,-300,64),
+				Rect(0,0,300,32)
+				//Rect(0,32,-256,64),
+				//Rect(0,0,256,32)
 			)
 		);
+				//D3DXVECTOR3( 80.0f,-170.0f,0.0f),
 	}
 	catch(...){
 		//çƒthrow
