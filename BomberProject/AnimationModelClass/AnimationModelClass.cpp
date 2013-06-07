@@ -1,8 +1,9 @@
 #include	"stdafx.h"
 #include	"AnimationModelClass.h"
 
-#define new new
-
+#if defined( CF_OVERLORDNEW_ENABLE )
+	#define new new
+#endif
 /*-----------------------------------------------------:
 	Animation model Class impliment .
  :-----------------------------------------------------*/

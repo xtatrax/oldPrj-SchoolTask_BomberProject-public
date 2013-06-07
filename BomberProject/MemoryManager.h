@@ -75,7 +75,7 @@ public:
 	//	: グラフィカル化する!
 	//	: メモリ状態の描画
 	static void Draw(){
-		Debugger::DBGSTR::addStr( L" Memory\n├ Area Size = %d Byte\n└ Instance  = %d Q'ty\n", m_dwAreaSize, m_ItemInfo.size() );
+		//Debugger::DBGSTR::addStr( L" Memory\n├ Area Size = %d Byte\n└ Instance  = %d Q'ty\n", m_dwAreaSize, m_ItemInfo.size() );
 		if( GetAsyncKeyState( MYVK_DEBUG_OUTPUT_MEMORY ) ){
 			std::list<itemInfo>::iterator it  = m_ItemInfo.begin();
 			std::list<itemInfo>::iterator end = m_ItemInfo.end();
@@ -153,7 +153,12 @@ inline void operator delete(void* pv){
 	return TMemoryManager::remove(pv);
 };
 
-#define new new(__FILE__, __FUNCTION__, __LINE__)
+//	: 強制new置き換え
+#if defined( CF_OVERLORDNEW_ENABLE )
+	#define new new(__FILE__, __FUNCTION__, __LINE__)
+#endif
+
+#define New new(__FILE__, __FUNCTION__, __LINE__)
 
 
 //////////

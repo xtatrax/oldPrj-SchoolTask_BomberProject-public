@@ -240,7 +240,6 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 		D3DXMatrixRotationX( &mRotX, D3DXToRadian( m_vRot.x ) );
 		m_Matrix = mScale * (mRotX*mRotZ) * mPos2 ;
 		m_pSphere->CalcMatrix(mPos,mScale,mRotZ);
-
 		m_pSphere->SetMaterial( m_Material );
 
 	} else {
@@ -294,7 +293,7 @@ void PlayerCoil::Update_StateStart(){
 		if((!g_bMouseLB && m_bLastMouseLB) || (!g_bMouseRB && m_bLastMouseRB)){
 			m_pSound->SearchSoundAndPlay( RCTEXT_SOUND_SE_FIRE );
 			m_enumCoilState =  COIL_STATE_MOVE;
-			m_fAcceleration += COIL_ACCELERATION_VALUE;
+			m_fAcceleration = COIL_ACCELERATION_VALUE;
 			m_bLastMouseLB  =  false;
 			m_bLastMouseRB  =  false;
 			m_bReadyToStart =  false;
@@ -378,14 +377,14 @@ void PlayerCoil::Update_StateStick(){
 			case POLE_S:
 				if(!g_bMouseRB || !m_pPlayer->getDrawing()){
 					m_enumCoilState = COIL_STATE_MOVE;
-					m_fAcceleration += COIL_ACCELERATION_VALUE;
+					m_fAcceleration = COIL_ACCELERATION_VALUE;
 					m_bReadyToStart = false;
 				}
 				break;
 			case POLE_N:
 				if(!g_bMouseLB || !m_pPlayer->getDrawing()){
 					m_enumCoilState = COIL_STATE_MOVE;
-					m_fAcceleration += COIL_ACCELERATION_VALUE;
+					m_fAcceleration = COIL_ACCELERATION_VALUE;
 					m_bReadyToStart = false;
 				}
 				break;
@@ -549,7 +548,7 @@ void PlayerCoil::Update_StateContinue(){
 		if((!g_bMouseLB && m_bLastMouseLB) || (!g_bMouseRB && m_bLastMouseRB)){
 			m_pSound->SearchSoundAndPlay( RCTEXT_SOUND_SE_FIRE );
 			m_enumCoilState = COIL_STATE_MOVE;
-			m_fAcceleration += COIL_ACCELERATION_VALUE;
+			m_fAcceleration = COIL_ACCELERATION_VALUE;
 			m_bLastMouseLB  = false;
 			m_bLastMouseRB  = false;
 			m_bReadyToStart = false;
