@@ -75,7 +75,7 @@ public:
 	//	: グラフィカル化する!
 	//	: メモリ状態の描画
 	static void Draw(){
-		//Debugger::DBGSTR::addStr( L" Memory\n├ Area Size = %d Byte\n└ Instance  = %d Q'ty\n", m_dwAreaSize, m_ItemInfo.size() );
+		Debugger::DBGSTR::addStr( L" Memory\n├ Area Size = %d Byte\n└ Instance  = %d Q'ty\n", m_dwAreaSize, m_ItemInfo.size() );
 		if( GetAsyncKeyState( MYVK_DEBUG_OUTPUT_MEMORY ) ){
 			std::list<itemInfo>::iterator it  = m_ItemInfo.begin();
 			std::list<itemInfo>::iterator end = m_ItemInfo.end();
