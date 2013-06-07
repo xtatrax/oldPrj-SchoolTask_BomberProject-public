@@ -774,7 +774,7 @@ Factory_Coil::Factory_Coil( FactoryPacket* fpac, D3DXVECTOR3* vStartPos  ){
 	try{
 
 		D3DXVECTOR3 vScale( 1.0f, 1.0f, 1.0f );
-		D3DXVECTOR3 vPos( 10.0f,10.0f,0.0f );
+		D3DXVECTOR3 vPos( 25.0f,10.0f,0.0f );
  		D3DCOLORVALUE CoilDiffuse = {1.0f,1.0f,1.0f,0.0f};
 		D3DCOLORVALUE CoilSpecular = {0.0f,0.0f,0.0f,0.0f};
 		D3DCOLORVALUE CoilAmbient = {1.0f,1.0f,1.0f,0.0f};
