@@ -3,3 +3,4 @@ ObjectsCSV,media/map/Objects.csv
 StageNumber,FilePath
 1,media/map/StageMAP.csv
 2,media/map/StageMAPHalf.csv
+3,media/map/StageMAPDebug.csv
