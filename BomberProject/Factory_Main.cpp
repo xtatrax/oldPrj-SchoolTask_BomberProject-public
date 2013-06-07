@@ -127,18 +127,18 @@ Factory_Main::Factory_Main(FactoryPacket* fpac, D3DXVECTOR3* vStartPos ){
 		);
 		pSound->SearchSoundAndPlay( RCTEXT_SOUND_BGM_PLAY );
 		pSound->SearchSoundAndPlay( RCTEXT_SOUND_SE_SPARK );
-		fpac->m_pVec->push_back(
-			new SpriteObject(
-					fpac->pD3DDevice ,
-					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"BGP_TITLE01.tga"),
-					g_vOne,
-					g_vZero,
-					g_vZero,
-					NULL,
-					g_vZero,
-					g_vZero
-			)
-		);
+		//fpac->m_pVec->push_back(
+		//	new SpriteObject(
+		//			fpac->pD3DDevice ,
+		//			fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"BGP_TITLE01.tga"),
+		//			g_vOne,
+		//			g_vZero,
+		//			g_vZero,
+		//			NULL,
+		//			g_vZero,
+		//			g_vZero
+		//	)
+		//);
 		
 	}
 	catch(LoaderException& e){
