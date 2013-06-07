@@ -133,8 +133,7 @@ void EnemySphere::Draw(DrawPacket& i_DrawPacket)
 
 void EnemySphere::Update( UpdatePacket& i_UpdatePacket){
 	if(m_pCamera == NULL){
-		m_pCamera = (Camera*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_SYS_CAMERA);
-		
+		m_pCamera = (Camera*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_SYS_CAMERA);		
 	}
 	if( !m_pPlayer ){
 		m_pPlayer = (ProvisionalPlayer3D*)SearchObjectFromTypeID( i_UpdatePacket.pVec,typeid(ProvisionalPlayer3D));
@@ -144,70 +143,23 @@ void EnemySphere::Update( UpdatePacket& i_UpdatePacket){
 	}
 	const float EnemyMove = 0.1f;
 
-
 	m_ItemMap_Target.clear();
-
 	multimap<float,EnemyItem*>::iterator it = m_ItemMap_All.begin();
 	while(it != m_ItemMap_All.end()){
-
-		float DeadLine  = (float)TwoPointToBassLength( it->second->m_vPos, m_pCoil->getPos() ) ;
-		//エネミーの座標を磁界の方に持っていく処理
-		//if( g_bMouseRB || g_bMouseLB && m_pPlayer){
-		if( m_pPlayer && m_pPlayer->getDrawing() ){
-			if( m_pPlayer->getMagnetPole() != it->second->m_bPole ){
-
-				float	pole	= 1.0f;
-				if( m_pPlayer->getMagnetPole() )
-						pole	=  -1.0f;
-
-				float Lng  = (float)TwoPointToBassLength( it->second->m_vPos, m_pPlayer->getPos() ) ;
-
-				if( Lng < MGPRM_MAGNETICUM_QUAD ){
-					D3DXVECTOR3	v	= ( it->second->m_vPos - m_pPlayer->getPos() ) / 30 ;
-
-					it->second->m_vPos	+= v * pole;
-				}
-
-				//if( it->second->m_vPos.x <= m_pPlayer->getPos().x ){
-				//	it->second->m_vPos.x += EnemyMove * pole;
-				//}
-				//if( it->second->m_vPos.x >= m_pPlayer->getPos().x ){
-				//	it->second->m_vPos.x -= EnemyMove * pole;
-				//
-				//}
-
-				//if( it->second->m_vPos.y <= m_pPlayer->getPos().y ){
-				//	it->second->m_vPos.y += EnemyMove * pole;
-				//}
-				//if( it->second->m_vPos.y > m_pPlayer->getPos().y ){
-				//	it->second->m_vPos.y -= EnemyMove * pole;
-				//}
-
-			}
-		}
-		
-		if( ( +(it->first - m_pCamera->getEye().y) <= 3000) && ( +(it->first - m_pCamera->getEye().y) >= -3000 ) ){
-			
+		if( ( (it->first - m_pCamera->getEye().y) <= 20) && ( (it->first - m_pCamera->getEye().y) >= -20 ) ){
 			m_ItemMap_Target.insert(multimap<float,EnemyItem*>::value_type(it->second->m_vPos.y,it->second));
-		
 		}
-
-		if( DeadLine < 0.5f ){
-			m_pCoil->setState(COIL_STATE_DEAD);
-			m_bReset	= true;
-		}
-
 		++it;
 	}
-
 
 	multimap<float,EnemyItem*>::iterator it2 = m_ItemMap_Target.begin();
 	while(it2 != m_ItemMap_Target.end()){
 
-		if( m_bReset ){
-			it2->second->m_vPos	= it2->second->m_vStartPos;
+		float DeadLine  = (float)TwoPointToBassLength( it2->second->m_vPos, m_pCoil->getPos() ) ;
+		if( DeadLine < 0.5f ){
+			m_pCoil->setState(COIL_STATE_DEAD);
+			//m_bReset	= true;
 		}
-		//計算はUpdateで
 
 		//拡大縮小
 		D3DXMATRIX mScale;
@@ -233,7 +185,95 @@ void EnemySphere::Update( UpdatePacket& i_UpdatePacket){
 		++it2;
 	}
 
-	m_bReset	= false;
+	//m_ItemMap_Target.clear();
+
+	//multimap<float,EnemyItem*>::iterator it = m_ItemMap_All.begin();
+	//while(it != m_ItemMap_All.end()){
+
+	//	float DeadLine  = (float)TwoPointToBassLength( it->second->m_vPos, m_pCoil->getPos() ) ;
+	//	//エネミーの座標を磁界の方に持っていく処理
+	//	//if( g_bMouseRB || g_bMouseLB && m_pPlayer){
+	//	if( m_pPlayer && m_pPlayer->getDrawing() ){
+	//		if( m_pPlayer->getMagnetPole() != it->second->m_bPole ){
+
+	//			float	pole	= 1.0f;
+	//			if( m_pPlayer->getMagnetPole() )
+	//					pole	=  -1.0f;
+
+	//			float Lng  = (float)TwoPointToBassLength( it->second->m_vPos, m_pPlayer->getPos() ) ;
+
+	//			if( Lng < MGPRM_MAGNETICUM_QUAD ){
+	//				D3DXVECTOR3	v	= ( it->second->m_vPos - m_pPlayer->getPos() ) / 30 ;
+
+	//				it->second->m_vPos	+= v * pole;
+	//			}
+
+	//			//if( it->second->m_vPos.x <= m_pPlayer->getPos().x ){
+	//			//	it->second->m_vPos.x += EnemyMove * pole;
+	//			//}
+	//			//if( it->second->m_vPos.x >= m_pPlayer->getPos().x ){
+	//			//	it->second->m_vPos.x -= EnemyMove * pole;
+	//			//
+	//			//}
+
+	//			//if( it->second->m_vPos.y <= m_pPlayer->getPos().y ){
+	//			//	it->second->m_vPos.y += EnemyMove * pole;
+	//			//}
+	//			//if( it->second->m_vPos.y > m_pPlayer->getPos().y ){
+	//			//	it->second->m_vPos.y -= EnemyMove * pole;
+	//			//}
+
+	//		}
+	//	}
+	//	
+	//	if( ( +(it->first - m_pCamera->getEye().y) <= 3000) && ( +(it->first - m_pCamera->getEye().y) >= -3000 ) ){
+	//		
+	//		m_ItemMap_Target.insert(multimap<float,EnemyItem*>::value_type(it->second->m_vPos.y,it->second));
+	//	
+	//	}
+
+	//	if( DeadLine < 0.5f ){
+	//		m_pCoil->setState(COIL_STATE_DEAD);
+	//		m_bReset	= true;
+	//	}
+
+	//	++it;
+	//}
+
+
+	//multimap<float,EnemyItem*>::iterator it2 = m_ItemMap_Target.begin();
+	//while(it2 != m_ItemMap_Target.end()){
+
+	//	if( m_bReset ){
+	//		it2->second->m_vPos	= it2->second->m_vStartPos;
+	//	}
+	//	//計算はUpdateで
+
+	//	//拡大縮小
+	//	D3DXMATRIX mScale;
+	//	D3DXMatrixIdentity(&mScale);
+	//	D3DXMatrixScaling(&mScale,it2->second->m_vScale.x,it2->second->m_vScale.y,it2->second->m_vScale.z);
+
+	//	//回転
+	//	D3DXMATRIX mRot;
+	//	D3DXMatrixIdentity(&mRot);
+	//	D3DXMatrixRotationQuaternion(&mRot,&it2->second->m_vRot);
+
+	//	//移動用
+	//	D3DXMATRIX mMove;
+	//	D3DXMatrixIdentity(&mMove);
+	//	D3DXMatrixTranslation(&mMove,it2->second->m_vPos.x,it2->second->m_vPos.y,it2->second->m_vPos.z);
+
+	//	//ミックス行列
+	//	it2->second->m_Matrix = mScale * mRot * mMove;
+
+	//	//マティリアル設定
+	//	m_Material = it2->second->m_Material;
+
+	//	++it2;
+	//}
+
+	//m_bReset	= false;
 }
 
 /////////////////// ////////////////////
