@@ -246,7 +246,7 @@ void SuperGage::Update( UpdatePacket& i_UpdatePacket ){
 	D3DXMatrixTranslation( &mPos, vPos.x, vPos.y, vPos.z);
 	m_mMatrix	= mScale * mRot * mPos ;
 
-	//ƒQ[ƒW—p‚ÉÄŒvŽZ
+	//ƒQ[ƒW—p‚ÉÀ•W‚Ì‚ÝÄŒvŽZ
 	vPos.x		= (float)m_pCursor->get2DPos().x + m_vBassPos.x ;
 	D3DXMatrixTranslation( &mPos, vPos.x, vPos.y, vPos.z);
 	m_Matrix	= mScale * mRot * mPos ;
@@ -463,10 +463,12 @@ Factory_Gage::Factory_Gage(FactoryPacket* fpac){
 				fpac->pD3DDevice,
 				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Gauge_N.png" ),
 				//D3DXVECTOR3( 80.0f,-170.0f,0.0f),
-				D3DXVECTOR3( 80.0f,-250.0f,0.0f),
+				D3DXVECTOR3( 60.0f,-250.0f,0.0f),
 				D3DXVECTOR3( 0.4f, 0.4f, 0.0f ),
-				Rect(0,32,-256,64),
-				Rect(0,0,256,32)
+				Rect(0,32,-300,64),
+				Rect(0,0,300,32)
+				//Rect(0,32,-300,64),
+				//Rect(0,0,256,32)
 			)
 		);
 		//Ž¥ŠE—pSƒQ[ƒW
@@ -475,10 +477,12 @@ Factory_Gage::Factory_Gage(FactoryPacket* fpac){
 				fpac->pD3DDevice,
 				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Gauge_S.png" ),
 				//D3DXVECTOR3( 80.0f,-140.0f,0.0f),
-				D3DXVECTOR3( 80.0f,-220.0f,0.0f),
+				D3DXVECTOR3( 60.0f,-220.0f,0.0f),
 				D3DXVECTOR3( 0.4f, 0.4f, 0.0f ),
-				Rect(0,32,-256,64),
-				Rect(0,0,256,32)
+				Rect(0,32,-300,64),
+				Rect(0,0,300,32)
+				//Rect(0,32,-256,64),
+				//Rect(0,0,256,32)
 			)
 		);
 				//D3DXVECTOR3( 80.0f,-170.0f,0.0f),
