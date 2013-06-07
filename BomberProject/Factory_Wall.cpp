@@ -420,9 +420,11 @@ void WallObject::Update( UpdatePacket& i_UpdatePacket ){
 							m_pDeadEffect[i]	= new DeadEffect( i_UpdatePacket.pD3DDevice, m_pPlayerCoil->getPos(),
 										float((360/PARTICLS_NUM) * i), m_pDeadTex/*i_UpdatePacket.pTxMgr->addTexture(i_UpdatePacket.pD3DDevice, L"DeadPerticul.png")*/);
 						}
-						m_pSelect	= new Continue( i_UpdatePacket.pD3DDevice, m_pNextTex, true, D3DXVECTOR3(1.0f,1.0f,0.0f),g_vZero,D3DXVECTOR3( 300.0f,150.0f,0.0f ),
+						float	wide	= BASE_CLIENT_WIDTH/2;
+						float	height	= BASE_CLIENT_HEIGHT/2;
+						m_pSelect	= new Continue( i_UpdatePacket.pD3DDevice, m_pNextTex, true, D3DXVECTOR3(1.0f,1.0f,0.0f),g_vZero,D3DXVECTOR3( wide-128.0f,height-100.0f,0.0f ),
 													Rect( 0,0,256,64 ), g_vZero, g_vZero );
-						m_pSelect2	= new Continue( i_UpdatePacket.pD3DDevice, m_pTitleTex, false, D3DXVECTOR3(1.0f,1.0f,0.0f),g_vZero,D3DXVECTOR3( 364.0f,250.0f,0.0f ),
+						m_pSelect2	= new Continue( i_UpdatePacket.pD3DDevice, m_pTitleTex, false, D3DXVECTOR3(1.0f,1.0f,0.0f),g_vZero,D3DXVECTOR3( wide-64.0f,height,0.0f ),
 													Rect( 0,0,128,64 ), g_vZero, g_vZero );
 						m_pSound->SearchWaveAndPlay( RCTEXT_SOUND_SE_PLAYERBLOKEN );
 						m_pPlayerCoil->setState(COIL_STATE_DEAD);

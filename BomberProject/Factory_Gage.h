@@ -92,7 +92,11 @@ class SuperGage : public SpriteObject
 担当者：佐藤涼 本多寛之(編集)
 *************************************************/
 class SuperGage : public Gage{
-	D3DXVECTOR3 m_vBassPos;
+	D3DXVECTOR3		m_vBassPos;
+	MouseCursor*	m_pCursor;
+	D3DXMATRIX		m_Matrix;
+	D3DXVECTOR3		m_vScale;	//	: 伸縮
+	D3DXVECTOR3		m_vRot;		//	: 回転
 public:
 	SuperGage(
 		LPDIRECT3DDEVICE9	pD3DDevice	,		//	: デバイス
