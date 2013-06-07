@@ -784,18 +784,6 @@
 					RelativePath=".\AnimationModelClass\AnimationModelClass.h"
 					>
 				</File>
-				<Filter
-					Name="CSV"
-					>
-					<File
-						RelativePath=".\CSV.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CSV.h"
-						>
-					</File>
-				</Filter>
 			</Filter>
 			<Filter
 				Name="DebugFunctions"
@@ -862,6 +850,18 @@
 				</File>
 				<File
 					RelativePath=".\SeiyaEffect.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="CSV"
+				>
+				<File
+					RelativePath=".\CSV.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\CSV.h"
 					>
 				</File>
 			</Filter>
