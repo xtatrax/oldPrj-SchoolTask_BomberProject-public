@@ -15,6 +15,8 @@
 #include "Factory_Magnetic.h"
 #include "Factory_Gage.h"
 #include "Factory_Sound.h"
+#include "Factory_DeadEffect.h"
+#include "Factory_Continue.h"
 
 
 const float			COIL_SPEED						= 0.08f;
@@ -47,6 +49,7 @@ enum COIL_STATE{			//自機の状態
 namespace wiz{
 namespace bomberobject{
 extern class ProvisionalPlayer3D ;
+extern class Continue ;
 
 /************************************************************************
 class	StartField : public Cylinder
@@ -107,6 +110,13 @@ class PlayerCoil : public MagneticumObject3D{
 	
 	COIL_STATE				m_enumCoilState;
 
+	DeadEffect*	m_pDeadEffect[PARTICLS_NUM];
+	Continue*	m_pSelect;
+	Continue*	m_pSelect2;
+
+	LPDIRECT3DTEXTURE9	m_pDeadTex;	//爆散エフェクトの画像
+	LPDIRECT3DTEXTURE9	m_pContinueTex;
+	LPDIRECT3DTEXTURE9	m_pTitleTex;
 public:
 	/////////////////// ////////////////////
 	//// 関数名     ：PlayerCoil( 	
@@ -139,6 +149,9 @@ public:
 		LPDIRECT3DDEVICE9 pD3DDevice,
 		LPDIRECT3DTEXTURE9 pTexture,
 		LPDIRECT3DTEXTURE9 pTexture_Super,
+		LPDIRECT3DTEXTURE9 pTexture_Dead,
+		LPDIRECT3DTEXTURE9 pTexture_Continue,
+		LPDIRECT3DTEXTURE9 pTexture_Title,
 		float Radius1,
 		float Radius2,
 		float Radius3,
@@ -195,6 +208,7 @@ public:
 	////
 	void Update( UpdatePacket& i_UpdatePacket );
 
+	void	CreateEffect( UpdatePacket& i_UpdatePacket );
 	/////////////////// ////////////////////
 	//// 関数名     ：void Update_StateStart()
 	//// カテゴリ   ：

@@ -478,6 +478,7 @@ void	Sound::SoundPause(PCSTR pWaveName, BYTE count){
 		XACTINDEX WaveNum ;
 		if(SearchWaveMap( pWaveName, WaveNum ) || SearchWaveBank( pWaveName, WaveNum ) ){
 			m_pWaveBank->Stop( WaveNum, true );
+			m_pSoundBank->Stop( WaveNum, true );
 		}
 	}
 }

@@ -371,6 +371,7 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 			//	: インスタンスを生成
 			GoalObject* mgb = new GoalObject(
 				m_pD3DDevice	,
+				D3DXVECTOR3(20.0f, i_Data.vPos.y,  0.0f),
 				NULL			,
 				ObjectID
 			);
@@ -380,14 +381,14 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 			);
 			
 			//	: ゴールの追加
-			mgb->addGoal(
-				D3DXVECTOR3( 100.0f,  2.0f, 0.0f )			,
-				D3DXVECTOR3(  0.0f,  0.0f, 0.0f )			,
-				D3DXVECTOR3( 20.0f, i_Data.vPos.y,  0.0f )	,
-				GoalDiffuse		,
-				GoalSpecular	,
-				GoalAmbient
-			);
+			//mgb->addGoal(
+			//	D3DXVECTOR3( 100.0f,  2.0f, 0.0f )			,
+			//	D3DXVECTOR3(  0.0f,  0.0f, 0.0f )			,
+			//	D3DXVECTOR3( 20.0f, i_Data.vPos.y,  0.0f )	,
+			//	GoalDiffuse		,
+			//	GoalSpecular	,
+			//	GoalAmbient
+			//);
 			mt->AddMemory(
 				D3DXVECTOR3(20.0f,5.0f,0.0f),
 				g_vZero			,

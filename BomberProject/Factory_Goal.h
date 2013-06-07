@@ -130,20 +130,11 @@ class	GoalObject	:public PrimitiveBox{
 	PlayerCoil*	m_pCoil;
 	Sound*		m_pSound;
 	bool		m_bPlaySound;
-	struct GoalItem{
-		D3DMATERIAL9 m_Material;
-		D3DXMATRIX	m_Matrix;
-		D3DXVECTOR3 m_vScale ;
-		D3DXVECTOR3 m_vPos ;
-		D3DXQUATERNION m_vRot;
-		OBB			m_Obb;
-		virtual ~GoalItem(){}
-	};
-	//map<オブジェクトのポジション,GoalItem>
-	multimap<float,GoalItem*> m_ItemMap_All;	//全てのGoalItem
+	OBB			m_Obb;
 
 public:
 	GoalObject(	LPDIRECT3DDEVICE9 pD3DDevice,
+				D3DXVECTOR3 vPos,
 				LPDIRECT3DTEXTURE9 pTexture,
 				wiz::OBJID id = OBJID_SYS_CLEARAREA
 				);
@@ -160,8 +151,6 @@ public:
 	~GoalObject();
     void	Draw(DrawPacket& i_DrawPacket) ;
 	void	Update(UpdatePacket& i_UpdatePacket);
-	void	addGoal(D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos,
-				D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient);
 };
 
 /**************************************************************************
