@@ -249,6 +249,7 @@ int DxDevice::MainThreadRun(){
 				CloseHandle(m_hUpdateThread);
 			#endif
 			this->Clear();
+			DestroyWindow(g_hWnd);
 			return 0;
 		}
 
