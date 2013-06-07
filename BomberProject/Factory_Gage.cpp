@@ -145,7 +145,7 @@ void Gage::Draw(DrawPacket& i_DrawPacket){
 	m_pRect	= m_GaugeRect;
 	SpriteObject::Draw( i_DrawPacket );
 	//ògÇÃï`âÊ
-	m_mMatrix = m_mGaugeMatrix ;
+	//m_mMatrix = m_mGaugeMatrix ;
 	m_pRect	= m_FrameRect;
 	SpriteObject::Draw( i_DrawPacket );
 }
@@ -214,7 +214,14 @@ void SuperGage::Draw(DrawPacket& i_DrawPacket){
 	D3DXMatrixTranslation( &mPos, vPos.x, vPos.y, vPos.z);
 	m_mMatrix	= mPos ;
 
-	Gage::Draw( i_DrawPacket );
+	//ÉQÅ[ÉWÇÃï`âÊ
+	m_pRect	= m_GaugeRect;
+	SpriteObject::Draw( i_DrawPacket );
+	//ògÇÃï`âÊ
+	m_mMatrix = m_mGaugeMatrix ;
+	m_pRect	= m_FrameRect;
+	SpriteObject::Draw( i_DrawPacket );
+	//Gage::Draw( i_DrawPacket );
 }
 /////////////////// ////////////////////
 //// ópìr       ÅFvoid Update( UpdatePacket& i_UpdatePacket )
