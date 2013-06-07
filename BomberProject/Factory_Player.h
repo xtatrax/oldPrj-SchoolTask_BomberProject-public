@@ -52,19 +52,20 @@ namespace bomberobject{
 // 用途    : 仮のユーザー設置磁界
 //**************************************************************************//
 class ProvisionalPlayer3D : public MagneticumObject3D{
-	Camera*			m_Camera;
-	PlayerCoil*		m_pPlayerCoil;
-	Sound*			m_pSound;
-	MagneticGage_N* m_pMGage_N;
-	MagneticGage_S* m_pMGage_S;
-	D3DXMATRIX		m_Matrix ;
-	D3DXVECTOR3		m_vPos ;
-	D3DXQUATERNION	m_vRot ;
-	D3DXVECTOR3		m_vScale ;
-	float			m_MovePosY;
-	bool			m_bLastMouseRB;
-	bool			m_bLastMouseLB;
-	bool			m_bDrawing;
+	Camera*			m_Camera		;
+	PlayerCoil*		m_pPlayerCoil	;
+	Sound*			m_pSound		;
+	MagneticGage_N* m_pMGage_N		;
+	MagneticGage_S* m_pMGage_S		;
+	D3DXMATRIX		m_Matrix		;
+	D3DXVECTOR3		m_vPos			;
+	D3DXQUATERNION	m_vRot			;
+	D3DXVECTOR3		m_vScale		;
+	float			m_MovePosY		;
+	bool			m_bLastMouseRB	;
+	bool			m_bLastMouseLB	;
+	bool			m_bDrawing		;
+	bool			m_bPlaySound	;
 	//struct PolyItem{
 	//	LPDIRECT3DTEXTURE9 m_pTexture;
 	//	D3DMATERIAL9   m_Material;
