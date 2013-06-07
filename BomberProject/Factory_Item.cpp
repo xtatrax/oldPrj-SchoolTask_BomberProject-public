@@ -217,6 +217,7 @@ void	Item::Update(UpdatePacket& i_UpdatePacket)
 		}
 		if( (*it)->m_fMapKey > m_pCamera->getPosY() +20 ||
 			(*it)->m_fMapKey < m_pCamera->getPosY() -20 ){
+				(*it)->m_bHidden = true ;
 				it = m_ItemMap_Target.erase(it);
 				continue;
 		}

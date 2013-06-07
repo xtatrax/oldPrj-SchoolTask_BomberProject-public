@@ -153,7 +153,12 @@ inline void operator delete(void* pv){
 	return TMemoryManager::remove(pv);
 };
 
-#define ew new(__FILE__, __FUNCTION__, __LINE__)
+//	: ã≠êßnewíuÇ´ä∑Ç¶
+#if defined( CF_OVERLORDNEW_ENABLE )
+	#define new new(__FILE__, __FUNCTION__, __LINE__)
+#endif
+
+#define New new(__FILE__, __FUNCTION__, __LINE__)
 
 
 //////////
