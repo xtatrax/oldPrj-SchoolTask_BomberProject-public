@@ -90,6 +90,8 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 						m_pTexMgr->addTexture(m_pD3DDevice,L"biribiriWall.png"),
 						m_pTexMgr->addTexture(m_pD3DDevice,L"Lightning.tga"),
 						m_pTexMgr->addTexture(m_pD3DDevice,L"DeadPerticul.png"),
+						m_pTexMgr->addTexture(m_pD3DDevice,L"Continue.png"),
+						m_pTexMgr->addTexture(m_pD3DDevice,L"Go_Title.png"),
 						ObjectID
 					);
 					//	: ƒIƒuƒWƒFƒNƒgƒŠƒXƒg‚Ö“o˜^
@@ -893,7 +895,8 @@ void StageLoader2::PartsGenerator(MapPartsStatus i_Data){
 			}else{
 				//	: “o˜^‚ª‚È‚©‚Á‚½ê‡
 				WallObject* mgb = new WallObject( m_pD3DDevice, m_pTexMgr->addTexture(m_pD3DDevice,L"biribiriWall.png"),
-											m_pTexMgr->addTexture(m_pD3DDevice,L"Lightning.tga"),m_pTexMgr->addTexture(m_pD3DDevice,L"DeadPerticul.png"),ObjectID);
+											m_pTexMgr->addTexture(m_pD3DDevice,L"Lightning.tga"),m_pTexMgr->addTexture(m_pD3DDevice,L"DeadPerticul.png"),
+											m_pTexMgr->addTexture(m_pD3DDevice,L"Continue.png"),m_pTexMgr->addTexture(m_pD3DDevice,L"Go_Title.png"),ObjectID);
 				mgb->AddWall(
 					i_Data.vScale, i_Data.vRot, i_Data.vPos, i_Data.Diffuse, i_Data.Specular, i_Data.Ambient
 				);
