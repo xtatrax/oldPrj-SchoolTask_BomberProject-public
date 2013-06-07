@@ -17,7 +17,7 @@
 #include "Factory_Wall.h"
 const float CHECK_POINT_RADIUS = 0.25f ;
 const float EFFECT_SIZE	= 2.0f;
-D3DCOLORVALUE CHECKPOINTCOLOR = { 1.0f, 1.0f, 1.0f, 1.0f } ;
+D3DCOLORVALUE CHECKPOINTCOLOR = { 0.5f, 1.0f, 0.5f, 0.5f } ;
 namespace wiz{
 namespace bomberobject{
 
@@ -57,7 +57,7 @@ DeadEffect::DeadEffect(LPDIRECT3DDEVICE9 pD3DDevice,
 
 	D3DCOLORVALUE Diffuse = {0.0f,0.0f,0.0f,0.0f};
 	D3DCOLORVALUE Specular = {0.0f,0.0f,0.0f,0.0f};
-	D3DCOLORVALUE Ambient = {1.0f,1.0f,1.0f,0.0f};
+	D3DCOLORVALUE Ambient = {1.0f,1.0f,1.0f,1.0f};
 
 	m_Material.Diffuse	= Diffuse;
 	m_Material.Specular	= Specular;
@@ -185,7 +185,8 @@ void DeadEffect::Update( UpdatePacket& i_UpdatePacket ){
 /**************************************************************************
  CheckEffect 定義部
 ****************************************************************************/
-/**************************************************************************
+/************************************************************************class MouseCursor : public Box , public  PrimitiveSprite{
+**
  CheckEffect::CheckEffect(
 	LPDIRECT3DDEVICE9 pD3DDevice,	//デバイス
 	LPDIRECT3DTEXTURE9 pTexture,	//テクスチャ
@@ -216,7 +217,7 @@ CheckEffect::CheckEffect(LPDIRECT3DDEVICE9 pD3DDevice,
 
 	D3DCOLORVALUE Diffuse = {0.0f,0.0f,0.0f,0.0f};
 	D3DCOLORVALUE Specular = {0.0f,0.0f,0.0f,0.0f};
-	D3DCOLORVALUE Ambient = {1.0f,1.0f,0.0f,0.0f};
+	D3DCOLORVALUE Ambient = {0.5f,1.0f,0.5f,0.0f};
 
 	m_Material.Diffuse	= Diffuse;
 	m_Material.Specular	= Specular;
@@ -310,11 +311,12 @@ void CheckEffect::update( int i ,DrawPacket& i_DrawPacket){
 	if( !m_bMark ){
 		m_vPos.x	= float(i*2-1);
 		if( m_fWide > 0.0f )
-				Reduction();
+				;//Reduction();
 		else{
 			m_bMark	= true;
 			m_Material.Ambient.r	= 0;
 			m_Material.Ambient.g	= 0;
+			m_Material.Ambient.b	= 0;
 		}
 	}
 	else{
@@ -369,11 +371,12 @@ void	CheckEffect::Expansion(){
 	m_fWide		+= 0.04f;
 	m_fHight	+= 0.04f;
 
-	float rate	= (EFFECT_SIZE*3) / 0.04f;
+	//float rate	= (EFFECT_SIZE*3) / 0.04f;
 
-	m_Material.Ambient.r	+= rate;
-	m_Material.Ambient.g	+= rate;
-	m_Material.Ambient.b	+= rate;
+	//m_Material.Ambient.r	+= rate;
+	//m_Material.Ambient.g	+= rate;
+	//m_Material.Ambient.b	+= rate;
+	m_Material.Ambient		=  CHECKPOINTCOLOR;
 }
 
 /****************************************************************************
@@ -392,6 +395,7 @@ CheckPoint::CheckPoint( LPDIRECT3DDEVICE9 pD3DDevice, float fLength,LPDIRECT3DTE
 , m_Length( fLength )
 , m_pTexture( pTexture )
 {
+	m_pEffect	= new CheckEffect( pD3DDevice, g_vZero, fLength, pTexture );
 }
 CheckPoint::~CheckPoint(){
 	m_pCoil		= NULL ;
@@ -425,8 +429,8 @@ void CheckPoint::Update( UpdatePacket& i_UpdatePacket ){
 			m_pCoil->setStartPos(m_ItemContainer[ m_ActiveItem ]->vStartPos);
 			m_ActiveItem++;
 			m_pSound->SearchWaveAndPlay( RCTEXT_SOUND_SE_CHECKPOINT );
-			SafeDelete( m_pEffect );
-			m_pEffect	= new CheckEffect( i_UpdatePacket.pD3DDevice, m_pCoil->getStartPos()/*m_vPos*/, m_Length, m_pTexture );
+			//SafeDelete( m_pEffect );
+			//m_pEffect	= new CheckEffect( i_UpdatePacket.pD3DDevice, m_pCoil->getStartPos()/*m_vPos*/, m_Length, m_pTexture );
 			if(m_ActiveItem <= m_ItemContainer.size()) return ;
 		}
 	}
@@ -436,9 +440,9 @@ void CheckPoint::Update( UpdatePacket& i_UpdatePacket ){
 	}
 
 	Blink();
-	m_Color.b = 0;
-	m_Material.Diffuse	= m_Color;
-	m_Material.Ambient	= m_Color;
+	//m_Color.b = 1;
+	//m_Material.Diffuse	= m_Color;
+	//m_Material.Ambient	= m_Color;
 };
 
 /////////////////// ////////////////////
