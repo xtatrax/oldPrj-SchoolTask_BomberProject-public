@@ -19,6 +19,8 @@
 namespace wiz{
 namespace bomberobject{
 
+const float ENEMY_SPEED = 0.1f;
+
 /**************************************************************************
  EnemySphere ’è‹`•”
 ****************************************************************************/
@@ -30,6 +32,7 @@ namespace bomberobject{
 //**************************************************************************//	
 	class EnemySphere : public PrimitiveSphere {
 		Camera*					m_pCamera	;
+		Sound*					m_pSound;
 		ProvisionalPlayer3D*	m_pPlayer	;
 		PlayerCoil*				m_pCoil		;
 		bool					m_bReset	;
