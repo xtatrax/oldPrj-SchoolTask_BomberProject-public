@@ -211,6 +211,13 @@ void WallObject::Draw(DrawPacket& i_DrawPacket)
 			//i_DrawPacket.pD3DDevice->SetFVF(PlateFVF);
 			// マトリックスをレンダリングパイプラインに設定
 			i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &it2->second->m_Matrix);
+
+			//田村T透過案
+			//i_DrawPacket.pD3DDevice->SetRenderState(D3DRS_ALPHATESTENABLE,TRUE);
+			//i_DrawPacket.pD3DDevice->SetRenderState(D3DRS_ALPHAFUNC,D3DCMP_GREATEREQUAL);
+			//float	f	= 0.5f ;
+			//i_DrawPacket.pD3DDevice->SetRenderState(D3DRS_ALPHAREF,*(DWORD*)&f);
+
 			//コモンメッシュのDraw()を呼ぶ
 			CommonMesh::Draw(i_DrawPacket);
 			i_DrawPacket.pD3DDevice->SetTexture(0,0);
