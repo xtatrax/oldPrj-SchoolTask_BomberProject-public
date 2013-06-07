@@ -68,14 +68,14 @@ static const int			MGPRM_MAGNETICUM_QUAD		= ( MGPRM_MAGNETICUM * MGPRM_MAGNETICU
 	//-------------------------------//
 	//		プレゼンモード定義       //
 	//-------------------------------//
-		//#define CF_FULLSCREEN				/* フルスクリーンモード       */
+		#define CF_FULLSCREEN				/* フルスクリーンモード       */
 
 	#else
 	//-------------------------------//
 	//		リリースモード定義       //
 	//-------------------------------//
 
-		//#define CF_FULLSCREEN				/* フルスクリーンモード       */
+		#define CF_FULLSCREEN				/* フルスクリーンモード       */
 	#endif
 
 #endif
