@@ -27,6 +27,24 @@ extern class PlayerCoil ;
 const int DRAWING_RANGE = 20;
 const int PARTICLS_NUM	= 50;
 
+/*************************************************************************
+class Title_Select  public SpriteObject
+
+担当者：佐藤涼
+用途　：タイトル画面のボタン
+*************************************************************************/
+class	Continue	: public SpriteObject{
+	D3DXVECTOR3		m_vPos;
+	bool			m_bMark;
+	PlayerCoil*		m_pCoil;
+public:
+	Continue( LPDIRECT3DDEVICE9 pD3DDevice,LPDIRECT3DTEXTURE9 pTexture,bool mark,
+			D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos, RECT* pRect,
+			D3DXVECTOR3& vCenter,D3DXVECTOR3& vOffsetPos,Color color = 0xFFFFFFFF);
+	void	Draw(DrawPacket& i_DrawPacket);
+	void	Update(UpdatePacket& i_UpdatePacket);
+};
+
 /**************************************************************************
  WallObject 定義部
 ****************************************************************************/
@@ -44,9 +62,13 @@ class WallObject : public PrimitiveBox{
 	Sound*		m_pSound;
 	Camera*	    m_pCamera;
 	DeadEffect*	m_pDeadEffect[PARTICLS_NUM];
-	LPDIRECT3DTEXTURE9 m_pWallTex;
-	LPDIRECT3DTEXTURE9 m_pPolyTex;
-	LPDIRECT3DTEXTURE9 m_pDeadTex;
+	Continue*	m_pSelect;
+	Continue*	m_pSelect2;
+	LPDIRECT3DTEXTURE9	m_pWallTex;
+	LPDIRECT3DTEXTURE9	m_pPolyTex;
+	LPDIRECT3DTEXTURE9	m_pDeadTex;
+	LPDIRECT3DTEXTURE9	m_pNextTex;
+	LPDIRECT3DTEXTURE9	m_pTitleTex;
 
 	struct WallItem{
 		D3DMATERIAL9   m_Material;
@@ -108,6 +130,8 @@ public:
 				LPDIRECT3DTEXTURE9 pTexture,
 				LPDIRECT3DTEXTURE9 pTexture2,
 				LPDIRECT3DTEXTURE9 pTexture3,
+				LPDIRECT3DTEXTURE9 pTexture4,
+				LPDIRECT3DTEXTURE9 pTexture5,
 				wiz::OBJID id = OBJID_3D_WALL
 				);
 	/////////////////// ////////////////////
