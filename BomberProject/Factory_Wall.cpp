@@ -22,103 +22,6 @@ namespace bomberobject{
 //PlayerCoil* WallObject::m_pPlayerCoil = NULL ;
 //Camera*		WallObject::m_pCamera = NULL;	
 
-/************************************************************************
-Continue 定義部
-************************************************************************/
-/////////////////// ////////////////////
-//// 関数名     ：Continue(LPDIRECT3DDEVICE9 pD3DDevice,LPDIRECT3DTEXTURE9 pTexture,DWORD next,
-////            ：    D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos, RECT* pRect,
-////            ：    D3DXVECTOR3& vCenter,D3DXVECTOR3& vOffsetPos,Color color = 0xFFFFFFFF);
-//// カテゴリ   ：コンストラクタ
-//// 用途       ：スプライトを描画
-//// 引数       ：  LPDIRECT3DDEVICE9 pD3DDevice    // IDirect3DDevice9 インターフェイスへのポインタ
-////            ：  LPDIRECT3DTEXTURE9 pTexture     // 貼り付けたいテクスチャ
-////            ：  DWORD next                      // 次の画面
-////            ：  D3DXVECTOR3 &vScale             // 大きさ
-////            ：  D3DXVECTOR3 &vRot               // 三軸回転
-////            ：  D3DXVECTOR3 &vPos               // 設置座標
-////            ：  RECT* pRect                     // 描画したい範囲(NULLで全体を描画)
-////            ：  D3DXVECTOR3& vCenter            // 中心
-////            ：  D3DXVECTOR3& vOffsetPos         // オフセット座標
-////            ：  Color color = 0xFFFFFFFF        // 色
-//// 戻値       ：なし
-//// 担当者     ：鴫原 徹
-//// 備考       ：
-////            ：
-////
-Continue::Continue(LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTexture,bool mark,
-		D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos,
-		RECT *pRect, D3DXVECTOR3 &vCenter, D3DXVECTOR3 &vOffsetPos, Color color)
-:SpriteObject( pD3DDevice, pTexture, vScale, vRot, vPos, pRect, vCenter, vOffsetPos, color )
-,m_vPos( vPos )
-,m_bMark( mark )
-,m_pCoil( NULL )
-{
-	try{
-		//	: 初期マトリックスを計算
-		D3DXMATRIX mScale,mRot,mPos;
-		D3DXMatrixScaling(&mScale,vScale.x,vScale.y,vScale.z);
-		D3DXMatrixRotationYawPitchRoll(&mRot,vRot.y,vRot.x,vRot.z);
-		D3DXMatrixTranslation(&mPos,vPos.x,vPos.y,vPos.z);
-		m_mMatrix = mScale * mRot * mPos ;
-	}
-	catch(...){
-		SafeRelease(m_pSprite);
-		//再スロー
-		throw;
-	}
-};
-
-/////////////////// ////////////////////
-//// 関数名     ：void Continue::Draw( DrawPacket& i_DrawPacket)
-//// カテゴリ   ：関数
-//// 用途       ：スプライトを描画
-//// 引数       ：DrawPacket& i_DrawPacket    //もろもろのデータ
-//// 戻値       ：なし
-//// 担当者     ：佐藤涼
-//// 備考       ：
-////            ：
-////
-void Continue::Draw(DrawPacket& i_DrawPacket)
-{
-	//	: 描画は親クラスに任せる
-	SpriteObject::Draw(i_DrawPacket);
-};
-
-/////////////////// ////////////////////
-//// 関数名     ：void Continue::Update( UpdatePacket& i_UpdatePacket)
-//// カテゴリ   ：関数
-//// 用途       ：データの更新
-//// 引数       ：UpdatePacket& i_UpdatePacket    //もろもろのデータ
-//// 戻値       ：なし
-//// 担当者     ：佐藤涼
-//// 備考       ：
-////            ：
-////
-void Continue::Update(UpdatePacket& i_UpdatePacket)
-{
-	if(m_pCoil == NULL){
-		m_pCoil = (PlayerCoil*)SearchObjectFromTypeID(i_UpdatePacket.pVec,typeid(PlayerCoil));
-	}
-  //マウス用データ*************************
-	Point MousePos ;
-	GetCursorPos( &MousePos ) ;
-	ScreenToClient( g_hWnd , &MousePos) ;
-  //*****************************************
-	if( (MousePos.x > m_vPos.x && MousePos.x < ( m_vPos.x + m_pRect->right )) 
-		&& (MousePos.y > m_vPos.y && MousePos.y < ( m_vPos.y + m_pRect->bottom )) ){
-		if( g_bMouseLB/* || g_bMouseRB*/ ){
-			if( m_bMark )
-				m_pCoil->setReadyContinue(true);
-			else
-				i_UpdatePacket.pCommand->m_Command	= GM_OPENSTAGE_TITLE;
-		}
-		m_Color	= 0xFFFFFFFF;
-	}
-	else	m_Color	= 0xA0FFFFFF;
-
-};
-
 /**************************************************************************
  WallObject 定義部
 ****************************************************************************/
@@ -147,14 +50,10 @@ WallObject::WallObject( LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTextur
 ,m_pTitleTex( pTexture5 )
 ,m_Ptn(0)
 ,m_pSound( NULL )
-,m_pSelect( NULL )
-,m_pSelect2( NULL )
 {
 	::ZeroMemory( &m_Material, sizeof(D3DMATERIAL9));
 	m_pPlayerCoil	= NULL;
 	m_pCamera		= NULL;
-	for( int i = 0; i < PARTICLS_NUM; i++ )
-		m_pDeadEffect[i]	= NULL;
 }
 /////////////////// ////////////////////
 //// 用途       ：~WallObject();
@@ -167,11 +66,6 @@ WallObject::WallObject( LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTextur
 WallObject::~WallObject(){
 	m_pCamera		= NULL ;
 	m_pPlayerCoil	= NULL ;
-	for( int i = 0; i < PARTICLS_NUM; i++ )
-		m_pDeadEffect[i]	= NULL;
-
-	m_pSelect	= NULL;
-	m_pSelect2	= NULL;
 	SafeDeletePointerMap( m_ItemMap_All );
 	SafeDeletePointerMap( m_ItemMap_Poly );
 
@@ -334,18 +228,6 @@ void WallObject::Draw(DrawPacket& i_DrawPacket)
 		++it2;
 	}
 
-	if( m_pDeadEffect[0] != NULL ){
-		for( int i = 0; i < PARTICLS_NUM; i++ ){
-			m_pDeadEffect[i]->Draw( i_DrawPacket );
-		}
-	}
-
-	if( m_pSelect != NULL ){
-		m_pSelect->Draw(i_DrawPacket);
-	}
-	if( m_pSelect2 != NULL ){
-		m_pSelect2->Draw(i_DrawPacket);
-	}
 }
 
 /////////////////// ////////////////////
@@ -415,17 +297,6 @@ void WallObject::Update( UpdatePacket& i_UpdatePacket ){
 			switch(m_pPlayerCoil->getState()){
 				case COIL_STATE_MOVE:
 					if(!m_pPlayerCoil->getSuperMode()){
-						for( int i = 0; i < PARTICLS_NUM; i++ ){
-							SafeDelete( m_pDeadEffect[i] );
-							m_pDeadEffect[i]	= new DeadEffect( i_UpdatePacket.pD3DDevice, m_pPlayerCoil->getPos(),
-										float((360/PARTICLS_NUM) * i), m_pDeadTex/*i_UpdatePacket.pTxMgr->addTexture(i_UpdatePacket.pD3DDevice, L"DeadPerticul.png")*/);
-						}
-						float	wide	= BASE_CLIENT_WIDTH/2;
-						float	height	= BASE_CLIENT_HEIGHT/2;
-						m_pSelect	= new Continue( i_UpdatePacket.pD3DDevice, m_pNextTex, true, D3DXVECTOR3(1.0f,1.0f,0.0f),g_vZero,D3DXVECTOR3( wide-128.0f,height-100.0f,0.0f ),
-													Rect( 0,0,256,64 ), g_vZero, g_vZero );
-						m_pSelect2	= new Continue( i_UpdatePacket.pD3DDevice, m_pTitleTex, false, D3DXVECTOR3(1.0f,1.0f,0.0f),g_vZero,D3DXVECTOR3( wide-64.0f,height,0.0f ),
-													Rect( 0,0,128,64 ), g_vZero, g_vZero );
 						m_pSound->SearchWaveAndPlay( RCTEXT_SOUND_SE_PLAYERBLOKEN );
 						m_pPlayerCoil->setState(COIL_STATE_DEAD);
 					}
@@ -434,45 +305,6 @@ void WallObject::Update( UpdatePacket& i_UpdatePacket ){
 					break;
 			}
 		}
-
-		if( m_pDeadEffect[0] != NULL ){
-			for( int i = 0; i < PARTICLS_NUM; i++ ){
-				m_pDeadEffect[i]->Update( i_UpdatePacket );
-				if(m_pDeadEffect[i]->getColor() <= 0.0f){
-					SafeDelete( m_pDeadEffect[i] );
-					//m_pPlayerCoil->setReadyContinue(true);
-					continue;
-				}
-			}
-		}
-
-		if( m_pSelect != NULL ){
-			if( m_pPlayerCoil->getState() != COIL_STATE_DEAD )
-				SafeDelete( m_pSelect );
-		}
-		if( m_pSelect2 != NULL ){
-			if( m_pPlayerCoil->getState() != COIL_STATE_DEAD )
-				SafeDelete( m_pSelect2 );
-		}
-
-		if( m_pSelect != NULL ){
-			m_pSelect->Update(i_UpdatePacket);
-		}
-		if( m_pSelect2 != NULL ){
-			m_pSelect2->Update(i_UpdatePacket);
-		}
-
-		//if( m_pDeadEffect[0] != NULL ){
-		//	for( int i = 0; i < PARTICLS_NUM; i++ ){
-		//		m_pDeadEffect[i]->Update( i_UpdatePacket );
-		//	}
-
-		//	if(m_pDeadEffect[0]->getColor() <= 0.0f){
-		//		SafeDeleteArr( m_pDeadEffect );
-		//		m_pPlayerCoil->setReadyContinue(true);
-		//	}
-
-		//}
 
 		++it2;
 	}
