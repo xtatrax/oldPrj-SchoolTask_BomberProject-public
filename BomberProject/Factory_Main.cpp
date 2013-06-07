@@ -108,13 +108,14 @@ Factory_Main::Factory_Main(FactoryPacket* fpac, D3DXVECTOR3* vStartPos ){
 		Factory_Cursor		MCfac( fpac )  ; 
 		Factory_Player		Pfac( fpac );
 		StageLoader loader(fpac->pD3DDevice,L"media/Map/Stages.csv",1,*fpac->m_pVec,*fpac->m_pTexMgr);
+		Factory_CheckPoint	CPfac( fpac ) ;
 		Factory_Coil		Cfac( fpac , vStartPos );
 <<<<<<< HEAD
 		//Factory_BG		Wfac( fpac );
 =======
 >>>>>>> 4117f45f5d3aeb725b11ccf4cf861360f6e3c3a9
 		Factory_Magnetic	Mfac( fpac ) ;
-		Factory_CheckPoint	CPfac( fpac ) ;
+		Factory_Enemy		Efac( fpac ) ;
 		Factory_Item		Ifac( fpac ) ;
 		Factory_Description	Dfac( fpac ) ;
 		Factory_Gage		Gfac( fpac );
