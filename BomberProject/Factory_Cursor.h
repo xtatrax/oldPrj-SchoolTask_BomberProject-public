@@ -25,7 +25,8 @@ namespace bomberobject{
 //	: 磁界の半径
 #define MAGNETIC_RADIUS				( 0.5f )
 
-const float	CURSOR_FIELD			= 10.0f;
+const float	CURSOR_FIELD_LENGHT			= 10.0f;
+const float CURSOR_FIELD_TIME			= 1.2f;		
 
 // スクリーン座標をワールド座標に変換
 inline D3DXVECTOR3* CalcScreenToWorld(
