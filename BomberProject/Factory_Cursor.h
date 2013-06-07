@@ -26,7 +26,7 @@ namespace bomberobject{
 #define MAGNETIC_RADIUS				( 0.5f )
 
 const float	CURSOR_FIELD_LENGHT			= 10.0f;
-const float CURSOR_FIELD_TIME			= 1.2f;		
+const float CURSOR_FIELD_TIME			= 2.0f;		
 
 // スクリーン座標をワールド座標に変換
 inline D3DXVECTOR3* CalcScreenToWorld(
