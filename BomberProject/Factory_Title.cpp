@@ -139,13 +139,32 @@ void Title_Select::Update(UpdatePacket& i_UpdatePacket)
 ***************************************************************************/
 Factory_Title::Factory_Title(FactoryPacket* fpac){
 	try{
+
+
+		fpac->m_pVec->push_back(
+			new SpriteObject(
+				fpac->pD3DDevice,
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, /*L"Lightning.tga"*/L"BGP_TITLE01.tga" ),
+				g_vOne,
+				g_vZero,
+				D3DXVECTOR3( 0.0f, 0.0f, 0.1f ),
+				//D3DXVECTOR3( 0.0f, 0.0f, 0.0f ),
+				NULL,
+				g_vZero,
+				g_vZero,
+				0xFFFFFFFF
+				)
+		);
+		
+		
+		
 		fpac->m_pVec->push_back(
 			new SpriteObject(
 				fpac->pD3DDevice,
 				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, /*L"Lightning.tga"*/L"title.png" ),
 				g_vOne,
 				g_vZero,
-				D3DXVECTOR3( 240.0f, 100.0f, 0.0f ),
+				D3DXVECTOR3( 260.0f, 110.0f, 0.0f ),
 				//D3DXVECTOR3( 0.0f, 0.0f, 0.0f ),
 				NULL,
 				g_vZero,
@@ -162,7 +181,7 @@ Factory_Title::Factory_Title(FactoryPacket* fpac){
 					GM_OPENSTAGE_PLAY,
 					g_vOne,
 					g_vZero,
-					D3DXVECTOR3( 300.0f, 250.0f, 0.0f ),
+					D3DXVECTOR3( 100.0f, 450.0f, 0.0f ),
 					Rect( 0, 0, 340, 50 ),
 					g_vZero,
 					g_vZero,
@@ -178,7 +197,7 @@ Factory_Title::Factory_Title(FactoryPacket* fpac){
 					GM_EXIT,
 					g_vOne,
 					g_vZero,
-					D3DXVECTOR3( 350.0f, 400.0f, 0.0f ),
+					D3DXVECTOR3( 700.0f, 450.0f, 0.0f ),
 					Rect( 0, 0, 225, 50 ),
 					g_vZero,
 					g_vZero,
