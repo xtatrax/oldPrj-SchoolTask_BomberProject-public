@@ -10,6 +10,7 @@
 //
 #include "stdafx.h"
 #include "MemoryManager.h"
-
-std::list<TMemoryManager::itemInfo> TMemoryManager::m_ItemInfo ;
-DWORD	TMemoryManager::m_dwAreaSize = 0 ; 
+#if defined( CF_MEMORYMANAGER_ENABLE )
+	std::list<TMemoryManager::itemInfo> TMemoryManager::m_ItemInfo ;
+	DWORD	TMemoryManager::m_dwAreaSize = 0 ; 
+#endif

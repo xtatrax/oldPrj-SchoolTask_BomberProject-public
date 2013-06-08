@@ -219,7 +219,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE
 	wiz::__GetClientSize(wiz::Rect(0,0,iClientWidth,iClientHeight));
 	wiz::DxDevice::setClientRect(wiz::Rect(0,0,iClientWidth,iClientHeight));
 	g_hWnd = hWnd ;
-	ShowCursor(false);
 
     //ウインドウの表示
     ::ShowWindow(
@@ -239,7 +238,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE
 		::PostQuitMessage(0);
 		ShowCursor(true);
 		//wiz::TextureManager::Release();
+#if defined( CF_MEMORYMANAGER_ENABLE )
 		TMemoryManager::Clear();
+#endif
 		return ret ;
 		/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 	}

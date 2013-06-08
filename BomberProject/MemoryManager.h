@@ -19,6 +19,7 @@
 #define TLIB_MEMORYMANAGER
 
 #include "DebugFunctions.h"
+#if defined( CF_MEMORYMANAGER_ENABLE )
 
 //namespace TLIB{
 class TMemoryManager{
@@ -152,7 +153,9 @@ inline void operator delete(void* pv){
 #endif
 
 #define New new(__FILE__, __FUNCTION__, __LINE__)
-
+#else
+#define New new
+#endif
 
 //////////
 // DXUTå›ä∑É}ÉNÉç
