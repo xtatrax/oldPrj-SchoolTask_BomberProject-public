@@ -57,6 +57,7 @@ extern class WallObject ;
 PlayerCoil::PlayerCoil(
 
 		LPDIRECT3DDEVICE9 pD3DDevice,LPDIRECT3DTEXTURE9 pTexture,LPDIRECT3DTEXTURE9 pTexture_Super,
+		LPDIRECT3DTEXTURE9 pTexture_Dead,LPDIRECT3DTEXTURE9 pTexture_Continue,LPDIRECT3DTEXTURE9 pTexture_Title,
 		float Radius1,float Radius2,float Radius3,float Lenght,
 		D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos,
 		D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,
@@ -86,6 +87,9 @@ PlayerCoil::PlayerCoil(
 ,m_pMagneticumObject(NULL)
 ,m_pCamera(NULL)
 ,m_pSound( NULL )
+,m_pDeadTex(pTexture_Dead)
+,m_pContinueTex( pTexture_Continue )
+,m_pTitleTex( pTexture_Title )
 ,m_enumCoilState(COIL_STATE_STOP)
 #if defined( ON_DEBUGGINGPROCESS ) | defined( PRESENTATION )
 ,m_pDSPH(NULL)
@@ -99,6 +103,12 @@ PlayerCoil::PlayerCoil(
 	m_pSuperField = new Box(pD3DDevice,v,vPos,vRot,Diffuse,Specular,Ambient,OBJID_3D_BOX,false,pTexture_Super);
 	setPoleN();
 	SetBaseRot(vRot);
+
+	m_pSelect	= NULL;
+	m_pSelect2	= NULL;
+	//爆散エフェクトのポインタ
+	for( int i = 0; i < PARTICLS_NUM; i++ )
+		m_pDeadEffect[i]	= NULL;
 }
 /////////////////// ////////////////////
 //// 関数名     ：~PlayerCoil()
@@ -122,6 +132,11 @@ PlayerCoil::~PlayerCoil(){
 	m_pSphere				= NULL;
 	m_pSuperField			= NULL;
 	
+	m_pSelect	= NULL;
+	m_pSelect2	= NULL;
+	for( int i = 0; i < PARTICLS_NUM; i++ )
+		m_pDeadEffect[i]	= NULL;
+
 };
 
 /////////////////////// ////////////////////
@@ -208,6 +223,8 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 			//死亡
 			case COIL_STATE_DEAD:
 				Update_StateDead();
+				if( m_pDeadEffect[0] == NULL )
+					CreateEffect(i_UpdatePacket);
 				break;
 			//コンティニュー
 			case COIL_STATE_CONTINUE:
@@ -255,6 +272,60 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 	if( m_bDebugInvincibleMode )
 	Debugger::DBGSTR::addStrTop( L"**********  無敵モード  **********\n" );
 #endif 
+
+	//爆散エフェクト
+	if( m_pDeadEffect[0] != NULL ){
+		for( int i = 0; i < PARTICLS_NUM; i++ ){
+			m_pDeadEffect[i]->Update( i_UpdatePacket );
+		}
+	}
+	if( m_pDeadEffect[0] != NULL ){
+		for( int i = 0; i < PARTICLS_NUM; i++ ){
+			if(m_pDeadEffect[i]->getColor() <= 0.0f
+				|| m_enumCoilState == COIL_STATE_CONTINUE){
+				SafeDelete( m_pDeadEffect[i] );
+				continue;
+			}
+		}
+	}
+
+	//ロゴ****************************************
+	if( m_pSelect != NULL ){
+		if( m_enumCoilState != COIL_STATE_DEAD )
+			SafeDelete( m_pSelect );
+	}
+	if( m_pSelect2 != NULL ){
+		if( m_enumCoilState != COIL_STATE_DEAD )
+			SafeDelete( m_pSelect2 );
+	}
+
+	if( m_pSelect != NULL ){
+		m_pSelect->Update(i_UpdatePacket);
+	}
+	if( m_pSelect2 != NULL ){
+		m_pSelect2->Update(i_UpdatePacket);
+	}
+	//***********************************************
+
+};
+
+void	PlayerCoil::CreateEffect( UpdatePacket& i_UpdatePacket ){
+
+	//爆散エフェクトの作成
+	for( int i = 0; i < PARTICLS_NUM; i++ ){
+		m_pDeadEffect[i]	= new DeadEffect( i_UpdatePacket.pD3DDevice, m_vPos,
+					float((360/PARTICLS_NUM) * i), m_pDeadTex );
+	}
+
+	float	wide	= BASE_CLIENT_WIDTH/2;
+	float	height	= BASE_CLIENT_HEIGHT/2;
+
+	//Continue,Titleロゴの作成
+	m_pSelect	= new Continue( i_UpdatePacket.pD3DDevice, m_pContinueTex, true, D3DXVECTOR3(1.0f,1.0f,0.0f),g_vZero,D3DXVECTOR3( wide-128.0f,height-100.0f,0.0f ),
+								Rect( 0,0,256,64 ), g_vZero, g_vZero );
+	m_pSelect2	= new Continue( i_UpdatePacket.pD3DDevice, m_pTitleTex, false, D3DXVECTOR3(1.0f,1.0f,0.0f),g_vZero,D3DXVECTOR3( wide-64.0f,height,0.0f ),
+								Rect( 0,0,128,64 ), g_vZero, g_vZero );
+
 };
 
 /////////////////// ////////////////////
@@ -513,6 +584,7 @@ void PlayerCoil::Update_StateDead(){
 		m_pCamera->setPosY(m_vStartPos.y);
 		m_bReadyContinue	= false;
 	}
+
 }
 
 /////////////////// ////////////////////
@@ -638,6 +710,20 @@ void PlayerCoil::Draw(DrawPacket& i_DrawPacket){
 	if( m_pDSPH ) m_pDSPH->Draw( i_DrawPacket );
 #endif
 
+	//爆散
+	if( m_pDeadEffect[0] != NULL ){
+		for( int i = 0; i < PARTICLS_NUM; i++ ){
+			m_pDeadEffect[i]->Draw( i_DrawPacket );
+		}
+	}
+
+	//ロゴ
+	if( m_pSelect != NULL ){
+		m_pSelect->Draw(i_DrawPacket);
+	}
+	if( m_pSelect2 != NULL ){
+		m_pSelect2->Draw(i_DrawPacket);
+	}
 };
 
 /////////////////// ////////////////////
@@ -785,6 +871,9 @@ Factory_Coil::Factory_Coil( FactoryPacket* fpac, D3DXVECTOR3* vStartPos  ){
 				fpac->pD3DDevice,
 				NULL,
 				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"SuperField.png" ),
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"DeadPerticul.png" ),
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Continue.png" ),
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Go_Title.png" ),
 				0.0f,0.7f,1.0f,1.0f,vScale,D3DXVECTOR3(90.0f,0.0f,0.0f),vPos,
 				CoilDiffuse,CoilSpecular,CoilAmbient
 				)
