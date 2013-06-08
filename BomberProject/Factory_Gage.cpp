@@ -126,7 +126,7 @@ void Gage::Consume( float fSubValue ){
 void Gage::Update( UpdatePacket& i_UpdatePacket ){
 	//ÉQÅ[ÉWÇÃï`âÊ
 	m_GaugeRect.right  = m_BassRect.left - m_BassRect.right ;
-	m_GaugeRect.right *= 1.0f - m_fRate ;
+	m_GaugeRect.right *= (LONG)(1.0f - m_fRate) ;
 	
 	Debugger::DBGSTR::addStr( L" Rate = %f \n", m_fRate);
 }
@@ -252,7 +252,7 @@ void SuperGage::Update( UpdatePacket& i_UpdatePacket ){
 	m_Matrix	= mScale * mRot * mPos ;
 	//ÉQÅ[ÉWÇÃï`âÊ
 	m_GaugeRect.top  = m_BassRect.bottom - m_BassRect.top ;
-	m_GaugeRect.top *= 1.0f - m_fRate ;
+	m_GaugeRect.top *= (LONG)(1.0f - m_fRate) ;
 	
 	Debugger::DBGSTR::addStr( L" Rate = %f \n", m_fRate);
 }

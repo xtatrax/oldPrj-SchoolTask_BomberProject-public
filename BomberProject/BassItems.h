@@ -33,7 +33,7 @@ namespace wiz {
 				//メッシュ
 				LPD3DXMESH m_pMesh;
 				//影ボリュームクラス
-				ShadowVolume* m_pShadowVolume;
+				//ShadowVolume* m_pShadowVolume;
 				//ラッピングテクスチャかどうか
 				bool m_bWrapMode;
 				//ワイアーフレーム表示するかどうか

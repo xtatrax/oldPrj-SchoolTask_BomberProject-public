@@ -414,7 +414,7 @@ void CommonMesh::TorusVec2UV(float x,float y,float z,float inr,float outr,float&
 ***************************************************************************/
 void CommonMesh::ReleaseObj(){
     //後始末
-    SafeDelete(m_pShadowVolume);
+    //SafeDelete(m_pShadowVolume);
     SafeRelease(m_pMesh);
 }
 
@@ -426,7 +426,7 @@ void CommonMesh::ReleaseObj(){
 ***************************************************************************/
 CommonMesh::CommonMesh( wiz::OBJID id ):
 	Object( id ),
-	m_pShadowVolume(0),
+	//m_pShadowVolume(0),
 	m_pMesh(0),
 	m_bWrapMode(true),
 	m_bWireFrame(false),
@@ -530,7 +530,7 @@ void CommonMesh::CreateBox(LPDIRECT3DDEVICE9 pD3DDevice,D3DXVECTOR3& size,
 			pVB->Unlock();
 		}
 		//影ボリュームを作成
-		m_pShadowVolume = new ShadowVolume(pD3DDevice,m_pMesh);
+		//m_pShadowVolume = new ShadowVolume(pD3DDevice,m_pMesh);
 	}
 	catch(...){
 		//後始末
@@ -607,7 +607,7 @@ void CommonMesh::CreateSphere(LPDIRECT3DDEVICE9 pD3DDevice,FLOAT radius,
 			pVB->Unlock();
 		}
 		//影ボリュームを作成
-		m_pShadowVolume = new ShadowVolume(pD3DDevice,m_pMesh);
+		//m_pShadowVolume = new ShadowVolume(pD3DDevice,m_pMesh);
 	}
 	catch(...){
 		//後始末
@@ -690,7 +690,7 @@ void CommonMesh::CreateTorus(LPDIRECT3DDEVICE9 pD3DDevice,
 			pVB->Unlock();
 		}
 		//影ボリュームを作成
-		m_pShadowVolume = new ShadowVolume(pD3DDevice,m_pMesh);
+		//m_pShadowVolume = new ShadowVolume(pD3DDevice,m_pMesh);
 	}
 	catch(...){
 		//後始末
@@ -773,7 +773,7 @@ void CommonMesh::CreateCylinder(LPDIRECT3DDEVICE9 pD3DDevice,
 			pVB->Unlock();
 		}
 		//影ボリュームを作成
-		m_pShadowVolume = new ShadowVolume(pD3DDevice,m_pMesh);
+		//m_pShadowVolume = new ShadowVolume(pD3DDevice,m_pMesh);
 	}
 	catch(...){
 		//後始末
@@ -858,7 +858,7 @@ void CommonMesh::CreatePolygon(LPDIRECT3DDEVICE9 pD3DDevice,
 			pVB->Unlock();
 		}
 		//影ボリュームを作成
-		m_pShadowVolume = new ShadowVolume(pD3DDevice,m_pMesh);
+		//m_pShadowVolume = new ShadowVolume(pD3DDevice,m_pMesh);
 	}
 	catch(...){
 		//後始末
@@ -1035,17 +1035,17 @@ void CommonMesh::Draw(DrawPacket& i_DrawPacket) {
 void CommonMesh::DrawCommonShadowVolume(
 	LPDIRECT3DDEVICE9 pD3DDevice,D3DXMATRIX& AllMatrix,
 	LPD3DXEFFECT pEffect,D3DXMATRIX& mCameraView,D3DXMATRIX& mCameraProj){
-	if(m_pShadowVolume){
-		//オブジェクトのワールド行列をカメラ視線にして登録
-		D3DXMATRIX WorldView;
-		WorldView =  AllMatrix * mCameraView;
-		pEffect->SetMatrix("g_mWorldView",&WorldView);
-		//カメラのプロジェクトまで含んだ行列を登録
-		WorldView = WorldView * mCameraProj;
-		pEffect->SetMatrix("g_mWorldViewProjection",&WorldView);
-		//影ボリュームの描画
-		m_pShadowVolume->Draw(pD3DDevice,pEffect);
-	}
+	//if(m_pShadowVolume){
+	//	//オブジェクトのワールド行列をカメラ視線にして登録
+	//	D3DXMATRIX WorldView;
+	//	WorldView =  AllMatrix * mCameraView;
+	//	pEffect->SetMatrix("g_mWorldView",&WorldView);
+	//	//カメラのプロジェクトまで含んだ行列を登録
+	//	WorldView = WorldView * mCameraProj;
+	//	pEffect->SetMatrix("g_mWorldViewProjection",&WorldView);
+	//	//影ボリュームの描画
+	//	m_pShadowVolume->Draw(pD3DDevice,pEffect);
+	//}
 }
 
 /**************************************************************************

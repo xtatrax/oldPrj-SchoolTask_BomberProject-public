@@ -110,7 +110,7 @@ void DxDevice::initDevice(HWND hWnd,bool isFullScreen,int Width,int Height)
         }
 		const static UINT n = m_pD3D->GetAdapterCount();
 		D3DCAPS9* cap = new D3DCAPS9[n];
-		for( int i = 0 ; i < n ; i ++ ){
+		for( UINT i = 0 ; i < n ; i ++ ){
 			m_pD3D->GetDeviceCaps( i, D3DDEVTYPE_HAL, &cap[i]);
 		}
 		SafeDeleteArr( cap );
@@ -461,7 +461,9 @@ void DxDevice::RenderScene()
 			pScene->Draw(m_DrawPacket);///**************************
 
 			Debugger::DBGSTR::Draw();
+#if defined( CF_MEMORYMANAGER_ENABLE )
 			TMemoryManager::Draw();
+#endif
 			// •`‰æI—¹éŒ¾
 			m_pD3DDevice->EndScene();
 		}
@@ -488,7 +490,7 @@ void DxDevice::RenderScene()
 
 			}catch(exception& e){
 				
-				throw ;
+				throw e;
 			}
 			catch(...){
 				throw;
