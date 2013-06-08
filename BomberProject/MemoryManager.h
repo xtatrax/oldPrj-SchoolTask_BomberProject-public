@@ -75,7 +75,7 @@ public:
 	//	: グラフィカル化する!
 	//	: メモリ状態の描画
 	static void Draw(){
-		//Debugger::DBGSTR::addStr( L" Memory\n├ Area Size = %d Byte\n└ Instance  = %d Q'ty\n", m_dwAreaSize, m_ItemInfo.size() );
+		Debugger::DBGSTR::addStr( L" Memory\n├ Area Size = %d Byte\n└ Instance  = %d Q'ty\n", m_dwAreaSize, m_ItemInfo.size() );
 		if( GetAsyncKeyState( MYVK_DEBUG_OUTPUT_MEMORY ) ){
 			std::list<itemInfo>::iterator it  = m_ItemInfo.begin();
 			std::list<itemInfo>::iterator end = m_ItemInfo.end();
@@ -87,20 +87,12 @@ public:
 
 			localtime_s(&local, &timer); /* 地方時に変換 */
 
-			/* 地方時 変換後表示 */
-			printf("地方時: ");
-			printf("%4d/", local.tm_year + 1900);
-			printf("%2d/", local.tm_mon + 1);
-			printf("%2d ", local.tm_mday);
-			printf("%2d:", local.tm_hour);
-			printf("%2d:", local.tm_min);
-			printf("%2d", local.tm_sec);
-			printf(" %d\n", local.tm_isdst);
-
-
 			Debugger::DBGWRITINGLOGTEXT::addStrToFile( L"めもり.txt" , L"ローカル時間 %4d/%2d/%2d %2d:%2d:%2d %d \n",
 				local.tm_year + 1900, local.tm_mon + 1, local.tm_mday, local.tm_hour,
 				local.tm_min, local.tm_sec, local.tm_isdst );
+			Debugger::DBGWRITINGLOGTEXT::addStrToFile( L"めもり.txt" , L"総インスタンス数 : %d\n"		, m_ItemInfo.size()  );
+			Debugger::DBGWRITINGLOGTEXT::addStrToFile( L"めもり.txt" , L"確保領域容量     : %d Byte\n"	, m_dwAreaSize       );
+			
 			DWORD i = 0 ;
 			for(  ; it != end ; it++ ){
 				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "めもり.txt" , "////////////\n"                           );
@@ -124,6 +116,7 @@ public:
 		std::list<itemInfo>::iterator it ;
 		for( it = m_ItemInfo.begin() ; it != m_ItemInfo.end() ; it++ ){
 			free((*it).pPointer);
+			(*it).pPointer = NULL ;
 		}
 		m_ItemInfo.clear();
 	}
