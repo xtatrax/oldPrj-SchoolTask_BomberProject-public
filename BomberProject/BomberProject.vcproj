@@ -622,6 +622,30 @@
 					Name="BackGround"
 					>
 				</Filter>
+				<Filter
+					Name="DeadEffect"
+					>
+					<File
+						RelativePath=".\Factory_DeadEffect.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Factory_DeadEffect.h"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="Continue"
+					>
+					<File
+						RelativePath=".\Factory_Continue.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Factory_Continue.h"
+						>
+					</File>
+				</Filter>
 			</Filter>
 			<Filter
 				Name="Prim"
