@@ -46,7 +46,6 @@ void DxDevice::initDevice(HWND hWnd,bool isFullScreen,int Width,int Height)
     try{
 		m_pD3D         = NULL;
 		m_pD3DDevice   = NULL;
-		m_pController  = NULL;
 		m_hWnd		   = hWnd;
         D3DDISPLAYMODE d3ddm;
         // Direct3D9オブジェクトの作成
@@ -109,7 +108,13 @@ void DxDevice::initDevice(HWND hWnd,bool isFullScreen,int Width,int Height)
                 }
             }
         }
-        m_pController = new CONTROLLERS(hWnd);
+		const static UINT n = m_pD3D->GetAdapterCount();
+		D3DCAPS9* cap = new D3DCAPS9[n];
+		for( int i = 0 ; i < n ; i ++ ){
+			m_pD3D->GetDeviceCaps( i, D3DDEVTYPE_HAL, &cap[i]);
+		}
+		SafeDeleteArr( cap );
+        m_Controller = CONTROLLERS(hWnd);
 		Debugger::DBGSTR::Init(m_pD3DDevice);
     }
     catch(...){
@@ -125,9 +130,8 @@ void DxDevice::initDevice(HWND hWnd,bool isFullScreen,int Width,int Height)
  戻り値: なし
 ***************************************************************************/
 void DxDevice::Clear(){
-    //コントローラーの開放
-    SafeRelease(m_pController);
-    // デバイスオブジェクトの解放
+
+	// デバイスオブジェクトの解放
     SafeRelease(m_pD3DDevice);
 	// シーンの削除
 	SafeDelete(pScene);
@@ -145,8 +149,9 @@ void DxDevice::Clear(){
  戻り値: なし。失敗したら例外をthrow
 ***************************************************************************/
 DxDevice::DxDevice(HWND hWnd,bool isFullScreen,int Width,int Height)
- : m_pD3D(0), m_pD3DDevice(0),m_pController(0)
+ : m_pD3D(0), m_pD3DDevice(0)
  , m_PrgState(PROGRAM_RUNNUNG),pScene(NULL)
+ , m_Controller(hWnd)
 {
     try{
 		m_hWnd = hWnd ;
@@ -389,9 +394,7 @@ void DxDevice::UpdateScene()
 				L"DxDevice::RenderScene()"
 				);
 		}
-		if(m_pController){
-			m_UpdatePacket.pCntlState = m_pController->GetState();
-		}
+		m_UpdatePacket.pCntlState	= m_Controller.GetState();
 		m_UpdatePacket.pD3DDevice	= m_pD3DDevice	;
 		m_UpdatePacket.pCommand		= &m_Com		;
 		m_RenderPacket.pD3DDevice	= m_pD3DDevice	;
