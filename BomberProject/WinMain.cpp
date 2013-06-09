@@ -142,15 +142,14 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE
         ::MessageBox(NULL,L"ウインドウクラス登録に失敗しました",L"エラー",MB_OK);
         return 1;   //エラー終了
     }
-    HWND hWnd;
     // ウィンドウの作成
     if(isFullScreen) { // フルスクリーン
 		//DEVMODE    devMode;
-		ShowCursor(DRAW_MOUSE);
+		//ShowCursor(DRAW_MOUSE);
         // 画面全体の幅と高さを取得
         //iClientWidth = ::GetSystemMetrics(SM_CXSCREEN);
         //iClientHeight = ::GetSystemMetrics(SM_CYSCREEN);
-        hWnd = ::CreateWindowEx( 
+        g_hWnd = ::CreateWindowEx( 
             WS_EX_ACCEPTFILES,  //オプションのウィンドウスタイル
             pClassName,         // 登録されているクラス名
             pWndTitle,          // ウインドウ名
@@ -164,7 +163,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE
             hInstance,          // アプリケーションインスタンスのハンドル
             NULL                // ウインドウの作成データ
         );
-        if (!hWnd){
+        if (!g_hWnd){
             //失敗した
             ::MessageBox(0,L"ウインドウ作成に失敗しました",L"エラー",MB_OK);
             return 1;   //エラー終了
@@ -180,7 +179,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE
     }
     else {
         //ウインドウの作成
-        hWnd = ::CreateWindowEx(
+        g_hWnd = ::CreateWindowEx(
             0,                              //オプションのウィンドウスタイル
             pClassName,                     //ウインドウクラス名
             pWndTitle,                      //ウインドウのタイトル
@@ -193,7 +192,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE
             hInstance,                      //このインスタンス
             NULL                            //使用しない
         );
-        if (!hWnd){
+        if (!g_hWnd){
             //失敗した
             ::MessageBox(0,L"ウインドウ作成に失敗しました",L"エラー",MB_OK);
             return 1;   //エラー終了
@@ -202,37 +201,36 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE
         RECT rect;
         int w_width,w_height,c_width,c_height;
         // ウインドウ全体の大きさを計算
-        ::GetWindowRect(hWnd,&rect);       // ウインドウ全体のサイズ取得
+        ::GetWindowRect(g_hWnd,&rect);       // ウインドウ全体のサイズ取得
         w_width = rect.right - rect.left;   // ウインドウ全体の幅の横幅を計算
         w_height = rect.bottom - rect.top;  // ウインドウ全体の幅の縦幅を計算
         // クライアント領域の大きさを計算
-        ::GetClientRect(hWnd,&rect);       // クライアント部分のサイズの取得
+        ::GetClientRect(g_hWnd,&rect);       // クライアント部分のサイズの取得
         c_width = rect.right - rect.left;   // クライアント領域外の横幅を計算
         c_height = rect.bottom - rect.top;  // クライアント領域外の縦幅を計算
         // ウィンドウサイズの再計算
         w_width = iClientWidth + (w_width - c_width);     // 必要なウインドウの幅
         w_height = iClientHeight + (w_height - c_height); // 必要なウインドウの高さ
         // ウインドウサイズの再設定
-        ::SetWindowPos(hWnd,HWND_TOP,0,0,w_width,w_height,SWP_NOMOVE);
+        ::SetWindowPos(g_hWnd,HWND_TOP,0,0,w_width,w_height,SWP_NOMOVE);
     }
 	ShowCursor(DRAW_MOUSE);
 	wiz::__GetClientSize(wiz::Rect(0,0,iClientWidth,iClientHeight));
 	wiz::DxDevice::setClientRect(wiz::Rect(0,0,iClientWidth,iClientHeight));
-	g_hWnd = hWnd ;
 
     //ウインドウの表示
     ::ShowWindow(
-        hWnd,       //取得したウインドウのハンドル
+        g_hWnd,       //取得したウインドウのハンドル
         nShowCmd    //WinMainに渡されたパラメータ
     );
     // WM_PAINTが呼ばれないようにする
-    ::ValidateRect(hWnd, 0);
+    ::ValidateRect(g_hWnd, 0);
     //例外処理開始
     try{
 		/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 		// 
         // DirectXデバイスオブジェクトの初期化
-        wiz::DxDevice* device = new wiz::DxDevice(hWnd, isFullScreen,iClientWidth,iClientHeight);
+        wiz::DxDevice* device = new wiz::DxDevice(g_hWnd, isFullScreen,iClientWidth,iClientHeight);
 		int ret =  (int) device->MainThreadRun();
 		SafeDelete( device );
 		::PostQuitMessage(0);
@@ -246,18 +244,18 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE
 	}
     catch(wiz::BaseException& e){
         //初期化失敗した
-        ::MessageBox(hWnd,e.what_w(),L"エラー",MB_OK);
+        ::MessageBox(g_hWnd,e.what_w(),L"エラー",MB_OK);
         return 1;   //エラー終了
     }
     catch(exception& e){
         //STLエラー
         //マルチバイトバージョンのメッセージボックスを呼ぶ
-        ::MessageBoxA(hWnd,e.what(),"エラー",MB_OK);
+        ::MessageBoxA(g_hWnd,e.what(),"エラー",MB_OK);
         return 1;   //エラー終了
     }
     catch(...){
         //原因不明失敗した
-        ::MessageBox(hWnd,L"原因不明のエラーです",L"エラー",MB_OK);
+        ::MessageBox(g_hWnd,L"原因不明のエラーです",L"エラー",MB_OK);
         return 1;   //エラー終了
     }
     //例外処理終了

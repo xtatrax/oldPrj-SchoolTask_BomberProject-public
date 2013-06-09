@@ -392,7 +392,7 @@ void	GoalObject::Update(UpdatePacket& i_UpdatePacket)
 
 	//Õ“Ë”»’è
 	m_pCoil = (PlayerCoil*)SearchObjectFromTypeID(i_UpdatePacket.pVec, typeid(PlayerCoil) ) ;
-	if( m_pCoil && m_pCoil->HitTestWall( m_Obb, 0) ){
+	if( m_pCoil && m_pCoil->HitTestWall( m_Obb ) ){
 		m_pCoil->setState( COIL_STATE_CLEAR );
 		m_pCoil->setSuperMode(false);
 		if( m_bPlaySound ){
