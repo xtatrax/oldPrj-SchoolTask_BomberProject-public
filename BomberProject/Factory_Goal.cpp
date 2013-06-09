@@ -184,8 +184,8 @@ void FMemoryTex::Update( UpdatePacket& i_UpdatePacket ){
 //// 戻値       ：無し
 //// 担当者     ：佐藤涼
 //// 備考       ：
-void FMemoryTex::AddMemory(D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos,
-			D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient)
+void FMemoryTex::AddMemory(const D3DXVECTOR3 &vScale,const D3DXVECTOR3 &vRot,const D3DXVECTOR3 &vPos,
+			const D3DCOLORVALUE& Diffuse,const D3DCOLORVALUE& Specular,const D3DCOLORVALUE& Ambient)
 {
 	mItem* pItem = new mItem;
 	pItem->vScale = vScale;

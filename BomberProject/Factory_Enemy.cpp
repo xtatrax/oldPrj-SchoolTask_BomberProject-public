@@ -321,7 +321,15 @@ void EnemySphere::Update( UpdatePacket& i_UpdatePacket){
 //// ’S“–ŽÒ     FÖ“¡ŒªŒá
 //// ”õl       F
 //////////////////////////////////////////////////////////////////////////////////////////////////////
-void EnemySphere::AddEnemy(D3DXVECTOR3 &vScale, D3DXVECTOR3 &vRot, D3DXVECTOR3 &vPos, D3DCOLORVALUE &Diffuse,D3DCOLORVALUE &Specular, D3DCOLORVALUE &Ambient){
+void EnemySphere::AddEnemy(
+		const D3DXVECTOR3&		vScale		,
+		const D3DXVECTOR3&		vRot		,
+		const D3DXVECTOR3&		vPos		,
+		const D3DCOLORVALUE&	Diffuse		,
+		const D3DCOLORVALUE&	Specular	,
+		const D3DCOLORVALUE&	Ambient
+	)
+{
 
 	EnemyItem* pItem = new EnemyItem;
 	pItem->m_vScale = vScale;

@@ -317,12 +317,12 @@ void ProvisionalPlayer3D::Update( UpdatePacket& i_UpdatePacket ){
 備考　　　：
 ****************************************************************************/
 MagneticField::MagneticField(
-	LPDIRECT3DDEVICE9 pD3DDevice,						//	: デバイス
-	LPDIRECT3DTEXTURE9 pTexture,						//	: テクスチャー
-	D3DXVECTOR3		   &vScale,							//	: 伸縮
-	D3DXQUATERNION	   &vRot,							//	: 回転
-	D3DXVECTOR3	       &vPos,							//	: 位置
-	bool				bEffect
+	const LPDIRECT3DDEVICE9		pD3DDevice	,						//	: デバイス
+	const LPDIRECT3DTEXTURE9	pTexture	,						//	: テクスチャー
+	const D3DXVECTOR3&			vScale		,						//	: 伸縮
+	const D3DXQUATERNION&		vRot		,						//	: 回転
+	const D3DXVECTOR3&			vPos		,						//	: 位置
+	const bool					bEffect
 )
 :Cylinder(pD3DDevice,vScale.x, vScale.y, vScale.z, g_vZero, g_vZero,
 						D3DCOLORVALUE(),
