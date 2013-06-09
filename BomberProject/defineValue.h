@@ -176,7 +176,7 @@ namespace wiz{
 
 	////	CLASSID_END			=  0xFFFFFFFFFFFFFFFF ,
 	////};
-
+/**/
 	//////////////////////////////////////////////////
 	//                                              //
 	//                                              //
@@ -296,12 +296,16 @@ namespace wiz{
 //////////
 //	: グローバルな変数
 
-extern D3DXVECTOR3 g_vZero ;	//	: ゼロベクトル
-extern D3DXVECTOR3 g_vOne  ;	//	: 一ベクトル
-extern D3DXVECTOR3 g_vMax  ;	//	: 最高ベクトル
-extern D3DXVECTOR3 g_vMin  ;	//	: 最低ベクトル
+const static D3DXVECTOR3 g_vZero = D3DXVECTOR3(0.0f,0.0f,0.0f);
+const static D3DXVECTOR3 g_vOne  = D3DXVECTOR3(1.0f,1.0f,1.0f);
+const static D3DXVECTOR3 g_vMax  = D3DXVECTOR3(+FLT_MAX,+FLT_MAX,+FLT_MAX);
+const static D3DXVECTOR3 g_vMin  = D3DXVECTOR3(-FLT_MAX,-FLT_MAX,-FLT_MAX);
 
-extern wstring g_sDefaultTexturePath ;	//	: テクスチャの置き場
+
+const static wstring g_sDefaultTexturePath = L"media/Textures/" ;	//	: テクスチャの置き場
+      static HWND g_hWnd     = NULL  ;
+      static bool g_bMouseLB = false ;
+      static bool g_bMouseRB = false ;
 
 //	
 //////////

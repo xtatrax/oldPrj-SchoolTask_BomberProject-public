@@ -10,12 +10,6 @@
 
 #include "StdAfx.h"
 
-D3DXVECTOR3 g_vZero = D3DXVECTOR3(0.0f,0.0f,0.0f);
-D3DXVECTOR3 g_vOne  = D3DXVECTOR3(1.0f,1.0f,1.0f);
-D3DXVECTOR3 g_vMax  = D3DXVECTOR3(+FLT_MAX,+FLT_MAX,+FLT_MAX);
-D3DXVECTOR3 g_vMin  = D3DXVECTOR3(-FLT_MAX,-FLT_MAX,-FLT_MAX);
-
-extern wstring g_sDefaultTexturePath = L"media/Textures/" ;	//	: テクスチャの置き場
 
 float f = 0.5f ;
 
@@ -24,12 +18,9 @@ wiz::RENDERSTATE_PARAM g_GlobalRenderStates[] = {
 	{ D3DRS_ZENABLE      , TRUE         },  // Ｚ比較を行なう
 	{ D3DRS_DITHERENABLE , TRUE         },  // ディザリングを行なう（高品質描画）
 	{ D3DRS_LIGHTING     , TRUE         },  // ライティングモード
-	{ D3DRS_ALPHAREF     , (DWORD)&f	},  // ライティングモード
+	{ D3DRS_ALPHAREF     , 0x00000001	},  // ライティングモード
 	{ D3DRS_ALPHATESTENABLE, TRUE				},  // ライティングモード
 	{ D3DRS_ALPHAFUNC    , D3DCMP_GREATEREQUAL	},  // ライティングモード
 	{ D3DRS_FORCE_DWORD  , NULL			}	// 終了宣言
 };
 
-HWND g_hWnd ;
-bool g_bMouseLB;
-bool g_bMouseRB;

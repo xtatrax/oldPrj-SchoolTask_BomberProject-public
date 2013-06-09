@@ -55,15 +55,15 @@ namespace bomberobject{
 備考　　：
 *************************************************************************/
 Gage::Gage(
-	LPDIRECT3DDEVICE9	pD3DDevice	,
-	LPDIRECT3DTEXTURE9	pTex		,
-	D3DXVECTOR3			&vScale		,
-	D3DXVECTOR3			&vRot		,
-	D3DXVECTOR3			&vPos		,
-	D3DXVECTOR3			&vDirOffset	,
-	RECT				GaugeRect	,		//	: 描画範囲
-	RECT				FrameRect	,		//	: 描画範囲
-	wiz::OBJID			id
+	const LPDIRECT3DDEVICE9		pD3DDevice	,
+	const LPDIRECT3DTEXTURE9	pTex		,
+	const D3DXVECTOR3			&vScale		,
+	const D3DXVECTOR3			&vRot		,
+	const D3DXVECTOR3			&vPos		,
+	const D3DXVECTOR3			&vDirOffset	,
+	const RECT					GaugeRect	,		//	: 描画範囲
+	const RECT					FrameRect	,		//	: 描画範囲
+	const wiz::OBJID			id
 )
 :SpriteObject(pD3DDevice,pTex,vScale,vRot,vPos,
 	NULL,g_vZero,vDirOffset,0xFFFFFFFF,id)

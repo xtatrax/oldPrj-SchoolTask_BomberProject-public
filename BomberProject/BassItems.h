@@ -1197,7 +1197,16 @@ bool val		//したいしたい値（trueかfalse）
  用途: コンストラクタ
  戻り値: なし（失敗時は例外をthrow）
 ***************************************************************************/
-				SimpleCommonMesh(D3DXVECTOR3& Pos,D3DXVECTOR3& Rot,D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,wiz::OBJID id,bool IsShadowActive = false,LPDIRECT3DTEXTURE9 pTexture = 0);
+				SimpleCommonMesh(
+					const D3DXVECTOR3&			Pos				,
+					const D3DXVECTOR3&			Rot				,
+					const D3DCOLORVALUE&		Diffuse			,
+					const D3DCOLORVALUE&		Specular		,
+					const D3DCOLORVALUE&		Ambient			,
+					const wiz::OBJID			id				,
+					const bool					IsShadowActive	= false	,
+					const LPDIRECT3DTEXTURE9	pTexture		= 0
+				);
 /**************************************************************************
 	virtual void ChangeDevice(
     LPDIRECT3DDEVICE9 pD3DDevice    //IDirect3DDevice9 インターフェイスへのポインタ
@@ -1520,7 +1529,7 @@ bool val		//したいしたい値（trueかfalse）
  用途: 最初に作成されたスケーリングと位置と回転を同時に変更する
  戻り値: なし
 ***************************************************************************/
-				void SetBaseScalePosRot(D3DXVECTOR3& Scale,D3DXVECTOR3& Pos,D3DXVECTOR3& Rot);
+				void SetBaseScalePosRot(const D3DXVECTOR3& Scale,const D3DXVECTOR3& Pos,const D3DXVECTOR3& Rot);
 /**************************************************************************
  void SetBaseScalePosQt(
 	D3DXVECTOR3& Scale,	//新しいベーススケーリング
@@ -1651,7 +1660,19 @@ bool val		//したいしたい値（trueかfalse）
  用途: コンストラクタ
  戻り値: なし（失敗時は例外をthrow）
 ***************************************************************************/
-				Box(LPDIRECT3DDEVICE9 pD3DDevice,D3DXVECTOR3& size,D3DXVECTOR3& pos,D3DXVECTOR3& rot,D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,wiz::OBJID id = OBJID_3D_BOX,bool IsShadowActive = false,LPDIRECT3DTEXTURE9 pTexture = 0,int TexturePtn = PtnUV_1_1);
+				Box(
+					const LPDIRECT3DDEVICE9		pD3DDevice		,
+					const D3DXVECTOR3&			size			,
+					const D3DXVECTOR3&			pos				,
+					const D3DXVECTOR3&			rot				,
+					const D3DCOLORVALUE&		Diffuse			,
+					const D3DCOLORVALUE&		Specular		,
+					const D3DCOLORVALUE&		Ambient			,
+					const wiz::OBJID			id				= OBJID_3D_BOX	,
+					const bool					IsShadowActive	= false			,
+					const LPDIRECT3DTEXTURE9	pTexture		= 0				,
+					const int					TexturePtn		= PtnUV_1_1
+				);
 /**************************************************************************
  virtual ~Box();
  用途: デストラクタ
@@ -1748,7 +1769,20 @@ bool val		//したいしたい値（trueかfalse）
  用途: コンストラクタ
  戻り値: なし（失敗時は例外をthrow）
 ***************************************************************************/
-				Sphere(LPDIRECT3DDEVICE9 pD3DDevice,FLOAT radius,D3DXVECTOR3& pos,D3DXVECTOR3& rot,D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,wiz::OBJID id = OBJID_3D_SPHERE,bool IsShadowActive = false,LPDIRECT3DTEXTURE9 pTexture = 0,UINT Slices = 18,UINT Stacks = 18);
+				Sphere(
+					const LPDIRECT3DDEVICE9		pD3DDevice		,
+					const FLOAT					radius			,
+					const D3DXVECTOR3&			pos				,
+					const D3DXVECTOR3&			rot				,
+					const D3DCOLORVALUE&		Diffuse			,
+					const D3DCOLORVALUE&		Specular		,
+					const D3DCOLORVALUE&		Ambient			,
+					const wiz::OBJID			id				= OBJID_3D_SPHERE	,
+					const bool					IsShadowActive	= false				,
+					const LPDIRECT3DTEXTURE9	pTexture		= 0					,
+					const UINT					Slices			= 18				,
+					const UINT					Stacks			= 18
+				);
 /**************************************************************************
  virtual ~Sphere();
  用途: デストラクタ
@@ -1807,7 +1841,22 @@ bool val		//したいしたい値（trueかfalse）
  用途: コンストラクタ
  戻り値: なし（失敗時は例外をthrow）
 ***************************************************************************/
-				Cylinder(LPDIRECT3DDEVICE9 pD3DDevice,FLOAT Radius1,FLOAT Radius2,FLOAT Length,D3DXVECTOR3& pos,D3DXVECTOR3& rot,D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,wiz::OBJID id = OBJID_3D_CYLINDER,bool IsShadowActive = false,LPDIRECT3DTEXTURE9 pTexture = 0,UINT Slices = 18,UINT Stacks = 18);
+				Cylinder(
+					const LPDIRECT3DDEVICE9 pD3DDevice			,
+					const FLOAT Radius1							,
+					const FLOAT Radius2							,
+					const FLOAT Length							,
+					const D3DXVECTOR3& pos						,
+					const D3DXVECTOR3& rot						,
+					const D3DCOLORVALUE& Diffuse				,
+					const D3DCOLORVALUE& Specular				,
+					const D3DCOLORVALUE& Ambient				,
+					const wiz::OBJID id = OBJID_3D_CYLINDER		,
+					const bool IsShadowActive = false			,
+					const LPDIRECT3DTEXTURE9 pTexture = 0		,
+					const UINT Slices = 18						,
+					const UINT Stacks = 18
+				);
 /**************************************************************************
  virtual ~Cylinder();
  用途: デストラクタ
@@ -1900,7 +1949,21 @@ bool val		//したいしたい値（trueかfalse）
  用途: コンストラクタ
  戻り値: なし（失敗時は例外をthrow）
 ***************************************************************************/
-				Torus(LPDIRECT3DDEVICE9 pD3DDevice,FLOAT InnerRadius,FLOAT OuterRadius,D3DXVECTOR3& pos,D3DXVECTOR3& rot,D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,wiz::OBJID id = OBJID_3D_SPHERE,bool IsShadowActive = false,LPDIRECT3DTEXTURE9 pTexture = 0,UINT Sides = 18,UINT Rings = 18);
+				Torus(
+					const LPDIRECT3DDEVICE9		pD3DDevice		,
+					const FLOAT					InnerRadius		,
+					const FLOAT					OuterRadius		,
+					const D3DXVECTOR3&			pos				,
+					const D3DXVECTOR3&			rot				,
+					const D3DCOLORVALUE&		Diffuse			,
+					const D3DCOLORVALUE&		Specular		,
+					const D3DCOLORVALUE&		Ambient			,
+					const wiz::OBJID			id				= OBJID_3D_SPHERE	,
+					const bool					IsShadowActive	= false				,
+					const LPDIRECT3DTEXTURE9	pTexture		= 0					,
+					const UINT					Sides			= 18				,
+					const UINT					Rings			= 18
+				);
 /**************************************************************************
  virtual ~Torus();
  用途: デストラクタ
@@ -2169,7 +2232,13 @@ public:
 /*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 class PrimitiveSphere : public Sphere {
 	public:
-		PrimitiveSphere(LPDIRECT3DDEVICE9 pD3DDevice,D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,LPDIRECT3DTEXTURE9 pTexture = 0)
+		PrimitiveSphere(
+			const LPDIRECT3DDEVICE9		pD3DDevice	,
+			const D3DCOLORVALUE&		Diffuse		,
+			const D3DCOLORVALUE&		Specular	,
+			const D3DCOLORVALUE&		Ambient		,
+			const LPDIRECT3DTEXTURE9	pTexture	= 0
+		)
 			:Sphere( pD3DDevice,0.5f, g_vZero, g_vZero,Diffuse, Specular, Ambient,OBJID_3D_SPHERE, false, pTexture ,18, 18){}
 };
 
