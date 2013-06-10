@@ -17,6 +17,7 @@ namespace bomberobject{
 
 class ScrollObject : public Object{
 	const static BYTE	m_csbySpriteQty  = 2 ;
+	D3DXVECTOR3			m_vPos[2];
 	SpriteObject*		m_pBGSpriteArr[m_csbySpriteQty];
 	SpriteObject*		m_pFrontSprite;
 public:
