@@ -132,10 +132,10 @@ PlayerCoil::~PlayerCoil(){
 	m_pSphere				= NULL;
 	m_pSuperField			= NULL;
 	
-	m_pSelect	= NULL;
-	m_pSelect2	= NULL;
+	SAFE_DELETE(m_pSelect);
+	SAFE_DELETE(m_pSelect2);
 	for( int i = 0; i < PARTICLS_NUM; i++ )
-		m_pDeadEffect[i]	= NULL;
+		SAFE_DELETE(m_pDeadEffect[i]);
 
 };
 
@@ -280,9 +280,8 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 		}
 	}
 	if( m_pDeadEffect[0] != NULL ){
-		for( int i = 0; i < PARTICLS_NUM; i++ ){
-			if(m_pDeadEffect[i]->getColor() <= 0.0f
-				|| m_enumCoilState == COIL_STATE_CONTINUE){
+		if(m_enumCoilState != COIL_STATE_DEAD){
+			for( int i = 0; i < PARTICLS_NUM; i++ ){
 				SafeDelete( m_pDeadEffect[i] );
 				continue;
 			}
