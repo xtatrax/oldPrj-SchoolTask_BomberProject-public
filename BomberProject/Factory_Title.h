@@ -12,9 +12,9 @@
 #pragma once
 
 #include "StdAfx.h"
-#include "Object.h"
 #include "Factory_Title.h"
 #include "Factory_Sound.h"
+
 
 namespace wiz{
 namespace bomberobject{

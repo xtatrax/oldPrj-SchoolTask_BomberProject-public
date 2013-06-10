@@ -46,8 +46,8 @@ DeadEffect::DeadEffect(LPDIRECT3DDEVICE9 pD3DDevice,
 ,m_vPos(vPos)
 ,m_fLife(5.0f)
 ,m_fDir(vDir)
-,m_fSpeed( float(rand()%30)+30 )
-,m_fAccele( -(m_fSpeed / 1000) )
+,m_fSpeed( float(rand()%100)+300 )
+,m_fAccele( -(m_fSpeed / 200) )
 {
 	::ZeroMemory( &m_Material, sizeof(D3DMATERIAL9));
 
@@ -159,6 +159,8 @@ void DeadEffect::Update( UpdatePacket& i_UpdatePacket ){
 	m_vPos.z	+= cosf( m_fDir )*MoveRate*m_fSpeed*5*m_iDirZ;
 
 	m_fSpeed	+= m_fAccele;
+	if( m_fSpeed < 0.0f )
+		m_fSpeed	= 0.0f;
 
 	if( m_Material.Ambient.r >= 0 ){
 		m_Material.Ambient.r	-= ColorRate;
