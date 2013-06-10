@@ -31,7 +31,7 @@ class	Title_Select	: public SpriteObject{
 	Sound*			m_pSound;
 	int				m_iTime;
 	bool			m_bPush;
-
+	bool			m_bPushRock;
 public:
 	Title_Select(
 		const LPDIRECT3DDEVICE9		pD3DDevice	,

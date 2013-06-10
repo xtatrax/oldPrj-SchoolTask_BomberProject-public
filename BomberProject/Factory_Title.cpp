@@ -52,6 +52,7 @@ Title_Select::Title_Select(const LPDIRECT3DDEVICE9 pD3DDevice,const LPDIRECT3DTE
 ,m_pSound( NULL )
 ,m_iTime( 0 )
 ,m_bPush( false )
+,m_bPushRock( false )
 {
 	try{
 		//	: 初期マトリックスを計算
@@ -106,16 +107,24 @@ void Title_Select::Update(UpdatePacket& i_UpdatePacket)
 	if( (MousePos.x > m_vPos.x && MousePos.x < ( m_vPos.x + m_pRect->right )) 
 		&& (MousePos.y > m_vPos.y && MousePos.y < ( m_vPos.y + m_pRect->bottom )) ){
 		if( g_bMouseLB/* || g_bMouseRB*/ ){
-			if( !m_bPush ){
-				//if( m_pSound != NULL )
-					m_pSound->SearchWaveAndPlay( RCTEXT_SOUND_SE_ENTER );
+			if( m_bPushRock ){
+				if( !m_bPush ){
+					//if( m_pSound != NULL )
+						m_pSound->SearchWaveAndPlay( RCTEXT_SOUND_SE_ENTER );
+				}
+				m_bPush		= true;
+				m_bPushRock	= false;
 			}
-			m_bPush		= true;
 		}
-		m_Color	= 0xFFFFFF00;
+		else	m_bPushRock	= true;
+		m_Color	= 0xFFFFFFFF;
 	}
-	else	m_Color	= 0xFF888888;
+	else{
+		m_Color	= 0xA0FFFFFF;
 
+		if( g_bMouseLB )	m_bPushRock	= false;
+		else				m_bPushRock	= true;
+	}
 	if( m_bPush ){
 		m_iTime++;
 		if( m_iTime > 30 ){
