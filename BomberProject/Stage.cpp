@@ -115,16 +115,23 @@ void Stage::Update(UpdatePacket& i_UpdatePacket)
 	fSlowAccumulator = 0 ;
 #endif
 	if(m_bUpdate){
+		clock_t sc = TLIB::Tempus::getClock();
 		//配置オブジェクトの描画
-		vector<Object*>::size_type sz = m_Vec.size();
-		for(vector<Object*>::size_type i = 0;i < sz;i++){
-			if(!m_Vec[i]->getDead()){
-				m_Vec[i]->AccessBegin();
-				m_Vec[i]->Update(i_UpdatePacket) ;
-				m_Vec[i]->AccessEnd();
+		vector<Object*>::iterator it = m_Vec.begin();
+		while( it != m_Vec.end() ){
+			if(!(*it)->getDead()){
+				(*it)->AccessBegin();
+				(*it)->Update(i_UpdatePacket) ;
+				(*it)->AccessEnd();
+			} else {
+				SAFE_DELETE( (*it) ) ;
+				it = m_Vec.erase( it ) ;
+				continue;
 			}
-	//::MessageBoxA( g_hWnd,"アップデート","kita",0);
+			it++;
 		}
+		clock_t nc = TLIB::Tempus::getClock();
+		Debugger::DBGSTR::addStr( L" Update時間 : %f\n", TLIB::Tempus::TwoDwTime2ElapsedTime(sc,nc));
 	}
 }
 /////////////////// ////////////////////
@@ -140,6 +147,7 @@ void Stage::Update(UpdatePacket& i_UpdatePacket)
 void Stage::Render(RenderPacket& i_RenderPacket){
 	i_RenderPacket.pVec		= &m_Vec	;
 	i_RenderPacket.pTxMgr	= &m_TexMgr ; 
+	clock_t sc = TLIB::Tempus::getClock();
 	//配置オブジェクトの描画
 	vector<Object*>::iterator it = m_Vec.begin();
 	while( it != m_Vec.end() ){
@@ -148,14 +156,12 @@ void Stage::Render(RenderPacket& i_RenderPacket){
 			(*it)->TargetRender(i_RenderPacket);
 			(*it)->AccessEnd();
 	//::MessageBoxA( g_hWnd,"rennda-","kita",0);
-		} else {
-			
-			SAFE_DELETE( (*it) ) ;
-			it = m_Vec.erase( it ) ;
-			continue;
 		}
 		it++;
 	}
+	clock_t nc = TLIB::Tempus::getClock();
+	Debugger::DBGSTR::addStr( L" Render時間 : %f\n", TLIB::Tempus::TwoDwTime2ElapsedTime(sc,nc));
+
 }
 
 /**************************************************************************
@@ -173,6 +179,7 @@ void Stage::Draw(DrawPacket& i_DrawPacket)
 	try{
 		i_DrawPacket.pVec = &m_Vec ;
 		i_DrawPacket.pTxMgr	= &m_TexMgr ; 
+		clock_t sc = TLIB::Tempus::getClock();
 		//配置オブジェクトの描画
 		vector<Object*>::size_type sz = m_Vec.size();
 		for(vector<Object*>::size_type i = 0;i < sz;i++){
@@ -181,6 +188,8 @@ void Stage::Draw(DrawPacket& i_DrawPacket)
 			m_Vec[i]->AccessEnd();
 	//::MessageBoxA( g_hWnd,"doro-","kita",0);
 		}
+		clock_t nc = TLIB::Tempus::getClock();
+		Debugger::DBGSTR::addStr( L"   Draw時間 : %f\n", TLIB::Tempus::TwoDwTime2ElapsedTime(sc,nc));
 	}
 	catch(exception& e){
         throw e;
