@@ -165,10 +165,8 @@ public:
 	////            ÅF
 	////
 	static void Draw(){
-<<<<<<< HEAD
+
 		#if defined( CF_MEMORYOUTPUTPROCESS_ENABLE )
-=======
->>>>>>> workspace
 		Debugger::DBGSTR::addStr( L" Memory\nÑ• Area Size = %d Byte\nÑ§ Instance  = %d Q'ty\n", m_dwAreaSize, m_ItemInfo.size() );
 		if( GetAsyncKeyState( MYVK_DEBUG_OUTPUT_MEMORY ) ){
 			std::list<itemInfo>::iterator it  = m_ItemInfo.begin();
