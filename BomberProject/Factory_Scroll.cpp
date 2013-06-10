@@ -60,9 +60,6 @@ void ScrollObject::Update( UpdatePacket& i_UpdatePacket) {
 			if(m_vPos[i].y >= 600.0f){
 				m_vPos[i].y = -600;
 			}
-			D3DXMATRIX	mPos;
-			D3DXMatrixTranslation( &mPos, m_vPos[i].x, m_vPos[i].y, m_vPos[i].z );
-			m_pBGSpriteArr[i]->setMatrix( mPos );
 		}
 	}
 };
