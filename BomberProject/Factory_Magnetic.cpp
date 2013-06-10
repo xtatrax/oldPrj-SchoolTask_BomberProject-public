@@ -20,7 +20,6 @@
 namespace wiz{
 namespace bomberobject{
 
-Camera*		MagneticumObject3D::m_pCamera = NULL;	
 
 ///**************************************************************************
 // MagneticumObject 定義部
@@ -105,6 +104,8 @@ MagneticumObject3D::MagneticumObject3D(
 ,m_pMagneticField2( NULL )
 ,m_pMagneticField3( NULL )
 ,m_pMagneticField4( NULL )
+,m_pCoil(	NULL )
+,m_pCamera(	NULL )
 {
 	::ZeroMemory( &m_Material, sizeof(D3DMATERIAL9) ) ;
 	//磁界　外側
@@ -182,6 +183,8 @@ MagneticumObject3D::MagneticumObject3D(
 ,m_pMagneticField2( NULL )
 ,m_pMagneticField3( NULL )
 ,m_pMagneticField4( NULL )
+,m_pCoil(NULL)
+,m_pCamera(	NULL )
 
 {
 	::ZeroMemory( &m_Material, sizeof(D3DMATERIAL9) ) ;
@@ -221,9 +224,11 @@ MagneticumObject3D::~MagneticumObject3D(){
 //// 備考       ：
 void MagneticumObject3D::Draw(DrawPacket& i_DrawPacket)
 {
-	multimap<float,Magnet3DItem*>::iterator it = m_ItemMap_Target.begin();
-	while(it != m_ItemMap_Target.end()){
-		setPole( it->second->m_bMagnetPole );
+	TARGETCONTAINER::iterator	it  = m_ItemMap_Target.begin(),
+								end = m_ItemMap_Target.end();
+	while(it != end){
+		Magnet3DItem* pNowItem  = (*it);
+		setPole( pNowItem->m_bMagnetPole );
 		//テクスチャがある場合
 		if(m_pTexture){
 			DWORD wkdword;
@@ -238,7 +243,7 @@ void MagneticumObject3D::Draw(DrawPacket& i_DrawPacket)
 
 			//i_DrawPacket.pD3DDevice->SetFVF(PlateFVF);
 			// マトリックスをレンダリングパイプラインに設定
-			i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &it->second->m_Matrix);
+			i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &pNowItem->m_Matrix);
 			//コモンメッシュのDraw()を呼ぶ
 			CommonMesh::Draw(i_DrawPacket);
 			i_DrawPacket.pD3DDevice->SetTexture(0,0);
@@ -248,24 +253,24 @@ void MagneticumObject3D::Draw(DrawPacket& i_DrawPacket)
 		else{
 		//テクスチャがない場合
 			// マトリックスをレンダリングパイプラインに設定
-			i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &it->second->m_Matrix);
+			i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &pNowItem->m_Matrix);
 			//コモンメッシュのDraw()を呼ぶ
 			CommonMesh::Draw(i_DrawPacket);
 		}
-		m_pMagneticField->SetPos(it->second->m_vPos);
-		m_pMagneticField->setPole(it->second->m_bMagnetPole);
+		m_pMagneticField->SetPos(pNowItem->m_vPos);
+		m_pMagneticField->setPole(pNowItem->m_bMagnetPole);
 		m_pMagneticField->Update( UpdatePacket( i_DrawPacket ) );
 
-		m_pMagneticField2->SetPos(it->second->m_vPos);
-		m_pMagneticField2->setPole(it->second->m_bMagnetPole);
+		m_pMagneticField2->SetPos(pNowItem->m_vPos);
+		m_pMagneticField2->setPole(pNowItem->m_bMagnetPole);
 		m_pMagneticField2->Update( UpdatePacket( i_DrawPacket ) );
 
-		m_pMagneticField3->SetPos(it->second->m_vPos);
-		m_pMagneticField3->setPole(it->second->m_bMagnetPole);
+		m_pMagneticField3->SetPos(pNowItem->m_vPos);
+		m_pMagneticField3->setPole(pNowItem->m_bMagnetPole);
 		m_pMagneticField3->Update( UpdatePacket( i_DrawPacket ) );
 
-		m_pMagneticField4->SetPos(it->second->m_vPos);
-		m_pMagneticField4->setPole(it->second->m_bMagnetPole);
+		m_pMagneticField4->SetPos(pNowItem->m_vPos);
+		m_pMagneticField4->setPole(pNowItem->m_bMagnetPole);
 		m_pMagneticField4->Update( UpdatePacket( i_DrawPacket ) );
 
 		m_pMagneticField->Draw(i_DrawPacket);
@@ -292,46 +297,82 @@ void MagneticumObject3D::Update( UpdatePacket& i_UpdatePacket ){
 	if(m_pCamera == NULL){
 		m_pCamera = (Camera*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_SYS_CAMERA);
 	}
-	m_ItemMap_Target.clear();
-	multimap<float,Magnet3DItem*>::iterator it = m_ItemMap_All.begin();
-	while(it != m_ItemMap_All.end()){
-		if( ((it->first - m_pCamera->getEye().y) <= 13) && ((it->first - m_pCamera->getEye().y) >= -13) ){
-			m_ItemMap_Target.insert(multimap<float,Magnet3DItem*>::value_type(it->second->m_vPos.y,it->second));
-		}
-		++it;
-	}
-	multimap<float,Magnet3DItem*>::iterator it2 = m_ItemMap_Target.begin();
-	while(it2 != m_ItemMap_Target.end()){
-		setPole( it2->second->m_bMagnetPole );
+	if( !m_pCoil ) 
+		m_pCoil = (PlayerCoil*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_3D_COIL);
+
+	setDrawTarget();
+
+	TARGETCONTAINER::iterator	it  = m_ItemMap_Target.begin(),
+								end = m_ItemMap_Target.end();
+	while(it != end){
+		Magnet3DItem* pNowItem  = (*it);
+		setPole( pNowItem->m_bMagnetPole );
 
 		//計算はUpdateで
 		//拡大縮小
 		D3DXMATRIX mScale;
 		D3DXMatrixIdentity(&mScale);
 		D3DXMatrixScaling(&mScale,
-			it2->second->m_vScale.x,it2->second->m_vScale.y,it2->second->m_vScale.z);
+			pNowItem->m_vScale.x,pNowItem->m_vScale.y,pNowItem->m_vScale.z);
 		//回転
 		D3DXMATRIX mRot;
 		D3DXMatrixIdentity(&mRot);
-		D3DXMatrixRotationQuaternion(&mRot,&it2->second->m_vRot);
+		D3DXMatrixRotationQuaternion(&mRot,&pNowItem->m_vRot);
 		//移動用
 		D3DXMATRIX mMove;
 		D3DXMatrixIdentity(&mMove);
 		D3DXMatrixTranslation(&mMove,
-			it2->second->m_vPos.x,it2->second->m_vPos.y,it2->second->m_vPos.z);
+			pNowItem->m_vPos.x,pNowItem->m_vPos.y,pNowItem->m_vPos.z);
 		//ミックス行列
-		it2->second->m_Matrix = mScale * mRot * mMove;
+		pNowItem->m_Matrix = mScale * mRot * mMove;
 		//マティリアル設定
-		m_Material = it2->second->m_Material;
+		m_Material = pNowItem->m_Material;
 
-		//m_pMagneticField->Update(i_UpdatePacket);
+		//m_pMagneticField4->SetPos(pNowItem->m_vPos);
+		//m_pMagneticField4->setPole(pNowItem->m_bMagnetPole);
+		m_pMagneticField4->Update( i_UpdatePacket );
 
-
-		++it2;
+		++it;
 	}
 
 }
+void MagneticumObject3D::setDrawTarget(){
 
+	//////////
+	//	描画対象外の削除
+	//
+	TARGETCONTAINER::iterator	TIMit  = m_ItemMap_Target.begin(),
+								TIMend = m_ItemMap_Target.end(  );
+	while( TIMit != TIMend ){
+		if( (*TIMit)->m_fMapKey <= m_pCamera->getPosY()  -DRAWING_RANGE ||
+			(*TIMit)->m_fMapKey >= m_pCamera->getPosY()  +DRAWING_RANGE ){
+			(*TIMit)->m_bHidden = true ;
+			TIMit = m_ItemMap_Target.erase( TIMit );
+			continue;
+		}
+		TIMit++ ;
+	}
+	//
+	//
+	//////////
+
+	//////////
+	//	描画対象の追加
+	//
+	ALLCONTAINER::iterator	AIMit  = m_ItemMap_All.lower_bound( m_pCamera->getPosY()  -DRAWING_RANGE ),
+							AIMend = m_ItemMap_All.upper_bound( m_pCamera->getPosY()  +DRAWING_RANGE );
+	while( AIMit != AIMend ){
+		if( AIMit->second->m_bHidden == true ){
+			AIMit->second->m_bHidden = false ;
+			m_ItemMap_Target.push_back( AIMit->second );
+		}
+		AIMit++ ;
+	}
+	//
+	//
+	//////////
+
+}
 /////////////////// ////////////////////
 //// 用途       ：void AddMagnetic( DrawPacket& i_DrawPacket )
 //// カテゴリ   ：関数
@@ -349,21 +390,32 @@ void MagneticumObject3D::Update( UpdatePacket& i_UpdatePacket ){
 void MagneticumObject3D::AddMagnetic(D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos,POLE vPole,
 			D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient)
 {
-	Magnet3DItem* pItem			= new Magnet3DItem ;
-	pItem->m_vScale				= vScale ;
-	pItem->m_vPos				= vPos ;
-	pItem->m_bMagnetPole		= vPole;
+	Magnet3DItem* pItem			= new Magnet3DItem	;
+	pItem->m_bHidden			= true				;
+	pItem->m_vScale				= vScale			;
+	pItem->m_vPos				= vPos				;
+	pItem->m_fMapKey			= vPos.y			;
+	pItem->m_bMagnetPole		= vPole				;
     ::ZeroMemory(&pItem->m_Material,sizeof(D3DMATERIAL9)) ;
-	pItem->m_Material.Diffuse	= Diffuse ;
-	pItem->m_Material.Specular	= Specular ;
-	pItem->m_Material.Ambient	= Ambient ;
+	pItem->m_Material.Diffuse	= Diffuse			;
+	pItem->m_Material.Specular	= Specular			;
+	pItem->m_Material.Ambient	= Ambient			;
 	//回転の初期化
 	D3DXQuaternionRotationYawPitchRoll(&pItem->m_vRot,
 			D3DXToRadian(vRot.y),D3DXToRadian(vRot.x),D3DXToRadian(vRot.z)) ;
 
 	m_ItemMap_All.insert(multimap<float,Magnet3DItem*>::value_type(pItem->m_vPos.y,pItem));	
 }
-
+void MagneticumObject3D::HitTest(){
+	TARGETCONTAINER::iterator	it  = m_ItemMap_Target.begin(),
+								end = m_ItemMap_Target.end();
+	while(it != end){
+		Magnet3DItem* pNowItem  = (*it);
+		if(m_pCoil->CheckDistance(pNowItem->m_vPos ,(float)MGPRM_MAGNETICUM_QUAD, false))
+			m_pCoil->m_fMoveDir = m_pCoil->MagneticDecision(m_pCoil->m_fMoveDir,pNowItem->m_vPos,pNowItem->m_bMagnetPole);
+		it++;
+	}
+}
 /////////////////// ////////////////////
 //// 用途       ：bool MagneticumObject3D::CheckDistance( D3DXVECTOR3& i_vMagneticFieldPos, D3DXVECTOR3& i_vCoilPos ) const
 //// カテゴリ   ：関数

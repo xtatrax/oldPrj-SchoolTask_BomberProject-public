@@ -407,23 +407,24 @@ void PlayerCoil::Update_StateStart(){
 ////
 void PlayerCoil::Update_StateMove(){
 	//プレイヤー磁界と自機の判定
-	bool bCheckDistance = CheckDistance( m_pPlayer->getPos(), m_vPos, (float)MGPRM_MAGNETICUM_QUAD, true );
+	bool bCheckDistance = CheckDistance( m_pPlayer->getPos(), (float)MGPRM_MAGNETICUM_QUAD, true );
 	if( m_pPlayer->getDrawing() && bCheckDistance ){
 		m_fMoveDir = MagneticDecision(m_fMoveDir,m_pPlayer->getPos(),m_pPlayer->getMagnetPole());
 	}
 
-	if( m_pMagneticumObject ){
-		//設置磁界と自機の判定
-		multimap<float, Magnet3DItem*> ItemMap_Target = m_pMagneticumObject->getMapTarget();
-		multimap<float,Magnet3DItem*>::iterator it = ItemMap_Target.begin();
-		while(it != ItemMap_Target.end()){
-			bool bCheckDistance = CheckDistance( it->second->m_vPos, m_vPos, (float)MGPRM_MAGNETICUM_QUAD, false );
-			if( bCheckDistance ){
-				m_fMoveDir = MagneticDecision(m_fMoveDir,it->second->m_vPos,it->second->m_bMagnetPole);
-			}
-			++it;
-		}
-	}
+	if( m_pMagneticumObject )
+		m_pMagneticumObject->HitTest();
+	//	//設置磁界と自機の判定
+	//	TARGETCONTAINER ItemMap_Target = m_pMagneticumObject->getMapTarget();
+	//	multimap<float,Magnet3DItem*>::iterator it = ItemMap_Target.begin();
+	//	while(it != ItemMap_Target.end()){
+	//		bool bCheckDistance = CheckDistance( it->second->m_vPos, m_vPos, (float)MGPRM_MAGNETICUM_QUAD, false );
+	//		if( bCheckDistance ){
+	//			m_fMoveDir = MagneticDecision(m_fMoveDir,it->second->m_vPos,it->second->m_bMagnetPole);
+	//		}
+	//		++it;
+	//	}
+	//}
 	//速度指定
 	if(m_bIsSuperMode) m_fMovdSpeed = COIL_SPEED_SUPER;
 	else			   m_fMovdSpeed = COIL_SPEED;
@@ -832,8 +833,8 @@ float PlayerCoil::MagneticDecision( float i_fCoilDir, D3DXVECTOR3& i_vMagnetPos,
 //// 戻値       ：true , false
 //// 担当者     ：本多寛之
 //// 備考       ：
-bool PlayerCoil::CheckDistance( D3DXVECTOR3& i_vMagneticFieldPos, D3DXVECTOR3& i_vCoilPos, float i_iBorder, bool IsPlayer ){
-	float Lng  = (float)TwoPointToBassLength( i_vMagneticFieldPos, i_vCoilPos ) ;
+bool PlayerCoil::CheckDistance( D3DXVECTOR3& i_vMagneticFieldPos, float i_iBorder, bool IsPlayer ){
+	float Lng  = (float)TwoPointToBassLength( i_vMagneticFieldPos, m_vPos ) ;
 	if( Lng <= i_iBorder ){
 		float fBorderLv = i_iBorder/3;
 		if(m_enumCoilState == COIL_STATE_MOVE

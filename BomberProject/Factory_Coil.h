@@ -91,6 +91,7 @@ extern class Continue ;
 // 用途    : ユーザーが誘導する対象になる物
 //**************************************************************************//
 class PlayerCoil : public MagneticumObject3D{
+	friend MagneticumObject3D;
 #if defined( ON_DEBUGGINGPROCESS ) | defined( PRESENTATION )
 	//	: デバッグ用のデータ
 	DrawSphere*		m_pDSPH		;				//	: 球領界描画クラスのポインタ
@@ -358,7 +359,7 @@ public:
 	//// 戻値       ：true , false
 	//// 担当者     ：本多寛之
 	//// 備考       ：
-	bool CheckDistance( D3DXVECTOR3& i_vMagneticFieldPos, D3DXVECTOR3& i_vCoilPos, float i_iBorder, bool IsPlayer );
+	bool CheckDistance( D3DXVECTOR3& i_vMagneticFieldPos, float i_iBorder, bool IsPlayer );
 
 	/////////////////// ////////////////////
 	//// 関数名     ：D3DXVECTOR3 gPlayerCoil::etPos() const
