@@ -72,7 +72,6 @@ Scene::Scene(LPDIRECT3DDEVICE9 pD3DDevice)
 ,m_bLoadingComplete(false)
 ,m_bUpdateThreadSuspendRequest(false)
 ,m_bUpdateThreadResumeRequest(false)
-,m_pD3DDevice(pD3DDevice)
 ,m_fStageNotFoundMessageTime(0.0f)
 {
     try{
@@ -81,7 +80,6 @@ Scene::Scene(LPDIRECT3DDEVICE9 pD3DDevice)
             throw BaseException(L"シーンの初期化に失敗しました。デバイスが無効です。",
             L"Scene::Scene()");
         }
-		m_pD3DDevice = pD3DDevice;
 //////////
 //	: デバッグ用設定
 #if defined(DEBUG) || defined(_DEBUG) || defined(ON_DEBUGGINGPROCESS)

@@ -12,9 +12,9 @@
 #pragma once
 
 #include "StdAfx.h"
-#include "Object.h"
 #include "Factory_Title.h"
 #include "Factory_Sound.h"
+
 
 namespace wiz{
 namespace bomberobject{
@@ -33,9 +33,18 @@ class	Title_Select	: public SpriteObject{
 	bool			m_bPush;
 
 public:
-	Title_Select( LPDIRECT3DDEVICE9 pD3DDevice,LPDIRECT3DTEXTURE9 pTexture,DWORD next,
-			D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos, RECT* pRect,
-			D3DXVECTOR3& vCenter,D3DXVECTOR3& vOffsetPos,Color color = 0xFFFFFFFF);
+	Title_Select(
+		const LPDIRECT3DDEVICE9		pD3DDevice	,
+		const LPDIRECT3DTEXTURE9	pTexture	,
+		const DWORD					next		,
+		const D3DXVECTOR3&			vScale		,
+		const D3DXVECTOR3&			vRot		,
+		const D3DXVECTOR3&			vPos		,
+		const RECT*					pRect		,
+		const D3DXVECTOR3&			vCenter		,
+		const D3DXVECTOR3&			vOffsetPos	,
+		const Color					color		= 0xFFFFFFFF
+	);
 	void	Draw(DrawPacket& i_DrawPacket);
 	void	Update(UpdatePacket& i_UpdatePacket);
 };

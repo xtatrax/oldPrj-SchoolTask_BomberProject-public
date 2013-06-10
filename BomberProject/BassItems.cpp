@@ -414,7 +414,7 @@ void CommonMesh::TorusVec2UV(float x,float y,float z,float inr,float outr,float&
 ***************************************************************************/
 void CommonMesh::ReleaseObj(){
     //後始末
-    SafeDelete(m_pShadowVolume);
+    //SafeDelete(m_pShadowVolume);
     SafeRelease(m_pMesh);
 }
 
@@ -426,7 +426,7 @@ void CommonMesh::ReleaseObj(){
 ***************************************************************************/
 CommonMesh::CommonMesh( wiz::OBJID id ):
 	Object( id ),
-	m_pShadowVolume(0),
+	//m_pShadowVolume(0),
 	m_pMesh(0),
 	m_bWrapMode(true),
 	m_bWireFrame(false),
@@ -530,7 +530,7 @@ void CommonMesh::CreateBox(LPDIRECT3DDEVICE9 pD3DDevice,D3DXVECTOR3& size,
 			pVB->Unlock();
 		}
 		//影ボリュームを作成
-		m_pShadowVolume = new ShadowVolume(pD3DDevice,m_pMesh);
+		//m_pShadowVolume = new ShadowVolume(pD3DDevice,m_pMesh);
 	}
 	catch(...){
 		//後始末
@@ -607,7 +607,7 @@ void CommonMesh::CreateSphere(LPDIRECT3DDEVICE9 pD3DDevice,FLOAT radius,
 			pVB->Unlock();
 		}
 		//影ボリュームを作成
-		m_pShadowVolume = new ShadowVolume(pD3DDevice,m_pMesh);
+		//m_pShadowVolume = new ShadowVolume(pD3DDevice,m_pMesh);
 	}
 	catch(...){
 		//後始末
@@ -690,7 +690,7 @@ void CommonMesh::CreateTorus(LPDIRECT3DDEVICE9 pD3DDevice,
 			pVB->Unlock();
 		}
 		//影ボリュームを作成
-		m_pShadowVolume = new ShadowVolume(pD3DDevice,m_pMesh);
+		//m_pShadowVolume = new ShadowVolume(pD3DDevice,m_pMesh);
 	}
 	catch(...){
 		//後始末
@@ -773,7 +773,7 @@ void CommonMesh::CreateCylinder(LPDIRECT3DDEVICE9 pD3DDevice,
 			pVB->Unlock();
 		}
 		//影ボリュームを作成
-		m_pShadowVolume = new ShadowVolume(pD3DDevice,m_pMesh);
+		//m_pShadowVolume = new ShadowVolume(pD3DDevice,m_pMesh);
 	}
 	catch(...){
 		//後始末
@@ -858,7 +858,7 @@ void CommonMesh::CreatePolygon(LPDIRECT3DDEVICE9 pD3DDevice,
 			pVB->Unlock();
 		}
 		//影ボリュームを作成
-		m_pShadowVolume = new ShadowVolume(pD3DDevice,m_pMesh);
+		//m_pShadowVolume = new ShadowVolume(pD3DDevice,m_pMesh);
 	}
 	catch(...){
 		//後始末
@@ -1035,17 +1035,17 @@ void CommonMesh::Draw(DrawPacket& i_DrawPacket) {
 void CommonMesh::DrawCommonShadowVolume(
 	LPDIRECT3DDEVICE9 pD3DDevice,D3DXMATRIX& AllMatrix,
 	LPD3DXEFFECT pEffect,D3DXMATRIX& mCameraView,D3DXMATRIX& mCameraProj){
-	if(m_pShadowVolume){
-		//オブジェクトのワールド行列をカメラ視線にして登録
-		D3DXMATRIX WorldView;
-		WorldView =  AllMatrix * mCameraView;
-		pEffect->SetMatrix("g_mWorldView",&WorldView);
-		//カメラのプロジェクトまで含んだ行列を登録
-		WorldView = WorldView * mCameraProj;
-		pEffect->SetMatrix("g_mWorldViewProjection",&WorldView);
-		//影ボリュームの描画
-		m_pShadowVolume->Draw(pD3DDevice,pEffect);
-	}
+	//if(m_pShadowVolume){
+	//	//オブジェクトのワールド行列をカメラ視線にして登録
+	//	D3DXMATRIX WorldView;
+	//	WorldView =  AllMatrix * mCameraView;
+	//	pEffect->SetMatrix("g_mWorldView",&WorldView);
+	//	//カメラのプロジェクトまで含んだ行列を登録
+	//	WorldView = WorldView * mCameraProj;
+	//	pEffect->SetMatrix("g_mWorldViewProjection",&WorldView);
+	//	//影ボリュームの描画
+	//	m_pShadowVolume->Draw(pD3DDevice,pEffect);
+	//}
 }
 
 /**************************************************************************
@@ -2824,10 +2824,12 @@ void MultiTorus::ChangeDevice(LPDIRECT3DDEVICE9 pD3DDevice){
  用途: コンストラクタ
  戻り値: なし（失敗時は例外をthrow）
 ***************************************************************************/
-SimpleCommonMesh::SimpleCommonMesh(D3DXVECTOR3& Pos,D3DXVECTOR3& Rot,
-        D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,
-		wiz::OBJID id,
-		bool IsShadowActive,LPDIRECT3DTEXTURE9 pTexture)
+SimpleCommonMesh::SimpleCommonMesh(
+		const D3DXVECTOR3& Pos,const D3DXVECTOR3& Rot,
+        const D3DCOLORVALUE& Diffuse,const D3DCOLORVALUE& Specular,const D3DCOLORVALUE& Ambient,
+		const wiz::OBJID id,
+		const bool IsShadowActive,const LPDIRECT3DTEXTURE9 pTexture
+	)
 :CommonMesh( id ),
 m_IsActive(true),
 m_BaseScale(1.0f,1.0f,1.0f),
@@ -3446,7 +3448,7 @@ void SimpleCommonMesh::SetBaseQt(D3DXQUATERNION& Qt){
  用途: 最初に作成されたスケーリングと位置と回転を同時に変更する
  戻り値: なし
 ***************************************************************************/
-void SimpleCommonMesh::SetBaseScalePosRot(D3DXVECTOR3& Scale,D3DXVECTOR3& Pos,D3DXVECTOR3& Rot){
+void SimpleCommonMesh::SetBaseScalePosRot(const D3DXVECTOR3& Scale,const D3DXVECTOR3& Pos,const D3DXVECTOR3& Rot){
 	m_BaseScale = Scale;
 	m_BasePos = Pos;
 	D3DXQuaternionIdentity(&m_BaseQt);
@@ -3737,10 +3739,12 @@ void Box::CreateInctance(LPDIRECT3DDEVICE9 pD3DDevice){
  用途: コンストラクタ
  戻り値: なし（失敗時は例外をthrow）
 ***************************************************************************/
-Box::Box(LPDIRECT3DDEVICE9 pD3DDevice,D3DXVECTOR3& size,D3DXVECTOR3& pos,D3DXVECTOR3& rot,
-        D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,
-		wiz::OBJID id,
-		bool IsShadowActive,LPDIRECT3DTEXTURE9 pTexture,int TexturePtn)
+Box::Box(const LPDIRECT3DDEVICE9 pD3DDevice,
+		 const D3DXVECTOR3& size,const D3DXVECTOR3& pos,const D3DXVECTOR3& rot,
+		 const D3DCOLORVALUE& Diffuse,const D3DCOLORVALUE& Specular,const D3DCOLORVALUE& Ambient,
+		 const wiz::OBJID id,
+		 const bool IsShadowActive,const LPDIRECT3DTEXTURE9 pTexture,const int TexturePtn
+	)
 :SimpleCommonMesh(pos,rot,Diffuse,Specular,Ambient,id,IsShadowActive,pTexture),
 m_Size(size),
 m_TexturePtn(TexturePtn)
@@ -3888,12 +3892,12 @@ void Sphere::CreateInctance(LPDIRECT3DDEVICE9 pD3DDevice){
  用途: コンストラクタ
  戻り値: なし（失敗時は例外をthrow）
 ***************************************************************************/
- Sphere::Sphere(LPDIRECT3DDEVICE9 pD3DDevice,
-		FLOAT radius,D3DXVECTOR3& pos,D3DXVECTOR3& rot,
-        D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,
-		wiz::OBJID id,
-		bool IsShadowActive,LPDIRECT3DTEXTURE9 pTexture,
-		UINT Slices,UINT Stacks)
+ Sphere::Sphere(const LPDIRECT3DDEVICE9 pD3DDevice,
+		const FLOAT radius,const D3DXVECTOR3& pos,const D3DXVECTOR3& rot,
+        const D3DCOLORVALUE& Diffuse,const D3DCOLORVALUE& Specular,const D3DCOLORVALUE& Ambient,
+		const wiz::OBJID id,
+		const bool IsShadowActive,const LPDIRECT3DTEXTURE9 pTexture,
+		const UINT Slices,const UINT Stacks)
 :SimpleCommonMesh(pos,rot,Diffuse,Specular,Ambient,id,IsShadowActive,pTexture),
 m_Radius(radius),
 m_Slices(Slices),
@@ -3979,13 +3983,13 @@ void Cylinder::CreateInctance(LPDIRECT3DDEVICE9 pD3DDevice){
  用途: コンストラクタ
  戻り値: なし（失敗時は例外をthrow）
 ***************************************************************************/
- Cylinder::Cylinder(LPDIRECT3DDEVICE9 pD3DDevice,
-	 FLOAT Radius1,FLOAT Radius2,FLOAT Length,
-	 D3DXVECTOR3& pos,D3DXVECTOR3& rot,
-	 D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,
-	 wiz::OBJID id,
-	 bool IsShadowActive,LPDIRECT3DTEXTURE9 pTexture,
-	 UINT Slices,UINT Stacks)
+ Cylinder::Cylinder(const LPDIRECT3DDEVICE9 pD3DDevice,
+	 const FLOAT Radius1,const FLOAT Radius2,const FLOAT Length,
+	 const D3DXVECTOR3& pos,const D3DXVECTOR3& rot,
+	 const D3DCOLORVALUE& Diffuse,const D3DCOLORVALUE& Specular,const D3DCOLORVALUE& Ambient,
+	 const wiz::OBJID id,
+	 const bool IsShadowActive,const LPDIRECT3DTEXTURE9 pTexture,
+	 const UINT Slices,const UINT Stacks)
 :SimpleCommonMesh(pos,rot,Diffuse,Specular,Ambient,id,IsShadowActive,pTexture),
 m_Radius1(Radius1),
 m_Radius2(Radius2),
@@ -4112,12 +4116,12 @@ void Torus::CreateInctance(LPDIRECT3DDEVICE9 pD3DDevice){
  戻り値: なし（失敗時は例外をthrow）
 ***************************************************************************/
 Torus::Torus(
-		LPDIRECT3DDEVICE9 pD3DDevice,
-		FLOAT InnerRadius,FLOAT OuterRadius,D3DXVECTOR3& pos,D3DXVECTOR3& rot,
-		D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,
-		wiz::OBJID id,
-		bool IsShadowActive,LPDIRECT3DTEXTURE9 pTexture,
-		UINT Sides,UINT Rings)
+		const LPDIRECT3DDEVICE9 pD3DDevice,
+		const FLOAT InnerRadius,const FLOAT OuterRadius,const D3DXVECTOR3& pos,const D3DXVECTOR3& rot,
+		const D3DCOLORVALUE& Diffuse,const D3DCOLORVALUE& Specular,const D3DCOLORVALUE& Ambient,
+		const wiz::OBJID id,
+		const bool IsShadowActive,const LPDIRECT3DTEXTURE9 pTexture,
+		const UINT Sides,const UINT Rings)
 :SimpleCommonMesh(pos,rot,Diffuse,Specular,Ambient,id,IsShadowActive,pTexture),
 m_InnerRadius(InnerRadius),
 m_OuterRadius(OuterRadius),

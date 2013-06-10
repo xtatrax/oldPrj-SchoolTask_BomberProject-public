@@ -20,6 +20,7 @@
 namespace wiz{
 namespace bomberobject{
 
+const	int	DRAWING_NUMBER	= 26;
 /**************************************************************************
 class CheckEffect;
 
@@ -34,7 +35,9 @@ class CheckEffect : public PrimitiveBox{
 	float			m_fHight;
 	bool			m_bMark;
 	bool			m_bStart;
+	bool			m_bCreating;
 	PlayerCoil*		m_pCoil;
+	float			m_fPosXArr[DRAWING_NUMBER];
 public:
 	/////////////////// ////////////////////
 	//// 用途       ：Description(	LPDIRECT3DDEVICE9 pD3DDevice,LPDIRECT3DTEXTURE9 pTexture,wiz::OBJID id = OBJID_3D_WALL);
@@ -79,8 +82,18 @@ public:
 	////
 	void update( int i ,DrawPacket& i_DrawPacket);
 
+/************************************
+関数名　：void Pos_Update( int i )
+用途　　：描画位置の更新
+カテゴリ：
+引数　　：int i     //変更したいエフェクトの指定
+戻り値　：
+担当者　：佐藤涼
+備考　　：
+************************************/
+	void Pos_Update( int i );
 /*************************************
-関数名　：
+関数名　：void	Reduction()
 用途　　：サイズ縮小
 カテゴリ：
 引数　　：
@@ -91,7 +104,7 @@ public:
 	void	Reduction();
 
 /*************************************
-関数名　：
+関数名　：void Expansion()
 用途　　：サイズ拡大（拡大率は縦横等価）
 カテゴリ：
 引数　　：
@@ -101,13 +114,83 @@ public:
 *************************************/
 	void	Expansion();
 
+/*************************************
+関数名　：void setPosY( float posY )
+用途　　：Y座標のみ変更
+カテゴリ：
+引数　　：float posY   //変更後Y座標
+戻り値　：
+担当者　：佐藤涼
+備考　　：
+*************************************/
 	void	setPosY( float posY ){
 		m_vPos.y	= posY;
 	}
 
-	void	setStart(bool i){
-		m_bStart	= i;
+/******************************************
+関数名　：void setStart( bool i_bStart )
+用途　　：アニメーション
+カテゴリ：
+引数　　：bool i_bStart    //アニメーション開始フラグ
+戻り値　：
+担当者　：佐藤涼
+備考　　：
+******************************************/
+	void	setStart(bool i_bStart){
+		m_bStart	= i_bStart;
 	}
+
+/******************************************
+関数名　：bool setCreating(bool i_bCreating)
+用途　　：エフェクトの作成ができるか設定
+カテゴリ：
+引数　　：bool i_bCreating  //エフェクトの作成できるかフラグ
+戻り値　：
+担当者　：佐藤涼
+備考　　：
+******************************************/
+	void	setCreating(bool i_bCreating){
+		m_bCreating	= i_bCreating;
+	}
+
+/******************************************
+関数名　：bool getStart()
+用途　　：アニメーションしているか
+カテゴリ：
+引数　　：
+戻り値　：bool値　アニメーションしているか
+担当者　：佐藤涼
+備考　　：
+******************************************/
+	bool	getStart(){
+		return	m_bStart;
+	}
+
+/******************************************
+関数名　：bool getMark()
+用途　　：中途開始地点の描画をしているか
+カテゴリ：
+引数　　：
+戻り値　：bool値　中途開始地点の描画をしているか
+担当者　：佐藤涼
+備考　　：
+******************************************/
+	bool	getMark(){
+		return	m_bMark;
+	}
+/******************************************
+関数名　：bool getCreating()
+用途　　：エフェクトの作成ができるか
+カテゴリ：
+引数　　：
+戻り値　：bool値　エフェクトの作成ができるか
+担当者　：佐藤涼
+備考　　：
+******************************************/
+	bool	getCreating(){
+		return	m_bCreating;
+	}
+
 };
 
 /******************************************************:
@@ -127,6 +210,7 @@ protected:
 	Camera*					m_pCamera		;
 	PlayerCoil*				m_pCoil			;
 	CheckEffect*			m_pEffect		;
+	CheckEffect*			m_pEffect2		;
 	Sound*					m_pSound		;
 	D3DCOLORVALUE			m_Color			;
 	float					m_Thicken		;

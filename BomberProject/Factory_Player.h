@@ -152,8 +152,14 @@ class	MagneticField : public Cylinder{
 	D3DXVECTOR3	m_vNormalSize;
 	D3DXMATRIX	m_mMatrix;
 public:
-	MagneticField(LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTexture,
-		D3DXVECTOR3 &vScale, D3DXQUATERNION &vRot, D3DXVECTOR3 &vPos,bool bEffect);
+	MagneticField(
+		const LPDIRECT3DDEVICE9		pD3DDevice	,
+		const LPDIRECT3DTEXTURE9	pTexture	,
+		const D3DXVECTOR3&			vScale		,
+		const D3DXQUATERNION&		vRot		,
+		const D3DXVECTOR3&			vPos		,
+		const bool					bEffect
+	);
     void	Draw(DrawPacket& i_DrawPacket) ;
 	void	Update(UpdatePacket& i_UpdatePacket);
 

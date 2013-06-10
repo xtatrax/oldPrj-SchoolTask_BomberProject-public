@@ -39,7 +39,7 @@ private:
 	LPDIRECT3D9				m_pD3D			;	// IDirect3D9インターフェイスへのポインタ
 	LPDIRECT3DDEVICE9		m_pD3DDevice	;	// IDirect3DDevice9インターフェイスへのポインタ
 	D3DPRESENT_PARAMETERS	m_D3DPP			;	// デバイスのプレゼンテーションパラメータ
-	CONTROLLERS*			m_pController	;	// コントローラのポインタ
+	CONTROLLERS				m_Controller	;	// コントローラのポインタ
 	Command					m_Com			;	// コマンド
 	UpdatePacket			m_UpdatePacket	;	// アップデートスレッドの処理に流すデータ群
 	RenderPacket			m_RenderPacket	;	// レンダースレッドの処理に流すデータ群
