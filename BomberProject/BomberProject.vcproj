@@ -646,6 +646,18 @@
 						>
 					</File>
 				</Filter>
+				<Filter
+					Name="ScrollFactory"
+					>
+					<File
+						RelativePath=".\Factory_Scroll.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Factory_Scroll.h"
+						>
+					</File>
+				</Filter>
 			</Filter>
 			<Filter
 				Name="Prim"
@@ -826,18 +838,6 @@
 				</Filter>
 			</Filter>
 			<Filter
-				Name="DebugFunctions"
-				>
-				<File
-					RelativePath=".\DebugFunctions.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\DebugFunctions.h"
-					>
-				</File>
-			</Filter>
-			<Filter
 				Name="Input"
 				>
 				<File
@@ -890,6 +890,18 @@
 				</File>
 				<File
 					RelativePath=".\SeiyaEffect.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="DebugFunctions"
+				>
+				<File
+					RelativePath=".\DebugFunctions.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\DebugFunctions.h"
 					>
 				</File>
 			</Filter>

@@ -103,7 +103,6 @@ void WallObject::UpdateTargetItem(){
 	//
 	//
 	//////////
-
 	//////////
 	//	描画対象の追加
 	//
@@ -119,7 +118,6 @@ void WallObject::UpdateTargetItem(){
 	//
 	//
 	//////////
-	
 }
 
 	
@@ -173,9 +171,42 @@ void WallObject::Draw(DrawPacket& i_DrawPacket)
 	TARGETCONTAINER::iterator it	= m_ItemMap_Target.begin();
 	TARGETCONTAINER::iterator end	= m_ItemMap_Target.end();
 	while(it != end){
-		this->m_WorldMatrix = (*it)->m_Matrix   ;
-		Box::Draw(i_DrawPacket);
+		//テクスチャがある場合
+		if(m_pPolyTex){
+			m_pTexture	= m_pPolyTex;
+			DWORD wkdword;
+			//現在のテクスチャステータスを得る
+			i_DrawPacket.pD3DDevice->GetTextureStageState(0,D3DTSS_COLOROP,&wkdword);
+			//ステージの設定
+			i_DrawPacket.pD3DDevice->SetTexture(0,m_pTexture);
+			//デフィーズ色とテクスチャを掛け合わせる設定
+			i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLOROP, D3DTOP_MODULATE4X );
+			i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLORARG1, D3DTA_TEXTURE );
+			i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLORARG2, D3DTA_DIFFUSE );
 
+			//i_DrawPacket.pD3DDevice->SetFVF(PlateFVF);
+			// マトリックスをレンダリングパイプラインに設定
+			i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &(*it)->m_Matrix);
+
+			//田村T透過案
+			//i_DrawPacket.pD3DDevice->SetRenderState(D3DRS_ALPHATESTENABLE,TRUE);
+			//i_DrawPacket.pD3DDevice->SetRenderState(D3DRS_ALPHAFUNC,D3DCMP_GREATEREQUAL);
+			//float	f	= 0.5f ;
+			//i_DrawPacket.pD3DDevice->SetRenderState(D3DRS_ALPHAREF,*(DWORD*)&f);
+
+			//コモンメッシュのDraw()を呼ぶ
+			CommonMesh::Draw(i_DrawPacket);
+			i_DrawPacket.pD3DDevice->SetTexture(0,0);
+			//ステージを元に戻す
+			i_DrawPacket.pD3DDevice->SetTextureStageState(0,D3DTSS_COLOROP,wkdword);
+		}
+		else{
+		//テクスチャがない場合
+			// マトリックスをレンダリングパイプラインに設定
+			i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &(*it)->m_Matrix);
+			//コモンメッシュのDraw()を呼ぶ
+			CommonMesh::Draw(i_DrawPacket);
+		}
 #if defined(ON_DEBUGGINGPROCESS) | defined( PRESENTATION )
 		if( (*it)->m_pDOB ){
 			(*it)->m_pDOB->Draw(i_DrawPacket);

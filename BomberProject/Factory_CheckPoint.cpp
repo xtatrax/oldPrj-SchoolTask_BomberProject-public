@@ -322,33 +322,33 @@ void CheckPoint::Update( UpdatePacket& i_UpdatePacket ){
 			m_pSound->SearchWaveAndPlay( RCTEXT_SOUND_SE_CHECKPOINT );
 			if(m_ActiveItem <= m_ItemContainer.size()) return ;
 		}
-	}
 
-	D3DXVECTOR3	pos	= D3DXVECTOR3(0.0f,m_ItemContainer[ m_ActiveItem ]->fPosY,0.0f);
-	if( m_pEffect != NULL ){
-		if( !(m_pEffect->getStart()) )
-			m_pEffect->setPosY( m_ItemContainer[ m_ActiveItem ]->fPosY );
-		else{
-			if( m_pEffect->getCreating() ){
-				m_pEffect2	= new CheckEffect( i_UpdatePacket.pD3DDevice, 
-							pos, m_Length, m_pTexture);
-				m_pEffect->setCreating( false );
+		D3DXVECTOR3	pos	= D3DXVECTOR3(0.0f,m_ItemContainer[ m_ActiveItem ]->fPosY,0.0f);
+		if( m_pEffect != NULL ){
+			if( !(m_pEffect->getStart()) )
+				m_pEffect->setPosY( m_ItemContainer[ m_ActiveItem ]->fPosY );
+			else{
+				if( m_pEffect->getCreating() ){
+					m_pEffect2	= new CheckEffect( i_UpdatePacket.pD3DDevice, 
+								pos, m_Length, m_pTexture);
+					m_pEffect->setCreating( false );
+				}
 			}
+			m_pEffect->Update( i_UpdatePacket );
 		}
-		m_pEffect->Update( i_UpdatePacket );
-	}
 
-	if( m_pEffect2 != NULL ){
-		if( !(m_pEffect2->getStart()) )
-			m_pEffect2->setPosY( m_ItemContainer[ m_ActiveItem ]->fPosY );
-		else{
-			if( m_pEffect2->getCreating() ){
-				m_pEffect	= new CheckEffect( i_UpdatePacket.pD3DDevice, 
-							pos, m_Length, m_pTexture);
-				m_pEffect2->setCreating( false );
+		if( m_pEffect2 != NULL ){
+			if( !(m_pEffect2->getStart()) )
+				m_pEffect2->setPosY( m_ItemContainer[ m_ActiveItem ]->fPosY );
+			else{
+				if( m_pEffect2->getCreating() ){
+					m_pEffect	= new CheckEffect( i_UpdatePacket.pD3DDevice, 
+								pos, m_Length, m_pTexture);
+					m_pEffect2->setCreating( false );
+				}
 			}
+			m_pEffect2->Update( i_UpdatePacket );
 		}
-		m_pEffect2->Update( i_UpdatePacket );
 	}
 
 	//Blink();

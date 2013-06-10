@@ -38,7 +38,7 @@ const float ENEMY_RADIUS = 1.5f;
 //**************************************************************************//	
 class EnemySphere : public PrimitiveSphere {
 	Camera*					m_pCamera	;
-	Sound*					m_pSound;
+	Sound*					m_pSound	;
 	ProvisionalPlayer3D*	m_pPlayer	;
 	PlayerCoil*				m_pCoil		;
 	bool					m_bReset	;
@@ -53,6 +53,7 @@ class EnemySphere : public PrimitiveSphere {
 		D3DXQUATERNION	m_vRot			;
 		POLE			m_bPole			;
 		bool			m_vIsAlive		;
+
 		DeadEffect*		m_pDeadEffect[PARTICLS_NUM_ENEMY]	;
 		EnemyItem():m_bHidden(true){}
 		virtual ~EnemyItem(){}
