@@ -101,7 +101,6 @@ void WallObject::UpdateTargetItem(){
 	//
 	//
 	//////////
-
 	//////////
 	//	•`‰æ‘ÎÛ‚Ì’Ç‰Á
 	//
@@ -117,7 +116,6 @@ void WallObject::UpdateTargetItem(){
 	//
 	//
 	//////////
-	
 }
 
 	

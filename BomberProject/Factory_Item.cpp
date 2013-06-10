@@ -87,8 +87,8 @@ Item::~Item(){
 備考　　　：
 ***************************************************************/
 void	Item::Draw(DrawPacket &i_DrawPacket){
-	multimap<float,BallItem*>::iterator it = m_ItemMap_All.begin();
-	while(it != m_ItemMap_All.end()){
+	TARGETCONTAINER::iterator it = m_ItemMap_Target.begin();
+	while(it != m_ItemMap_Target.end()){
 		//テクスチャがある場合
 		if(m_pTexture){
 			DWORD wkdword;
@@ -103,7 +103,7 @@ void	Item::Draw(DrawPacket &i_DrawPacket){
 
 			//i_DrawPacket.pD3DDevice->SetFVF(PlateFVF);
 			// マトリックスをレンダリングパイプラインに設定
-			i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &it->second->m_mMatrix);
+			i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &(*it)->m_mMatrix);
 			//コモンメッシュのDraw()を呼ぶ
 			CommonMesh::Draw(i_DrawPacket);
 			i_DrawPacket.pD3DDevice->SetTexture(0,0);
@@ -113,7 +113,7 @@ void	Item::Draw(DrawPacket &i_DrawPacket){
 		else{
 		//テクスチャがない場合
 			// マトリックスをレンダリングパイプラインに設定
-			i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &it->second->m_mMatrix);
+			i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &(*it)->m_mMatrix);
 			//コモンメッシュのDraw()を呼ぶ
 			CommonMesh::Draw(i_DrawPacket);
 		}
@@ -141,7 +141,7 @@ void Item::setDrawTarget(){
 	//
 	//
 	//////////
-
+	Debugger::DBGSTR::addStr( L"TargetItem : %d Q'ty\n",m_ItemMap_Target.size());
 	//////////
 	//	描画対象の追加
 	//
@@ -157,6 +157,8 @@ void Item::setDrawTarget(){
 	//
 	//
 	//////////
+	Debugger::DBGSTR::addStr( L"TargetItem : %d Q'ty\n",m_ItemMap_Target.size());
+	Debugger::DBGSTR::addStr( L"ALLItem : %d Q'ty\n",m_ItemMap_All.size());
 }
 
 /*******************************************************************
@@ -184,8 +186,6 @@ void	Item::Update(UpdatePacket& i_UpdatePacket)
 	D3DXVECTOR3	cPos	= m_pPlayerCoil->getPos();
 
 	setDrawTarget();
-
-	Debugger::DBGSTR::addStr(L"ItemAll = %d\n",m_ItemMap_Target.size());
 
 	TARGETCONTAINER::iterator it = m_ItemMap_Target.begin();
 
