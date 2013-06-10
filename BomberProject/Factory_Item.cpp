@@ -187,8 +187,6 @@ void	Item::Update(UpdatePacket& i_UpdatePacket)
 
 	setDrawTarget();
 
-	Debugger::DBGSTR::addStr(L"ItemAll = %d\n",m_ItemMap_Target.size());
-
 	TARGETCONTAINER::iterator it = m_ItemMap_Target.begin();
 
 	while(it != m_ItemMap_Target.end()){
