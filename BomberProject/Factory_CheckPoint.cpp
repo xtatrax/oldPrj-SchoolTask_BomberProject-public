@@ -50,6 +50,8 @@ CheckEffect::CheckEffect(LPDIRECT3DDEVICE9 pD3DDevice,
 ,m_fWide( EFFECT_SIZE*4 )
 ,m_fHight( EFFECT_SIZE )
 ,m_bMark( false )
+,m_bStart( false )
+,m_bCreating( true )
 ,m_pCoil( NULL )
 {
 	::ZeroMemory( &m_Material, sizeof(D3DMATERIAL9));
@@ -73,6 +75,9 @@ CheckEffect::CheckEffect(LPDIRECT3DDEVICE9 pD3DDevice,
 	}
 	pVB->Unlock();
 
+	for( int i = 0; i < DRAWING_NUMBER; i++ ){
+		m_fPosXArr[i]	= float(i*2);
+	}
 }
 
 /////////////////// ////////////////////
@@ -92,9 +97,9 @@ void CheckEffect::Draw(DrawPacket& i_DrawPacket)
 	//描画する個数を設定
 	int	num	= 0;
 	if( m_bMark )	num	= 1;
-	else			num	= m_Num;
+	else			num	= DRAWING_NUMBER;
 
-	for( int i = 1; i <= num; i++ ){
+	for( int i = 0; i < num; i++ ){
 		//updateで描画位置を決定
 		update( i ,i_DrawPacket);
 
@@ -146,21 +151,28 @@ void CheckEffect::Draw(DrawPacket& i_DrawPacket)
 ////
 void CheckEffect::update( int i ,DrawPacket& i_DrawPacket){
 
+	if( !m_pCoil   ) m_pCoil   = (PlayerCoil*)SearchObjectFromTypeID( i_DrawPacket.pVec, typeid(PlayerCoil) );
 	//スタート位置にエフェクトを出すか
 	if( !m_bMark ){
-		m_vPos.x	= float(i*2-1);
-		if( m_fWide > 0.0f )
-				;//Reduction();
+		if( m_fWide > 0.0f ){
+			if( m_bStart ){
+				if( m_pCoil != NULL ){
+					Pos_Update(i);
+				}
+				Reduction();
+			}
+		}
 		else{
 			m_bMark	= true;
 			m_Material.Ambient.r	= 0;
 			m_Material.Ambient.g	= 0;
 			m_Material.Ambient.b	= 0;
 		}
+		m_vPos.x	= m_fPosXArr[i];
 	}
 	else{
-		if( !m_pCoil   ) m_pCoil   = (PlayerCoil*)SearchObjectFromTypeID( i_DrawPacket.pVec, typeid(PlayerCoil) );
-		m_vPos	= m_pCoil->getStartPos();
+		if( m_pCoil != NULL )
+			m_vPos	= m_pCoil->getStartPos();
 		if( m_fWide < EFFECT_SIZE*3 )
 			Expansion();
 	}
@@ -181,6 +193,31 @@ void CheckEffect::update( int i ,DrawPacket& i_DrawPacket){
 
 }
 
+/************************************
+関数名　：void Pos_Update( int i )
+用途　　：描画位置の更新
+カテゴリ：
+引数　　：int i     //変更したいエフェクトの指定
+戻り値　：
+担当者　：佐藤涼
+備考　　：
+************************************/
+void	CheckEffect::Pos_Update( int i ){
+	float	MigrationRate	= m_pCoil->getStartPos().x - m_fPosXArr[i];
+	//描画すべき位置を算出
+	m_fPosXArr[i]	+= MigrationRate/10.0f + 0.2f;
+	if( MigrationRate > 0.0f ){
+		m_fPosXArr[i]	+= MigrationRate/10.0f + 0.2f;
+		if( m_pCoil->getStartPos().x - m_fPosXArr[i] < 0.0f )
+			m_fPosXArr[i]	= m_pCoil->getStartPos().x;
+	}
+	else if( MigrationRate < 0.0f ){
+		m_fPosXArr[i]	+= MigrationRate/10.0f - 0.2f;
+		if( m_pCoil->getStartPos().x - m_fPosXArr[i] > 0.0f )
+			m_fPosXArr[i]	= m_pCoil->getStartPos().x;
+	}
+}
+
 /*************************************
 関数名　：void	CheckEffect::Reduction()
 用途　　：サイズ縮小
@@ -193,8 +230,8 @@ void CheckEffect::update( int i ,DrawPacket& i_DrawPacket){
 void	CheckEffect::Reduction(){
 	float	rate = m_fWide / m_fHight;
 
-	m_fWide		-= 0.001f*rate;
-	m_fHight	-= 0.001f;
+	m_fWide		-= 0.002f*rate;
+	m_fHight	-= 0.002f;
 }
 
 /*************************************
@@ -207,8 +244,8 @@ void	CheckEffect::Reduction(){
 備考　　：
 *************************************/
 void	CheckEffect::Expansion(){
-	m_fWide		+= 0.04f;
-	m_fHight	+= 0.04f;
+	m_fWide		+= 0.08f;
+	m_fHight	+= 0.08f;
 
 	//float rate	= (EFFECT_SIZE*3) / 0.04f;
 
@@ -226,7 +263,6 @@ CheckPoint::CheckPoint( LPDIRECT3DDEVICE9 pD3DDevice, float fLength,LPDIRECT3DTE
 		   , 0.0f ), CHECKPOINTCOLOR, D3DCOLORVALUE(), CHECKPOINTCOLOR, id, false, NULL, 18) 
 , m_pCoil( NULL )
 , m_pCamera( NULL )
-, m_pEffect( NULL )
 , m_pSound( NULL )
 , m_ActiveItem( NULL )
 , m_Color( CHECKPOINTCOLOR )
@@ -235,10 +271,13 @@ CheckPoint::CheckPoint( LPDIRECT3DDEVICE9 pD3DDevice, float fLength,LPDIRECT3DTE
 , m_pTexture( pTexture )
 {
 	m_pEffect	= new CheckEffect( pD3DDevice, g_vZero, fLength, pTexture );
+	m_pEffect2	= NULL;
 }
 CheckPoint::~CheckPoint(){
 	m_pCoil		= NULL ;
 	m_pCamera	= NULL ;
+	SAFE_DELETE( m_pEffect );
+	SAFE_DELETE( m_pEffect2 );
 	SafeDeletePointerContainer( m_ItemContainer ) ;
 }
 /////////////////// ////////////////////
@@ -267,22 +306,52 @@ void CheckPoint::Update( UpdatePacket& i_UpdatePacket ){
 		if(fPosY <= fCoilPosY){
 			m_pCoil->setStartPos(m_ItemContainer[ m_ActiveItem ]->vStartPos);
 			m_ActiveItem++;
+			if( m_pEffect != NULL ){
+				if( m_pEffect2 != NULL ){
+					if( m_pEffect->getMark() ){
+						m_pEffect2->setStart(true);
+					}
+					else{
+						m_pEffect->setStart(true);
+					}
+				}
+				else{
+					m_pEffect->setStart(true);
+				}
+			}
 			m_pSound->SearchWaveAndPlay( RCTEXT_SOUND_SE_CHECKPOINT );
-			//SafeDelete( m_pEffect );
-			//m_pEffect	= new CheckEffect( i_UpdatePacket.pD3DDevice, m_pCoil->getStartPos()/*m_vPos*/, m_Length, m_pTexture );
 			if(m_ActiveItem <= m_ItemContainer.size()) return ;
 		}
 	}
 
+	D3DXVECTOR3	pos	= D3DXVECTOR3(0.0f,m_ItemContainer[ m_ActiveItem ]->fPosY,0.0f);
 	if( m_pEffect != NULL ){
-		m_pEffect->setPosY( m_ItemContainer[ m_ActiveItem ]->fPosY );
+		if( !(m_pEffect->getStart()) )
+			m_pEffect->setPosY( m_ItemContainer[ m_ActiveItem ]->fPosY );
+		else{
+			if( m_pEffect->getCreating() ){
+				m_pEffect2	= new CheckEffect( i_UpdatePacket.pD3DDevice, 
+							pos, m_Length, m_pTexture);
+				m_pEffect->setCreating( false );
+			}
+		}
 		m_pEffect->Update( i_UpdatePacket );
 	}
 
-	Blink();
-	//m_Color.b = 1;
-	//m_Material.Diffuse	= m_Color;
-	//m_Material.Ambient	= m_Color;
+	if( m_pEffect2 != NULL ){
+		if( !(m_pEffect2->getStart()) )
+			m_pEffect2->setPosY( m_ItemContainer[ m_ActiveItem ]->fPosY );
+		else{
+			if( m_pEffect2->getCreating() ){
+				m_pEffect	= new CheckEffect( i_UpdatePacket.pD3DDevice, 
+							pos, m_Length, m_pTexture);
+				m_pEffect2->setCreating( false );
+			}
+		}
+		m_pEffect2->Update( i_UpdatePacket );
+	}
+
+	//Blink();
 };
 
 /////////////////// ////////////////////
@@ -317,6 +386,9 @@ void CheckPoint::Draw( DrawPacket& i_DrawPacket ){
 
 	if( m_pEffect != NULL ){
 		m_pEffect->Draw( i_DrawPacket );
+	}
+	if( m_pEffect2 != NULL ){
+		m_pEffect2->Draw( i_DrawPacket );
 	}
 
 };

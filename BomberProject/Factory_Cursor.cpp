@@ -52,7 +52,7 @@ MouseCursor::MouseCursor( LPDIRECT3DDEVICE9 pD3DDevice, TextureManager* m_pTexMg
 	const	D3DXVECTOR3	vDir2	= D3DXVECTOR3( cosf( D3DXToRadian(0.0f) ), sinf( D3DXToRadian(0.0f) ), 0.0f );
 	const	float		fRange	= 100.0f;
 	m_pLine		= new Line( g_vZero, vDir, fRange, 0xFFFFFF00 );
-	m_pLine2		= new Line( m_pLine->getEndPos(), vDir2, fRange*2, 0xFFFFFF00 );
+	m_pLine2	= new Line( m_pLine->getEndPos(), vDir2, fRange*2, 0xFFFFFF00 );
 
 	m_pTorus	= new Torus(
 		pD3DDevice,
@@ -82,9 +82,9 @@ MouseCursor::MouseCursor( LPDIRECT3DDEVICE9 pD3DDevice, TextureManager* m_pTexMg
 //// 備考       ：
 MouseCursor::~MouseCursor(){
 	m_MovePosY	= 0 ;
-	m_pLine		= NULL;
-	m_pLine2	= NULL;
-	m_pTorus	= NULL;
+	SafeDelete( m_pLine	 )	;
+	SafeDelete( m_pLine2 )	;
+	SafeDelete( m_pTorus )	;
 }
 
 
@@ -111,11 +111,8 @@ void MouseCursor::Update( UpdatePacket& i_UpdatePacket ){
 
 	static float s_fTimeCount = 0.0f;
 
-	//	: カーソルの設定
-	//	: マウスのクライアント座標を獲得
-	GetCursorPos( &m_v2DPos ) ;
-	ScreenToClient( g_hWnd , &m_v2DPos) ;
-	
+	Update2DPos();
+
 	//	: 座標の更新
 	D3DXMATRIX mPos ;
 	D3DXMatrixTranslation( &mPos, (float)m_v2DPos.x, (float)m_v2DPos.y, 0.0f);
@@ -123,7 +120,7 @@ void MouseCursor::Update( UpdatePacket& i_UpdatePacket ){
 	//	: 行列の算出
 	m_mMatrix = m_mScale * mPos ;
 
-	UpdateCursor();
+	Update3DPos();
 
 	m_pLine->setMatrix( m_mMatrix );
 	m_pLine2->setMatrix( m_mMatrix );
@@ -169,8 +166,17 @@ void MouseCursor::Draw(DrawPacket& i_DrawPacket)
 	m_pLine2->draw(i_DrawPacket.pD3DDevice);
 	if(m_pCamera)m_pTorus->Draw(i_DrawPacket);
 }
+void MouseCursor::Update2DPos(){
+	//	: カーソルの設定
+	//	: マウスのクライアント座標を獲得
+	GetCursorPos( &m_v2DPos ) ;
+	Debugger::DBGSTR::addStr( L" Pos( %d, %d )\n" , m_v2DPos.x , m_v2DPos.y ) ;
+	ScreenToClient( g_hWnd , &m_v2DPos) ;
+	Debugger::DBGSTR::addStr( L" Pos( %d, %d )\n" , m_v2DPos.x , m_v2DPos.y ) ;
 
-void MouseCursor::UpdateCursor(){
+	
+}
+void MouseCursor::Update3DPos(){
 	if( m_pCamera ){
 
 		float fYPosCorrection = 10.0f ;

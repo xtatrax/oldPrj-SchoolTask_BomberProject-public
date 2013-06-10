@@ -34,8 +34,10 @@ namespace base2Dobject{
 //// 備考       ：
 ////            ：
 ////
-PrimitiveSprite::PrimitiveSprite(LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTexture, RECT* rect,
-	D3DXVECTOR3& vCenter, D3DXVECTOR3& vOffsetPos, Color color)
+PrimitiveSprite::PrimitiveSprite(
+	const LPDIRECT3DDEVICE9 pD3DDevice,
+	const LPDIRECT3DTEXTURE9 pTexture,const RECT* rect,
+	const D3DXVECTOR3& vCenter,const D3DXVECTOR3& vOffsetPos,const  Color color)
 	:m_pTexture(pTexture)
 	,m_vOffsetPos(vOffsetPos)
 	,m_vCenter(vCenter)
@@ -135,10 +137,10 @@ void PrimitiveSprite::Draw(DrawPacket& i_DrawPacket)
 //// 備考       ：
 ////            ：
 ////
-SpriteObject::SpriteObject(LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTexture,
-			D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos,
-			RECT *pRect, D3DXVECTOR3 &vCenter, D3DXVECTOR3 &vOffsetPos, Color color,
-			wiz::OBJID id)
+SpriteObject::SpriteObject(const LPDIRECT3DDEVICE9 pD3DDevice,const LPDIRECT3DTEXTURE9 pTexture,
+			const D3DXVECTOR3 &vScale,const D3DXVECTOR3 &vRot,const D3DXVECTOR3 &vPos,
+			const RECT *pRect,const D3DXVECTOR3 &vCenter,const D3DXVECTOR3 &vOffsetPos,const Color color,
+			const wiz::OBJID id)
 			:Object(id)
 			,PrimitiveSprite(pD3DDevice,pTexture,pRect,vCenter,vOffsetPos,color)
 {

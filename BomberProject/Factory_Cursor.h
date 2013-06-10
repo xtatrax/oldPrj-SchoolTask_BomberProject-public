@@ -168,7 +168,9 @@ public:
 protected:
 
 	//	: 
-	void UpdateCursor();
+	void Update2DPos();
+	//	: 
+	void Update3DPos();
 };
 
 /**************************************************************************
