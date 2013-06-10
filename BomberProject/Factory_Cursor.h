@@ -106,6 +106,7 @@ class MouseCursor : public Box , public  PrimitiveSprite{
 	Line*				m_pLine		;
 	Line*				m_pLine2	;
 	Torus*				m_pTorus	;
+	SpriteObject*		m_pSelectPos;
 	float				m_fTorusMagnification;
 //protected:
 
