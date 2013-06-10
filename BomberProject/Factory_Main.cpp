@@ -117,7 +117,6 @@ Factory_Main::Factory_Main(FactoryPacket* fpac, D3DXVECTOR3* vStartPos ){
 		Factory_Item		Ifac( fpac ) ;
 		Factory_Description	Dfac( fpac ) ;
 		Factory_Gage		Gfac( fpac );
-
 		Sound* pSound = NULL;
 		fpac->m_pVec->push_back(
 			pSound = new Sound( 
