@@ -84,20 +84,20 @@ void DxDevice::initDevice(HWND hWnd,bool isFullScreen,int Width,int Height)
         // 描画と頂点処理をハードウェアで行なう
         if(FAILED(m_pD3D->CreateDevice(D3DADAPTER_DEFAULT, 
                                         D3DDEVTYPE_HAL, 
-                                        hWnd, 
+                                        m_hWnd, 
                                         D3DCREATE_HARDWARE_VERTEXPROCESSING, 
                                         &m_D3DPP, &m_pD3DDevice))) {
             // 上記の設定が失敗したら
             // 描画をハードウェアで行い、頂点処理はCPUで行なう
             if(FAILED(m_pD3D->CreateDevice(D3DADAPTER_DEFAULT, 
                                             D3DDEVTYPE_HAL, 
-                                            hWnd, 
+                                            m_hWnd, 
                                             D3DCREATE_SOFTWARE_VERTEXPROCESSING, 
                                             &m_D3DPP, &m_pD3DDevice))) {
                 // 上記の設定が失敗したら
                 // 描画と頂点処理をCPUで行なう
                 if(FAILED(m_pD3D->CreateDevice(D3DADAPTER_DEFAULT, 
-                                                D3DDEVTYPE_REF, hWnd, 
+                                                D3DDEVTYPE_REF, m_hWnd, 
                                                 D3DCREATE_SOFTWARE_VERTEXPROCESSING, 
                                                 &m_D3DPP, &m_pD3DDevice))) {
                     // 初期化失敗
@@ -114,7 +114,7 @@ void DxDevice::initDevice(HWND hWnd,bool isFullScreen,int Width,int Height)
 			m_pD3D->GetDeviceCaps( i, D3DDEVTYPE_HAL, &cap[i]);
 		}
 		SafeDeleteArr( cap );
-        m_Controller = CONTROLLERS(hWnd);
+        m_Controller = CONTROLLERS(m_hWnd);
 		Debugger::DBGSTR::Init(m_pD3DDevice);
     }
     catch(...){
