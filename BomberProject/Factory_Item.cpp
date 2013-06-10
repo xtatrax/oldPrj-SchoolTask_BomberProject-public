@@ -72,7 +72,9 @@ Item::Item(FactoryPacket* fpac,LPDIRECT3DTEXTURE9 pTexture, wiz::OBJID id)
 ////            ：
 ////
 Item::~Item(){
-	SafeDeletePointerMap( m_ItemMap_All );	
+	SafeDeletePointerMap( m_ItemMap_All );
+	m_ItemMap_All.clear();
+	m_ItemMap_Target.clear();
 }
 
 /**************************************************************
@@ -85,8 +87,8 @@ Item::~Item(){
 備考　　　：
 ***************************************************************/
 void	Item::Draw(DrawPacket &i_DrawPacket){
-	multimap<float,BallItem*>::iterator it = m_ItemMap_All.begin();
-	while(it != m_ItemMap_All.end()){
+	TARGETCONTAINER::iterator it = m_ItemMap_Target.begin();
+	while(it != m_ItemMap_Target.end()){
 		//テクスチャがある場合
 		if(m_pTexture){
 			DWORD wkdword;
@@ -101,7 +103,7 @@ void	Item::Draw(DrawPacket &i_DrawPacket){
 
 			//i_DrawPacket.pD3DDevice->SetFVF(PlateFVF);
 			// マトリックスをレンダリングパイプラインに設定
-			i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &it->second->m_mMatrix);
+			i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &(*it)->m_mMatrix);
 			//コモンメッシュのDraw()を呼ぶ
 			CommonMesh::Draw(i_DrawPacket);
 			i_DrawPacket.pD3DDevice->SetTexture(0,0);
@@ -111,7 +113,7 @@ void	Item::Draw(DrawPacket &i_DrawPacket){
 		else{
 		//テクスチャがない場合
 			// マトリックスをレンダリングパイプラインに設定
-			i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &it->second->m_mMatrix);
+			i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &(*it)->m_mMatrix);
 			//コモンメッシュのDraw()を呼ぶ
 			CommonMesh::Draw(i_DrawPacket);
 		}
@@ -123,10 +125,28 @@ void	Item::Draw(DrawPacket &i_DrawPacket){
 void Item::setDrawTarget(){
 
 	//////////
+	//	描画対象外の削除
+	//
+	TARGETCONTAINER::iterator	TIMit  = m_ItemMap_Target.begin(),
+								TIMend = m_ItemMap_Target.end(  );
+	while( TIMit != TIMend ){
+		if( (*TIMit)->m_fMapKey <= m_pCamera->getPosY()  -DRAWING_RANGE ||
+			(*TIMit)->m_fMapKey >= m_pCamera->getPosY()  +DRAWING_RANGE ){
+			(*TIMit)->m_bHidden = true ;
+			TIMit = m_ItemMap_Target.erase( TIMit );
+			continue;
+		}
+		TIMit++ ;
+	}
+	//
+	//
+	//////////
+	Debugger::DBGSTR::addStr( L"TargetItem : %d Q'ty\n",m_ItemMap_Target.size());
+	//////////
 	//	描画対象の追加
 	//
-	ALLCONTAINER::iterator	AIMit  = m_ItemMap_All.lower_bound( m_pCamera->getPosY()  -20 ),
-							AIMend = m_ItemMap_All.upper_bound( m_pCamera->getPosY()  +20 );
+	ALLCONTAINER::iterator	AIMit  = m_ItemMap_All.lower_bound( m_pCamera->getPosY()  -DRAWING_RANGE ),
+							AIMend = m_ItemMap_All.upper_bound( m_pCamera->getPosY()  +DRAWING_RANGE );
 	while( AIMit != AIMend ){
 		if( AIMit->second->m_bHidden == true ){
 			AIMit->second->m_bHidden = false ;
@@ -137,6 +157,8 @@ void Item::setDrawTarget(){
 	//
 	//
 	//////////
+	Debugger::DBGSTR::addStr( L"TargetItem : %d Q'ty\n",m_ItemMap_Target.size());
+	Debugger::DBGSTR::addStr( L"ALLItem : %d Q'ty\n",m_ItemMap_All.size());
 }
 
 /*******************************************************************
@@ -214,12 +236,6 @@ void	Item::Update(UpdatePacket& i_UpdatePacket)
 			if(m_pSuperGage->getRate() >= 1.0f){
 				m_pPlayerCoil->setSuperMode(true);	
 			}
-		}
-		if( (*it)->m_fMapKey > m_pCamera->getPosY() +20 ||
-			(*it)->m_fMapKey < m_pCamera->getPosY() -20 ){
-				(*it)->m_bHidden = true ;
-				it = m_ItemMap_Target.erase(it);
-				continue;
 		}
 		//移動用
 		D3DXMATRIX mMove, mScale;
