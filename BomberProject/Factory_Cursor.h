@@ -102,6 +102,7 @@ class MouseCursor : public Box , public  PrimitiveSprite{
 	Camera*				m_pCamera	;
 	D3DXMATRIX			m_mScale	;
 	D3DXVECTOR3			m_v3DPos	;
+	D3DXVECTOR3			m_vScale	;
 	Point				m_v2DPos	;
 	Line*				m_pLine		;
 	Line*				m_pLine2	;
