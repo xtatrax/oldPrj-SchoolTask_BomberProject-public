@@ -110,7 +110,7 @@ class Context{
 	DWORD m_Param1;
 	DWORD m_Param2;
 	//タイマー。経過秒を計る
-	Timer m_Timer;
+	Avoidance::Timer m_Timer;
 	//1回のタイムスパン
 	FLOAT m_TimeSpan;
 	//ゲームトータル時間

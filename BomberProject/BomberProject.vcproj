@@ -742,6 +742,10 @@
 			Name="StdAfx"
 			>
 			<File
+				RelativePath=".\defineValue.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\defineValue.h"
 				>
 			</File>
@@ -890,8 +894,16 @@
 				</File>
 			</Filter>
 		</Filter>
+		<Filter
+			Name="TestWindow"
+			>
+		</Filter>
 		<File
 			RelativePath=".\ClassDiagram1.cd"
+			>
+		</File>
+		<File
+			RelativePath=".\ClassDiagram2.cd"
 			>
 		</File>
 		<File

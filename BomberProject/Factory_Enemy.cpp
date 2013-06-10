@@ -187,6 +187,14 @@ void EnemySphere::Update( UpdatePacket& i_UpdatePacket){
 
 	multimap<float,EnemyItem*>::iterator it2 = m_ItemMap_Target.begin();
 	while(it2 != m_ItemMap_Target.end()){
+		
+		if(m_pPlayer->getDrawing()){
+			float fLng = (float)TwoPointToBassLength( it2->second->m_vPos, m_pPlayer->getPos() ) ;
+			if(fLng <= (float)MGPRM_MAGNETICUM_QUAD){
+				;
+			}
+		}
+
 		float DeadLine  = (float)TwoPointToBassLength( it2->second->m_vPos, m_pCoil->getPos() ) ;
 		if( m_pCoil->getState() == COIL_STATE_MOVE && !m_pCoil->getSuperMode() && DeadLine < 0.5f ){
 			m_pSound->SearchWaveAndPlay( RCTEXT_SOUND_SE_PLAYERBLOKEN );
@@ -321,7 +329,15 @@ void EnemySphere::Update( UpdatePacket& i_UpdatePacket){
 //// ’S“–ŽÒ     FÖ“¡ŒªŒá
 //// ”õl       F
 //////////////////////////////////////////////////////////////////////////////////////////////////////
-void EnemySphere::AddEnemy(D3DXVECTOR3 &vScale, D3DXVECTOR3 &vRot, D3DXVECTOR3 &vPos, D3DCOLORVALUE &Diffuse,D3DCOLORVALUE &Specular, D3DCOLORVALUE &Ambient){
+void EnemySphere::AddEnemy(
+		const D3DXVECTOR3&		vScale		,
+		const D3DXVECTOR3&		vRot		,
+		const D3DXVECTOR3&		vPos		,
+		const D3DCOLORVALUE&	Diffuse		,
+		const D3DCOLORVALUE&	Specular	,
+		const D3DCOLORVALUE&	Ambient
+	)
+{
 
 	EnemyItem* pItem = new EnemyItem;
 	pItem->m_vScale = vScale;

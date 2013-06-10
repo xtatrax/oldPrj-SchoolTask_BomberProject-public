@@ -9,6 +9,7 @@
 #include "StdAfx.h"
 
 namespace wiz{
+namespace Avoidance{
 
 
 ///**************************************************************************
@@ -921,7 +922,7 @@ ShadowVolume::~ShadowVolume(){
 }
 
 
-
+}
 }
 //end of namespace base.
 

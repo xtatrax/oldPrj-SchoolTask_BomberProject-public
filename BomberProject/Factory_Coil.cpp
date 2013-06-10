@@ -7,7 +7,9 @@
 //	内包ﾃﾞｰﾀと備考	：メインファクトリー
 //					▼
 //	namespace wiz;
-//		class Factory_Player ;
+//		namespace bomberobject;
+//			class PlayerCoil : public MagneticumObject3D ;
+//			class Factory_Coil ;
 //
 #include "StdAfx.h"
 #include "Object.h"
@@ -21,41 +23,40 @@
 namespace wiz{
 namespace bomberobject{
 
-//Camera*	ProvisionalPlayer3D::m_Camera	= NULL;
 extern class WallObject ;
 
 /**************************************************************************
  PlayerCoil 定義部
 ****************************************************************************/
 /////////////////// ////////////////////
-//// 関数名     ：PlayerCoil::PlayerCoil( 	
-////							LPDIRECT3DDEVICE9 pD3DDevice,LPDIRECT3DTEXTURE9 pTexture,
-////							float Radius1,float Radius2,float Lenght,
-////							D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos,
-////							D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,
-////							wiz::OBJID id = OBJID_3D_PLAYER)
+//// 関数名     ：PlayerCoil::PlayerCoil(
+////            ：    LPDIRECT3DDEVICE9 pD3DDevice,LPDIRECT3DTEXTURE9 pTexture,
+////            ：    float Radius1,float Radius2,float Lenght,
+////            ：    D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos,
+////            ：    D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,
+////            ：    wiz::OBJID id = OBJID_3D_PLAYER)
 //// カテゴリ   ：コンストラクタ
 //// 用途       ：
-//// 引数       ：  LPDIRECT3DDEVICE9 pD3DDevice,	//デバイス
-////			  :   LPDIRECT3DTEXTURE9 pTexture,  //テクスチャ	
-////		      :   float Radius1						//錐の直径1
-////		      :   float Radius2						//錐の直径2
-////		      :   float Radius3						//球の直径
-////			  :   flaot Lenght						//高さ
-////			  :   D3DXVECTOR3 &vScale
-////		      :   D3DXVECTOR3 &vRot				//回転角
-////		      :   D3DXVECTOR3 &vPos				//位置
-////              :   D3DCOLORVALUE& Diffuse,		//ディフューズ色
-////              :   D3DCOLORVALUE& Specular,		//スペキュラ色
-////              :   D3DCOLORVALUE& Ambient,		//アンビエント色
-////			  : wiz::OBJID id = OBJID_2D_PLAYER //ID
+//// 引数       ：  LPDIRECT3DDEVICE9   pD3DDevice   // デバイス
+////            ：  LPDIRECT3DTEXTURE9  pTexture     // テクスチャ	
+////            ：  float               Radius1      // 錐の直径1
+////            ：  float               Radius2      // 錐の直径2
+////            ：  float               Radius3      // 球の直径
+////            ：  flaot               Lenght       // 高さ
+////            ：  D3DXVECTOR3&        vScale       // 伸縮
+////            ：  D3DXVECTOR3&        vRot         // 回転角
+////            ：  D3DXVECTOR3&        vPos         // 位置
+////            ：  D3DCOLORVALUE&      Diffuse      // ディフューズ色
+////            ：  D3DCOLORVALUE&      Specular     // スペキュラ色
+////            ：  D3DCOLORVALUE&      Ambient      // アンビエント色
+////            ：  wiz::OBJID          id = OBJID_3D_COIL //ID
 //// 戻値       ：なし
-//// 担当       ：鴫原 徹 本多寛之
+//// 担当       ：鴫原 徹
+//// 引継ぎ     ：本多寛之
 //// 備考       ：
 ////            ：
 ////
 PlayerCoil::PlayerCoil(
-
 		LPDIRECT3DDEVICE9 pD3DDevice,LPDIRECT3DTEXTURE9 pTexture,LPDIRECT3DTEXTURE9 pTexture_Super,
 		LPDIRECT3DTEXTURE9 pTexture_Dead,LPDIRECT3DTEXTURE9 pTexture_Continue,LPDIRECT3DTEXTURE9 pTexture_Title,
 		float Radius1,float Radius2,float Radius3,float Lenght,
@@ -111,10 +112,10 @@ PlayerCoil::PlayerCoil(
 		m_pDeadEffect[i]	= NULL;
 }
 /////////////////// ////////////////////
-//// 関数名     ：~PlayerCoil()
+//// 関数名     ：PlayerCoil::~PlayerCoil()
 //// カテゴリ   ：デストラクタ
 //// 用途       ：
-//// 引数       ：
+//// 引数       ：なし
 //// 戻値       ：なし
 //// 担当       ： 鴫原 徹
 //// 備考       ：
@@ -125,33 +126,29 @@ PlayerCoil::~PlayerCoil(){
 #if defined( ON_DEBUGGINGPROCESS ) | defined( PRESENTATION )
 	SafeDelete( m_pDSPH );
 #endif
-	m_pCamera				= NULL;
+	m_pCamera				= NULL ;
 	m_pPlayer				= NULL ;
 	m_pMagneticumObject		= NULL ;
 	m_pCamera				= NULL ;
-	m_pSphere				= NULL;
-	m_pSuperField			= NULL;
+	m_pSphere				= NULL ;
+	m_pSuperField			= NULL ;
 	
-	m_pSelect	= NULL;
-	m_pSelect2	= NULL;
+	SAFE_DELETE(m_pSelect);
+	SAFE_DELETE(m_pSelect2);
 	for( int i = 0; i < PARTICLS_NUM; i++ )
-		m_pDeadEffect[i]	= NULL;
+		SAFE_DELETE(m_pDeadEffect[i]);
 
 };
 
-/////////////////////// ////////////////////
-//////// 用途       ：bool PlayerCoil::HitTestWall( SPHERE& Coil )
-//////// カテゴリ   ：MultiBoxとの衝突判定
-//////// 用途       ：マルチボックスとの衝突判定
-//////// 引数       ：  bool HitTestMultiBox
-////////				  MultiBox* pBox,	//マルチボックス
-////////				  size_t& Index,	//ヒットしていたらインデックスが戻る
-////////				  D3DXVECTOR3& Vec,         //最近接点
-////////				  D3DXVECTOR3& ElsePos         //一つ前のポジション
-//////// 戻値       ：衝突していればtrue
-//////// 担当者     ：曳地 大洋
-//////// 備考       ：
-bool PlayerCoil::HitTestWall( OBB Obb, float Index ){
+/////////////////// ////////////////////
+//// 用途       ：bool PlayerCoil::HitTestWall( OBB Obb )
+//// カテゴリ   ：メンバ関数
+//// 用途       ：壁との衝突判定
+//// 引数       ：  OBB Obb           //  : 検査対象のOBB
+//// 戻値       ：衝突していればtrue
+//// 担当者     ：曳地 大洋
+//// 備考       ：
+bool PlayerCoil::HitTestWall( OBB Obb ){
 	SPHERE sp;
 	sp.m_Center = m_vPos;
 	sp.m_Radius = m_OBBRadius;
@@ -168,12 +165,18 @@ bool PlayerCoil::HitTestWall( OBB Obb, float Index ){
 	return false;
 }
 /////////////////// ////////////////////
-//// 関数名     ：void Update( UpdatePacket& i_UpdatePacket )
+//// 関数名     ：void PlayerCoil::Update( UpdatePacket& i_UpdatePacket )
 //// カテゴリ   ：
 //// 用途       ：
-//// 引数       ：
+//// 引数       ：  UpdatePacket& i_UpdatePacket             // 画面描画時に必要なデータ群 ↓内容下記
+////            ：  ├       LPDIRECT3DDEVICE9  pD3DDevice      // IDirect3DDevice9 インターフェイスへのポインタ
+////            ：  ├       Tempus2*           pTime           // 時間を管理するクラスへのポインター
+////            ：  ├       vector<Object*>&   Vec,            // オブジェクトの配列
+////            ：  ├ const CONTROLER_STATE*   pCntlState      // コントローラのステータス
+////            ：  └       Command            pCommand        // コマンド
 //// 戻値       ：なし
 //// 担当       ：鴫原 徹
+//// 引継ぎ     ：本多寛之
 //// 備考       ：
 ////            ：
 ////
@@ -280,9 +283,8 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 		}
 	}
 	if( m_pDeadEffect[0] != NULL ){
-		for( int i = 0; i < PARTICLS_NUM; i++ ){
-			if(m_pDeadEffect[i]->getColor() <= 0.0f
-				|| m_enumCoilState == COIL_STATE_CONTINUE){
+		if(m_enumCoilState != COIL_STATE_DEAD){
+			for( int i = 0; i < PARTICLS_NUM; i++ ){
 				SafeDelete( m_pDeadEffect[i] );
 				continue;
 			}
@@ -309,6 +311,21 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 
 };
 
+/////////////////// ////////////////////
+//// 関数名     ：void	PlayerCoil::CreateEffect( UpdatePacket& i_UpdatePacket );
+//// カテゴリ   ：
+//// 用途       ：
+//// 引数       ：  DrawPacket& i_DrawPacket             // 画面描画時に必要なデータ群 ↓内容下記
+////            ：  ├       LPDIRECT3DDEVICE9  pD3DDevice      // IDirect3DDevice9 インターフェイスへのポインタ
+////            ：  ├       Tempus2*           pTime           // 時間を管理するクラスへのポインター
+////            ：  ├       vector<Object*>&   Vec,            // オブジェクトの配列
+////            ：  ├ const CONTROLER_STATE*   pCntlState      // コントローラのステータス
+////            ：  └       Command            pCommand        // コマンド
+//// 戻値       ：なし
+//// 担当       ：佐藤涼
+//// 備考       ：
+////            ：
+////
 void	PlayerCoil::CreateEffect( UpdatePacket& i_UpdatePacket ){
 
 	//爆散エフェクトの作成
