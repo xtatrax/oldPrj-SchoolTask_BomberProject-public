@@ -169,8 +169,8 @@ void WallObject::Draw(DrawPacket& i_DrawPacket)
 {
 	m_pTexture = m_pPolyTex ;
 	TARGETCONTAINER::iterator it	= m_ItemMap_Target.begin();
-	TARGETCONTAINER::iterator end	= m_ItemMap_Target.end();
-	while(it != end){
+	//TARGETCONTAINER::iterator end	= m_ItemMap_Target.end();
+	while(it != m_ItemMap_Target.end()){
 		this->m_WorldMatrix = (*it)->m_Matrix   ;
 		Box::Draw(i_DrawPacket);
 
