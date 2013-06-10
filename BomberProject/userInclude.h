@@ -21,6 +21,7 @@
 #include "Object.h"
 #include "Function.h"
 #include "BassItems.h"
+#include "Bass2DItems.h"
 #include "Factory_Sound.h"
 
 #endif
