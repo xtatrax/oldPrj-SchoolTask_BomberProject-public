@@ -183,7 +183,7 @@ void Stage::Draw(DrawPacket& i_DrawPacket)
 		}
 	}
 	catch(exception& e){
-        throw;
+        throw e;
 	}
     catch(...){
         throw;

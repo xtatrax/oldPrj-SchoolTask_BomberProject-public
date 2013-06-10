@@ -40,59 +40,71 @@ const int DRAWING_RANGE = 20;
 // 用途    : 壁
 //**************************************************************************//
 class WallObject : public PrimitiveBox{
-	int			m_Ptn;
-	PlayerCoil* m_pPlayerCoil ;
-	Sound*		m_pSound;
-	Camera*	    m_pCamera;
-	LPDIRECT3DTEXTURE9	m_pWallTex;
-	LPDIRECT3DTEXTURE9	m_pPolyTex;
-	LPDIRECT3DTEXTURE9	m_pDeadTex;
-	LPDIRECT3DTEXTURE9	m_pNextTex;
-	LPDIRECT3DTEXTURE9	m_pTitleTex;
+	int					m_Ptn			;
+	PlayerCoil*			m_pPlayerCoil	;
+	Sound*				m_pSound		;
+	Camera*				m_pCamera		;
+	LPDIRECT3DTEXTURE9	m_pWallTex		;
+	LPDIRECT3DTEXTURE9	m_pPolyTex		;
+	LPDIRECT3DTEXTURE9	m_pDeadTex		;
+	LPDIRECT3DTEXTURE9	m_pNextTex		;
+	LPDIRECT3DTEXTURE9	m_pTitleTex		;
 
 	struct WallItem{
-		D3DMATERIAL9   m_Material;
-		D3DXMATRIX	   m_Matrix;
-		D3DXVECTOR3    m_vScale ;
-		D3DXVECTOR3	   m_vPos ;
-		D3DXQUATERNION m_vRot;
-		OBB			   m_Obb;
+		D3DMATERIAL9	m_Material	;
+		D3DXMATRIX		m_Matrix	;
+		OBB				m_Obb		;
+		float			m_fMapKey	;
+		bool			m_bHidden	;
 #if defined(ON_DEBUGGINGPROCESS) | defined( PRESENTATION )
-		DrawOBB*       m_pDOB ;
+		DrawOBB*       m_pDOB		;
 		~WallItem(){SafeDelete(m_pDOB);}
-		WallItem()
-		:m_pDOB()
-#else
-		WallItem()
 #endif
-		{}
+		WallItem(D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos,
+			D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient)
+		:m_bHidden(true)
+		,m_fMapKey(vPos.y)
+#if defined(ON_DEBUGGINGPROCESS) | defined( PRESENTATION )
+		,m_pDOB()
+#endif
+		{
+			::ZeroMemory(&m_Material,sizeof(D3DMATERIAL9));
+
+			//衝突判定用のOBBの初期化
+			D3DXVECTOR3 vOBBScale = D3DXVECTOR3(vScale.x/4,vScale.y,vScale.z),
+						vOBBRot   = D3DXVECTOR3(0.0f, 0.0f, D3DXToRadian( vRot.z ));
+			m_Obb = OBB( vOBBScale, vOBBRot, vPos ) ;
+			D3DXMATRIX mScalse, mRot, mPos;
+			D3DXMatrixIdentity(&mScalse);
+			D3DXMatrixIdentity(&mRot);
+			D3DXMatrixIdentity(&mPos);
+			D3DXMatrixScaling(&mScalse,vScale.x,vScale.y,vScale.z);
+			D3DXMatrixRotationZ(&mRot,vOBBRot.z);
+			D3DXMatrixTranslation(&mPos, vPos.x,vPos.y,vPos.z);
+			m_Matrix = mScalse * mRot * mPos ;
+			m_Material.Ambient = Ambient ;
+			m_Material.Diffuse = Diffuse ;
+			m_Material.Specular = Specular ;
+
+		}
 
 	};
-
-	struct PolyItem{
-		D3DMATERIAL9   m_Material;
-		D3DXMATRIX	   m_Matrix;
-		D3DXVECTOR3    m_vScale ;
-		D3DXVECTOR3	   m_vPos ;
-		D3DXQUATERNION m_vRot;
-		virtual ~PolyItem(){}
-	};
-
 	//map<オブジェクトのポジション,WallItem>
-	multimap<float,WallItem*> m_ItemMap_All;	//全てのWallItem
-	multimap<float,WallItem*> m_ItemMap_Target; //描画対象のWallItem
-	multimap<float,PolyItem*> m_ItemMap_Poly;	//全てのPolyItem
+	typedef multimap<float,WallItem*>	ALLCONTAINER		;
+	typedef list<WallItem*>				TARGETCONTAINER		;
+	ALLCONTAINER				m_ItemMap_All		;	//全てのWallItem
+	TARGETCONTAINER				m_ItemMap_Target	;	//描画対象のWallItem
 
 protected:
 
-/////////////////// ////////////////////
-//// 用途       ：WallObject(	LPDIRECT3DDEVICE9 pD3DDevice,LPDIRECT3DTEXTURE9 pTexture,wiz::OBJID id = OBJID_3D_WALL);
-//// カテゴリ   ：コンストラクタ
-//// 用途       ：関数
-//// 引数       ：なし
-//// 戻値       ：なし
-//// 担当者     ：鴫原 徹
-//// 備考       ：
+	/////////////////// ////////////////////
+	//// 用途       ：WallObject(	LPDIRECT3DDEVICE9 pD3DDevice,LPDIRECT3DTEXTURE9 pTexture,wiz::OBJID id = OBJID_3D_WALL);
+	//// カテゴリ   ：コンストラクタ
+	//// 用途       ：関数
+	//// 引数       ：なし
+	//// 戻値       ：なし
+	//// 担当者     ：鴫原 徹
+	//// 備考       ：
 	void UpdateTargetItem();
 
 public:
@@ -191,6 +203,7 @@ public:
 
 
 	bool HitTest3DAddWall( MultiBox* pBox, size_t& Index, D3DXVECTOR3& Vec, D3DXVECTOR3& ElsePos );
+
 
 };
 

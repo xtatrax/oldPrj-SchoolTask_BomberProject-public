@@ -55,15 +55,15 @@ namespace bomberobject{
 îıçlÅ@Å@ÅF
 *************************************************************************/
 Gage::Gage(
-	LPDIRECT3DDEVICE9	pD3DDevice	,
-	LPDIRECT3DTEXTURE9	pTex		,
-	D3DXVECTOR3			&vScale		,
-	D3DXVECTOR3			&vRot		,
-	D3DXVECTOR3			&vPos		,
-	D3DXVECTOR3			&vDirOffset	,
-	RECT				GaugeRect	,		//	: ï`âÊîÕàÕ
-	RECT				FrameRect	,		//	: ï`âÊîÕàÕ
-	wiz::OBJID			id
+	const LPDIRECT3DDEVICE9		pD3DDevice	,
+	const LPDIRECT3DTEXTURE9	pTex		,
+	const D3DXVECTOR3			&vScale		,
+	const D3DXVECTOR3			&vRot		,
+	const D3DXVECTOR3			&vPos		,
+	const D3DXVECTOR3			&vDirOffset	,
+	const RECT					GaugeRect	,		//	: ï`âÊîÕàÕ
+	const RECT					FrameRect	,		//	: ï`âÊîÕàÕ
+	const wiz::OBJID			id
 )
 :SpriteObject(pD3DDevice,pTex,vScale,vRot,vPos,
 	NULL,g_vZero,vDirOffset,0xFFFFFFFF,id)
@@ -126,7 +126,7 @@ void Gage::Consume( float fSubValue ){
 void Gage::Update( UpdatePacket& i_UpdatePacket ){
 	//ÉQÅ[ÉWÇÃï`âÊ
 	m_GaugeRect.right  = m_BassRect.left - m_BassRect.right ;
-	m_GaugeRect.right *= 1.0f - m_fRate ;
+	m_GaugeRect.right *= (LONG)(1.0f - m_fRate) ;
 	
 	Debugger::DBGSTR::addStr( L" Rate = %f \n", m_fRate);
 }
@@ -252,7 +252,7 @@ void SuperGage::Update( UpdatePacket& i_UpdatePacket ){
 	m_Matrix	= mScale * mRot * mPos ;
 	//ÉQÅ[ÉWÇÃï`âÊ
 	m_GaugeRect.top  = m_BassRect.bottom - m_BassRect.top ;
-	m_GaugeRect.top *= 1.0f - m_fRate ;
+	m_GaugeRect.top *= (LONG)(1.0f - m_fRate) ;
 	
 	Debugger::DBGSTR::addStr( L" Rate = %f \n", m_fRate);
 }
