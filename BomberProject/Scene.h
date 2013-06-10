@@ -29,20 +29,20 @@ class Scene
 {
 	//////////
 	//	: ロード画面専用
-	LPDIRECT3DDEVICE9 m_pD3DDevice;
-	Command	m_LoadCommand		;
-	static HANDLE	m_hLoadingThread;	// ロード画面用スレッドのハンドル
-	bool	m_bLoadingComplete	;
-	Stage*	m_pStgBuf			;
+	//LPDIRECT3DDEVICE9 m_pD3DDevice		;
+	Command	m_LoadCommand				;
+	static HANDLE	m_hLoadingThread	;	// ロード画面用スレッドのハンドル
+	bool	m_bLoadingComplete			;
+	Stage*	m_pStgBuf					;
 	//
 	//////////
 
-	float	m_fStageNotFoundMessageTime ;
+	float	m_fStageNotFoundMessageTime		;
 
-	Stage*	m_pRootStage;
-	bool	m_bUpdateThreadSuspendRequest;	//	: スレッド停止要求フラグ(メインスレッド発行->アップデートスレッド解釈)
-	bool	m_bUpdateThreadSuspend       ;	//	: スレッド停止完了フラグ(アップデートスレッド発行->メインスレッド解釈)
-	bool	m_bUpdateThreadResumeRequest ;	//	: スレッド再開要求フラグ(シーン発行->デバイス解釈)
+	Stage*	m_pRootStage					;
+	bool	m_bUpdateThreadSuspendRequest	;	//	: スレッド停止要求フラグ(メインスレッド発行->アップデートスレッド解釈)
+	bool	m_bUpdateThreadSuspend			;	//	: スレッド停止完了フラグ(アップデートスレッド発行->メインスレッド解釈)
+	bool	m_bUpdateThreadResumeRequest	;	//	: スレッド再開要求フラグ(シーン発行->デバイス解釈)
 
 
 //	: 非公開関数
