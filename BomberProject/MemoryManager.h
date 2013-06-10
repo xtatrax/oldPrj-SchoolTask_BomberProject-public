@@ -165,6 +165,7 @@ public:
 	////            ÅF
 	////
 	static void Draw(){
+
 		#if defined( CF_MEMORYOUTPUTPROCESS_ENABLE )
 		Debugger::DBGSTR::addStr( L" Memory\nÑ• Area Size = %d Byte\nÑ§ Instance  = %d Q'ty\n", m_dwAreaSize, m_ItemInfo.size() );
 		if( GetAsyncKeyState( MYVK_DEBUG_OUTPUT_MEMORY ) ){

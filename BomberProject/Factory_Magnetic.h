@@ -112,13 +112,15 @@ extern	class	MagneticField;
 // 用途    : 磁界オブジェクト
 //         : コイルオブジェクトやユーザー設置磁界にも応用しています｡
 //**************************************************************************//
+extern class PlayerCoil ;
 class MagneticumObject3D : public PrimitiveCylinder{
 protected:
-	static Camera*		m_pCamera ;
-	MagneticField*		m_pMagneticField;
-	MagneticField*		m_pMagneticField2;
-	MagneticField*		m_pMagneticField3;
-	MagneticField*		m_pMagneticField4;
+	Camera*				m_pCamera			;
+	PlayerCoil*			m_pCoil				;
+	MagneticField*		m_pMagneticField	;
+	MagneticField*		m_pMagneticField2	;
+	MagneticField*		m_pMagneticField3	;
+	MagneticField*		m_pMagneticField4	;
 //////////
 //	: 非公開
 private:
@@ -138,12 +140,16 @@ protected:
 		D3DXVECTOR3		m_vPos ;
 		D3DXQUATERNION	m_vRot ;
 		POLE			m_bMagnetPole ;
+		float			m_fMapKey	;
+		bool			m_bHidden	;
 		virtual ~Magnet3DItem(){}
 	};
 
 	//map<オブジェクトのポジション, Magnet3DItem>
-	multimap<float, Magnet3DItem*> m_ItemMap_All ;
-	multimap<float, Magnet3DItem*> m_ItemMap_Target ;
+	typedef multimap<float, Magnet3DItem*>	ALLCONTAINER		;
+	typedef list<Magnet3DItem*>				TARGETCONTAINER		;
+	ALLCONTAINER		m_ItemMap_All		;
+	TARGETCONTAINER		m_ItemMap_Target	;
 
 	D3DXVECTOR3			m_vPos ;
 
@@ -325,6 +331,7 @@ public:
 	//// 備考       ：
 	//bool CheckDistance( D3DXVECTOR3& i_vMagneticFieldPos, D3DXVECTOR3& i_vCoilPos, float i_iBorder ) const;
 	
+	void setDrawTarget();
 
 	/////////////////// ////////////////////
 	//// 関数名     ：D3DXVECTOR3 getPos() const
@@ -352,6 +359,8 @@ public:
 
 	float getMagneticum() const { return m_fMagneticum*m_fMagneticum  ;	}	;
 
+	void HitTest();
+
 	/////////////////// ////////////////////
 	//// 関数名     ：multimap<float, Magnet3DItem*> getMapTarget() const
 	//// カテゴリ   ：ゲッター
@@ -361,9 +370,9 @@ public:
 	//// 担当       ：本多寛之
 	//// 備考       ：
 	////            ：
-	multimap<float, Magnet3DItem*> getMapTarget() const{
-		return m_ItemMap_Target;
-	}
+	//multimap<float, Magnet3DItem*> getMapTarget() const{
+	//	return m_ItemMap_Target;
+	//}
 
 };
 
