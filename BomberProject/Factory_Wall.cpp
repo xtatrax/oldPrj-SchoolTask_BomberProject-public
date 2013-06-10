@@ -54,6 +54,7 @@ WallObject::WallObject( LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTextur
 	::ZeroMemory( &m_Material, sizeof(D3DMATERIAL9));
 	m_pPlayerCoil	= NULL;
 	m_pCamera		= NULL;
+	m_pEnemy		= NULL;
 	m_Material.Ambient	= getD3DCOLORVALUE(0.0f,0.5f,0.5f,0.5f);
 	m_Material.Diffuse	= getD3DCOLORVALUE(0.0f,0.7f,0.7f,0.7f);
 	m_Material.Specular	= getD3DCOLORVALUE(0.0f,0.0f,0.0f,0.0f);
@@ -69,6 +70,7 @@ WallObject::WallObject( LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTextur
 WallObject::~WallObject(){
 	m_pCamera		= NULL ;
 	m_pPlayerCoil	= NULL ;
+	m_pEnemy		= NULL;
 	SafeDeletePointerMap( m_ItemMap_All );
 
 	m_ItemMap_All.clear() ;
@@ -212,12 +214,16 @@ void WallObject::Update( UpdatePacket& i_UpdatePacket ){
 	if(m_pPlayerCoil == NULL){
 		m_pPlayerCoil = (PlayerCoil*)SearchObjectFromTypeID(i_UpdatePacket.pVec,typeid(PlayerCoil));
 	}
+	if(m_pEnemy == NULL){
+		m_pEnemy = (EnemySphere*)SearchObjectFromTypeID(i_UpdatePacket.pVec,typeid(EnemySphere));
+	}
+
 	UpdateTargetItem();
 	TARGETCONTAINER::iterator it	= m_ItemMap_Target.begin();
 	TARGETCONTAINER::iterator end	= m_ItemMap_Target.end();
+
 	while(it != end){
 		if( m_pPlayerCoil && m_pPlayerCoil->HitTestWall( (*it)->m_Obb ) ){
-
 			switch(m_pPlayerCoil->getState()){
 				case COIL_STATE_MOVE:
 					if(!m_pPlayerCoil->getSuperMode()){
@@ -229,7 +235,9 @@ void WallObject::Update( UpdatePacket& i_UpdatePacket ){
 					break;
 			}
 		}
-
+		if(m_pEnemy){
+			m_pEnemy->HitTestWall( (*it)->m_Obb );
+		}
 		++it;
 	}
 
