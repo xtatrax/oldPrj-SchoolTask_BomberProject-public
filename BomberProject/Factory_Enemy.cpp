@@ -187,6 +187,14 @@ void EnemySphere::Update( UpdatePacket& i_UpdatePacket){
 
 	multimap<float,EnemyItem*>::iterator it2 = m_ItemMap_Target.begin();
 	while(it2 != m_ItemMap_Target.end()){
+		
+		if(m_pPlayer->getDrawing()){
+			float fLng = (float)TwoPointToBassLength( it2->second->m_vPos, m_pPlayer->getPos() ) ;
+			if(fLng <= (float)MGPRM_MAGNETICUM_QUAD){
+				;
+			}
+		}
+
 		float DeadLine  = (float)TwoPointToBassLength( it2->second->m_vPos, m_pCoil->getPos() ) ;
 		if( m_pCoil->getState() == COIL_STATE_MOVE && !m_pCoil->getSuperMode() && DeadLine < 0.5f ){
 			m_pSound->SearchWaveAndPlay( RCTEXT_SOUND_SE_PLAYERBLOKEN );
