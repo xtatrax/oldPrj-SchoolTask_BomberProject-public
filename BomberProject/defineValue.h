@@ -77,7 +77,7 @@ static const int			MGPRM_MAGNETICUM_QUAD		= ( MGPRM_MAGNETICUM * MGPRM_MAGNETICU
 	//		プレゼンモード定義       //
 	//-------------------------------//
 		//#define CF_FULLSCREEN				/* フルスクリーンモード       */
-		#define DEBUG_STRINGS_ON			/* デバッグ用文字列を有効化 */
+		//#define DEBUG_STRINGS_ON			/* デバッグ用文字列を有効化 */
 
 	#else
 	//-------------------------------//
