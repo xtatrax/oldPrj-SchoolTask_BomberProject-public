@@ -141,7 +141,7 @@ void Item::setDrawTarget(){
 	//
 	//
 	//////////
-	Debugger::DBGSTR::addStr( L"TargetItem : %d Q'ty\n",m_ItemMap_Target.size());
+
 	//////////
 	//	ï`âÊëŒè€ÇÃí«â¡
 	//
@@ -157,8 +157,7 @@ void Item::setDrawTarget(){
 	//
 	//
 	//////////
-	Debugger::DBGSTR::addStr( L"TargetItem : %d Q'ty\n",m_ItemMap_Target.size());
-	Debugger::DBGSTR::addStr( L"ALLItem : %d Q'ty\n",m_ItemMap_All.size());
+
 }
 
 /*******************************************************************
