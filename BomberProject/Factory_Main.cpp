@@ -73,7 +73,7 @@ Factory_Main::Factory_Main(FactoryPacket* fpac, D3DXVECTOR3* vStartPos ){
         fpac->m_pVec->push_back(
 			new Camera(
 				fpac->pD3DDevice,
-				D3DXVECTOR3( ECXPos, ECYPos, -55.7f),
+				D3DXVECTOR3( ECXPos, ECYPos, -145.7f),
 				D3DXVECTOR3(ECXPos,ECYPos,0.0f),
 				1 ,
 				300.0f,
