@@ -72,7 +72,9 @@ Item::Item(FactoryPacket* fpac,LPDIRECT3DTEXTURE9 pTexture, wiz::OBJID id)
 ////            F
 ////
 Item::~Item(){
-	SafeDeletePointerMap( m_ItemMap_All );	
+	SafeDeletePointerMap( m_ItemMap_All );
+	m_ItemMap_All.clear();
+	m_ItemMap_Target.clear();
 }
 
 /**************************************************************
@@ -123,10 +125,28 @@ void	Item::Draw(DrawPacket &i_DrawPacket){
 void Item::setDrawTarget(){
 
 	//////////
+	//	•`‰æ‘ÎÛŠO‚Ìíœ
+	//
+	TARGETCONTAINER::iterator	TIMit  = m_ItemMap_Target.begin(),
+								TIMend = m_ItemMap_Target.end(  );
+	while( TIMit != TIMend ){
+		if( (*TIMit)->m_fMapKey <= m_pCamera->getPosY()  -DRAWING_RANGE ||
+			(*TIMit)->m_fMapKey >= m_pCamera->getPosY()  +DRAWING_RANGE ){
+			(*TIMit)->m_bHidden = true ;
+			TIMit = m_ItemMap_Target.erase( TIMit );
+			continue;
+		}
+		TIMit++ ;
+	}
+	//
+	//
+	//////////
+
+	//////////
 	//	•`‰æ‘ÎÛ‚Ì’Ç‰Á
 	//
-	ALLCONTAINER::iterator	AIMit  = m_ItemMap_All.lower_bound( m_pCamera->getPosY()  -20 ),
-							AIMend = m_ItemMap_All.upper_bound( m_pCamera->getPosY()  +20 );
+	ALLCONTAINER::iterator	AIMit  = m_ItemMap_All.lower_bound( m_pCamera->getPosY()  -DRAWING_RANGE ),
+							AIMend = m_ItemMap_All.upper_bound( m_pCamera->getPosY()  +DRAWING_RANGE );
 	while( AIMit != AIMend ){
 		if( AIMit->second->m_bHidden == true ){
 			AIMit->second->m_bHidden = false ;
@@ -214,12 +234,6 @@ void	Item::Update(UpdatePacket& i_UpdatePacket)
 			if(m_pSuperGage->getRate() >= 1.0f){
 				m_pPlayerCoil->setSuperMode(true);	
 			}
-		}
-		if( (*it)->m_fMapKey > m_pCamera->getPosY() +20 ||
-			(*it)->m_fMapKey < m_pCamera->getPosY() -20 ){
-				(*it)->m_bHidden = true ;
-				it = m_ItemMap_Target.erase(it);
-				continue;
 		}
 		//ˆÚ“®—p
 		D3DXMATRIX mMove, mScale;
