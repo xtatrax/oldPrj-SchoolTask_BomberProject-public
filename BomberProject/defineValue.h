@@ -54,6 +54,7 @@ static const int			MGPRM_MAGNETICUM_QUAD		= ( MGPRM_MAGNETICUM * MGPRM_MAGNETICU
 #define CF_OVERLORDNEW_ENABLE			/* 自作のnewを強制化 */
 #define CF_MEMORYOUTPUTPROCESS_ENABLE	/* 自作メモリ管理システムにより管理されているアイテムのファイルへの書き出しを可能にする */
 //#define CF_LOADINGANIMATION			/* ロード画面でアニメーション */
+//#define CF_OVERLORDNEW_ENABLE	/* 自作のnewを強制化 */
 
 
 //#define CF_LOADINGANIMATION		/* ロード画面でアニメーション */
