@@ -15,6 +15,7 @@
 #include "Object.h"
 #include "BassItems.h"
 #include "Factory_Player.h"
+#include "Factory_Enemy.h"
 #include "Factory_Coil.h"
 #include "Factory_Sound.h"
 #include "Factory_CheckPoint.h"
@@ -25,6 +26,7 @@ namespace wiz{
 namespace bomberobject{
 
 extern class PlayerCoil ;
+extern class EnemySphere ;
 
 const int DRAWING_RANGE = 20;
 
@@ -42,6 +44,7 @@ const int DRAWING_RANGE = 20;
 class WallObject : public PrimitiveBox{
 	int					m_Ptn			;
 	PlayerCoil*			m_pPlayerCoil	;
+	EnemySphere*		m_pEnemy		;
 	Sound*				m_pSound		;
 	Camera*				m_pCamera		;
 	LPDIRECT3DTEXTURE9	m_pWallTex		;

@@ -21,6 +21,7 @@ namespace bomberobject{
 
 extern class PlayerCoil ;
 const int PARTICLS_NUM	= 50;
+const int PARTICLS_NUM_ENEMY = 20; 
 
 /**************************************************************************
 class DeadEffect;

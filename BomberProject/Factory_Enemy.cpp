@@ -4,6 +4,7 @@
 //	開発環境		：MSVC++ 2008
 //	最適タブ数		：4
 //	担当者			：斎藤　謙吾
+//	引き継ぎ		：本多寛之
 //	内包ﾃﾞｰﾀと備考	：メインファクトリー
 //					▼
 //	namespace wiz;
@@ -53,9 +54,7 @@ EnemySphere::EnemySphere(LPDIRECT3DDEVICE9 pD3DDevice,D3DCOLORVALUE& Diffuse,D3D
 ,m_bReset( false )
 
 {
-	
 	::ZeroMemory( &m_Material, sizeof(D3DMATERIAL9));
-	
 }
 
 /////////////////// ////////////////////
@@ -75,8 +74,66 @@ EnemySphere::~EnemySphere(){
 	m_pSound	= NULL ;
 
 	SafeDeletePointerMap( m_ItemMap_All );
+	TARGETCONTAINER::iterator it	= m_ItemMap_Target.begin();
+	TARGETCONTAINER::iterator end	= m_ItemMap_Target.end();
 	m_ItemMap_All.clear();
 	m_ItemMap_Target.clear();
+
+}
+
+/////////////////// ////////////////////
+//// 用途       ：WallObject(	LPDIRECT3DDEVICE9 pD3DDevice,LPDIRECT3DTEXTURE9 pTexture,wiz::OBJID id = OBJID_3D_WALL);
+//// カテゴリ   ：コンストラクタ
+//// 用途       ：関数
+//// 引数       ：なし
+//// 戻値       ：なし
+//// 担当者     ：鴫原 徹
+//// 備考       ：
+void EnemySphere::UpdateTargetItem(){
+	//////////
+	//	対象外の削除
+	//
+	TARGETCONTAINER::iterator	TIMit  = m_ItemMap_Target.begin( ),
+								TIMend = m_ItemMap_Target.end( );
+	while( TIMit != TIMend ){
+		if( (*TIMit)->m_fMapKey <= m_pCamera->getPosY()  -DRAWING_RANGE ||
+			(*TIMit)->m_fMapKey >= m_pCamera->getPosY()  +DRAWING_RANGE ){
+			(*TIMit)->m_bHidden = true ;
+			TIMit = m_ItemMap_Target.erase( TIMit );
+			continue;
+		}
+		TIMit++ ;
+	}
+	//
+	//
+	//////////
+	if(m_bReset){
+		ALLCONTAINER::iterator	it  = m_ItemMap_All.begin(),
+								end = m_ItemMap_All.end();
+		while(it != end){
+			it->second->m_vPos = it->second->m_vStartPos;
+			it->second->m_vIsAlive = true;
+			it++;
+		}
+	}
+	m_bReset = false;
+	
+	//////////
+	//	描画対象の追加
+	//
+	ALLCONTAINER::iterator	AIMit  = m_ItemMap_All.lower_bound( m_pCamera->getPosY()  -DRAWING_RANGE ),
+							AIMend = m_ItemMap_All.upper_bound( m_pCamera->getPosY()  +DRAWING_RANGE );
+	while( AIMit != AIMend ){
+		if( AIMit->second->m_bHidden == true ){
+			AIMit->second->m_bHidden = false ;
+			m_ItemMap_Target.push_back( AIMit->second );
+		}
+		AIMit++ ;
+	}
+	//
+	//
+	//////////
+	
 }
 
 /////////////////// ////////////////////
@@ -86,51 +143,61 @@ EnemySphere::~EnemySphere(){
 //// 引数       ：  LPDIRECT3DDEVICE9 pD3DDevice		//IDirect3DDevice9 インターフェイスへのポインタ
 ////            ：  vector<Object*>& Vec,				//オブジェクトの配列
 //// 戻値       ：なし
-//// 担当者     ： (山ノ井先生のひな形より)
+//// 担当者     ：斎藤謙吾
+//// 引き継ぎ   ：本多寛之
 //// 備考       ：
 ////            ：
 ////
 void EnemySphere::Draw(DrawPacket& i_DrawPacket)
 {
-	multimap<float,EnemyItem*>::iterator it = m_ItemMap_Target.begin();
-	while(it != m_ItemMap_Target.end()){
-
+	TARGETCONTAINER::iterator it	= m_ItemMap_Target.begin();
+	TARGETCONTAINER::iterator end	= m_ItemMap_Target.end();
+	while(it != end){
 		//マティリアル設定
-		m_Material = it->second->m_Material;
-		//テクスチャがある場合
-		if(!m_pTexture){
+		this->m_WorldMatrix = (*it)->m_Matrix   ;	
+		this->SetMaterial((*it)->m_Material)	;
+		if((*it)->m_vIsAlive){
+			//テクスチャがある場合
+			if(!m_pTexture){
 
-			DWORD wkdword;
-			//現在のテクスチャステータスを得る
-			i_DrawPacket.pD3DDevice->GetTextureStageState(0,D3DTSS_COLOROP,&wkdword);
+				DWORD wkdword;
+				//現在のテクスチャステータスを得る
+				i_DrawPacket.pD3DDevice->GetTextureStageState(0,D3DTSS_COLOROP,&wkdword);
 
-			//ステージの設定
-			i_DrawPacket.pD3DDevice->SetTexture(0,m_pTexture);
+				//ステージの設定
+				i_DrawPacket.pD3DDevice->SetTexture(0,m_pTexture);
 
-			//デフィーズ色とテクスチャを掛け合わせる設定
-			i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLOROP, D3DTOP_MODULATE4X );
-			i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLORARG1, D3DTA_TEXTURE );
-			i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLORARG2, D3DTA_DIFFUSE );
+				//デフィーズ色とテクスチャを掛け合わせる設定
+				i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLOROP, D3DTOP_MODULATE4X );
+				i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLORARG1, D3DTA_TEXTURE );
+				i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLORARG2, D3DTA_DIFFUSE );
 
-			//i_DrawPacket.pD3DDevice->SetFVF(PlateFVF);
-			// マトリックスをレンダリングパイプラインに設定
-			i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &it->second->m_Matrix);
+				//i_DrawPacket.pD3DDevice->SetFVF(PlateFVF);
+				// マトリックスをレンダリングパイプラインに設定
+				i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &(*it)->m_Matrix);
 
-			//コモンメッシュのDraw()を呼ぶ
-			CommonMesh::Draw(i_DrawPacket);
-			i_DrawPacket.pD3DDevice->SetTexture(0,0);
+				//コモンメッシュのDraw()を呼ぶ
+				CommonMesh::Draw(i_DrawPacket);
+				i_DrawPacket.pD3DDevice->SetTexture(0,0);
 
-			//ステージを元に戻す
-			i_DrawPacket.pD3DDevice->SetTextureStageState(0,D3DTSS_COLOROP,wkdword);
+				//ステージを元に戻す
+				i_DrawPacket.pD3DDevice->SetTextureStageState(0,D3DTSS_COLOROP,wkdword);
+			}
+			else{
+
+				//テクスチャがない場合
+				// マトリックスをレンダリングパイプラインに設定
+				i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &(*it)->m_Matrix);
+
+				//コモンメッシュのDraw()を呼ぶ
+				CommonMesh::Draw(i_DrawPacket);
+			}
 		}
-		else{
-
-			//テクスチャがない場合
-			// マトリックスをレンダリングパイプラインに設定
-			i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &it->second->m_Matrix);
-
-			//コモンメッシュのDraw()を呼ぶ
-			CommonMesh::Draw(i_DrawPacket);
+		//爆散
+		if( (*it)->m_pDeadEffect[0] != NULL ){
+			for( int i = 0; i < PARTICLS_NUM_ENEMY; i++ ){
+				(*it)->m_pDeadEffect[i]->Draw( i_DrawPacket );
+			}
 		}
 
 		++it;
@@ -151,6 +218,7 @@ void EnemySphere::Draw(DrawPacket& i_DrawPacket)
 ////            ：  └       Command            pCommand        // コマンド
 //// 戻値       ：無し
 //// 担当者     ：斎藤謙吾
+//// 引き継ぎ   ：本多寛之
 //// 備考       
 ////            ：
 ////
@@ -160,7 +228,7 @@ void EnemySphere::Update( UpdatePacket& i_UpdatePacket){
 		m_pCamera = (Camera*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_SYS_CAMERA);		
 	}
 	if( !m_pPlayer ){
-		m_pPlayer = (ProvisionalPlayer3D*)SearchObjectFromTypeID( i_UpdatePacket.pVec,typeid(ProvisionalPlayer3D));
+		m_pPlayer = (ProvisionalPlayer3D*)SearchObjectFromID( i_UpdatePacket.pVec,OBJID_3D_USERMAGNET);
 	}
 	if( !m_pCoil ){
 		m_pCoil = (PlayerCoil*)SearchObjectFromTypeID( i_UpdatePacket.pVec,typeid(PlayerCoil));
@@ -168,150 +236,75 @@ void EnemySphere::Update( UpdatePacket& i_UpdatePacket){
 	if(m_pSound == NULL){
 		m_pSound = (Sound*)SearchObjectFromTypeID(i_UpdatePacket.pVec,typeid(Sound));
 	}
-	
+
 	if(m_pCoil->getState() == COIL_STATE_CONTINUE)m_bReset = true;
-	
-	m_ItemMap_Target.clear();
-	multimap<float,EnemyItem*>::iterator it = m_ItemMap_All.begin();
-	while(it != m_ItemMap_All.end()){
-		if(m_bReset){
-			it->second->m_vPos = it->second->m_vStartPos;
-		}
-		if( ( +(it->first - m_pCamera->getEye().y) <= 20) && ( +(it->first - m_pCamera->getEye().y) >= -20 ) ){
-			m_ItemMap_Target.insert(multimap<float,EnemyItem*>::value_type(it->second->m_vPos.y,it->second));
-		}
-		++it;
-	}
 
-	m_bReset = false;
-
-	multimap<float,EnemyItem*>::iterator it2 = m_ItemMap_Target.begin();
-	while(it2 != m_ItemMap_Target.end()){
-		
+	UpdateTargetItem();
+	TARGETCONTAINER::iterator it	= m_ItemMap_Target.begin();
+	TARGETCONTAINER::iterator end	= m_ItemMap_Target.end();
+	while(it != end){
 		if(m_pPlayer->getDrawing()){
-			float fLng = (float)TwoPointToBassLength( it2->second->m_vPos, m_pPlayer->getPos() ) ;
-			if(fLng <= (float)MGPRM_MAGNETICUM_QUAD){
-				;
+			//	: 自分から対象までのベクトルを算出
+			D3DXVECTOR3	vTargetDir	= m_pPlayer->getPos() - ((*it)->m_vPos) ;
+			//	: 自分と対象までの距離を求める
+			double dirX = vTargetDir.x * vTargetDir.x;
+			double dirY = vTargetDir.y * vTargetDir.y;
+			float  fLng	= (float)sqrt(dirX + dirY);
+
+			if(fLng <= (float)MGPRM_MAGNETICUM){
+				if((*it)->m_bPole != m_pPlayer->getMagnetPole()){
+					(*it)->m_vPos += vTargetDir * ENEMY_SPEED;
+				}else{
+					(*it)->m_vPos -= vTargetDir * ENEMY_SPEED;
+				}
 			}
 		}
 
-		float DeadLine  = (float)TwoPointToBassLength( it2->second->m_vPos, m_pCoil->getPos() ) ;
-		if( m_pCoil->getState() == COIL_STATE_MOVE && !m_pCoil->getSuperMode() && DeadLine < 0.5f ){
-			m_pSound->SearchWaveAndPlay( RCTEXT_SOUND_SE_PLAYERBLOKEN );
-			m_pCoil->setState(COIL_STATE_DEAD);
+		float DeadLine  = (float)TwoPointToBassLength( (*it)->m_vPos, m_pCoil->getPos() ) ;
+		if( m_pCoil->getState() == COIL_STATE_MOVE && DeadLine < ENEMY_RADIUS ){
+			if(!m_pCoil->getSuperMode()){
+				m_pCoil->setState(COIL_STATE_DEAD);
+			}
+			if((*it)->m_vIsAlive)m_pSound->SearchWaveAndPlay( RCTEXT_SOUND_SE_PLAYERBLOKEN );
+			(*it)->m_vIsAlive = false;
 		}
 		
+		if(!(*it)->m_vIsAlive && (*it)->m_pDeadEffect[0] == NULL )CreateEffect(i_UpdatePacket,it);
+		//爆散エフェクト
+		if( (*it)->m_pDeadEffect[0] != NULL ){
+			for( int i = 0; i < PARTICLS_NUM_ENEMY; i++ ){
+				(*it)->m_pDeadEffect[i]->Update( i_UpdatePacket );
+			}
+		}
+		if( (*it)->m_pDeadEffect[0] != NULL ){
+			if((*it)->m_vIsAlive){
+				for( int i = 0; i < PARTICLS_NUM_ENEMY; i++ ){
+					SafeDelete( (*it)->m_pDeadEffect[i] );
+					continue;
+				}
+			}
+		}
+
 		//拡大縮小
 		D3DXMATRIX mScale;
 		D3DXMatrixIdentity(&mScale);
-		D3DXMatrixScaling(&mScale,it2->second->m_vScale.x,it2->second->m_vScale.y,it2->second->m_vScale.z);
+		D3DXMatrixScaling(&mScale,(*it)->m_vScale.x,(*it)->m_vScale.y,(*it)->m_vScale.z);
 
 		//回転
 		D3DXMATRIX mRot;
 		D3DXMatrixIdentity(&mRot);
-		D3DXMatrixRotationQuaternion(&mRot,&it2->second->m_vRot);
+		D3DXMatrixRotationQuaternion(&mRot,&(*it)->m_vRot);
 
 		//移動用
 		D3DXMATRIX mMove;
 		D3DXMatrixIdentity(&mMove);
-		D3DXMatrixTranslation(&mMove,it2->second->m_vPos.x,it2->second->m_vPos.y,it2->second->m_vPos.z);
+		D3DXMatrixTranslation(&mMove,(*it)->m_vPos.x,(*it)->m_vPos.y,(*it)->m_vPos.z);
 
 		//ミックス行列
-		it2->second->m_Matrix = mScale * mRot * mMove;
+		(*it)->m_Matrix = mScale * mRot * mMove;
 
-
-		++it2;
+		++it;
 	}
-
-	//m_ItemMap_Target.clear();
-
-	//multimap<float,EnemyItem*>::iterator it = m_ItemMap_All.begin();
-	//while(it != m_ItemMap_All.end()){
-
-	//	float DeadLine  = (float)TwoPointToBassLength( it->second->m_vPos, m_pCoil->getPos() ) ;
-	//	//エネミーの座標を磁界の方に持っていく処理
-	//	//if( g_bMouseRB || g_bMouseLB && m_pPlayer){
-	//	if( m_pPlayer && m_pPlayer->getDrawing() ){
-	//		if( m_pPlayer->getMagnetPole() != it->second->m_bPole ){
-
-	//			float	pole	= 1.0f;
-	//			if( m_pPlayer->getMagnetPole() )
-	//					pole	=  -1.0f;
-
-	//			float Lng  = (float)TwoPointToBassLength( it->second->m_vPos, m_pPlayer->getPos() ) ;
-
-	//			if( Lng < MGPRM_MAGNETICUM_QUAD ){
-	//				D3DXVECTOR3	v	= ( it->second->m_vPos - m_pPlayer->getPos() ) / 30 ;
-
-	//				it->second->m_vPos	+= v * pole;
-	//			}
-
-	//			//if( it->second->m_vPos.x <= m_pPlayer->getPos().x ){
-	//			//	it->second->m_vPos.x += EnemyMove * pole;
-	//			//}
-	//			//if( it->second->m_vPos.x >= m_pPlayer->getPos().x ){
-	//			//	it->second->m_vPos.x -= EnemyMove * pole;
-	//			//
-	//			//}
-
-	//			//if( it->second->m_vPos.y <= m_pPlayer->getPos().y ){
-	//			//	it->second->m_vPos.y += EnemyMove * pole;
-	//			//}
-	//			//if( it->second->m_vPos.y > m_pPlayer->getPos().y ){
-	//			//	it->second->m_vPos.y -= EnemyMove * pole;
-	//			//}
-
-	//		}
-	//	}
-	//	
-	//	if( ( +(it->first - m_pCamera->getEye().y) <= 3000) && ( +(it->first - m_pCamera->getEye().y) >= -3000 ) ){
-	//		
-	//		m_ItemMap_Target.insert(multimap<float,EnemyItem*>::value_type(it->second->m_vPos.y,it->second));
-	//	
-	//	}
-
-	//	if( DeadLine < 0.5f ){
-	//		m_pCoil->setState(COIL_STATE_DEAD);
-	//		m_bReset	= true;
-	//	}
-
-	//	++it;
-	//}
-
-
-	//multimap<float,EnemyItem*>::iterator it2 = m_ItemMap_Target.begin();
-	//while(it2 != m_ItemMap_Target.end()){
-
-	//	if( m_bReset ){
-	//		it2->second->m_vPos	= it2->second->m_vStartPos;
-	//	}
-	//	//計算はUpdateで
-
-	//	//拡大縮小
-	//	D3DXMATRIX mScale;
-	//	D3DXMatrixIdentity(&mScale);
-	//	D3DXMatrixScaling(&mScale,it2->second->m_vScale.x,it2->second->m_vScale.y,it2->second->m_vScale.z);
-
-	//	//回転
-	//	D3DXMATRIX mRot;
-	//	D3DXMatrixIdentity(&mRot);
-	//	D3DXMatrixRotationQuaternion(&mRot,&it2->second->m_vRot);
-
-	//	//移動用
-	//	D3DXMATRIX mMove;
-	//	D3DXMatrixIdentity(&mMove);
-	//	D3DXMatrixTranslation(&mMove,it2->second->m_vPos.x,it2->second->m_vPos.y,it2->second->m_vPos.z);
-
-	//	//ミックス行列
-	//	it2->second->m_Matrix = mScale * mRot * mMove;
-
-	//	//マティリアル設定
-	//	m_Material = it2->second->m_Material;
-
-	//	++it2;
-	//}
-
-	//m_bReset	= false;
 }
 
 /////////////////// ////////////////////
@@ -327,6 +320,7 @@ void EnemySphere::Update( UpdatePacket& i_UpdatePacket){
 ////            ：  D3DCOLORVALUE& Ambient,			//アンビエント色
 //// 戻値       ：無し
 //// 担当者     ：斎藤謙吾
+//// 引き継ぎ   ：本多寛之
 //// 備考       ：
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 void EnemySphere::AddEnemy(
@@ -343,6 +337,9 @@ void EnemySphere::AddEnemy(
 	pItem->m_vScale = vScale;
 	pItem->m_vPos = vPos;
 	pItem->m_vStartPos = vPos;
+	pItem->m_vIsAlive = true;
+	//爆散エフェクトのポインタ
+	for( int i = 0; i < PARTICLS_NUM_ENEMY; i++ )pItem->m_pDeadEffect[i] = NULL;
 	::ZeroMemory(&pItem->m_Material,sizeof(D3DMATERIAL9));
 	//回転の初期化
 	D3DXQuaternionRotationYawPitchRoll(&pItem->m_vRot,D3DXToRadian(vRot.y),D3DXToRadian(vRot.x),D3DXToRadian(vRot.z));
@@ -359,9 +356,57 @@ void EnemySphere::AddEnemy(
 		pItem->m_Material.Diffuse.a = 1.0f ; pItem->m_Material.Diffuse.b = 1.0f ; pItem->m_Material.Diffuse.g = 1.0f ; pItem->m_Material.Diffuse.r = 1.0f ;	
 	}
 
-	m_ItemMap_All.insert(multimap<float, EnemyItem*>::value_type(pItem->m_vPos.y,pItem));	
+	m_ItemMap_All.insert(ALLCONTAINER::value_type(vPos.y,pItem));	
 }
 
+/////////////////// ////////////////////
+//// 関数名     ：void	PlayerCoil::CreateEffect( UpdatePacket& i_UpdatePacket );
+//// カテゴリ   ：
+//// 用途       ：
+//// 引数       ：  DrawPacket& i_DrawPacket             // 画面描画時に必要なデータ群 ↓内容下記
+////            ：  ├       LPDIRECT3DDEVICE9  pD3DDevice      // IDirect3DDevice9 インターフェイスへのポインタ
+////            ：  ├       Tempus2*           pTime           // 時間を管理するクラスへのポインター
+////            ：  ├       vector<Object*>&   Vec,            // オブジェクトの配列
+////            ：  ├ const CONTROLER_STATE*   pCntlState      // コントローラのステータス
+////            ：  └       Command            pCommand        // コマンド
+//// 戻値       ：なし
+//// 担当       ：佐藤涼
+//// 備考       ：
+////            ：
+////
+void	EnemySphere::CreateEffect( UpdatePacket& i_UpdatePacket, TARGETCONTAINER::iterator it ){
+	//爆散エフェクトの作成
+	for( int i = 0; i < PARTICLS_NUM_ENEMY; i++ ){
+		(*it)->m_pDeadEffect[i]	= new DeadEffect( i_UpdatePacket.pD3DDevice, (*it)->m_vPos,
+			float((360/PARTICLS_NUM_ENEMY) * i), m_pCoil->getDeadText() );
+	}
+};
+
+/////////////////// ////////////////////
+//// 用途       ：bool PlayerCoil::HitTestWall( OBB Obb )
+//// カテゴリ   ：メンバ関数
+//// 用途       ：壁との衝突判定
+//// 引数       ：  OBB Obb           //  : 検査対象のOBB
+//// 戻値       ：衝突していればtrue
+//// 担当者     ：曳地 大洋
+//// 備考       ：
+void EnemySphere::HitTestWall( OBB Obb ){
+	SPHERE sp;
+	TARGETCONTAINER::iterator it	= m_ItemMap_Target.begin();
+	TARGETCONTAINER::iterator end	= m_ItemMap_Target.end();
+	while(it != end){
+		sp.m_Center = (*it)->m_vPos;
+		sp.m_Radius = ENEMY_RADIUS/2;
+		//通常の衝突判定
+		D3DXVECTOR3 Vec ;
+		if(HitTest::SPHERE_OBB(sp,Obb,Vec)){
+			//MessageBox( NULL, L"当たった！！", L"当たり判定", NULL) ;
+			if(m_pSound && (*it)->m_vIsAlive)m_pSound->SearchWaveAndPlay( RCTEXT_SOUND_SE_PLAYERBLOKEN );
+			(*it)->m_vIsAlive = false;
+		}
+		it++;
+	}
+}
 
 /**************************************************************************
  Factory_Enemy 定義部
