@@ -112,9 +112,9 @@ void Title_Select::Update(UpdatePacket& i_UpdatePacket)
 			}
 			m_bPush		= true;
 		}
-		m_Color	= 0xFFFFFFFF;
+		m_Color	= 0xFFFFFF00;
 	}
-	else	m_Color	= 0xA0FFFFFF;
+	else	m_Color	= 0xFF888888;
 
 	if( m_bPush ){
 		m_iTime++;
