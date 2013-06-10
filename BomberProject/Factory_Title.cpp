@@ -13,10 +13,11 @@
 #include "Object.h"
 #include "Scene.h"
 #include "Factory_Title.h"
+#include "Factory_Scroll.h"
 #include "BassItems.h"
 
 namespace wiz{
-namespace bomberobject{
+	namespace bomberobject{
 
 /************************************************************************
 Title_Select 定義部
@@ -51,6 +52,7 @@ Title_Select::Title_Select(const LPDIRECT3DDEVICE9 pD3DDevice,const LPDIRECT3DTE
 ,m_pSound( NULL )
 ,m_iTime( 0 )
 ,m_bPush( false )
+,m_bPushRock( false )
 {
 	try{
 		//	: 初期マトリックスを計算
@@ -105,16 +107,24 @@ void Title_Select::Update(UpdatePacket& i_UpdatePacket)
 	if( (MousePos.x > m_vPos.x && MousePos.x < ( m_vPos.x + m_pRect->right )) 
 		&& (MousePos.y > m_vPos.y && MousePos.y < ( m_vPos.y + m_pRect->bottom )) ){
 		if( g_bMouseLB/* || g_bMouseRB*/ ){
-			if( !m_bPush ){
-				//if( m_pSound != NULL )
-					m_pSound->SearchWaveAndPlay( RCTEXT_SOUND_SE_ENTER );
+			if( m_bPushRock ){
+				if( !m_bPush ){
+					//if( m_pSound != NULL )
+						m_pSound->SearchWaveAndPlay( RCTEXT_SOUND_SE_ENTER );
+				}
+				m_bPush		= true;
+				m_bPushRock	= false;
 			}
-			m_bPush		= true;
 		}
+		else	m_bPushRock	= true;
 		m_Color	= 0xFFFFFFFF;
 	}
-	else	m_Color	= 0xA0FFFFFF;
+	else{
+		m_Color	= 0xA0FFFFFF;
 
+		if( g_bMouseLB )	m_bPushRock	= false;
+		else				m_bPushRock	= true;
+	}
 	if( m_bPush ){
 		m_iTime++;
 		if( m_iTime > 30 ){
@@ -139,13 +149,23 @@ void Title_Select::Update(UpdatePacket& i_UpdatePacket)
 ***************************************************************************/
 Factory_Title::Factory_Title(FactoryPacket* fpac){
 	try{
+		
+
+
+
+	 
+
+		 Factory_Scroll		Ffac( fpac );
+		
+		
+		
 		fpac->m_pVec->push_back(
 			new SpriteObject(
 				fpac->pD3DDevice,
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, /*L"Lightning.tga"*/L"title.png" ),
-				g_vOne,
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, /*L"Lightning.tga"*/L"Title_Name.tga" ),
+				D3DXVECTOR3(1.4f,1.4f,0.0f),
 				g_vZero,
-				D3DXVECTOR3( 240.0f, 100.0f, 0.0f ),
+				D3DXVECTOR3( 260.0f, 106.0f, 0.0f ),
 				//D3DXVECTOR3( 0.0f, 0.0f, 0.0f ),
 				NULL,
 				g_vZero,
@@ -158,12 +178,12 @@ Factory_Title::Factory_Title(FactoryPacket* fpac){
 		fpac->m_pVec->push_back(
 			new Title_Select(
 					fpac->pD3DDevice,
-					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Title_Start.png" ),
+					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Title_Start.tga" ),
 					GM_OPENSTAGE_PLAY,
-					g_vOne,
+					D3DXVECTOR3(1.4f,1.4f,0.0f),
 					g_vZero,
-					D3DXVECTOR3( 300.0f, 250.0f, 0.0f ),
-					Rect( 0, 0, 340, 50 ),
+					D3DXVECTOR3( 200.0f, 420.0f, 0.0f ),
+					Rect( 0, 0, 168, 42 ),
 					g_vZero,
 					g_vZero,
 					0xFFFFFFFF
@@ -174,12 +194,12 @@ Factory_Title::Factory_Title(FactoryPacket* fpac){
 		fpac->m_pVec->push_back(
 			new Title_Select(
 					fpac->pD3DDevice,
-					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Title_Exit.png" ),
+					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Title_Exit.tga" ),
 					GM_EXIT,
-					g_vOne,
+					D3DXVECTOR3(1.4f,1.4f,0.0f),
 					g_vZero,
-					D3DXVECTOR3( 350.0f, 400.0f, 0.0f ),
-					Rect( 0, 0, 225, 50 ),
+					D3DXVECTOR3( 660.0f, 420.0f, 0.0f ),
+					Rect( 0, 0, 126, 42 ),
 					g_vZero,
 					g_vZero,
 					0xFFFFFFFF

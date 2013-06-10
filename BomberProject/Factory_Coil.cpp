@@ -59,6 +59,7 @@ extern class WallObject ;
 PlayerCoil::PlayerCoil(
 		LPDIRECT3DDEVICE9 pD3DDevice,LPDIRECT3DTEXTURE9 pTexture,LPDIRECT3DTEXTURE9 pTexture_Super,
 		LPDIRECT3DTEXTURE9 pTexture_Dead,LPDIRECT3DTEXTURE9 pTexture_Continue,LPDIRECT3DTEXTURE9 pTexture_Title,
+		LPDIRECT3DTEXTURE9 pTexture_DeadChar,
 		float Radius1,float Radius2,float Radius3,float Lenght,
 		D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos,
 		D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,
@@ -82,6 +83,7 @@ PlayerCoil::PlayerCoil(
 ,m_bReadyToStart(false)
 ,m_bReadyContinue(false)
 ,m_bIsSuperMode(false)
+,m_bDrawContinue( false )
 ,m_pSuperField(NULL)
 ,m_fTurnAngle(PLAYER_TURN_ANGLE_Lv1)
 ,m_pPlayer(NULL)
@@ -91,6 +93,7 @@ PlayerCoil::PlayerCoil(
 ,m_pDeadTex(pTexture_Dead)
 ,m_pContinueTex( pTexture_Continue )
 ,m_pTitleTex( pTexture_Title )
+,m_pDeadCharTex( pTexture_DeadChar )
 ,m_enumCoilState(COIL_STATE_STOP)
 #if defined( ON_DEBUGGINGPROCESS ) | defined( PRESENTATION )
 ,m_pDSPH(NULL)
@@ -107,6 +110,7 @@ PlayerCoil::PlayerCoil(
 
 	m_pSelect	= NULL;
 	m_pSelect2	= NULL;
+	m_pDeadChar	= NULL;
 	//爆散エフェクトのポインタ
 	for( int i = 0; i < PARTICLS_NUM; i++ )
 		m_pDeadEffect[i]	= NULL;
@@ -135,6 +139,7 @@ PlayerCoil::~PlayerCoil(){
 	
 	SAFE_DELETE(m_pSelect);
 	SAFE_DELETE(m_pSelect2);
+	SAFE_DELETE(m_pDeadChar);
 	for( int i = 0; i < PARTICLS_NUM; i++ )
 		SAFE_DELETE(m_pDeadEffect[i]);
 
@@ -276,7 +281,7 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 	Debugger::DBGSTR::addStrTop( L"**********  無敵モード  **********\n" );
 #endif 
 
-	//爆散エフェクト
+	//爆散エフェクト***********************************
 	if( m_pDeadEffect[0] != NULL ){
 		for( int i = 0; i < PARTICLS_NUM; i++ ){
 			m_pDeadEffect[i]->Update( i_UpdatePacket );
@@ -290,22 +295,36 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 			}
 		}
 	}
-
+	//***************************************************
+	if( m_pDeadChar != NULL ){
+		if( m_pDeadChar->getAlpha() <= 0 ){
+			SafeDelete( m_pDeadChar );
+			m_bDrawContinue	= true;
+		}
+	}
+	if( m_pDeadChar != NULL ){
+		m_pDeadChar->Update(i_UpdatePacket);
+	}
 	//ロゴ****************************************
-	if( m_pSelect != NULL ){
-		if( m_enumCoilState != COIL_STATE_DEAD )
-			SafeDelete( m_pSelect );
-	}
-	if( m_pSelect2 != NULL ){
-		if( m_enumCoilState != COIL_STATE_DEAD )
-			SafeDelete( m_pSelect2 );
-	}
+	if( m_bDrawContinue ){
+		if( m_pSelect != NULL ){
+			if( m_enumCoilState != COIL_STATE_DEAD )
+				SafeDelete( m_pSelect );
+		}
+		if( m_pSelect2 != NULL ){
+			if( m_enumCoilState != COIL_STATE_DEAD )
+				SafeDelete( m_pSelect2 );
+		}
 
-	if( m_pSelect != NULL ){
-		m_pSelect->Update(i_UpdatePacket);
-	}
-	if( m_pSelect2 != NULL ){
-		m_pSelect2->Update(i_UpdatePacket);
+		if( m_pSelect != NULL ){
+			m_pSelect->Update(i_UpdatePacket);
+		}
+		if( m_pSelect2 != NULL ){
+			m_pSelect2->Update(i_UpdatePacket);
+		}
+
+		if( m_enumCoilState != COIL_STATE_DEAD )
+			m_bDrawContinue	= false;
 	}
 	//***********************************************
 
@@ -336,6 +355,9 @@ void	PlayerCoil::CreateEffect( UpdatePacket& i_UpdatePacket ){
 
 	float	wide	= BASE_CLIENT_WIDTH/2;
 	float	height	= BASE_CLIENT_HEIGHT/2;
+
+	m_pDeadChar	= new Dead( i_UpdatePacket.pD3DDevice, m_pDeadCharTex, D3DXVECTOR3( 1.0f, 1.0f, 0.0f ),g_vZero,
+					D3DXVECTOR3( wide-128.0f,height-50.0f,0.0f ),NULL,g_vZero,g_vZero);
 
 	//Continue,Titleロゴの作成
 	m_pSelect	= new Continue( i_UpdatePacket.pD3DDevice, m_pContinueTex, true, D3DXVECTOR3(1.0f,1.0f,0.0f),g_vZero,D3DXVECTOR3( wide-128.0f,height-100.0f,0.0f ),
@@ -407,23 +429,24 @@ void PlayerCoil::Update_StateStart(){
 ////
 void PlayerCoil::Update_StateMove(){
 	//プレイヤー磁界と自機の判定
-	bool bCheckDistance = CheckDistance( m_pPlayer->getPos(), m_vPos, (float)MGPRM_MAGNETICUM_QUAD, true );
+	bool bCheckDistance = CheckDistance( m_pPlayer->getPos(), (float)MGPRM_MAGNETICUM_QUAD, true );
 	if( m_pPlayer->getDrawing() && bCheckDistance ){
 		m_fMoveDir = MagneticDecision(m_fMoveDir,m_pPlayer->getPos(),m_pPlayer->getMagnetPole());
 	}
 
-	if( m_pMagneticumObject ){
-		//設置磁界と自機の判定
-		multimap<float, Magnet3DItem*> ItemMap_Target = m_pMagneticumObject->getMapTarget();
-		multimap<float,Magnet3DItem*>::iterator it = ItemMap_Target.begin();
-		while(it != ItemMap_Target.end()){
-			bool bCheckDistance = CheckDistance( it->second->m_vPos, m_vPos, (float)MGPRM_MAGNETICUM_QUAD, false );
-			if( bCheckDistance ){
-				m_fMoveDir = MagneticDecision(m_fMoveDir,it->second->m_vPos,it->second->m_bMagnetPole);
-			}
-			++it;
-		}
-	}
+	if( m_pMagneticumObject )
+		m_pMagneticumObject->HitTest();
+	//	//設置磁界と自機の判定
+	//	TARGETCONTAINER ItemMap_Target = m_pMagneticumObject->getMapTarget();
+	//	multimap<float,Magnet3DItem*>::iterator it = ItemMap_Target.begin();
+	//	while(it != ItemMap_Target.end()){
+	//		bool bCheckDistance = CheckDistance( it->second->m_vPos, m_vPos, (float)MGPRM_MAGNETICUM_QUAD, false );
+	//		if( bCheckDistance ){
+	//			m_fMoveDir = MagneticDecision(m_fMoveDir,it->second->m_vPos,it->second->m_bMagnetPole);
+	//		}
+	//		++it;
+	//	}
+	//}
 	//速度指定
 	if(m_bIsSuperMode) m_fMovdSpeed = COIL_SPEED_SUPER;
 	else			   m_fMovdSpeed = COIL_SPEED;
@@ -734,12 +757,18 @@ void PlayerCoil::Draw(DrawPacket& i_DrawPacket){
 		}
 	}
 
-	//ロゴ
-	if( m_pSelect != NULL ){
-		m_pSelect->Draw(i_DrawPacket);
+	if( m_pDeadChar != NULL ){
+		m_pDeadChar->Draw(i_DrawPacket);
 	}
-	if( m_pSelect2 != NULL ){
-		m_pSelect2->Draw(i_DrawPacket);
+
+	if( m_bDrawContinue ){
+		//ロゴ
+		if( m_pSelect != NULL ){
+			m_pSelect->Draw(i_DrawPacket);
+		}
+		if( m_pSelect2 != NULL ){
+			m_pSelect2->Draw(i_DrawPacket);
+		}
 	}
 };
 
@@ -832,8 +861,8 @@ float PlayerCoil::MagneticDecision( float i_fCoilDir, D3DXVECTOR3& i_vMagnetPos,
 //// 戻値       ：true , false
 //// 担当者     ：本多寛之
 //// 備考       ：
-bool PlayerCoil::CheckDistance( D3DXVECTOR3& i_vMagneticFieldPos, D3DXVECTOR3& i_vCoilPos, float i_iBorder, bool IsPlayer ){
-	float Lng  = (float)TwoPointToBassLength( i_vMagneticFieldPos, i_vCoilPos ) ;
+bool PlayerCoil::CheckDistance( D3DXVECTOR3& i_vMagneticFieldPos, float i_iBorder, bool IsPlayer ){
+	float Lng  = (float)TwoPointToBassLength( i_vMagneticFieldPos, m_vPos ) ;
 	if( Lng <= i_iBorder ){
 		float fBorderLv = i_iBorder/3;
 		if(m_enumCoilState == COIL_STATE_MOVE
@@ -876,7 +905,7 @@ Factory_Coil::Factory_Coil( FactoryPacket* fpac, D3DXVECTOR3* vStartPos  ){
 	try{
 
 		D3DXVECTOR3 vScale( 1.0f, 1.0f, 1.0f );
-		D3DXVECTOR3 vPos( 25.0f,10.0f,0.0f );
+		D3DXVECTOR3 vPos( 25.0f, 5.0f,0.0f );
  		D3DCOLORVALUE CoilDiffuse = {1.0f,1.0f,1.0f,0.0f};
 		D3DCOLORVALUE CoilSpecular = {0.0f,0.0f,0.0f,0.0f};
 		D3DCOLORVALUE CoilAmbient = {1.0f,1.0f,1.0f,0.0f};
@@ -891,6 +920,7 @@ Factory_Coil::Factory_Coil( FactoryPacket* fpac, D3DXVECTOR3* vStartPos  ){
 				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"DeadPerticul.png" ),
 				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Continue.png" ),
 				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Go_Title.png" ),
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"DeadChar.png" ),
 				0.0f,0.7f,1.0f,1.0f,vScale,D3DXVECTOR3(90.0f,0.0f,0.0f),vPos,
 				CoilDiffuse,CoilSpecular,CoilAmbient
 				)

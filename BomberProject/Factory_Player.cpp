@@ -439,7 +439,7 @@ void	MagneticField::Update(UpdatePacket& i_UpdatePacket)
 				
 			}
 			//ˆÚ“®—p
-			//Debugger::DBGSTR::addStr(L"*************************************************\n");
+			Debugger::DBGSTR::addStr(L"*************************************************\n");
 		}
 	}
 	else{
@@ -454,9 +454,11 @@ void	MagneticField::Update(UpdatePacket& i_UpdatePacket)
 				
 			}
 			//ˆÚ“®—p
-			//Debugger::DBGSTR::addStr(L"*************************************************\n");
+			Debugger::DBGSTR::addStr(L"*************************************************\n");
 		}
 	}
+	Debugger::DBGSTR::addStr(L"”¼Œa1 %f\n", m_Radius1);
+	Debugger::DBGSTR::addStr(L"”¼Œa2 %f\n", m_Radius2);
 	D3DXMatrixTranslation(&mMove, m_Pos.x, m_Pos.y, m_Pos.z);
 	D3DXMatrixScaling( &mScale, m_Radius1/m_vNormalSize.x, m_Radius2/m_vNormalSize.y, 1.0f );
 	m_mMatrix	= mScale * mMove;

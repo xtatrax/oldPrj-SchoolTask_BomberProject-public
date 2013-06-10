@@ -50,6 +50,8 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 	wiz::OBJID ObjectID = (wiz::OBJID)i_Data.enClassid;
 
 	switch( ObjectID ){
+
+/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 		//////////
 		//
 		case OBJID_NONE:
@@ -57,6 +59,9 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 			return;
 		//
 		//////////
+/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
+
+/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 		case OBJID_3D_WALL :	//	: 12300
 		{
 			//////////
@@ -115,6 +120,10 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 			//////////
 		}
 		break;
+
+/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
+
+/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 		case OBJID_3D_ITEM :	//	: 12301
 		{
 			//////////
@@ -170,6 +179,9 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 			//////////
 		}
 		break;
+/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
+
+/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 		case OBJID_3D_STATIC_MAGNET :	//	: 12305 
 		{
 			//////////
@@ -230,28 +242,16 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 			//////////
 		}
 		break;
+/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
+
+/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 		case OBJID_3D_ENEMY :	//	: 12307
 		{
 			//////////
-			//	: 磁界
+			//	: 敵(ウイルス?)
 
 			//	: たーげっと。
 			typedef EnemySphere TARGET_CLASS;
-		//EnemySphere* Enemy = new EnemySphere(fpac->pD3DDevice, EnemyDiffuse, EnemySpecular, EnemyAmbient, fpac->m_pTexMgr->addTexture(fpac->pD3DDevice,L"Enemy.jpg"));
-		//for(int i = 0; i < 3; i++){
-		//	for(int j = 0; j < 3; j++){
-		//		Enemy->AddEnemy(
-		//						D3DXVECTOR3( 1.0f, 1.0f, 1.0f ),     //スケール
-		//						D3DXVECTOR3( 0.0f, 0.0f, 0.0f ),     //角度
-		//						D3DXVECTOR3((float(i)*5.0f+float(rand()%100*0.3f))+1.5f,
-		//									(float(j)*2.75f+float(rand()%100*0.2f))+1.5f,0.0f),   //ポジション
-		//						EnemyDiffuse,
-		//						EnemySpecular,
-		//						EnemyAmbient
-		//		);
-		//	}
-		//}
-		//fpac->m_pVec->push_back(Enemy);
 
 			if((it = m_ObjeTypeMap.find( ObjectID )) != m_ObjeTypeMap.end()){
 				//	: 登録を見つけた場合
@@ -305,10 +305,13 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 					i_Data.Ambient
 				);
 			}
-			//	: 磁界
+			//	: 敵(ウイルス?)
 			//////////
 		}
 		break;
+/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
+
+/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 		case OBJID_SYS_CHECKPOINT :	//	: 4101 
 		{
 			//////////
@@ -358,8 +361,12 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 			//////////
 		}
 		break;
-		case OBJID_SYS_CLEARAREA :	//:4102
+/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 
+/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
+		case OBJID_SYS_CLEARAREA :	//:4102
+			//////////
+			//	: クリア領域
 			D3DCOLORVALUE MemoryDiffuse = {1.0f,1.0f,1.0f,0.0f};
 			D3DCOLORVALUE MemorySpecular = {0.0f,0.0f,0.0f,0.0f};
 			D3DCOLORVALUE MemoryAmbient = {1.0f,1.0f,1.0f,0.0f};
@@ -402,7 +409,10 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 			//	: オブジェクトリストへ登録
 			m_pVec->push_back(mgb);
 			break;
+			//	: クリア領域
+			//////////
 		}
+/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 };
 
 /////////////////// ////////////////////
@@ -628,7 +638,7 @@ void StageLoader::ObjectsLoader(wstring i_sFileName){
 		Status.vOffset.x	= getCsvFloat(	vvCsvData, Line, o_CsvMatrix.Column.uiPosX				) ;
 		Status.vOffset.y	= getCsvFloat(	vvCsvData, Line, o_CsvMatrix.Column.uiPosY				) ;
 		Status.vOffset.z	= getCsvFloat(	vvCsvData, Line, o_CsvMatrix.Column.uiPosZ				) ;
-		Status.bPool		= getCsvPOLE(	vvCsvData, Line, o_CsvMatrix.Column.uiPosZ				) ;
+		Status.bPool		= getCsvPOLE(	vvCsvData, Line, o_CsvMatrix.Column.uiPool				) ;
 
 		Status.Ambient		= Ambient	;
 		Status.Specular		= Specular	;

@@ -102,7 +102,7 @@ void  Tempus::TimeUpdate(){
 	}
 
 //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-//#ifdef ___MLP_DEBUG_TIMEDRAW_
+#ifdef CF_DEBUG_TIMEDRAW
 	int h = (int)(DWMSTOFS(dwNowFrameMiriSecond) / (60 * 60)) % 24;
 	int m = (int)(DWMSTOFS(dwNowFrameMiriSecond) / 60) % 60;
 	int S = (int)(DWMSTOFS(dwNowFrameMiriSecond) ) % 60;
@@ -120,7 +120,7 @@ void  Tempus::TimeUpdate(){
 		m_dwOFOTime,
 		DWMSTOFS(m_dwElapsedTime)
 		);
-//#endif
+#endif
 //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 }
 /////////////////// ////////////////////
@@ -325,7 +325,7 @@ void  Tempus2::TimeUpdate(){
 	}
 
 //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-//#ifdef ___MLP_DEBUG_TIMEDRAW_
+#ifdef CF_DEBUG_TIMEDRAW
 	int h = (int)(DWMSTOFS(dwNowFrameMiriSecond) / (60 * 60)) % 24;
 	int m = (int)(DWMSTOFS(dwNowFrameMiriSecond) / 60) % 60;
 	int S = (int)(DWMSTOFS(dwNowFrameMiriSecond) ) % 60;
@@ -343,7 +343,7 @@ void  Tempus2::TimeUpdate(){
 		m_dwOFOTime,
 		DWMSTOFS(m_dwElapsedTime)
 		);
-//#endif
+#endif
 //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 }
 /////////////////// ////////////////////

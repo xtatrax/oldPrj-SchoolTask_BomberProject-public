@@ -352,8 +352,7 @@ public:
 	////            ：
 	////
 	static void addStr(const wchar_t* addStr,...){
-		#if defined( DIRECT3D_VERSION ) && defined(DEBUG) || defined(_DEBUG) || defined(ON_DEBUGGINGPROCESS) 
-		#ifdef DEBUG_STRINGS_ON
+		#if defined( DIRECT3D_VERSION ) && defined(DEBUG_STRINGS_ON)
 		if(5120 > str.size()  ){
 			wchar_t strBuf[1024];
 			va_list	argp;
@@ -362,7 +361,6 @@ public:
 			va_end(argp);
 			str += strBuf;
 		}
-		#endif
 		#endif
 	}
 	/////////////////// ////////////////////
@@ -377,8 +375,7 @@ public:
 	////            ：
 	////
 	static void addStrTop(const wchar_t* addStr,...){
-		#if defined( DIRECT3D_VERSION ) && defined(DEBUG) || defined(_DEBUG) || defined(ON_DEBUGGINGPROCESS) 
-		#ifdef DEBUG_STRINGS_ON
+		#if defined( DIRECT3D_VERSION ) && defined(DEBUG_STRINGS_ON)
 		if(5120 > str.size()  ){
 			wchar_t strBuf[1024];
 			va_list	argp;
@@ -387,7 +384,6 @@ public:
 			va_end(argp);
 			str = strBuf + str;
 		}
-		#endif
 		#endif
 	}
 
@@ -403,8 +399,7 @@ public:
 	////
 #if defined( DIRECT3D_VERSION )
 	static void Init(LPDIRECT3DDEVICE9	i_pD3DDevice){
-		#if defined(DEBUG) || defined(_DEBUG) || defined(ON_DEBUGGINGPROCESS) 
-		#ifdef DEBUG_STRINGS_ON
+		#if defined(DEBUG_STRINGS_ON)
 		try{
 			if (FAILED(D3DXCreateFont(i_pD3DDevice,				/* デバイス */
 							10,									/* 文字の高さ */
@@ -433,7 +428,6 @@ public:
 			throw;
 		}
 		#endif
-		#endif
 	}
 #endif
 	/////////////////// ////////////////////
@@ -447,8 +441,7 @@ public:
 	////            ：
 	////
 	static void Draw(){
-		#if defined( DIRECT3D_VERSION ) && defined(DEBUG) || defined(_DEBUG) || defined(ON_DEBUGGINGPROCESS) 
-		#ifdef DEBUG_STRINGS_ON 
+		#if defined(DEBUG_STRINGS_ON)
 			if(GetAsyncKeyState( MYVK_DEBUG_OUTPUT_DBGSTR )){
 				addStrTop(L"============================================================================================================\n");
 				addStrTop(L"=====                                      デバッグ文字列出力                                          =====\n");
@@ -461,7 +454,6 @@ public:
 				str  = L"\n\n\nデバッグ                                                                                                                                               F12:停止\n";
 				str += L"                                                                                                     コントローラー＝キーボード / A = X / B = C / X = S / Y = D /  \n";
 			}
-		#endif
 		#endif
 	}
 };
