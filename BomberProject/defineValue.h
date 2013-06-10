@@ -48,10 +48,17 @@ static const int			MGPRM_MAGNETICUM_QUAD		= ( MGPRM_MAGNETICUM * MGPRM_MAGNETICU
 //	: コンパイリングフラグ
 
 
-#define CF_SINGLETHREAD			/* シングルスレッドモード  ( 無効にするとマルチスレッド的になりますがバグります )   */
+#define CF_SINGLETHREAD					/* シングルスレッドモード  ( 無効にするとマルチスレッド的になりますがバグります )   */
 #define DRAW_MOUSE	(false)
+
+#define CF_OVERLORDNEW_ENABLE			/* 自作のnewを強制化 */
+//#define CF_MEMORYOUTPUTPROCESS_ENABLE	/* 自作メモリ管理システムにより管理されているアイテムのファイルへの書き出しを可能にする */
+//#define CF_LOADINGANIMATION			/* ロード画面でアニメーション */
 //#define CF_OVERLORDNEW_ENABLE	/* 自作のnewを強制化 */
+
+
 //#define CF_LOADINGANIMATION		/* ロード画面でアニメーション */
+
 
 #if defined(DEBUG) || defined(_DEBUG)
 	//-------------------------------//
@@ -59,6 +66,7 @@ static const int			MGPRM_MAGNETICUM_QUAD		= ( MGPRM_MAGNETICUM * MGPRM_MAGNETICU
 	//-------------------------------//
 	#define ON_DEBUGGINGPROCESS			/* デバックモード             */
 	#define DEBUG_STRINGS_ON			/* デバッグ用文字列を有効化 */
+	//#define CF_MEMORYMANAGER_ENABLE	/* 自作メモリ管理システムを有効化 */
 
 	//#define ___MLP_DEBUG_TIMEDRAW_ 
 	//#define ON_GUIDELINE
@@ -75,7 +83,7 @@ static const int			MGPRM_MAGNETICUM_QUAD		= ( MGPRM_MAGNETICUM * MGPRM_MAGNETICU
 	//		リリースモード定義       //
 	//-------------------------------//
 
-		//#define CF_FULLSCREEN				/* フルスクリーンモード       */
+		#define CF_FULLSCREEN				/* フルスクリーンモード       */
 	#endif
 
 #endif
@@ -175,7 +183,7 @@ namespace wiz{
 
 	////	CLASSID_END			=  0xFFFFFFFFFFFFFFFF ,
 	////};
-
+/**/
 	//////////////////////////////////////////////////
 	//                                              //
 	//                                              //
@@ -295,12 +303,18 @@ namespace wiz{
 //////////
 //	: グローバルな変数
 
-extern D3DXVECTOR3 g_vZero ;	//	: ゼロベクトル
-extern D3DXVECTOR3 g_vOne  ;	//	: 一ベクトル
-extern D3DXVECTOR3 g_vMax  ;	//	: 最高ベクトル
-extern D3DXVECTOR3 g_vMin  ;	//	: 最低ベクトル
+const static D3DXVECTOR3 g_vZero = D3DXVECTOR3(0.0f,0.0f,0.0f);
+const static D3DXVECTOR3 g_vOne  = D3DXVECTOR3(1.0f,1.0f,1.0f);
+const static D3DXVECTOR3 g_vMax  = D3DXVECTOR3(+FLT_MAX,+FLT_MAX,+FLT_MAX);
+const static D3DXVECTOR3 g_vMin  = D3DXVECTOR3(-FLT_MAX,-FLT_MAX,-FLT_MAX);
 
-extern wstring g_sDefaultTexturePath ;	//	: テクスチャの置き場
+
+const static wstring	g_sDefaultTexturePath = L"media/Textures/" ;	//	: テクスチャの置き場
+const static int		DRAWING_RANGE = 20;
+
+      extern HWND g_hWnd	 ;
+      extern bool g_bMouseLB ;
+      extern bool g_bMouseRB ;
 
 //	
 //////////

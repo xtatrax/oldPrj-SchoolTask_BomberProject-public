@@ -51,7 +51,11 @@ MouseCursor::MouseCursor( LPDIRECT3DDEVICE9 pD3DDevice, TextureManager* m_pTexMg
 	const	D3DXVECTOR3	vDir	= D3DXVECTOR3( cosf( D3DXToRadian(-55.0f) ), sinf( D3DXToRadian(-55.0f) ), 0.0f );
 	const	D3DXVECTOR3	vDir2	= D3DXVECTOR3( cosf( D3DXToRadian(0.0f) ), sinf( D3DXToRadian(0.0f) ), 0.0f );
 	const	float		fRange	= 100.0f;
-	m_pLine		= new Line( g_vZero, vDir, fRange, 0xFFFFFF00 );
+	m_vScale	= D3DXVECTOR3( 0.2f, 0.2f, 0.0f );
+	m_pSelectPos	= new SpriteObject( pD3DDevice, m_pTexMgr->addTexture( pD3DDevice, L"point.png" ), m_vScale,
+										g_vZero, g_vZero, NULL, D3DXVECTOR3( 16.0f, 16.0f, 0.0f ), g_vZero );
+
+	m_pLine			= new Line( g_vZero, vDir, fRange, 0xFFFFFF00 );
 	m_pLine2		= new Line( m_pLine->getEndPos(), vDir2, fRange*2, 0xFFFFFF00 );
 
 	m_pTorus	= new Torus(
@@ -82,9 +86,10 @@ MouseCursor::MouseCursor( LPDIRECT3DDEVICE9 pD3DDevice, TextureManager* m_pTexMg
 //// 備考       ：
 MouseCursor::~MouseCursor(){
 	m_MovePosY	= 0 ;
-	m_pLine		= NULL;
-	m_pLine2	= NULL;
-	m_pTorus	= NULL;
+	SafeDelete( m_pLine	 )	;
+	SafeDelete( m_pLine2 )	;
+	SafeDelete( m_pTorus )	;
+	SafeDelete( m_pSelectPos )	;
 }
 
 
@@ -111,11 +116,8 @@ void MouseCursor::Update( UpdatePacket& i_UpdatePacket ){
 
 	static float s_fTimeCount = 0.0f;
 
-	//	: カーソルの設定
-	//	: マウスのクライアント座標を獲得
-	GetCursorPos( &m_v2DPos ) ;
-	ScreenToClient( g_hWnd , &m_v2DPos) ;
-	
+	Update2DPos();
+
 	//	: 座標の更新
 	D3DXMATRIX mPos ;
 	D3DXMatrixTranslation( &mPos, (float)m_v2DPos.x, (float)m_v2DPos.y, 0.0f);
@@ -123,12 +125,17 @@ void MouseCursor::Update( UpdatePacket& i_UpdatePacket ){
 	//	: 行列の算出
 	m_mMatrix = m_mScale * mPos ;
 
-	UpdateCursor();
+	Update3DPos();
 
 	m_pLine->setMatrix( m_mMatrix );
 	m_pLine2->setMatrix( m_mMatrix );
 
 	D3DXMATRIX mPos2, mScale, mRot;
+
+	D3DXMatrixScaling( &mScale, m_vScale.x, m_vScale.y, m_vScale.z );
+	m_mMatrix = mScale * mPos ;
+	m_pSelectPos->setMatrix( m_mMatrix );
+
 	D3DXMatrixTranslation(&mPos2, m_v3DPos.x, m_v3DPos.y, m_v3DPos.z);
 	D3DXMatrixScaling(&mScale, m_fTorusMagnification,m_fTorusMagnification,0.0f);
 	D3DXMatrixRotationZ(&mRot, 0.0f);
@@ -167,10 +174,20 @@ void MouseCursor::Draw(DrawPacket& i_DrawPacket)
 	//Box::Draw(i_DrawPacket);
 	m_pLine->draw(i_DrawPacket.pD3DDevice);
 	m_pLine2->draw(i_DrawPacket.pD3DDevice);
+	m_pSelectPos->Draw(i_DrawPacket);
 	if(m_pCamera)m_pTorus->Draw(i_DrawPacket);
 }
+void MouseCursor::Update2DPos(){
+	//	: カーソルの設定
+	//	: マウスのクライアント座標を獲得
+	GetCursorPos( &m_v2DPos ) ;
+	Debugger::DBGSTR::addStr( L" Pos( %d, %d )\n" , m_v2DPos.x , m_v2DPos.y ) ;
+	ScreenToClient( g_hWnd , &m_v2DPos) ;
+	Debugger::DBGSTR::addStr( L" Pos( %d, %d )\n" , m_v2DPos.x , m_v2DPos.y ) ;
 
-void MouseCursor::UpdateCursor(){
+	
+}
+void MouseCursor::Update3DPos(){
 	if( m_pCamera ){
 
 		float fYPosCorrection = 10.0f ;

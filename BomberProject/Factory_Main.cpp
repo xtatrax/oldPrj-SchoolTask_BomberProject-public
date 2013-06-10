@@ -27,7 +27,6 @@
 #include "Factory_Stage1.h"
 #include "Factory_Description.h"
 #include "Factory_Cursor.h"
-#include "Factory_Wall.h"
 #include "BassItems.h"
 
 namespace wiz{
@@ -74,7 +73,7 @@ Factory_Main::Factory_Main(FactoryPacket* fpac, D3DXVECTOR3* vStartPos ){
         fpac->m_pVec->push_back(
 			new Camera(
 				fpac->pD3DDevice,
-				D3DXVECTOR3( ECXPos, ECYPos, -55.7f),
+				D3DXVECTOR3( ECXPos, ECYPos, -145.7f),
 				D3DXVECTOR3(ECXPos,ECYPos,0.0f),
 				1 ,
 				300.0f,
@@ -111,12 +110,13 @@ Factory_Main::Factory_Main(FactoryPacket* fpac, D3DXVECTOR3* vStartPos ){
 		StageLoader loader(fpac->pD3DDevice,L"media/Map/Stages.csv", 1,*fpac->m_pVec,*fpac->m_pTexMgr);
 		Factory_CheckPoint	CPfac( fpac ) ;
 		Factory_Coil		Cfac( fpac , vStartPos );
+		//Factory_BG		Wfac( fpac );
+
 		Factory_Magnetic	Mfac( fpac ) ;
 		Factory_Enemy		Efac( fpac ) ;
 //		Factory_Item		Ifac( fpac ) ;
 		Factory_Description	Dfac( fpac ) ;
 		Factory_Gage		Gfac( fpac );
-
 		Sound* pSound = NULL;
 		fpac->m_pVec->push_back(
 			pSound = new Sound( 
@@ -151,7 +151,6 @@ Factory_Main::Factory_Main(FactoryPacket* fpac, D3DXVECTOR3* vStartPos ){
 		//çƒthrow
 		throw;
 	}
-
 }
 /**************************************************************************
  Factory_Main::~Factory_Main();
@@ -161,7 +160,11 @@ Factory_Main::Factory_Main(FactoryPacket* fpac, D3DXVECTOR3* vStartPos ){
 Factory_Main::~Factory_Main(){
 	//Ç»Ç…Ç‡ÇµÇ»Ç¢
 }
+
+
 }
+
+
 //end of namespace bomberobject.
 }
 //end of namespace wiz.

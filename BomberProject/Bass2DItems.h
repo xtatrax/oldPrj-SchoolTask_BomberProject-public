@@ -54,8 +54,14 @@ public:
 //// 備考       ：
 ////            ：
 ////
-	PrimitiveSprite(LPDIRECT3DDEVICE9 pD3DDevice,LPDIRECT3DTEXTURE9 pTexture,RECT* Rect,
-			D3DXVECTOR3& vCenter,D3DXVECTOR3& vOffsetPos,Color color = 0xFFFFFFFF);
+	PrimitiveSprite(
+		const LPDIRECT3DDEVICE9		pD3DDevice	,
+		const LPDIRECT3DTEXTURE9	pTexture	,
+		const RECT*					Rect		,
+		const D3DXVECTOR3&			vCenter		,
+		const D3DXVECTOR3&			vOffsetPos	,
+		const Color					color		= 0xFFFFFFFF
+	);
 /////////////////// ////////////////////
 //// 関数名     ：virtual ~PrimitiveSprite()
 //// カテゴリ   ：デストラクタ
@@ -112,10 +118,18 @@ public:
 //// 備考       ：
 ////            ：
 ////
-	SpriteObject(LPDIRECT3DDEVICE9 pD3DDevice,LPDIRECT3DTEXTURE9 pTexture,
-			D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos, RECT* pRect,
-			D3DXVECTOR3& vCenter,D3DXVECTOR3& vOffsetPos,Color color = 0xFFFFFFFF,
-			wiz::OBJID id = OBJID_UI_SPRITE);
+	SpriteObject(
+		const LPDIRECT3DDEVICE9		pD3DDevice	,
+		const LPDIRECT3DTEXTURE9	pTexture	,
+		const D3DXVECTOR3&			vScale		,
+		const D3DXVECTOR3&			vRot		,
+		const D3DXVECTOR3&			vPos		,
+		const RECT*					pRect		,
+		const D3DXVECTOR3&			vCenter		,
+		const D3DXVECTOR3&			vOffsetPos	,
+		const Color					color		= 0xFFFFFFFF	,
+		const wiz::OBJID			id			= OBJID_UI_SPRITE
+	);
 /////////////////// ////////////////////
 //// 関数名     ：~SpriteObject();
 //// カテゴリ   ：デストラクタ

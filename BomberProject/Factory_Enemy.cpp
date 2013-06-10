@@ -49,12 +49,34 @@ EnemySphere::EnemySphere(LPDIRECT3DDEVICE9 pD3DDevice,D3DCOLORVALUE& Diffuse,D3D
 ,m_pCamera( NULL )
 ,m_pPlayer( NULL )
 ,m_pCoil( NULL )
+,m_pSound( NULL )
 ,m_bReset( false )
 
 {
 	
 	::ZeroMemory( &m_Material, sizeof(D3DMATERIAL9));
 	
+}
+
+/////////////////// ////////////////////
+//// 関数名     ：EnemySphere::~EnemySphere();
+//// カテゴリ   ：デストラクタ
+//// 用途       ：球体を破棄
+//// 引数       ：なし
+//// 戻値       ：なし
+//// 担当者     ： (山ノ井先生のひな形より)
+//// 備考       ：
+////            ：
+////
+EnemySphere::~EnemySphere(){
+	m_pCamera	= NULL ;
+	m_pPlayer	= NULL ;
+	m_pCoil		= NULL ;
+	m_pSound	= NULL ;
+
+	SafeDeletePointerMap( m_ItemMap_All );
+	m_ItemMap_All.clear();
+	m_ItemMap_Target.clear();
 }
 
 /////////////////// ////////////////////
@@ -73,8 +95,10 @@ void EnemySphere::Draw(DrawPacket& i_DrawPacket)
 	multimap<float,EnemyItem*>::iterator it = m_ItemMap_Target.begin();
 	while(it != m_ItemMap_Target.end()){
 
+		//マティリアル設定
+		m_Material = it->second->m_Material;
 		//テクスチャがある場合
-		if(m_pTexture){
+		if(!m_pTexture){
 
 			DWORD wkdword;
 			//現在のテクスチャステータスを得る
@@ -141,26 +165,42 @@ void EnemySphere::Update( UpdatePacket& i_UpdatePacket){
 	if( !m_pCoil ){
 		m_pCoil = (PlayerCoil*)SearchObjectFromTypeID( i_UpdatePacket.pVec,typeid(PlayerCoil));
 	}
-	const float EnemyMove = 0.1f;
-
+	if(m_pSound == NULL){
+		m_pSound = (Sound*)SearchObjectFromTypeID(i_UpdatePacket.pVec,typeid(Sound));
+	}
+	
+	if(m_pCoil->getState() == COIL_STATE_CONTINUE)m_bReset = true;
+	
 	m_ItemMap_Target.clear();
 	multimap<float,EnemyItem*>::iterator it = m_ItemMap_All.begin();
 	while(it != m_ItemMap_All.end()){
-		if( ( (it->first - m_pCamera->getEye().y) <= 20) && ( (it->first - m_pCamera->getEye().y) >= -20 ) ){
+		if(m_bReset){
+			it->second->m_vPos = it->second->m_vStartPos;
+		}
+		if( ( +(it->first - m_pCamera->getEye().y) <= 20) && ( +(it->first - m_pCamera->getEye().y) >= -20 ) ){
 			m_ItemMap_Target.insert(multimap<float,EnemyItem*>::value_type(it->second->m_vPos.y,it->second));
 		}
 		++it;
 	}
 
+	m_bReset = false;
+
 	multimap<float,EnemyItem*>::iterator it2 = m_ItemMap_Target.begin();
 	while(it2 != m_ItemMap_Target.end()){
-
-		float DeadLine  = (float)TwoPointToBassLength( it2->second->m_vPos, m_pCoil->getPos() ) ;
-		if( DeadLine < 0.5f ){
-			m_pCoil->setState(COIL_STATE_DEAD);
-			//m_bReset	= true;
+		
+		if(m_pPlayer->getDrawing()){
+			float fLng = (float)TwoPointToBassLength( it2->second->m_vPos, m_pPlayer->getPos() ) ;
+			if(fLng <= (float)MGPRM_MAGNETICUM_QUAD){
+				;
+			}
 		}
 
+		float DeadLine  = (float)TwoPointToBassLength( it2->second->m_vPos, m_pCoil->getPos() ) ;
+		if( m_pCoil->getState() == COIL_STATE_MOVE && !m_pCoil->getSuperMode() && DeadLine < 0.5f ){
+			m_pSound->SearchWaveAndPlay( RCTEXT_SOUND_SE_PLAYERBLOKEN );
+			m_pCoil->setState(COIL_STATE_DEAD);
+		}
+		
 		//拡大縮小
 		D3DXMATRIX mScale;
 		D3DXMatrixIdentity(&mScale);
@@ -179,8 +219,6 @@ void EnemySphere::Update( UpdatePacket& i_UpdatePacket){
 		//ミックス行列
 		it2->second->m_Matrix = mScale * mRot * mMove;
 
-		//マティリアル設定
-		m_Material = it2->second->m_Material;
 
 		++it2;
 	}
@@ -291,44 +329,39 @@ void EnemySphere::Update( UpdatePacket& i_UpdatePacket){
 //// 担当者     ：斎藤謙吾
 //// 備考       ：
 //////////////////////////////////////////////////////////////////////////////////////////////////////
-void EnemySphere::AddEnemy(D3DXVECTOR3 &vScale, D3DXVECTOR3 &vRot, D3DXVECTOR3 &vPos, D3DCOLORVALUE &Diffuse,D3DCOLORVALUE &Specular, D3DCOLORVALUE &Ambient){
+void EnemySphere::AddEnemy(
+		const D3DXVECTOR3&		vScale		,
+		const D3DXVECTOR3&		vRot		,
+		const D3DXVECTOR3&		vPos		,
+		const D3DCOLORVALUE&	Diffuse		,
+		const D3DCOLORVALUE&	Specular	,
+		const D3DCOLORVALUE&	Ambient
+	)
+{
 
 	EnemyItem* pItem = new EnemyItem;
 	pItem->m_vScale = vScale;
 	pItem->m_vPos = vPos;
 	pItem->m_vStartPos = vPos;
 	::ZeroMemory(&pItem->m_Material,sizeof(D3DMATERIAL9));
-	pItem->m_Material.Diffuse = Diffuse;
-	pItem->m_Material.Specular = Specular;
-	pItem->m_Material.Ambient = Ambient;
 	//回転の初期化
 	D3DXQuaternionRotationYawPitchRoll(&pItem->m_vRot,D3DXToRadian(vRot.y),D3DXToRadian(vRot.x),D3DXToRadian(vRot.z));
-	int	i	= rand()%1000;
-	if( i < 500 )	pItem->m_bPole	= POLE_N;
-	else		pItem->m_bPole	= POLE_S;
+	int	i	= rand()%10;
+	if( i < 5 ){
+		pItem->m_bPole	= POLE_N;
+		pItem->m_Material.Ambient.a = 1.0f ; pItem->m_Material.Ambient.b = 0.0f ; pItem->m_Material.Ambient.g = 0.0f ; pItem->m_Material.Ambient.r = 1.0f ;
+		pItem->m_Material.Specular.a = 0.0f ; pItem->m_Material.Specular.b = 0.0f ; pItem->m_Material.Specular.g = 0.0f ; pItem->m_Material.Specular.r = 0.0f ;
+		pItem->m_Material.Diffuse.a = 1.0f ; pItem->m_Material.Diffuse.b = 1.0f ; pItem->m_Material.Diffuse.g = 1.0f ; pItem->m_Material.Diffuse.r = 1.0f ;	
+	}else{
+		pItem->m_bPole	= POLE_S;
+		pItem->m_Material.Ambient.a = 1.0f ; pItem->m_Material.Ambient.b = 1.0f ; pItem->m_Material.Ambient.g = 0.0f ; pItem->m_Material.Ambient.r = 0.0f ;
+		pItem->m_Material.Specular.a = 0.0f ; pItem->m_Material.Specular.b = 0.0f ; pItem->m_Material.Specular.g = 0.0f ; pItem->m_Material.Specular.r = 0.0f ;
+		pItem->m_Material.Diffuse.a = 1.0f ; pItem->m_Material.Diffuse.b = 1.0f ; pItem->m_Material.Diffuse.g = 1.0f ; pItem->m_Material.Diffuse.r = 1.0f ;	
+	}
 
 	m_ItemMap_All.insert(multimap<float, EnemyItem*>::value_type(pItem->m_vPos.y,pItem));	
 }
 
-/////////////////// ////////////////////
-//// 関数名     ：EnemySphere::~EnemySphere();
-//// カテゴリ   ：デストラクタ
-//// 用途       ：球体を破棄
-//// 引数       ：なし
-//// 戻値       ：なし
-//// 担当者     ： (山ノ井先生のひな形より)
-//// 備考       ：
-////            ：
-////
-EnemySphere::~EnemySphere(){
-	m_pCamera	= NULL ;
-	m_pPlayer	= NULL ;
-	m_pCoil		= NULL ;
-
-	SafeDeletePointerMap( m_ItemMap_All );
-	m_ItemMap_All.clear();
-	m_ItemMap_Target.clear();
-}
 
 /**************************************************************************
  Factory_Enemy 定義部

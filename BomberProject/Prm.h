@@ -11,7 +11,7 @@
 #include "StdAfx.h"
 
 namespace wiz{
-
+namespace Avoidance{
 ///**************************************************************************
 // class App;
 // 用途: アプリケーションクラス
@@ -285,7 +285,7 @@ public:
 ***************************************************************************/
     void Draw(LPDIRECT3DDEVICE9 pD3DDevice,LPD3DXEFFECT pEffect);
 };
-
+}
 }
 //end of namespace base
 
