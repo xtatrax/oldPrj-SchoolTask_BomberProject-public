@@ -84,20 +84,20 @@ void DxDevice::initDevice(HWND hWnd,bool isFullScreen,int Width,int Height)
         // 描画と頂点処理をハードウェアで行なう
         if(FAILED(m_pD3D->CreateDevice(D3DADAPTER_DEFAULT, 
                                         D3DDEVTYPE_HAL, 
-                                        hWnd, 
+                                        m_hWnd, 
                                         D3DCREATE_HARDWARE_VERTEXPROCESSING, 
                                         &m_D3DPP, &m_pD3DDevice))) {
             // 上記の設定が失敗したら
             // 描画をハードウェアで行い、頂点処理はCPUで行なう
             if(FAILED(m_pD3D->CreateDevice(D3DADAPTER_DEFAULT, 
                                             D3DDEVTYPE_HAL, 
-                                            hWnd, 
+                                            m_hWnd, 
                                             D3DCREATE_SOFTWARE_VERTEXPROCESSING, 
                                             &m_D3DPP, &m_pD3DDevice))) {
                 // 上記の設定が失敗したら
                 // 描画と頂点処理をCPUで行なう
                 if(FAILED(m_pD3D->CreateDevice(D3DADAPTER_DEFAULT, 
-                                                D3DDEVTYPE_REF, hWnd, 
+                                                D3DDEVTYPE_REF, m_hWnd, 
                                                 D3DCREATE_SOFTWARE_VERTEXPROCESSING, 
                                                 &m_D3DPP, &m_pD3DDevice))) {
                     // 初期化失敗
@@ -110,11 +110,11 @@ void DxDevice::initDevice(HWND hWnd,bool isFullScreen,int Width,int Height)
         }
 		const static UINT n = m_pD3D->GetAdapterCount();
 		D3DCAPS9* cap = new D3DCAPS9[n];
-		for( int i = 0 ; i < n ; i ++ ){
+		for( UINT i = 0 ; i < n ; i ++ ){
 			m_pD3D->GetDeviceCaps( i, D3DDEVTYPE_HAL, &cap[i]);
 		}
 		SafeDeleteArr( cap );
-        m_Controller = CONTROLLERS(hWnd);
+        m_Controller = CONTROLLERS(m_hWnd);
 		Debugger::DBGSTR::Init(m_pD3DDevice);
     }
     catch(...){
@@ -461,7 +461,9 @@ void DxDevice::RenderScene()
 			pScene->Draw(m_DrawPacket);///**************************
 
 			Debugger::DBGSTR::Draw();
+#if defined( CF_MEMORYMANAGER_ENABLE )
 			TMemoryManager::Draw();
+#endif
 			// 描画終了宣言
 			m_pD3DDevice->EndScene();
 		}
@@ -488,7 +490,7 @@ void DxDevice::RenderScene()
 
 			}catch(exception& e){
 				
-				throw ;
+				throw e;
 			}
 			catch(...){
 				throw;

@@ -1,5 +1,5 @@
 ////////////////////////////// //////////////////////////////
-//	プロジェクト	：DirectX Program Bass Project
+//	プロジェクト	：TATRA-Library
 //	ファイル名		：DxDevice.h
 //	開発環境		：MSVC++ 2008
 //	最適タブ数		：4
@@ -19,38 +19,111 @@
 #define TLIB_MEMORYMANAGER
 
 #include "DebugFunctions.h"
+#if defined( CF_MEMORYMANAGER_ENABLE )
 
 //namespace TLIB{
+//**************************************************************************//
+// class TMemoryManager ;
+// 担当  : 鴫原 徹
+// 用途  : メモリ管理システム
+// 備考  : プロジェクト内で確保されたメモリを管理します
+//**************************************************************************//
 class TMemoryManager{
-	static DWORD m_dwAreaSize ;
 public:
-	//	: new されたデータの情報構造
+	//**************************************************************************//
+	// struct itemInfo ;
+	// 担当  : 鴫原 徹
+	// 用途  : new されたデータの情報構造
+	// 備考  : newを記憶する
+	//**************************************************************************//
 	struct itemInfo{
 		void*		pPointer;
 		size_t		iSize	;
 		std::string	sFile	;
 		std::string	sFunc	;
+		const type_info&  sType	;
 		UINT		iLine	;
 		DWORD		iGenerateTime ;
 
-		//	: コンストラクタ
-		itemInfo(void* i_pPointer,size_t i_iSize,std::string i_sFile, std::string i_sFunc, UINT i_iLine, DWORD i_iGTime)
-			:pPointer(i_pPointer),iSize(i_iSize),sFile(i_sFile), sFunc(i_sFunc), iLine(i_iLine) ,iGenerateTime(i_iGTime)
-		{}
-		//	: 検索用オーバーライド?
+		/////////////////// ////////////////////
+		//// 関数名     ：itemInfo( void* i_pPointer, size_t i_iSize, std::string i_sFile,
+		////            ：    std::string i_sFunc, UINT i_iLine, DWORD i_iGTime )
+		//// カテゴリ   ：コンストラクタ
+		//// 用途       ：インスタンスの生成
+		//// 引数       ：  void*          i_pPointer
+		////            ：  size_t         i_iSize
+		////            ：  std::string    i_sFile
+		////            ：  std::string    i_sFunc
+		////            ：  UINT           i_iLine
+		////            ：  DWORD          i_iGTime
+		//// 戻値       ：なし
+		//// 担当       ：鴫原 徹
+		//// 備考       ：
+		////            ：
+		////
+		itemInfo(
+			void* i_pPointer,
+			size_t i_iSize,
+			std::string i_sFile,
+			std::string i_sFunc,
+			UINT i_iLine,
+			DWORD i_iGTime
+		)
+		:pPointer(i_pPointer)
+		,iSize(i_iSize)
+		,sFile(i_sFile)
+		,sFunc(i_sFunc)
+		,iLine(i_iLine)
+		,iGenerateTime(i_iGTime)
+		,sType(typeid( i_pPointer ))
+		{
+		}
+		/////////////////// ////////////////////
+		//// 関数名     ：bool operator () ( const void* other ) const 
+		//// カテゴリ   ：オペレータ
+		//// 用途       ：()の機能のオーバーロード
+		//// 引数       ：  const void* other
+		//// 戻値       ：なし
+		//// 担当       ：鴫原 徹
+		//// 備考       ：じつわよくわかってなかったり／(・ × ・)＼
+		////            ：
+		////
 		bool operator () ( const void* other ) const {
 			return this->pPointer == other ;
 		}
-		//	: 検索用オーバーライド?
+		/////////////////// ////////////////////
+		//// 関数名     ：bool operator == ( const void* other ) const 
+		//// カテゴリ   ：オペレータ
+		//// 用途       ：==の機能のオーバーロード
+		//// 引数       ：  const void* other
+		//// 戻値       ：なし
+		//// 担当       ：鴫原 徹
+		//// 備考       ：じつわよくわかってなかったり／(・ × ・)＼
+		////            ：
+		////
 		bool operator == ( const void* other ) const {
 			return this->pPointer == other ;
 		}
 	};
-
+private:
+	//	: 確保したメモリ全体のサイズ(Byte?)
+	static DWORD m_dwAreaSize ;
 	//	: newされた情報リスト
 	static std::list<itemInfo> m_ItemInfo ;
-
-	//	: 追加
+public:
+	/////////////////// ////////////////////
+	//// 関数名     ：static void* add(size_t i_iSize,std::string i_sFile, std::string i_sFunc, UINT i_iLine)
+	//// カテゴリ   ：メンバ関数
+	//// 用途       ：メモリの生成とリストへの追加
+	//// 引数       ：  size_t          i_iSize     //  : 確保するメモリのサイズ
+	////            ：  std::string     i_sFile     //  : 生成処理の書かれたファイルの名前
+	////            ：  std::string     i_sFunc     //  : 生成処理の書かれた関数の名前
+	////            ：  UINT            i_iLine     //  : 生成処理の書かれている行番号
+	//// 戻値       ：確保したメモリへのポインタ
+	//// 担当       ：鴫原 徹
+	//// 備考       ：
+	////            ：
+	////
 	static void* add(size_t i_iSize,std::string i_sFile, std::string i_sFunc, UINT i_iLine){
 		void* pPointer = malloc(i_iSize);
 		m_dwAreaSize += i_iSize ;
@@ -58,7 +131,16 @@ public:
 		return pPointer ; 
 	}
 
-	//	: 削除
+	/////////////////// ////////////////////
+	//// 関数名     ：static void remove( void* i_pPointer )
+	//// カテゴリ   ：メンバ関数
+	//// 用途       ：メモリの開放とリストからの削除
+	//// 引数       ：  void* i_pPointer    //  : 削除対象のポインタ
+	//// 戻値       ：なし
+	//// 担当       ：鴫原 徹
+	//// 備考       ：
+	////            ：
+	////
 	static void remove( void* i_pPointer ){
 		std::list<itemInfo>::iterator it ;
 		for( it = m_ItemInfo.begin() ; it != m_ItemInfo.end() ; it++ ){
@@ -72,9 +154,18 @@ public:
 		}
 	}
 	
-	//	: グラフィカル化する!
-	//	: メモリ状態の描画
+	/////////////////// ////////////////////
+	//// 関数名     ：static void Draw()
+	//// カテゴリ   ：メンバ関数
+	//// 用途       ：メモリの状態をリアルタイムに描画( とかできたらいいな～… )
+	//// 引数       ：なし
+	//// 戻値       ：なし
+	//// 担当       ：鴫原 徹
+	//// 備考       ：現バージョンではデバッグ時以外に意味をなしません
+	////            ：
+	////
 	static void Draw(){
+		#if defined( CF_MEMORYOUTPUTPROCESS_ENABLE )
 		Debugger::DBGSTR::addStr( L" Memory\n├ Area Size = %d Byte\n└ Instance  = %d Q'ty\n", m_dwAreaSize, m_ItemInfo.size() );
 		if( GetAsyncKeyState( MYVK_DEBUG_OUTPUT_MEMORY ) ){
 			std::list<itemInfo>::iterator it  = m_ItemInfo.begin();
@@ -105,13 +196,22 @@ public:
 				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "めもり.txt" , "時間       : %d \n\n" , it->iGenerateTime );
 				i ++ ;
 			}
-		}	
+		}
+		#endif
 	}
 
-	//////////
-	//	: ※危険
-	//	: 通常は利用しない
-	//	: いままで確保してきたメモリをすべて破棄する
+	/////////////////// ////////////////////
+	//// 関数名     ：static void Clear()
+	//// カテゴリ   ：メンバ関数
+	//// 用途       ：いままで確保してきたメモリをすべて破棄する
+	//// 引数       ：なし
+	//// 戻値       ：なし
+	//// 担当       ：鴫原 徹
+	//// 備考       ：※危険
+	////            ：通常はこの関数を呼び出さないでください
+	////            ：確実にバグります
+	////            ：プログラム終了時の最後の最後でのみこの関数を呼び出してください
+	////
 	static void Clear(){
 		std::list<itemInfo>::iterator it ;
 		for( it = m_ItemInfo.begin() ; it != m_ItemInfo.end() ; it++ ){
@@ -120,6 +220,15 @@ public:
 		}
 		m_ItemInfo.clear();
 	}
+	/////////////////// ////////////////////
+	//// 関数名     ：~TMemoryManager()
+	//// カテゴリ   ：デストラクタ
+	//// 用途       ：クラスを破棄
+	//// 引数       ：なし
+	//// 戻値       ：なし
+	//// 担当       ：鴫原 徹
+	//// 備考       ：
+	////
 	~TMemoryManager(){
 		Clear();
 	}
@@ -146,13 +255,16 @@ inline void operator delete(void* pv){
 	return TMemoryManager::remove(pv);
 };
 
-//	: 強制new置き換え
-#if defined( CF_OVERLORDNEW_ENABLE )
-	#define new new(__FILE__, __FUNCTION__, __LINE__)
+	//	: 強制new置き換え
+	#if defined( CF_OVERLORDNEW_ENABLE )
+		#define new new(__FILE__, __FUNCTION__, __LINE__)
+	#endif
+
+	#define NEW new(__FILE__, __FUNCTION__, __LINE__)
+
+#else /* CF_MEMORYMANAGER_ENABLE */
+	#define NEW new
 #endif
-
-#define New new(__FILE__, __FUNCTION__, __LINE__)
-
 
 //////////
 // DXUT互換マクロ

@@ -41,15 +41,15 @@ protected:
 	
 public:
 	Gage(
-		LPDIRECT3DDEVICE9	pD3DDevice	,		//	: デバイス
-		LPDIRECT3DTEXTURE9	pTex		,		//	: コア部分のTexture
-		D3DXVECTOR3			&vScale		,		//	: 伸縮
-		D3DXVECTOR3			&vRot		,		//	: 回転
-		D3DXVECTOR3			&vPos		,		//	: 位置
-		D3DXVECTOR3			&vDirOffset	,		//	: 描画オフセット
-		RECT				GaugeRect	,		//	: 描画範囲
-		RECT				FrameRect	,		//	: 描画範囲
-		wiz::OBJID			id	//	: ID
+		const LPDIRECT3DDEVICE9	pD3DDevice	,		//	: デバイス
+		const LPDIRECT3DTEXTURE9	pTex		,		//	: コア部分のTexture
+		const D3DXVECTOR3			&vScale		,		//	: 伸縮
+		const D3DXVECTOR3			&vRot		,		//	: 回転
+		const D3DXVECTOR3			&vPos		,		//	: 位置
+		const D3DXVECTOR3			&vDirOffset	,		//	: 描画オフセット
+		const RECT				GaugeRect	,		//	: 描画範囲
+		const RECT				FrameRect	,		//	: 描画範囲
+		const wiz::OBJID			id	//	: ID
 	);
 	~Gage();
 	void	Recovery( float fAddValue );	//	: エネルギーの回復
