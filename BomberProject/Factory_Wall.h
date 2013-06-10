@@ -28,7 +28,6 @@ namespace bomberobject{
 extern class PlayerCoil ;
 extern class EnemySphere ;
 
-const int DRAWING_RANGE = 20;
 
 /**************************************************************************
  WallObject ’è‹`•”

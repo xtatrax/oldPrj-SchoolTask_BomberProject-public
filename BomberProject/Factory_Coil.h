@@ -80,6 +80,7 @@ namespace wiz{
 namespace bomberobject{
 extern class ProvisionalPlayer3D ;
 extern class Continue ;
+extern class Dead ;
 
 //**************************************************************************//
 // class PlayerCoil : public MagneticumObject ;
@@ -91,6 +92,7 @@ extern class Continue ;
 // 用途    : ユーザーが誘導する対象になる物
 //**************************************************************************//
 class PlayerCoil : public MagneticumObject3D{
+	friend MagneticumObject3D;
 #if defined( ON_DEBUGGINGPROCESS ) | defined( PRESENTATION )
 	//	: デバッグ用のデータ
 	DrawSphere*		m_pDSPH		;				//	: 球領界描画クラスのポインタ
@@ -114,12 +116,14 @@ class PlayerCoil : public MagneticumObject3D{
 	bool			m_bReadyToStart		;	//	: 
 	bool			m_bReadyContinue	;	//	:
 	bool			m_bIsSuperMode		;	//	: 無敵状態のフラグ (無敵状態は他の状態と重なるのでCOIL_STATEに入れない)
+	bool			m_bDrawContinue		;	//	:
 
 	Sound*					m_pSound					;	//	: 音声データへのポインタ
 	Camera*					m_pCamera					;	//	: Cameraへのポインタ
 	Box*					m_pSuperField				;	//	: ?
 	Continue*				m_pSelect					;	//	: 
 	Continue*				m_pSelect2					;	//	: 
+	Dead*					m_pDeadChar					;	//	: 
 	ProvisionalPlayer3D*	m_pPlayer					;	//	: ユーザ設置磁界へのポインタ
 	MagneticumObject3D*		m_pMagneticumObject			;	//	: 初期配置磁界へのポインタ
 	DeadEffect*				m_pDeadEffect[PARTICLS_NUM]	;
@@ -128,6 +132,7 @@ class PlayerCoil : public MagneticumObject3D{
 	LPDIRECT3DTEXTURE9	m_pDeadTex		;	//爆散エフェクトの画像
 	LPDIRECT3DTEXTURE9	m_pContinueTex	;
 	LPDIRECT3DTEXTURE9	m_pTitleTex		;
+	LPDIRECT3DTEXTURE9	m_pDeadCharTex	;
 public:
 	/////////////////// ////////////////////
 	//// 関数名     ：PlayerCoil::PlayerCoil(
@@ -164,6 +169,7 @@ public:
 		LPDIRECT3DTEXTURE9	pTexture_Dead		,
 		LPDIRECT3DTEXTURE9	pTexture_Continue	,
 		LPDIRECT3DTEXTURE9	pTexture_Title		,
+		LPDIRECT3DTEXTURE9	pTexture_DeadChar	,
 		float				Radius1				,
 		float				Radius2				,
 		float				Radius3				,
@@ -358,7 +364,7 @@ public:
 	//// 戻値       ：true , false
 	//// 担当者     ：本多寛之
 	//// 備考       ：
-	bool CheckDistance( D3DXVECTOR3& i_vMagneticFieldPos, D3DXVECTOR3& i_vCoilPos, float i_iBorder, bool IsPlayer );
+	bool CheckDistance( D3DXVECTOR3& i_vMagneticFieldPos, float i_iBorder, bool IsPlayer );
 
 	/////////////////// ////////////////////
 	//// 関数名     ：D3DXVECTOR3 gPlayerCoil::etPos() const

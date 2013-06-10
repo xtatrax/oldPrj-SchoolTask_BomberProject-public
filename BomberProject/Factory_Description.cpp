@@ -355,18 +355,18 @@ Factory_Description::Factory_Description(FactoryPacket* fpac){
 		D3DCOLORVALUE DescSpecular = {0.0f,0.0f,0.0f,0.0f};
 		D3DCOLORVALUE DescAmbient = {1.0f,1.0f,1.0f,0.0f};
 
-		Description* Desc = new Description(fpac->pD3DDevice,
-			fpac->m_pTexMgr->addTexture(fpac->pD3DDevice,L"setumei_Start.png"));
+		//Description* Desc = new Description(fpac->pD3DDevice,
+		//	fpac->m_pTexMgr->addTexture(fpac->pD3DDevice,L"setumei_Start.png"));
 
-		Desc->AddDesc(D3DXVECTOR3(10.0f,4.0f,0.0f),
-					  D3DXVECTOR3(0.0f,0.0f,0.0f),
-					  D3DXVECTOR3(10.0f,16.0f,-0.5f),
-					  COIL_STATE_START,
-					  DescDiffuse,
-					  DescSpecular,
-					  DescAmbient);
+		//Desc->AddDesc(D3DXVECTOR3(10.0f,4.0f,0.0f),
+		//			  D3DXVECTOR3(0.0f,0.0f,0.0f),
+		//			  D3DXVECTOR3(10.0f,16.0f,-0.5f),
+		//			  COIL_STATE_START,
+		//			  DescDiffuse,
+		//			  DescSpecular,
+		//			  DescAmbient);
 
-		fpac->m_pVec->push_back(Desc);
+		//fpac->m_pVec->push_back(Desc);
 
 		float	wide	= BASE_CLIENT_WIDTH/2;
 		float	height	= BASE_CLIENT_HEIGHT/2;

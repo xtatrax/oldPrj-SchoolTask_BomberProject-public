@@ -126,7 +126,7 @@ void Gage::Consume( float fSubValue ){
 void Gage::Update( UpdatePacket& i_UpdatePacket ){
 	//ƒQ[ƒW‚Ì•`‰æ
 	m_GaugeRect.right  = m_BassRect.left - m_BassRect.right ;
-	m_GaugeRect.right *= (LONG)(1.0f - m_fRate) ;
+	m_GaugeRect.right *= 1.0f - m_fRate ;
 	
 	Debugger::DBGSTR::addStr( L" Rate = %f \n", m_fRate);
 }
@@ -241,7 +241,7 @@ void SuperGage::Update( UpdatePacket& i_UpdatePacket ){
 	vPos.x	= (float)m_pCursor->get2DPos().x + m_vBassPos.x -  m_GaugeRect.top * m_vScale.x;
 	vPos.y	= (float)m_pCursor->get2DPos().y + m_vBassPos.y;
 	vPos.z	= 0.0f	;
-	D3DXMatrixScaling( &mScale, m_vScale.x, m_vScale.y, m_vScale.z );
+	D3DXMatrixScaling( &mScale, m_vScale.x/2, m_vScale.y, m_vScale.z );
 	D3DXMatrixRotationYawPitchRoll( &mRot, m_vRot.x, m_vRot.y, m_vRot.z );
 	D3DXMatrixTranslation( &mPos, vPos.x, vPos.y, vPos.z);
 	m_mMatrix	= mScale * mRot * mPos ;
@@ -252,7 +252,7 @@ void SuperGage::Update( UpdatePacket& i_UpdatePacket ){
 	m_Matrix	= mScale * mRot * mPos ;
 	//ƒQ[ƒW‚Ì•`‰æ
 	m_GaugeRect.top  = m_BassRect.bottom - m_BassRect.top ;
-	m_GaugeRect.top *= (LONG)(1.0f - m_fRate) ;
+	m_GaugeRect.top *= 1.0f - m_fRate ;
 	
 	Debugger::DBGSTR::addStr( L" Rate = %f \n", m_fRate);
 }
@@ -323,7 +323,7 @@ void MagneticGage_N::Update( UpdatePacket& i_UpdatePacket ){
 	vPos.x	= (float)m_pCursor->get2DPos().x	;
 	vPos.y	= (float)m_pCursor->get2DPos().y +  m_GaugeRect.top	;
 	vPos.z	= 0.0f	;
-	D3DXMatrixScaling( &mScale, m_vScale.x, m_vScale.y, m_vScale.z );
+	D3DXMatrixScaling( &mScale, m_vScale.x, m_vScale.y/2, m_vScale.z );
 	D3DXMatrixTranslation( &mPos, vPos.x, vPos.y, vPos.z);
 	m_mMatrix	= mScale * mPos ;
 
@@ -409,7 +409,7 @@ void MagneticGage_S::Update( UpdatePacket& i_UpdatePacket ){
 	vPos.y	 = (float)m_pCursor->get2DPos().y +  m_GaugeRect.top	;
 	vPos.z	 = 0.0f	;
 	//vPos	+= m_v;
-	D3DXMatrixScaling( &mScale, m_vScale.x, m_vScale.y, m_vScale.z );
+	D3DXMatrixScaling( &mScale, m_vScale.x, m_vScale.y/2, m_vScale.z );
 	D3DXMatrixTranslation( &mPos, vPos.x, vPos.y, vPos.z);
 	m_mMatrix	= mScale * mPos ;
 
@@ -462,8 +462,8 @@ Factory_Gage::Factory_Gage(FactoryPacket* fpac){
 			new MagneticGage_N(
 				fpac->pD3DDevice,
 				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Gauge_N.png" ),
-				//D3DXVECTOR3( 80.0f,-170.0f,0.0f),
-				D3DXVECTOR3( 60.0f,-250.0f,0.0f),
+				//D3DXVECTOR3( 60.0f,-250.0f,0.0f),
+				D3DXVECTOR3( 60.0f,-450.0f,0.0f),
 				D3DXVECTOR3( 0.4f, 0.4f, 0.0f ),
 				Rect(0,32,-300,64),
 				Rect(0,0,300,32)
@@ -476,8 +476,8 @@ Factory_Gage::Factory_Gage(FactoryPacket* fpac){
 			new MagneticGage_S(
 				fpac->pD3DDevice,
 				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Gauge_S.png" ),
-				//D3DXVECTOR3( 80.0f,-140.0f,0.0f),
-				D3DXVECTOR3( 60.0f,-220.0f,0.0f),
+				//D3DXVECTOR3( 60.0f,-220.0f,0.0f),
+				D3DXVECTOR3( 60.0f,-410.0f,0.0f),
 				D3DXVECTOR3( 0.4f, 0.4f, 0.0f ),
 				Rect(0,32,-300,64),
 				Rect(0,0,300,32)
