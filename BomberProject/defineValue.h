@@ -60,7 +60,7 @@ static const int			MGPRM_MAGNETICUM_QUAD		= ( MGPRM_MAGNETICUM * MGPRM_MAGNETICU
 	//-------------------------------//
 	#define ON_DEBUGGINGPROCESS			/* デバックモード             */
 	#define DEBUG_STRINGS_ON			/* デバッグ用文字列を有効化 */
-	//#define CF_MEMORYMANAGER_ENABLE	/* 自作メモリ管理システムを有効化 */
+	#define CF_MEMORYMANAGER_ENABLE	/* 自作メモリ管理システムを有効化 */
 
 	//#define ___MLP_DEBUG_TIMEDRAW_ 
 	//#define ON_GUIDELINE

@@ -41,6 +41,7 @@ public:
 		size_t		iSize	;
 		std::string	sFile	;
 		std::string	sFunc	;
+		const type_info&  sType	;
 		UINT		iLine	;
 		DWORD		iGenerateTime ;
 
@@ -74,7 +75,9 @@ public:
 		,sFunc(i_sFunc)
 		,iLine(i_iLine)
 		,iGenerateTime(i_iGTime)
-		{}
+		,sType(typeid( i_pPointer ))
+		{
+		}
 		/////////////////// ////////////////////
 		//// 関数名     ：bool operator () ( const void* other ) const 
 		//// カテゴリ   ：オペレータ
