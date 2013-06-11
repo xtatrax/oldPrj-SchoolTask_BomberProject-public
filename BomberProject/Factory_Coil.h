@@ -510,7 +510,10 @@ public:
 	//// îıçl       ÅF
 	////            ÅF
 	bool getSuperMode() const{
-		return m_bIsSuperMode;
+#if defined( ON_DEBUGGINGPROCESS ) | defined( PRESENTATION ) 
+		if(m_bDebugInvincibleMode) return true ;
+#endif
+		return m_bIsSuperMode  ;
 	}
 
 	/////////////////// ////////////////////
