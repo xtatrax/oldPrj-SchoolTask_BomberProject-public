@@ -133,6 +133,8 @@ class PlayerCoil : public MagneticumObject3D{
 	LPDIRECT3DTEXTURE9	m_pContinueTex	;	//Continue
 	LPDIRECT3DTEXTURE9	m_pTitleTex		;	//Title
 	LPDIRECT3DTEXTURE9	m_pDeadCharTex	;	//You'er Dead
+	LPDIRECT3DTEXTURE9	m_pRethinkingTex;	//Really?
+	LPDIRECT3DTEXTURE9	m_pAnswerTex	;	//Yes : No
 public:
 	/////////////////// ////////////////////
 	//// ä÷êîñº     ÅFPlayerCoil::PlayerCoil(
@@ -170,6 +172,8 @@ public:
 		LPDIRECT3DTEXTURE9	pTexture_Continue	,
 		LPDIRECT3DTEXTURE9	pTexture_Title		,
 		LPDIRECT3DTEXTURE9	pTexture_DeadChar	,
+		LPDIRECT3DTEXTURE9	pTexture_Rethinking	,
+		LPDIRECT3DTEXTURE9	pTexture_Answer		,
 		float				Radius1				,
 		float				Radius2				,
 		float				Radius3				,
