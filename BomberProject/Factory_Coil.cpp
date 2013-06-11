@@ -59,7 +59,7 @@ extern class WallObject ;
 PlayerCoil::PlayerCoil(
 		LPDIRECT3DDEVICE9 pD3DDevice,LPDIRECT3DTEXTURE9 pTexture,LPDIRECT3DTEXTURE9 pTexture_Super,
 		LPDIRECT3DTEXTURE9 pTexture_Dead,LPDIRECT3DTEXTURE9 pTexture_Continue,LPDIRECT3DTEXTURE9 pTexture_Title,
-		LPDIRECT3DTEXTURE9 pTexture_DeadChar,
+		LPDIRECT3DTEXTURE9 pTexture_DeadChar,LPDIRECT3DTEXTURE9 pTexture_Rethinking,LPDIRECT3DTEXTURE9 pTexture_Answer,
 		float Radius1,float Radius2,float Radius3,float Lenght,
 		D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos,
 		D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,
@@ -94,6 +94,8 @@ PlayerCoil::PlayerCoil(
 ,m_pContinueTex( pTexture_Continue )
 ,m_pTitleTex( pTexture_Title )
 ,m_pDeadCharTex( pTexture_DeadChar )
+,m_pRethinkingTex( pTexture_Rethinking )
+,m_pAnswerTex( pTexture_Answer )
 ,m_enumCoilState(COIL_STATE_STOP)
 #if defined( ON_DEBUGGINGPROCESS ) | defined( PRESENTATION )
 ,m_pDSPH(NULL)
@@ -317,7 +319,11 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 		}
 
 		if( m_pSelect != NULL ){
-			m_pSelect->Update(i_UpdatePacket);
+			if( m_pSelect2 != NULL ){
+				if( m_pSelect2->getWhichDraw() ){
+					m_pSelect->Update(i_UpdatePacket);
+				}
+			}
 		}
 		if( m_pSelect2 != NULL ){
 			m_pSelect2->Update(i_UpdatePacket);
@@ -360,10 +366,10 @@ void	PlayerCoil::CreateEffect( UpdatePacket& i_UpdatePacket ){
 					D3DXVECTOR3( wide-128.0f,height-50.0f,0.0f ),NULL,g_vZero,g_vZero);
 
 	//Continue,TitleƒƒS‚Ìì¬
-	m_pSelect	= new Continue( i_UpdatePacket.pD3DDevice, m_pContinueTex, true, D3DXVECTOR3(1.0f,1.0f,0.0f),g_vZero,D3DXVECTOR3( wide-128.0f,height-100.0f,0.0f ),
+	m_pSelect	= new Continue( i_UpdatePacket.pD3DDevice, m_pContinueTex, NULL, NULL, true, D3DXVECTOR3(1.0f,1.0f,0.0f),g_vZero,D3DXVECTOR3( wide-128.0f,height-100.0f,0.0f ),
 								Rect( 0,0,256,64 ), g_vZero, g_vZero );
-	m_pSelect2	= new Continue( i_UpdatePacket.pD3DDevice, m_pTitleTex, false, D3DXVECTOR3(1.0f,1.0f,0.0f),g_vZero,D3DXVECTOR3( wide-64.0f,height,0.0f ),
-								Rect( 0,0,128,64 ), g_vZero, g_vZero );
+	m_pSelect2	= new Continue( i_UpdatePacket.pD3DDevice, m_pTitleTex, m_pRethinkingTex, m_pAnswerTex, false, D3DXVECTOR3(1.0f,1.0f,0.0f),
+								g_vZero,D3DXVECTOR3( wide-64.0f,height,0.0f ),Rect( 0,0,128,64 ), g_vZero, g_vZero );
 
 };
 
@@ -764,7 +770,11 @@ void PlayerCoil::Draw(DrawPacket& i_DrawPacket){
 	if( m_bDrawContinue ){
 		//ƒƒS
 		if( m_pSelect != NULL ){
-			m_pSelect->Draw(i_DrawPacket);
+			if( m_pSelect2 != NULL ){
+				if( m_pSelect2->getWhichDraw() ){
+				m_pSelect->Draw(i_DrawPacket);
+				}
+			}
 		}
 		if( m_pSelect2 != NULL ){
 			m_pSelect2->Draw(i_DrawPacket);
@@ -921,6 +931,8 @@ Factory_Coil::Factory_Coil( FactoryPacket* fpac, D3DXVECTOR3* vStartPos  ){
 				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Continue.png" ),
 				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Go_Title.png" ),
 				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"DeadChar.png" ),
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Rethinking.png" ),
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Reply.png" ),
 				0.0f,0.7f,1.0f,1.0f,vScale,D3DXVECTOR3(90.0f,0.0f,0.0f),vPos,
 				CoilDiffuse,CoilSpecular,CoilAmbient
 				)

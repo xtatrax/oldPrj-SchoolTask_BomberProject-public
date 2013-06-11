@@ -169,6 +169,15 @@ public:
 	POLE	getPole(){
 		return	m_Pole;
 	}
+
+	void	setRadius(float i_fRadius){
+		m_Radius1	= i_fRadius;
+		m_Radius2	= i_fRadius;
+	}
+
+	float	getRadius(){
+		return	m_Radius1;
+	}
 };
 
 /**************************************************************************
