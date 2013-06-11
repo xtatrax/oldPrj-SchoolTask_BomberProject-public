@@ -129,9 +129,9 @@ class PlayerCoil : public MagneticumObject3D{
 	COIL_STATE				m_enumCoilState				;
 
 	LPDIRECT3DTEXTURE9	m_pDeadTex		;	//爆散エフェクトの画像
-	LPDIRECT3DTEXTURE9	m_pContinueTex	;
-	LPDIRECT3DTEXTURE9	m_pTitleTex		;
-	LPDIRECT3DTEXTURE9	m_pDeadCharTex	;
+	LPDIRECT3DTEXTURE9	m_pContinueTex	;	//Continue
+	LPDIRECT3DTEXTURE9	m_pTitleTex		;	//Title
+	LPDIRECT3DTEXTURE9	m_pDeadCharTex	;	//You'er Dead
 public:
 	/////////////////// ////////////////////
 	//// 関数名     ：PlayerCoil::PlayerCoil(
