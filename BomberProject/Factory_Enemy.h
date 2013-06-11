@@ -4,6 +4,7 @@
 //	開発環境		：MSVC++ 2008
 //	最適タブ数		：4
 //	担当者			：斎藤　謙吾
+//	引き継ぎ		：本多寛之
 //	内包ﾃﾞｰﾀと備考	：メインファクトリー
 //					▼
 //	namespace wiz;
@@ -15,11 +16,15 @@
 #include "Object.h"
 #include "BassItems.h"
 #include "Factory_Coil.h"
+#include "Factory_Wall.h"
+
 
 namespace wiz{
 namespace bomberobject{
 
-const float ENEMY_SPEED = 0.1f;
+const float ENEMY_SPEED = 0.01f;
+const float ENEMY_RADIUS = 1.5f;
+
 
 /**************************************************************************
  EnemySphere 定義部
@@ -28,31 +33,56 @@ const float ENEMY_SPEED = 0.1f;
 // cclass WallObject : public PrimitiveSphere
 //
 // 担当者  : 斎藤謙吾
+// 引継ぎ  : 本多寛之
 // 用途    : 敵
 //**************************************************************************//	
-	class EnemySphere : public PrimitiveSphere {
-		Camera*					m_pCamera	;
-		Sound*					m_pSound;
-		ProvisionalPlayer3D*	m_pPlayer	;
-		PlayerCoil*				m_pCoil		;
-		bool					m_bReset	;
-		struct EnemyItem{
-			D3DMATERIAL9	m_Material		;
-			D3DXMATRIX		m_Matrix		;
-			D3DXVECTOR3		m_vScale		;
-			D3DXVECTOR3		m_vPos			;
-			D3DXVECTOR3		m_vStartPos		;
-			D3DXQUATERNION	m_vRot			;
-			POLE			m_bPole			;
-			virtual ~EnemyItem(){}
-		};
-		
+class EnemySphere : public PrimitiveSphere {
+	Camera*					m_pCamera	;
+	Sound*					m_pSound;
+	ProvisionalPlayer3D*	m_pPlayer	;
+	PlayerCoil*				m_pCoil		;
+	bool					m_bReset	;
+	struct EnemyItem{
+		D3DMATERIAL9	m_Material		;
+		D3DXMATRIX		m_Matrix		;
+		float			m_fMapKey		;
+		bool			m_bHidden		;
+		D3DXVECTOR3		m_vScale		;
+		D3DXVECTOR3		m_vPos			;
+		D3DXVECTOR3		m_vStartPos		;
+		D3DXQUATERNION	m_vRot			;
+		POLE			m_bPole			;
+		bool			m_vIsAlive		;
+		DeadEffect*		m_pDeadEffect[PARTICLS_NUM_ENEMY]	;
+		EnemyItem():m_bHidden(true){}
+		virtual ~EnemyItem(){}
+	};
+	
 //map<オブジェクトのポジション,EnemyItem>
-		multimap<float,EnemyItem*> m_ItemMap_All;	//全てのEnemyItem
-		multimap<float,EnemyItem*> m_ItemMap_Target;//描画対象のEnemyItem
+	//multimap<float,EnemyItem*> m_ItemMap_All;	//全てのEnemyItem
+	//multimap<float,EnemyItem*> m_ItemMap_Target;//描画対象のEnemyItem
+
+	//map<オブジェクトのポジション,WallItem>
+	typedef multimap<float,EnemyItem*>	ALLCONTAINER		;
+	typedef list<EnemyItem*>			TARGETCONTAINER		;
+	ALLCONTAINER						m_ItemMap_All		;	//全てのWallItem
+	TARGETCONTAINER						m_ItemMap_Target	;	//描画対象のWallItem
+
 //std::find
 
-		public:
+protected:
+
+/////////////////// ////////////////////
+//// 用途       ：UpdateTargetItem()
+//// カテゴリ   ：
+//// 用途       ：関数
+//// 引数       ：なし
+//// 戻値       ：なし
+//// 担当者     ：鴫原 徹
+//// 備考       ：
+	void UpdateTargetItem();
+
+public:
 
 /////////////////// ////////////////////
 //// 関数名     ：EnemySphere(LPDIRECT3DDEVICE9 pD3DDevice,D3DCOLORVALUE& Diffuse,
@@ -69,9 +99,19 @@ const float ENEMY_SPEED = 0.1f;
 //// 備考       ：PrimitiveSphereの派生型
 ////           ：
 ////
-		EnemySphere(LPDIRECT3DDEVICE9 pD3DDevice,
-			D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,
-			LPDIRECT3DTEXTURE9 pTexture = 0 , wiz::OBJID id = OBJID_3D_ENEMY);
+	EnemySphere(LPDIRECT3DDEVICE9 pD3DDevice,
+		D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,
+		LPDIRECT3DTEXTURE9 pTexture = 0 , wiz::OBJID id = OBJID_3D_ENEMY);
+
+/////////////////// ////////////////////
+//// 用途       ：~EnemySphere();
+//// カテゴリ   ：デストラクタ
+//// 用途       ：
+//// 引数       ：
+//// 戻値       ：無し
+//// 担当者     ：鴫原 徹
+//// 備考       ：
+	~EnemySphere();
 
 /////////////////// ////////////////////
 //// 用途       ：void Draw( DrawPacket& i_DrawPacket )
@@ -84,11 +124,10 @@ const float ENEMY_SPEED = 0.1f;
 ////            ：  └ Command             i_DrawPacket.pCommand   // コマンド
 //// 戻値       ：無し
 //// 担当者     ：斎藤謙吾
+//// 引継ぎ     ： 本多寛之
 //// 備考       ：
-		void Draw( DrawPacket& i_DrawPacket );
+	void Draw( DrawPacket& i_DrawPacket );
 
-
-	
 /////////////////// ////////////////////
 //// 用途       ：void Update( UpdatePacket& i_UpdatePacket )
 //// カテゴリ   ：関数
@@ -101,12 +140,11 @@ const float ENEMY_SPEED = 0.1f;
 ////            ：  └       Command            pCommand        // コマンド
 //// 戻値       ：無し
 //// 担当者     ：斎藤謙吾
+//// 引継ぎ     ： 本多寛之
 //// 備考       ：
 ////            ：
 ////
-		void Update( UpdatePacket& i_UpdatePacket );
-
-
+	void Update( UpdatePacket& i_UpdatePacket );
 
 /////////////////// ////////////////////
 //// 用途       ：void AddEnemy( DrawPacket& i_DrawPacket )
@@ -121,42 +159,71 @@ const float ENEMY_SPEED = 0.1f;
 ////            ：  D3DCOLORVALUE& Ambient,			//アンビエント色
 //// 戻値       ：無し
 //// 担当者     ：斎藤謙吾
+//// 引継ぎ     ： 本多寛之
 //// 備考       ：
-		void AddEnemy(
-			const D3DXVECTOR3 &vScale		,
-			const D3DXVECTOR3 &vRot			,
-			const D3DXVECTOR3 &vPos			,
-			const D3DCOLORVALUE& Diffuse	,
-			const D3DCOLORVALUE& Specular	,
-			const D3DCOLORVALUE& Ambient
-		);
+	void AddEnemy(
+		const D3DXVECTOR3 &vScale		,
+		const D3DXVECTOR3 &vRot			,
+		const D3DXVECTOR3 &vPos			,
+		const D3DCOLORVALUE& Diffuse	,
+		const D3DCOLORVALUE& Specular	,
+		const D3DCOLORVALUE& Ambient
+	);
 
-	
-			~EnemySphere();
-	};
+/////////////////// ////////////////////
+//// 関数名     ：void	PlayerCoil::CreateEffect( UpdatePacket& i_UpdatePacket );
+//// カテゴリ   ：
+//// 用途       ：
+//// 引数       ：  DrawPacket& i_DrawPacket             // 画面描画時に必要なデータ群 ↓内容下記
+////            ：  ├       LPDIRECT3DDEVICE9  pD3DDevice      // IDirect3DDevice9 インターフェイスへのポインタ
+////            ：  ├       Tempus2*           pTime           // 時間を管理するクラスへのポインター
+////            ：  ├       vector<Object*>&   Vec,            // オブジェクトの配列
+////            ：  ├ const CONTROLER_STATE*   pCntlState      // コントローラのステータス
+////            ：  └       Command            pCommand        // コマンド
+//// 戻値       ：なし
+//// 担当       ：佐藤涼
+//// 備考       ：
+////            ：
+////
+void	CreateEffect( UpdatePacket& i_UpdatePacket, TARGETCONTAINER::iterator it );
+
+
+/////////////////// ////////////////////
+//// 用途       ：bool HitTestWall( OBB Obb )
+//// カテゴリ   ：メンバ関数
+//// 用途       ：壁との衝突判定
+//// 引数       ：  OBB Obb           //  : 検査対象のOBB
+//// 戻値       ：衝突していればtrue
+//// 担当者     ：曳地 大洋
+//// 備考       ：
+void HitTestWall( OBB );
+
+
+};
 
 /**************************************************************************
- class Factory_Enemy;
- 用途: メイン工場クラス
+class Factory_Enemy;
+用途: メイン工場クラス
 ****************************************************************************/
-	class Factory_Enemy{
-		public:
+class Factory_Enemy{
+	public:
 /**************************************************************************
- Factory_Enemy(
-	LPDIRECT3DDEVICE9 pD3DDevice,	//デバイス
-	vector<Object*>& vec,			//オブジェクトの配列
-	TextureManager& TexMgr			//テクスチャの配列
+Factory_Enemy(
+LPDIRECT3DDEVICE9 pD3DDevice,	//デバイス
+vector<Object*>& vec,			//オブジェクトの配列
+TextureManager& TexMgr			//テクスチャの配列
 );
- 用途: コンストラクタ（サンプルオブジェクトを配列に追加する）
- 戻り値: なし
+用途: コンストラクタ（サンプルオブジェクトを配列に追加する）
+戻り値: なし
 ***************************************************************************/
-		Factory_Enemy(FactoryPacket* fpac);
+	Factory_Enemy(FactoryPacket* fpac);
 /**************************************************************************
- ~MyFactory();
- 用途: デストラクタ
- 戻り値: なし
+~MyFactory();
+用途: デストラクタ
+戻り値: なし
 ***************************************************************************/
-		~Factory_Enemy();
-	};
+	~Factory_Enemy();
+};
+
 }//end of namespace bomberobject.
 }//end of namespace wiz.
