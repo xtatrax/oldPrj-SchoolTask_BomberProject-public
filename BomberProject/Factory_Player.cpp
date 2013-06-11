@@ -463,9 +463,6 @@ void	MagneticField::Update(UpdatePacket& i_UpdatePacket)
 	D3DXMatrixScaling( &mScale, m_Radius1/m_vNormalSize.x, m_Radius2/m_vNormalSize.y, 1.0f );
 	m_mMatrix	= mScale * mMove;
 
-	//Context ct ;
-	//Cylinder::Transform(*i_UpdatePacket.pVec,i_UpdatePacket.pCntlState,ct);
-
 };
 
 
