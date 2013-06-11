@@ -161,7 +161,7 @@ Factory_Title::Factory_Title(FactoryPacket* fpac){
 				NULL,
 				g_vZero,
 				g_vZero,
-				0xFFFFFFFF
+				0xFF55FF88
 				)
 		);
 
