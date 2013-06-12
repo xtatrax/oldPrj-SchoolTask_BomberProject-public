@@ -658,6 +658,18 @@
 						>
 					</File>
 				</Filter>
+				<Filter
+					Name="Score"
+					>
+					<File
+						RelativePath=".\Factory_Score.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Factory_Score.h"
+						>
+					</File>
+				</Filter>
 			</Filter>
 			<Filter
 				Name="Prim"
@@ -909,6 +921,14 @@
 		<Filter
 			Name="TestWindow"
 			>
+			<File
+				RelativePath=".\DebugWindowMain.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\DebugWindowMain.h"
+				>
+			</File>
 		</Filter>
 		<File
 			RelativePath=".\ClassDiagram1.cd"

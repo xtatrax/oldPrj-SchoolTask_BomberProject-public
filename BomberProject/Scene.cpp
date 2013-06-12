@@ -91,7 +91,7 @@ Scene::Scene(LPDIRECT3DDEVICE9 pD3DDevice)
 		}
 		catch(LoaderException& e){
 			//	: ロード失敗
-			::MessageBox(g_hWnd,e.what_w(),L"エラー",MB_OK);
+			::MessageBox(wiz::DxDevice::m_hWnd,e.what_w(),L"エラー",MB_OK);
 			if( !m_pRootStage ) m_pRootStage = new TitleStage(pD3DDevice);
 			//SafeDeleteStage(this->m_pStgBuf);
 		}
@@ -251,7 +251,7 @@ void Scene::CommandTranslator(DrawPacket& i_DrawPacket){
 			}
 			catch(LoaderException& e){
 				//	: ロード失敗
-				::MessageBox(g_hWnd,e.what_w(),L"エラー",MB_OK);
+				::MessageBox(wiz::DxDevice::m_hWnd,e.what_w(),L"エラー",MB_OK);
 				if( !m_pRootStage ) m_pRootStage = new TitleStage(i_DrawPacket.pD3DDevice);
 				SafeDeleteStage(this->m_pStgBuf);
 			}
@@ -272,7 +272,7 @@ void Scene::CommandTranslator(DrawPacket& i_DrawPacket){
 			}
 			catch(LoaderException& e){
 				//	: ロード失敗
-				::MessageBox(g_hWnd,e.what_w(),L"エラー",MB_OK);
+				::MessageBox(wiz::DxDevice::m_hWnd,e.what_w(),L"エラー",MB_OK);
 				if( !m_pRootStage ) m_pRootStage = new TitleStage(i_DrawPacket.pD3DDevice);
 				SafeDeleteStage(this->m_pStgBuf);
 			}
@@ -318,7 +318,7 @@ void Scene::CommandTranslator(DrawPacket& i_DrawPacket){
 			}
 			catch(LoaderException& e){
 				//	: ロード失敗
-				::MessageBox(g_hWnd,e.what_w(),L"エラー",MB_OK);
+				::MessageBox(wiz::DxDevice::m_hWnd,e.what_w(),L"エラー",MB_OK);
 				SafeDeleteStage(this->m_pStgBuf);
 			}
 			catch(...){
@@ -334,7 +334,7 @@ void Scene::CommandTranslator(DrawPacket& i_DrawPacket){
 			break;
 		case GM_EXIT:
 			SafeDeleteStage(m_pRootStage);
-			::DestroyWindow(g_hWnd);
+			::DestroyWindow(wiz::DxDevice::m_hWnd);
 			break;
 	}
 	if(m_bLoadingComplete){

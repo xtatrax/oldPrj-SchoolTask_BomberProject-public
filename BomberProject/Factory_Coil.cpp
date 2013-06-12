@@ -85,6 +85,7 @@ PlayerCoil::PlayerCoil(
 ,m_bReadyToSuper(false)
 ,m_bIsSuperMode(false)
 ,m_bDrawContinue( false )
+,m_iDeadCount( 0 )
 ,m_pSuperField(NULL)
 ,m_fTurnAngle(PLAYER_TURN_ANGLE_Lv1)
 ,m_pPlayer(NULL)
@@ -372,6 +373,7 @@ void	PlayerCoil::CreateEffect( UpdatePacket& i_UpdatePacket ){
 	m_pSelect2	= new Continue( i_UpdatePacket.pD3DDevice, m_pTitleTex, m_pRethinkingTex, m_pAnswerTex, false, D3DXVECTOR3(1.0f,1.0f,0.0f),
 								g_vZero,D3DXVECTOR3( wide-64.0f,height,0.0f ),Rect( 0,0,128,64 ), g_vZero, g_vZero );
 
+	m_iDeadCount++;
 };
 
 /////////////////// ////////////////////
@@ -393,7 +395,7 @@ void PlayerCoil::Update_StateStart(){
 	//マウス座標計算
 	Point MousePos ;
 	GetCursorPos( &MousePos ) ;
-	ScreenToClient( g_hWnd , &MousePos) ;
+	ScreenToClient( wiz::DxDevice::m_hWnd , &MousePos) ;
 	vPlayer.x = (float)MousePos.x / DRAW_CLIENT_MAGNIFICATION - MAGNETIC_RADIUS ;
 	vPlayer.y = (( STANDARD_WINDOW_HEIGHT - MousePos.y ) - UI_HEIGHT ) / DRAW_CLIENT_MAGNIFICATION - MAGNETIC_RADIUS + ( m_pCamera->getPosY() - m_pPlayer->getMoveY() ) ;
 	fTargetDir = TwoPoint2Degree( vPlayer , m_vPos );
@@ -679,7 +681,7 @@ void PlayerCoil::Update_StateContinue(){
 	//マウス座標計算
 	Point MousePos ;
 	GetCursorPos( &MousePos ) ;
-	ScreenToClient( g_hWnd , &MousePos) ;
+	ScreenToClient( wiz::DxDevice::m_hWnd , &MousePos) ;
 	vPlayer.x = (float)MousePos.x / DRAW_CLIENT_MAGNIFICATION - MAGNETIC_RADIUS ;
 	vPlayer.y = (( STANDARD_WINDOW_HEIGHT - MousePos.y ) - UI_HEIGHT ) / DRAW_CLIENT_MAGNIFICATION - MAGNETIC_RADIUS + ( m_pCamera->getPosY() - m_pPlayer->getMoveY() ) ;
 	fTargetDir = TwoPoint2Degree( vPlayer , m_vPos );
@@ -726,7 +728,7 @@ void PlayerCoil::Update_StateStop(){
 	//マウス座標計算
 	Point MousePos ;
 	GetCursorPos( &MousePos ) ;
-	ScreenToClient( g_hWnd , &MousePos) ;
+	ScreenToClient( wiz::DxDevice::m_hWnd , &MousePos) ;
 	vPlayer.x = (float)MousePos.x / DRAW_CLIENT_MAGNIFICATION - MAGNETIC_RADIUS ;
 	vPlayer.y = (( STANDARD_WINDOW_HEIGHT - MousePos.y ) - UI_HEIGHT ) / DRAW_CLIENT_MAGNIFICATION - MAGNETIC_RADIUS + ( m_pCamera->getPosY() - m_pPlayer->getMoveY() ) ;
 	fTargetDir = TwoPoint2Degree( vPlayer , m_vPos );
@@ -960,7 +962,7 @@ Factory_Coil::Factory_Coil( FactoryPacket* fpac, D3DXVECTOR3* vStartPos  ){
 				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"DeadPerticul.png" ),
 				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Continue.png" ),
 				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Go_Title.png" ),
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"DeadChar.png" ),
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"dead.png" ),
 				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Rethinking.png" ),
 				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Reply.png" ),
 				0.0f,0.7f,1.0f,1.0f,vScale,D3DXVECTOR3(90.0f,0.0f,0.0f),vPos,

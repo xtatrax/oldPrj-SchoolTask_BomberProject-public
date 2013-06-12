@@ -20,6 +20,7 @@ namespace wiz{
 	namespace bomberobject{
 
 const	float	SCALE_RATE	=	1.4f;
+
 /************************************************************************
 Title_Select 定義部
 ************************************************************************/
@@ -103,7 +104,7 @@ void Title_Select::Update(UpdatePacket& i_UpdatePacket)
   //マウス用データ*************************
 	Point MousePos ;
 	GetCursorPos( &MousePos ) ;
-	ScreenToClient( g_hWnd , &MousePos) ;
+	ScreenToClient( wiz::DxDevice::m_hWnd , &MousePos) ;
   //*****************************************
 	if( (MousePos.x > m_vPos.x && MousePos.x < ( m_vPos.x + (m_pRect->right*SCALE_RATE) )) 
 		&& (MousePos.y > m_vPos.y && MousePos.y < ( m_vPos.y + (m_pRect->bottom*SCALE_RATE) )) ){
@@ -117,11 +118,18 @@ void Title_Select::Update(UpdatePacket& i_UpdatePacket)
 				m_bPushRock	= false;
 			}
 		}
-		else	m_bPushRock	= true;
-		m_Color	= 0xFFFFFFFF;
+		else m_bPushRock	= true;
+			m_Color	= 0xFFFFFFFF;
+			if( !m_bSelect ){
+				m_bSelect = true;
+				m_pSound->SearchWaveAndPlay( RCTEXT_SOUND_SE_SELECT );
+			}
+			
+		
 	}
 	else{
 		m_Color	= 0xA0FFFFFF;
+		m_bSelect = false;
 
 		if( g_bMouseLB )	m_bPushRock	= false;
 		else				m_bPushRock	= true;
@@ -163,15 +171,29 @@ Factory_Title::Factory_Title(FactoryPacket* fpac){
 		fpac->m_pVec->push_back(
 			new SpriteObject(
 				fpac->pD3DDevice,
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, /*L"Lightning.tga"*/L"Title_Name.tga" ),
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, /*L"Lightning.tga"*/L"Title_Name005_02.tga" ),
 				D3DXVECTOR3(SCALE_RATE,SCALE_RATE,0.0f),
 				g_vZero,
-				D3DXVECTOR3( 260.0f, 106.0f, 0.0f ),
+				D3DXVECTOR3( 165.0f, 106.0f, 0.0f ),
 				//D3DXVECTOR3( 0.0f, 0.0f, 0.0f ),
 				NULL,
 				g_vZero,
 				g_vZero,
-				0xFF55FF88
+				0xFF00FFFF
+				)
+		);
+				fpac->m_pVec->push_back(
+			new SpriteObject(
+				fpac->pD3DDevice,
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, /*L"Lightning.tga"*/L"Title_Name005_01.tga" ),
+				D3DXVECTOR3(SCALE_RATE,SCALE_RATE,0.0f),
+				g_vZero,
+				D3DXVECTOR3( 165.0f, 106.0f, 0.0f ),
+				//D3DXVECTOR3( 0.0f, 0.0f, 0.0f ),
+				NULL,
+				g_vZero,
+				g_vZero,
+				0xFFFF8800
 				)
 		);
 

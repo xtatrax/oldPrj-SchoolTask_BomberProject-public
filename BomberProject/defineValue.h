@@ -9,31 +9,8 @@
 //
 #ifndef	__Define_Value__
 #define	__Define_Value__
+
  
-static const wchar_t*		RCTEXT_SOUND_WAVEBANK		= L"media/Sound/MagneticaWave.xwb"  ;
-static const wchar_t*		RCTEXT_SOUND_SOUNDBANK		= L"media/Sound/MagneticaSound.xsb" ;
-
-static const char*			RCTEXT_SOUND_BGM_CLEAR		= "BGM-CLEAR"			;
-static const char*			RCTEXT_SOUND_BGM_GAMEOVER	= "BGM-GAME_OVER"		;
-static const char*			RCTEXT_SOUND_BGM_PLAY		= "BGM-PLAY001"			;
-static const char*			RCTEXT_SOUND_BGM_TITLE		= "BGM-TITLE"			;
-static const char*			RCTEXT_SOUND_SE_ALERT		= "SE-ALERT002"			;
-static const char*			RCTEXT_SOUND_SE_BREAKENEMY	= "SE-BLOKEN_ENEMY"		;
-static const char*			RCTEXT_SOUND_SE_CHECKPOINT	= "SE-CHACK_POINT"		;
-static const char*			RCTEXT_SOUND_SE_CLEAR		= "SE-CLEAR"			;
-static const char*			RCTEXT_SOUND_SE_ENTER		= "SE-ENTER"			;
-static const char*			RCTEXT_SOUND_SE_FIRE		= "SE-FIRE"				;
-static const char*			RCTEXT_SOUND_SE_GOAL		= "SE-GOAL"				;
-static const char*			RCTEXT_SOUND_SE_PLAYERBLOKEN= "SE-PLAYER_BLOKEN"	;
-static const char*			RCTEXT_SOUND_SE_INVISIBLE	= "SE-INVINGVLE"		;
-static const char*			RCTEXT_SOUND_SE_ITEMS		= "SE-ITEMS"			;
-static const char*			RCTEXT_SOUND_SE_SETFIELD	= "SE-MAGNETIC_FIELD"	;
-static const char*			RCTEXT_SOUND_SE_SPARK		= "SE-SPARK002"			;
-
-static const float			MGPRM_INVISIBLESOUND_TIME	= 0.7f	; /* 磁界の影響半径*/
-static const int			MGPRM_MAGNETICUM			= 10	; /* 磁界の影響半径*/
-static const int			MGPRM_MAGNETICUM_QUAD		= ( MGPRM_MAGNETICUM * MGPRM_MAGNETICUM );
-
 
 //////////
 // マクロ関数
@@ -46,18 +23,17 @@ static const int			MGPRM_MAGNETICUM_QUAD		= ( MGPRM_MAGNETICUM * MGPRM_MAGNETICU
 
 //////////
 //	: コンパイリングフラグ
-
-
 #define CF_SINGLETHREAD					/* シングルスレッドモード  ( 無効にするとマルチスレッド的になりますがバグります )   */
-#define DRAW_MOUSE	(false)
+#define DRAW_MOUSE	(false)				/* マウスを描画するかどうか */
 
+#define DEBUG_KEYBORD_ON				/* デバッグ用キーボード操作を有効化 */
 #define CF_OVERLORDNEW_ENABLE			/* 自作のnewを強制化(Manager有効時) */
 #define CF_MEMORYOUTPUTPROCESS_ENABLE	/* 自作メモリ管理システムにより管理されているアイテムのファイルへの書き出しを可能にする(Manager有効時) */
 //#define CF_LOADINGANIMATION			/* ロード画面でアニメーション */
-//#define CF_OVERLORDNEW_ENABLE	/* 自作のnewを強制化 */
+//#define CF_OVERLORDNEW_ENABLE			/* 自作のnewを強制化 */
 
-//#define CF_DEBUG_TIMEDRAW
-//#define CF_LOADINGANIMATION		/* ロード画面でアニメーション */
+//#define CF_DEBUG_TIMEDRAW				/* 時間を描画 */
+//#define CF_LOADINGANIMATION			/* ロード画面でアニメーション */
 
 
 #if defined(DEBUG) || defined(_DEBUG)
@@ -71,7 +47,6 @@ static const int			MGPRM_MAGNETICUM_QUAD		= ( MGPRM_MAGNETICUM * MGPRM_MAGNETICU
 	//#define ___MLP_DEBUG_TIMEDRAW_ 
 	//#define ON_GUIDELINE
 #else
-//#elif 
 	#if defined( PRESENTATION )
 	//-------------------------------//
 	//		プレゼンモード定義       //
@@ -84,11 +59,63 @@ static const int			MGPRM_MAGNETICUM_QUAD		= ( MGPRM_MAGNETICUM * MGPRM_MAGNETICU
 	//		リリースモード定義       //
 	//-------------------------------//
 
-		//#define CF_FULLSCREEN				/* フルスクリーンモード       */
+		#define CF_FULLSCREEN				/* フルスクリーンモード       */
 	#endif
 
 #endif
-#define DEBUG_KEYBORD_ON			/* デバッグ用キーボード操作を有効化 */
+//
+//////////
+
+//////////
+// マクロ関数
+
+#define TL_SQUARE(n)							((n)*(n))
+
+//
+//////////
+
+
+//////////
+//	: グローバルな変数
+
+static const wchar_t*		RCTEXT_SOUND_WAVEBANK		= L"media/Sound/MagneticaWave.xwb"  ;
+static const wchar_t*		RCTEXT_SOUND_SOUNDBANK		= L"media/Sound/MagneticaSound.xsb" ;
+
+static const char*			RCTEXT_SOUND_BGM_CLEAR		= "BGM-CLEAR"			;
+static const char*			RCTEXT_SOUND_BGM_GAMEOVER	= "BGM-GAME_OVER"		;
+static const char*			RCTEXT_SOUND_BGM_PLAY		= "BGM-PLAY001"			;
+static const char*			RCTEXT_SOUND_BGM_TITLE		= "BGM-TITLE"			;
+static const char*			RCTEXT_SOUND_SE_ALERT		= "SE-ALERT002"			;
+static const char*			RCTEXT_SOUND_SE_BREAKENEMY	= "SE-BLOKEN_ENEMY"		;
+static const char*			RCTEXT_SOUND_SE_CHECKPOINT	= "SE-CHACK_POINT"		;
+static const char*			RCTEXT_SOUND_SE_CLEAR		= "SE-CLEAR"			;
+static const char*			RCTEXT_SOUND_SE_SELECT		= "SE-SELECT"			;
+static const char*			RCTEXT_SOUND_SE_ENTER		= "SE-ENTER"			;
+static const char*			RCTEXT_SOUND_SE_FIRE		= "SE-FIRE"				;
+static const char*			RCTEXT_SOUND_SE_GOAL		= "SE-GOAL"				;
+static const char*			RCTEXT_SOUND_SE_PLAYERBLOKEN= "SE-PLAYER_BLOKEN"	;
+static const char*			RCTEXT_SOUND_SE_INVISIBLE	= "SE-INVINGVLE"		;
+static const char*			RCTEXT_SOUND_SE_ITEMS		= "SE-ITEMS"			;
+static const char*			RCTEXT_SOUND_SE_SETFIELD	= "SE-MAGNETIC_FIELD"	;
+static const char*			RCTEXT_SOUND_SE_SPARK		= "SE-SPARK002"			;
+
+static const float			MGPRM_INVISIBLESOUND_TIME	= 0.7f	; /* 磁界の影響半径*/
+static const int			MGPRM_MAGNETICUM			= 10	; /* 磁界の影響半径*/
+static const int			MGPRM_MAGNETICUM_QUAD		= ( MGPRM_MAGNETICUM * MGPRM_MAGNETICUM );
+static const int			DRAWING_RANGE				= 25;
+static const D3DXVECTOR3	g_vZero						= D3DXVECTOR3(0.0f,0.0f,0.0f);
+static const D3DXVECTOR3	g_vOne						= D3DXVECTOR3(1.0f,1.0f,1.0f);
+static const D3DXVECTOR3	g_vMax						= D3DXVECTOR3(+FLT_MAX,+FLT_MAX,+FLT_MAX);
+static const D3DXVECTOR3	g_vMin						= D3DXVECTOR3(-FLT_MAX,-FLT_MAX,-FLT_MAX);
+static const wstring		g_sDefaultTexturePath		= L"media/Textures/" ;	//	: テクスチャの置き場
+      //extern HWND			wiz::DxDevice::m_hWnd		;
+      extern bool			g_bMouseLB	;
+      extern bool			g_bMouseRB	;
+
+//	
+//////////
+
+
 
 //	: デファイン定数
 #define MAP_PARTS_HEIGHT		(    1.0f)	/*  */
@@ -301,23 +328,5 @@ namespace wiz{
 //
 //////////
 
-//////////
-//	: グローバルな変数
-
-const static D3DXVECTOR3 g_vZero = D3DXVECTOR3(0.0f,0.0f,0.0f);
-const static D3DXVECTOR3 g_vOne  = D3DXVECTOR3(1.0f,1.0f,1.0f);
-const static D3DXVECTOR3 g_vMax  = D3DXVECTOR3(+FLT_MAX,+FLT_MAX,+FLT_MAX);
-const static D3DXVECTOR3 g_vMin  = D3DXVECTOR3(-FLT_MAX,-FLT_MAX,-FLT_MAX);
-
-
-const static wstring	g_sDefaultTexturePath = L"media/Textures/" ;	//	: テクスチャの置き場
-const static int		DRAWING_RANGE = 20;
-
-      extern HWND g_hWnd	 ;
-      extern bool g_bMouseLB ;
-      extern bool g_bMouseRB ;
-
-//	
-//////////
  
 #endif
