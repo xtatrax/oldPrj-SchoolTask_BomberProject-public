@@ -658,6 +658,18 @@
 						>
 					</File>
 				</Filter>
+				<Filter
+					Name="DeadCount"
+					>
+					<File
+						RelativePath=".\Factory_DeadCount.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Factory_DeadCount.h"
+						>
+					</File>
+				</Filter>
 			</Filter>
 			<Filter
 				Name="Prim"
