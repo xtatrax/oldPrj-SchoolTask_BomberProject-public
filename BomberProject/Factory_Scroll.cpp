@@ -56,9 +56,9 @@ ScrollObject::ScrollObject(LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pFro
 void ScrollObject::Update( UpdatePacket& i_UpdatePacket) {
 	for(int i = 0; i < m_csbySpriteQty; i++){
 		if( m_pBGSpriteArr[i] != NULL ){
-			m_vPos[i].y += 5.0f;
+			m_vPos[i].y += 0.6f;
 			if(m_vPos[i].y >= 600.0f){
-				m_vPos[i].y = -600;
+				m_vPos[i].y = -600.0f;
 			}
 		}
 	}
