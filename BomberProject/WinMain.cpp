@@ -13,6 +13,8 @@
 #include "DxDevice.h"
 #include "Scene.h"
 
+int nDefaultShowCmd ;
+HINSTANCE hInstance ;
 /**************************************************************************
 LRESULT CALLBACK WindowProc(
 HWND hWnd,      //ウィンドウハンドル
@@ -28,6 +30,7 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	switch (msg) {
 		case WM_CREATE:
 			DragAcceptFiles(hWnd,TRUE); // D&D を許可する
+			//Debugger::DebugWindow::init(hInstance,hWnd,nDefaultShowCmd);
 			return 0;
         case WM_CLOSE:                // ウインドウが破棄されようとしている
 			wiz::DxDevice::Destroy();
@@ -78,6 +81,8 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 ****************************************************************************/
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE 
     hPrevInstance, LPSTR lpCmdLine, int nShowCmd){
+	nDefaultShowCmd = nShowCmd ;
+	hInstance = hInstance ;
 	setlocale( LC_CTYPE, "jpn" );
 	time_t timer;
 	struct tm local ;
@@ -149,7 +154,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE
         // 画面全体の幅と高さを取得
         //iClientWidth = ::GetSystemMetrics(SM_CXSCREEN);
         //iClientHeight = ::GetSystemMetrics(SM_CYSCREEN);
-        g_hWnd = ::CreateWindowEx( 
+        wiz::DxDevice::m_hWnd = ::CreateWindowEx( 
             WS_EX_ACCEPTFILES,  //オプションのウィンドウスタイル
             pClassName,         // 登録されているクラス名
             pWndTitle,          // ウインドウ名
@@ -163,7 +168,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE
             hInstance,          // アプリケーションインスタンスのハンドル
             NULL                // ウインドウの作成データ
         );
-        if (!g_hWnd){
+        if (!wiz::DxDevice::m_hWnd){
             //失敗した
             ::MessageBox(0,L"ウインドウ作成に失敗しました",L"エラー",MB_OK);
             return 1;   //エラー終了
@@ -179,7 +184,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE
     }
     else {
         //ウインドウの作成
-        g_hWnd = ::CreateWindowEx(
+		wiz::DxDevice::m_hWnd = ::CreateWindowEx(
             0,                              //オプションのウィンドウスタイル
             pClassName,                     //ウインドウクラス名
             pWndTitle,                      //ウインドウのタイトル
@@ -192,7 +197,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE
             hInstance,                      //このインスタンス
             NULL                            //使用しない
         );
-        if (!g_hWnd){
+        if (!wiz::DxDevice::m_hWnd){
             //失敗した
             ::MessageBox(0,L"ウインドウ作成に失敗しました",L"エラー",MB_OK);
             return 1;   //エラー終了
@@ -201,18 +206,18 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE
         RECT rect;
         int w_width,w_height,c_width,c_height;
         // ウインドウ全体の大きさを計算
-        ::GetWindowRect(g_hWnd,&rect);       // ウインドウ全体のサイズ取得
+        ::GetWindowRect(wiz::DxDevice::m_hWnd,&rect);       // ウインドウ全体のサイズ取得
         w_width = rect.right - rect.left;   // ウインドウ全体の幅の横幅を計算
         w_height = rect.bottom - rect.top;  // ウインドウ全体の幅の縦幅を計算
         // クライアント領域の大きさを計算
-        ::GetClientRect(g_hWnd,&rect);       // クライアント部分のサイズの取得
+        ::GetClientRect(wiz::DxDevice::m_hWnd,&rect);       // クライアント部分のサイズの取得
         c_width = rect.right - rect.left;   // クライアント領域外の横幅を計算
         c_height = rect.bottom - rect.top;  // クライアント領域外の縦幅を計算
         // ウィンドウサイズの再計算
         w_width = iClientWidth + (w_width - c_width);     // 必要なウインドウの幅
         w_height = iClientHeight + (w_height - c_height); // 必要なウインドウの高さ
         // ウインドウサイズの再設定
-        ::SetWindowPos(g_hWnd,HWND_TOP,0,0,w_width,w_height,SWP_NOMOVE);
+        ::SetWindowPos(wiz::DxDevice::m_hWnd,HWND_TOP,0,0,w_width,w_height,SWP_NOMOVE);
     }
 	ShowCursor(DRAW_MOUSE);
 	wiz::__GetClientSize(wiz::Rect(0,0,iClientWidth,iClientHeight));
@@ -220,17 +225,17 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE
 
     //ウインドウの表示
     ::ShowWindow(
-        g_hWnd,       //取得したウインドウのハンドル
+        wiz::DxDevice::m_hWnd,       //取得したウインドウのハンドル
         nShowCmd    //WinMainに渡されたパラメータ
     );
     // WM_PAINTが呼ばれないようにする
-    ::ValidateRect(g_hWnd, 0);
+    ::ValidateRect(wiz::DxDevice::m_hWnd, 0);
     //例外処理開始
     try{
 		/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 		// 
         // DirectXデバイスオブジェクトの初期化
-        wiz::DxDevice* device = new wiz::DxDevice(g_hWnd, isFullScreen,iClientWidth,iClientHeight);
+        wiz::DxDevice* device = new wiz::DxDevice(isFullScreen,iClientWidth,iClientHeight);
 		int ret =  (int) device->MainThreadRun();
 		SafeDelete( device );
 		::PostQuitMessage(0);
@@ -244,18 +249,18 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE
 	}
     catch(wiz::BaseException& e){
         //初期化失敗した
-        ::MessageBox(g_hWnd,e.what_w(),L"エラー",MB_OK);
+        ::MessageBox(wiz::DxDevice::m_hWnd,e.what_w(),L"エラー",MB_OK);
         return 1;   //エラー終了
     }
     catch(exception& e){
         //STLエラー
         //マルチバイトバージョンのメッセージボックスを呼ぶ
-        ::MessageBoxA(g_hWnd,e.what(),"エラー",MB_OK);
+        ::MessageBoxA(wiz::DxDevice::m_hWnd,e.what(),"エラー",MB_OK);
         return 1;   //エラー終了
     }
     catch(...){
         //原因不明失敗した
-        ::MessageBox(g_hWnd,L"原因不明のエラーです",L"エラー",MB_OK);
+        ::MessageBox(wiz::DxDevice::m_hWnd,L"原因不明のエラーです",L"エラー",MB_OK);
         return 1;   //エラー終了
     }
     //例外処理終了
@@ -263,4 +268,371 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE
 	::CoUninitialize();
     return 1;   //エラー終了
 }
-
+/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
+/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
+/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
+/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
+/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
+/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
+/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
+/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
+/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
+/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
+/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
+/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
+/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
+/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
+/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
+/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
+/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
+/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
+/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
+/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
+/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
+/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
+/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
+/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
+/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
+/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
+/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
+/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
+/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
+/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
+/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
+/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
+/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
+/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
+/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
+/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
+/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
+//// ChildWindow.cpp
+////
+//// リージョンの結合
+//
+//#include <windows.h>
+//
+//
+//#define BUTTON_ID   1000
+//#define CHILD_ID_A  5000
+//#define CHILD_ID_B  5001
+//#define BUTTON_ID_OPEN_A 6000
+//#define BUTTON_ID_OPEN_B 6001
+//
+//
+//
+//
+//LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
+//LRESULT CALLBACK ChildWindowProc(HWND , UINT , WPARAM , LPARAM );
+//ATOM InitApp(HINSTANCE);
+//HWND InitInstance(HINSTANCE, int);
+//HINSTANCE hInst;
+//
+//TCHAR szClassName[] = _T("ParentWindow"); // ウィンドウクラス。UNICODEとしての文字列定数
+//
+//int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLine,int nShowCmd)
+//{
+//   MSG msg;
+//   BOOL bRet;
+//   HWND hWnd;
+//
+//   hInst = hInstance;
+//
+//   if (!InitApp(hInstance))
+//       return FALSE;
+//   if (!(hWnd = InitInstance(hInstance,nShowCmd)))
+//       return FALSE;
+//   while((bRet = GetMessage(&msg, NULL, 0, 0)) != 0) {
+//       if (bRet == -1){
+//           break;
+//       } else {
+//           TranslateMessage(&msg);
+//           DispatchMessage(&msg);
+//       }
+//   }
+//   return (int)msg.wParam;
+//}
+//
+//// ウィンドウクラスの登録
+//
+//ATOM InitApp(HINSTANCE hInst)
+//{
+//   WNDCLASS wc;
+//   wc.style        = CS_HREDRAW|CS_VREDRAW;
+//   wc.lpfnWndProc  = WndProc;  // プロシージャ名
+//   wc.cbClsExtra   = 0;
+//   wc.cbWndExtra   = 0;
+//   wc.hInstance    = hInst;
+//   wc.hIcon        = NULL;     // 未サポート
+//   wc.hCursor      = NULL;     // 未サポート
+//   wc.hbrBackground= (HBRUSH) COLOR_WINDOW;
+//   wc.lpszMenuName = NULL;     // 未サポート
+//   wc.lpszClassName=(LPCTSTR) szClassName;
+//
+//   return (RegisterClass(&wc));
+//}
+//
+//// ウィンドウの生成
+//HWND InitInstance(HINSTANCE hInst, int nShowCmd)
+//{
+//   HWND hWnd;
+//
+//   hWnd = CreateWindow(
+//       szClassName,_T("ChildWindowサンプル"),
+//       WS_CLIPCHILDREN,    // ウィンドウの種類
+//       CW_USEDEFAULT,      // x座標
+//       CW_USEDEFAULT,      // y座標
+//       CW_USEDEFAULT,      // 幅
+//       CW_USEDEFAULT,      // 高さ
+//       NULL,               // 親ウィンドウのハンドル。親を作るのでNULL
+//       NULL,               // メニューハンドルまたは子ウィンドウID
+//       hInst,              // インスタンスハンドル
+//       NULL);
+//   if (!hWnd)
+//       return FALSE;
+//   ShowWindow(hWnd, nShowCmd);
+//   UpdateWindow(hWnd);
+//   return hWnd;
+//}
+//// ウィンドウクラスの登録
+//void CreateWindowClass(HINSTANCE hInst, LPCTSTR szClassName, WNDCLASSW &wc)
+//{
+//   wc.style  = CS_HREDRAW|CS_VREDRAW;
+//   wc.lpfnWndProc = ChildWindowProc ; // プロシージャ名
+//   wc.cbClsExtra = 0;
+//   wc.cbWndExtra = 0;
+//   wc.hInstance = hInst;
+//   wc.hIcon  = NULL;
+//   wc.hCursor  = NULL;
+//   wc.hbrBackground= reinterpret_cast<HBRUSH>(GetStockObject(GRAY_BRUSH)); //グレーにする
+//   wc.lpszMenuName = NULL;  // 未サポート
+//   wc.lpszClassName=(LPCWSTR) szClassName;
+//}
+//
+//// 子ウィンドウの生成
+//HWND CreateChildWindow(HINSTANCE hInst, int nShowCmd,LPTSTR ClassName,HMENU hMenuChildId,HWND hParent)
+//{
+//   HWND hWnd;
+//
+//   // 親ウィンドウのサイズを取得
+//   RECT rect;
+//   GetWindowRect(hParent, (LPRECT)&rect);
+//
+//   hWnd = CreateWindow(
+//       ClassName,
+//       NULL,
+//       WS_CHILD,
+//       0,                      //親ウィンドウと同じサイズ
+//       0,
+//       rect.right - rect.left,
+//       rect.bottom - rect.top,
+//       hParent,        //親ウィンドウのハンドル
+//       (HMENU)hMenuChildId,    // 子ウィンドウを判別するためのID
+//       hInst,          //インスタンスハンドル
+//       NULL);
+//   if (!hWnd)
+//       return FALSE;
+//   ShowWindow(hWnd, nShowCmd);
+//   UpdateWindow(hWnd);
+//   return hWnd;
+//}
+//// ウィンドウプロシージャ
+//LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wp, LPARAM lp)
+//{
+//   PAINTSTRUCT ps;
+//   HDC hdc;
+//
+//   TCHAR buf[256];
+//   size_t size;        // 文字列のサイズを格納する
+//
+//   WNDCLASSW wc_A;
+//   WNDCLASSW wc_B;
+//   static HWND hChildWnd_A;
+//   static HWND hChildWnd_B;
+//
+//   static HWND hButton;
+//
+//   switch (msg){
+//       case WM_CREATE:
+//
+//           // 子ウィンドウＡの生成
+//           CreateWindowClass(hInst,_T("ChildWindow_A"),wc_A);
+//           RegisterClassW(&wc_A);
+//           hChildWnd_A = CreateChildWindow(hInst,SW_HIDE,_T("ChildWindow_A"),(HMENU)CHILD_ID_A,hWnd);
+//
+//           // 子ウィンドウＢの生成
+//           CreateWindowClass(hInst,_T("ChildWindow_B"),wc_B);
+//           RegisterClassW(&wc_B);
+//           hChildWnd_B = CreateChildWindow(hInst,SW_HIDE,_T("ChildWindow_B"),(HMENU)CHILD_ID_B,hWnd);
+//
+//           // プッシュボタンを作成する
+//           hButton = CreateWindow(
+//               _T("BUTTON"),                            // ウィンドウクラス名
+//               _T("OPEN A"),                            // キャプション
+//               WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,   // スタイル指定
+//               50, 50,                                  // 座標
+//               60, 40,                                  // サイズ
+//               hWnd,                                    // 親ウィンドウのハンドル
+//               (HMENU)BUTTON_ID_OPEN_A,                 // メニューハンドル
+//               hInst,                                   // インスタンスハンドル
+//               NULL                                     // その他の作成データ
+//               );
+//
+//           // プッシュボタンを作成する
+//           hButton = CreateWindow(
+//               _T("BUTTON"),                            // ウィンドウクラス名
+//               _T("OPEN B"),                            // キャプション
+//               WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,   // スタイル指定
+//               50, 100,                                 // 座標
+//               60, 40,                                  // サイズ
+//               hWnd,                                    // 親ウィンドウのハンドル
+//               (HMENU)BUTTON_ID_OPEN_B,                 // メニューハンドル
+//               hInst,                                   // インスタンスハンドル
+//               NULL                                     // その他の作成データ
+//               );
+//
+//           break;
+//       case WM_COMMAND:
+//           GetClassName(hWnd, buf, 255);
+//           NKDbgPrintfW(_T("%s\n"),buf);
+//           switch(LOWORD(wp) ){
+//           case BUTTON_ID_OPEN_A:
+//               // 親ウィンドウの「OPEN_A」ボタン押下時の処理
+//               // 子ウィンドウＡを表示する
+//               ShowWindow(hChildWnd_A,SW_SHOW);
+//               UpdateWindow(hChildWnd_A);
+//
+//               return (DefWindowProc(hWnd, msg, wp, lp));
+//               break;
+//           case BUTTON_ID_OPEN_B:
+//               // 親ウィンドウの「OPEN_B」ボタン押下時の処理
+//               // 子ウィンドウＢを表示する
+//               ShowWindow(hChildWnd_B,SW_SHOW);
+//               UpdateWindow(hChildWnd_B);
+//
+//               return (DefWindowProc(hWnd, msg, wp, lp));
+//               break;
+//
+//           case BUTTON_ID:
+//               // 子ウィンドウの「CLOSE」ボタン押下字の処理
+//               if( IsWindowVisible(hChildWnd_A) ){
+//                   ShowWindow(hChildWnd_A,SW_HIDE);
+//               }else{
+//                   ShowWindow(hChildWnd_B,SW_HIDE);
+//               }
+//
+//               break;
+//           default:
+//               return (DefWindowProc(hWnd, msg, wp, lp));
+//           }
+//
+//           break;
+//       case WM_PAINT:
+//           hdc = BeginPaint(hWnd,&ps);     // 描画処理を開始します。
+//
+//           SetBkMode(hdc, TRANSPARENT);    // 背景を透過モードにします
+//
+//           GetClassName(hWnd, buf, 255);   // クラス名を取得
+//
+//           StringCchLength(buf,255,&size); // 文字列長の取得
+//
+//           ExtTextOut(
+//               hdc,    // デバイスコンテキストのハンドル
+//               0,      // 開始位置（基準点）の x 座標
+//               20,     // 開始位置（基準点）の y 座標
+//               NULL,   // 長方形領域の使い方のオプション
+//               NULL,   // 長方形領域の入った構造体へのポインタ
+//               buf,    // 文字列
+//               size,   // 文字数
+//               NULL    // 文字間隔の入った配列
+//               );
+//
+//           EndPaint(hWnd,&ps);             // 描画処理を終了します。
+//
+//           break;
+//       case WM_DESTROY:
+//           PostQuitMessage(0);
+//           break;
+//       default:
+//           return (DefWindowProc(hWnd, msg, wp, lp));
+//   }
+//   return 0;
+//}
+//
+//
+//
+//LRESULT CALLBACK ChildWindowProc(HWND hWnd, UINT msg, WPARAM wp, LPARAM lp)
+//{
+//   PAINTSTRUCT ps;
+//   HWND hButton;
+//   HDC hdc;
+//   COLORREF bkColor;
+//   TCHAR buf[256];
+//   size_t size;        // 文字列のサイズを格納する
+//
+//
+//   switch (msg){
+//       case WM_CREATE:
+//           // プッシュボタンを作成する
+//           hButton = CreateWindow(
+//               _T("BUTTON"),                            // ウィンドウクラス名
+//               _T("CLOSE"),                             // キャプション
+//               WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,   // スタイル指定
+//               100, 200,                                // 座標
+//               60, 40,                                  // サイズ
+//               hWnd,                                    // 親ウィンドウのハンドル
+//               (HMENU)BUTTON_ID,                        // メニューハンドル
+//               hInst,                                   // インスタンスハンドル
+//               NULL                                     // その他の作成データ
+//               );
+//           break;
+//       case WM_PAINT:
+//           hdc = BeginPaint(hWnd,&ps);     // 描画処理を開始します。
+//
+//           SetBkMode(hdc, TRANSPARENT);    // 背景を透過モードにします
+//
+//           GetClassName(hWnd, buf, 255);   // クラス名を取得
+//
+//           StringCchLength(buf,255,&size); // 文字列長の取得
+//
+//           ExtTextOut(
+//               hdc,    // デバイスコンテキストのハンドル
+//               0,      // 開始位置（基準点）の x 座標
+//               20,     // 開始位置（基準点）の y 座標
+//               NULL,   // 長方形領域の使い方のオプション
+//               NULL,   // 長方形領域の入った構造体へのポインタ
+//               buf,    // 文字列
+//               size,   // 文字数
+//               NULL    // 文字間隔の入った配列
+//               );
+//
+//           EndPaint(hWnd,&ps);
+//
+//           break;
+//       case WM_COMMAND:
+//           GetClassName(hWnd, buf, 255);
+//           NKDbgPrintfW(_T("%s\n"),buf);
+//           switch(LOWORD(wp) ){
+//           case BUTTON_ID:
+//
+//               // 親ウィンドウへメッセージ伝播。処理は親に任せる。
+//               SendMessage(GetParent(hWnd),msg,wp,lp);
+//
+//               // 自ウィンドウを非表示にする
+//               //ShowWindow(hWnd,SW_HIDE);
+//               //UpdateWindow(hWnd);
+//
+//               break;
+//           default:
+//               return (DefWindowProc(hWnd, msg, wp, lp));
+//           }
+//
+//           break;
+//       case WM_DESTROY:
+//           PostQuitMessage(0);
+//           break;
+//       default:
+//           return (DefWindowProc(hWnd, msg, wp, lp));
+//   }
+//   return 0;
+//}
+//
