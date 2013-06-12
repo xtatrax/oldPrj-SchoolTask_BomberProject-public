@@ -50,14 +50,15 @@
 
 
 const float			COIL_SPEED						= 0.08f;
-const float			COIL_SPEED_SUPER				= 0.12f;
+const float			COIL_SPEED_SUPER				= 0.15f;
 const float			COIL_ACCELERATION_VALUE			= 0.25f;
+const float			COIL_ACCELERATION_VALUE_MIMUS	= -0.15f;
 const float			COIL_ACCELERATION_DECREASE		= 0.01f;
 const float			COIL_BASSROT					= 90.0f;
 const float			PLAYER_TURN_ANGLE_Lv1			= 1.0f;
 const float			PLAYER_TURN_ANGLE_Lv2			= 2.0f;
 const float			PLAYER_TURN_ANGLE_Lv3			= 2.5f;
-const float			COIL_SUPER_MODE_TIME			= 5.0f;
+const float			COIL_SUPER_MODE_TIME			= 7.0f;
 const D3DXVECTOR3	COIL_SUPER_MODE_FIELD_SCALE		= D3DXVECTOR3(10.0f,10.0f,0.0f);
 const float			COIL_ROTATION_ANGLE				= 15.0f;
 const D3DXVECTOR3	COIL_SCALE_ADD_VALUE_START		= D3DXVECTOR3(0.03f,0.03f,0.03f);
@@ -110,17 +111,18 @@ class PlayerCoil : public MagneticumObject3D{
 	float			m_fMoveDir			;	//	: 移動角度
 	float			m_fMovdSpeed		;	//	: 移動速度
 	float			m_fAcceleration		;	//	: 加速
-	float			m_fTurnAngle		;	//	: 回転角度?
+	float			m_fTurnAngle		;	//	: 回転角度
 	bool			m_bLastMouseRB		;	//	: マウスのRボタンが押されているか
 	bool			m_bLastMouseLB		;	//	: マウスのLボタンが押されているか
-	bool			m_bReadyToStart		;	//	: 
-	bool			m_bReadyContinue	;	//	:
+	bool			m_bReadyToStart		;	//	: 発射する準備が出来たか
+	bool			m_bReadyToSuper		;	//	: 無敵状態の準備が出来たか
+	bool			m_bReadyContinue	;	//	: コンティニューする準備が出来たか
 	bool			m_bIsSuperMode		;	//	: 無敵状態のフラグ (無敵状態は他の状態と重なるのでCOIL_STATEに入れない)
 	bool			m_bDrawContinue		;	//	:
 
 	Sound*					m_pSound					;	//	: 音声データへのポインタ
 	Camera*					m_pCamera					;	//	: Cameraへのポインタ
-	Box*					m_pSuperField				;	//	: ?
+	Box*					m_pSuperField				;	//	: 無敵時のフィールド
 	Continue*				m_pSelect					;	//	: 
 	Continue*				m_pSelect2					;	//	: 
 	Dead*					m_pDeadChar					;	//	: 
@@ -524,6 +526,19 @@ public:
 	////            ：
 	void setSuperMode(bool i_vFlg){
 		m_bIsSuperMode = i_vFlg;
+	}
+
+	/////////////////// ////////////////////
+	//// 関数名     ：bool getReadyToSuper()
+	//// カテゴリ   ：ゲッター
+	//// 用途       ：m_bReadyToSuperを獲得
+	//// 引数       ：なし
+	//// 戻値       ：なし
+	//// 担当       ：本多寛之
+	//// 備考       ：
+	////            ：
+	bool getReadyToSuper() const{
+		return m_bReadyToSuper;
 	}
 
 	/////////////////// ////////////////////
