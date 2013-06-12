@@ -961,8 +961,8 @@ Factory_Coil::Factory_Coil( FactoryPacket* fpac, D3DXVECTOR3* vStartPos  ){
 				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Continue.png" ),
 				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Go_Title.png" ),
 				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"dead.png" ),
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Rethinking.png" ),
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Reply.png" ),
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"REALLY.png" ),
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"YESorNO.png" ),
 				0.0f,0.7f,1.0f,1.0f,vScale,D3DXVECTOR3(90.0f,0.0f,0.0f),vPos,
 				CoilDiffuse,CoilSpecular,CoilAmbient
 				)
