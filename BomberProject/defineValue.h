@@ -10,6 +10,17 @@
 #ifndef	__Define_Value__
 #define	__Define_Value__
 
+ 
+
+//////////
+// マクロ関数
+
+#define TL_SQUARE(n)							((n)*(n))
+
+//
+//////////
+
+
 //////////
 //	: コンパイリングフラグ
 #define CF_SINGLETHREAD					/* シングルスレッドモード  ( 無効にするとマルチスレッド的になりますがバグります )   */
@@ -78,6 +89,7 @@ static const char*			RCTEXT_SOUND_SE_ALERT		= "SE-ALERT002"			;
 static const char*			RCTEXT_SOUND_SE_BREAKENEMY	= "SE-BLOKEN_ENEMY"		;
 static const char*			RCTEXT_SOUND_SE_CHECKPOINT	= "SE-CHACK_POINT"		;
 static const char*			RCTEXT_SOUND_SE_CLEAR		= "SE-CLEAR"			;
+static const char*			RCTEXT_SOUND_SE_SELECT		= "SE-SELECT"			;
 static const char*			RCTEXT_SOUND_SE_ENTER		= "SE-ENTER"			;
 static const char*			RCTEXT_SOUND_SE_FIRE		= "SE-FIRE"				;
 static const char*			RCTEXT_SOUND_SE_GOAL		= "SE-GOAL"				;
