@@ -248,7 +248,7 @@ void	Item::Update(UpdatePacket& i_UpdatePacket)
 
 		it++;
 	}
-	if(m_pPlayerCoil->getState() == COIL_STATE_MOVE && m_pPlayerCoil->getSuperMode()){
+	if(m_pPlayerCoil->getState() == COIL_STATE_MOVE && m_pPlayerCoil->getSuperMode() && m_pPlayerCoil->getReadyToSuper()){
 		static float s_fTimeTotal = 0.0f;
 		s_fTimeTotal += (float)SUPER_GAGE_MAX / (float)COIL_SUPER_MODE_TIME * (float)i_UpdatePacket.pTime->getElapsedTime();
 		if(s_fTimeTotal >= 1.0f){

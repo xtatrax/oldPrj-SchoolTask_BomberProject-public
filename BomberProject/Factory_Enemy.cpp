@@ -243,7 +243,7 @@ void EnemySphere::Update( UpdatePacket& i_UpdatePacket){
 	TARGETCONTAINER::iterator it	= m_ItemMap_Target.begin();
 	TARGETCONTAINER::iterator end	= m_ItemMap_Target.end();
 	while(it != end){
-		if(m_pPlayer->getDrawing()){
+		if(m_pPlayer->getDrawing() && m_pCoil->getState() == COIL_STATE_MOVE){
 			//	: 自分から対象までのベクトルを算出
 			D3DXVECTOR3	vTargetDir	= m_pPlayer->getPos() - ((*it)->m_vPos) ;
 			//	: 自分と対象までの距離を求める

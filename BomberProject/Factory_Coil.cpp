@@ -82,6 +82,7 @@ PlayerCoil::PlayerCoil(
 ,m_bLastMouseLB(false)
 ,m_bReadyToStart(false)
 ,m_bReadyContinue(false)
+,m_bReadyToSuper(false)
 ,m_bIsSuperMode(false)
 ,m_bDrawContinue( false )
 ,m_pSuperField(NULL)
@@ -456,14 +457,21 @@ void PlayerCoil::Update_StateMove(){
 	//速度指定
 	if(m_bIsSuperMode) m_fMovdSpeed = COIL_SPEED_SUPER;
 	else			   m_fMovdSpeed = COIL_SPEED;
-	//指定方向へ指定距離移動
-	ArcMove( m_vMove , m_fMovdSpeed + m_fAcceleration, m_fMoveDir);
-	if(m_fAcceleration >= 0.0f){
-		m_fAcceleration -= COIL_ACCELERATION_DECREASE;
-		if(m_fAcceleration <= 0.0f)m_fAcceleration = 0.0f;
+
+	if( (m_bIsSuperMode && m_bReadyToSuper) || (!m_bIsSuperMode && !m_bReadyToSuper) ){
+		//指定方向へ指定距離移動
+		ArcMove( m_vMove , m_fMovdSpeed + m_fAcceleration, m_fMoveDir);
+		if(m_fAcceleration >= 0.0f){
+			m_fAcceleration -= COIL_ACCELERATION_DECREASE;
+			if(m_fAcceleration <= 0.0f)m_fAcceleration = 0.0f;
+		}
+		if(m_fAcceleration < 0.0f){
+			m_fAcceleration += COIL_ACCELERATION_DECREASE;
+			if(m_fAcceleration >= 0.0f)m_fAcceleration = 0.0f;
+		}
+		//移動分を加算
+		m_vPos += m_vMove;
 	}
-	//移動分を加算
-	m_vPos += m_vMove;
 
 	if(m_vPos.x <= 0){
 		m_vPos.x = 0.0f;
@@ -548,32 +556,53 @@ void PlayerCoil::Update_StateStick(){
 ////			  ：
 ////
 void PlayerCoil::SuperMode( UpdatePacket& i_UpdatePacket ){	
-	static float s_fTimeCount		= 0;
-	static int	s_iInterval			= 0;
-	static bool s_bIsColorChange	= false;
-	static bool	s_bSound			= false;
-	static float s_fSFieldRotZ		= 0.0f;
+	static float	s_fTimeCount		= 0;
+	static int		s_iInterval			= 0;
+	static bool		s_bIsColorChange	= false;
+	static bool		s_bSound			= false;
+	static float	s_fSFieldRotZ		= 0.0f;
 
 	if( m_pSound && !s_bSound){
 		m_pSound->SearchWaveAndPlay( RCTEXT_SOUND_SE_INVISIBLE , (BYTE)(COIL_SUPER_MODE_TIME / MGPRM_INVISIBLESOUND_TIME) +1 );
 		s_bSound = true ;
 	}
-
-	if(m_enumCoilState == COIL_STATE_MOVE)
-		s_fTimeCount += (float)i_UpdatePacket.pTime->getElapsedTime();
-
-	s_fSFieldRotZ += 5.0f;
-	if(m_fMoveDir > 360.0f)m_fMoveDir = float(int(m_fMoveDir) % 360);
-	float fScalePercentage = 1.0f - s_fTimeCount / COIL_SUPER_MODE_TIME;
-	D3DXMATRIX mPos, mScale, mRotZ;
-	D3DXMatrixTranslation( &mPos  , m_vPos.x , m_vPos.y , m_vPos.z ) ;
-	D3DXMatrixScaling( &mScale, 
-						m_vScale.x * fScalePercentage + m_OBBRadius/4, 
-						m_vScale.y * fScalePercentage + m_OBBRadius/4, 
-						m_vScale.z);
-	D3DXMatrixRotationZ( &mRotZ, D3DXToRadian( s_fSFieldRotZ ) ) ;
-	m_pSuperField->CalcMatrix(mPos,mScale,mRotZ);
 	
+	D3DXMATRIX mPos, mScale, mRotZ;
+	//無敵モードに変換し終わるまではゲージを消費しない
+	if(m_bReadyToSuper){
+
+		if(m_enumCoilState == COIL_STATE_MOVE)
+			s_fTimeCount += (float)i_UpdatePacket.pTime->getElapsedTime();
+
+		s_fSFieldRotZ += 5.0f;
+		if(m_fMoveDir > 360.0f)m_fMoveDir = float(int(m_fMoveDir) % 360);
+		float fScalePercentage = 1.0f - s_fTimeCount / COIL_SUPER_MODE_TIME;
+		D3DXMatrixTranslation( &mPos  , m_vPos.x , m_vPos.y , m_vPos.z ) ;
+		D3DXMatrixScaling( &mScale, 
+							m_vScale.x * fScalePercentage + m_OBBRadius/4, 
+							m_vScale.y * fScalePercentage + m_OBBRadius/4, 
+							m_vScale.z);
+		D3DXMatrixRotationZ( &mRotZ, D3DXToRadian( s_fSFieldRotZ ) ) ;
+	}
+	else{
+		s_fTimeCount += (float)i_UpdatePacket.pTime->getElapsedTime();
+		s_fSFieldRotZ += 5.0f;
+		D3DXMatrixTranslation( &mPos  , m_vPos.x , m_vPos.y , m_vPos.z ) ;
+		if(m_vScale.x >= m_vScale.x * s_fTimeCount && m_vScale.y >= m_vScale.y * s_fTimeCount){
+			D3DXMatrixScaling( &mScale, 
+								m_vScale.x * s_fTimeCount, 
+								m_vScale.y * s_fTimeCount, 
+								m_vScale.z);
+		}else{
+			D3DXMatrixScaling( &mScale, m_vScale.x, m_vScale.y, m_vScale.z);
+			m_bReadyToSuper = true;
+			s_fTimeCount = 0.0f;
+			m_fAcceleration = COIL_ACCELERATION_VALUE;
+		}
+		D3DXMatrixRotationZ( &mRotZ, D3DXToRadian( s_fSFieldRotZ ) ) ;
+	}
+	m_pSuperField->CalcMatrix(mPos,mScale,mRotZ);
+
 	//色の点滅
 	if(s_iInterval == 0){
 		if(s_bIsColorChange){
@@ -593,11 +622,12 @@ void PlayerCoil::SuperMode( UpdatePacket& i_UpdatePacket ){
 		}
 	}
 	s_iInterval++;
-	if(s_iInterval >= 5) s_iInterval = 0;
+	if(s_iInterval >= COIL_SUPER_MODE_TIME*2 - ((int)s_fTimeCount*2-1)) s_iInterval = 0;
 
 	//無敵モード終了
 	if(s_fTimeCount >= COIL_SUPER_MODE_TIME){
 		m_bIsSuperMode	= false;
+		m_bReadyToSuper = false;
 		s_bSound		= false;
 		s_fTimeCount = 0.0f;
 		switch(getMagnetPole()){
