@@ -659,14 +659,14 @@
 					</File>
 				</Filter>
 				<Filter
-					Name="DeadCount"
+					Name="Score"
 					>
 					<File
-						RelativePath=".\Factory_DeadCount.cpp"
+						RelativePath=".\Factory_Score.cpp"
 						>
 					</File>
 					<File
-						RelativePath=".\Factory_DeadCount.h"
+						RelativePath=".\Factory_Score.h"
 						>
 					</File>
 				</Filter>

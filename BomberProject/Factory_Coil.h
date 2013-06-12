@@ -116,18 +116,18 @@ class PlayerCoil : public MagneticumObject3D{
 	bool			m_bReadyToStart		;	//	: 
 	bool			m_bReadyContinue	;	//	:
 	bool			m_bIsSuperMode		;	//	: 無敵状態のフラグ (無敵状態は他の状態と重なるのでCOIL_STATEに入れない)
-	bool			m_bDrawContinue		;	//	:
-	int				m_iDeadCount		;
+	bool			m_bDrawContinue		;	//	: コンテニュー表示フラグ
+	int				m_iDeadCount		;	//	: 死亡回数
 
 	Sound*					m_pSound					;	//	: 音声データへのポインタ
 	Camera*					m_pCamera					;	//	: Cameraへのポインタ
 	Box*					m_pSuperField				;	//	: ?
-	Continue*				m_pSelect					;	//	: 
-	Continue*				m_pSelect2					;	//	: 
-	Dead*					m_pDeadChar					;	//	: 
+	Continue*				m_pSelect					;	//	: ロゴ(Continue)
+	Continue*				m_pSelect2					;	//	: ロゴ(Title)
+	Dead*					m_pDeadChar					;	//	: ロゴ(You'er Dead)
 	ProvisionalPlayer3D*	m_pPlayer					;	//	: ユーザ設置磁界へのポインタ
 	MagneticumObject3D*		m_pMagneticumObject			;	//	: 初期配置磁界へのポインタ
-	DeadEffect*				m_pDeadEffect[PARTICLS_NUM]	;
+	DeadEffect*				m_pDeadEffect[PARTICLS_NUM]	;	//	: 死亡時の爆散エフェクトのポインタ
 	COIL_STATE				m_enumCoilState				;
 
 	LPDIRECT3DTEXTURE9	m_pDeadTex		;	//爆散エフェクトの画像
