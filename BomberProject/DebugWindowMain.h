@@ -25,14 +25,22 @@ class DebugWindow{
 	const wchar_t*		m_pClassName	;
 	const wchar_t*		m_pWndTitle		;
 	HWND				m_hWnd			;
+	LPDIRECT3D9				m_pD3D			;	// IDirect3D9インターフェイスへのポインタ
+	LPDIRECT3DDEVICE9		m_pD3DDevice	;	// IDirect3DDevice9インターフェイスへのポインタ
+	D3DPRESENT_PARAMETERS	m_D3DPP			;	// デバイスのプレゼンテーションパラメータ
 	DebugWindow(HINSTANCE hInstance, HWND i_hParentWindow, int nShowCmd);
 public:
 	static void init(HINSTANCE hInstance, HWND i_hParentWindow, int nShowCmd){
-		if( !m_pMyInstance )m_pMyInstance = new DebugWindow(hInstance,i_hParentWindow,nShowCmd);
+		#if defined( CF_DEBUGINFORMATIONWINDOW_ENABLE )
+			if( !m_pMyInstance )m_pMyInstance = new DebugWindow(hInstance,i_hParentWindow,nShowCmd);
+		#endif
 	};
 	static DebugWindow* getInstance(){
-		if( m_pMyInstance ) return m_pMyInstance ;
-		else return NULL ;
+		#if defined( CF_DEBUGINFORMATIONWINDOW_ENABLE )
+			if( m_pMyInstance ) return m_pMyInstance ;
+			else
+		#endif
+		return NULL ;
 	}
 };
 
