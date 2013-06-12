@@ -69,7 +69,7 @@ DebugWindow::DebugWindow(HINSTANCE hInstance, HWND i_hParentWindow, int nShowCmd
 		m_hWnd = ::CreateWindow(
 			m_pClassName,						//ウインドウクラス名
 			m_pWndTitle,						//ウインドウのタイトル
-			WS_CAPTION|WS_THICKFRAME,	//移動バーをもつ通常のウインドウ
+			WS_CHILD,							//WS_THICKFRAME
 			CW_USEDEFAULT,						// 
 			CW_USEDEFAULT,						//位置はWindowsに任せる
 			(int)STANDARD_WINDOW_WIDTH,			//ウインドウ幅（暫定）
@@ -94,6 +94,67 @@ DebugWindow::DebugWindow(HINSTANCE hInstance, HWND i_hParentWindow, int nShowCmd
 			m_hWnd,       //取得したウインドウのハンドル
 			nShowCmd    //WinMainに渡されたパラメータ
 		);
+
+		m_pD3D         = NULL;
+		m_pD3DDevice   = NULL;
+        D3DDISPLAYMODE d3ddm;
+        // Direct3D9オブジェクトの作成
+        if((m_pD3D = ::Direct3DCreate9(D3D_SDK_VERSION)) == 0){
+			::MessageBox(0,
+                L"子ウインドウで\nDirectXの初期化に失敗しました。DirectXインターフェイスが取得できません。",
+                L"DxDevice::DxDevice()",
+				MB_OK
+                );
+        }
+        
+        // 現在のディスプレイモードを取得
+        if(FAILED(m_pD3D->GetAdapterDisplayMode(D3DADAPTER_DEFAULT, &d3ddm))) {
+			::MessageBox(0,
+                L"子ウインドウで\n子ウインドウで\n初期化に失敗しました。ディスプレイモードを取得できません。",
+                L"DxDevice::DxDevice()",
+				MB_OK
+                );
+        }
+
+        // デバイスのプレゼンテーションパラメータを初期化
+        ZeroMemory(&m_D3DPP, sizeof(D3DPRESENT_PARAMETERS));
+        m_D3DPP.BackBufferCount         = 1;
+        m_D3DPP.Windowed                = TRUE;             // ウインドウ内表示の指定
+        m_D3DPP.BackBufferFormat        = d3ddm.Format;         // カラーモードの指定
+        m_D3DPP.SwapEffect              = D3DSWAPEFFECT_DISCARD; 
+        m_D3DPP.EnableAutoDepthStencil  = TRUE;
+        m_D3DPP.AutoDepthStencilFormat  = D3DFMT_D24S8;
+        
+        // ディスプレイアダプタを表すためのデバイスを作成
+        // 描画と頂点処理をハードウェアで行なう
+        if(FAILED(m_pD3D->CreateDevice(D3DADAPTER_DEFAULT, 
+                                        D3DDEVTYPE_HAL, 
+                                        m_hWnd, 
+                                        D3DCREATE_HARDWARE_VERTEXPROCESSING, 
+                                        &m_D3DPP, &m_pD3DDevice))) {
+            // 上記の設定が失敗したら
+            // 描画をハードウェアで行い、頂点処理はCPUで行なう
+            if(FAILED(m_pD3D->CreateDevice(D3DADAPTER_DEFAULT, 
+                                            D3DDEVTYPE_HAL, 
+                                            m_hWnd, 
+                                            D3DCREATE_SOFTWARE_VERTEXPROCESSING, 
+                                            &m_D3DPP, &m_pD3DDevice))) {
+                // 上記の設定が失敗したら
+                // 描画と頂点処理をCPUで行なう
+                if(FAILED(m_pD3D->CreateDevice(D3DADAPTER_DEFAULT, 
+                                                D3DDEVTYPE_REF, m_hWnd, 
+                                                D3DCREATE_SOFTWARE_VERTEXPROCESSING, 
+                                                &m_D3DPP, &m_pD3DDevice))) {
+                    // 初期化失敗
+				::MessageBox(0,
+					L"子ウインドウで\nデバイスの初期化に失敗しました。的確なデバイスを取得できません。",
+					L"DxDevice::DxDevice()",
+					MB_OK
+					);
+                }
+            }
+        }
+
 	}
 	catch(...){
 		throw;
