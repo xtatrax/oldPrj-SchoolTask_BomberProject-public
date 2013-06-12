@@ -269,10 +269,12 @@ void MagneticumObject3D::Draw(DrawPacket& i_DrawPacket)
 		m_pMagneticField3->setPole(pNowItem->m_bMagnetPole);
 		m_pMagneticField3->Update( UpdatePacket( i_DrawPacket ) );
 
+		m_pMagneticField4->setRadius( (*it)->m_fEffectSize );
 		m_pMagneticField4->SetPos(pNowItem->m_vPos);
 		m_pMagneticField4->setPole(pNowItem->m_bMagnetPole);
 		m_pMagneticField4->Update( UpdatePacket( i_DrawPacket ) );
-
+		(*it)->m_fEffectSize	= m_pMagneticField4->getRadius();
+		
 		m_pMagneticField->Draw(i_DrawPacket);
 		m_pMagneticField2->Draw(i_DrawPacket);
 		m_pMagneticField3->Draw(i_DrawPacket);
@@ -301,7 +303,6 @@ void MagneticumObject3D::Update( UpdatePacket& i_UpdatePacket ){
 		m_pCoil = (PlayerCoil*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_3D_COIL);
 
 	setDrawTarget();
-
 	TARGETCONTAINER::iterator	it  = m_ItemMap_Target.begin(),
 								end = m_ItemMap_Target.end();
 	while(it != end){
@@ -330,7 +331,7 @@ void MagneticumObject3D::Update( UpdatePacket& i_UpdatePacket ){
 
 		//m_pMagneticField4->SetPos(pNowItem->m_vPos);
 		//m_pMagneticField4->setPole(pNowItem->m_bMagnetPole);
-		m_pMagneticField4->Update( i_UpdatePacket );
+		//m_pMagneticField4->Update( i_UpdatePacket );
 
 		++it;
 	}
@@ -396,6 +397,7 @@ void MagneticumObject3D::AddMagnetic(D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXV
 	pItem->m_vPos				= vPos				;
 	pItem->m_fMapKey			= vPos.y			;
 	pItem->m_bMagnetPole		= vPole				;
+	pItem->m_fEffectSize		= m_fMagneticum		;
     ::ZeroMemory(&pItem->m_Material,sizeof(D3DMATERIAL9)) ;
 	pItem->m_Material.Diffuse	= Diffuse			;
 	pItem->m_Material.Specular	= Specular			;
@@ -403,6 +405,7 @@ void MagneticumObject3D::AddMagnetic(D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXV
 	//‰ñ“]‚Ì‰Šú‰»
 	D3DXQuaternionRotationYawPitchRoll(&pItem->m_vRot,
 			D3DXToRadian(vRot.y),D3DXToRadian(vRot.x),D3DXToRadian(vRot.z)) ;
+
 
 	m_ItemMap_All.insert(multimap<float,Magnet3DItem*>::value_type(pItem->m_vPos.y,pItem));	
 }

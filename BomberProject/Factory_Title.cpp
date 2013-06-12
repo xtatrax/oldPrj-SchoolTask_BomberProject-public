@@ -19,6 +19,7 @@
 namespace wiz{
 	namespace bomberobject{
 
+const	float	SCALE_RATE	=	1.4f;
 /************************************************************************
 Title_Select ’è‹`•”
 ************************************************************************/
@@ -104,8 +105,8 @@ void Title_Select::Update(UpdatePacket& i_UpdatePacket)
 	GetCursorPos( &MousePos ) ;
 	ScreenToClient( g_hWnd , &MousePos) ;
   //*****************************************
-	if( (MousePos.x > m_vPos.x && MousePos.x < ( m_vPos.x + m_pRect->right )) 
-		&& (MousePos.y > m_vPos.y && MousePos.y < ( m_vPos.y + m_pRect->bottom )) ){
+	if( (MousePos.x > m_vPos.x && MousePos.x < ( m_vPos.x + (m_pRect->right*SCALE_RATE) )) 
+		&& (MousePos.y > m_vPos.y && MousePos.y < ( m_vPos.y + (m_pRect->bottom*SCALE_RATE) )) ){
 		if( g_bMouseLB/* || g_bMouseRB*/ ){
 			if( m_bPushRock ){
 				if( !m_bPush ){
@@ -163,7 +164,7 @@ Factory_Title::Factory_Title(FactoryPacket* fpac){
 			new SpriteObject(
 				fpac->pD3DDevice,
 				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, /*L"Lightning.tga"*/L"Title_Name.tga" ),
-				D3DXVECTOR3(1.4f,1.4f,0.0f),
+				D3DXVECTOR3(SCALE_RATE,SCALE_RATE,0.0f),
 				g_vZero,
 				D3DXVECTOR3( 260.0f, 106.0f, 0.0f ),
 				//D3DXVECTOR3( 0.0f, 0.0f, 0.0f ),
@@ -180,7 +181,7 @@ Factory_Title::Factory_Title(FactoryPacket* fpac){
 					fpac->pD3DDevice,
 					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Title_Start.tga" ),
 					GM_OPENSTAGE_PLAY,
-					D3DXVECTOR3(1.4f,1.4f,0.0f),
+					D3DXVECTOR3(SCALE_RATE,SCALE_RATE,0.0f),
 					g_vZero,
 					D3DXVECTOR3( 200.0f, 420.0f, 0.0f ),
 					Rect( 0, 0, 168, 42 ),
@@ -196,7 +197,7 @@ Factory_Title::Factory_Title(FactoryPacket* fpac){
 					fpac->pD3DDevice,
 					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Title_Exit.tga" ),
 					GM_EXIT,
-					D3DXVECTOR3(1.4f,1.4f,0.0f),
+					D3DXVECTOR3(SCALE_RATE,SCALE_RATE,0.0f),
 					g_vZero,
 					D3DXVECTOR3( 660.0f, 420.0f, 0.0f ),
 					Rect( 0, 0, 126, 42 ),

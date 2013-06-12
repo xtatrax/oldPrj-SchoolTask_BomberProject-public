@@ -142,6 +142,7 @@ protected:
 		POLE			m_bMagnetPole ;
 		float			m_fMapKey	;
 		bool			m_bHidden	;
+		float			m_fEffectSize;
 		virtual ~Magnet3DItem(){}
 	};
 
