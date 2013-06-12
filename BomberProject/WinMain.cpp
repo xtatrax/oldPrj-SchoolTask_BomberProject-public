@@ -30,7 +30,7 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	switch (msg) {
 		case WM_CREATE:
 			DragAcceptFiles(hWnd,TRUE); // D&D を許可する
-			Debugger::DebugWindow::init(hInstance,hWnd,nDefaultShowCmd);
+			//Debugger::DebugWindow::init(hInstance,hWnd,nDefaultShowCmd);
 			return 0;
         case WM_CLOSE:                // ウインドウが破棄されようとしている
 			wiz::DxDevice::Destroy();

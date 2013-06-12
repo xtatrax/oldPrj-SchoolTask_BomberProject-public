@@ -27,6 +27,7 @@
 #include "Factory_Stage1.h"
 #include "Factory_Description.h"
 #include "Factory_Cursor.h"
+#include "Factory_Score.h"
 #include "BassItems.h"
 
 namespace wiz{
@@ -117,6 +118,7 @@ Factory_Main::Factory_Main(FactoryPacket* fpac, D3DXVECTOR3* vStartPos ){
 		Factory_Item		Ifac( fpac ) ;
 		Factory_Description	Dfac( fpac ) ;
 		Factory_Gage		Gfac( fpac );
+		Factory_Score		Sfac( fpac );
 		Sound* pSound = NULL;
 		fpac->m_pVec->push_back(
 			pSound = new Sound( 
