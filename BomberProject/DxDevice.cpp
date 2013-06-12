@@ -41,12 +41,11 @@ bool		DxDevice::m_bOnPlaySound	= true	;
  用途: コンストラクタ
  戻り値: なし。失敗したら例外をthrow
 ***************************************************************************/
-void DxDevice::initDevice(HWND hWnd,bool isFullScreen,int Width,int Height)
+void DxDevice::initDevice(bool isFullScreen,int Width,int Height)
 {
     try{
 		m_pD3D         = NULL;
 		m_pD3DDevice   = NULL;
-		m_hWnd		   = hWnd;
         D3DDISPLAYMODE d3ddm;
         // Direct3D9オブジェクトの作成
         if((m_pD3D = ::Direct3DCreate9(D3D_SDK_VERSION)) == 0){
@@ -146,14 +145,13 @@ void DxDevice::Clear(){
  用途: コンストラクタ
  戻り値: なし。失敗したら例外をthrow
 ***************************************************************************/
-DxDevice::DxDevice(HWND hWnd,bool isFullScreen,int Width,int Height)
+DxDevice::DxDevice(bool isFullScreen,int Width,int Height)
  : m_pD3D(0), m_pD3DDevice(0)
  , m_PrgState(PROGRAM_RUNNUNG),pScene(NULL)
- , m_Controller(hWnd)
+ , m_Controller(m_hWnd)
 {
     try{
-		m_hWnd = hWnd ;
-		initDevice(hWnd,isFullScreen,Width,Height);
+		initDevice(isFullScreen,Width,Height);
 		//シーンの初期化
         pScene = new Scene(getDevice());
 
@@ -252,7 +250,7 @@ int DxDevice::MainThreadRun(){
 				CloseHandle(m_hUpdateThread);
 			#endif
 			this->Clear();
-			DestroyWindow(g_hWnd);
+			DestroyWindow(m_hWnd);
 			return 0;
 		}
 

@@ -18,8 +18,6 @@
 namespace wiz{
 namespace bomberobject{
 
-extern class PlayerCoil ;
-
 /*************************************************************************
 class Reply  public SpriteObject
 

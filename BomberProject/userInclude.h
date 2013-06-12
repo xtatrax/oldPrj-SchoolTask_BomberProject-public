@@ -12,6 +12,7 @@
 
 #include "TL-String.h"
 #include "MemoryManager.h"
+#include "DebugWindowMain.h"
 #include "Prm.h"
 #include "Prim2D.h"
 #include "DebugFunctions.h"

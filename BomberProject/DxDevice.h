@@ -49,7 +49,6 @@ private:
 	static bool				m_bOnPlaySound	;	//
 	static Rect				m_WindowRect	;	// ゲームの描画範囲の大きさを表す矩形
 	static D3DXVECTOR2		m_v2AspectRate	;		// 基準解像度と現在の解像度の比率
-	static HWND				m_hWnd				;	// メインウインドウのハンドル
 	static HANDLE			m_hUpdateThread		;	// アップデート用スレッドのハンドル
 	static HANDLE			m_hLoadingThread	;	// ロード画面用スレッドのハンドル
 	enum ProgramState{
@@ -57,6 +56,12 @@ private:
 		PROGRAM_ENDTHREAD,
 		PROGRAM_END,
 	}m_PrgState;
+
+public:
+
+	static HWND				m_hWnd				;	// メインウインドウのハンドル
+
+private:
 /////////////////// ////////////////////
 //// 関数名     ：void initDevice(HWND hWnd,bool isFullScreen,int Width,int Height)
 //// カテゴリ   ：イニシャライザ
@@ -69,7 +74,7 @@ private:
 //// 備考       ：
 ////            ：
 ////
-    void initDevice(HWND hWnd,bool isFullScreen,int Width,int Height);
+    void initDevice(bool isFullScreen,int Width,int Height);
 
 
 
@@ -94,7 +99,7 @@ public:
  用途: コンストラクタ
  戻り値: なし
 ***************************************************************************/
-    DxDevice(HWND hWnd,bool isFullScreen,int Width,int Height);
+    DxDevice(bool isFullScreen,int Width,int Height);
 /**************************************************************************
  ~DxDevice();
  用途: デストラクタ

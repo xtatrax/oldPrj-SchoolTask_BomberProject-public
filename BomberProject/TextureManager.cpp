@@ -17,7 +17,6 @@ namespace wiz {
 /**************************************************************************
  TextureManager 定義部
 /***************************************************************************/
-//vector< TextureManager::Texture* > TextureManager::m_vecTextures;
 
 /////////////////// ////////////////////
 //// 用途       ：TextureManager::TextureManager()
@@ -74,8 +73,11 @@ void TextureManager::Release(){
 //// 備考       ：
 ////            ：
 ////
-LPDIRECT3DTEXTURE9 TextureManager::addTexture(LPDIRECT3DDEVICE9 pD3DDevice,
-			const wchar_t *filepath, const wchar_t *texturename ){
+LPDIRECT3DTEXTURE9 TextureManager::addTexture(
+		LPDIRECT3DDEVICE9	pD3DDevice	,
+		const wchar_t*		filepath	,
+		const wchar_t*		texturename 
+){
 	try{
 		LPDIRECT3DTEXTURE9 tex ;
 		if( (tex = TextureSearchFromFilePath(filepath)) != NULL)
@@ -135,10 +137,22 @@ LPDIRECT3DTEXTURE9 TextureManager::addTexture(LPDIRECT3DDEVICE9 pD3DDevice,
 //// 備考       ：
 ////            ：
 ////
-LPDIRECT3DTEXTURE9 TextureManager::addTextureEx(LPDIRECT3DDEVICE9 pD3DDevice,const wchar_t* filepath,
-    UINT Width, UINT Height, UINT MipLevels, DWORD Usage, D3DFORMAT Format, D3DPOOL Pool, DWORD Filter,
-    DWORD MipFilter, D3DCOLOR ColorKey, D3DXIMAGE_INFO *pSrcInfo, PALETTEENTRY *pPalette, const wchar_t* texturename )
-{
+LPDIRECT3DTEXTURE9 TextureManager::addTextureEx(
+	LPDIRECT3DDEVICE9	pD3DDevice	,
+	const wchar_t*		filepath	,
+    UINT				Width		,
+	UINT				Height		,
+	UINT				MipLevels	,
+	DWORD				Usage		,
+	D3DFORMAT			Format		,
+	D3DPOOL				Pool		,
+	DWORD				Filter		,
+    DWORD				MipFilter	,
+	D3DCOLOR			ColorKey	,
+	D3DXIMAGE_INFO*		pSrcInfo	,
+	PALETTEENTRY*		pPalette	,
+	const wchar_t*		texturename
+){
 	try{
 		LPDIRECT3DTEXTURE9 tex ;
 		if( (tex = TextureSearchFromFilePath(filepath)) != NULL)
@@ -211,9 +225,14 @@ LPDIRECT3DTEXTURE9 TextureManager::addTextureEx(LPDIRECT3DDEVICE9 pD3DDevice,con
 //// 備考       ：
 ////            ：
 ////
-LPDIRECT3DTEXTURE9 TextureManager::addTextureExLight(LPDIRECT3DDEVICE9 pD3DDevice,const wchar_t* filepath,
-    DWORD Usage, D3DFORMAT Format, D3DCOLOR ColorKey,  const wchar_t* texturename )
-{
+LPDIRECT3DTEXTURE9 TextureManager::addTextureExLight(
+	LPDIRECT3DDEVICE9	pD3DDevice		,
+	const wchar_t*		filepath		,
+    DWORD				Usage			,
+	D3DFORMAT			Format			,
+	D3DCOLOR			ColorKey		,
+	const wchar_t*		texturename
+){
 	try{
 		LPDIRECT3DTEXTURE9 tex ;
 		if( (tex = TextureSearchFromFilePath(filepath)) != NULL)
@@ -297,16 +316,21 @@ LPDIRECT3DTEXTURE9 TextureManager::TextureSearchFromFilePath(const wchar_t* path
 }
 
 /**************************************************************************
- Texture 定義部
+ TextureManager::Texture 定義部
 ****************************************************************************/
-/**************************************************************************
- Texture::Texture(
-	LPDIRECT3DDEVICE9 i_pD3DDev,	//DirectXデバイス
-	const wchar_t* filename	//テクスチャのファイル名
-);
- 用途: コンストラクタ
- 戻り値: なし
-***************************************************************************/
+/////////////////// ////////////////////
+//// 用途       ：TextureManager::Texture::Texture(LPDIRECT3DDEVICE9 pD3DDevice,const wchar_t* filepath,
+////            ：    const wchar_t* texturename = L"")
+//// カテゴリ   ：コンストラクタ
+//// 用途       ：NormalLoad
+//// 引数       ：  LPDIRECT3DDEVICE9 pD3DDevice		// 検索するファイル名
+////            ：  const wchar_t* filepath             // 
+////            ：  const wchar_t* texturename = L""    // 
+//// 戻値       ：なし
+//// 担当者     ：鴫原 徹
+//// 備考       ：
+////            ：
+////
 TextureManager::Texture::Texture(LPDIRECT3DDEVICE9 pD3DDevice,const wchar_t* filepath,const wchar_t* texturename )
 :m_pTexture( 0 )
 ,m_strFilePath( filepath )
@@ -352,14 +376,32 @@ TextureManager::Texture::Texture(LPDIRECT3DDEVICE9 pD3DDevice,const wchar_t* fil
         throw;
     }
 }
-/**************************************************************************
- Texture::Texture(
-	LPDIRECT3DDEVICE9 i_pD3DDev,	//DirectXデバイス
-	const wchar_t* filename	//テクスチャのファイル名
-);
- 用途: コンストラクタ
- 戻り値: なし
-***************************************************************************/
+/////////////////// ////////////////////
+//// 用途       ：TextureManager::Texture::Texture(LPDIRECT3DDEVICE9 pD3DDevice,const wchar_t* filepath,
+////            ：    UINT Width, UINT Height, UINT MipLevels, DWORD Usage, D3DFORMAT Format,
+////            ：    D3DPOOL Pool, DWORD Filter,DWORD MipFilter, D3DCOLOR ColorKey,
+////            ：    D3DXIMAGE_INFO *pSrcInfo, PALETTEENTRY *pPalette, const wchar_t* texturename = L"" );
+//// カテゴリ   ：コンストラクタ
+//// 用途       ：ExLoad
+//// 引数       ：  LPDIRECT3DDEVICE9 pD3DDevice	 // デバイス
+////            ：  const wchar_t *filepath			 // ファイルパス
+////            ：  UINT Width						 // 画像の幅(0でオリジナル)
+////            ：  UINT Height						 // 画像の高さ(0でオリジナル)
+////            ：  UINT MipLevels					 // ミップレベル(通常0)
+////            ：  DWORD Usage						 // レンダリングターゲットに指定するときとかに指定(通常0)
+////            ：  D3DFORMAT Format				 // 色のフォーマット
+////            ：  D3DPOOL Pool					 // データの読み込み先(いじらなくておk)
+////            ：  DWORD Filter					 // フィルター(いじらなくておk)
+////            ：  DWORD MipFilter					 // ミップフィルター(いじらなくておk)
+////            ：  D3DCOLOR ColorKey				 // 【αあり】青色を透過色とする【0で無効】
+////            ：  D3DXIMAGE_INFO *pSrcInfo		 // 【D3DXIMAGE_INFO構造体】画像データの構造【ピクセルサイズとか】
+////            ：  PALETTEENTRY *pPalette			 // パレット
+////            ：  const wchar_t *texturename = L"" // テクスチャ名(オプション)
+//// 戻値       ：なし
+//// 担当者     ：鴫原 徹
+//// 備考       ：
+////            ：
+////
 TextureManager::Texture::Texture(LPDIRECT3DDEVICE9 pD3DDevice,const wchar_t* filepath,
     UINT Width, UINT Height, UINT MipLevels, DWORD Usage, D3DFORMAT Format, D3DPOOL Pool, DWORD Filter,
     DWORD MipFilter, D3DCOLOR ColorKey, D3DXIMAGE_INFO *pSrcInfo, PALETTEENTRY *pPalette, const wchar_t* texturename )
@@ -406,12 +448,15 @@ TextureManager::Texture::Texture(LPDIRECT3DDEVICE9 pD3DDevice,const wchar_t* fil
         throw;
     }
 }
-
-/**************************************************************************
- Texture::~Texture();
- 用途: デストラクタ
- 戻り値: なし
-***************************************************************************/
+/////////////////// ////////////////////
+//// 用途       ：TextureManager::Texture::~Texture()
+//// カテゴリ   ：デストラクタ
+//// 用途       ：インスタンス破棄時処理
+//// 引数       ：無し
+//// 戻値       ：無し
+//// 備考       ：
+////            ：
+////
 TextureManager::Texture::~Texture(){
     //後始末
     SAFE_RELEASE(m_pTexture);
