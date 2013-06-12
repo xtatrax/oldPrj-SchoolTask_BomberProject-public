@@ -117,6 +117,7 @@ class PlayerCoil : public MagneticumObject3D{
 	bool			m_bReadyContinue	;	//	:
 	bool			m_bIsSuperMode		;	//	: 無敵状態のフラグ (無敵状態は他の状態と重なるのでCOIL_STATEに入れない)
 	bool			m_bDrawContinue		;	//	:
+	int				m_iDeadCount		;
 
 	Sound*					m_pSound					;	//	: 音声データへのポインタ
 	Camera*					m_pCamera					;	//	: Cameraへのポインタ
@@ -546,6 +547,18 @@ public:
 		return m_pDeadTex;
 	}
 
+	/////////////////// ////////////////////
+	//// 関数名     ：void PlayerCoil::getDeadCount()
+	//// カテゴリ   ：ゲッター
+	//// 用途       ：死亡回数の獲得
+	//// 引数       ：なし
+	//// 戻値       ：死亡回数
+	//// 担当       ：佐藤涼
+	//// 備考       ：
+	////            ：
+	int	getDeadCount(){
+		return	m_iDeadCount;
+	}
 };
 
 /**************************************************************************
