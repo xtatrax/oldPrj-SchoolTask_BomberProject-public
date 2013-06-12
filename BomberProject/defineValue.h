@@ -96,7 +96,7 @@ static const D3DXVECTOR3	g_vOne						= D3DXVECTOR3(1.0f,1.0f,1.0f);
 static const D3DXVECTOR3	g_vMax						= D3DXVECTOR3(+FLT_MAX,+FLT_MAX,+FLT_MAX);
 static const D3DXVECTOR3	g_vMin						= D3DXVECTOR3(-FLT_MAX,-FLT_MAX,-FLT_MAX);
 static const wstring		g_sDefaultTexturePath		= L"media/Textures/" ;	//	: テクスチャの置き場
-      extern HWND			g_hWnd		;
+      //extern HWND			wiz::DxDevice::m_hWnd		;
       extern bool			g_bMouseLB	;
       extern bool			g_bMouseRB	;
 
