@@ -118,17 +118,18 @@ class PlayerCoil : public MagneticumObject3D{
 	bool			m_bReadyToSuper		;	//	: 無敵状態の準備が出来たか
 	bool			m_bReadyContinue	;	//	: コンティニューする準備が出来たか
 	bool			m_bIsSuperMode		;	//	: 無敵状態のフラグ (無敵状態は他の状態と重なるのでCOIL_STATEに入れない)
-	bool			m_bDrawContinue		;	//	:
+	bool			m_bDrawContinue		;	//	: コンテニュー表示フラグ
+	int				m_iDeadCount		;	//	: 死亡回数
 
 	Sound*					m_pSound					;	//	: 音声データへのポインタ
 	Camera*					m_pCamera					;	//	: Cameraへのポインタ
 	Box*					m_pSuperField				;	//	: 無敵時のフィールド
-	Continue*				m_pSelect					;	//	: 
-	Continue*				m_pSelect2					;	//	: 
-	Dead*					m_pDeadChar					;	//	: 
+	Continue*				m_pSelect					;	//	: ロゴ(Continue)
+	Continue*				m_pSelect2					;	//	: ロゴ(Title)
+	Dead*					m_pDeadChar					;	//	: ロゴ(You'er Dead)
 	ProvisionalPlayer3D*	m_pPlayer					;	//	: ユーザ設置磁界へのポインタ
 	MagneticumObject3D*		m_pMagneticumObject			;	//	: 初期配置磁界へのポインタ
-	DeadEffect*				m_pDeadEffect[PARTICLS_NUM]	;
+	DeadEffect*				m_pDeadEffect[PARTICLS_NUM]	;	//	: 死亡時の爆散エフェクトのポインタ
 	COIL_STATE				m_enumCoilState				;
 
 	LPDIRECT3DTEXTURE9	m_pDeadTex		;	//爆散エフェクトの画像
@@ -561,6 +562,18 @@ public:
 		return m_pDeadTex;
 	}
 
+	/////////////////// ////////////////////
+	//// 関数名     ：void PlayerCoil::getDeadCount()
+	//// カテゴリ   ：ゲッター
+	//// 用途       ：死亡回数の獲得
+	//// 引数       ：なし
+	//// 戻値       ：死亡回数
+	//// 担当       ：佐藤涼
+	//// 備考       ：
+	////            ：
+	int	getDeadCount(){
+		return	m_iDeadCount;
+	}
 };
 
 /**************************************************************************

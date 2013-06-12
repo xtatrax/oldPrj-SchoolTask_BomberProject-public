@@ -85,6 +85,7 @@ PlayerCoil::PlayerCoil(
 ,m_bReadyToSuper(false)
 ,m_bIsSuperMode(false)
 ,m_bDrawContinue( false )
+,m_iDeadCount( 0 )
 ,m_pSuperField(NULL)
 ,m_fTurnAngle(PLAYER_TURN_ANGLE_Lv1)
 ,m_pPlayer(NULL)
@@ -372,6 +373,7 @@ void	PlayerCoil::CreateEffect( UpdatePacket& i_UpdatePacket ){
 	m_pSelect2	= new Continue( i_UpdatePacket.pD3DDevice, m_pTitleTex, m_pRethinkingTex, m_pAnswerTex, false, D3DXVECTOR3(1.0f,1.0f,0.0f),
 								g_vZero,D3DXVECTOR3( wide-64.0f,height,0.0f ),Rect( 0,0,128,64 ), g_vZero, g_vZero );
 
+	m_iDeadCount++;
 };
 
 /////////////////// ////////////////////
