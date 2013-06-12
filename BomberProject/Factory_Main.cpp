@@ -139,6 +139,11 @@ Factory_Main::Factory_Main(FactoryPacket* fpac, D3DXVECTOR3* vStartPos ){
 		//			g_vZero
 		//	)
 		//);
+		vector<Object*>::size_type pos = fpac->m_pVec->max_size();
+		WallObject* wp = (WallObject*)SearchObjectFromID( fpac->m_pVec,OBJID_3D_WALL, &pos );
+		fpac->m_pVec->erase( fpac->m_pVec->begin() + pos );
+		fpac->m_pVec->push_back( wp );
+
 		
 	}
 	catch(LoaderException& e){

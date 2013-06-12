@@ -109,11 +109,9 @@ void DxDevice::initDevice(HWND hWnd,bool isFullScreen,int Width,int Height)
             }
         }
 		const static UINT n = m_pD3D->GetAdapterCount();
-		D3DCAPS9* cap = new D3DCAPS9[n];
-		for( UINT i = 0 ; i < n ; i ++ ){
-			m_pD3D->GetDeviceCaps( i, D3DDEVTYPE_HAL, &cap[i]);
-		}
-		SafeDeleteArr( cap );
+		D3DCAPS9 cap ;
+		m_pD3D->GetDeviceCaps( n, D3DDEVTYPE_HAL, &cap);
+		//SafeDeleteArr( cap );
         m_Controller = CONTROLLERS(m_hWnd);
 		Debugger::DBGSTR::Init(m_pD3DDevice);
     }
