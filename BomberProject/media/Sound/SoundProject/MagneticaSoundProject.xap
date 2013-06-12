@@ -16,8 +16,8 @@ Global Settings
     Header File = MagneticaSoundProject.h;
     Exclude Category Names = 0;
     Exclude Variable Names = 0;
-    Last Modified Low = 3130567096;
-    Last Modified High = 30302838;
+    Last Modified Low = 3786238321;
+    Last Modified High = 30304020;
 
     Category
     {
@@ -228,10 +228,10 @@ Wave Bank
     Compression Preset Name = <none>;
     Xbox Bank Last Modified Low = 0;
     Xbox Bank Last Modified High = 0;
-    PC Bank Last Modified Low = 3130627100;
-    PC Bank Last Modified High = 30302838;
-    Bank Last Revised Low = 3070263647;
-    Bank Last Revised High = 30302838;
+    PC Bank Last Modified Low = 3786288324;
+    PC Bank Last Modified High = 30304020;
+    Bank Last Revised Low = 3730105111;
+    Bank Last Revised High = 30304020;
 
     Wave
     {
@@ -251,8 +251,8 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 1447352158;
-            Last Modified High = 30301630;
+            Last Modified Low = 304073692;
+            Last Modified High = 30303873;
         }
     }
 
@@ -274,8 +274,8 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 1447372159;
-            Last Modified High = 30301630;
+            Last Modified Low = 304093693;
+            Last Modified High = 30303873;
         }
     }
 
@@ -297,8 +297,8 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 1448152203;
-            Last Modified High = 30301630;
+            Last Modified Low = 304593722;
+            Last Modified High = 30303873;
         }
     }
 
@@ -320,8 +320,8 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 1448242209;
-            Last Modified High = 30301630;
+            Last Modified Low = 304673727;
+            Last Modified High = 30303873;
         }
     }
 
@@ -343,8 +343,8 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 1448272210;
-            Last Modified High = 30301630;
+            Last Modified Low = 304693728;
+            Last Modified High = 30303873;
         }
     }
 
@@ -366,8 +366,8 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 1448322213;
-            Last Modified High = 30301630;
+            Last Modified Low = 304733730;
+            Last Modified High = 30303873;
         }
     }
 
@@ -389,8 +389,8 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 1448372216;
-            Last Modified High = 30301630;
+            Last Modified Low = 304773732;
+            Last Modified High = 30303873;
         }
     }
 
@@ -412,8 +412,8 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 1448432219;
-            Last Modified High = 30301630;
+            Last Modified Low = 304823735;
+            Last Modified High = 30303873;
         }
     }
 
@@ -435,8 +435,8 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 1448482222;
-            Last Modified High = 30301630;
+            Last Modified Low = 304863737;
+            Last Modified High = 30303873;
         }
     }
 
@@ -458,8 +458,8 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 1448512224;
-            Last Modified High = 30301630;
+            Last Modified Low = 304913740;
+            Last Modified High = 30303873;
         }
     }
 
@@ -481,8 +481,8 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 1448572227;
-            Last Modified High = 30301630;
+            Last Modified Low = 304963743;
+            Last Modified High = 30303873;
         }
     }
 
@@ -504,8 +504,8 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 3195100995;
-            Last Modified High = 30302478;
+            Last Modified Low = 304983744;
+            Last Modified High = 30303873;
         }
     }
 
@@ -527,8 +527,8 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 3944930054;
-            Last Modified High = 30302828;
+            Last Modified Low = 304993745;
+            Last Modified High = 30303873;
         }
     }
 
@@ -550,8 +550,8 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 2730780997;
-            Last Modified High = 30301645;
+            Last Modified Low = 305053748;
+            Last Modified High = 30303873;
         }
     }
 
@@ -573,8 +573,8 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 1448772239;
-            Last Modified High = 30301630;
+            Last Modified Low = 305093751;
+            Last Modified High = 30303873;
         }
     }
 
@@ -596,8 +596,31 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 3938628228;
-            Last Modified High = 30302835;
+            Last Modified Low = 305013746;
+            Last Modified High = 30303873;
+        }
+    }
+
+    Wave
+    {
+        Name = SE-SELECT;
+        File = GameSounds\SE-SELECT.wav;
+        Build Settings Last Modified Low = 3437938400;
+        Build Settings Last Modified High = 30304020;
+
+        Cache
+        {
+            Format Tag = 0;
+            Channels = 2;
+            Sampling Rate = 44100;
+            Bits Per Sample = 1;
+            Play Region Offset = 4096;
+            Play Region Length = 354688;
+            Loop Region Offset = 0;
+            Loop Region Length = 0;
+            File Type = 1;
+            Last Modified Low = 1992993408;
+            Last Modified High = 30303877;
         }
     }
 }
@@ -609,8 +632,8 @@ Sound Bank
     Windows File = Win\MagneticaSound.xsb;
     Xbox Bank Path Edited = 0;
     Windows Bank Path Edited = 0;
-    Bank Last Modified Low = 3130777108;
-    Bank Last Modified High = 30302838;
+    Bank Last Modified Low = 3787238379;
+    Bank Last Modified High = 30304020;
     Header Last Modified High = 0;
     Header Last Modified Low = 0;
 
@@ -1374,6 +1397,53 @@ Sound Bank
         }
     }
 
+    Sound
+    {
+        Name = SE-SELECT;
+        Volume = -1200;
+        Pitch = 0;
+        Priority = 0;
+
+        Category Entry
+        {
+            Name = Default;
+        }
+
+        Track
+        {
+            Volume = 0;
+            Use Filter = 0;
+
+            Play Wave Event
+            {
+                Break Loop = 0;
+                Use Speaker Position = 0;
+                Use Center Speaker = 1;
+                New Speaker Position On Loop = 1;
+                Speaker Position Angle = 0.000000;
+                Speaker Position Arc = 0.000000;
+
+                Event Header
+                {
+                    Timestamp = 0;
+                    Relative = 0;
+                    Random Recurrence = 0;
+                    Random Offset = 0;
+                }
+
+                Wave Entry
+                {
+                    Bank Name = MagneticaWave;
+                    Bank Index = 0;
+                    Entry Name = SE-SELECT;
+                    Entry Index = 16;
+                    Weight = 255;
+                    Weight Min = 0;
+                }
+            }
+        }
+    }
+
     Cue
     {
         Name = BGM-CLEAR;
@@ -1689,6 +1759,26 @@ Sound Bank
         {
             Name = SE-MAGNETIC_FIELD;
             Index = 15;
+            Weight Min = 0;
+            Weight Max = 255;
+        }
+    }
+
+    Cue
+    {
+        Name = SE-SELECT;
+
+        Variation
+        {
+            Variation Type = 3;
+            Variation Table Type = 1;
+            New Variation on Loop = 0;
+        }
+
+        Sound Entry
+        {
+            Name = SE-SELECT;
+            Index = 16;
             Weight Min = 0;
             Weight Max = 255;
         }
