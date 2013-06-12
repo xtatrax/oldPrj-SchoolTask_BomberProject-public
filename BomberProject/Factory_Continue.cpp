@@ -259,11 +259,11 @@ Continue::Continue(const LPDIRECT3DDEVICE9 pD3DDevice,const  LPDIRECT3DTEXTURE9 
 		float	height	= BASE_CLIENT_HEIGHT/2;
 
 		m_pRethinking	= new SpriteObject( pD3DDevice, m_pRethinkingTex, D3DXVECTOR3(1.0f,1.0f,0.0f), g_vZero,
-										D3DXVECTOR3( wide-128.0f,height-100.0f,0.0f ),Rect( 0,0,256,64 ), g_vZero, g_vZero  );
+										D3DXVECTOR3( wide-256.0f,height-100.0f,0.0f ),Rect( 0,0,512,64 ), g_vZero, g_vZero  );
 		m_pReply_Yes	= new Reply(  pD3DDevice, m_pAnswerTex, true, D3DXVECTOR3(1.0f,1.0f,0.0f), g_vZero,
-										D3DXVECTOR3( wide-100.0f-64.0f,height+100.0f,0.0f ),Rect( 0,0,128,64 ), g_vZero, g_vZero  );
+										D3DXVECTOR3( wide-100.0f-200.0f,height+100.0f,0.0f ),Rect( 0,0,256,64 ), g_vZero, g_vZero  );
 		m_pReply_No		= new Reply(  pD3DDevice, m_pAnswerTex, false, D3DXVECTOR3(1.0f,1.0f,0.0f), g_vZero,
-										D3DXVECTOR3( wide+100.0f-64.0f,height+100.0f,0.0f ),Rect( 128,0,256,64 ), g_vZero, g_vZero  );
+										D3DXVECTOR3( wide+100.0f-28.0f,height+100.0f,0.0f ),Rect( 256,0,512,64 ), g_vZero, g_vZero  );
 
 	}
 	catch(...){
