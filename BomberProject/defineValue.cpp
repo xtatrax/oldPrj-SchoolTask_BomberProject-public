@@ -9,7 +9,6 @@
 //
 #include "stdafx.h"
 
-HWND g_hWnd     = NULL  ;
 bool g_bMouseLB = false ;
 bool g_bMouseRB = false ;
 

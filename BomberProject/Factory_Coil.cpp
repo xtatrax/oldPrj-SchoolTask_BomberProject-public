@@ -393,7 +393,7 @@ void PlayerCoil::Update_StateStart(){
 	//マウス座標計算
 	Point MousePos ;
 	GetCursorPos( &MousePos ) ;
-	ScreenToClient( g_hWnd , &MousePos) ;
+	ScreenToClient( wiz::DxDevice::m_hWnd , &MousePos) ;
 	vPlayer.x = (float)MousePos.x / DRAW_CLIENT_MAGNIFICATION - MAGNETIC_RADIUS ;
 	vPlayer.y = (( STANDARD_WINDOW_HEIGHT - MousePos.y ) - UI_HEIGHT ) / DRAW_CLIENT_MAGNIFICATION - MAGNETIC_RADIUS + ( m_pCamera->getPosY() - m_pPlayer->getMoveY() ) ;
 	fTargetDir = TwoPoint2Degree( vPlayer , m_vPos );
@@ -679,7 +679,7 @@ void PlayerCoil::Update_StateContinue(){
 	//マウス座標計算
 	Point MousePos ;
 	GetCursorPos( &MousePos ) ;
-	ScreenToClient( g_hWnd , &MousePos) ;
+	ScreenToClient( wiz::DxDevice::m_hWnd , &MousePos) ;
 	vPlayer.x = (float)MousePos.x / DRAW_CLIENT_MAGNIFICATION - MAGNETIC_RADIUS ;
 	vPlayer.y = (( STANDARD_WINDOW_HEIGHT - MousePos.y ) - UI_HEIGHT ) / DRAW_CLIENT_MAGNIFICATION - MAGNETIC_RADIUS + ( m_pCamera->getPosY() - m_pPlayer->getMoveY() ) ;
 	fTargetDir = TwoPoint2Degree( vPlayer , m_vPos );
@@ -726,7 +726,7 @@ void PlayerCoil::Update_StateStop(){
 	//マウス座標計算
 	Point MousePos ;
 	GetCursorPos( &MousePos ) ;
-	ScreenToClient( g_hWnd , &MousePos) ;
+	ScreenToClient( wiz::DxDevice::m_hWnd , &MousePos) ;
 	vPlayer.x = (float)MousePos.x / DRAW_CLIENT_MAGNIFICATION - MAGNETIC_RADIUS ;
 	vPlayer.y = (( STANDARD_WINDOW_HEIGHT - MousePos.y ) - UI_HEIGHT ) / DRAW_CLIENT_MAGNIFICATION - MAGNETIC_RADIUS + ( m_pCamera->getPosY() - m_pPlayer->getMoveY() ) ;
 	fTargetDir = TwoPoint2Degree( vPlayer , m_vPos );

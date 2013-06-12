@@ -60,7 +60,7 @@ void	ResultStage::Update(UpdatePacket &i_UpdatePacket){
   //マウス用データ*************************
 	Point MousePos ;
 	GetCursorPos( &MousePos ) ;
-	ScreenToClient( g_hWnd , &MousePos) ;
+	ScreenToClient( wiz::DxDevice::m_hWnd , &MousePos) ;
   //*****************************************
 	if( g_bMouseLB/* || g_bMouseRB*/ ){
 		//選ばれた画面へとぶ

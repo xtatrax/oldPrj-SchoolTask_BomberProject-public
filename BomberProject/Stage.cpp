@@ -155,7 +155,7 @@ void Stage::Render(RenderPacket& i_RenderPacket){
 			(*it)->AccessBegin();
 			(*it)->TargetRender(i_RenderPacket);
 			(*it)->AccessEnd();
-	//::MessageBoxA( g_hWnd,"rennda-","kita",0);
+	//::MessageBoxA( wiz::DxDevice::m_hWnd,"rennda-","kita",0);
 		}
 		it++;
 	}
@@ -186,7 +186,7 @@ void Stage::Draw(DrawPacket& i_DrawPacket)
 			m_Vec[i]->AccessBegin();
 			m_Vec[i]->Draw(i_DrawPacket);
 			m_Vec[i]->AccessEnd();
-	//::MessageBoxA( g_hWnd,"doro-","kita",0);
+	//::MessageBoxA( wiz::DxDevice::m_hWnd,"doro-","kita",0);
 		}
 		clock_t nc = TLIB::Tempus::getClock();
 		Debugger::DBGSTR::addStr( L"   DrawŽžŠÔ : %f\n", TLIB::Tempus::TwoDwTime2ElapsedTime(sc,nc));

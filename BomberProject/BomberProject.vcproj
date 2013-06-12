@@ -909,6 +909,14 @@
 		<Filter
 			Name="TestWindow"
 			>
+			<File
+				RelativePath=".\DebugWindowMain.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\DebugWindowMain.h"
+				>
+			</File>
 		</Filter>
 		<File
 			RelativePath=".\ClassDiagram1.cd"

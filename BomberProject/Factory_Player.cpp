@@ -182,7 +182,7 @@ void ProvisionalPlayer3D::Update( UpdatePacket& i_UpdatePacket ){
 	if( !m_pMGage_S )	 m_pMGage_S		= (MagneticGage_S*)SearchObjectFromTypeID(i_UpdatePacket.pVec,typeid(MagneticGage_S));
 
 	RECT rc;
-	::GetClientRect(g_hWnd, &rc);
+	::GetClientRect(wiz::DxDevice::m_hWnd, &rc);
 
 	Debugger::DBGSTR::addStr( L" Pos( %f, %f, %f )\n" , m_vPos.x , m_vPos.y, m_vPos.z ) ;
 
@@ -197,7 +197,7 @@ void ProvisionalPlayer3D::Update( UpdatePacket& i_UpdatePacket ){
 						D3DXVECTOR3 vMove = g_vZero ;
 						Point MousePos ;
 						GetCursorPos( &MousePos ) ;
-						ScreenToClient( g_hWnd , &MousePos) ;
+						ScreenToClient( wiz::DxDevice::m_hWnd , &MousePos) ;
 
 						m_vPos.x = (float)MousePos.x / DRAW_CLIENT_MAGNIFICATION - MAGNETIC_RADIUS ;
 						m_vPos.y = (( STANDARD_WINDOW_HEIGHT - MousePos.y ) - UI_HEIGHT ) / DRAW_CLIENT_MAGNIFICATION - MAGNETIC_RADIUS + ( m_Camera->getPosY() - m_MovePosY ) ;

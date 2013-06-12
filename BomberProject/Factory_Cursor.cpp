@@ -183,7 +183,7 @@ void MouseCursor::Update2DPos(){
 	//	: マウスのクライアント座標を獲得
 	GetCursorPos( &m_v2DPos ) ;
 	Debugger::DBGSTR::addStr( L" Pos( %d, %d )\n" , m_v2DPos.x , m_v2DPos.y ) ;
-	ScreenToClient( g_hWnd , &m_v2DPos) ;
+	ScreenToClient( wiz::DxDevice::m_hWnd , &m_v2DPos) ;
 	Debugger::DBGSTR::addStr( L" Pos( %d, %d )\n" , m_v2DPos.x , m_v2DPos.y ) ;
 
 	
