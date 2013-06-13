@@ -256,7 +256,7 @@ void CreatePolygon(
 //// 備考       ：
 ////            ：
 ////
-				void CreateMeshFormX(LPDIRECT3DDEVICE9 pD3DDevice,char *pFileName,TextureManager& TexMgr);
+				void CreateMeshFormX(LPDIRECT3DDEVICE9 pD3DDevice,char *pFileName,TextureManager* TexMgr);
 /////////////////// ////////////////////
 //// 関数名     ：void CommonMesh::Draw( DrawPacket& i_DrawPacket )
 //// カテゴリ   ：仮想関数

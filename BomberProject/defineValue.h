@@ -196,23 +196,27 @@ namespace wiz{
 		GM_PLAYOPENING_END	,
 
 	};
-	//////	: 
-	////enum CLASSID{
-	////	/////////
-	////	//
-	////	//	この列挙型は外部ファイルで使用するので
-	////	//	仕様に従い絶対に値を明記すること
-	////	//
+	//	: 
+	enum CLASSID{
+		/////////
+		//
+		//	この列挙型は外部ファイルで使用するので
+		//	仕様に従い絶対に値を明記すること
+		//
 
-	////	CLASSID_NONE		=    0 ,
-	////	CLASSID_TESTTIP		=    1 ,
-	////	CLASSID_WALL		=  100 ,
-	////	CLASSID_ENEMY		=    3 ,
+		CLASSID_NONE		=    0 ,
+		CLASSID_TESTTIP		=    1 ,
+		CLASSID_GOAL		=   10 ,
+		CLASSID_CHECKPOINT	=   11 ,
+		CLASSID_WALL		=   20 ,
+		CLASSID_MAGNET		=   30 ,
+		CLASSID_ENEMY		=   31 ,
+		CLASSID_ITEM		=   40 ,
 
 
 
-	////	CLASSID_END			=  0xFFFFFFFFFFFFFFFF ,
-	////};
+		CLASSID_END			=  0xFFFFFFFFFFFFFFFF ,
+	};
 /**/
 	//////////////////////////////////////////////////
 	//                                              //
