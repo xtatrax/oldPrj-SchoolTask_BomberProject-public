@@ -737,6 +737,10 @@
 				RelativePath=".\GameHinagata.rc"
 				>
 			</File>
+			<File
+				RelativePath=".\Icon.ico"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="StdAfx"

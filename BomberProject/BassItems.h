@@ -245,6 +245,19 @@ void CreatePolygon(
 ***************************************************************************/
 				void CreatePolygon(LPDIRECT3DDEVICE9 pD3DDevice,FLOAT Length,UINT Sides,bool bTextureActive = false);
 /////////////////// ////////////////////
+//// 関数名     ：void CommonMesh::CreateMeshFormX(LPDIRECT3DDEVICE9 pD3DDevice,char *pFileName,TextureManager& TexMgr)
+//// カテゴリ   ：関数
+//// 用途       ：メッシュXファイルから読み込み
+//// 引数       ：  LPDIRECT3DDEVICE9	pD3DDevice
+////            ：  char*				pFileName
+////            ：  TextureManager&		TexMgr
+//// 戻値       ：無し
+//// 担当者     ：鴫原 徹
+//// 備考       ：
+////            ：
+////
+				void CreateMeshFormX(LPDIRECT3DDEVICE9 pD3DDevice,char *pFileName,TextureManager& TexMgr);
+/////////////////// ////////////////////
 //// 関数名     ：void CommonMesh::Draw( DrawPacket& i_DrawPacket )
 //// カテゴリ   ：仮想関数
 //// 用途       ：メッシュを描画

@@ -232,6 +232,7 @@ namespace wiz{
 		OBJID_SYS_GUIDELINE			,	//	: XYZガイド線( Debug用 )
 		OBJID_SYS_CAMERA			,	//	: カメラ
 		OBJID_SYS_LIGHT				,	//	: ライト
+		OBJID_SYS_CURSOR			,	//	: カーソル
 		OBJID_SYS_SOUND				,	//	: 音声
 		OBJID_SYS_CHECKPOINT		,	//	: チェックポイント
 		OBJID_SYS_CLEARAREA			,	//	: クリア領域
@@ -298,7 +299,6 @@ namespace wiz{
 		OBJID_3D_WALL				,	//	: 壁
 		OBJID_3D_ITEM				,	//	: アイテム
 
-		OBJID_SYS_CURSOR				,	//	: カーソル
 
 		//	:
 		//OBJID_3D_PLAYER				,
