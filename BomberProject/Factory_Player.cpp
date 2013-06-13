@@ -120,7 +120,7 @@ void ProvisionalPlayer3D::Draw(DrawPacket& i_DrawPacket)
 		if( m_bDrawing ){ 
 			if( m_pSound && !m_bPlaySound ){
 				m_bPlaySound = true ;
-				m_pSound->SearchWaveAndPlay( RCTEXT_SOUND_SE_SETFIELD ) ;
+				m_pSound->SearchSoundAndPlay( RCTEXT_SOUND_SE_SETFIELD ) ;
 			}
 			//テクスチャがある場合
 			if(m_pTexture){
@@ -155,7 +155,10 @@ void ProvisionalPlayer3D::Draw(DrawPacket& i_DrawPacket)
 			m_pMagneticField3->Draw(i_DrawPacket);
 			m_pMagneticField4->Draw(i_DrawPacket);
 		}
-		else	m_pSound->SoundPause(RCTEXT_SOUND_SE_SETFIELD);
+		else{
+			m_bPlaySound = false ;
+			m_pSound->SoundPause(RCTEXT_SOUND_SE_SETFIELD);
+		}
 	}else{
 		m_bPlaySound = false ;
 		m_pSound->SoundPause( RCTEXT_SOUND_SE_SETFIELD );
