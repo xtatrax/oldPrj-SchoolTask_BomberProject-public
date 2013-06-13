@@ -71,21 +71,21 @@ class StageLoader{
 			UINT	uiPosZ				;	//	ZˆÚ“®
 			UINT	uiPool				;	//	ZˆÚ“®
 			___ST(){
-				uiNumber	= UINT_MAX	;
-				uiType		= UINT_MAX	;
-				uiPath		= UINT_MAX	;
-				uiTexPath	= UINT_MAX	;
-				uiMotionNum	= UINT_MAX	;
-				uiTracSpeed	= UINT_MAX	;
-				uiScaleX	= UINT_MAX	;
-				uiScaleY	= UINT_MAX	;
-				uiScaleZ	= UINT_MAX	;
-				uiRotX		= UINT_MAX	;
-				uiRotY		= UINT_MAX	;
-				uiRotZ		= UINT_MAX	;
-				uiPosX		= UINT_MAX	;
-				uiPosY		= UINT_MAX	;
-				uiPosZ		= UINT_MAX	;
+				uiNumber	=
+				uiType		=
+				uiPath		=
+				uiTexPath	=
+				uiMotionNum	=
+				uiTracSpeed	=
+				uiScaleX	=
+				uiScaleY	=
+				uiScaleZ	=
+				uiRotX		=
+				uiRotY		=
+				uiRotZ		=
+				uiPosX		=
+				uiPosY		=
+				uiPosZ		=
 				uiPool		= UINT_MAX	;
 			}
 		}Column;

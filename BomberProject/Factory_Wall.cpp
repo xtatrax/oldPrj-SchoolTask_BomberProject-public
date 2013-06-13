@@ -200,6 +200,11 @@ void WallObject::Draw(DrawPacket& i_DrawPacket)
 			i_DrawPacket.pD3DDevice->SetTexture(0,0);
 			//ステージを元に戻す
 			i_DrawPacket.pD3DDevice->SetTextureStageState(0,D3DTSS_COLOROP,wkdword);
+
+			D3DXMATRIX m ;
+			//D3DXMatrixScale( &m, );
+			m_Plate.setMatrix((*it)->m_Matrix);
+			m_Plate.Draw(i_DrawPacket);
 		}
 		else{
 		//テクスチャがない場合

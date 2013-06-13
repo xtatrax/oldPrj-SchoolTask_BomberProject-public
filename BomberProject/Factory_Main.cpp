@@ -108,7 +108,7 @@ Factory_Main::Factory_Main(FactoryPacket* fpac, D3DXVECTOR3* vStartPos ){
 
 		Factory_Cursor		MCfac( fpac )  ; 
 		Factory_Player		Pfac( fpac );
-		StageLoader loader(fpac->pD3DDevice,L"media/Map/Stages.csv", 1,*fpac->m_pVec,*fpac->m_pTexMgr);
+		StageLoader			loader(fpac->pD3DDevice,L"media/Map/Stages.csv", 1,*fpac->m_pVec,*fpac->m_pTexMgr);
 		Factory_CheckPoint	CPfac( fpac ) ;
 		Factory_Coil		Cfac( fpac , vStartPos );
 		//Factory_BG		Wfac( fpac );
@@ -129,18 +129,7 @@ Factory_Main::Factory_Main(FactoryPacket* fpac, D3DXVECTOR3* vStartPos ){
 		);
 		pSound->SearchSoundAndPlay( RCTEXT_SOUND_BGM_PLAY );
 		pSound->SearchSoundAndPlay( RCTEXT_SOUND_SE_SPARK );
-		//fpac->m_pVec->push_back(
-		//	new SpriteObject(
-		//			fpac->pD3DDevice ,
-		//			fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"BGP_TITLE01.tga"),
-		//			g_vOne,
-		//			g_vZero,
-		//			g_vZero,
-		//			NULL,
-		//			g_vZero,
-		//			g_vZero
-		//	)
-		//);
+
 		vector<Object*>::size_type pos = fpac->m_pVec->max_size();
 		WallObject* wp = (WallObject*)SearchObjectFromID( fpac->m_pVec,OBJID_3D_WALL, &pos );
 		fpac->m_pVec->erase( fpac->m_pVec->begin() + pos );

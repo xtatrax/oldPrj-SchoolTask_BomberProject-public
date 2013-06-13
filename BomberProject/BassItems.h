@@ -2247,6 +2247,7 @@ class PrimitiveSphere : public Sphere {
 class PrimitivePlate {
 	IDirect3DVertexBuffer9* m_pVB		;
 	LPDIRECT3DTEXTURE9		m_pTexture	;
+	D3DXMATRIX				m_mMatrix	;
 	struct	Vertex
 	{
 		D3DXVECTOR3	vPos ;		//	: 頂点は、位置座標データを持つ
@@ -2264,25 +2265,42 @@ class PrimitivePlate {
 	struct	VertexWTex : public Vertex
 	{
 		D3DXVECTOR2	vTex ;		//	: 頂点は、テクスチャ座標を持つ
+		D3DXVECTOR3	vPos ;		//	: 頂点は、位置座標データを持つ
+		DWORD		dwColor ;	//	: 頂点は、色データを持つ
 
 		VertexWTex(){	}																		//	: デフォルトコンストラクタ
 		VertexWTex( const D3DXVECTOR3& i_vPos, DWORD i_dwColor, const D3DXVECTOR2& i_vTex )		//	: 初期化を簡略化するための引数付きコンストラクタ
-			: Vertex( i_vPos , i_dwColor ), vTex( i_vTex )	{	}
+			: vPos( i_vPos ) ,dwColor( i_dwColor ), vTex( i_vTex )	{	}
 		~VertexWTex(){	}																		//	: デストラクタ
-		static DWORD getFVF(){	return Vertex::getFVF() | D3DFVF_TEX1 ;	}						//	: この頂点データの形式を返す
-		static int	 getSize(){	return sizeof( Vertex );	}									//	: この頂点データのデータサイズを返す
+		static DWORD getFVF(){	return D3DFVF_XYZ | D3DFVF_DIFFUSE | D3DFVF_TEX1 ;	}						//	: この頂点データの形式を返す
+		static int	 getSize(){	return sizeof( VertexWTex );	}									//	: この頂点データのデータサイズを返す
 
 	};
 
 public:
 	PrimitivePlate(LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 i_pTexture = NULL, Color i_Color = 0xFFFF0000);
+	/////////////////// ////////////////////
+	//// 関数名     ：void Draw( LPDIRECT3DDEVICE9 pD3DDevice , vector<Object*>& Vec)
+	//// カテゴリ   ：仮想関数
+	//// 用途       ：ガイドラインを描画
+	//// 引数       ：  LPDIRECT3DDEVICE9 pD3DDevice		//IDirect3DDevice9 インターフェイスへのポインタ
+	////            ：  vector<Object*>& Vec,				//オブジェクトの配列
+	//// 戻値       ：なし
+	//// 担当者     ：(山ノ井先生のひな形より)
+	//// 備考       ：Objectクラスの純粋仮想関数
+	////            ：
+	////
+	virtual void Draw(DrawPacket& i_DrawPacket) ;
+	void setMatrix(D3DXMATRIX& i_mMatrix){
+		m_mMatrix = i_mMatrix ;
+	}
 };
 class PlateObject : public PrimitivePlate, Object{
 public:
 	PlateObject(LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 i_pTexture = NULL, Color i_Color = 0xFFFF0000)
 		:PrimitivePlate( pD3DDevice, i_pTexture, i_Color)
 		,Object( OBJID_UNK )
-	{	
+	{
 	}
 };
 
@@ -2302,57 +2320,57 @@ class DrawSphere : public Sphere{
 	SPHERE m_TargetSphere ;
 	static bool isEnableDraw ;
 public:
-/////////////////// ////////////////////
-//// 関数名     ：DrawSphere(LPDIRECT3DDEVICE9 pD3DDevice)
-//// カテゴリ   ：コンストラクタ
-//// 用途       ：Sphere
-//// 引数       ：  
-//// 戻値       ：なし（失敗時は例外をthrow）
-//// 担当者     ：
-//// 備考       ：
-////            ：
-////
+	/////////////////// ////////////////////
+	//// 関数名     ：DrawSphere(LPDIRECT3DDEVICE9 pD3DDevice)
+	//// カテゴリ   ：コンストラクタ
+	//// 用途       ：Sphere
+	//// 引数       ：  
+	//// 戻値       ：なし（失敗時は例外をthrow）
+	//// 担当者     ：
+	//// 備考       ：
+	////            ：
+	////
 	DrawSphere(LPDIRECT3DDEVICE9 pD3DDevice, SPHERE i_Sphere, Color i_Color = 0xFF0000FF, wiz::OBJID id = OBJID_3D_DRAWOBB);
-/////////////////// ////////////////////
-//// 関数名     ：DrawSphere::~DrawSphere()
-//// カテゴリ   ：デストラクタ
-//// 用途       ：ガイドライン破棄時処理
-//// 引数       ：なし
-//// 戻値       ：なし
-//// 担当者     ：(山ノ井先生のひな形より)
-//// 備考       ：
-////            ：
-////
-virtual ~DrawSphere();
-/////////////////// ////////////////////
-//// 関数名     ：void Draw( LPDIRECT3DDEVICE9 pD3DDevice , vector<Object*>& Vec)
-//// カテゴリ   ：仮想関数
-//// 用途       ：ガイドラインを描画
-//// 引数       ：  LPDIRECT3DDEVICE9 pD3DDevice		//IDirect3DDevice9 インターフェイスへのポインタ
-////            ：  vector<Object*>& Vec,				//オブジェクトの配列
-//// 戻値       ：なし
-//// 担当者     ：(山ノ井先生のひな形より)
-//// 備考       ：Objectクラスの純粋仮想関数
-////            ：
-////
-virtual void Draw(DrawPacket& i_DrawPacket) ;
+	/////////////////// ////////////////////
+	//// 関数名     ：DrawSphere::~DrawSphere()
+	//// カテゴリ   ：デストラクタ
+	//// 用途       ：ガイドライン破棄時処理
+	//// 引数       ：なし
+	//// 戻値       ：なし
+	//// 担当者     ：(山ノ井先生のひな形より)
+	//// 備考       ：
+	////            ：
+	////
+	virtual ~DrawSphere();
+	/////////////////// ////////////////////
+	//// 関数名     ：void Draw( LPDIRECT3DDEVICE9 pD3DDevice , vector<Object*>& Vec)
+	//// カテゴリ   ：仮想関数
+	//// 用途       ：ガイドラインを描画
+	//// 引数       ：  LPDIRECT3DDEVICE9 pD3DDevice		//IDirect3DDevice9 インターフェイスへのポインタ
+	////            ：  vector<Object*>& Vec,				//オブジェクトの配列
+	//// 戻値       ：なし
+	//// 担当者     ：(山ノ井先生のひな形より)
+	//// 備考       ：Objectクラスの純粋仮想関数
+	////            ：
+	////
+	virtual void Draw(DrawPacket& i_DrawPacket) ;
 
-/////////////////// ////////////////////
-//// 関数名     ：
-//// カテゴリ   ：
-//// 用途       ：
-//// 引数       ：
-////            ：
-//// 戻値       ：
-//// 担当者     ：
-//// 備考       ：
-////            ：
-////
-void UpdateSPHERE( SPHERE i_SPHERE){
-	m_TargetSphere = i_SPHERE ;
-	SetBaseScale( g_vOne * i_SPHERE.m_Radius );
-	SetBasePos( m_TargetSphere.m_Center );
-}
+	/////////////////// ////////////////////
+	//// 関数名     ：
+	//// カテゴリ   ：
+	//// 用途       ：
+	//// 引数       ：
+	////            ：
+	//// 戻値       ：
+	//// 担当者     ：
+	//// 備考       ：
+	////            ：
+	////
+	void UpdateSPHERE( SPHERE i_SPHERE){
+		m_TargetSphere = i_SPHERE ;
+		SetBaseScale( g_vOne * i_SPHERE.m_Radius );
+		SetBasePos( m_TargetSphere.m_Center );
+	}
 };
 
 
@@ -2363,7 +2381,7 @@ void UpdateSPHERE( SPHERE i_SPHERE){
 // 用途    : OBBの可視化
 //**************************************************************************
 class DrawOBB : public Object{
-	IDirect3DVertexBuffer9* m_pVB;
+	LPDIRECT3DVERTEXBUFFER9 m_pVB;
 	float	m_fTimeAccumulator;
 
 	//クラス内構造体
@@ -2376,40 +2394,40 @@ class DrawOBB : public Object{
 	OBB m_TargetObb ;
 	static bool isEnableDraw ;
 public:
-/////////////////// ////////////////////
-//// 関数名     ：Guide(LPDIRECT3DDEVICE9 pD3DDevice)
-//// カテゴリ   ：コンストラクタ
-//// 用途       ：ガイドライン生成時処理
-//// 引数       ：  LPDIRECT3DDEVICE9 pD3DDevice    //IDirect3DDevice9インターフェイスへのポインタ
-//// 戻値       ：なし（失敗時は例外をthrow）
-//// 担当者     ：(山ノ井先生のひな形より)
-//// 備考       ：
-////            ：
-////
+	/////////////////// ////////////////////
+	//// 関数名     ：Guide(LPDIRECT3DDEVICE9 pD3DDevice)
+	//// カテゴリ   ：コンストラクタ
+	//// 用途       ：ガイドライン生成時処理
+	//// 引数       ：  LPDIRECT3DDEVICE9 pD3DDevice    //IDirect3DDevice9インターフェイスへのポインタ
+	//// 戻値       ：なし（失敗時は例外をthrow）
+	//// 担当者     ：(山ノ井先生のひな形より)
+	//// 備考       ：
+	////            ：
+	////
 	DrawOBB(LPDIRECT3DDEVICE9 pD3DDevice, OBB i_OBB, Color i_Color = 0xFFFF0000, wiz::OBJID id = OBJID_3D_DRAWOBB);
-/////////////////// ////////////////////
-//// 関数名     ：Guide::~Guide()
-//// カテゴリ   ：デストラクタ
-//// 用途       ：ガイドライン破棄時処理
-//// 引数       ：なし
-//// 戻値       ：なし
-//// 担当者     ：(山ノ井先生のひな形より)
-//// 備考       ：
-////            ：
-////
-virtual ~DrawOBB();
-/////////////////// ////////////////////
-//// 関数名     ：void Draw( LPDIRECT3DDEVICE9 pD3DDevice , vector<Object*>& Vec)
-//// カテゴリ   ：仮想関数
-//// 用途       ：ガイドラインを描画
-//// 引数       ：  LPDIRECT3DDEVICE9 pD3DDevice		//IDirect3DDevice9 インターフェイスへのポインタ
-////            ：  vector<Object*>& Vec,				//オブジェクトの配列
-//// 戻値       ：なし
-//// 担当者     ：(山ノ井先生のひな形より)
-//// 備考       ：Objectクラスの純粋仮想関数
-////            ：
-////
-virtual void Draw(DrawPacket& i_DrawPacket) ;
+	/////////////////// ////////////////////
+	//// 関数名     ：Guide::~Guide()
+	//// カテゴリ   ：デストラクタ
+	//// 用途       ：ガイドライン破棄時処理
+	//// 引数       ：なし
+	//// 戻値       ：なし
+	//// 担当者     ：(山ノ井先生のひな形より)
+	//// 備考       ：
+	////            ：
+	////
+	virtual ~DrawOBB();
+	/////////////////// ////////////////////
+	//// 関数名     ：void Draw( LPDIRECT3DDEVICE9 pD3DDevice , vector<Object*>& Vec)
+	//// カテゴリ   ：仮想関数
+	//// 用途       ：ガイドラインを描画
+	//// 引数       ：  LPDIRECT3DDEVICE9 pD3DDevice		//IDirect3DDevice9 インターフェイスへのポインタ
+	////            ：  vector<Object*>& Vec,				//オブジェクトの配列
+	//// 戻値       ：なし
+	//// 担当者     ：(山ノ井先生のひな形より)
+	//// 備考       ：Objectクラスの純粋仮想関数
+	////            ：
+	////
+	virtual void Draw(DrawPacket& i_DrawPacket) ;
 
 
 };
@@ -2431,49 +2449,49 @@ class DrawOBBLite : public Object{
 	};
 	OBB m_TargetObb ;
 	static bool isEnableDraw ;
-/////////////////// ////////////////////
-//// 関数名     ：Guide(LPDIRECT3DDEVICE9 pD3DDevice)
-//// カテゴリ   ：コンストラクタ
-//// 用途       ：ガイドライン生成時処理
-//// 引数       ：  LPDIRECT3DDEVICE9 pD3DDevice    //IDirect3DDevice9インターフェイスへのポインタ
-//// 戻値       ：なし（失敗時は例外をthrow）
-//// 担当者     ：(山ノ井先生のひな形より)
-//// 備考       ：
-////            ：
-////
+	/////////////////// ////////////////////
+	//// 関数名     ：Guide(LPDIRECT3DDEVICE9 pD3DDevice)
+	//// カテゴリ   ：コンストラクタ
+	//// 用途       ：ガイドライン生成時処理
+	//// 引数       ：  LPDIRECT3DDEVICE9 pD3DDevice    //IDirect3DDevice9インターフェイスへのポインタ
+	//// 戻値       ：なし（失敗時は例外をthrow）
+	//// 担当者     ：(山ノ井先生のひな形より)
+	//// 備考       ：
+	////            ：
+	////
 	DrawOBBLite(LPDIRECT3DDEVICE9 pD3DDevice, OBB i_OBB, Color i_Color, wiz::OBJID id = OBJID_3D_DRAWOBB);
 public:
-/////////////////// ////////////////////
-//// 関数名     ：Guide::~Guide()
-//// カテゴリ   ：デストラクタ
-//// 用途       ：ガイドライン破棄時処理
-//// 引数       ：なし
-//// 戻値       ：なし
-//// 担当者     ：(山ノ井先生のひな形より)
-//// 備考       ：
-////            ：
-////
-virtual ~DrawOBBLite();
-/////////////////// ////////////////////
-//// 関数名     ：void Draw( LPDIRECT3DDEVICE9 pD3DDevice , vector<Object*>& Vec)
-//// カテゴリ   ：仮想関数
-//// 用途       ：ガイドラインを描画
-//// 引数       ：  LPDIRECT3DDEVICE9 pD3DDevice		//IDirect3DDevice9 インターフェイスへのポインタ
-////            ：  vector<Object*>& Vec,				//オブジェクトの配列
-//// 戻値       ：なし
-//// 担当者     ：(山ノ井先生のひな形より)
-//// 備考       ：Objectクラスの純粋仮想関数
-////            ：
-////
-virtual void Draw(DrawPacket& i_DrawPacket) ;
+	/////////////////// ////////////////////
+	//// 関数名     ：Guide::~Guide()
+	//// カテゴリ   ：デストラクタ
+	//// 用途       ：ガイドライン破棄時処理
+	//// 引数       ：なし
+	//// 戻値       ：なし
+	//// 担当者     ：(山ノ井先生のひな形より)
+	//// 備考       ：
+	////            ：
+	////
+	virtual ~DrawOBBLite();
+	/////////////////// ////////////////////
+	//// 関数名     ：void Draw( LPDIRECT3DDEVICE9 pD3DDevice , vector<Object*>& Vec)
+	//// カテゴリ   ：仮想関数
+	//// 用途       ：ガイドラインを描画
+	//// 引数       ：  LPDIRECT3DDEVICE9 pD3DDevice		//IDirect3DDevice9 インターフェイスへのポインタ
+	////            ：  vector<Object*>& Vec,				//オブジェクトの配列
+	//// 戻値       ：なし
+	//// 担当者     ：(山ノ井先生のひな形より)
+	//// 備考       ：Objectクラスの純粋仮想関数
+	////            ：
+	////
+	virtual void Draw(DrawPacket& i_DrawPacket) ;
 
-static void Add(LPDIRECT3DDEVICE9 pD3DDevice,vector<Object*>& Vec, OBB i_OBB, Color i_Color = 0xFFFF0000){
-	#ifdef ON_DEBUGGINGPROCESS
-		if( isEnableDraw ){
-			Vec.push_back( new DrawOBBLite(pD3DDevice, i_OBB, i_Color) );
-		}
-	#endif
-}
+	static void Add(LPDIRECT3DDEVICE9 pD3DDevice,vector<Object*>& Vec, OBB i_OBB, Color i_Color = 0xFFFF0000){
+		#ifdef ON_DEBUGGINGPROCESS
+			if( isEnableDraw ){
+				Vec.push_back( new DrawOBBLite(pD3DDevice, i_OBB, i_Color) );
+			}
+		#endif
+	}
 
 };
 
