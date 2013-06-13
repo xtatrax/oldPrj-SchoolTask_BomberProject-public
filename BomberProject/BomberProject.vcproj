@@ -670,6 +670,18 @@
 						>
 					</File>
 				</Filter>
+				<Filter
+					Name="LoadFactory"
+					>
+					<File
+						RelativePath=".\Factory_Load.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Factory_Load.h"
+						>
+					</File>
+				</Filter>
 			</Filter>
 			<Filter
 				Name="Prim"
@@ -749,6 +761,18 @@
 				<Filter
 					Name="Debug_Test_StageLoader2"
 					>
+				</Filter>
+				<Filter
+					Name="Stage_Load"
+					>
+					<File
+						RelativePath=".\Stage_Load.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Stage_Load.h"
+						>
+					</File>
 				</Filter>
 			</Filter>
 		</Filter>

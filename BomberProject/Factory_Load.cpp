@@ -1,30 +1,29 @@
 ////////////////////////////// //////////////////////////////
 //	プロジェクト	：BomberProject
-//	ファイル名		：Factory_Title.cpp
+//	ファイル名		：Factory_Load.cpp
 //	開発環境		：MSVC++ 2008
 //	最適タブ数		：4
 //	担当者			：佐藤　涼
-//	内包ﾃﾞｰﾀと備考	：タイトルファクトリー
+//	内包ﾃﾞｰﾀと備考	：ロードファクトリー
 //					▼
 //	namespace wiz;
-//		class Factory_Title ;
+//		class Load ;
+//		class Factory_Load ;
 //
 #include "StdAfx.h"
 #include "Object.h"
 #include "Scene.h"
-#include "Factory_Title.h"
-#include "Factory_Scroll.h"
+#include "Factory_Load.h"
 #include "BassItems.h"
 
 namespace wiz{
 	namespace bomberobject{
 
-const	float	SCALE_RATE	=	1.4f;
 /************************************************************************
-Title_Select 定義部
+Load 定義部
 ************************************************************************/
 /////////////////// ////////////////////
-//// 関数名     ：Title_Select(LPDIRECT3DDEVICE9 pD3DDevice,LPDIRECT3DTEXTURE9 pTexture,DWORD next,
+//// 関数名     ：Load(LPDIRECT3DDEVICE9 pD3DDevice,LPDIRECT3DTEXTURE9 pTexture,DWORD next,
 ////            ：    D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos, RECT* pRect,
 ////            ：    D3DXVECTOR3& vCenter,D3DXVECTOR3& vOffsetPos,Color color = 0xFFFFFFFF);
 //// カテゴリ   ：コンストラクタ
@@ -40,20 +39,18 @@ Title_Select 定義部
 ////            ：  D3DXVECTOR3& vOffsetPos         // オフセット座標
 ////            ：  Color color = 0xFFFFFFFF        // 色
 //// 戻値       ：なし
-//// 担当者     ：鴫原 徹
+//// 担当者     ：佐藤涼
 //// 備考       ：
 ////            ：
 ////
-Title_Select::Title_Select(const LPDIRECT3DDEVICE9 pD3DDevice,const LPDIRECT3DTEXTURE9 pTexture,const DWORD next,
+Load::Load(const LPDIRECT3DDEVICE9 pD3DDevice,const LPDIRECT3DTEXTURE9 pTexture,
 		const D3DXVECTOR3 &vScale,const D3DXVECTOR3 &vRot,const D3DXVECTOR3 &vPos,
 		const RECT *pRect,const D3DXVECTOR3 &vCenter,const D3DXVECTOR3 &vOffsetPos,const Color color)
 :SpriteObject( pD3DDevice, pTexture, vScale, vRot, vPos, pRect, vCenter, vOffsetPos, color )
 ,m_vPos( vPos )
-,m_dNext( next )
 ,m_pSound( NULL )
 ,m_iTime( 0 )
-,m_bPush( false )
-,m_bPushRock( false )
+,m_fRate( 1.0f )
 {
 	try{
 		//	: 初期マトリックスを計算
@@ -71,7 +68,7 @@ Title_Select::Title_Select(const LPDIRECT3DDEVICE9 pD3DDevice,const LPDIRECT3DTE
 };
 
 /////////////////// ////////////////////
-//// 関数名     ：void Title_Select::Draw( DrawPacket& i_DrawPacket)
+//// 関数名     ：void Load::Draw( DrawPacket& i_DrawPacket)
 //// カテゴリ   ：関数
 //// 用途       ：スプライトを描画
 //// 引数       ：DrawPacket& i_DrawPacket    //もろもろのデータ
@@ -80,14 +77,14 @@ Title_Select::Title_Select(const LPDIRECT3DDEVICE9 pD3DDevice,const LPDIRECT3DTE
 //// 備考       ：
 ////            ：
 ////
-void Title_Select::Draw(DrawPacket& i_DrawPacket)
+void Load::Draw(DrawPacket& i_DrawPacket)
 {
 	//	: 描画は親クラスに任せる
 	SpriteObject::Draw(i_DrawPacket);
 };
 
 /////////////////// ////////////////////
-//// 関数名     ：void Title_Select::Update( UpdatePacket& i_UpdatePacket)
+//// 関数名     ：void Load::Update( UpdatePacket& i_UpdatePacket)
 //// カテゴリ   ：関数
 //// 用途       ：データの更新
 //// 引数       ：UpdatePacket& i_UpdatePacket    //もろもろのデータ
@@ -96,51 +93,17 @@ void Title_Select::Draw(DrawPacket& i_DrawPacket)
 //// 備考       ：
 ////            ：
 ////
-void Title_Select::Update(UpdatePacket& i_UpdatePacket)
+void Load::Update(UpdatePacket& i_UpdatePacket)
 {
-	if( m_pSound == NULL )
-		m_pSound = (Sound*)SearchObjectFromTypeID(i_UpdatePacket.pVec,typeid(Sound));
-  //マウス用データ*************************
-	Point MousePos ;
-	GetCursorPos( &MousePos ) ;
-	ScreenToClient( g_hWnd , &MousePos) ;
-  //*****************************************
-	if( (MousePos.x > m_vPos.x && MousePos.x < ( m_vPos.x + (m_pRect->right*SCALE_RATE) )) 
-		&& (MousePos.y > m_vPos.y && MousePos.y < ( m_vPos.y + (m_pRect->bottom*SCALE_RATE) )) ){
-		if( g_bMouseLB/* || g_bMouseRB*/ ){
-			if( m_bPushRock ){
-				if( !m_bPush ){
-					//if( m_pSound != NULL )
-						m_pSound->SearchWaveAndPlay( RCTEXT_SOUND_SE_ENTER );
-				}
-				m_bPush		= true;
-				m_bPushRock	= false;
-			}
-		}
-		else	m_bPushRock	= true;
-		m_Color	= 0xFFFFFFFF;
-	}
-	else{
-		m_Color	= 0xA0FFFFFF;
-
-		if( g_bMouseLB )	m_bPushRock	= false;
-		else				m_bPushRock	= true;
-	}
-	if( m_bPush ){
-		m_iTime++;
-		if( m_iTime > 30 ){
-			//選ばれた画面へとぶ
-			i_UpdatePacket.pCommand->m_Command	= m_dNext;
-			m_bPush = false ;
-		}
-	}
+	//if( g_bMouseLB )
+		//i_UpdatePacket.pCommand->m_Command	= GM_OPENSTAGE_PLAY;
 };
 
 /**************************************************************************
- Factory_Title 定義部
+ Factory_Load 定義部
 ****************************************************************************/
 /**************************************************************************
- Factory_Title::Factory_Title(
+ Factory_Load::Factory_Load(
 	LPDIRECT3DDEVICE9 pD3DDevice,	//デバイス
 	vector<Object*>& vec,			//オブジェクトの配列
 	TextureManager& TexMgr		//テクスチャの配列
@@ -148,75 +111,76 @@ void Title_Select::Update(UpdatePacket& i_UpdatePacket)
  用途: コンストラクタ（サンプルオブジェクトを配列に追加する）
  戻り値: なし
 ***************************************************************************/
-Factory_Title::Factory_Title(FactoryPacket* fpac){
+Factory_Load::Factory_Load(FactoryPacket* fpac){
 	try{
 		
+		//fpac->m_pVec->push_back(
+		//	new	Load(
+		//		fpac->pD3DDevice,
+		//		fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"load.png" ),
+		//		D3DXVECTOR3(1.0f,1.0f,0.0f),
+		//		g_vZero,
+		//		D3DXVECTOR3( 300.0f, 300.0f, 0.0f ),
+		//		Rect( 0, 0, 256, 64 ),
+		//		g_vZero,
+		//		g_vZero,
+		//		0xFFFFFFFF
+		//	)
+		//);
 
-
-
-	 
-
-		 Factory_Scroll		Ffac( fpac );
-		
-		
-		
+		//
 		fpac->m_pVec->push_back(
-			new SpriteObject(
+			new	SpriteObject(
 				fpac->pD3DDevice,
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, /*L"Lightning.tga"*/L"Title_Name.tga" ),
-				D3DXVECTOR3(SCALE_RATE,SCALE_RATE,0.0f),
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Coil_Super.png" ),
+				D3DXVECTOR3(1.0f,1.0f,0.0f),
+				D3DXVECTOR3(0.0f,0.0f,0.0f),
+				D3DXVECTOR3( 400.0f, 300.0f, 0.0f ),
+				Rect( 0, 0, 256, 256 ),
 				g_vZero,
-				D3DXVECTOR3( 260.0f, 106.0f, 0.0f ),
-				//D3DXVECTOR3( 0.0f, 0.0f, 0.0f ),
-				NULL,
 				g_vZero,
-				g_vZero,
-				0xFF55FF88
-				)
-		);
+				0xFFFFFFFF
 
-		//START
-		fpac->m_pVec->push_back(
-			new Title_Select(
-					fpac->pD3DDevice,
-					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Title_Start.tga" ),
-					//GM_OPENSTAGE_PLAY,
-					GM_OPENSTAGE_LOAD,
-					D3DXVECTOR3(SCALE_RATE,SCALE_RATE,0.0f),
-					g_vZero,
-					D3DXVECTOR3( 200.0f, 420.0f, 0.0f ),
-					Rect( 0, 0, 168, 42 ),
-					g_vZero,
-					g_vZero,
-					0xFFFFFFFF
-				)
-		);
-
-		//EXIT
-		fpac->m_pVec->push_back(
-			new Title_Select(
-					fpac->pD3DDevice,
-					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Title_Exit.tga" ),
-					GM_EXIT,
-					D3DXVECTOR3(SCALE_RATE,SCALE_RATE,0.0f),
-					g_vZero,
-					D3DXVECTOR3( 660.0f, 420.0f, 0.0f ),
-					Rect( 0, 0, 126, 42 ),
-					g_vZero,
-					g_vZero,
-					0xFFFFFFFF
-				)
-		);
-
-		Sound* pSound = NULL;
-		fpac->m_pVec->push_back(
-			pSound = new Sound( 
-				RCTEXT_SOUND_WAVEBANK,
-				RCTEXT_SOUND_SOUNDBANK,
-				OBJID_SYS_SOUND
 			)
 		);
-		pSound->SearchSoundAndPlay( RCTEXT_SOUND_BGM_TITLE );
+		//Coil*********************************************************************
+		fpac->m_pVec->push_back(
+			new	SpriteObject(
+				fpac->pD3DDevice,
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Coil_blue.png" ),
+				D3DXVECTOR3(1.0f,1.0f,0.0f),
+				D3DXVECTOR3(0.0f,0.0f,D3DXToRadian(190.0f)),
+				D3DXVECTOR3( 300.0f, 300.0f, 0.0f ),
+				Rect( 0, 0, 128, 128 ),
+				g_vZero,
+				g_vZero,
+				0xFFFFFFFF
+			)
+		);
+		fpac->m_pVec->push_back(
+			new	SpriteObject(
+				fpac->pD3DDevice,
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Coil_red.png" ),
+				D3DXVECTOR3(1.0f,1.0f,0.0f),
+				D3DXVECTOR3(0.0f,0.0f,0.0f),
+				D3DXVECTOR3( 400.0f, 300.0f, 0.0f ),
+				Rect( 0, 0, 128, 128 ),
+				g_vZero,
+				g_vZero,
+				0xFFFFFFFF
+			)
+		);
+		//****************************************************************************
+
+		//Sound* pSound = NULL;
+		//fpac->m_pVec->push_back(
+		//	pSound = new Sound( 
+		//		RCTEXT_SOUND_WAVEBANK,
+		//		RCTEXT_SOUND_SOUNDBANK,
+		//		OBJID_SYS_SOUND
+		//	)
+		//);
+		//pSound->SearchSoundAndPlay( RCTEXT_SOUND_BGM_TITLE );
 
 	}
 	catch(...){
@@ -226,11 +190,11 @@ Factory_Title::Factory_Title(FactoryPacket* fpac){
 
 }
 /**************************************************************************
- Factory_Title::~Factory_Title();
+ Factory_Load::~Factory_Load();
  用途: デストラクタ
  戻り値: なし
 ***************************************************************************/
-Factory_Title::~Factory_Title(){
+Factory_Load::~Factory_Load(){
     //なにもしない
 }
 
