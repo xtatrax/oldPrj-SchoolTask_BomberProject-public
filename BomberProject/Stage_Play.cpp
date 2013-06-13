@@ -35,7 +35,7 @@ using namespace bomberobject;
  用途: コンストラクタ
  戻り値: なし（失敗時は例外をthrow）
 ***************************************************************************/
-PlayStage::PlayStage( LPDIRECT3DDEVICE9 pD3DDevice, D3DXVECTOR3 vStartPos, Stage* pStage )
+PlayStage::PlayStage( LPDIRECT3DDEVICE9 pD3DDevice, DWORD dwStageNum, DWORD dwResumptionCheckPoint, D3DXVECTOR3 vStartPos, Stage* pStage )
 	:Stage(pStage)
 {
 	try{
@@ -48,7 +48,7 @@ PlayStage::PlayStage( LPDIRECT3DDEVICE9 pD3DDevice, D3DXVECTOR3 vStartPos, Stage
 		if( vStartPos != g_vMax )
 			vp = &vStartPos;
 
-		Factory_Main mainF( &FPac , vp );
+		Factory_Main mainF( &FPac, dwStageNum, dwResumptionCheckPoint, vp );
 
 	}
 	catch(LoaderException& e){

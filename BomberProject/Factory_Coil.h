@@ -589,7 +589,7 @@ public:
  用途: コンストラクタ（サンプルオブジェクトを配列に追加する）
  戻り値: なし
 ***************************************************************************/
-	Factory_Coil( FactoryPacket* fpac , D3DXVECTOR3* vStartPos = NULL );
+	Factory_Coil( FactoryPacket* fpac, DWORD dwResumptionCheckPoint , D3DXVECTOR3* vStartPos = NULL );
 /**************************************************************************
  ~MyFactory();
  用途: デストラクタ
