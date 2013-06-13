@@ -17,7 +17,6 @@
 #include "Stage_Title.h"
 #include "Stage_Play.h"
 #include "Stage_Result.h"
-#include "Stage_Test.h"
 #include <process.h>
 #include "Factory_Player.h"
 
@@ -292,46 +291,21 @@ void Scene::CommandTranslator(DrawPacket& i_DrawPacket){
 			m_pRootStage = new ResultStage(i_DrawPacket.pD3DDevice);
 			break;
 
+//未対応のステージ
 
 		case GM_OPENSTAGE_RANKING:
 			//	: ランキング画面
 		case GM_OPENSTAGE_GAMEOVER:
 			//	: ゲームオーバー画面
-
-
-
-		//case GM_OPENDEBUGSTAGE_STAGECREATE:
-		//	SafeDeleteStage();
-		//	m_pRootStage = new DevelopStage(i_DrawPacket.pD3DDevice);
-		//	break;
-			m_fStageNotFoundMessageTime          = 3.0f ;
-			break ; 
-		//	: デバッグステージ
 		case GM_OPENDEBUGSTAGE_TATEAWORKSPACE:
-			try{
-				//	: ゲームステージ
-				this->m_pStgBuf = new DebugStage_TATRA(i_DrawPacket.pD3DDevice);
-				//	: 
-				SafeDeleteStage(m_pRootStage);
-				m_pRootStage = this->m_pStgBuf;
-				this->m_pStgBuf = NULL ;
-			}
-			catch(LoaderException& e){
-				//	: ロード失敗
-				::MessageBox(wiz::DxDevice::m_hWnd,e.what_w(),L"エラー",MB_OK);
-				SafeDeleteStage(this->m_pStgBuf);
-			}
-			catch(...){
-				throw ;
-			}
-			//SafeDeleteStage(m_pRootStage);
-			//m_pRootStage = new DebugStage_TATRA(i_DrawPacket.pD3DDevice);
-			break;
 
 		case GM_OPENDEBUGSTAGE_STAGELOADERTEST:
-			SafeDeleteStage(m_pRootStage);
-			m_pRootStage = new DebugStage_Loader(i_DrawPacket.pD3DDevice);
-			break;
+
+
+		case GM_OPENDEBUGSTAGE_STAGECREATE:
+			m_fStageNotFoundMessageTime          = 3.0f ;
+			break ; 
+
 		case GM_EXIT:
 			SafeDeleteStage(m_pRootStage);
 			::DestroyWindow(wiz::DxDevice::m_hWnd);

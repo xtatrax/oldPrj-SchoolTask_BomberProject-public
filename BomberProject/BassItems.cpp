@@ -4498,6 +4498,81 @@ void SimpleCommonMeshGroup::DrawShadowVolume(
 	m_pSimpleCommonMesh->MoveAtPosQt(TmpItem.m_Pos,TmpItem.m_Qt);
 }
 /**************************************************************************
+ class PrimitivePlate 定義部
+****************************************************************************/
+PrimitivePlate::PrimitivePlate( LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 i_pTexture, Color i_Color )
+:m_pTexture( i_pTexture )
+{
+    try{
+		DWORD dwColor	= i_Color.dwColor ;
+		DWORD dwSize	= 0 ;
+		if( m_pTexture ){
+			VertexWTex* Vertices ; 
+			if(FAILED(pD3DDevice->CreateVertexBuffer( 4 * sizeof( VertexWTex ),
+										0,D3DFVF_XYZ|D3DFVF_DIFFUSE,
+										D3DPOOL_DEFAULT, &m_pVB, NULL)))
+			{
+				// 初期化失敗
+				throw BaseException(
+					L"頂点バッファの作成に失敗しました。",
+					L"PrimitivePlate::PrimitivePlate()"
+					);
+			}
+			//バッファをロック
+			VOID* pVertices;
+			if(FAILED( m_pVB->Lock( 0, sizeof(VertexWTex),( void** )&pVertices, 0 ))){
+				// 初期化失敗
+				throw BaseException(
+					L"頂点バッファのロックに失敗しました。",
+					L"PrimitivePlate::PrimitivePlate()"
+					);
+			}
+			Vertices[ 0 ] =	VertexWTex( D3DXVECTOR3(-0.5f, +0.5f, 0.0f),dwColor, D3DXVECTOR2( 0.0f, 0.0f )) ;	//	: 1
+			Vertices[ 1 ] =	VertexWTex( D3DXVECTOR3(+0.5f, +0.5f, 0.0f),dwColor, D3DXVECTOR2( 1.0f, 0.0f )) ;	//	: 2
+			Vertices[ 2 ] =	VertexWTex( D3DXVECTOR3(-0.5f, -0.5f, 0.0f),dwColor, D3DXVECTOR2( 0.0f, 1.0f )) ;	//	: 2
+			Vertices[ 3 ] =	VertexWTex( D3DXVECTOR3(+0.5f, -0.5f, 0.0f),dwColor, D3DXVECTOR2( 1.0f, 1.0f )) ;	//	: 3
+			//頂点バッファをアンロック
+			m_pVB->Unlock();
+		}else{
+			Vertex* Vertices;
+			if(FAILED(pD3DDevice->CreateVertexBuffer( 4 * sizeof( Vertex ),
+										0,D3DFVF_XYZ|D3DFVF_DIFFUSE,
+										D3DPOOL_DEFAULT, &m_pVB, NULL)))
+			{
+				// 初期化失敗
+				throw BaseException(
+					L"頂点バッファの作成に失敗しました。",
+					L"PrimitivePlate::PrimitivePlate()"
+					);
+			}
+			//バッファをロック
+			VOID* pVertices;
+			if(FAILED( m_pVB->Lock( 0, sizeof(Vertex),( void** )&pVertices, 0 ))){
+				// 初期化失敗
+				throw BaseException(
+					L"頂点バッファのロックに失敗しました。",
+					L"PrimitivePlate::PrimitivePlate()"
+					);
+			}
+			//頂点データから頂点バッファに転送
+			Vertices[ 0 ] =	Vertex( D3DXVECTOR3(-0.5f, +0.5f, 0.0f),dwColor) ;	//	: 1
+			Vertices[ 1 ] =	Vertex( D3DXVECTOR3(+0.5f, +0.5f, 0.0f),dwColor) ;	//	: 2
+			Vertices[ 2 ] =	Vertex( D3DXVECTOR3(-0.5f, -0.5f, 0.0f),dwColor) ;	//	: 2
+			Vertices[ 3 ] =	Vertex( D3DXVECTOR3(+0.5f, -0.5f, 0.0f),dwColor) ;	//	: 3
+			//頂点バッファをアンロック
+			m_pVB->Unlock();
+
+		}
+    }
+    catch(...){
+        //コンストラクタ例外発生
+        //後始末
+        SafeRelease(m_pVB);
+        //再スロー
+        throw;
+    }
+}
+/**************************************************************************
  class DrawSphere 定義部
 ****************************************************************************/
 /////////////////// ////////////////////

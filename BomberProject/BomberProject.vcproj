@@ -672,32 +672,8 @@
 				</Filter>
 			</Filter>
 			<Filter
-				Name="Prim"
-				>
-				<File
-					RelativePath=".\Prm.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\Prm.h"
-					>
-				</File>
-			</Filter>
-			<Filter
 				Name="0.Stages"
 				>
-				<Filter
-					Name="Stage_Test"
-					>
-					<File
-						RelativePath=".\Stage_Test.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\Stage_Test.h"
-						>
-					</File>
-				</Filter>
 				<Filter
 					Name="Debug_Stages"
 					>
@@ -814,14 +790,6 @@
 			Name="‚æ‚»ŽÒ"
 			>
 			<File
-				RelativePath=".\MemoryManager.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\MemoryManager.h"
-				>
-			</File>
-			<File
 				RelativePath=".\TL-String.h"
 				>
 			</File>
@@ -836,18 +804,6 @@
 					RelativePath=".\AnimationModelClass\AnimationModelClass.h"
 					>
 				</File>
-				<Filter
-					Name="CSV"
-					>
-					<File
-						RelativePath=".\CSV.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CSV.h"
-						>
-					</File>
-				</Filter>
 			</Filter>
 			<Filter
 				Name="Input"
@@ -917,6 +873,30 @@
 					>
 				</File>
 			</Filter>
+			<Filter
+				Name="CSV"
+				>
+				<File
+					RelativePath=".\CSV.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\CSV.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="MemoryManager"
+				>
+				<File
+					RelativePath=".\MemoryManager.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\MemoryManager.h"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="TestWindow"
@@ -930,14 +910,6 @@
 				>
 			</File>
 		</Filter>
-		<File
-			RelativePath=".\ClassDiagram1.cd"
-			>
-		</File>
-		<File
-			RelativePath=".\ClassDiagram2.cd"
-			>
-		</File>
 		<File
 			RelativePath=".\CommentTemplate.txt"
 			>

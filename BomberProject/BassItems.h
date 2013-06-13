@@ -2241,8 +2241,54 @@ class PrimitiveSphere : public Sphere {
 		)
 			:Sphere( pD3DDevice,0.5f, g_vZero, g_vZero,Diffuse, Specular, Ambient,OBJID_3D_SPHERE, false, pTexture ,18, 18){}
 };
+/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 
+/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
+class PrimitivePlate {
+	IDirect3DVertexBuffer9* m_pVB		;
+	LPDIRECT3DTEXTURE9		m_pTexture	;
+	struct	Vertex
+	{
+		D3DXVECTOR3	vPos ;		//	: 頂点は、位置座標データを持つ
+		DWORD		dwColor ;	//	: 頂点は、色データを持つ
 
+		Vertex(){	}														//	: デフォルトコンストラクタ
+		Vertex( const D3DXVECTOR3& i_vPos, DWORD i_dwColor )				//	: 初期化を簡略化するための引数付きコンストラクタ
+			: vPos( i_vPos ), dwColor( i_dwColor )	{	}
+		~Vertex(){	}														//	: デストラクタ
+		static DWORD getFVF(){	return D3DFVF_XYZ | D3DFVF_DIFFUSE ;	}	//	: この頂点データの形式を返す
+		static int	 getSize(){	return sizeof( Vertex );				}	//	: この頂点データのデータサイズを返す
+
+	};
+
+	struct	VertexWTex : public Vertex
+	{
+		D3DXVECTOR2	vTex ;		//	: 頂点は、テクスチャ座標を持つ
+
+		VertexWTex(){	}																		//	: デフォルトコンストラクタ
+		VertexWTex( const D3DXVECTOR3& i_vPos, DWORD i_dwColor, const D3DXVECTOR2& i_vTex )		//	: 初期化を簡略化するための引数付きコンストラクタ
+			: Vertex( i_vPos , i_dwColor ), vTex( i_vTex )	{	}
+		~VertexWTex(){	}																		//	: デストラクタ
+		static DWORD getFVF(){	return Vertex::getFVF() | D3DFVF_TEX1 ;	}						//	: この頂点データの形式を返す
+		static int	 getSize(){	return sizeof( Vertex );	}									//	: この頂点データのデータサイズを返す
+
+	};
+
+public:
+	PrimitivePlate(LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 i_pTexture = NULL, Color i_Color = 0xFFFF0000);
+};
+class PlateObject : public PrimitivePlate, Object{
+public:
+	PlateObject(LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 i_pTexture = NULL, Color i_Color = 0xFFFF0000)
+		:PrimitivePlate( pD3DDevice, i_pTexture, i_Color)
+		,Object( OBJID_UNK )
+	{	
+	}
+};
+
+/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
+
+/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 //**************************************************************************
 // class DrawSphere : public Object;
 //

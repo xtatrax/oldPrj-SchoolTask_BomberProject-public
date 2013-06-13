@@ -4,9 +4,12 @@
 //	開発環境		：MSVC++ 2008
 //	最適タブ数		：4
 //	担当者			：鴫原 徹
+//	引継ぎ			：本多 寛之
+//	編集			：曳地 大洋
 //	内包ﾃﾞｰﾀと備考	：メインファクトリー
 //					▼
 //	namespace wiz;
+//		class WallObject : public PrimitiveBox 
 //		class Factory_Wall ;
 //
 #pragma once
@@ -46,6 +49,7 @@ class WallObject : public PrimitiveBox{
 	EnemySphere*		m_pEnemy		;
 	Sound*				m_pSound		;
 	Camera*				m_pCamera		;
+	PrimitivePlate		m_Plate			;
 	LPDIRECT3DTEXTURE9	m_pWallTex		;
 	LPDIRECT3DTEXTURE9	m_pPolyTex		;
 	LPDIRECT3DTEXTURE9	m_pDeadTex		;
