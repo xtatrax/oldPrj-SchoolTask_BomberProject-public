@@ -211,7 +211,7 @@ void HitTestWall( OBB );
 // 引継ぎ  : 本多寛之
 // 用途    : 敵
 //**************************************************************************//	
-class EnemyModel : public PrimitiveSphere {
+class EnemyModel : public SimpleCommonMesh {
 	Camera*					m_pCamera	;
 	Sound*					m_pSound	;
 	ProvisionalPlayer3D*	m_pPlayer	;
@@ -234,10 +234,6 @@ class EnemyModel : public PrimitiveSphere {
 		virtual ~EnemyItem(){}
 	};
 	
-	//map<オブジェクトのポジション,EnemyItem>
-	//multimap<float,EnemyItem*> m_ItemMap_All;	//全てのEnemyItem
-	//multimap<float,EnemyItem*> m_ItemMap_Target;//描画対象のEnemyItem
-
 	//map<オブジェクトのポジション,WallItem>
 	typedef multimap<float,EnemyItem*>	ALLCONTAINER		;
 	typedef list<EnemyItem*>			TARGETCONTAINER		;
@@ -276,8 +272,8 @@ public:
 ////           ：
 ////
 	EnemyModel(LPDIRECT3DDEVICE9 pD3DDevice,
-		D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,
-		LPDIRECT3DTEXTURE9 pTexture = 0 , wiz::OBJID id = OBJID_3D_ENEMY);
+		char *pFileName,
+		TextureManager* pTexMgr , wiz::OBJID id = OBJID_3D_ENEMY);
 
 /////////////////// ////////////////////
 //// 用途       ：~EnemyModel();

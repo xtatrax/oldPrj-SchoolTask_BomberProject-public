@@ -881,7 +881,7 @@ void CommonMesh::CreatePolygon(LPDIRECT3DDEVICE9 pD3DDevice,
 ////
 void CommonMesh::CreateMeshFormX(
 		LPDIRECT3DDEVICE9 pD3DDevice, char *pFileName,
-		wiz::TextureManager &TexMgr)
+		wiz::TextureManager* pTexMgr)
 {
 	try{
 		// Xファイルからメッシュをロードする 

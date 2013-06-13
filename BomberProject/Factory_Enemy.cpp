@@ -427,20 +427,16 @@ void EnemySphere::HitTestWall( OBB Obb ){
 ////
 
 //CPPでのコンストラクタの書き方。
-EnemyModel::EnemyModel(LPDIRECT3DDEVICE9 pD3DDevice,D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient, LPDIRECT3DTEXTURE9 pTexture, wiz::OBJID id)
+EnemyModel::EnemyModel(LPDIRECT3DDEVICE9 pD3DDevice,char *pFileName,TextureManager* pTexMgr, wiz::OBJID id)
 //継承元をこんな感じで書く。型は変数だけ。
-	: PrimitiveSphere( pD3DDevice,
-					   Diffuse,
-					   Specular,
-					   Ambient,
-					   pTexture)
+:SimpleCommonMesh(g_vZero,g_vZero,COLOR2D3DCOLORVALUE(-1),COLOR2D3DCOLORVALUE(-1),COLOR2D3DCOLORVALUE(-1),id )
 ,m_pCamera( NULL )
 ,m_pPlayer( NULL )
 ,m_pCoil( NULL )
 ,m_pSound( NULL )
 ,m_bReset( false )
-
 {
+	CommonMesh::CreateMeshFormX( pD3DDevice, pFileName, pTexMgr);
 	::ZeroMemory( &m_Material, sizeof(D3DMATERIAL9));
 }
 
