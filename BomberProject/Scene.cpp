@@ -17,6 +17,8 @@
 #include "Stage_Title.h"
 #include "Stage_Play.h"
 #include "Stage_Result.h"
+#include "Stage_Load.h"
+#include "Stage_Test.h"
 #include <process.h>
 #include "Factory_Player.h"
 
@@ -102,6 +104,7 @@ Scene::Scene(LPDIRECT3DDEVICE9 pD3DDevice)
 //	: リリース用設定
 		//ルートのステージにタイトルメニューを設定
 		m_pRootStage = new TitleStage(pD3DDevice);
+		//m_pRootStage = new LoadStage(pD3DDevice);
 		//m_pRootStage	= new PlayStage(pD3DDevice);
 		//m_pRootStage	= new ResultStage(pD3DDevice);
 
@@ -237,6 +240,11 @@ void Scene::CommandTranslator(DrawPacket& i_DrawPacket){
 			//	: タイトル画面
 			SafeDeleteStage(m_pRootStage);
 			m_pRootStage = new TitleStage(i_DrawPacket.pD3DDevice);
+			break;
+		case GM_OPENSTAGE_LOAD:
+			//	: ロード画面
+			SafeDeleteStage(m_pRootStage);
+			m_pRootStage = new LoadStage(i_DrawPacket.pD3DDevice);
 			break;
 		case GM_OPENSTAGE_PLAY:
 			try{

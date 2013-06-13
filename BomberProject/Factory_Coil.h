@@ -70,11 +70,17 @@ enum COIL_STATE{			//自機の状態
 	COIL_STATE_START,		//スタート
 	COIL_STATE_MOVE,		//移動
 	COIL_STATE_STICK,		//吸着
-	//COIL_STATE_SUPER,		//無敵
 	COIL_STATE_DEAD,		//死亡
 	COIL_STATE_CONTINUE,	//コンティニュー
 	COIL_STATE_CLEAR,		//クリア
 	COIL_STATE_STOP			//停止状態
+};
+
+enum COIL_STATE_SUPER{
+	COIL_STATE_SUPER_CHARGE = 10,
+	COIL_STATE_SUPER_READY,
+	COIL_STATE_SUPER_CHANGING,
+	COIL_STATE_SUPER_MOVE
 };
 
 namespace wiz{
@@ -115,9 +121,7 @@ class PlayerCoil : public MagneticumObject3D{
 	bool			m_bLastMouseRB		;	//	: マウスのRボタンが押されているか
 	bool			m_bLastMouseLB		;	//	: マウスのLボタンが押されているか
 	bool			m_bReadyToStart		;	//	: 発射する準備が出来たか
-	bool			m_bReadyToSuper		;	//	: 無敵状態の準備が出来たか
 	bool			m_bReadyContinue	;	//	: コンティニューする準備が出来たか
-	bool			m_bIsSuperMode		;	//	: 無敵状態のフラグ (無敵状態は他の状態と重なるのでCOIL_STATEに入れない)
 	bool			m_bDrawContinue		;	//	: コンテニュー表示フラグ
 	int				m_iDeadCount		;	//	: 死亡回数
 
@@ -130,7 +134,8 @@ class PlayerCoil : public MagneticumObject3D{
 	ProvisionalPlayer3D*	m_pPlayer					;	//	: ユーザ設置磁界へのポインタ
 	MagneticumObject3D*		m_pMagneticumObject			;	//	: 初期配置磁界へのポインタ
 	DeadEffect*				m_pDeadEffect[PARTICLS_NUM]	;	//	: 死亡時の爆散エフェクトのポインタ
-	COIL_STATE				m_enumCoilState				;
+	COIL_STATE				m_enumCoilState				;	//	: 自分の状態
+	COIL_STATE_SUPER		m_enumCoilStateSuper		;	//	: 無敵状態
 
 	LPDIRECT3DTEXTURE9	m_pDeadTex		;	//爆散エフェクトの画像
 	LPDIRECT3DTEXTURE9	m_pContinueTex	;	//Continue
@@ -508,7 +513,7 @@ public:
 		m_bReadyContinue	= b;
 	}
 	/////////////////// ////////////////////
-	//// 関数名     ：void PlayerCoil::getSuperMode()
+	//// 関数名     ：COIL_STATE_SUPER getSuperMode() const
 	//// カテゴリ   ：ゲッター
 	//// 用途       ：無敵状態を獲得
 	//// 引数       ：なし
@@ -516,15 +521,15 @@ public:
 	//// 担当       ：本多寛之
 	//// 備考       ：
 	////            ：
-	bool getSuperMode() const{
+	COIL_STATE_SUPER getSuperMode() const{
 #if defined( ON_DEBUGGINGPROCESS ) | defined( PRESENTATION ) 
-		if(m_bDebugInvincibleMode) return true ;
+		if(m_bDebugInvincibleMode) return COIL_STATE_SUPER_MOVE ;
 #endif
-		return m_bIsSuperMode  ;
+		return m_enumCoilStateSuper  ;
 	}
 
 	/////////////////// ////////////////////
-	//// 関数名     ：void PlayerCoil::setStartPos(float i_fPosY)
+	//// 関数名     ：void setSuperMode(bool i_vFlg)
 	//// カテゴリ   ：セッター
 	//// 用途       ：
 	//// 引数       ：なし
@@ -532,27 +537,27 @@ public:
 	//// 担当       ：本多寛之
 	//// 備考       ：
 	////            ：
-	void setSuperMode(bool i_vFlg){
-		m_bIsSuperMode = i_vFlg;
+	void setSuperMode(COIL_STATE_SUPER i_State){
+		m_enumCoilStateSuper = i_State;
 	}
 
-	/////////////////// ////////////////////
-	//// 関数名     ：bool getReadyToSuper()
-	//// カテゴリ   ：ゲッター
-	//// 用途       ：m_bReadyToSuperを獲得
-	//// 引数       ：なし
-	//// 戻値       ：なし
-	//// 担当       ：本多寛之
-	//// 備考       ：
-	////            ：
-	bool getReadyToSuper() const{
-		return m_bReadyToSuper;
-	}
+	///////////////////// ////////////////////
+	////// 関数名     ：bool getReadyToSuper()
+	////// カテゴリ   ：ゲッター
+	////// 用途       ：m_bReadyToSuperを獲得
+	////// 引数       ：なし
+	////// 戻値       ：なし
+	////// 担当       ：本多寛之
+	////// 備考       ：
+	//////            ：
+	//bool getReadyToSuper() const{
+	//	return m_bReadyToSuper;
+	//}
 
 	/////////////////// ////////////////////
-	//// 関数名     ：void PlayerCoil::getSuperMode()
+	//// 関数名     ：LPDIRECT3DTEXTURE9 getDeadText()
 	//// カテゴリ   ：ゲッター
-	//// 用途       ：無敵状態を獲得
+	//// 用途       ：m_pDeadTexを獲得
 	//// 引数       ：なし
 	//// 戻値       ：なし
 	//// 担当       ：本多寛之
