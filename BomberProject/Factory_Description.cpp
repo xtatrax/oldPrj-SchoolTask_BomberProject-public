@@ -375,10 +375,10 @@ Factory_Description::Factory_Description(FactoryPacket* fpac){
 		fpac->m_pVec->push_back(
 			new StartSprite(
 					fpac->pD3DDevice,
-					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"START.png" ),
+					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"START2.png" ),
 					D3DXVECTOR3( 1.0f, 1.0f, 0.0f ),
-					D3DXVECTOR3( wide-120.0f, height-100.0f, 0.0f ),
-					&Rect( 0, 0, 240, 64 )
+					D3DXVECTOR3( wide-256.0f, height-100.0f, 0.0f ),
+					&Rect( 0, 0, 512, 128 )
 			)	
 		);
 
