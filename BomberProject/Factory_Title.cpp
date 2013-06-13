@@ -119,7 +119,7 @@ void Title_Select::Update(UpdatePacket& i_UpdatePacket)
 			}
 		}
 		else m_bPushRock	= true;
-			m_Color	= 0xFFFFFFFF;
+			m_Color	= 0xFF88FFFF;
 			if( !m_bSelect ){
 				m_bSelect = true;
 				m_pSound->SearchWaveAndPlay( RCTEXT_SOUND_SE_SELECT );
@@ -128,7 +128,7 @@ void Title_Select::Update(UpdatePacket& i_UpdatePacket)
 		
 	}
 	else{
-		m_Color	= 0xA0FFFFFF;
+		m_Color	= 0xFF8888FF;
 		m_bSelect = false;
 
 		if( g_bMouseLB )	m_bPushRock	= false;
@@ -174,7 +174,7 @@ Factory_Title::Factory_Title(FactoryPacket* fpac){
 				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, /*L"Lightning.tga"*/L"Title_Name005_02.tga" ),
 				D3DXVECTOR3(SCALE_RATE,SCALE_RATE,0.0f),
 				g_vZero,
-				D3DXVECTOR3( 165.0f, 106.0f, 0.0f ),
+				D3DXVECTOR3( 165.0f, 40.0f, 0.0f ),
 				//D3DXVECTOR3( 0.0f, 0.0f, 0.0f ),
 				NULL,
 				g_vZero,
@@ -188,7 +188,7 @@ Factory_Title::Factory_Title(FactoryPacket* fpac){
 				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, /*L"Lightning.tga"*/L"Title_Name005_01.tga" ),
 				D3DXVECTOR3(SCALE_RATE,SCALE_RATE,0.0f),
 				g_vZero,
-				D3DXVECTOR3( 165.0f, 106.0f, 0.0f ),
+				D3DXVECTOR3( 165.0f, 40.0f, 0.0f ),
 				//D3DXVECTOR3( 0.0f, 0.0f, 0.0f ),
 				NULL,
 				g_vZero,
@@ -205,7 +205,7 @@ Factory_Title::Factory_Title(FactoryPacket* fpac){
 					GM_OPENSTAGE_PLAY,
 					D3DXVECTOR3(SCALE_RATE,SCALE_RATE,0.0f),
 					g_vZero,
-					D3DXVECTOR3( 200.0f, 420.0f, 0.0f ),
+					D3DXVECTOR3( 150.0f, 421.0f, 0.0f ),
 					Rect( 0, 0, 168, 42 ),
 					g_vZero,
 					g_vZero,
