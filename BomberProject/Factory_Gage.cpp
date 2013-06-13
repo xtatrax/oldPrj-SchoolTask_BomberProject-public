@@ -194,8 +194,42 @@ SuperGage::SuperGage(
 ,m_vScale( vScale )
 ,m_vRot( vRot )
 ,m_pCursor( NULL )
+,m_pLineTop( NULL )
+,m_pLineLeft( NULL )
+,m_pLineBottom( NULL )
+,m_pLineRight( NULL )
+,m_bAcquired(false)
 {
 	m_fRate = 0.0f;
+
+	const	D3DXVECTOR3	vDirTop		= D3DXVECTOR3( cosf( D3DXToRadian(0.0f) ), sinf( D3DXToRadian(0.0f) ), 0.0f );
+	const	D3DXVECTOR3	vDirLeft	= D3DXVECTOR3( cosf( D3DXToRadian(90.0f) ), sinf( D3DXToRadian(90.0f) ), 0.0f );
+	const	D3DXVECTOR3	vDirBottom	= D3DXVECTOR3( cosf( D3DXToRadian(0.0f) ), sinf( D3DXToRadian(0.0f) ), 0.0f );
+	const	D3DXVECTOR3	vDirRight	= D3DXVECTOR3( cosf( D3DXToRadian(90.0f) ), sinf( D3DXToRadian(90.0f) ), 0.0f );
+	const	float	fRangeW	= 109.0f;
+	const	float	fRangeH	= 5.0f;
+	m_pLineTop		= new Line( g_vZero, vDirTop,	 fRangeW, 0xFF00FFFF );
+	m_pLineLeft		= new Line( g_vZero, vDirLeft,	 fRangeH, 0xFF00FFFF );
+	m_pLineBottom	= new Line( m_pLineLeft->getEndPos(), vDirBottom, fRangeW, 0xFF00FFFF );
+	m_pLineRight	= new Line( m_pLineTop->getEndPos(), vDirRight,	 fRangeH, 0xFF00FFFF );
+}
+
+/////////////////// ////////////////////
+//// 関数名     ：~SuperGage();
+//// カテゴリ   ：デストラクタ
+//// 用途       ：破棄
+//// 引数       ：なし
+//// 戻値       ：なし
+//// 担当者     ：鴫原 徹
+//// 備考       ：
+////            ：
+////
+SuperGage::~SuperGage(){
+	m_pCursor = NULL;
+	SafeDelete( m_pLineTop );
+	SafeDelete( m_pLineLeft );
+	SafeDelete( m_pLineBottom );
+	SafeDelete( m_pLineRight );
 }
 
 /**************************************************************
@@ -217,6 +251,13 @@ void SuperGage::Draw(DrawPacket& i_DrawPacket){
 	m_pRect	= m_FrameRect;
 	SpriteObject::Draw( i_DrawPacket );
 	//Gage::Draw( i_DrawPacket );
+
+	if(m_bAcquired){
+		m_pLineTop->draw(i_DrawPacket.pD3DDevice);
+		m_pLineLeft->draw(i_DrawPacket.pD3DDevice);
+		m_pLineBottom->draw(i_DrawPacket.pD3DDevice);
+		m_pLineRight->draw(i_DrawPacket.pD3DDevice);
+	}
 }
 /////////////////// ////////////////////
 //// 用途       ：void Update( UpdatePacket& i_UpdatePacket )
@@ -238,13 +279,16 @@ void SuperGage::Update( UpdatePacket& i_UpdatePacket ){
 
 	D3DXMATRIX	mPos, mScale, mRot ;
 	D3DXVECTOR3 vPos ;
-	vPos.x	= (float)m_pCursor->get2DPos().x + m_vBassPos.x -  m_GaugeRect.top * m_vScale.x;
+	vPos.x	= (float)m_pCursor->get2DPos().x + m_vBassPos.x - m_GaugeRect.top * m_vScale.x;
 	vPos.y	= (float)m_pCursor->get2DPos().y + m_vBassPos.y;
 	vPos.z	= 0.0f	;
 	D3DXMatrixScaling( &mScale, m_vScale.x/2, m_vScale.y, m_vScale.z );
 	D3DXMatrixRotationYawPitchRoll( &mRot, m_vRot.x, m_vRot.y, m_vRot.z );
 	D3DXMatrixTranslation( &mPos, vPos.x, vPos.y, vPos.z);
 	m_mMatrix	= mScale * mRot * mPos ;
+
+	//アイテム獲得時のエフェクト
+	if(m_bAcquired)Update_Line();
 
 	//ゲージ用に座標のみ再計算
 	vPos.x		= (float)m_pCursor->get2DPos().x + m_vBassPos.x ;
@@ -255,6 +299,52 @@ void SuperGage::Update( UpdatePacket& i_UpdatePacket ){
 	m_GaugeRect.top *= 1.0f - m_fRate ;
 	
 	Debugger::DBGSTR::addStr( L" Rate = %f \n", m_fRate);
+}
+
+/////////////////// ////////////////////
+//// 関数名     ：SuperGage::Update_Line()
+//// カテゴリ   ：関数
+//// 用途       ：Lineの更新
+//// 引数       ：なし
+//// 戻値       ：なし
+//// 担当       ：本多寛之
+//// 備考       ：
+////            ：
+void SuperGage::Update_Line(){
+	D3DXMATRIX		mLineScale, mLinePos;
+	D3DXVECTOR3		vLineScale	= D3DXVECTOR3(1.0f,1.0f,0.0f),vLinePos, 
+					vBaseLinePos = D3DXVECTOR3((float)m_pCursor->get2DPos().x + m_vBassPos.x*0.225f,
+												(float)m_pCursor->get2DPos().y + m_vBassPos.y,0.0f);
+	static float	s_fMovingDistance	= 0.0f; 
+
+	D3DXMatrixScaling( &mLineScale, vLineScale.x, vLineScale.y, vLineScale.z );
+
+	//上部
+	vLineScale;
+	vLinePos	= D3DXVECTOR3(vBaseLinePos.x, vBaseLinePos.y - s_fMovingDistance, 0.0f);
+	D3DXMatrixTranslation( &mLinePos, vLinePos.x, vLinePos.y, vLinePos.z);
+	m_pLineTop->setMatrix( mLineScale * mLinePos );
+
+	//左部
+	vLinePos	= D3DXVECTOR3(vBaseLinePos.x - s_fMovingDistance, vBaseLinePos.y, 0.0f);
+	D3DXMatrixTranslation( &mLinePos, vLinePos.x, vLinePos.y, vLinePos.z);
+	m_pLineLeft->setMatrix( mLineScale * mLinePos );
+
+	//下部
+	vLinePos	= D3DXVECTOR3(vBaseLinePos.x, vBaseLinePos.y + s_fMovingDistance, 0.0f);
+	D3DXMatrixTranslation( &mLinePos, vLinePos.x, vLinePos.y, vLinePos.z);
+	m_pLineBottom->setMatrix( mLineScale * mLinePos );
+
+	//右部
+	vLinePos	= D3DXVECTOR3(vBaseLinePos.x + s_fMovingDistance, vBaseLinePos.y, 0.0f);
+	D3DXMatrixTranslation( &mLinePos, vLinePos.x, vLinePos.y, vLinePos.z);
+	m_pLineRight->setMatrix( mLineScale * mLinePos );
+	
+	s_fMovingDistance	+= 0.8f;
+	if(s_fMovingDistance >= 6.0f){
+		s_fMovingDistance	= 0.0f;
+		m_bAcquired = false;
+	}	
 }
 
 /**************************************************************************
@@ -299,6 +389,19 @@ MagneticGage_N::MagneticGage_N(
 ,m_vScale( vScale )
 {
 	this->m_Color.byteColor.a = byGaugeAlpha ;
+}
+/////////////////// ////////////////////
+//// 関数名     ：~MagneticGage_N();
+//// カテゴリ   ：デストラクタ
+//// 用途       ：破棄
+//// 引数       ：なし
+//// 戻値       ：なし
+//// 担当者     ：鴫原 徹
+//// 備考       ：
+////            ：
+////
+MagneticGage_N::~MagneticGage_N(){
+	m_pCursor  = NULL;
 }
 /////////////////// ////////////////////
 //// 用途       ：void Update( UpdatePacket& i_UpdatePacket )
@@ -384,6 +487,19 @@ MagneticGage_S::MagneticGage_S(
 ,m_vScale( vScale )
 {
 	this->m_Color.byteColor.a = byGaugeAlpha ;
+}
+/////////////////// ////////////////////
+//// 関数名     ：~MagneticGage_N();
+//// カテゴリ   ：デストラクタ
+//// 用途       ：破棄
+//// 引数       ：なし
+//// 戻値       ：なし
+//// 担当者     ：鴫原 徹
+//// 備考       ：
+////            ：
+////
+MagneticGage_S::~MagneticGage_S(){
+	m_pCursor = NULL;
 }
 /////////////////// ////////////////////
 //// 用途       ：void Update( UpdatePacket& i_UpdatePacket )
