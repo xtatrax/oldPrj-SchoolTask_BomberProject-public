@@ -192,7 +192,7 @@ void	Item::Update(UpdatePacket& i_UpdatePacket)
 
 		if( (m_pPlayerCoil->getState() == COIL_STATE_MOVE		//	: コイルが移動中
 			|| m_pPlayerCoil->getState() == COIL_STATE_STICK )	//	: もしく磁界に吸収中
-			&& !m_pPlayerCoil->getSuperMode())					//	: なおかつ	スーパーモードじゃなかったら
+			&& m_pPlayerCoil->getSuperMode() == COIL_STATE_SUPER_CHARGE)					//	: なおかつ	スーパーモードじゃなかったら
 		{
 			//	: 自分から対象までのベクトルを算出
 			D3DXVECTOR3	vTargetDir	= cPos - ((*it)->m_Pos) ;
@@ -214,7 +214,7 @@ void	Item::Update(UpdatePacket& i_UpdatePacket)
 												i		;
 					ALLCONTAINER::iterator		ait		= m_ItemMap_All.find((*it)->m_fMapKey);
 					//エネルギー回復
-					m_pSuperGage->Recovery(-RECOVERY_POINT);
+					m_pSuperGage->Recovery(-(*it)->m_fRecoveryPoint);
 					if(!m_pSuperGage->getAcquired())m_pSuperGage->setAcquired(true);
 					(*it)->m_bHidden = true ;
 					// SafeDelete( (*it) );
@@ -232,8 +232,11 @@ void	Item::Update(UpdatePacket& i_UpdatePacket)
 			}
 			//ゲージが最大になったらコイルを無敵状態に
 			if(m_pSuperGage->getRate() >= 1.0f){
-				m_pPlayerCoil->setSuperMode(true);	
+				m_pPlayerCoil->setSuperMode(COIL_STATE_SUPER_READY);
 			}
+		}
+		if(m_pPlayerCoil->getSuperMode() == COIL_STATE_SUPER_READY && !m_pSuperGage->getAcquired()){
+				m_pSuperGage->setAcquired(true);
 		}
 		//移動用
 		D3DXMATRIX mMove, mScale;
@@ -249,7 +252,7 @@ void	Item::Update(UpdatePacket& i_UpdatePacket)
 
 		it++;
 	}
-	if(m_pPlayerCoil->getState() == COIL_STATE_MOVE && m_pPlayerCoil->getSuperMode() && m_pPlayerCoil->getReadyToSuper()){
+	if(m_pPlayerCoil->getState() == COIL_STATE_MOVE && m_pPlayerCoil->getSuperMode() == COIL_STATE_SUPER_MOVE){
 		static float s_fTimeTotal = 0.0f;
 		s_fTimeTotal += (float)SUPER_GAGE_MAX / (float)COIL_SUPER_MODE_TIME * (float)i_UpdatePacket.pTime->getElapsedTime();
 		if(s_fTimeTotal >= 1.0f){
@@ -281,15 +284,18 @@ void	Item::Update(UpdatePacket& i_UpdatePacket)
 備考　　：
 ***********************************************/
 void	Item::addItem(D3DXVECTOR3 pos, D3DXVECTOR3 size,
-					  D3DCOLORVALUE Diffuse,D3DCOLORVALUE Specular,D3DCOLORVALUE Ambient)
+					  D3DCOLORVALUE Diffuse,D3DCOLORVALUE Specular,D3DCOLORVALUE Ambient, float itemType)
 {
 	try{
 		BallItem* bItem = new BallItem;
 		bItem->m_Pos = pos;
+		bItem->m_Size = size * itemType;
 		bItem->m_fMapKey = pos.y ;
 		bItem->m_bHidden = true ;
-		bItem->m_Size = size;
 		bItem->m_fDistance = 6.0f;
+		bItem->m_fItemType = itemType;
+		if(itemType == ITEM_TYPE_RECOVETY)bItem->m_fRecoveryPoint = RECOVERY_POINT;
+		if(itemType == ITEM_TYPE_RECOVETY_BIG)bItem->m_fRecoveryPoint = RECOVERY_POINT_L;
         // D3DMATERIAL9構造体を0でクリア
         ::ZeroMemory(&bItem->m_Material,sizeof(D3DMATERIAL9));
 		bItem->m_Material.Diffuse = Diffuse;
@@ -322,16 +328,23 @@ Factory_Item::Factory_Item(FactoryPacket* fpac){
         D3DCOLORVALUE BallAmbient = {0.0f,0.7f,0.7f,1.0f};
 		Item*	it	=	new	Item(fpac,NULL,OBJID_UNK);
 
+		//アイテム(小)
 		for(int i = 0; i < 9; i++){
 			for(int j = 0; j < 300; j++){
 				it->addItem(D3DXVECTOR3((float(i)*5.0f+float(rand()%100*0.05f))+1.5f,
 										(float(j)*2.75f+float(rand()%100*0.05f))+1.5f,0.0f),
-							D3DXVECTOR3(0.5f,0.5f,0.5f),
-							BallDiffuse,
-							BallSpecular,
-							BallAmbient);
+							ITEM_SCALE,
+							BallDiffuse,BallSpecular,BallAmbient,
+							ITEM_TYPE_RECOVETY);
 			}
 		}
+
+		//アイテム(大)
+		it->addItem(D3DXVECTOR3(10.0f,10.0f,0.0f),
+					ITEM_SCALE,
+					BallDiffuse,BallSpecular,BallAmbient,
+					ITEM_TYPE_RECOVETY_BIG);
+
 		fpac->m_pVec->push_back(it);
 
 	}
