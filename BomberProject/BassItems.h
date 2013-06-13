@@ -2245,37 +2245,45 @@ class PrimitiveSphere : public Sphere {
 
 /*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 class PrimitivePlate {
-	IDirect3DVertexBuffer9* m_pVB		;
 	LPDIRECT3DTEXTURE9		m_pTexture	;
 	D3DXMATRIX				m_mMatrix	;
+	LPDIRECT3DVERTEXBUFFER9 m_pVertexBuffer;
+	int						m_iPtn;
+	D3DXVECTOR3				m_vPos;
+	float					m_vCameraY;
+
+	//	: 頂点データの定義
 	struct	Vertex
 	{
 		D3DXVECTOR3	vPos ;		//	: 頂点は、位置座標データを持つ
+		float		fRhw ;		//	: 頂点は、変換済み頂点のデータを持つ
 		DWORD		dwColor ;	//	: 頂点は、色データを持つ
-
-		Vertex(){	}														//	: デフォルトコンストラクタ
-		Vertex( const D3DXVECTOR3& i_vPos, DWORD i_dwColor )				//	: 初期化を簡略化するための引数付きコンストラクタ
-			: vPos( i_vPos ), dwColor( i_dwColor )	{	}
-		~Vertex(){	}														//	: デストラクタ
-		static DWORD getFVF(){	return D3DFVF_XYZ | D3DFVF_DIFFUSE ;	}	//	: この頂点データの形式を返す
-		static int	 getSize(){	return sizeof( Vertex );				}	//	: この頂点データのデータサイズを返す
-
-	};
-
-	struct	VertexWTex : public Vertex
-	{
 		D3DXVECTOR2	vTex ;		//	: 頂点は、テクスチャ座標を持つ
-		D3DXVECTOR3	vPos ;		//	: 頂点は、位置座標データを持つ
-		DWORD		dwColor ;	//	: 頂点は、色データを持つ
 
-		VertexWTex(){	}																		//	: デフォルトコンストラクタ
-		VertexWTex( const D3DXVECTOR3& i_vPos, DWORD i_dwColor, const D3DXVECTOR2& i_vTex )		//	: 初期化を簡略化するための引数付きコンストラクタ
-			: vPos( i_vPos ) ,dwColor( i_dwColor ), vTex( i_vTex )	{	}
-		~VertexWTex(){	}																		//	: デストラクタ
-		static DWORD getFVF(){	return D3DFVF_XYZ | D3DFVF_DIFFUSE | D3DFVF_TEX1 ;	}						//	: この頂点データの形式を返す
-		static int	 getSize(){	return sizeof( VertexWTex );	}									//	: この頂点データのデータサイズを返す
+		//	: デフォルトコンストラクタ
+		Vertex()
+		{}
+		//	: 初期化を簡略化するための引数付きコンストラクタ
+		Vertex( const D3DXVECTOR3& i_vPos, DWORD i_dwColor, const D3DXVECTOR2& i_vTex )
+			: vPos( i_vPos ), fRhw(1.0f), dwColor( i_dwColor ), vTex( i_vTex )
+		{}
+		//	: デストラクタ
+		~Vertex()
+		{}
 
+		//	: この頂点データの形式を返す
+		static DWORD	getFVF()
+		{
+			return D3DFVF_XYZRHW | D3DFVF_DIFFUSE | D3DFVF_TEX1 ;
+		}
+
+		//	: この頂点データのデータサイズを返す
+		static int		getSize()
+		{
+			return sizeof( Vertex );
+		}
 	};
+	Vertex	*v ;	//	: 頂点バッファが内包する頂点データへのポインタを格納するためのポインタ
 
 public:
 	PrimitivePlate(LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 i_pTexture = NULL, Color i_Color = 0xFFFF0000);
@@ -2294,7 +2302,13 @@ public:
 	void setMatrix(D3DXMATRIX& i_mMatrix){
 		m_mMatrix = i_mMatrix ;
 	}
+	void	setPtn( int i_iPtn ){
+		m_iPtn	= i_iPtn;
+	}
+
 };
+
+//***********************************************
 class PlateObject : public PrimitivePlate, Object{
 public:
 	PlateObject(LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 i_pTexture = NULL, Color i_Color = 0xFFFF0000)
