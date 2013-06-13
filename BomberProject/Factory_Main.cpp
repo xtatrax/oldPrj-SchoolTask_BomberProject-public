@@ -113,8 +113,8 @@ Factory_Main::Factory_Main(FactoryPacket* fpac, D3DXVECTOR3* vStartPos ){
 		Factory_Coil		Cfac( fpac , vStartPos );
 		//Factory_BG		Wfac( fpac );
 
-		Factory_Magnetic	Mfac( fpac ) ;
-		Factory_Enemy		Efac( fpac ) ;
+		//Factory_Magnetic	Mfac( fpac ) ;
+		//Factory_Enemy		Efac( fpac ) ;
 		Factory_Item		Ifac( fpac ) ;
 		Factory_Description	Dfac( fpac ) ;
 		Factory_Gage		Gfac( fpac );
