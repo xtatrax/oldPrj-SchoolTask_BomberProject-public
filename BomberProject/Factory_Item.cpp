@@ -191,7 +191,7 @@ void	Item::Update(UpdatePacket& i_UpdatePacket)
 	while(it != m_ItemMap_Target.end()){
 
 		if( (m_pPlayerCoil->getState() == COIL_STATE_MOVE		//	: コイルが移動中
-			|| m_pPlayerCoil->getState() == COIL_STATE_STICK )	//	: もしくは	アイテムを吸収中
+			|| m_pPlayerCoil->getState() == COIL_STATE_STICK )	//	: もしく磁界に吸収中
 			&& !m_pPlayerCoil->getSuperMode())					//	: なおかつ	スーパーモードじゃなかったら
 		{
 			//	: 自分から対象までのベクトルを算出
@@ -215,6 +215,7 @@ void	Item::Update(UpdatePacket& i_UpdatePacket)
 					ALLCONTAINER::iterator		ait		= m_ItemMap_All.find((*it)->m_fMapKey);
 					//エネルギー回復
 					m_pSuperGage->Recovery(-RECOVERY_POINT);
+					if(!m_pSuperGage->getAcquired())m_pSuperGage->setAcquired(true);
 					(*it)->m_bHidden = true ;
 					// SafeDelete( (*it) );
 					for( i = 0 ; i < count ; i++ ){
