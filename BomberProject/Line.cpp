@@ -73,7 +73,7 @@ void	Line::draw( const LPDIRECT3DDEVICE9 i_pd3dDevice ) const
 	i_pd3dDevice->SetTexture( 0, NULL );
 	
 	i_pd3dDevice->SetRenderState( D3DRS_LIGHTING, FALSE );
-	i_pd3dDevice->DrawPrimitiveUP( D3DPT_LINELIST, 2, m_Vertices, Vertex::getSize() );
+	i_pd3dDevice->DrawPrimitiveUP( D3DPT_LINELIST, 1, m_Vertices, Vertex::getSize() );
 	i_pd3dDevice->SetRenderState( D3DRS_LIGHTING, TRUE );
 }
 

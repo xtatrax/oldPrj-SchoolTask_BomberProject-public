@@ -140,7 +140,8 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 					i_Data.vScale		,
 					i_Data.Diffuse		,
 					i_Data.Specular		,
-					i_Data.Ambient
+					i_Data.Ambient		,
+					ITEM_TYPE_NULL
 				);
 			}else{
 				//	: “o˜^‚ª‚È‚©‚Á‚½ê‡
@@ -171,7 +172,8 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 					i_Data.vScale		,
 					i_Data.Diffuse		,
 					i_Data.Specular		,
-					i_Data.Ambient
+					i_Data.Ambient		,
+					ITEM_TYPE_NULL
 				);
 
 			}
@@ -921,7 +923,7 @@ void StageLoader2::PartsGenerator(MapPartsStatus i_Data){
 			if((it = m_ObjeTypeMap.find( ObjectID )) != m_ObjeTypeMap.end()){
 				//	: “o˜^‚ğŒ©‚Â‚¯‚½ê‡
 				dynamic_cast< Item* >(( *m_pVec )[it->second])->addItem(
-					i_Data.vPos, i_Data.vScale, i_Data.Diffuse, i_Data.Specular, i_Data.Ambient
+					i_Data.vPos, i_Data.vScale, i_Data.Diffuse, i_Data.Specular, i_Data.Ambient,ITEM_TYPE_NULL
 				);
 			}else{
 				FactoryPacket fpac;
@@ -931,7 +933,7 @@ void StageLoader2::PartsGenerator(MapPartsStatus i_Data){
 				//	: “o˜^‚ª‚È‚©‚Á‚½ê‡
 				Item* mgb = new Item( &fpac, NULL, ObjectID);
 				mgb->addItem(
-					i_Data.vPos, i_Data.vScale, i_Data.Diffuse, i_Data.Specular, i_Data.Ambient
+					i_Data.vPos, i_Data.vScale, i_Data.Diffuse, i_Data.Specular, i_Data.Ambient, ITEM_TYPE_NULL
 				);
 				m_pVec->push_back(mgb);
 				m_ObjeTypeMap.insert( make_pair( ObjectID , m_pVec->size() -1));
