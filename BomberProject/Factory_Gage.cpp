@@ -128,7 +128,6 @@ void Gage::Update( UpdatePacket& i_UpdatePacket ){
 	m_GaugeRect.right  = m_BassRect.left - m_BassRect.right ;
 	m_GaugeRect.right *= 1.0f - m_fRate ;
 	
-	Debugger::DBGSTR::addStr( L" Rate = %f \n", m_fRate);
 }
 
 /**************************************************************
@@ -298,7 +297,6 @@ void SuperGage::Update( UpdatePacket& i_UpdatePacket ){
 	m_GaugeRect.top  = m_BassRect.bottom - m_BassRect.top ;
 	m_GaugeRect.top *= 1.0f - m_fRate ;
 	
-	Debugger::DBGSTR::addStr( L" Rate = %f \n", m_fRate);
 }
 
 /////////////////// ////////////////////

@@ -228,35 +228,35 @@ void MagneticumObject3D::Draw(DrawPacket& i_DrawPacket)
 								end = m_ItemMap_Target.end();
 	while(it != end){
 		Magnet3DItem* pNowItem  = (*it);
-		setPole( pNowItem->m_bMagnetPole );
-		//テクスチャがある場合
-		if(m_pTexture){
-			DWORD wkdword;
-			//現在のテクスチャステータスを得る
-			i_DrawPacket.pD3DDevice->GetTextureStageState(0,D3DTSS_COLOROP,&wkdword);
-			//ステージの設定
-			i_DrawPacket.pD3DDevice->SetTexture(0,m_pTexture);
-			//デフィーズ色とテクスチャを掛け合わせる設定
-			i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLOROP, D3DTOP_MODULATE4X );
-			i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLORARG1, D3DTA_TEXTURE );
-			i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLORARG2, D3DTA_DIFFUSE );
+		//setPole( pNowItem->m_bMagnetPole );
+		////テクスチャがある場合
+		//if(m_pTexture){
+		//	DWORD wkdword;
+		//	//現在のテクスチャステータスを得る
+		//	i_DrawPacket.pD3DDevice->GetTextureStageState(0,D3DTSS_COLOROP,&wkdword);
+		//	//ステージの設定
+		//	i_DrawPacket.pD3DDevice->SetTexture(0,m_pTexture);
+		//	//デフィーズ色とテクスチャを掛け合わせる設定
+		//	i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLOROP, D3DTOP_MODULATE4X );
+		//	i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLORARG1, D3DTA_TEXTURE );
+		//	i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLORARG2, D3DTA_DIFFUSE );
 
-			//i_DrawPacket.pD3DDevice->SetFVF(PlateFVF);
-			// マトリックスをレンダリングパイプラインに設定
-			i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &pNowItem->m_Matrix);
-			//コモンメッシュのDraw()を呼ぶ
-			CommonMesh::Draw(i_DrawPacket);
-			i_DrawPacket.pD3DDevice->SetTexture(0,0);
-			//ステージを元に戻す
-			i_DrawPacket.pD3DDevice->SetTextureStageState(0,D3DTSS_COLOROP,wkdword);
-		}
-		else{
-		//テクスチャがない場合
-			// マトリックスをレンダリングパイプラインに設定
-			i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &pNowItem->m_Matrix);
-			//コモンメッシュのDraw()を呼ぶ
-			CommonMesh::Draw(i_DrawPacket);
-		}
+		//	//i_DrawPacket.pD3DDevice->SetFVF(PlateFVF);
+		//	// マトリックスをレンダリングパイプラインに設定
+		//	i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &pNowItem->m_Matrix);
+		//	//コモンメッシュのDraw()を呼ぶ
+		//	CommonMesh::Draw(i_DrawPacket);
+		//	i_DrawPacket.pD3DDevice->SetTexture(0,0);
+		//	//ステージを元に戻す
+		//	i_DrawPacket.pD3DDevice->SetTextureStageState(0,D3DTSS_COLOROP,wkdword);
+		//}
+		//else{
+		////テクスチャがない場合
+		//	// マトリックスをレンダリングパイプラインに設定
+		//	i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &pNowItem->m_Matrix);
+		//	//コモンメッシュのDraw()を呼ぶ
+		//	CommonMesh::Draw(i_DrawPacket);
+		//}
 		m_pMagneticField->SetPos(pNowItem->m_vPos);
 		m_pMagneticField->setPole(pNowItem->m_bMagnetPole);
 		m_pMagneticField->Update( UpdatePacket( i_DrawPacket ) );

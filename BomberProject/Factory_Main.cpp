@@ -127,7 +127,7 @@ Factory_Main::Factory_Main(FactoryPacket* fpac, D3DXVECTOR3* vStartPos ){
 				OBJID_SYS_SOUND
 			)
 		);
-		/pSound->SearchSoundAndPlay( RCTEXT_SOUND_BGM_PLAY );
+		pSound->SearchSoundAndPlay( RCTEXT_SOUND_BGM_PLAY );
 		pSound->SearchSoundAndPlay( RCTEXT_SOUND_SE_SPARK );
 
 		vector<Object*>::size_type pos = fpac->m_pVec->max_size();

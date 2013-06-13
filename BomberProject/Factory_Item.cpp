@@ -172,7 +172,6 @@ void Item::setDrawTarget(){
 ********************************************************************/
 void	Item::Update(UpdatePacket& i_UpdatePacket)
 {
-	DWORD dwSTime = TLIB::Tempus::TimeGetTime();
 
 	vector<Object*>	Vec	= *(i_UpdatePacket.pVec);
 
@@ -257,8 +256,6 @@ void	Item::Update(UpdatePacket& i_UpdatePacket)
 			s_fTimeTotal -= (int)s_fTimeTotal;
 		}
 	}
-	DWORD dwETime = TLIB::Tempus::TimeGetTime();
-	Debugger::DBGSTR::addStr( L"Item::Update : %f\n", TLIB::Tempus::TwoDwTime2ElapsedTime(dwSTime,dwETime));
 
 }
 
