@@ -11,6 +11,7 @@
 
 #include "stdafx.h"
 #include "DebugWindowMain.h"
+#include <process.h>
 
 namespace Debugger{
 
@@ -27,12 +28,34 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
 
 DebugWindow* DebugWindow::m_pMyInstance = NULL ;
+HANDLE	DebugWindow::m_hMyThread = NULL ;
 
-DebugWindow::DebugWindow(HINSTANCE hInstance, HWND i_hParentWindow, int nShowCmd)
+void DebugWindow::StartThread(START_PACKET pac){
+	m_hMyThread = (HANDLE) _beginthreadex(
+		NULL,
+		0,
+		&DebugWindow::ThreadLauncher,	// ランチャを起動
+		&pac,
+		0,
+		NULL);
+
+}
+
+unsigned __stdcall DebugWindow::ThreadLauncher(void *args){
+	START_PACKET pac = *(START_PACKET*)args;
+	m_pMyInstance = new DebugWindow(pac);
+	//reinterpret_cast<DebugWindow*>(args)(pac);
+	return 0;
+}
+
+DebugWindow::DebugWindow(START_PACKET pac)
 	:m_pClassName( RCTEXT_DEBUGWINDOWCLASSNAME )
 	,m_pWndTitle(  RCTEXT_DEBUGWINDOWTITLE     )
 {
 	try{
+		HINSTANCE hInstance		= pac.hInstance;
+		HWND i_hParentWindow    = pac.i_hParentWindow;
+		int nShowCmd			= pac.nShowCmd;
 		////////// /////////
 		// 
 		//	: WNDCLASSEX構造体の初期化
@@ -94,6 +117,8 @@ DebugWindow::DebugWindow(HINSTANCE hInstance, HWND i_hParentWindow, int nShowCmd
 			m_hWnd,       //取得したウインドウのハンドル
 			nShowCmd    //WinMainに渡されたパラメータ
 		);
+		// WM_PAINTが呼ばれないようにする
+		::ValidateRect(wiz::DxDevice::m_hWnd, 0);
 
 		m_pD3D         = NULL;
 		m_pD3DDevice   = NULL;
@@ -102,7 +127,7 @@ DebugWindow::DebugWindow(HINSTANCE hInstance, HWND i_hParentWindow, int nShowCmd
         if((m_pD3D = ::Direct3DCreate9(D3D_SDK_VERSION)) == 0){
 			::MessageBox(0,
                 L"子ウインドウで\nDirectXの初期化に失敗しました。DirectXインターフェイスが取得できません。",
-                L"DxDevice::DxDevice()",
+                L"DebugWindow::DebugWindow()",
 				MB_OK
                 );
         }
@@ -111,7 +136,7 @@ DebugWindow::DebugWindow(HINSTANCE hInstance, HWND i_hParentWindow, int nShowCmd
         if(FAILED(m_pD3D->GetAdapterDisplayMode(D3DADAPTER_DEFAULT, &d3ddm))) {
 			::MessageBox(0,
                 L"子ウインドウで\n子ウインドウで\n初期化に失敗しました。ディスプレイモードを取得できません。",
-                L"DxDevice::DxDevice()",
+                L"DebugWindow::DebugWindow()",
 				MB_OK
                 );
         }
@@ -148,13 +173,81 @@ DebugWindow::DebugWindow(HINSTANCE hInstance, HWND i_hParentWindow, int nShowCmd
                     // 初期化失敗
 				::MessageBox(0,
 					L"子ウインドウで\nデバイスの初期化に失敗しました。的確なデバイスを取得できません。",
-					L"DxDevice::DxDevice()",
+					L"DebugWindow::DebugWindow()",
 					MB_OK
 					);
                 }
             }
         }
+		MSG msg;    //メッセージ構造体の宣言定義
+		//	: メインスレッドループ
+		while(true)
+		{
+			//	: メセージ解決
+			//	: またわ
+			//	: シーンの描画
+			if(::PeekMessage(&msg,NULL,0,0,PM_REMOVE))
+			{
+				switch(msg.message)
+				{
 
+					default:
+						// メッセージの翻訳とディスパッチ
+						::TranslateMessage(&msg);
+						::DispatchMessage(&msg);
+						break;
+				}
+			}
+			else
+			{  // 処理するメッセージが無いときは描画を行う
+
+
+				// ウィンドウが見えている時だけ描画するための処理
+				WINDOWPLACEMENT wndpl;
+				::GetWindowPlacement(m_hWnd, &wndpl); // ウインドウの状態を取得
+				if((wndpl.showCmd != SW_HIDE) && 
+					(wndpl.showCmd != SW_MINIMIZE) &&
+					(wndpl.showCmd != SW_SHOWMINIMIZED) &&
+					(wndpl.showCmd != SW_SHOWMINNOACTIVE))
+				{
+
+					// ビューポートと深度バッファの初期化とステンシルバッファのクリア
+					if(FAILED(m_pD3DDevice->Clear(0,NULL,               // 初期化する領域は全面
+									D3DCLEAR_STENCIL |                  // ステンシルバッファを指定
+									D3DCLEAR_TARGET |                   // バックバッファを指定
+									D3DCLEAR_ZBUFFER,                   // 深度バッファ（Zバッファ）を指定
+									D3DXCOLOR(0.0f, 0.0f, 0.0f, 1.0f),  // 初期化する色
+									1.0f,                               // 初期化する深度バッファ（Zバッファ）の値
+									0))){                               // 初期化するステンシルバッファの値
+						//失敗したらスロー
+						::MessageBox(0,
+							L"子ウインドウで\nバッファをクリアできません。",
+							L"DebugWindow::DebugWindow()",
+							MB_OK
+						);
+					}
+					// 描画開始宣言
+					if(SUCCEEDED(m_pD3DDevice->BeginScene())) {
+
+
+						m_pD3DDevice->EndScene();
+					}
+
+					// 描画結果の転送
+					if(FAILED(m_pD3DDevice->Present( 0, 0, 0, 0 ))) {
+						// デバイス消失から復帰
+						if(m_pD3DDevice->Reset(&m_D3DPP)!= D3D_OK){
+							//デバイスの復帰に失敗したらスロー
+							::MessageBox(0,
+								L"子ウインドウで\nデバイスを復帰できません。",
+								L"DebugWindow::DebugWindow()",
+								MB_OK
+							);
+						}
+					}
+				}
+			}
+		}
 	}
 	catch(...){
 		throw;

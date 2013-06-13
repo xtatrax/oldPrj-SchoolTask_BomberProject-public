@@ -29,7 +29,7 @@
 #define DEBUG_KEYBORD_ON				/* デバッグ用キーボード操作を有効化 */
 #define CF_OVERLORDNEW_ENABLE			/* 自作のnewを強制化(Manager有効時) */
 #define CF_MEMORYOUTPUTPROCESS_ENABLE	/* 自作メモリ管理システムにより管理されているアイテムのファイルへの書き出しを可能にする(Manager有効時) */
-//#define CF_LOADINGANIMATION			/* ロード画面でアニメーション */
+///#define CF_LOADINGANIMATION			/* ロード画面でアニメーション */
 //#define CF_OVERLORDNEW_ENABLE			/* 自作のnewを強制化 */
 
 //#define CF_DEBUG_TIMEDRAW				/* 時間を描画 */
