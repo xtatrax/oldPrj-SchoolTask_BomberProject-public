@@ -262,8 +262,8 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 		//マトリクス計算
 		D3DXMATRIX mPos, mPos2, mScale, mRotZ, mRotX;
 		D3DXVECTOR3 vCartesian  = ConvertToCartesianCoordinates(1.6f*(m_vScale.x/m_vOriginScale.x), m_fMoveDir);
-		D3DXMatrixTranslation( &mPos  , m_vPos.x , m_vPos.y , m_vPos.z ) ;		//球のPos
-		D3DXMatrixTranslation( &mPos2 , m_vPos.x + vCartesian.x , m_vPos.y + vCartesian.y , m_vPos.z ) ;		//錐のPos
+		D3DXMatrixTranslation( &mPos  , m_vPos.x , m_vPos.y , m_vPos.z ) ;									//球のPos
+		D3DXMatrixTranslation( &mPos2 , m_vPos.x + vCartesian.x , m_vPos.y + vCartesian.y , m_vPos.z ) ;	//錐のPos
 		D3DXMatrixScaling( &mScale, m_vScale.x, m_vScale.y, m_vScale.z);
 		D3DXMatrixRotationZ( &mRotZ, D3DXToRadian( m_fMoveDir - COIL_BASSROT ) ) ;
 		D3DXMatrixRotationX( &mRotX, D3DXToRadian( m_vRot.x ) );
@@ -349,7 +349,7 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 ////            ：  ├ const CONTROLER_STATE*   pCntlState      // コントローラのステータス
 ////            ：  └       Command            pCommand        // コマンド
 //// 戻値       ：なし
-//// 担当       ：佐藤涼
+//// 担当       ：佐藤涼, 曳地 大洋（画像の配置）
 //// 備考       ：
 ////            ：
 ////
@@ -365,13 +365,13 @@ void	PlayerCoil::CreateEffect( UpdatePacket& i_UpdatePacket ){
 	float	height	= BASE_CLIENT_HEIGHT/2;
 
 	m_pDeadChar	= new Dead( i_UpdatePacket.pD3DDevice, m_pDeadCharTex, D3DXVECTOR3( 1.0f, 1.0f, 0.0f ),g_vZero,
-					D3DXVECTOR3( wide-128.0f,height-50.0f,0.0f ),NULL,g_vZero,g_vZero);
+					D3DXVECTOR3( wide-512.0f,height-256.0f,0.0f ),NULL,g_vZero,g_vZero);
 
 	//Continue,Titleロゴの作成
-	m_pSelect	= new Continue( i_UpdatePacket.pD3DDevice, m_pContinueTex, NULL, NULL, true, D3DXVECTOR3(1.0f,1.0f,0.0f),g_vZero,D3DXVECTOR3( wide-128.0f,height-100.0f,0.0f ),
-								Rect( 0,0,256,64 ), g_vZero, g_vZero );
-	m_pSelect2	= new Continue( i_UpdatePacket.pD3DDevice, m_pTitleTex, m_pRethinkingTex, m_pAnswerTex, false, D3DXVECTOR3(1.0f,1.0f,0.0f),
-								g_vZero,D3DXVECTOR3( wide-64.0f,height,0.0f ),Rect( 0,0,128,64 ), g_vZero, g_vZero );
+	m_pSelect	= new Continue( i_UpdatePacket.pD3DDevice, m_pContinueTex, NULL, NULL, true, D3DXVECTOR3(1.0f,1.0f,0.0f),g_vZero,
+								D3DXVECTOR3( wide-256.0f,height-100.0f,0.0f ),Rect( 0,0,512,64 ), g_vZero, g_vZero );
+	m_pSelect2	= new Continue( i_UpdatePacket.pD3DDevice, m_pTitleTex, m_pRethinkingTex, m_pAnswerTex, false, D3DXVECTOR3(1.0f,1.0f,0.0f),g_vZero,
+								D3DXVECTOR3( wide-256.0f,height+100.0f,0.0f ),Rect( 0,0,512,64 ), g_vZero, g_vZero );
 
 	m_iDeadCount++;
 };
@@ -564,15 +564,14 @@ void PlayerCoil::SuperMode( UpdatePacket& i_UpdatePacket ){
 	static bool		s_bSound			= false;
 	static float	s_fSFieldRotZ		= 0.0f;
 
-	if( m_pSound && !s_bSound){
-		m_pSound->SearchWaveAndPlay( RCTEXT_SOUND_SE_INVISIBLE , (BYTE)(COIL_SUPER_MODE_TIME / MGPRM_INVISIBLESOUND_TIME) +1 );
-		s_bSound = true ;
-	}
 	
 	D3DXMATRIX mPos, mScale, mRotZ;
 	//無敵モードに変換し終わるまではゲージを消費しない
 	if(m_bReadyToSuper){
-
+		if( m_pSound && !s_bSound){
+			m_pSound->SearchWaveAndPlay( RCTEXT_SOUND_SE_INVISIBLE , (BYTE)(COIL_SUPER_MODE_TIME / MGPRM_INVISIBLESOUND_TIME) +1 );
+			s_bSound = true ;
+		}
 		if(m_enumCoilState == COIL_STATE_MOVE)
 			s_fTimeCount += (float)i_UpdatePacket.pTime->getElapsedTime();
 
@@ -587,7 +586,7 @@ void PlayerCoil::SuperMode( UpdatePacket& i_UpdatePacket ){
 		D3DXMatrixRotationZ( &mRotZ, D3DXToRadian( s_fSFieldRotZ ) ) ;
 	}
 	else{
-		s_fTimeCount += (float)i_UpdatePacket.pTime->getElapsedTime();
+		s_fTimeCount += (float)i_UpdatePacket.pTime->getElapsedTime()*0.7f;
 		s_fSFieldRotZ += 5.0f;
 		D3DXMatrixTranslation( &mPos  , m_vPos.x , m_vPos.y , m_vPos.z ) ;
 		if(m_vScale.x >= m_vScale.x * s_fTimeCount && m_vScale.y >= m_vScale.y * s_fTimeCount){
@@ -961,10 +960,10 @@ Factory_Coil::Factory_Coil( FactoryPacket* fpac, D3DXVECTOR3* vStartPos  ){
 				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"SuperField.png" ),
 				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"DeadPerticul.png" ),
 				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Continue.png" ),
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Go_Title.png" ),
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"dead.png" ),
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Rethinking.png" ),
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Reply.png" ),
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"GAME_END.png" ),
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"dead6.png" ),
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"REALLY.png" ),
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"YESorNO.png" ),
 				0.0f,0.7f,1.0f,1.0f,vScale,D3DXVECTOR3(90.0f,0.0f,0.0f),vPos,
 				CoilDiffuse,CoilSpecular,CoilAmbient
 				)
