@@ -261,8 +261,8 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 		//マトリクス計算
 		D3DXMATRIX mPos, mPos2, mScale, mRotZ, mRotX;
 		D3DXVECTOR3 vCartesian  = ConvertToCartesianCoordinates(1.6f*(m_vScale.x/m_vOriginScale.x), m_fMoveDir);
-		D3DXMatrixTranslation( &mPos  , m_vPos.x , m_vPos.y , m_vPos.z ) ;		//球のPos
-		D3DXMatrixTranslation( &mPos2 , m_vPos.x + vCartesian.x , m_vPos.y + vCartesian.y , m_vPos.z ) ;		//錐のPos
+		D3DXMatrixTranslation( &mPos  , m_vPos.x , m_vPos.y , m_vPos.z ) ;									//球のPos
+		D3DXMatrixTranslation( &mPos2 , m_vPos.x + vCartesian.x , m_vPos.y + vCartesian.y , m_vPos.z ) ;	//錐のPos
 		D3DXMatrixScaling( &mScale, m_vScale.x, m_vScale.y, m_vScale.z);
 		D3DXMatrixRotationZ( &mRotZ, D3DXToRadian( m_fMoveDir - COIL_BASSROT ) ) ;
 		D3DXMatrixRotationX( &mRotX, D3DXToRadian( m_vRot.x ) );
@@ -562,15 +562,14 @@ void PlayerCoil::SuperMode( UpdatePacket& i_UpdatePacket ){
 	static bool		s_bSound			= false;
 	static float	s_fSFieldRotZ		= 0.0f;
 
-	if( m_pSound && !s_bSound){
-		m_pSound->SearchWaveAndPlay( RCTEXT_SOUND_SE_INVISIBLE , (BYTE)(COIL_SUPER_MODE_TIME / MGPRM_INVISIBLESOUND_TIME) +1 );
-		s_bSound = true ;
-	}
 	
 	D3DXMATRIX mPos, mScale, mRotZ;
 	//無敵モードに変換し終わるまではゲージを消費しない
 	if(m_bReadyToSuper){
-
+		if( m_pSound && !s_bSound){
+			m_pSound->SearchWaveAndPlay( RCTEXT_SOUND_SE_INVISIBLE , (BYTE)(COIL_SUPER_MODE_TIME / MGPRM_INVISIBLESOUND_TIME) +1 );
+			s_bSound = true ;
+		}
 		if(m_enumCoilState == COIL_STATE_MOVE)
 			s_fTimeCount += (float)i_UpdatePacket.pTime->getElapsedTime();
 
@@ -585,7 +584,7 @@ void PlayerCoil::SuperMode( UpdatePacket& i_UpdatePacket ){
 		D3DXMatrixRotationZ( &mRotZ, D3DXToRadian( s_fSFieldRotZ ) ) ;
 	}
 	else{
-		s_fTimeCount += (float)i_UpdatePacket.pTime->getElapsedTime();
+		s_fTimeCount += (float)i_UpdatePacket.pTime->getElapsedTime()*0.7f;
 		s_fSFieldRotZ += 5.0f;
 		D3DXMatrixTranslation( &mPos  , m_vPos.x , m_vPos.y , m_vPos.z ) ;
 		if(m_vScale.x >= m_vScale.x * s_fTimeCount && m_vScale.y >= m_vScale.y * s_fTimeCount){
