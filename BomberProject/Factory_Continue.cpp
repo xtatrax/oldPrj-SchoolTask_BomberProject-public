@@ -1,13 +1,15 @@
 ////////////////////////////// //////////////////////////////
 //	プロジェクト	：BomberProject
-//	ファイル名		：Factory_Wall.cpp
+//	ファイル名		：Factory_Continue.cpp
 //	開発環境		：MSVC++ 2008
 //	最適タブ数		：4
-//	担当者			：鴫原 徹
-//	内包ﾃﾞｰﾀと備考	：メインファクトリー
+//	担当者			：佐藤涼
+//	内包ﾃﾞｰﾀと備考	：コンテニュー
 //					▼
 //	namespace wiz;
-//		class Factory_Wall ;
+//		class Reply ;
+//		class Dead ;
+//		class Continue ;
 //
 #include "StdAfx.h"
 #include "Object.h"
@@ -27,7 +29,7 @@ Reply 定義部
 ////            ：    D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos, RECT* pRect,
 ////            ：    D3DXVECTOR3& vCenter,D3DXVECTOR3& vOffsetPos,Color color = 0xFFFFFFFF);
 //// カテゴリ   ：コンストラクタ
-//// 用途       ：スプライトを描画
+//// 用途       ：タイトルへ戻るの再確認
 //// 引数       ：  LPDIRECT3DDEVICE9 pD3DDevice    // IDirect3DDevice9 インターフェイスへのポインタ
 ////            ：  LPDIRECT3DTEXTURE9 pTexture     // 貼り付けたいテクスチャ
 ////            ：  DWORD next                      // 次の画面
@@ -39,7 +41,7 @@ Reply 定義部
 ////            ：  D3DXVECTOR3& vOffsetPos         // オフセット座標
 ////            ：  Color color = 0xFFFFFFFF        // 色
 //// 戻値       ：なし
-//// 担当者     ：鴫原 徹
+//// 担当者     ：佐藤涼
 //// 備考       ：
 ////            ：
 ////
@@ -132,7 +134,7 @@ Dead 定義部
 ////            ：    D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos, RECT* pRect,
 ////            ：    D3DXVECTOR3& vCenter,D3DXVECTOR3& vOffsetPos,Color color = 0xFFFFFFFF);
 //// カテゴリ   ：コンストラクタ
-//// 用途       ：スプライトを描画
+//// 用途       ：死亡時に表示する文字
 //// 引数       ：  LPDIRECT3DDEVICE9 pD3DDevice    // IDirect3DDevice9 インターフェイスへのポインタ
 ////            ：  LPDIRECT3DTEXTURE9 pTexture     // 貼り付けたいテクスチャ
 ////            ：  DWORD next                      // 次の画面
@@ -144,7 +146,7 @@ Dead 定義部
 ////            ：  D3DXVECTOR3& vOffsetPos         // オフセット座標
 ////            ：  Color color = 0xFFFFFFFF        // 色
 //// 戻値       ：なし
-//// 担当者     ：鴫原 徹
+//// 担当者     ：佐藤涼
 //// 備考       ：
 ////            ：
 ////
@@ -214,7 +216,7 @@ Continue 定義部
 ////            ：    D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos, RECT* pRect,
 ////            ：    D3DXVECTOR3& vCenter,D3DXVECTOR3& vOffsetPos,Color color = 0xFFFFFFFF);
 //// カテゴリ   ：コンストラクタ
-//// 用途       ：スプライトを描画
+//// 用途       ：コンテニューするか確認
 //// 引数       ：  LPDIRECT3DDEVICE9 pD3DDevice    // IDirect3DDevice9 インターフェイスへのポインタ
 ////            ：  LPDIRECT3DTEXTURE9 pTexture     // 貼り付けたいテクスチャ
 ////            ：  DWORD next                      // 次の画面
@@ -226,7 +228,7 @@ Continue 定義部
 ////            ：  D3DXVECTOR3& vOffsetPos         // オフセット座標
 ////            ：  Color color = 0xFFFFFFFF        // 色
 //// 戻値       ：なし
-//// 担当者     ：鴫原 徹
+//// 担当者     ：佐藤涼
 //// 備考       ：
 ////            ：
 ////
@@ -335,24 +337,10 @@ void Continue::Update(UpdatePacket& i_UpdatePacket)
 					if( m_bMark )
 						m_pCoil->setReadyContinue(true);
 					else{
-						//float	wide	= BASE_CLIENT_WIDTH/2;
-						//float	height	= BASE_CLIENT_HEIGHT/2;
-
-						//SAFE_DELETE( m_pRethinking );
-						//m_pRethinking	= new SpriteObject( i_UpdatePacket.pD3DDevice, m_pRethinkingTex, D3DXVECTOR3(1.0f,1.0f,0.0f), g_vZero,
-						//								D3DXVECTOR3( wide-128.0f,height-100.0f,0.0f ),Rect( 0,0,256,64 ), g_vZero, g_vZero  );
-						//SAFE_DELETE( m_pReply_Yes );
-						//m_pReply_Yes	= new Reply(  i_UpdatePacket.pD3DDevice, m_pAnswerTex, true, D3DXVECTOR3(1.0f,1.0f,0.0f), g_vZero,
-						//								D3DXVECTOR3( wide-100.0f-64.0f,height+100.0f,0.0f ),Rect( 0,0,128,64 ), g_vZero, g_vZero  );
-						//SAFE_DELETE( m_pReply_No );
-						//m_pReply_No		= new Reply(  i_UpdatePacket.pD3DDevice, m_pAnswerTex, false, D3DXVECTOR3(1.0f,1.0f,0.0f), g_vZero,
-						//								D3DXVECTOR3( wide+100.0f-64.0f,height+100.0f,0.0f ),Rect( 128,0,256,64 ), g_vZero, g_vZero  );
-
 						if( m_pReply_No != NULL){
 							m_pReply_No->setWhichDraw( false );
 						}
 						m_bWhichDraw	= false;
-						//i_UpdatePacket.pCommand->m_Command	= GM_OPENSTAGE_TITLE;
 					}
 					m_bPushRock	= false;
 				}

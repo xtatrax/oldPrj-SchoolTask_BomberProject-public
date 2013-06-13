@@ -1,13 +1,13 @@
 ////////////////////////////// //////////////////////////////
 //	プロジェクト	：BomberProject
-//	ファイル名		：Factory_CheckPoint.h
+//	ファイル名		：Factory_DeadEffect.cpp
 //	開発環境		：MSVC++ 2008
 //	最適タブ数		：4
-//	担当者			：鴫原 徹 本多寛之(編集)
-//	内包ﾃﾞｰﾀと備考	：メインファクトリー
+//	担当者			：佐藤涼
+//	内包ﾃﾞｰﾀと備考	：爆散エフェクト
 //					▼
 //	namespace wiz;
-//		class Factory_CheckPoint ;
+//		class DeadEffect ;
 //
 #pragma once
 
