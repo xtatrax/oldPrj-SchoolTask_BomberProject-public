@@ -451,8 +451,9 @@ public:
 			if(m_bDrawFlag){
 				m_lpDebagFont->DrawText(NULL,str.c_str(), -1, NULL
 					, 0 , D3DCOLOR_ARGB(255, 255, 255, 0));
-				str  = L"\n\n\nデバッグ                                                                                                                                               F12:停止\n";
-				str += L"                                                                                                     コントローラー＝キーボード / A = X / B = C / X = S / Y = D /  \n";
+				str   = L"\n\n[ENTER]RESTART : [ALT+ENTER]CSVRELOAD : [CONTROL]INVISIBLE MODE : [F6]SOUND SWITCH : [F7]OBB DRAW : [F8]MEMORY OUTPUT : [F9]DBGSTR OUTPUT : [F11]1FPS MODE : [F12] UPDATE STOP\n";
+				str  += L"\nデバッグ\n";
+				//str += L"                                                                                                     コントローラー＝キーボード / A = X / B = C / X = S / Y = D /  \n";
 			}
 		#endif
 	}

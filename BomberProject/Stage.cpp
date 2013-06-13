@@ -115,7 +115,7 @@ void Stage::Update(UpdatePacket& i_UpdatePacket)
 	fSlowAccumulator = 0 ;
 #endif
 	if(m_bUpdate){
-		clock_t sc = TLIB::Tempus::getClock();
+		//clock_t sc = TLIB::Tempus::getClock();
 		//配置オブジェクトの描画
 		vector<Object*>::iterator it = m_Vec.begin();
 		while( it != m_Vec.end() ){
@@ -130,8 +130,8 @@ void Stage::Update(UpdatePacket& i_UpdatePacket)
 			}
 			it++;
 		}
-		clock_t nc = TLIB::Tempus::getClock();
-		Debugger::DBGSTR::addStr( L" Update時間 : %f\n", TLIB::Tempus::TwoDwTime2ElapsedTime(sc,nc));
+		//clock_t nc = TLIB::Tempus::getClock();
+		//Debugger::DBGSTR::addStr( L" Update時間 : %f\n", TLIB::Tempus::TwoDwTime2ElapsedTime(sc,nc));
 	}
 }
 /////////////////// ////////////////////
@@ -147,7 +147,7 @@ void Stage::Update(UpdatePacket& i_UpdatePacket)
 void Stage::Render(RenderPacket& i_RenderPacket){
 	i_RenderPacket.pVec		= &m_Vec	;
 	i_RenderPacket.pTxMgr	= &m_TexMgr ; 
-	clock_t sc = TLIB::Tempus::getClock();
+	//clock_t sc = TLIB::Tempus::getClock();
 	//配置オブジェクトの描画
 	vector<Object*>::iterator it = m_Vec.begin();
 	while( it != m_Vec.end() ){
@@ -159,8 +159,8 @@ void Stage::Render(RenderPacket& i_RenderPacket){
 		}
 		it++;
 	}
-	clock_t nc = TLIB::Tempus::getClock();
-	Debugger::DBGSTR::addStr( L" Render時間 : %f\n", TLIB::Tempus::TwoDwTime2ElapsedTime(sc,nc));
+	//clock_t nc = TLIB::Tempus::getClock();
+	//Debugger::DBGSTR::addStr( L" Render時間 : %f\n", TLIB::Tempus::TwoDwTime2ElapsedTime(sc,nc));
 
 }
 
@@ -179,7 +179,7 @@ void Stage::Draw(DrawPacket& i_DrawPacket)
 	try{
 		i_DrawPacket.pVec = &m_Vec ;
 		i_DrawPacket.pTxMgr	= &m_TexMgr ; 
-		clock_t sc = TLIB::Tempus::getClock();
+		//clock_t sc = TLIB::Tempus::getClock();
 		//配置オブジェクトの描画
 		vector<Object*>::size_type sz = m_Vec.size();
 		for(vector<Object*>::size_type i = 0;i < sz;i++){
@@ -188,8 +188,8 @@ void Stage::Draw(DrawPacket& i_DrawPacket)
 			m_Vec[i]->AccessEnd();
 	//::MessageBoxA( wiz::DxDevice::m_hWnd,"doro-","kita",0);
 		}
-		clock_t nc = TLIB::Tempus::getClock();
-		Debugger::DBGSTR::addStr( L"   Draw時間 : %f\n", TLIB::Tempus::TwoDwTime2ElapsedTime(sc,nc));
+		//clock_t nc = TLIB::Tempus::getClock();
+		//Debugger::DBGSTR::addStr( L"   Draw時間 : %f\n", TLIB::Tempus::TwoDwTime2ElapsedTime(sc,nc));
 	}
 	catch(exception& e){
         throw e;

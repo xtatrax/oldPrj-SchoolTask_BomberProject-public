@@ -255,8 +255,8 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 		}
 
 		//デバック用-----------------------------------------------------------
-		Debugger::DBGSTR::addStr( L"角度 = %f\n",m_fMoveDir);
-		Debugger::DBGSTR::addStr( L"状態 = %d\n",m_enumCoilState);
+		//Debugger::DBGSTR::addStr( L"角度 = %f\n",m_fMoveDir);
+		//Debugger::DBGSTR::addStr( L"状態 = %d\n",m_enumCoilState);
 		//-----------------------------------------------------------------------
 
 		//マトリクス計算

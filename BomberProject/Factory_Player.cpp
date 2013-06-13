@@ -120,42 +120,45 @@ void ProvisionalPlayer3D::Draw(DrawPacket& i_DrawPacket)
 		if( m_bDrawing ){ 
 			if( m_pSound && !m_bPlaySound ){
 				m_bPlaySound = true ;
-				m_pSound->SearchWaveAndPlay( RCTEXT_SOUND_SE_SETFIELD ) ;
+				m_pSound->SearchSoundAndPlay( RCTEXT_SOUND_SE_SETFIELD ) ;
 			}
-			//テクスチャがある場合
-			if(m_pTexture){
-				DWORD wkdword;
-				//現在のテクスチャステータスを得る
-				i_DrawPacket.pD3DDevice->GetTextureStageState(0,D3DTSS_COLOROP,&wkdword);
-				//ステージの設定
-				i_DrawPacket.pD3DDevice->SetTexture(0,m_pTexture);
-				//デフィーズ色とテクスチャを掛け合わせる設定
-				i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLOROP, D3DTOP_MODULATE4X );
-				i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLORARG1, D3DTA_TEXTURE );
-				i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLORARG2, D3DTA_DIFFUSE );
+			////テクスチャがある場合
+			//if(m_pTexture){
+			//	DWORD wkdword;
+			//	//現在のテクスチャステータスを得る
+			//	i_DrawPacket.pD3DDevice->GetTextureStageState(0,D3DTSS_COLOROP,&wkdword);
+			//	//ステージの設定
+			//	i_DrawPacket.pD3DDevice->SetTexture(0,m_pTexture);
+			//	//デフィーズ色とテクスチャを掛け合わせる設定
+			//	i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLOROP, D3DTOP_MODULATE4X );
+			//	i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLORARG1, D3DTA_TEXTURE );
+			//	i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLORARG2, D3DTA_DIFFUSE );
 
-				//i_DrawPacket.pD3DDevice->SetFVF(PlateFVF);
-				// マトリックスをレンダリングパイプラインに設定
-				i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &/*it->second->*/m_Matrix);
-				//コモンメッシュのDraw()を呼ぶ
-				CommonMesh::Draw(i_DrawPacket);
-				i_DrawPacket.pD3DDevice->SetTexture(0,0);
-				//ステージを元に戻す
-				i_DrawPacket.pD3DDevice->SetTextureStageState(0,D3DTSS_COLOROP,wkdword);
-			}
-			else{
-			//テクスチャがない場合
-				// マトリックスをレンダリングパイプラインに設定
-				i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &/*it->second->*/m_Matrix);
-				//コモンメッシュのDraw()を呼ぶ
-				CommonMesh::Draw(i_DrawPacket);
-			}
+			//	//i_DrawPacket.pD3DDevice->SetFVF(PlateFVF);
+			//	// マトリックスをレンダリングパイプラインに設定
+			//	i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &/*it->second->*/m_Matrix);
+			//	//コモンメッシュのDraw()を呼ぶ
+			//	CommonMesh::Draw(i_DrawPacket);
+			//	i_DrawPacket.pD3DDevice->SetTexture(0,0);
+			//	//ステージを元に戻す
+			//	i_DrawPacket.pD3DDevice->SetTextureStageState(0,D3DTSS_COLOROP,wkdword);
+			//}
+			//else{
+			////テクスチャがない場合
+			//	// マトリックスをレンダリングパイプラインに設定
+			//	i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &/*it->second->*/m_Matrix);
+			//	//コモンメッシュのDraw()を呼ぶ
+			//	CommonMesh::Draw(i_DrawPacket);
+			//}
 			m_pMagneticField->Draw(i_DrawPacket);
 			m_pMagneticField2->Draw(i_DrawPacket);
 			m_pMagneticField3->Draw(i_DrawPacket);
 			m_pMagneticField4->Draw(i_DrawPacket);
 		}
-		else	m_pSound->SoundPause(RCTEXT_SOUND_SE_SETFIELD);
+		else{
+			m_bPlaySound = false ;
+			m_pSound->SoundPause(RCTEXT_SOUND_SE_SETFIELD);
+		}
 	}else{
 		m_bPlaySound = false ;
 		m_pSound->SoundPause( RCTEXT_SOUND_SE_SETFIELD );
@@ -184,7 +187,6 @@ void ProvisionalPlayer3D::Update( UpdatePacket& i_UpdatePacket ){
 	RECT rc;
 	::GetClientRect(wiz::DxDevice::m_hWnd, &rc);
 
-	Debugger::DBGSTR::addStr( L" Pos( %f, %f, %f )\n" , m_vPos.x , m_vPos.y, m_vPos.z ) ;
 
 	if( m_pPlayerCoil->getState() == COIL_STATE_MOVE || m_pPlayerCoil->getState() == COIL_STATE_STICK ){
 		if( (g_bMouseLB || g_bMouseRB) && !(g_bMouseLB && g_bMouseRB)){ 
@@ -439,7 +441,6 @@ void	MagneticField::Update(UpdatePacket& i_UpdatePacket)
 				
 			}
 			//移動用
-			Debugger::DBGSTR::addStr(L"*************************************************\n");
 		}
 	}
 	else{
@@ -454,11 +455,8 @@ void	MagneticField::Update(UpdatePacket& i_UpdatePacket)
 				
 			}
 			//移動用
-			Debugger::DBGSTR::addStr(L"*************************************************\n");
 		}
 	}
-	Debugger::DBGSTR::addStr(L"半径1 %f\n", m_Radius1);
-	Debugger::DBGSTR::addStr(L"半径2 %f\n", m_Radius2);
 	D3DXMatrixTranslation(&mMove, m_Pos.x, m_Pos.y, m_Pos.z);
 	D3DXMatrixScaling( &mScale, m_Radius1/m_vNormalSize.x, m_Radius2/m_vNormalSize.y, 1.0f );
 	m_mMatrix	= mScale * mMove;
