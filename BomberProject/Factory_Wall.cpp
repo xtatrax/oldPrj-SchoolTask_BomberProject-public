@@ -50,7 +50,7 @@ WallObject::WallObject( LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTextur
 ,m_pTitleTex( pTexture5 )
 ,m_Ptn(0)
 ,m_pSound( NULL )
-,m_Plate( pD3DDevice, pTexture, 0xFFFFFFFF )
+,m_Plate( pD3DDevice, pTexture2, 0xFFFFFFFF )
 {
 	::ZeroMemory( &m_Material, sizeof(D3DMATERIAL9));
 	m_pPlayerCoil	= NULL;
@@ -59,6 +59,7 @@ WallObject::WallObject( LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTextur
 	m_Material.Ambient	= getD3DCOLORVALUE(0.0f,0.5f,0.5f,0.5f);
 	m_Material.Diffuse	= getD3DCOLORVALUE(0.0f,0.7f,0.7f,0.7f);
 	m_Material.Specular	= getD3DCOLORVALUE(0.0f,0.0f,0.0f,0.0f);
+
 }
 /////////////////// ////////////////////
 //// 用途       ：~WallObject();
@@ -203,8 +204,8 @@ void WallObject::Draw(DrawPacket& i_DrawPacket)
 
 			D3DXMATRIX m ;
 			//D3DXMatrixScale( &m, );
-			m_Plate.setMatrix((*it)->m_Matrix);
-			m_Plate.Draw(i_DrawPacket);
+			//m_Plate.setMatrix((*it)->m_Matrix);
+			//m_Plate.Draw(i_DrawPacket);
 		}
 		else{
 		//テクスチャがない場合
@@ -275,6 +276,7 @@ void WallObject::Update( UpdatePacket& i_UpdatePacket ){
 		if(m_pEnemy){
 			m_pEnemy->HitTestWall( (*it)->m_Obb );
 		}
+
 		++it;
 	}
 
@@ -293,7 +295,8 @@ void WallObject::Update( UpdatePacket& i_UpdatePacket ){
 	//***********************************************************************************
 
 	++m_Ptn;
-	static	int	s_Time	= 0;
+	m_Plate.setPtn( m_Ptn );
+	//static	int	s_Time	= 0;
 
 }
 
