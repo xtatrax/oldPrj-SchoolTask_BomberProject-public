@@ -107,7 +107,7 @@ void	Score::update_Matrix(int i){
 
 	D3DXMATRIX mScale,mRot,mPos;
 	D3DXMatrixScaling(&mScale,m_vScale.x,m_vScale.y,m_vScale.z);
-	D3DXMatrixTranslation(&mPos,m_vPos.x+(i*25.0f),m_vPos.y,m_vPos.z);
+	D3DXMatrixTranslation(&mPos,m_vPos.x+(i*20.0f),m_vPos.y,m_vPos.z);
 	m_mMatrix = mScale * mPos ;
 }
 
@@ -246,11 +246,11 @@ Factory_Score::Factory_Score(FactoryPacket *fpac){
 		//DeadCount
 		fpac->m_pVec->push_back(
 			new SpriteObject( fpac->pD3DDevice,
-					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"DeadCountChar.png" ),
+					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"dead_count1.png" ),
 					D3DXVECTOR3( 0.5f, 0.5f, 0.0f ),
 					g_vZero,
-					D3DXVECTOR3( 860.0f, 13.0f, 0.0f ),					
-					&Rect( 0, 0, 256, 64 ),
+					D3DXVECTOR3( 760.0f, 13.0f, 0.0f ),					
+					&Rect( 0, 0, 512, 64 ),
 					g_vZero,
 					g_vZero
 			)
@@ -259,11 +259,11 @@ Factory_Score::Factory_Score(FactoryPacket *fpac){
 		//NowPos
 		fpac->m_pVec->push_back(
 			new SpriteObject( fpac->pD3DDevice,
-					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"NowPosChar.png" ),
+					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"MAX_RANGE1.png" ),
 					D3DXVECTOR3( 0.5f, 0.5f, 0.0f ),
 					g_vZero,
-					D3DXVECTOR3( 860.0f, 42.0f, 0.0f ),					
-					&Rect( 0, 0, 256, 64 ),
+					D3DXVECTOR3( 760.0f, 80.0f, 0.0f ),					
+					&Rect( 0, 0, 512, 64 ),
 					g_vZero,
 					g_vZero
 			)
@@ -272,9 +272,9 @@ Factory_Score::Factory_Score(FactoryPacket *fpac){
 		//Ž€–S‰ñ”
 		fpac->m_pVec->push_back(
 			new DeadScore( fpac->pD3DDevice,
-					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Score.png" ),
+					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Number_Base1.png" ),
 					D3DXVECTOR3( 0.4f, 0.4f, 0.0f ),
-					D3DXVECTOR3( 750.0f, 10.0f, 0.0f ),					
+					D3DXVECTOR3( 900.0f, 40.0f, 0.0f ),					
 					//D3DXVECTOR3( 880.0f, 50.0f, 0.0f ),					
 					&Rect( 0, 0, 512, 64 )
 			)
@@ -283,9 +283,9 @@ Factory_Score::Factory_Score(FactoryPacket *fpac){
 		//“ž’B’n“_
 		fpac->m_pVec->push_back(
 			new ArrivalPos( fpac->pD3DDevice,
-					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Score.png" ),
+					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Number_Base2.png" ),
 					D3DXVECTOR3( 0.4f, 0.4f, 0.0f ),
-					D3DXVECTOR3( 750.0f, 40.0f, 0.0f ),					
+					D3DXVECTOR3( 900.0f, 110.0f, 0.0f ),					
 					//D3DXVECTOR3( 880.0f, 90.0f, 0.0f ),					
 					&Rect( 0, 0, 512, 64 )
 			)
