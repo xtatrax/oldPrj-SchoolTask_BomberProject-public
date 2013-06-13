@@ -18,6 +18,7 @@
 #include "StdAfx.h"
 #include "Object.h"
 #include "Factory_Cursor.h"
+#include "Line.h"
 
 const	int		SUPER_GAGE_MAX		= 512;
 const	int		MAGNETIC_GAGE_MAX	= 256;
@@ -92,11 +93,16 @@ class SuperGage : public SpriteObject
 担当者：佐藤涼 本多寛之(編集)
 *************************************************/
 class SuperGage : public Gage{
-	D3DXVECTOR3		m_vBassPos;
-	MouseCursor*	m_pCursor;
-	D3DXMATRIX		m_Matrix;
-	D3DXVECTOR3		m_vScale;	//	: 伸縮
-	D3DXVECTOR3		m_vRot;		//	: 回転
+	D3DXVECTOR3		m_vBassPos		;
+	MouseCursor*	m_pCursor		;
+	D3DXMATRIX		m_Matrix		;
+	D3DXVECTOR3		m_vScale		;	//	: 伸縮
+	D3DXVECTOR3		m_vRot			;	//	: 回転
+	Line*			m_pLineTop		;
+	Line*			m_pLineLeft		;
+	Line*			m_pLineBottom	;
+	Line*			m_pLineRight	;
+	bool			m_bAcquired		;
 public:
 	SuperGage(
 		LPDIRECT3DDEVICE9	pD3DDevice	,		//	: デバイス
@@ -108,9 +114,44 @@ public:
 		RECT				FrameRect	,		//	: 描画範囲
 		wiz::OBJID			id=OBJID_UI_SUPERGAUGE	//	: ID
 	);
-
+	~SuperGage();
     void	Draw(DrawPacket& i_DrawPacket) ;
 	void	Update( UpdatePacket& i_UpdatePacket );
+	/////////////////// ////////////////////
+	//// 関数名     ：Update_Line()
+	//// カテゴリ   ：関数
+	//// 用途       ：Lineの更新
+	//// 引数       ：なし
+	//// 戻値       ：なし
+	//// 担当       ：本多寛之
+	//// 備考       ：
+	////            ：
+	void Update_Line();
+
+	/////////////////// ////////////////////
+	//// 関数名     ：setAcquired(bool i_bFlg)
+	//// カテゴリ   ：セッター
+	//// 用途       ：
+	//// 引数       ：なし
+	//// 戻値       ：なし
+	//// 担当       ：本多寛之
+	//// 備考       ：
+	////            ：
+	void setAcquired(bool i_bFlg){
+		m_bAcquired = i_bFlg;
+	}
+	/////////////////// ////////////////////
+	//// 関数名     ：bool getAcquired()
+	//// カテゴリ   ：ゲッター
+	//// 用途       ：m_bAcquiredを獲得
+	//// 引数       ：なし
+	//// 戻値       ：m_bAcquired
+	//// 担当       ：本多寛之
+	//// 備考       ：
+	////            ：
+	bool getAcquired() const{
+		return m_bAcquired;
+	}
 };
 
 /************************************************
@@ -132,6 +173,8 @@ public:
 		RECT				FrameRect	,		//	: 描画範囲
 		wiz::OBJID			id=OBJID_UI_MAGNETGAUGE_N	//	: ID
 	);
+	
+	~MagneticGage_N();
 
 	/////////////////// ////////////////////
 	//// 用途       ：void Update( UpdatePacket& i_UpdatePacket )
@@ -171,6 +214,8 @@ public:
 		RECT				FrameRect	,		//	: 描画範囲
 		wiz::OBJID			id = OBJID_UI_MAGNETGAUGE_S	//	: ID
 	);
+
+	~MagneticGage_S();
 
 	/////////////////// ////////////////////
 	//// 用途       ：void Update( UpdatePacket& i_UpdatePacket )
