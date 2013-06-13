@@ -182,9 +182,7 @@ void MouseCursor::Update2DPos(){
 	//	: カーソルの設定
 	//	: マウスのクライアント座標を獲得
 	GetCursorPos( &m_v2DPos ) ;
-	Debugger::DBGSTR::addStr( L" Pos( %d, %d )\n" , m_v2DPos.x , m_v2DPos.y ) ;
 	ScreenToClient( wiz::DxDevice::m_hWnd , &m_v2DPos) ;
-	Debugger::DBGSTR::addStr( L" Pos( %d, %d )\n" , m_v2DPos.x , m_v2DPos.y ) ;
 
 	
 }
@@ -200,7 +198,6 @@ void MouseCursor::Update3DPos(){
 		);
 		SetBasePos( m_v3DPos );
 
-		Debugger::DBGSTR::addStr( L" Pos( %f, %f, %f )\n" , m_v3DPos.x , m_v3DPos.y, m_v3DPos.z ) ;
 
 		Box::CalcWorldMatrix();
 	}
