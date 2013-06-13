@@ -4519,8 +4519,8 @@ PrimitivePlate::PrimitivePlate( LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9
 					);
 			}
 			//バッファをロック
-			VOID* pVertices;
-			if(FAILED( m_pVB->Lock( 0, sizeof(VertexWTex),( void** )&pVertices, 0 ))){
+			//VOID* pVertices;
+			if(FAILED( m_pVB->Lock( 0, 0,( void** )&Vertices, 0 ))){
 				// 初期化失敗
 				throw BaseException(
 					L"頂点バッファのロックに失敗しました。",
@@ -4546,8 +4546,8 @@ PrimitivePlate::PrimitivePlate( LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9
 					);
 			}
 			//バッファをロック
-			VOID* pVertices;
-			if(FAILED( m_pVB->Lock( 0, sizeof(Vertex),( void** )&pVertices, 0 ))){
+			//VOID* pVertices;
+			if(FAILED( m_pVB->Lock( 0, 0,( void** )&Vertices, 0 ))){
 				// 初期化失敗
 				throw BaseException(
 					L"頂点バッファのロックに失敗しました。",
@@ -4571,6 +4571,28 @@ PrimitivePlate::PrimitivePlate( LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9
         //再スロー
         throw;
     }
+}
+void PrimitivePlate::Draw(DrawPacket &i_DrawPacket){
+
+	LPDIRECT3DDEVICE9 pD3DDevice = i_DrawPacket.pD3DDevice ;
+
+		// マトリックスをレンダリングパイプラインに設定
+	pD3DDevice->SetTransform(D3DTS_WORLD, &m_mMatrix);
+	//	pD3DDevice->SetFVF(D3DFVF_XYZ|D3DFVF_DIFFUSE);
+
+	//	: 頂点バッファを用いてモデルを描画する
+	pD3DDevice->SetStreamSource( 0, m_pVB, 0, Vertex::getSize() );	//	: 描画対象となる頂点バッファを設定
+	if( m_pTexture ){
+		pD3DDevice->SetFVF( VertexWTex::getFVF() );										//	: 頂点データの形式を設定
+		pD3DDevice->SetTexture( 0, m_pTexture );											//	: テクスチャを設定（NULL の場合はテクスチャ無し）
+	}else{
+		pD3DDevice->SetFVF( VertexWTex::getFVF() );										//	: 頂点データの形式を設定	
+	}
+		//pD3DDevice->SetRenderState( D3DRS_LIGHTING,FALSE);
+		//pD3DDevice->LightEnable( 0, FALSE );
+	pD3DDevice->DrawPrimitive( D3DPT_TRIANGLESTRIP, 0, 2 );						//	: 頂点データの描画（描画の仕方、描画開始位置、プリミティブ数）
+		//pD3DDevice->SetRenderState( D3DRS_LIGHTING,TRUE);
+		//pD3DDevice->LightEnable( 0, TRUE );
 }
 /**************************************************************************
  class DrawSphere 定義部

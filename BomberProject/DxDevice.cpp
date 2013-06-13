@@ -264,18 +264,12 @@ int DxDevice::MainThreadRun(){
 				/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 					//	: シングルスレッド宣言がされていたら
 					//	: ここでマウスの状態を獲得する
-				case WM_LBUTTONDOWN :
-					g_bMouseLB = true;
-					break ; 
-				case WM_LBUTTONUP:
-					g_bMouseLB = false;
-					break;
-				case WM_RBUTTONDOWN :
-					g_bMouseRB = true;
-					break ;
-				case WM_RBUTTONUP:
-					g_bMouseRB = false;
-					break;
+				case WM_LBUTTONDOWN	:	g_bMouseLB = true	;	break ; 
+				case WM_RBUTTONDOWN :	g_bMouseRB = true	;	break ;
+				case WM_MBUTTONDOWN	:	g_bMouseMB = true	;	break ;
+				case WM_LBUTTONUP	:	g_bMouseLB = false	;	break ;
+				case WM_RBUTTONUP	:	g_bMouseRB = false	;	break ;
+				case WM_MBUTTONUP	:	g_bMouseMB = false	;	break ;
 				/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 				#endif
 

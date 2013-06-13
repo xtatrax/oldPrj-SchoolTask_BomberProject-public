@@ -112,6 +112,7 @@ static const wstring		g_sDefaultTexturePath		= L"media/Textures/" ;	//	: ÉeÉNÉXÉ
       //extern HWND			wiz::DxDevice::m_hWnd		;
       extern bool			g_bMouseLB	;
       extern bool			g_bMouseRB	;
+      extern bool			g_bMouseMB	;
 
 //	
 //////////
