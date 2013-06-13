@@ -97,7 +97,7 @@ MagneticumObject3D::MagneticumObject3D(
 				   D3DCOLORVALUE(),
 				   D3DCOLORVALUE(),
 				   id,
-				   pTexture)
+				   NULL)
 ,m_bMagnetPole( POLE_S )
 ,m_fMagneticum((float)MGPRM_MAGNETICUM)
 ,m_pMagneticField( NULL )

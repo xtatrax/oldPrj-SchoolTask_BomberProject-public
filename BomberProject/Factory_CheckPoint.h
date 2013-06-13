@@ -198,9 +198,10 @@ public:
 class CheckPoint : public Cylinder{
 protected:
 	struct ITEM{
-		float	fPosY ;
-		D3DXVECTOR3		vStartPos;
-		ITEM(D3DXVECTOR3 i_vPos)
+		float			fPosY		;
+		DWORD			dwThisPoint	;
+		D3DXVECTOR3		vStartPos	;
+		ITEM(D3DXVECTOR3 i_vPos, DWORD dwPoint)
 			:fPosY( i_vPos.y ),vStartPos(i_vPos)
 		{}
 	};
@@ -289,7 +290,7 @@ public:
 ////
 	void add(D3DXVECTOR3 i_vPos){
 		m_vPos	= i_vPos;
-		m_ItemContainer.push_back( new ITEM( i_vPos ) );
+		m_ItemContainer.push_back( new ITEM( i_vPos , m_ItemContainer.size() +1) );
 	}
 
 /////////////////// ////////////////////
@@ -303,6 +304,22 @@ public:
 ////            ：
 ////
 	void	Blink();
+
+/////////////////// ////////////////////
+//// 用途       ：
+//// カテゴリ   ：
+//// 用途       ：
+//// 引数       ：
+//// 戻値       ：
+//// 担当者     ：
+//// 備考       ：
+////            ：
+////
+	D3DXVECTOR3 getThisPosition(DWORD Point){
+		if( m_ItemContainer.size() < Point ) Point = m_ItemContainer.size() ;
+		m_ActiveItem = Point ;
+		return m_ItemContainer[Point]->vStartPos ;
+	};
 
 };
 

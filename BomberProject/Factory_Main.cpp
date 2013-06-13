@@ -47,7 +47,7 @@ namespace bomberobject{
  用途: コンストラクタ（サンプルオブジェクトを配列に追加する）
  戻り値: なし
 ***************************************************************************/
-Factory_Main::Factory_Main(FactoryPacket* fpac, D3DXVECTOR3* vStartPos ){
+Factory_Main::Factory_Main(FactoryPacket* fpac, DWORD dwStageNum, DWORD dwResumptionCheckPoint, D3DXVECTOR3* vStartPos ){
 	try{
 //#if defined( ON_GUIDELINE ) 
 //
@@ -108,13 +108,9 @@ Factory_Main::Factory_Main(FactoryPacket* fpac, D3DXVECTOR3* vStartPos ){
 
 		Factory_Cursor		MCfac( fpac )  ; 
 		Factory_Player		Pfac( fpac );
-		StageLoader			loader(fpac->pD3DDevice,L"media/Map/Stages.csv", 1,*fpac->m_pVec,*fpac->m_pTexMgr);
-		Factory_CheckPoint	CPfac( fpac ) ;
-		Factory_Coil		Cfac( fpac , vStartPos );
-		//Factory_BG		Wfac( fpac );
-
-		//Factory_Magnetic	Mfac( fpac ) ;
-		//Factory_Enemy		Efac( fpac ) ;
+		if( dwStageNum == 0 )	dwStageNum = 1 ;
+		StageLoader									loader(fpac->pD3DDevice,L"media/Map/Stages.csv", dwStageNum,*fpac->m_pVec,*fpac->m_pTexMgr);
+		Factory_Coil		Cfac( fpac , dwResumptionCheckPoint, vStartPos );
 		Factory_Item		Ifac( fpac ) ;
 		Factory_Description	Dfac( fpac ) ;
 		Factory_Gage		Gfac( fpac );
