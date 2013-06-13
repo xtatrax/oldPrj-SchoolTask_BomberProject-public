@@ -394,7 +394,7 @@ void	GoalObject::Update(UpdatePacket& i_UpdatePacket)
 	m_pCoil = (PlayerCoil*)SearchObjectFromTypeID(i_UpdatePacket.pVec, typeid(PlayerCoil) ) ;
 	if( m_pCoil && m_pCoil->HitTestWall( m_Obb ) ){
 		m_pCoil->setState( COIL_STATE_CLEAR );
-		m_pCoil->setSuperMode(false);
+		m_pCoil->setSuperMode(COIL_STATE_SUPER_CHARGE);
 		if( m_bPlaySound ){
 			m_pSound->SearchSoundAndPlay( RCTEXT_SOUND_SE_GOAL );
 			m_bPlaySound	= false;

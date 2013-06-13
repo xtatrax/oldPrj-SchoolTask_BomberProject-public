@@ -292,6 +292,24 @@ void CommonMesh::BoxVecNomal2UV_1_4(D3DXVECTOR3 vec,D3DXVECTOR3 normal,int ptn,f
 			v = v_prim * ptn;
 		}
 	}
+	//if(normal.z < 0){ //0面
+	//	if(vec.x < 0 && vec.y > 0 && vec.z < 0){//左上
+	//		u = 0.0f;
+	//		v = 0.0f;
+	//	}
+	//	else if(vec.x > 0 && vec.y > 0 && vec.z < 0){//右上
+	//		u = 0.0f;
+	//		v = 1.0f;
+	//	}
+	//	else if(vec.x > 0 && vec.y < 0 && vec.z < 0){//右下
+	//		u = 1.0f;
+	//		v = 1.0f;
+	//	}
+	//	else{ //左下
+	//		u = 1.0f;
+	//		v = 0.0f;
+	//	}
+	//}
 }
 
 /**************************************************************************
@@ -4568,97 +4586,53 @@ void SimpleCommonMeshGroup::DrawShadowVolume(
 ****************************************************************************/
 PrimitivePlate::PrimitivePlate( LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 i_pTexture, Color i_Color )
 :m_pTexture( i_pTexture )
+,m_pVertexBuffer( NULL )
+,m_iPtn( 0 )
 {
     try{
-		DWORD dwColor	= i_Color.dwColor ;
-		DWORD dwSize	= 0 ;
-		if( m_pTexture ){
-			VertexWTex* Vertices ; 
-			if(FAILED(pD3DDevice->CreateVertexBuffer( 4 * sizeof( VertexWTex ),
-										0,D3DFVF_XYZ|D3DFVF_DIFFUSE,
-										D3DPOOL_DEFAULT, &m_pVB, NULL)))
-			{
-				// 初期化失敗
-				throw BaseException(
-					L"頂点バッファの作成に失敗しました。",
-					L"PrimitivePlate::PrimitivePlate()"
-					);
-			}
-			//バッファをロック
-			//VOID* pVertices;
-			if(FAILED( m_pVB->Lock( 0, 0,( void** )&Vertices, 0 ))){
-				// 初期化失敗
-				throw BaseException(
-					L"頂点バッファのロックに失敗しました。",
-					L"PrimitivePlate::PrimitivePlate()"
-					);
-			}
-			Vertices[ 0 ] =	VertexWTex( D3DXVECTOR3(-0.5f, +0.5f, 0.0f),dwColor, D3DXVECTOR2( 0.0f, 0.0f )) ;	//	: 1
-			Vertices[ 1 ] =	VertexWTex( D3DXVECTOR3(+0.5f, +0.5f, 0.0f),dwColor, D3DXVECTOR2( 1.0f, 0.0f )) ;	//	: 2
-			Vertices[ 2 ] =	VertexWTex( D3DXVECTOR3(-0.5f, -0.5f, 0.0f),dwColor, D3DXVECTOR2( 0.0f, 1.0f )) ;	//	: 2
-			Vertices[ 3 ] =	VertexWTex( D3DXVECTOR3(+0.5f, -0.5f, 0.0f),dwColor, D3DXVECTOR2( 1.0f, 1.0f )) ;	//	: 3
-			//頂点バッファをアンロック
-			m_pVB->Unlock();
-		}else{
-			Vertex* Vertices;
-			if(FAILED(pD3DDevice->CreateVertexBuffer( 4 * sizeof( Vertex ),
-										0,D3DFVF_XYZ|D3DFVF_DIFFUSE,
-										D3DPOOL_DEFAULT, &m_pVB, NULL)))
-			{
-				// 初期化失敗
-				throw BaseException(
-					L"頂点バッファの作成に失敗しました。",
-					L"PrimitivePlate::PrimitivePlate()"
-					);
-			}
-			//バッファをロック
-			//VOID* pVertices;
-			if(FAILED( m_pVB->Lock( 0, 0,( void** )&Vertices, 0 ))){
-				// 初期化失敗
-				throw BaseException(
-					L"頂点バッファのロックに失敗しました。",
-					L"PrimitivePlate::PrimitivePlate()"
-					);
-			}
-			//頂点データから頂点バッファに転送
-			Vertices[ 0 ] =	Vertex( D3DXVECTOR3(-0.5f, +0.5f, 0.0f),dwColor) ;	//	: 1
-			Vertices[ 1 ] =	Vertex( D3DXVECTOR3(+0.5f, +0.5f, 0.0f),dwColor) ;	//	: 2
-			Vertices[ 2 ] =	Vertex( D3DXVECTOR3(-0.5f, -0.5f, 0.0f),dwColor) ;	//	: 2
-			Vertices[ 3 ] =	Vertex( D3DXVECTOR3(+0.5f, -0.5f, 0.0f),dwColor) ;	//	: 3
-			//頂点バッファをアンロック
-			m_pVB->Unlock();
-
-		}
+		DWORD	dwColor	= i_Color.dwColor;
+		//	: 頂点バッファの生成（内包できる領域のサイズ、データの扱い、頂点データの中身、頂点データを管理するメモリ、生成されたバッファを示すアドレスが帰ってくる））
+		pD3DDevice->CreateVertexBuffer( Vertex::getSize() * 4, D3DUSAGE_WRITEONLY, Vertex::getFVF(), D3DPOOL_MANAGED, &m_pVertexBuffer, NULL );
+		//	: 頂点データの設定
+		Vertex	*v ;	//	: 頂点バッファが内包する頂点データへのポインタを格納するためのポインタ
+		m_pVertexBuffer->Lock( 0, 0, (void**)&v ,0 );	//	: 頂点データのアドレスを取得するとともに、データへのアクセスを開始する
+		v[ 0 ]	= Vertex( D3DXVECTOR3( 50.0f, 50.0f, 0.0f ), dwColor, D3DXVECTOR2( 0.0f, 0.25f*(m_iPtn) ) );
+		v[ 1 ]	= Vertex( D3DXVECTOR3( 350.0f, 50.0f, 0.0f ), dwColor, D3DXVECTOR2( 1.0f, 0.25f*(m_iPtn) ) );
+		v[ 2 ]	= Vertex( D3DXVECTOR3( 50.0f, 80.0f, 0.0f ), dwColor, D3DXVECTOR2( 0.0f, 0.25f*(m_iPtn+1) ) );
+		v[ 3 ]	= Vertex( D3DXVECTOR3( 350.0f, 80.0f, 0.0f ), dwColor, D3DXVECTOR2( 1.0f, 0.25f*(m_iPtn+1) ) );
+		m_pVertexBuffer->Unlock();						//	: 頂点データへのアクセスを終了する
     }
     catch(...){
         //コンストラクタ例外発生
         //後始末
-        SafeRelease(m_pVB);
+        SafeRelease(m_pVertexBuffer);
         //再スロー
         throw;
     }
 }
 void PrimitivePlate::Draw(DrawPacket &i_DrawPacket){
 
-	LPDIRECT3DDEVICE9 pD3DDevice = i_DrawPacket.pD3DDevice ;
+	m_pVertexBuffer->Lock( 0, 0, (void**)&v ,0 );	//	: 頂点データのアドレスを取得するとともに、データへのアクセスを開始する
+	v[ 0 ].vTex	= D3DXVECTOR2( 0.0f, 0.25f*(m_iPtn) ) ;
+	v[ 1 ].vTex	= D3DXVECTOR2( 1.0f, 0.25f*(m_iPtn) ) ;
+	v[ 2 ].vTex	= D3DXVECTOR2( 0.0f, 0.25f*(m_iPtn+1) ) ;
+	v[ 3 ].vTex	= D3DXVECTOR2( 1.0f, 0.25f*(m_iPtn+1) ) ;
+	m_pVertexBuffer->Unlock();						//	: 頂点データへのアクセスを終了する
 
-		// マトリックスをレンダリングパイプラインに設定
+	LPDIRECT3DDEVICE9 pD3DDevice = i_DrawPacket.pD3DDevice ;
+	// マトリックスをレンダリングパイプラインに設定
 	pD3DDevice->SetTransform(D3DTS_WORLD, &m_mMatrix);
-	//	pD3DDevice->SetFVF(D3DFVF_XYZ|D3DFVF_DIFFUSE);
 
 	//	: 頂点バッファを用いてモデルを描画する
-	pD3DDevice->SetStreamSource( 0, m_pVB, 0, Vertex::getSize() );	//	: 描画対象となる頂点バッファを設定
+	pD3DDevice->SetStreamSource( 0, m_pVertexBuffer, 0, Vertex::getSize() );	//	: 描画対象となる頂点バッファを設定
 	if( m_pTexture ){
-		pD3DDevice->SetFVF( VertexWTex::getFVF() );										//	: 頂点データの形式を設定
-		pD3DDevice->SetTexture( 0, m_pTexture );											//	: テクスチャを設定（NULL の場合はテクスチャ無し）
+		//	: 頂点バッファを用いてモデルを描画する
+		pD3DDevice->SetFVF( Vertex::getFVF() );						//	: 頂点データの形式を設定
+		pD3DDevice->SetTexture( 0, m_pTexture );										//	: テクスチャを設定（NULL の場合はテクスチャ無し）
 	}else{
-		pD3DDevice->SetFVF( VertexWTex::getFVF() );										//	: 頂点データの形式を設定	
+		pD3DDevice->SetFVF( Vertex::getFVF() );										//	: 頂点データの形式を設定	
 	}
-		//pD3DDevice->SetRenderState( D3DRS_LIGHTING,FALSE);
-		//pD3DDevice->LightEnable( 0, FALSE );
 	pD3DDevice->DrawPrimitive( D3DPT_TRIANGLESTRIP, 0, 2 );						//	: 頂点データの描画（描画の仕方、描画開始位置、プリミティブ数）
-		//pD3DDevice->SetRenderState( D3DRS_LIGHTING,TRUE);
-		//pD3DDevice->LightEnable( 0, TRUE );
 }
 /**************************************************************************
  class DrawSphere 定義部

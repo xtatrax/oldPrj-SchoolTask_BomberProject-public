@@ -219,9 +219,10 @@ void	ArrivalPos::Update(UpdatePacket& i_UpdatePacket){
 	if(m_pCoil == NULL){
 		m_pCoil = (PlayerCoil*)SearchObjectFromTypeID(i_UpdatePacket.pVec,typeid(PlayerCoil));
 	}
-	if(m_pCoil != NULL)
-		m_iScore	= int(m_pCoil->getPos().y)-5;
-
+	if(m_pCoil != NULL){
+		if( m_iScore < int(m_pCoil->getPos().y)-5 )
+			m_iScore	= int(m_pCoil->getPos().y)-5;
+	}
 	if( m_iScore < 0 )
 		m_iScore	= 0;
 

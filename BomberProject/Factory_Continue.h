@@ -1,13 +1,15 @@
 ////////////////////////////// //////////////////////////////
 //	プロジェクト	：BomberProject
-//	ファイル名		：Factory_Wall.h
+//	ファイル名		：Factory_Continue.cpp
 //	開発環境		：MSVC++ 2008
 //	最適タブ数		：4
-//	担当者			：鴫原 徹
-//	内包ﾃﾞｰﾀと備考	：メインファクトリー
+//	担当者			：佐藤涼
+//	内包ﾃﾞｰﾀと備考	：コンテニュー
 //					▼
 //	namespace wiz;
-//		class Factory_Wall ;
+//		class Reply ;
+//		class Dead ;
+//		class Continue ;
 //
 #pragma once
 
