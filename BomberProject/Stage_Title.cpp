@@ -43,8 +43,9 @@ TitleStage::TitleStage(LPDIRECT3DDEVICE9 pD3DDevice,Stage* pStage)
 
 		Factory_Title	resultF( &FPac );
 
-		float	fLineLength	= 500.0f;
-		Factory_Cursor	MCfac( &FPac, fLineLength )  ; 
+		float	fLineLength	= 550.0f;
+		float	fPointSize	= 0.25f;
+		Factory_Cursor	MCfac( &FPac, fLineLength, fPointSize )  ; 
 
 	}
 	catch(...){
