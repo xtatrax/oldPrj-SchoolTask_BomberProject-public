@@ -20,6 +20,30 @@ namespace wiz{
 namespace bomberobject{
 
 /*************************************************************************
+class ClickChar  public SpriteObject
+
+担当者：佐藤涼
+用途　：クリックを促す
+*************************************************************************/
+class	ClickChar	: public SpriteObject{
+	D3DXVECTOR3		m_vPos;
+	D3DXVECTOR3		m_vScale;
+	D3DXVECTOR3		m_vOffsetPos;
+public:
+	ClickChar(
+		const LPDIRECT3DDEVICE9		pD3DDevice	,
+		const LPDIRECT3DTEXTURE9	pTexture	,
+		const D3DXVECTOR3&			vScale		,
+		const D3DXVECTOR3&			vRot		,
+		const D3DXVECTOR3&			vPos		,
+		const RECT*					pRect		,
+		const D3DXVECTOR3&			vOffsetPos
+	);
+	void	Draw(DrawPacket& i_DrawPacket);
+	void	Update(UpdatePacket& i_UpdatePacket);
+};
+
+/*************************************************************************
 class Title_Select  public SpriteObject
 
 担当者：佐藤涼

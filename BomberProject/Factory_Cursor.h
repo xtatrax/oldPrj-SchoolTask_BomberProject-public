@@ -122,7 +122,7 @@ public:
 	//// 戻値       ：無し
 	//// 担当者     ：本多寛之
 	//// 備考       ：
-	MouseCursor(LPDIRECT3DDEVICE9  pD3DDevice,TextureManager* m_TexMgr);
+	MouseCursor(LPDIRECT3DDEVICE9  pD3DDevice,TextureManager* m_TexMgr, float fLineLength);
 
 	/////////////////// ////////////////////
 	//// 用途       ：~MouseCursor();
@@ -190,7 +190,7 @@ public:
  用途: コンストラクタ（サンプルオブジェクトを配列に追加する）
  戻り値: なし
 ***************************************************************************/
-	Factory_Cursor(FactoryPacket* fpac);
+	Factory_Cursor(FactoryPacket* fpac, float fLineLength);
 /**************************************************************************
  ~Factory_Cursor();
  用途: デストラクタ
