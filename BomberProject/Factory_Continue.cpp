@@ -61,6 +61,7 @@ Reply::Reply(const LPDIRECT3DDEVICE9 pD3DDevice,const  LPDIRECT3DTEXTURE9 pTextu
 		D3DXMatrixRotationYawPitchRoll(&mRot,vRot.y,vRot.x,vRot.z);
 		D3DXMatrixTranslation(&mPos,vPos.x,vPos.y,vPos.z);
 		m_mMatrix = mScale * mRot * mPos ;
+
 	}
 	catch(...){
 		SafeRelease(m_pSprite);
@@ -232,21 +233,23 @@ Continue 定義部
 //// 備考       ：
 ////            ：
 ////
-Continue::Continue(const LPDIRECT3DDEVICE9 pD3DDevice,const  LPDIRECT3DTEXTURE9 pTexture,
-		const LPDIRECT3DTEXTURE9 pTexture_Rethinking, const LPDIRECT3DTEXTURE9 pTexture_Answer,
+Continue::Continue(const LPDIRECT3DDEVICE9 pD3DDevice,const  LPDIRECT3DTEXTURE9 pTexture_Answer,
+		const LPDIRECT3DTEXTURE9 pTexture_Rethinking, const LPDIRECT3DTEXTURE9 pTexture_Continue,
 		const bool mark,const D3DXVECTOR3 &vScale,const D3DXVECTOR3 &vRot,const D3DXVECTOR3 &vPos,
 		const RECT *pRect,const  D3DXVECTOR3 &vCenter,const  D3DXVECTOR3 &vOffsetPos,const  Color color)
-:SpriteObject( pD3DDevice, pTexture, vScale, vRot, vPos, pRect, vCenter, vOffsetPos, color )
+:SpriteObject( pD3DDevice, pTexture_Answer, vScale, vRot, vPos, pRect, vCenter, vOffsetPos, color )
 ,m_vPos( vPos )
 ,m_bMark( mark )
 ,m_pCoil( NULL )
 ,m_pReply_Yes( NULL )
 ,m_pReply_No( NULL )
 ,m_pRethinking( NULL )
+,m_pContinueChar( NULL )
 ,m_bPushRock( false )
 ,m_bWhichDraw( true )
 ,m_pRethinkingTex(pTexture_Rethinking)
 ,m_pAnswerTex(pTexture_Answer)
+,m_pContinueTex( pTexture_Continue )
 
 {
 	try{
@@ -260,12 +263,16 @@ Continue::Continue(const LPDIRECT3DDEVICE9 pD3DDevice,const  LPDIRECT3DTEXTURE9 
 		float	wide	= BASE_CLIENT_WIDTH/2;
 		float	height	= BASE_CLIENT_HEIGHT/2;
 
+		//Continueロゴの作成
+		m_pContinueChar	= new SpriteObject( pD3DDevice, m_pContinueTex, D3DXVECTOR3( 1.0f, 1.0f, 0.0f ),g_vZero,
+									D3DXVECTOR3( wide-256.0f,height-200.0f,0.0f ), Rect( 0, 0, 512, 64 ), g_vZero, g_vZero );
+
 		m_pRethinking	= new SpriteObject( pD3DDevice, m_pRethinkingTex, D3DXVECTOR3(1.0f,1.0f,0.0f), g_vZero,
-										D3DXVECTOR3( wide-256.0f,height-100.0f,0.0f ),Rect( 0,0,512,64 ), g_vZero, g_vZero  );
+										D3DXVECTOR3( wide-256.0f,height-200.0f,0.0f ),Rect( 0,0,512,64 ), g_vZero, g_vZero  );
 		m_pReply_Yes	= new Reply(  pD3DDevice, m_pAnswerTex, true, D3DXVECTOR3(1.0f,1.0f,0.0f), g_vZero,
-										D3DXVECTOR3( wide-100.0f-200.0f,height+100.0f,0.0f ),Rect( 0,0,256,64 ), g_vZero, g_vZero  );
+										D3DXVECTOR3( wide-128.0f,height-50.0f,0.0f ),Rect( 0,0,256,64 ), g_vZero, g_vZero  );
 		m_pReply_No		= new Reply(  pD3DDevice, m_pAnswerTex, false, D3DXVECTOR3(1.0f,1.0f,0.0f), g_vZero,
-										D3DXVECTOR3( wide+100.0f-28.0f,height+100.0f,0.0f ),Rect( 256,0,512,64 ), g_vZero, g_vZero  );
+										D3DXVECTOR3( wide-128.0f,height+100.0f,0.0f ),Rect( 256,0,512,64 ), g_vZero, g_vZero  );
 
 	}
 	catch(...){
@@ -282,6 +289,7 @@ Continue::~Continue(){
 	SAFE_DELETE( m_pReply_Yes );
 	SAFE_DELETE( m_pReply_No );
 	SAFE_DELETE( m_pRethinking );
+	SAFE_DELETE( m_pContinueChar );
 }
 
 /////////////////// ////////////////////
@@ -297,6 +305,8 @@ Continue::~Continue(){
 void Continue::Draw(DrawPacket& i_DrawPacket)
 {
 	if( m_bWhichDraw ){
+		if( m_pContinueChar != NULL )
+			m_pContinueChar->Draw(i_DrawPacket);
 		//	: 描画は親クラスに任せる
 		SpriteObject::Draw(i_DrawPacket);
 	}else{

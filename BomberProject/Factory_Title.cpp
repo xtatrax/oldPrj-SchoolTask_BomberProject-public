@@ -22,6 +22,84 @@ namespace wiz{
 const	float	SCALE_RATE	=	1.4f;
 
 /************************************************************************
+ClickChar 定義部
+************************************************************************/
+/////////////////// ////////////////////
+//// 関数名     ：ClickChar(LPDIRECT3DDEVICE9 pD3DDevice,LPDIRECT3DTEXTURE9 pTexture,
+////            ：    D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos, RECT* pRect);
+//// カテゴリ   ：コンストラクタ
+//// 用途       ：スプライトを描画
+//// 引数       ：  LPDIRECT3DDEVICE9 pD3DDevice    // IDirect3DDevice9 インターフェイスへのポインタ
+////            ：  LPDIRECT3DTEXTURE9 pTexture     // 貼り付けたいテクスチャ
+////            ：  D3DXVECTOR3 &vScale             // 大きさ
+////            ：  D3DXVECTOR3 &vRot               // 三軸回転
+////            ：  D3DXVECTOR3 &vPos               // 設置座標
+////            ：  RECT* pRect                     // 描画したい範囲(NULLで全体を描画)
+//// 戻値       ：なし
+//// 担当者     ：佐藤涼
+//// 備考       ：
+////            ：
+////
+ClickChar::ClickChar(const LPDIRECT3DDEVICE9 pD3DDevice,const LPDIRECT3DTEXTURE9 pTexture,
+		const D3DXVECTOR3 &vScale,const D3DXVECTOR3 &vRot,const D3DXVECTOR3 &vPos,const RECT *pRect, const D3DXVECTOR3 &vOffsetPos)
+:SpriteObject( pD3DDevice, pTexture, vScale, vRot, vPos, pRect, g_vZero, g_vZero, 0xFFFFFFFF )
+,m_vPos( vPos )
+,m_vScale( vScale )
+,m_vOffsetPos( vOffsetPos )
+{
+	try{
+	}
+	catch(...){
+		SafeRelease(m_pSprite);
+		//再スロー
+		throw;
+	}
+};
+
+/////////////////// ////////////////////
+//// 関数名     ：void ClickChar::Draw( DrawPacket& i_DrawPacket)
+//// カテゴリ   ：関数
+//// 用途       ：スプライトを描画
+//// 引数       ：DrawPacket& i_DrawPacket    //もろもろのデータ
+//// 戻値       ：なし
+//// 担当者     ：佐藤涼
+//// 備考       ：
+////            ：
+////
+void ClickChar::Draw(DrawPacket& i_DrawPacket)
+{
+	//	: 描画は親クラスに任せる
+	SpriteObject::Draw(i_DrawPacket);
+};
+
+/////////////////// ////////////////////
+//// 関数名     ：void ClickChar::Update( UpdatePacket& i_UpdatePacket)
+//// カテゴリ   ：関数
+//// 用途       ：データの更新
+//// 引数       ：UpdatePacket& i_UpdatePacket    //もろもろのデータ
+//// 戻値       ：なし
+//// 担当者     ：佐藤涼
+//// 備考       ：
+////            ：
+////
+void ClickChar::Update(UpdatePacket& i_UpdatePacket)
+{
+	 //マウス用データ*************************
+	Point MousePos ;
+	GetCursorPos( &MousePos ) ;
+	ScreenToClient( wiz::DxDevice::m_hWnd , &MousePos) ;
+  //*****************************************
+
+	m_vPos	= D3DXVECTOR3( (float)MousePos.x + m_vOffsetPos.x, (float)MousePos.y + m_vOffsetPos.y, 0.0f);
+
+	D3DXMATRIX mScale, mPos;
+	//D3DXMatrixTranslation(&mPos,(float)MousePos.x,(float)MousePos.y,0.0f);
+	D3DXMatrixScaling(&mScale,m_vScale.x,m_vScale.y,m_vScale.z);
+	D3DXMatrixTranslation(&mPos,m_vPos.x,m_vPos.y,m_vPos.z);
+	m_mMatrix = mScale * mPos ;
+};
+
+/************************************************************************
 Title_Select 定義部
 ************************************************************************/
 /////////////////// ////////////////////
@@ -159,14 +237,7 @@ void Title_Select::Update(UpdatePacket& i_UpdatePacket)
 ***************************************************************************/
 Factory_Title::Factory_Title(FactoryPacket* fpac){
 	try{
-		
-
-
-
-	 
-
 		 Factory_Scroll		Ffac( fpac );
-		
 		
 		//	:TitleName
 		fpac->m_pVec->push_back(
@@ -259,6 +330,19 @@ Factory_Title::Factory_Title(FactoryPacket* fpac){
 				0xFF00FFFF
 				)
 		);
+
+		//Click_Please
+		fpac->m_pVec->push_back(
+			new ClickChar(
+					fpac->pD3DDevice,
+					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Click_Please1.png"),
+					D3DXVECTOR3( 0.5f, 0.5f, 0.0f ),
+					g_vZero,
+					g_vZero,
+					Rect( 0, 0, 512, 64 ),
+					D3DXVECTOR3( 40.0f, -70.0f, 0.0f )
+			)
+		);						
 
 		Sound* pSound = NULL;
 		fpac->m_pVec->push_back(
