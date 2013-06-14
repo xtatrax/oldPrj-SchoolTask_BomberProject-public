@@ -191,11 +191,17 @@ bool PlayerCoil::HitTestWall( OBB Obb ){
 void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 
 #if defined( ON_DEBUGGINGPROCESS ) | defined( PRESENTATION )
+	if( GetAsyncKeyState( MYVK_DEBUG_COIL_INVISIBLE ) )		m_bDebugInvincibleMode ? m_bDebugInvincibleMode = false : m_bDebugInvincibleMode = true ;
+	if( m_bDebugInvincibleMode )							Debugger::DBGSTR::addStrTop( L"**********  無敵モード  **********\n" );
 	if( !m_pDSPH ){
 		SPHERE sp;
 		sp.m_Center = g_vMax ;
 		sp.m_Radius = 1.0f ;
 		m_pDSPH = new DrawSphere( i_UpdatePacket.pD3DDevice, sp );
+	}
+	if( GetAsyncKeyState( MYVK_DEBUG_STAGE_RULER ) ){
+		CheckPoint*		pc		= (CheckPoint*)SearchObjectFromID( i_UpdatePacket.pVec, OBJID_SYS_CHECKPOINT );
+		if( pc )		m_vPos	= pc->getLastPosition();
 	}
 #endif
 
@@ -278,12 +284,6 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 	if( m_pCamera ){
 		m_pCamera->setPosY( m_vPos.y );
 	}
-#if defined( ON_DEBUGGINGPROCESS ) | defined( PRESENTATION )
-	if( GetAsyncKeyState( MYVK_DEBUG_COIL_INVISIBLE ) )
-		m_bDebugInvincibleMode ? m_bDebugInvincibleMode = false : m_bDebugInvincibleMode = true ;
-	if( m_bDebugInvincibleMode )
-	Debugger::DBGSTR::addStrTop( L"**********  無敵モード  **********\n" );
-#endif 
 
 	//爆散エフェクト***********************************
 	if( m_pDeadEffect[0] != NULL ){
