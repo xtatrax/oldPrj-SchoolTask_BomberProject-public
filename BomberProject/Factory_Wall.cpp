@@ -45,7 +45,7 @@ WallObject::WallObject( LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTextur
 ,m_pWallTex( pTexture )
 ,m_Ptn(0)
 ,m_pSound( NULL )
-,m_Plate( pD3DDevice, pTexture2, 0xFFFFFFFF )
+,m_Plate( pD3DDevice, pTexture, 0xFFFFFFFF )
 {
 	::ZeroMemory( &m_Material, sizeof(D3DMATERIAL9));
 	m_pPlayerCoil	= NULL;
