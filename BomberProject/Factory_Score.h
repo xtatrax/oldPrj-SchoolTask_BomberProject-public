@@ -4,6 +4,7 @@
 #include "Object.h"
 #include "BassItems.h"
 #include "Factory_Coil.h"
+#include "Factory_Goal.h"
 
 namespace wiz{
 namespace bomberobject{
@@ -73,6 +74,23 @@ public:
 	void	Update(UpdatePacket& i_UpdatePacket);
 };
 /**************************************************************************
+ class GoalPos : public Score;
+ 用途　：到達地点描画クラス
+ 担当者：佐藤涼
+****************************************************************************/
+class GoalPos : public Score{
+	GoalObject*	m_pGoalObject;
+public:
+	GoalPos(LPDIRECT3DDEVICE9	pD3DDevice,
+				LPDIRECT3DTEXTURE9	pTexture,
+				D3DXVECTOR3	&vScale,
+				D3DXVECTOR3	&vPos,
+				Rect*		Rect	= NULL );
+	virtual ~GoalPos();
+
+	void	Draw(DrawPacket& i_DrawPacket);
+	void	Update(UpdatePacket& i_UpdatePacket);
+};/**************************************************************************
  class Factory_Score;
  用途: メイン工場クラス
 ****************************************************************************/
