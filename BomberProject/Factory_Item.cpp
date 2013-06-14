@@ -327,7 +327,7 @@ Factory_Item::Factory_Item(FactoryPacket* fpac){
 
 		//ÉAÉCÉeÉÄ(è¨)
 		for(int i = 0; i < 9; i++){
-			for(int j = 0; j < 300; j++){
+			for(int j = 0; j < 647; j++){
 				it->addItem(D3DXVECTOR3((float(i)*5.0f+float(rand()%100*0.05f))+1.5f,
 										(float(j)*2.75f+float(rand()%100*0.05f))+1.5f,0.0f),
 							ITEM_SCALE,
