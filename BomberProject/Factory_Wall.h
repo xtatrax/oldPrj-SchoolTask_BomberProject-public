@@ -51,10 +51,6 @@ class WallObject : public PrimitiveBox{
 	Camera*				m_pCamera		;
 	PrimitivePlate		m_Plate			;
 	LPDIRECT3DTEXTURE9	m_pWallTex		;
-	LPDIRECT3DTEXTURE9	m_pPolyTex		;
-	LPDIRECT3DTEXTURE9	m_pDeadTex		;
-	LPDIRECT3DTEXTURE9	m_pNextTex		;
-	LPDIRECT3DTEXTURE9	m_pTitleTex		;
 
 	struct WallItem{
 		D3DMATERIAL9	m_Material	;
@@ -126,10 +122,6 @@ public:
 	//// îıçl       ÅF
 	WallObject(	LPDIRECT3DDEVICE9 pD3DDevice,
 				LPDIRECT3DTEXTURE9 pTexture,
-				LPDIRECT3DTEXTURE9 pTexture2,
-				LPDIRECT3DTEXTURE9 pTexture3,
-				LPDIRECT3DTEXTURE9 pTexture4,
-				LPDIRECT3DTEXTURE9 pTexture5,
 				wiz::OBJID id = OBJID_3D_WALL
 				);
 	/////////////////// ////////////////////
