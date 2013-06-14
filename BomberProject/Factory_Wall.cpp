@@ -35,8 +35,7 @@ namespace bomberobject{
  戻り値: なし
  担当：本多寛之
 ***************************************************************************/
-WallObject::WallObject( LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTexture,LPDIRECT3DTEXTURE9 pTexture2,
-					   LPDIRECT3DTEXTURE9 pTexture3,LPDIRECT3DTEXTURE9 pTexture4,LPDIRECT3DTEXTURE9 pTexture5,wiz::OBJID id)
+WallObject::WallObject( LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTexture,wiz::OBJID id)
 :PrimitiveBox(pD3DDevice,
 		D3DCOLORVALUE(),
 		D3DCOLORVALUE(),
@@ -44,13 +43,9 @@ WallObject::WallObject( LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTextur
 		id,
 		pTexture)
 ,m_pWallTex( pTexture )
-,m_pPolyTex( pTexture2 )
-,m_pDeadTex( pTexture3 )
-,m_pNextTex( pTexture4 )
-,m_pTitleTex( pTexture5 )
 ,m_Ptn(0)
 ,m_pSound( NULL )
-,m_Plate( pD3DDevice, pTexture2, 0xFFFFFFFF )
+,m_Plate( pD3DDevice, pTexture, 0xFFFFFFFF )
 {
 	::ZeroMemory( &m_Material, sizeof(D3DMATERIAL9));
 	m_pPlayerCoil	= NULL;
@@ -169,13 +164,12 @@ void WallObject::GetOBBList( float Index, list<OBB>& ObbList ){
 //// 備考       ：
 void WallObject::Draw(DrawPacket& i_DrawPacket)
 {
-	m_pTexture = m_pPolyTex ;
+	m_pTexture = m_pWallTex ;
 	TARGETCONTAINER::iterator it	= m_ItemMap_Target.begin();
 	TARGETCONTAINER::iterator end	= m_ItemMap_Target.end();
 	while(it != end){
 		//テクスチャがある場合
-		if(m_pPolyTex){
-			m_pTexture	= m_pPolyTex;
+		if(m_pWallTex){
 			DWORD wkdword;
 			//現在のテクスチャステータスを得る
 			i_DrawPacket.pD3DDevice->GetTextureStageState(0,D3DTSS_COLOROP,&wkdword);
@@ -339,113 +333,6 @@ Factory_Wall::Factory_Wall(FactoryPacket* fpac){
  		D3DCOLORVALUE WallDiffuse = {0.7f,0.7f,0.7f,0.0f};
 		D3DCOLORVALUE WallSpecular = {0.0f,0.0f,0.0f,0.0f};
 		D3DCOLORVALUE WallAmbient = {0.5f,0.5f,0.5f,0.0f};
-
- 	//	D3DCOLORVALUE Wall2Diffuse = {1.0f,1.0f,1.0f,1.0f};
-		//D3DCOLORVALUE Wall2Specular = {0.0f,0.0f,0.0f,0.0f};
-		//D3DCOLORVALUE Wall2Ambient = {1.0f,1.0f,1.0f,1.0f};
-
-		//fpac->m_pVec->push_back(
-		//	new Polygon( fpac->pD3DDevice,
-		//					1.0f,
-		//					4,
-		//					D3DXVECTOR3(38.0f,12.0f,0.0f),
-		//					D3DXVECTOR3(0.0f,0.0f,0.0f),
-		//					Wall2Diffuse,
-		//					Wall2Specular,
-		//					Wall2Ambient,
-		//					OBJID_3D_POLYGON,
-		//					false,
-		//					fpac->m_pTexMgr->addTexture(fpac->pD3DDevice,L"biribiriWall.png")));
-
-		WallObject* Wall = new WallObject(fpac->pD3DDevice,
-			fpac->m_pTexMgr->addTexture(fpac->pD3DDevice,L"biribiriWall.png"),
-			fpac->m_pTexMgr->addTexture(fpac->pD3DDevice,L"Lightning.tga"),
-			fpac->m_pTexMgr->addTexture(fpac->pD3DDevice,L"DeadPerticul.png"),
-			fpac->m_pTexMgr->addTexture(fpac->pD3DDevice,L"Continue.png"),
-			fpac->m_pTexMgr->addTexture(fpac->pD3DDevice,L"Go_Title.png"));
-		//お試し
-		//Wall->AddWall(D3DXVECTOR3(10.0f,25.0f,0.5f),
-		//			  D3DXVECTOR3(0.0f,0.0f,0.0f),
-		//			  D3DXVECTOR3(20.0f,20.0f,0.0f),
-		//			  WallDiffuse,
-		//			  WallSpecular,
-		//			  WallAmbient);
-		//右横
-		//Wall->AddWall(D3DXVECTOR3(2.0f,26.0f,0.5f),
-		//			  D3DXVECTOR3(0.0f,0.0f,0.0f),
-		//			  D3DXVECTOR3(38.5f,12.0f,0.0f),
-		//			  WallDiffuse,
-		//			  WallSpecular,
-		//			  WallAmbient);
-		//左横
-		//Wall->AddWall(D3DXVECTOR3(2.0f,26.0f,0.5f),
-		//			  D3DXVECTOR3(0.0f,0.0f,0.0f),
-		//			  D3DXVECTOR3(0.5f,12.0f,0.0f),
-		//			  WallDiffuse,
-		//			  WallSpecular,
-		//			  WallAmbient);
-		//お試し上
-		//Wall->AddWall(D3DXVECTOR3(40.0f,2.0f,0.5f),
-		//			  D3DXVECTOR3(0.0f,0.0f,0.0f),
-		//			  D3DXVECTOR3(20.0f,24.0f,0.0f),
-		//			  WallDiffuse,
-		//			  WallSpecular,
-		//			  WallAmbient);
-		//下
-		//Wall->AddWall(D3DXVECTOR3(2.0f,40.0f,0.5f),
-		//			  D3DXVECTOR3(0.0f,0.0f,90.0f),
-		//			  D3DXVECTOR3(20.0f,0.5f,0.0f),
-		//			  WallDiffuse,
-		//			  WallSpecular,
-		//			  WallAmbient);
-		////真ん中縦
-		//Wall->AddWall(D3DXVECTOR3(2.0f,10.0f,0.5f),
-		//			  D3DXVECTOR3(0.0f,0.0f,0.0f),
-		//			  D3DXVECTOR3(20.0f,6.0f,0.0f),
-		//			  WallDiffuse,
-		//			  WallSpecular,
-		//			  WallAmbient);
-		////お試し
-		//Wall->AddWall(D3DXVECTOR3(2.0f,11.0f,0.5f),
-		//			  D3DXVECTOR3(0.0f,0.0f,90.0f),
-		//			  D3DXVECTOR3(20.0f,10.0f,0.0f),
-		//			  WallDiffuse,
-		//			  WallSpecular,
-		//			  WallAmbient);
-		////下
-		//Wall->AddWall(D3DXVECTOR3(2.0f,11.0f,0.5f),
-		//			  D3DXVECTOR3(0.0f,0.0f,120.0f),
-		//			  D3DXVECTOR3(20.0f,20.0f,0.0f),
-		//			  WallDiffuse,
-		//			  WallSpecular,
-		//			  WallAmbient);
-		//// 左横向き
-		//Wall->AddWall(D3DXVECTOR3(2.0f,11.0f,0.5f),
-		//			  D3DXVECTOR3(0.0f,0.0f,90.0f),
-		//			  D3DXVECTOR3(7.0f,14.0f,0.0f),
-		//			  WallDiffuse,
-		//			  WallSpecular,
-		//			  WallAmbient);
-		////お試し
-		//Wall->AddWall(D3DXVECTOR3(2.0f,20.0f,0.5f),
-		//			  D3DXVECTOR3(0.0f,0.0f,45.0f),
-		//			  D3DXVECTOR3(20.0f,20.0f,0.0f),
-		//			  WallDiffuse,
-		//			  WallSpecular,
-		//			  WallAmbient);
-		//Wall->AddWall(D3DXVECTOR3(2.0f,5.0f,0.5f),
-		//			  D3DXVECTOR3(0.0f,0.0f,45.0f),
-		//			  D3DXVECTOR3(30.0f,15.0f,0.0f),
-		//			  WallDiffuse,
-		//			  WallSpecular,
-		//			  WallAmbient);
-		//Wall->AddWall(D3DXVECTOR3(2.0f,4.0f,0.5f),
-		//			  D3DXVECTOR3(0.0f,0.0f,-45.0f),
-		//			  D3DXVECTOR3(20.0f,17.0f,0.0f),
-		//			  WallDiffuse,
-		//			  WallSpecular,
-		//			  WallAmbient);
-		fpac->m_pVec->push_back(Wall);
 	}
 	catch(...){
 		//再throw
