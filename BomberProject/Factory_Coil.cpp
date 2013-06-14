@@ -254,8 +254,8 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 			default:
 				break;
 		}
-		if(m_enumCoilStateSuper == COIL_STATE_SUPER_READY && g_bMouseLB && g_bMouseRB)m_enumCoilStateSuper = COIL_STATE_SUPER_CHANGING;
-		//if(m_enumCoilStateSuper == COIL_STATE_SUPER_READY && g_bMouseMB)m_enumCoilStateSuper = COIL_STATE_SUPER_CHANGING;
+		//if(m_enumCoilStateSuper == COIL_STATE_SUPER_READY && g_bMouseLB && g_bMouseRB)m_enumCoilStateSuper = COIL_STATE_SUPER_CHANGING;
+		if(m_enumCoilStateSuper == COIL_STATE_SUPER_READY && g_bMouseMB)m_enumCoilStateSuper = COIL_STATE_SUPER_CHANGING;
 		if(m_enumCoilStateSuper == COIL_STATE_SUPER_MOVE || m_enumCoilStateSuper == COIL_STATE_SUPER_CHANGING){
 			//ñ≥ìGèÛë‘
 			SuperMode(i_UpdatePacket);
