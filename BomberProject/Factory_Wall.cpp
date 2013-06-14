@@ -198,6 +198,8 @@ void WallObject::Draw(DrawPacket& i_DrawPacket)
 
 			D3DXMATRIX m ;
 			//D3DXMatrixScale( &m, );
+			//D3DXVECTOR3	v	= MatrixCalculator( (*it)->m_Matrix, m_Plate.getPos() );
+			//m_Plate.setMatrixPos( v );
 			//m_Plate.setMatrix((*it)->m_Matrix);
 			//m_Plate.Draw(i_DrawPacket);
 		}
@@ -289,7 +291,7 @@ void WallObject::Update( UpdatePacket& i_UpdatePacket ){
 	//***********************************************************************************
 
 	++m_Ptn;
-	m_Plate.setPtn( m_Ptn );
+	m_Plate.Update( m_Ptn );
 	//static	int	s_Time	= 0;
 
 }
