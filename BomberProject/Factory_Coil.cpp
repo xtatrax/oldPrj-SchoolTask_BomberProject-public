@@ -959,11 +959,11 @@ Factory_Coil::Factory_Coil( FactoryPacket* fpac, D3DXVECTOR3* vStartPos  ){
 				NULL,
 				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"SuperField.png" ),
 				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"DeadPerticul.png" ),
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Continue.png" ),
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"GAME_END.png" ),
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"CONTINUE3.png" ),
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"GAME_END3.png" ),
 				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"dead6.png" ),
 				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"REALLY.png" ),
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"YESorNO.png" ),
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"YESorNO5.png" ),
 				0.0f,0.7f,1.0f,1.0f,vScale,D3DXVECTOR3(90.0f,0.0f,0.0f),vPos,
 				CoilDiffuse,CoilSpecular,CoilAmbient
 				)
