@@ -140,12 +140,11 @@ void Gage::Update( UpdatePacket& i_UpdatePacket ){
 備考　　　：
 ***************************************************************/
 void Gage::Draw(DrawPacket& i_DrawPacket){
+	//枠の描画
+	m_pRect	= m_FrameRect;
+	SpriteObject::Draw( i_DrawPacket );
 	//ゲージの描画
 	m_pRect	= m_GaugeRect;
-	SpriteObject::Draw( i_DrawPacket );
-	//枠の描画
-	//m_mMatrix = m_mGaugeMatrix ;
-	m_pRect	= m_FrameRect;
 	SpriteObject::Draw( i_DrawPacket );
 }
 
@@ -556,26 +555,26 @@ void MagneticGage_S::Draw(DrawPacket& i_DrawPacket){
 ***************************************************************************/
 Factory_Gage::Factory_Gage(FactoryPacket* fpac){
 	try{
-		//スーパーモード用ゲージ
-		fpac->m_pVec->push_back(
-			new SuperGage(
-				fpac->pD3DDevice,
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"MagnetGauge_Arc.png" ),
-				D3DXVECTOR3(0.4f,0.4f,0.0f),
-				D3DXVECTOR3(0.0f,0.0f,D3DXToRadian(90.0f)),
-				//D3DXVECTOR3(950.0,30.0f,0.0f),
-				//D3DXVECTOR3(140.0,-55.0f,0.0f),
-				D3DXVECTOR3(140.0,-35.0f,0.0f),
-				Rect(112,0,143,272),
-				Rect(144,0,175,272)
-			)
-		);
+		////スーパーモード用ゲージ
+		//fpac->m_pVec->push_back(
+		//	new SuperGage(
+		//		fpac->pD3DDevice,
+		//		fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"MagnetGauge_Arc.png" ),
+		//		D3DXVECTOR3(0.4f,0.4f,0.0f),
+		//		D3DXVECTOR3(0.0f,0.0f,D3DXToRadian(90.0f)),
+		//		//D3DXVECTOR3(950.0,30.0f,0.0f),
+		//		//D3DXVECTOR3(140.0,-55.0f,0.0f),
+		//		D3DXVECTOR3(140.0,-35.0f,0.0f),
+		//		Rect(112,0,143,272),
+		//		Rect(144,0,175,272)
+		//	)
+		//);
 
 		//磁界N用ゲージ
 		fpac->m_pVec->push_back(
 			new MagneticGage_N(
 				fpac->pD3DDevice,
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Gauge_N.png" ),
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Gauge_N4.png" ),
 				//D3DXVECTOR3( 60.0f,-250.0f,0.0f),
 				D3DXVECTOR3( 60.0f,-450.0f,0.0f),
 				D3DXVECTOR3( 0.4f, 0.4f, 0.0f ),
@@ -589,7 +588,7 @@ Factory_Gage::Factory_Gage(FactoryPacket* fpac){
 		fpac->m_pVec->push_back(
 			new MagneticGage_S(
 				fpac->pD3DDevice,
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Gauge_S.png" ),
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Gauge_S4.png" ),
 				//D3DXVECTOR3( 60.0f,-220.0f,0.0f),
 				D3DXVECTOR3( 60.0f,-410.0f,0.0f),
 				D3DXVECTOR3( 0.4f, 0.4f, 0.0f ),
