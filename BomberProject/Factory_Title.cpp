@@ -119,7 +119,7 @@ void Title_Select::Update(UpdatePacket& i_UpdatePacket)
 			}
 		}
 		else m_bPushRock	= true;
-			m_Color	= 0xFF88FFFF;
+			m_Color	= 0xFFFF8800;
 			if( !m_bSelect ){
 				m_bSelect = true;
 				m_pSound->SearchWaveAndPlay( RCTEXT_SOUND_SE_SELECT );
@@ -128,7 +128,8 @@ void Title_Select::Update(UpdatePacket& i_UpdatePacket)
 		
 	}
 	else{
-		m_Color	= 0xFF8888FF;
+		m_Color	= 0xFF558855;
+		
 		m_bSelect = false;
 
 		if( g_bMouseLB )	m_bPushRock	= false;
@@ -167,7 +168,7 @@ Factory_Title::Factory_Title(FactoryPacket* fpac){
 		 Factory_Scroll		Ffac( fpac );
 		
 		
-		
+		//	:TitleName
 		fpac->m_pVec->push_back(
 			new SpriteObject(
 				fpac->pD3DDevice,
@@ -197,36 +198,65 @@ Factory_Title::Factory_Title(FactoryPacket* fpac){
 				)
 		);
 
-		//START
+		//START002_02
 		fpac->m_pVec->push_back(
 			new Title_Select(
 					fpac->pD3DDevice,
-					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Title_Start.tga" ),
+					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Title_Start002_02.tga" ),
 					GM_OPENSTAGE_PLAY,
 					//GM_OPENSTAGE_LOAD,
 					D3DXVECTOR3(SCALE_RATE,SCALE_RATE,0.0f),
 					g_vZero,
-					D3DXVECTOR3( 150.0f, 421.0f, 0.0f ),
-					Rect( 0, 0, 168, 42 ),
+					D3DXVECTOR3( 120.0f, 421.0f, 0.0f ),
+					Rect( 0, 0, 221, 31 ),
 					g_vZero,
 					g_vZero,
-					0xFFFFFFFF
+					0xFFFF8800
+				)
+		);
+		//START002_01
+		fpac->m_pVec->push_back(
+			new SpriteObject(
+				fpac->pD3DDevice,
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Title_Start002_01.tga" ),
+				D3DXVECTOR3(SCALE_RATE,SCALE_RATE,0.0f),
+				g_vZero,
+				D3DXVECTOR3( 120.0f, 421.0f, 0.0f ),
+				Rect( 0, 0, 221, 31 ),
+				g_vZero,
+				g_vZero,
+				0xFF00FFFF
 				)
 		);
 
-		//EXIT
+
+		//EXIT002_02
 		fpac->m_pVec->push_back(
 			new Title_Select(
 					fpac->pD3DDevice,
-					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Title_Exit.tga" ),
+					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Title_Exit002_02.tga" ),
 					GM_EXIT,
 					D3DXVECTOR3(SCALE_RATE,SCALE_RATE,0.0f),
 					g_vZero,
 					D3DXVECTOR3( 660.0f, 420.0f, 0.0f ),
-					Rect( 0, 0, 126, 42 ),
+					Rect( 0, 0, 143, 31 ),
 					g_vZero,
 					g_vZero,
-					0xFFFFFFFF
+					0xFFFF8800
+				)
+		);
+				//EXIT002_01
+		fpac->m_pVec->push_back(
+			new SpriteObject(
+				fpac->pD3DDevice,
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Title_EXIT002_01.tga" ),
+				D3DXVECTOR3(SCALE_RATE,SCALE_RATE,0.0f),
+				g_vZero,
+				D3DXVECTOR3( 660.0f, 420.0f, 0.0f ),
+				Rect( 0, 0, 143, 31 ),
+				g_vZero,
+				g_vZero,
+				0xFF00FFFF
 				)
 		);
 
