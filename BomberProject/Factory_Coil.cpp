@@ -254,6 +254,7 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 			default:
 				break;
 		}
+		//if(m_enumCoilStateSuper == COIL_STATE_SUPER_READY && g_bMouseLB && g_bMouseRB)m_enumCoilStateSuper = COIL_STATE_SUPER_CHANGING;
 		if(m_enumCoilStateSuper == COIL_STATE_SUPER_READY && g_bMouseMB)m_enumCoilStateSuper = COIL_STATE_SUPER_CHANGING;
 		if(m_enumCoilStateSuper == COIL_STATE_SUPER_MOVE || m_enumCoilStateSuper == COIL_STATE_SUPER_CHANGING){
 			//–³“Gó‘Ô
@@ -502,7 +503,7 @@ void PlayerCoil::Update_StateStick(){
 		if(m_fMoveDir > 360.0f)m_fMoveDir = float(int(m_fMoveDir) % 360);
 		switch(getMagnetPole()){
 			case POLE_S:
-				if(!g_bMouseRB || !m_pPlayer->getDrawing()){
+				if(!g_bMouseLB || !m_pPlayer->getDrawing()){
 					m_enumCoilState = COIL_STATE_MOVE;
 					m_fAcceleration = COIL_ACCELERATION_VALUE;
 					m_bReadyToStart = false;

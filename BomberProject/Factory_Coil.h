@@ -51,14 +51,17 @@
 
 const float			COIL_SPEED						= 0.08f;
 const float			COIL_SPEED_SUPER				= 0.15f;
-const float			COIL_ACCELERATION_VALUE			= 0.25f;
+//const float			COIL_ACCELERATION_VALUE			= 0.0f;
+const float			COIL_ACCELERATION_VALUE			= 0.10f;
+//const float			COIL_ACCELERATION_VALUE			= 0.25f;
 const float			COIL_ACCELERATION_VALUE_MIMUS	= -0.15f;
 const float			COIL_ACCELERATION_DECREASE		= 0.01f;
 const float			COIL_BASSROT					= 90.0f;
 const float			PLAYER_TURN_ANGLE_Lv1			= 1.0f;
 const float			PLAYER_TURN_ANGLE_Lv2			= 2.0f;
 const float			PLAYER_TURN_ANGLE_Lv3			= 2.5f;
-const float			COIL_SUPER_MODE_TIME			= 7.0f;
+const float			COIL_SUPER_MODE_TIME			= 3.0f;
+//const float			COIL_SUPER_MODE_TIME			= 7.0f;
 const D3DXVECTOR3	COIL_SUPER_MODE_FIELD_SCALE		= D3DXVECTOR3(10.0f,10.0f,0.0f);
 const float			COIL_ROTATION_ANGLE				= 15.35f;
 const D3DXVECTOR3	COIL_SCALE_ADD_VALUE_START		= D3DXVECTOR3(0.03f,0.03f,0.03f);
