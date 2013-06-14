@@ -444,7 +444,7 @@ void PlayerCoil::Update_StateMove(){
 		m_fMoveDir = MagneticDecision(m_fMoveDir,m_pPlayer->getPos(),m_pPlayer->getMagnetPole());
 	}
 
-	if( m_pMagneticumObject )
+	if( m_pMagneticumObject && m_enumCoilStateSuper != COIL_STATE_SUPER_MOVE )
 		m_pMagneticumObject->HitTest();
 	//	//İ’u¥ŠE‚Æ©‹@‚Ì”»’è
 	//	TARGETCONTAINER ItemMap_Target = m_pMagneticumObject->getMapTarget();
