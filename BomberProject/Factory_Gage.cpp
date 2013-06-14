@@ -558,7 +558,7 @@ Factory_Gage::Factory_Gage(FactoryPacket* fpac){
 		fpac->m_pVec->push_back(
 			new SuperGage(
 				fpac->pD3DDevice,
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Gauge_Super4.png" ),
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Gauge_Super5.png" ),
 				D3DXVECTOR3(0.4f,0.25f,0.0f),
 				D3DXVECTOR3(0.0f,0.0f,0.0f),
 				//D3DXVECTOR3(950.0,30.0f,0.0f),
