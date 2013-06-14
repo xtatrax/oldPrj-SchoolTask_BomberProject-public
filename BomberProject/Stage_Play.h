@@ -84,7 +84,7 @@ public:
  用途: コンストラクタ
  戻り値: なし（失敗時は例外をthrow）
 ***************************************************************************/
-	PlayStage(LPDIRECT3DDEVICE9 pD3DDevice, D3DXVECTOR3 vStartPos = g_vMax, Stage* pStage = NULL);
+	PlayStage(LPDIRECT3DDEVICE9 pD3DDevice, DWORD dwStageNum, DWORD dwResumptionCheckPoint, D3DXVECTOR3 vStartPos = g_vMax, Stage* pStage = NULL);
 /**************************************************************************
 PlayStage();
  用途: デストラクタ

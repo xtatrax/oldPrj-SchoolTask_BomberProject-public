@@ -82,9 +82,7 @@ PlayerCoil::PlayerCoil(
 ,m_bLastMouseLB(false)
 ,m_bReadyToStart(false)
 ,m_bReadyContinue(false)
-,m_bReadyToSuper(false)
-,m_bIsSuperMode(false)
-,m_bDrawContinue( false )
+,m_bDrawContinue(false)
 ,m_iDeadCount( 0 )
 ,m_pSuperField(NULL)
 ,m_fTurnAngle(PLAYER_TURN_ANGLE_Lv1)
@@ -99,6 +97,7 @@ PlayerCoil::PlayerCoil(
 ,m_pRethinkingTex( pTexture_Rethinking )
 ,m_pAnswerTex( pTexture_Answer )
 ,m_enumCoilState(COIL_STATE_STOP)
+,m_enumCoilStateSuper(COIL_STATE_SUPER_CHARGE)
 #if defined( ON_DEBUGGINGPROCESS ) | defined( PRESENTATION )
 ,m_pDSPH(NULL)
 ,m_bDebugInvincibleMode( false )
@@ -192,11 +191,17 @@ bool PlayerCoil::HitTestWall( OBB Obb ){
 void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 
 #if defined( ON_DEBUGGINGPROCESS ) | defined( PRESENTATION )
+	if( GetAsyncKeyState( MYVK_DEBUG_COIL_INVISIBLE ) )		m_bDebugInvincibleMode ? m_bDebugInvincibleMode = false : m_bDebugInvincibleMode = true ;
+	if( m_bDebugInvincibleMode )							Debugger::DBGSTR::addStrTop( L"**********  無敵モード  **********\n" );
 	if( !m_pDSPH ){
 		SPHERE sp;
 		sp.m_Center = g_vMax ;
 		sp.m_Radius = 1.0f ;
 		m_pDSPH = new DrawSphere( i_UpdatePacket.pD3DDevice, sp );
+	}
+	if( GetAsyncKeyState( MYVK_DEBUG_STAGE_RULER ) ){
+		CheckPoint*		pc		= (CheckPoint*)SearchObjectFromID( i_UpdatePacket.pVec, OBJID_SYS_CHECKPOINT );
+		if( pc )		m_vPos	= pc->getLastPosition();
 	}
 #endif
 
@@ -249,7 +254,8 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 			default:
 				break;
 		}
-		if(m_bIsSuperMode){
+		if(m_enumCoilStateSuper == COIL_STATE_SUPER_READY && g_bMouseMB)m_enumCoilStateSuper = COIL_STATE_SUPER_CHANGING;
+		if(m_enumCoilStateSuper == COIL_STATE_SUPER_MOVE || m_enumCoilStateSuper == COIL_STATE_SUPER_CHANGING){
 			//無敵状態
 			SuperMode(i_UpdatePacket);
 		}
@@ -278,12 +284,6 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 	if( m_pCamera ){
 		m_pCamera->setPosY( m_vPos.y );
 	}
-#if defined( ON_DEBUGGINGPROCESS ) | defined( PRESENTATION )
-	if( GetAsyncKeyState( MYVK_DEBUG_COIL_INVISIBLE ) )
-		m_bDebugInvincibleMode ? m_bDebugInvincibleMode = false : m_bDebugInvincibleMode = true ;
-	if( m_bDebugInvincibleMode )
-	Debugger::DBGSTR::addStrTop( L"**********  無敵モード  **********\n" );
-#endif 
 
 	//爆散エフェクト***********************************
 	if( m_pDeadEffect[0] != NULL ){
@@ -367,11 +367,11 @@ void	PlayerCoil::CreateEffect( UpdatePacket& i_UpdatePacket ){
 	m_pDeadChar	= new Dead( i_UpdatePacket.pD3DDevice, m_pDeadCharTex, D3DXVECTOR3( 1.0f, 1.0f, 0.0f ),g_vZero,
 					D3DXVECTOR3( wide-512.0f,height-256.0f,0.0f ),NULL,g_vZero,g_vZero);
 
-	//Continue,Titleロゴの作成
-	m_pSelect	= new Continue( i_UpdatePacket.pD3DDevice, m_pContinueTex, NULL, NULL, true, D3DXVECTOR3(1.0f,1.0f,0.0f),g_vZero,
-								D3DXVECTOR3( wide-256.0f,height-100.0f,0.0f ),Rect( 0,0,512,64 ), g_vZero, g_vZero );
-	m_pSelect2	= new Continue( i_UpdatePacket.pD3DDevice, m_pTitleTex, m_pRethinkingTex, m_pAnswerTex, false, D3DXVECTOR3(1.0f,1.0f,0.0f),g_vZero,
-								D3DXVECTOR3( wide-256.0f,height+100.0f,0.0f ),Rect( 0,0,512,64 ), g_vZero, g_vZero );
+	//Yes,Noの作成
+	m_pSelect	= new Continue( i_UpdatePacket.pD3DDevice, m_pAnswerTex, NULL, NULL, true, D3DXVECTOR3(1.0f,1.0f,0.0f),g_vZero,
+								D3DXVECTOR3( wide-128.0f,height-50.0f,0.0f ),Rect( 0,0,256,64 ), g_vZero, g_vZero );
+	m_pSelect2	= new Continue( i_UpdatePacket.pD3DDevice, m_pAnswerTex, m_pRethinkingTex, m_pContinueTex, false, D3DXVECTOR3(1.0f,1.0f,0.0f),g_vZero,
+								D3DXVECTOR3( wide-128.0f,height+100.0f,0.0f ),Rect( 256,0,512,64 ), g_vZero, g_vZero );
 
 	m_iDeadCount++;
 };
@@ -457,10 +457,10 @@ void PlayerCoil::Update_StateMove(){
 	//	}
 	//}
 	//速度指定
-	if(m_bIsSuperMode) m_fMovdSpeed = COIL_SPEED_SUPER;
-	else			   m_fMovdSpeed = COIL_SPEED;
+	if(m_enumCoilStateSuper == COIL_STATE_SUPER_MOVE) m_fMovdSpeed = COIL_SPEED_SUPER;
+	else											  m_fMovdSpeed = COIL_SPEED;
 
-	if( (m_bIsSuperMode && m_bReadyToSuper) || (!m_bIsSuperMode && !m_bReadyToSuper) ){
+	if( m_enumCoilStateSuper != COIL_STATE_SUPER_CHANGING ){
 		//指定方向へ指定距離移動
 		ArcMove( m_vMove , m_fMovdSpeed + m_fAcceleration, m_fMoveDir);
 		if(m_fAcceleration >= 0.0f){
@@ -563,45 +563,52 @@ void PlayerCoil::SuperMode( UpdatePacket& i_UpdatePacket ){
 	static bool		s_bIsColorChange	= false;
 	static bool		s_bSound			= false;
 	static float	s_fSFieldRotZ		= 0.0f;
-
+	float			fScalePercentage;
 	
 	D3DXMATRIX mPos, mScale, mRotZ;
 	//無敵モードに変換し終わるまではゲージを消費しない
-	if(m_bReadyToSuper){
-		if( m_pSound && !s_bSound){
-			m_pSound->SearchWaveAndPlay( RCTEXT_SOUND_SE_INVISIBLE , (BYTE)(COIL_SUPER_MODE_TIME / MGPRM_INVISIBLESOUND_TIME) +1 );
-			s_bSound = true ;
-		}
-		if(m_enumCoilState == COIL_STATE_MOVE)
-			s_fTimeCount += (float)i_UpdatePacket.pTime->getElapsedTime();
+	switch(m_enumCoilStateSuper){
+		case COIL_STATE_SUPER_MOVE:
+			if( m_pSound && !s_bSound){
+				m_pSound->SearchWaveAndPlay( RCTEXT_SOUND_SE_INVISIBLE , (BYTE)(COIL_SUPER_MODE_TIME / MGPRM_INVISIBLESOUND_TIME) +1 );
+				s_bSound = true ;
+			}
+			if(m_enumCoilState == COIL_STATE_MOVE)
+				s_fTimeCount += (float)i_UpdatePacket.pTime->getElapsedTime();
 
-		s_fSFieldRotZ += 5.0f;
-		if(m_fMoveDir > 360.0f)m_fMoveDir = float(int(m_fMoveDir) % 360);
-		float fScalePercentage = 1.0f - s_fTimeCount / COIL_SUPER_MODE_TIME;
-		D3DXMatrixTranslation( &mPos  , m_vPos.x , m_vPos.y , m_vPos.z ) ;
-		D3DXMatrixScaling( &mScale, 
-							m_vScale.x * fScalePercentage + m_OBBRadius/4, 
-							m_vScale.y * fScalePercentage + m_OBBRadius/4, 
-							m_vScale.z);
-		D3DXMatrixRotationZ( &mRotZ, D3DXToRadian( s_fSFieldRotZ ) ) ;
-	}
-	else{
-		s_fTimeCount += (float)i_UpdatePacket.pTime->getElapsedTime()*0.7f;
-		s_fSFieldRotZ += 5.0f;
-		D3DXMatrixTranslation( &mPos  , m_vPos.x , m_vPos.y , m_vPos.z ) ;
-		if(m_vScale.x >= m_vScale.x * s_fTimeCount && m_vScale.y >= m_vScale.y * s_fTimeCount){
+			s_fSFieldRotZ += 5.0f;
+			if(m_fMoveDir > 360.0f)m_fMoveDir = float(int(m_fMoveDir) % 360);
+			fScalePercentage = 1.0f - s_fTimeCount / COIL_SUPER_MODE_TIME;
+			D3DXMatrixTranslation( &mPos  , m_vPos.x , m_vPos.y , m_vPos.z ) ;
 			D3DXMatrixScaling( &mScale, 
-								m_vScale.x * s_fTimeCount, 
-								m_vScale.y * s_fTimeCount, 
+								m_vScale.x * fScalePercentage + m_OBBRadius/4, 
+								m_vScale.y * fScalePercentage + m_OBBRadius/4, 
 								m_vScale.z);
-		}else{
-			D3DXMatrixScaling( &mScale, m_vScale.x, m_vScale.y, m_vScale.z);
-			m_bReadyToSuper = true;
-			s_fTimeCount = 0.0f;
-			m_fAcceleration = COIL_ACCELERATION_VALUE;
-		}
-		D3DXMatrixRotationZ( &mRotZ, D3DXToRadian( s_fSFieldRotZ ) ) ;
+			D3DXMatrixRotationZ( &mRotZ, D3DXToRadian( s_fSFieldRotZ ) ) ;
+			break;
+
+		case COIL_STATE_SUPER_CHANGING:
+			s_fTimeCount += (float)i_UpdatePacket.pTime->getElapsedTime()*0.7f;
+			s_fSFieldRotZ += 5.0f;
+			D3DXMatrixTranslation( &mPos  , m_vPos.x , m_vPos.y , m_vPos.z ) ;
+			if(m_vScale.x >= m_vScale.x * s_fTimeCount && m_vScale.y >= m_vScale.y * s_fTimeCount){
+				D3DXMatrixScaling( &mScale, 
+									m_vScale.x * s_fTimeCount, 
+									m_vScale.y * s_fTimeCount, 
+									m_vScale.z);
+			}else{
+				D3DXMatrixScaling( &mScale, m_vScale.x, m_vScale.y, m_vScale.z);
+				m_enumCoilStateSuper = COIL_STATE_SUPER_MOVE;
+				s_fTimeCount = 0.0f;
+				m_fAcceleration = COIL_ACCELERATION_VALUE;
+			}
+			D3DXMatrixRotationZ( &mRotZ, D3DXToRadian( s_fSFieldRotZ ) ) ;
+			break;
+
+		default:
+			break;
 	}
+
 	m_pSuperField->CalcMatrix(mPos,mScale,mRotZ);
 
 	//色の点滅
@@ -627,8 +634,7 @@ void PlayerCoil::SuperMode( UpdatePacket& i_UpdatePacket ){
 
 	//無敵モード終了
 	if(s_fTimeCount >= COIL_SUPER_MODE_TIME){
-		m_bIsSuperMode	= false;
-		m_bReadyToSuper = false;
+		m_enumCoilStateSuper = COIL_STATE_SUPER_CHARGE;
 		s_bSound		= false;
 		s_fTimeCount = 0.0f;
 		switch(getMagnetPole()){
@@ -769,7 +775,9 @@ void PlayerCoil::Draw(DrawPacket& i_DrawPacket){
 		//コモンメッシュのDraw()を呼ぶ
 		CommonMesh::Draw(i_DrawPacket);
 		m_pSphere->Draw(i_DrawPacket);
-		if(m_bIsSuperMode)m_pSuperField->Draw(i_DrawPacket);
+		if(m_enumCoilStateSuper == COIL_STATE_SUPER_MOVE || m_enumCoilStateSuper == COIL_STATE_SUPER_CHANGING){
+			m_pSuperField->Draw(i_DrawPacket);
+		}
 		i_DrawPacket.pD3DDevice->SetTexture(0,0);
 		//ステージを元に戻す
 		i_DrawPacket.pD3DDevice->SetTextureStageState(0,D3DTSS_COLOROP,wkdword);
@@ -781,7 +789,9 @@ void PlayerCoil::Draw(DrawPacket& i_DrawPacket){
 		//コモンメッシュのDraw()を呼ぶ
 		CommonMesh::Draw(i_DrawPacket);
 		m_pSphere->Draw(i_DrawPacket);
-		if(m_bIsSuperMode)m_pSuperField->Draw(i_DrawPacket);
+		if(m_enumCoilStateSuper == COIL_STATE_SUPER_MOVE || m_enumCoilStateSuper == COIL_STATE_SUPER_CHANGING){
+			m_pSuperField->Draw(i_DrawPacket);
+		}
 	}
 #if defined( ON_DEBUGGINGPROCESS )
 	if( m_pDSPH ) m_pDSPH->Draw( i_DrawPacket );
@@ -942,7 +952,7 @@ bool PlayerCoil::CheckDistance( D3DXVECTOR3& i_vMagneticFieldPos, float i_iBorde
  用途: コンストラクタ（サンプルオブジェクトを配列に追加する）
  戻り値: なし
 ***************************************************************************/
-Factory_Coil::Factory_Coil( FactoryPacket* fpac, D3DXVECTOR3* vStartPos  ){
+Factory_Coil::Factory_Coil( FactoryPacket* fpac, DWORD dwResumptionCheckPoint, D3DXVECTOR3* vStartPos  ){
 	try{
 
 		D3DXVECTOR3 vScale( 1.0f, 1.0f, 1.0f );
@@ -950,20 +960,23 @@ Factory_Coil::Factory_Coil( FactoryPacket* fpac, D3DXVECTOR3* vStartPos  ){
  		D3DCOLORVALUE CoilDiffuse = {1.0f,1.0f,1.0f,0.0f};
 		D3DCOLORVALUE CoilSpecular = {0.0f,0.0f,0.0f,0.0f};
 		D3DCOLORVALUE CoilAmbient = {1.0f,1.0f,1.0f,0.0f};
-		if( vStartPos ){
-			vPos = *vStartPos ;
-		}
+
+
+		CheckPoint*									pc		= (CheckPoint*)SearchObjectFromID( fpac->m_pVec, OBJID_SYS_CHECKPOINT );
+		if( vStartPos )								vPos	= *vStartPos;
+		else if( dwResumptionCheckPoint && pc )		vPos	= pc->getThisPosition(dwResumptionCheckPoint);
+
 		fpac->m_pVec->push_back(
 			new PlayerCoil(
 				fpac->pD3DDevice,
 				NULL,
 				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"SuperField.png" ),
 				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"DeadPerticul.png" ),
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Continue.png" ),
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"GAME_END.png" ),
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"CONTINUE4.png" ),
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"GAME_END3.png" ),
 				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"dead6.png" ),
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"REALLY.png" ),
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"YESorNO.png" ),
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"REALLY4.png" ),
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"YESorNO5.png" ),
 				0.0f,0.7f,1.0f,1.0f,vScale,D3DXVECTOR3(90.0f,0.0f,0.0f),vPos,
 				CoilDiffuse,CoilSpecular,CoilAmbient
 				)

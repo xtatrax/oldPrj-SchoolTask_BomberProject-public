@@ -250,7 +250,7 @@ void Scene::CommandTranslator(DrawPacket& i_DrawPacket){
 			try{
 				//	: ゲームステージ
 
-				this->m_pStgBuf = new PlayStage(i_DrawPacket.pD3DDevice);
+				this->m_pStgBuf = new PlayStage(i_DrawPacket.pD3DDevice, i_DrawPacket.pCommand->m_Param1, i_DrawPacket.pCommand->m_Param2);
 				//	: 
 				SafeDeleteStage(m_pRootStage);
 				m_pRootStage = this->m_pStgBuf;
@@ -271,7 +271,7 @@ void Scene::CommandTranslator(DrawPacket& i_DrawPacket){
 			try{
 				//	: ゲームステージ
 				PlayerCoil* pc = (PlayerCoil*)i_DrawPacket.pCommand->m_Param1 ;
-				this->m_pStgBuf = new PlayStage( i_DrawPacket.pD3DDevice, pc->getPos() );
+				this->m_pStgBuf = new PlayStage( i_DrawPacket.pD3DDevice,i_DrawPacket.pCommand->m_Param1,i_DrawPacket.pCommand->m_Param2, pc->getPos() );
 				//	: 
 				SafeDeleteStage(m_pRootStage);
 				m_pRootStage = this->m_pStgBuf;
