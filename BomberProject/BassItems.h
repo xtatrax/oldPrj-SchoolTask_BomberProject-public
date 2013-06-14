@@ -2265,7 +2265,7 @@ class PrimitivePlate {
 		{}
 		//	: 初期化を簡略化するための引数付きコンストラクタ
 		Vertex( const D3DXVECTOR3& i_vPos, DWORD i_dwColor, const D3DXVECTOR2& i_vTex )
-			: vPos( i_vPos ), fRhw(1.0f), dwColor( i_dwColor ), vTex( i_vTex )
+			: vPos( i_vPos ), /*fRhw(1.0f),*/ dwColor( i_dwColor ), vTex( i_vTex )
 		{}
 		//	: デストラクタ
 		~Vertex()
@@ -2299,13 +2299,19 @@ public:
 	////            ：
 	////
 	virtual void Draw(DrawPacket& i_DrawPacket) ;
+	virtual void Update(int i_iPtn) ;
 	void setMatrix(D3DXMATRIX& i_mMatrix){
 		m_mMatrix = i_mMatrix ;
 	}
-	void	setPtn( int i_iPtn ){
-		m_iPtn	= i_iPtn;
-	}
 
+	D3DXVECTOR3	getPos(){
+		return	v->vPos;
+	}
+	void setMatrixPos( D3DXVECTOR3 i_vPos ){
+		D3DXMATRIX	mPos;
+		D3DXMatrixTranslation( &mPos, i_vPos.x, i_vPos.y, i_vPos.x );
+		m_mMatrix = mPos ;
+	}
 };
 
 //***********************************************

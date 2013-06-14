@@ -45,9 +45,9 @@ WallObject::WallObject( LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTextur
 		pTexture)
 ,m_pWallTex( pTexture )
 ,m_pPolyTex( pTexture2 )
-,m_pDeadTex( pTexture3 )
-,m_pNextTex( pTexture4 )
-,m_pTitleTex( pTexture5 )
+//,m_pDeadTex( pTexture3 )
+//,m_pNextTex( pTexture4 )
+//,m_pTitleTex( pTexture5 )
 ,m_Ptn(0)
 ,m_pSound( NULL )
 ,m_Plate( pD3DDevice, pTexture2, 0xFFFFFFFF )
@@ -204,6 +204,8 @@ void WallObject::Draw(DrawPacket& i_DrawPacket)
 
 			D3DXMATRIX m ;
 			//D3DXMatrixScale( &m, );
+			//D3DXVECTOR3	v	= MatrixCalculator( (*it)->m_Matrix, m_Plate.getPos() );
+			//m_Plate.setMatrixPos( v );
 			//m_Plate.setMatrix((*it)->m_Matrix);
 			//m_Plate.Draw(i_DrawPacket);
 		}
@@ -295,7 +297,7 @@ void WallObject::Update( UpdatePacket& i_UpdatePacket ){
 	//***********************************************************************************
 
 	++m_Ptn;
-	m_Plate.setPtn( m_Ptn );
+	m_Plate.Update( m_Ptn );
 	//static	int	s_Time	= 0;
 
 }
