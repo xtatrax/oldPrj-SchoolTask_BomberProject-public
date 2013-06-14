@@ -321,6 +321,22 @@ public:
 		return m_ItemContainer[Point]->vStartPos ;
 	};
 
+/////////////////// ////////////////////
+//// 用途       ：
+//// カテゴリ   ：
+//// 用途       ：
+//// 引数       ：
+//// 戻値       ：
+//// 担当者     ：
+//// 備考       ：
+////            ：
+////
+	D3DXVECTOR3 getLastPosition(){
+		//if( m_ItemContainer.size() < Point ) Point = m_ItemContainer.size() ;
+		//m_ActiveItem = Point ;
+		return m_ItemContainer[m_ItemContainer.size()-1]->vStartPos ;
+	};
+
 };
 
 /**************************************************************************

@@ -162,6 +162,7 @@ static const wstring		g_sDefaultTexturePath		= L"media/Textures/" ;	//	: ÉeÉNÉXÉ
 #define MYVK_DEBUG_COIL_INVISIBLE	( VK_CONTROL )
 #define MYVK_DEBUG_STAGE_RESTART	( VK_RETURN  )
 #define MYVK_DEBUG_STAGE_RELOAD		( VK_MENU    )
+#define MYVK_DEBUG_STAGE_RULER		( 'L'        )
 
 //
 //////////
