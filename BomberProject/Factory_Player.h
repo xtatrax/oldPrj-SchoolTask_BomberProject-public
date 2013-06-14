@@ -22,6 +22,7 @@ const int 	START_EFFECTIVE_RANGE_QUAD	= (START_EFFECTIVE_RANGE * START_EFFECTIVE
 const float	PLAYER_RECOVERY_POINT		= 0.01f;
 const float	PLAYER_CONSUME_POIMT		= 0.006f;
 const float	PLAYER_INVOCATION_POINT		= 0.100f;
+const float MAGNET_FIELD_ALPHA			= 0.2f;
 
 
 namespace wiz{
@@ -151,6 +152,8 @@ class	MagneticField : public Cylinder{
 	bool		m_bEffect;
 	D3DXVECTOR3	m_vNormalSize;
 	D3DXMATRIX	m_mMatrix;
+	MagneticGage_N* m_pMGage_N		;
+	MagneticGage_S* m_pMGage_S		;
 public:
 	MagneticField(
 		const LPDIRECT3DDEVICE9		pD3DDevice	,
@@ -177,6 +180,10 @@ public:
 
 	float	getRadius(){
 		return	m_Radius1;
+	}
+
+	void	setAlpha( float i_fAlpha ){
+		m_Material.Diffuse.a	= i_fAlpha;
 	}
 };
 

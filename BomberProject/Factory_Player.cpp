@@ -239,6 +239,7 @@ void ProvisionalPlayer3D::Update( UpdatePacket& i_UpdatePacket ){
 						m_pMagneticField3->SetPos(m_vPos);
 						m_pMagneticField4->SetPos(m_vPos);
 
+
 						m_pMagneticField->Update(i_UpdatePacket);
 						m_pMagneticField2->Update(i_UpdatePacket);
 						m_pMagneticField3->Update(i_UpdatePacket);
@@ -318,6 +319,7 @@ void ProvisionalPlayer3D::Update( UpdatePacket& i_UpdatePacket ){
 		if( m_pMGage_N ) m_pMGage_N->ResetGauge();
 		if( m_pMGage_S ) m_pMGage_S->ResetGauge();
 	}
+
 };
 
 /**************************************************************************
@@ -358,6 +360,9 @@ MagneticField::MagneticField(
 ,m_Pole( POLE_N )
 ,m_bEffect( bEffect )
 ,m_vNormalSize(vScale)
+,m_pMGage_N( NULL )
+,m_pMGage_S( NULL )
+
 {
 	try{
 		//D3DXMatrixIdentity(&m_mMatrix);
@@ -425,26 +430,40 @@ void	MagneticField::Draw(DrawPacket &i_DrawPacket){
 ********************************************************************/
 void	MagneticField::Update(UpdatePacket& i_UpdatePacket)
 {
+	if( !m_pMGage_N )	 m_pMGage_N		= (MagneticGage_N*)SearchObjectFromTypeID(i_UpdatePacket.pVec,typeid(MagneticGage_N));
+	if( !m_pMGage_S )	 m_pMGage_S		= (MagneticGage_S*)SearchObjectFromTypeID(i_UpdatePacket.pVec,typeid(MagneticGage_S));
 	//	: マティリアル設定
 	if(m_Pole){
 		//N極
-		D3DCOLORVALUE Diffuse = {1.0f,0.0f,0.0f,0.2f};
+		D3DCOLORVALUE Diffuse = {1.0f,0.0f,0.0f,MAGNET_FIELD_ALPHA};
 		D3DCOLORVALUE Specular = {0.0f,0.0f,0.0f,0.0f};
-		D3DCOLORVALUE Ambient = {1.0f,0.0f,0.0f,0.2f};
+		D3DCOLORVALUE Ambient = {1.0f,0.0f,0.0f,MAGNET_FIELD_ALPHA};
 
 		m_Material.Diffuse	= Diffuse;
 		m_Material.Specular	= Specular;
 		m_Material.Ambient	= Ambient;
+
+		//if( m_pMGage_N != NULL ){
+		//	if( m_pMGage_N->getRate() > GAUGE_VANISHRATE*0.7f )
+		//			m_Material.Diffuse.a	= 0.0f;
+		//	else	m_Material.Diffuse.a	= MAGNET_FIELD_ALPHA;
+		//}
 	}
 	else{
 		//S極
-		D3DCOLORVALUE Diffuse = {0.0f,0.0f,1.0f,0.2f};
+		D3DCOLORVALUE Diffuse = {0.0f,0.0f,1.0f,MAGNET_FIELD_ALPHA};
 		D3DCOLORVALUE Specular = {0.0f,0.0f,0.0f,0.0f};
-		D3DCOLORVALUE Ambient = {0.0f,0.0f,1.0f,0.2f};
+		D3DCOLORVALUE Ambient = {0.0f,0.0f,1.0f,MAGNET_FIELD_ALPHA};
 
 		m_Material.Diffuse	= Diffuse;
 		m_Material.Specular	= Specular;
 		m_Material.Ambient	= Ambient;
+
+		//if( m_pMGage_S != NULL ){
+		//	if( m_pMGage_S->getRate() > GAUGE_VANISHRATE*0.7f )
+		//			m_Material.Diffuse.a	= 0.0f;
+		//	else	m_Material.Diffuse.a	= MAGNET_FIELD_ALPHA;
+		//}
 	}
 
 	PlayerCoil*	pc = (PlayerCoil*)SearchObjectFromTypeID(i_UpdatePacket.pVec,typeid(PlayerCoil));
