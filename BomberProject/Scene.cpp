@@ -250,7 +250,7 @@ void Scene::CommandTranslator(DrawPacket& i_DrawPacket){
 			try{
 				//	: ゲームステージ
 
-				this->m_pStgBuf = new PlayStage(i_DrawPacket.pD3DDevice, i_DrawPacket.pCommand->m_Param1, i_DrawPacket.pCommand->m_Param2+2);
+				this->m_pStgBuf = new PlayStage(i_DrawPacket.pD3DDevice, i_DrawPacket.pCommand->m_Param1, i_DrawPacket.pCommand->m_Param2);
 				//	: 
 				SafeDeleteStage(m_pRootStage);
 				m_pRootStage = this->m_pStgBuf;
