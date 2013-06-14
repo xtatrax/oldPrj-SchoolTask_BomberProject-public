@@ -204,17 +204,33 @@ void ProvisionalPlayer3D::Update( UpdatePacket& i_UpdatePacket ){
 						m_vPos.x = (float)MousePos.x / DRAW_CLIENT_MAGNIFICATION - MAGNETIC_RADIUS ;
 						m_vPos.y = (( STANDARD_WINDOW_HEIGHT - MousePos.y ) - UI_HEIGHT ) / DRAW_CLIENT_MAGNIFICATION - MAGNETIC_RADIUS + ( m_Camera->getPosY() - m_MovePosY ) ;
 
-						if(g_bMouseLB){
-							m_pMagneticField->setPole(POLE_N);
-							m_pMagneticField2->setPole(POLE_N);
-							m_pMagneticField3->setPole(POLE_N);
-							m_pMagneticField4->setPole(POLE_N);
+						if( !m_pPlayerCoil->getMagnetPole() ){
+							if(g_bMouseLB){
+								m_pMagneticField->setPole(POLE_N);
+								m_pMagneticField2->setPole(POLE_N);
+								m_pMagneticField3->setPole(POLE_N);
+								m_pMagneticField4->setPole(POLE_N);
+							}
+							else if(g_bMouseRB){
+								m_pMagneticField->setPole(POLE_S);
+								m_pMagneticField2->setPole(POLE_S);
+								m_pMagneticField3->setPole(POLE_S);
+								m_pMagneticField4->setPole(POLE_S);
+							}
 						}
-						else if(g_bMouseRB){
-							m_pMagneticField->setPole(POLE_S);
-							m_pMagneticField2->setPole(POLE_S);
-							m_pMagneticField3->setPole(POLE_S);
-							m_pMagneticField4->setPole(POLE_S);
+						else{
+							if(g_bMouseRB){
+								m_pMagneticField->setPole(POLE_N);
+								m_pMagneticField2->setPole(POLE_N);
+								m_pMagneticField3->setPole(POLE_N);
+								m_pMagneticField4->setPole(POLE_N);
+							}
+							else if(g_bMouseLB){
+								m_pMagneticField->setPole(POLE_S);
+								m_pMagneticField2->setPole(POLE_S);
+								m_pMagneticField3->setPole(POLE_S);
+								m_pMagneticField4->setPole(POLE_S);
+							}
 						}
 
 						//¥ŠE‚É•`‰æ’n“_‚ğ“n‚·
@@ -230,10 +246,18 @@ void ProvisionalPlayer3D::Update( UpdatePacket& i_UpdatePacket ){
 						m_pMagneticField4->SetPos(m_vPos);
 						m_pMagneticField4->Update(i_UpdatePacket);
 
-						if( g_bMouseLB )
-							setPoleN() ;
-						if( g_bMouseRB )
-							setPoleS() ;
+						if( !m_pPlayerCoil->getMagnetPole() ){
+							if( g_bMouseLB )
+								setPoleN() ;
+							if( g_bMouseRB )
+								setPoleS() ;
+						}
+						else{
+							if( g_bMouseRB )
+								setPoleN() ;
+							if( g_bMouseLB )
+								setPoleS() ;
+						}
 					}
 				}
 				if( (g_bMouseLB && m_pMGage_N->getRate() < GAUGE_VANISHRATE) || (g_bMouseRB && m_pMGage_S->getRate() < GAUGE_VANISHRATE) ){	
