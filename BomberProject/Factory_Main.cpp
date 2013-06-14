@@ -105,8 +105,10 @@ Factory_Main::Factory_Main(FactoryPacket* fpac, DWORD dwStageNum, DWORD dwResump
 			);
 		}
 
-		float	fLineLength	= 200.0f;
-		Factory_Cursor		MCfac( fpac, fLineLength )  ; 
+		float	fLineLength	= 230.0f;
+		float	fPointSize	= 0.125f;
+
+		Factory_Cursor		MCfac( fpac, fLineLength, fPointSize )  ; 
 
 		Factory_Player		Pfac( fpac );
 		if( dwStageNum == 0 )	dwStageNum = 1 ;
