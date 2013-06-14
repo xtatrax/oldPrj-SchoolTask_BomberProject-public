@@ -867,7 +867,73 @@ void CommonMesh::CreatePolygon(LPDIRECT3DDEVICE9 pD3DDevice,
 		throw;
 	}
 }
+/////////////////// ////////////////////
+//// 関数名     ：void CommonMesh::CreateMeshFormX(LPDIRECT3DDEVICE9 pD3DDevice,char *pFileName,TextureManager& TexMgr)
+//// カテゴリ   ：関数
+//// 用途       ：メッシュXファイルから読み込み
+//// 引数       ：  LPDIRECT3DDEVICE9	pD3DDevice
+////            ：  char*				pFileName
+////            ：  TextureManager&		TexMgr
+//// 戻値       ：無し
+//// 担当者     ：鴫原 徹
+//// 備考       ：
+////            ：
+////
+void CommonMesh::CreateMeshFormX(
+		LPDIRECT3DDEVICE9 pD3DDevice, char *pFileName,
+		wiz::TextureManager* pTexMgr)
+{
+	try{
+		// Xファイルからメッシュをロードする 
+		LPD3DXBUFFER pD3DXMtrlBuffer = NULL;
+		DWORD dwMQty;
+		if(FAILED(D3DXLoadMeshFromXA(pFileName,
+								D3DXMESH_SYSTEMMEM,
+								pD3DDevice,
+								NULL,
+								&pD3DXMtrlBuffer,
+								NULL,
+								&dwMQty,
+								&m_pMesh))){
+			string	 buf1 = pFileName ;
+			wstring  buf2 ;
+			TLIB::widen(buf1,buf2);
+			wstring msg  = wstring(L"モデルデータ\"") + buf2 + wstring(L"\"を読み込めませんでした");
+			// 初期化失敗
+            throw BaseException(
+				msg.c_str(),
+                L"LoadMeshFromX::LoadMeshFromX()"
+                );
+        }
+		//
+		//////////
+		//	: テクスチャ名をワイド化
+		wstring wsTexName  ;
+		wchar_t* wpTexName = NULL;
+		//if(pTexName){
+		//	wpTexName = new wchar_t[ strlen(pTexName) +1 ];
+		//	size_t ret;
+		//	mbstowcs_s(&ret, wpTexName, strlen(pTexName) +1, pTexName, strlen(pTexName) +1);
+		//}
+		//
+		//////////
 
+		//TLIB::widen(sFileDir,wsFileDir);
+
+
+		//D3DXMATERIAL d3dxMaterials = *(D3DXMATERIAL*)pD3DXMtrlBuffer->GetBufferPointer();
+		//m_MaterialItems.init(pD3DDevice,pD3DXMtrlBuffer,dwMQty,TexMgr,g_sDefaultTexturePath.c_str(),wpTexName);
+		//m_BassMesh.m_AABB = AABB(m_BassMesh.m_pMesh);
+		delete [] wpTexName;
+	}
+    catch(...){
+        //コンストラクタ例外発生
+        //後始末
+        SafeRelease(m_pMesh);
+        //再スロー
+        throw;
+    }
+}
 /////////////////// ////////////////////
 //// 関数名     ：void CommonMesh::Draw( DrawPacket& i_DrawPacket )
 //// カテゴリ   ：仮想関数

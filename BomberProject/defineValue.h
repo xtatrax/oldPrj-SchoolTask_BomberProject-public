@@ -162,6 +162,7 @@ static const wstring		g_sDefaultTexturePath		= L"media/Textures/" ;	//	: ƒeƒNƒXƒ
 #define MYVK_DEBUG_COIL_INVISIBLE	( VK_CONTROL )
 #define MYVK_DEBUG_STAGE_RESTART	( VK_RETURN  )
 #define MYVK_DEBUG_STAGE_RELOAD		( VK_MENU    )
+#define MYVK_DEBUG_STAGE_RULER		( 'L'        )
 
 //
 //////////
@@ -197,23 +198,27 @@ namespace wiz{
 		GM_PLAYOPENING_END	,
 
 	};
-	//////	: 
-	////enum CLASSID{
-	////	/////////
-	////	//
-	////	//	‚±‚Ì—ñ‹“Œ^‚ÍŠO•”ƒtƒ@ƒCƒ‹‚ÅŽg—p‚·‚é‚Ì‚Å
-	////	//	Žd—l‚É]‚¢â‘Î‚É’l‚ð–¾‹L‚·‚é‚±‚Æ
-	////	//
+	//	: 
+	enum CLASSID{
+		/////////
+		//
+		//	‚±‚Ì—ñ‹“Œ^‚ÍŠO•”ƒtƒ@ƒCƒ‹‚ÅŽg—p‚·‚é‚Ì‚Å
+		//	Žd—l‚É]‚¢â‘Î‚É’l‚ð–¾‹L‚·‚é‚±‚Æ
+		//
 
-	////	CLASSID_NONE		=    0 ,
-	////	CLASSID_TESTTIP		=    1 ,
-	////	CLASSID_WALL		=  100 ,
-	////	CLASSID_ENEMY		=    3 ,
+		CLASSID_NONE		=    0 ,
+		CLASSID_TESTTIP		=    1 ,
+		CLASSID_GOAL		=   10 ,
+		CLASSID_CHECKPOINT	=   11 ,
+		CLASSID_WALL		=   20 ,
+		CLASSID_MAGNET		=   30 ,
+		CLASSID_ENEMY		=   31 ,
+		CLASSID_ITEM		=   40 ,
 
 
 
-	////	CLASSID_END			=  0xFFFFFFFFFFFFFFFF ,
-	////};
+		CLASSID_END			=  0xFFFFFFFFFFFFFFFF ,
+	};
 /**/
 	//////////////////////////////////////////////////
 	//                                              //
@@ -233,6 +238,7 @@ namespace wiz{
 		OBJID_SYS_GUIDELINE			,	//	: XYZƒKƒCƒhü( Debug—p )
 		OBJID_SYS_CAMERA			,	//	: ƒJƒƒ‰
 		OBJID_SYS_LIGHT				,	//	: ƒ‰ƒCƒg
+		OBJID_SYS_CURSOR			,	//	: ƒJ[ƒ\ƒ‹
 		OBJID_SYS_SOUND				,	//	: ‰¹º
 		OBJID_SYS_CHECKPOINT		,	//	: ƒ`ƒFƒbƒNƒ|ƒCƒ“ƒg
 		OBJID_SYS_CLEARAREA			,	//	: ƒNƒŠƒA—Ìˆæ
@@ -299,7 +305,6 @@ namespace wiz{
 		OBJID_3D_WALL				,	//	: •Ç
 		OBJID_3D_ITEM				,	//	: ƒAƒCƒeƒ€
 
-		OBJID_SYS_CURSOR				,	//	: ƒJ[ƒ\ƒ‹
 
 		//	:
 		//OBJID_3D_PLAYER				,

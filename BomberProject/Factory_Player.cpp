@@ -186,7 +186,7 @@ void ProvisionalPlayer3D::Update( UpdatePacket& i_UpdatePacket ){
 
 	RECT rc;
 	::GetClientRect(wiz::DxDevice::m_hWnd, &rc);
-
+	
 
 	if( m_pPlayerCoil->getState() == COIL_STATE_MOVE || m_pPlayerCoil->getState() == COIL_STATE_STICK ){
 		if( (g_bMouseLB || g_bMouseRB) && !(g_bMouseLB && g_bMouseRB)){ 

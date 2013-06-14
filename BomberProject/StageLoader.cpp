@@ -47,14 +47,13 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 	string sFilePath;
 	TLIB::narrow(i_Data.sFilePath, sFilePath);
 
-	wiz::OBJID ObjectID = (wiz::OBJID)i_Data.enClassid;
 
-	switch( ObjectID ){
+	switch( (wiz::OBJID)i_Data.enClassid ){
 
 /*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 		//////////
 		//
-		case OBJID_NONE:
+		case CLASSID_NONE:
 		default:
 			return;
 		//
@@ -62,14 +61,14 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 /*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 
 /*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
-		case OBJID_3D_WALL :	//	: 12300
+		case CLASSID_WALL :	//	: 12300
 		{
 			//////////
 			//	: 壁
 
 			//	: たーげっと。
 			typedef WallObject TARGET_CLASS;
-			
+			wiz::OBJID ObjectID = OBJID_3D_WALL ;
 			if((it = m_ObjeTypeMap.find( ObjectID )) != m_ObjeTypeMap.end()){
 				//	: 登録を見つけた場合
 				//	: そのままオブジェクトを追加
@@ -92,11 +91,7 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 					//	: インスタンスを生成
 					mgb = new TARGET_CLASS(
 						m_pD3DDevice,
-						m_pTexMgr->addTexture(m_pD3DDevice,L"biribiriWall.png"),
 						m_pTexMgr->addTexture(m_pD3DDevice,L"Lightning.tga"),
-						m_pTexMgr->addTexture(m_pD3DDevice,L"DeadPerticul.png"),
-						m_pTexMgr->addTexture(m_pD3DDevice,L"Continue.png"),
-						m_pTexMgr->addTexture(m_pD3DDevice,L"Go_Title.png"),
 						ObjectID
 					);
 					//	: オブジェクトリストへ登録
@@ -124,14 +119,14 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 /*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 
 /*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
-		case OBJID_3D_ITEM :	//	: 12301
+		case CLASSID_ITEM :	//	: 12301
 		{
 			//////////
 			//	: アイテム
 
 			//	: たーげっと。
 			typedef Item TARGET_CLASS;
-
+			wiz::OBJID ObjectID = OBJID_3D_ITEM ;
 			if((it = m_ObjeTypeMap.find( ObjectID )) != m_ObjeTypeMap.end()){
 				//	: 登録を見つけた場合
 				//	: そのままオブジェクトを追加
@@ -140,7 +135,8 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 					i_Data.vScale		,
 					i_Data.Diffuse		,
 					i_Data.Specular		,
-					i_Data.Ambient
+					i_Data.Ambient		,
+					ITEM_TYPE_NULL
 				);
 			}else{
 				//	: 登録がなかった場合
@@ -171,7 +167,8 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 					i_Data.vScale		,
 					i_Data.Diffuse		,
 					i_Data.Specular		,
-					i_Data.Ambient
+					i_Data.Ambient		,
+					ITEM_TYPE_NULL
 				);
 
 			}
@@ -182,14 +179,14 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 /*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 
 /*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
-		case OBJID_3D_STATIC_MAGNET :	//	: 12305 
+		case CLASSID_MAGNET :	//	: 12305 
 		{
 			//////////
 			//	: 磁界
 
 			//	: たーげっと。
 			typedef MagneticumObject3D TARGET_CLASS;
-
+			wiz::OBJID ObjectID = OBJID_3D_STATIC_MAGNET ;
 			if((it = m_ObjeTypeMap.find( ObjectID )) != m_ObjeTypeMap.end()){
 				//	: 登録を見つけた場合
 				dynamic_cast< TARGET_CLASS* >(( *m_pVec )[it->second])->AddMagnetic(
@@ -245,14 +242,14 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 /*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 
 /*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
-		case OBJID_3D_ENEMY :	//	: 12307
+		case CLASSID_ENEMY :	//	: 12307
 		{
 			//////////
 			//	: 敵(ウイルス?)
 
 			//	: たーげっと。
 			typedef EnemySphere TARGET_CLASS;
-
+			wiz::OBJID ObjectID = OBJID_3D_ENEMY ;
 			if((it = m_ObjeTypeMap.find( ObjectID )) != m_ObjeTypeMap.end()){
 				//	: 登録を見つけた場合
 				dynamic_cast< TARGET_CLASS* >(( *m_pVec )[it->second])->AddEnemy(
@@ -312,14 +309,14 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 /*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 
 /*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
-		case OBJID_SYS_CHECKPOINT :	//	: 4101 
+		case CLASSID_CHECKPOINT :	//	: 4101 
 		{
 			//////////
 			//	: チェックポイント
 
 			//	: たーげっと。
 			typedef CheckPoint TARGET_CLASS;
-
+			wiz::OBJID ObjectID = OBJID_SYS_CHECKPOINT ;
 			if((it = m_ObjeTypeMap.find( ObjectID )) != m_ObjeTypeMap.end()){
 				//	: 登録を見つけた場合
 				dynamic_cast< TARGET_CLASS* >(( *m_pVec )[it->second])->add(
@@ -364,7 +361,7 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 /*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 
 /*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
-		case OBJID_SYS_CLEARAREA :	//:4102
+		case CLASSID_GOAL :	//:4102
 			//////////
 			//	: クリア領域
 			D3DCOLORVALUE MemoryDiffuse = {1.0f,1.0f,1.0f,0.0f};
@@ -374,6 +371,8 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 			D3DCOLORVALUE GoalDiffuse = {0.0f,1.0f,1.0f,0.3f};
 			D3DCOLORVALUE GoalSpecular = {0.0f,0.0f,0.0f,0.0f};
 			D3DCOLORVALUE GoalAmbient = {0.0f,1.0f,1.0f,0.3f};
+
+			wiz::OBJID ObjectID = OBJID_SYS_CLEARAREA ;
 
 			//	: インスタンスを生成
 			GoalObject* mgb = new GoalObject(
@@ -905,9 +904,7 @@ void StageLoader2::PartsGenerator(MapPartsStatus i_Data){
 				);
 			}else{
 				//	: 登録がなかった場合
-				WallObject* mgb = new WallObject( m_pD3DDevice, m_pTexMgr->addTexture(m_pD3DDevice,L"biribiriWall.png"),
-											m_pTexMgr->addTexture(m_pD3DDevice,L"Lightning.tga"),m_pTexMgr->addTexture(m_pD3DDevice,L"DeadPerticul.png"),
-											m_pTexMgr->addTexture(m_pD3DDevice,L"Continue.png"),m_pTexMgr->addTexture(m_pD3DDevice,L"Go_Title.png"),ObjectID);
+				WallObject* mgb = new WallObject( m_pD3DDevice, m_pTexMgr->addTexture(m_pD3DDevice,L"Lightning.tga"), ObjectID);
 				mgb->AddWall(
 					i_Data.vScale, i_Data.vRot, i_Data.vPos, i_Data.Diffuse, i_Data.Specular, i_Data.Ambient
 				);
@@ -921,7 +918,7 @@ void StageLoader2::PartsGenerator(MapPartsStatus i_Data){
 			if((it = m_ObjeTypeMap.find( ObjectID )) != m_ObjeTypeMap.end()){
 				//	: 登録を見つけた場合
 				dynamic_cast< Item* >(( *m_pVec )[it->second])->addItem(
-					i_Data.vPos, i_Data.vScale, i_Data.Diffuse, i_Data.Specular, i_Data.Ambient
+					i_Data.vPos, i_Data.vScale, i_Data.Diffuse, i_Data.Specular, i_Data.Ambient,ITEM_TYPE_NULL
 				);
 			}else{
 				FactoryPacket fpac;
@@ -931,7 +928,7 @@ void StageLoader2::PartsGenerator(MapPartsStatus i_Data){
 				//	: 登録がなかった場合
 				Item* mgb = new Item( &fpac, NULL, ObjectID);
 				mgb->addItem(
-					i_Data.vPos, i_Data.vScale, i_Data.Diffuse, i_Data.Specular, i_Data.Ambient
+					i_Data.vPos, i_Data.vScale, i_Data.Diffuse, i_Data.Specular, i_Data.Ambient, ITEM_TYPE_NULL
 				);
 				m_pVec->push_back(mgb);
 				m_ObjeTypeMap.insert( make_pair( ObjectID , m_pVec->size() -1));
