@@ -156,6 +156,28 @@ inline D3DXVECTOR3 MatrixCalculator(const D3DXMATRIX& i_m4x4 ,const D3DXVECTOR3&
 };
 
 /////////////////// ////////////////////
+//// 関数名     ：inline D3DXVECTOR3 MatrixCalculator(D3DXMATRIX& i_m4x4 , D3DXVECTOR3& i_v1x3)
+//// カテゴリ   ：グリーバル関数
+//// 用途       ：三次元ベクトルに行列変換を行う
+//// 引数       ：  const D3DXMATRIX&  i_m4x4    //  : 計算に使う行列データ
+////            ：  const D3DXVECTOR3& i_v1x3    //  : 変換させたい座標データ
+//// 戻値       ：変換されたベクトル
+//// 担当       ：鴫原 徹
+//// 備考       ：
+////            ：
+////
+inline D3DXVECTOR3 MatrixCalculator(const D3DXMATRIX& i_m4x4 , Point& i_v1x2){
+	D3DXVECTOR3 res;
+
+	res.x		= (i_m4x4._11 * i_v1x2.x) + (i_m4x4._21 * i_v1x2.y) + (i_m4x4._31 * 0) + (i_m4x4._41 * 1);
+	res.y		= (i_m4x4._12 * i_v1x2.x) + (i_m4x4._22 * i_v1x2.y) + (i_m4x4._32 * 0) + (i_m4x4._42 * 1);
+	//res.z		= (i_m4x4._13 * i_v1x3.x) + (i_m4x4._23 * i_v1x3.y) + (i_m4x4._33 * 0) + (i_m4x4._43 * 1);
+	//float alpha = (i_m4x4._14 * i_v1x3.x) + (i_m4x4._24 * i_v1x3.y) + (i_m4x4._34 * i_v1x3.z) + (i_m4x4._44 * 1);
+	
+	return res;
+};
+
+/////////////////// ////////////////////
 //// 関数名     ：inline D3DXVECTOR3 MatrixCalculator(const D3DXVECTOR3& vScale, const D3DXVECTOR3& vRot, const D3DXVECTOR3& vPos)
 //// カテゴリ   ：グリーバル関数
 //// 用途       ：三次元ベクトルに行列変換を行う

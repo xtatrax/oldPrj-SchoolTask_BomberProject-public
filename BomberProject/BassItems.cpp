@@ -1,5 +1,5 @@
 ////////////////////////////// //////////////////////////////
-//	プロジェクト	：BomberProject
+//	プロジェクト	：DirectX Program Bass Project
 //	ファイル名		：BassItems.cpp
 //	開発環境		：MSVC++ 2008
 //	最適タブ数		：4
@@ -3720,11 +3720,19 @@ void Polygon::CreateInctance(LPDIRECT3DDEVICE9 pD3DDevice){
  用途: コンストラクタ
  戻り値: なし（失敗時は例外をthrow）
 ***************************************************************************/
-Polygon::Polygon(LPDIRECT3DDEVICE9 pD3DDevice,
-	FLOAT Length,UINT Sides,D3DXVECTOR3& pos,D3DXVECTOR3& rot,
-    D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,
-	wiz::OBJID id ,
-	bool IsShadowActive,LPDIRECT3DTEXTURE9 pTexture)
+Polygon::Polygon(
+	const LPDIRECT3DDEVICE9		pD3DDevice		,
+	const FLOAT					Length			,
+	const UINT					Sides			,
+	const D3DXVECTOR3&			pos				,
+	const D3DXVECTOR3&			rot				,
+    const D3DCOLORVALUE&		Diffuse			,
+	const D3DCOLORVALUE&		Specular		,
+	const D3DCOLORVALUE&		Ambient			,
+	const wiz::OBJID			id				,
+	const bool					IsShadowActive	,
+	const LPDIRECT3DTEXTURE9	pTexture
+)
 :SimpleCommonMesh(pos,rot,Diffuse,Specular,Ambient,id,IsShadowActive,pTexture),
 m_Length(Length),
 m_Sides(Sides)
@@ -3866,10 +3874,18 @@ void Box::ChangeDevice(LPDIRECT3DDEVICE9 pD3DDevice){
  用途: コンストラクタ
  戻り値: なし（失敗時は例外をthrow）
 ***************************************************************************/
-ParallelBox::ParallelBox(LPDIRECT3DDEVICE9 pD3DDevice,D3DXVECTOR3& size,D3DXVECTOR3& pos,
-        D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,
-		wiz::OBJID id,
-		bool IsShadowActive,LPDIRECT3DTEXTURE9 pTexture,int TexturePtn)
+ParallelBox::ParallelBox(
+		const LPDIRECT3DDEVICE9		pD3DDevice		,
+		const D3DXVECTOR3&			size			,
+		const D3DXVECTOR3&			pos				,
+        const D3DCOLORVALUE&		Diffuse			,
+		const D3DCOLORVALUE&		Specular		,
+		const D3DCOLORVALUE&		Ambient			,
+		const wiz::OBJID			id				,
+		const bool					IsShadowActive	,
+		const LPDIRECT3DTEXTURE9	pTexture		,
+		const int					TexturePtn
+)
 :Box(pD3DDevice,size,pos,
 D3DXVECTOR3(0,0,0),	//回転のみ0にする
 Diffuse,Specular,Ambient,id,
@@ -4621,6 +4637,7 @@ void PrimitivePlate::Update(int i_iPtn){
 	v[ 3 ].vTex	= D3DXVECTOR2( 1.0f, 0.25f*(i_iPtn+1) ) ;
 	m_pVertexBuffer->Unlock();						//	: 頂点データへのアクセスを終了する
 }
+
 
 /**************************************************************************
  class DrawSphere 定義部

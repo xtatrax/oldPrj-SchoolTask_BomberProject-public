@@ -1,5 +1,5 @@
 ////////////////////////////// //////////////////////////////
-//	プロジェクト	：BomberProject
+//	プロジェクト	：DirectX Program Bass Project
 //	ファイル名		：Factory_Mouse.cpp
 //	開発環境		：MSVC++ 2008
 //	最適タブ数		：4
@@ -58,7 +58,7 @@ MouseCursor::MouseCursor( LPDIRECT3DDEVICE9 pD3DDevice, TextureManager* m_pTexMg
 	//m_vScale	= D3DXVECTOR3( 0.125f, 0.125f, 0.0f );
 	m_vScale	= D3DXVECTOR3( fPointSize, fPointSize, 0.0f );
 	m_pSelectPos	= new SpriteObject( pD3DDevice, m_pTexMgr->addTexture( pD3DDevice, L"point.png" ), m_vScale,
-										g_vZero, g_vZero, NULL, D3DXVECTOR3( 16.0f, 16.0f, 0.0f ), g_vZero );
+							g_vZero, g_vZero, NULL, D3DXVECTOR3( 16.0f, 16.0f, 0.0f ), g_vZero,-1,OBJID_UI_SPRITE,false );
 
 	m_pLine			= new Line( g_vZero, vDir, fRange, 0xFFFFFF00 );
 	m_pLine2		= new Line( m_pLine->getEndPos(), vDir2, fLineLength, 0xFFFFFF00 );
@@ -132,14 +132,22 @@ void MouseCursor::Update( UpdatePacket& i_UpdatePacket ){
 
 	Update3DPos();
 
+	Debugger::DBGSTR::addStr( L"2DMouse : X= %d  Y= %d\n",m_v2DPos.x, m_v2DPos.y );
+	Debugger::DBGSTR::addStr( L"3DMouse : X= %f  Y= %f\n",m_v3DPos.x, m_v3DPos.y );
+
+	//D3DXMATRIX mAspectRate,mAll;
+	//D3DXVECTOR2 AspectRate = DxDevice::getAspectRate();
+	//D3DXMatrixTranslation(&mAspectRate,AspectRate.x,AspectRate.y,1.0f);
+ //   D3DXMatrixMultiply(&mAll,&m_mMatrix,&mAspectRate);
+
 	m_pLine->setMatrix( m_mMatrix );
 	m_pLine2->setMatrix( m_mMatrix );
 
 	D3DXMATRIX mPos2, mScale, mRot;
 
-	D3DXMatrixScaling( &mScale, m_vScale.x, m_vScale.y, m_vScale.z );
-	m_mMatrix = mScale * mPos ;
-	m_pSelectPos->setMatrix( m_mMatrix );
+	//D3DXMatrixScaling( &mScale, m_vScale.x, m_vScale.y, m_vScale.z );
+	//m_mMatrix = mScale * mPos ;
+	m_pSelectPos->setMatrix( mPos );
 
 	D3DXMatrixTranslation(&mPos2, m_v3DPos.x, m_v3DPos.y, m_v3DPos.z);
 	D3DXMatrixScaling(&mScale, m_fTorusMagnification,m_fTorusMagnification,0.0f);
@@ -175,7 +183,7 @@ void MouseCursor::Update( UpdatePacket& i_UpdatePacket ){
 //// 備考       ：
 void MouseCursor::Draw(DrawPacket& i_DrawPacket)
 {
-	//PrimitiveSprite::Draw(i_DrawPacket);
+	PrimitiveSprite::Draw(i_DrawPacket);
 	//Box::Draw(i_DrawPacket);
 	m_pLine->draw(i_DrawPacket.pD3DDevice);
 	m_pLine2->draw(i_DrawPacket.pD3DDevice);
@@ -187,13 +195,13 @@ void MouseCursor::Update2DPos(){
 	//	: マウスのクライアント座標を獲得
 	GetCursorPos( &m_v2DPos ) ;
 	ScreenToClient( wiz::DxDevice::m_hWnd , &m_v2DPos) ;
-
 	
 }
 void MouseCursor::Update3DPos(){
 	if( m_pCamera ){
 
 		float fYPosCorrection = 10.0f ;
+		//float fMagnification  = 
 		//	: マウス座標の３Ｄ変換
 		m_v3DPos = D3DXVECTOR3( 
 			(float)m_v2DPos.x / DRAW_CLIENT_MAGNIFICATION - MAGNETIC_RADIUS ,

@@ -66,7 +66,7 @@ Gage::Gage(
 	const wiz::OBJID			id
 )
 :SpriteObject(pD3DDevice,pTex,vScale,vRot,vPos,
-	NULL,g_vZero,vDirOffset,0xFFFFFFFF,id)
+	NULL,g_vZero,vDirOffset,0xFFFFFFFF,id,false)
 ,m_BassRect(  GaugeRect )
 ,m_GaugeRect( GaugeRect )
 ,m_FrameRect( FrameRect )

@@ -44,6 +44,7 @@
 	#define DEBUG_STRINGS_ON					/* ƒfƒoƒbƒO—p•¶Žš—ñ‚ð—LŒø‰» */
 	//#define CF_DEBUGINFORMATIONWINDOW_ENABLE	/* ƒfƒoƒbƒOî•ñ•\Ž¦—pƒEƒCƒ“ƒhƒE‚ð—LŒø‰» */
 	//#define CF_MEMORYMANAGER_ENABLE			/* Ž©ìƒƒ‚ƒŠŠÇ—ƒVƒXƒeƒ€‚ð—LŒø‰» */
+	//#define CF_FULLSCREEN				/* ƒtƒ‹ƒXƒNƒŠ[ƒ“ƒ‚[ƒh       */
 
 	//#define ___MLP_DEBUG_TIMEDRAW_ 
 	//#define ON_GUIDELINE
@@ -122,10 +123,14 @@ static const wstring		g_sDefaultTexturePath		= L"media/Textures/" ;	//	: ƒeƒNƒXƒ
 //	: ƒfƒtƒ@ƒCƒ“’è”
 #define MAP_PARTS_HEIGHT		(    1.0f)	/*  */
 #define MAP_PARTS_WIDTH			(    1.0f)	/*  */
+//#define BASE_CLIENT_HEIGHT		(  600.0f)	/* Šî€‚É‚È‚é•`‰æ—Ìˆæ‚Ì‚‚³ */
+//#define BASE_CLIENT_WIDTH		( 1024.0f)	/* Šî€‚É‚È‚é•`‰æ—Ìˆæ‚Ì•   */
+//#define STANDARD_WINDOW_HEIGHT  (  600.0f)	/* ƒEƒCƒ“ƒhƒEƒ‚[ƒh‚Ì‚‚³   */
+//#define STANDARD_WINDOW_WIDTH   ( 1024.0f)	/* ƒEƒCƒ“ƒhƒEƒ‚[ƒh‚Ì•     */
 #define BASE_CLIENT_HEIGHT		(  600.0f)	/* Šî€‚É‚È‚é•`‰æ—Ìˆæ‚Ì‚‚³ */
 #define BASE_CLIENT_WIDTH		( 1024.0f)	/* Šî€‚É‚È‚é•`‰æ—Ìˆæ‚Ì•   */
-#define STANDARD_WINDOW_HEIGHT  (  600.0f)	/* ƒEƒCƒ“ƒhƒEƒ‚[ƒh‚Ì‚‚³   */
-#define STANDARD_WINDOW_WIDTH   ( 1024.0f)	/* ƒEƒCƒ“ƒhƒEƒ‚[ƒh‚Ì•     */
+#define STANDARD_WINDOW_HEIGHT  ( 1200.0f)	/* ƒEƒCƒ“ƒhƒEƒ‚[ƒh‚Ì‚‚³   */
+#define STANDARD_WINDOW_WIDTH   ( 1920.0f)	/* ƒEƒCƒ“ƒhƒEƒ‚[ƒh‚Ì•     */
 #define DRAW_TOLERANCE			(   20.0f)	/* ƒJƒƒ‰‚©‚ç‚Ì•`‰æ‹——£ */
 
 #define DEFAULT_WINDOW_TITLE		( L"Magnetica" )
