@@ -4,10 +4,13 @@
 //	開発環境		：MSVC++ 2008
 //	最適タブ数		：4
 //	担当者			：曳地 大洋
-//	内包ﾃﾞｰﾀと備考	：メインファクトリー
+//  引継ぎ			：鴫原 徹
+//	編集			：佐藤 涼
+//	内包ﾃﾞｰﾀと備考	：ゲーム内カーソル関連
 //					▼
 //	namespace wiz;
-//		class Factory_Mouse ;
+//		namespace bomberobject;
+//			class Factory_Mouse ;
 //
 
 #include "StdAfx.h"

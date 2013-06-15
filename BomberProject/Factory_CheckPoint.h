@@ -3,20 +3,23 @@
 //	ファイル名		：Factory_CheckPoint.h
 //	開発環境		：MSVC++ 2008
 //	最適タブ数		：4
-//	担当者			：鴫原 徹 本多寛之(編集)
-//	内包ﾃﾞｰﾀと備考	：メインファクトリー
+//	担当者			：鴫原 徹
+//	引継ぎ			：本多 寛之
+//	編集			：佐藤 涼
+//	内包ﾃﾞｰﾀと備考	：チェックポイント
 //					▼
 //	namespace wiz;
-//		class Factory_CheckPoint ;
+//		namespace bomberobject;
+//			class CheckEffect         : public PrimitiveBox	;
+//			class CheckPoint          : public Cylinder		;
+//			class Factory_CheckPoint  ;
 //
 #pragma once
-
-#include "StdAfx.h"
-#include "Object.h"
-#include "BassItems.h"
+//////////
+//	: インクルード
 #include "Factory_Coil.h"
-#include "Factory_Sound.h"
-
+//	: インクルード
+//////////
 namespace wiz{
 namespace bomberobject{
 

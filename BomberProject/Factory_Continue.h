@@ -1,6 +1,6 @@
 ////////////////////////////// //////////////////////////////
 //	プロジェクト	：BomberProject
-//	ファイル名		：Factory_Continue.cpp
+//	ファイル名		：Factory_Continue.h
 //	開発環境		：MSVC++ 2008
 //	最適タブ数		：4
 //	担当者			：佐藤涼
@@ -13,10 +13,12 @@
 //
 #pragma once
 
-#include "StdAfx.h"
-#include "Object.h"
-#include "BassItems.h"
+//////////
+//	: インクルード
 #include "Factory_Coil.h"
+//	: インクルード
+//////////
+
 namespace wiz{
 namespace bomberobject{
 

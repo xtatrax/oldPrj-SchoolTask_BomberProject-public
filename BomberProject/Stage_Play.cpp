@@ -47,9 +47,9 @@ PlayStage::PlayStage( LPDIRECT3DDEVICE9 pD3DDevice, DWORD dwStageNum, DWORD dwRe
 		D3DXVECTOR3* vp = NULL ;
 		if( vStartPos != g_vMax )
 			vp = &vStartPos;
-
+	
 		Factory_Main mainF( &FPac, dwStageNum, dwResumptionCheckPoint, vp );
-
+		m_dwNowStage = dwStageNum ;
 	}
 	catch(LoaderException& e){
 		throw LoaderException(
@@ -99,7 +99,7 @@ void PlayStage::Update(UpdatePacket& i_UpdatePacket){
 		//	:  Alt+ENTER‚ÅÄ“Ç‚Ýž‚Ý
 		if( GetAsyncKeyState( MYVK_DEBUG_STAGE_RELOAD ) ){
 			PlayerCoil* pc = (PlayerCoil*)SearchObjectFromID( i_UpdatePacket.pVec, OBJID_3D_COIL );
-			i_UpdatePacket.pCommand->m_Command = GM_OPENSTAGE_PLAY_RELOAD ;
+			i_UpdatePacket.pCommand->m_Command = GM_OPENDEBUGSTAGE_PLAY_RELOAD ;
 			i_UpdatePacket.pCommand->m_Param1 = (DWORD)pc ;
 
 		}else{

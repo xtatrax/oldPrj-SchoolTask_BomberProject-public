@@ -3,22 +3,38 @@
 //	ファイル名		：Factory_Coil.cpp
 //	開発環境		：MSVC++ 2008
 //	最適タブ数		：4
-//	担当者			：鴫原 徹 曳地大洋(編集) 本多寛之(編集)
-//	内包ﾃﾞｰﾀと備考	：メインファクトリー
+//	担当者			：鴫原 徹
+//	引継ぎ			：本多寛之
+//	編集			：曳地大洋
+//					：佐藤涼
+//	内包ﾃﾞｰﾀと備考	：プレイヤーコイル関連
+//	内包ﾃﾞｰﾀと備考	：Coil関連
 //					▼
 //	namespace wiz;
 //		namespace bomberobject;
 //			class PlayerCoil : public MagneticumObject3D ;
 //			class Factory_Coil ;
 //
-#include "StdAfx.h"
-#include "Object.h"
-#include "Scene.h"
-#include "Factory_Coil.h"
-#include "BassItems.h"
-#include "Factory_Wall.h"
-#include "Factory_Cursor.h"
 
+//////////
+//	: 基本のインクルード
+#include "StdAfx.h"
+#include "Factory_Coil.h"
+//	: 基本のインクルード
+//////////
+
+//////////
+//	: 追加のインクルード
+#include "Factory_CheckPoint.h"
+#include "Factory_Continue.h"
+//	: 追加のインクルード
+//////////
+//#include "Object.h"
+//#include "Scene.h"
+//#include "BassItems.h"
+//#include "Factory_Wall.h"
+//#include "Factory_Cursor.h"
+//
 
 namespace wiz{
 namespace bomberobject{
@@ -65,42 +81,42 @@ PlayerCoil::PlayerCoil(
 		D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,
 		wiz::OBJID id
 	)
-:MagneticumObject3D(pD3DDevice,pTexture,
-					Radius1,Radius2,Lenght,vRot,vPos,
-					Diffuse,Specular,Ambient,id)
-,m_vPos(vPos)
-,m_vRot(vRot)
-,m_vScale(D3DXVECTOR3( 0.0f, 0.0f, 0.0f))
-,m_vOriginScale(vScale)
-,m_OBBRadius(Radius3)
-,m_vMove(D3DXVECTOR3( 1.0f, 0.0f, 0.0f))
-,m_fMoveDir(COIL_BASSROT)
-,m_fMovdSpeed(COIL_SPEED)
-,m_fAcceleration(NULL)
-,m_vStartPos(vPos)
-,m_bLastMouseRB(false)
-,m_bLastMouseLB(false)
-,m_bReadyToStart(false)
-,m_bReadyContinue(false)
-,m_bDrawContinue(false)
-,m_iDeadCount( 0 )
-,m_pSuperField(NULL)
-,m_fTurnAngle(PLAYER_TURN_ANGLE_Lv1)
-,m_pPlayer(NULL)
-,m_pMagneticumObject(NULL)
-,m_pCamera(NULL)
-,m_pSound( NULL )
-,m_pDeadTex(pTexture_Dead)
-,m_pContinueTex( pTexture_Continue )
-,m_pTitleTex( pTexture_Title )
-,m_pDeadCharTex( pTexture_DeadChar )
-,m_pRethinkingTex( pTexture_Rethinking )
-,m_pAnswerTex( pTexture_Answer )
-,m_enumCoilState(COIL_STATE_STOP)
-,m_enumCoilStateSuper(COIL_STATE_SUPER_CHARGE)
+:MagneticumObject3D(	pD3DDevice, pTexture, Radius1, Radius2, Lenght,
+							vRot, vPos, Diffuse, Specular, Ambient, id )
+,m_vPos(				vPos								)
+,m_vRot(				vRot								)
+,m_vScale(				D3DXVECTOR3( 0.0f, 0.0f, 0.0f)		)
+,m_vOriginScale(		vScale								)
+,m_OBBRadius(			Radius3								)
+,m_vMove(				D3DXVECTOR3( 1.0f, 0.0f, 0.0f)		)
+,m_fMoveDir(			COIL_BASSROT						)
+,m_fMovdSpeed(			COIL_SPEED							)
+,m_fAcceleration(		NULL								)
+,m_vStartPos(			vPos								)
+,m_bLastMouseRB(		false								)
+,m_bLastMouseLB(		false								)
+,m_bReadyToStart(		false								)
+,m_bReadyContinue(		false								)
+,m_bDrawContinue(		false								)
+,m_iDeadCount(			0									)
+,m_pSuperField(			NULL								)
+,m_fTurnAngle(			PLAYER_TURN_ANGLE_Lv1				)
+,m_pCursor(				NULL								)
+,m_pPlayer(				NULL								)
+,m_pMagneticumObject(	NULL								)
+,m_pCamera(				NULL								)
+,m_pSound(				NULL								)
+,m_pDeadTex(			pTexture_Dead						)
+,m_pContinueTex(		pTexture_Continue					)
+,m_pTitleTex(			pTexture_Title						)
+,m_pDeadCharTex(		pTexture_DeadChar					)
+,m_pRethinkingTex(		pTexture_Rethinking					)
+,m_pAnswerTex(			pTexture_Answer						)
+,m_enumCoilState(		COIL_STATE_STOP						)
+,m_enumCoilStateSuper(	COIL_STATE_SUPER_CHARGE				)
 #if defined( ON_DEBUGGINGPROCESS ) | defined( PRESENTATION )
-,m_pDSPH(NULL)
-,m_bDebugInvincibleMode( false )
+,m_pDSPH(				NULL								)
+,m_bDebugInvincibleMode(false								)
 #endif
 {
 	::ZeroMemory( &m_Material, sizeof(D3DMATERIAL9) ) ;
@@ -207,16 +223,11 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 
 	wiz::CONTROLER_STATE Controller1P = i_UpdatePacket.pCntlState[0] ;
 
-	if( !m_pCamera ){ 
-		m_pCamera = ( Camera* ) SearchObjectFromID( i_UpdatePacket.pVec, OBJID_SYS_CAMERA ) ; 
-	}
+	if( !m_pCursor )			m_pCursor				=        ( MouseCursor* ) SearchObjectFromID( i_UpdatePacket.pVec, OBJID_SYS_CURSOR ) ; 
+	if( !m_pCamera )			m_pCamera				=             ( Camera* ) SearchObjectFromID( i_UpdatePacket.pVec, OBJID_SYS_CAMERA ) ; 
+	if( !m_pSound )				m_pSound				=              ( Sound* ) SearchObjectFromID( i_UpdatePacket.pVec, OBJID_SYS_SOUND  ) ;
+	if( !m_pMagneticumObject )	m_pMagneticumObject		= ( MagneticumObject3D* ) SearchObjectFromID( i_UpdatePacket.pVec, OBJID_3D_STATIC_MAGNET ) ; 
 
-	if( m_pSound == NULL )
-		m_pSound = (Sound*)SearchObjectFromTypeID(i_UpdatePacket.pVec,typeid(Sound));
-
-	if( !m_pMagneticumObject ){ 
-		m_pMagneticumObject = ( MagneticumObject3D* ) SearchObjectFromTypeID( i_UpdatePacket.pVec, typeid(MagneticumObject3D) ) ; 
-	}
 	if( m_pPlayer ){
 		//デバック用-----------------------------------------------------------
 		// 磁界反転
@@ -396,8 +407,9 @@ void PlayerCoil::Update_StateStart(){
 	Point MousePos ;
 	GetCursorPos( &MousePos ) ;
 	ScreenToClient( wiz::DxDevice::m_hWnd , &MousePos) ;
-	vPlayer.x = (float)MousePos.x / DRAW_CLIENT_MAGNIFICATION - MAGNETIC_RADIUS ;
-	vPlayer.y = (( STANDARD_WINDOW_HEIGHT - MousePos.y ) - UI_HEIGHT ) / DRAW_CLIENT_MAGNIFICATION - MAGNETIC_RADIUS + ( m_pCamera->getPosY() - m_pPlayer->getMoveY() ) ;
+	vPlayer = m_pCursor->get3DPos();
+	//vPlayer.x = (float)MousePos.x / DRAW_CLIENT_MAGNIFICATION - MAGNETIC_RADIUS ;
+	//vPlayer.y = (( STANDARD_WINDOW_HEIGHT - MousePos.y ) - UI_HEIGHT ) / DRAW_CLIENT_MAGNIFICATION - MAGNETIC_RADIUS + ( m_pCamera->getPosY() - m_pPlayer->getMoveY() ) ;
 	fTargetDir = TwoPoint2Degree( vPlayer , m_vPos );
 	//角度の更新
 	m_fMoveDir = fTargetDir;
@@ -684,11 +696,12 @@ void PlayerCoil::Update_StateContinue(){
 	D3DXVECTOR3 vPlayer = g_vZero;
 	float		fTargetDir = NULL;
 	//マウス座標計算
-	Point MousePos ;
-	GetCursorPos( &MousePos ) ;
-	ScreenToClient( wiz::DxDevice::m_hWnd , &MousePos) ;
-	vPlayer.x = (float)MousePos.x / DRAW_CLIENT_MAGNIFICATION - MAGNETIC_RADIUS ;
-	vPlayer.y = (( STANDARD_WINDOW_HEIGHT - MousePos.y ) - UI_HEIGHT ) / DRAW_CLIENT_MAGNIFICATION - MAGNETIC_RADIUS + ( m_pCamera->getPosY() - m_pPlayer->getMoveY() ) ;
+	//Point MousePos ;
+	//GetCursorPos( &MousePos ) ;
+	//ScreenToClient( wiz::DxDevice::m_hWnd , &MousePos) ;
+	vPlayer = m_pCursor->get3DPos();
+	//vPlayer.x = (float)MousePos.x / DRAW_CLIENT_MAGNIFICATION - MAGNETIC_RADIUS ;
+	//vPlayer.y = (( STANDARD_WINDOW_HEIGHT - MousePos.y ) - UI_HEIGHT ) / DRAW_CLIENT_MAGNIFICATION - MAGNETIC_RADIUS + ( m_pCamera->getPosY() - m_pPlayer->getMoveY() ) ;
 	fTargetDir = TwoPoint2Degree( vPlayer , m_vPos );
 	//角度の更新
 	m_fMoveDir = fTargetDir;

@@ -1,20 +1,34 @@
 ////////////////////////////// //////////////////////////////
 //	プロジェクト	：BomberProject
-//	ファイル名		：Factory_CheckPoint.cpp
+//	ファイル名		：Factory_CheckPoint.h
 //	開発環境		：MSVC++ 2008
 //	最適タブ数		：4
 //	担当者			：鴫原 徹
-//	内包ﾃﾞｰﾀと備考	：メインファクトリー
+//	引継ぎ			：本多 寛之
+//	編集			：佐藤 涼
+//	内包ﾃﾞｰﾀと備考	：チェックポイント
 //					▼
 //	namespace wiz;
-//		class Factory_CheckPoint ;
+//		namespace bomberobject;
+//			class CheckEffect         : public PrimitiveBox	;
+//			class CheckPoint          : public Cylinder		;
+//			class Factory_CheckPoint  ;
 //
+
+//////////
+//	: 基本のインクルード
 #include "StdAfx.h"
-#include "Object.h"
-#include "Scene.h"
 #include "Factory_CheckPoint.h"
-#include "BassItems.h"
-#include "Factory_Wall.h"
+//	: 基本のインクルード
+//////////
+
+//////////
+//	: 追加のインクルード
+//	: 追加のインクルード
+//////////
+
+
+
 const float CHECK_POINT_RADIUS = 0.25f ;
 const float EFFECT_SIZE	= 2.0f;
 D3DCOLORVALUE CHECKPOINTCOLOR = { 0.5f, 1.0f, 0.5f, 0.5f } ;
