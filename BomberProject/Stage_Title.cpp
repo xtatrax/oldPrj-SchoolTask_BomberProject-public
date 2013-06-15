@@ -13,7 +13,6 @@
 #include "Scene.h"
 #include "Stage_Title.h"
 #include "stage.h"
-#include "Factory_Cursor.h"
 
 namespace wiz{
 using namespace bomberobject;
@@ -42,7 +41,7 @@ TitleStage::TitleStage(LPDIRECT3DDEVICE9 pD3DDevice,Stage* pStage)
 		FPac.pD3DDevice =  pD3DDevice       ;
 
 		Factory_Title	resultF( &FPac );
-		Factory_Cursor	MCfac( &FPac )  ; 
+
 
 	}
 	catch(...){

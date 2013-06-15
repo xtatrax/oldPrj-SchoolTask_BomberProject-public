@@ -140,12 +140,11 @@ void Gage::Update( UpdatePacket& i_UpdatePacket ){
 ”õl@@@F
 ***************************************************************/
 void Gage::Draw(DrawPacket& i_DrawPacket){
+	//˜g‚Ì•`‰æ
+	m_pRect	= m_FrameRect;
+	SpriteObject::Draw( i_DrawPacket );
 	//ƒQ[ƒW‚Ì•`‰æ
 	m_pRect	= m_GaugeRect;
-	SpriteObject::Draw( i_DrawPacket );
-	//˜g‚Ì•`‰æ
-	//m_mMatrix = m_mGaugeMatrix ;
-	m_pRect	= m_FrameRect;
 	SpriteObject::Draw( i_DrawPacket );
 }
 
@@ -205,7 +204,7 @@ SuperGage::SuperGage(
 	const	D3DXVECTOR3	vDirLeft	= D3DXVECTOR3( cosf( D3DXToRadian(90.0f) ), sinf( D3DXToRadian(90.0f) ), 0.0f );
 	const	D3DXVECTOR3	vDirBottom	= D3DXVECTOR3( cosf( D3DXToRadian(0.0f) ), sinf( D3DXToRadian(0.0f) ), 0.0f );
 	const	D3DXVECTOR3	vDirRight	= D3DXVECTOR3( cosf( D3DXToRadian(90.0f) ), sinf( D3DXToRadian(90.0f) ), 0.0f );
-	const	float	fRangeW	= 109.0f;
+	const	float	fRangeW	= 100.0f;
 	const	float	fRangeH	= 5.0f;
 	m_pLineTop		= new Line( g_vZero, vDirTop,	 fRangeW, 0xFF00FFFF );
 	m_pLineLeft		= new Line( g_vZero, vDirLeft,	 fRangeH, 0xFF00FFFF );
@@ -242,14 +241,13 @@ SuperGage::~SuperGage(){
 ***************************************************************/
 void SuperGage::Draw(DrawPacket& i_DrawPacket){
 
-	//ƒQ[ƒW‚Ì•`‰æ
-	m_pRect	= m_GaugeRect;
-	SpriteObject::Draw( i_DrawPacket );
 	//˜g‚Ì•`‰æ
 	m_mMatrix = m_Matrix ;
 	m_pRect	= m_FrameRect;
 	SpriteObject::Draw( i_DrawPacket );
-	//Gage::Draw( i_DrawPacket );
+	//ƒQ[ƒW‚Ì•`‰æ
+	m_pRect	= m_GaugeRect;
+	SpriteObject::Draw( i_DrawPacket );
 
 	if(m_bAcquired){
 		m_pLineTop->draw(i_DrawPacket.pD3DDevice);
@@ -278,7 +276,7 @@ void SuperGage::Update( UpdatePacket& i_UpdatePacket ){
 
 	D3DXMATRIX	mPos, mScale, mRot ;
 	D3DXVECTOR3 vPos ;
-	vPos.x	= (float)m_pCursor->get2DPos().x + m_vBassPos.x - m_GaugeRect.top * m_vScale.x;
+	vPos.x	= (float)m_pCursor->get2DPos().x + m_vBassPos.x - m_GaugeRect.right * m_vScale.x;
 	vPos.y	= (float)m_pCursor->get2DPos().y + m_vBassPos.y;
 	vPos.z	= 0.0f	;
 	D3DXMatrixScaling( &mScale, m_vScale.x/2, m_vScale.y, m_vScale.z );
@@ -294,8 +292,8 @@ void SuperGage::Update( UpdatePacket& i_UpdatePacket ){
 	D3DXMatrixTranslation( &mPos, vPos.x, vPos.y, vPos.z);
 	m_Matrix	= mScale * mRot * mPos ;
 	//ƒQ[ƒW‚Ì•`‰æ
-	m_GaugeRect.top  = m_BassRect.bottom - m_BassRect.top ;
-	m_GaugeRect.top *= 1.0f - m_fRate ;
+	m_GaugeRect.right  = /*m_BassRect.left -*/ m_BassRect.right ;
+	m_GaugeRect.right *= 0.0f + m_fRate ;
 	
 }
 
@@ -311,7 +309,7 @@ void SuperGage::Update( UpdatePacket& i_UpdatePacket ){
 void SuperGage::Update_Line(){
 	D3DXMATRIX		mLineScale, mLinePos;
 	D3DXVECTOR3		vLineScale	= D3DXVECTOR3(1.0f,1.0f,0.0f),vLinePos, 
-					vBaseLinePos = D3DXVECTOR3((float)m_pCursor->get2DPos().x + m_vBassPos.x*0.225f,
+					vBaseLinePos = D3DXVECTOR3((float)m_pCursor->get2DPos().x + m_vBassPos.x/**0.225f*/,
 												(float)m_pCursor->get2DPos().y + m_vBassPos.y,0.0f);
 	static float	s_fMovingDistance	= 0.0f; 
 
@@ -560,14 +558,14 @@ Factory_Gage::Factory_Gage(FactoryPacket* fpac){
 		fpac->m_pVec->push_back(
 			new SuperGage(
 				fpac->pD3DDevice,
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"MagnetGauge_Arc.png" ),
-				D3DXVECTOR3(0.4f,0.4f,0.0f),
-				D3DXVECTOR3(0.0f,0.0f,D3DXToRadian(90.0f)),
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Gauge_Super5.png" ),
+				D3DXVECTOR3(0.4f,0.25f,0.0f),
+				D3DXVECTOR3(0.0f,0.0f,0.0f),
 				//D3DXVECTOR3(950.0,30.0f,0.0f),
 				//D3DXVECTOR3(140.0,-55.0f,0.0f),
-				D3DXVECTOR3(140.0,-35.0f,0.0f),
-				Rect(112,0,143,272),
-				Rect(144,0,175,272)
+				D3DXVECTOR3(38.0f,-35.0f,0.0f),
+				Rect(0,32,512,64),
+				Rect(0,0,512,32)
 			)
 		);
 
@@ -575,7 +573,7 @@ Factory_Gage::Factory_Gage(FactoryPacket* fpac){
 		fpac->m_pVec->push_back(
 			new MagneticGage_N(
 				fpac->pD3DDevice,
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Gauge_N.png" ),
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Gauge_N4.png" ),
 				//D3DXVECTOR3( 60.0f,-250.0f,0.0f),
 				D3DXVECTOR3( 60.0f,-450.0f,0.0f),
 				D3DXVECTOR3( 0.4f, 0.4f, 0.0f ),
@@ -589,7 +587,7 @@ Factory_Gage::Factory_Gage(FactoryPacket* fpac){
 		fpac->m_pVec->push_back(
 			new MagneticGage_S(
 				fpac->pD3DDevice,
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Gauge_S.png" ),
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Gauge_S4.png" ),
 				//D3DXVECTOR3( 60.0f,-220.0f,0.0f),
 				D3DXVECTOR3( 60.0f,-410.0f,0.0f),
 				D3DXVECTOR3( 0.4f, 0.4f, 0.0f ),

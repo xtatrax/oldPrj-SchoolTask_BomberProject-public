@@ -194,10 +194,22 @@ m_SoundBankFileName(L"")
 		}
 		CreateInctance();
 	}
+	catch(exception& e){
+		ReleaseObj();
+		::MessageBoxA(
+			wiz::DxDevice::m_hWnd,
+			e.what(),
+			"エラー",
+			MB_OK);
+	}
 	catch(...){
 		ReleaseObj();
+		::MessageBoxA(
+			NULL,
+			"_Soundで未知のエラー",
+			"エラー",
+			MB_OK);
 		//再throw
-		throw;
 	}
 }
 /**************************************************************************

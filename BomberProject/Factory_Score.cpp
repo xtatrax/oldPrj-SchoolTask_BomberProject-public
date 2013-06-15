@@ -230,6 +230,76 @@ void	ArrivalPos::Update(UpdatePacket& i_UpdatePacket){
 }
 
 /**************************************************************************
+ GoalPos 定義部
+***************************************************************************/
+/**************************************************************************
+ GoalPos(LPDIRECT3DDEVICE9	pD3DDevice,
+				LPDIRECT3DTEXTURE9	pTexture,
+				D3DXVECTOR3	vScale,
+				D3DXVECTOR3	vPos,
+				Rect		rect,
+				D3DXVECTOR3	vCenter)
+ 用途　：コンストラクタ
+ 戻り値：なし
+ 担当者：佐藤涼
+***************************************************************************/
+GoalPos::GoalPos(LPDIRECT3DDEVICE9	pD3DDevice,
+				LPDIRECT3DTEXTURE9	pTexture,
+				D3DXVECTOR3	&vScale,
+				D3DXVECTOR3	&vPos,
+				Rect*		Rect)
+:Score( pD3DDevice, pTexture, vScale, vPos, MAX_DIGIT_DEAD, Rect )
+,m_pGoalObject(NULL)
+{
+}
+
+/**************************************************************************
+ GoalPos::~GoalPos();
+ 用途: デストラクタ
+ 戻り値: なし
+***************************************************************************/
+GoalPos::~GoalPos(){
+	Score::~Score();
+	m_pGoalObject = NULL;
+}
+
+/**************************************************************************
+ GoalPos::Draw(DrawPacket& i_DrawPacket);
+ 用途: 描画
+ 戻り値: なし
+***************************************************************************/
+void	GoalPos::Draw(DrawPacket& i_DrawPacket){
+	Score::Draw( i_DrawPacket );
+}
+
+/**************************************************************************
+ GoalPos::Update(UpdatePacket& i_UpdatePacket)
+ 用途: 更新
+ 戻り値: なし
+***************************************************************************/
+void	GoalPos::Update(UpdatePacket& i_UpdatePacket){
+
+	if(m_pCoil == NULL){
+		m_pCoil = (PlayerCoil*)SearchObjectFromTypeID(i_UpdatePacket.pVec,typeid(PlayerCoil));
+	}
+	if(m_pGoalObject == NULL){
+		m_pGoalObject = (GoalObject*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_SYS_CLEARAREA);
+	}
+	if(m_pGoalObject != NULL){
+		//if( m_iScore < int(m_pCoil->getPos().y)-5 )
+		//	m_iScore	= int(m_pCoil->getPos().y)-5;
+		D3DXVECTOR3	s,p,r;
+		//m_pGoalObject->GetBaseScalePosRot(s,p,r);
+		m_pGoalObject->GetWorldPos(p);
+		m_iScore = (int)(p.y);
+	}
+	if( m_iScore < 0 )
+		m_iScore	= 0;
+
+	Score::Update( i_UpdatePacket );
+}
+
+/**************************************************************************
  Factory_Score 定義部
 ****************************************************************************/
 /**************************************************************************
@@ -270,6 +340,19 @@ Factory_Score::Factory_Score(FactoryPacket *fpac){
 			)
 		);
 
+		//Slash
+		fpac->m_pVec->push_back(
+			new SpriteObject( fpac->pD3DDevice,
+					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"slash1.png" ),
+					D3DXVECTOR3( 0.5f, 0.5f, 0.0f ),
+					g_vZero,
+					D3DXVECTOR3( 870.0f, 105.0f, 0.0f ),					
+					&Rect( 0, 0, 64, 64 ),
+					g_vZero,
+					g_vZero
+			)
+		);
+
 		//死亡回数
 		fpac->m_pVec->push_back(
 			new DeadScore( fpac->pD3DDevice,
@@ -284,6 +367,16 @@ Factory_Score::Factory_Score(FactoryPacket *fpac){
 		//到達地点
 		fpac->m_pVec->push_back(
 			new ArrivalPos( fpac->pD3DDevice,
+					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Number_Base2.png" ),
+					D3DXVECTOR3( 0.4f, 0.4f, 0.0f ),
+					D3DXVECTOR3( 780.0f, 110.0f, 0.0f ),					
+					//D3DXVECTOR3( 880.0f, 90.0f, 0.0f ),					
+					&Rect( 0, 0, 512, 64 )
+			)
+		);
+		//ゴール地点
+		fpac->m_pVec->push_back(
+			new GoalPos( fpac->pD3DDevice,
 					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Number_Base2.png" ),
 					D3DXVECTOR3( 0.4f, 0.4f, 0.0f ),
 					D3DXVECTOR3( 900.0f, 110.0f, 0.0f ),					

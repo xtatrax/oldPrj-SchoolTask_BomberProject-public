@@ -13,7 +13,7 @@
 #include "Scene.h"
 #include "Stage_Select.h"
 #include "stage.h"
-#include "Factory_Cursor.h"
+#include "Factory_Select.h"
 
 namespace wiz{
 using namespace bomberobject;
@@ -41,7 +41,7 @@ StageSelect::StageSelect(LPDIRECT3DDEVICE9 pD3DDevice,Stage* pStage)
 		FPac.m_pVec     = &this->m_Vec      ;
 		FPac.pD3DDevice =  pD3DDevice       ;
 
-		Factory_Cursor	MCfac( &FPac )  ; 
+		Factory_Select	Sfac( &FPac )  ; 
 
 	}
 	catch(...){

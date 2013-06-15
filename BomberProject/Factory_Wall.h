@@ -73,7 +73,7 @@ class WallObject : public PrimitiveBox{
 			::ZeroMemory(&m_Material,sizeof(D3DMATERIAL9));
 
 			//è’ìÀîªíËópÇÃOBBÇÃèâä˙âª
-			D3DXVECTOR3 vOBBScale = D3DXVECTOR3(vScale.x/4,vScale.y,vScale.z),
+			D3DXVECTOR3 vOBBScale = D3DXVECTOR3(vScale.x/4,vScale.y*0.97f,vScale.z),
 						vOBBRot   = D3DXVECTOR3(0.0f, 0.0f, D3DXToRadian( vRot.z ));
 			m_Obb = OBB( vOBBScale, vOBBRot, vPos ) ;
 			D3DXMATRIX mScalse, mRot, mPos;

@@ -23,7 +23,7 @@ const	float		VanishArea			= 1.5f;		//	: アイテムを消すエリア
 const	float		SuctionArea			= 5.0f;		//	: アイテムが吸いよる範囲
 const	float		SpeedRate			= 0.05f;	//	: アイテムの速さ調整倍率
 const	float		RECOVERY_POINT		= 0.01f;
-const	float		RECOVERY_POINT_L	= 0.50f;
+const	float		RECOVERY_POINT_L	= 0.10f;
 
 const	float		ITEM_TYPE_NULL			= 0.0f;
 const	float		ITEM_TYPE_RECOVETY		= 1.0f;
