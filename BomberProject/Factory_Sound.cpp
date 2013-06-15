@@ -204,6 +204,7 @@ m_SoundBankFileName(L"")
 	}
 	catch(...){
 		ReleaseObj();
+
 		::MessageBoxA(
 			NULL,
 			"_Sound‚Å–¢’m‚ÌƒGƒ‰[",

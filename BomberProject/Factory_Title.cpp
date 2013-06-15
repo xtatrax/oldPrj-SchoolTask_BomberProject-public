@@ -182,6 +182,12 @@ void Title_Select::Update(UpdatePacket& i_UpdatePacket)
 	GetCursorPos( &MousePos ) ;
 	ScreenToClient( wiz::DxDevice::m_hWnd , &MousePos) ;
   //*****************************************
+	if(Cursor2D::isHitSprite(this)){
+		Debugger::DBGSTR::addStr(L"‚ ‚ ‚ ‚ ‚ ‚ ‚ ‚ ‚ ‚ ‚ ‚ ‚ ‚ ‚ ‚ ‚ ‚ ‚ ‚ ‚ ‚ ‚ ‚ ‚ \n");
+	}else{
+		Debugger::DBGSTR::addStr(L"‚¤‚¤‚¤‚¤‚¤‚¤‚¤‚¤‚¤‚¤‚¤‚¤‚¤‚¤‚¤‚¤‚¤‚¤‚¤‚¤‚¤‚¤‚¤‚¤‚¤\n");
+	}
+	
 	if( (MousePos.x > m_vPos.x && MousePos.x < ( m_vPos.x + (m_pRect->right*SCALE_RATE) )) 
 		&& (MousePos.y > m_vPos.y && MousePos.y < ( m_vPos.y + (m_pRect->bottom*SCALE_RATE) )) ){
 		if( g_bMouseLB/* || g_bMouseRB*/ ){

@@ -151,7 +151,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE
     }
     // ウィンドウの作成
     if(isFullScreen) { // フルスクリーン
-
+		// DEVMODE    devMode;
 		wiz::DxDevice::m_hWnd = ::CreateWindowEx( 
             WS_EX_ACCEPTFILES,  //オプションのウィンドウスタイル
             pClassName,         // 登録されているクラス名
@@ -159,8 +159,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE
             WS_POPUP,           // ウインドウスタイル（ポップアップウインドウを作成）
             0,                  // ウインドウの横方向の位置
             0,                  // ウインドウの縦方向の位置
-            (int)BASE_CLIENT_WIDTH,       // フルスクリーンウインドウの幅
-            (int)BASE_CLIENT_HEIGHT,      // フルスクリーンウインドウの高さ
+			(int)STANDARD_WINDOW_WIDTH,       // フルスクリーンウインドウの幅
+            (int)STANDARD_WINDOW_HEIGHT,      // フルスクリーンウインドウの高さ
             NULL,               // 親ウインドウのハンドル（なし）
             NULL,               // メニューや子ウインドウのハンドル
             hInstance,          // アプリケーションインスタンスのハンドル
@@ -172,6 +172,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE
             return 1;   //エラー終了
         }
 
+		//devMode.dmSize       = sizeof(DEVMODE);
+		//devMode.dmFields     = DM_PELSWIDTH | DM_PELSHEIGHT;
+		//devMode.dmPelsWidth  = BASE_CLIENT_WIDTH;
+		//devMode.dmPelsHeight = BASE_CLIENT_HEIGHT;
+
+		//ChangeDisplaySettings(&devMode, CDS_FULLSCREEN);
 
     }
     else {
