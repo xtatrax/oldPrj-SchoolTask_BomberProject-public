@@ -37,7 +37,7 @@ Factory_Result::Factory_Result(FactoryPacket* fpac)
 		fpac->m_pVec->push_back(
 			new SpriteObject(
 				fpac->pD3DDevice,
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"clear.png" ),
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Clear2.png" ),
 				g_vOne,
 				g_vZero,
 				D3DXVECTOR3( 200.0f, 200.0f, 0.0f ),

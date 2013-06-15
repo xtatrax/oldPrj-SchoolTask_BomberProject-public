@@ -265,6 +265,7 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 			default:
 				break;
 		}
+		//if(m_enumCoilStateSuper == COIL_STATE_SUPER_READY && g_bMouseLB && g_bMouseRB)m_enumCoilStateSuper = COIL_STATE_SUPER_CHANGING;
 		if(m_enumCoilStateSuper == COIL_STATE_SUPER_READY && g_bMouseMB)m_enumCoilStateSuper = COIL_STATE_SUPER_CHANGING;
 		if(m_enumCoilStateSuper == COIL_STATE_SUPER_MOVE || m_enumCoilStateSuper == COIL_STATE_SUPER_CHANGING){
 			//–³“Gó‘Ô
@@ -378,11 +379,11 @@ void	PlayerCoil::CreateEffect( UpdatePacket& i_UpdatePacket ){
 	m_pDeadChar	= new Dead( i_UpdatePacket.pD3DDevice, m_pDeadCharTex, D3DXVECTOR3( 1.0f, 1.0f, 0.0f ),g_vZero,
 					D3DXVECTOR3( wide-512.0f,height-256.0f,0.0f ),NULL,g_vZero,g_vZero);
 
-	//Continue,TitleƒƒS‚Ìì¬
-	m_pSelect	= new Continue( i_UpdatePacket.pD3DDevice, m_pContinueTex, NULL, NULL, true, D3DXVECTOR3(1.0f,1.0f,0.0f),g_vZero,
-								D3DXVECTOR3( wide-256.0f,height-100.0f,0.0f ),Rect( 0,0,512,64 ), g_vZero, g_vZero );
-	m_pSelect2	= new Continue( i_UpdatePacket.pD3DDevice, m_pTitleTex, m_pRethinkingTex, m_pAnswerTex, false, D3DXVECTOR3(1.0f,1.0f,0.0f),g_vZero,
-								D3DXVECTOR3( wide-256.0f,height+100.0f,0.0f ),Rect( 0,0,512,64 ), g_vZero, g_vZero );
+	//Yes,No‚Ìì¬
+	m_pSelect	= new Continue( i_UpdatePacket.pD3DDevice, m_pAnswerTex, NULL, NULL, true, D3DXVECTOR3(1.0f,1.0f,0.0f),g_vZero,
+								D3DXVECTOR3( wide-128.0f,height-50.0f,0.0f ),Rect( 0,0,256,64 ), g_vZero, g_vZero );
+	m_pSelect2	= new Continue( i_UpdatePacket.pD3DDevice, m_pAnswerTex, m_pRethinkingTex, m_pContinueTex, false, D3DXVECTOR3(1.0f,1.0f,0.0f),g_vZero,
+								D3DXVECTOR3( wide-128.0f,height+100.0f,0.0f ),Rect( 256,0,512,64 ), g_vZero, g_vZero );
 
 	m_iDeadCount++;
 };
@@ -455,7 +456,7 @@ void PlayerCoil::Update_StateMove(){
 		m_fMoveDir = MagneticDecision(m_fMoveDir,m_pPlayer->getPos(),m_pPlayer->getMagnetPole());
 	}
 
-	if( m_pMagneticumObject )
+	if( m_pMagneticumObject && m_enumCoilStateSuper != COIL_STATE_SUPER_MOVE )
 		m_pMagneticumObject->HitTest();
 	//	//Ý’uŽ¥ŠE‚ÆŽ©‹@‚Ì”»’è
 	//	TARGETCONTAINER ItemMap_Target = m_pMagneticumObject->getMapTarget();
@@ -514,7 +515,7 @@ void PlayerCoil::Update_StateStick(){
 		if(m_fMoveDir > 360.0f)m_fMoveDir = float(int(m_fMoveDir) % 360);
 		switch(getMagnetPole()){
 			case POLE_S:
-				if(!g_bMouseRB || !m_pPlayer->getDrawing()){
+				if(!g_bMouseLB || !m_pPlayer->getDrawing()){
 					m_enumCoilState = COIL_STATE_MOVE;
 					m_fAcceleration = COIL_ACCELERATION_VALUE;
 					m_bReadyToStart = false;
@@ -985,10 +986,10 @@ Factory_Coil::Factory_Coil( FactoryPacket* fpac, DWORD dwResumptionCheckPoint, D
 				NULL,
 				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"SuperField.png" ),
 				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"DeadPerticul.png" ),
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"CONTINUE3.png" ),
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"CONTINUE4.png" ),
 				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"GAME_END3.png" ),
 				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"dead6.png" ),
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"REALLY.png" ),
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"REALLY4.png" ),
 				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"YESorNO5.png" ),
 				0.0f,0.7f,1.0f,1.0f,vScale,D3DXVECTOR3(90.0f,0.0f,0.0f),vPos,
 				CoilDiffuse,CoilSpecular,CoilAmbient

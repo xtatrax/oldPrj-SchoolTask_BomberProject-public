@@ -11,6 +11,7 @@
 //
 #include "StdAfx.h"
 #include "Factory_Select.h"
+#include "Factory_Cursor.h"
 
 namespace wiz{
 namespace bomberobject{
@@ -31,7 +32,9 @@ namespace bomberobject{
 ***************************************************************************/
 Factory_Select::Factory_Select(FactoryPacket* fpac ){
 	try{
-		
+		float	fLineLength	= 550.0f;
+		float	fPointSize	= 0.25f;
+		Factory_Cursor	MCfac( fpac, fLineLength, fPointSize )  ; 
 	}
 	catch(LoaderException& e){
 		throw LoaderException(

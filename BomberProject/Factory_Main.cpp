@@ -105,8 +105,11 @@ Factory_Main::Factory_Main(FactoryPacket* fpac, DWORD dwStageNum, DWORD dwResump
 			);
 		}
 
+		float	fLineLength	= 230.0f;
+		float	fPointSize	= 0.125f;
 
-		Factory_Cursor		MCfac( fpac )  ; 
+		Factory_Cursor		MCfac( fpac, fLineLength, fPointSize )  ; 
+
 		Factory_Player		Pfac( fpac );
 		if( dwStageNum == 0 )	dwStageNum = 1 ;
 		StageLoader									loader(fpac->pD3DDevice,L"media/Map/Stages.csv", dwStageNum,*fpac->m_pVec,*fpac->m_pTexMgr);

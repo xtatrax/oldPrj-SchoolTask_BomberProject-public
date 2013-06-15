@@ -100,9 +100,11 @@ class	Continue	: public SpriteObject{
 	Reply*			m_pReply_Yes;
 	Reply*			m_pReply_No;
 	SpriteObject*	m_pRethinking;
+	SpriteObject*	m_pContinueChar				;	//	: コンテニューロゴのポインタ
 
 	LPDIRECT3DTEXTURE9	m_pRethinkingTex;	//Really?
 	LPDIRECT3DTEXTURE9	m_pAnswerTex	;	//Yes : No
+	LPDIRECT3DTEXTURE9	m_pContinueTex	;	//Yes : No
 public:
 	Continue(
 		const LPDIRECT3DDEVICE9		pD3DDevice	,

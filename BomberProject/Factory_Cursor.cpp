@@ -34,7 +34,7 @@ namespace bomberobject{
  戻り値: なし
  担当：本多寛之
 ***************************************************************************/
-MouseCursor::MouseCursor( LPDIRECT3DDEVICE9 pD3DDevice, TextureManager* m_pTexMgr)
+MouseCursor::MouseCursor( LPDIRECT3DDEVICE9 pD3DDevice, TextureManager* m_pTexMgr, float fLineLength, float fPointSize)
 :Box( pD3DDevice, D3DXVECTOR3( 1.0f, 1.0f, 1.0f), g_vZero, g_vZero, COLOR2D3DCOLORVALUE(0x0FFFFF0F), COLOR2D3DCOLORVALUE(0x0FFFFF0F), COLOR2D3DCOLORVALUE(0x0FFFFF0F),  OBJID_SYS_CURSOR, false, m_pTexMgr->addTexture( pD3DDevice, L"Field.png" ) )
 ,PrimitiveSprite(pD3DDevice, m_pTexMgr->addTexture( pD3DDevice, L"CARSOL.tga" ), NULL, D3DXVECTOR3( 92.0f, 67.0f, 0.0f ), g_vZero)
 ,m_Ptn(0)
@@ -55,12 +55,13 @@ MouseCursor::MouseCursor( LPDIRECT3DDEVICE9 pD3DDevice, TextureManager* m_pTexMg
 	const	D3DXVECTOR3	vDir2	= D3DXVECTOR3( cosf( D3DXToRadian(0.0f) ), sinf( D3DXToRadian(0.0f) ), 0.0f );
 	const	float		fRange	= 100.0f;
 
-	m_vScale	= D3DXVECTOR3( 0.125f, 0.125f, 0.0f );
+	//m_vScale	= D3DXVECTOR3( 0.125f, 0.125f, 0.0f );
+	m_vScale	= D3DXVECTOR3( fPointSize, fPointSize, 0.0f );
 	m_pSelectPos	= new SpriteObject( pD3DDevice, m_pTexMgr->addTexture( pD3DDevice, L"point.png" ), m_vScale,
 										g_vZero, g_vZero, NULL, D3DXVECTOR3( 16.0f, 16.0f, 0.0f ), g_vZero );
 
 	m_pLine			= new Line( g_vZero, vDir, fRange, 0xFFFFFF00 );
-	m_pLine2		= new Line( m_pLine->getEndPos(), vDir2, fRange*2, 0xFFFFFF00 );
+	m_pLine2		= new Line( m_pLine->getEndPos(), vDir2, fLineLength, 0xFFFFFF00 );
 
 	m_pTorus	= new Torus(
 		pD3DDevice,
@@ -217,8 +218,9 @@ void MouseCursor::Update3DPos(){
  用途: コンストラクタ（サンプルオブジェクトを配列に追加する）
  戻り値: なし
 ***************************************************************************/
-Factory_Cursor::Factory_Cursor(FactoryPacket* fpac){
+Factory_Cursor::Factory_Cursor(FactoryPacket* fpac, float fLineLength, float fPointSize){
 	try{
+
 
  		D3DCOLORVALUE MouseDiffuse = {0.7f,0.7f,0.7f,0.0f};
 		D3DCOLORVALUE MouseSpecular = {0.0f,0.0f,0.0f,0.0f};
@@ -227,9 +229,12 @@ Factory_Cursor::Factory_Cursor(FactoryPacket* fpac){
 		fpac->m_pVec->push_back(
 			new MouseCursor( 
 						fpac->pD3DDevice,
-						fpac->m_pTexMgr
+						fpac->m_pTexMgr,
+						fLineLength,
+						fPointSize
 			)
 		);
+
 	}
 	catch(...){
 		//再throw
