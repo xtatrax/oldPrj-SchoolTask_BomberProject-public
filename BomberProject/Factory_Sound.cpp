@@ -268,7 +268,7 @@ void _Sound::ChangeDevice(LPDIRECT3DDEVICE9 pD3DDevice){
 ***************************************************************************/
 void _Sound::Draw( DrawPacket& i_DrawPacket ){
 	//サウンドエンジンに作業時間を与える
-	m_pEngine->DoWork();
+	m_pEngine && m_pEngine->DoWork();
 }
 
 namespace Avoidance{
