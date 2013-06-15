@@ -26,13 +26,13 @@ class Title_Select  public SpriteObject
 用途　：タイトル画面のボタン
 *************************************************************************/
 class	Title_Select	: public SpriteObject{
-	D3DXVECTOR3		m_vPos;
-	DWORD			m_dNext;
-	Sound*			m_pSound;
-	int				m_iTime;
-	bool			m_bPush;
-	bool			m_bPushRock;
-	bool			m_bSelect;
+	D3DXVECTOR3		m_vPos		;
+	DWORD			m_dNext		;
+	Sound*			m_pSound	;
+	int				m_iTime		;
+	bool			m_bPush		;
+	bool			m_bPushRock	;
+	bool			m_bSelect	;
 public:
 	Title_Select(
 		const LPDIRECT3DDEVICE9		pD3DDevice	,

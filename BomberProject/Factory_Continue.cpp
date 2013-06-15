@@ -11,11 +11,17 @@
 //		class Dead ;
 //		class Continue ;
 //
+
+//////////
+//	: 基本のインクルード
 #include "StdAfx.h"
-#include "Object.h"
-#include "Scene.h"
 #include "Factory_Continue.h"
-#include "BassItems.h"
+//	: 基本のインクルード
+//////////
+//////////
+//	: 追加のインクルード
+//	: 追加のインクルード
+//////////
 
 
 namespace wiz{

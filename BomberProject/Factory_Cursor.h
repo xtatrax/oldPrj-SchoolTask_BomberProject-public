@@ -4,27 +4,27 @@
 //	開発環境		：MSVC++ 2008
 //	最適タブ数		：4
 //	担当者			：曳地 大洋
-//	内包ﾃﾞｰﾀと備考	：メインファクトリー
+//  引継ぎ			：鴫原 徹
+//	編集			：佐藤 涼
+//	内包ﾃﾞｰﾀと備考	：
 //					▼
 //	namespace wiz;
-//		class Factory_Mouse ;
+//		namespace bomberobject;
+//			class Factory_Mouse ;
 //
 #pragma once
 
-#include "StdAfx.h"
-#include "Object.h"
+//////////
+//	: インクルード
 #include "Line.h"
-
+//	: インクルード
+//////////
 namespace wiz{
 namespace bomberobject{
 
-//	: UIの高さ
-#define UI_HEIGHT					( 88.0f )
-//	: 表示画面の倍率 x=800, y=512 : x=40, y=25.6
-#define DRAW_CLIENT_MAGNIFICATION	( 20.0f )
-//	: 磁界の半径
-#define MAGNETIC_RADIUS				( 0.5f )
-
+#define UI_HEIGHT					( 88.0f )	//	: UIの高さ
+#define DRAW_CLIENT_MAGNIFICATION	( 20.0f )	//	: 表示画面の倍率 x=800, y=512 : x=40, y=25.6
+#define MAGNETIC_RADIUS				( 0.5f )	//	: 磁界の半径
 const float	CURSOR_FIELD_LENGHT			= 10.0f;
 const float CURSOR_FIELD_TIME			= 2.0f;		
 
