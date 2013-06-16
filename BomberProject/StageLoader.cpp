@@ -61,7 +61,7 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 /*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 
 /*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
-		case CLASSID_WALL :	//	: 12300
+		case CLASSID_WALL :	//	: 20
 		{
 			//////////
 			//	: 壁
@@ -84,7 +84,7 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 				//	: 登録がなかった場合
 				WallObject* mgb ;
 				UINT Num = SOF_NOTFOUND ;
-				if( mgb = (TARGET_CLASS*)SearchObjectFromID(m_pVec,OBJID_3D_WALL,&Num) ){
+				if( mgb = (TARGET_CLASS*)SearchObjectFromID(m_pVec,ObjectID,&Num) ){
 					//	: オブジェクトの場所を覚えておく
 					m_ObjeTypeMap.insert( make_pair( ObjectID , Num ));
 				}else{
@@ -119,7 +119,7 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 /*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 
 /*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
-		case CLASSID_ITEM :	//	: 12301
+		case CLASSID_ITEM :	//	: 40
 		{
 			//////////
 			//	: アイテム
@@ -142,7 +142,7 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 				//	: 登録がなかった場合
 				TARGET_CLASS* mgb;
 				UINT Num = SOF_NOTFOUND ;
-				if( mgb = (TARGET_CLASS*)SearchObjectFromID(m_pVec,OBJID_3D_ITEM,&Num) ){
+				if( mgb = (TARGET_CLASS*)SearchObjectFromID(m_pVec,ObjectID,&Num) ){
 
 					//	: オブジェクトの場所を覚えておく
 					m_ObjeTypeMap.insert( make_pair( ObjectID , Num ));
@@ -179,7 +179,7 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 /*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 
 /*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
-		case CLASSID_MAGNET :	//	: 12305 
+		case CLASSID_MAGNET :	//	: 30 
 		{
 			//////////
 			//	: 磁界
@@ -202,7 +202,7 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 				//	: 登録がなかった場合
 				TARGET_CLASS* mgb;
 				UINT Num = SOF_NOTFOUND ;
-				if( mgb = (TARGET_CLASS*)SearchObjectFromID(m_pVec,OBJID_3D_ITEM,&Num) ){
+				if( mgb = (TARGET_CLASS*)SearchObjectFromID(m_pVec,ObjectID,&Num) ){
 
 					//	: オブジェクトの場所を覚えておく
 					m_ObjeTypeMap.insert( make_pair( ObjectID , Num ));
@@ -242,13 +242,13 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 /*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 
 /*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
-		case CLASSID_ENEMY :	//	: 12307
+		case CLASSID_ENEMY :	//	: 31
 		{
 			//////////
 			//	: 敵(ウイルス?)
 
 			//	: たーげっと。
-			typedef EnemySphere TARGET_CLASS;
+			typedef EnemyModel TARGET_CLASS;
 			wiz::OBJID ObjectID = OBJID_3D_ENEMY ;
 			if((it = m_ObjeTypeMap.find( ObjectID )) != m_ObjeTypeMap.end()){
 				//	: 登録を見つけた場合
@@ -265,7 +265,7 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 				//	: 登録がなかった場合
 				TARGET_CLASS* mgb;
 				UINT Num = SOF_NOTFOUND ;
-				if( mgb = (TARGET_CLASS*)SearchObjectFromID(m_pVec,OBJID_3D_ITEM,&Num) ){
+				if( mgb = (TARGET_CLASS*)SearchObjectFromID(m_pVec,ObjectID,&Num) ){
 
 					//	: オブジェクトの場所を覚えておく
 					m_ObjeTypeMap.insert( make_pair( ObjectID , Num ));
@@ -276,12 +276,11 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 					D3DCOLORVALUE EnemySpecular	= {1.0f,1.0f,1.0f,1.0f};
 					D3DCOLORVALUE EnemyAmbient	= {1.0f,1.0f,1.0f,1.0f};
 					//	: インスタンスを生成
-					mgb = new EnemySphere(
+					mgb = new TARGET_CLASS(
 						m_pD3DDevice,
-						EnemyDiffuse,
-						EnemySpecular,
-						EnemyAmbient,
-						m_pTexMgr->addTexture(m_pD3DDevice,L"Enemy.jpg")
+						RCTEXT_MODEL_ENEMY,
+						m_pTexMgr,
+						ObjectID
 					);
 
 					//	: オブジェクトリストへ登録
@@ -309,7 +308,7 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 /*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 
 /*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
-		case CLASSID_CHECKPOINT :	//	: 4101 
+		case CLASSID_CHECKPOINT :	//	: 11 
 		{
 			//////////
 			//	: チェックポイント
@@ -326,7 +325,7 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 				//	: 登録がなかった場合
 				TARGET_CLASS* mgb;
 				UINT Num = SOF_NOTFOUND ;
-				if( mgb = (TARGET_CLASS*)SearchObjectFromID(m_pVec,OBJID_SYS_CHECKPOINT,&Num) ){
+				if( mgb = (TARGET_CLASS*)SearchObjectFromID(m_pVec,ObjectID,&Num) ){
 
 					//	: オブジェクトの場所を覚えておく
 					m_ObjeTypeMap.insert( make_pair( ObjectID , Num ));
@@ -361,7 +360,7 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 /*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 
 /*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
-		case CLASSID_GOAL :	//:4102
+		case CLASSID_GOAL :	//:10
 			//////////
 			//	: クリア領域
 			D3DCOLORVALUE MemoryDiffuse = {1.0f,1.0f,1.0f,0.0f};

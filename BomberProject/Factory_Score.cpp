@@ -159,10 +159,9 @@ void	DeadScore::Draw(DrawPacket& i_DrawPacket){
 ***************************************************************************/
 void	DeadScore::Update(UpdatePacket& i_UpdatePacket){
 
-	if(m_pCoil == NULL){
-		m_pCoil = (PlayerCoil*)SearchObjectFromTypeID(i_UpdatePacket.pVec,typeid(PlayerCoil));
-	}
-	if(m_pCoil != NULL)
+	if( !m_pCoil )m_pCoil = (PlayerCoil*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_3D_COIL);
+
+	if( m_pCoil )
 		m_iScore	= m_pCoil->getDeadCount();
 
 	Score::Update( i_UpdatePacket );
@@ -216,10 +215,9 @@ void	ArrivalPos::Draw(DrawPacket& i_DrawPacket){
 ***************************************************************************/
 void	ArrivalPos::Update(UpdatePacket& i_UpdatePacket){
 
-	if(m_pCoil == NULL){
-		m_pCoil = (PlayerCoil*)SearchObjectFromTypeID(i_UpdatePacket.pVec,typeid(PlayerCoil));
-	}
-	if(m_pCoil != NULL){
+	if( !m_pCoil ) m_pCoil = (PlayerCoil*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_3D_COIL);
+
+	if( m_pCoil ){
 		if( m_iScore < int(m_pCoil->getPos().y)-5 )
 			m_iScore	= int(m_pCoil->getPos().y)-5;
 	}
@@ -279,12 +277,9 @@ void	GoalPos::Draw(DrawPacket& i_DrawPacket){
 ***************************************************************************/
 void	GoalPos::Update(UpdatePacket& i_UpdatePacket){
 
-	if(m_pCoil == NULL){
-		m_pCoil = (PlayerCoil*)SearchObjectFromTypeID(i_UpdatePacket.pVec,typeid(PlayerCoil));
-	}
-	if(m_pGoalObject == NULL){
-		m_pGoalObject = (GoalObject*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_SYS_CLEARAREA);
-	}
+	if( !m_pCoil       )	m_pCoil			= (PlayerCoil*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_3D_COIL			) ;
+	if( !m_pGoalObject )	m_pGoalObject	= (GoalObject*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_SYS_CLEARAREA	) ;
+
 	if(m_pGoalObject != NULL){
 		//if( m_iScore < int(m_pCoil->getPos().y)-5 )
 		//	m_iScore	= int(m_pCoil->getPos().y)-5;
