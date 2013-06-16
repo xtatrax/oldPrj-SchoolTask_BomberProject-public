@@ -133,74 +133,6 @@ void EnemyModel::UpdateTargetItem(){
 	
 }
 
-/////////////////// ////////////////////
-//// 関数名     ：voidEnemyModel::Draw( LPDIRECT3DDEVICE9 pD3DDevice , vector<Object*>& Vec)
-//// カテゴリ   ：仮想関数
-//// 用途       ：球体を描画
-//// 引数       ：  LPDIRECT3DDEVICE9 pD3DDevice		//IDirect3DDevice9 インターフェイスへのポインタ
-////            ：  vector<Object*>& Vec,				//オブジェクトの配列
-//// 戻値       ：なし
-//// 担当者     ：斎藤謙吾
-//// 引き継ぎ   ：本多寛之
-//// 備考       ：
-////            ：
-////
-void EnemyModel::Draw(DrawPacket& i_DrawPacket)
-{
-	TARGETCONTAINER::iterator it	= m_ItemMap_Target.begin();
-	TARGETCONTAINER::iterator end	= m_ItemMap_Target.end();
-	while(it != end){
-		//マティリアル設定
-		this->m_WorldMatrix = (*it)->m_Matrix   ;	
-		this->SetMaterial((*it)->m_Material)	;
-		if((*it)->m_vIsAlive){
-			//テクスチャがある場合
-			if(!m_pTexture){
-
-				DWORD wkdword;
-				//現在のテクスチャステータスを得る
-				i_DrawPacket.pD3DDevice->GetTextureStageState(0,D3DTSS_COLOROP,&wkdword);
-
-				//ステージの設定
-				i_DrawPacket.pD3DDevice->SetTexture(0,m_pTexture);
-
-				//デフィーズ色とテクスチャを掛け合わせる設定
-				i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLOROP, D3DTOP_MODULATE4X );
-				i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLORARG1, D3DTA_TEXTURE );
-				i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLORARG2, D3DTA_DIFFUSE );
-
-				//i_DrawPacket.pD3DDevice->SetFVF(PlateFVF);
-				// マトリックスをレンダリングパイプラインに設定
-				i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &(*it)->m_Matrix);
-
-				//コモンメッシュのDraw()を呼ぶ
-				CommonMesh::Draw(i_DrawPacket);
-				i_DrawPacket.pD3DDevice->SetTexture(0,0);
-
-				//ステージを元に戻す
-				i_DrawPacket.pD3DDevice->SetTextureStageState(0,D3DTSS_COLOROP,wkdword);
-			}
-			else{
-
-				//テクスチャがない場合
-				// マトリックスをレンダリングパイプラインに設定
-				i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &(*it)->m_Matrix);
-
-				//コモンメッシュのDraw()を呼ぶ
-				CommonMesh::Draw(i_DrawPacket);
-			}
-		}
-		//爆散
-		if( (*it)->m_pDeadEffect[0] != NULL ){
-			for( int i = 0; i < PARTICLS_NUM_ENEMY; i++ ){
-				(*it)->m_pDeadEffect[i]->Draw( i_DrawPacket );
-			}
-		}
-
-		++it;
-	}
-}
-
 
 
 /////////////////// ////////////////////
@@ -275,14 +207,17 @@ void EnemyModel::Update( UpdatePacket& i_UpdatePacket){
 		}
 
 		//拡大縮小
-		D3DXMATRIX mScale;
-		D3DXMatrixIdentity(&mScale);
-		D3DXMatrixScaling(&mScale,(*it)->m_vScale.x,(*it)->m_vScale.y,(*it)->m_vScale.z);
+		//D3DXMATRIX mScale;
+		//D3DXMatrixIdentity(&mScale);
+		//D3DXMatrixScaling(&mScale,(*it)->m_vScale.x,(*it)->m_vScale.y,(*it)->m_vScale.z);
 
+		//(*it)->m_vRot. += D3DXToRadian( 1.0f );
+		
 		//回転
+		(*it)->m_fRotY += D3DXToRadian( 51.0f );
 		D3DXMATRIX mRot;
 		D3DXMatrixIdentity(&mRot);
-		D3DXMatrixRotationQuaternion(&mRot,&(*it)->m_vRot);
+		D3DXMatrixRotationY(&mRot,(*it)->m_fRotY);
 
 		//移動用
 		D3DXMATRIX mMove;
@@ -290,7 +225,41 @@ void EnemyModel::Update( UpdatePacket& i_UpdatePacket){
 		D3DXMatrixTranslation(&mMove,(*it)->m_vPos.x,(*it)->m_vPos.y,(*it)->m_vPos.z);
 
 		//ミックス行列
-		(*it)->m_Matrix = mScale * mRot * mMove;
+		(*it)->m_Matrix = /*mScale * */mRot * mMove;
+
+		++it;
+	}
+}
+
+/////////////////// ////////////////////
+//// 関数名     ：voidEnemyModel::Draw( LPDIRECT3DDEVICE9 pD3DDevice , vector<Object*>& Vec)
+//// カテゴリ   ：仮想関数
+//// 用途       ：球体を描画
+//// 引数       ：  LPDIRECT3DDEVICE9 pD3DDevice		//IDirect3DDevice9 インターフェイスへのポインタ
+////            ：  vector<Object*>& Vec,				//オブジェクトの配列
+//// 戻値       ：なし
+//// 担当者     ：斎藤謙吾
+//// 引き継ぎ   ：本多寛之
+//// 備考       ：
+////            ：
+////
+void EnemyModel::Draw(DrawPacket& i_DrawPacket)
+{
+	TARGETCONTAINER::iterator it	= m_ItemMap_Target.begin();
+	TARGETCONTAINER::iterator end	= m_ItemMap_Target.end();
+	while(it != end){
+		if((*it)->m_vIsAlive){
+			//マティリアル設定
+			this->m_WorldMatrix = (*it)->m_Matrix   ;	
+			this->SetMaterial((*it)->m_Material)	;
+			SimpleCommonMesh::Draw(i_DrawPacket)	;
+		}
+		//爆散
+		if( (*it)->m_pDeadEffect[0] != NULL ){
+			for( int i = 0; i < PARTICLS_NUM_ENEMY; i++ ){
+				(*it)->m_pDeadEffect[i]->Draw( i_DrawPacket );
+			}
+		}
 
 		++it;
 	}
@@ -323,7 +292,8 @@ void EnemyModel::AddEnemy(
 {
 
 	EnemyItem* pItem = new EnemyItem;
-	pItem->m_vScale = vScale;
+	//pItem->m_vScale = vScale;
+	pItem->m_fRotY =0;
 	pItem->m_vPos = vPos;
 	pItem->m_vStartPos = vPos;
 	pItem->m_vIsAlive = true;
@@ -331,7 +301,7 @@ void EnemyModel::AddEnemy(
 	for( int i = 0; i < PARTICLS_NUM_ENEMY; i++ )pItem->m_pDeadEffect[i] = NULL;
 	::ZeroMemory(&pItem->m_Material,sizeof(D3DMATERIAL9));
 	//回転の初期化
-	D3DXQuaternionRotationYawPitchRoll(&pItem->m_vRot,D3DXToRadian(vRot.y),D3DXToRadian(vRot.x),D3DXToRadian(vRot.z));
+	//D3DXQuaternionRotationYawPitchRoll(&pItem->m_vRot,D3DXToRadian(vRot.y),D3DXToRadian(vRot.x),D3DXToRadian(vRot.z));
 	int	i	= rand()%10;
 	if( i < 5 ){
 		pItem->m_bPole	= POLE_N;
@@ -412,28 +382,28 @@ void EnemyModel::HitTestWall( OBB Obb ){
 Factory_Enemy::Factory_Enemy(FactoryPacket* fpac){
 	try{
 		
-		//D3DCOLORVALUE EnemyDiffuse = {1.0f,1.0f,1.0f,1.0f};
-		//D3DCOLORVALUE EnemySpecular = {1.0f,1.0f,1.0f,1.0f};
-		//D3DCOLORVALUE EnemyAmbient = {1.0f,1.0f,1.0f,1.0f};
-		//
-		//EnemyModel* Enemy = new EnemyModel(
-		//	fpac->pD3DDevice,
-		//	RCTEXT_MODEL_ENEMY,
-		//	fpac->m_pTexMgr
-		//);
-		//for(int i = 0; i < 3; i++){
-		//	for(int j = 0; j < 3; j++){
-		//		Enemy->AddEnemy(D3DXVECTOR3( 1.0f, 1.0f, 1.0f ),     //スケール
-		//						D3DXVECTOR3( 0.0f, 0.0f, 0.0f ),     //角度
-		//						D3DXVECTOR3((float(i)*5.0f+float(rand()%100*0.3f))+1.5f,
-		//									(float(j)*2.75f+float(rand()%100*0.2f))+1.5f,0.0f),   //ポジション
-		//						EnemyDiffuse,
-		//						EnemySpecular,
-		//						EnemyAmbient
-		//		);
-		//	}
-		//}
-		//fpac->m_pVec->push_back(Enemy);
+		D3DCOLORVALUE EnemyDiffuse = {1.0f,1.0f,1.0f,1.0f};
+		D3DCOLORVALUE EnemySpecular = {1.0f,1.0f,1.0f,1.0f};
+		D3DCOLORVALUE EnemyAmbient = {1.0f,1.0f,1.0f,1.0f};
+		
+		EnemyModel* Enemy = new EnemyModel(
+			fpac->pD3DDevice,
+			RCTEXT_MODEL_ENEMY,
+			fpac->m_pTexMgr
+		);
+		for(int i = 0; i < 3; i++){
+			for(int j = 0; j < 3; j++){
+				Enemy->AddEnemy(D3DXVECTOR3( 1.0f, 1.0f, 1.0f ),     //スケール
+								D3DXVECTOR3( 0.0f, 0.0f, 0.0f ),     //角度
+								D3DXVECTOR3((float(i)*5.0f+float(rand()%100*0.3f))+1.5f,
+											(float(j)*2.75f+float(rand()%100*0.2f))+1.5f,0.0f),   //ポジション
+								EnemyDiffuse,
+								EnemySpecular,
+								EnemyAmbient
+				);
+			}
+		}
+		fpac->m_pVec->push_back(Enemy);
 
 	}
 	catch(...){

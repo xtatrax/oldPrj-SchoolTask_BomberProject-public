@@ -13,10 +13,7 @@
 #pragma once
 
 #include "StdAfx.h"
-#include "Object.h"
-#include "BassItems.h"
 #include "Factory_Coil.h"
-#include "Factory_Wall.h"
 
 
 namespace wiz{
@@ -45,13 +42,12 @@ class EnemyModel : public SimpleCommonMesh {
 	struct EnemyItem{
 		D3DMATERIAL9	m_Material		;
 		D3DXMATRIX		m_Matrix		;
-		float			m_fMapKey		;
-		bool			m_bHidden		;
-		D3DXVECTOR3		m_vScale		;
 		D3DXVECTOR3		m_vPos			;
 		D3DXVECTOR3		m_vStartPos		;
-		D3DXQUATERNION	m_vRot			;
+		float			m_fRotY			;
 		POLE			m_bPole			;
+		float			m_fMapKey		;
+		bool			m_bHidden		;
 		bool			m_vIsAlive		;
 
 		DeadEffect*		m_pDeadEffect[PARTICLS_NUM_ENEMY]	;
