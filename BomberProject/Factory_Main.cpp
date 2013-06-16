@@ -9,26 +9,38 @@
 //	namespace wiz;
 //		class Factory_Main ;
 //
-#include "StdAfx.h"
-#include "Object.h"
-#include "Scene.h"
-#include "StageLoader.h"
 
-#include "Factory_CheckPoint.h"
-#include "Factory_Coil.h"
+//////////
+//	: 基本のインクルード
+#include "StdAfx.h"
+#include "Factory_Main.h"
+//	: 基本のインクルード
+//////////
+//////////
+//	: 追加のインクルード
+#include "StageLoader.h"
 #include "Factory_Description.h"
 #include "Factory_Enemy.h"
-#include "Factory_Goal.h"
-#include "Factory_Gage.h"
 #include "Factory_Item.h"
-#include "Factory_Main.h"
-#include "Factory_Magnetic.h"
 #include "Factory_Player.h"
-#include "Factory_Stage1.h"
-#include "Factory_Description.h"
-#include "Factory_Cursor.h"
 #include "Factory_Score.h"
-#include "BassItems.h"
+#include "Factory_Wall.h"
+//	: 追加のインクルード
+//////////
+
+
+//#include "Object.h"
+//#include "Scene.h"
+//
+//#include "Factory_CheckPoint.h"
+//#include "Factory_Coil.h"
+//#include "Factory_Goal.h"
+//#include "Factory_Gage.h"
+//#include "Factory_Magnetic.h"
+//#include "Factory_Stage1.h"
+//#include "Factory_Description.h"
+//#include "Factory_Cursor.h"
+//#include "BassItems.h"
 
 namespace wiz{
 namespace bomberobject{
