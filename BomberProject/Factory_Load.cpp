@@ -95,7 +95,7 @@ void Load::Draw(DrawPacket& i_DrawPacket)
 ////
 void Load::Update(UpdatePacket& i_UpdatePacket)
 {
-	//if( g_bMouseLB )
+	//if( Cursor2D::getLButtonState() )
 		//i_UpdatePacket.pCommand->m_Command	= GM_OPENSTAGE_PLAY;
 };
 

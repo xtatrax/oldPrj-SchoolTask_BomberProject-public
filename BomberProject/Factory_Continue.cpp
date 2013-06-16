@@ -105,7 +105,7 @@ void Reply::Draw(DrawPacket& i_DrawPacket)
 void Reply::Update(UpdatePacket& i_UpdatePacket)
 {
 	if( Cursor2D::isHitSprite( this ) ){
-		if( g_bMouseLB/* || g_bMouseRB*/ ){
+		if( Cursor2D::getLButtonState()/* || Cursor2D::getRButtonState()*/ ){
 			if( m_bPushRock ){
 				if( m_bMark )
 					i_UpdatePacket.pCommand->m_Command	= GM_OPENSTAGE_TITLE;
@@ -121,7 +121,7 @@ void Reply::Update(UpdatePacket& i_UpdatePacket)
 	else{
 		m_Color	= 0xA0FFFFFF;
 
-		if( g_bMouseLB )	m_bPushRock	= false;
+		if( Cursor2D::getLButtonState() )	m_bPushRock	= false;
 		else				m_bPushRock	= true;
 	}
 
@@ -334,7 +334,7 @@ void Continue::Update(UpdatePacket& i_UpdatePacket)
 	if( m_bWhichDraw ){
 		if( !m_pCoil ) m_pCoil = (PlayerCoil*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_3D_COIL);
 		if( Cursor2D::isHitSprite( this ) ){
-			if( g_bMouseLB/* || g_bMouseRB*/ ){
+			if( Cursor2D::getLButtonState()/* || Cursor2D::getRButtonState()*/ ){
 				if( m_bPushRock ){
 					if( m_bMark )
 						m_pCoil->setReadyContinue(true);
@@ -353,7 +353,7 @@ void Continue::Update(UpdatePacket& i_UpdatePacket)
 		else{
 			m_Color	= 0xA0FFFFFF;
 
-			if( g_bMouseLB )	m_bPushRock	= false;
+			if( Cursor2D::getLButtonState() )	m_bPushRock	= false;
 			else				m_bPushRock	= true;
 		}
 	}

@@ -170,15 +170,25 @@ void MouseCursor::Update( UpdatePacket& i_UpdatePacket ){
 //// 戻値       ：無し
 //// 担当者     ：本多寛之
 //// 備考       ：
+////
 void MouseCursor::Draw(DrawPacket& i_DrawPacket)
 {
 	//PrimitiveSprite::Draw(i_DrawPacket);
-	Box::Draw(i_DrawPacket);
+	//Box::Draw(i_DrawPacket);
 	m_pLine->draw(i_DrawPacket.pD3DDevice);
 	m_pLine2->draw(i_DrawPacket.pD3DDevice);
 	m_pSelectPos->Draw(i_DrawPacket);
 	if(m_pCamera)m_pTorus->Draw(i_DrawPacket);
 }
+/////////////////// ////////////////////
+//// 用途       ：void MouseCursor::Update2DPos()
+//// カテゴリ   ：関数
+//// 用途       ：スクリーン座標上のマウスの位置を更新する
+//// 引数       ：なし
+//// 戻値       ：なし
+//// 担当者     ：鴫原 徹
+//// 備考       ：
+////
 void MouseCursor::Update2DPos(){
 	//	: カーソルの設定
 	//	: マウスのクライアント座標を獲得
@@ -191,6 +201,15 @@ void MouseCursor::Update2DPos(){
 	//	: 行列の算出
 	m_mMatrix = m_mScale * mPos ;
 }
+/////////////////// ////////////////////
+//// 用途       ：void MouseCursor::Update3DPos()
+//// カテゴリ   ：関数
+//// 用途       ：3D座標上のマウスの位置を更新する
+//// 引数       ：なし
+//// 戻値       ：なし
+//// 担当者     ：鴫原 徹
+//// 備考       ：
+////
 void MouseCursor::Update3DPos(){
 	if( !m_pCamera )return;
 

@@ -170,9 +170,6 @@ static const D3DXVECTOR3	g_vMax						= D3DXVECTOR3(+FLT_MAX,+FLT_MAX,+FLT_MAX);
 static const D3DXVECTOR3	g_vMin						= D3DXVECTOR3(-FLT_MAX,-FLT_MAX,-FLT_MAX);
 static const wstring		g_sDefaultTexturePath		= L"media/Textures/" ;	//	: ƒeƒNƒXƒ`ƒƒ‚Ì’u‚«ê
       //extern HWND			wiz::DxDevice::m_hWnd		;
-      extern bool			g_bMouseLB	;
-      extern bool			g_bMouseRB	;
-      extern bool			g_bMouseMB	;
 
 
 
@@ -186,24 +183,27 @@ static const wstring		g_sDefaultTexturePath		= L"media/Textures/" ;	//	: ƒeƒNƒXƒ
 namespace wiz{
 	//	: ƒQ[ƒ€“àƒƒZ[ƒW
 	enum{
-		GM_WITHOUT					,
-		GM_OPENSTAGE_TITLE			,
-		GM_OPENSTAGE_PLAY			,
-		GM_OPENSTAGE_RESULT			,
-		GM_OPENSTAGE_LOAD			,
-		GM_OPENSTAGE_RANKING		,
-		GM_OPENSTAGE_OPTION			,
-		GM_OPENSTAGE_GAMECLEAR		,
-		GM_OPENSTAGE_GAMEOVER		,
-		GM_EXIT						,
+		GM_WITHOUT					,	//	: ‰½‚à‚µ‚È‚¢
+		GM_OPENSTAGE_TITLE			,	//	: ƒ^ƒCƒgƒ‹‰æ–Ê‚ðŠJ‚­
+		GM_OPENSTAGE_SELECT			,	//	: ƒZƒŒƒNƒg‰æ–Ê‚ðŠJ‚­
+		GM_OPENSTAGE_LOAD			,	//	: ƒ[ƒh‰æ–Ê‚ðŠJ‚­
+		GM_OPENSTAGE_PLAY			,	//	: ƒvƒŒƒC‰æ–Ê‚ðŠJ‚­
+		GM_OPENSTAGE_GAMECLEAR		,	//	: ƒNƒŠƒA‰æ–Ê‚ðŠJ‚­
+		GM_OPENSTAGE_GAMEOVER		,	//	: ƒQ[ƒ€ƒI[ƒo[‰æ–Ê‚ðŠJ‚­
+		GM_OPENSTAGE_RESULT			,	//	: Œ‹‰Ê‰æ–Ê‚ðŠJ‚­
+		GM_OPENSTAGE_RANKING		,	//	: ƒ‰ƒ“ƒLƒ“ƒO‰æ–Ê‚ðŠJ‚­
+		GM_OPENSTAGE_OPTION			,	//	: ƒIƒvƒVƒ‡ƒ“‰æ–Ê‚ðŠJ‚­
+		GM_EXIT						,	//	: ƒQ[ƒ€‚ðI—¹‚·‚é
 
 		GM_OPENDEBUGSTAGE_DEBUGMENU			,
-		GM_OPENDEBUGSTAGE_PLAY_RELOAD	,
+		GM_OPENDEBUGSTAGE_PLAY_RELOAD		,
 		GM_OPENDEBUGSTAGE_STAGELOADERTEST	,
 		GM_OPENDEBUGSTAGE_TATEAWORKSPACE	,
-		GM_OPENDEBUGSTAGE_TOJIWORKSPACE		,
-		GM_OPENDEBUGSTAGE_HSWORKSPACE		,
 		GM_OPENDEBUGSTAGE_STAGECREATE		,
+
+
+		GM_CHANGE_PARENTSTAGE	,
+		GM_CHANGE_CHILDSTAGE	,
 
 		//////////
 		//	: 
@@ -257,6 +257,7 @@ namespace wiz{
 		OBJID_SYS_RENDERTARGET		,	//	: ƒŒƒ“ƒ_[ƒ^[ƒQƒbƒg
 		OBJID_SYS_END				,	
 
+		OBJID_BEHAVIOR_TEST			,
 
 		//	:ƒTƒEƒ“ƒh‚Ü‚í‚è
 		//	:BGM

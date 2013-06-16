@@ -19,12 +19,46 @@ namespace base2Dobject{
 /**************************************************************************
  class Cursor2D 定義部
 ****************************************************************************/
-Point Cursor2D::m_vMousePoint ;
+Point		Cursor2D::m_vMousePoint      ;
+bool		Cursor2D::m_bMouseLB = false ;
+bool		Cursor2D::m_bMouseMB = false ;
+bool		Cursor2D::m_bMouseRB = false ;
+DWORD		Cursor2D::m_tLastTime	= TLIB::Tempus::TimeGetTime() ;
+const float	Cursor2D::m_fLockTime	= 0.3f ;
+
 Point Cursor2D::getPos(){
 	GetCursorPos( &m_vMousePoint ) ;
 	ScreenToClient( wiz::DxDevice::m_hWnd , &m_vMousePoint) ;
 	return m_vMousePoint ;
 }
+bool Cursor2D::clickLButtonWithLock()
+{
+	if( m_bMouseLB && (float)TLIB::Tempus::TwoDwTime2ElapsedTime(m_tLastTime,TLIB::Tempus::TimeGetTime()) > m_fLockTime)
+	{
+		m_tLastTime = TLIB::Tempus::TimeGetTime();
+		return true ;
+	}
+	return false;
+};
+bool Cursor2D::clickMButtonWithLock()
+{
+	if( m_bMouseMB && (float)TLIB::Tempus::TwoDwTime2ElapsedTime(m_tLastTime,TLIB::Tempus::TimeGetTime()) > m_fLockTime)
+	{
+		m_tLastTime = TLIB::Tempus::TimeGetTime();
+		return true ;
+	}
+	return false;
+};
+bool Cursor2D::clickRButtonWithLock()
+{
+	if( m_bMouseRB && (float)TLIB::Tempus::TwoDwTime2ElapsedTime(m_tLastTime,TLIB::Tempus::TimeGetTime()) > m_fLockTime)
+	{
+		m_tLastTime = TLIB::Tempus::TimeGetTime();
+		return true ;
+	}
+	return false;
+};
+
 /////////////////// ////////////////////
 //// 関数名     ：
 //// カテゴリ   ：仮想関数
@@ -92,9 +126,7 @@ bool Cursor2D::isHitSprite(const PrimitiveSprite* i_TargetSprite)
 	poTL.y += (LONG)i_TargetSprite->m_vOffsetPos.y;
 	poBR.x += (LONG)i_TargetSprite->m_vOffsetPos.x;
 	poBR.y += (LONG)i_TargetSprite->m_vOffsetPos.y;
-	Debugger::DBGSTR::addStr(L" RECT =    %d\n"    ,poTL.y);
-	Debugger::DBGSTR::addStr(L"        %d    %d\n" ,poTL.x,poBR.x);
-	Debugger::DBGSTR::addStr(L"           %d\n"    ,poBR.y);
+
 
 	D3DXMATRIX mMatrix = i_TargetSprite->getAspectMatrix();
 	poTL = MatrixCalculator(mMatrix,poTL);
@@ -104,10 +136,6 @@ bool Cursor2D::isHitSprite(const PrimitiveSprite* i_TargetSprite)
 
 	Rect rc(poTL,poBR);
 
-	Debugger::DBGSTR::addStr(L" マウス =  %d  ,  %d\n"    ,m_vMousePoint.x,m_vMousePoint.y);
-	Debugger::DBGSTR::addStr(L" RECT =    %d\n"    ,rc.top);
-	Debugger::DBGSTR::addStr(L"        %d    %d\n" ,rc.left,rc.right);
-	Debugger::DBGSTR::addStr(L"           %d\n"    ,rc.bottom);
 	if( rc.PtInRect( m_vMousePoint ) ) return true ;
 	
 	return false ;

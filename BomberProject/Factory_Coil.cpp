@@ -265,8 +265,8 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 			default:
 				break;
 		}
-		//if(m_enumCoilStateSuper == COIL_STATE_SUPER_READY && g_bMouseLB && g_bMouseRB)m_enumCoilStateSuper = COIL_STATE_SUPER_CHANGING;
-		if(m_enumCoilStateSuper == COIL_STATE_SUPER_READY && g_bMouseMB)m_enumCoilStateSuper = COIL_STATE_SUPER_CHANGING;
+		//if(m_enumCoilStateSuper == COIL_STATE_SUPER_READY && Cursor2D::getLButtonState() && Cursor2D::getRButtonState())m_enumCoilStateSuper = COIL_STATE_SUPER_CHANGING;
+		if(m_enumCoilStateSuper == COIL_STATE_SUPER_READY && Cursor2D::getMButtonState())m_enumCoilStateSuper = COIL_STATE_SUPER_CHANGING;
 		if(m_enumCoilStateSuper == COIL_STATE_SUPER_MOVE || m_enumCoilStateSuper == COIL_STATE_SUPER_CHANGING){
 			//無敵状態
 			SuperMode(i_UpdatePacket);
@@ -409,13 +409,13 @@ void PlayerCoil::Update_StateStart(){
 	m_fMoveDir = fTargetDir;
 	if(m_bReadyToStart){
 		//クリックし、離したらMOVE状態に変更
-		if(g_bMouseLB){
+		if(Cursor2D::getLButtonState()){
 			m_bLastMouseLB = true;
 		}
-		if(g_bMouseRB){
+		if(Cursor2D::getRButtonState()){
 			m_bLastMouseRB = true;
 		}
-		if((!g_bMouseLB && m_bLastMouseLB) || (!g_bMouseRB && m_bLastMouseRB)){
+		if((!Cursor2D::getLButtonState() && m_bLastMouseLB) || (!Cursor2D::getRButtonState() && m_bLastMouseRB)){
 			m_pSound->SearchSoundAndPlay( RCTEXT_SOUND_SE_FIRE );
 			m_enumCoilState =  COIL_STATE_MOVE;
 			m_fAcceleration = COIL_ACCELERATION_VALUE;
@@ -508,14 +508,14 @@ void PlayerCoil::Update_StateStick(){
 		if(m_fMoveDir > 360.0f)m_fMoveDir = float(int(m_fMoveDir) % 360);
 		switch(getMagnetPole()){
 			case POLE_S:
-				if(!g_bMouseLB || !m_pPlayer->getDrawing()){
+				if(!Cursor2D::getLButtonState() || !m_pPlayer->getDrawing()){
 					m_enumCoilState = COIL_STATE_MOVE;
 					m_fAcceleration = COIL_ACCELERATION_VALUE;
 					m_bReadyToStart = false;
 				}
 				break;
 			case POLE_N:
-				if(!g_bMouseLB || !m_pPlayer->getDrawing()){
+				if(!Cursor2D::getLButtonState() || !m_pPlayer->getDrawing()){
 					m_enumCoilState = COIL_STATE_MOVE;
 					m_fAcceleration = COIL_ACCELERATION_VALUE;
 					m_bReadyToStart = false;
@@ -696,13 +696,13 @@ void PlayerCoil::Update_StateContinue(){
 	m_fMoveDir = fTargetDir;
 	if(m_bReadyToStart){
 		//クリックし、離したらMOVE状態に変更
-		if(g_bMouseLB){
+		if(Cursor2D::getLButtonState()){
 			m_bLastMouseLB = true;
 		}
-		if(g_bMouseRB){
+		if(Cursor2D::getRButtonState()){
 			m_bLastMouseRB = true;
 		}
-		if((!g_bMouseLB && m_bLastMouseLB) || (!g_bMouseRB && m_bLastMouseRB)){
+		if((!Cursor2D::getLButtonState() && m_bLastMouseLB) || (!Cursor2D::getRButtonState() && m_bLastMouseRB)){
 			m_pSound->SearchSoundAndPlay( RCTEXT_SOUND_SE_FIRE );
 			m_enumCoilState = COIL_STATE_MOVE;
 			m_fAcceleration = COIL_ACCELERATION_VALUE;
