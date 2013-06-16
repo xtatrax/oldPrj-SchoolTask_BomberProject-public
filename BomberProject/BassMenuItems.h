@@ -17,6 +17,7 @@
 namespace wiz{
 
 namespace menuobject{
+
 /**************************************************************************
  class Button ;
  用途: ボタン根底クラス
@@ -37,10 +38,12 @@ namespace menuobject{
  ****************************************************************************/
 class Button {
 protected:
+	static DWORD m_MouseSelectIndex;
 	DWORD	m_Index;				//メニュー上のインデックス
 	bool	m_IsSelect;				//選択フラグ
+	bool	m_IsMouseSelect;		//マウスによって選択されている
 	bool	m_IsPressed;			//決定フラグ
-	DWORD	m_Command;				//コマンド
+	Command	m_Command;				//コマンド
 	
 public:
 /**************************************************************************
@@ -52,7 +55,7 @@ public:
  用途: コンストラクタ
  戻り値: なし
 ***************************************************************************/
-    Button(DWORD Cmd,DWORD Index);
+    Button(Command Cmd,DWORD Index);
 /**************************************************************************
  virtual ~Button();
  用途: デストラクタ
@@ -70,6 +73,17 @@ public:
 		m_IsSelect = select;
 	}
 /**************************************************************************
+ void setSelect(
+	bool select	//選択状態
+ );
+ 用途: 選択状態を設定
+ 戻り値: なし。
+***************************************************************************/
+	void setMouseSelect(bool select){
+		if(m_IsSelect = m_IsMouseSelect = select)
+			m_MouseSelectIndex = m_Index ;
+	}
+/**************************************************************************
  void setPressed();
  用途: 決定フラグをセットする
  戻り値: なし。
@@ -84,6 +98,18 @@ public:
 ***************************************************************************/
 	bool getSelect(){
 		return m_IsSelect;
+	}
+/**************************************************************************
+ void setSelect(
+	bool select	//選択状態
+ );
+ 用途: 選択状態を設定
+ 戻り値: なし。
+***************************************************************************/
+	static DWORD getMouseSelectIndex(){
+		DWORD ret = m_MouseSelectIndex;
+		m_MouseSelectIndex = ULONG_MAX ;
+		return ret;
 	}
 /**************************************************************************
  bool getPressed();
@@ -104,12 +130,8 @@ public:
  戻り値: 発行されたコマンド
 ***************************************************************************/
 	Command CommandIssue(){
-		Command Com;
-		Com.m_Command	= m_Command;
-		Com.m_Param1	= 0;
-		Com.m_Param2	= 0;
 		m_IsPressed		= false;
-		return Com;
+		return m_Command;
 	}
 /**************************************************************************
  void getIndex();
@@ -123,15 +145,14 @@ public:
 
 class ButtonSprite : public SpriteObject{
 protected:
-	Button m_ButtonState;
-	Color  m_SelectColor;
-	Color  m_UnSelectColor;
-	
+	Button	m_ButtonState		;
+	Color	m_SelectColor		;
+	Color	m_UnSelectColor		;
 public:
 	ButtonSprite(LPDIRECT3DDEVICE9 pD3DDevice,LPDIRECT3DTEXTURE9 pTexture,
 		D3DXVECTOR3 vScalse,D3DXVECTOR3 vRot,D3DXVECTOR3 vPos,RECT* pRect,
 		D3DXVECTOR3 vCenter,D3DXVECTOR3 vOffset,Color dwSelectColor,
-		Color dwUnSelectColor,DWORD dwCom,DWORD dwIndex);
+		Color dwUnSelectColor,Command Com,DWORD dwIndex);
 	virtual ~ButtonSprite();
 /////////////////// ////////////////////
 //// 用途       ：virtual void Update( LPDIRECT3DDEVICE9 pD3DDevice
@@ -165,4 +186,5 @@ public:
 	Button* getButtonP(){ return &m_ButtonState;}
 } ;
 }//end of namespace menuobject.
+using namespace menuobject ;
 }//end of namespace wiz.

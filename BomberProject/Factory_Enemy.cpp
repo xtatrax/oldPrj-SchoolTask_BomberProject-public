@@ -382,28 +382,28 @@ void EnemyModel::HitTestWall( OBB Obb ){
 Factory_Enemy::Factory_Enemy(FactoryPacket* fpac){
 	try{
 		
-		D3DCOLORVALUE EnemyDiffuse = {1.0f,1.0f,1.0f,1.0f};
-		D3DCOLORVALUE EnemySpecular = {1.0f,1.0f,1.0f,1.0f};
-		D3DCOLORVALUE EnemyAmbient = {1.0f,1.0f,1.0f,1.0f};
-		
-		EnemyModel* Enemy = new EnemyModel(
-			fpac->pD3DDevice,
-			RCTEXT_MODEL_ENEMY,
-			fpac->m_pTexMgr
-		);
-		for(int i = 0; i < 3; i++){
-			for(int j = 0; j < 3; j++){
-				Enemy->AddEnemy(D3DXVECTOR3( 1.0f, 1.0f, 1.0f ),     //スケール
-								D3DXVECTOR3( 0.0f, 0.0f, 0.0f ),     //角度
-								D3DXVECTOR3((float(i)*5.0f+float(rand()%100*0.3f))+1.5f,
-											(float(j)*2.75f+float(rand()%100*0.2f))+1.5f,0.0f),   //ポジション
-								EnemyDiffuse,
-								EnemySpecular,
-								EnemyAmbient
-				);
-			}
-		}
-		fpac->m_pVec->push_back(Enemy);
+		//D3DCOLORVALUE EnemyDiffuse = {1.0f,1.0f,1.0f,1.0f};
+		//D3DCOLORVALUE EnemySpecular = {1.0f,1.0f,1.0f,1.0f};
+		//D3DCOLORVALUE EnemyAmbient = {1.0f,1.0f,1.0f,1.0f};
+		//
+		//EnemyModel* Enemy = new EnemyModel(
+		//	fpac->pD3DDevice,
+		//	RCTEXT_MODEL_ENEMY,
+		//	fpac->m_pTexMgr
+		//);
+		//for(int i = 0; i < 3; i++){
+		//	for(int j = 0; j < 3; j++){
+		//		Enemy->AddEnemy(D3DXVECTOR3( 1.0f, 1.0f, 1.0f ),     //スケール
+		//						D3DXVECTOR3( 0.0f, 0.0f, 0.0f ),     //角度
+		//						D3DXVECTOR3((float(i)*5.0f+float(rand()%100*0.3f))+1.5f,
+		//									(float(j)*2.75f+float(rand()%100*0.2f))+1.5f,0.0f),   //ポジション
+		//						EnemyDiffuse,
+		//						EnemySpecular,
+		//						EnemyAmbient
+		//		);
+		//	}
+		//}
+		//fpac->m_pVec->push_back(Enemy);
 
 	}
 	catch(...){

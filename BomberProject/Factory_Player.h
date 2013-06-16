@@ -110,7 +110,7 @@ public:
 	//// îıçl       ÅF
 	////            ÅF
 	D3DXVECTOR3 getPos() const {
-		if( g_bMouseLB || g_bMouseRB ){ 
+		if( Cursor2D::pressLorRButton() ){ 
 			return m_vPos	;
 		}else{
 			return g_vMin	;

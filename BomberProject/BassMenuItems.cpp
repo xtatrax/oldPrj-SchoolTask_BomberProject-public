@@ -27,8 +27,9 @@ namespace menuobject{
  用途: コンストラクタ
  戻り値: なし
 ****************************************************************************/
-Button::Button(DWORD Cmd,DWORD Index)
+Button::Button(Command Cmd,DWORD Index)
 :m_Index(Index),m_IsPressed(false),m_IsSelect(false),m_Command(Cmd)
+,m_IsMouseSelect( false )
 {
 	//もしインデックスが0番なら、初期状態で選択されている
 	if(m_Index == 0){
@@ -44,15 +45,15 @@ Button::~Button(){
 
 }
 
-
+DWORD Button::m_MouseSelectIndex = ULONG_MAX ;
 
 
 
 ButtonSprite::ButtonSprite(LPDIRECT3DDEVICE9 pD3DDevice,LPDIRECT3DTEXTURE9 pTexture,
 		D3DXVECTOR3 vScalse,D3DXVECTOR3 vRot,D3DXVECTOR3 vPos,RECT* pRect,
 		D3DXVECTOR3 vCenter,D3DXVECTOR3 vOffset,Color SelectColor,
-		Color UnSelectColor,DWORD dwCom,DWORD dwIndex)
-:m_ButtonState(dwCom,dwIndex)
+		Color UnSelectColor,Command Com,DWORD dwIndex)
+:m_ButtonState(Com,dwIndex)
 ,SpriteObject(pD3DDevice,pTexture,vScalse,vRot,vPos,pRect,vCenter,vOffset,UnSelectColor)
 ,m_SelectColor(SelectColor)
 ,m_UnSelectColor(UnSelectColor)
@@ -81,7 +82,10 @@ ButtonSprite::~ButtonSprite(){};
 ////            ：
 ////
 void ButtonSprite::Update(UpdatePacket& i_UpdatePacket){
-
+	if( Cursor2D::isHitSprite(this) )
+		m_ButtonState.setMouseSelect(true);
+	else
+		m_ButtonState.setMouseSelect(false);
 };
 
 

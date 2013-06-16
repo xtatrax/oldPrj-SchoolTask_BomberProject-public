@@ -9,8 +9,5 @@
 //
 #include "stdafx.h"
 
-bool g_bMouseLB = false ;
-bool g_bMouseRB = false ;
-bool g_bMouseMB = false ;
 
 

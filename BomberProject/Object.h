@@ -203,6 +203,58 @@ public:
 };
 
 //**************************************************************************
+// class Behavior;
+//
+// 担当者  : 鴫原 徹
+// 用途    : 挙動を定義するオブジェクトの基本クラス
+//**************************************************************************
+class Behavior : public Object{
+public:
+	/////////////////// ////////////////////
+	//// 用途       ：Behavior(wiz::OBJID id)
+	//// カテゴリ   ：コンストラクタ
+	//// 用途       ：
+	//// 引数       ：なし
+	//// 戻値       ：なし
+	//// 担当者     ：鴫原 徹
+	//// 備考       ：
+	////            ：
+	////
+	Behavior(wiz::OBJID id):Object(id){}
+	/////////////////// ////////////////////
+	//// 用途       ：virtual void Update( UpdatePacket& i_UpdatePacket )
+	//// カテゴリ   ：仮想関数
+	//// 用途       ：オブジェクトを更新
+	//// 引数       ：  UpdatePacket& i_UpdatePacket     // アップデート時に必要なデータ群 ↓内容下記
+	////            ：  ├       LPDIRECT3DDEVICE9  pD3DDevice      // IDirect3DDevice9 インターフェイスへのポインタ
+	////            ：  ├       Tempus2*           pTime           // 時間を管理するクラスへのポインター
+	////            ：  ├       vector<Object*>&   Vec,            // オブジェクトの配列
+	////            ：  ├ const CONTROLER_STATE*   pCntlState      // コントローラのステータス
+	////            ：  └       Command            pCommand        // コマンド
+	//// 戻値       ：無し
+	//// 担当者     ：鴫原 徹
+	//// 備考       ：継承したものでも必ずとも定義をしなくても良い
+	////            ：
+	////
+    virtual void Update( UpdatePacket& i_UpdatePacket ) = 0;
+	/////////////////// ////////////////////
+	//// 用途       ：virtual void Draw( DrawPacket& i_DrawPacket )
+	//// カテゴリ   ：純粋仮想関数
+	//// 用途       ：オブジェクトをディスプレイに表示する
+	//// 引数       ：  DrawPacket& i_DrawPacket             // 画面描画時に必要なデータ群 ↓内容下記
+	////            ：  ├ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 インターフェイスへのポインタ
+	////            ：  ├ vector<Object*>&    Vec                     // オブジェクトの配列
+	////            ：  ├ Tempus2*            i_DrawPacket.pTime	   // 時間を管理するクラスへのポインター
+	////            ：  └ Command             i_DrawPacket.pCommand   // コマンド
+	//// 戻値       ：無し
+	//// 担当者     ：
+	//// 備考       ：継承するものは何れかのレベルで必ず定義をすること｡
+	////            ：
+	////
+	virtual void Draw( DrawPacket& i_DrawPacket ){};
+};
+
+//**************************************************************************
 // class Light;
 //
 // 担当者  : 

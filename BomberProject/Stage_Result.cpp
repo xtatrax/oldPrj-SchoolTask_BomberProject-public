@@ -58,7 +58,7 @@ ResultStage::~ResultStage(){
 
 void	ResultStage::Update(UpdatePacket &i_UpdatePacket){
 
-	if( g_bMouseLB/* || g_bMouseRB*/ ){
+	if( Cursor2D::getLButtonState()/* || Cursor2D::getRButtonState()*/ ){
 		//‘I‚Î‚ê‚½‰æ–Ê‚Ö‚Æ‚Ô
 		i_UpdatePacket.pCommand->m_Command	= GM_OPENSTAGE_TITLE;
 	}

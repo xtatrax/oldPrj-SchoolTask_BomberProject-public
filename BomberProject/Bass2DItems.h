@@ -20,13 +20,31 @@ namespace base2Dobject{
 class PrimitiveSprite;
 /*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*/
 class Cursor2D{
+	
+	friend class DxDevice;
 
-	static Point m_vMousePoint;
+	static Point		m_vMousePoint	;
+    static bool			m_bMouseLB		;
+    static bool			m_bMouseRB		;
+    static bool			m_bMouseMB		;
+	static DWORD		m_tLastTime;
+	const static float	m_fLockTime;
 private:
 public:
 	static Point getPos();
+	static bool getLButtonState(){return m_bMouseLB;};
+	static bool getMButtonState(){return m_bMouseMB;};
+	static bool getRButtonState(){return m_bMouseRB;};
+	static bool pressLorRButton(){return m_bMouseRB || m_bMouseLB;};
+	static bool clickLButtonWithLock();
+	static bool clickMButtonWithLock();
+	static bool clickRButtonWithLock();
+	static bool clickLorRButtonWithLock(){return clickLButtonWithLock() || clickRButtonWithLock();};
 	static bool isHitSprite(const PrimitiveSprite* i_TargetSprite);
 };
+
+
+
 /*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*/
 
 

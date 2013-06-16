@@ -14,6 +14,7 @@
 #pragma once
 #include "Object.h"
 #include "AnimationModelClass/AnimationModelClass.h"
+#include "Bass2DItems.h"
 #include "TL-String.h"
 namespace wiz {
 namespace baseitems{
@@ -2383,7 +2384,7 @@ public:
 };
 
 /*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*/
-class Cursor3D {
+class Cursor3D : public Cursor2D{
 	static D3DXVECTOR3	m_vMousePos;
 public:
 	static D3DXVECTOR3 getPos(Camera* i_pCamera);
