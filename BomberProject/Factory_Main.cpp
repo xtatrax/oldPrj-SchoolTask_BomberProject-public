@@ -49,11 +49,11 @@ namespace bomberobject{
 ***************************************************************************/
 Factory_Main::Factory_Main(FactoryPacket* fpac, DWORD dwStageNum, DWORD dwResumptionCheckPoint, D3DXVECTOR3* vStartPos ){
 	try{
-//#if defined( ON_GUIDELINE ) 
-//
-//		//	: ガイドライン
-//		fpac->m_pVec->push_back(new Guide( fpac->pD3DDevice ) );
-//#endif
+#if defined( ON_GUIDELINE ) 
+
+		//	: ガイドライン
+		fpac->m_pVec->push_back(new Guide( fpac->pD3DDevice ) );
+#endif
 		//ライトのインスタンス初期化
         D3DCOLORVALUE Diffuse = {1.0f,1.0f,1.0f,0.0f};
         D3DCOLORVALUE Specular = {1.0f,1.0f,1.0f,0.0f};
@@ -65,20 +65,6 @@ Factory_Main::Factory_Main(FactoryPacket* fpac, DWORD dwStageNum, DWORD dwResump
 				Specular,
 				Ambient,
 				D3DXVECTOR3( -0.0f, -1.0f, 0.0f)
-			)
-		);
-
-		//カメラのインスタンス初期化
-		float ECXPos = 25.1f;
-		float ECYPos = 10.1f;		
-        fpac->m_pVec->push_back(
-			new Camera(
-				fpac->pD3DDevice,
-				D3DXVECTOR3( ECXPos, ECYPos, -55.7f),
-				D3DXVECTOR3(ECXPos,ECYPos,0.0f),
-				1 ,
-				300.0f,
-				30.0f
 			)
 		);
 
@@ -112,7 +98,7 @@ Factory_Main::Factory_Main(FactoryPacket* fpac, DWORD dwStageNum, DWORD dwResump
 
 		Factory_Player		Pfac( fpac );
 		if( dwStageNum == 0 )	dwStageNum = 1 ;
-		StageLoader									loader(fpac->pD3DDevice,L"media/Map/Stages.csv", dwStageNum,*fpac->m_pVec,*fpac->m_pTexMgr);
+		StageLoader			loader(fpac->pD3DDevice,L"media/Map/Stages.csv", dwStageNum,*fpac->m_pVec,*fpac->m_pTexMgr);
 		Factory_Coil		Cfac( fpac , dwResumptionCheckPoint, vStartPos );
 		Factory_Item		Ifac( fpac ) ;
 		Factory_Description	Dfac( fpac ) ;
@@ -133,6 +119,20 @@ Factory_Main::Factory_Main(FactoryPacket* fpac, DWORD dwStageNum, DWORD dwResump
 		WallObject* wp = (WallObject*)SearchObjectFromID( fpac->m_pVec,OBJID_3D_WALL, &pos );
 		fpac->m_pVec->erase( fpac->m_pVec->begin() + pos );
 		fpac->m_pVec->push_back( wp );
+
+		//カメラのインスタンス初期化
+		float ECXPos = 25.1f;
+		float ECYPos = 10.666f;		
+        fpac->m_pVec->push_back(
+			new Camera(
+				fpac->pD3DDevice,
+				D3DXVECTOR3( ECXPos, ECYPos, -55.7f),
+				D3DXVECTOR3( ECXPos, ECYPos,   0.0f),
+				1 ,
+				55.8f,
+				30.0f
+			)
+		);
 
 		
 	}

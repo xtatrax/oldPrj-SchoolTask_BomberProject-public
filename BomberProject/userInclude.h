@@ -24,5 +24,6 @@
 #include "BassItems.h"
 #include "Bass2DItems.h"
 #include "Factory_Sound.h"
+#include "Factory_Cursor.h"
 
 #endif

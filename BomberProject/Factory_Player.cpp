@@ -51,6 +51,7 @@ ProvisionalPlayer3D::ProvisionalPlayer3D(
 )
 	:MagneticumObject3D( fpac->pD3DDevice, pTexture, id )
 ,m_Camera(NULL)
+,m_pCursor(NULL)
 ,m_pPlayerCoil(NULL)
 ,m_pMGage_N(NULL)
 ,m_pMGage_S(NULL)
@@ -180,9 +181,10 @@ void ProvisionalPlayer3D::Update( UpdatePacket& i_UpdatePacket ){
 		m_Camera = (Camera*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_SYS_CAMERA);
 		m_Camera && (m_MovePosY	= m_Camera->getPosY());
 	}
-	if( !m_pPlayerCoil ) m_pPlayerCoil	= (PlayerCoil*)SearchObjectFromTypeID(i_UpdatePacket.pVec,typeid(PlayerCoil));
-	if( !m_pMGage_N )	 m_pMGage_N		= (MagneticGage_N*)SearchObjectFromTypeID(i_UpdatePacket.pVec,typeid(MagneticGage_N));
-	if( !m_pMGage_S )	 m_pMGage_S		= (MagneticGage_S*)SearchObjectFromTypeID(i_UpdatePacket.pVec,typeid(MagneticGage_S));
+	if( !m_pPlayerCoil	)	m_pPlayerCoil	= (     PlayerCoil* )SearchObjectFromID(i_UpdatePacket.pVec,OBJID_3D_COIL          );
+	if( !m_pMGage_N		)	m_pMGage_N		= ( MagneticGage_N* )SearchObjectFromID(i_UpdatePacket.pVec,OBJID_UI_MAGNETGAUGE_N );
+	if( !m_pMGage_S		)	m_pMGage_S		= ( MagneticGage_S* )SearchObjectFromID(i_UpdatePacket.pVec,OBJID_UI_MAGNETGAUGE_N );
+	if( !m_pCursor		)	m_pCursor		= (    MouseCursor* )SearchObjectFromID(i_UpdatePacket.pVec,OBJID_SYS_CURSOR       );
 
 	RECT rc;
 	::GetClientRect(wiz::DxDevice::m_hWnd, &rc);
@@ -197,12 +199,7 @@ void ProvisionalPlayer3D::Update( UpdatePacket& i_UpdatePacket ){
 					if( (g_bMouseLB && m_pMGage_N->getRate() < GAUGE_VANISHRATE) || (g_bMouseRB && m_pMGage_S->getRate() < GAUGE_VANISHRATE) ){
 						wiz::CONTROLER_STATE Controller1P = i_UpdatePacket.pCntlState[0] ;
 						D3DXVECTOR3 vMove = g_vZero ;
-						Point MousePos ;
-						GetCursorPos( &MousePos ) ;
-						ScreenToClient( wiz::DxDevice::m_hWnd , &MousePos) ;
-
-						m_vPos.x = (float)MousePos.x / DRAW_CLIENT_MAGNIFICATION - MAGNETIC_RADIUS ;
-						m_vPos.y = (( STANDARD_WINDOW_HEIGHT - MousePos.y ) - UI_HEIGHT ) / DRAW_CLIENT_MAGNIFICATION - MAGNETIC_RADIUS + ( m_Camera->getPosY() - m_MovePosY ) ;
+						m_vPos = m_pCursor->get3DPos();
 
 						if( !m_pPlayerCoil->getMagnetPole() ){
 							if(g_bMouseLB){

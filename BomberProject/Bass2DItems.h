@@ -50,8 +50,15 @@ protected:
 	//âº
 	PrimitiveSprite(){};
 public:
+	D3DXMATRIX getAspectMatrix() const{
+		D3DXMATRIX mAll;
+		D3DXMATRIX mAspectRate;
+		D3DXVECTOR2 AspectRate = DxDevice::getAspectRate();
+		D3DXMatrixScaling(&mAspectRate,AspectRate.x,AspectRate.y,1.0f);
+		D3DXMatrixMultiply(&mAll,&m_mMatrix,&mAspectRate);
+		return mAll ; 
+	}
 	void setMatrix( D3DXMATRIX i_mMatrix ){ m_mMatrix = i_mMatrix ; }
-
 /////////////////// ////////////////////
 //// ä÷êîñº     ÅFPrimitiveSprite(LPDIRECT3DDEVICE9 pD3DDevice,LPDIRECT3DTEXTURE9 pTexture,RECT* Rect,
 ////            ÅF    D3DXVECTOR3& vCenter,D3DXVECTOR3& vOffsetPos,D3DCOLOR color = 0xFFFFFFFF);

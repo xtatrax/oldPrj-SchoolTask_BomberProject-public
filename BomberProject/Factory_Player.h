@@ -53,6 +53,7 @@ namespace bomberobject{
 // 用途    : 仮のユーザー設置磁界
 //**************************************************************************//
 class ProvisionalPlayer3D : public MagneticumObject3D{
+	MouseCursor*	m_pCursor		;
 	Camera*			m_Camera		;
 	PlayerCoil*		m_pPlayerCoil	;
 	Sound*			m_pSound		;

@@ -96,8 +96,9 @@ bool Cursor2D::isHitSprite(const PrimitiveSprite* i_TargetSprite)
 	Debugger::DBGSTR::addStr(L"        %d    %d\n" ,poTL.x,poBR.x);
 	Debugger::DBGSTR::addStr(L"           %d\n"    ,poBR.y);
 
-	MatrixCalculator(i_TargetSprite->m_mMatrix,poTL);
-	MatrixCalculator(i_TargetSprite->m_mMatrix,poBR);
+	D3DXMATRIX mMatrix = i_TargetSprite->getAspectMatrix();
+	poTL = MatrixCalculator(mMatrix,poTL);
+	poBR = MatrixCalculator(mMatrix,poBR);
 
 
 
@@ -205,14 +206,9 @@ void PrimitiveSprite::Draw(DrawPacket& i_DrawPacket)
 {
 	if(m_pSprite && m_pTexture){
 		D3DXMATRIX mAll ;
-		if( m_bApplyAspect ){
-			D3DXMATRIX mAspectRate;
-			D3DXVECTOR2 AspectRate = DxDevice::getAspectRate();
-			D3DXMatrixScaling(&mAspectRate,AspectRate.x,AspectRate.y,1.0f);
-		    D3DXMatrixMultiply(&mAll,&m_mMatrix,&mAspectRate);
-		}else{
-			mAll = m_mMatrix ;
-		}
+		if( m_bApplyAspect )	mAll = getAspectMatrix();
+		else					mAll = m_mMatrix ;
+		
 		m_pSprite->Begin( D3DXSPRITE_ALPHABLEND );
 		{
 			m_pSprite->SetTransform( &mAll );

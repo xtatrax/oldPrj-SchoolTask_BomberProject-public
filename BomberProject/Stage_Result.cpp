@@ -57,11 +57,7 @@ ResultStage::~ResultStage(){
 }
 
 void	ResultStage::Update(UpdatePacket &i_UpdatePacket){
-  //マウス用データ*************************
-	Point MousePos ;
-	GetCursorPos( &MousePos ) ;
-	ScreenToClient( wiz::DxDevice::m_hWnd , &MousePos) ;
-  //*****************************************
+
 	if( g_bMouseLB/* || g_bMouseRB*/ ){
 		//選ばれた画面へとぶ
 		i_UpdatePacket.pCommand->m_Command	= GM_OPENSTAGE_TITLE;
