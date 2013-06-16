@@ -114,8 +114,7 @@ ProvisionalPlayer3D::~ProvisionalPlayer3D(){
 //// 備考       ：
 void ProvisionalPlayer3D::Draw(DrawPacket& i_DrawPacket)
 {
-	if( m_pSound == NULL )
-		m_pSound = (Sound*)SearchObjectFromTypeID(i_DrawPacket.pVec,typeid(Sound));
+	if( !m_pSound ) m_pSound = (Sound*)SearchObjectFromID(i_DrawPacket.pVec,OBJID_SYS_SOUND);
 
 	if( m_pPlayerCoil && ( m_pPlayerCoil->getState() == COIL_STATE_MOVE || m_pPlayerCoil->getState() == COIL_STATE_STICK ) ){
 		if( m_bDrawing ){ 
@@ -427,8 +426,8 @@ void	MagneticField::Draw(DrawPacket &i_DrawPacket){
 ********************************************************************/
 void	MagneticField::Update(UpdatePacket& i_UpdatePacket)
 {
-	if( !m_pMGage_N )	 m_pMGage_N		= (MagneticGage_N*)SearchObjectFromTypeID(i_UpdatePacket.pVec,typeid(MagneticGage_N));
-	if( !m_pMGage_S )	 m_pMGage_S		= (MagneticGage_S*)SearchObjectFromTypeID(i_UpdatePacket.pVec,typeid(MagneticGage_S));
+	if( !m_pMGage_N )	 m_pMGage_N		= (MagneticGage_N*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_UI_MAGNETGAUGE_N);
+	if( !m_pMGage_S )	 m_pMGage_S		= (MagneticGage_S*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_UI_MAGNETGAUGE_S);
 	//	: マティリアル設定
 	if(m_Pole){
 		//N極
@@ -463,7 +462,7 @@ void	MagneticField::Update(UpdatePacket& i_UpdatePacket)
 		//}
 	}
 
-	PlayerCoil*	pc = (PlayerCoil*)SearchObjectFromTypeID(i_UpdatePacket.pVec,typeid(PlayerCoil));
+	PlayerCoil*	pc = (PlayerCoil*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_3D_COIL);
 	POLE	cPole	= pc->getMagnetPole();
 
 	D3DXMATRIX mMove, mScale;

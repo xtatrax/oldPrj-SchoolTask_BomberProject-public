@@ -165,7 +165,7 @@ void CheckEffect::Draw(DrawPacket& i_DrawPacket)
 ////
 void CheckEffect::update( int i ,DrawPacket& i_DrawPacket){
 
-	if( !m_pCoil   ) m_pCoil   = (PlayerCoil*)SearchObjectFromTypeID( i_DrawPacket.pVec, typeid(PlayerCoil) );
+	if( !m_pCoil   ) m_pCoil   = (PlayerCoil*)SearchObjectFromID( i_DrawPacket.pVec, OBJID_3D_COIL );
 	//スタート位置にエフェクトを出すか
 	if( !m_bMark ){
 		if( m_fWide > 0.0f ){
@@ -310,9 +310,9 @@ CheckPoint::~CheckPoint(){
 ////            ：
 ////
 void CheckPoint::Update( UpdatePacket& i_UpdatePacket ){
-	if( !m_pCoil   ) m_pCoil   = (PlayerCoil*)SearchObjectFromTypeID( i_UpdatePacket.pVec, typeid(PlayerCoil) );
-	if( !m_pSound  ) m_pSound  = (     Sound*)SearchObjectFromTypeID( i_UpdatePacket.pVec, typeid(Sound) );
-	if( !m_pCamera ) m_pCamera = (    Camera*)SearchObjectFromID( i_UpdatePacket.pVec, OBJID_SYS_CAMERA );
+	if( !m_pCoil   ) m_pCoil   = (PlayerCoil*)SearchObjectFromID( i_UpdatePacket.pVec, OBJID_3D_COIL	) ;
+	if( !m_pSound  ) m_pSound  = (     Sound*)SearchObjectFromID( i_UpdatePacket.pVec, OBJID_SYS_SOUND	) ;
+	if( !m_pCamera ) m_pCamera = (    Camera*)SearchObjectFromID( i_UpdatePacket.pVec, OBJID_SYS_CAMERA ) ;
 	
 	if( m_pCoil && m_ActiveItem < m_ItemContainer.size()){
 		float fPosY		= m_ItemContainer[ m_ActiveItem ]->fPosY;

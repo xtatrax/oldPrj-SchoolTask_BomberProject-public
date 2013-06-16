@@ -182,8 +182,7 @@ void Title_Select::Draw(DrawPacket& i_DrawPacket)
 ////
 void Title_Select::Update(UpdatePacket& i_UpdatePacket)
 {
-	if( m_pSound == NULL )
-		m_pSound = (Sound*)SearchObjectFromTypeID(i_UpdatePacket.pVec,typeid(Sound));
+	if( !m_pSound ) m_pSound = (Sound*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_SYS_SOUND);
 
 	if(Cursor2D::isHitSprite(this)){
 		//	: ‰æ‘œ‚Ì”ÍˆÍ“à‚Éƒ}ƒEƒX‚ª“ü‚Á‚½

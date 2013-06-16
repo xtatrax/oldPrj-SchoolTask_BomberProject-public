@@ -29,7 +29,7 @@ namespace wiz{
 namespace bomberobject{
 
 extern class PlayerCoil ;
-extern class EnemySphere ;
+extern class EnemyModel ;
 
 
 /**************************************************************************
@@ -46,7 +46,7 @@ extern class EnemySphere ;
 class WallObject : public PrimitiveBox{
 	int					m_Ptn			;
 	PlayerCoil*			m_pPlayerCoil	;
-	EnemySphere*		m_pEnemy		;
+	EnemyModel*			m_pEnemy		;
 	Sound*				m_pSound		;
 	Camera*				m_pCamera		;
 	PrimitivePlate		m_Plate			;

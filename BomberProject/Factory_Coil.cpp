@@ -290,7 +290,7 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 		m_pSphere->SetMaterial( m_Material );
 
 	} else {
-		m_pPlayer = (ProvisionalPlayer3D*)SearchObjectFromTypeID( i_UpdatePacket.pVec , typeid(ProvisionalPlayer3D) );
+		m_pPlayer = (ProvisionalPlayer3D*)SearchObjectFromID( i_UpdatePacket.pVec , OBJID_3D_USERMAGNET );
 	}
 	//ÉJÉÅÉâç¿ïWê›íË
 	if( m_pCamera ){
@@ -399,8 +399,6 @@ void	PlayerCoil::CreateEffect( UpdatePacket& i_UpdatePacket ){
 ////            ÅF
 ////
 void PlayerCoil::Update_StateStart(){
-	//if( m_pSound == NULL )
-	//	m_pSound = (Sound*)SearchObjectFromTypeID(i_UpdatePacket.pVec,typeid(Sound));
 
 	D3DXVECTOR3 vPlayer = g_vZero;
 	float		fTargetDir = NULL;

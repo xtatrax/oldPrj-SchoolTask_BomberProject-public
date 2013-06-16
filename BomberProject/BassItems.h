@@ -273,7 +273,11 @@ protected:
 	//// 備考       ：
 	////            ：
 	////
-	void CreateMeshFormX(LPDIRECT3DDEVICE9 pD3DDevice,char *pFileName,TextureManager* TexMgr);
+	void CreateMeshFormX(
+		const LPDIRECT3DDEVICE9 pD3DDevice,
+		const char *pFileName,
+		const TextureManager* pTexMgr
+	);
 
 	/////////////////// ////////////////////
 	//// 関数名     ：void CommonMesh::Draw( DrawPacket& i_DrawPacket )

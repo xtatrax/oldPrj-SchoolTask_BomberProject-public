@@ -44,7 +44,7 @@
 	#define DEBUG_STRINGS_ON					/* デバッグ用文字列を有効化 */
 	//#define CF_DEBUGINFORMATIONWINDOW_ENABLE	/* デバッグ情報表示用ウインドウを有効化 */
 	//#define CF_MEMORYMANAGER_ENABLE			/* 自作メモリ管理システムを有効化 */
-	#define CF_FULLSCREEN				/* フルスクリーンモード       */
+	//#define CF_FULLSCREEN				/* フルスクリーンモード       */
 
 	//#define ___MLP_DEBUG_TIMEDRAW_ 
 	#define ON_GUIDELINE
@@ -157,6 +157,8 @@ static const char*			RCTEXT_SOUND_SE_INVISIBLE	= "SE-INVINGVLE"		;
 static const char*			RCTEXT_SOUND_SE_ITEMS		= "SE-ITEMS"			;
 static const char*			RCTEXT_SOUND_SE_SETFIELD	= "SE-MAGNETIC_FIELD"	;
 static const char*			RCTEXT_SOUND_SE_SPARK		= "SE-SPARK002"			;
+
+static const char*			RCTEXT_MODEL_ENEMY			= "media/Model/mine.x"	;
 
 static const float			MGPRM_INVISIBLESOUND_TIME	= 0.7f	; /* 磁界の影響半径*/
 static const int			MGPRM_MAGNETICUM			= 10	; /* 磁界の影響半径*/

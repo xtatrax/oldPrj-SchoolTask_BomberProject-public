@@ -332,9 +332,7 @@ void Continue::Draw(DrawPacket& i_DrawPacket)
 void Continue::Update(UpdatePacket& i_UpdatePacket)
 {
 	if( m_bWhichDraw ){
-		if(m_pCoil == NULL){
-			m_pCoil = (PlayerCoil*)SearchObjectFromTypeID(i_UpdatePacket.pVec,typeid(PlayerCoil));
-		}
+		if( !m_pCoil ) m_pCoil = (PlayerCoil*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_3D_COIL);
 		if( Cursor2D::isHitSprite( this ) ){
 			if( g_bMouseLB/* || g_bMouseRB*/ ){
 				if( m_bPushRock ){
