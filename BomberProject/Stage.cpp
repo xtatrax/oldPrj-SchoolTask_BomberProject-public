@@ -186,7 +186,6 @@ void Stage::Draw(DrawPacket& i_DrawPacket)
 			m_Vec[i]->AccessBegin();
 			m_Vec[i]->Draw(i_DrawPacket);
 			m_Vec[i]->AccessEnd();
-	//::MessageBoxA( wiz::DxDevice::m_hWnd,"doro-","kita",0);
 		}
 		//clock_t nc = TLIB::Tempus::getClock();
 		//Debugger::DBGSTR::addStr( L"   DrawŽžŠÔ : %f\n", TLIB::Tempus::TwoDwTime2ElapsedTime(sc,nc));

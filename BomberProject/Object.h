@@ -397,7 +397,7 @@ Camera(
 		return m_Far;
 	}
 	/////////////////// ////////////////////
-	//// 関数名     ：void Update( UpdatePacket& i_UpdatePacket )
+	//// 関数名     ：
 	//// カテゴリ   ：
 	//// 用途       ：
 	//// 引数       ：
@@ -408,7 +408,7 @@ Camera(
 	////
 	float getPosY(){ return m_Eye.y ; };
 	/////////////////// ////////////////////
-	//// 関数名     ：void Update( UpdatePacket& i_UpdatePacket )
+	//// 関数名     ：
 	//// カテゴリ   ：
 	//// 用途       ：
 	//// 引数       ：

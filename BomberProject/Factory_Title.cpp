@@ -38,9 +38,17 @@ ClickChar 定義部
 //// 備考       ：
 ////            ：
 ////
-ClickChar::ClickChar(const LPDIRECT3DDEVICE9 pD3DDevice,const LPDIRECT3DTEXTURE9 pTexture,
-		const D3DXVECTOR3 &vScale,const D3DXVECTOR3 &vRot,const D3DXVECTOR3 &vPos,const RECT *pRect, const D3DXVECTOR3 &vOffsetPos)
-:SpriteObject( pD3DDevice, pTexture, vScale, vRot, vPos, pRect, g_vZero, g_vZero, 0xFFFFFFFF )
+ClickChar::ClickChar(
+	const LPDIRECT3DDEVICE9		pD3DDevice	,
+	const LPDIRECT3DTEXTURE9	pTexture	,
+	const D3DXVECTOR3&			vScale		,
+	const D3DXVECTOR3&			vRot		,
+	const D3DXVECTOR3&			vPos		,
+	const RECT*					pRect		,
+	const D3DXVECTOR3&			vOffsetPos
+)
+:SpriteObject( pD3DDevice, pTexture, vScale, vRot, vPos, pRect, g_vZero, g_vZero, 0xFFFFFFFF , OBJID_UI_SPRITE, false)
+,m_pCursor( NULL )
 ,m_vPos( vPos )
 ,m_vScale( vScale )
 ,m_vOffsetPos( vOffsetPos )
@@ -82,11 +90,10 @@ void ClickChar::Draw(DrawPacket& i_DrawPacket)
 ////
 void ClickChar::Update(UpdatePacket& i_UpdatePacket)
 {
-	 //マウス用データ*************************
-	Point MousePos ;
-	GetCursorPos( &MousePos ) ;
-	ScreenToClient( wiz::DxDevice::m_hWnd , &MousePos) ;
-  //*****************************************
+	if( !m_pCursor ) m_pCursor = ( MouseCursor* )SearchObjectFromID(i_UpdatePacket.pVec,OBJID_SYS_CURSOR       );
+
+	Point MousePos = Point(0,0) ;
+	if( m_pCursor ) MousePos = m_pCursor->get2DPos();
 
 	m_vPos	= D3DXVECTOR3( (float)MousePos.x + m_vOffsetPos.x, (float)MousePos.y + m_vOffsetPos.y, 0.0f);
 
@@ -177,23 +184,16 @@ void Title_Select::Update(UpdatePacket& i_UpdatePacket)
 {
 	if( m_pSound == NULL )
 		m_pSound = (Sound*)SearchObjectFromTypeID(i_UpdatePacket.pVec,typeid(Sound));
-  //マウス用データ*************************
-	Point MousePos ;
-	GetCursorPos( &MousePos ) ;
-	ScreenToClient( wiz::DxDevice::m_hWnd , &MousePos) ;
-  //*****************************************
+
 	if(Cursor2D::isHitSprite(this)){
-		Debugger::DBGSTR::addStr(L"あああああああああああああああああああああああああ\n");
-	}else{
-		Debugger::DBGSTR::addStr(L"ううううううううううううううううううううううううう\n");
-	}
-	
-	if( (MousePos.x > m_vPos.x && MousePos.x < ( m_vPos.x + (m_pRect->right*SCALE_RATE) )) 
-		&& (MousePos.y > m_vPos.y && MousePos.y < ( m_vPos.y + (m_pRect->bottom*SCALE_RATE) )) ){
+		//	: 画像の範囲内にマウスが入った
+
 		if( g_bMouseLB/* || g_bMouseRB*/ ){
+			//	: マウスの左ボタンが押された
+
 			if( m_bPushRock ){
 				if( !m_bPush ){
-					//if( m_pSound != NULL )
+					if( m_pSound != NULL )
 						m_pSound->SearchWaveAndPlay( RCTEXT_SOUND_SE_ENTER );
 				}
 				m_bPush		= true;
@@ -201,15 +201,13 @@ void Title_Select::Update(UpdatePacket& i_UpdatePacket)
 			}
 		}
 		else m_bPushRock	= true;
-			m_Color	= 0xFFFF8800;
-			if( !m_bSelect ){
-				m_bSelect = true;
-				m_pSound->SearchWaveAndPlay( RCTEXT_SOUND_SE_SELECT );
-			}
-			
-		
-	}
-	else{
+		m_Color	= 0xFFFF8800;
+		if( !m_bSelect ){
+			m_bSelect = true;
+			m_pSound->SearchWaveAndPlay( RCTEXT_SOUND_SE_SELECT );
+		}
+	}else{
+		//	: マウスが画像の範囲外にいるとき
 		m_Color	= 0xFF558855;
 		
 		m_bSelect = false;

@@ -104,13 +104,7 @@ void Reply::Draw(DrawPacket& i_DrawPacket)
 ////
 void Reply::Update(UpdatePacket& i_UpdatePacket)
 {
-  //マウス用データ*************************
-	Point MousePos ;
-	GetCursorPos( &MousePos ) ;
-	ScreenToClient( wiz::DxDevice::m_hWnd , &MousePos) ;
-  //*****************************************
-	if( (MousePos.x > m_vPos.x && MousePos.x < ( m_vPos.x + (m_pRect->right - m_pRect->left) )) 
-		&& (MousePos.y > m_vPos.y && MousePos.y < ( m_vPos.y + m_pRect->bottom )) ){
+	if( Cursor2D::isHitSprite( this ) ){
 		if( g_bMouseLB/* || g_bMouseRB*/ ){
 			if( m_bPushRock ){
 				if( m_bMark )
@@ -341,13 +335,7 @@ void Continue::Update(UpdatePacket& i_UpdatePacket)
 		if(m_pCoil == NULL){
 			m_pCoil = (PlayerCoil*)SearchObjectFromTypeID(i_UpdatePacket.pVec,typeid(PlayerCoil));
 		}
-	  //マウス用データ*************************
-		Point MousePos ;
-		GetCursorPos( &MousePos ) ;
-		ScreenToClient( wiz::DxDevice::m_hWnd , &MousePos) ;
-	  //*****************************************
-		if( (MousePos.x > m_vPos.x && MousePos.x < ( m_vPos.x + m_pRect->right )) 
-			&& (MousePos.y > m_vPos.y && MousePos.y < ( m_vPos.y + m_pRect->bottom )) ){
+		if( Cursor2D::isHitSprite( this ) ){
 			if( g_bMouseLB/* || g_bMouseRB*/ ){
 				if( m_bPushRock ){
 					if( m_bMark )

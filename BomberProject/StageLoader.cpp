@@ -795,18 +795,18 @@ void StageLoader::StageListLoader(wstring i_sFileName, BYTE i_byStageNum){
 ////            ：
 ////
 StageLoader::StageLoader(LPDIRECT3DDEVICE9 pD3DDevice, wstring i_sFileName,
-		BYTE i_byStageNum, vector<Object*>& Vec, TextureManager& TexMgr){
+		DWORD i_dwStageNum, vector<Object*>& Vec, TextureManager& TexMgr){
 	try{
 		m_pD3DDevice	= pD3DDevice;
 		m_pVec			= (&Vec);
 		m_pTexMgr		= (&TexMgr);
 
-		DWORD dwSTime = TLIB::Tempus::TimeGetTime();
+		//DWORD dwSTime = TLIB::Tempus::TimeGetTime();
 			
-		StageListLoader(i_sFileName, i_byStageNum);
+		StageListLoader(i_sFileName, (BYTE)i_dwStageNum);
 
-		DWORD dwETime = TLIB::Tempus::TimeGetTime();
-		Debugger::DBGWRITINGLOGTEXT::addStr( L"StageLoader::StageLoader(ロード全体) : %f\n", TLIB::Tempus::TwoDwTime2ElapsedTime(dwSTime,dwETime));
+		//DWORD dwETime = TLIB::Tempus::TimeGetTime();
+		//Debugger::DBGWRITINGLOGTEXT::addStr( L"StageLoader::StageLoader(ロード全体) : %f\n", TLIB::Tempus::TwoDwTime2ElapsedTime(dwSTime,dwETime));
 	}
 	catch(wiz::LoaderException& e){
 		//再スロー

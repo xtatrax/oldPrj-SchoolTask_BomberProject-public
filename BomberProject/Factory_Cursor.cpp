@@ -121,33 +121,22 @@ void MouseCursor::Update( UpdatePacket& i_UpdatePacket ){
 
 	static float s_fTimeCount = 0.0f;
 
+	//	: マウスの2D座標をアップデート
 	Update2DPos();
-
-	//	: 座標の更新
-	D3DXMATRIX mPos ;
-	D3DXMatrixTranslation( &mPos, (float)m_v2DPos.x, (float)m_v2DPos.y, 0.0f);
-
-	//	: 行列の算出
-	m_mMatrix = m_mScale * mPos ;
 
 	Update3DPos();
 
 	Debugger::DBGSTR::addStr( L"2DMouse : X= %d  Y= %d\n",m_v2DPos.x, m_v2DPos.y );
-	Debugger::DBGSTR::addStr( L"3DMouse : X= %f  Y= %f\n",m_v3DPos.x, m_v3DPos.y );
+	Debugger::DBGSTR::addStr( L"3DMouse : X= %f  Y= %f  Z= %f\n",m_v3DPos.x, m_v3DPos.y, m_v3DPos.z );
+	Debugger::DBGSTR::addStr( L"m_fTorusMagnification : %f\n",m_fTorusMagnification );
 
-	//D3DXMATRIX mAspectRate,mAll;
-	//D3DXVECTOR2 AspectRate = DxDevice::getAspectRate();
-	//D3DXMatrixTranslation(&mAspectRate,AspectRate.x,AspectRate.y,1.0f);
- //   D3DXMatrixMultiply(&mAll,&m_mMatrix,&mAspectRate);
 
 	m_pLine->setMatrix( m_mMatrix );
 	m_pLine2->setMatrix( m_mMatrix );
 
 	D3DXMATRIX mPos2, mScale, mRot;
 
-	//D3DXMatrixScaling( &mScale, m_vScale.x, m_vScale.y, m_vScale.z );
-	//m_mMatrix = mScale * mPos ;
-	m_pSelectPos->setMatrix( mPos );
+	m_pSelectPos->setMatrix( m_mMatrix );
 
 	D3DXMatrixTranslation(&mPos2, m_v3DPos.x, m_v3DPos.y, m_v3DPos.z);
 	D3DXMatrixScaling(&mScale, m_fTorusMagnification,m_fTorusMagnification,0.0f);
@@ -163,7 +152,7 @@ void MouseCursor::Update( UpdatePacket& i_UpdatePacket ){
 		}
 	}
 	else{
-		m_fTorusMagnification += CURSOR_FIELD_LENGHT * i_UpdatePacket.pTime->getElapsedTime();
+		m_fTorusMagnification += CURSOR_FIELD_LENGHT * (float)i_UpdatePacket.pTime->getElapsedTime();
 	}
 
 	++m_Ptn;
@@ -183,8 +172,8 @@ void MouseCursor::Update( UpdatePacket& i_UpdatePacket ){
 //// 備考       ：
 void MouseCursor::Draw(DrawPacket& i_DrawPacket)
 {
-	PrimitiveSprite::Draw(i_DrawPacket);
-	//Box::Draw(i_DrawPacket);
+	//PrimitiveSprite::Draw(i_DrawPacket);
+	Box::Draw(i_DrawPacket);
 	m_pLine->draw(i_DrawPacket.pD3DDevice);
 	m_pLine2->draw(i_DrawPacket.pD3DDevice);
 	m_pSelectPos->Draw(i_DrawPacket);
@@ -193,26 +182,23 @@ void MouseCursor::Draw(DrawPacket& i_DrawPacket)
 void MouseCursor::Update2DPos(){
 	//	: カーソルの設定
 	//	: マウスのクライアント座標を獲得
-	GetCursorPos( &m_v2DPos ) ;
-	ScreenToClient( wiz::DxDevice::m_hWnd , &m_v2DPos) ;
-	
+	m_v2DPos = Cursor2D::getPos();
+
+	//	: 座標の更新
+	D3DXMATRIX mPos ;
+	D3DXMatrixTranslation( &mPos, (float)m_v2DPos.x, (float)m_v2DPos.y, 0.0f);
+
+	//	: 行列の算出
+	m_mMatrix = m_mScale * mPos ;
 }
 void MouseCursor::Update3DPos(){
-	if( m_pCamera ){
+	if( !m_pCamera )return;
 
-		float fYPosCorrection = 10.0f ;
-		//float fMagnification  = 
-		//	: マウス座標の３Ｄ変換
-		m_v3DPos = D3DXVECTOR3( 
-			(float)m_v2DPos.x / DRAW_CLIENT_MAGNIFICATION - MAGNETIC_RADIUS ,
-			(( STANDARD_WINDOW_HEIGHT - m_v2DPos.y ) - UI_HEIGHT ) / DRAW_CLIENT_MAGNIFICATION -
-											MAGNETIC_RADIUS +  m_pCamera->getPosY() - fYPosCorrection  , 0.0f
-		);
-		SetBasePos( m_v3DPos );
+	m_v3DPos = Cursor3D::getPos(m_pCamera);
 
+	SetBasePos( m_v3DPos );
 
-		Box::CalcWorldMatrix();
-	}
+	Box::CalcWorldMatrix();
 }
 /**************************************************************************
  Factory_Cursor 定義部
@@ -226,7 +212,8 @@ void MouseCursor::Update3DPos(){
  用途: コンストラクタ（サンプルオブジェクトを配列に追加する）
  戻り値: なし
 ***************************************************************************/
-Factory_Cursor::Factory_Cursor(FactoryPacket* fpac, float fLineLength, float fPointSize){
+Factory_Cursor::Factory_Cursor(FactoryPacket* fpac, float fLineLength, float fPointSize)
+{
 	try{
 
 

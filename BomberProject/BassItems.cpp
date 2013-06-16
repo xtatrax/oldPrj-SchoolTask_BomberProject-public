@@ -4637,6 +4637,30 @@ void PrimitivePlate::Update(int i_iPtn){
 	v[ 3 ].vTex	= D3DXVECTOR2( 1.0f, 0.25f*(i_iPtn+1) ) ;
 	m_pVertexBuffer->Unlock();						//	: 頂点データへのアクセスを終了する
 }
+/**************************************************************************
+ class Cursor3D 定義部
+****************************************************************************/
+D3DXVECTOR3 Cursor3D::m_vMousePos;
+D3DXVECTOR3 Cursor3D::getPos(Camera* i_pCamera){
+	if( !i_pCamera ) return g_vZero ;
+	float fYMagnification		= 28.3f / STANDARD_WINDOW_HEIGHT;
+	float fYPosCorrection		= 10.0f ;
+	float fYReverseCoordinate	= (STANDARD_WINDOW_HEIGHT /2)  -Cursor2D::getPos().y ;
+	float fXMagnification		= 50.0f / STANDARD_WINDOW_WIDTH ;
+	float fXHalfCorrection		= (float)Cursor2D::getPos().x - (STANDARD_WINDOW_WIDTH /2) ;
+	//	: マウス座標の３Ｄ変換
+	return D3DXVECTOR3( 
+		(    fXHalfCorrection * fXMagnification ) + i_pCamera->getEye().x ,
+		( fYReverseCoordinate * fYMagnification ) + i_pCamera->getEye().y ,
+		0.0f
+	);
+	//m_v3DPos = D3DXVECTOR3( m_v2DPos.x, m_v3DPos.y, 0.0f);
+	//D3DXMATRIX mView,mPrj;
+	//m_pCamera->GetMatrix(mView,mPrj);
+	//CalcScreenToXZ(&m_v3DPos,m_v2DPos.x,m_v2DPos.y,STANDARD_WINDOW_WIDTH,STANDARD_WINDOW_HEIGHT,&mView,&mPrj);
+	//m_v3DPos.z = 0;
+
+}
 
 
 /**************************************************************************

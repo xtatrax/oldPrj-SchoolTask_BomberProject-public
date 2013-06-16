@@ -26,6 +26,7 @@ class ClickChar  public SpriteObject
 用途　：クリックを促す
 *************************************************************************/
 class	ClickChar	: public SpriteObject{
+	MouseCursor*	m_pCursor;
 	D3DXVECTOR3		m_vPos;
 	D3DXVECTOR3		m_vScale;
 	D3DXVECTOR3		m_vOffsetPos;

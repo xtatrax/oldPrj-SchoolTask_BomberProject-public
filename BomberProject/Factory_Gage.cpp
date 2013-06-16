@@ -274,6 +274,7 @@ void SuperGage::Draw(DrawPacket& i_DrawPacket){
 void SuperGage::Update( UpdatePacket& i_UpdatePacket ){
 	if( !m_pCursor ) m_pCursor = (MouseCursor*)SearchObjectFromID(i_UpdatePacket.pVec, OBJID_SYS_CURSOR);
 
+	if( !m_pCursor ) return ;
 	D3DXMATRIX	mPos, mScale, mRot ;
 	D3DXVECTOR3 vPos ;
 	vPos.x	= (float)m_pCursor->get2DPos().x + m_vBassPos.x - m_GaugeRect.right * m_vScale.x;
@@ -307,6 +308,8 @@ void SuperGage::Update( UpdatePacket& i_UpdatePacket ){
 //// ”õl       F
 ////            F
 void SuperGage::Update_Line(){
+	if( !m_pCursor ) return ;
+
 	D3DXMATRIX		mLineScale, mLinePos;
 	D3DXVECTOR3		vLineScale	= D3DXVECTOR3(1.0f,1.0f,0.0f),vLinePos, 
 					vBaseLinePos = D3DXVECTOR3((float)m_pCursor->get2DPos().x + m_vBassPos.x/**0.225f*/,
@@ -416,6 +419,8 @@ MagneticGage_N::~MagneticGage_N(){
 ////
 void MagneticGage_N::Update( UpdatePacket& i_UpdatePacket ){
 	if( !m_pCursor ) m_pCursor = (MouseCursor*)SearchObjectFromID(i_UpdatePacket.pVec, OBJID_SYS_CURSOR);
+	if( !m_pCursor ) return ;
+
 	Gage::Update(i_UpdatePacket);
 	D3DXMATRIX	mPos, mScale ;
 	D3DXVECTOR3 vPos ;
@@ -514,6 +519,8 @@ MagneticGage_S::~MagneticGage_S(){
 ////
 void MagneticGage_S::Update( UpdatePacket& i_UpdatePacket ){
 	if( !m_pCursor ) m_pCursor = (MouseCursor*)SearchObjectFromID(i_UpdatePacket.pVec, OBJID_SYS_CURSOR);
+	if( !m_pCursor ) return ;
+
 	Gage::Update(i_UpdatePacket);
 	D3DXMATRIX	mPos, mScale ;
 	D3DXVECTOR3 vPos ;

@@ -44,10 +44,10 @@
 	#define DEBUG_STRINGS_ON					/* ƒfƒoƒbƒO—p•¶š—ñ‚ğ—LŒø‰» */
 	//#define CF_DEBUGINFORMATIONWINDOW_ENABLE	/* ƒfƒoƒbƒOî•ñ•\¦—pƒEƒCƒ“ƒhƒE‚ğ—LŒø‰» */
 	//#define CF_MEMORYMANAGER_ENABLE			/* ©ìƒƒ‚ƒŠŠÇ—ƒVƒXƒeƒ€‚ğ—LŒø‰» */
-	//#define CF_FULLSCREEN				/* ƒtƒ‹ƒXƒNƒŠ[ƒ“ƒ‚[ƒh       */
+	#define CF_FULLSCREEN				/* ƒtƒ‹ƒXƒNƒŠ[ƒ“ƒ‚[ƒh       */
 
 	//#define ___MLP_DEBUG_TIMEDRAW_ 
-	//#define ON_GUIDELINE
+	#define ON_GUIDELINE
 #else
 	#if defined( PRESENTATION )
 	//-------------------------------//
@@ -80,57 +80,18 @@
 //////////
 //	: ƒOƒ[ƒoƒ‹‚È•Ï”
 
-static const wchar_t*		RCTEXT_SOUND_WAVEBANK		= L"media/Sound/MagneticaWave.xwb"  ;
-static const wchar_t*		RCTEXT_SOUND_SOUNDBANK		= L"media/Sound/MagneticaSound.xsb" ;
-
-static const char*			RCTEXT_SOUND_BGM_CLEAR		= "BGM-CLEAR"			;
-static const char*			RCTEXT_SOUND_BGM_GAMEOVER	= "BGM-GAME_OVER"		;
-static const char*			RCTEXT_SOUND_BGM_PLAY		= "BGM-PLAY001"			;
-static const char*			RCTEXT_SOUND_BGM_TITLE		= "BGM-TITLE"			;
-static const char*			RCTEXT_SOUND_SE_ALERT		= "SE-ALERT002"			;
-static const char*			RCTEXT_SOUND_SE_BREAKENEMY	= "SE-BLOKEN_ENEMY"		;
-static const char*			RCTEXT_SOUND_SE_CHECKPOINT	= "SE-CHACK_POINT"		;
-static const char*			RCTEXT_SOUND_SE_CLEAR		= "SE-CLEAR"			;
-static const char*			RCTEXT_SOUND_SE_SELECT		= "SE-SELECT"			;
-static const char*			RCTEXT_SOUND_SE_ENTER		= "SE-ENTER"			;
-static const char*			RCTEXT_SOUND_SE_FIRE		= "SE-FIRE"				;
-static const char*			RCTEXT_SOUND_SE_GOAL		= "SE-GOAL"				;
-static const char*			RCTEXT_SOUND_SE_PLAYERBLOKEN= "SE-PLAYER_BLOKEN"	;
-static const char*			RCTEXT_SOUND_SE_INVISIBLE	= "SE-INVINGVLE"		;
-static const char*			RCTEXT_SOUND_SE_ITEMS		= "SE-ITEMS"			;
-static const char*			RCTEXT_SOUND_SE_SETFIELD	= "SE-MAGNETIC_FIELD"	;
-static const char*			RCTEXT_SOUND_SE_SPARK		= "SE-SPARK002"			;
-
-static const float			MGPRM_INVISIBLESOUND_TIME	= 0.7f	; /* ¥ŠE‚Ì‰e‹¿”¼Œa*/
-static const int			MGPRM_MAGNETICUM			= 10	; /* ¥ŠE‚Ì‰e‹¿”¼Œa*/
-static const int			MGPRM_MAGNETICUM_QUAD		= ( MGPRM_MAGNETICUM * MGPRM_MAGNETICUM );
-static const int			DRAWING_RANGE				= 25;
-static const D3DXVECTOR3	g_vZero						= D3DXVECTOR3(0.0f,0.0f,0.0f);
-static const D3DXVECTOR3	g_vOne						= D3DXVECTOR3(1.0f,1.0f,1.0f);
-static const D3DXVECTOR3	g_vMax						= D3DXVECTOR3(+FLT_MAX,+FLT_MAX,+FLT_MAX);
-static const D3DXVECTOR3	g_vMin						= D3DXVECTOR3(-FLT_MAX,-FLT_MAX,-FLT_MAX);
-static const wstring		g_sDefaultTexturePath		= L"media/Textures/" ;	//	: ƒeƒNƒXƒ`ƒƒ‚Ì’u‚«ê
-      //extern HWND			wiz::DxDevice::m_hWnd		;
-      extern bool			g_bMouseLB	;
-      extern bool			g_bMouseRB	;
-      extern bool			g_bMouseMB	;
-
-//	
-//////////
-
-
 
 //	: ƒfƒtƒ@ƒCƒ“’è”
 #define MAP_PARTS_HEIGHT		(    1.0f)	/*  */
 #define MAP_PARTS_WIDTH			(    1.0f)	/*  */
-//#define BASE_CLIENT_HEIGHT		(  600.0f)	/* Šî€‚É‚È‚é•`‰æ—Ìˆæ‚Ì‚‚³ */
-//#define BASE_CLIENT_WIDTH		( 1024.0f)	/* Šî€‚É‚È‚é•`‰æ—Ìˆæ‚Ì•   */
-//#define STANDARD_WINDOW_HEIGHT  (  600.0f)	/* ƒEƒCƒ“ƒhƒEƒ‚[ƒh‚Ì‚‚³   */
-//#define STANDARD_WINDOW_WIDTH   ( 1024.0f)	/* ƒEƒCƒ“ƒhƒEƒ‚[ƒh‚Ì•     */
 #define BASE_CLIENT_HEIGHT		(  600.0f)	/* Šî€‚É‚È‚é•`‰æ—Ìˆæ‚Ì‚‚³ */
 #define BASE_CLIENT_WIDTH		( 1024.0f)	/* Šî€‚É‚È‚é•`‰æ—Ìˆæ‚Ì•   */
-#define STANDARD_WINDOW_HEIGHT  ( 1200.0f)	/* ƒEƒCƒ“ƒhƒEƒ‚[ƒh‚Ì‚‚³   */
-#define STANDARD_WINDOW_WIDTH   ( 1920.0f)	/* ƒEƒCƒ“ƒhƒEƒ‚[ƒh‚Ì•     */
+#define STANDARD_WINDOW_HEIGHT  (  600.0f)	/* ƒEƒCƒ“ƒhƒEƒ‚[ƒh‚Ì‚‚³   */
+#define STANDARD_WINDOW_WIDTH   ( 1024.0f)	/* ƒEƒCƒ“ƒhƒEƒ‚[ƒh‚Ì•     */
+//#define BASE_CLIENT_HEIGHT		(  600.0f)	/* Šî€‚É‚È‚é•`‰æ—Ìˆæ‚Ì‚‚³ */
+//#define BASE_CLIENT_WIDTH		( 1024.0f)	/* Šî€‚É‚È‚é•`‰æ—Ìˆæ‚Ì•   */
+//#define STANDARD_WINDOW_HEIGHT  ( 1200.0f)	/* ƒEƒCƒ“ƒhƒEƒ‚[ƒh‚Ì‚‚³   */
+//#define STANDARD_WINDOW_WIDTH   ( 1920.0f)	/* ƒEƒCƒ“ƒhƒEƒ‚[ƒh‚Ì•     */
 #define DRAW_TOLERANCE			(   20.0f)	/* ƒJƒƒ‰‚©‚ç‚Ì•`‰æ‹——£ */
 
 #define DEFAULT_WINDOW_TITLE		( L"Magnetica" )
@@ -168,6 +129,50 @@ static const wstring		g_sDefaultTexturePath		= L"media/Textures/" ;	//	: ƒeƒNƒXƒ
 #define MYVK_DEBUG_STAGE_RESTART	( VK_RETURN  )
 #define MYVK_DEBUG_STAGE_RELOAD		( VK_MENU    )
 #define MYVK_DEBUG_STAGE_RULER		( 'L'        )
+
+#define UI_HEIGHT					( 88.0f )	//	: UI‚Ì‚‚³
+#define DRAW_CLIENT_MAGNIFICATION	( 50.0f )	//	: •\¦‰æ–Ê‚Ì”{—¦ x=800, y=512 : x=40, y=25.6
+#define MAGNETIC_RADIUS				( 0.5f )	//	: ¥ŠE‚Ì”¼Œa
+const float	CURSOR_FIELD_LENGHT			= 10.0f;
+const float CURSOR_FIELD_TIME			= 2.0f;		
+
+
+static const wchar_t*		RCTEXT_SOUND_WAVEBANK		= L"media/Sound/MagneticaWave.xwb"  ;
+static const wchar_t*		RCTEXT_SOUND_SOUNDBANK		= L"media/Sound/MagneticaSound.xsb" ;
+
+static const char*			RCTEXT_SOUND_BGM_CLEAR		= "BGM-CLEAR"			;
+static const char*			RCTEXT_SOUND_BGM_GAMEOVER	= "BGM-GAME_OVER"		;
+static const char*			RCTEXT_SOUND_BGM_PLAY		= "BGM-PLAY001"			;
+static const char*			RCTEXT_SOUND_BGM_TITLE		= "BGM-TITLE"			;
+static const char*			RCTEXT_SOUND_SE_ALERT		= "SE-ALERT002"			;
+static const char*			RCTEXT_SOUND_SE_BREAKENEMY	= "SE-BLOKEN_ENEMY"		;
+static const char*			RCTEXT_SOUND_SE_CHECKPOINT	= "SE-CHACK_POINT"		;
+static const char*			RCTEXT_SOUND_SE_CLEAR		= "SE-CLEAR"			;
+static const char*			RCTEXT_SOUND_SE_SELECT		= "SE-SELECT"			;
+static const char*			RCTEXT_SOUND_SE_ENTER		= "SE-ENTER"			;
+static const char*			RCTEXT_SOUND_SE_FIRE		= "SE-FIRE"				;
+static const char*			RCTEXT_SOUND_SE_GOAL		= "SE-GOAL"				;
+static const char*			RCTEXT_SOUND_SE_PLAYERBLOKEN= "SE-PLAYER_BLOKEN"	;
+static const char*			RCTEXT_SOUND_SE_INVISIBLE	= "SE-INVINGVLE"		;
+static const char*			RCTEXT_SOUND_SE_ITEMS		= "SE-ITEMS"			;
+static const char*			RCTEXT_SOUND_SE_SETFIELD	= "SE-MAGNETIC_FIELD"	;
+static const char*			RCTEXT_SOUND_SE_SPARK		= "SE-SPARK002"			;
+
+static const float			MGPRM_INVISIBLESOUND_TIME	= 0.7f	; /* ¥ŠE‚Ì‰e‹¿”¼Œa*/
+static const int			MGPRM_MAGNETICUM			= 10	; /* ¥ŠE‚Ì‰e‹¿”¼Œa*/
+static const int			MGPRM_MAGNETICUM_QUAD		= ( MGPRM_MAGNETICUM * MGPRM_MAGNETICUM );
+static const int			DRAWING_RANGE				= 25;
+static const D3DXVECTOR3	g_vZero						= D3DXVECTOR3(0.0f,0.0f,0.0f);
+static const D3DXVECTOR3	g_vOne						= D3DXVECTOR3(1.0f,1.0f,1.0f);
+static const D3DXVECTOR3	g_vMax						= D3DXVECTOR3(+FLT_MAX,+FLT_MAX,+FLT_MAX);
+static const D3DXVECTOR3	g_vMin						= D3DXVECTOR3(-FLT_MAX,-FLT_MAX,-FLT_MAX);
+static const wstring		g_sDefaultTexturePath		= L"media/Textures/" ;	//	: ƒeƒNƒXƒ`ƒƒ‚Ì’u‚«ê
+      //extern HWND			wiz::DxDevice::m_hWnd		;
+      extern bool			g_bMouseLB	;
+      extern bool			g_bMouseRB	;
+      extern bool			g_bMouseMB	;
+
+
 
 //
 //////////

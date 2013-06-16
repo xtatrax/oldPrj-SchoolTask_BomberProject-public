@@ -405,12 +405,7 @@ void PlayerCoil::Update_StateStart(){
 	D3DXVECTOR3 vPlayer = g_vZero;
 	float		fTargetDir = NULL;
 	//マウス座標計算
-	Point MousePos ;
-	GetCursorPos( &MousePos ) ;
-	ScreenToClient( wiz::DxDevice::m_hWnd , &MousePos) ;
-	vPlayer = m_pCursor->get3DPos();
-	//vPlayer.x = (float)MousePos.x / DRAW_CLIENT_MAGNIFICATION - MAGNETIC_RADIUS ;
-	//vPlayer.y = (( STANDARD_WINDOW_HEIGHT - MousePos.y ) - UI_HEIGHT ) / DRAW_CLIENT_MAGNIFICATION - MAGNETIC_RADIUS + ( m_pCamera->getPosY() - m_pPlayer->getMoveY() ) ;
+	if( m_pCursor ) vPlayer = m_pCursor->get3DPos();
 	fTargetDir = TwoPoint2Degree( vPlayer , m_vPos );
 	//角度の更新
 	m_fMoveDir = fTargetDir;
@@ -697,12 +692,7 @@ void PlayerCoil::Update_StateContinue(){
 	D3DXVECTOR3 vPlayer = g_vZero;
 	float		fTargetDir = NULL;
 	//マウス座標計算
-	//Point MousePos ;
-	//GetCursorPos( &MousePos ) ;
-	//ScreenToClient( wiz::DxDevice::m_hWnd , &MousePos) ;
-	vPlayer = m_pCursor->get3DPos();
-	//vPlayer.x = (float)MousePos.x / DRAW_CLIENT_MAGNIFICATION - MAGNETIC_RADIUS ;
-	//vPlayer.y = (( STANDARD_WINDOW_HEIGHT - MousePos.y ) - UI_HEIGHT ) / DRAW_CLIENT_MAGNIFICATION - MAGNETIC_RADIUS + ( m_pCamera->getPosY() - m_pPlayer->getMoveY() ) ;
+	if( m_pCursor ) vPlayer = m_pCursor->get3DPos();
 	fTargetDir = TwoPoint2Degree( vPlayer , m_vPos );
 	//角度の更新
 	m_fMoveDir = fTargetDir;
@@ -742,14 +732,12 @@ void PlayerCoil::Update_StateContinue(){
 ////            ：
 ////
 void PlayerCoil::Update_StateStop(){
-	D3DXVECTOR3 vPlayer = g_vZero;
-	float		fTargetDir = NULL;
-	//マウス座標計算
-	Point MousePos ;
-	GetCursorPos( &MousePos ) ;
-	ScreenToClient( wiz::DxDevice::m_hWnd , &MousePos) ;
-	vPlayer.x = (float)MousePos.x / DRAW_CLIENT_MAGNIFICATION - MAGNETIC_RADIUS ;
-	vPlayer.y = (( STANDARD_WINDOW_HEIGHT - MousePos.y ) - UI_HEIGHT ) / DRAW_CLIENT_MAGNIFICATION - MAGNETIC_RADIUS + ( m_pCamera->getPosY() - m_pPlayer->getMoveY() ) ;
+	D3DXVECTOR3 vPlayer		= g_vZero	;
+	float		fTargetDir	= NULL		;
+
+	if( m_pCursor ) vPlayer = m_pCursor->get3DPos();
+
+
 	fTargetDir = TwoPoint2Degree( vPlayer , m_vPos );
 	//角度の更新
 	m_fMoveDir = fTargetDir;
