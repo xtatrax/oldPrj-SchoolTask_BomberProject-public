@@ -1,5 +1,5 @@
 ////////////////////////////// //////////////////////////////
-//	プロジェクト	：BomberProject
+//	プロジェクト	：DirectX Program Bass Project
 //	ファイル名		：BassItems.cpp
 //	開発環境		：MSVC++ 2008
 //	最適タブ数		：4
@@ -15,6 +15,132 @@
 namespace wiz {
 
 namespace base2Dobject{
+
+/**************************************************************************
+ class Cursor2D 定義部
+****************************************************************************/
+Point		Cursor2D::m_vMousePoint      ;
+bool		Cursor2D::m_bMouseLB = false ;
+bool		Cursor2D::m_bMouseMB = false ;
+bool		Cursor2D::m_bMouseRB = false ;
+DWORD		Cursor2D::m_tLastTime	= TLIB::Tempus::TimeGetTime() ;
+const float	Cursor2D::m_fLockTime	= 0.3f ;
+
+Point Cursor2D::getPos(){
+	GetCursorPos( &m_vMousePoint ) ;
+	ScreenToClient( wiz::DxDevice::m_hWnd , &m_vMousePoint) ;
+	return m_vMousePoint ;
+}
+bool Cursor2D::clickLButtonWithLock()
+{
+	if( m_bMouseLB && (float)TLIB::Tempus::TwoDwTime2ElapsedTime(m_tLastTime,TLIB::Tempus::TimeGetTime()) > m_fLockTime)
+	{
+		m_tLastTime = TLIB::Tempus::TimeGetTime();
+		return true ;
+	}
+	return false;
+};
+bool Cursor2D::clickMButtonWithLock()
+{
+	if( m_bMouseMB && (float)TLIB::Tempus::TwoDwTime2ElapsedTime(m_tLastTime,TLIB::Tempus::TimeGetTime()) > m_fLockTime)
+	{
+		m_tLastTime = TLIB::Tempus::TimeGetTime();
+		return true ;
+	}
+	return false;
+};
+bool Cursor2D::clickRButtonWithLock()
+{
+	if( m_bMouseRB && (float)TLIB::Tempus::TwoDwTime2ElapsedTime(m_tLastTime,TLIB::Tempus::TimeGetTime()) > m_fLockTime)
+	{
+		m_tLastTime = TLIB::Tempus::TimeGetTime();
+		return true ;
+	}
+	return false;
+};
+
+/////////////////// ////////////////////
+//// 関数名     ：
+//// カテゴリ   ：仮想関数
+//// 用途       ：カーソルがスプライトに重なっているかどうか
+//// 引数       ： const D3DXMATRIX&            i_mMatrix       //  : 
+////            ： const D3DXVECTOR3&           i_vPos          //  :
+////            ： const D3DXVECTOR3&           i_vCenter       //  :
+////            ： const D3DXVECTOR3&           i_vOffsetPos    //  :
+////            ： const LPDIRECT3DTEXTURE9     i_pTexture      //  :
+////            ： const Rect*                  i_pRect         //  :
+//// 戻値       ：なし
+//// 担当者     ：鴫原 徹
+//// 備考       ：
+////            ：
+////
+bool Cursor2D::isHitSprite(const PrimitiveSprite* i_TargetSprite)
+{
+	getPos();
+
+	if( !i_TargetSprite )return false ;	//	: ターゲットがNULLだったら計算しようがない!( false )
+
+	Point	poTL	= Point(0,0),
+			poBR	;	//	: 計算用の画像の大きさ
+
+
+	//////////
+	//	: 画像サイズの獲得処理
+	if( i_TargetSprite->m_pRect ){
+
+		//////////
+		//	: スプライトにRectが指定されていればそれを利用
+		poBR.x = i_TargetSprite->m_pRect->right  - i_TargetSprite->m_pRect->left ;
+		poBR.y = i_TargetSprite->m_pRect->bottom - i_TargetSprite->m_pRect->top  ;
+
+	}else if( i_TargetSprite->m_pTexture ){	//	: Textureはちゃんと指定されているか?
+
+		//////////
+		//	: スプライトにRectが指定されていなければ
+		//	: Texture自体の大きさを獲得
+		D3DSURFACE_DESC desc;
+
+		//////////
+		//	: Textureのサイズ獲得に失敗したら
+		//	: 計算しようがない!( false )
+		if( FAILED( i_TargetSprite->m_pTexture->GetLevelDesc( 0, &desc ) )){ return false; }
+
+		//////////
+		//	: 
+		poBR.x = desc.Width;
+		poBR.y = desc.Height;
+	}else{
+		//////////
+		//	: RectもTextureも無ければ計算しようが・・・
+		return false;
+	}
+	//	: 画像サイズの獲得処理
+	//////////
+	
+	poTL.x -= (LONG)i_TargetSprite->m_vCenter.x;
+	poTL.y -= (LONG)i_TargetSprite->m_vCenter.y;
+	poBR.x -= (LONG)i_TargetSprite->m_vCenter.x;
+	poBR.y -= (LONG)i_TargetSprite->m_vCenter.y;
+
+	poTL.x += (LONG)i_TargetSprite->m_vOffsetPos.x;
+	poTL.y += (LONG)i_TargetSprite->m_vOffsetPos.y;
+	poBR.x += (LONG)i_TargetSprite->m_vOffsetPos.x;
+	poBR.y += (LONG)i_TargetSprite->m_vOffsetPos.y;
+
+
+	D3DXMATRIX mMatrix = i_TargetSprite->getAspectMatrix();
+	poTL = MatrixCalculator(mMatrix,poTL);
+	poBR = MatrixCalculator(mMatrix,poBR);
+
+
+
+	Rect rc(poTL,poBR);
+
+	if( rc.PtInRect( m_vMousePoint ) ) return true ;
+	
+	return false ;
+	
+}
 /**************************************************************************
  PrimitiveSprite 定義部
 ***************************************************************************/
@@ -35,13 +161,19 @@ namespace base2Dobject{
 ////            ：
 ////
 PrimitiveSprite::PrimitiveSprite(
-	const LPDIRECT3DDEVICE9 pD3DDevice,
-	const LPDIRECT3DTEXTURE9 pTexture,const RECT* rect,
-	const D3DXVECTOR3& vCenter,const D3DXVECTOR3& vOffsetPos,const  Color color)
+	const LPDIRECT3DDEVICE9		pD3DDevice		,
+	const LPDIRECT3DTEXTURE9	pTexture		,
+	const RECT*					rect			,
+	const D3DXVECTOR3&			vCenter			,
+	const D3DXVECTOR3&			vOffsetPos		,
+	const Color					color			,
+	const bool					bApplyAspect
+)
 	:m_pTexture(pTexture)
 	,m_vOffsetPos(vOffsetPos)
 	,m_vCenter(vCenter)
 	,m_pRect(NULL)
+	,m_bApplyAspect(bApplyAspect)
 	,m_Color(color)
 {
 	try{
@@ -101,10 +233,10 @@ PrimitiveSprite::~PrimitiveSprite(){
 void PrimitiveSprite::Draw(DrawPacket& i_DrawPacket)
 {
 	if(m_pSprite && m_pTexture){
-		D3DXMATRIX mAspectRate,mAll;
-		D3DXVECTOR2 AspectRate = DxDevice::getAspectRate();
-		D3DXMatrixScaling(&mAspectRate,AspectRate.x,AspectRate.y,1.0f);
-	    D3DXMatrixMultiply(&mAll,&m_mMatrix,&mAspectRate);
+		D3DXMATRIX mAll ;
+		if( m_bApplyAspect )	mAll = getAspectMatrix();
+		else					mAll = m_mMatrix ;
+		
 		m_pSprite->Begin( D3DXSPRITE_ALPHABLEND );
 		{
 			m_pSprite->SetTransform( &mAll );
@@ -137,12 +269,21 @@ void PrimitiveSprite::Draw(DrawPacket& i_DrawPacket)
 //// 備考       ：
 ////            ：
 ////
-SpriteObject::SpriteObject(const LPDIRECT3DDEVICE9 pD3DDevice,const LPDIRECT3DTEXTURE9 pTexture,
-			const D3DXVECTOR3 &vScale,const D3DXVECTOR3 &vRot,const D3DXVECTOR3 &vPos,
-			const RECT *pRect,const D3DXVECTOR3 &vCenter,const D3DXVECTOR3 &vOffsetPos,const Color color,
-			const wiz::OBJID id)
-			:Object(id)
-			,PrimitiveSprite(pD3DDevice,pTexture,pRect,vCenter,vOffsetPos,color)
+SpriteObject::SpriteObject(
+	const LPDIRECT3DDEVICE9 pD3DDevice,
+	const LPDIRECT3DTEXTURE9 pTexture,
+	const D3DXVECTOR3 &vScale,
+	const D3DXVECTOR3 &vRot,
+	const D3DXVECTOR3 &vPos,
+	const RECT *pRect,
+	const D3DXVECTOR3 &vCenter,
+	const D3DXVECTOR3 &vOffsetPos,
+	const Color color,
+	const wiz::OBJID id,
+	const bool bApplyAspect
+)
+	:Object(id)
+	,PrimitiveSprite(pD3DDevice,pTexture,pRect,vCenter,vOffsetPos,color,bApplyAspect)
 {
 	try{
 		//	: 初期マトリックスを計算

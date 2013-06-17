@@ -28,6 +28,8 @@ const float MAGNET_FIELD_ALPHA			= 0.2f;
 namespace wiz{
 namespace bomberobject{
 
+extern class	MagneticGage_N	;
+extern class	MagneticGage_S	;
 
 //**************************************************************************//
 // class ProvisionalPlayer : public MagneticumObject ;
@@ -53,6 +55,7 @@ namespace bomberobject{
 // 用途    : 仮のユーザー設置磁界
 //**************************************************************************//
 class ProvisionalPlayer3D : public MagneticumObject3D{
+	MouseCursor*	m_pCursor		;
 	Camera*			m_Camera		;
 	PlayerCoil*		m_pPlayerCoil	;
 	Sound*			m_pSound		;
@@ -109,7 +112,7 @@ public:
 	//// 備考       ：
 	////            ：
 	D3DXVECTOR3 getPos() const {
-		if( g_bMouseLB || g_bMouseRB ){ 
+		if( Cursor2D::pressLorRButton() ){ 
 			return m_vPos	;
 		}else{
 			return g_vMin	;

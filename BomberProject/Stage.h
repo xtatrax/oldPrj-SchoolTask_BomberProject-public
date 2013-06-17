@@ -37,14 +37,26 @@ using namespace menuobject ;
 //**************************************************************************//
 class Stage{
 protected:
+	friend struct FactoryPacket;
 	//	: メニュー等の画面へのポインタをとっておく
-	Stage*				m_pParStage		;	//	: 親ステージ
-	Stage*				m_pChildStage	;	//	: 子ステージ
-	bool				m_IsDialog		;	//	: ダイアログステージかどうか
-	bool				m_bUpdate		;	//	: このフラグをtrueにするとステージのupdateが止まります
-    vector<Object*>		m_Vec			;	//	: 配置オブジェクトのポインタのベクトル
-    TextureManager		m_TexMgr		;	//	: テクスチャのポインタのベクトル
-
+	Stage*						m_pParStage		;	//	: 親ステージ
+	Stage*						m_pChildStage	;	//	: 子ステージ
+	bool						m_IsDialog		;	//	: ダイアログステージかどうか
+	bool						m_bUpdate		;	//	: このフラグをtrueにするとステージのupdateが止まります
+    vector<Object*>				m_Vec			;	//	: 配置オブジェクトのポインタのベクトル
+    TextureManager				m_TexMgr		;	//	: テクスチャのポインタのベクトル
+	vector<Button*>				m_ButtonVec		;	//	: ボタンオブジェクトのみの配列（カメラなどは入れない）
+	vector<Button*>::size_type	m_SelectIndex	;
+	bool m_SelectLock;
+	bool m_IsAnimetion;
+/**************************************************************************
+ void AddButton(
+ Button* pButton	//ボタンのポインタ
+ );
+ 用途: メニューにボタンを追加する。これ以外にm_Vecにも必ず入れる
+ 戻り値: なし
+***************************************************************************/
+	void AddButton(Object* pButton);
 #if defined(DEBUG) | defined(_DEBUG) | defined(ON_DEBUGGINGPROCESS)
 	bool m_bSlow;
 #endif
@@ -154,11 +166,31 @@ public:
 	////
 	Stage* getActiveStage(){
 		Stage* ret = getLastStage();
-		while(ret->m_IsDialog){
-			ret = ret->m_pParStage;
+		while(	ret && ret->m_IsDialog){
+			if( ret->m_pParStage )
+				ret = ret->m_pParStage;
+			else
+				return ret;
 		}
 		return ret;
 	}
+	/////////////////// ////////////////////
+	//// 用途       ：virtual void ButtonUpdateUpdate( UpdatePacket& i_UpdatePacket )
+	//// カテゴリ   ：関数
+	//// 用途       ：ボタンを更新
+	//// 引数       ：  UpdatePacket& i_UpdatePacket     // アップデート時に必要なデータ群 ↓内容下記
+	////            ：  ├       LPDIRECT3DDEVICE9  pD3DDevice      // IDirect3DDevice9 インターフェイスへのポインタ
+	////            ：  ├       Tempus2*           pTime           // 時間を管理するクラスへのポインター
+	////            ：  ├       vector<Object*>&   Vec,            // オブジェクトの配列
+	////            ：  ├ const CONTROLER_STATE*   pCntlState      // コントローラのステータス
+	////            ：  └       Command            pCommand        // コマンド
+	//// 戻値       ：無し
+	//// 担当者     ：鴫原 徹
+	//// 備考       ：
+	////            ：
+	////
+	virtual void ButtonUpdate(UpdatePacket& i_UpdatePacket);
+
 	/////////////////// ////////////////////
 	//// 用途       ：virtual void Update( UpdatePacket& i_UpdatePacket )
 	//// カテゴリ   ：関数
@@ -220,7 +252,21 @@ public:
 	//// 備考       ：
 	void DefaultRender();
 
-	TextureManager getTexMger ;
+	/////////////////// ////////////////////
+	//// 関数名     ：void CommandTranslator(DrawPacket& i_DrawPacket);
+	//// カテゴリ   ：関数
+	//// 用途       ：コマンドを解釈してステージの切り替えなどを行う
+	//// 引数       ：  DrawPacket& i_DrawPacket             // 画面描画時に必要なデータ群 ↓内容下記
+	////            ：  ├ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 インターフェイスへのポインタ
+	////            ：  ├ vector<Object*>&    Vec                     // オブジェクトの配列
+	////            ：  ├ Tempus2*            i_DrawPacket.pTime	   // 時間を管理するクラスへのポインター
+	////            ：  └ Command             i_DrawPacket.pCommand   // コマンド
+	//// 戻値       ：無し
+	//// 担当者     ：鴫原 徹
+	//// 備考       ：
+	////            ：
+	////
+	void CommandTranslator(DrawPacket& i_DrawPacket);
 
 };
 /*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
@@ -233,19 +279,6 @@ public:
 ****************************************************************************/
 class MenuStage : public Stage{
 protected:
-	vector<Button*> m_ButtonVec;
-	//ボタンオブジェクトのみの配列（カメラなどは入れない）
-	vector<Button*>::size_type m_SelectIndex;
-	bool m_SelectLock;
-	bool m_IsAnimetion;
-/**************************************************************************
- void AddButton(
- Button* pButton	//ボタンのポインタ
- );
- 用途: メニューにボタンを追加する。これ以外にm_Vecにも必ず入れる
- 戻り値: なし
-***************************************************************************/
-	void AddButton(Object* pButton);
 public:
 /**************************************************************************
  MenuStage(

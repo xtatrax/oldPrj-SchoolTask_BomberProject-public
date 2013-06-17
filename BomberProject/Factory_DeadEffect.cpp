@@ -145,12 +145,8 @@ void DeadEffect::Draw(DrawPacket& i_DrawPacket)
 ////            ÅF
 ////
 void DeadEffect::Update( UpdatePacket& i_UpdatePacket ){
-	if(m_pCamera == NULL){
-		m_pCamera = (Camera*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_SYS_CAMERA);
-	}
-	if(m_pCoil == NULL){
-		m_pCoil = (PlayerCoil*)SearchObjectFromTypeID(i_UpdatePacket.pVec,typeid(PlayerCoil));
-	}
+	if( !m_pCamera )	m_pCamera	=     (Camera*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_SYS_CAMERA);
+	if( !m_pCoil )		m_pCoil		= (PlayerCoil*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_3D_COIL);
 
 	const float MoveRate	= 0.003f;
 	const float ColorRate	= 0.003f;

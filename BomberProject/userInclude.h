@@ -23,6 +23,8 @@
 #include "Function.h"
 #include "BassItems.h"
 #include "Bass2DItems.h"
+#include "BassMenuItems.h"
 #include "Factory_Sound.h"
+#include "Factory_Cursor.h"
 
 #endif

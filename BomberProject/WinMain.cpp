@@ -136,7 +136,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE
     wcex.cbClsExtra     = 0;                        //常に0
     wcex.cbWndExtra     = 0;                        //常に0
     wcex.hInstance      = hInstance;                //アプリケーションのインスタンスを指定
-    wcex.hIcon          = NULL;//LoadIcon(hInstance,MAKEINTRESOURCE(IDI_ICON1));                     //アイコンの指定（ここではNULL）
+    wcex.hIcon          = LoadIcon(hInstance,MAKEINTRESOURCE(IDI_ICON1));                     //アイコンの指定（ここではNULL）
     wcex.hCursor        = NULL;    //通常の矢印カーソル
     wcex.hbrBackground  = NULL;                      //背景なし
     wcex.lpszMenuName   = NULL;                     //メニューなし

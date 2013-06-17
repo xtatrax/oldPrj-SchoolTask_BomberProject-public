@@ -160,7 +160,8 @@ Camera::Camera(LPDIRECT3DDEVICE9 pD3DDevice,D3DXVECTOR3& At,FLOAT AbsPosZFromAt,
 		aspect = (float)vp.Width / (float)vp.Height;
 		// 射影行列の初期化
 		D3DXMatrixIdentity(&m_Proj);
-		D3DXMatrixPerspectiveFovLH(&m_Proj, D3DXToRadian(m_FovY), aspect,m_Near,m_Far);
+		//D3DXMatrixPerspectiveFovLH(&m_Proj, D3DXToRadian(m_FovY), aspect,m_Near,m_Far);
+		D3DXMatrixOrthoLH(&m_Proj, D3DXToRadian(m_FovY), aspect,m_Near,m_Far);
 		// 射影行列の設定
 		pD3DDevice->SetTransform(D3DTS_PROJECTION,&m_Proj);
 		// カメラの設定
@@ -212,7 +213,8 @@ Camera::Camera(LPDIRECT3DDEVICE9 pD3DDevice,D3DXVECTOR3& Eye,D3DXVECTOR3& At,
 		aspect = (float)vp.Width / (float)vp.Height;
 		// 射影行列の初期化
 		D3DXMatrixIdentity(&m_Proj);
-		D3DXMatrixPerspectiveFovLH(&m_Proj, D3DXToRadian(m_FovY), aspect,m_Near,m_Far);
+		//D3DXMatrixPerspectiveFovLH(&m_Proj, D3DXToRadian(m_FovY), aspect,m_Near,m_Far);
+		D3DXMatrixOrthoLH(&m_Proj, D3DXToRadian(m_FovY), aspect,m_Near,m_Far);
 		// 射影行列の設定
 		pD3DDevice->SetTransform(D3DTS_PROJECTION,&m_Proj);
 		// カメラの設定

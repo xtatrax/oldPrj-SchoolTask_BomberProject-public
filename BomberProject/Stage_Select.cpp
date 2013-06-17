@@ -1,28 +1,28 @@
 ////////////////////////////// //////////////////////////////
 //	プロジェクト	：BomberProject
-//	ファイル名		：Stage_Result.h
+//	ファイル名		：Stage_Select.h
 //	開発環境		：MSVC++ 2008
 //	最適タブ数		：4
 //	担当者			：佐藤涼
-//	内包ﾃﾞｰﾀと備考	：クリアステージ
+//	内包ﾃﾞｰﾀと備考	：タイトルステージ
 //					▼
 //	namespace wiz;
-//		class ResultStage : public Stage ;
+//		class StageSelect : public Stage ;
 //
 #include "StdAfx.h"
 #include "Scene.h"
-#include "Stage_Result.h"
-#include "Factory_Result.h"
+#include "Stage_Select.h"
 #include "stage.h"
+#include "Factory_Select.h"
 
 namespace wiz{
 using namespace bomberobject;
 
 /**************************************************************************
- ResultStage 定義部
+ StageSelect 定義部
 ****************************************************************************/
 /**************************************************************************
- ResultStage(
+ StageSelect(
 	LPDIRECT3DDEVICE9 pD3DDevice,		//デバイス
 	const Script::MLPHeader& Header,	//	: プレイする楽曲のヘッダーデータ
 	const Script::SCORELEVEL Level		//	: プレイするレベル種別
@@ -30,8 +30,9 @@ using namespace bomberobject;
  用途: コンストラクタ
  戻り値: なし（失敗時は例外をthrow）
 ***************************************************************************/
-ResultStage::ResultStage(LPDIRECT3DDEVICE9 pD3DDevice,Stage* pStage)
+StageSelect::StageSelect(LPDIRECT3DDEVICE9 pD3DDevice,Stage* pStage)
 	:Stage(pStage)
+
 {
 	try{
 		FactoryPacket FPac;
@@ -39,7 +40,9 @@ ResultStage::ResultStage(LPDIRECT3DDEVICE9 pD3DDevice,Stage* pStage)
 		FPac.m_pTexMgr  = &this->m_TexMgr   ;
 		FPac.m_pVec     = &this->m_Vec      ;
 		FPac.pD3DDevice =  pD3DDevice       ;
-		Factory_Result	resultF( &FPac );
+
+		Factory_Select	Sfac( &FPac )  ; 
+
 	}
 	catch(...){
 		Clear();
@@ -48,20 +51,12 @@ ResultStage::ResultStage(LPDIRECT3DDEVICE9 pD3DDevice,Stage* pStage)
 	}
 }
 /**************************************************************************
-ResultStage();
+StageSelect();
  用途: デストラクタ
  戻り値: なし
 ***************************************************************************/
-ResultStage::~ResultStage(){
+StageSelect::~StageSelect(){
 	
-}
-
-void	ResultStage::Update(UpdatePacket &i_UpdatePacket){
-
-	if( Cursor2D::getLButtonState()/* || Cursor2D::getRButtonState()*/ ){
-		//選ばれた画面へとぶ
-		i_UpdatePacket.pCommand->m_Command	= GM_OPENSTAGE_TITLE;
-	}
 }
 
 }

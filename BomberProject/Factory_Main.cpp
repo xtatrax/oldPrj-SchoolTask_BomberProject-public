@@ -9,26 +9,38 @@
 //	namespace wiz;
 //		class Factory_Main ;
 //
-#include "StdAfx.h"
-#include "Object.h"
-#include "Scene.h"
-#include "StageLoader.h"
 
-#include "Factory_CheckPoint.h"
-#include "Factory_Coil.h"
+//////////
+//	: 基本のインクルード
+#include "StdAfx.h"
+#include "Factory_Main.h"
+//	: 基本のインクルード
+//////////
+//////////
+//	: 追加のインクルード
+#include "StageLoader.h"
 #include "Factory_Description.h"
 #include "Factory_Enemy.h"
-#include "Factory_Goal.h"
-#include "Factory_Gage.h"
 #include "Factory_Item.h"
-#include "Factory_Main.h"
-#include "Factory_Magnetic.h"
 #include "Factory_Player.h"
-#include "Factory_Stage1.h"
-#include "Factory_Description.h"
-#include "Factory_Cursor.h"
 #include "Factory_Score.h"
-#include "BassItems.h"
+#include "Factory_Wall.h"
+//	: 追加のインクルード
+//////////
+
+
+//#include "Object.h"
+//#include "Scene.h"
+//
+//#include "Factory_CheckPoint.h"
+//#include "Factory_Coil.h"
+//#include "Factory_Goal.h"
+//#include "Factory_Gage.h"
+//#include "Factory_Magnetic.h"
+//#include "Factory_Stage1.h"
+//#include "Factory_Description.h"
+//#include "Factory_Cursor.h"
+//#include "BassItems.h"
 
 namespace wiz{
 namespace bomberobject{
@@ -49,12 +61,14 @@ namespace bomberobject{
 ***************************************************************************/
 Factory_Main::Factory_Main(FactoryPacket* fpac, DWORD dwStageNum, DWORD dwResumptionCheckPoint, D3DXVECTOR3* vStartPos ){
 	try{
-//#if defined( ON_GUIDELINE ) 
-//
-//		//	: ガイドライン
-//		fpac->m_pVec->push_back(new Guide( fpac->pD3DDevice ) );
-//#endif
-		//ライトのインスタンス初期化
+#if defined( ON_GUIDELINE ) 
+
+		//	: ガイドライン
+		fpac->m_pVec->push_back(new Guide( fpac->pD3DDevice ) );
+#endif
+
+		//////////
+		//	: ライトの設定
         D3DCOLORVALUE Diffuse = {1.0f,1.0f,1.0f,0.0f};
         D3DCOLORVALUE Specular = {1.0f,1.0f,1.0f,0.0f};
         D3DCOLORVALUE Ambient = {0.5f,0.5f,0.5f,0.0f};
@@ -67,26 +81,28 @@ Factory_Main::Factory_Main(FactoryPacket* fpac, DWORD dwStageNum, DWORD dwResump
 				D3DXVECTOR3( -0.0f, -1.0f, 0.0f)
 			)
 		);
+		//	: ライトの設定
+		//////////
 
-		//カメラのインスタンス初期化
+		//////////
+		//	: カメラの設定
 		float ECXPos = 25.1f;
-		float ECYPos = 10.1f;		
+		float ECYPos = 10.666f;		
         fpac->m_pVec->push_back(
 			new Camera(
 				fpac->pD3DDevice,
 				D3DXVECTOR3( ECXPos, ECYPos, -55.7f),
-				D3DXVECTOR3(ECXPos,ECYPos,0.0f),
+				D3DXVECTOR3( ECXPos, ECYPos,   0.0f),
 				1 ,
-				300.0f,
+				55.8f,
 				30.0f
 			)
 		);
+		//	: カメラの設定
+		//////////
 
-		//	: レンダーTARGET
-		//fpac->m_pVec->push_back(
-		//	new RenderTargetSprite((BassPacket*)fpac,800,512)
-		//);
-
+		//////////
+		//	: 背景の仮配置
 		float fBoxSizeX = 90.0f ;
 		for( int i = 0 ; i < 20 ; i++ ){
 			fpac->m_pVec->push_back(
@@ -104,20 +120,33 @@ Factory_Main::Factory_Main(FactoryPacket* fpac, DWORD dwStageNum, DWORD dwResump
 				)
 			);
 		}
+		//	: 背景の仮配置
+		//////////
 
+//←──────────────────────────────────────────────→//	
+
+		//////////
+		//	: 下請け工場へ発注
 		float	fLineLength	= 230.0f;
 		float	fPointSize	= 0.125f;
-
-		Factory_Cursor		MCfac( fpac, fLineLength, fPointSize )  ; 
-
+		Factory_Cursor		Mfac( fpac, fLineLength, fPointSize )  ; 
 		Factory_Player		Pfac( fpac );
 		if( dwStageNum == 0 )	dwStageNum = 1 ;
-		StageLoader									loader(fpac->pD3DDevice,L"media/Map/Stages.csv", dwStageNum,*fpac->m_pVec,*fpac->m_pTexMgr);
+		StageLoader			loader(fpac->pD3DDevice,L"media/Map/Stages.csv", dwStageNum,*fpac->m_pVec,*fpac->m_pTexMgr);
 		Factory_Coil		Cfac( fpac , dwResumptionCheckPoint, vStartPos );
 		Factory_Item		Ifac( fpac ) ;
 		Factory_Description	Dfac( fpac ) ;
-		Factory_Gage		Gfac( fpac );
-		Factory_Score		Sfac( fpac );
+		Factory_Gage		Gfac( fpac ) ;
+		Factory_Score		Sfac( fpac ) ;
+		Factory_Enemy		Efac( fpac ) ;
+		//	: 下請け工場へ発注
+		//////////
+
+//←──────────────────────────────────────────────→//	
+
+
+		//////////
+		//	: 音声の構築とBGMの再生開始
 		Sound* pSound = NULL;
 		fpac->m_pVec->push_back(
 			pSound = new Sound( 
@@ -128,11 +157,18 @@ Factory_Main::Factory_Main(FactoryPacket* fpac, DWORD dwStageNum, DWORD dwResump
 		);
 		pSound->SearchSoundAndPlay( RCTEXT_SOUND_BGM_PLAY );
 		pSound->SearchSoundAndPlay( RCTEXT_SOUND_SE_SPARK );
+		//	: 音声の構築とBGMの再生開始
+		//////////
 
+
+		//////////
+		//	: オブジェクトのソート( 透過処理の問題対策 )
 		vector<Object*>::size_type pos = fpac->m_pVec->max_size();
 		WallObject* wp = (WallObject*)SearchObjectFromID( fpac->m_pVec,OBJID_3D_WALL, &pos );
 		fpac->m_pVec->erase( fpac->m_pVec->begin() + pos );
 		fpac->m_pVec->push_back( wp );
+		//	: オブジェクトのソート( 透過処理の問題対策 )
+		//////////
 
 		
 	}

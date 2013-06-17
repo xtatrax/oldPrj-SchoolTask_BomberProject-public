@@ -79,9 +79,7 @@ void	StartSprite::Draw( DrawPacket& i_DrawPacket )
 ***************************************************************************/
 void	StartSprite::Update( UpdatePacket& i_UpdatePacket )
 {
-	if(m_pCoil == NULL){
-		m_pCoil = (PlayerCoil*)SearchObjectFromTypeID(i_UpdatePacket.pVec,typeid(PlayerCoil));
-	}
+	if( !m_pCoil )	m_pCoil = (PlayerCoil*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_3D_COIL);
 
 	int		rate	= 0;
 	BYTE	ChangeAlpha	= (255/40);
@@ -247,12 +245,8 @@ void Description::Draw(DrawPacket& i_DrawPacket)
 ////            ÅF
 ////
 void Description::Update( UpdatePacket& i_UpdatePacket ){
-	if(m_pCamera == NULL){
-		m_pCamera = (Camera*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_SYS_CAMERA);
-	}
-	if(m_pCoil == NULL){
-		m_pCoil = (PlayerCoil*)SearchObjectFromTypeID(i_UpdatePacket.pVec,typeid(PlayerCoil));
-	}
+	if( !m_pCamera )	m_pCamera	=     (Camera*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_SYS_CAMERA);
+	if( !m_pCoil   )	m_pCoil		= (PlayerCoil*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_3D_COIL);
 
 	m_ItemMap_Target.clear();
 	multimap<float,DescItem*>::iterator it = m_ItemMap_Desc.begin();

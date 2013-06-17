@@ -15,6 +15,7 @@
 #include "Scene.h"
 #include "Debug_Stage.h"
 #include "Stage_Title.h"
+#include "Stage_Select.h"
 #include "Stage_Play.h"
 #include "Stage_Result.h"
 #include "Stage_Load.h"
@@ -67,7 +68,7 @@ void Scene::Clear(){
 //// 備考       ：失敗したら例外をthrow
 ////            ：
 ////
-Scene::Scene(LPDIRECT3DDEVICE9 pD3DDevice)
+Scene::Scene(LPDIRECT3DDEVICE9 pD3DDevice,Command* pCommand)
 :m_pRootStage(NULL)
 ,m_pStgBuf(NULL)
 ,m_bLoadingComplete(false)
@@ -86,9 +87,7 @@ Scene::Scene(LPDIRECT3DDEVICE9 pD3DDevice)
 #if defined(DEBUG) || defined(_DEBUG) || defined(ON_DEBUGGINGPROCESS)
 		try{
 			//ルートのステージにデバッグメニューを設定
-			//m_pRootStage	= new PlayStage(pD3DDevice);
-			m_pRootStage	= new TitleStage(pD3DDevice);
-			//m_pRootStage	= new ResultStage(pD3DDevice);
+			pCommand->m_Command = GM_OPENSTAGE_TITLE ;
 		}
 		catch(LoaderException& e){
 			//	: ロード失敗
@@ -103,10 +102,7 @@ Scene::Scene(LPDIRECT3DDEVICE9 pD3DDevice)
 #else 
 //	: リリース用設定
 		//ルートのステージにタイトルメニューを設定
-		m_pRootStage = new TitleStage(pD3DDevice);
-		//m_pRootStage = new LoadStage(pD3DDevice);
-		//m_pRootStage	= new PlayStage(pD3DDevice);
-		//m_pRootStage	= new ResultStage(pD3DDevice);
+		pCommand->m_Command = GM_OPENSTAGE_TITLE ;
 
 #endif
 //
@@ -239,7 +235,8 @@ void Scene::CommandTranslator(DrawPacket& i_DrawPacket){
 		case GM_OPENSTAGE_TITLE:
 			//	: タイトル画面
 			SafeDeleteStage(m_pRootStage);
-			m_pRootStage = new TitleStage(i_DrawPacket.pD3DDevice);
+			m_pRootStage = new StageSelect( i_DrawPacket.pD3DDevice , new TitleStage(i_DrawPacket.pD3DDevice));
+			
 			break;
 		case GM_OPENSTAGE_LOAD:
 			//	: ロード画面
@@ -267,11 +264,23 @@ void Scene::CommandTranslator(DrawPacket& i_DrawPacket){
 			}
 
 			break;
-		case GM_OPENSTAGE_PLAY_RELOAD:
+		case GM_OPENDEBUGSTAGE_DEBUGMENU:
+			SafeDeleteStage(m_pRootStage);
+			m_pRootStage = new DebugMenu(i_DrawPacket.pD3DDevice);
+			break;
+
+		case GM_OPENSTAGE_RESULT:
+			//	: ゲームクリア画面
+			SafeDeleteStage(m_pRootStage);
+			m_pRootStage = new ResultStage(i_DrawPacket.pD3DDevice);
+			break;
+
+		case GM_OPENDEBUGSTAGE_PLAY_RELOAD:
 			try{
 				//	: ゲームステージ
 				PlayerCoil* pc = (PlayerCoil*)i_DrawPacket.pCommand->m_Param1 ;
-				this->m_pStgBuf = new PlayStage( i_DrawPacket.pD3DDevice,i_DrawPacket.pCommand->m_Param1,i_DrawPacket.pCommand->m_Param2, pc->getPos() );
+				DWORD dwStageNum = m_pRootStage ? ((PlayStage*)m_pRootStage)->getNowStage() : 0 ;
+				this->m_pStgBuf = new PlayStage( i_DrawPacket.pD3DDevice, dwStageNum ,i_DrawPacket.pCommand->m_Param2, pc->getPos() );
 				//	: 
 				SafeDeleteStage(m_pRootStage);
 				m_pRootStage = this->m_pStgBuf;
@@ -287,16 +296,6 @@ void Scene::CommandTranslator(DrawPacket& i_DrawPacket){
 				throw ;
 			}
 
-			break;
-		case GM_OPENDEBUGSTAGE_DEBUGMENU:
-			SafeDeleteStage(m_pRootStage);
-			m_pRootStage = new DebugMenu(i_DrawPacket.pD3DDevice);
-			break;
-
-		case GM_OPENSTAGE_RESULT:
-			//	: ゲームクリア画面
-			SafeDeleteStage(m_pRootStage);
-			m_pRootStage = new ResultStage(i_DrawPacket.pD3DDevice);
 			break;
 
 //未対応のステージ

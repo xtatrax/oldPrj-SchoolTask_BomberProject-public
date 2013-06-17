@@ -239,18 +239,10 @@ void WallObject::Draw(DrawPacket& i_DrawPacket)
 ////            ÅF
 ////
 void WallObject::Update( UpdatePacket& i_UpdatePacket ){
-	if(m_pCamera == NULL){
-		m_pCamera = (Camera*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_SYS_CAMERA);
-	}
-	if(m_pSound == NULL){
-		m_pSound = (Sound*)SearchObjectFromTypeID(i_UpdatePacket.pVec,typeid(Sound));
-	}
-	if(m_pPlayerCoil == NULL){
-		m_pPlayerCoil = (PlayerCoil*)SearchObjectFromTypeID(i_UpdatePacket.pVec,typeid(PlayerCoil));
-	}
-	if(m_pEnemy == NULL){
-		m_pEnemy = (EnemySphere*)SearchObjectFromTypeID(i_UpdatePacket.pVec,typeid(EnemySphere));
-	}
+	if( !m_pCamera     )	m_pCamera		=     (Camera*)SearchObjectFromID( i_UpdatePacket.pVec, OBJID_SYS_CAMERA	) ;
+	if( !m_pSound      )	m_pSound		=      (Sound*)SearchObjectFromID( i_UpdatePacket.pVec, OBJID_SYS_SOUND		) ;
+	if( !m_pPlayerCoil )	m_pPlayerCoil	= (PlayerCoil*)SearchObjectFromID( i_UpdatePacket.pVec, OBJID_3D_COIL		) ;
+	if( !m_pEnemy      )	m_pEnemy		= (EnemyModel*)SearchObjectFromID( i_UpdatePacket.pVec, OBJID_3D_ENEMY		) ;
 
 	UpdateTargetItem();
 	TARGETCONTAINER::iterator it	= m_ItemMap_Target.begin();

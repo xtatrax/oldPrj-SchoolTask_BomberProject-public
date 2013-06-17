@@ -119,7 +119,7 @@ Gage::Gage(
 	const wiz::OBJID			id
 )
 :SpriteObject(pD3DDevice,pTex,vScale,vRot,vPos,
-	NULL,g_vZero,vDirOffset,0xFFFFFFFF,id)
+	NULL,g_vZero,vDirOffset,0xFFFFFFFF,id,false)
 ,m_BassRect(  GaugeRect )
 ,m_GaugeRect( GaugeRect )
 ,m_FrameRect( FrameRect )
@@ -329,6 +329,7 @@ void SuperGage::Draw(DrawPacket& i_DrawPacket){
 void SuperGage::Update( UpdatePacket& i_UpdatePacket ){
 	if( !m_pCursor ) m_pCursor = (MouseCursor*)SearchObjectFromID(i_UpdatePacket.pVec, OBJID_SYS_CURSOR);
 
+	if( !m_pCursor ) return ;
 	D3DXMATRIX	mPos, mScale, mRot ;
 	D3DXVECTOR3 vPos ;
 	vPos.x	= (float)m_pCursor->get2DPos().x + m_vBassPos.x - m_GaugeRect.right * m_vScale.x;
@@ -362,6 +363,8 @@ void SuperGage::Update( UpdatePacket& i_UpdatePacket ){
 //// 備考       ：
 ////            ：
 void SuperGage::Update_Line(){
+	if( !m_pCursor ) return ;
+
 	D3DXMATRIX		mLineScale, mLinePos;
 	D3DXVECTOR3		vLineScale	= D3DXVECTOR3(1.0f,1.0f,0.0f),vLinePos, 
 					vBaseLinePos = D3DXVECTOR3((float)m_pCursor->get2DPos().x + m_vBassPos.x/**0.225f*/,
@@ -472,8 +475,12 @@ MagneticGage_N::~MagneticGage_N(){
 ////            ：
 ////
 void MagneticGage_N::Update( UpdatePacket& i_UpdatePacket ){
+	if( !m_pCoil )	 m_pCoil	= (PlayerCoil*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_3D_COIL);
+	if( !m_pCoil ) return ;
+
 	if( !m_pCursor ) m_pCursor = (MouseCursor*)SearchObjectFromID(i_UpdatePacket.pVec, OBJID_SYS_CURSOR);
-	if( !m_pCoil )	 m_pCoil	= (PlayerCoil*)SearchObjectFromTypeID(i_UpdatePacket.pVec,typeid(PlayerCoil));
+	if( !m_pCursor ) return ;
+
 	Gage::Update(i_UpdatePacket);
 
 	float	fMovePos	= 0.0f;
@@ -581,8 +588,12 @@ MagneticGage_S::~MagneticGage_S(){
 ////            ：
 ////
 void MagneticGage_S::Update( UpdatePacket& i_UpdatePacket ){
-	if( !m_pCursor )	 m_pCursor	= (MouseCursor*)SearchObjectFromID(i_UpdatePacket.pVec, OBJID_SYS_CURSOR);
-	if( !m_pCoil )		 m_pCoil	= (PlayerCoil*)SearchObjectFromTypeID(i_UpdatePacket.pVec,typeid(PlayerCoil));
+	if( !m_pCoil )		 m_pCoil	= (PlayerCoil*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_3D_COIL);
+	if( !m_pCoil )	return;
+
+	if( !m_pCursor ) m_pCursor = (MouseCursor*)SearchObjectFromID(i_UpdatePacket.pVec, OBJID_SYS_CURSOR);
+	if( !m_pCursor ) return ;
+
 	Gage::Update(i_UpdatePacket);
 
 	float	fMovePos	= 0.0f;
@@ -649,7 +660,7 @@ Factory_Gage::Factory_Gage(FactoryPacket* fpac){
 		fpac->m_pVec->push_back(
 			new SuperGage(
 				fpac->pD3DDevice,
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Gauge_Super4.png" ),
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Gauge_Super5.png" ),
 				D3DXVECTOR3(0.4f,0.25f,0.0f),
 				D3DXVECTOR3(0.0f,0.0f,0.0f),
 				//D3DXVECTOR3(950.0,30.0f,0.0f),

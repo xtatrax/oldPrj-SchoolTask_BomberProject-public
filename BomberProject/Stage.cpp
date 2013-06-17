@@ -33,9 +33,10 @@ namespace wiz{
  戻り値: なし
 ***************************************************************************/
 void Stage::Clear(){
-	SafeDelete(m_pChildStage);
-	//SafeDelete(m_pParStage);
+	//SafeDelete(m_pChildStage);
+	SafeDelete(m_pParStage);
 	SafeDeletePointerContainer(m_Vec);
+	m_ButtonVec.clear();
 	m_TexMgr.Release();
 }
 
@@ -47,14 +48,16 @@ void Stage::Clear(){
  戻り値: なし
 ***************************************************************************/
 Stage::Stage(Stage* Par)
-:m_pParStage(Par),m_pChildStage(0),m_IsDialog(false)
+:m_pParStage(Par),m_pChildStage(0),m_IsDialog(true)
 ,m_bUpdate( true )
+,m_SelectIndex(0),m_SelectLock(true),m_IsAnimetion(false)
 #if defined(DEBUG) | defined(_DEBUG) | defined(ON_DEBUGGINGPROCESS)
 ,m_bSlow(false)
 #endif
 /////////////////// ////////////////////
-
-{}
+{
+	m_pParStage && (m_pParStage->m_pChildStage = this) ;
+}
 /**************************************************************************
 virtual Stage::~Stage();
  用途: デストラクタ
@@ -62,6 +65,88 @@ virtual Stage::~Stage();
 ***************************************************************************/
 Stage::~Stage(){
 	Clear();
+}
+/////////////////// ////////////////////
+//// 用途       ：virtual void ButtonUpdateUpdate( UpdatePacket& i_UpdatePacket )
+//// カテゴリ   ：関数
+//// 用途       ：ボタンを更新
+//// 引数       ：  UpdatePacket& i_UpdatePacket     // アップデート時に必要なデータ群 ↓内容下記
+////            ：  ├       LPDIRECT3DDEVICE9  pD3DDevice      // IDirect3DDevice9 インターフェイスへのポインタ
+////            ：  ├       Tempus2*           pTime           // 時間を管理するクラスへのポインター
+////            ：  ├       vector<Object*>&   Vec,            // オブジェクトの配列
+////            ：  ├ const CONTROLER_STATE*   pCntlState      // コントローラのステータス
+////            ：  └       Command            pCommand        // コマンド
+//// 戻値       ：無し
+//// 担当者     ：鴫原 徹
+//// 備考       ：
+////            ：
+////
+void Stage::ButtonUpdate(UpdatePacket& i_UpdatePacket)
+{
+	if( i_UpdatePacket.pTxMgr == NULL ) i_UpdatePacket.pTxMgr = &m_TexMgr ;
+	CONTROLER_STATE	ControllerState1P = i_UpdatePacket.pCntlState[0];
+    if(!m_SelectLock){
+
+		DWORD dwSM = 0;
+		if((dwSM = Button::getMouseSelectIndex()) != ULONG_MAX)
+			m_SelectIndex = dwSM;
+
+		//	: 次のボタンへ
+		if(ControllerState1P.Gamepad.wPressedButtons.XConState.DOWN 
+			|| ControllerState1P.Gamepad.sThumbLY < 0)
+		{
+			m_SelectIndex++;
+			if(m_ButtonVec.size() <= m_SelectIndex){
+				m_SelectIndex = 0;
+			}
+			m_SelectLock = true;
+		}
+		//	: 前のボタンへ
+		if(ControllerState1P.Gamepad.wPressedButtons.XConState.UP
+			|| ControllerState1P.Gamepad.sThumbLY > 0)
+		{
+			if(m_SelectIndex == 0){
+				m_SelectIndex = (m_ButtonVec.size() - 1);
+			}
+			else{
+				m_SelectIndex--;
+			}
+			m_SelectLock = true;
+		}
+
+
+		//選択状態の設定
+		vector<Button*>::size_type btnsz = m_ButtonVec.size();
+		for(vector<Button*>::size_type i = 0;i < btnsz;i++){
+			if(i == m_SelectIndex){
+				m_ButtonVec[i]->setSelect(true);
+			}
+			else{
+				m_ButtonVec[i]->setSelect(false);
+			}
+		}
+		//選択が決定された
+		if(		ControllerState1P.Gamepad.wPressedButtons.XConState.A
+			||	Cursor2D::clickLButtonWithLock()
+			&&	!m_ButtonVec.empty()
+			){
+			m_ButtonVec[m_SelectIndex]->setPressed();
+			m_SelectLock = true;
+		}
+	}
+	if( !(ControllerState1P.Gamepad.wButtons & XINPUT_GAMEPAD_DPAD_UP)
+		&&
+		!(ControllerState1P.Gamepad.wButtons & XINPUT_GAMEPAD_DPAD_DOWN)
+		&&
+		ControllerState1P.Gamepad.sThumbLY == 0
+		&&
+		!(ControllerState1P.Gamepad.wButtons & XINPUT_GAMEPAD_A)
+		&& 
+		!m_IsAnimetion
+		){
+		m_SelectLock = false;
+	}
+
 }
 /**************************************************************************
  virtual void Stage::Draw(
@@ -186,8 +271,8 @@ void Stage::Draw(DrawPacket& i_DrawPacket)
 			m_Vec[i]->AccessBegin();
 			m_Vec[i]->Draw(i_DrawPacket);
 			m_Vec[i]->AccessEnd();
-	//::MessageBoxA( wiz::DxDevice::m_hWnd,"doro-","kita",0);
 		}
+		CommandTranslator(i_DrawPacket);
 		//clock_t nc = TLIB::Tempus::getClock();
 		//Debugger::DBGSTR::addStr( L"   Draw時間 : %f\n", TLIB::Tempus::TwoDwTime2ElapsedTime(sc,nc));
 	}
@@ -221,8 +306,38 @@ void Stage::TargetRender(BassPacket& BassPacket, Object* DrawObject, Object* Ren
 void Stage::DefaultRender(){
 
 }
+/////////////////// ////////////////////
+//// 関数名     ：void CommandTranslator(DrawPacket& i_DrawPacket);
+//// カテゴリ   ：関数
+//// 用途       ：コマンドを解釈してステージの切り替えなどを行う
+//// 引数       ：  DrawPacket& i_DrawPacket             // 画面描画時に必要なデータ群 ↓内容下記
+////            ：  ├ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 インターフェイスへのポインタ
+////            ：  ├ vector<Object*>&    Vec                     // オブジェクトの配列
+////            ：  ├ Tempus2*            i_DrawPacket.pTime	   // 時間を管理するクラスへのポインター
+////            ：  └ Command             i_DrawPacket.pCommand   // コマンド
+//// 戻値       ：無し
+//// 担当者     ：鴫原 徹
+//// 備考       ：
+////            ：
+////
+void Stage::CommandTranslator(DrawPacket& i_DrawPacket){
+	switch(i_DrawPacket.pCommand->m_Command){
+		case GM_CHANGE_CHILDSTAGE:
+			if( m_pChildStage )
+				m_pChildStage->m_IsDialog = false ;
+			break ;
+		case GM_CHANGE_PARENTSTAGE:
+			m_IsDialog = true ;
+			break ;
+
+	}
+};
 
 /*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
+
+
+
+
 
 /**************************************************************************
  MenuStage 定義部
@@ -236,7 +351,7 @@ void Stage::DefaultRender(){
  戻り値: なし（失敗時は例外をthrow）
 ***************************************************************************/
 MenuStage::MenuStage(LPDIRECT3DDEVICE9 pD3DDevice,Stage* Par)
-:Stage(Par),m_SelectIndex(0),m_SelectLock(true),m_IsAnimetion(false){
+:Stage(Par){
 	m_pChildStage = 0;
 	try{
         // ライティングモード
@@ -281,9 +396,6 @@ MenuStage::MenuStage(LPDIRECT3DDEVICE9 pD3DDevice,Stage* Par)
  戻り値: なし
 ***************************************************************************/
 MenuStage::~MenuStage(){
-	//ボタン配列のみクリアする
-	//配置されてるポインタの削除は行なわない
-	m_ButtonVec.clear();
 }
 
 /**************************************************************************
@@ -298,59 +410,6 @@ MenuStage::~MenuStage(){
 ***************************************************************************/
 void MenuStage::Update(UpdatePacket& i_UpdatePacket)
 {
-	if( i_UpdatePacket.pTxMgr == NULL ) i_UpdatePacket.pTxMgr = &m_TexMgr ;
-	CONTROLER_STATE	ControllerState1P = i_UpdatePacket.pCntlState[0];
-    if(!m_SelectLock){
-		//	: 次のボタンへ
-		if(ControllerState1P.Gamepad.wPressedButtons & XINPUT_GAMEPAD_DPAD_DOWN 
-			|| ControllerState1P.Gamepad.sThumbLY < 0){
-			m_SelectIndex++;
-			if(m_ButtonVec.size() <= m_SelectIndex){
-				m_SelectIndex = 0;
-			}
-			m_SelectLock = true;
-		}
-		//	: 前のボタンへ
-		if(ControllerState1P.Gamepad.wPressedButtons & XINPUT_GAMEPAD_DPAD_UP
-			|| ControllerState1P.Gamepad.sThumbLY > 0){
-			if(m_SelectIndex == 0){
-				m_SelectIndex = (m_ButtonVec.size() - 1);
-			}
-			else{
-				m_SelectIndex--;
-			}
-			m_SelectLock = true;
-		}
-		//選択状態の設定
-		vector<Button*>::size_type btnsz = m_ButtonVec.size();
-		for(vector<Button*>::size_type i = 0;i < btnsz;i++){
-			if(i == m_SelectIndex){
-				m_ButtonVec[i]->setSelect(true);
-			}
-			else{
-				m_ButtonVec[i]->setSelect(false);
-			}
-		}
-		//選択が決定された
-		if(ControllerState1P.Gamepad.wPressedButtons & XINPUT_GAMEPAD_A&&
-			!m_ButtonVec.empty()
-			){
-			m_ButtonVec[m_SelectIndex]->setPressed();
-			m_SelectLock = true;
-		}
-	}
-	if(!(ControllerState1P.Gamepad.wButtons & XINPUT_GAMEPAD_DPAD_UP)
-		&&
-		!(ControllerState1P.Gamepad.wButtons & XINPUT_GAMEPAD_DPAD_DOWN)
-		&&
-		ControllerState1P.Gamepad.sThumbLY == 0
-		&&
-		!(ControllerState1P.Gamepad.wButtons & XINPUT_GAMEPAD_A)
-		&& 
-		!m_IsAnimetion
-		){
-		m_SelectLock = false;
-	}
 	Stage::Update(i_UpdatePacket);
 }
 
