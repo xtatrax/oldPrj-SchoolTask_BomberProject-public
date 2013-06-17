@@ -295,6 +295,42 @@ void CommonMesh::BoxVecNomal2UV_1_4(D3DXVECTOR3 vec,D3DXVECTOR3 normal,int ptn,f
 }
 
 /**************************************************************************
+ static void CommonMesh::BoxVecNomal2UV_1_2(
+	D3DXVECTOR3 vec,	//頂点
+	D3DXVECTOR3 normal,	//法線
+	float& u,	//変換するu（テクスチャ上のU座標）
+	float& v	//変換するv（テクスチャ上のV座標）
+	);
+ 用途: BoxのVectorと法線からUとVを作り出す
+ テクスチャが2×1の画像になってる場合
+ 戻り値: なし
+ float& uとfloat& vに変換後の値を代入
+***************************************************************************/
+void CommonMesh::BoxVecNomal2UV_1_2(D3DXVECTOR3 vec,D3DXVECTOR3 normal,int ptn,float& u,float& v){
+	// u = 横
+	// v = 縦
+	float v_prim = 1.0f / 2.0f;
+	if(normal.z < 0){ //0面
+		if(vec.x < 0 && vec.y > 0 && vec.z < 0){//左上
+			u = 0.0f;
+			v = v_prim * ptn;
+		}
+		else if(vec.x > 0 && vec.y > 0 && vec.z < 0){//右上
+			u = 0.0f;
+			v = v_prim * (ptn+1);
+		}
+		else if(vec.x > 0 && vec.y < 0 && vec.z < 0){//右下
+			u = 1.0f;
+			v = v_prim * (ptn+1);
+		}
+		else{ //左下
+			u = 1.0f;
+			v = v_prim * ptn;
+		}
+	}
+}
+
+/**************************************************************************
  static void CommonMesh::SphereVec2UV(
 	float x,	//xの値
 	float y,	//yの値

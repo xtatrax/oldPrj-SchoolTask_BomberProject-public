@@ -129,6 +129,19 @@ namespace wiz {
 ***************************************************************************/
 				static void BoxVecNomal2UV_1_4(D3DXVECTOR3 vec,D3DXVECTOR3 normal,int ptn,float& u,float& v);
 /**************************************************************************
+ static void BoxVecNomal2UV_1_2(
+	D3DXVECTOR3 vec,	//頂点
+	D3DXVECTOR3 normal,	//法線
+	float& u,	//変換するu（テクスチャ上のU座標）
+	float& v	//変換するv（テクスチャ上のV座標）
+	);
+ 用途: BoxのVectorと法線からUとVを作り出す
+ テクスチャが2×1の画像になってる場合
+ 戻り値: なし
+ float& uとfloat& vに変換後の値を代入
+***************************************************************************/
+				static void BoxVecNomal2UV_1_2(D3DXVECTOR3 vec,D3DXVECTOR3 normal,int ptn,float& u,float& v);
+/**************************************************************************
  static void SphereVec2UV(
 	float x,	//xの値
 	float y,	//yの値
@@ -2258,6 +2271,7 @@ class PrimitiveSphere : public Sphere {
 
 /*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 class PrimitivePlate {
+protected:
 	LPDIRECT3DTEXTURE9		m_pTexture	;
 	D3DXMATRIX				m_mMatrix	;
 	LPDIRECT3DVERTEXBUFFER9 m_pVertexBuffer;

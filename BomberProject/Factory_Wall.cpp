@@ -23,6 +23,159 @@ namespace bomberobject{
 //Camera*		WallObject::m_pCamera = NULL;	
 
 /**************************************************************************
+ Warning 定義部
+****************************************************************************/
+/**************************************************************************
+ WallObject::WallObject(
+	LPDIRECT3DDEVICE9 pD3DDevice,	//デバイス
+	LPDIRECT3DTEXTURE9 pTexture,	//テクスチャ
+	wiz::OBJID id					//オブジェクトの種類
+);
+ 用途: コンストラクタ
+ 戻り値: なし
+ 担当：本多寛之
+***************************************************************************/
+Warning::Warning( LPDIRECT3DDEVICE9 pD3DDevice,D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,LPDIRECT3DTEXTURE9 pTexture,wiz::OBJID id)
+:PrimitiveBox(pD3DDevice,Diffuse,Specular,Ambient,id,pTexture)
+,m_Plate( pD3DDevice, pTexture, 0xFFFFFFFF )
+,m_iPtn(0)
+,m_pTexture(pTexture)
+,m_vPos(D3DXVECTOR3(0.0f,0.0f,0.0f))
+,m_vRot(D3DXVECTOR3(0.0f,0.0f,0.0f))
+,m_vScale(D3DXVECTOR3(2.0f,2.0f,1.0f))
+,m_bToDraw(false)
+{
+	::ZeroMemory( &m_Material, sizeof(D3DMATERIAL9));
+	D3DXMATRIX mScalse, mRot, mPos;
+	D3DXMatrixIdentity(&mScalse);
+	D3DXMatrixIdentity(&mRot);
+	D3DXMatrixIdentity(&mPos);
+	D3DXMatrixScaling(&mScalse,m_vScale.x,m_vScale.y,m_vScale.z);
+	D3DXMatrixRotationZ(&mRot,m_vRot.z);
+	D3DXMatrixTranslation(&mPos, m_vScale.x,m_vScale.y,m_vScale.z);
+	m_Matrix = mScalse * mRot * mPos ;
+	m_Material.Ambient = Ambient ;
+	m_Material.Diffuse = Diffuse ;
+	m_Material.Specular = Specular ;
+
+
+}
+/////////////////// ////////////////////
+//// 用途       ：~WallObject();
+//// カテゴリ   ：デストラクタ
+//// 用途       ：
+//// 引数       ：
+//// 戻値       ：無し
+//// 担当者     ：鴫原 徹
+//// 備考       ：
+Warning::~Warning(){
+}
+/////////////////// ////////////////////
+//// 用途       ：void Draw( DrawPacket& i_DrawPacket )
+//// カテゴリ   ：関数
+//// 用途       ：オブジェクトをディスプレイに表示する
+//// 引数       ：  DrawPacket& i_DrawPacket             // 画面描画時に必要なデータ群 ↓内容下記
+////            ：  ├ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 インターフェイスへのポインタ
+////            ：  ├ vector<Object*>&    Vec                     // オブジェクトの配列
+////            ：  ├ Tempus2*            i_DrawPacket.pTime	   // 時間を管理するクラスへのポインター
+////            ：  └ Command             i_DrawPacket.pCommand   // コマンド
+//// 戻値       ：無し
+//// 担当者     ：本多寛之
+//// 備考       ：
+void Warning::Draw(DrawPacket& i_DrawPacket)
+{
+	if(m_bToDraw){
+		if(m_pTexture){
+			DWORD wkdword;
+			//現在のテクスチャステータスを得る
+			i_DrawPacket.pD3DDevice->GetTextureStageState(0,D3DTSS_COLOROP,&wkdword);
+			//ステージの設定
+			i_DrawPacket.pD3DDevice->SetTexture(0,m_pTexture);
+			//デフィーズ色とテクスチャを掛け合わせる設定
+			i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLOROP, D3DTOP_MODULATE4X );
+			i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLORARG1, D3DTA_TEXTURE );
+			i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLORARG2, D3DTA_DIFFUSE );
+
+			//i_DrawPacket.pD3DDevice->SetFVF(PlateFVF);
+			// マトリックスをレンダリングパイプラインに設定
+			i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &m_Matrix);
+
+			//田村T透過案
+			//i_DrawPacket.pD3DDevice->SetRenderState(D3DRS_ALPHATESTENABLE,TRUE);
+			//i_DrawPacket.pD3DDevice->SetRenderState(D3DRS_ALPHAFUNC,D3DCMP_GREATEREQUAL);
+			//float	f	= 0.5f ;
+			//i_DrawPacket.pD3DDevice->SetRenderState(D3DRS_ALPHAREF,*(DWORD*)&f);
+
+			//コモンメッシュのDraw()を呼ぶ
+			CommonMesh::Draw(i_DrawPacket);
+			i_DrawPacket.pD3DDevice->SetTexture(0,0);
+			//ステージを元に戻す
+			i_DrawPacket.pD3DDevice->SetTextureStageState(0,D3DTSS_COLOROP,wkdword);
+
+			D3DXMATRIX m ;
+			//D3DXMatrixScale( &m, );
+			//D3DXVECTOR3	v	= MatrixCalculator( (*it)->m_Matrix, m_Plate.getPos() );
+			//m_Plate.setMatrixPos( v );
+			//m_Plate.setMatrix((*it)->m_Matrix);
+			//m_Plate.Draw(i_DrawPacket);
+		}
+		else{
+		//テクスチャがない場合
+			// マトリックスをレンダリングパイプラインに設定
+			i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &m_Matrix);
+			//コモンメッシュのDraw()を呼ぶ
+			CommonMesh::Draw(i_DrawPacket);
+		}
+	}
+}
+
+/////////////////// ////////////////////
+//// 用途       ：void Update( UpdatePacket& i_UpdatePacket )
+//// カテゴリ   ：関数
+//// 用途       ：オブジェクトを更新
+//// 引数       ：  UpdatePacket& i_UpdatePacket     // アップデート時に必要なデータ群 ↓内容下記
+////            ：  ├       LPDIRECT3DDEVICE9  pD3DDevice      // IDirect3DDevice9 インターフェイスへのポインタ
+////            ：  ├       Tempus2*           pTime           // 時間を管理するクラスへのポインター
+////            ：  ├       vector<Object*>&   Vec,            // オブジェクトの配列
+////            ：  ├ const CONTROLER_STATE*   pCntlState      // コントローラのステータス
+////            ：  └       Command            pCommand        // コマンド
+//// 戻値       ：無し
+//// 担当者     ：本多寛之
+//// 備考       ：
+////            ：
+////
+void Warning::Update( UpdatePacket& i_UpdatePacket ){
+	if(m_bToDraw){
+		D3DXMATRIX mScalse, mRot, mPos;
+		D3DXMatrixScaling(&mScalse,m_vScale.x,m_vScale.y,m_vScale.z);
+		D3DXMatrixRotationZ(&mRot,D3DXToRadian(m_vRot.z));
+		D3DXMatrixTranslation(&mPos, m_vPos.x,m_vPos.y,m_vPos.z);
+		m_Matrix = mScalse * mRot * mPos ;
+
+		const int  WARNING_INTERVAL = 2;
+		static int s_iInterval = 0;
+		if(s_iInterval >= WARNING_INTERVAL){
+			//**************************************************************************************
+			LPDIRECT3DVERTEXBUFFER9 pVB = 0;
+			CommonMeshVertex* pVer = 0;
+			m_pMesh->GetVertexBuffer(&pVB);
+			pVB->Lock(0,0,(VOID**)&pVer,0);
+			DWORD vsize = m_pMesh->GetNumVertices();
+			for(DWORD n = 0;n < vsize;n++){ //頂点の数を取得する
+				//法線と頂点からuv値を得る
+				BoxVecNomal2UV_1_2(pVer[n].vec,pVer[n].normal,m_iPtn,pVer[n].tu,pVer[n].tv);
+			}
+			pVB->Unlock();
+			//***********************************************************************************
+			++m_iPtn;
+			m_Plate.Update( m_iPtn );
+		}
+		if(s_iInterval >= WARNING_INTERVAL)s_iInterval = 0;
+		s_iInterval++;
+	}
+}
+
+/**************************************************************************
  WallObject 定義部
 ****************************************************************************/
 /**************************************************************************
@@ -46,6 +199,7 @@ WallObject::WallObject( LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTextur
 ,m_Ptn(0)
 ,m_pSound( NULL )
 ,m_Plate( pD3DDevice, pTexture, 0xFFFFFFFF )
+,m_pWarning( NULL )
 {
 	::ZeroMemory( &m_Material, sizeof(D3DMATERIAL9));
 	m_pPlayerCoil	= NULL;
@@ -68,6 +222,7 @@ WallObject::~WallObject(){
 	m_pCamera		= NULL ;
 	m_pPlayerCoil	= NULL ;
 	m_pEnemy		= NULL;
+	m_pWarning		= NULL;
 	SafeDeletePointerMap( m_ItemMap_All );
 
 	m_ItemMap_All.clear() ;
@@ -146,6 +301,7 @@ void WallObject::GetOBBList( float Index, list<OBB>& ObbList ){
 	OBB obb ; 
 	for(TARGETCONTAINER::iterator iter = itBegin; iter != itEnd; ++iter){
 		ObbList.push_back( (*iter)->m_Obb ) ;
+		ObbList.push_back( (*iter)->m_Obb_W ) ;
 	}
 }
 
@@ -251,12 +407,88 @@ void WallObject::Update( UpdatePacket& i_UpdatePacket ){
 	if(m_pEnemy == NULL){
 		m_pEnemy = (EnemySphere*)SearchObjectFromTypeID(i_UpdatePacket.pVec,typeid(EnemySphere));
 	}
+	if(m_pWarning == NULL){
+		m_pWarning = (Warning*)SearchObjectFromTypeID(i_UpdatePacket.pVec,typeid(Warning));
+	}
 
 	UpdateTargetItem();
 	TARGETCONTAINER::iterator it	= m_ItemMap_Target.begin();
 	TARGETCONTAINER::iterator end	= m_ItemMap_Target.end();
-
+	m_pWarning->setToDraw(false);
 	while(it != end){
+		if( m_pPlayerCoil && m_pPlayerCoil->HitTestWall( (*it)->m_Obb_W ) ){
+			switch(m_pPlayerCoil->getState()){
+				case COIL_STATE_MOVE:
+					if(m_pPlayerCoil->getSuperMode() == COIL_STATE_SUPER_CHARGE || m_pPlayerCoil->getSuperMode() == COIL_STATE_SUPER_READY){
+						m_pWarning->setToDraw(true);
+						D3DXVECTOR3 vColiPos = m_pPlayerCoil->getPos(),
+									vWallPos = (*it)->m_Obb_W.m_Center,
+									vWallSiz = (*it)->m_Obb_W.m_Size,
+									vWallRot = (*it)->m_Obb_W.m_Rot[3],
+									vWarning = vColiPos;
+						if(vWallRot.y < 13.5f){
+							if(vWallPos.x <= vColiPos.x){
+								if(vWallPos.y - vWallSiz.y > vColiPos.y){
+									vWarning.x = vWallPos.x;
+									m_pWarning->setRot(D3DXVECTOR3(0.0f,0.0f,180.0f));
+									
+								}else if(vWallPos.y + vWallSiz.y < vColiPos.y){
+									vWarning.x = vWallPos.x;
+									m_pWarning->setRot(D3DXVECTOR3(0.0f,0.0f,0.0f));								
+								}else{
+									vWarning.x = vWallPos.x + 2.0f;
+									m_pWarning->setRot(D3DXVECTOR3(0.0f,0.0f,-90.0f));
+								}
+							}
+							else{
+								if(vWallPos.y - vWallSiz.y > vColiPos.y){
+									vWarning.x = vWallPos.x;
+									m_pWarning->setRot(D3DXVECTOR3(0.0f,0.0f,180.0f));
+									
+								}else if(vWallPos.y + vWallSiz.y < vColiPos.y){
+									vWarning.x = vWallPos.x;
+									m_pWarning->setRot(D3DXVECTOR3(0.0f,0.0f,0.0f));								
+								}else{
+									vWarning.x = vWallPos.x - 2.0f;
+									m_pWarning->setRot(D3DXVECTOR3(0.0f,0.0f,90.0f));
+								}
+							}
+						}else{
+							if(vWallPos.y <= vColiPos.y){
+								if(vWallPos.x - vWallSiz.y > vColiPos.x){
+									vWarning.y = vWallPos.y;
+									m_pWarning->setRot(D3DXVECTOR3(0.0f,0.0f,90.0f));
+									
+								}else if(vWallPos.x + vWallSiz.y < vColiPos.x){
+									vWarning.y = vWallPos.y;
+									m_pWarning->setRot(D3DXVECTOR3(0.0f,0.0f,-90.0f));								
+								}else{
+									vWarning.y = vWallPos.y + 1.0f;
+									m_pWarning->setRot(D3DXVECTOR3(0.0f,0.0f,0.0f));
+								}
+							}
+							else{
+								if(vWallPos.x - vWallSiz.y > vColiPos.x){
+									vWarning.y = vWallPos.y;
+									m_pWarning->setRot(D3DXVECTOR3(0.0f,0.0f,90.0f));
+									
+								}else if(vWallPos.x + vWallSiz.y < vColiPos.x){
+									vWarning.y = vWallPos.y;
+									m_pWarning->setRot(D3DXVECTOR3(0.0f,0.0f,-90.0f));								
+								}else{
+									vWarning.y = vWallPos.y - 1.0f;
+									m_pWarning->setRot(D3DXVECTOR3(0.0f,0.0f,180.0f));
+								}
+							}
+						}
+						vWarning.z = -2.0f;
+						m_pWarning->setPos(vWarning);					
+					}
+					break;
+				default:
+					break;
+			}
+		}
 		if( m_pPlayerCoil && m_pPlayerCoil->HitTestWall( (*it)->m_Obb ) ){
 			switch(m_pPlayerCoil->getState()){
 				case COIL_STATE_MOVE:
@@ -318,6 +550,7 @@ void WallObject::AddWall(D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos
 	m_ItemMap_All.insert(ALLCONTAINER::value_type(vPos.y,pItem));
 }
 
+
 /**************************************************************************
  Factory_Wall 定義部
 ****************************************************************************/
@@ -332,9 +565,11 @@ void WallObject::AddWall(D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos
 ***************************************************************************/
 Factory_Wall::Factory_Wall(FactoryPacket* fpac){
 	try{
- 		D3DCOLORVALUE WallDiffuse = {0.7f,0.7f,0.7f,0.0f};
+ 		D3DCOLORVALUE WallDiffuse = {0.7f,0.7f,0.7f,1.0f};
 		D3DCOLORVALUE WallSpecular = {0.0f,0.0f,0.0f,0.0f};
-		D3DCOLORVALUE WallAmbient = {0.5f,0.5f,0.5f,0.0f};
+		D3DCOLORVALUE WallAmbient = {0.5f,0.5f,0.5f,1.0f};
+		fpac->m_pVec->push_back( new Warning(fpac->pD3DDevice,WallDiffuse,WallSpecular,WallAmbient,
+												fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Warning.tga" )));
 	}
 	catch(...){
 		//再throw
