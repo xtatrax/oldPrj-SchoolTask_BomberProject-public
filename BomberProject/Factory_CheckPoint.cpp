@@ -336,6 +336,7 @@ void CheckPoint::Update( UpdatePacket& i_UpdatePacket ){
 			}
 			m_pSound->SearchWaveAndPlay( RCTEXT_SOUND_SE_CHECKPOINT );
 			if(m_ActiveItem >= m_ItemContainer.size()) return ;
+			fPosY		= m_ItemContainer[ m_ActiveItem ]->fPosY;
 		}
 
 
