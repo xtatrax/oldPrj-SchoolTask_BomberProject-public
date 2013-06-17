@@ -159,10 +159,9 @@ void	DeadScore::Draw(DrawPacket& i_DrawPacket){
 ***************************************************************************/
 void	DeadScore::Update(UpdatePacket& i_UpdatePacket){
 
-	if( !m_pCoil )m_pCoil = (PlayerCoil*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_3D_COIL);
+	if( !m_pCoil )	m_pCoil = (PlayerCoil*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_3D_COIL);
 
-	if( m_pCoil )
-		m_iScore	= m_pCoil->getDeadCount();
+	if( m_pCoil )	m_iScore	= m_pCoil->getDeadCount();
 
 	Score::Update( i_UpdatePacket );
 }
@@ -338,7 +337,7 @@ Factory_Score::Factory_Score(FactoryPacket *fpac){
 		//Slash
 		fpac->m_pVec->push_back(
 			new SpriteObject( fpac->pD3DDevice,
-					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"slash1.png" ),
+					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"slash2.png" ),
 					D3DXVECTOR3( 0.5f, 0.5f, 0.0f ),
 					g_vZero,
 					D3DXVECTOR3( 870.0f, 105.0f, 0.0f ),					

@@ -706,6 +706,22 @@
 					Name="00.1フィルター/1Factory/1Classを徹底してください"
 					>
 				</Filter>
+				<Filter
+					Name="BehaviorFactorys"
+					>
+					<Filter
+						Name="Factory_CheckPointSave"
+						>
+						<File
+							RelativePath=".\Factory_CheckPointSave.cpp"
+							>
+						</File>
+						<File
+							RelativePath=".\Factory_CheckPointSave.h"
+							>
+						</File>
+					</Filter>
+				</Filter>
 			</Filter>
 			<Filter
 				Name="0.Stages"
@@ -849,6 +865,10 @@
 		<Filter
 			Name="よそ者"
 			>
+			<File
+				RelativePath=".\SaveAndLoad.h"
+				>
+			</File>
 			<File
 				RelativePath=".\TL-String.h"
 				>

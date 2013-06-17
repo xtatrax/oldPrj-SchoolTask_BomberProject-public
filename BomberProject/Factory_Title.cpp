@@ -19,31 +19,6 @@ namespace wiz{
 	namespace bomberobject{
 
 const	float	SCALE_RATE	=	1.4f;
-//class TestBehavior2 : public Behavior{
-//public:
-//	TestBehavior2()
-//		:Behavior(OBJID_BEHAVIOR_TEST)
-//	{}
-//	/////////////////// ////////////////////
-//	//// 用途       ：virtual void Update( UpdatePacket& i_UpdatePacket )
-//	//// カテゴリ   ：仮想関数
-//	//// 用途       ：オブジェクトを更新
-//	//// 引数       ：  UpdatePacket& i_UpdatePacket     // アップデート時に必要なデータ群 ↓内容下記
-//	////            ：  ├       LPDIRECT3DDEVICE9  pD3DDevice      // IDirect3DDevice9 インターフェイスへのポインタ
-//	////            ：  ├       Tempus2*           pTime           // 時間を管理するクラスへのポインター
-//	////            ：  ├       vector<Object*>&   Vec,            // オブジェクトの配列
-//	////            ：  ├ const CONTROLER_STATE*   pCntlState      // コントローラのステータス
-//	////            ：  └       Command            pCommand        // コマンド
-//	//// 戻値       ：無し
-//	//// 担当者     ：鴫原 徹
-//	//// 備考       ：継承したものでも必ずとも定義をしなくても良い
-//	////            ：
-//	////
-//    void Update( UpdatePacket& i_UpdatePacket ){
-//		if(Cursor2D::clickLorRButtonWithLock())
-//			(i_UpdatePacket.pCommand->m_Command = GM_CHANGE_CHILDSTAGE) ;
-//	};
-//};
 
 /************************************************************************
 ClickChar 定義部
@@ -208,6 +183,8 @@ void Title_Select::Draw(DrawPacket& i_DrawPacket)
 ////
 void Title_Select::Update(UpdatePacket& i_UpdatePacket)
 {
+	//SaveData sd;
+	//TLIB::BinaryLoad( RCTEXT_SAVEDATA_FILENAME,sd,RCTEXT_SAVEDATA_EXTENSION);
 	if( !m_pSound ) m_pSound = (Sound*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_SYS_SOUND);
 
 	if(Cursor2D::isHitSprite(this)){
