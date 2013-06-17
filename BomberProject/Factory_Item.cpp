@@ -281,18 +281,20 @@ void	Item::Update(UpdatePacket& i_UpdatePacket)
 備考　　：
 ***********************************************/
 void	Item::addItem(D3DXVECTOR3 pos, D3DXVECTOR3 size,
-					  D3DCOLORVALUE Diffuse,D3DCOLORVALUE Specular,D3DCOLORVALUE Ambient, float itemType)
+					  D3DCOLORVALUE Diffuse,D3DCOLORVALUE Specular,D3DCOLORVALUE Ambient, float fRecoveryPoint)
 {
 	try{
-		BallItem* bItem = new BallItem;
-		bItem->m_Pos = pos;
-		bItem->m_Size = size * itemType;
-		bItem->m_fMapKey = pos.y ;
-		bItem->m_bHidden = true ;
-		bItem->m_fDistance = 6.0f;
-		bItem->m_fItemType = itemType;
-		if(itemType == ITEM_TYPE_RECOVETY)bItem->m_fRecoveryPoint = RECOVERY_POINT;
-		if(itemType == ITEM_TYPE_RECOVETY_BIG)bItem->m_fRecoveryPoint = RECOVERY_POINT_L;
+		BallItem* bItem			= new BallItem;
+		bItem->m_Pos			= pos;
+		bItem->m_Size			= size * ( 100*fRecoveryPoint);
+		bItem->m_fMapKey		= pos.y ;
+		bItem->m_bHidden		= true ;
+		bItem->m_fDistance		= 6.0f;
+		//bItem->m_fItemType	= itemType;
+		bItem->m_fRecoveryPoint = fRecoveryPoint ;
+		//if(itemType == ITEM_TYPE_RECOVETY)				bItem->m_fRecoveryPoint =
+		RECOVERY_POINT;
+		//if(itemType == ITEM_TYPE_RECOVETY_BIG)bItem->	m_fRecoveryPoint		= RECOVERY_POINT_L;
         // D3DMATERIAL9構造体を0でクリア
         ::ZeroMemory(&bItem->m_Material,sizeof(D3DMATERIAL9));
 		bItem->m_Material.Diffuse = Diffuse;
@@ -331,8 +333,7 @@ Factory_Item::Factory_Item(FactoryPacket* fpac){
 				it->addItem(D3DXVECTOR3((float(i)*5.0f+float(rand()%100*0.05f))+1.5f,
 										(float(j)*2.75f+float(rand()%100*0.05f))+1.5f,0.0f),
 							ITEM_SCALE,
-							BallDiffuse,BallSpecular,BallAmbient,
-							ITEM_TYPE_RECOVETY);
+							BallDiffuse,BallSpecular,BallAmbient);
 			}
 		}
 
@@ -340,7 +341,7 @@ Factory_Item::Factory_Item(FactoryPacket* fpac){
 		it->addItem(D3DXVECTOR3(10.0f,10.0f,0.0f),
 					ITEM_SCALE,
 					BallDiffuse,BallSpecular,BallAmbient,
-					ITEM_TYPE_RECOVETY_BIG);
+					RECOVERY_POINT_L);
 
 		fpac->m_pVec->push_back(it);
 
