@@ -414,9 +414,9 @@ void WallObject::Update( UpdatePacket& i_UpdatePacket ){
 						D3DXVECTOR3 vColiPos = m_pPlayerCoil->getPos(),
 									vWallPos = (*it)->m_Obb_W.m_Center,
 									vWallSiz = (*it)->m_Obb_W.m_Size,
-									vWallRot = (*it)->m_Obb_W.m_Rot[3],
 									vWarning = vColiPos;
-						if(vWallRot.y < 13.5f){
+						float		fRotZ	 = (*it)->m_fRotZ;
+						if(fRotZ < 90.0f){
 							if(vWallPos.x <= vColiPos.x){
 								if(vWallPos.y - vWallSiz.y > vColiPos.y){
 									vWarning.x = vWallPos.x;
@@ -484,7 +484,7 @@ void WallObject::Update( UpdatePacket& i_UpdatePacket ){
 				case COIL_STATE_MOVE:
 					if(m_pPlayerCoil->getSuperMode() == COIL_STATE_SUPER_CHARGE || m_pPlayerCoil->getSuperMode() == COIL_STATE_SUPER_READY){
 						m_pSound->SearchWaveAndPlay( RCTEXT_SOUND_SE_PLAYERBLOKEN );
-						m_pPlayerCoil->setState(COIL_STATE_DEAD);
+						//m_pPlayerCoil->setState(COIL_STATE_DEAD);
 					}
 					break;
 				default:
