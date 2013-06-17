@@ -338,6 +338,7 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 						m_pD3DDevice	,
 						100.0f			,
 						m_pTexMgr->addTexture(m_pD3DDevice,L"particle.png"),
+						m_pTexMgr->addTexture(m_pD3DDevice,L"CHECK_POINT1.png"),
 						ObjectID
 					);
 
