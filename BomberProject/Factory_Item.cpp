@@ -284,9 +284,11 @@ void	Item::addItem(D3DXVECTOR3 pos, D3DXVECTOR3 size,
 					  D3DCOLORVALUE Diffuse,D3DCOLORVALUE Specular,D3DCOLORVALUE Ambient, float fRecoveryPoint)
 {
 	try{
+		fRecoveryPoint >= 1.0f && (fRecoveryPoint = 1.0f);
+		float	sizeRate		= 1.0f;
 		BallItem* bItem			= new BallItem;
 		bItem->m_Pos			= pos;
-		bItem->m_Size			= size * ( 100*fRecoveryPoint);
+		bItem->m_Size			= size * ( sizeRate );
 		bItem->m_fMapKey		= pos.y ;
 		bItem->m_bHidden		= true ;
 		bItem->m_fDistance		= 6.0f;
@@ -329,9 +331,9 @@ Factory_Item::Factory_Item(FactoryPacket* fpac){
 
 		//ÉAÉCÉeÉÄ(è¨)
 		for(int i = 0; i < 9; i++){
-			for(int j = 0; j < 647; j++){
-				it->addItem(D3DXVECTOR3((float(i)*5.0f+float(rand()%100*0.05f))+1.5f,
-										(float(j)*2.75f+float(rand()%100*0.05f))+1.5f,0.0f),
+			for(int j = 0; j < 347*ItemDiffusionRate; j++){
+				it->addItem(D3DXVECTOR3((float(i)*(ItemDiffusionRate/3.0f)+float(rand()%100*0.05f))+1.5f,
+										(float(j)*(ItemDiffusionRate)+float(rand()%100*0.05f))+1.5f,0.0f),
 							ITEM_SCALE,
 							BallDiffuse,BallSpecular,BallAmbient);
 			}

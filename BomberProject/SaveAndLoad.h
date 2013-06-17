@@ -21,6 +21,16 @@ struct BassSaveaPacketDat{
 	:hidentifier(IH)//	: TLSAVE
 	,lidentifier(IL){};
 };
+/////////////////// ////////////////////
+//// 関数名     ：
+//// カテゴリ   ：
+//// 用途       ：
+//// 引数       ：
+//// 戻値       ：
+//// 担当者     ：
+//// 備考       ：
+////            ：
+////
 template<typename T>
 inline void BinarySave( const char* sDataPath, T& SavePacket )
 {
@@ -73,6 +83,16 @@ inline void BinarySave( const char* sDataPath, T& SavePacket )
 		throw;
 	}
 };
+/////////////////// ////////////////////
+//// 関数名     ：
+//// カテゴリ   ：
+//// 用途       ：
+//// 引数       ：
+//// 戻値       ：
+//// 担当者     ：
+//// 備考       ：
+////            ：
+////
 template<typename T>
 inline void BinaryLoad( const char* sDataPath, T& SavePacket, const char* sFileExtension = "tbs" )
 {
