@@ -200,6 +200,7 @@ void Stage::Update(UpdatePacket& i_UpdatePacket)
 	fSlowAccumulator = 0 ;
 #endif
 	if(m_bUpdate){
+		ButtonUpdate(i_UpdatePacket);
 		//clock_t sc = TLIB::Tempus::getClock();
 		//配置オブジェクトの描画
 		vector<Object*>::iterator it = m_Vec.begin();
@@ -332,7 +333,10 @@ void Stage::CommandTranslator(DrawPacket& i_DrawPacket){
 
 	}
 };
-
+void Stage::AddButton(wiz::Object* pButton){
+	Button* pb = pButton->getButtonP();
+	m_ButtonVec.push_back( pb );
+}
 /*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 
 

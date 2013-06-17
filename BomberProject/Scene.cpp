@@ -231,6 +231,7 @@ void Scene::Draw(DrawPacket& i_DrawPacket){
 ////
 void Scene::CommandTranslator(DrawPacket& i_DrawPacket){
 
+	Command comBuf = *i_DrawPacket.pCommand ;
 	switch(i_DrawPacket.pCommand->m_Command){
 		case GM_OPENSTAGE_TITLE:
 			//	: タイトル画面
@@ -238,10 +239,14 @@ void Scene::CommandTranslator(DrawPacket& i_DrawPacket){
 			m_pRootStage = new StageSelect( i_DrawPacket.pD3DDevice , new TitleStage(i_DrawPacket.pD3DDevice));
 			
 			break;
+		case GM_OPENSTAGE_LOAD_PLAY:
+			comBuf.m_Command = GM_OPENSTAGE_PLAY;
+			goto PRGOTO_GM_OPENSTAGE_LOAD;
 		case GM_OPENSTAGE_LOAD:
 			//	: ロード画面
+			PRGOTO_GM_OPENSTAGE_LOAD:
 			SafeDeleteStage(m_pRootStage);
-			m_pRootStage = new LoadStage(i_DrawPacket.pD3DDevice);
+			m_pRootStage = new LoadStage(i_DrawPacket.pD3DDevice,&comBuf);
 			break;
 		case GM_OPENSTAGE_PLAY:
 			try{

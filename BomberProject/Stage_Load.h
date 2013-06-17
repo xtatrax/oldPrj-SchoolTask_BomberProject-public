@@ -32,7 +32,7 @@ public:
  用途: コンストラクタ
  戻り値: なし（失敗時は例外をthrow）
 ***************************************************************************/
-	LoadStage(LPDIRECT3DDEVICE9 pD3DDevice,Stage* pStage = NULL);
+	LoadStage(LPDIRECT3DDEVICE9 pD3DDevice,Command* Com,Stage* pStage = NULL);
 /**************************************************************************
 ResultStage();
  用途: デストラクタ

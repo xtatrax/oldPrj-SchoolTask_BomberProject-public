@@ -921,10 +921,10 @@ void StageLoader2::PartsGenerator(MapPartsStatus i_Data){
 					i_Data.vPos, i_Data.vScale, i_Data.Diffuse, i_Data.Specular, i_Data.Ambient,ITEM_TYPE_NULL
 				);
 			}else{
-				FactoryPacket fpac;
-				fpac.m_pTexMgr  = m_pTexMgr		;
-				fpac.m_pVec     = m_pVec		;
-				fpac.pD3DDevice = m_pD3DDevice	;
+				FactoryPacket fpac(m_pD3DDevice,false,m_pVec,m_pTexMgr);
+				//fpac.m_pTexMgr  = m_pTexMgr		;
+				//fpac.m_pVec     = m_pVec		;
+				//fpac.pD3DDevice = m_pD3DDevice	;
 				//	: “o˜^‚ª‚È‚©‚Á‚½ê‡
 				Item* mgb = new Item( &fpac, NULL, ObjectID);
 				mgb->addItem(

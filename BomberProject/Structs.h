@@ -25,6 +25,7 @@
 
 namespace wiz{
 class  Object ; 
+class  Stage ;
 class  TextureManager ;
 struct CONTROLER_STATE;
 namespace functions {
@@ -112,6 +113,7 @@ struct Command{
 	DWORD m_Command;	
 	DWORD m_Param1;
 	DWORD m_Param2;
+
 	Command(DWORD Command = 0, DWORD m_Param1 = 0, DWORD m_Param2 = 0)
 		:m_Command(Command),m_Param1(m_Param1),m_Param2(m_Param2)
 
@@ -289,7 +291,9 @@ inline UpdatePacket::UpdatePacket( DrawPacket i_DrawPacket )
 // 用途    : ファクトリーに渡すパケットデータ
 //**************************************************************************//
 struct FactoryPacket{
-
+private:
+	wiz::Stage*	m_pStage;
+public:
 	//Device
 	LPDIRECT3DDEVICE9 pD3DDevice ;
 	//ダイアログステージかどうか
@@ -298,13 +302,18 @@ struct FactoryPacket{
 	vector<Object*>* m_pVec;
 	//テクスチャのポインタのベクトル
 	TextureManager* m_pTexMgr;
-	FactoryPacket(){};
-	FactoryPacket(		LPDIRECT3DDEVICE9 i_pD3DDevice, bool i_IsDialog, vector<Object*>* i_pVec, TextureManager* i_pTexMgr)
+public:
+	FactoryPacket(Stage* i_pStage):m_pStage(i_pStage){};
+	FactoryPacket(		LPDIRECT3DDEVICE9 i_pD3DDevice, bool i_IsDialog, vector<Object*>* i_pVec, TextureManager* i_pTexMgr,Stage* i_pStage = NULL)
 		:pD3DDevice(	i_pD3DDevice	)
 		,m_IsDialog(	i_IsDialog		)
 		,m_pVec(		i_pVec			)
 		,m_pTexMgr(		i_pTexMgr		)
+		,m_pStage(		i_pStage		)
 	{}
+	LPDIRECT3DTEXTURE9 AddTexture( const wchar_t* sTextureName );
+	void AddButton(Object* pButton);
+	void AddObject(Object* pObje);
 };
 /*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 
