@@ -35,7 +35,7 @@ namespace bomberobject{
 ****************************************************/
 GaugeKind::GaugeKind(const LPDIRECT3DDEVICE9 pD3DDevice, const LPDIRECT3DTEXTURE9 pTex,
 		const D3DXVECTOR3 &vScale, const D3DXVECTOR3 &vRot, const D3DXVECTOR3 &vPos, const RECT Rect)
-:SpriteObject( pD3DDevice, pTex, vScale, g_vZero, vPos, &Rect, g_vZero, g_vZero )
+		:SpriteObject( pD3DDevice, pTex, vScale, g_vZero, vPos, &Rect, g_vZero, g_vZero,-1 ,OBJID_UI_SPRITE,false )
 ,m_vPos( vPos )
 ,m_vScale( vScale )
 {
