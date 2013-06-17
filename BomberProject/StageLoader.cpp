@@ -132,7 +132,7 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 				//	: そのままオブジェクトを追加
 				dynamic_cast< TARGET_CLASS* >(( *m_pVec )[it->second])->addItem(
 					i_Data.vPos			,
-					g_vZero				,
+					g_vOne				,
 					i_Data.Diffuse		,
 					i_Data.Specular		,
 					i_Data.Ambient		,
@@ -164,7 +164,7 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 				//	: アイテムの追加
 				mgb->addItem(
 					i_Data.vPos			,
-					g_vZero				,
+					g_vOne				,
 					i_Data.Diffuse		,
 					i_Data.Specular		,
 					i_Data.Ambient		,
@@ -338,6 +338,7 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 						m_pD3DDevice	,
 						100.0f			,
 						m_pTexMgr->addTexture(m_pD3DDevice,L"particle.png"),
+						m_pTexMgr->addTexture(m_pD3DDevice,L"CHECK_POINT1.png"),
 						ObjectID
 					);
 
