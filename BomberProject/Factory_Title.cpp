@@ -247,16 +247,30 @@ Factory_Title::Factory_Title(FactoryPacket* fpac){
 		fpac->m_pVec->push_back(
 			new SpriteObject(
 				fpac->pD3DDevice,
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, /*L"Lightning.tga"*/L"Title_Name005_02.tga" ),
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, /*L"Lightning.tga"*/L"BGP_TITLE03.tga" ),
 				D3DXVECTOR3(SCALE_RATE,SCALE_RATE,0.0f),
 				g_vZero,
-				D3DXVECTOR3( 165.0f, 40.0f, 0.0f ),
+				D3DXVECTOR3( 0.0f, 0.0f, 0.0f ),
 				//D3DXVECTOR3( 0.0f, 0.0f, 0.0f ),
 				NULL,
 				g_vZero,
 				g_vZero,
-				0xFF00FFFF
+				0x25FFFFFF
 				)
+		);
+		fpac->m_pVec->push_back(
+			new SpriteObject(
+					fpac->pD3DDevice,
+					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, /*L"Lightning.tga"*/L"Title_Name005_02.tga" ),
+					D3DXVECTOR3(SCALE_RATE,SCALE_RATE,0.0f),
+					g_vZero,
+					D3DXVECTOR3( 165.0f, 40.0f, 0.0f ),
+					//D3DXVECTOR3( 0.0f, 0.0f, 0.0f ),
+					NULL,
+					g_vZero,
+					g_vZero,
+					0xFF00FFFF		
+					)
 		);
 
 		fpac->m_pVec->push_back(
@@ -338,6 +352,9 @@ Factory_Title::Factory_Title(FactoryPacket* fpac){
 				0xFF00FFFF
 				)
 		);
+			
+
+
 
 		//Click_Please
 		fpac->m_pVec->push_back(
