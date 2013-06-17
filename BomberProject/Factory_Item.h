@@ -26,9 +26,6 @@ const	float		RECOVERY_POINT		= 0.01f;
 const	float		RECOVERY_POINT_L	= 0.10f;
 
 const	float		ITEM_TYPE_NULL			= 0.0f;
-const	float		ITEM_TYPE_RECOVETY		= 1.0f;
-const	float		ITEM_TYPE_RECOVETY_BIG	= 5.0f;
-
 const	D3DXVECTOR3 ITEM_SCALE			= D3DXVECTOR3(0.5f,0.5f,0.5f);		
 
 //enum ITEM_TYPE{
@@ -61,7 +58,7 @@ protected:
 		D3DXVECTOR3		m_Pos		;		//オブジェクトの位置(中心)
 		float			m_fMapKey	;
 		bool			m_bHidden	;
-		float			m_fItemType ;
+		//float			m_fItemType ;
 		float			m_fRecoveryPoint;
 		//派生クラスを作ってもClear()関数で
 		//削除できるように仮想デストラクタにしておく
@@ -89,7 +86,8 @@ public:
     void	Draw(DrawPacket& i_DrawPacket) ;
 	void	Update(UpdatePacket& i_UpdatePacket);
 	void	addItem(D3DXVECTOR3 pos, D3DXVECTOR3 size,
-					D3DCOLORVALUE Diffuse,D3DCOLORVALUE Specular,D3DCOLORVALUE Ambient, float itemType);
+					D3DCOLORVALUE Diffuse,D3DCOLORVALUE Specular,D3DCOLORVALUE Ambient,
+					float itemType = RECOVERY_POINT);
 };
 
 /**************************************************************************
