@@ -120,7 +120,7 @@ void Load::Update(UpdatePacket& i_UpdatePacket)
  用途: コンストラクタ（サンプルオブジェクトを配列に追加する）
  戻り値: なし
 ***************************************************************************/
-Factory_Load::Factory_Load(FactoryPacket* fpac){
+Factory_Load::Factory_Load(FactoryPacket* fpac,Command* Com){
 	try{
 		
 		fpac->m_pVec->push_back(

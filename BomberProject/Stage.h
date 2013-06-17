@@ -22,8 +22,7 @@
 namespace wiz{
 
 // ‰¼éŒ¾	
-class Stage ;
-class wiz::menuobject::Button;
+//class wiz::menuobject::Button;
 using namespace menuobject ;
 //class Button2;
 

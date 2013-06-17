@@ -29,16 +29,16 @@ using namespace bomberobject;
  用途: コンストラクタ
  戻り値: なし（失敗時は例外をthrow）
 ***************************************************************************/
-LoadStage::LoadStage(LPDIRECT3DDEVICE9 pD3DDevice,Stage* pStage)
+LoadStage::LoadStage(LPDIRECT3DDEVICE9 pD3DDevice,Command* Com,Stage* pStage)
 	:Stage(pStage)
 {
 	try{
-		FactoryPacket FPac;
+		FactoryPacket FPac(this);
 		FPac.m_IsDialog =  this->m_IsDialog ;
 		FPac.m_pTexMgr  = &this->m_TexMgr   ;
 		FPac.m_pVec     = &this->m_Vec      ;
 		FPac.pD3DDevice =  pD3DDevice       ;
-		Factory_Load	loadF( &FPac );
+		Factory_Load	loadF( &FPac, Com );
 	}
 	catch(...){
 		Clear();

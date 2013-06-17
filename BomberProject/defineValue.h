@@ -192,6 +192,7 @@ namespace wiz{
 		GM_OPENSTAGE_TITLE			,	//	: タイトル画面を開く
 		GM_OPENSTAGE_SELECT			,	//	: セレクト画面を開く
 		GM_OPENSTAGE_LOAD			,	//	: ロード画面を開く
+		GM_OPENSTAGE_LOAD_PLAY		,	//	: ロード画面を開いた後にプレイ画面を開く
 		GM_OPENSTAGE_PLAY			,	//	: プレイ画面を開く
 		GM_OPENSTAGE_GAMECLEAR		,	//	: クリア画面を開く
 		GM_OPENSTAGE_GAMEOVER		,	//	: ゲームオーバー画面を開く
