@@ -117,11 +117,11 @@ void ProvisionalPlayer3D::Draw(DrawPacket& i_DrawPacket)
 		}
 		else{
 			m_bPlaySound = false ;
-			m_pSound->SoundPause(RCTEXT_SOUND_SE_SETFIELD);
+			m_pSound->SoundStop(RCTEXT_SOUND_SE_SETFIELD);
 		}
 	}else{
 		m_bPlaySound = false ;
-		m_pSound->SoundPause( RCTEXT_SOUND_SE_SETFIELD );
+		m_pSound->SoundStop( RCTEXT_SOUND_SE_SETFIELD );
 	}
 }
 

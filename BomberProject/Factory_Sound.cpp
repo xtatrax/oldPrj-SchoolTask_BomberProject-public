@@ -486,12 +486,33 @@ bool Sound::SearchWaveAndPlay(PCSTR pWaveName, BYTE count){
 	return false ;
 }
 
-void	Sound::SoundPause(PCSTR pWaveName, BYTE count){
+void	Sound::SearchSoundAndStop(PCSTR pWaveName){
+	if( m_pEngine && m_pWaveBank && m_pSoundBank ){
+		XACTINDEX SoundNum ;
+		if(SearchSoundMap( pWaveName, SoundNum ) || SearchSoundBank( pWaveName, SoundNum ) ){
+			m_pSoundBank->Stop( SoundNum, true );
+		}
+	}
+}
+
+void	Sound::SearchWaveAndStop(PCSTR pWaveName){
 	if( m_pEngine && m_pWaveBank && m_pSoundBank ){
 		XACTINDEX WaveNum ;
 		if(SearchWaveMap( pWaveName, WaveNum ) || SearchWaveBank( pWaveName, WaveNum ) ){
 			m_pWaveBank->Stop( WaveNum, true );
-			m_pSoundBank->Stop( WaveNum, true );
+		}
+	}
+}
+
+void	Sound::SoundStop(PCSTR pWaveName){
+	if( m_pEngine && m_pWaveBank && m_pSoundBank ){
+		XACTINDEX WaveNum ;
+		if(SearchWaveMap( pWaveName, WaveNum ) || SearchWaveBank( pWaveName, WaveNum ) ){
+			m_pWaveBank->Stop( WaveNum, true );
+		}
+		XACTINDEX SoundNum ;
+		if(SearchSoundMap( pWaveName, SoundNum ) || SearchSoundBank( pWaveName, SoundNum ) ){
+			m_pSoundBank->Stop( SoundNum, true );
 		}
 	}
 }

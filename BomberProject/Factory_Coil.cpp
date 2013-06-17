@@ -576,7 +576,7 @@ void PlayerCoil::SuperMode( UpdatePacket& i_UpdatePacket ){
 	switch(m_enumCoilStateSuper){
 		case COIL_STATE_SUPER_MOVE:
 			if( m_pSound && !s_bSound){
-				m_pSound->SearchWaveAndPlay( RCTEXT_SOUND_SE_INVISIBLE , (BYTE)(COIL_SUPER_MODE_TIME / MGPRM_INVISIBLESOUND_TIME) +1 );
+				m_pSound->SearchSoundAndPlay( RCTEXT_SOUND_SE_INVISIBLE  );
 				s_bSound = true ;
 			}
 			if(m_enumCoilState == COIL_STATE_MOVE)
@@ -641,7 +641,10 @@ void PlayerCoil::SuperMode( UpdatePacket& i_UpdatePacket ){
 	//–³“Gƒ‚[ƒhI—¹
 	if(s_fTimeCount >= COIL_SUPER_MODE_TIME){
 		m_enumCoilStateSuper = COIL_STATE_SUPER_CHARGE;
-		s_bSound		= false;
+		if( m_pSound && s_bSound){
+			m_pSound->SoundStop( RCTEXT_SOUND_SE_INVISIBLE  );
+			s_bSound = false ;
+		}
 		s_fTimeCount = 0.0f;
 		switch(getMagnetPole()){
 			case POLE_S:
