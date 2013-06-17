@@ -162,6 +162,8 @@ void Gage::Consume( float fSubValue ){
 	if( m_fRate <= 0.0f ){
 		m_fRate = 0.0f ;
 	}
+	else if( m_fRate >= 1.0f )
+		m_fRate	= 1.0f;
 }
 /////////////////// ////////////////////
 //// ópìr       ÅFvoid Update( UpdatePacket& i_UpdatePacket )

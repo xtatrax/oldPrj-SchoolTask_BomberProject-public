@@ -134,9 +134,17 @@ void MouseCursor::Update( UpdatePacket& i_UpdatePacket ){
 	m_pLine->setMatrix( m_mMatrix );
 	m_pLine2->setMatrix( m_mMatrix );
 
+	//	: ポイントの更新***********************************************
+	D3DXMATRIX mMatrix, mPos, mScale2 ;
+	D3DXMatrixScaling( &mScale2, m_vScale.x, m_vScale.y, 0.0f);
+	D3DXMatrixTranslation( &mPos, (float)m_v2DPos.x, (float)m_v2DPos.y, 0.0f);
+
+	mMatrix	= mScale2 * mPos;
+	m_pSelectPos->setMatrix( mMatrix );
+	//*******************************************************************
+
 	D3DXMATRIX mPos2, mScale, mRot;
 
-	m_pSelectPos->setMatrix( m_mMatrix );
 
 	D3DXMatrixTranslation(&mPos2, m_v3DPos.x, m_v3DPos.y, m_v3DPos.z);
 	D3DXMatrixScaling(&mScale, m_fTorusMagnification,m_fTorusMagnification,0.0f);

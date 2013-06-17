@@ -30,12 +30,14 @@ public:
 				D3DXVECTOR3	&vScale,
 				D3DXVECTOR3	&vPos,
 				int			iDigit,
+				int			iScore,
 				Rect*		Rect	= NULL );
 	virtual ~Score();
 
 	void	Draw(DrawPacket& i_DrawPacket);
 	void	Update(UpdatePacket& i_UpdatePacket);
 	void	update_Matrix( int i );
+
 };
 
 /**************************************************************************

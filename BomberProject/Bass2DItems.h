@@ -126,6 +126,9 @@ public:
 ////
 	virtual void Draw(DrawPacket& i_DrawPacket);
 
+	void	setAlpha( BYTE	alpha ){
+		m_Color.byteColor.a	= alpha;
+	}
 };
 
 //**************************************************************************
