@@ -230,18 +230,11 @@ public:
 	////
 	////     DBGWRITINGLOGTEXT::Init( );   // クラスの初期化
 	////
-	////     while( boolean ){
+	////     if( foo ){
 	////
-	//// ～～～～～～～～～～～～
-	//// ～～～～～～～～～～～～
-	////
-	////         if( foo ){
-	////
-	////             // ※本関数
-	////             DBGWRITINGLOGTEXT::addStr( "追記したい文字列\n %s" , "付随のパラメータ" );  // データの追記
-	////
-	////         }
-	////     }
+	////          // ※本関数
+	////          DBGWRITINGLOGTEXT::addStr( "追記したい文字列\n %s" , "付随のパラメータ" );  // データの追記
+	////      }
 	//// }
 	////
 	static void addStrToFile(const wstring FileName,const wchar_t* addStr,...){
