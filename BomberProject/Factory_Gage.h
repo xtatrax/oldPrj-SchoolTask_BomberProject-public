@@ -16,11 +16,11 @@
 #pragma once
 
 #include "StdAfx.h"
-//#include "Object.h"
-//#include "Factory_Cursor.h"
+#include "Object.h"
+#include "Factory_Cursor.h"
 #include "Factory_Coil.h"
-//#include "Factory_Magnetic.h"
-//#include "Line.h"
+#include "Factory_Magnetic.h"
+#include "Line.h"
 
 const	int		SUPER_GAGE_MAX		= 512;
 const	int		MAGNETIC_GAGE_MAX	= 256;
