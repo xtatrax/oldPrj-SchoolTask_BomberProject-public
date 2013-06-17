@@ -157,6 +157,7 @@ class WallObject : public PrimitiveBox{
 		OBB				m_Obb_W		;
 		float			m_fMapKey	;
 		bool			m_bHidden	;
+		float			m_fRotZ		;
 #if defined(ON_DEBUGGINGPROCESS) | defined( PRESENTATION )
 		DrawOBB*       m_pDOB		;
 		~WallItem(){SafeDelete(m_pDOB);}
@@ -177,6 +178,7 @@ class WallObject : public PrimitiveBox{
 						vOBBRot		= D3DXVECTOR3(0.0f, 0.0f, D3DXToRadian( vRot.z ));
 			m_Obb = OBB( vOBBScale, vOBBRot, vPos ) ;
 			m_Obb_W = OBB( vOBBScale_W, vOBBRot, vPos ) ;
+			m_fRotZ = vRot.z;
 			D3DXMATRIX mScalse, mRot, mPos;
 			D3DXMatrixIdentity(&mScalse);
 			D3DXMatrixIdentity(&mRot);

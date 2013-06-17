@@ -210,7 +210,6 @@ protected:
 		{}
 	};
 	typedef vector< ITEM* > ITEMCONTAINER	;
-	PrimitiveBox			m_Box			;
 	ITEMCONTAINER			m_ItemContainer ;
 	size_t					m_ActiveItem    ;
 	Camera*					m_pCamera		;
@@ -223,6 +222,7 @@ protected:
 	float					m_Length		;
 	LPDIRECT3DTEXTURE9		m_pTexture		;
 	D3DXVECTOR3				m_vPos			;
+	Box*					m_pPintMark		;
 	/////////////////// ////////////////////
 	//// 関数名     ：
 	//// カテゴリ   ：メンバ関数
