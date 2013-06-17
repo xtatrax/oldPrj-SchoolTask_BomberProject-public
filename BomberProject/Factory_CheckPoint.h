@@ -221,125 +221,144 @@ protected:
 	float					m_Length		;
 	LPDIRECT3DTEXTURE9		m_pTexture		;
 	D3DXVECTOR3				m_vPos			;
-/////////////////// ////////////////////
-//// 関数名     ：bool HitTestIntersect(OBB i_obb, D3DXVECTOR3 i_vMove, HITGROUNDVECTOR& o_HitListVec)
-//// カテゴリ   ：メンバ関数
-//// 用途       ：
-//// 引数       ：
-////            ：
-//// 戻値       ：
-//// 担当者     ：鴫原 徹
-//// 備考       ：
-////            ：
-////
+	/////////////////// ////////////////////
+	//// 関数名     ：
+	//// カテゴリ   ：メンバ関数
+	//// 用途       ：
+	//// 引数       ：
+	////            ：
+	//// 戻値       ：
+	//// 担当者     ：鴫原 徹
+	//// 備考       ：
+	////            ：
+	////
 	void SetTarget();
-/////////////////// ////////////////////
-//// 関数名     ：bool HitTestIntersect(OBB i_obb, D3DXVECTOR3 i_vMove, HITGROUNDVECTOR& o_HitListVec)
-//// カテゴリ   ：メンバ関数
-//// 用途       ：
-//// 引数       ：
-////            ：
-//// 戻値       ：
-//// 担当者     ：鴫原 徹
-//// 備考       ：
-////            ：
-////
+	/////////////////// ////////////////////
+	//// 関数名     ：
+	//// カテゴリ   ：メンバ関数
+	//// 用途       ：
+	//// 引数       ：
+	////            ：
+	//// 戻値       ：
+	//// 担当者     ：鴫原 徹
+	//// 備考       ：
+	////            ：
+	////
 	void RemoveTarget();
 
 public:
 	CheckPoint( LPDIRECT3DDEVICE9 pD3DDevice, float fLength,LPDIRECT3DTEXTURE9 pTexture, wiz::OBJID id = OBJID_SYS_CHECKPOINT );
 	~CheckPoint();
-/////////////////// ////////////////////
-//// 用途       ：virtual void Update( UpdatePacket& i_UpdatePacket )
-//// カテゴリ   ：仮想関数
-//// 用途       ：オブジェクトを更新
-//// 引数       ：  UpdatePacket& i_UpdatePacket     // アップデート時に必要なデータ群 ↓内容下記
-////            ：  ├       LPDIRECT3DDEVICE9  pD3DDevice      // IDirect3DDevice9 インターフェイスへのポインタ
-////            ：  ├       Tempus2*           pTime           // 時間を管理するクラスへのポインター
-////            ：  ├       vector<Object*>&   Vec,            // オブジェクトの配列
-////            ：  ├ const CONTROLER_STATE*   pCntlState      // コントローラのステータス
-////            ：  └       Command            pCommand        // コマンド
-//// 戻値       ：無し
-//// 担当者     ：鴫原 徹
-//// 備考       ：継承したものでも必ずとも定義をしなくても良い
-////            ：
-////
+	/////////////////// ////////////////////
+	//// 関数名     ：virtual void Update( UpdatePacket& i_UpdatePacket )
+	//// 用途       ：
+	//// カテゴリ   ：仮想関数
+	//// 用途       ：オブジェクトを更新
+	//// 引数       ：  UpdatePacket& i_UpdatePacket     // アップデート時に必要なデータ群 ↓内容下記
+	////            ：  ├       LPDIRECT3DDEVICE9  pD3DDevice      // IDirect3DDevice9 インターフェイスへのポインタ
+	////            ：  ├       Tempus2*           pTime           // 時間を管理するクラスへのポインター
+	////            ：  ├       vector<Object*>&   Vec,            // オブジェクトの配列
+	////            ：  ├ const CONTROLER_STATE*   pCntlState      // コントローラのステータス
+	////            ：  └       Command            pCommand        // コマンド
+	//// 戻値       ：無し
+	//// 担当者     ：鴫原 徹
+	//// 備考       ：継承したものでも必ずとも定義をしなくても良い
+	////            ：
+	////
     virtual void Update( UpdatePacket& i_UpdatePacket );
 
-/////////////////// ////////////////////
-//// 用途       ：virtual void Draw( DrawPacket& i_DrawPacket )
-//// カテゴリ   ：純粋仮想関数
-//// 用途       ：オブジェクトをディスプレイに表示する
-//// 引数       ：  DrawPacket& i_DrawPacket             // 画面描画時に必要なデータ群 ↓内容下記
-////            ：  ├ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 インターフェイスへのポインタ
-////            ：  ├ vector<Object*>&    Vec                     // オブジェクトの配列
-////            ：  ├ Tempus2*            i_DrawPacket.pTime	   // 時間を管理するクラスへのポインター
-////            ：  └ Command             i_DrawPacket.pCommand   // コマンド
-//// 戻値       ：無し
-//// 担当者     ：鴫原 徹
-//// 備考       ：継承するものは何れかのレベルで必ず定義をすること｡
-////            ：
-////
+	/////////////////// ////////////////////
+	//// 関数名     ：virtual void Draw( DrawPacket& i_DrawPacket )
+	//// 用途       ：
+	//// カテゴリ   ：純粋仮想関数
+	//// 用途       ：オブジェクトをディスプレイに表示する
+	//// 引数       ：  DrawPacket& i_DrawPacket             // 画面描画時に必要なデータ群 ↓内容下記
+	////            ：  ├ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 インターフェイスへのポインタ
+	////            ：  ├ vector<Object*>&    Vec                     // オブジェクトの配列
+	////            ：  ├ Tempus2*            i_DrawPacket.pTime	   // 時間を管理するクラスへのポインター
+	////            ：  └ Command             i_DrawPacket.pCommand   // コマンド
+	//// 戻値       ：無し
+	//// 担当者     ：鴫原 徹
+	//// 備考       ：継承するものは何れかのレベルで必ず定義をすること｡
+	////            ：
+	////
     virtual void Draw( DrawPacket& i_DrawPacket ) ;
-/////////////////// ////////////////////
-//// 用途       ：virtual void Draw( DrawPacket& i_DrawPacket )
-//// カテゴリ   ：
-//// 用途       ：チェックポイントを追加
-//// 引数       ：
-//// 戻値       ：無し
-//// 担当者     ：鴫原 徹
-//// 備考       ：
-////            ：
-////
+	/////////////////// ////////////////////
+	//// 関数名     ：virtual void Draw( DrawPacket& i_DrawPacket )
+	//// 用途       ：
+	//// カテゴリ   ：
+	//// 用途       ：チェックポイントを追加
+	//// 引数       ：
+	//// 戻値       ：無し
+	//// 担当者     ：鴫原 徹
+	//// 備考       ：
+	////            ：
+	////
 	void add(D3DXVECTOR3 i_vPos){
 		m_vPos	= i_vPos;
 		m_ItemContainer.push_back( new ITEM( i_vPos , m_ItemContainer.size() +1) );
 	}
 
-/////////////////// ////////////////////
-//// 用途       ：void Blink()
-//// カテゴリ   ：
-//// 用途       ：オブジェクトを明滅させる
-//// 引数       ：
-//// 戻値       ：無し
-//// 担当者     ：佐藤涼
-//// 備考       ：
-////            ：
-////
+	/////////////////// ////////////////////
+	//// 関数名     ：void Blink()
+	//// 用途       ：
+	//// カテゴリ   ：
+	//// 用途       ：オブジェクトを明滅させる
+	//// 引数       ：
+	//// 戻値       ：無し
+	//// 担当者     ：佐藤涼
+	//// 備考       ：
+	////            ：
+	////
 	void	Blink();
 
-/////////////////// ////////////////////
-//// 用途       ：
-//// カテゴリ   ：
-//// 用途       ：
-//// 引数       ：
-//// 戻値       ：
-//// 担当者     ：
-//// 備考       ：
-////            ：
-////
+	/////////////////// ////////////////////
+	//// 関数名     ：
+	//// 用途       ：
+	//// カテゴリ   ：
+	//// 用途       ：
+	//// 引数       ：
+	//// 戻値       ：
+	//// 担当者     ：
+	//// 備考       ：
+	////            ：
+	////
 	D3DXVECTOR3 getThisPosition(DWORD Point){
 		if( m_ItemContainer.size() < Point ) Point = m_ItemContainer.size() ;
 		m_ActiveItem = Point ;
 		return m_ItemContainer[Point]->vStartPos ;
 	};
 
-/////////////////// ////////////////////
-//// 用途       ：
-//// カテゴリ   ：
-//// 用途       ：
-//// 引数       ：
-//// 戻値       ：
-//// 担当者     ：
-//// 備考       ：
-////            ：
-////
+	/////////////////// ////////////////////
+	//// 関数名     ：
+	//// 用途       ：
+	//// カテゴリ   ：
+	//// 用途       ：
+	//// 引数       ：
+	//// 戻値       ：
+	//// 担当者     ：
+	//// 備考       ：
+	////            ：
+	////
 	D3DXVECTOR3 getLastPosition(){
 		//if( m_ItemContainer.size() < Point ) Point = m_ItemContainer.size() ;
 		//m_ActiveItem = Point ;
 		return m_ItemContainer[m_ItemContainer.size()-1]->vStartPos ;
 	};
-
+	/////////////////// ////////////////////
+	//// 関数名     ：
+	//// 用途       ：
+	//// カテゴリ   ：
+	//// 用途       ：
+	//// 引数       ：
+	//// 戻値       ：
+	//// 担当者     ：
+	//// 備考       ：
+	////            ：
+	////
+	size_t getActiveItem(){
+		return m_ActiveItem ;
+	}
 };
 
 /**************************************************************************

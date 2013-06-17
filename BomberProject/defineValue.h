@@ -84,14 +84,14 @@
 //	: デファイン定数
 #define MAP_PARTS_HEIGHT		(    1.0f)	/*  */
 #define MAP_PARTS_WIDTH			(    1.0f)	/*  */
-//#define BASE_CLIENT_HEIGHT		(  600.0f)	/* 基準になる描画領域の高さ */
-//#define BASE_CLIENT_WIDTH		( 1024.0f)	/* 基準になる描画領域の幅   */
-//#define STANDARD_WINDOW_HEIGHT  (  600.0f)	/* ウインドウモードの高さ   */
-//#define STANDARD_WINDOW_WIDTH   ( 1024.0f)	/* ウインドウモードの幅     */
 #define BASE_CLIENT_HEIGHT		(  600.0f)	/* 基準になる描画領域の高さ */
 #define BASE_CLIENT_WIDTH		( 1024.0f)	/* 基準になる描画領域の幅   */
-#define STANDARD_WINDOW_HEIGHT  ( 1200.0f)	/* ウインドウモードの高さ   */
-#define STANDARD_WINDOW_WIDTH   ( 1920.0f)	/* ウインドウモードの幅     */
+#define STANDARD_WINDOW_HEIGHT  (  600.0f)	/* ウインドウモードの高さ   */
+#define STANDARD_WINDOW_WIDTH   ( 1024.0f)	/* ウインドウモードの幅     */
+//#define BASE_CLIENT_HEIGHT		(  600.0f)	/* 基準になる描画領域の高さ */
+//#define BASE_CLIENT_WIDTH		( 1024.0f)	/* 基準になる描画領域の幅   */
+//#define STANDARD_WINDOW_HEIGHT  ( 1200.0f)	/* ウインドウモードの高さ   */
+//#define STANDARD_WINDOW_WIDTH   ( 1920.0f)	/* ウインドウモードの幅     */
 #define DRAW_TOLERANCE			(   20.0f)	/* カメラからの描画距離 */
 
 #define DEFAULT_WINDOW_TITLE		( L"Magnetica" )
@@ -136,6 +136,11 @@
 const float	CURSOR_FIELD_LENGHT			= 10.0f;
 const float CURSOR_FIELD_TIME			= 2.0f;		
 
+static ULONG				RCVAL_SAVEDATA_IDENTIFIER_H = 0x534E4B42 ;	//	: BKNS
+static ULONG				RCVAL_SAVEDATA_IDENTIFIER_L = 0x5F455641 ;	//	: AVE_
+
+static const char*			RCTEXT_SAVEDATA_EXTENSION	= "bkn"  ;
+static const char*			RCTEXT_SAVEDATA_FILENAME	= "SaveData/Save.bkn"  ;
 
 static const wchar_t*		RCTEXT_SOUND_WAVEBANK		= L"media/Sound/MagneticaWave.xwb"  ;
 static const wchar_t*		RCTEXT_SOUND_SOUNDBANK		= L"media/Sound/MagneticaSound.xsb" ;
@@ -257,7 +262,8 @@ namespace wiz{
 		OBJID_SYS_RENDERTARGET		,	//	: レンダーターゲット
 		OBJID_SYS_END				,	
 
-		OBJID_BEHAVIOR_TEST			,
+		OBJID_BEHAVIOR_TEST					,
+		OBJID_BEHAVIOR_CHECKPOINTSAVE		,
 
 		//	:サウンドまわり
 		//	:BGM

@@ -34,6 +34,31 @@ using namespace functions ;
 namespace structs{
 /*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 /**************************************************************************
+ struct SaveData : public TLIB::BassSaveaPacketDat;
+ 用途: セーブデータ
+****************************************************************************/
+struct SaveData : public TLIB::BassSaveaPacketDat{
+private:
+	float fDataStructVer ;
+public:
+	DWORD dwStageNum	;
+	DWORD dwCheckPoint	;
+	DWORD dwDeadNum		;
+	
+	SaveData()
+	:TLIB::BassSaveaPacketDat(RCVAL_SAVEDATA_IDENTIFIER_H,RCVAL_SAVEDATA_IDENTIFIER_L)
+	,fDataStructVer( 0.1f )
+	,dwStageNum(0)
+	,dwCheckPoint(0)
+	,dwDeadNum(0)
+	{
+		
+	}
+
+};
+/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
+/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
+/**************************************************************************
  struct MapPartsStatus;
  用途: 
 ****************************************************************************/
