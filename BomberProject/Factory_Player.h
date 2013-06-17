@@ -19,7 +19,7 @@
 
 const int	START_EFFECTIVE_RANGE		= 12;
 const int 	START_EFFECTIVE_RANGE_QUAD	= (START_EFFECTIVE_RANGE * START_EFFECTIVE_RANGE);
-const float	PLAYER_RECOVERY_POINT		= 0.01f;
+const float	PLAYER_RECOVERY_POINT		= 0.002f;
 const float	PLAYER_CONSUME_POIMT		= 0.006f;
 const float	PLAYER_INVOCATION_POINT		= 0.100f;
 const float MAGNET_FIELD_ALPHA			= 0.2f;
@@ -28,6 +28,8 @@ const float MAGNET_FIELD_ALPHA			= 0.2f;
 namespace wiz{
 namespace bomberobject{
 
+extern class	MagneticGage_N	;
+extern class	MagneticGage_S	;
 
 //**************************************************************************//
 // class ProvisionalPlayer : public MagneticumObject ;

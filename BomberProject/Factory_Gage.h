@@ -18,6 +18,8 @@
 #include "StdAfx.h"
 #include "Object.h"
 #include "Factory_Cursor.h"
+#include "Factory_Coil.h"
+#include "Factory_Magnetic.h"
 #include "Line.h"
 
 const	int		SUPER_GAGE_MAX		= 512;
@@ -25,6 +27,29 @@ const	int		MAGNETIC_GAGE_MAX	= 256;
 
 namespace wiz{
 namespace bomberobject{
+
+/************************************************
+class	GaugeKind	: public	SpriteObject
+
+ópìrÅ@ÅFÉQÅ[ÉWÇÃéÌóﬁÇï`âÊ
+íSìñé“ÅFç≤ì°ó¡
+************************************************/
+class	GaugeKind	: public SpriteObject{
+	D3DXVECTOR3		m_vPos;
+	D3DXVECTOR3		m_vScale;
+public:
+	GaugeKind(
+		const LPDIRECT3DDEVICE9		pD3DDevice	,		//	: ÉfÉoÉCÉX
+		const LPDIRECT3DTEXTURE9	pTex		,		//	: ÉRÉAïîï™ÇÃTexture
+		const D3DXVECTOR3			&vScale		,		//	: êLèk
+		const D3DXVECTOR3			&vRot		,		//	: âÒì]
+		const D3DXVECTOR3			&vPos		,		//	: à íu
+		const RECT					Rect				//	: ï`âÊîÕàÕ
+	);
+	~GaugeKind();
+	void	Drow(DrawPacket& i_DrawPacket);
+	void	Update(UpdatePacket& i_UpdatePacket);
+};
 
 /************************************************
 class Gage : public SpriteObject
@@ -72,13 +97,17 @@ public:
 	////
 	void Update( UpdatePacket& i_UpdatePacket );
     void	Draw(DrawPacket& i_DrawPacket) ;
-	
+
+	void	setRate( float i_fRate ){
+		m_fRate	= i_fRate;
+	}
+
 	float getRate()const{
 		return m_fRate;
 	}
 
 	void ResetGauge(){
-		m_fRate = 0.0f ;
+		m_fRate = 1.0f ;
 	}
 
 	//void getGaugeRot_Right(int i_iValue){
@@ -161,7 +190,8 @@ class MagneticGage_N : public Gage
 íSìñé“ÅFñ{ëΩä∞îV
 *************************************************/
 class MagneticGage_N : public Gage{
-	MouseCursor* m_pCursor ;
+	MouseCursor*	m_pCursor ;
+	PlayerCoil*		m_pCoil ;
 	D3DXVECTOR3		m_vScale;
 public:
 	MagneticGage_N(
@@ -203,6 +233,7 @@ class MagneticGage_S : public Gage
 *************************************************/
 class MagneticGage_S : public Gage{
 	MouseCursor*	m_pCursor	;
+	PlayerCoil*		m_pCoil ;
 	D3DXVECTOR3		m_vScale;
 public:
 	MagneticGage_S(

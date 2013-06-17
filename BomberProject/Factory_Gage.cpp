@@ -26,6 +26,59 @@ const static BYTE	byGaugeAlpha = 0xFF ;
 namespace wiz{
 namespace bomberobject{
 
+/******************************************************
+ GaugeKind 定義部
+******************************************************/
+/****************************************************
+用途　：コンストラクタ
+担当者：佐藤涼
+****************************************************/
+GaugeKind::GaugeKind(const LPDIRECT3DDEVICE9 pD3DDevice, const LPDIRECT3DTEXTURE9 pTex,
+		const D3DXVECTOR3 &vScale, const D3DXVECTOR3 &vRot, const D3DXVECTOR3 &vPos, const RECT Rect)
+:SpriteObject( pD3DDevice, pTex, vScale, g_vZero, vPos, &Rect, g_vZero, g_vZero )
+,m_vPos( vPos )
+,m_vScale( vScale )
+{
+}
+
+/****************************************************
+用途　：デストラクタ
+担当者：佐藤涼
+****************************************************/
+GaugeKind::~GaugeKind()
+{
+}
+
+/***************************************************
+用途　：描画
+担当者：佐藤涼
+***************************************************/
+void	GaugeKind::Drow(DrawPacket &i_DrawPacket)
+{
+	SpriteObject::Draw( i_DrawPacket );
+}
+
+/***************************************************
+用途　：更新
+担当者：佐藤涼
+***************************************************/
+void	GaugeKind::Update(UpdatePacket &i_UpdatePacket)
+{
+	//マウス用データ*************************
+	Point MousePos ;
+	GetCursorPos( &MousePos ) ;
+	ScreenToClient( wiz::DxDevice::m_hWnd , &MousePos) ;
+	//*****************************************
+
+	m_vPos.x	 = (float)MousePos.x +  30.0f ;
+	m_vPos.y	 = (float)MousePos.y + -60.0f ;
+
+	D3DXMATRIX	mScale, mPos;
+	D3DXMatrixScaling( &mScale, m_vScale.x, m_vScale.y, m_vScale.z );
+	D3DXMatrixTranslation( &mPos, m_vPos.x, m_vPos.y, m_vPos.z );
+	m_mMatrix	= mScale * mPos;
+}
+
 /**************************************************************************
  Gage 定義部
 ***************************************************************************/
@@ -70,7 +123,7 @@ Gage::Gage(
 ,m_BassRect(  GaugeRect )
 ,m_GaugeRect( GaugeRect )
 ,m_FrameRect( FrameRect )
-,m_fRate( 0.0f )
+,m_fRate( 1.0f )
 {
 	m_mGaugeMatrix = m_mMatrix ;
 }
@@ -88,10 +141,12 @@ Gage::~Gage(){
 備考　　　：
 *****************************************/
 void Gage::Recovery( float fAddValue ){
-	m_fRate -= fAddValue ;
-	if( m_fRate <= 0.0f ){
-		m_fRate = 0.0f ;
+	m_fRate += fAddValue ;
+	if( m_fRate >= 1.0f ){
+		m_fRate = 1.0f ;
 	}
+	else if( m_fRate <= 0.0f )
+		m_fRate	= 0.0f;
 }
 /*****************************************
  関数名　　：void Gage::Consume()
@@ -103,9 +158,9 @@ void Gage::Recovery( float fAddValue ){
  備考　　　：
  *****************************************/
 void Gage::Consume( float fSubValue ){
-	m_fRate += fSubValue ;
-	if( m_fRate >= 1.0f ){
-		m_fRate = 1.0f ;
+	m_fRate -= fSubValue ;
+	if( m_fRate <= 0.0f ){
+		m_fRate = 0.0f ;
 	}
 }
 /////////////////// ////////////////////
@@ -125,8 +180,10 @@ void Gage::Consume( float fSubValue ){
 ////
 void Gage::Update( UpdatePacket& i_UpdatePacket ){
 	//ゲージの描画
-	m_GaugeRect.right  = m_BassRect.left - m_BassRect.right ;
-	m_GaugeRect.right *= 1.0f - m_fRate ;
+	m_GaugeRect.right  = m_BassRect.right ;
+	m_GaugeRect.right *= m_fRate ;
+	//m_GaugeRect.right  = m_BassRect.left - m_BassRect.right ;
+	//m_GaugeRect.right *= 1.0f - m_fRate ;
 	
 }
 
@@ -198,8 +255,6 @@ SuperGage::SuperGage(
 ,m_pLineRight( NULL )
 ,m_bAcquired(false)
 {
-	m_fRate = 0.0f;
-
 	const	D3DXVECTOR3	vDirTop		= D3DXVECTOR3( cosf( D3DXToRadian(0.0f) ), sinf( D3DXToRadian(0.0f) ), 0.0f );
 	const	D3DXVECTOR3	vDirLeft	= D3DXVECTOR3( cosf( D3DXToRadian(90.0f) ), sinf( D3DXToRadian(90.0f) ), 0.0f );
 	const	D3DXVECTOR3	vDirBottom	= D3DXVECTOR3( cosf( D3DXToRadian(0.0f) ), sinf( D3DXToRadian(0.0f) ), 0.0f );
@@ -294,7 +349,7 @@ void SuperGage::Update( UpdatePacket& i_UpdatePacket ){
 	m_Matrix	= mScale * mRot * mPos ;
 	//ゲージの描画
 	m_GaugeRect.right  = /*m_BassRect.left -*/ m_BassRect.right ;
-	m_GaugeRect.right *= 0.0f + m_fRate ;
+	m_GaugeRect.right *= 1.0f - m_fRate ;
 	
 }
 
@@ -385,6 +440,7 @@ MagneticGage_N::MagneticGage_N(
 :Gage(pD3DDevice,pTex,g_vOne,g_vZero,g_vZero,vPos,
 	  GaugeRect,FrameRect,id)
 ,m_pCursor( NULL )
+,m_pCoil( NULL )
 ,m_vScale( vScale )
 {
 	this->m_Color.byteColor.a = byGaugeAlpha ;
@@ -400,7 +456,8 @@ MagneticGage_N::MagneticGage_N(
 ////            ：
 ////
 MagneticGage_N::~MagneticGage_N(){
-	m_pCursor  = NULL;
+	m_pCursor	= NULL;
+	m_pCoil		= NULL;
 }
 /////////////////// ////////////////////
 //// 用途       ：void Update( UpdatePacket& i_UpdatePacket )
@@ -418,14 +475,25 @@ MagneticGage_N::~MagneticGage_N(){
 ////            ：
 ////
 void MagneticGage_N::Update( UpdatePacket& i_UpdatePacket ){
+	if( !m_pCoil )	 m_pCoil	= (PlayerCoil*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_3D_COIL);
+	if( !m_pCoil ) return ;
+
 	if( !m_pCursor ) m_pCursor = (MouseCursor*)SearchObjectFromID(i_UpdatePacket.pVec, OBJID_SYS_CURSOR);
 	if( !m_pCursor ) return ;
 
 	Gage::Update(i_UpdatePacket);
+
+	float	fMovePos	= 0.0f;
+	if( m_pCoil != NULL ){
+		if( m_pCoil->getMagnetPole() == POLE_N )
+				fMovePos	= 31.0f;
+		else	fMovePos	= 23.0f;
+	}
+
 	D3DXMATRIX	mPos, mScale ;
 	D3DXVECTOR3 vPos ;
 	vPos.x	= (float)m_pCursor->get2DPos().x	;
-	vPos.y	= (float)m_pCursor->get2DPos().y +  m_GaugeRect.top	;
+	vPos.y	= (float)m_pCursor->get2DPos().y + fMovePos/*+  m_GaugeRect.top*/	;
 	vPos.z	= 0.0f	;
 	D3DXMatrixScaling( &mScale, m_vScale.x, m_vScale.y/2, m_vScale.z );
 	D3DXMatrixTranslation( &mPos, vPos.x, vPos.y, vPos.z);
@@ -485,6 +553,7 @@ MagneticGage_S::MagneticGage_S(
 :Gage(pD3DDevice,pTex,g_vOne,g_vZero,g_vZero,vPos,
 	  GaugeRect,FrameRect,id)
 ,m_pCursor( NULL )
+,m_pCoil( NULL )
 ,m_vScale( vScale )
 {
 	this->m_Color.byteColor.a = byGaugeAlpha ;
@@ -500,7 +569,8 @@ MagneticGage_S::MagneticGage_S(
 ////            ：
 ////
 MagneticGage_S::~MagneticGage_S(){
-	m_pCursor = NULL;
+	m_pCursor	= NULL;
+	m_pCoil		= NULL;
 }
 /////////////////// ////////////////////
 //// 用途       ：void Update( UpdatePacket& i_UpdatePacket )
@@ -518,14 +588,27 @@ MagneticGage_S::~MagneticGage_S(){
 ////            ：
 ////
 void MagneticGage_S::Update( UpdatePacket& i_UpdatePacket ){
+	if( !m_pCoil )		 m_pCoil	= (PlayerCoil*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_3D_COIL);
+	if( !m_pCoil )	return;
+
 	if( !m_pCursor ) m_pCursor = (MouseCursor*)SearchObjectFromID(i_UpdatePacket.pVec, OBJID_SYS_CURSOR);
 	if( !m_pCursor ) return ;
 
 	Gage::Update(i_UpdatePacket);
+
+	float	fMovePos	= 0.0f;
+	if( m_pCoil != NULL ){
+		if( m_pCoil->getMagnetPole() == POLE_S )
+				fMovePos	= 31.0f;
+		else	fMovePos	= 23.0f;
+	}
+
 	D3DXMATRIX	mPos, mScale ;
 	D3DXVECTOR3 vPos ;
+	//23.0f 上
+	//31.0f 下
 	vPos.x	 = (float)m_pCursor->get2DPos().x	;
-	vPos.y	 = (float)m_pCursor->get2DPos().y +  m_GaugeRect.top	;
+	vPos.y	 = (float)m_pCursor->get2DPos().y + fMovePos/*+  m_GaugeRect.top*/	;
 	vPos.z	 = 0.0f	;
 	//vPos	+= m_v;
 	D3DXMatrixScaling( &mScale, m_vScale.x, m_vScale.y/2, m_vScale.z );
@@ -561,6 +644,18 @@ void MagneticGage_S::Draw(DrawPacket& i_DrawPacket){
 ***************************************************************************/
 Factory_Gage::Factory_Gage(FactoryPacket* fpac){
 	try{
+		//ゲージの種類
+		fpac->m_pVec->push_back(
+			new GaugeKind(
+				fpac->pD3DDevice,
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Gauge_Kind.png" ),
+				D3DXVECTOR3( 0.25f, 0.25f, 0.0f ),
+				g_vZero,
+				D3DXVECTOR3( 0.0f, 0.0f, 0.0f ),
+				Rect( 0, 0, 32, 64 )
+			)
+		);
+
 		//スーパーモード用ゲージ
 		fpac->m_pVec->push_back(
 			new SuperGage(
@@ -570,7 +665,7 @@ Factory_Gage::Factory_Gage(FactoryPacket* fpac){
 				D3DXVECTOR3(0.0f,0.0f,0.0f),
 				//D3DXVECTOR3(950.0,30.0f,0.0f),
 				//D3DXVECTOR3(140.0,-55.0f,0.0f),
-				D3DXVECTOR3(38.0f,-35.0f,0.0f),
+				D3DXVECTOR3(43.0f,-35.0f,0.0f),
 				Rect(0,32,512,64),
 				Rect(0,0,512,32)
 			)
@@ -580,12 +675,12 @@ Factory_Gage::Factory_Gage(FactoryPacket* fpac){
 		fpac->m_pVec->push_back(
 			new MagneticGage_N(
 				fpac->pD3DDevice,
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Gauge_N4.png" ),
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Gauge_N5.png" ),
 				//D3DXVECTOR3( 60.0f,-250.0f,0.0f),
-				D3DXVECTOR3( 60.0f,-450.0f,0.0f),
+				D3DXVECTOR3( 105.0f,-410.0f,0.0f),
 				D3DXVECTOR3( 0.4f, 0.4f, 0.0f ),
-				Rect(0,32,-300,64),
-				Rect(0,0,300,32)
+				Rect(0,32,256,64),
+				Rect(0,0,256,32)
 				//Rect(0,32,-300,64),
 				//Rect(0,0,256,32)
 			)
@@ -594,12 +689,12 @@ Factory_Gage::Factory_Gage(FactoryPacket* fpac){
 		fpac->m_pVec->push_back(
 			new MagneticGage_S(
 				fpac->pD3DDevice,
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Gauge_S4.png" ),
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Gauge_S5.png" ),
 				//D3DXVECTOR3( 60.0f,-220.0f,0.0f),
-				D3DXVECTOR3( 60.0f,-410.0f,0.0f),
+				D3DXVECTOR3( 105.0f,-410.0f,0.0f),
 				D3DXVECTOR3( 0.4f, 0.4f, 0.0f ),
-				Rect(0,32,-300,64),
-				Rect(0,0,300,32)
+				Rect(0,32,256,64),
+				Rect(0,0,256,32)
 				//Rect(0,32,-256,64),
 				//Rect(0,0,256,32)
 			)
