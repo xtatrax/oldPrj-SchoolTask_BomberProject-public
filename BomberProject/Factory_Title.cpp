@@ -306,27 +306,13 @@ Factory_Title::Factory_Title(FactoryPacket* fpac){
 					//GM_OPENSTAGE_LOAD,
 					D3DXVECTOR3(SCALE_RATE,SCALE_RATE,0.0f),
 					g_vZero,
-					D3DXVECTOR3( 620.0f, 280.0f, 0.0f ),
+					D3DXVECTOR3( 630.0f, 280.0f, 0.0f ),
 					Rect( 0, 0, 221, 31 ),
 					g_vZero,
 					g_vZero,
 					0xFFFF8800
 				)
 		);
-		//ButtonSprite* pStartButton = new ButtonSprite( 
-		//	fpac->pD3DDevice,
-		//	fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Title_Start002_02.tga" ),
-		//	D3DXVECTOR3(SCALE_RATE,SCALE_RATE,0.0f),
-		//	g_vZero,
-		//	D3DXVECTOR3( 620.0f, 280.0f, 0.0f ),
-		//	Rect( 0, 0, 221, 31 ),
-		//	g_vZero,
-		//	g_vZero,
-		//	0xFFFFFFFF,
-		//	0xFFFF8800,
-		//	Command(GM_OPENSTAGE_PLAY,1,0),
-		//	0
-		//);
 
 		//START002_01
 		fpac->m_pVec->push_back(
@@ -335,7 +321,7 @@ Factory_Title::Factory_Title(FactoryPacket* fpac){
 				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Title_Start002_01.tga" ),
 				D3DXVECTOR3(SCALE_RATE,SCALE_RATE,0.0f),
 				g_vZero,
-				D3DXVECTOR3( 620.0f, 280.0f, 0.0f ),
+				D3DXVECTOR3( 630.0f, 280.0f, 0.0f ),
 				Rect( 0, 0, 221, 31 ),
 				g_vZero,
 				g_vZero,
@@ -352,7 +338,7 @@ Factory_Title::Factory_Title(FactoryPacket* fpac){
 					GM_EXIT,
 					D3DXVECTOR3(SCALE_RATE,SCALE_RATE,0.0f),
 					g_vZero,
-					D3DXVECTOR3( 680.0f, 420.0f, 0.0f ),
+					D3DXVECTOR3( 660.0f, 420.0f, 0.0f ),
 					Rect( 0, 0, 143, 31 ),
 					g_vZero,
 					g_vZero,
@@ -367,7 +353,7 @@ Factory_Title::Factory_Title(FactoryPacket* fpac){
 				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Title_EXIT002_01.tga" ),
 				D3DXVECTOR3(SCALE_RATE,SCALE_RATE,0.0f),
 				g_vZero,
-				D3DXVECTOR3( 680.0f, 420.0f, 0.0f ),
+				D3DXVECTOR3( 660.0f, 420.0f, 0.0f ),
 				Rect( 0, 0, 143, 31 ),
 				g_vZero,
 				g_vZero,
