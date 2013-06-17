@@ -151,9 +151,10 @@ DxDevice::DxDevice(bool isFullScreen,int Width,int Height)
  , m_Controller(m_hWnd)
 {
     try{
+		m_Com.Clear();
 		initDevice(isFullScreen,Width,Height);
 		//シーンの初期化
-        pScene = new Scene(getDevice());
+        pScene = new Scene(getDevice(),&m_Com);
 
 	}
 	catch(wiz::BaseException& e){
@@ -264,12 +265,12 @@ int DxDevice::MainThreadRun(){
 				/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 					//	: シングルスレッド宣言がされていたら
 					//	: ここでマウスの状態を獲得する
-				case WM_LBUTTONDOWN	:	g_bMouseLB = true	;	break ; 
-				case WM_RBUTTONDOWN :	g_bMouseRB = true	;	break ;
-				case WM_MBUTTONDOWN	:	g_bMouseMB = true	;	break ;
-				case WM_LBUTTONUP	:	g_bMouseLB = false	;	break ;
-				case WM_RBUTTONUP	:	g_bMouseRB = false	;	break ;
-				case WM_MBUTTONUP	:	g_bMouseMB = false	;	break ;
+				case WM_LBUTTONDOWN	:	Cursor2D::m_bMouseLB = true		;	break ; 
+				case WM_RBUTTONDOWN :	Cursor2D::m_bMouseRB = true		;	break ;
+				case WM_MBUTTONDOWN	:	Cursor2D::m_bMouseMB = true		;	break ;
+				case WM_LBUTTONUP	:	Cursor2D::m_bMouseLB = false	;	break ;
+				case WM_RBUTTONUP	:	Cursor2D::m_bMouseRB = false	;	break ;
+				case WM_MBUTTONUP	:	Cursor2D::m_bMouseMB = false	;	break ;
 				/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 				#endif
 
@@ -327,21 +328,12 @@ int DxDevice::UpdateThreadRun(){
 
 		if(::PeekMessage(&msg,NULL,0,0,PM_REMOVE)){
             switch(msg.message){ 
-				case WM_LBUTTONDOWN :
-					g_bMouseLB = true;
-					break ; 
-				//	: マウスLボタン離し
-				case WM_LBUTTONUP:
-					g_bMouseLB = false;
-					break;
-				//	: マウスRボタン押し
-				case WM_RBUTTONDOWN :
-					g_bMouseRB = true;
-					break ;
-				//	: マウスRボタン離し
-				case WM_RBUTTONUP:
-					g_bMouseRB = false;
-					break;
+				case WM_LBUTTONDOWN	:	Cursor2D::m_bMouseLB = true		;	break ; 
+				case WM_RBUTTONDOWN :	Cursor2D::m_bMouseRB = true		;	break ;
+				case WM_MBUTTONDOWN	:	Cursor2D::m_bMouseMB = true		;	break ;
+				case WM_LBUTTONUP	:	Cursor2D::m_bMouseLB = false	;	break ;
+				case WM_RBUTTONUP	:	Cursor2D::m_bMouseRB = false	;	break ;
+				case WM_MBUTTONUP	:	Cursor2D::m_bMouseMB = false	;	break ;
 
 				//	:  削除
 				default:

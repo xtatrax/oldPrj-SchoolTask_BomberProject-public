@@ -194,10 +194,23 @@ m_SoundBankFileName(L"")
 		}
 		CreateInctance();
 	}
+	catch(exception& e){
+		ReleaseObj();
+		::MessageBoxA(
+			wiz::DxDevice::m_hWnd,
+			e.what(),
+			"エラー",
+			MB_OK);
+	}
 	catch(...){
 		ReleaseObj();
+
+		::MessageBoxA(
+			NULL,
+			"_Soundで未知のエラー",
+			"エラー",
+			MB_OK);
 		//再throw
-		throw;
 	}
 }
 /**************************************************************************
@@ -256,7 +269,7 @@ void _Sound::ChangeDevice(LPDIRECT3DDEVICE9 pD3DDevice){
 ***************************************************************************/
 void _Sound::Draw( DrawPacket& i_DrawPacket ){
 	//サウンドエンジンに作業時間を与える
-	m_pEngine->DoWork();
+	m_pEngine && m_pEngine->DoWork();
 }
 
 namespace Avoidance{

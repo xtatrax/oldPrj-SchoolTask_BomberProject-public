@@ -1,5 +1,5 @@
 ////////////////////////////// //////////////////////////////
-//	プロジェクト	：BomberProject
+//	プロジェクト	：DirectX Program Bass Project
 //	ファイル名		：BassItems.h
 //	開発環境		：MSVC++ 2008
 //	最適タブ数		：4
@@ -17,6 +17,36 @@
 namespace wiz {
 
 namespace base2Dobject{
+class PrimitiveSprite;
+/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
+class Cursor2D{
+	
+	friend class DxDevice;
+
+	static Point		m_vMousePoint	;
+    static bool			m_bMouseLB		;
+    static bool			m_bMouseRB		;
+    static bool			m_bMouseMB		;
+	static DWORD		m_tLastTime;
+	const static float	m_fLockTime;
+private:
+public:
+	static Point getPos();
+	static bool getLButtonState(){return m_bMouseLB;};
+	static bool getMButtonState(){return m_bMouseMB;};
+	static bool getRButtonState(){return m_bMouseRB;};
+	static bool pressLorRButton(){return m_bMouseRB || m_bMouseLB;};
+	static bool clickLButtonWithLock();
+	static bool clickMButtonWithLock();
+	static bool clickRButtonWithLock();
+	static bool clickLorRButtonWithLock(){return clickLButtonWithLock() || clickRButtonWithLock();};
+	static bool isHitSprite(const PrimitiveSprite* i_TargetSprite);
+};
+
+
+
+/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
+
 
 //**************************************************************************
 // class PrimitiveSprite ;
@@ -25,19 +55,28 @@ namespace base2Dobject{
 // 用途    : ２D環境のスプライトクラス
 //**************************************************************************
 class PrimitiveSprite {
+	friend class Cursor2D;
 protected:
-	LPDIRECT3DTEXTURE9 m_pTexture;	//	: 描画するテクスチャ
-	LPD3DXSPRITE	m_pSprite;		//	: 描画するためのスプライト
-	D3DXMATRIX		m_mMatrix;		//	: マトリックス (派生クラスはここに座標データを入れる)
-	D3DXVECTOR3		m_vOffsetPos;	//	: テクスチャーの描画オフセット(基本は０値点);
-	D3DXVECTOR3		m_vCenter;		//	: テクスチャーの中心
-	RECT*			m_pRect;		//	: テクスチャーの描画領域
-	Color			m_Color;
+	LPDIRECT3DTEXTURE9	m_pTexture		;	//	: 描画するテクスチャ
+	LPD3DXSPRITE		m_pSprite		;	//	: 描画するためのスプライト
+	D3DXMATRIX			m_mMatrix		;	//	: マトリックス (派生クラスはここに座標データを入れる)
+	D3DXVECTOR3			m_vOffsetPos	;	//	: テクスチャーの描画オフセット(基本は０値点);
+	D3DXVECTOR3			m_vCenter		;	//	: テクスチャーの中心
+	RECT*				m_pRect			;	//	: テクスチャーの描画領域
+	Color				m_Color			;
+	bool				m_bApplyAspect	;
 	//仮
 	PrimitiveSprite(){};
 public:
+	D3DXMATRIX getAspectMatrix() const{
+		D3DXMATRIX mAll;
+		D3DXMATRIX mAspectRate;
+		D3DXVECTOR2 AspectRate = DxDevice::getAspectRate();
+		D3DXMatrixScaling(&mAspectRate,AspectRate.x,AspectRate.y,1.0f);
+		D3DXMatrixMultiply(&mAll,&m_mMatrix,&mAspectRate);
+		return mAll ; 
+	}
 	void setMatrix( D3DXMATRIX i_mMatrix ){ m_mMatrix = i_mMatrix ; }
-
 /////////////////// ////////////////////
 //// 関数名     ：PrimitiveSprite(LPDIRECT3DDEVICE9 pD3DDevice,LPDIRECT3DTEXTURE9 pTexture,RECT* Rect,
 ////            ：    D3DXVECTOR3& vCenter,D3DXVECTOR3& vOffsetPos,D3DCOLOR color = 0xFFFFFFFF);
@@ -60,7 +99,8 @@ public:
 		const RECT*					Rect		,
 		const D3DXVECTOR3&			vCenter		,
 		const D3DXVECTOR3&			vOffsetPos	,
-		const Color					color		= 0xFFFFFFFF
+		const Color					color		= 0xFFFFFFFF,
+		const bool					bApplyAspect= true
 	);
 /////////////////// ////////////////////
 //// 関数名     ：virtual ~PrimitiveSprite()
@@ -85,7 +125,6 @@ public:
 ////            ：
 ////
 	virtual void Draw(DrawPacket& i_DrawPacket);
-
 
 };
 
@@ -127,8 +166,9 @@ public:
 		const RECT*					pRect		,
 		const D3DXVECTOR3&			vCenter		,
 		const D3DXVECTOR3&			vOffsetPos	,
-		const Color					color		= 0xFFFFFFFF	,
-		const wiz::OBJID			id			= OBJID_UI_SPRITE
+		const Color					color		= 0xFFFFFFFF		,
+		const wiz::OBJID			id			= OBJID_UI_SPRITE	,
+		const bool					bApplyAspect= true
 	);
 /////////////////// ////////////////////
 //// 関数名     ：~SpriteObject();

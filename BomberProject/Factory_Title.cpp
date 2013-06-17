@@ -10,16 +10,40 @@
 //		class Factory_Title ;
 //
 #include "StdAfx.h"
-#include "Object.h"
-#include "Scene.h"
+#include "BassMenuItems.h"
 #include "Factory_Title.h"
 #include "Factory_Scroll.h"
-#include "BassItems.h"
+#include "Factory_Cursor.h"
 
 namespace wiz{
 	namespace bomberobject{
 
 const	float	SCALE_RATE	=	1.4f;
+//class TestBehavior2 : public Behavior{
+//public:
+//	TestBehavior2()
+//		:Behavior(OBJID_BEHAVIOR_TEST)
+//	{}
+//	/////////////////// ////////////////////
+//	//// 用途       ：virtual void Update( UpdatePacket& i_UpdatePacket )
+//	//// カテゴリ   ：仮想関数
+//	//// 用途       ：オブジェクトを更新
+//	//// 引数       ：  UpdatePacket& i_UpdatePacket     // アップデート時に必要なデータ群 ↓内容下記
+//	////            ：  ├       LPDIRECT3DDEVICE9  pD3DDevice      // IDirect3DDevice9 インターフェイスへのポインタ
+//	////            ：  ├       Tempus2*           pTime           // 時間を管理するクラスへのポインター
+//	////            ：  ├       vector<Object*>&   Vec,            // オブジェクトの配列
+//	////            ：  ├ const CONTROLER_STATE*   pCntlState      // コントローラのステータス
+//	////            ：  └       Command            pCommand        // コマンド
+//	//// 戻値       ：無し
+//	//// 担当者     ：鴫原 徹
+//	//// 備考       ：継承したものでも必ずとも定義をしなくても良い
+//	////            ：
+//	////
+//    void Update( UpdatePacket& i_UpdatePacket ){
+//		if(Cursor2D::clickLorRButtonWithLock())
+//			(i_UpdatePacket.pCommand->m_Command = GM_CHANGE_CHILDSTAGE) ;
+//	};
+//};
 
 /************************************************************************
 ClickChar 定義部
@@ -40,9 +64,17 @@ ClickChar 定義部
 //// 備考       ：
 ////            ：
 ////
-ClickChar::ClickChar(const LPDIRECT3DDEVICE9 pD3DDevice,const LPDIRECT3DTEXTURE9 pTexture,
-		const D3DXVECTOR3 &vScale,const D3DXVECTOR3 &vRot,const D3DXVECTOR3 &vPos,const RECT *pRect, const D3DXVECTOR3 &vOffsetPos)
-:SpriteObject( pD3DDevice, pTexture, vScale, vRot, vPos, pRect, g_vZero, g_vZero, 0xFFFFFFFF )
+ClickChar::ClickChar(
+	const LPDIRECT3DDEVICE9		pD3DDevice	,
+	const LPDIRECT3DTEXTURE9	pTexture	,
+	const D3DXVECTOR3&			vScale		,
+	const D3DXVECTOR3&			vRot		,
+	const D3DXVECTOR3&			vPos		,
+	const RECT*					pRect		,
+	const D3DXVECTOR3&			vOffsetPos
+)
+:SpriteObject( pD3DDevice, pTexture, vScale, vRot, vPos, pRect, g_vZero, g_vZero, 0xFFFFFFFF , OBJID_UI_SPRITE, false)
+,m_pCursor( NULL )
 ,m_vPos( vPos )
 ,m_vScale( vScale )
 ,m_vOffsetPos( vOffsetPos )
@@ -84,11 +116,10 @@ void ClickChar::Draw(DrawPacket& i_DrawPacket)
 ////
 void ClickChar::Update(UpdatePacket& i_UpdatePacket)
 {
-	 //マウス用データ*************************
-	Point MousePos ;
-	GetCursorPos( &MousePos ) ;
-	ScreenToClient( wiz::DxDevice::m_hWnd , &MousePos) ;
-  //*****************************************
+	if( !m_pCursor ) m_pCursor = ( MouseCursor* )SearchObjectFromID(i_UpdatePacket.pVec,OBJID_SYS_CURSOR       );
+
+	Point MousePos = Point(0,0) ;
+	if( m_pCursor ) MousePos = m_pCursor->get2DPos();
 
 	m_vPos	= D3DXVECTOR3( (float)MousePos.x + m_vOffsetPos.x, (float)MousePos.y + m_vOffsetPos.y, 0.0f);
 
@@ -177,19 +208,17 @@ void Title_Select::Draw(DrawPacket& i_DrawPacket)
 ////
 void Title_Select::Update(UpdatePacket& i_UpdatePacket)
 {
-	if( m_pSound == NULL )
-		m_pSound = (Sound*)SearchObjectFromTypeID(i_UpdatePacket.pVec,typeid(Sound));
-  //マウス用データ*************************
-	Point MousePos ;
-	GetCursorPos( &MousePos ) ;
-	ScreenToClient( wiz::DxDevice::m_hWnd , &MousePos) ;
-  //*****************************************
-	if( (MousePos.x > m_vPos.x && MousePos.x < ( m_vPos.x + (m_pRect->right*SCALE_RATE) )) 
-		&& (MousePos.y > m_vPos.y && MousePos.y < ( m_vPos.y + (m_pRect->bottom*SCALE_RATE) )) ){
-		if( g_bMouseLB/* || g_bMouseRB*/ ){
+	if( !m_pSound ) m_pSound = (Sound*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_SYS_SOUND);
+
+	if(Cursor2D::isHitSprite(this)){
+		//	: 画像の範囲内にマウスが入った
+
+		if( Cursor2D::getLButtonState()/* || Cursor2D::getRButtonState()*/ ){
+			//	: マウスの左ボタンが押された
+
 			if( m_bPushRock ){
 				if( !m_bPush ){
-					//if( m_pSound != NULL )
+					if( m_pSound != NULL )
 						m_pSound->SearchWaveAndPlay( RCTEXT_SOUND_SE_ENTER );
 				}
 				m_bPush		= true;
@@ -197,20 +226,18 @@ void Title_Select::Update(UpdatePacket& i_UpdatePacket)
 			}
 		}
 		else m_bPushRock	= true;
-			m_Color	= 0xFFFF8800;
-			if( !m_bSelect ){
-				m_bSelect = true;
-				m_pSound->SearchWaveAndPlay( RCTEXT_SOUND_SE_SELECT );
-			}
-			
-		
-	}
-	else{
+		m_Color	= 0xFFFF8800;
+		if( !m_bSelect ){
+			m_bSelect = true;
+			m_pSound->SearchWaveAndPlay( RCTEXT_SOUND_SE_SELECT );
+		}
+	}else{
+		//	: マウスが画像の範囲外にいるとき
 		m_Color	= 0xFF558855;
 		
 		m_bSelect = false;
 
-		if( g_bMouseLB )	m_bPushRock	= false;
+		if( Cursor2D::getLButtonState() )	m_bPushRock	= false;
 		else				m_bPushRock	= true;
 	}
 	if( m_bPush ){
@@ -237,8 +264,8 @@ void Title_Select::Update(UpdatePacket& i_UpdatePacket)
 ***************************************************************************/
 Factory_Title::Factory_Title(FactoryPacket* fpac){
 	try{
-		 Factory_Scroll		Ffac( fpac );
-		
+		Factory_Scroll		Ffac( fpac );
+		//fpac->m_pVec->push_back( new TestBehavior2());
 		//	:TitleName
 		fpac->m_pVec->push_back(
 			new SpriteObject(
@@ -254,7 +281,8 @@ Factory_Title::Factory_Title(FactoryPacket* fpac){
 				0xFF00FFFF
 				)
 		);
-				fpac->m_pVec->push_back(
+
+		fpac->m_pVec->push_back(
 			new SpriteObject(
 				fpac->pD3DDevice,
 				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, /*L"Lightning.tga"*/L"Title_Name005_01.tga" ),
@@ -278,13 +306,28 @@ Factory_Title::Factory_Title(FactoryPacket* fpac){
 					//GM_OPENSTAGE_LOAD,
 					D3DXVECTOR3(SCALE_RATE,SCALE_RATE,0.0f),
 					g_vZero,
-					D3DXVECTOR3( 120.0f, 421.0f, 0.0f ),
+					D3DXVECTOR3( 620.0f, 280.0f, 0.0f ),
 					Rect( 0, 0, 221, 31 ),
 					g_vZero,
 					g_vZero,
 					0xFFFF8800
 				)
 		);
+		//ButtonSprite* pStartButton = new ButtonSprite( 
+		//	fpac->pD3DDevice,
+		//	fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Title_Start002_02.tga" ),
+		//	D3DXVECTOR3(SCALE_RATE,SCALE_RATE,0.0f),
+		//	g_vZero,
+		//	D3DXVECTOR3( 620.0f, 280.0f, 0.0f ),
+		//	Rect( 0, 0, 221, 31 ),
+		//	g_vZero,
+		//	g_vZero,
+		//	0xFFFFFFFF,
+		//	0xFFFF8800,
+		//	Command(GM_OPENSTAGE_PLAY,1,0),
+		//	0
+		//);
+
 		//START002_01
 		fpac->m_pVec->push_back(
 			new SpriteObject(
@@ -292,7 +335,7 @@ Factory_Title::Factory_Title(FactoryPacket* fpac){
 				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Title_Start002_01.tga" ),
 				D3DXVECTOR3(SCALE_RATE,SCALE_RATE,0.0f),
 				g_vZero,
-				D3DXVECTOR3( 120.0f, 421.0f, 0.0f ),
+				D3DXVECTOR3( 620.0f, 280.0f, 0.0f ),
 				Rect( 0, 0, 221, 31 ),
 				g_vZero,
 				g_vZero,
@@ -309,21 +352,22 @@ Factory_Title::Factory_Title(FactoryPacket* fpac){
 					GM_EXIT,
 					D3DXVECTOR3(SCALE_RATE,SCALE_RATE,0.0f),
 					g_vZero,
-					D3DXVECTOR3( 660.0f, 420.0f, 0.0f ),
+					D3DXVECTOR3( 680.0f, 420.0f, 0.0f ),
 					Rect( 0, 0, 143, 31 ),
 					g_vZero,
 					g_vZero,
 					0xFFFF8800
 				)
 		);
-				//EXIT002_01
+
+		//EXIT002_01
 		fpac->m_pVec->push_back(
 			new SpriteObject(
 				fpac->pD3DDevice,
 				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Title_EXIT002_01.tga" ),
 				D3DXVECTOR3(SCALE_RATE,SCALE_RATE,0.0f),
 				g_vZero,
-				D3DXVECTOR3( 660.0f, 420.0f, 0.0f ),
+				D3DXVECTOR3( 680.0f, 420.0f, 0.0f ),
 				Rect( 0, 0, 143, 31 ),
 				g_vZero,
 				g_vZero,
@@ -343,6 +387,9 @@ Factory_Title::Factory_Title(FactoryPacket* fpac){
 					D3DXVECTOR3( 40.0f, -70.0f, 0.0f )
 			)
 		);						
+		float	fLineLength	= 550.0f;
+		float	fPointSize	= 0.25f;
+		Factory_Cursor	MCfac( fpac, fLineLength, fPointSize )  ; 
 
 		Sound* pSound = NULL;
 		fpac->m_pVec->push_back(

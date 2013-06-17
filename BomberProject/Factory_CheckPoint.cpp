@@ -1,20 +1,34 @@
 ////////////////////////////// //////////////////////////////
 //	プロジェクト	：BomberProject
-//	ファイル名		：Factory_CheckPoint.cpp
+//	ファイル名		：Factory_CheckPoint.h
 //	開発環境		：MSVC++ 2008
 //	最適タブ数		：4
 //	担当者			：鴫原 徹
-//	内包ﾃﾞｰﾀと備考	：メインファクトリー
+//	引継ぎ			：本多 寛之
+//	編集			：佐藤 涼
+//	内包ﾃﾞｰﾀと備考	：チェックポイント
 //					▼
 //	namespace wiz;
-//		class Factory_CheckPoint ;
+//		namespace bomberobject;
+//			class CheckEffect         : public PrimitiveBox	;
+//			class CheckPoint          : public Cylinder		;
+//			class Factory_CheckPoint  ;
 //
+
+//////////
+//	: 基本のインクルード
 #include "StdAfx.h"
-#include "Object.h"
-#include "Scene.h"
 #include "Factory_CheckPoint.h"
-#include "BassItems.h"
-#include "Factory_Wall.h"
+//	: 基本のインクルード
+//////////
+
+//////////
+//	: 追加のインクルード
+//	: 追加のインクルード
+//////////
+
+
+
 const float CHECK_POINT_RADIUS = 0.25f ;
 const float EFFECT_SIZE	= 2.0f;
 D3DCOLORVALUE CHECKPOINTCOLOR = { 0.5f, 1.0f, 0.5f, 0.5f } ;
@@ -151,7 +165,7 @@ void CheckEffect::Draw(DrawPacket& i_DrawPacket)
 ////
 void CheckEffect::update( int i ,DrawPacket& i_DrawPacket){
 
-	if( !m_pCoil   ) m_pCoil   = (PlayerCoil*)SearchObjectFromTypeID( i_DrawPacket.pVec, typeid(PlayerCoil) );
+	if( !m_pCoil   ) m_pCoil   = (PlayerCoil*)SearchObjectFromID( i_DrawPacket.pVec, OBJID_3D_COIL );
 	//スタート位置にエフェクトを出すか
 	if( !m_bMark ){
 		if( m_fWide > 0.0f ){
@@ -296,9 +310,9 @@ CheckPoint::~CheckPoint(){
 ////            ：
 ////
 void CheckPoint::Update( UpdatePacket& i_UpdatePacket ){
-	if( !m_pCoil   ) m_pCoil   = (PlayerCoil*)SearchObjectFromTypeID( i_UpdatePacket.pVec, typeid(PlayerCoil) );
-	if( !m_pSound  ) m_pSound  = (     Sound*)SearchObjectFromTypeID( i_UpdatePacket.pVec, typeid(Sound) );
-	if( !m_pCamera ) m_pCamera = (    Camera*)SearchObjectFromID( i_UpdatePacket.pVec, OBJID_SYS_CAMERA );
+	if( !m_pCoil   ) m_pCoil   = (PlayerCoil*)SearchObjectFromID( i_UpdatePacket.pVec, OBJID_3D_COIL	) ;
+	if( !m_pSound  ) m_pSound  = (     Sound*)SearchObjectFromID( i_UpdatePacket.pVec, OBJID_SYS_SOUND	) ;
+	if( !m_pCamera ) m_pCamera = (    Camera*)SearchObjectFromID( i_UpdatePacket.pVec, OBJID_SYS_CAMERA ) ;
 	
 	if( m_pCoil && m_ActiveItem < m_ItemContainer.size()){
 		float fPosY		= m_ItemContainer[ m_ActiveItem ]->fPosY;

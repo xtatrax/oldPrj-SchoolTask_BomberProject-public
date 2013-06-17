@@ -73,7 +73,7 @@ PlayStage();
  用途: ゲームステージクラス
 ****************************************************************************/
 class PlayStage : public Stage{
-	//friend class PlayOpeningStage;
+	DWORD	m_dwNowStage;
 public:	
 /**************************************************************************
  PlayStage(
@@ -108,6 +108,7 @@ PlayStage();
 ////
 	virtual void Update(UpdatePacket& i_UpdatePacket);
 
+	DWORD getNowStage(){ return m_dwNowStage ; }
 };
 /*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 

@@ -87,8 +87,9 @@ struct Command{
 	DWORD m_Command;	
 	DWORD m_Param1;
 	DWORD m_Param2;
-	Command()
-		:m_Command(0),m_Param1(0),m_Param2(0)
+	Command(DWORD Command = 0, DWORD m_Param1 = 0, DWORD m_Param2 = 0)
+		:m_Command(Command),m_Param1(m_Param1),m_Param2(m_Param2)
+
 	{}
 	void Clear(){
 		m_Command = m_Param1 = m_Param2 = 0;
@@ -263,6 +264,7 @@ inline UpdatePacket::UpdatePacket( DrawPacket i_DrawPacket )
 // 用途    : ファクトリーに渡すパケットデータ
 //**************************************************************************//
 struct FactoryPacket{
+
 	//Device
 	LPDIRECT3DDEVICE9 pD3DDevice ;
 	//ダイアログステージかどうか

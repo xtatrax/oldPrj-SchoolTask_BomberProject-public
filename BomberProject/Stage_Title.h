@@ -22,7 +22,7 @@ namespace wiz{
  class TitleStage : public Stage;
  用途: ゲームステージクラス
 ****************************************************************************/
-class TitleStage : public Stage{
+class TitleStage : public MenuStage{
 public:	
 /**************************************************************************
  TitleStage(

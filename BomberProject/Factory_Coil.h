@@ -13,42 +13,46 @@
 //		namespace bomberobject;
 //			class PlayerCoil : public MagneticumObject3D ;
 //			class Factory_Coil ;
-//		const float			COIL_SPEED						= 0.08f;
-//		const float			COIL_SPEED_SUPER				= 0.12f;
-//		const float			COIL_ACCELERATION_VALUE			= 0.25f;
-//		const float			COIL_ACCELERATION_DECREASE		= 0.01f;
-//		const float			COIL_BASSROT					= 90.0f;
-//		const float			PLAYER_TURN_ANGLE_Lv1			= 1.0f;
-//		const float			PLAYER_TURN_ANGLE_Lv2			= 2.0f;
-//		const float			PLAYER_TURN_ANGLE_Lv3			= 2.5f;
-//		const float			COIL_SUPER_MODE_TIME			= 5.0f;
-//		const D3DXVECTOR3	COIL_SUPER_MODE_FIELD_SCALE		= D3DXVECTOR3(10.0f,10.0f,0.0f);
-//		const float			COIL_ROTATION_ANGLE				= 15.0f;
-//		const D3DXVECTOR3	COIL_SCALE_ADD_VALUE_START		= D3DXVECTOR3(0.03f,0.03f,0.03f);
-//		const D3DXVECTOR3	COIL_SCALE_ADD_VALUE_STOP		= D3DXVECTOR3(0.03f,0.03f,0.03f);
-//		const D3DXVECTOR3	COIL_SCALE_ADD_VALUE_STICK		= D3DXVECTOR3(0.045f,0.045f,0.045f);
-//		const float			COIL_EXPANSION_VALUE_STICK		= 1.5f;
-//		enum COIL_STATE{			//自機の状態
-//			COIL_STATE_START,		//スタート
-//			COIL_STATE_MOVE,		//移動
-//			COIL_STATE_STICK,		//吸着
-//			//COIL_STATE_SUPER,		//無敵
-//			COIL_STATE_DEAD,		//死亡
-//			COIL_STATE_CONTINUE,	//コンティニュー
-//			COIL_STATE_CLEAR,		//クリア
-//			COIL_STATE_STOP			//停止状態
-//		};
+//	const	float			COIL_SPEED						= 0.08f;
+//	const	float			COIL_SPEED_SUPER				= 0.12f;
+//	const	float			COIL_ACCELERATION_VALUE			= 0.25f;
+//	const	float			COIL_ACCELERATION_DECREASE		= 0.01f;
+//	const	float			COIL_BASSROT					= 90.0f;
+//	const	float			PLAYER_TURN_ANGLE_Lv1			= 1.0f;
+//	const	float			PLAYER_TURN_ANGLE_Lv2			= 2.0f;
+//	const	float			PLAYER_TURN_ANGLE_Lv3			= 2.5f;
+//	const	float			COIL_SUPER_MODE_TIME			= 5.0f;
+//	const	float			COIL_ROTATION_ANGLE				= 15.0f;
+//	const	float			COIL_EXPANSION_VALUE_STICK		= 1.5f;
+//	const	D3DXVECTOR3		COIL_SUPER_MODE_FIELD_SCALE		= D3DXVECTOR3(10.0f,10.0f,0.0f);
+//	const	D3DXVECTOR3		COIL_SCALE_ADD_VALUE_START		= D3DXVECTOR3(0.03f,0.03f,0.03f);
+//	const	D3DXVECTOR3		COIL_SCALE_ADD_VALUE_STOP		= D3DXVECTOR3(0.03f,0.03f,0.03f);
+//	const	D3DXVECTOR3		COIL_SCALE_ADD_VALUE_STICK		= D3DXVECTOR3(0.045f,0.045f,0.045f);
+//	enum	COIL_STATE{			//自機の状態
+//		COIL_STATE_START,		//スタート
+//		COIL_STATE_MOVE,		//移動
+//		COIL_STATE_STICK,		//吸着
+//		//COIL_STATE_SUPER,		//無敵
+//		COIL_STATE_DEAD,		//死亡
+//		COIL_STATE_CONTINUE,	//コンティニュー
+//		COIL_STATE_CLEAR,		//クリア
+//		COIL_STATE_STOP			//停止状態
+//	};
 //
 #pragma once
 
-#include "StdAfx.h"
+//////////
+//	: インクルード
 #include "Factory_Magnetic.h"
-#include "Factory_Gage.h"
-#include "Factory_Sound.h"
 #include "Factory_DeadEffect.h"
-#include "Factory_Continue.h"
+#include "Factory_Cursor.h"
+#include "Factory_Player.h"
+//	: インクルード
+//////////
 
 
+//////////
+//	: グローバル定数
 const float			COIL_SPEED						= 0.08f;
 const float			COIL_SPEED_SUPER				= 0.15f;
 //const float			COIL_ACCELERATION_VALUE			= 0.0f;
@@ -62,12 +66,12 @@ const float			PLAYER_TURN_ANGLE_Lv2			= 2.0f;
 const float			PLAYER_TURN_ANGLE_Lv3			= 2.5f;
 const float			COIL_SUPER_MODE_TIME			= 3.0f;
 //const float			COIL_SUPER_MODE_TIME			= 7.0f;
-const D3DXVECTOR3	COIL_SUPER_MODE_FIELD_SCALE		= D3DXVECTOR3(10.0f,10.0f,0.0f);
 const float			COIL_ROTATION_ANGLE				= 15.35f;
+const float			COIL_EXPANSION_VALUE_STICK		= 1.5f;
+const D3DXVECTOR3	COIL_SUPER_MODE_FIELD_SCALE		= D3DXVECTOR3(10.0f,10.0f,0.0f);
 const D3DXVECTOR3	COIL_SCALE_ADD_VALUE_START		= D3DXVECTOR3(0.03f,0.03f,0.03f);
 const D3DXVECTOR3	COIL_SCALE_ADD_VALUE_STOP		= D3DXVECTOR3(0.03f,0.03f,0.03f);
 const D3DXVECTOR3	COIL_SCALE_ADD_VALUE_STICK		= D3DXVECTOR3(0.045f,0.045f,0.045f);
-const float			COIL_EXPANSION_VALUE_STICK		= 1.5f;
 
 enum COIL_STATE{			//自機の状態
 	COIL_STATE_START,		//スタート
@@ -85,6 +89,8 @@ enum COIL_STATE_SUPER{
 	COIL_STATE_SUPER_CHANGING,
 	COIL_STATE_SUPER_MOVE
 };
+//	: グローバル定数
+//////////
 
 namespace wiz{
 namespace bomberobject{
@@ -128,6 +134,7 @@ class PlayerCoil : public MagneticumObject3D{
 	bool			m_bDrawContinue		;	//	: コンテニュー表示フラグ
 	int				m_iDeadCount		;	//	: 死亡回数
 
+	MouseCursor*			m_pCursor					;	//	: カーソルオブジェクトへのポインタ
 	Sound*					m_pSound					;	//	: 音声データへのポインタ
 	Camera*					m_pCamera					;	//	: Cameraへのポインタ
 	Box*					m_pSuperField				;	//	: 無敵時のフィールド

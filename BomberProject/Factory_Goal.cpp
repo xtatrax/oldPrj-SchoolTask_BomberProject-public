@@ -123,9 +123,8 @@ void FMemoryTex::Draw(DrawPacket& i_DrawPacket)
 ////            ÅF
 ////
 void FMemoryTex::Update( UpdatePacket& i_UpdatePacket ){
-	if(m_pCamera == NULL){
-		m_pCamera = (Camera*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_SYS_CAMERA);
-	}
+	if( !m_pCamera	)	m_pCamera	=     (Camera*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_SYS_CAMERA	) ;
+	if( !m_pCoil	)	m_pCoil		= (PlayerCoil*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_3D_COIL		) ;
 
 	m_ItemMap_Target.clear();
 	multimap<float,mItem*>::iterator it = m_ItemMap_Memory.begin();
@@ -136,8 +135,6 @@ void FMemoryTex::Update( UpdatePacket& i_UpdatePacket ){
 		++it;
 	}
 
-	if( m_pCoil == NULL )
-		m_pCoil = (PlayerCoil*)SearchObjectFromTypeID(i_UpdatePacket.pVec, typeid(PlayerCoil) ) ;
 
 	multimap<float,mItem*>::iterator it2 = m_ItemMap_Target.begin();
 	while(it2 != m_ItemMap_Target.end()){
@@ -386,12 +383,11 @@ void	GoalObject::Draw(DrawPacket &i_DrawPacket){
 ********************************************************************/
 void	GoalObject::Update(UpdatePacket& i_UpdatePacket)
 {
-	if( m_pSound == NULL )
-		m_pSound = (Sound*)SearchObjectFromTypeID(i_UpdatePacket.pVec,typeid(Sound));
+	if( !m_pSound ) m_pSound	=      (Sound*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_SYS_SOUND	) ;
+	if( !m_pCoil  ) m_pCoil		= (PlayerCoil*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_3D_COIL		) ;
 
 
 	//è’ìÀîªíË
-	m_pCoil = (PlayerCoil*)SearchObjectFromTypeID(i_UpdatePacket.pVec, typeid(PlayerCoil) ) ;
 	if( m_pCoil && m_pCoil->HitTestWall( m_Obb ) ){
 		m_pCoil->setState( COIL_STATE_CLEAR );
 		m_pCoil->setSuperMode(COIL_STATE_SUPER_CHARGE);

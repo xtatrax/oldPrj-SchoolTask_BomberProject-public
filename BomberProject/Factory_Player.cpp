@@ -51,6 +51,7 @@ ProvisionalPlayer3D::ProvisionalPlayer3D(
 )
 	:MagneticumObject3D( fpac->pD3DDevice, pTexture, id )
 ,m_Camera(NULL)
+,m_pCursor(NULL)
 ,m_pPlayerCoil(NULL)
 ,m_pMGage_N(NULL)
 ,m_pMGage_S(NULL)
@@ -101,8 +102,7 @@ ProvisionalPlayer3D::~ProvisionalPlayer3D(){
 //// 備考       ：
 void ProvisionalPlayer3D::Draw(DrawPacket& i_DrawPacket)
 {
-	if( m_pSound == NULL )
-		m_pSound = (Sound*)SearchObjectFromTypeID(i_DrawPacket.pVec,typeid(Sound));
+	if( !m_pSound ) m_pSound = (Sound*)SearchObjectFromID(i_DrawPacket.pVec,OBJID_SYS_SOUND);
 
 	if( m_pPlayerCoil && ( m_pPlayerCoil->getState() == COIL_STATE_MOVE || m_pPlayerCoil->getState() == COIL_STATE_STICK ) ){
 		if( m_bDrawing ){ 
@@ -140,44 +140,41 @@ void ProvisionalPlayer3D::Update( UpdatePacket& i_UpdatePacket ){
 		m_Camera = (Camera*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_SYS_CAMERA);
 		m_Camera && (m_MovePosY	= m_Camera->getPosY());
 	}
-	if( !m_pPlayerCoil ) m_pPlayerCoil	= (PlayerCoil*)SearchObjectFromTypeID(i_UpdatePacket.pVec,typeid(PlayerCoil));
-	if( !m_pMGage_N )	 m_pMGage_N		= (MagneticGage_N*)SearchObjectFromTypeID(i_UpdatePacket.pVec,typeid(MagneticGage_N));
-	if( !m_pMGage_S )	 m_pMGage_S		= (MagneticGage_S*)SearchObjectFromTypeID(i_UpdatePacket.pVec,typeid(MagneticGage_S));
+	if( !m_pPlayerCoil	)	m_pPlayerCoil	= (     PlayerCoil* )SearchObjectFromID(i_UpdatePacket.pVec,OBJID_3D_COIL          );
+	if( !m_pMGage_N		)	m_pMGage_N		= ( MagneticGage_N* )SearchObjectFromID(i_UpdatePacket.pVec,OBJID_UI_MAGNETGAUGE_N );
+	if( !m_pMGage_S		)	m_pMGage_S		= ( MagneticGage_S* )SearchObjectFromID(i_UpdatePacket.pVec,OBJID_UI_MAGNETGAUGE_N );
+	if( !m_pCursor		)	m_pCursor		= (    MouseCursor* )SearchObjectFromID(i_UpdatePacket.pVec,OBJID_SYS_CURSOR       );
 
 	RECT rc;
 	::GetClientRect(wiz::DxDevice::m_hWnd, &rc);
 	
 
 	if( m_pPlayerCoil->getState() == COIL_STATE_MOVE || m_pPlayerCoil->getState() == COIL_STATE_STICK ){
-		if( (g_bMouseLB || g_bMouseRB) && !(g_bMouseLB && g_bMouseRB)){ 
-			if( (g_bMouseLB && m_pMGage_N->getRate() > GAUGE_VANISHRATE) || (g_bMouseRB && m_pMGage_S->getRate() > GAUGE_VANISHRATE) ){				
+		if( (Cursor2D::getLButtonState() || Cursor2D::getRButtonState()) && !(Cursor2D::getLButtonState() && Cursor2D::getRButtonState())){ 
+			if( (Cursor2D::getLButtonState() && m_pMGage_N->getRate() < GAUGE_VANISHRATE) || (Cursor2D::getRButtonState() && m_pMGage_S->getRate() < GAUGE_VANISHRATE) ){				
 				if( !m_bLastMouseLB && !m_bLastMouseRB){
 					if( !m_pPlayerCoil->getMagnetPole() ){
-						if(g_bMouseLB)m_pMGage_N->Consume(PLAYER_INVOCATION_POINT);
-						if(g_bMouseRB)m_pMGage_S->Consume(PLAYER_INVOCATION_POINT);
+						if(Cursor2D::getLButtonState())m_pMGage_N->Consume(PLAYER_INVOCATION_POINT);
+						if(Cursor2D::getRButtonState())m_pMGage_S->Consume(PLAYER_INVOCATION_POINT);
 					}
 					else{
-						if(g_bMouseLB)m_pMGage_N->Consume(PLAYER_INVOCATION_POINT);
-						if(g_bMouseRB)m_pMGage_S->Consume(PLAYER_INVOCATION_POINT);
+						if(Cursor2D::getRButtonState())m_pMGage_N->Consume(PLAYER_INVOCATION_POINT);
+						if(Cursor2D::getLButtonState())m_pMGage_S->Consume(PLAYER_INVOCATION_POINT);
 					}
-					if( (g_bMouseLB && m_pMGage_N->getRate() > GAUGE_VANISHRATE) || (g_bMouseRB && m_pMGage_S->getRate() > GAUGE_VANISHRATE) ){
+					if( (Cursor2D::getLButtonState() && m_pMGage_N->getRate() < GAUGE_VANISHRATE) || (Cursor2D::getRButtonState() && m_pMGage_S->getRate() < GAUGE_VANISHRATE) ){
+
 						wiz::CONTROLER_STATE Controller1P = i_UpdatePacket.pCntlState[0] ;
 						D3DXVECTOR3 vMove = g_vZero ;
-						Point MousePos ;
-						GetCursorPos( &MousePos ) ;
-						ScreenToClient( wiz::DxDevice::m_hWnd , &MousePos) ;
-
-						m_vPos.x = (float)MousePos.x / DRAW_CLIENT_MAGNIFICATION - MAGNETIC_RADIUS ;
-						m_vPos.y = (( STANDARD_WINDOW_HEIGHT - MousePos.y ) - UI_HEIGHT ) / DRAW_CLIENT_MAGNIFICATION - MAGNETIC_RADIUS + ( m_Camera->getPosY() - m_MovePosY ) ;
+						m_vPos = m_pCursor->get3DPos();
 
 						if( !m_pPlayerCoil->getMagnetPole() ){
-							if(g_bMouseLB){
+							if(Cursor2D::getLButtonState()){
 								m_pMagneticField->setPole(POLE_N);
 								m_pMagneticField2->setPole(POLE_N);
 								m_pMagneticField3->setPole(POLE_N);
 								m_pMagneticField4->setPole(POLE_N);
 							}
-							else if(g_bMouseRB){
+							else if(Cursor2D::getRButtonState()){
 								m_pMagneticField->setPole(POLE_S);
 								m_pMagneticField2->setPole(POLE_S);
 								m_pMagneticField3->setPole(POLE_S);
@@ -185,13 +182,13 @@ void ProvisionalPlayer3D::Update( UpdatePacket& i_UpdatePacket ){
 							}
 						}
 						else{
-							if(g_bMouseRB){
+							if(Cursor2D::getRButtonState()){
 								m_pMagneticField->setPole(POLE_N);
 								m_pMagneticField2->setPole(POLE_N);
 								m_pMagneticField3->setPole(POLE_N);
 								m_pMagneticField4->setPole(POLE_N);
 							}
-							else if(g_bMouseLB){
+							else if(Cursor2D::getLButtonState()){
 								m_pMagneticField->setPole(POLE_S);
 								m_pMagneticField2->setPole(POLE_S);
 								m_pMagneticField3->setPole(POLE_S);
@@ -214,27 +211,26 @@ void ProvisionalPlayer3D::Update( UpdatePacket& i_UpdatePacket ){
 						m_pMagneticField4->Update(i_UpdatePacket);
 
 						if( !m_pPlayerCoil->getMagnetPole() ){
-							if( g_bMouseLB )
+							if( Cursor2D::getLButtonState() )
 								setPoleN() ;
-							if( g_bMouseRB )
+							if( Cursor2D::getRButtonState() )
 								setPoleS() ;
 						}
 						else{
-							if( g_bMouseRB )
+							if( Cursor2D::getRButtonState() )
 								setPoleN() ;
-							if( g_bMouseLB )
+							if( Cursor2D::getLButtonState() )
 								setPoleS() ;
 						}
 					}
 				}
-
 				//Suction	: 吸引
 				//Rebound	: 反発
-				bool	Suction	= g_bMouseRB;
-				bool	Rebound	= g_bMouseLB;
+				bool	Suction	= Cursor2D::getRButtonState();
+				bool	Rebound	= Cursor2D::getLButtonState();
 				if( !m_pPlayerCoil->getMagnetPole() ){
-					Suction	= g_bMouseLB;
-					Rebound	= g_bMouseRB;
+					Suction	= Cursor2D::getLButtonState();
+					Rebound	= Cursor2D::getRButtonState();
 				}
 
 				if( (Suction && m_pMGage_N->getRate() > GAUGE_VANISHRATE) || (Rebound && m_pMGage_S->getRate() > GAUGE_VANISHRATE) ){	
@@ -267,8 +263,8 @@ void ProvisionalPlayer3D::Update( UpdatePacket& i_UpdatePacket ){
 					m_Material = m_Material ;
 
 					//	: マウスのフラグ
-					//g_bMouseLB = false ;
-					//g_bMouseRB = false ;
+					//Cursor2D::getLButtonState() = false ;
+					//Cursor2D::getRButtonState() = false ;
 					m_bDrawing	= true;
 				}
 			}
@@ -285,8 +281,8 @@ void ProvisionalPlayer3D::Update( UpdatePacket& i_UpdatePacket ){
 	}else{
 			m_bDrawing	= false;
 	}
-	m_bLastMouseLB = g_bMouseLB ;
-	m_bLastMouseRB = g_bMouseRB ;
+	m_bLastMouseLB = Cursor2D::getLButtonState() ;
+	m_bLastMouseRB = Cursor2D::getRButtonState() ;
 
 	//磁界のエフェクトを動かす
 	m_pMagneticField4->Update(i_UpdatePacket);
@@ -406,8 +402,8 @@ void	MagneticField::Draw(DrawPacket &i_DrawPacket){
 ********************************************************************/
 void	MagneticField::Update(UpdatePacket& i_UpdatePacket)
 {
-	if( !m_pMGage_N )	 m_pMGage_N		= (MagneticGage_N*)SearchObjectFromTypeID(i_UpdatePacket.pVec,typeid(MagneticGage_N));
-	if( !m_pMGage_S )	 m_pMGage_S		= (MagneticGage_S*)SearchObjectFromTypeID(i_UpdatePacket.pVec,typeid(MagneticGage_S));
+	if( !m_pMGage_N )	 m_pMGage_N		= (MagneticGage_N*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_UI_MAGNETGAUGE_N);
+	if( !m_pMGage_S )	 m_pMGage_S		= (MagneticGage_S*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_UI_MAGNETGAUGE_S);
 	//	: マティリアル設定
 	if(m_Pole){
 		//N極
@@ -442,7 +438,7 @@ void	MagneticField::Update(UpdatePacket& i_UpdatePacket)
 		//}
 	}
 
-	PlayerCoil*	pc = (PlayerCoil*)SearchObjectFromTypeID(i_UpdatePacket.pVec,typeid(PlayerCoil));
+	PlayerCoil*	pc = (PlayerCoil*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_3D_COIL);
 	POLE	cPole	= pc->getMagnetPole();
 
 	D3DXMATRIX mMove, mScale;
