@@ -279,7 +279,7 @@ void CommonMesh::BoxVecNomal2UV_1_4(D3DXVECTOR3 vec,D3DXVECTOR3 normal,int ptn,f
 			u = 0.0f;
 			v = v_prim * ptn;
 		}
-		else if(vec.x > 0 && vec.y > 0 && vec.z < 0){//右上
+		else if(vec.x > 0 && vec.y > 0 && vec.z < 0){//左下
 			u = 0.0f;
 			v = v_prim * (ptn+1);
 		}
@@ -287,7 +287,7 @@ void CommonMesh::BoxVecNomal2UV_1_4(D3DXVECTOR3 vec,D3DXVECTOR3 normal,int ptn,f
 			u = 1.0f;
 			v = v_prim * (ptn+1);
 		}
-		else{ //左下
+		else{ //右上
 			u = 1.0f;
 			v = v_prim * ptn;
 		}
@@ -4630,13 +4630,9 @@ PrimitivePlate::PrimitivePlate( LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9
 		Vertex	*v ;	//	: 頂点バッファが内包する頂点データへのポインタを格納するためのポインタ
 		m_pVertexBuffer->Lock( 0, 0, (void**)&v ,0 );	//	: 頂点データのアドレスを取得するとともに、データへのアクセスを開始する
 		v[ 0 ]	= Vertex( D3DXVECTOR3( -0.5f, +0.5f, 0.0f ), dwColor, D3DXVECTOR2( 0.0f, 0.0f ) );
-		v[ 1 ]	= Vertex( D3DXVECTOR3( 0.5f, +0.5f, 0.0f ), dwColor, D3DXVECTOR2( 1.0f, 0.0f ) );
-		v[ 2 ]	= Vertex( D3DXVECTOR3( -0.5f, -0.5f, 0.0f ), dwColor, D3DXVECTOR2( 0.0f, 0.25f ) );
-		v[ 3 ]	= Vertex( D3DXVECTOR3( 0.5f, -0.5f, 0.0f ), dwColor, D3DXVECTOR2( 1.0f, 0.25f ) );
-		//v[ 0 ]	= Vertex( D3DXVECTOR3( 50.0f, 50.0f, 0.0f ), dwColor, D3DXVECTOR2( 0.0f, 0.0f ) );
-		//v[ 1 ]	= Vertex( D3DXVECTOR3( 350.0f, 50.0f, 0.0f ), dwColor, D3DXVECTOR2( 1.0f, 0.0f ) );
-		//v[ 2 ]	= Vertex( D3DXVECTOR3( 50.0f, 80.0f, 0.0f ), dwColor, D3DXVECTOR2( 0.0f, 0.25f ) );
-		//v[ 3 ]	= Vertex( D3DXVECTOR3( 350.0f, 80.0f, 0.0f ), dwColor, D3DXVECTOR2( 1.0f, 0.25f ) );
+		v[ 1 ]	= Vertex( D3DXVECTOR3( 0.5f, +0.5f, 0.0f ), dwColor, D3DXVECTOR2( 0.0f, 0.0f ) );
+		v[ 2 ]	= Vertex( D3DXVECTOR3( -0.5f, -0.5f, 0.0f ), dwColor, D3DXVECTOR2( 0.0f, 0.0f ) );
+		v[ 3 ]	= Vertex( D3DXVECTOR3( 0.5f, -0.5f, 0.0f ), dwColor, D3DXVECTOR2( 0.0f, 0.0f ) );
 		m_pVertexBuffer->Unlock();						//	: 頂点データへのアクセスを終了する
     }
     catch(...){
@@ -4663,15 +4659,17 @@ void PrimitivePlate::Draw(DrawPacket &i_DrawPacket){
 		pD3DDevice->SetFVF( Vertex::getFVF() );										//	: 頂点データの形式を設定	
 	}
 	pD3DDevice->DrawPrimitive( D3DPT_TRIANGLESTRIP, 0, 2 );						//	: 頂点データの描画（描画の仕方、描画開始位置、プリミティブ数）
+
 }
 
 void PrimitivePlate::Update(int i_iPtn){
 	m_pVertexBuffer->Lock( 0, 0, (void**)&v ,0 );	//	: 頂点データのアドレスを取得するとともに、データへのアクセスを開始する
-	v[ 0 ].vTex	= D3DXVECTOR2( 0.0f, 0.25f*(i_iPtn) ) ;
-	v[ 1 ].vTex	= D3DXVECTOR2( 1.0f, 0.25f*(i_iPtn) ) ;
-	v[ 2 ].vTex	= D3DXVECTOR2( 0.0f, 0.25f*(i_iPtn+1) ) ;
-	v[ 3 ].vTex	= D3DXVECTOR2( 1.0f, 0.25f*(i_iPtn+1) ) ;
+	v[ 0 ].vTex	= D3DXVECTOR2( 0.0f, 0.25f*(i_iPtn+1) ) ;
+	v[ 1 ].vTex	= D3DXVECTOR2( 0.0f, 0.25f*(i_iPtn)  ) ;
+	v[ 2 ].vTex	= D3DXVECTOR2( 1.0f, 0.25f*(i_iPtn+1) ) ;
+	v[ 3 ].vTex	= D3DXVECTOR2( 1.0f, 0.25f*(i_iPtn) ) ;
 	m_pVertexBuffer->Unlock();						//	: 頂点データへのアクセスを終了する
+
 }
 /**************************************************************************
  class Cursor3D 定義部
