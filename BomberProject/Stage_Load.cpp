@@ -12,7 +12,6 @@
 #include "StdAfx.h"
 #include "Scene.h"
 #include "Stage_Load.h"
-#include "Factory_Load.h"
 #include "stage.h"
 
 namespace wiz{
@@ -54,13 +53,6 @@ LoadStage();
 ***************************************************************************/
 LoadStage::~LoadStage(){
 	
-}
-
-void	LoadStage::Update(UpdatePacket &i_UpdatePacket){
-	if( Cursor2D::getLButtonState() || Cursor2D::getRButtonState() ){
-		//‘I‚Î‚ê‚½‰æ–Ê‚Ö‚Æ‚Ô
-		i_UpdatePacket.pCommand->m_Command	= GM_OPENSTAGE_PLAY;
-	}
 }
 
 }
