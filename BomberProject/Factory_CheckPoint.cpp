@@ -272,7 +272,7 @@ void	CheckEffect::Expansion(){
 /****************************************************************************
 CheckPoint ’è‹`•”
 ****************************************************************************/
-CheckPoint::CheckPoint( LPDIRECT3DDEVICE9 pD3DDevice, float fLength,LPDIRECT3DTEXTURE9 pTexture, wiz::OBJID id  )
+CheckPoint::CheckPoint( LPDIRECT3DDEVICE9 pD3DDevice, float fLength,LPDIRECT3DTEXTURE9 pTexture,LPDIRECT3DTEXTURE9 pTexture2, wiz::OBJID id  )
 : Cylinder( pD3DDevice, CHECK_POINT_RADIUS, CHECK_POINT_RADIUS, fLength, g_vZero, D3DXVECTOR3( 0.0f,D3DXToRadian( 90.0f )
 		   , 0.0f ), CHECKPOINTCOLOR, D3DCOLORVALUE(), CHECKPOINTCOLOR, id, false, NULL, 18) 
 , m_pCoil( NULL )
@@ -283,9 +283,11 @@ CheckPoint::CheckPoint( LPDIRECT3DDEVICE9 pD3DDevice, float fLength,LPDIRECT3DTE
 , m_Thicken( 1.0f )
 , m_Length( fLength )
 , m_pTexture( pTexture )
+, m_Box(pD3DDevice,D3DCOLORVALUE(),D3DCOLORVALUE(),D3DCOLORVALUE(),OBJID_SYS_CHECKPOINT_CHAR,pTexture2)
 {
 	m_pEffect	= new CheckEffect( pD3DDevice, g_vZero, fLength, pTexture );
 	m_pEffect2	= NULL;
+
 }
 CheckPoint::~CheckPoint(){
 	m_pCoil		= NULL ;
@@ -313,11 +315,15 @@ void CheckPoint::Update( UpdatePacket& i_UpdatePacket ){
 	if( !m_pCoil   ) m_pCoil   = (PlayerCoil*)SearchObjectFromID( i_UpdatePacket.pVec, OBJID_3D_COIL	) ;
 	if( !m_pSound  ) m_pSound  = (     Sound*)SearchObjectFromID( i_UpdatePacket.pVec, OBJID_SYS_SOUND	) ;
 	if( !m_pCamera ) m_pCamera = (    Camera*)SearchObjectFromID( i_UpdatePacket.pVec, OBJID_SYS_CAMERA ) ;
-	
-
 	if( m_pCoil && m_ActiveItem < m_ItemContainer.size()){
 		float fPosY		= m_ItemContainer[ m_ActiveItem ]->fPosY;
 		float fCoilPosY = m_pCoil->getPos().y;
+		D3DXMATRIX mMatrix ,mScale, mRot, mPos;
+		D3DXMatrixScaling(&mScale,1.0f,1.0f,1.0f);
+		D3DXMatrixRotationZ(&mRot,D3DXToRadian(0));
+		D3DXMatrixTranslation(&mPos, m_ItemContainer[ m_ActiveItem ]->vStartPos.x,m_ItemContainer[ m_ActiveItem ]->vStartPos.y,m_ItemContainer[ m_ActiveItem ]->vStartPos.z);
+		mMatrix = mScale * mRot * mPos ;
+		m_Box.CalcMatrix(mPos,mScale,mRot);
 		while(fPosY <= fCoilPosY){
 			m_pCoil->setStartPos(m_ItemContainer[ m_ActiveItem ]->vStartPos);
 			m_ActiveItem++;
@@ -387,26 +393,24 @@ void CheckPoint::Update( UpdatePacket& i_UpdatePacket ){
 void CheckPoint::Draw( DrawPacket& i_DrawPacket ){
 	if( m_pCamera && m_ActiveItem < m_ItemContainer.size()){
 
-
 		float DrawBeginLength = m_pCamera->getPosY() + DRAW_TOLERANCE ;
 		if( DrawBeginLength > m_ItemContainer[ m_ActiveItem ]->fPosY ){
 			m_BasePos = D3DXVECTOR3( m_pCamera->getAt().x, m_ItemContainer[ m_ActiveItem ]->fPosY,0.0f) ;
 			CalcWorldMatrix();
 			//Cylinder::Draw( i_DrawPacket );
-			
+			m_Box.Draw(i_DrawPacket);
 			OBB obb = OBB( m_BasePos, m_BaseQt, m_BaseScale );
 			//DrawOBB(i_DrawPacket);
 			//m_pCoil->HitTestWall();
 		}
-	}
 
+	}
 	if( m_pEffect != NULL ){
 		m_pEffect->Draw( i_DrawPacket );
 	}
 	if( m_pEffect2 != NULL ){
 		m_pEffect2->Draw( i_DrawPacket );
 	}
-
 };
 
 /////////////////// ////////////////////
