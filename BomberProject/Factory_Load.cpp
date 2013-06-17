@@ -114,63 +114,20 @@ void Load::Update(UpdatePacket& i_UpdatePacket)
 Factory_Load::Factory_Load(FactoryPacket* fpac){
 	try{
 		
-		//fpac->m_pVec->push_back(
-		//	new	Load(
-		//		fpac->pD3DDevice,
-		//		fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"load.png" ),
-		//		D3DXVECTOR3(1.0f,1.0f,0.0f),
-		//		g_vZero,
-		//		D3DXVECTOR3( 300.0f, 300.0f, 0.0f ),
-		//		Rect( 0, 0, 256, 64 ),
-		//		g_vZero,
-		//		g_vZero,
-		//		0xFFFFFFFF
-		//	)
-		//);
-
-		//Super
 		fpac->m_pVec->push_back(
-			new	SpriteObject(
+			new	Load(
 				fpac->pD3DDevice,
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Coil_Super.png" ),
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"load.png" ),
 				D3DXVECTOR3(1.0f,1.0f,0.0f),
-				D3DXVECTOR3(0.0f,0.0f,0.0f),
-				D3DXVECTOR3( 400.0f, 300.0f, 0.0f ),
-				Rect( 0, 0, 256, 256 ),
 				g_vZero,
-				g_vZero,
-				0xFFFFFFFF
-
-			)
-		);
-		//Coil*********************************************************************
-		fpac->m_pVec->push_back(
-			new	SpriteObject(
-				fpac->pD3DDevice,
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Coil_blue.png" ),
-				D3DXVECTOR3(1.0f,1.0f,0.0f),
-				D3DXVECTOR3(0.0f,0.0f,D3DXToRadian(190.0f)),
 				D3DXVECTOR3( 300.0f, 300.0f, 0.0f ),
-				Rect( 0, 0, 128, 128 ),
+				Rect( 0, 0, 256, 64 ),
 				g_vZero,
 				g_vZero,
 				0xFFFFFFFF
 			)
 		);
-		fpac->m_pVec->push_back(
-			new	SpriteObject(
-				fpac->pD3DDevice,
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Coil_red.png" ),
-				D3DXVECTOR3(1.0f,1.0f,0.0f),
-				D3DXVECTOR3(0.0f,0.0f,0.0f),
-				D3DXVECTOR3( 400.0f, 300.0f, 0.0f ),
-				Rect( 0, 0, 128, 128 ),
-				g_vZero,
-				g_vZero,
-				0xFFFFFFFF
-			)
-		);
-		//****************************************************************************
+
 
 		//Sound* pSound = NULL;
 		//fpac->m_pVec->push_back(
