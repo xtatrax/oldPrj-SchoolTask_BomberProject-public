@@ -27,6 +27,7 @@ class Load  public SpriteObject
 用途　：タイトル画面のボタン
 *************************************************************************/
 class	Load	: public SpriteObject{
+	Command			m_Com;
 	D3DXVECTOR3		m_vPos;
 	Sound*			m_pSound;
 	int				m_iTime;
@@ -42,6 +43,7 @@ public:
 		const RECT*					pRect		,
 		const D3DXVECTOR3&			vCenter		,
 		const D3DXVECTOR3&			vOffsetPos	,
+		const Command*				Com			,
 		const Color					color		= 0xFFFFFFFF
 	);
 	void	Draw(DrawPacket& i_DrawPacket);

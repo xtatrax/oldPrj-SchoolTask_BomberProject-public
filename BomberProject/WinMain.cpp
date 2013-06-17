@@ -65,6 +65,16 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 			// 構造体のハンドルで使ったメモリを解放する
 			DragFinish((HDROP)wParam);
 			return 0;
+		case WM_LBUTTONDOWN		:	wiz::Cursor2D::m_bMouseLB = true		;	break ; 
+		case WM_RBUTTONDOWN		:	wiz::Cursor2D::m_bMouseRB = true		;	break ;
+		case WM_MBUTTONDOWN		:	wiz::Cursor2D::m_bMouseMB = true		;	break ;
+		case WM_LBUTTONUP		:	wiz::Cursor2D::m_bMouseLB = false	;	break ;
+		case WM_RBUTTONUP		:	wiz::Cursor2D::m_bMouseRB = false	;	break ;
+		case WM_MBUTTONUP		:	wiz::Cursor2D::m_bMouseMB = false	;	break ;
+		case WM_LBUTTONDBLCLK	:	break;
+		case WM_RBUTTONDBLCLK	:	break;
+		case WM_MBUTTONDBLCLK	:	break;
+
         default:
         break;
     }
@@ -218,6 +228,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE
         // ウインドウサイズの再設定
         ::SetWindowPos(wiz::DxDevice::m_hWnd,HWND_TOP,0,0,w_width,w_height,SWP_NOMOVE);
     }
+	SetCapture(wiz::DxDevice::m_hWnd);
 	ShowCursor(DRAW_MOUSE);
 	wiz::__GetClientSize(wiz::Rect(0,0,iClientWidth,iClientHeight));
 	wiz::DxDevice::setClientRect(wiz::Rect(0,0,iClientWidth,iClientHeight));
@@ -236,6 +247,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE
         // DirectXデバイスオブジェクトの初期化
         wiz::DxDevice* device = new wiz::DxDevice(isFullScreen,iClientWidth,iClientHeight);
 		int ret =  (int) device->MainThreadRun();
+		ReleaseCapture();
+
 		SafeDelete( device );
 		::PostQuitMessage(0);
 		ShowCursor(true);
