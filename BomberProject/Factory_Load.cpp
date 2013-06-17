@@ -45,12 +45,13 @@ Load 定義部
 ////
 Load::Load(const LPDIRECT3DDEVICE9 pD3DDevice,const LPDIRECT3DTEXTURE9 pTexture,
 		const D3DXVECTOR3 &vScale,const D3DXVECTOR3 &vRot,const D3DXVECTOR3 &vPos,
-		const RECT *pRect,const D3DXVECTOR3 &vCenter,const D3DXVECTOR3 &vOffsetPos,const Color color)
+		const RECT *pRect, const D3DXVECTOR3 &vCenter,const D3DXVECTOR3 &vOffsetPos,const Color color)
 :SpriteObject( pD3DDevice, pTexture, vScale, vRot, vPos, pRect, vCenter, vOffsetPos, color )
 ,m_vPos( vPos )
 ,m_pSound( NULL )
 ,m_iTime( 0 )
 ,m_fRate( 1.0f )
+,m_iPtn( 0 )
 {
 	try{
 		//	: 初期マトリックスを計算
@@ -95,8 +96,16 @@ void Load::Draw(DrawPacket& i_DrawPacket)
 ////
 void Load::Update(UpdatePacket& i_UpdatePacket)
 {
-	//if( Cursor2D::getLButtonState() )
-		//i_UpdatePacket.pCommand->m_Command	= GM_OPENSTAGE_PLAY;
+	m_pRect->top	= m_iPtn	*128;
+	m_pRect->bottom	= (m_iPtn+1)*128;
+
+	if( m_iTime%20 == 0 )
+	m_iPtn++;
+	m_iPtn	%= 4;
+
+	m_iTime++;
+	if( m_iTime > 240 )
+		i_UpdatePacket.pCommand->m_Command	= GM_OPENSTAGE_PLAY;
 };
 
 /**************************************************************************
@@ -117,11 +126,11 @@ Factory_Load::Factory_Load(FactoryPacket* fpac){
 		fpac->m_pVec->push_back(
 			new	Load(
 				fpac->pD3DDevice,
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"load.png" ),
-				D3DXVECTOR3(1.0f,1.0f,0.0f),
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"NOW_LOADING.png" ),
+				D3DXVECTOR3(0.5f,0.5f,0.0f),
 				g_vZero,
 				D3DXVECTOR3( 300.0f, 300.0f, 0.0f ),
-				Rect( 0, 0, 256, 64 ),
+				Rect( 0, 0, 1024, 128 ),
 				g_vZero,
 				g_vZero,
 				0xFFFFFFFF
