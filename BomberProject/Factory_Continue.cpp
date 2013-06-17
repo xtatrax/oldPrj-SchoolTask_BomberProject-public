@@ -151,11 +151,14 @@ Dead 定義部
 //// 備考       ：
 ////            ：
 ////
-Dead::Dead(const LPDIRECT3DDEVICE9 pD3DDevice,const  LPDIRECT3DTEXTURE9 pTexture,
-		const D3DXVECTOR3 &vScale,const D3DXVECTOR3 &vRot,const D3DXVECTOR3 &vPos,
-		const RECT *pRect,const  D3DXVECTOR3 &vCenter,const  D3DXVECTOR3 &vOffsetPos,const  Color color)
+Dead::Dead(	const LPDIRECT3DDEVICE9 pD3DDevice,const  LPDIRECT3DTEXTURE9 pTexture,
+			const LPDIRECT3DTEXTURE9 pDeadCountTex, const  LPDIRECT3DTEXTURE9 pCountCharTex,const int iDeadCount,
+			const D3DXVECTOR3 &vScale,const D3DXVECTOR3 &vRot,const D3DXVECTOR3 &vPos,
+			const RECT *pRect,const  D3DXVECTOR3 &vCenter,const  D3DXVECTOR3 &vOffsetPos,const  Color color)
 :SpriteObject( pD3DDevice, pTexture, vScale, vRot, vPos, pRect, vCenter, vOffsetPos, color )
 ,m_iTime(0)
+,m_pDeadScore( NULL )
+,m_pDeadCountChar( NULL )
 {
 	try{
 		//	: 初期マトリックスを計算
@@ -164,6 +167,19 @@ Dead::Dead(const LPDIRECT3DDEVICE9 pD3DDevice,const  LPDIRECT3DTEXTURE9 pTexture
 		D3DXMatrixRotationYawPitchRoll(&mRot,vRot.y,vRot.x,vRot.z);
 		D3DXMatrixTranslation(&mPos,vPos.x,vPos.y,vPos.z);
 		m_mMatrix = mScale * mRot * mPos ;
+
+		float	wide	= BASE_CLIENT_WIDTH/2;
+		float	height	= BASE_CLIENT_HEIGHT/2;
+		int		iCount	= iDeadCount+1;
+
+		D3DXVECTOR3	vScoreScale		= D3DXVECTOR3( 1.0f, 1.0f, 0.0f );
+		D3DXVECTOR3	vScorePos		= D3DXVECTOR3( wide+80*vScoreScale.x, height-32.0f*vScoreScale.y+65.0f, 0.0f );
+		D3DXVECTOR3	vCountCharScale	= D3DXVECTOR3( 0.6f, 2.0f, 0.0f );
+		D3DXVECTOR3	vCountCharPos	= D3DXVECTOR3( wide-256, height, 0.0f );
+
+		m_pDeadScore			= new Score( pD3DDevice, pDeadCountTex, vScoreScale, vScorePos, 4, iCount, &Rect( 0, 0, 512, 64 ) );
+		m_pDeadCountChar		= new SpriteObject( pD3DDevice, pCountCharTex, vCountCharScale, g_vZero, vCountCharPos, NULL, g_vZero,g_vZero );
+
 	}
 	catch(...){
 		SafeRelease(m_pSprite);
@@ -172,6 +188,13 @@ Dead::Dead(const LPDIRECT3DDEVICE9 pD3DDevice,const  LPDIRECT3DTEXTURE9 pTexture
 	}
 };
 
+/************************************
+デストラクタ
+************************************/
+Dead::~Dead(){
+	SAFE_DELETE(m_pDeadScore);
+	SAFE_DELETE(m_pDeadCountChar);
+}
 /////////////////// ////////////////////
 //// 関数名     ：void Dead::Draw( DrawPacket& i_DrawPacket)
 //// カテゴリ   ：関数
@@ -185,7 +208,10 @@ Dead::Dead(const LPDIRECT3DDEVICE9 pD3DDevice,const  LPDIRECT3DTEXTURE9 pTexture
 void Dead::Draw(DrawPacket& i_DrawPacket)
 {
 	//	: 描画は親クラスに任せる
-	SpriteObject::Draw(i_DrawPacket);
+	SpriteObject::Draw( i_DrawPacket );
+
+	if( m_pDeadScore )		m_pDeadScore->Draw( i_DrawPacket );
+	if( m_pDeadCountChar )	m_pDeadCountChar->Draw( i_DrawPacket );
 };
 
 /////////////////// ////////////////////
@@ -207,6 +233,14 @@ void Dead::Update(UpdatePacket& i_UpdatePacket)
 
 	}
 	m_iTime++;
+
+	if( m_pDeadScore ){
+		m_pDeadScore->setAlpha( m_Color.byteColor.a );
+		m_pDeadScore->Update( i_UpdatePacket );
+	}
+	if( m_pDeadCountChar ){
+		m_pDeadCountChar->setAlpha( m_Color.byteColor.a );
+	}
 };
 
 /************************************************************************
