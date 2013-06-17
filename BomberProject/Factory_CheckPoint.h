@@ -18,6 +18,7 @@
 //////////
 //	: インクルード
 #include "Factory_Coil.h"
+#include "BassItems.h"
 //	: インクルード
 //////////
 namespace wiz{
@@ -209,6 +210,7 @@ protected:
 		{}
 	};
 	typedef vector< ITEM* > ITEMCONTAINER	;
+	PrimitiveBox			m_Box			;
 	ITEMCONTAINER			m_ItemContainer ;
 	size_t					m_ActiveItem    ;
 	Camera*					m_pCamera		;
@@ -247,7 +249,7 @@ protected:
 	void RemoveTarget();
 
 public:
-	CheckPoint( LPDIRECT3DDEVICE9 pD3DDevice, float fLength,LPDIRECT3DTEXTURE9 pTexture, wiz::OBJID id = OBJID_SYS_CHECKPOINT );
+	CheckPoint( LPDIRECT3DDEVICE9 pD3DDevice, float fLength,LPDIRECT3DTEXTURE9 pTexture,LPDIRECT3DTEXTURE9 pTexture2, wiz::OBJID id = OBJID_SYS_CHECKPOINT );
 	~CheckPoint();
 	/////////////////// ////////////////////
 	//// 関数名     ：virtual void Update( UpdatePacket& i_UpdatePacket )
