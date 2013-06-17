@@ -47,6 +47,7 @@
 #include "Factory_DeadEffect.h"
 #include "Factory_Cursor.h"
 #include "Factory_Player.h"
+//#include "Factory_Description.h"
 //	: インクルード
 //////////
 
@@ -151,8 +152,10 @@ class PlayerCoil : public MagneticumObject3D{
 	LPDIRECT3DTEXTURE9	m_pContinueTex	;	//Continue
 	LPDIRECT3DTEXTURE9	m_pTitleTex		;	//Title
 	LPDIRECT3DTEXTURE9	m_pDeadCharTex	;	//You'er Dead
+	LPDIRECT3DTEXTURE9	m_pDeadCountTex	;	//死んだ回数
 	LPDIRECT3DTEXTURE9	m_pRethinkingTex;	//Really?
 	LPDIRECT3DTEXTURE9	m_pAnswerTex	;	//Yes : No
+	LPDIRECT3DTEXTURE9	m_pCountCharTex	;
 public:
 	/////////////////// ////////////////////
 	//// 関数名     ：PlayerCoil::PlayerCoil(
@@ -184,14 +187,7 @@ public:
 	////
 	PlayerCoil(
 		LPDIRECT3DDEVICE9	pD3DDevice			,
-		LPDIRECT3DTEXTURE9	pTexture			,
-		LPDIRECT3DTEXTURE9	pTexture_Super		,
-		LPDIRECT3DTEXTURE9	pTexture_Dead		,
-		LPDIRECT3DTEXTURE9	pTexture_Continue	,
-		LPDIRECT3DTEXTURE9	pTexture_Title		,
-		LPDIRECT3DTEXTURE9	pTexture_DeadChar	,
-		LPDIRECT3DTEXTURE9	pTexture_Rethinking	,
-		LPDIRECT3DTEXTURE9	pTexture_Answer		,
+		TextureManager*		m_pTexMgr			,
 		float				Radius1				,
 		float				Radius2				,
 		float				Radius3				,

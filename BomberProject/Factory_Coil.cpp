@@ -73,16 +73,14 @@ extern class WallObject ;
 ////            ：
 ////
 PlayerCoil::PlayerCoil(
-		LPDIRECT3DDEVICE9 pD3DDevice,LPDIRECT3DTEXTURE9 pTexture,LPDIRECT3DTEXTURE9 pTexture_Super,
-		LPDIRECT3DTEXTURE9 pTexture_Dead,LPDIRECT3DTEXTURE9 pTexture_Continue,LPDIRECT3DTEXTURE9 pTexture_Title,
-		LPDIRECT3DTEXTURE9 pTexture_DeadChar,LPDIRECT3DTEXTURE9 pTexture_Rethinking,LPDIRECT3DTEXTURE9 pTexture_Answer,
+		LPDIRECT3DDEVICE9 pD3DDevice,TextureManager* m_pTexMgr,
 		float Radius1,float Radius2,float Radius3,float Lenght,
 		D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos,
 		D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,
 		wiz::OBJID id
 	)
-:MagneticumObject3D(	pD3DDevice, pTexture, Radius1, Radius2, Lenght,
-							vRot, vPos, Diffuse, Specular, Ambient, id )
+:MagneticumObject3D(	pD3DDevice, NULL, Radius1, Radius2, Lenght,
+						vRot, vPos, Diffuse, Specular, Ambient, id )
 ,m_vPos(				vPos								)
 ,m_vRot(				vRot								)
 ,m_vScale(				D3DXVECTOR3( 0.0f, 0.0f, 0.0f)		)
@@ -106,12 +104,18 @@ PlayerCoil::PlayerCoil(
 ,m_pMagneticumObject(	NULL								)
 ,m_pCamera(				NULL								)
 ,m_pSound(				NULL								)
-,m_pDeadTex(			pTexture_Dead						)
-,m_pContinueTex(		pTexture_Continue					)
-,m_pTitleTex(			pTexture_Title						)
-,m_pDeadCharTex(		pTexture_DeadChar					)
-,m_pRethinkingTex(		pTexture_Rethinking					)
-,m_pAnswerTex(			pTexture_Answer						)
+
+//テクスチャ*********************************************************************
+,m_pDeadTex(			m_pTexMgr->addTexture( pD3DDevice, L"DeadPerticul.png"	))
+,m_pContinueTex(		m_pTexMgr->addTexture( pD3DDevice, L"CONTINUE4.png"		))
+,m_pTitleTex(			m_pTexMgr->addTexture( pD3DDevice, L"GAME_END3.png"		))
+,m_pDeadCharTex(		m_pTexMgr->addTexture( pD3DDevice, L"dead6.png"			))
+,m_pDeadCountTex(		m_pTexMgr->addTexture( pD3DDevice, L"Number_Base1.png"	))
+,m_pRethinkingTex(		m_pTexMgr->addTexture( pD3DDevice, L"REALLY4.png"		))
+,m_pAnswerTex(			m_pTexMgr->addTexture( pD3DDevice, L"YESorNO5.png"		))
+,m_pCountCharTex(		m_pTexMgr->addTexture( pD3DDevice, L"dead_count1.png"	))
+//**********************************************************************************
+
 ,m_enumCoilState(		COIL_STATE_STOP						)
 ,m_enumCoilStateSuper(	COIL_STATE_SUPER_CHARGE				)
 #if defined( ON_DEBUGGINGPROCESS ) | defined( PRESENTATION )
@@ -123,7 +127,8 @@ PlayerCoil::PlayerCoil(
 	D3DXMatrixIdentity( &m_Matrix ) ;
 	m_pSphere	  = new Sphere(pD3DDevice,Radius3,vPos,vRot,Diffuse,Specular,Ambient);
 	D3DXVECTOR3	v = COIL_SUPER_MODE_FIELD_SCALE;
-	m_pSuperField = new Box(pD3DDevice,v,vPos,vRot,Diffuse,Specular,Ambient,OBJID_3D_BOX,false,pTexture_Super);
+	m_pSuperField = new Box(pD3DDevice,v,vPos,vRot,Diffuse,Specular,Ambient,OBJID_3D_BOX,false,
+									m_pTexMgr->addTexture( pD3DDevice, L"SuperField.png" ) );
 	setPoleN();
 	SetBaseRot(vRot);
 
@@ -376,8 +381,10 @@ void	PlayerCoil::CreateEffect( UpdatePacket& i_UpdatePacket ){
 	float	wide	= BASE_CLIENT_WIDTH/2;
 	float	height	= BASE_CLIENT_HEIGHT/2;
 
-	m_pDeadChar	= new Dead( i_UpdatePacket.pD3DDevice, m_pDeadCharTex, D3DXVECTOR3( 1.0f, 1.0f, 0.0f ),g_vZero,
-					D3DXVECTOR3( wide-512.0f,height-256.0f,0.0f ),NULL,g_vZero,g_vZero);
+	D3DXVECTOR3	vScale	= D3DXVECTOR3( 0.5f, 0.5f, 0.0f );
+	D3DXVECTOR3	vPos	= D3DXVECTOR3( (wide-512.0f*vScale.x), (height-256.0f*vScale.y-100), 0.0f );
+	m_pDeadChar	= new Dead( i_UpdatePacket.pD3DDevice, m_pDeadCharTex, m_pDeadCountTex, m_pCountCharTex,
+							m_iDeadCount, vScale,g_vZero,vPos,NULL,g_vZero,g_vZero);
 
 	//Yes,Noの作成
 	m_pSelect	= new Continue( i_UpdatePacket.pD3DDevice, m_pAnswerTex, NULL, NULL, true, D3DXVECTOR3(1.0f,1.0f,0.0f),g_vZero,
@@ -969,14 +976,14 @@ Factory_Coil::Factory_Coil( FactoryPacket* fpac, DWORD dwResumptionCheckPoint, D
 		fpac->m_pVec->push_back(
 			new PlayerCoil(
 				fpac->pD3DDevice,
-				NULL,
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"SuperField.png" ),
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"DeadPerticul.png" ),
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"CONTINUE4.png" ),
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"GAME_END3.png" ),
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"dead6.png" ),
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"REALLY4.png" ),
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"YESorNO5.png" ),
+				fpac->m_pTexMgr,
+				//fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"SuperField.png" ),
+				//fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"DeadPerticul.png" ),
+				//fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"CONTINUE4.png" ),
+				//fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"GAME_END3.png" ),
+				//fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"dead6.png" ),
+				//fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"REALLY4.png" ),
+				//fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"YESorNO5.png" ),
 				0.0f,0.7f,1.0f,1.0f,vScale,D3DXVECTOR3(90.0f,0.0f,0.0f),vPos,
 				CoilDiffuse,CoilSpecular,CoilAmbient
 				)

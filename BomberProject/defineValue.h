@@ -261,6 +261,7 @@ namespace wiz{
 		OBJID_SYS_CLEARAREA			,	//	: クリア領域
 		OBJID_SYS_RENDERTARGET		,	//	: レンダーターゲット
 		OBJID_SYS_END				,	
+		OBJID_SYS_START				,	
 
 		OBJID_BEHAVIOR_TEST					,
 		OBJID_BEHAVIOR_CHECKPOINTSAVE		,
