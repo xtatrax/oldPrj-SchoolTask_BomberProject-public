@@ -132,7 +132,7 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 				//	: そのままオブジェクトを追加
 				dynamic_cast< TARGET_CLASS* >(( *m_pVec )[it->second])->addItem(
 					i_Data.vPos			,
-					g_vZero				,
+					g_vOne				,
 					i_Data.Diffuse		,
 					i_Data.Specular		,
 					i_Data.Ambient		,
@@ -164,7 +164,7 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 				//	: アイテムの追加
 				mgb->addItem(
 					i_Data.vPos			,
-					g_vZero				,
+					g_vOne				,
 					i_Data.Diffuse		,
 					i_Data.Specular		,
 					i_Data.Ambient		,
