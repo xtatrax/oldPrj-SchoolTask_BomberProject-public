@@ -484,7 +484,7 @@ void WallObject::Update( UpdatePacket& i_UpdatePacket ){
 				case COIL_STATE_MOVE:
 					if(m_pPlayerCoil->getSuperMode() == COIL_STATE_SUPER_CHARGE || m_pPlayerCoil->getSuperMode() == COIL_STATE_SUPER_READY){
 						m_pSound->SearchWaveAndPlay( RCTEXT_SOUND_SE_PLAYERBLOKEN );
-						//m_pPlayerCoil->setState(COIL_STATE_DEAD);
+						m_pPlayerCoil->setState(COIL_STATE_DEAD);
 					}
 					break;
 				default:
