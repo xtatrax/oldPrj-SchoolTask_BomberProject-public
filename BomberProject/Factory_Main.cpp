@@ -20,11 +20,13 @@
 //	: 追加のインクルード
 #include "StageLoader.h"
 #include "Factory_Description.h"
+#include "Factory_Description.h"
 #include "Factory_Enemy.h"
 #include "Factory_Item.h"
 #include "Factory_Player.h"
 #include "Factory_Score.h"
 #include "Factory_Wall.h"
+#include "Factory_CheckPointSave.h"
 //	: 追加のインクルード
 //////////
 
@@ -140,6 +142,7 @@ Factory_Main::Factory_Main(FactoryPacket* fpac, DWORD dwStageNum, DWORD dwResump
 		Factory_Gage		Gfac( fpac ) ;
 		Factory_Score		Sfac( fpac ) ;
 		Factory_Enemy		Efac( fpac ) ;
+		Factory_CheckPointSave	CPSfac( fpac , dwStageNum);
 		//	: 下請け工場へ発注
 		//////////
 

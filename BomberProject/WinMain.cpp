@@ -104,6 +104,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE
     printf("%2d", local.tm_sec);
     printf(" %d\n", local.tm_isdst);
 
+
 	Debugger::DBGWRITINGLOGTEXT::Init();
 	Debugger::DBGWRITINGLOGTEXT::addStr(L" 最終起動 \n");
 	Debugger::DBGWRITINGLOGTEXT::addStr(L" ローカル時間 %4d/%2d/%2d %2d:%2d:%2d %d \n",
@@ -186,7 +187,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE
             0,                              //オプションのウィンドウスタイル
             pClassName,                     //ウインドウクラス名
             pWndTitle,                      //ウインドウのタイトル
-            WS_OVERLAPPEDWINDOW,            //移動バーをもつ通常のウインドウ
+            WS_OVERLAPPED | WS_SYSMENU,            //移動バーをもつ通常のウインドウ
             CW_USEDEFAULT, CW_USEDEFAULT,   //位置はWindowsに任せる
             iClientWidth,                    //ウインドウ幅（暫定）
             iClientHeight,                   //ウインドウ高さ（暫定）
