@@ -414,9 +414,9 @@ void WallObject::Update( UpdatePacket& i_UpdatePacket ){
 						D3DXVECTOR3 vColiPos = m_pPlayerCoil->getPos(),
 									vWallPos = (*it)->m_Obb_W.m_Center,
 									vWallSiz = (*it)->m_Obb_W.m_Size,
-									vWallRot = (*it)->m_Obb_W.m_Rot[3],
 									vWarning = vColiPos;
-						if(vWallRot.y < 13.5f){
+						float		fRotZ	 = (*it)->m_fRotZ;
+						if(fRotZ < 90.0f){
 							if(vWallPos.x <= vColiPos.x){
 								if(vWallPos.y - vWallSiz.y > vColiPos.y){
 									vWarning.x = vWallPos.x;

@@ -18,6 +18,7 @@
 //////////
 //	: インクルード
 #include "Factory_Coil.h"
+#include "BassItems.h"
 //	: インクルード
 //////////
 namespace wiz{
@@ -221,6 +222,7 @@ protected:
 	float					m_Length		;
 	LPDIRECT3DTEXTURE9		m_pTexture		;
 	D3DXVECTOR3				m_vPos			;
+	Box*					m_pPintMark		;
 	/////////////////// ////////////////////
 	//// 関数名     ：
 	//// カテゴリ   ：メンバ関数
@@ -247,7 +249,7 @@ protected:
 	void RemoveTarget();
 
 public:
-	CheckPoint( LPDIRECT3DDEVICE9 pD3DDevice, float fLength,LPDIRECT3DTEXTURE9 pTexture, wiz::OBJID id = OBJID_SYS_CHECKPOINT );
+	CheckPoint( LPDIRECT3DDEVICE9 pD3DDevice, float fLength,LPDIRECT3DTEXTURE9 pTexture,LPDIRECT3DTEXTURE9 pTexture2, wiz::OBJID id = OBJID_SYS_CHECKPOINT );
 	~CheckPoint();
 	/////////////////// ////////////////////
 	//// 関数名     ：virtual void Update( UpdatePacket& i_UpdatePacket )

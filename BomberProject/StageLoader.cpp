@@ -132,7 +132,7 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 				//	: そのままオブジェクトを追加
 				dynamic_cast< TARGET_CLASS* >(( *m_pVec )[it->second])->addItem(
 					i_Data.vPos			,
-					g_vZero				,
+					g_vOne				,
 					i_Data.Diffuse		,
 					i_Data.Specular		,
 					i_Data.Ambient		,
@@ -164,7 +164,7 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 				//	: アイテムの追加
 				mgb->addItem(
 					i_Data.vPos			,
-					g_vZero				,
+					g_vOne				,
 					i_Data.Diffuse		,
 					i_Data.Specular		,
 					i_Data.Ambient		,
@@ -338,6 +338,7 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 						m_pD3DDevice	,
 						100.0f			,
 						m_pTexMgr->addTexture(m_pD3DDevice,L"particle.png"),
+						m_pTexMgr->addTexture(m_pD3DDevice,L"CHECK_POINT1.png"),
 						ObjectID
 					);
 
@@ -920,10 +921,10 @@ void StageLoader2::PartsGenerator(MapPartsStatus i_Data){
 					i_Data.vPos, i_Data.vScale, i_Data.Diffuse, i_Data.Specular, i_Data.Ambient,ITEM_TYPE_NULL
 				);
 			}else{
-				FactoryPacket fpac;
-				fpac.m_pTexMgr  = m_pTexMgr		;
-				fpac.m_pVec     = m_pVec		;
-				fpac.pD3DDevice = m_pD3DDevice	;
+				FactoryPacket fpac(m_pD3DDevice,false,m_pVec,m_pTexMgr);
+				//fpac.m_pTexMgr  = m_pTexMgr		;
+				//fpac.m_pVec     = m_pVec		;
+				//fpac.pD3DDevice = m_pD3DDevice	;
 				//	: 登録がなかった場合
 				Item* mgb = new Item( &fpac, NULL, ObjectID);
 				mgb->addItem(

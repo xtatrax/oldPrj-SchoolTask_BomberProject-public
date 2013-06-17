@@ -264,6 +264,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Structs.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\Structs.h"
 				>
 			</File>
@@ -819,10 +823,6 @@
 			>
 			<File
 				RelativePath=".\defineValue.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\defineValue.h"
 				>
 			</File>
 			<File

@@ -265,12 +265,16 @@ int DxDevice::MainThreadRun(){
 				/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 					//	: シングルスレッド宣言がされていたら
 					//	: ここでマウスの状態を獲得する
-				case WM_LBUTTONDOWN	:	Cursor2D::m_bMouseLB = true		;	break ; 
-				case WM_RBUTTONDOWN :	Cursor2D::m_bMouseRB = true		;	break ;
-				case WM_MBUTTONDOWN	:	Cursor2D::m_bMouseMB = true		;	break ;
-				case WM_LBUTTONUP	:	Cursor2D::m_bMouseLB = false	;	break ;
-				case WM_RBUTTONUP	:	Cursor2D::m_bMouseRB = false	;	break ;
-				case WM_MBUTTONUP	:	Cursor2D::m_bMouseMB = false	;	break ;
+				case WM_LBUTTONDOWN		:	Cursor2D::m_bMouseLB = true		;	break ; 
+				case WM_RBUTTONDOWN		:	Cursor2D::m_bMouseRB = true		;	break ;
+				case WM_MBUTTONDOWN		:	Cursor2D::m_bMouseMB = true		;	break ;
+				case WM_LBUTTONUP		:	Cursor2D::m_bMouseLB = false	;	break ;
+				case WM_RBUTTONUP		:	Cursor2D::m_bMouseRB = false	;	break ;
+				case WM_MBUTTONUP		:	Cursor2D::m_bMouseMB = false	;	break ;
+				case WM_LBUTTONDBLCLK	:	break;
+				case WM_RBUTTONDBLCLK	:	break;
+				case WM_MBUTTONDBLCLK	:	break;
+
 				/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 				#endif
 
