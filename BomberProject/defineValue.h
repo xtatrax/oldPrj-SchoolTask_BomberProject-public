@@ -84,10 +84,17 @@
 //	: デファイン定数
 #define MAP_PARTS_HEIGHT		(    1.0f)	/*  */
 #define MAP_PARTS_WIDTH			(    1.0f)	/*  */
+#if defined(CF_FULLSCREEN)
+#define BASE_CLIENT_HEIGHT		(  600.0f)	/* 基準になる描画領域の高さ */
+#define BASE_CLIENT_WIDTH		( 1024.0f)	/* 基準になる描画領域の幅   */
+#define STANDARD_WINDOW_HEIGHT  (  768.0f)	/* ウインドウモードの高さ   */
+#define STANDARD_WINDOW_WIDTH   ( 1366.0f)	/* ウインドウモードの幅     */
+#else
 #define BASE_CLIENT_HEIGHT		(  600.0f)	/* 基準になる描画領域の高さ */
 #define BASE_CLIENT_WIDTH		( 1024.0f)	/* 基準になる描画領域の幅   */
 #define STANDARD_WINDOW_HEIGHT  (  600.0f)	/* ウインドウモードの高さ   */
 #define STANDARD_WINDOW_WIDTH   ( 1024.0f)	/* ウインドウモードの幅     */
+#endif
 //#define BASE_CLIENT_HEIGHT		(  600.0f)	/* 基準になる描画領域の高さ */
 //#define BASE_CLIENT_WIDTH		( 1024.0f)	/* 基準になる描画領域の幅   */
 //#define STANDARD_WINDOW_HEIGHT  ( 1200.0f)	/* ウインドウモードの高さ   */
@@ -192,6 +199,7 @@ namespace wiz{
 		GM_OPENSTAGE_TITLE			,	//	: タイトル画面を開く
 		GM_OPENSTAGE_SELECT			,	//	: セレクト画面を開く
 		GM_OPENSTAGE_LOAD			,	//	: ロード画面を開く
+		GM_OPENSTAGE_LOAD_PLAY		,	//	: ロード画面を開いた後にプレイ画面を開く
 		GM_OPENSTAGE_PLAY			,	//	: プレイ画面を開く
 		GM_OPENSTAGE_GAMECLEAR		,	//	: クリア画面を開く
 		GM_OPENSTAGE_GAMEOVER		,	//	: ゲームオーバー画面を開く
@@ -258,6 +266,7 @@ namespace wiz{
 		OBJID_SYS_CURSOR			,	//	: カーソル
 		OBJID_SYS_SOUND				,	//	: 音声
 		OBJID_SYS_CHECKPOINT		,	//	: チェックポイント
+		OBJID_SYS_CHECKPOINT_CHAR	,	//	: チェックポイント
 		OBJID_SYS_CLEARAREA			,	//	: クリア領域
 		OBJID_SYS_RENDERTARGET		,	//	: レンダーターゲット
 		OBJID_SYS_END				,	

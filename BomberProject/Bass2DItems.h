@@ -18,19 +18,22 @@ namespace wiz {
 
 namespace base2Dobject{
 class PrimitiveSprite;
+extern LRESULT CALLBACK WindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
+extern class MouseUtilityCushion ;
 /*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*/
 class Cursor2D{
 	
-	friend class DxDevice;
-
 	static Point		m_vMousePoint	;
+	static DWORD		m_tLastTime		;
+	const static float	m_fLockTime		;
+public:
     static bool			m_bMouseLB		;
     static bool			m_bMouseRB		;
     static bool			m_bMouseMB		;
-	static DWORD		m_tLastTime;
-	const static float	m_fLockTime;
-private:
 public:
+	friend class DxDevice;
+	friend class MouseUtilityCushion ;
+	friend static LRESULT CALLBACK WindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 	static Point getPos();
 	static bool getLButtonState(){return m_bMouseLB;};
 	static bool getMButtonState(){return m_bMouseMB;};
