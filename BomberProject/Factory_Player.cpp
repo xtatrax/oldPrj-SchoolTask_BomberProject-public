@@ -23,7 +23,7 @@ namespace bomberobject{
 
 //Camera*	ProvisionalPlayer3D::m_Camera	= NULL;
 extern class WallObject ;
-const	float	GAUGE_VANISHRATE	= 0.87f;
+const	float	GAUGE_VANISHRATE	= 0.0f;
 // 3D用
 /**************************************************************************
  ProvisionalPlayer3D 定義部
@@ -69,18 +69,6 @@ ProvisionalPlayer3D::ProvisionalPlayer3D(
 	D3DXMatrixIdentity( &m_Matrix ) ;
 	setPoleS();
 
-	//m_Item_Poly.m_pTexture = pTexture2;
-	//m_Item_Poly.m_vScale.x = vScale.x;
-	//m_Item_Poly.m_vScale.y = vScale.y;
-	//m_Item_Poly.m_vScale.z = 0.0f;
-	//m_Item_Poly.m_vPos	= vPos;
- //   ::ZeroMemory(&m_Item_Poly.m_Material,sizeof(D3DMATERIAL9));
-	//m_Item_Poly.m_Material.Diffuse = D3DCOLORVALUE();
-	//m_Item_Poly.m_Material.Specular = D3DCOLORVALUE();
-	//m_Item_Poly.m_Material.Ambient = D3DCOLORVALUE();
-	////回転の初期化
-	//D3DXQuaternionRotationYawPitchRoll(&m_Item_Poly.m_vRot,
-	//		D3DXToRadian(vRot.y),D3DXToRadian(vRot.x),D3DXToRadian(vRot.z));
 }
 /////////////////// ////////////////////
 //// 関数名     ：~ProvisionalPlayer3D();
@@ -122,34 +110,6 @@ void ProvisionalPlayer3D::Draw(DrawPacket& i_DrawPacket)
 				m_bPlaySound = true ;
 				m_pSound->SearchSoundAndPlay( RCTEXT_SOUND_SE_SETFIELD ) ;
 			}
-			////テクスチャがある場合
-			//if(m_pTexture){
-			//	DWORD wkdword;
-			//	//現在のテクスチャステータスを得る
-			//	i_DrawPacket.pD3DDevice->GetTextureStageState(0,D3DTSS_COLOROP,&wkdword);
-			//	//ステージの設定
-			//	i_DrawPacket.pD3DDevice->SetTexture(0,m_pTexture);
-			//	//デフィーズ色とテクスチャを掛け合わせる設定
-			//	i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLOROP, D3DTOP_MODULATE4X );
-			//	i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLORARG1, D3DTA_TEXTURE );
-			//	i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLORARG2, D3DTA_DIFFUSE );
-
-			//	//i_DrawPacket.pD3DDevice->SetFVF(PlateFVF);
-			//	// マトリックスをレンダリングパイプラインに設定
-			//	i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &/*it->second->*/m_Matrix);
-			//	//コモンメッシュのDraw()を呼ぶ
-			//	CommonMesh::Draw(i_DrawPacket);
-			//	i_DrawPacket.pD3DDevice->SetTexture(0,0);
-			//	//ステージを元に戻す
-			//	i_DrawPacket.pD3DDevice->SetTextureStageState(0,D3DTSS_COLOROP,wkdword);
-			//}
-			//else{
-			////テクスチャがない場合
-			//	// マトリックスをレンダリングパイプラインに設定
-			//	i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &/*it->second->*/m_Matrix);
-			//	//コモンメッシュのDraw()を呼ぶ
-			//	CommonMesh::Draw(i_DrawPacket);
-			//}
 			m_pMagneticField->Draw(i_DrawPacket);
 			m_pMagneticField2->Draw(i_DrawPacket);
 			m_pMagneticField3->Draw(i_DrawPacket);
@@ -193,9 +153,16 @@ void ProvisionalPlayer3D::Update( UpdatePacket& i_UpdatePacket ){
 		if( (Cursor2D::getLButtonState() || Cursor2D::getRButtonState()) && !(Cursor2D::getLButtonState() && Cursor2D::getRButtonState())){ 
 			if( (Cursor2D::getLButtonState() && m_pMGage_N->getRate() < GAUGE_VANISHRATE) || (Cursor2D::getRButtonState() && m_pMGage_S->getRate() < GAUGE_VANISHRATE) ){				
 				if( !m_bLastMouseLB && !m_bLastMouseRB){
-					if(Cursor2D::getLButtonState())m_pMGage_N->Consume(PLAYER_INVOCATION_POINT);
-					if(Cursor2D::getRButtonState())m_pMGage_S->Consume(PLAYER_INVOCATION_POINT);
+					if( !m_pPlayerCoil->getMagnetPole() ){
+						if(Cursor2D::getLButtonState())m_pMGage_N->Consume(PLAYER_INVOCATION_POINT);
+						if(Cursor2D::getRButtonState())m_pMGage_S->Consume(PLAYER_INVOCATION_POINT);
+					}
+					else{
+						if(Cursor2D::getRButtonState())m_pMGage_N->Consume(PLAYER_INVOCATION_POINT);
+						if(Cursor2D::getLButtonState())m_pMGage_S->Consume(PLAYER_INVOCATION_POINT);
+					}
 					if( (Cursor2D::getLButtonState() && m_pMGage_N->getRate() < GAUGE_VANISHRATE) || (Cursor2D::getRButtonState() && m_pMGage_S->getRate() < GAUGE_VANISHRATE) ){
+
 						wiz::CONTROLER_STATE Controller1P = i_UpdatePacket.pCntlState[0] ;
 						D3DXVECTOR3 vMove = g_vZero ;
 						m_vPos = m_pCursor->get3DPos();
@@ -257,13 +224,22 @@ void ProvisionalPlayer3D::Update( UpdatePacket& i_UpdatePacket ){
 						}
 					}
 				}
-				if( (Cursor2D::getLButtonState() && m_pMGage_N->getRate() < GAUGE_VANISHRATE) || (Cursor2D::getRButtonState() && m_pMGage_S->getRate() < GAUGE_VANISHRATE) ){	
+				//Suction	: 吸引
+				//Rebound	: 反発
+				bool	Suction	= Cursor2D::getRButtonState();
+				bool	Rebound	= Cursor2D::getLButtonState();
+				if( !m_pPlayerCoil->getMagnetPole() ){
+					Suction	= Cursor2D::getLButtonState();
+					Rebound	= Cursor2D::getRButtonState();
+				}
 
-					if( Cursor2D::getLButtonState()  && !Cursor2D::getRButtonState() && m_pPlayerCoil->getState() != COIL_STATE_STICK )m_pMGage_N->Consume(PLAYER_CONSUME_POIMT);
-					if( !Cursor2D::getLButtonState() && Cursor2D::getRButtonState()  && m_pPlayerCoil->getState() != COIL_STATE_STICK )m_pMGage_S->Consume(PLAYER_CONSUME_POIMT);
+				if( (Suction && m_pMGage_N->getRate() > GAUGE_VANISHRATE) || (Rebound && m_pMGage_S->getRate() > GAUGE_VANISHRATE) ){	
+	
+					if( Suction  && !Rebound && m_pPlayerCoil->getState() != COIL_STATE_STICK )m_pMGage_N->Consume(PLAYER_CONSUME_POIMT);
+					if( !Suction && Rebound  && m_pPlayerCoil->getState() != COIL_STATE_STICK )m_pMGage_S->Consume(PLAYER_CONSUME_POIMT);
 
-					if( !Cursor2D::getLButtonState() && Cursor2D::getRButtonState()  )m_pMGage_N->Recovery(PLAYER_RECOVERY_POINT);
-					if( Cursor2D::getLButtonState()  && !Cursor2D::getRButtonState() )m_pMGage_S->Recovery(PLAYER_RECOVERY_POINT);
+					if( !Suction && Rebound  )m_pMGage_N->Recovery(PLAYER_RECOVERY_POINT);
+					if( Suction  && !Rebound )m_pMGage_S->Recovery(PLAYER_RECOVERY_POINT);
 
 					//	: 拡大縮小
 					D3DXMATRIX mScale ;
@@ -440,7 +416,7 @@ void	MagneticField::Update(UpdatePacket& i_UpdatePacket)
 		m_Material.Ambient	= Ambient;
 
 		//if( m_pMGage_N != NULL ){
-		//	if( m_pMGage_N->getRate() > GAUGE_VANISHRATE*0.7f )
+		//	if( m_pMGage_N->getRate() < 0.3f )
 		//			m_Material.Diffuse.a	= 0.0f;
 		//	else	m_Material.Diffuse.a	= MAGNET_FIELD_ALPHA;
 		//}
@@ -456,7 +432,7 @@ void	MagneticField::Update(UpdatePacket& i_UpdatePacket)
 		m_Material.Ambient	= Ambient;
 
 		//if( m_pMGage_S != NULL ){
-		//	if( m_pMGage_S->getRate() > GAUGE_VANISHRATE*0.7f )
+		//	if( m_pMGage_S->getRate() < 0.3f )
 		//			m_Material.Diffuse.a	= 0.0f;
 		//	else	m_Material.Diffuse.a	= MAGNET_FIELD_ALPHA;
 		//}

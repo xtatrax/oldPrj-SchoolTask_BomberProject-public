@@ -28,6 +28,8 @@ const float MAGNET_FIELD_ALPHA			= 0.2f;
 namespace wiz{
 namespace bomberobject{
 
+extern class	MagneticGage_N	;
+extern class	MagneticGage_S	;
 
 //**************************************************************************//
 // class ProvisionalPlayer : public MagneticumObject ;
