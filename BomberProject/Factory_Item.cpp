@@ -230,7 +230,7 @@ void	Item::Update(UpdatePacket& i_UpdatePacket)
 				}
 			}
 			//ƒQ[ƒW‚ªÅ‘å‚É‚È‚Á‚½‚çƒRƒCƒ‹‚ð–³“Gó‘Ô‚É
-			if(m_pSuperGage->getRate() >= 1.0f){
+			if(m_pSuperGage->getRate() <= 0.0f){
 				m_pPlayerCoil->setSuperMode(COIL_STATE_SUPER_READY);
 			}
 		}
