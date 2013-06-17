@@ -264,6 +264,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Structs.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\Structs.h"
 				>
 			</File>

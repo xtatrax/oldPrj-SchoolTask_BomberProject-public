@@ -34,7 +34,7 @@ ResultStage::ResultStage(LPDIRECT3DDEVICE9 pD3DDevice,Stage* pStage)
 	:Stage(pStage)
 {
 	try{
-		FactoryPacket FPac;
+		FactoryPacket FPac(this);
 		FPac.m_IsDialog =  this->m_IsDialog ;
 		FPac.m_pTexMgr  = &this->m_TexMgr   ;
 		FPac.m_pVec     = &this->m_Vec      ;

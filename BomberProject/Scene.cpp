@@ -238,10 +238,14 @@ void Scene::CommandTranslator(DrawPacket& i_DrawPacket){
 			m_pRootStage = new StageSelect( i_DrawPacket.pD3DDevice , new TitleStage(i_DrawPacket.pD3DDevice));
 			
 			break;
+		case GM_OPENSTAGE_LOAD_PLAY:
+			i_DrawPacket.pCommand->m_Command = GM_OPENSTAGE_PLAY;
+			goto PRGOTO_GM_OPENSTAGE_LOAD;
 		case GM_OPENSTAGE_LOAD:
 			//	: ÉçÅ[ÉhâÊñ 
+			PRGOTO_GM_OPENSTAGE_LOAD:
 			SafeDeleteStage(m_pRootStage);
-			m_pRootStage = new LoadStage(i_DrawPacket.pD3DDevice);
+			m_pRootStage = new LoadStage(i_DrawPacket.pD3DDevice,i_DrawPacket.pCommand);
 			break;
 		case GM_OPENSTAGE_PLAY:
 			try{
