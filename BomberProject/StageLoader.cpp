@@ -132,11 +132,11 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 				//	: そのままオブジェクトを追加
 				dynamic_cast< TARGET_CLASS* >(( *m_pVec )[it->second])->addItem(
 					i_Data.vPos			,
-					i_Data.vScale		,
+					g_vZero				,
 					i_Data.Diffuse		,
 					i_Data.Specular		,
 					i_Data.Ambient		,
-					ITEM_TYPE_NULL
+					i_Data.vScale.x
 				);
 			}else{
 				//	: 登録がなかった場合
@@ -164,11 +164,11 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 				//	: アイテムの追加
 				mgb->addItem(
 					i_Data.vPos			,
-					i_Data.vScale		,
+					g_vZero				,
 					i_Data.Diffuse		,
 					i_Data.Specular		,
 					i_Data.Ambient		,
-					ITEM_TYPE_NULL
+					i_Data.vScale.x
 				);
 
 			}
