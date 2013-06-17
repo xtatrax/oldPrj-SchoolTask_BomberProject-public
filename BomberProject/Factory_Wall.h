@@ -31,6 +31,104 @@ namespace bomberobject{
 extern class PlayerCoil ;
 extern class EnemyModel ;
 
+/**************************************************************************
+ Warning 定義部
+****************************************************************************/
+//**************************************************************************//
+// class Warning
+//
+// 担当者  : 本多寛之
+//     
+// 用途    : エフェクト
+//**************************************************************************//
+class Warning : public PrimitiveBox{
+	PrimitivePlate m_Plate;
+	int	m_iPtn;
+	LPDIRECT3DTEXTURE9	m_pTexture	;
+	D3DMATERIAL9		m_Material	;
+	D3DXMATRIX			m_Matrix	;
+	D3DXVECTOR3			m_vPos		;	//	: 座標
+	D3DXVECTOR3			m_vRot		;	//	: 回転
+	D3DXVECTOR3			m_vScale	;	//	: 伸縮
+	bool				m_bToDraw	;
+public:
+	/////////////////// ////////////////////
+	//// 用途       ：Warning(	LPDIRECT3DDEVICE9 pD3DDevice,LPDIRECT3DTEXTURE9 pTexture,wiz::OBJID id = OBJID_3D_WALL);
+	//// カテゴリ   ：コンストラクタ
+	//// 用途       ：
+	//// 引数       ：LPDIRECT3DDEVICE9 pD3DDevice //デバイス
+	////			  : LPDIRECT3DTEXTURE9 pTexture  //テクスチャ
+	////			  : pTexture,wiz::OBJID id = OBJID_3D_WALL //ID
+	//// 戻値       ：無し
+	//// 担当者     ：本多寛之
+	//// 備考       ：
+	Warning(LPDIRECT3DDEVICE9 pD3DDevice,
+			D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,
+			LPDIRECT3DTEXTURE9 pTexture,
+			wiz::OBJID id = OBJID_3D_WARNING
+			);
+	/////////////////// ////////////////////
+	//// 用途       ：~Warning();
+	//// カテゴリ   ：デストラクタ
+	//// 用途       ：
+	//// 引数       ：
+	//// 戻値       ：無し
+	//// 担当者     ：鴫原 徹
+	//// 備考       ：
+	~Warning();
+	/////////////////// ////////////////////
+	//// 用途       ：void Draw( DrawPacket& i_DrawPacket )
+	//// カテゴリ   ：関数
+	//// 用途       ：オブジェクトをディスプレイに表示する
+	//// 引数       ：  DrawPacket& i_DrawPacket             // 画面描画時に必要なデータ群 ↓内容下記
+	////            ：  ├ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 インターフェイスへのポインタ
+	////            ：  ├ vector<Object*>&    Vec                     // オブジェクトの配列
+	////            ：  ├ Tempus2*            i_DrawPacket.pTime	   // 時間を管理するクラスへのポインター
+	////            ：  └ Command             i_DrawPacket.pCommand   // コマンド
+	//// 戻値       ：無し
+	//// 担当者     ：本多寛之
+	//// 備考       ：
+	void Draw( DrawPacket& i_DrawPacket );
+	/////////////////// ////////////////////
+	//// 用途       ：void Update( UpdatePacket& i_UpdatePacket )
+	//// カテゴリ   ：関数
+	//// 用途       ：オブジェクトを更新
+	//// 引数       ：  UpdatePacket& i_UpdatePacket     // アップデート時に必要なデータ群 ↓内容下記
+	////            ：  ├       LPDIRECT3DDEVICE9  pD3DDevice      // IDirect3DDevice9 インターフェイスへのポインタ
+	////            ：  ├       Tempus2*           pTime           // 時間を管理するクラスへのポインター
+	////            ：  ├       vector<Object*>&   Vec,            // オブジェクトの配列
+	////            ：  ├ const CONTROLER_STATE*   pCntlState      // コントローラのステータス
+	////            ：  └       Command            pCommand        // コマンド
+	//// 戻値       ：無し
+	//// 担当者     ：本多寛之
+	//// 備考       ：
+	////            ：
+	////
+	void Update( UpdatePacket& i_UpdatePacket );
+
+	void setMatrix(D3DXMATRIX& i_Matrix){
+		m_Matrix = i_Matrix;
+	}
+
+	void setPos(D3DXVECTOR3& i_Pos){
+		m_vPos = i_Pos;
+	}
+	void setRot(D3DXVECTOR3& i_Rot){
+		m_vRot = i_Rot;
+	}
+	void setScale(D3DXVECTOR3& i_Scale){
+		m_vScale = i_Scale;
+	}
+
+	void setToDraw(bool i_bFlg){
+		m_bToDraw = i_bFlg;
+	}
+	bool getToDraw(){
+		return m_bToDraw;
+	}
+};
+
+
 
 /**************************************************************************
  WallObject 定義部
@@ -51,11 +149,12 @@ class WallObject : public PrimitiveBox{
 	Camera*				m_pCamera		;
 	PrimitivePlate		m_Plate			;
 	LPDIRECT3DTEXTURE9	m_pWallTex		;
-
+	Warning*			m_pWarning		;
 	struct WallItem{
 		D3DMATERIAL9	m_Material	;
 		D3DXMATRIX		m_Matrix	;
 		OBB				m_Obb		;
+		OBB				m_Obb_W		;
 		float			m_fMapKey	;
 		bool			m_bHidden	;
 #if defined(ON_DEBUGGINGPROCESS) | defined( PRESENTATION )
@@ -73,9 +172,11 @@ class WallObject : public PrimitiveBox{
 			::ZeroMemory(&m_Material,sizeof(D3DMATERIAL9));
 
 			//衝突判定用のOBBの初期化
-			D3DXVECTOR3 vOBBScale = D3DXVECTOR3(vScale.x/4,vScale.y*0.97f,vScale.z),
-						vOBBRot   = D3DXVECTOR3(0.0f, 0.0f, D3DXToRadian( vRot.z ));
+			D3DXVECTOR3 vOBBScale	= D3DXVECTOR3(vScale.x/4,vScale.y*0.97f,vScale.z),
+						vOBBScale_W	= D3DXVECTOR3(vScale.x,vScale.y,vScale.z),
+						vOBBRot		= D3DXVECTOR3(0.0f, 0.0f, D3DXToRadian( vRot.z ));
 			m_Obb = OBB( vOBBScale, vOBBRot, vPos ) ;
+			m_Obb_W = OBB( vOBBScale_W, vOBBRot, vPos ) ;
 			D3DXMATRIX mScalse, mRot, mPos;
 			D3DXMatrixIdentity(&mScalse);
 			D3DXMatrixIdentity(&mRot);

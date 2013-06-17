@@ -325,6 +325,7 @@ namespace wiz{
 		OBJID_3D_COIL				,	//	: プレイヤー
 		OBJID_3D_STATIC_MAGNET		,	//	: 磁石
 		OBJID_3D_EFFECT				,	//	: エフェクト
+		OBJID_3D_WARNING			,	//	: 警告
 		OBJID_3D_ENEMY				,	//	: 敵
 
 
