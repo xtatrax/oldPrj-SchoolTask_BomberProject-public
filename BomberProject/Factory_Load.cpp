@@ -43,10 +43,20 @@ Load 定義部
 //// 備考       ：
 ////            ：
 ////
-Load::Load(const LPDIRECT3DDEVICE9 pD3DDevice,const LPDIRECT3DTEXTURE9 pTexture,
-		const D3DXVECTOR3 &vScale,const D3DXVECTOR3 &vRot,const D3DXVECTOR3 &vPos,
-		const RECT *pRect, const D3DXVECTOR3 &vCenter,const D3DXVECTOR3 &vOffsetPos,const Color color)
+Load::Load(
+		const LPDIRECT3DDEVICE9		pD3DDevice	,
+		const LPDIRECT3DTEXTURE9	pTexture	,
+		const D3DXVECTOR3&			vScale		,
+		const D3DXVECTOR3&			vRot		,
+		const D3DXVECTOR3&			vPos		,
+		const RECT*					pRect		,
+		const D3DXVECTOR3&			vCenter		,
+		const D3DXVECTOR3&			vOffsetPos	,
+		const Command*				Com			,
+		const Color					color
+)
 :SpriteObject( pD3DDevice, pTexture, vScale, vRot, vPos, pRect, vCenter, vOffsetPos, color )
+,m_Com(*Com)
 ,m_vPos( vPos )
 ,m_pSound( NULL )
 ,m_iTime( 0 )
@@ -105,7 +115,7 @@ void Load::Update(UpdatePacket& i_UpdatePacket)
 
 	m_iTime++;
 	if( m_iTime > 240 )
-		i_UpdatePacket.pCommand->m_Command	= GM_OPENSTAGE_PLAY;
+		*i_UpdatePacket.pCommand = m_Com;
 };
 
 /**************************************************************************
@@ -133,6 +143,7 @@ Factory_Load::Factory_Load(FactoryPacket* fpac,Command* Com){
 				Rect( 0, 0, 1024, 128 ),
 				g_vZero,
 				g_vZero,
+				Com,
 				0xFFFFFFFF
 			)
 		);
