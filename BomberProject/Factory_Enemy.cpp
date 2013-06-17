@@ -183,7 +183,7 @@ void EnemyModel::Update( UpdatePacket& i_UpdatePacket){
 
 		float DeadLine  = (float)TwoPointToBassLength( (*it)->m_vPos, m_pCoil->getPos() ) ;
 		if( m_pCoil->getState() == COIL_STATE_MOVE && DeadLine < ENEMY_RADIUS ){
-			if(!m_pCoil->getSuperMode()){
+			if(m_pCoil->getSuperMode() == COIL_STATE_SUPER_CHARGE || m_pCoil->getSuperMode() == COIL_STATE_SUPER_READY){
 				m_pCoil->setState(COIL_STATE_DEAD);
 			}
 			if((*it)->m_vIsAlive)m_pSound->SearchWaveAndPlay( RCTEXT_SOUND_SE_PLAYERBLOKEN );
