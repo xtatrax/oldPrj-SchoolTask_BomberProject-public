@@ -159,10 +159,9 @@ void	DeadScore::Draw(DrawPacket& i_DrawPacket){
 ***************************************************************************/
 void	DeadScore::Update(UpdatePacket& i_UpdatePacket){
 
-	if( !m_pCoil )m_pCoil = (PlayerCoil*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_3D_COIL);
+	if( !m_pCoil )	m_pCoil = (PlayerCoil*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_3D_COIL);
 
-	if( m_pCoil )
-		m_iScore	= m_pCoil->getDeadCount();
+	if( m_pCoil )	m_iScore	= m_pCoil->getDeadCount();
 
 	Score::Update( i_UpdatePacket );
 }

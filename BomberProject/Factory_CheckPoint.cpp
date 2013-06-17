@@ -314,10 +314,11 @@ void CheckPoint::Update( UpdatePacket& i_UpdatePacket ){
 	if( !m_pSound  ) m_pSound  = (     Sound*)SearchObjectFromID( i_UpdatePacket.pVec, OBJID_SYS_SOUND	) ;
 	if( !m_pCamera ) m_pCamera = (    Camera*)SearchObjectFromID( i_UpdatePacket.pVec, OBJID_SYS_CAMERA ) ;
 	
+
 	if( m_pCoil && m_ActiveItem < m_ItemContainer.size()){
 		float fPosY		= m_ItemContainer[ m_ActiveItem ]->fPosY;
 		float fCoilPosY = m_pCoil->getPos().y;
-		if(fPosY <= fCoilPosY){
+		while(fPosY <= fCoilPosY){
 			m_pCoil->setStartPos(m_ItemContainer[ m_ActiveItem ]->vStartPos);
 			m_ActiveItem++;
 			if( m_pEffect != NULL ){
@@ -334,8 +335,9 @@ void CheckPoint::Update( UpdatePacket& i_UpdatePacket ){
 				}
 			}
 			m_pSound->SearchWaveAndPlay( RCTEXT_SOUND_SE_CHECKPOINT );
-			if(m_ActiveItem <= m_ItemContainer.size()) return ;
+			if(m_ActiveItem >= m_ItemContainer.size()) return ;
 		}
+
 
 		D3DXVECTOR3	pos	= D3DXVECTOR3(0.0f,m_ItemContainer[ m_ActiveItem ]->fPosY,0.0f);
 		if( m_pEffect != NULL ){
