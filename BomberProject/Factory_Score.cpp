@@ -327,7 +327,7 @@ Factory_Score::Factory_Score(FactoryPacket *fpac){
 					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"MAX_RANGE1.png" ),
 					D3DXVECTOR3( 0.5f, 0.5f, 0.0f ),
 					g_vZero,
-					D3DXVECTOR3( 760.0f, 80.0f, 0.0f ),					
+					D3DXVECTOR3( 750.0f, 520.0f, 0.0f ),					
 					&Rect( 0, 0, 512, 64 ),
 					g_vZero,
 					g_vZero
@@ -340,7 +340,7 @@ Factory_Score::Factory_Score(FactoryPacket *fpac){
 					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"slash2.png" ),
 					D3DXVECTOR3( 0.5f, 0.5f, 0.0f ),
 					g_vZero,
-					D3DXVECTOR3( 870.0f, 105.0f, 0.0f ),					
+					D3DXVECTOR3( 870.0f, 550.0f, 0.0f ),					
 					&Rect( 0, 0, 64, 64 ),
 					g_vZero,
 					g_vZero
@@ -363,7 +363,7 @@ Factory_Score::Factory_Score(FactoryPacket *fpac){
 			new ArrivalPos( fpac->pD3DDevice,
 					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Number_Base2.png" ),
 					D3DXVECTOR3( 0.4f, 0.4f, 0.0f ),
-					D3DXVECTOR3( 780.0f, 110.0f, 0.0f ),					
+					D3DXVECTOR3( 780.0f, 550.0f, 0.0f ),					
 					//D3DXVECTOR3( 880.0f, 90.0f, 0.0f ),					
 					&Rect( 0, 0, 512, 64 )
 			)
@@ -373,7 +373,7 @@ Factory_Score::Factory_Score(FactoryPacket *fpac){
 			new GoalPos( fpac->pD3DDevice,
 					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Number_Base2.png" ),
 					D3DXVECTOR3( 0.4f, 0.4f, 0.0f ),
-					D3DXVECTOR3( 900.0f, 110.0f, 0.0f ),					
+					D3DXVECTOR3( 900.0f, 550.0f, 0.0f ),					
 					//D3DXVECTOR3( 880.0f, 90.0f, 0.0f ),					
 					&Rect( 0, 0, 512, 64 )
 			)
