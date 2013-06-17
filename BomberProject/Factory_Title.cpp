@@ -280,8 +280,8 @@ Factory_Title::Factory_Title(FactoryPacket* fpac){
 					fpac->pD3DDevice,
 					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Title_Start002_02.tga" ),
 					//GM_
-					GM_OPENSTAGE_PLAY,
-					//GM_OPENSTAGE_LOAD,
+					//GM_OPENSTAGE_PLAY,
+					GM_OPENSTAGE_LOAD,
 					D3DXVECTOR3(SCALE_RATE,SCALE_RATE,0.0f),
 					g_vZero,
 					D3DXVECTOR3( 630.0f, 280.0f, 0.0f ),

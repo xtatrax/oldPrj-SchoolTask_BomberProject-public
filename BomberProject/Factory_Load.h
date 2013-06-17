@@ -31,6 +31,7 @@ class	Load	: public SpriteObject{
 	Sound*			m_pSound;
 	int				m_iTime;
 	float			m_fRate;
+	int				m_iPtn;
 public:
 	Load(
 		const LPDIRECT3DDEVICE9		pD3DDevice	,
