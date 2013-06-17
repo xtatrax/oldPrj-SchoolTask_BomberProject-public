@@ -259,6 +259,7 @@ namespace wiz{
 		OBJID_SYS_CURSOR			,	//	: カーソル
 		OBJID_SYS_SOUND				,	//	: 音声
 		OBJID_SYS_CHECKPOINT		,	//	: チェックポイント
+		OBJID_SYS_CHECKPOINT_CHAR	,	//	: チェックポイント
 		OBJID_SYS_CLEARAREA			,	//	: クリア領域
 		OBJID_SYS_RENDERTARGET		,	//	: レンダーターゲット
 		OBJID_SYS_END				,	
