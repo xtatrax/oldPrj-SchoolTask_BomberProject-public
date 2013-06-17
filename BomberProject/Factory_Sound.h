@@ -212,7 +212,9 @@ public:
 	////
 	bool SearchWaveAndPlay(PCSTR pSoundName, BYTE count = 0);
 
-	void	SoundPause(PCSTR pSoundName, BYTE count = 0);
+	void SearchSoundAndStop(PCSTR pSoundName);
+	void SearchWaveAndStop(PCSTR pSoundName);
+	void SoundStop(PCSTR pSoundName);
 
 };
 
