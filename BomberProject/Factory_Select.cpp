@@ -57,9 +57,6 @@ namespace bomberobject{
 ***************************************************************************/
 Factory_Select::Factory_Select(FactoryPacket* fpac ){
 	try{
-		//fpac->m_pVec->push_back( new TestBehavior());
-		float	fLineLength	= 550.0f;
-		float	fPointSize	= 0.25f;
 
 /////////////////////////////////////////////////////////////////////////////////
 //                                 NORMAL                                      //
@@ -190,10 +187,10 @@ Factory_Select::Factory_Select(FactoryPacket* fpac ){
 				5
 			)
 		);
-	Factory_Cursor	MCfac( fpac, fLineLength, fPointSize )  ;
-
+		float	fLineLength	= 550.0f;
+		float	fPointSize	= 0.25f;
+		Factory_Cursor	MCfac( fpac, fLineLength, fPointSize )  ;
 	}
-
 	catch(LoaderException& e){
 		throw LoaderException(
 				e.what_w(),

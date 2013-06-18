@@ -27,11 +27,14 @@ class StartSprite;
 **************************************************************************/
 class StartSprite : public SpriteObject{
 	D3DXVECTOR3	m_vPos;
+	D3DXVECTOR3	m_vStartPos;
 	D3DXVECTOR3	m_vScale;
 	float		m_vRelayPosY;
 	int			m_iTime;
 	PlayerCoil*	m_pCoil;
+	COIL_STATE	m_State;
 	bool		m_bFirst;
+	bool		m_bSecond;
 public:
 	StartSprite(LPDIRECT3DDEVICE9	pD3DDevice,
 				LPDIRECT3DTEXTURE9	pTexture,
@@ -42,6 +45,14 @@ public:
 	~StartSprite();
 	void	Draw( DrawPacket& i_DrawPacket );
 	void	Update( UpdatePacket& i_UpdatePacket );
+
+	void	ReStart(){
+		m_iTime		= 0;
+		m_vPos		= m_vStartPos;
+		m_bSecond	= true;
+		m_Color.byteColor.a	= 0;
+		m_State		= COIL_STATE_CONTINUE;
+	}
 };
 
 /**************************************************************************
