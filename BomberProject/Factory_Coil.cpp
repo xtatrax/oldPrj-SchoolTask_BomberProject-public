@@ -103,8 +103,6 @@ PlayerCoil::PlayerCoil(
 ,m_pPlayer(				NULL								)
 ,m_pMagneticumObject(	NULL								)
 ,m_pCamera(				NULL								)
-,m_pSound(				NULL								)
-
 //テクスチャ*********************************************************************
 ,m_pDeadTex(			m_pTexMgr->addTexture( pD3DDevice, L"DeadPerticul.png"	))
 ,m_pContinueTex(		m_pTexMgr->addTexture( pD3DDevice, L"CONTINUE4.png"		))
@@ -115,7 +113,6 @@ PlayerCoil::PlayerCoil(
 ,m_pAnswerTex(			m_pTexMgr->addTexture( pD3DDevice, L"YESorNO5.png"		))
 ,m_pCountCharTex(		m_pTexMgr->addTexture( pD3DDevice, L"dead_count1.png"	))
 //**********************************************************************************
-
 ,m_enumCoilState(		COIL_STATE_STOP						)
 ,m_enumCoilStateSuper(	COIL_STATE_SUPER_CHARGE				)
 #if defined( ON_DEBUGGINGPROCESS ) | defined( PRESENTATION )
@@ -230,7 +227,6 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 
 	if( !m_pCursor )			m_pCursor				=        ( MouseCursor* ) SearchObjectFromID( i_UpdatePacket.pVec, OBJID_SYS_CURSOR ) ; 
 	if( !m_pCamera )			m_pCamera				=             ( Camera* ) SearchObjectFromID( i_UpdatePacket.pVec, OBJID_SYS_CAMERA ) ; 
-	if( !m_pSound )				m_pSound				=              ( Sound* ) SearchObjectFromID( i_UpdatePacket.pVec, OBJID_SYS_SOUND  ) ;
 	if( !m_pMagneticumObject )	m_pMagneticumObject		= ( MagneticumObject3D* ) SearchObjectFromID( i_UpdatePacket.pVec, OBJID_3D_STATIC_MAGNET ) ; 
 
 	if( m_pPlayer ){
@@ -243,29 +239,29 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 		switch(m_enumCoilState){
 			//スタート
 			case COIL_STATE_START:
-				Update_StateStart();
+				Update_StateStart(i_UpdatePacket);
 				break;
 			//移動
 			case COIL_STATE_MOVE:
-				Update_StateMove();
+				Update_StateMove(i_UpdatePacket);
 				break;
 			//磁界中心に吸着
 			case COIL_STATE_STICK:
-				Update_StateStick();
+				Update_StateStick(i_UpdatePacket);
 				break;
 			//死亡
 			case COIL_STATE_DEAD:
-				Update_StateDead();
+				Update_StateDead(i_UpdatePacket);
 				if( m_pDeadEffect[0] == NULL )
 					CreateEffect(i_UpdatePacket);
 				break;
 			//コンティニュー
 			case COIL_STATE_CONTINUE:
-				Update_StateContinue();
+				Update_StateContinue(i_UpdatePacket);
 				break;
 			//クリア
 			case COIL_STATE_STOP:
-				Update_StateStop();
+				Update_StateStop(i_UpdatePacket);
 				break;
 			default:
 				break;
@@ -405,7 +401,7 @@ void	PlayerCoil::CreateEffect( UpdatePacket& i_UpdatePacket ){
 //// 備考       ：
 ////            ：
 ////
-void PlayerCoil::Update_StateStart(){
+void PlayerCoil::Update_StateStart(UpdatePacket& i_UpdatePacket){
 
 	D3DXVECTOR3 vPlayer = g_vZero;
 	float		fTargetDir = NULL;
@@ -423,7 +419,7 @@ void PlayerCoil::Update_StateStart(){
 			m_bLastMouseRB = true;
 		}
 		if((!Cursor2D::getLButtonState() && m_bLastMouseLB) || (!Cursor2D::getRButtonState() && m_bLastMouseRB)){
-			m_pSound->SearchSoundAndPlay( RCTEXT_SOUND_SE_FIRE );
+			i_UpdatePacket.SearchSoundAndPlay( RCTEXT_SOUND_SE_FIRE );
 			m_enumCoilState =  COIL_STATE_MOVE;
 			m_fAcceleration = COIL_ACCELERATION_VALUE;
 			m_bLastMouseLB  =  false;
@@ -449,7 +445,7 @@ void PlayerCoil::Update_StateStart(){
 //// 備考       ：
 ////            ：
 ////
-void PlayerCoil::Update_StateMove(){
+void PlayerCoil::Update_StateMove(UpdatePacket& i_UpdatePacket){
 	//プレイヤー磁界と自機の判定
 	bool bCheckDistance = CheckDistance( m_pPlayer->getPos(), (float)MGPRM_MAGNETICUM_QUAD, true );
 	if( m_pPlayer->getDrawing() && bCheckDistance ){
@@ -509,7 +505,7 @@ void PlayerCoil::Update_StateMove(){
 //// 備考       ：
 ////            ：
 ////
-void PlayerCoil::Update_StateStick(){
+void PlayerCoil::Update_StateStick(UpdatePacket& i_UpdatePacket){
 	if(m_bReadyToStart){
 		m_fMoveDir += COIL_ROTATION_ANGLE;
 		if(m_fMoveDir > 360.0f)m_fMoveDir = float(int(m_fMoveDir) % 360);
@@ -561,14 +557,15 @@ void PlayerCoil::Update_StateStick(){
 //// カテゴリ   ：
 //// 用途       ：STATE_SUPER時の動き
 //// 引数       ：  DrawPacket& i_DrawPacket             // 画面描画時に必要なデータ群 ↓内容下記
-////			  ：  ├ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 インターフェイスへのポインタ
-////			  ：  ├ vector<Object*>&    Vec                     // オブジェクトの配列
-////			  ：  ├ Tempus2*            i_DrawPacket.pTime	   // 時間を管理するクラスへのポインター
-////              ：  └ Command             i_DrawPacket.pCommand   // コマンド
+////            ：  ├ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 インターフェイスへのポインタ
+////            ：  ├ vector<Object*>&    Vec                     // オブジェクトの配列
+////            ：  ├ Tempus2*            i_DrawPacket.pTime	   // 時間を管理するクラスへのポインター
+////            ：  └ Command             i_DrawPacket.pCommand   // コマンド
 //// 戻値       ：なし
 //// 担当       ：本多寛之
+//// 編集       ：鴫原 徹
 //// 備考       ：
-////			  ：
+////            ：
 ////
 void PlayerCoil::SuperMode( UpdatePacket& i_UpdatePacket ){	
 	static float	s_fTimeCount		= 0;
@@ -582,8 +579,8 @@ void PlayerCoil::SuperMode( UpdatePacket& i_UpdatePacket ){
 	//無敵モードに変換し終わるまではゲージを消費しない
 	switch(m_enumCoilStateSuper){
 		case COIL_STATE_SUPER_MOVE:
-			if( m_pSound && !s_bSound){
-				m_pSound->SearchWaveAndPlay( RCTEXT_SOUND_SE_INVISIBLE , (BYTE)(COIL_SUPER_MODE_TIME / MGPRM_INVISIBLESOUND_TIME) +1 );
+			if( !s_bSound){
+				i_UpdatePacket.SearchSoundAndPlay( RCTEXT_SOUND_SE_INVISIBLE  );
 				s_bSound = true ;
 			}
 			if(m_enumCoilState == COIL_STATE_MOVE)
@@ -648,7 +645,10 @@ void PlayerCoil::SuperMode( UpdatePacket& i_UpdatePacket ){
 	//無敵モード終了
 	if(s_fTimeCount >= COIL_SUPER_MODE_TIME){
 		m_enumCoilStateSuper = COIL_STATE_SUPER_CHARGE;
-		s_bSound		= false;
+		if( s_bSound){
+			i_UpdatePacket.SoundStop( RCTEXT_SOUND_SE_INVISIBLE  );
+			s_bSound = false ;
+		}
 		s_fTimeCount = 0.0f;
 		switch(getMagnetPole()){
 			case POLE_S:
@@ -672,7 +672,7 @@ void PlayerCoil::SuperMode( UpdatePacket& i_UpdatePacket ){
 //// 備考       ：
 ////            ：
 ////
-void PlayerCoil::Update_StateDead(){
+void PlayerCoil::Update_StateDead(UpdatePacket& i_UpdatePacket){
 	m_vScale = g_vZero;
 	if( m_bReadyContinue ){
 		m_enumCoilState = COIL_STATE_CONTINUE;
@@ -693,7 +693,7 @@ void PlayerCoil::Update_StateDead(){
 //// 備考       ：
 ////            ：
 ////
-void PlayerCoil::Update_StateContinue(){
+void PlayerCoil::Update_StateContinue(UpdatePacket& i_UpdatePacket){
 	D3DXVECTOR3 vPlayer = g_vZero;
 	float		fTargetDir = NULL;
 	//マウス座標計算
@@ -710,7 +710,7 @@ void PlayerCoil::Update_StateContinue(){
 			m_bLastMouseRB = true;
 		}
 		if((!Cursor2D::getLButtonState() && m_bLastMouseLB) || (!Cursor2D::getRButtonState() && m_bLastMouseRB)){
-			m_pSound->SearchSoundAndPlay( RCTEXT_SOUND_SE_FIRE );
+			i_UpdatePacket.SearchSoundAndPlay( RCTEXT_SOUND_SE_FIRE );
 			m_enumCoilState = COIL_STATE_MOVE;
 			m_fAcceleration = COIL_ACCELERATION_VALUE;
 			m_bLastMouseLB  = false;
@@ -736,7 +736,7 @@ void PlayerCoil::Update_StateContinue(){
 //// 備考       ：
 ////            ：
 ////
-void PlayerCoil::Update_StateStop(){
+void PlayerCoil::Update_StateStop(UpdatePacket& i_UpdatePacket){
 	D3DXVECTOR3 vPlayer		= g_vZero	;
 	float		fTargetDir	= NULL		;
 

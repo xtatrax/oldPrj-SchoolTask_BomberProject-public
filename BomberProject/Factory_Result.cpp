@@ -48,9 +48,9 @@ Factory_Result::Factory_Result(FactoryPacket* fpac)
 				)
 		);
 
-		Sound* pSound = NULL;
-		fpac->m_pVec->push_back(
-			pSound = new Sound( 
+		system::Sound* pSound = NULL;
+		fpac->SetSound(
+			pSound = new system::Sound( 
 				RCTEXT_SOUND_WAVEBANK,
 				RCTEXT_SOUND_SOUNDBANK,
 				OBJID_SYS_SOUND

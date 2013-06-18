@@ -136,7 +136,6 @@ class PlayerCoil : public MagneticumObject3D{
 	int				m_iDeadCount		;	//	: 死亡回数
 
 	MouseCursor*			m_pCursor					;	//	: カーソルオブジェクトへのポインタ
-	Sound*					m_pSound					;	//	: 音声データへのポインタ
 	Camera*					m_pCamera					;	//	: Cameraへのポインタ
 	Box*					m_pSuperField				;	//	: 無敵時のフィールド
 	Continue*				m_pSelect					;	//	: ロゴ(Continue)
@@ -268,7 +267,7 @@ public:
 	//// 備考       ：
 	////            ：
 	////
-	void Update_StateStart();
+	void Update_StateStart(UpdatePacket& i_UpdatePacket);
 
 	/////////////////// ////////////////////
 	//// 関数名     ：void PlayerCoil::Update_StateMove()
@@ -280,7 +279,7 @@ public:
 	//// 備考       ：
 	////            ：
 	////
-	void Update_StateMove();
+	void Update_StateMove(UpdatePacket& i_UpdatePacket);
 
 	/////////////////// ////////////////////
 	//// 関数名     ：void PlayerCoil::Update_StateStick()
@@ -292,7 +291,7 @@ public:
 	//// 備考       ：
 	////            ：
 	////
-	void Update_StateStick();
+	void Update_StateStick(UpdatePacket& i_UpdatePacket);
 
 	/////////////////// ////////////////////
 	//// 関数名     ：void SPlayerCoil::uperMode()
@@ -320,7 +319,7 @@ public:
 	//// 備考       ：
 	////            ：
 	////
-	void Update_StateDead();
+	void Update_StateDead(UpdatePacket& i_UpdatePacket);
 
 	/////////////////// ////////////////////
 	//// 関数名     ：void PlayerCoil::Update_StateContinue()
@@ -332,7 +331,7 @@ public:
 	//// 備考       ：
 	////            ：
 	////
-	void Update_StateContinue();
+	void Update_StateContinue(UpdatePacket& i_UpdatePacket);
 
 	/////////////////// ////////////////////
 	//// 関数名     ：void PlayerCoil::Update_StateStop()
@@ -344,7 +343,7 @@ public:
 	//// 備考       ：
 	////            ：
 	////
-	void Update_StateStop();
+	void Update_StateStop(UpdatePacket& i_UpdatePacket);
 
 	/////////////////// ////////////////////
 	//// 用途       ：virtual void PlayerCoil::Draw( DrawPacket& i_DrawPacket )

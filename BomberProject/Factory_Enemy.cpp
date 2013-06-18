@@ -47,7 +47,6 @@ EnemyModel::EnemyModel(const LPDIRECT3DDEVICE9 pD3DDevice,const char *pFileName,
 ,m_pCamera( NULL )
 ,m_pPlayer( NULL )
 ,m_pCoil( NULL )
-,m_pSound( NULL )
 ,m_bReset( false )
 {
 	CommonMesh::CreateMeshFormX( pD3DDevice, pFileName, pTexMgr);
@@ -68,7 +67,6 @@ EnemyModel::~EnemyModel(){
 	m_pCamera	= NULL ;
 	m_pPlayer	= NULL ;
 	m_pCoil		= NULL ;
-	m_pSound	= NULL ;
 
 	SafeDeletePointerMap( m_ItemMap_All );
 	TARGETCONTAINER::iterator it	= m_ItemMap_Target.begin();
@@ -156,7 +154,6 @@ void EnemyModel::Update( UpdatePacket& i_UpdatePacket){
 	if( !m_pCamera )	m_pCamera	=              (Camera*)SearchObjectFromID( i_UpdatePacket.pVec,OBJID_SYS_CAMERA	) ;		
 	if( !m_pPlayer )	m_pPlayer	= (ProvisionalPlayer3D*)SearchObjectFromID( i_UpdatePacket.pVec,OBJID_3D_USERMAGNET	) ;
 	if( !m_pCoil )		m_pCoil		=          (PlayerCoil*)SearchObjectFromID( i_UpdatePacket.pVec,OBJID_3D_COIL		) ;
-	if( !m_pSound )		m_pSound	=               (Sound*)SearchObjectFromID( i_UpdatePacket.pVec,OBJID_SYS_SOUND		) ;
 
 	if(m_pCoil->getState() == COIL_STATE_CONTINUE)m_bReset = true;
 
@@ -186,7 +183,7 @@ void EnemyModel::Update( UpdatePacket& i_UpdatePacket){
 			if(m_pCoil->getSuperMode() == COIL_STATE_SUPER_CHARGE || m_pCoil->getSuperMode() == COIL_STATE_SUPER_READY){
 				m_pCoil->setState(COIL_STATE_DEAD);
 			}
-			if((*it)->m_vIsAlive)m_pSound->SearchWaveAndPlay( RCTEXT_SOUND_SE_PLAYERBLOKEN );
+			if((*it)->m_vIsAlive)i_UpdatePacket.SearchWaveAndPlay( RCTEXT_SOUND_SE_PLAYERBLOKEN );
 			(*it)->m_vIsAlive = false;
 		}
 		
@@ -349,7 +346,7 @@ void	EnemyModel::CreateEffect( UpdatePacket& i_UpdatePacket, TARGETCONTAINER::it
 //// 戻値       ：衝突していればtrue
 //// 担当者     ：曳地 大洋
 //// 備考       ：
-void EnemyModel::HitTestWall( OBB Obb ){
+void EnemyModel::HitTestWall( OBB Obb, UpdatePacket& i_UpdatePacket ){
 	SPHERE sp;
 	TARGETCONTAINER::iterator it	= m_ItemMap_Target.begin();
 	TARGETCONTAINER::iterator end	= m_ItemMap_Target.end();
@@ -360,7 +357,7 @@ void EnemyModel::HitTestWall( OBB Obb ){
 		D3DXVECTOR3 Vec ;
 		if(HitTest::SPHERE_OBB(sp,Obb,Vec)){
 			//MessageBox( NULL, L"当たった！！", L"当たり判定", NULL) ;
-			if(m_pSound && (*it)->m_vIsAlive)m_pSound->SearchWaveAndPlay( RCTEXT_SOUND_SE_PLAYERBLOKEN );
+			if( (*it)->m_vIsAlive)i_UpdatePacket.SearchWaveAndPlay( RCTEXT_SOUND_SE_PLAYERBLOKEN );
 			(*it)->m_vIsAlive = false;
 		}
 		it++;

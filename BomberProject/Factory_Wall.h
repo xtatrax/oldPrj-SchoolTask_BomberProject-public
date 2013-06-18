@@ -145,7 +145,6 @@ class WallObject : public PrimitiveBox{
 	int					m_Ptn			;
 	PlayerCoil*			m_pPlayerCoil	;
 	EnemyModel*			m_pEnemy		;
-	Sound*				m_pSound		;
 	Camera*				m_pCamera		;
 	PrimitivePlate		m_Plate			;
 	LPDIRECT3DTEXTURE9	m_pWallTex		;

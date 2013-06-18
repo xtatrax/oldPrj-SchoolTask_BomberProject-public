@@ -14,10 +14,9 @@
 
 #include "StdAfx.h"
 #include "Object.h"
-#include "Factory_Sound.h"
 
 namespace wiz{
-namespace bomberobject{
+namespace system{
 
 /**************************************************************************
  class Sound: public Object;
@@ -212,7 +211,9 @@ public:
 	////
 	bool SearchWaveAndPlay(PCSTR pSoundName, BYTE count = 0);
 
-	void	SoundPause(PCSTR pSoundName, BYTE count = 0);
+	void SearchSoundAndStop(PCSTR pSoundName);
+	void SearchWaveAndStop(PCSTR pSoundName);
+	void SoundStop(PCSTR pSoundName);
 
 };
 
@@ -239,7 +240,7 @@ public:
 };
 
 }
-//end of namespace bomberobject.
-
+//end of namespace system.
+//using namespace system;
 }
 //end of namespace wiz.

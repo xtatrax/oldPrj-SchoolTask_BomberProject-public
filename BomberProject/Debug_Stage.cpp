@@ -83,6 +83,8 @@ DebugMenu::DebugMenu(LPDIRECT3DDEVICE9 pD3DDevice,Stage* Par)
 			g_vZero,
 			0xFFFFFFFF,
 			0xFFAAAAAA,
+			RCTEXT_SOUND_SE_SELECT,
+			RCTEXT_SOUND_SE_ENTER,
 			GM_OPENSTAGE_TITLE,
 			0
 			)));
@@ -101,6 +103,8 @@ DebugMenu::DebugMenu(LPDIRECT3DDEVICE9 pD3DDevice,Stage* Par)
 			g_vZero,
 			0xFFFFFFFF,
 			0xFFAAAAAA,
+			RCTEXT_SOUND_SE_SELECT,
+			RCTEXT_SOUND_SE_ENTER,
 			GM_OPENSTAGE_PLAY,
 			1
 			)));
@@ -119,6 +123,8 @@ DebugMenu::DebugMenu(LPDIRECT3DDEVICE9 pD3DDevice,Stage* Par)
 			g_vZero,
 			0xFFFFFFFF,
 			0xFFAAAAAA,
+			RCTEXT_SOUND_SE_SELECT,
+			RCTEXT_SOUND_SE_ENTER,
 			GM_WITHOUT,
 			2
 			)));
@@ -137,6 +143,8 @@ DebugMenu::DebugMenu(LPDIRECT3DDEVICE9 pD3DDevice,Stage* Par)
 			g_vZero,
 			0xFFFFFFFF,
 			0xFFAAAAAA,
+			RCTEXT_SOUND_SE_SELECT,
+			RCTEXT_SOUND_SE_ENTER,
 			GM_WITHOUT,
 			3
 			)));
@@ -155,6 +163,8 @@ DebugMenu::DebugMenu(LPDIRECT3DDEVICE9 pD3DDevice,Stage* Par)
 			g_vZero,
 			0xFFFFFFFF,
 			0xFFAAAAAA,
+			RCTEXT_SOUND_SE_SELECT,
+			RCTEXT_SOUND_SE_ENTER,
 			GM_WITHOUT,
 			4
 			)));
@@ -173,6 +183,8 @@ DebugMenu::DebugMenu(LPDIRECT3DDEVICE9 pD3DDevice,Stage* Par)
 			g_vZero,
 			0xFFFFFFFF,
 			0xFFAAAAAA,
+			RCTEXT_SOUND_SE_SELECT,
+			RCTEXT_SOUND_SE_ENTER,
 			GM_WITHOUT,
 			5
 			)));
@@ -191,6 +203,8 @@ DebugMenu::DebugMenu(LPDIRECT3DDEVICE9 pD3DDevice,Stage* Par)
 			g_vZero,
 			0xFFFFFFFF,
 			0xFFAAAAAA,
+			RCTEXT_SOUND_SE_SELECT,
+			RCTEXT_SOUND_SE_ENTER,
 			GM_OPENDEBUGSTAGE_STAGELOADERTEST,
 			6
 			)));
@@ -209,6 +223,8 @@ DebugMenu::DebugMenu(LPDIRECT3DDEVICE9 pD3DDevice,Stage* Par)
 			g_vZero,
 			0xFFFFFFFF,
 			0xFFAAAAAA,
+			RCTEXT_SOUND_SE_SELECT,
+			RCTEXT_SOUND_SE_ENTER,
 			GM_OPENDEBUGSTAGE_TATEAWORKSPACE,
 			7
 			)));

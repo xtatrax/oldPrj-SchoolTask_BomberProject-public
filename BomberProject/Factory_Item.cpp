@@ -48,7 +48,6 @@ Item::Item(FactoryPacket* fpac,LPDIRECT3DTEXTURE9 pTexture, wiz::OBJID id)
 	)
 	,m_pPlayerCoil(NULL)
 	,m_pSuperGage(NULL)
-	,m_pSound(NULL)
 	,m_pCamera(NULL)
 {
 	try{
@@ -177,7 +176,6 @@ void	Item::Update(UpdatePacket& i_UpdatePacket)
 
 	if( !m_pPlayerCoil )	m_pPlayerCoil	= (PlayerCoil*)SearchObjectFromID(&Vec,OBJID_3D_COIL);
 	if( !m_pSuperGage )		m_pSuperGage	= (SuperGage*)SearchObjectFromID(&Vec,OBJID_UI_SUPERGAUGE);
-	if( !m_pSound )			m_pSound		= (Sound*)SearchObjectFromID(&Vec,OBJID_SYS_SOUND);
 	if( !m_pCamera )		m_pCamera		= (Camera*)SearchObjectFromID(&Vec, OBJID_SYS_CAMERA);
 
 	//コイルの位置取得
@@ -207,7 +205,7 @@ void	Item::Update(UpdatePacket& i_UpdatePacket)
 
 				//プレイヤーと限りなく近くなったら、消滅
 				if( (*it)->m_fDistance < VanishArea ){
-					m_pSound->SearchWaveAndPlay( RCTEXT_SOUND_SE_ITEMS );
+					i_UpdatePacket.SearchWaveAndPlay( RCTEXT_SOUND_SE_ITEMS );
 					//m_ItemMap_All.value_comp();
 					ALLCONTAINER::size_type		count	= m_ItemMap_All.count((*it)->m_fMapKey) , 
 												i		;

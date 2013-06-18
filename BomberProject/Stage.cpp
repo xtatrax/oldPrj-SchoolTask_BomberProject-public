@@ -19,6 +19,7 @@
 #include "Factory_Wall.h"
 #include "Factory_Item.h"
 #include "Factory_Magnetic.h"
+#include "Object.h"
 
 
 
@@ -35,6 +36,7 @@ namespace wiz{
 void Stage::Clear(){
 	//SafeDelete(m_pChildStage);
 	SafeDelete(m_pParStage);
+	SafeDelete(m_pSound);
 	SafeDeletePointerContainer(m_Vec);
 	m_ButtonVec.clear();
 	m_TexMgr.Release();
@@ -51,6 +53,7 @@ Stage::Stage(Stage* Par)
 :m_pParStage(Par),m_pChildStage(0),m_IsDialog(true)
 ,m_bUpdate( true )
 ,m_SelectIndex(0),m_SelectLock(true),m_IsAnimetion(false)
+,m_pSound( NULL )
 #if defined(DEBUG) | defined(_DEBUG) | defined(ON_DEBUGGINGPROCESS)
 ,m_bSlow(false)
 #endif
@@ -127,11 +130,23 @@ void Stage::ButtonUpdate(UpdatePacket& i_UpdatePacket)
 		}
 		//選択が決定された
 		if(		ControllerState1P.Gamepad.wPressedButtons.XConState.A
-			||	Cursor2D::clickLButtonWithLock()
 			&&	!m_ButtonVec.empty()
 			){
 			m_ButtonVec[m_SelectIndex]->setPressed();
 			m_SelectLock = true;
+		}
+
+
+		Debugger::DBGSTR::addStr(L"Button::getMouseSelectIndex() %d\n",dwSM);
+		if(	Cursor2D::clickLButtonWithLock() ){
+			Debugger::DBGSTR::addStr(L"クリック\n");
+			if(	dwSM != ULONG_MAX ){
+				if(	!m_ButtonVec.empty() )
+				{
+					m_ButtonVec[m_SelectIndex]->setPressed();
+					m_SelectLock = true;
+				}
+			}
 		}
 	}
 	if( !(ControllerState1P.Gamepad.wButtons & XINPUT_GAMEPAD_DPAD_UP)
@@ -160,7 +175,20 @@ void Stage::ButtonUpdate(UpdatePacket& i_UpdatePacket)
 ***************************************************************************/
 void Stage::Update(UpdatePacket& i_UpdatePacket)
 {
-	i_UpdatePacket.pVec = &m_Vec ;
+
+	//	: 自分にSoundが登録されているかを確認
+	//if( !m_pSound )	m_pSound = (Sound*)SearchObjectFromID( &this->m_Vec,OBJID_SYS_SOUND );
+	////	: 自分にSoundの登録が見当たらなかった
+	////	: なおかつ
+	////	: 親ステージが存在する場合
+	//if( !m_pSound && m_pParStage && m_pParStage->m_pSound ){
+	//	m_pSound = m_pParStage->m_pSound ;
+	//	this->m_Vec.push_back(m_pSound);
+	//}
+	i_UpdatePacket.pVec		= &m_Vec ;
+	//i_UpdatePacket.m_pStage	= this ;
+	i_UpdatePacket.SetStage( this );
+
 #if defined(DEBUG) | defined(_DEBUG) | defined(ON_DEBUGGINGPROCESS)
 	float fElapsedTime = (float)i_UpdatePacket.pTime->getElapsedTime();
 	if(GetAsyncKeyState( MYVK_DEBUG_STOP_UPDATE )){
@@ -199,6 +227,7 @@ void Stage::Update(UpdatePacket& i_UpdatePacket)
 	}
 	fSlowAccumulator = 0 ;
 #endif
+
 	if(m_bUpdate){
 		ButtonUpdate(i_UpdatePacket);
 		//clock_t sc = TLIB::Tempus::getClock();
@@ -233,6 +262,7 @@ void Stage::Update(UpdatePacket& i_UpdatePacket)
 void Stage::Render(RenderPacket& i_RenderPacket){
 	i_RenderPacket.pVec		= &m_Vec	;
 	i_RenderPacket.pTxMgr	= &m_TexMgr ; 
+	i_RenderPacket.SetStage( this );
 	//clock_t sc = TLIB::Tempus::getClock();
 	//配置オブジェクトの描画
 	vector<Object*>::iterator it = m_Vec.begin();
@@ -263,8 +293,9 @@ void Stage::Render(RenderPacket& i_RenderPacket){
 void Stage::Draw(DrawPacket& i_DrawPacket)
 {
 	try{
-		i_DrawPacket.pVec = &m_Vec ;
-		i_DrawPacket.pTxMgr	= &m_TexMgr ; 
+		i_DrawPacket.pVec		= &m_Vec ;
+		i_DrawPacket.pTxMgr		= &m_TexMgr ; 
+		i_DrawPacket.SetStage( this );
 		//clock_t sc = TLIB::Tempus::getClock();
 		//配置オブジェクトの描画
 		vector<Object*>::size_type sz = m_Vec.size();

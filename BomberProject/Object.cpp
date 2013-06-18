@@ -15,7 +15,6 @@
 #include "Object.h"
 
 namespace wiz{
-DWORD Button::m_MouseSelectIndex = ULONG_MAX ;
 
 /**************************************************************************
  Light ’è‹`•”

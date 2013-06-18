@@ -53,7 +53,6 @@ class Title_Select  public SpriteObject
 class	Title_Select	: public SpriteObject{
 	D3DXVECTOR3		m_vPos		;
 	DWORD			m_dNext		;
-	Sound*			m_pSound	;
 	int				m_iTime		;
 	bool			m_bPush		;
 	bool			m_bPushRock	;
