@@ -79,6 +79,7 @@ Factory_Select::Factory_Select(FactoryPacket* fpac ){
 				0xFF008833,
 				RCTEXT_SOUND_SE_SELECT,
 				RCTEXT_SOUND_SE_ENTER,
+				0.5f,
 				Command( GM_OPENSTAGE_LOAD_PLAY, 3, 0 ),
 				0
 			)
@@ -98,8 +99,9 @@ Factory_Select::Factory_Select(FactoryPacket* fpac ){
 				0xFF0000DD,
 				RCTEXT_SOUND_SE_SELECT,
 				RCTEXT_SOUND_SE_ENTER,
+				0.5f,
 				Command( GM_OPENSTAGE_LOAD_PLAY, 3, 0 ),
-				0
+				1
 			)
 		);
 /////////////////////////////////////////////////////////////////////////////////
@@ -120,8 +122,9 @@ Factory_Select::Factory_Select(FactoryPacket* fpac ){
 				0xFF008833,
 				RCTEXT_SOUND_SE_SELECT,
 				RCTEXT_SOUND_SE_ENTER,
-				Command( GM_OPENSTAGE_LOAD_PLAY, 4, 6 ),
-				1
+				0.5f,
+				Command( GM_OPENSTAGE_LOAD_PLAY, 4, 0 ),
+				2
 			)
 		);
 		//ÉIÉåÉìÉW
@@ -139,8 +142,9 @@ Factory_Select::Factory_Select(FactoryPacket* fpac ){
 				0xFFDD3300,
 				RCTEXT_SOUND_SE_SELECT,
 				RCTEXT_SOUND_SE_ENTER,
-				Command( GM_OPENSTAGE_LOAD_PLAY, 4, 6 ),
-				1
+				0.5f,
+				Command( GM_OPENSTAGE_LOAD_PLAY, 4, 0 ),
+				3
 			)
 		);
 /////////////////////////////////////////////////////////////////////////////////
@@ -161,8 +165,9 @@ Factory_Select::Factory_Select(FactoryPacket* fpac ){
 				0xFF008833,
 				RCTEXT_SOUND_SE_SELECT,
 				RCTEXT_SOUND_SE_ENTER,
+				0.5f,
 				Command( GM_OPENSTAGE_LOAD_PLAY, 5, 0 ),
-				2
+				4
 			)
 		);
 		//ê‘
@@ -180,8 +185,9 @@ Factory_Select::Factory_Select(FactoryPacket* fpac ){
 				0xFF880000,
 				RCTEXT_SOUND_SE_SELECT,
 				RCTEXT_SOUND_SE_ENTER,
+				0.5f,
 				Command( GM_OPENSTAGE_LOAD_PLAY, 5, 0 ),
-				2
+				5
 			)
 		);
 	Factory_Cursor	MCfac( fpac, fLineLength, fPointSize )  ;

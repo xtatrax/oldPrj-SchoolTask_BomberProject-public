@@ -32,6 +32,7 @@ ButtonSprite::ButtonSprite(
 		const Color					dwUnSelectColor	,
 		const char*					sSelectSound	,
 		const char*					sDecisionSound	,
+		const float					fWaitTime		,
 		const Command				Com				,
 		const DWORD					dwIndex
 )
@@ -42,6 +43,7 @@ ButtonSprite::ButtonSprite(
 ,m_sSelectSound(sSelectSound)
 ,m_sDecisionSound(sDecisionSound)
 ,m_bIsPlaySelectSound(false)
+,m_fWaitTime(fWaitTime)
 {
 	try{
 	}
@@ -99,6 +101,7 @@ void ButtonSprite::Draw(DrawPacket& i_DrawPacket){
 	if(m_ButtonState.getSelect()){
 		m_Color = m_SelectColor;
 		if(m_ButtonState.getPressed()){
+			i_DrawPacket.SearchSoundAndPlay(m_sDecisionSound);
 			*i_DrawPacket.pCommand = m_ButtonState.CommandIssue();
 		}
 	}else{
