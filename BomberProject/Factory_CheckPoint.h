@@ -216,7 +216,6 @@ protected:
 	PlayerCoil*				m_pCoil			;
 	CheckEffect*			m_pEffect		;
 	CheckEffect*			m_pEffect2		;
-	Sound*					m_pSound		;
 	D3DCOLORVALUE			m_Color			;
 	float					m_Thicken		;
 	float					m_Length		;

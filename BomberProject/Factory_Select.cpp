@@ -73,6 +73,8 @@ Factory_Select::Factory_Select(FactoryPacket* fpac ){
 				g_vZero,
 				0xFFFFFFFF,
 				0x88888888,
+				RCTEXT_SOUND_SE_SELECT,
+				RCTEXT_SOUND_SE_ENTER,
 				Command( GM_OPENSTAGE_LOAD_PLAY, 1, 0 ),
 				0
 			)
@@ -90,6 +92,8 @@ Factory_Select::Factory_Select(FactoryPacket* fpac ){
 				g_vZero,
 				0xFFFFFFFF,
 				0x88888888,
+				RCTEXT_SOUND_SE_SELECT,
+				RCTEXT_SOUND_SE_ENTER,
 				Command( GM_OPENSTAGE_LOAD_PLAY, 1, 6 ),
 				1
 			)
@@ -106,6 +110,8 @@ Factory_Select::Factory_Select(FactoryPacket* fpac ){
 				g_vZero,
 				0xFFFFFFFF,
 				0x88888888,
+				RCTEXT_SOUND_SE_SELECT,
+				RCTEXT_SOUND_SE_ENTER,
 				Command( GM_OPENSTAGE_LOAD_PLAY, 2, 0 ),
 				2
 			)

@@ -13,6 +13,7 @@
 #pragma once
 #include "BassItems.h"
 #include "Bass2DItems.h"
+#include "Factory_Sound.h"
 
 namespace wiz{
 
@@ -21,14 +22,29 @@ namespace menuobject{
 
 class ButtonSprite : public SpriteObject{
 protected:
-	Button	m_ButtonState		;
-	Color	m_SelectColor		;
-	Color	m_UnSelectColor		;
+	Button			m_ButtonState		;
+	Color			m_SelectColor		;
+	Color			m_UnSelectColor		;
+	const char*		m_sSelectSound		;
+	const char*		m_sDecisionSound	;
+	bool			m_bIsPlaySelectSound;
 public:
-	ButtonSprite(LPDIRECT3DDEVICE9 pD3DDevice,LPDIRECT3DTEXTURE9 pTexture,
-		D3DXVECTOR3 vScalse,D3DXVECTOR3 vRot,D3DXVECTOR3 vPos,RECT* pRect,
-		D3DXVECTOR3 vCenter,D3DXVECTOR3 vOffset,Color dwSelectColor,
-		Color dwUnSelectColor,Command Com,DWORD dwIndex);
+	ButtonSprite(
+		const LPDIRECT3DDEVICE9		pD3DDevice		,
+		const LPDIRECT3DTEXTURE9	pTexture		,
+		const D3DXVECTOR3			vScalse			,
+		const D3DXVECTOR3			vRot			,
+		const D3DXVECTOR3			vPos			,
+		const RECT*					pRect			,
+		const D3DXVECTOR3			vCenter			,
+		const D3DXVECTOR3			vOffset			,
+		const Color					dwSelectColor	,
+		const Color					dwUnSelectColor	,
+		const char*					sSelectSound	,
+		const char*					sDecisionSound	,
+		const Command				Com				,
+		const DWORD					dwIndex
+	);
 	virtual ~ButtonSprite();
 /////////////////// ////////////////////
 //// ópìr       ÅFvirtual void Update( LPDIRECT3DDEVICE9 pD3DDevice
