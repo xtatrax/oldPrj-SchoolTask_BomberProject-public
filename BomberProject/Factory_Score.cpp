@@ -291,7 +291,7 @@ void	GoalPos::Update(UpdatePacket& i_UpdatePacket){
 		D3DXVECTOR3	s,p,r;
 		//m_pGoalObject->GetBaseScalePosRot(s,p,r);
 		m_pGoalObject->GetWorldPos(p);
-		m_iScore = (int)(p.y);
+		m_iScore = (int)(p.y)-2;
 	}
 	if( m_iScore < 0 )
 		m_iScore	= 0;
