@@ -225,7 +225,6 @@ void	ArrivalPos::Update(UpdatePacket& i_UpdatePacket){
 			m_iMaxPosY	= m_iScore;
 
 		m_pCoil->setMaxPos( m_iMaxPosY );
-
 	}
 	if( m_iScore < 0 )
 		m_iScore	= 0;
