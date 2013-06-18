@@ -325,7 +325,8 @@ public:
 	////            ÅF
 	////
 	D3DXVECTOR3 getThisPosition(DWORD Point){
-		if( m_ItemContainer.size() < Point ) Point = m_ItemContainer.size() ;
+		//	: 
+		if( m_ItemContainer.size() < Point ) Point = m_ItemContainer.size()-1 ;
 		m_ActiveItem = Point ;
 		return m_ItemContainer[Point]->vStartPos ;
 	};

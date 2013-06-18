@@ -27,6 +27,7 @@ protected:
 	Color			m_UnSelectColor		;
 	const char*		m_sSelectSound		;
 	const char*		m_sDecisionSound	;
+	float			m_fWaitTime			;
 	bool			m_bIsPlaySelectSound;
 public:
 	ButtonSprite(
@@ -42,6 +43,7 @@ public:
 		const Color					dwUnSelectColor	,
 		const char*					sSelectSound	,
 		const char*					sDecisionSound	,
+		const float					fWaitTime		,
 		const Command				Com				,
 		const DWORD					dwIndex
 	);
