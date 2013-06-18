@@ -269,7 +269,7 @@ void FMemoryTex::OrientGoal(UpdatePacket& i_UpdatePacket){
 					dirPtn	 = 3;
 				}
 				else{
-					i_UpdatePacket.pCommand->m_Command	= GM_OPENSTAGE_RESULT;
+					i_UpdatePacket.pCommand->m_Command	= GM_OPENSTAGE_CLEAR;
 				}
 				break;
 	}

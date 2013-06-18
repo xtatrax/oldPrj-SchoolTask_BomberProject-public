@@ -21,6 +21,7 @@ namespace wiz{
  用途: ゲームステージクラス
 ****************************************************************************/
 class ResultStage : public Stage{
+	int	m_iTime;
 public:	
 /**************************************************************************
  ResultStage(
@@ -31,7 +32,7 @@ public:
  用途: コンストラクタ
  戻り値: なし（失敗時は例外をthrow）
 ***************************************************************************/
-	ResultStage(LPDIRECT3DDEVICE9 pD3DDevice,Stage* pStage = NULL);
+	ResultStage(LPDIRECT3DDEVICE9 pD3DDevice, int iDeadCount, int iMaxPosY, Stage* pStage = NULL);
 /**************************************************************************
 ResultStage();
  用途: デストラクタ
