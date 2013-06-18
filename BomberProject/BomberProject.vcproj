@@ -725,6 +725,18 @@
 						Name="00.•”•i‚ðì‚é‰º¿‚¯HêŒQ"
 						>
 					</Filter>
+					<Filter
+						Name="Factory_CustomButtonA"
+						>
+						<File
+							RelativePath=".\Factory_CustomButtonA.cpp"
+							>
+						</File>
+						<File
+							RelativePath=".\Factory_CustomButtonA.h"
+							>
+						</File>
+					</Filter>
 				</Filter>
 				<Filter
 					Name="00.1ƒtƒBƒ‹ƒ^[/1Factory/1Class‚ð“O’ê‚µ‚Ä‚­‚¾‚³‚¢"
