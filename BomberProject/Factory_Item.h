@@ -46,7 +46,6 @@ class  Item : public PrimitiveSphere
 *******************************************************/
 class	Item	: public PrimitiveSphere {
 protected:
-	Sound*		m_pSound		;
 	PlayerCoil*	m_pPlayerCoil	;
 	SuperGage*	m_pSuperGage	;
 	Camera*		m_pCamera		;

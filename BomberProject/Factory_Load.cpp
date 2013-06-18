@@ -58,7 +58,6 @@ Load::Load(
 :SpriteObject( pD3DDevice, pTexture, vScale, vRot, vPos, pRect, vCenter, vOffsetPos, color )
 ,m_Com(*Com)
 ,m_vPos( vPos )
-,m_pSound( NULL )
 ,m_iTime( 0 )
 ,m_fRate( 1.0f )
 ,m_iPtn( 0 )

@@ -485,6 +485,10 @@
 							>
 						</File>
 					</Filter>
+					<Filter
+						Name="00.‰æ–Ê‘S‘Ì‚ð\’z‚·‚éHêŒQ"
+						>
+					</Filter>
 				</Filter>
 				<Filter
 					Name="PartsFactorys"
@@ -705,6 +709,10 @@
 							>
 						</File>
 					</Filter>
+					<Filter
+						Name="00.•”•i‚ðì‚é‰º¿‚¯HêŒQ"
+						>
+					</Filter>
 				</Filter>
 				<Filter
 					Name="00.1ƒtƒBƒ‹ƒ^[/1Factory/1Class‚ð“O’ê‚µ‚Ä‚­‚¾‚³‚¢"
@@ -724,6 +732,10 @@
 							RelativePath=".\Factory_CheckPointSave.h"
 							>
 						</File>
+					</Filter>
+					<Filter
+						Name="00.“®ì‚ðì‚é‰º¿‚¯Hê"
+						>
 					</Filter>
 				</Filter>
 			</Filter>
@@ -823,6 +835,10 @@
 			>
 			<File
 				RelativePath=".\defineValue.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\defineValue.h"
 				>
 			</File>
 			<File
