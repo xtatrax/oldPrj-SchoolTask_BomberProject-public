@@ -27,6 +27,8 @@
 //	: 追加のインクルード
 #include "Factory_CheckPoint.h"
 #include "Factory_Continue.h"
+#include "Factory_Description.h"
+
 //	: 追加のインクルード
 //////////
 //#include "Object.h"
@@ -96,6 +98,7 @@ PlayerCoil::PlayerCoil(
 ,m_bReadyToStart(		false								)
 ,m_bReadyContinue(		false								)
 ,m_bDrawContinue(		false								)
+,m_bRestart(			true								)
 ,m_iDeadCount(			0									)
 ,m_pSuperField(			NULL								)
 ,m_fTurnAngle(			PLAYER_TURN_ANGLE_Lv1				)
@@ -104,7 +107,7 @@ PlayerCoil::PlayerCoil(
 ,m_pMagneticumObject(	NULL								)
 ,m_pCamera(				NULL								)
 ,m_pSound(				NULL								)
-
+,m_pReStart(			NULL								)
 //テクスチャ*********************************************************************
 ,m_pDeadTex(			m_pTexMgr->addTexture( pD3DDevice, L"DeadPerticul.png"	))
 ,m_pContinueTex(		m_pTexMgr->addTexture( pD3DDevice, L"CONTINUE4.png"		))
@@ -160,6 +163,7 @@ PlayerCoil::~PlayerCoil(){
 	m_pCamera				= NULL ;
 	m_pSphere				= NULL ;
 	m_pSuperField			= NULL ;
+	m_pReStart				= NULL ;
 	
 	SAFE_DELETE(m_pSelect);
 	SAFE_DELETE(m_pSelect2);
@@ -232,7 +236,7 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 	if( !m_pCamera )			m_pCamera				=             ( Camera* ) SearchObjectFromID( i_UpdatePacket.pVec, OBJID_SYS_CAMERA ) ; 
 	if( !m_pSound )				m_pSound				=              ( Sound* ) SearchObjectFromID( i_UpdatePacket.pVec, OBJID_SYS_SOUND  ) ;
 	if( !m_pMagneticumObject )	m_pMagneticumObject		= ( MagneticumObject3D* ) SearchObjectFromID( i_UpdatePacket.pVec, OBJID_3D_STATIC_MAGNET ) ; 
-
+	if( !m_pReStart )			m_pReStart				=		 ( StartSprite* ) SearchObjectFromID( i_UpdatePacket.pVec, OBJID_SYS_START  ) ;
 	if( m_pPlayer ){
 		//デバック用-----------------------------------------------------------
 		// 磁界反転
@@ -676,6 +680,7 @@ void PlayerCoil::Update_StateDead(){
 	m_vScale = g_vZero;
 	if( m_bReadyContinue ){
 		m_enumCoilState = COIL_STATE_CONTINUE;
+		//if( m_pReStart )	m_pReStart->ReStart();
 		m_vPos = m_vStartPos;
 		m_pCamera->setPosY(m_vStartPos.y);
 		m_bReadyContinue	= false;
@@ -716,12 +721,16 @@ void PlayerCoil::Update_StateContinue(){
 			m_bLastMouseLB  = false;
 			m_bLastMouseRB  = false;
 			m_bReadyToStart = false;
+			m_bRestart		= true;
 		}
 	}else{
 		m_vScale += COIL_SCALE_ADD_VALUE_START;
 		if( m_vScale.x >= m_vOriginScale.x && m_vScale.y >= m_vOriginScale.y ){
 			m_vScale = m_vOriginScale;
-			m_bReadyToStart = true;
+			if( m_bRestart ){
+				if( m_pReStart )	m_pReStart->ReStart();
+				m_bRestart	= false;
+			}//m_bReadyToStart = true;
 		}
 	}
 };
