@@ -356,6 +356,7 @@ void WallObject::Draw(DrawPacket& i_DrawPacket)
 			//D3DXVECTOR3	v	= MatrixCalculator( (*it)->m_Matrix, m_Plate.getPos() );
 			//m_Plate.setMatrixPos( v );
 			//m_Plate.setMatrix((*it)->m_Matrix);
+			//m_Plate.Update( m_Ptn );
 			//m_Plate.Draw(i_DrawPacket);
 		}
 		else{
