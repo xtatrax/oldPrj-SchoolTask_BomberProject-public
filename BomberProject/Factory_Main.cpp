@@ -133,7 +133,7 @@ Factory_Main::Factory_Main(FactoryPacket* fpac, DWORD dwStageNum, DWORD dwResump
 		float	fPointSize	= 0.125f;
 		Factory_Cursor		Mfac( fpac, fLineLength, fPointSize )  ; 
 		Factory_Player		Pfac( fpac );
-		if( dwStageNum == 0 )	dwStageNum = 5 ;
+		if( dwStageNum == 0 )	dwStageNum = 1 ;
 		StageLoader			loader(fpac->pD3DDevice,L"media/Map/Stages.csv", dwStageNum,*fpac->m_pVec,*fpac->m_pTexMgr);
 		Factory_Coil		Cfac( fpac , dwResumptionCheckPoint, vStartPos );
 		Factory_Wall		Wfac( fpac );

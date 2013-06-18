@@ -19,6 +19,7 @@
 #include "Factory_Wall.h"
 #include "Factory_Item.h"
 #include "Factory_Magnetic.h"
+#include "Object.h"
 
 
 
@@ -127,11 +128,23 @@ void Stage::ButtonUpdate(UpdatePacket& i_UpdatePacket)
 		}
 		//選択が決定された
 		if(		ControllerState1P.Gamepad.wPressedButtons.XConState.A
-			||	Cursor2D::clickLButtonWithLock()
 			&&	!m_ButtonVec.empty()
 			){
 			m_ButtonVec[m_SelectIndex]->setPressed();
 			m_SelectLock = true;
+		}
+
+
+		Debugger::DBGSTR::addStr(L"Button::getMouseSelectIndex() %d\n",dwSM);
+		if(	Cursor2D::clickLButtonWithLock() ){
+			Debugger::DBGSTR::addStr(L"クリック\n");
+			if(	dwSM != ULONG_MAX ){
+				if(	!m_ButtonVec.empty() )
+				{
+					m_ButtonVec[m_SelectIndex]->setPressed();
+					m_SelectLock = true;
+				}
+			}
 		}
 	}
 	if( !(ControllerState1P.Gamepad.wButtons & XINPUT_GAMEPAD_DPAD_UP)

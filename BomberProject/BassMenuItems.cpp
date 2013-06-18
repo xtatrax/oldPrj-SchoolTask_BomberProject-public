@@ -56,6 +56,7 @@ void ButtonSprite::Update(UpdatePacket& i_UpdatePacket){
 		m_ButtonState.setMouseSelect(true);
 	else
 		m_ButtonState.setMouseSelect(false);
+		//Debugger::DBGSTR::addStr(L"Button::getMouseSelectIndex() %d\n",Button::getMouseSelectIndex());
 };
 
 

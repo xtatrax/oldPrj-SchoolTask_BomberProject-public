@@ -23,7 +23,10 @@ Point		Cursor2D::m_vMousePoint      ;
 bool		Cursor2D::m_bMouseLB = false ;
 bool		Cursor2D::m_bMouseMB = false ;
 bool		Cursor2D::m_bMouseRB = false ;
-DWORD		Cursor2D::m_tLastTime	= TLIB::Tempus::TimeGetTime() ;
+//bool		Cursor2D::m_bMouseLBLock = false ;
+//bool		Cursor2D::m_bMouseMBLock = false ;
+//bool		Cursor2D::m_bMouseRBLock = false ;
+DWORD		Cursor2D::m_tLastTime	= timeGetTime() ;
 const float	Cursor2D::m_fLockTime	= 0.3f ;
 
 Point Cursor2D::getPos(){
@@ -33,9 +36,12 @@ Point Cursor2D::getPos(){
 }
 bool Cursor2D::clickLButtonWithLock()
 {
-	if( m_bMouseLB && (float)TLIB::Tempus::TwoDwTime2ElapsedTime(m_tLastTime,TLIB::Tempus::TimeGetTime()) > m_fLockTime)
+	//	: ‘O‰ñ‰Ÿ‚³‚ê‚½Žž‚æ‚è0.3•bŒo‰ß‚µ‚Ä‚¢‚È‚©‚Á‚½‚ç–³Œø
+	DWORD now = timeGetTime();
+	float fTime = (float)TLIB::Tempus::TwoDwTime2ElapsedTime(m_tLastTime,now);
+	if( m_bMouseLB &&  fTime > m_fLockTime)
 	{
-		m_tLastTime = TLIB::Tempus::TimeGetTime();
+		m_tLastTime = timeGetTime();
 		return true ;
 	}
 	return false;

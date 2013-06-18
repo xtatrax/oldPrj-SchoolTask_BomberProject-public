@@ -554,14 +554,15 @@ void PlayerCoil::Update_StateStick(){
 //// カテゴリ   ：
 //// 用途       ：STATE_SUPER時の動き
 //// 引数       ：  DrawPacket& i_DrawPacket             // 画面描画時に必要なデータ群 ↓内容下記
-////			  ：  ├ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 インターフェイスへのポインタ
-////			  ：  ├ vector<Object*>&    Vec                     // オブジェクトの配列
-////			  ：  ├ Tempus2*            i_DrawPacket.pTime	   // 時間を管理するクラスへのポインター
-////              ：  └ Command             i_DrawPacket.pCommand   // コマンド
+////            ：  ├ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 インターフェイスへのポインタ
+////            ：  ├ vector<Object*>&    Vec                     // オブジェクトの配列
+////            ：  ├ Tempus2*            i_DrawPacket.pTime	   // 時間を管理するクラスへのポインター
+////            ：  └ Command             i_DrawPacket.pCommand   // コマンド
 //// 戻値       ：なし
 //// 担当       ：本多寛之
+//// 編集       ：鴫原 徹
 //// 備考       ：
-////			  ：
+////            ：
 ////
 void PlayerCoil::SuperMode( UpdatePacket& i_UpdatePacket ){	
 	static float	s_fTimeCount		= 0;
