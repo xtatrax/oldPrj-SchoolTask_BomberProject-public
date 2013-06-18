@@ -31,7 +31,7 @@ using namespace bomberobject;
  戻り値: なし（失敗時は例外をthrow）
 ***************************************************************************/
 ResultStage::ResultStage(LPDIRECT3DDEVICE9 pD3DDevice, int iDeadCount, int iMaxPosY, Stage* pStage)
-	:Stage(pStage),m_iTime( 0 )
+	:Stage(pStage)
 {
 	try{
 		FactoryPacket FPac(this);

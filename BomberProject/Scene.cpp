@@ -278,7 +278,7 @@ void Scene::CommandTranslator(DrawPacket& i_DrawPacket){
 		case GM_OPENSTAGE_CLEAR:
 			//	: ƒQ[ƒ€ƒNƒŠƒA‰æ–Ê
 			SafeDeleteStage(m_pRootStage);
-			m_pRootStage = new ClearStage(i_DrawPacket.pD3DDevice);
+			m_pRootStage = new ClearStage(i_DrawPacket.pD3DDevice, i_DrawPacket.pCommand->m_Param1, i_DrawPacket.pCommand->m_Param2 );
 			break;
 
 		case GM_OPENSTAGE_RESULT:
