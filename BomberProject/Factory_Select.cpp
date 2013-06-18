@@ -60,57 +60,122 @@ Factory_Select::Factory_Select(FactoryPacket* fpac ){
 		//fpac->m_pVec->push_back( new TestBehavior());
 		float	fLineLength	= 550.0f;
 		float	fPointSize	= 0.25f;
-		Factory_Cursor	MCfac( fpac, fLineLength, fPointSize )  ;
+
+/////////////////////////////////////////////////////////////////////////////////
+//                                 NORMAL                                      //
+/////////////////////////////////////////////////////////////////////////////////
+		//—Î
 		fpac->AddButton(
 			new ButtonSprite(
 				fpac->pD3DDevice,	
-				fpac->AddTexture(L"1-0.png"),
+				fpac->AddTexture(L"NORMAL002.tga"),
 				g_vOne,
 				g_vZero,
-				D3DXVECTOR3(20.0f, 60.0f, 0.0f),
-				NULL,
+				D3DXVECTOR3(404.5f, 150.0f, 0.0f),
+				Rect(0,0,215,26),
 				g_vZero,
 				g_vZero,
-				0xFFFFFFFF,
-				0x88888888,
-				Command( GM_OPENSTAGE_LOAD_PLAY, 1, 0 ),
+				0xFF00AA55,
+				0xFF008833,
+				Command( GM_OPENSTAGE_LOAD_PLAY, 3, 0 ),
 				0
 			)
 		);
-
+		//Â
 		fpac->AddButton(
 			new ButtonSprite(
 				fpac->pD3DDevice,	
-				fpac->AddTexture(L"1-6.png"),
+				fpac->AddTexture(L"NORMAL001.tga"),
 				g_vOne,
 				g_vZero,
-				D3DXVECTOR3(20.0f, 120.0f, 0.0f),
-				NULL,
+				D3DXVECTOR3(404.5f, 150.0f, 0.0f),
+				Rect(0,0,215,26),
 				g_vZero,
 				g_vZero,
-				0xFFFFFFFF,
-				0x88888888,
-				Command( GM_OPENSTAGE_LOAD_PLAY, 1, 6 ),
+				0xFF00FFFF,
+				0xFF0000DD,
+				Command( GM_OPENSTAGE_LOAD_PLAY, 3, 0 ),
+				0
+			)
+		);
+/////////////////////////////////////////////////////////////////////////////////
+//                                  HARD                                       //
+/////////////////////////////////////////////////////////////////////////////////
+		//—Î
+		fpac->AddButton(
+			new ButtonSprite(
+				fpac->pD3DDevice,	
+				fpac->AddTexture(L"HARD002.tga"),
+				g_vOne,
+				g_vZero,
+				D3DXVECTOR3(440.0f, 300.0f, 0.0f),
+				Rect(0,0,144,26),
+				g_vZero,
+				g_vZero,
+				0xFF00AA55,
+				0xFF008833,
+				Command( GM_OPENSTAGE_LOAD_PLAY, 4, 6 ),
 				1
 			)
 		);
+		//ƒIƒŒƒ“ƒW
 		fpac->AddButton(
 			new ButtonSprite(
 				fpac->pD3DDevice,	
-				fpac->AddTexture(L"2-0.png"),
+				fpac->AddTexture(L"HARD001.tga"),
 				g_vOne,
 				g_vZero,
-				D3DXVECTOR3(200.0f, 60.0f, 0.0f),
-				NULL,
+				D3DXVECTOR3(440.0f, 300.0f, 0.0f),
+				Rect(0,0,144,26),
 				g_vZero,
 				g_vZero,
-				0xFFFFFFFF,
-				0x88888888,
-				Command( GM_OPENSTAGE_LOAD_PLAY, 2, 0 ),
+				0xFFFFCC00,
+				0xFFDD3300,
+				Command( GM_OPENSTAGE_LOAD_PLAY, 4, 6 ),
+				1
+			)
+		);
+/////////////////////////////////////////////////////////////////////////////////
+//                                 EXTRA                                       //
+/////////////////////////////////////////////////////////////////////////////////
+		//—Î
+		fpac->AddButton(
+			new ButtonSprite(
+				fpac->pD3DDevice,	
+				fpac->AddTexture(L"EXTRA002.tga"),
+				g_vOne,
+				g_vZero,
+				D3DXVECTOR3(422.5f, 450.0f, 0.0f),
+				Rect(0,0,179,26),
+				g_vZero,
+				g_vZero,
+				0xFF00AA55,
+				0xFF008833,
+				Command( GM_OPENSTAGE_LOAD_PLAY, 5, 0 ),
 				2
 			)
 		);
+		//Ô
+		fpac->AddButton(
+			new ButtonSprite(
+				fpac->pD3DDevice,	
+				fpac->AddTexture(L"EXTRA001.tga"),
+				g_vOne,
+				g_vZero,
+				D3DXVECTOR3(422.5f, 450.0f, 0.0f),
+				Rect(0,0,179,26),
+				g_vZero,
+				g_vZero,
+				0xFFFF5555,
+				0xFF880000,
+				Command( GM_OPENSTAGE_LOAD_PLAY, 5, 0 ),
+				2
+			)
+		);
+	Factory_Cursor	MCfac( fpac, fLineLength, fPointSize )  ;
+
 	}
+
 	catch(LoaderException& e){
 		throw LoaderException(
 				e.what_w(),
