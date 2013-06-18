@@ -134,7 +134,6 @@ class Item : public PrimitiveSphere
 *******************************************************/
 class	GoalObject	:public PrimitiveBox{
 	PlayerCoil*	m_pCoil;
-	Sound*		m_pSound;
 	bool		m_bPlaySound;
 	OBB			m_Obb;
 

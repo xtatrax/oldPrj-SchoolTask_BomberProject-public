@@ -22,12 +22,14 @@
 #pragma once
 
 #include "StdAfx.h"
-
 namespace wiz{
 class  Object ; 
 class  Stage ;
 class  TextureManager ;
 struct CONTROLER_STATE;
+namespace system{
+class  Sound ;
+}
 namespace functions {
 extern void EarnFromMeshOBB(const LPD3DXBASEMESH i_pMesh,D3DXVECTOR3& o_vPos ,D3DXVECTOR3& o_vSize);
 }
@@ -222,6 +224,10 @@ public:
 extern struct DrawPacket	;
 extern struct RenderPacket	;
 struct BassPacket{
+private:
+	wiz::Stage*	m_pStage;
+public:
+	void SetStage( wiz::Stage* pStage ){ m_pStage = pStage ; }
 	LPDIRECT3DDEVICE9		pD3DDevice	;	// デバイス
 	vector<Object*>*		pVec		;	// オブジェコンテナ
 	TextureManager*			pTxMgr		;	// テクスチャ管理クラス
@@ -235,7 +241,14 @@ struct BassPacket{
 		,pCommand( NULL )
 	
 	{}
-
+	LPDIRECT3DTEXTURE9 AddTexture(	const wchar_t*	sTextureName );
+	void AddButton(					Object*			pButton);
+	void AddObject(					Object*			pObje);
+	void SearchSoundAndPlay(		const char*		sSoundName );
+	void SearchSoundAndStop(		const char*		sSoundName );
+	void SearchWaveAndPlay(			const char*		sWaveName  );
+	void SearchWaveAndStop(			const char*		sWaveName  );
+	void SoundStop(					const char*		sSoundName  );
 };
 //**************************************************************************//
 // struct UpdatePacket;
@@ -312,8 +325,13 @@ public:
 		,m_pStage(		i_pStage		)
 	{}
 	LPDIRECT3DTEXTURE9 AddTexture( const wchar_t* sTextureName );
-	void AddButton(Object* pButton);
-	void AddObject(Object* pObje);
+	void AddButton(Object* pButton );
+	void AddObject(Object* pObje   );
+	void SetSound( system::Sound*  pSound  );
+	void SearchSoundAndPlay( const char* SoundName );
+	void SearchSoundAndStop( const char* SoundName );
+	void SearchWaveAndPlay(  const char* WaveName  );
+	void SearchWaveAndStop(  const char* WaveName  );
 };
 /*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 

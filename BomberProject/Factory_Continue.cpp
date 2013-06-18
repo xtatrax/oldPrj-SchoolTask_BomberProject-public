@@ -16,6 +16,7 @@
 //	: 基本のインクルード
 #include "StdAfx.h"
 #include "Factory_Continue.h"
+
 //	: 基本のインクルード
 //////////
 //////////
@@ -59,6 +60,9 @@ Reply::Reply(const LPDIRECT3DDEVICE9 pD3DDevice,const  LPDIRECT3DTEXTURE9 pTextu
 ,m_bMark( mark )
 ,m_bPushRock( false )
 ,m_bWhichDraw( false )
+,m_iTime( 0 )
+,m_bPush( false )
+,m_bSelect( false )
 {
 	try{
 		//	: 初期マトリックスを計算
@@ -112,17 +116,34 @@ void Reply::Update(UpdatePacket& i_UpdatePacket)
 				else{
 					m_bWhichDraw	= true;
 				}
+				if( !m_bPush ){
+					i_UpdatePacket.SearchSoundAndPlay( RCTEXT_SOUND_SE_ENTER );
+				}
+				m_bPush		= true;
 				m_bPushRock	= false;
 			}
 		}
 		else	m_bPushRock	= true;
 		m_Color	= 0xFFFFFFFF;
+		if( !m_bSelect ){
+			m_bSelect = true;
+			i_UpdatePacket.SearchSoundAndPlay( RCTEXT_SOUND_SE_SELECT );
+		}
 	}
 	else{
+		//	: マウスが画像の範囲外にいるとき
 		m_Color	= 0xA0FFFFFF;
 
 		if( Cursor2D::getLButtonState() )	m_bPushRock	= false;
 		else				m_bPushRock	= true;
+	}
+		if( m_bPush ){
+		m_iTime++;
+		if( m_iTime > 30 ){
+			//選ばれた画面へとぶ
+			i_UpdatePacket.pCommand->m_Command	= m_dNext;
+			m_bPush = false ;
+		}
 	}
 
 };
@@ -284,7 +305,9 @@ Continue::Continue(const LPDIRECT3DDEVICE9 pD3DDevice,const  LPDIRECT3DTEXTURE9 
 ,m_pRethinkingTex(pTexture_Rethinking)
 ,m_pAnswerTex(pTexture_Answer)
 ,m_pContinueTex( pTexture_Continue )
-
+,m_iTime( 0 )
+,m_bPush( false )
+,m_bSelect( false )
 {
 	try{
 		//	: 初期マトリックスを計算
@@ -378,13 +401,24 @@ void Continue::Update(UpdatePacket& i_UpdatePacket)
 						}
 						m_bWhichDraw	= false;
 					}
+					//	: マウスの左ボタンが押された
+					
+					if( !m_bPush ){
+						i_UpdatePacket.SearchSoundAndPlay( RCTEXT_SOUND_SE_ENTER );
+					}
+					m_bPush		= true;
 					m_bPushRock	= false;
 				}
 			}
 			else	m_bPushRock	= true;
 			m_Color	= 0xFFFFFFFF;
+			if( !m_bSelect ){
+				m_bSelect = true;
+				i_UpdatePacket.SearchSoundAndPlay( RCTEXT_SOUND_SE_SELECT );
+			}
 		}
 		else{
+			//	: マウスが画像の範囲外にいるとき
 			m_Color	= 0xA0FFFFFF;
 
 			if( Cursor2D::getLButtonState() )	m_bPushRock	= false;
@@ -399,6 +433,14 @@ void Continue::Update(UpdatePacket& i_UpdatePacket)
 		if( m_pReply_No != NULL ){
 			m_pReply_No->Update( i_UpdatePacket );
 			m_bWhichDraw	= m_pReply_No->getWhichDraw();
+		}
+	}
+	if( m_bPush ){
+		m_iTime++;
+		if( m_iTime > 30 ){
+			//選ばれた画面へとぶ
+			i_UpdatePacket.pCommand->m_Command	= m_dNext;
+			m_bPush = false ;
 		}
 	}
 };

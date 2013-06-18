@@ -36,10 +36,15 @@ using namespace menuobject ;
 //**************************************************************************//
 class Stage{
 protected:
-	friend struct FactoryPacket;
+	friend struct FactoryPacket		;
+	friend struct BassPacket		;
+	friend struct UpdatePacket		;
+	friend struct RenderPacket		;
+	friend struct DrawPacket		;
 	//	: メニュー等の画面へのポインタをとっておく
 	Stage*						m_pParStage		;	//	: 親ステージ
 	Stage*						m_pChildStage	;	//	: 子ステージ
+	system::Sound*				m_pSound		;
 	bool						m_IsDialog		;	//	: ダイアログステージかどうか
 	bool						m_bUpdate		;	//	: このフラグをtrueにするとステージのupdateが止まります
     vector<Object*>				m_Vec			;	//	: 配置オブジェクトのポインタのベクトル

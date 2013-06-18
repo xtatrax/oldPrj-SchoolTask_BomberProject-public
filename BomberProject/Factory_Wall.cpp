@@ -197,7 +197,6 @@ WallObject::WallObject( LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTextur
 		pTexture)
 ,m_pWallTex( pTexture )
 ,m_Ptn(0)
-,m_pSound( NULL )
 ,m_Plate( pD3DDevice, pTexture, 0xFFFFFFFF )
 ,m_pWarning( NULL )
 {
@@ -397,7 +396,6 @@ void WallObject::Draw(DrawPacket& i_DrawPacket)
 ////
 void WallObject::Update( UpdatePacket& i_UpdatePacket ){
 	if( !m_pCamera     )	m_pCamera		=     (Camera*)SearchObjectFromID( i_UpdatePacket.pVec, OBJID_SYS_CAMERA	) ;
-	if( !m_pSound      )	m_pSound		=      (Sound*)SearchObjectFromID( i_UpdatePacket.pVec, OBJID_SYS_SOUND		) ;
 	if( !m_pPlayerCoil )	m_pPlayerCoil	= (PlayerCoil*)SearchObjectFromID( i_UpdatePacket.pVec, OBJID_3D_COIL		) ;
 	if( !m_pEnemy      )	m_pEnemy		= (EnemyModel*)SearchObjectFromID( i_UpdatePacket.pVec, OBJID_3D_ENEMY		) ;
 	if( !m_pWarning    )	m_pWarning		=    (Warning*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_3D_WARNING		) ;
@@ -484,7 +482,7 @@ void WallObject::Update( UpdatePacket& i_UpdatePacket ){
 			switch(m_pPlayerCoil->getState()){
 				case COIL_STATE_MOVE:
 					if(m_pPlayerCoil->getSuperMode() == COIL_STATE_SUPER_CHARGE || m_pPlayerCoil->getSuperMode() == COIL_STATE_SUPER_READY){
-						m_pSound->SearchWaveAndPlay( RCTEXT_SOUND_SE_PLAYERBLOKEN );
+						i_UpdatePacket.SearchWaveAndPlay( RCTEXT_SOUND_SE_PLAYERBLOKEN );
 						m_pPlayerCoil->setState(COIL_STATE_DEAD);
 					}
 					break;
@@ -493,7 +491,7 @@ void WallObject::Update( UpdatePacket& i_UpdatePacket ){
 			}
 		}
 		if(m_pEnemy){
-			m_pEnemy->HitTestWall( (*it)->m_Obb );
+			m_pEnemy->HitTestWall( (*it)->m_Obb, i_UpdatePacket );
 		}
 
 		++it;

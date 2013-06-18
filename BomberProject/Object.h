@@ -233,13 +233,19 @@ public:
  ****************************************************************************/
 class Button {
 protected:
-	static DWORD m_MouseSelectIndex;
 	DWORD	m_Index;				//メニュー上のインデックス
 	bool	m_IsSelect;				//選択フラグ
+
 	bool	m_IsMouseSelect;		//マウスによって選択されている
 	bool	m_IsPressed;			//決定フラグ
 	Command	m_Command;				//コマンド
-	
+
+	static DWORD MouseSelectIndex(bool Set = false ,DWORD index = 0){
+		static DWORD	MouseSelectIndex	;
+		if( Set )
+			MouseSelectIndex	= index ;
+		return			MouseSelectIndex	;
+	}
 public:
 	/**************************************************************************
 	 Button(
@@ -284,7 +290,7 @@ public:
 	***************************************************************************/
 	void setMouseSelect(bool select){
 		if(m_IsSelect = m_IsMouseSelect = select)
-			m_MouseSelectIndex = m_Index ;
+			Button::MouseSelectIndex( true , m_Index );
 	}
 	/**************************************************************************
 	 void setPressed();
@@ -310,8 +316,9 @@ public:
 	 戻り値: なし。
 	***************************************************************************/
 	static DWORD getMouseSelectIndex(){
-		DWORD ret = m_MouseSelectIndex;
-		m_MouseSelectIndex = ULONG_MAX ;
+
+		DWORD ret = MouseSelectIndex();
+		MouseSelectIndex(true, ULONG_MAX) ;
 		return ret;
 	}
 	/**************************************************************************

@@ -29,7 +29,6 @@ class Load  public SpriteObject
 class	Load	: public SpriteObject{
 	Command			m_Com;
 	D3DXVECTOR3		m_vPos;
-	Sound*			m_pSound;
 	int				m_iTime;
 	float			m_fRate;
 	int				m_iPtn;
