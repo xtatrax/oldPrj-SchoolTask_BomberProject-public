@@ -55,6 +55,45 @@ END
 // Icon with lowest ID value placed first to ensure application icon
 // remains consistent on all systems.
 IDI_ICON1               ICON                    "Icon.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 0,8,0,1
+ PRODUCTVERSION 0,8,0,1
+ FILEFLAGSMASK 0x17L
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "041104b0"
+        BEGIN
+            VALUE "CompanyName", "WiZ::TeamBokan"
+            VALUE "FileDescription", "2013年WiZ3年前期チーム制作作品"
+            VALUE "FileVersion", "0, 8, 0, 1"
+            VALUE "InternalName", " Magnetica"
+            VALUE "LegalCopyright", "Copyright (C) 2013"
+            VALUE "OriginalFilename", "Magnetica.exe"
+            VALUE "ProductName", "BomberProject"
+            VALUE "ProductVersion", "0, 8, 0, 1"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x411, 1200
+    END
+END
+
 #endif    // 日本語 resources
 /////////////////////////////////////////////////////////////////////////////
 
