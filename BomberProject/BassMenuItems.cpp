@@ -17,16 +17,29 @@ namespace wiz{
 namespace menuobject{
 
 
-
-
-ButtonSprite::ButtonSprite(LPDIRECT3DDEVICE9 pD3DDevice,LPDIRECT3DTEXTURE9 pTexture,
-		D3DXVECTOR3 vScalse,D3DXVECTOR3 vRot,D3DXVECTOR3 vPos,RECT* pRect,
-		D3DXVECTOR3 vCenter,D3DXVECTOR3 vOffset,Color SelectColor,
-		Color UnSelectColor,Command Com,DWORD dwIndex)
+ButtonSprite::ButtonSprite(
+		const LPDIRECT3DDEVICE9		pD3DDevice		,
+		const LPDIRECT3DTEXTURE9	pTexture		,
+		const D3DXVECTOR3			vScalse			,
+		const D3DXVECTOR3			vRot			,
+		const D3DXVECTOR3			vPos			,
+		const RECT*					pRect			,
+		const D3DXVECTOR3			vCenter			,
+		const D3DXVECTOR3			vOffset			,
+		const Color					dwSelectColor	,
+		const Color					dwUnSelectColor	,
+		const char*					sSelectSound	,
+		const char*					sDecisionSound	,
+		const Command				Com				,
+		const DWORD					dwIndex
+)
 :m_ButtonState(Com,dwIndex)
-,SpriteObject(pD3DDevice,pTexture,vScalse,vRot,vPos,pRect,vCenter,vOffset,UnSelectColor)
-,m_SelectColor(SelectColor)
-,m_UnSelectColor(UnSelectColor)
+,SpriteObject(pD3DDevice,pTexture,vScalse,vRot,vPos,pRect,vCenter,vOffset,dwUnSelectColor)
+,m_SelectColor(dwSelectColor)
+,m_UnSelectColor(dwUnSelectColor)
+,m_sSelectSound(sSelectSound)
+,m_sDecisionSound(sDecisionSound)
+,m_bIsPlaySelectSound(false)
 {
 	try{
 	}
@@ -52,11 +65,19 @@ ButtonSprite::~ButtonSprite(){};
 ////            ÅF
 ////
 void ButtonSprite::Update(UpdatePacket& i_UpdatePacket){
-	if( Cursor2D::isHitSprite(this) )
+
+	if( Cursor2D::isHitSprite(this) ){
 		m_ButtonState.setMouseSelect(true);
-	else
+		if( !m_bIsPlaySelectSound  ){
+			i_UpdatePacket.SearchSoundAndPlay( m_sSelectSound );
+			m_bIsPlaySelectSound = true;
+		}
+	}
+	else{
 		m_ButtonState.setMouseSelect(false);
-		//Debugger::DBGSTR::addStr(L"Button::getMouseSelectIndex() %d\n",Button::getMouseSelectIndex());
+		m_bIsPlaySelectSound = false;
+	}
+	//Debugger::DBGSTR::addStr(L"Button::getMouseSelectIndex() %d\n",Button::getMouseSelectIndex());
 };
 
 

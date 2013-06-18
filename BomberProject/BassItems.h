@@ -2321,7 +2321,6 @@ protected:
 	LPDIRECT3DTEXTURE9		m_pTexture	;
 	D3DXMATRIX				m_mMatrix	;
 	LPDIRECT3DVERTEXBUFFER9 m_pVertexBuffer;
-	int						m_iPtn;
 	D3DXVECTOR3				m_vPos;
 	float					m_vCameraY;
 
@@ -2329,7 +2328,6 @@ protected:
 	struct	Vertex
 	{
 		D3DXVECTOR3	vPos ;		//	: 頂点は、位置座標データを持つ
-		float		fRhw ;		//	: 頂点は、変換済み頂点のデータを持つ
 		DWORD		dwColor ;	//	: 頂点は、色データを持つ
 		D3DXVECTOR2	vTex ;		//	: 頂点は、テクスチャ座標を持つ
 
@@ -2338,7 +2336,7 @@ protected:
 		{}
 		//	: 初期化を簡略化するための引数付きコンストラクタ
 		Vertex( const D3DXVECTOR3& i_vPos, DWORD i_dwColor, const D3DXVECTOR2& i_vTex )
-			: vPos( i_vPos ), /*fRhw(1.0f),*/ dwColor( i_dwColor ), vTex( i_vTex )
+			: vPos( i_vPos ), dwColor( i_dwColor ), vTex( i_vTex )
 		{}
 		//	: デストラクタ
 		~Vertex()
@@ -2347,7 +2345,7 @@ protected:
 		//	: この頂点データの形式を返す
 		static DWORD	getFVF()
 		{
-			return D3DFVF_XYZRHW | D3DFVF_DIFFUSE | D3DFVF_TEX1 ;
+			return D3DFVF_XYZ | D3DFVF_DIFFUSE | D3DFVF_TEX1 ;
 		}
 
 		//	: この頂点データのデータサイズを返す

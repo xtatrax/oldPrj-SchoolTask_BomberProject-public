@@ -55,7 +55,6 @@ ProvisionalPlayer3D::ProvisionalPlayer3D(
 ,m_pPlayerCoil(NULL)
 ,m_pMGage_N(NULL)
 ,m_pMGage_S(NULL)
-,m_pSound( NULL )
 ,m_vPos(vPos)
 ,m_vRot(vRot)
 ,m_vScale(vScale)
@@ -83,7 +82,6 @@ ProvisionalPlayer3D::ProvisionalPlayer3D(
 ProvisionalPlayer3D::~ProvisionalPlayer3D(){
 	m_Camera		= NULL ;
 	m_pPlayerCoil	= NULL;
-	m_pSound		= NULL;
 	m_pMGage_N		= NULL;
 	m_pMGage_S		= NULL;
 }
@@ -102,13 +100,12 @@ ProvisionalPlayer3D::~ProvisionalPlayer3D(){
 //// ”õl       F
 void ProvisionalPlayer3D::Draw(DrawPacket& i_DrawPacket)
 {
-	if( !m_pSound ) m_pSound = (Sound*)SearchObjectFromID(i_DrawPacket.pVec,OBJID_SYS_SOUND);
 
 	if( m_pPlayerCoil && ( m_pPlayerCoil->getState() == COIL_STATE_MOVE || m_pPlayerCoil->getState() == COIL_STATE_STICK ) ){
 		if( m_bDrawing ){ 
-			if( m_pSound && !m_bPlaySound ){
+			if(  !m_bPlaySound ){
 				m_bPlaySound = true ;
-				m_pSound->SearchSoundAndPlay( RCTEXT_SOUND_SE_SETFIELD ) ;
+				i_DrawPacket.SearchSoundAndPlay( RCTEXT_SOUND_SE_SETFIELD ) ;
 			}
 			m_pMagneticField->Draw(i_DrawPacket);
 			m_pMagneticField2->Draw(i_DrawPacket);
@@ -117,11 +114,11 @@ void ProvisionalPlayer3D::Draw(DrawPacket& i_DrawPacket)
 		}
 		else{
 			m_bPlaySound = false ;
-			m_pSound->SoundStop(RCTEXT_SOUND_SE_SETFIELD);
+			i_DrawPacket.SoundStop(RCTEXT_SOUND_SE_SETFIELD);
 		}
 	}else{
 		m_bPlaySound = false ;
-		m_pSound->SoundStop( RCTEXT_SOUND_SE_SETFIELD );
+		i_DrawPacket.SoundStop( RCTEXT_SOUND_SE_SETFIELD );
 	}
 }
 

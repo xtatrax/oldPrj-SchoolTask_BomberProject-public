@@ -330,7 +330,6 @@ GoalObject::GoalObject( LPDIRECT3DDEVICE9 pD3DDevice, D3DXVECTOR3 vPos , LPDIREC
 					id,
 					pTexture)
 ,m_pCoil( NULL )
-,m_pSound( NULL )
 ,m_bPlaySound( true )
 {
 	try{
@@ -383,7 +382,6 @@ void	GoalObject::Draw(DrawPacket &i_DrawPacket){
 ********************************************************************/
 void	GoalObject::Update(UpdatePacket& i_UpdatePacket)
 {
-	if( !m_pSound ) m_pSound	=      (Sound*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_SYS_SOUND	) ;
 	if( !m_pCoil  ) m_pCoil		= (PlayerCoil*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_3D_COIL		) ;
 
 
@@ -392,7 +390,7 @@ void	GoalObject::Update(UpdatePacket& i_UpdatePacket)
 		m_pCoil->setState( COIL_STATE_CLEAR );
 		m_pCoil->setSuperMode(COIL_STATE_SUPER_CHARGE);
 		if( m_bPlaySound ){
-			m_pSound->SearchSoundAndPlay( RCTEXT_SOUND_SE_GOAL );
+			i_UpdatePacket.SearchSoundAndPlay( RCTEXT_SOUND_SE_GOAL );
 			m_bPlaySound	= false;
 		}
 	}

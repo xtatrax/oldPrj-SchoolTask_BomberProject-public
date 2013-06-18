@@ -27,6 +27,8 @@
 //	: 追加のインクルード
 #include "Factory_CheckPoint.h"
 #include "Factory_Continue.h"
+#include "Factory_Description.h"
+
 //	: 追加のインクルード
 //////////
 //#include "Object.h"
@@ -73,16 +75,14 @@ extern class WallObject ;
 ////            ：
 ////
 PlayerCoil::PlayerCoil(
-		LPDIRECT3DDEVICE9 pD3DDevice,LPDIRECT3DTEXTURE9 pTexture,LPDIRECT3DTEXTURE9 pTexture_Super,
-		LPDIRECT3DTEXTURE9 pTexture_Dead,LPDIRECT3DTEXTURE9 pTexture_Continue,LPDIRECT3DTEXTURE9 pTexture_Title,
-		LPDIRECT3DTEXTURE9 pTexture_DeadChar,LPDIRECT3DTEXTURE9 pTexture_Rethinking,LPDIRECT3DTEXTURE9 pTexture_Answer,
+		LPDIRECT3DDEVICE9 pD3DDevice,TextureManager* m_pTexMgr,
 		float Radius1,float Radius2,float Radius3,float Lenght,
 		D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos,
 		D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,
 		wiz::OBJID id
 	)
-:MagneticumObject3D(	pD3DDevice, pTexture, Radius1, Radius2, Lenght,
-							vRot, vPos, Diffuse, Specular, Ambient, id )
+:MagneticumObject3D(	pD3DDevice, NULL, Radius1, Radius2, Lenght,
+						vRot, vPos, Diffuse, Specular, Ambient, id )
 ,m_vPos(				vPos								)
 ,m_vRot(				vRot								)
 ,m_vScale(				D3DXVECTOR3( 0.0f, 0.0f, 0.0f)		)
@@ -98,6 +98,7 @@ PlayerCoil::PlayerCoil(
 ,m_bReadyToStart(		false								)
 ,m_bReadyContinue(		false								)
 ,m_bDrawContinue(		false								)
+,m_bRestart(			true								)
 ,m_iDeadCount(			0									)
 ,m_pSuperField(			NULL								)
 ,m_fTurnAngle(			PLAYER_TURN_ANGLE_Lv1				)
@@ -105,13 +106,17 @@ PlayerCoil::PlayerCoil(
 ,m_pPlayer(				NULL								)
 ,m_pMagneticumObject(	NULL								)
 ,m_pCamera(				NULL								)
-,m_pSound(				NULL								)
-,m_pDeadTex(			pTexture_Dead						)
-,m_pContinueTex(		pTexture_Continue					)
-,m_pTitleTex(			pTexture_Title						)
-,m_pDeadCharTex(		pTexture_DeadChar					)
-,m_pRethinkingTex(		pTexture_Rethinking					)
-,m_pAnswerTex(			pTexture_Answer						)
+,m_pReStart(			NULL								)
+//テクスチャ*********************************************************************
+,m_pDeadTex(			m_pTexMgr->addTexture( pD3DDevice, L"DeadPerticul.png"	))
+,m_pContinueTex(		m_pTexMgr->addTexture( pD3DDevice, L"CONTINUE4.png"		))
+,m_pTitleTex(			m_pTexMgr->addTexture( pD3DDevice, L"GAME_END3.png"		))
+,m_pDeadCharTex(		m_pTexMgr->addTexture( pD3DDevice, L"dead6.png"			))
+,m_pDeadCountTex(		m_pTexMgr->addTexture( pD3DDevice, L"Number_Base1.png"	))
+,m_pRethinkingTex(		m_pTexMgr->addTexture( pD3DDevice, L"REALLY4.png"		))
+,m_pAnswerTex(			m_pTexMgr->addTexture( pD3DDevice, L"YESorNO5.png"		))
+,m_pCountCharTex(		m_pTexMgr->addTexture( pD3DDevice, L"dead_count1.png"	))
+//**********************************************************************************
 ,m_enumCoilState(		COIL_STATE_STOP						)
 ,m_enumCoilStateSuper(	COIL_STATE_SUPER_CHARGE				)
 #if defined( ON_DEBUGGINGPROCESS ) | defined( PRESENTATION )
@@ -123,7 +128,8 @@ PlayerCoil::PlayerCoil(
 	D3DXMatrixIdentity( &m_Matrix ) ;
 	m_pSphere	  = new Sphere(pD3DDevice,Radius3,vPos,vRot,Diffuse,Specular,Ambient);
 	D3DXVECTOR3	v = COIL_SUPER_MODE_FIELD_SCALE;
-	m_pSuperField = new Box(pD3DDevice,v,vPos,vRot,Diffuse,Specular,Ambient,OBJID_3D_BOX,false,pTexture_Super);
+	m_pSuperField = new Box(pD3DDevice,v,vPos,vRot,Diffuse,Specular,Ambient,OBJID_3D_BOX,false,
+									m_pTexMgr->addTexture( pD3DDevice, L"SuperField.png" ) );
 	setPoleN();
 	SetBaseRot(vRot);
 
@@ -155,6 +161,7 @@ PlayerCoil::~PlayerCoil(){
 	m_pCamera				= NULL ;
 	m_pSphere				= NULL ;
 	m_pSuperField			= NULL ;
+	m_pReStart				= NULL ;
 	
 	SAFE_DELETE(m_pSelect);
 	SAFE_DELETE(m_pSelect2);
@@ -225,9 +232,8 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 
 	if( !m_pCursor )			m_pCursor				=        ( MouseCursor* ) SearchObjectFromID( i_UpdatePacket.pVec, OBJID_SYS_CURSOR ) ; 
 	if( !m_pCamera )			m_pCamera				=             ( Camera* ) SearchObjectFromID( i_UpdatePacket.pVec, OBJID_SYS_CAMERA ) ; 
-	if( !m_pSound )				m_pSound				=              ( Sound* ) SearchObjectFromID( i_UpdatePacket.pVec, OBJID_SYS_SOUND  ) ;
 	if( !m_pMagneticumObject )	m_pMagneticumObject		= ( MagneticumObject3D* ) SearchObjectFromID( i_UpdatePacket.pVec, OBJID_3D_STATIC_MAGNET ) ; 
-
+	if( !m_pReStart )			m_pReStart				=		 ( StartSprite* ) SearchObjectFromID( i_UpdatePacket.pVec, OBJID_SYS_START  ) ;
 	if( m_pPlayer ){
 		//デバック用-----------------------------------------------------------
 		// 磁界反転
@@ -238,29 +244,29 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 		switch(m_enumCoilState){
 			//スタート
 			case COIL_STATE_START:
-				Update_StateStart();
+				Update_StateStart(i_UpdatePacket);
 				break;
 			//移動
 			case COIL_STATE_MOVE:
-				Update_StateMove();
+				Update_StateMove(i_UpdatePacket);
 				break;
 			//磁界中心に吸着
 			case COIL_STATE_STICK:
-				Update_StateStick();
+				Update_StateStick(i_UpdatePacket);
 				break;
 			//死亡
 			case COIL_STATE_DEAD:
-				Update_StateDead();
+				Update_StateDead(i_UpdatePacket);
 				if( m_pDeadEffect[0] == NULL )
 					CreateEffect(i_UpdatePacket);
 				break;
 			//コンティニュー
 			case COIL_STATE_CONTINUE:
-				Update_StateContinue();
+				Update_StateContinue(i_UpdatePacket);
 				break;
 			//クリア
 			case COIL_STATE_STOP:
-				Update_StateStop();
+				Update_StateStop(i_UpdatePacket);
 				break;
 			default:
 				break;
@@ -376,8 +382,10 @@ void	PlayerCoil::CreateEffect( UpdatePacket& i_UpdatePacket ){
 	float	wide	= BASE_CLIENT_WIDTH/2;
 	float	height	= BASE_CLIENT_HEIGHT/2;
 
-	m_pDeadChar	= new Dead( i_UpdatePacket.pD3DDevice, m_pDeadCharTex, D3DXVECTOR3( 1.0f, 1.0f, 0.0f ),g_vZero,
-					D3DXVECTOR3( wide-512.0f,height-256.0f,0.0f ),NULL,g_vZero,g_vZero);
+	D3DXVECTOR3	vScale	= D3DXVECTOR3( 0.5f, 0.5f, 0.0f );
+	D3DXVECTOR3	vPos	= D3DXVECTOR3( (wide-512.0f*vScale.x), (height-256.0f*vScale.y-100), 0.0f );
+	m_pDeadChar	= new Dead( i_UpdatePacket.pD3DDevice, m_pDeadCharTex, m_pDeadCountTex, m_pCountCharTex,
+							m_iDeadCount, vScale,g_vZero,vPos,NULL,g_vZero,g_vZero);
 
 	//Yes,Noの作成
 	m_pSelect	= new Continue( i_UpdatePacket.pD3DDevice, m_pAnswerTex, NULL, NULL, true, D3DXVECTOR3(1.0f,1.0f,0.0f),g_vZero,
@@ -398,7 +406,7 @@ void	PlayerCoil::CreateEffect( UpdatePacket& i_UpdatePacket ){
 //// 備考       ：
 ////            ：
 ////
-void PlayerCoil::Update_StateStart(){
+void PlayerCoil::Update_StateStart(UpdatePacket& i_UpdatePacket){
 
 	D3DXVECTOR3 vPlayer = g_vZero;
 	float		fTargetDir = NULL;
@@ -416,7 +424,7 @@ void PlayerCoil::Update_StateStart(){
 			m_bLastMouseRB = true;
 		}
 		if((!Cursor2D::getLButtonState() && m_bLastMouseLB) || (!Cursor2D::getRButtonState() && m_bLastMouseRB)){
-			m_pSound->SearchSoundAndPlay( RCTEXT_SOUND_SE_FIRE );
+			i_UpdatePacket.SearchSoundAndPlay( RCTEXT_SOUND_SE_FIRE );
 			m_enumCoilState =  COIL_STATE_MOVE;
 			m_fAcceleration = COIL_ACCELERATION_VALUE;
 			m_bLastMouseLB  =  false;
@@ -442,7 +450,7 @@ void PlayerCoil::Update_StateStart(){
 //// 備考       ：
 ////            ：
 ////
-void PlayerCoil::Update_StateMove(){
+void PlayerCoil::Update_StateMove(UpdatePacket& i_UpdatePacket){
 	//プレイヤー磁界と自機の判定
 	bool bCheckDistance = CheckDistance( m_pPlayer->getPos(), (float)MGPRM_MAGNETICUM_QUAD, true );
 	if( m_pPlayer->getDrawing() && bCheckDistance ){
@@ -502,7 +510,7 @@ void PlayerCoil::Update_StateMove(){
 //// 備考       ：
 ////            ：
 ////
-void PlayerCoil::Update_StateStick(){
+void PlayerCoil::Update_StateStick(UpdatePacket& i_UpdatePacket){
 	if(m_bReadyToStart){
 		m_fMoveDir += COIL_ROTATION_ANGLE;
 		if(m_fMoveDir > 360.0f)m_fMoveDir = float(int(m_fMoveDir) % 360);
@@ -576,8 +584,8 @@ void PlayerCoil::SuperMode( UpdatePacket& i_UpdatePacket ){
 	//無敵モードに変換し終わるまではゲージを消費しない
 	switch(m_enumCoilStateSuper){
 		case COIL_STATE_SUPER_MOVE:
-			if( m_pSound && !s_bSound){
-				m_pSound->SearchSoundAndPlay( RCTEXT_SOUND_SE_INVISIBLE  );
+			if( !s_bSound){
+				i_UpdatePacket.SearchSoundAndPlay( RCTEXT_SOUND_SE_INVISIBLE  );
 				s_bSound = true ;
 			}
 			if(m_enumCoilState == COIL_STATE_MOVE)
@@ -642,8 +650,8 @@ void PlayerCoil::SuperMode( UpdatePacket& i_UpdatePacket ){
 	//無敵モード終了
 	if(s_fTimeCount >= COIL_SUPER_MODE_TIME){
 		m_enumCoilStateSuper = COIL_STATE_SUPER_CHARGE;
-		if( m_pSound && s_bSound){
-			m_pSound->SoundStop( RCTEXT_SOUND_SE_INVISIBLE  );
+		if( s_bSound){
+			i_UpdatePacket.SoundStop( RCTEXT_SOUND_SE_INVISIBLE  );
 			s_bSound = false ;
 		}
 		s_fTimeCount = 0.0f;
@@ -669,10 +677,11 @@ void PlayerCoil::SuperMode( UpdatePacket& i_UpdatePacket ){
 //// 備考       ：
 ////            ：
 ////
-void PlayerCoil::Update_StateDead(){
+void PlayerCoil::Update_StateDead(UpdatePacket& i_UpdatePacket){
 	m_vScale = g_vZero;
 	if( m_bReadyContinue ){
 		m_enumCoilState = COIL_STATE_CONTINUE;
+		//if( m_pReStart )	m_pReStart->ReStart();
 		m_vPos = m_vStartPos;
 		m_pCamera->setPosY(m_vStartPos.y);
 		m_bReadyContinue	= false;
@@ -690,7 +699,7 @@ void PlayerCoil::Update_StateDead(){
 //// 備考       ：
 ////            ：
 ////
-void PlayerCoil::Update_StateContinue(){
+void PlayerCoil::Update_StateContinue(UpdatePacket& i_UpdatePacket){
 	D3DXVECTOR3 vPlayer = g_vZero;
 	float		fTargetDir = NULL;
 	//マウス座標計算
@@ -707,18 +716,22 @@ void PlayerCoil::Update_StateContinue(){
 			m_bLastMouseRB = true;
 		}
 		if((!Cursor2D::getLButtonState() && m_bLastMouseLB) || (!Cursor2D::getRButtonState() && m_bLastMouseRB)){
-			m_pSound->SearchSoundAndPlay( RCTEXT_SOUND_SE_FIRE );
+			i_UpdatePacket.SearchSoundAndPlay( RCTEXT_SOUND_SE_FIRE );
 			m_enumCoilState = COIL_STATE_MOVE;
 			m_fAcceleration = COIL_ACCELERATION_VALUE;
 			m_bLastMouseLB  = false;
 			m_bLastMouseRB  = false;
 			m_bReadyToStart = false;
+			m_bRestart		= true;
 		}
 	}else{
 		m_vScale += COIL_SCALE_ADD_VALUE_START;
 		if( m_vScale.x >= m_vOriginScale.x && m_vScale.y >= m_vOriginScale.y ){
 			m_vScale = m_vOriginScale;
-			m_bReadyToStart = true;
+			if( m_bRestart ){
+				if( m_pReStart )	m_pReStart->ReStart();
+				m_bRestart	= false;
+			}//m_bReadyToStart = true;
 		}
 	}
 };
@@ -733,7 +746,7 @@ void PlayerCoil::Update_StateContinue(){
 //// 備考       ：
 ////            ：
 ////
-void PlayerCoil::Update_StateStop(){
+void PlayerCoil::Update_StateStop(UpdatePacket& i_UpdatePacket){
 	D3DXVECTOR3 vPlayer		= g_vZero	;
 	float		fTargetDir	= NULL		;
 
@@ -973,14 +986,14 @@ Factory_Coil::Factory_Coil( FactoryPacket* fpac, DWORD dwResumptionCheckPoint, D
 		fpac->m_pVec->push_back(
 			new PlayerCoil(
 				fpac->pD3DDevice,
-				NULL,
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"SuperField.png" ),
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"DeadPerticul.png" ),
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"CONTINUE4.png" ),
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"GAME_END3.png" ),
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"dead6.png" ),
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"REALLY4.png" ),
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"YESorNO5.png" ),
+				fpac->m_pTexMgr,
+				//fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"SuperField.png" ),
+				//fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"DeadPerticul.png" ),
+				//fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"CONTINUE4.png" ),
+				//fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"GAME_END3.png" ),
+				//fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"dead6.png" ),
+				//fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"REALLY4.png" ),
+				//fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"YESorNO5.png" ),
 				0.0f,0.7f,1.0f,1.0f,vScale,D3DXVECTOR3(90.0f,0.0f,0.0f),vPos,
 				CoilDiffuse,CoilSpecular,CoilAmbient
 				)

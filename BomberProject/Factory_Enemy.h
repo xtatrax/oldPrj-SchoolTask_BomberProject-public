@@ -35,7 +35,6 @@ const float ENEMY_RADIUS = 1.5f;
 //**************************************************************************//	
 class EnemyModel : public SimpleCommonMesh {
 	Camera*					m_pCamera	;
-	Sound*					m_pSound	;
 	ProvisionalPlayer3D*	m_pPlayer	;
 	PlayerCoil*				m_pCoil		;
 	bool					m_bReset	;
@@ -191,7 +190,7 @@ void	CreateEffect( UpdatePacket& i_UpdatePacket, TARGETCONTAINER::iterator it );
 //// 戻値       ：衝突していればtrue
 //// 担当者     ：曳地 大洋
 //// 備考       ：
-void HitTestWall( OBB );
+void HitTestWall( OBB , UpdatePacket& i_UpdatePacket);
 
 
 };
