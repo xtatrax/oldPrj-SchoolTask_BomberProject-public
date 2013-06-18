@@ -123,7 +123,9 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 		{
 			//////////
 			//	: アイテム
-
+			D3DCOLORVALUE BallDiffuse = {0.0f,0.7f,0.7f,1.0f};
+			D3DCOLORVALUE BallSpecular = {0.0f,0.0f,0.0f,0.0f};
+			D3DCOLORVALUE BallAmbient = {0.0f,0.7f,0.7f,1.0f};
 			//	: たーげっと。
 			typedef Item TARGET_CLASS;
 			wiz::OBJID ObjectID = OBJID_3D_ITEM ;
@@ -133,9 +135,9 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 				dynamic_cast< TARGET_CLASS* >(( *m_pVec )[it->second])->addItem(
 					i_Data.vPos			,
 					g_vOne				,
-					i_Data.Diffuse		,
-					i_Data.Specular		,
-					i_Data.Ambient		,
+					BallDiffuse		,
+					BallSpecular		,
+					BallAmbient		,
 					i_Data.vScale.x
 				);
 			}else{
@@ -165,9 +167,9 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 				mgb->addItem(
 					i_Data.vPos			,
 					g_vOne				,
-					i_Data.Diffuse		,
-					i_Data.Specular		,
-					i_Data.Ambient		,
+					BallDiffuse		,
+					BallSpecular		,
+					BallAmbient		,
 					i_Data.vScale.x
 				);
 
