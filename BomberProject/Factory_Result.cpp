@@ -14,6 +14,7 @@
 #include "Scene.h"
 #include "Factory_Result.h"
 #include "BassItems.h"
+#include "Factory_Score.h"
 
 namespace wiz{
 namespace bomberobject{
@@ -30,17 +31,19 @@ namespace bomberobject{
  用途: コンストラクタ（サンプルオブジェクトを配列に追加する）
  戻り値: なし
 ***************************************************************************/
-Factory_Result::Factory_Result(FactoryPacket* fpac)
+Factory_Result::Factory_Result(FactoryPacket* fpac, int iDeadCount, int iMaxPosY)
 {
 	try{
+		float	wide	= BASE_CLIENT_WIDTH/2;
+		float	height	= BASE_CLIENT_HEIGHT/2;
 
 		fpac->m_pVec->push_back(
 			new SpriteObject(
 				fpac->pD3DDevice,
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Clear2.png" ),
-				g_vOne,
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"RESULT.png" ),
+				D3DXVECTOR3( 1.0f, 1.0f, 0.0f ),
 				g_vZero,
-				D3DXVECTOR3( 200.0f, 200.0f, 0.0f ),
+				D3DXVECTOR3( wide-128, 50.0f, 0.0f ),
 				NULL,
 				g_vZero,
 				g_vZero,
@@ -48,15 +51,67 @@ Factory_Result::Factory_Result(FactoryPacket* fpac)
 				)
 		);
 
-		system::Sound* pSound = NULL;
-		fpac->SetSound(
-			pSound = new system::Sound( 
-				RCTEXT_SOUND_WAVEBANK,
-				RCTEXT_SOUND_SOUNDBANK,
-				OBJID_SYS_SOUND
+		//死亡回数*****************************************************************
+		fpac->m_pVec->push_back(
+			new SpriteObject(
+				fpac->pD3DDevice,
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"dead_count1.png" ),
+				D3DXVECTOR3( 0.5f, 1.6f, 0.0f ),
+				g_vZero,
+				D3DXVECTOR3( wide-128-150, height-20.0f, 0.0f ),
+				NULL,
+				g_vZero,
+				g_vZero,
+				0xFFFFFFFF
+				)
+		);
+
+		fpac->m_pVec->push_back(
+			new Score(
+				fpac->pD3DDevice,
+				fpac->AddTexture(L"Number_Base1.png"),
+				D3DXVECTOR3( 1.0f, 1.0f, 0.0f ),
+				D3DXVECTOR3( wide+100, height, 0.0f ),
+				iDeadCount,
+				&Rect( 0, 0, 512, 64 )
 			)
 		);
-		pSound->SearchSoundAndPlay( RCTEXT_SOUND_BGM_CLEAR );
+
+		//最高到達点**************************************************************
+		fpac->m_pVec->push_back(
+			new SpriteObject(
+				fpac->pD3DDevice,
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"MAX_RANGE1.png" ),
+				D3DXVECTOR3( 0.5f, 1.6f, 0.0f ),
+				g_vZero,
+				D3DXVECTOR3( wide-128-150, height+80.0f, 0.0f ),
+				NULL,
+				g_vZero,
+				g_vZero,
+				0xFFFFFFFF
+				)
+		);
+		fpac->m_pVec->push_back(
+			new Score(
+				fpac->pD3DDevice,
+				fpac->AddTexture(L"Number_Base2.png"),
+				D3DXVECTOR3( 1.0f, 1.0f, 0.0f ),
+				D3DXVECTOR3( wide+100, height+100.0f, 0.0f ),
+				iMaxPosY,
+				&Rect( 0, 0, 512, 64 )
+			)
+		);
+		//*****************************************************************************
+
+		//system::Sound* pSound = NULL;
+		//fpac->SetSound(
+		//	pSound = new system::Sound( 
+		//		RCTEXT_SOUND_WAVEBANK,
+		//		RCTEXT_SOUND_SOUNDBANK,
+		//		OBJID_SYS_SOUND
+		//	)
+		//);
+		//pSound->SearchSoundAndPlay( RCTEXT_SOUND_BGM_CLEAR );
 
 	}
 	catch(...){
