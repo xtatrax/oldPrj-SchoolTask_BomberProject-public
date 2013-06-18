@@ -14,6 +14,7 @@
 
 namespace wiz{
 namespace structs{
+
 //	:BassPacket
 LPDIRECT3DTEXTURE9	BassPacket::AddTexture(			const wchar_t* sTextureName	)	{	if( pTxMgr   )	return pTxMgr->addTexture( pD3DDevice , sTextureName )		;	else return NULL;		}
 void				BassPacket::AddButton(			       Object* pButton		)	{	if( m_pStage )	m_pStage->AddButton( pButton )	;	AddObject( pButton )	;	}

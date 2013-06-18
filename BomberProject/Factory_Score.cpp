@@ -26,11 +26,12 @@ Score::Score(LPDIRECT3DDEVICE9	pD3DDevice,
 				D3DXVECTOR3	&vScale,
 				D3DXVECTOR3	&vPos,
 				int			iDigit,
+				int			iScore,
 				Rect*		Rect)
 :SpriteObject( pD3DDevice, pTexture, vScale, g_vZero, vPos, Rect, g_vZero, g_vZero, 0x00FFFFFF )
 ,m_vPos( vPos )
 ,m_vScale( vScale )
-,m_iScore( 0 )
+,m_iScore( iScore )
 ,m_iDigit( iDigit )
 ,m_bFirst( false )
 ,m_pCoil( NULL )
@@ -130,7 +131,7 @@ DeadScore::DeadScore(LPDIRECT3DDEVICE9	pD3DDevice,
 				D3DXVECTOR3	&vScale,
 				D3DXVECTOR3	&vPos,
 				Rect*		Rect)
-:Score( pD3DDevice, pTexture, vScale, vPos, MAX_DIGIT_DEAD, Rect )
+:Score( pD3DDevice, pTexture, vScale, vPos, MAX_DIGIT_DEAD, 0, Rect )
 {
 }
 
@@ -185,7 +186,7 @@ ArrivalPos::ArrivalPos(LPDIRECT3DDEVICE9	pD3DDevice,
 				D3DXVECTOR3	&vScale,
 				D3DXVECTOR3	&vPos,
 				Rect*		Rect)
-:Score( pD3DDevice, pTexture, vScale, vPos, MAX_DIGIT_DEAD, Rect )
+:Score( pD3DDevice, pTexture, vScale, vPos, MAX_DIGIT_DEAD, 0, Rect )
 {
 }
 
@@ -245,7 +246,7 @@ GoalPos::GoalPos(LPDIRECT3DDEVICE9	pD3DDevice,
 				D3DXVECTOR3	&vScale,
 				D3DXVECTOR3	&vPos,
 				Rect*		Rect)
-:Score( pD3DDevice, pTexture, vScale, vPos, MAX_DIGIT_DEAD, Rect )
+:Score( pD3DDevice, pTexture, vScale, vPos, MAX_DIGIT_DEAD, 0, Rect )
 ,m_pGoalObject(NULL)
 {
 }

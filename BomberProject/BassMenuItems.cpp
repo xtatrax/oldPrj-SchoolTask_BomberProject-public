@@ -17,8 +17,6 @@ namespace wiz{
 namespace menuobject{
 
 
-
-
 ButtonSprite::ButtonSprite(
 		const LPDIRECT3DDEVICE9		pD3DDevice		,
 		const LPDIRECT3DTEXTURE9	pTexture		,

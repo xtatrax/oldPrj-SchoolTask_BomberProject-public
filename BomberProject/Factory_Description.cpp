@@ -37,13 +37,16 @@ StartSprite::StartSprite(LPDIRECT3DDEVICE9	pD3DDevice,
 				D3DXVECTOR3	&vScale,
 				D3DXVECTOR3	&vPos,
 				Rect*		Rect)
-:SpriteObject( pD3DDevice, pTexture, vScale, g_vZero, vPos, Rect, g_vZero, g_vZero, 0x00FFFFFF )
+:SpriteObject( pD3DDevice, pTexture, vScale, g_vZero, vPos, Rect, g_vZero, g_vZero, 0x00FFFFFF, OBJID_SYS_START )
 ,m_vPos( vPos )
+,m_vStartPos( vPos )
 ,m_vScale( vScale )
 ,m_vRelayPosY( vPos.y + 40.0f )
 ,m_iTime( 0 )
 ,m_bFirst( true )
+,m_bSecond( true )
 ,m_pCoil( NULL )
+,m_State(COIL_STATE_START)
 {
 }
 
@@ -111,8 +114,12 @@ void	StartSprite::Update( UpdatePacket& i_UpdatePacket )
 			++m_iTime;
 			if( m_iTime > 40 ){
 				if( m_bFirst ){
-					m_pCoil->setState( COIL_STATE_START );
+					m_pCoil->setState( m_State );
 					m_bFirst	= false;
+				}
+				if( m_bSecond ){
+					m_pCoil->setReadyToStart( true );
+					m_bSecond	= false;
 				}
 			}
 		}
