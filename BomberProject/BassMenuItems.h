@@ -28,6 +28,8 @@ protected:
 	const char*		m_sSelectSound		;
 	const char*		m_sDecisionSound	;
 	float			m_fWaitTime			;
+	float			m_fTimeAccumulator	;
+	bool			m_bIsSelectWait		;
 	bool			m_bIsPlaySelectSound;
 public:
 	ButtonSprite(
