@@ -235,6 +235,7 @@ class Button {
 protected:
 	DWORD	m_Index;				//メニュー上のインデックス
 	bool	m_IsSelect;				//選択フラグ
+
 	bool	m_IsMouseSelect;		//マウスによって選択されている
 	bool	m_IsPressed;			//決定フラグ
 	Command	m_Command;				//コマンド
@@ -307,7 +308,6 @@ public:
 	bool getSelect(){
 		return m_IsSelect;
 	}
-	
 	/**************************************************************************
 	 void setSelect(
 		bool select	//選択状態
@@ -316,6 +316,7 @@ public:
 	 戻り値: なし。
 	***************************************************************************/
 	static DWORD getMouseSelectIndex(){
+
 		DWORD ret = MouseSelectIndex();
 		MouseSelectIndex(true, ULONG_MAX) ;
 		return ret;
