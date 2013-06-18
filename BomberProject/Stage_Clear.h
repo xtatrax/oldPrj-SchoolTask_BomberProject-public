@@ -31,14 +31,13 @@ public:
  用途: コンストラクタ
  戻り値: なし（失敗時は例外をthrow）
 ***************************************************************************/
-	ClearStage(LPDIRECT3DDEVICE9 pD3DDevice,Stage* pStage = NULL);
+	ClearStage(LPDIRECT3DDEVICE9 pD3DDevice, int iDeadCount, int iMaxPosY, Stage* pStage = NULL);
 /**************************************************************************
 ClearStage();
  用途: デストラクタ
  戻り値: なし
 ***************************************************************************/
 	virtual ~ClearStage();
-	virtual void Update(UpdatePacket& i_UpdatePacket);
 };
 /*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 
