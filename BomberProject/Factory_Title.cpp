@@ -139,6 +139,7 @@ Title_Select::Title_Select(const LPDIRECT3DDEVICE9 pD3DDevice,const LPDIRECT3DTE
 ,m_iTime( 0 )
 ,m_bPush( false )
 ,m_bPushRock( false )
+
 {
 	try{
 		//	: 初期マトリックスを計算
@@ -196,7 +197,7 @@ void Title_Select::Update(UpdatePacket& i_UpdatePacket)
 			if( m_bPushRock ){
 				if( !m_bPush ){
 					if( m_pSound != NULL )
-						m_pSound->SearchWaveAndPlay( RCTEXT_SOUND_SE_ENTER );
+						m_pSound->SearchSoundAndPlay( RCTEXT_SOUND_SE_ENTER );
 				}
 				m_bPush		= true;
 				m_bPushRock	= false;
@@ -206,13 +207,11 @@ void Title_Select::Update(UpdatePacket& i_UpdatePacket)
 		m_Color	= 0xFFFF8800;
 		if( !m_bSelect ){
 			m_bSelect = true;
-			m_pSound->SearchWaveAndPlay( RCTEXT_SOUND_SE_SELECT );
+			m_pSound->SearchSoundAndPlay( RCTEXT_SOUND_SE_SELECT );
 		}
 	}else{
 		//	: マウスが画像の範囲外にいるとき
 		m_Color	= 0xFF558855;
-		
-		m_bSelect = false;
 
 		if( Cursor2D::getLButtonState() )	m_bPushRock	= false;
 		else				m_bPushRock	= true;
