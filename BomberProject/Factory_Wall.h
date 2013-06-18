@@ -179,14 +179,14 @@ class WallObject : public PrimitiveBox{
 			m_Obb = OBB( vOBBScale, vOBBRot, vPos ) ;
 			m_Obb_W = OBB( vOBBScale_W, vOBBRot, vPos ) ;
 			m_fRotZ = vRot.z;
-			D3DXMATRIX mScalse, mRot, mPos;
-			D3DXMatrixIdentity(&mScalse);
+			D3DXMATRIX mScale, mRot, mPos;
+			D3DXMatrixIdentity(&mScale);
 			D3DXMatrixIdentity(&mRot);
 			D3DXMatrixIdentity(&mPos);
-			D3DXMatrixScaling(&mScalse,vScale.x,vScale.y,vScale.z);
+			D3DXMatrixScaling(&mScale,vScale.x,vScale.y,vScale.z);
 			D3DXMatrixRotationZ(&mRot,vOBBRot.z);
 			D3DXMatrixTranslation(&mPos, vPos.x,vPos.y,vPos.z);
-			m_Matrix = mScalse * mRot * mPos ;
+			m_Matrix = mScale * mRot * mPos ;
 			m_Material.Ambient = Ambient ;
 			m_Material.Diffuse = Diffuse ;
 			m_Material.Specular = Specular ;
