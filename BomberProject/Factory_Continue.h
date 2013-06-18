@@ -16,6 +16,7 @@
 //////////
 //	: インクルード
 #include "Factory_Coil.h"
+#include "Factory_Sound.h"
 //	: インクルード
 //////////
 
@@ -29,10 +30,18 @@ class Reply  public SpriteObject
 用途　：コンテニュー時のボタン
 *************************************************************************/
 class	Reply	: public SpriteObject{
-	D3DXVECTOR3		m_vPos;
-	bool			m_bMark;
-	bool			m_bPushRock;
-	bool			m_bWhichDraw;
+	D3DXVECTOR3		m_vPos			;
+	bool			m_bMark			;
+	bool			m_bPushRock		;
+	bool			m_bWhichDraw	;
+	int				m_iTime			;
+	bool			m_bPush			;
+	bool			m_bSelect		;
+	DWORD			m_dNext			;
+
+
+
+
 public:
 	Reply(
 		const LPDIRECT3DDEVICE9		pD3DDevice	,
@@ -95,6 +104,12 @@ class	Continue	: public SpriteObject{
 	bool			m_bMark;
 	bool			m_bPushRock;
 	bool			m_bWhichDraw;
+
+	int				m_iTime			;
+	bool			m_bPush			;
+	bool			m_bSelect		;
+	DWORD			m_dNext			;
+
 
 	PlayerCoil*		m_pCoil;
 	Reply*			m_pReply_Yes;
