@@ -850,10 +850,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\defineValue.h"
-				>
-			</File>
-			<File
 				RelativePath=".\StdAfx.cpp"
 				>
 				<FileConfiguration

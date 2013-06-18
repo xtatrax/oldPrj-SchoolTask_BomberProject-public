@@ -47,6 +47,7 @@
 #include "Factory_DeadEffect.h"
 #include "Factory_Cursor.h"
 #include "Factory_Player.h"
+//#include "Factory_Description.h"
 //	: インクルード
 //////////
 
@@ -97,7 +98,7 @@ namespace bomberobject{
 extern class ProvisionalPlayer3D ;
 extern class Continue ;
 extern class Dead ;
-
+extern class StartSprite;
 //**************************************************************************//
 // class PlayerCoil : public MagneticumObject ;
 //
@@ -133,6 +134,7 @@ class PlayerCoil : public MagneticumObject3D{
 	bool			m_bReadyContinue	;	//	: コンティニューする準備が出来たか
 	bool			m_bDrawContinue		;	//	: コンテニュー表示フラグ
 	int				m_iDeadCount		;	//	: 死亡回数
+	bool			m_bRestart			;
 
 	MouseCursor*			m_pCursor					;	//	: カーソルオブジェクトへのポインタ
 	Camera*					m_pCamera					;	//	: Cameraへのポインタ
@@ -140,6 +142,7 @@ class PlayerCoil : public MagneticumObject3D{
 	Continue*				m_pSelect					;	//	: ロゴ(Continue)
 	Continue*				m_pSelect2					;	//	: ロゴ(Title)
 	Dead*					m_pDeadChar					;	//	: ロゴ(You'er Dead)
+	StartSprite*			m_pReStart					;	//	: 
 	ProvisionalPlayer3D*	m_pPlayer					;	//	: ユーザ設置磁界へのポインタ
 	MagneticumObject3D*		m_pMagneticumObject			;	//	: 初期配置磁界へのポインタ
 	DeadEffect*				m_pDeadEffect[PARTICLS_NUM]	;	//	: 死亡時の爆散エフェクトのポインタ
@@ -150,8 +153,10 @@ class PlayerCoil : public MagneticumObject3D{
 	LPDIRECT3DTEXTURE9	m_pContinueTex	;	//Continue
 	LPDIRECT3DTEXTURE9	m_pTitleTex		;	//Title
 	LPDIRECT3DTEXTURE9	m_pDeadCharTex	;	//You'er Dead
+	LPDIRECT3DTEXTURE9	m_pDeadCountTex	;	//死んだ回数
 	LPDIRECT3DTEXTURE9	m_pRethinkingTex;	//Really?
 	LPDIRECT3DTEXTURE9	m_pAnswerTex	;	//Yes : No
+	LPDIRECT3DTEXTURE9	m_pCountCharTex	;
 public:
 	/////////////////// ////////////////////
 	//// 関数名     ：PlayerCoil::PlayerCoil(
@@ -183,14 +188,7 @@ public:
 	////
 	PlayerCoil(
 		LPDIRECT3DDEVICE9	pD3DDevice			,
-		LPDIRECT3DTEXTURE9	pTexture			,
-		LPDIRECT3DTEXTURE9	pTexture_Super		,
-		LPDIRECT3DTEXTURE9	pTexture_Dead		,
-		LPDIRECT3DTEXTURE9	pTexture_Continue	,
-		LPDIRECT3DTEXTURE9	pTexture_Title		,
-		LPDIRECT3DTEXTURE9	pTexture_DeadChar	,
-		LPDIRECT3DTEXTURE9	pTexture_Rethinking	,
-		LPDIRECT3DTEXTURE9	pTexture_Answer		,
+		TextureManager*		m_pTexMgr			,
 		float				Radius1				,
 		float				Radius2				,
 		float				Radius3				,
@@ -520,6 +518,10 @@ public:
 
 	void	setReadyContinue( bool b ){
 		m_bReadyContinue	= b;
+	}
+
+	void	setReadyToStart( bool b ){
+		m_bReadyToStart		= b;
 	}
 	/////////////////// ////////////////////
 	//// 関数名     ：COIL_STATE_SUPER getSuperMode() const
