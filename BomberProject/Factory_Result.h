@@ -18,6 +18,7 @@
 
 namespace wiz{
 namespace bomberobject{
+
 /**************************************************************************
 class Factory_Result;
 
