@@ -126,7 +126,7 @@ Factory_Load::Factory_Load(FactoryPacket* fpac){
 		fpac->m_pVec->push_back(
 			new	Load(
 				fpac->pD3DDevice,
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"NOW_LOADING.png" ),
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"NOW_LOADING3.png" ),
 				D3DXVECTOR3(0.5f,0.5f,0.0f),
 				g_vZero,
 				D3DXVECTOR3( 300.0f, 300.0f, 0.0f ),
