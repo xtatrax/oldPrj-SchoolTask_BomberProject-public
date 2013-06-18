@@ -80,6 +80,7 @@ public:
 		return mAll ; 
 	}
 	void setMatrix( D3DXMATRIX i_mMatrix ){ m_mMatrix = i_mMatrix ; }
+	D3DXMATRIX getMatrix(  ){ return m_mMatrix  ; }
 /////////////////// ////////////////////
 //// ä÷êîñº     ÅFPrimitiveSprite(LPDIRECT3DDEVICE9 pD3DDevice,LPDIRECT3DTEXTURE9 pTexture,RECT* Rect,
 ////            ÅF    D3DXVECTOR3& vCenter,D3DXVECTOR3& vOffsetPos,D3DCOLOR color = 0xFFFFFFFF);
@@ -131,6 +132,9 @@ public:
 
 	void	setAlpha( BYTE	alpha ){
 		m_Color.byteColor.a	= alpha;
+	}
+	void	setColor( Color	color ){
+		m_Color	= color;
 	}
 };
 
