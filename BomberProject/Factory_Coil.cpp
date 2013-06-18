@@ -117,6 +117,7 @@ PlayerCoil::PlayerCoil(
 ,m_pAnswerTex(			m_pTexMgr->addTexture( pD3DDevice, L"YESorNO5.png"		))
 ,m_pCountCharTex(		m_pTexMgr->addTexture( pD3DDevice, L"dead_count1.png"	))
 //**********************************************************************************
+,m_iMaxPosY( 0 )
 ,m_enumCoilState(		COIL_STATE_STOP						)
 ,m_enumCoilStateSuper(	COIL_STATE_SUPER_CHARGE				)
 #if defined( ON_DEBUGGINGPROCESS ) | defined( PRESENTATION )

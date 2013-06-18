@@ -38,9 +38,7 @@ class	Reply	: public SpriteObject{
 	bool			m_bPush			;
 	bool			m_bSelect		;
 	DWORD			m_dNext			;
-
-
-
+	PlayerCoil*		m_pCoil			;
 
 public:
 	Reply(
@@ -55,6 +53,7 @@ public:
 		const D3DXVECTOR3&			vOffsetPos	,
 		const Color					color		= 0xFFFFFFFF
 	);
+	~Reply();
 	void	Draw(DrawPacket& i_DrawPacket);
 	void	Update(UpdatePacket& i_UpdatePacket);
 

@@ -203,7 +203,8 @@ namespace wiz{
 		GM_OPENSTAGE_PLAY			,	//	: プレイ画面を開く
 		GM_OPENSTAGE_GAMECLEAR		,	//	: クリア画面を開く
 		GM_OPENSTAGE_GAMEOVER		,	//	: ゲームオーバー画面を開く
-		GM_OPENSTAGE_RESULT			,	//	: 結果画面を開く
+		GM_OPENSTAGE_CLEAR			,	//	: クリア画面を開く
+		GM_OPENSTAGE_RESULT			,	//	: リザルト画面を開く
 		GM_OPENSTAGE_RANKING		,	//	: ランキング画面を開く
 		GM_OPENSTAGE_OPTION			,	//	: オプション画面を開く
 		GM_EXIT						,	//	: ゲームを終了する

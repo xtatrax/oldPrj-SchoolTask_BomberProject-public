@@ -17,6 +17,7 @@
 #include "Stage_Title.h"
 #include "Stage_Select.h"
 #include "Stage_Play.h"
+#include "Stage_Clear.h"
 #include "Stage_Result.h"
 #include "Stage_Load.h"
 #include "Stage_Test.h"
@@ -274,10 +275,16 @@ void Scene::CommandTranslator(DrawPacket& i_DrawPacket){
 			m_pRootStage = new DebugMenu(i_DrawPacket.pD3DDevice);
 			break;
 
-		case GM_OPENSTAGE_RESULT:
+		case GM_OPENSTAGE_CLEAR:
 			//	: ゲームクリア画面
 			SafeDeleteStage(m_pRootStage);
-			m_pRootStage = new ResultStage(i_DrawPacket.pD3DDevice);
+			m_pRootStage = new ClearStage(i_DrawPacket.pD3DDevice);
+			break;
+
+		case GM_OPENSTAGE_RESULT:
+			//	: リザルト画面
+			SafeDeleteStage(m_pRootStage);
+			m_pRootStage = new ResultStage(i_DrawPacket.pD3DDevice, i_DrawPacket.pCommand->m_Param1, i_DrawPacket.pCommand->m_Param2 );
 			break;
 
 		case GM_OPENDEBUGSTAGE_PLAY_RELOAD:

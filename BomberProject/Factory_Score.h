@@ -29,7 +29,6 @@ public:
 				LPDIRECT3DTEXTURE9	pTexture,
 				D3DXVECTOR3	&vScale,
 				D3DXVECTOR3	&vPos,
-				int			iDigit,
 				int			iScore,
 				Rect*		Rect	= NULL );
 	virtual ~Score();
@@ -64,6 +63,7 @@ public:
  担当者：佐藤涼
 ****************************************************************************/
 class ArrivalPos : public Score{
+	int		m_iMaxPosY;	//最高到達点
 public:
 	ArrivalPos(LPDIRECT3DDEVICE9	pD3DDevice,
 				LPDIRECT3DTEXTURE9	pTexture,
@@ -74,6 +74,11 @@ public:
 
 	void	Draw(DrawPacket& i_DrawPacket);
 	void	Update(UpdatePacket& i_UpdatePacket);
+
+	//ゲッター
+	int	getMaxPosY(){
+		return	m_iMaxPosY;
+	}
 };
 /**************************************************************************
  class GoalPos : public Score;

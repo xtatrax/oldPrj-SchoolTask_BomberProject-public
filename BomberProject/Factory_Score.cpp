@@ -25,14 +25,13 @@ Score::Score(LPDIRECT3DDEVICE9	pD3DDevice,
 				LPDIRECT3DTEXTURE9	pTexture,
 				D3DXVECTOR3	&vScale,
 				D3DXVECTOR3	&vPos,
-				int			iDigit,
 				int			iScore,
 				Rect*		Rect)
-:SpriteObject( pD3DDevice, pTexture, vScale, g_vZero, vPos, Rect, g_vZero, g_vZero, 0x00FFFFFF )
+:SpriteObject( pD3DDevice, pTexture, vScale, g_vZero, vPos, Rect, g_vZero, g_vZero, 0x00FFFFFF, OBJID_UI_SCORE, false )
 ,m_vPos( vPos )
 ,m_vScale( vScale )
 ,m_iScore( iScore )
-,m_iDigit( iDigit )
+,m_iDigit( MAX_DIGIT_DEAD )
 ,m_bFirst( false )
 ,m_pCoil( NULL )
 {
@@ -108,7 +107,7 @@ void	Score::update_Matrix(int i){
 
 	D3DXMATRIX mScale,mRot,mPos;
 	D3DXMatrixScaling(&mScale,m_vScale.x,m_vScale.y,m_vScale.z);
-	D3DXMatrixTranslation(&mPos,m_vPos.x+(i*20.0f),m_vPos.y,m_vPos.z);
+	D3DXMatrixTranslation(&mPos,m_vPos.x+(i*50.0f*m_vScale.x),m_vPos.y,m_vPos.z);
 	m_mMatrix = mScale * mPos ;
 }
 
@@ -131,7 +130,7 @@ DeadScore::DeadScore(LPDIRECT3DDEVICE9	pD3DDevice,
 				D3DXVECTOR3	&vScale,
 				D3DXVECTOR3	&vPos,
 				Rect*		Rect)
-:Score( pD3DDevice, pTexture, vScale, vPos, MAX_DIGIT_DEAD, 0, Rect )
+:Score( pD3DDevice, pTexture, vScale, vPos, 0, Rect )
 {
 }
 
@@ -186,7 +185,8 @@ ArrivalPos::ArrivalPos(LPDIRECT3DDEVICE9	pD3DDevice,
 				D3DXVECTOR3	&vScale,
 				D3DXVECTOR3	&vPos,
 				Rect*		Rect)
-:Score( pD3DDevice, pTexture, vScale, vPos, MAX_DIGIT_DEAD, 0, Rect )
+:Score( pD3DDevice, pTexture, vScale, vPos, 0, Rect )
+,m_iMaxPosY( 0 )
 {
 }
 
@@ -218,8 +218,14 @@ void	ArrivalPos::Update(UpdatePacket& i_UpdatePacket){
 	if( !m_pCoil ) m_pCoil = (PlayerCoil*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_3D_COIL);
 
 	if( m_pCoil ){
-		if( m_iScore < int(m_pCoil->getPos().y)-5 )
-			m_iScore	= int(m_pCoil->getPos().y)-5;
+		//コイルの現在位置
+		m_iScore	= int(m_pCoil->getPos().y)-5;
+		//Max到達点
+		if( m_iMaxPosY < m_iScore )
+			m_iMaxPosY	= m_iScore;
+
+		m_pCoil->setMaxPos( m_iMaxPosY );
+
 	}
 	if( m_iScore < 0 )
 		m_iScore	= 0;
@@ -246,7 +252,7 @@ GoalPos::GoalPos(LPDIRECT3DDEVICE9	pD3DDevice,
 				D3DXVECTOR3	&vScale,
 				D3DXVECTOR3	&vPos,
 				Rect*		Rect)
-:Score( pD3DDevice, pTexture, vScale, vPos, MAX_DIGIT_DEAD, 0, Rect )
+:Score( pD3DDevice, pTexture, vScale, vPos, 0, Rect )
 ,m_pGoalObject(NULL)
 {
 }
