@@ -266,7 +266,6 @@ namespace wiz{
 		OBJID_SYS_CURSOR			,	//	: カーソル
 		OBJID_SYS_SOUND				,	//	: 音声
 		OBJID_SYS_CHECKPOINT		,	//	: チェックポイント
-		OBJID_SYS_CHECKPOINT_CHAR	,	//	: チェックポイント
 		OBJID_SYS_CLEARAREA			,	//	: クリア領域
 		OBJID_SYS_RENDERTARGET		,	//	: レンダーターゲット
 		OBJID_SYS_END				,	
@@ -300,6 +299,7 @@ namespace wiz{
 		OBJID_UI_BEGIN				= 0x2000,
 		OBJID_UI_SPRITE				,	//	: UIに使うスプライト
 		OBJID_UI_SPRITEBUTTON		,	//	: スプライトボタンのUI
+		OBJID_UI_CHECKPOINT_CHAR	,	//	: チェックポイント
 		OBJID_UI_LIFE				,	//	: ライフ( 念のため )
 		OBJID_UI_SUPERGAUGE			,	//	: ゲージ
 		OBJID_UI_MAGNETGAUGE_N		,	//	: N極ゲージ

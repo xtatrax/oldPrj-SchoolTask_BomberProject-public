@@ -4631,8 +4631,8 @@ PrimitivePlate::PrimitivePlate( LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9
 		m_pVertexBuffer->Lock( 0, 0, (void**)&v ,0 );	//	: 頂点データのアドレスを取得するとともに、データへのアクセスを開始する
 		v[ 0 ]	= Vertex( D3DXVECTOR3( -0.5f, +0.5f, 0.0f ), dwColor, D3DXVECTOR2( 0.0f, 0.0f ) );
 		v[ 1 ]	= Vertex( D3DXVECTOR3( 0.5f, +0.5f, 0.0f ), dwColor, D3DXVECTOR2( 1.0f, 0.0f ) );
-		v[ 2 ]	= Vertex( D3DXVECTOR3( -0.5f, -0.5f, 0.0f ), dwColor, D3DXVECTOR2( 0.0f, 0.25f ) );
-		v[ 3 ]	= Vertex( D3DXVECTOR3( 0.5f, -0.5f, 0.0f ), dwColor, D3DXVECTOR2( 1.0f, 0.25f ) );
+		v[ 2 ]	= Vertex( D3DXVECTOR3( -0.5f, -0.5f, 0.0f ), dwColor, D3DXVECTOR2( 0.0f, 1.0f ) );
+		v[ 3 ]	= Vertex( D3DXVECTOR3( 0.5f, -0.5f, 0.0f ), dwColor, D3DXVECTOR2( 1.0f, 1.0f ) );
 		//v[ 0 ]	= Vertex( D3DXVECTOR3( 50.0f, 50.0f, 0.0f ), dwColor, D3DXVECTOR2( 0.0f, 0.0f ) );
 		//v[ 1 ]	= Vertex( D3DXVECTOR3( 350.0f, 50.0f, 0.0f ), dwColor, D3DXVECTOR2( 1.0f, 0.0f ) );
 		//v[ 2 ]	= Vertex( D3DXVECTOR3( 50.0f, 80.0f, 0.0f ), dwColor, D3DXVECTOR2( 0.0f, 0.25f ) );

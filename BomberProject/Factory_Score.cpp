@@ -217,7 +217,7 @@ void	ArrivalPos::Update(UpdatePacket& i_UpdatePacket){
 	if( !m_pCoil ) m_pCoil = (PlayerCoil*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_3D_COIL);
 
 	if( m_pCoil ){
-		if( m_iScore < int(m_pCoil->getPos().y)-5 )
+		//if( m_iScore < int(m_pCoil->getPos().y)-5 )
 			m_iScore	= int(m_pCoil->getPos().y)-5;
 	}
 	if( m_iScore < 0 )
