@@ -7,22 +7,22 @@
 //	内包ﾃﾞｰﾀと備考	：クリアステージ
 //					▼
 //	namespace wiz;
-//		class ResultStage : public Stage ;
+//		class ClearStage : public Stage ;
 //
 #include "StdAfx.h"
 #include "Scene.h"
-#include "Stage_Result.h"
-#include "Factory_Result.h"
+#include "Stage_Clear.h"
+#include "Factory_Clear.h"
 #include "stage.h"
 
 namespace wiz{
 using namespace bomberobject;
 
 /**************************************************************************
- ResultStage 定義部
+ ClearStage 定義部
 ****************************************************************************/
 /**************************************************************************
- ResultStage(
+ ClearStage(
 	LPDIRECT3DDEVICE9 pD3DDevice,		//デバイス
 	const Script::MLPHeader& Header,	//	: プレイする楽曲のヘッダーデータ
 	const Script::SCORELEVEL Level		//	: プレイするレベル種別
@@ -30,8 +30,8 @@ using namespace bomberobject;
  用途: コンストラクタ
  戻り値: なし（失敗時は例外をthrow）
 ***************************************************************************/
-ResultStage::ResultStage(LPDIRECT3DDEVICE9 pD3DDevice, int iDeadCount, int iMaxPosY, Stage* pStage)
-	:Stage(pStage),m_iTime( 0 )
+ClearStage::ClearStage(LPDIRECT3DDEVICE9 pD3DDevice,Stage* pStage)
+	:Stage(pStage)
 {
 	try{
 		FactoryPacket FPac(this);
@@ -39,7 +39,7 @@ ResultStage::ResultStage(LPDIRECT3DDEVICE9 pD3DDevice, int iDeadCount, int iMaxP
 		FPac.m_pTexMgr  = &this->m_TexMgr   ;
 		FPac.m_pVec     = &this->m_Vec      ;
 		FPac.pD3DDevice =  pD3DDevice       ;
-		Factory_Result	resultF( &FPac, iDeadCount, iMaxPosY );
+		Factory_Clear	resultF( &FPac );
 	}
 	catch(...){
 		Clear();
@@ -48,23 +48,19 @@ ResultStage::ResultStage(LPDIRECT3DDEVICE9 pD3DDevice, int iDeadCount, int iMaxP
 	}
 }
 /**************************************************************************
-ResultStage();
+ClearStage();
  用途: デストラクタ
  戻り値: なし
 ***************************************************************************/
-ResultStage::~ResultStage(){
+ClearStage::~ClearStage(){
 	
 }
 
-void	ResultStage::Update(UpdatePacket &i_UpdatePacket){
+void	ClearStage::Update(UpdatePacket &i_UpdatePacket){
 
-	m_iTime++;
-
-	if( m_iTime > 60 ){
-		if( Cursor2D::getLButtonState()/* || Cursor2D::getRButtonState()*/ ){
-			//選ばれた画面へとぶ
-			i_UpdatePacket.pCommand->m_Command	= GM_OPENSTAGE_TITLE;
-		}
+	if( Cursor2D::getLButtonState()/* || Cursor2D::getRButtonState()*/ ){
+		//選ばれた画面へとぶ
+		i_UpdatePacket.pCommand->m_Command	= GM_OPENSTAGE_TITLE;
 	}
 }
 
