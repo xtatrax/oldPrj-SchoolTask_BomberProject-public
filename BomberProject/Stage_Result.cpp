@@ -56,17 +56,5 @@ ResultStage::~ResultStage(){
 	
 }
 
-void	ResultStage::Update(UpdatePacket &i_UpdatePacket){
-
-	m_iTime++;
-
-	if( m_iTime > 60 ){
-		if( Cursor2D::getLButtonState()/* || Cursor2D::getRButtonState()*/ ){
-			//‘I‚Î‚ê‚½‰æ–Ê‚Ö‚Æ‚Ô
-			i_UpdatePacket.pCommand->m_Command	= GM_OPENSTAGE_TITLE;
-		}
-	}
-}
-
 }
 //end of namespace wiz.
