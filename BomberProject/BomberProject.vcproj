@@ -438,14 +438,14 @@
 						</File>
 					</Filter>
 					<Filter
-						Name="Factory_Result"
+						Name="Factory_Clear"
 						>
 						<File
-							RelativePath=".\Factory_Result.cpp"
+							RelativePath=".\Factory_Clear.cpp"
 							>
 						</File>
 						<File
-							RelativePath=".\Factory_Result.h"
+							RelativePath=".\Factory_Clear.h"
 							>
 						</File>
 					</Filter>
@@ -488,6 +488,18 @@
 					<Filter
 						Name="00.‰æ–Ê‘S‘Ì‚ð\’z‚·‚éHêŒQ"
 						>
+					</Filter>
+					<Filter
+						Name="Factory_Result"
+						>
+						<File
+							RelativePath=".\Factory_Result.cpp"
+							>
+						</File>
+						<File
+							RelativePath=".\Factory_Result.h"
+							>
+						</File>
 					</Filter>
 				</Filter>
 				<Filter
@@ -794,11 +806,11 @@
 					Name="Stage_Clear"
 					>
 					<File
-						RelativePath=".\Stage_Result.cpp"
+						RelativePath=".\Stage_Clear.cpp"
 						>
 					</File>
 					<File
-						RelativePath=".\Stage_Result.h"
+						RelativePath=".\Stage_Clear.h"
 						>
 					</File>
 				</Filter>
@@ -823,6 +835,18 @@
 					</File>
 					<File
 						RelativePath=".\Stage_Select.h"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="Stage_Result"
+					>
+					<File
+						RelativePath=".\Stage_Result.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Stage_Result.h"
 						>
 					</File>
 				</Filter>

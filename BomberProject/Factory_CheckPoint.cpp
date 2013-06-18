@@ -315,6 +315,7 @@ CheckPoint::~CheckPoint(){
 void CheckPoint::Update( UpdatePacket& i_UpdatePacket ){
 	if( !m_pCoil   ) m_pCoil   = (PlayerCoil*)SearchObjectFromID( i_UpdatePacket.pVec, OBJID_3D_COIL	) ;
 	if( !m_pCamera ) m_pCamera = (    Camera*)SearchObjectFromID( i_UpdatePacket.pVec, OBJID_SYS_CAMERA ) ;
+
 	if( m_pCoil && m_ActiveItem < m_ItemContainer.size()){
 		float fPosY		= m_ItemContainer[ m_ActiveItem ]->fPosY;
 		float fCoilPosY = m_pCoil->getPos().y;
@@ -396,6 +397,7 @@ void CheckPoint::Draw( DrawPacket& i_DrawPacket ){
 		float DrawBeginLength = m_pCamera->getPosY() + DRAW_TOLERANCE ;
 		if( DrawBeginLength > m_ItemContainer[ m_ActiveItem ]->fPosY ){
 			m_BasePos = D3DXVECTOR3( m_pCamera->getAt().x, m_ItemContainer[ m_ActiveItem ]->fPosY,0.0f) ;
+			m_pPintMark->Draw(i_DrawPacket);
 			CalcWorldMatrix();
 			//Cylinder::Draw( i_DrawPacket );
 			OBB obb = OBB( m_BasePos, m_BaseQt, m_BaseScale );
@@ -410,7 +412,6 @@ void CheckPoint::Draw( DrawPacket& i_DrawPacket ){
 	if( m_pEffect2 != NULL ){
 		m_pEffect2->Draw( i_DrawPacket );
 	}
-	m_pPintMark->Draw(i_DrawPacket);
 };
 
 /////////////////// ////////////////////

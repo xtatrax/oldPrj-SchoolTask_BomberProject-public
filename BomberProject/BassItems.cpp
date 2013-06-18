@@ -4633,6 +4633,7 @@ PrimitivePlate::PrimitivePlate( LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9
 		v[ 1 ]	= Vertex( D3DXVECTOR3( 0.5f, +0.5f, 0.0f ), dwColor, D3DXVECTOR2( 0.0f, 0.0f ) );
 		v[ 2 ]	= Vertex( D3DXVECTOR3( -0.5f, -0.5f, 0.0f ), dwColor, D3DXVECTOR2( 0.0f, 0.0f ) );
 		v[ 3 ]	= Vertex( D3DXVECTOR3( 0.5f, -0.5f, 0.0f ), dwColor, D3DXVECTOR2( 0.0f, 0.0f ) );
+
 		m_pVertexBuffer->Unlock();						//	: 頂点データへのアクセスを終了する
     }
     catch(...){

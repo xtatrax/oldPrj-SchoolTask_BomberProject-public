@@ -202,7 +202,8 @@ namespace wiz{
 		GM_OPENSTAGE_PLAY			,	//	: プレイ画面を開く
 		GM_OPENSTAGE_GAMECLEAR		,	//	: クリア画面を開く
 		GM_OPENSTAGE_GAMEOVER		,	//	: ゲームオーバー画面を開く
-		GM_OPENSTAGE_RESULT			,	//	: 結果画面を開く
+		GM_OPENSTAGE_CLEAR			,	//	: クリア画面を開く
+		GM_OPENSTAGE_RESULT			,	//	: リザルト画面を開く
 		GM_OPENSTAGE_RANKING		,	//	: ランキング画面を開く
 		GM_OPENSTAGE_OPTION			,	//	: オプション画面を開く
 		GM_EXIT						,	//	: ゲームを終了する
@@ -265,7 +266,6 @@ namespace wiz{
 		OBJID_SYS_CURSOR			,	//	: カーソル
 		OBJID_SYS_SOUND				,	//	: 音声
 		OBJID_SYS_CHECKPOINT		,	//	: チェックポイント
-		OBJID_SYS_CHECKPOINT_CHAR	,	//	: チェックポイント
 		OBJID_SYS_CLEARAREA			,	//	: クリア領域
 		OBJID_SYS_RENDERTARGET		,	//	: レンダーターゲット
 		OBJID_SYS_END				,	
@@ -300,6 +300,7 @@ namespace wiz{
 		OBJID_UI_BEGIN				= 0x2000,
 		OBJID_UI_SPRITE				,	//	: UIに使うスプライト
 		OBJID_UI_SPRITEBUTTON		,	//	: スプライトボタンのUI
+		OBJID_UI_CHECKPOINT_CHAR	,	//	: チェックポイント
 		OBJID_UI_LIFE				,	//	: ライフ( 念のため )
 		OBJID_UI_SUPERGAUGE			,	//	: ゲージ
 		OBJID_UI_MAGNETGAUGE_N		,	//	: N極ゲージ

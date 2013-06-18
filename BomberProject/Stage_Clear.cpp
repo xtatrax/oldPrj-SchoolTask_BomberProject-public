@@ -7,22 +7,22 @@
 //	内包ﾃﾞｰﾀと備考	：クリアステージ
 //					▼
 //	namespace wiz;
-//		class ResultStage : public Stage ;
+//		class ClearStage : public Stage ;
 //
 #include "StdAfx.h"
 #include "Scene.h"
-#include "Stage_Result.h"
-#include "Factory_Result.h"
+#include "Stage_Clear.h"
+#include "Factory_Clear.h"
 #include "stage.h"
 
 namespace wiz{
 using namespace bomberobject;
 
 /**************************************************************************
- ResultStage 定義部
+ ClearStage 定義部
 ****************************************************************************/
 /**************************************************************************
- ResultStage(
+ ClearStage(
 	LPDIRECT3DDEVICE9 pD3DDevice,		//デバイス
 	const Script::MLPHeader& Header,	//	: プレイする楽曲のヘッダーデータ
 	const Script::SCORELEVEL Level		//	: プレイするレベル種別
@@ -30,7 +30,7 @@ using namespace bomberobject;
  用途: コンストラクタ
  戻り値: なし（失敗時は例外をthrow）
 ***************************************************************************/
-ResultStage::ResultStage(LPDIRECT3DDEVICE9 pD3DDevice, int iDeadCount, int iMaxPosY, Stage* pStage)
+ClearStage::ClearStage(LPDIRECT3DDEVICE9 pD3DDevice, int iDeadCount, int iMaxPosY, Stage* pStage)
 	:Stage(pStage)
 {
 	try{
@@ -39,7 +39,7 @@ ResultStage::ResultStage(LPDIRECT3DDEVICE9 pD3DDevice, int iDeadCount, int iMaxP
 		FPac.m_pTexMgr  = &this->m_TexMgr   ;
 		FPac.m_pVec     = &this->m_Vec      ;
 		FPac.pD3DDevice =  pD3DDevice       ;
-		Factory_Result	resultF( &FPac, iDeadCount, iMaxPosY );
+		Factory_Clear	resultF( &FPac, iDeadCount, iMaxPosY );
 	}
 	catch(...){
 		Clear();
@@ -48,11 +48,11 @@ ResultStage::ResultStage(LPDIRECT3DDEVICE9 pD3DDevice, int iDeadCount, int iMaxP
 	}
 }
 /**************************************************************************
-ResultStage();
+ClearStage();
  用途: デストラクタ
  戻り値: なし
 ***************************************************************************/
-ResultStage::~ResultStage(){
+ClearStage::~ClearStage(){
 	
 }
 
