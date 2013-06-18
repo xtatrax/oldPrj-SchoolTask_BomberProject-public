@@ -98,7 +98,7 @@ namespace bomberobject{
 extern class ProvisionalPlayer3D ;
 extern class Continue ;
 extern class Dead ;
-
+extern class StartSprite;
 //**************************************************************************//
 // class PlayerCoil : public MagneticumObject ;
 //
@@ -134,6 +134,7 @@ class PlayerCoil : public MagneticumObject3D{
 	bool			m_bReadyContinue	;	//	: コンティニューする準備が出来たか
 	bool			m_bDrawContinue		;	//	: コンテニュー表示フラグ
 	int				m_iDeadCount		;	//	: 死亡回数
+	bool			m_bRestart			;
 
 	MouseCursor*			m_pCursor					;	//	: カーソルオブジェクトへのポインタ
 	Sound*					m_pSound					;	//	: 音声データへのポインタ
@@ -142,6 +143,7 @@ class PlayerCoil : public MagneticumObject3D{
 	Continue*				m_pSelect					;	//	: ロゴ(Continue)
 	Continue*				m_pSelect2					;	//	: ロゴ(Title)
 	Dead*					m_pDeadChar					;	//	: ロゴ(You'er Dead)
+	StartSprite*			m_pReStart					;	//	: 
 	ProvisionalPlayer3D*	m_pPlayer					;	//	: ユーザ設置磁界へのポインタ
 	MagneticumObject3D*		m_pMagneticumObject			;	//	: 初期配置磁界へのポインタ
 	DeadEffect*				m_pDeadEffect[PARTICLS_NUM]	;	//	: 死亡時の爆散エフェクトのポインタ
@@ -517,6 +519,10 @@ public:
 
 	void	setReadyContinue( bool b ){
 		m_bReadyContinue	= b;
+	}
+
+	void	setReadyToStart( bool b ){
+		m_bReadyToStart		= b;
 	}
 	/////////////////// ////////////////////
 	//// 関数名     ：COIL_STATE_SUPER getSuperMode() const
