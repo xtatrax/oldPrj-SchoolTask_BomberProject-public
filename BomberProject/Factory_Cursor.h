@@ -21,7 +21,10 @@
 //////////
 namespace wiz{
 namespace bomberobject{
-
+enum MOUSE_POSITION{
+	RIGTH	,
+	LEFT	,
+};
 
 //**************************************************************************//
 // class MouseCursor : public PrimitiveBox
