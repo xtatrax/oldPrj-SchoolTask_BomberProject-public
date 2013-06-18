@@ -75,7 +75,7 @@ Factory_Result::Factory_Result(FactoryPacket* fpac, int iDeadCount, int iMaxPosY
 				fpac->AddTexture(L"Number_Base1.png"),
 				D3DXVECTOR3( 1.0f, 1.0f, 0.0f ),
 				D3DXVECTOR3( wide+100, height-30, 0.0f ),
-				321/*iDeadCount*/,
+				iDeadCount,
 				&Rect( 0, 0, 512, 64 )
 			)
 		);
@@ -100,7 +100,7 @@ Factory_Result::Factory_Result(FactoryPacket* fpac, int iDeadCount, int iMaxPosY
 				fpac->AddTexture(L"Number_Base2.png"),
 				D3DXVECTOR3( 1.0f, 1.0f, 0.0f ),
 				D3DXVECTOR3( wide+100, height+70.0f, 0.0f ),
-				100/*iMaxPosY*/,
+				iMaxPosY,
 				&Rect( 0, 0, 512, 64 )
 			)
 		);
