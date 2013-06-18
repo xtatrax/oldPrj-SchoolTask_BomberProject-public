@@ -14,10 +14,9 @@
 
 #include "StdAfx.h"
 #include "Object.h"
-#include "Factory_Sound.h"
 
 namespace wiz{
-namespace bomberobject{
+namespace system{
 
 /**************************************************************************
  class Sound: public Object;
@@ -241,7 +240,7 @@ public:
 };
 
 }
-//end of namespace bomberobject.
-
+//end of namespace system.
+//using namespace system;
 }
 //end of namespace wiz.

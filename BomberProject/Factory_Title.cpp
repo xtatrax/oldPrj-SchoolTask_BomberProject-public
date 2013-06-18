@@ -135,10 +135,10 @@ Title_Select::Title_Select(const LPDIRECT3DDEVICE9 pD3DDevice,const LPDIRECT3DTE
 :SpriteObject( pD3DDevice, pTexture, vScale, vRot, vPos, pRect, vCenter, vOffsetPos, color )
 ,m_vPos( vPos )
 ,m_dNext( next )
-,m_pSound( NULL )
 ,m_iTime( 0 )
 ,m_bPush( false )
 ,m_bPushRock( false )
+
 {
 	try{
 		//	: 初期マトリックスを計算
@@ -185,7 +185,6 @@ void Title_Select::Update(UpdatePacket& i_UpdatePacket)
 {
 	//SaveData sd;
 	//TLIB::BinaryLoad( RCTEXT_SAVEDATA_FILENAME,sd,RCTEXT_SAVEDATA_EXTENSION);
-	if( !m_pSound ) m_pSound = (Sound*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_SYS_SOUND);
 
 	if(Cursor2D::isHitSprite(this)){
 		//	: 画像の範囲内にマウスが入った
@@ -195,8 +194,7 @@ void Title_Select::Update(UpdatePacket& i_UpdatePacket)
 
 			if( m_bPushRock ){
 				if( !m_bPush ){
-					if( m_pSound != NULL )
-						m_pSound->SearchWaveAndPlay( RCTEXT_SOUND_SE_ENTER );
+						i_UpdatePacket.SearchSoundAndPlay( RCTEXT_SOUND_SE_ENTER );
 				}
 				m_bPush		= true;
 				m_bPushRock	= false;
@@ -206,13 +204,11 @@ void Title_Select::Update(UpdatePacket& i_UpdatePacket)
 		m_Color	= 0xFFFF8800;
 		if( !m_bSelect ){
 			m_bSelect = true;
-			m_pSound->SearchWaveAndPlay( RCTEXT_SOUND_SE_SELECT );
+			i_UpdatePacket.SearchSoundAndPlay( RCTEXT_SOUND_SE_SELECT );
 		}
 	}else{
 		//	: マウスが画像の範囲外にいるとき
 		m_Color	= 0xFF558855;
-		
-		m_bSelect = false;
 
 		if( Cursor2D::getLButtonState() )	m_bPushRock	= false;
 		else				m_bPushRock	= true;
@@ -372,9 +368,8 @@ Factory_Title::Factory_Title(FactoryPacket* fpac){
 		float	fPointSize	= 0.25f;
 		Factory_Cursor	MCfac( fpac, fLineLength, fPointSize )  ; 
 
-		Sound* pSound = NULL;
-		fpac->m_pVec->push_back(
-			pSound = new Sound( 
+		system::Sound* pSound = NULL;
+		fpac->SetSound( pSound = new system::Sound( 
 				RCTEXT_SOUND_WAVEBANK,
 				RCTEXT_SOUND_SOUNDBANK,
 				OBJID_SYS_SOUND

@@ -16,6 +16,7 @@
 //////////
 //	: インクルード
 #include "Factory_Coil.h"
+#include "Factory_Score.h"
 //	: インクルード
 //////////
 
@@ -29,10 +30,18 @@ class Reply  public SpriteObject
 用途　：コンテニュー時のボタン
 *************************************************************************/
 class	Reply	: public SpriteObject{
-	D3DXVECTOR3		m_vPos;
-	bool			m_bMark;
-	bool			m_bPushRock;
-	bool			m_bWhichDraw;
+	D3DXVECTOR3		m_vPos			;
+	bool			m_bMark			;
+	bool			m_bPushRock		;
+	bool			m_bWhichDraw	;
+	int				m_iTime			;
+	bool			m_bPush			;
+	bool			m_bSelect		;
+	DWORD			m_dNext			;
+
+
+
+
 public:
 	Reply(
 		const LPDIRECT3DDEVICE9		pD3DDevice	,
@@ -64,11 +73,16 @@ class Dead  public SpriteObject
 用途　：死亡時に出す文字
 *************************************************************************/
 class	Dead	: public SpriteObject{
-	int	m_iTime;
+	int				m_iTime;
+	Score*			m_pDeadScore;
+	SpriteObject*	m_pDeadCountChar;
 public:
 	Dead(
 		const LPDIRECT3DDEVICE9		pD3DDevice	,
 		const LPDIRECT3DTEXTURE9	pTexture	,
+		const LPDIRECT3DTEXTURE9	pDeadCountTex	,
+		const LPDIRECT3DTEXTURE9	pCountCharTex	,
+		const int					iDeadCount	,
 		const D3DXVECTOR3&			vScale		,
 		const D3DXVECTOR3&			vRot		,
 		const D3DXVECTOR3&			vPos		,
@@ -77,6 +91,7 @@ public:
 		const D3DXVECTOR3&			vOffsetPos	,
 		const Color					color		= 0xFFFFFFFF
 	);
+	~Dead();
 	void	Draw(DrawPacket& i_DrawPacket);
 	void	Update(UpdatePacket& i_UpdatePacket);
 	BYTE	getAlpha(){
@@ -95,6 +110,12 @@ class	Continue	: public SpriteObject{
 	bool			m_bMark;
 	bool			m_bPushRock;
 	bool			m_bWhichDraw;
+
+	int				m_iTime			;
+	bool			m_bPush			;
+	bool			m_bSelect		;
+	DWORD			m_dNext			;
+
 
 	PlayerCoil*		m_pCoil;
 	Reply*			m_pReply_Yes;

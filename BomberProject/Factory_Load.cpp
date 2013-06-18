@@ -58,7 +58,6 @@ Load::Load(
 :SpriteObject( pD3DDevice, pTexture, vScale, vRot, vPos, pRect, vCenter, vOffsetPos, color )
 ,m_Com(*Com)
 ,m_vPos( vPos )
-,m_pSound( NULL )
 ,m_iTime( 0 )
 ,m_fRate( 1.0f )
 ,m_iPtn( 0 )
@@ -139,7 +138,7 @@ Factory_Load::Factory_Load(FactoryPacket* fpac,Command* Com){
 				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"NOW_LOADING3.png" ),
 				D3DXVECTOR3(0.5f,0.5f,0.0f),
 				g_vZero,
-				D3DXVECTOR3( 300.0f, 300.0f, 0.0f ),
+				D3DXVECTOR3( 500.0f, 500.0f, 0.0f ),
 				Rect( 0, 0, 1024, 128 ),
 				g_vZero,
 				g_vZero,
