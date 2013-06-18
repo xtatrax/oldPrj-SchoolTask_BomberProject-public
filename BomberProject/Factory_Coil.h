@@ -135,6 +135,7 @@ class PlayerCoil : public MagneticumObject3D{
 	bool			m_bDrawContinue		;	//	: コンテニュー表示フラグ
 	int				m_iDeadCount		;	//	: 死亡回数
 	bool			m_bRestart			;
+	int				m_iMaxPosY			;
 
 	MouseCursor*			m_pCursor					;	//	: カーソルオブジェクトへのポインタ
 	Camera*					m_pCamera					;	//	: Cameraへのポインタ
@@ -453,6 +454,13 @@ public:
 		return	m_vStartPos;
 	}
 
+	int	getMaxPos(){
+		return m_iMaxPosY;
+	}
+
+	void	setMaxPos(int iMaxPosY){
+		m_iMaxPosY	= iMaxPosY;
+	}
 	/////////////////// ////////////////////
 	//// 関数名     ：void PlayerCoil::setState( COIL_STATE i_State )
 	//// カテゴリ   ：セッター
