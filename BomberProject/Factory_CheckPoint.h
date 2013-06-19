@@ -221,7 +221,8 @@ protected:
 	float					m_Length		;
 	LPDIRECT3DTEXTURE9		m_pTexture		;
 	D3DXVECTOR3				m_vPos			;
-	Box*					m_pPintMark		;
+	SpriteObject*			m_pPintMark		;
+	float					m_fInitPosY		;
 	/////////////////// ////////////////////
 	//// 関数名     ：
 	//// カテゴリ   ：メンバ関数

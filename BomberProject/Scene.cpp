@@ -278,13 +278,15 @@ void Scene::CommandTranslator(DrawPacket& i_DrawPacket){
 		case GM_OPENSTAGE_CLEAR:
 			//	: ゲームクリア画面
 			SafeDeleteStage(m_pRootStage);
-			m_pRootStage = new ClearStage(i_DrawPacket.pD3DDevice, i_DrawPacket.pCommand->m_Param1, i_DrawPacket.pCommand->m_Param2 );
+			m_pRootStage = new ClearStage(i_DrawPacket.pD3DDevice, i_DrawPacket.pCommand->m_Param1,
+														i_DrawPacket.pCommand->m_Param2, i_DrawPacket.pCommand->m_Param3 );
 			break;
 
 		case GM_OPENSTAGE_RESULT:
 			//	: リザルト画面
 			SafeDeleteStage(m_pRootStage);
-			m_pRootStage = new ResultStage(i_DrawPacket.pD3DDevice, i_DrawPacket.pCommand->m_Param1, i_DrawPacket.pCommand->m_Param2 );
+			m_pRootStage = new ResultStage(i_DrawPacket.pD3DDevice, i_DrawPacket.pCommand->m_Param1,
+														i_DrawPacket.pCommand->m_Param2, i_DrawPacket.pCommand->m_Param3 );
 			break;
 
 		case GM_OPENDEBUGSTAGE_PLAY_RELOAD:

@@ -117,7 +117,10 @@ PlayerCoil::PlayerCoil(
 ,m_pAnswerTex(			m_pTexMgr->addTexture( pD3DDevice, L"YESorNO5.png"		))
 ,m_pCountCharTex(		m_pTexMgr->addTexture( pD3DDevice, L"dead_count1.png"	))
 //**********************************************************************************
-,m_iMaxPosY( 0 )
+,m_iMaxPosY(				0								)
+,m_iScratchTime(			0								)
+,m_bModeChangeChar(			false							)
+,m_bReDrawing_ChangeChar(	true							)
 ,m_enumCoilState(		COIL_STATE_STOP						)
 ,m_enumCoilStateSuper(	COIL_STATE_SUPER_CHARGE				)
 #if defined( ON_DEBUGGINGPROCESS ) | defined( PRESENTATION )
@@ -134,6 +137,8 @@ PlayerCoil::PlayerCoil(
 	setPoleN();
 	SetBaseRot(vRot);
 
+	m_pModeChangeChar	= new SpriteObject( pD3DDevice, m_pTexMgr->addTexture( pD3DDevice, L"CHANGE3.png" ),D3DXVECTOR3( 0.25f, 0.25f, 0.0f ),
+										g_vZero, g_vZero, Rect( 0, 0, 512, 128 ), D3DXVECTOR3( 256.0f, 64.0f, 0.0f ), g_vZero );
 	m_pSelect	= NULL;
 	m_pSelect2	= NULL;
 	m_pDeadChar	= NULL;
@@ -164,6 +169,7 @@ PlayerCoil::~PlayerCoil(){
 	m_pSuperField			= NULL ;
 	m_pReStart				= NULL ;
 	
+	SAFE_DELETE(m_pModeChangeChar);
 	SAFE_DELETE(m_pSelect);
 	SAFE_DELETE(m_pSelect2);
 	SAFE_DELETE(m_pDeadChar);
@@ -241,6 +247,10 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 		Controller1P.Gamepad.wPressedButtons.XConState.Y && this->ChangePole() ;
 		//-----------------------------------------------------------------------
 
+		if( m_enumCoilState != COIL_STATE_STICK ){
+			m_bModeChangeChar	= false;
+			m_iAlpha			= 255;
+		}
 		//状態ごとの処理
 		switch(m_enumCoilState){
 			//スタート
@@ -253,6 +263,10 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 				break;
 			//磁界中心に吸着
 			case COIL_STATE_STICK:
+				if( m_bReDrawing_ChangeChar ){
+					m_bModeChangeChar	= true;
+					m_pModeChangeChar->setAlpha(0xFF);
+				}
 				Update_StateStick(i_UpdatePacket);
 				break;
 			//死亡
@@ -354,7 +368,18 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 			m_bDrawContinue	= false;
 	}
 	//***********************************************
-
+	//ModeChangeの座標指定
+	float	wide	= BASE_CLIENT_WIDTH/50*m_vPos.x*2;
+	float	height	= (BASE_CLIENT_HEIGHT/2-100.0f)*2;
+	if( m_vPos.y < 12.0f ){
+		height	= ((BASE_CLIENT_HEIGHT/2-100.0f)+(12.0f-m_vPos.y)*24)*2;
+	}
+	D3DXMATRIX	mTexMatrix, mTexPos, mTexScale;
+	D3DXMatrixScaling( &mTexScale, 0.5f, 0.5f, 0.0f );
+	D3DXMatrixTranslation( &mTexPos, wide, height, 0 );
+	mTexMatrix	= mTexPos * mTexScale;
+	m_pModeChangeChar->setMatrix(mTexMatrix);
+	//***************************************************
 };
 
 /////////////////// ////////////////////
@@ -555,6 +580,12 @@ void PlayerCoil::Update_StateStick(UpdatePacket& i_UpdatePacket){
 		}
 	}
 
+	m_iAlpha	-= 5;
+	if( m_iAlpha <= 0 ){
+		m_pModeChangeChar->setAlpha(0);
+	}else{
+		m_pModeChangeChar->setAlpha(m_iAlpha);
+	}
 };
 
 
@@ -839,6 +870,9 @@ void PlayerCoil::Draw(DrawPacket& i_DrawPacket){
 			m_pSelect2->Draw(i_DrawPacket);
 		}
 	}
+
+	if( m_bModeChangeChar )
+		m_pModeChangeChar->Draw(i_DrawPacket);
 };
 
 /////////////////// ////////////////////

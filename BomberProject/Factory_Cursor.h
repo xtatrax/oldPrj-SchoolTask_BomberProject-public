@@ -21,7 +21,15 @@
 //////////
 namespace wiz{
 namespace bomberobject{
+
+enum MOUSE_POSITION{
+	RIGTH	,
+	LEFT	,
+};
+
+
 	class PlayerCoil;
+
 //**************************************************************************//
 // class MouseCursor : public PrimitiveBox
 //
