@@ -2410,7 +2410,7 @@ inline D3DXVECTOR3 T2DPointTo3DPoint(Camera* i_pCamera,Point po){
 		0.0f
 	);
 }
-inline Point T3DPointToD2Point(Camera* i_pCamera,D3DXVECTOR3 po){
+inline Point T3DPointTo2DPoint(Camera* i_pCamera,D3DXVECTOR3 po){
 	if( !i_pCamera ) return Point(0,0) ;
 	float fXMagnification		= 50.0f / STANDARD_WINDOW_WIDTH ;		//	: Lk”ä—¦
 	float fXHalfCorrection		= po.x  / fXMagnification - i_pCamera->getEye().x / fXMagnification ;
@@ -2421,24 +2421,6 @@ inline Point T3DPointToD2Point(Camera* i_pCamera,D3DXVECTOR3 po){
 	float x =    fXHalfCorrection     +  (STANDARD_WINDOW_WIDTH /2) ;
 	float y =    -fYReverseCoordinate + (STANDARD_WINDOW_HEIGHT /2) ;
 	return Point( x , y );
-	//float fYMagnification		= 28.3f / STANDARD_WINDOW_HEIGHT;		//	: Lk”ä—¦
-	//float fYPosCorrection		= 10.0f ;								//	: •â³’l
-	//float fYReverseCoordinate	= (STANDARD_WINDOW_HEIGHT /2)  -po.y ;	//	: ƒn[ƒtÀ•W‰»
-	//float fXMagnification		= 50.0f / STANDARD_WINDOW_WIDTH ;		//	: Lk”ä—¦
-	//float fXHalfCorrection		= po.x - (STANDARD_WINDOW_WIDTH /2) ;	//	: 
-	////	: ƒ}ƒEƒXÀ•W‚Ì‚R‚c•ÏŠ·
-	//return D3DXVECTOR3( 
-	//	(    fXHalfCorrection * fXMagnification ) + i_pCamera->getEye().x ,
-	//	( fYReverseCoordinate * fYMagnification ) + i_pCamera->getEye().y ,
-	//	0.0f
-
-	//);
-
-	//D3DXVECTOR3( 
-	//	(    fXHalfCorrection * fXMagnification ) + i_pCamera->getEye().x , // = po.x
-	//	( fYReverseCoordinate * fYMagnification ) + i_pCamera->getEye().y ,	// = po.y
-	//	0.0f
-	//);
 
 }
 class Cursor3D : public Cursor2D{

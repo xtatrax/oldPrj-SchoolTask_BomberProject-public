@@ -19,6 +19,12 @@
 namespace wiz{
 using namespace bomberobject ;
 namespace bomberbehavior{
+//**************************************************************************//
+// class CheckPointSave : public Behavior ;
+//
+// 担当  : 鴫原 徹
+// 用途  : チェックポイントでセーブを行う機能
+//**************************************************************************//
 class CheckPointSave : public Behavior{
 	static CheckPointSave*	m_pMyInstance	;
 	       CheckPoint*		m_pCheckPoint	;
