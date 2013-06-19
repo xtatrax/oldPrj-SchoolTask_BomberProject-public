@@ -9,7 +9,7 @@
 namespace wiz{
 namespace bomberobject{
 
-	const	int MAX_DIGIT_DEAD	= 4;
+	const	int MAX_DIGIT	= 5;
 /**************************************************************************
  class Score : public Sprite;
  用途　：数字の描画用クラス
@@ -19,9 +19,8 @@ class Score : public SpriteObject{
 protected:
 	D3DXVECTOR3	m_vPos;
 	D3DXVECTOR3	m_vScale;
-	int			m_iDigit;
 	int			m_iScore;
-	int			m_DigitArr[MAX_DIGIT_DEAD];
+	int			m_DigitArr[MAX_DIGIT];
 	bool		m_bFirst;
 	PlayerCoil*	m_pCoil;
 public:
@@ -97,7 +96,61 @@ public:
 
 	void	Draw(DrawPacket& i_DrawPacket);
 	void	Update(UpdatePacket& i_UpdatePacket);
-};/**************************************************************************
+};
+
+/**************************************************************************
+ class AnimationScore : public Score;
+ 用途　：アニメーションスコア描画クラス
+ 担当者：佐藤涼
+****************************************************************************/
+class AnimationScore : public Score{
+	int		m_iDrawScore;
+	int		m_iResultScore;
+	bool	m_bNext;
+public:
+	AnimationScore(LPDIRECT3DDEVICE9	pD3DDevice,
+				LPDIRECT3DTEXTURE9	pTexture,
+				D3DXVECTOR3	&vScale,
+				D3DXVECTOR3	&vPos,
+				int			iScore,
+				Rect*		Rect	= NULL);
+	virtual ~AnimationScore();
+
+	void	Draw(DrawPacket& i_DrawPacket);
+	void	Update(UpdatePacket& i_UpdatePacket);
+
+	bool	getNext(){
+		return	m_bNext;
+	}
+};
+
+/**************************************************************************
+ class ResultScore : public Score;
+ 用途　：リザルトスコア描画クラス
+ 担当者：佐藤涼
+****************************************************************************/
+class ResultScore : public Score{
+	AnimationScore*		m_pDead;
+	AnimationScore*		m_pMaxPos;
+	LPDIRECT3DTEXTURE9	m_pDeadTex;
+	LPDIRECT3DTEXTURE9	m_pMaxPosTex;
+	int					m_iNowDraw;
+public:
+	ResultScore(LPDIRECT3DDEVICE9	pD3DDevice,
+				LPDIRECT3DTEXTURE9	pDeadTex,
+				LPDIRECT3DTEXTURE9	pMaxPosTex,
+				D3DXVECTOR3	&vScale,
+				D3DXVECTOR3	&vPos,
+				int			iDeadScore,
+				int			iMaxPosScore,
+				Rect*		rect	= NULL);
+	virtual ~ResultScore();
+
+	void	Draw(DrawPacket& i_DrawPacket);
+	void	Update(UpdatePacket& i_UpdatePacket);
+};
+
+/**************************************************************************
  class Factory_Score;
  用途: メイン工場クラス
 ****************************************************************************/
