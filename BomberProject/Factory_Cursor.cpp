@@ -211,77 +211,40 @@ void MouseCursor::Update2DPos(){
 	D3DXMatrixTranslation( &mPos, (float)m_v2DPos.x, (float)m_v2DPos.y, 0.0f);
 	//////////
 	//	: はんてん
-	Debugger::DBGSTR::addStr( L"2DMouse : X= %d  Y= %d\n",m_v2DPos.x, m_v2DPos.y );
-	Debugger::DBGSTR::addStr( L"3DMouse : X= %f  Y= %f  Z= %f\n",m_v3DPos.x, m_v3DPos.y, m_v3DPos.z );
-	Debugger::DBGSTR::addStr( L"m_fTorusMagnification : %f\n",m_fTorusMagnification );
 	D3DXMATRIX mScale ;
 	if( m_bIsReverse ){
-		Debugger::DBGSTR::addStr( L"リバース\n" );
 		if(m_pCoil){
 			Point poBuf = g_GaugeReverseSize ;
 			poBuf.y  = -poBuf.y ;
 			poBuf.x  = -poBuf.x ;
-			Debugger::DBGSTR::addStr( L"poBuf : X %d , Y %d \n",poBuf.x , poBuf.y  );
 			poBuf	+= m_v2DPos ;
 			D3DXVECTOR3 vLT = T2DPointTo3DPoint( m_pCamera ,m_v2DPos ) ,
 						vRB = T2DPointTo3DPoint( m_pCamera ,poBuf ) ,
 						vCPos = m_pCoil->getPos() ;
-			Debugger::DBGSTR::addStr( L"m_v2DPos : X %d , Y %d \n",m_v2DPos.x , m_v2DPos.y  );
-			Debugger::DBGSTR::addStr( L"poBuf : X %d , Y %d \n",poBuf.x , poBuf.y  );
-			Debugger::DBGSTR::addStr( L"vCPos : X %f , Y %f \n",vCPos.x , vCPos.y  );
-			Debugger::DBGSTR::addStr( L"vLT   : X %f , Y %f \n",vLT.x , vLT.y  );
-			Debugger::DBGSTR::addStr( L"vRB   : X %f , Y %f \n",vRB.x , vRB.y  );
-			if( vLT.x > m_pCoil->getPos().x  )
-				Debugger::DBGSTR::addStr( L"→ にゃー=・▽・=\n" );
-			if(	vRB.x < m_pCoil->getPos().x  )
-				Debugger::DBGSTR::addStr( L"← にゃー=・▽・=\n" );
-
-			if( vLT.y < m_pCoil->getPos().y )
-				Debugger::DBGSTR::addStr( L"↓ にゃー=・▽・=\n" );
-			if( vRB.y > m_pCoil->getPos().y  )
-				Debugger::DBGSTR::addStr( L"↑ にゃー=・▽・=\n" );
 
 			if(		vLT.x > m_pCoil->getPos().x && vRB.x < m_pCoil->getPos().x  
-				&&	vLT.y < m_pCoil->getPos().y && vRB.y > m_pCoil->getPos().y){
-				Debugger::DBGSTR::addStr( L"うにゃにゃー=・▽・=\n" );
+				//&&	vLT.y < m_pCoil->getPos().y && vRB.y > m_pCoil->getPos().y
+			){
 				m_bIsReverse = false ;
 			}
 
-			//Rect rcbuf(m_v2DPos,poBuf );
 		}
 		D3DXMatrixScaling(&mScale, -1.0f,1.0f,1.0f);
 		D3DXMatrixMultiply(&mScale,&m_mScale,&mScale);
 	}else{
-		Debugger::DBGSTR::addStr( L"ノーマル\n" );
 		if(m_pCoil){
 			Point poBuf = g_GaugeReverseSize ;
 			poBuf.y  = -poBuf.y ;
-			Debugger::DBGSTR::addStr( L"poBuf : X %d , Y %d \n",poBuf.x , poBuf.y  );
 			poBuf	+= m_v2DPos ;
 			D3DXVECTOR3 vLT = T2DPointTo3DPoint( m_pCamera ,m_v2DPos ) ,
 						vRB = T2DPointTo3DPoint( m_pCamera ,poBuf ) ,
 						vCPos = m_pCoil->getPos() ;
-			Debugger::DBGSTR::addStr( L"m_v2DPos : X %d , Y %d \n",m_v2DPos.x , m_v2DPos.y  );
-			Debugger::DBGSTR::addStr( L"poBuf : X %d , Y %d \n",poBuf.x , poBuf.y  );
-			Debugger::DBGSTR::addStr( L"vCPos : X %f , Y %f \n",vCPos.x , vCPos.y  );
-			Debugger::DBGSTR::addStr( L"vLT   : X %f , Y %f \n",vLT.x , vLT.y  );
-			Debugger::DBGSTR::addStr( L"vRB   : X %f , Y %f \n",vRB.x , vRB.y  );
-			if( vLT.x < m_pCoil->getPos().x  )
-				Debugger::DBGSTR::addStr( L"→ にゃー=・▽・=\n" );
-			if(	vRB.x > m_pCoil->getPos().x  )
-				Debugger::DBGSTR::addStr( L"← にゃー=・▽・=\n" );
-
-			if( vLT.y < m_pCoil->getPos().y )
-				Debugger::DBGSTR::addStr( L"↓ にゃー=・▽・=\n" );
-			if( vRB.y > m_pCoil->getPos().y  )
-				Debugger::DBGSTR::addStr( L"↑ にゃー=・▽・=\n" );
 
 			if(		vLT.x < m_pCoil->getPos().x && vRB.x > m_pCoil->getPos().x  
-				&&	vLT.y < m_pCoil->getPos().y && vRB.y > m_pCoil->getPos().y){
-				Debugger::DBGSTR::addStr( L"うにゃにゃー=・▽・=\n" );
+				//&&	vLT.y < m_pCoil->getPos().y && vRB.y > m_pCoil->getPos().y
+			){
 				m_bIsReverse = true ;
 			}
-			//Rect rcbuf(m_v2DPos,poBuf );
 		}	
 		D3DXMatrixScaling(&mScale, 1.0f,1.0f,1.0f);
 		D3DXMatrixMultiply(&mScale,&m_mScale,&mScale);
@@ -304,10 +267,10 @@ void MouseCursor::Update2DPos(){
 void MouseCursor::Update3DPos(){
 	if( !m_pCamera )return;
 
-	Debugger::DBGSTR::addStr( L"before  = %d %d\n", Cursor2D::getPos().x,Cursor2D::getPos().y);
+	//Debugger::DBGSTR::addStr( L"before  = %d %d\n", Cursor2D::getPos().x,Cursor2D::getPos().y);
 	m_v3DPos = Cursor3D::getPos(m_pCamera);
-	Point po = T3DPointToD2Point(m_pCamera,m_v3DPos);
-	Debugger::DBGSTR::addStr( L"after   = %d %d\n",po.x,po.y );
+	//Point po = T3DPointTo2DPoint(m_pCamera,m_v3DPos);
+	//Debugger::DBGSTR::addStr( L"after   = %d %d\n",po.x,po.y );
 
 	SetBasePos( m_v3DPos );
 
