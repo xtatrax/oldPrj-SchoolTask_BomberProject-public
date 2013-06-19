@@ -57,6 +57,7 @@ class	Title_Select	: public SpriteObject{
 	bool			m_bPush		;
 	bool			m_bPushRock	;
 	bool			m_bSelect	;
+	bool			m_bCanSelect;
 public:
 	Title_Select(
 		const LPDIRECT3DDEVICE9		pD3DDevice	,
@@ -68,10 +69,15 @@ public:
 		const RECT*					pRect		,
 		const D3DXVECTOR3&			vCenter		,
 		const D3DXVECTOR3&			vOffsetPos	,
-		const Color					color		= 0xFFFFFFFF
+		const Color					color		= 0xFFFFFFFF,
+		bool						bCanSelect	= true
 	);
 	void	Draw(DrawPacket& i_DrawPacket);
 	void	Update(UpdatePacket& i_UpdatePacket);
+
+	void	setCanSelect( bool b ){
+		m_bCanSelect	= b;
+	}
 };
 
 /**************************************************************************

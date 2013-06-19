@@ -115,13 +115,14 @@ struct Command{
 	DWORD m_Command;	
 	DWORD m_Param1;
 	DWORD m_Param2;
+	DWORD m_Param3;
 
-	Command(DWORD Command = 0, DWORD m_Param1 = 0, DWORD m_Param2 = 0)
-		:m_Command(Command),m_Param1(m_Param1),m_Param2(m_Param2)
+	Command(DWORD Command = 0, DWORD m_Param1 = 0, DWORD m_Param2 = 0, DWORD m_Param3 = 0)
+		:m_Command(Command),m_Param1(m_Param1),m_Param2(m_Param2),m_Param3(m_Param3)
 
 	{}
 	void Clear(){
-		m_Command = m_Param1 = m_Param2 = 0;
+		m_Command = m_Param1 = m_Param2 = m_Param3 = 0;
 	}
 	~Command(){
 		Clear();

@@ -33,7 +33,7 @@ namespace bomberobject{
  用途: コンストラクタ（サンプルオブジェクトを配列に追加する）
  戻り値: なし
 ***************************************************************************/
-Factory_Clear::Factory_Clear(FactoryPacket* fpac, int iDeadCount, int iMaxPosY)
+Factory_Clear::Factory_Clear(FactoryPacket* fpac, int iDeadCount, int iMaxPosY, int iScratchPoint)
 {
 	try{
 
@@ -116,6 +116,7 @@ Factory_Clear::Factory_Clear(FactoryPacket* fpac, int iDeadCount, int iMaxPosY)
 				D3DXVECTOR3( 0.0f, 0.0f, 0.0f ),
 				iDeadCount,
 				iMaxPosY,
+				iScratchPoint,
 				&Rect( 0, 0, 512, 64 )
 			)
 		);

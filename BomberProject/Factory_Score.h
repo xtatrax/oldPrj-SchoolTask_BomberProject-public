@@ -5,6 +5,7 @@
 #include "BassItems.h"
 #include "Factory_Coil.h"
 #include "Factory_Goal.h"
+#include "Factory_Title.h"
 
 namespace wiz{
 namespace bomberobject{
@@ -79,6 +80,26 @@ public:
 		return	m_iMaxPosY;
 	}
 };
+
+/**************************************************************************
+ class ScratchPoint : public Score;
+ 用途　：到達地点描画クラス
+ 担当者：佐藤涼
+****************************************************************************/
+class ScratchPoint : public Score{
+public:
+	ScratchPoint(LPDIRECT3DDEVICE9	pD3DDevice,
+				LPDIRECT3DTEXTURE9	pTexture,
+				D3DXVECTOR3	&vScale,
+				D3DXVECTOR3	&vPos,
+				Rect*		Rect	= NULL );
+	virtual ~ScratchPoint();
+
+	void	Draw(DrawPacket& i_DrawPacket);
+	void	Update(UpdatePacket& i_UpdatePacket);
+
+};
+
 /**************************************************************************
  class GoalPos : public Score;
  用途　：到達地点描画クラス
@@ -131,8 +152,11 @@ public:
  担当者：佐藤涼
 ****************************************************************************/
 class ResultScore : public Score{
-	AnimationScore*		m_pDead;		//死亡回数用アニメーションスコアのポインタ
+	Title_Select*		m_pSelect;
 	AnimationScore*		m_pMaxPos;		//最高位置用アニメーションスコアのポインタ
+	AnimationScore*		m_pScratch;		//
+	AnimationScore*		m_pDead;		//死亡回数用アニメーションスコアのポインタ
+	AnimationScore*		m_pTotal;		//
 	LPDIRECT3DTEXTURE9	m_pDeadTex;		//死亡回数スコアのテクスチャ
 	LPDIRECT3DTEXTURE9	m_pMaxPosTex;	//最高位置スコアのテクスチャ
 	int					m_iNowDraw;		//アニメーションさせたいスコアの番号
@@ -144,6 +168,7 @@ public:
 				D3DXVECTOR3	&vPos,
 				int			iDeadScore,
 				int			iMaxPosScore,
+				int			iScratchScore,
 				Rect*		rect	= NULL);
 	virtual ~ResultScore();
 
