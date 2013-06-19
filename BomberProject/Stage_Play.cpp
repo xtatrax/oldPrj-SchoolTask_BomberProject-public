@@ -95,15 +95,17 @@ void PlayStage::Update(UpdatePacket& i_UpdatePacket){
 #if defined( ON_DEBUGGINGPROCESS ) | defined( PRESENTATION )
 
 	//	:  エンターで再スタート
-	if( GetAsyncKeyState( MYVK_DEBUG_STAGE_RESTART ) ){
+	if( GetAsyncKeyState( MYVK_DEBUG_STAGE_RESTART )  ){
 		//	:  Alt+ENTERで再読み込み
-		if( GetAsyncKeyState( MYVK_DEBUG_STAGE_RELOAD ) ){
+		if( GetAsyncKeyState( MYVK_DEBUG_STAGE_RELOAD_SUBKEY ) ){
 			PlayerCoil* pc = (PlayerCoil*)SearchObjectFromID( i_UpdatePacket.pVec, OBJID_3D_COIL );
 			i_UpdatePacket.pCommand->m_Command = GM_OPENDEBUGSTAGE_PLAY_RELOAD ;
 			i_UpdatePacket.pCommand->m_Param1 = (DWORD)pc ;
 
-		}else{
+		}else
+		if( GetAsyncKeyState( MYVK_DEBUG_STAGE_RESTART_SUBKEY ) ){
 			i_UpdatePacket.pCommand->m_Command = GM_OPENSTAGE_PLAY ;
+			i_UpdatePacket.pCommand->m_Param1 = getNowStage() ;
 		}
 	}
 #endif
