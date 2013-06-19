@@ -34,6 +34,11 @@ const float EFFECT_SIZE	= 2.0f;
 const D3DXVECTOR3 CHECK_POINT_CHAR_SIZE = D3DXVECTOR3(1.0f,1.0f,0.0f);
 D3DCOLORVALUE CHECKPOINTCOLOR = { 0.5f, 1.0f, 0.5f, 0.5f } ;
 D3DCOLORVALUE CHECKPOINTCOLOR_CHAR = { 1.0f, 1.0f, 1.0f, 1.0f } ;
+
+const	float	CHECKPOINT_CHAR_DOWNSPEED	= 20.0f;
+const	float	CHECKPOINT_CHAR_RATE_Y		= (1.0f/CHECK_POINT_CHAR_SIZE.y);
+const	float	CHECKPOINT_CHAR_RATE_X		= (1.0f/CHECK_POINT_CHAR_SIZE.x);
+
 namespace wiz{
 namespace bomberobject{
 
@@ -289,7 +294,7 @@ CheckPoint::CheckPoint( LPDIRECT3DDEVICE9 pD3DDevice, float fLength,LPDIRECT3DTE
 	m_pEffect2	= NULL;
 	//m_pPintMark = new Box(pD3DDevice,CHECK_POINT_CHAR_SIZE,g_vZero,g_vZero,CHECKPOINTCOLOR, D3DCOLORVALUE(), CHECKPOINTCOLOR,OBJID_3D_BOX,false,pTexture2);
 	m_pPintMark = new SpriteObject( pD3DDevice, pTexture2, CHECK_POINT_CHAR_SIZE, g_vZero, g_vZero,
-									Rect( 0, 0, 512, 64 ), D3DXVECTOR3( 256.0f, 32.0f, 0.0f ), g_vZero);
+									Rect( 0, 0, 512, 64 ), D3DXVECTOR3( 256.0f, 32.0f, 0.0f ), D3DXVECTOR3( 0.0f, -87.0f, 0.0f ));
 }
 CheckPoint::~CheckPoint(){
 	m_pCoil		= NULL ;
@@ -327,8 +332,9 @@ void CheckPoint::Update( UpdatePacket& i_UpdatePacket ){
 		float	fTexPosY	= m_pCamera->getPosY() - m_fInitPosY;
 
 		//CHECK POINT テクスチャ*************************************************************
-		float	wide	= BASE_CLIENT_WIDTH/50*m_ItemContainer[ m_ActiveItem ]->vStartPos.x*(1.0f/CHECK_POINT_CHAR_SIZE.x);
-		float	height	= ( (m_ItemContainer[ m_ActiveItem ]->vStartPos.y - fTexPosY) * 20.0f - BASE_CLIENT_HEIGHT + 87.0f ) * (-1.0f) * (1.0f/CHECK_POINT_CHAR_SIZE.y);
+		float	wide	= BASE_CLIENT_WIDTH / 50 * m_ItemContainer[ m_ActiveItem ]->vStartPos.x * CHECKPOINT_CHAR_RATE_X;
+		float	height	= ( (m_ItemContainer[ m_ActiveItem ]->vStartPos.y - fTexPosY)
+									* CHECKPOINT_CHAR_DOWNSPEED - BASE_CLIENT_HEIGHT ) * (-1.0f) * CHECKPOINT_CHAR_RATE_Y;
 
 		D3DXMATRIX mTexMatrix, mScale, mRot, mPos;
 		D3DXMatrixScaling(&mScale,CHECK_POINT_CHAR_SIZE.x,CHECK_POINT_CHAR_SIZE.y,CHECK_POINT_CHAR_SIZE.z);
