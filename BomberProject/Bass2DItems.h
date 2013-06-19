@@ -136,6 +136,10 @@ public:
 	void	setColor( Color	color ){
 		m_Color	= color;
 	}
+
+	BYTE	getAlpha(){
+		return	m_Color.byteColor.a;
+	}
 };
 
 //**************************************************************************

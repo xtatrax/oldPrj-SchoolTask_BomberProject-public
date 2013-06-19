@@ -137,7 +137,11 @@ class PlayerCoil : public MagneticumObject3D{
 	bool			m_bRestart			;
 	int				m_iMaxPosY			;
 	int				m_iScratchTime		;
+	bool			m_bModeChangeChar	;
+	bool			m_bReDrawing_ChangeChar	;
+	int				m_iAlpha			;
 
+	SpriteObject*			m_pModeChangeChar			;	//	: 
 	MouseCursor*			m_pCursor					;	//	: カーソルオブジェクトへのポインタ
 	Camera*					m_pCamera					;	//	: Cameraへのポインタ
 	Box*					m_pSuperField				;	//	: 無敵時のフィールド
