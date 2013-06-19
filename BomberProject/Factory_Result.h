@@ -32,7 +32,7 @@ public:
  用途: コンストラクタ（サンプルオブジェクトを配列に追加する）
  戻り値: なし
 ***************************************************************************/
-	Factory_Result( FactoryPacket* fpac, int iDeadCount, int iMaxPosY );
+	Factory_Result( FactoryPacket* fpac, int iDeadCount, int iMaxPosY, int iScratchPoint );
 /**************************************************************************
  ~MyFactory();
  用途: デストラクタ

@@ -131,13 +131,14 @@ Title_Select 定義部
 ////
 Title_Select::Title_Select(const LPDIRECT3DDEVICE9 pD3DDevice,const LPDIRECT3DTEXTURE9 pTexture,const DWORD next,
 		const D3DXVECTOR3 &vScale,const D3DXVECTOR3 &vRot,const D3DXVECTOR3 &vPos,
-		const RECT *pRect,const D3DXVECTOR3 &vCenter,const D3DXVECTOR3 &vOffsetPos,const Color color)
+		const RECT *pRect,const D3DXVECTOR3 &vCenter,const D3DXVECTOR3 &vOffsetPos,const Color color, bool bCanSelect)
 :SpriteObject( pD3DDevice, pTexture, vScale, vRot, vPos, pRect, vCenter, vOffsetPos, color )
 ,m_vPos( vPos )
 ,m_dNext( next )
 ,m_iTime( 0 )
 ,m_bPush( false )
 ,m_bPushRock( false )
+,m_bCanSelect( bCanSelect )
 
 {
 	try{
@@ -186,7 +187,7 @@ void Title_Select::Update(UpdatePacket& i_UpdatePacket)
 	//SaveData sd;
 	//TLIB::BinaryLoad( RCTEXT_SAVEDATA_FILENAME,sd,RCTEXT_SAVEDATA_EXTENSION);
 
-	if(Cursor2D::isHitSprite(this)){
+	if(Cursor2D::isHitSprite(this) && m_bCanSelect){
 		//	: 画像の範囲内にマウスが入った
 
 		if( Cursor2D::getLButtonState()/* || Cursor2D::getRButtonState()*/ ){
