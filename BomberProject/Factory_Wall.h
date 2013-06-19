@@ -42,7 +42,8 @@ extern class EnemyModel ;
 // ópìr    : ÉGÉtÉFÉNÉg
 //**************************************************************************//
 class Warning : public PrimitiveBox{
-	PrimitivePlate m_Plate;
+	PlayerCoil*			m_pCoil	;
+	PrimitivePlate		m_Plate;
 	int	m_iPtn;
 	LPDIRECT3DTEXTURE9	m_pTexture	;
 	D3DMATERIAL9		m_Material	;
@@ -51,6 +52,7 @@ class Warning : public PrimitiveBox{
 	D3DXVECTOR3			m_vRot		;	//	: âÒì]
 	D3DXVECTOR3			m_vScale	;	//	: êLèk
 	bool				m_bToDraw	;
+	int					m_iDrawTime ;
 public:
 	/////////////////// ////////////////////
 	//// ópìr       ÅFWarning(	LPDIRECT3DDEVICE9 pD3DDevice,LPDIRECT3DTEXTURE9 pTexture,wiz::OBJID id = OBJID_3D_WALL);
@@ -126,6 +128,7 @@ public:
 	bool getToDraw(){
 		return m_bToDraw;
 	}
+
 };
 
 

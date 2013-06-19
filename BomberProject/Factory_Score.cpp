@@ -3,6 +3,7 @@
 #include "Scene.h"
 #include "Factory_Score.h"
 #include "BassItems.h"
+#include "Factory_Cursor.h"
 
 namespace wiz{
 namespace bomberobject{
@@ -27,20 +28,14 @@ Score::Score(LPDIRECT3DDEVICE9	pD3DDevice,
 				D3DXVECTOR3	&vPos,
 				int			iScore,
 				Rect*		Rect)
-:SpriteObject( pD3DDevice, pTexture, vScale, g_vZero, vPos, Rect, g_vZero, g_vZero, 0x00FFFFFF, OBJID_UI_SCORE, false )
+:SpriteObject( pD3DDevice, pTexture, vScale, g_vZero, vPos, Rect, g_vZero, g_vZero, 0xFFFFFFFF, OBJID_UI_SCORE, false )
 ,m_vPos( vPos )
 ,m_vScale( vScale )
 ,m_iScore( iScore )
-,m_iDigit( MAX_DIGIT_DEAD )
 ,m_bFirst( false )
 ,m_pCoil( NULL )
 {
-	m_Color.byteColor.a	= 0xFF;
-	m_Color.byteColor.r	= 0xFF;
-	m_Color.byteColor.g	= 0xFF;
-	m_Color.byteColor.b	= 0xFF;
-	
-	for( int i = 0; i < MAX_DIGIT_DEAD; i++ )
+	for( int i = 0; i < MAX_DIGIT; i++ )
 		m_DigitArr[i]	= 0;
 }
 
@@ -59,12 +54,12 @@ Score::~Score(){
  戻り値: なし
 ***************************************************************************/
 void	Score::Draw(DrawPacket& i_DrawPacket){
-	for( int i = 0; i < m_iDigit ; i++ ){
+	for( int i = 0; i < MAX_DIGIT ; i++ ){
 		update_Matrix( i );
 		if( !m_bFirst ){
 			if( m_DigitArr[i] != 0 )
 				m_bFirst	= true;
-			else if( i == m_iDigit-1 )
+			else if( i == MAX_DIGIT-1 )
 				m_bFirst	= true;
 		}
 		if( m_bFirst )
@@ -80,8 +75,8 @@ void	Score::Draw(DrawPacket& i_DrawPacket){
 ***************************************************************************/
 void	Score::Update(UpdatePacket& i_UpdatePacket){
 
-	int	iDigit	= 1000;
-	for( int i = 0; i < m_iDigit; i++ ){
+	int	iDigit	= 10000;
+	for( int i = 0; i < MAX_DIGIT; i++ ){
 		int	a	= m_iScore / iDigit;
 		if( a >= 10 ){
 			a	= a%10;
@@ -233,6 +228,62 @@ void	ArrivalPos::Update(UpdatePacket& i_UpdatePacket){
 }
 
 /**************************************************************************
+ ScratchPoint 定義部
+***************************************************************************/
+/**************************************************************************
+ ScratchPoint(LPDIRECT3DDEVICE9	pD3DDevice,
+				LPDIRECT3DTEXTURE9	pTexture,
+				D3DXVECTOR3	vScale,
+				D3DXVECTOR3	vPos,
+				Rect		rect,
+				D3DXVECTOR3	vCenter)
+ 用途　：コンストラクタ
+ 戻り値：なし
+ 担当者：佐藤涼
+***************************************************************************/
+ScratchPoint::ScratchPoint(LPDIRECT3DDEVICE9	pD3DDevice,
+				LPDIRECT3DTEXTURE9	pTexture,
+				D3DXVECTOR3	&vScale,
+				D3DXVECTOR3	&vPos,
+				Rect*		Rect)
+:Score( pD3DDevice, pTexture, vScale, vPos, 0, Rect )
+{
+}
+
+/**************************************************************************
+ ScratchPoint::~ScratchPoint();
+ 用途: デストラクタ
+ 戻り値: なし
+***************************************************************************/
+ScratchPoint::~ScratchPoint(){
+	Score::~Score();
+}
+
+/**************************************************************************
+ ScratchPoint::Draw(DrawPacket& i_DrawPacket);
+ 用途: 描画
+ 戻り値: なし
+***************************************************************************/
+void	ScratchPoint::Draw(DrawPacket& i_DrawPacket){
+	Score::Draw( i_DrawPacket );
+}
+
+/**************************************************************************
+ ScratchPoint::Update(UpdatePacket& i_UpdatePacket)
+ 用途: 更新
+ 戻り値: なし
+***************************************************************************/
+void	ScratchPoint::Update(UpdatePacket& i_UpdatePacket){
+
+	if( !m_pCoil ) m_pCoil = (PlayerCoil*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_3D_COIL);
+
+	if( m_pCoil ){
+		m_iScore	=	m_pCoil->getScratchTime();
+	}
+	Score::Update( i_UpdatePacket );
+}
+
+/**************************************************************************
  GoalPos 定義部
 ***************************************************************************/
 /**************************************************************************
@@ -300,6 +351,190 @@ void	GoalPos::Update(UpdatePacket& i_UpdatePacket){
 }
 
 /**************************************************************************
+ AnimationScore 定義部
+***************************************************************************/
+/**************************************************************************
+ AnimationScore(LPDIRECT3DDEVICE9	pD3DDevice,
+				LPDIRECT3DTEXTURE9	pTexture,
+				D3DXVECTOR3	vScale,
+				D3DXVECTOR3	vPos,
+				Rect		rect,
+				D3DXVECTOR3	vCenter)
+ 用途　：コンストラクタ
+ 戻り値：なし
+ 担当者：佐藤涼
+***************************************************************************/
+AnimationScore::AnimationScore(LPDIRECT3DDEVICE9	pD3DDevice,
+				LPDIRECT3DTEXTURE9	pTexture,
+				D3DXVECTOR3	&vScale,
+				D3DXVECTOR3	&vPos,
+				int			iScore,
+				Rect*		Rect	)
+:Score( pD3DDevice, pTexture, vScale, vPos, 0, Rect )
+,m_iResultScore( iScore )
+,m_iDrawScore( 0 )
+,m_bNext( false )
+,m_bClickRock( false )
+{
+}
+
+/**************************************************************************
+ AnimationScore::~AnimationScore();
+ 用途: デストラクタ
+ 戻り値: なし
+***************************************************************************/
+AnimationScore::~AnimationScore(){
+	Score::~Score();
+}
+
+/**************************************************************************
+ AnimationScore::Draw(DrawPacket& i_DrawPacket);
+ 用途: 描画
+ 戻り値: なし
+***************************************************************************/
+void	AnimationScore::Draw(DrawPacket& i_DrawPacket){
+	m_iScore	= m_iDrawScore;
+	Score::Draw( i_DrawPacket );
+
+}
+
+/**************************************************************************
+ AnimationScore::Update(UpdatePacket& i_UpdatePacket)
+ 用途: 更新
+ 戻り値: なし
+***************************************************************************/
+void	AnimationScore::Update(UpdatePacket& i_UpdatePacket){
+
+	Score::Update( i_UpdatePacket );
+
+	if( m_iResultScore > m_iDrawScore )
+		++m_iDrawScore;
+	else
+		m_bNext	= true;
+
+	if( Cursor2D::getLButtonState() ){
+		if( m_bClickRock )
+			m_iDrawScore	= m_iResultScore;
+	}
+	else	m_bClickRock	= true;
+}
+
+/**************************************************************************
+ ResultScore 定義部
+***************************************************************************/
+/**************************************************************************
+ ResultScore(LPDIRECT3DDEVICE9	pD3DDevice,
+				LPDIRECT3DTEXTURE9	pTexture,
+				D3DXVECTOR3	vScale,
+				D3DXVECTOR3	vPos,
+				Rect		rect,
+				D3DXVECTOR3	vCenter)
+ 用途　：コンストラクタ
+ 戻り値：なし
+ 担当者：佐藤涼
+***************************************************************************/
+ResultScore::ResultScore(LPDIRECT3DDEVICE9	pD3DDevice,
+				LPDIRECT3DTEXTURE9	pDeadTex,
+				LPDIRECT3DTEXTURE9	pMaxPosTex,
+				D3DXVECTOR3	&vScale,
+				D3DXVECTOR3	&vPos,
+				int			iDeadScore,
+				int			iMaxPosScore,
+				int			iScratchScore,
+				Rect*		rect	)
+:Score( pD3DDevice, NULL, vScale, vPos, 0, rect )
+,m_pDeadTex( pDeadTex )
+,m_pMaxPosTex( pMaxPosTex )
+,m_iNowDraw( 0 )
+,m_pSelect( NULL )
+{
+	float	wide	= BASE_CLIENT_WIDTH/2;
+	float	height	= BASE_CLIENT_HEIGHT/2;
+
+	int iDead		= iDeadScore;
+	int iMaxPos		= iMaxPosScore;
+	int iScratch	= iScratchScore;
+
+	D3DXVECTOR3	vScoreSize	= vScale;
+	Rect		rScoreRect	= Rect( 0, 0, 512, 64 );
+
+	int TotalScore	= (iMaxPos+iScratch-iDead)*10;
+
+	m_pMaxPos	= new AnimationScore( pD3DDevice, m_pMaxPosTex, vScoreSize,
+						D3DXVECTOR3( wide+100.0f, height-120.0f, 0.0f ), iMaxPos, &rScoreRect);
+	m_pScratch	= new AnimationScore( pD3DDevice, m_pMaxPosTex, vScoreSize,
+						D3DXVECTOR3( wide+100.0f, height-50.0f, 0.0f ), iScratch, &rScoreRect);
+	m_pDead		= new AnimationScore( pD3DDevice, m_pDeadTex, vScoreSize,
+						D3DXVECTOR3( wide+100.0f, height+30.0f, 0.0f ), iDead, &rScoreRect);
+	m_pTotal	= new AnimationScore( pD3DDevice, m_pDeadTex, vScoreSize,
+						D3DXVECTOR3( wide+100.0f, height+100.0f, 0.0f ), TotalScore, &rScoreRect);
+
+}
+
+/**************************************************************************
+ ResultScore::~ResultScore();
+ 用途: デストラクタ
+ 戻り値: なし
+***************************************************************************/
+ResultScore::~ResultScore(){
+	m_pSelect	= NULL;
+	SafeDelete(m_pDead);
+	SafeDelete(m_pScratch);
+	SafeDelete(m_pMaxPos);
+	SafeDelete(m_pTotal);
+}
+
+/**************************************************************************
+ ResultScore::Draw(DrawPacket& i_DrawPacket);
+ 用途: 描画
+ 戻り値: なし
+***************************************************************************/
+void	ResultScore::Draw(DrawPacket& i_DrawPacket){
+	m_pMaxPos->Draw( i_DrawPacket );
+	m_pScratch->Draw( i_DrawPacket );
+	m_pDead->Draw( i_DrawPacket );
+	m_pTotal->Draw( i_DrawPacket );
+}
+
+/**************************************************************************
+ ResultScore::Update(UpdatePacket& i_UpdatePacket)
+ 用途: 更新
+ 戻り値: なし
+***************************************************************************/
+void	ResultScore::Update(UpdatePacket& i_UpdatePacket){
+
+	if( !m_pSelect )	m_pSelect	= (Title_Select*)SearchObjectFromTypeID(i_UpdatePacket.pVec, typeid(Title_Select) ) ;
+
+	switch( m_iNowDraw ){
+		case 0:
+			m_pMaxPos->Update( i_UpdatePacket );
+			if( m_pMaxPos->getNext() )
+				++m_iNowDraw;
+			break;
+		case 1:
+			m_pScratch->Update( i_UpdatePacket );
+			if( m_pScratch->getNext() )
+				++m_iNowDraw;
+			break;
+		case 2:
+			m_pDead->Update( i_UpdatePacket );
+			if( m_pDead->getNext() )
+				++m_iNowDraw;
+			break;
+		case 3:
+			m_pTotal->Update( i_UpdatePacket );
+			if( m_pTotal->getNext() )
+				++m_iNowDraw;
+			break;
+		default:
+			if( m_pSelect )
+				m_pSelect->setCanSelect(true);
+			break;
+	}
+	
+}
+
+/**************************************************************************
  Factory_Score 定義部
 ****************************************************************************/
 /**************************************************************************
@@ -334,6 +569,19 @@ Factory_Score::Factory_Score(FactoryPacket *fpac){
 					D3DXVECTOR3( 0.5f, 0.5f, 0.0f ),
 					g_vZero,
 					D3DXVECTOR3( 750.0f, 520.0f, 0.0f ),					
+					&Rect( 0, 0, 512, 64 ),
+					g_vZero,
+					g_vZero
+			)
+		);
+
+		//ScratchPoint
+		fpac->m_pVec->push_back(
+			new SpriteObject( fpac->pD3DDevice,
+					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"ScratchPoint.png" ),
+					D3DXVECTOR3( 0.5f, 0.5f, 0.0f ),
+					g_vZero,
+					D3DXVECTOR3( 10.0f, 500.0f, 0.0f ),					
 					&Rect( 0, 0, 512, 64 ),
 					g_vZero,
 					g_vZero
@@ -381,6 +629,15 @@ Factory_Score::Factory_Score(FactoryPacket *fpac){
 					D3DXVECTOR3( 0.4f, 0.4f, 0.0f ),
 					D3DXVECTOR3( 900.0f, 550.0f, 0.0f ),					
 					//D3DXVECTOR3( 880.0f, 90.0f, 0.0f ),					
+					&Rect( 0, 0, 512, 64 )
+			)
+		);
+		//ScratchPoint
+		fpac->m_pVec->push_back(
+			new ScratchPoint( fpac->pD3DDevice,
+					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Number_Base2.png" ),
+					D3DXVECTOR3( 0.4f, 0.4f, 0.0f ),
+					D3DXVECTOR3( 100.0f, 550.0f, 0.0f ),					
 					&Rect( 0, 0, 512, 64 )
 			)
 		);
