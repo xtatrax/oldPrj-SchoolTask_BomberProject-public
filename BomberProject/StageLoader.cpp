@@ -215,7 +215,7 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 					//	: インスタンスを生成
 					mgb = new TARGET_CLASS(
 						m_pD3DDevice	,
-						m_pTexMgr->addTexture(m_pD3DDevice,L"biribiriWall.png"),
+						NULL,
 						ObjectID
 					);
 

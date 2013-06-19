@@ -209,7 +209,7 @@ void Title_Select::Update(UpdatePacket& i_UpdatePacket)
 	}else{
 		//	: マウスが画像の範囲外にいるとき
 		m_Color	= 0xFF558855;
-
+		m_bSelect = false ;
 		if( Cursor2D::getLButtonState() )	m_bPushRock	= false;
 		else				m_bPushRock	= true;
 	}

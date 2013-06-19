@@ -318,6 +318,7 @@ AnimationScore::AnimationScore(LPDIRECT3DDEVICE9	pD3DDevice,
 ,m_iResultScore( iScore )
 ,m_iDrawScore( 0 )
 ,m_bNext( false )
+,m_bClickRock( false )
 {
 }
 
@@ -344,8 +345,11 @@ void	AnimationScore::Draw(DrawPacket& i_DrawPacket){
 	else
 		m_bNext	= true;
 
-	if( Cursor2D::getLButtonState() )
-		m_iDrawScore	= m_iResultScore;
+	if( Cursor2D::getLButtonState() ){
+		if( m_bClickRock )
+			m_iDrawScore	= m_iResultScore;
+	}
+	else	m_bClickRock	= true;
 }
 
 /**************************************************************************
@@ -394,10 +398,10 @@ ResultScore::ResultScore(LPDIRECT3DDEVICE9	pD3DDevice,
 	D3DXVECTOR3	vScoreSize	= vScale;
 	Rect		rScoreRect	= Rect( 0, 0, 512, 64 );
 
-	m_pDead		= new AnimationScore( pD3DDevice, m_pDeadTex, vScoreSize,
-						D3DXVECTOR3( wide+100.0f, height-30.0f, 0.0f ), iDead, &rScoreRect);
 	m_pMaxPos	= new AnimationScore( pD3DDevice, m_pMaxPosTex, vScoreSize,
-						D3DXVECTOR3( wide+100.0f, height+70.0f, 0.0f ), iMaxPos, &rScoreRect);
+						D3DXVECTOR3( wide+100.0f, height-30.0f, 0.0f ), iMaxPos, &rScoreRect);
+	m_pDead		= new AnimationScore( pD3DDevice, m_pDeadTex, vScoreSize,
+						D3DXVECTOR3( wide+100.0f, height+70.0f, 0.0f ), iDead, &rScoreRect);
 }
 
 /**************************************************************************
@@ -416,8 +420,8 @@ ResultScore::~ResultScore(){
  –ß‚è’l: ‚È‚µ
 ***************************************************************************/
 void	ResultScore::Draw(DrawPacket& i_DrawPacket){
-	m_pDead->Draw( i_DrawPacket );
 	m_pMaxPos->Draw( i_DrawPacket );
+	m_pDead->Draw( i_DrawPacket );
 }
 
 /**************************************************************************
@@ -429,13 +433,13 @@ void	ResultScore::Update(UpdatePacket& i_UpdatePacket){
 
 	switch( m_iNowDraw ){
 		case 0:
-			m_pDead->Update( i_UpdatePacket );
-			if( m_pDead->getNext() )
+			m_pMaxPos->Update( i_UpdatePacket );
+			if( m_pMaxPos->getNext() )
 				++m_iNowDraw;
 			break;
 		case 1:
-			m_pMaxPos->Update( i_UpdatePacket );
-			if( m_pMaxPos->getNext() )
+			m_pDead->Update( i_UpdatePacket );
+			if( m_pDead->getNext() )
 				++m_iNowDraw;
 			break;
 		default:

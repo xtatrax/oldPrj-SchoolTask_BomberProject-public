@@ -104,9 +104,10 @@ public:
  担当者：佐藤涼
 ****************************************************************************/
 class AnimationScore : public Score{
-	int		m_iDrawScore;
-	int		m_iResultScore;
-	bool	m_bNext;
+	int		m_iDrawScore;		//描画するスコア
+	int		m_iResultScore;		//最終的なスコア
+	bool	m_bNext;			//アニメーションするスコアを次に進める
+	bool	m_bClickRock;		//
 public:
 	AnimationScore(LPDIRECT3DDEVICE9	pD3DDevice,
 				LPDIRECT3DTEXTURE9	pTexture,
@@ -130,11 +131,11 @@ public:
  担当者：佐藤涼
 ****************************************************************************/
 class ResultScore : public Score{
-	AnimationScore*		m_pDead;
-	AnimationScore*		m_pMaxPos;
-	LPDIRECT3DTEXTURE9	m_pDeadTex;
-	LPDIRECT3DTEXTURE9	m_pMaxPosTex;
-	int					m_iNowDraw;
+	AnimationScore*		m_pDead;		//死亡回数用アニメーションスコアのポインタ
+	AnimationScore*		m_pMaxPos;		//最高位置用アニメーションスコアのポインタ
+	LPDIRECT3DTEXTURE9	m_pDeadTex;		//死亡回数スコアのテクスチャ
+	LPDIRECT3DTEXTURE9	m_pMaxPosTex;	//最高位置スコアのテクスチャ
+	int					m_iNowDraw;		//アニメーションさせたいスコアの番号
 public:
 	ResultScore(LPDIRECT3DDEVICE9	pD3DDevice,
 				LPDIRECT3DTEXTURE9	pDeadTex,

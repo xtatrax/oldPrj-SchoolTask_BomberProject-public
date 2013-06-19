@@ -211,7 +211,7 @@ void EnemyModel::Update( UpdatePacket& i_UpdatePacket){
 		//(*it)->m_vRot. += D3DXToRadian( 1.0f );
 		
 		//‰ñ“]
-		(*it)->m_fRotY += D3DXToRadian( 51.0f );
+		(*it)->m_fRotY += D3DXToRadian( 31.0f );
 		D3DXMATRIX mRot;
 		D3DXMatrixIdentity(&mRot);
 		D3DXMatrixRotationY(&mRot,(*it)->m_fRotY);
