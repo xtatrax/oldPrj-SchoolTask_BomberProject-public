@@ -42,6 +42,8 @@ ButtonSprite::ButtonSprite(
 ,m_sDecisionSound(sDecisionSound)
 ,m_bIsPlaySelectSound(false)
 ,m_fWaitTime(fWaitTime)
+,m_fTimeAccumulator(0)
+,m_bIsSelectWait(false)
 {
 	try{
 	}
@@ -79,7 +81,18 @@ void ButtonSprite::Update(UpdatePacket& i_UpdatePacket){
 		m_ButtonState.setMouseSelect(false);
 		m_bIsPlaySelectSound = false;
 	}
-	//Debugger::DBGSTR::addStr(L"Button::getMouseSelectIndex() %d\n",Button::getMouseSelectIndex());
+
+	if(m_ButtonState.getSelect()){
+		m_Color = m_SelectColor;
+		if(m_ButtonState.getPressed()){
+			i_UpdatePacket.SearchSoundAndPlay(m_sDecisionSound);
+			m_bIsSelectWait = true ;
+		}
+	}else{
+		m_Color = m_UnSelectColor;
+	}
+	if( m_bIsSelectWait && (m_fTimeAccumulator += (float)i_UpdatePacket.pTime->getElapsedTime()) >= m_fWaitTime )
+			*i_UpdatePacket.pCommand = m_ButtonState.CommandIssue();
 };
 
 
@@ -100,6 +113,7 @@ void ButtonSprite::Draw(DrawPacket& i_DrawPacket){
 		m_Color = m_SelectColor;
 		if(m_ButtonState.getPressed()){
 			i_DrawPacket.SearchSoundAndPlay(m_sDecisionSound);
+			m_bIsSelectWait = true ;
 			*i_DrawPacket.pCommand = m_ButtonState.CommandIssue();
 		}
 	}else{

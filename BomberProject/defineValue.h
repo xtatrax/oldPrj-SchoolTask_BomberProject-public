@@ -80,18 +80,17 @@
 //////////
 //	: グローバルな変数
 
-
 //	: デファイン定数
 #define MAP_PARTS_HEIGHT		(    1.0f)	/*  */
 #define MAP_PARTS_WIDTH			(    1.0f)	/*  */
+#define BASE_CLIENT_HEIGHT		(  600.0f)	/* 基準になる描画領域の高さ */
+#define BASE_CLIENT_WIDTH		( 1024.0f)	/* 基準になる描画領域の幅   */
 #if defined(CF_FULLSCREEN)
-#define BASE_CLIENT_HEIGHT		(  600.0f)	/* 基準になる描画領域の高さ */
-#define BASE_CLIENT_WIDTH		( 1024.0f)	/* 基準になる描画領域の幅   */
-#define STANDARD_WINDOW_HEIGHT  (  768.0f)	/* ウインドウモードの高さ   */
-#define STANDARD_WINDOW_WIDTH   ( 1366.0f)	/* ウインドウモードの幅     */
+#define STANDARD_WINDOW_HEIGHT  (  720.0f)	/* ウインドウモードの高さ   */
+#define STANDARD_WINDOW_WIDTH   ( 1280.0f)	/* ウインドウモードの幅     */
+//#define STANDARD_WINDOW_HEIGHT  (  768.0f)	/* ウインドウモードの高さ   */
+//#define STANDARD_WINDOW_WIDTH   ( 1366.0f)	/* ウインドウモードの幅     */
 #else
-#define BASE_CLIENT_HEIGHT		(  600.0f)	/* 基準になる描画領域の高さ */
-#define BASE_CLIENT_WIDTH		( 1024.0f)	/* 基準になる描画領域の幅   */
 #define STANDARD_WINDOW_HEIGHT  (  600.0f)	/* ウインドウモードの高さ   */
 #define STANDARD_WINDOW_WIDTH   ( 1024.0f)	/* ウインドウモードの幅     */
 #endif
