@@ -290,6 +290,7 @@ void Scene::CommandTranslator(DrawPacket& i_DrawPacket){
 			break;
 
 		case GM_OPENDEBUGSTAGE_PLAY_RELOAD:
+			//	: リロード
 			try{
 				//	: ゲームステージ
 				PlayerCoil* pc = (PlayerCoil*)i_DrawPacket.pCommand->m_Param1 ;
