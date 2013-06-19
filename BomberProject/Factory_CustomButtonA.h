@@ -13,15 +13,18 @@
 #pragma once
 
 #include "StdAfx.h"
+#include "Factory_SelectInformation.h"
 
 
 namespace wiz{
 namespace bomberobject{
 
 class CustomButtonA : public ButtonSprite{
+	SelectInformation*	m_pSelect				;
 	PrimitiveSprite*	m_pSprite				;
 	Color				m_dwStringSelectColor	;
 	Color				m_dwStringUnSelectColor	;
+	int					m_iPtn					;
 public:
 	CustomButtonA(
 		const LPDIRECT3DDEVICE9		pD3DDevice		,
@@ -42,7 +45,8 @@ public:
 		const char*					sDecisionSound	,
 		const float					fWaitTime		,
 		const Command				Com				,
-		const DWORD					dwIndex
+		const DWORD					dwIndex			,
+		int							iPtn
 	);
 
 
