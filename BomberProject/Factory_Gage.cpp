@@ -332,11 +332,23 @@ void SuperGage::Update( UpdatePacket& i_UpdatePacket ){
 	if( !m_pCursor ) m_pCursor = (MouseCursor*)SearchObjectFromID(i_UpdatePacket.pVec, OBJID_SYS_CURSOR);
 
 	if( !m_pCursor ) return ;
+
 	D3DXMATRIX	mPos, mScale, mRot ;
 	D3DXVECTOR3 vPos ;
 	vPos.x	= (float)m_pCursor->get2DPos().x + m_vBassPos.x - m_GaugeRect.right * m_vScale.x;
 	vPos.y	= (float)m_pCursor->get2DPos().y + m_vBassPos.y;
 	vPos.z	= 0.0f	;
+	if( m_pCursor->getReverse() ){
+		////	:
+
+		///*//
+		//vPos.x -= g_GaugeReverseSize.cx + 40;
+		////*/
+		//D3DXMATRIX m;
+		//D3DXMatrixScaling( &m, -1,1,1);
+		//D3DXMatrixMultiply(&mScale,&mScale,&m);
+		////*//
+	}
 	D3DXMatrixScaling( &mScale, m_vScale.x/2, m_vScale.y, m_vScale.z );
 	D3DXMatrixRotationYawPitchRoll( &mRot, m_vRot.x, m_vRot.y, m_vRot.z );
 	D3DXMatrixTranslation( &mPos, vPos.x, vPos.y, vPos.z);
@@ -347,6 +359,15 @@ void SuperGage::Update( UpdatePacket& i_UpdatePacket ){
 
 	//ƒQ[ƒW—p‚ÉÀ•W‚Ì‚ÝÄŒvŽZ
 	vPos.x		= (float)m_pCursor->get2DPos().x + m_vBassPos.x ;
+	if( m_pCursor->getReverse() ){
+		///*//
+		//vPos.x -= g_GaugeReverseSize.cx + 40;
+		////*/
+		//D3DXMATRIX m;
+		//D3DXMatrixScaling( &m, -1,1,1);
+		//D3DXMatrixMultiply(&mScale,&mScale,&m);
+		////*//
+	}
 	D3DXMatrixTranslation( &mPos, vPos.x, vPos.y, vPos.z);
 	m_Matrix	= mScale * mRot * mPos ;
 	//ƒQ[ƒW‚Ì•`‰æ
@@ -498,6 +519,15 @@ void MagneticGage_N::Update( UpdatePacket& i_UpdatePacket ){
 	vPos.y	= (float)m_pCursor->get2DPos().y + fMovePos/*+  m_GaugeRect.top*/	;
 	vPos.z	= 0.0f	;
 	D3DXMatrixScaling( &mScale, m_vScale.x, m_vScale.y/2, m_vScale.z );
+	if( m_pCursor->getReverse() ){
+		/*//
+		vPos.x -= g_GaugeReverseSize.cx + 40;
+		//*/
+		D3DXMATRIX m;
+		D3DXMatrixScaling( &m, -1,1,1);
+		D3DXMatrixMultiply(&mScale,&mScale,&m);
+		//*//
+	}
 	D3DXMatrixTranslation( &mPos, vPos.x, vPos.y, vPos.z);
 	m_mMatrix	= mScale * mPos ;
 
@@ -612,8 +642,16 @@ void MagneticGage_S::Update( UpdatePacket& i_UpdatePacket ){
 	vPos.x	 = (float)m_pCursor->get2DPos().x	;
 	vPos.y	 = (float)m_pCursor->get2DPos().y + fMovePos/*+  m_GaugeRect.top*/	;
 	vPos.z	 = 0.0f	;
-	//vPos	+= m_v;
 	D3DXMatrixScaling( &mScale, m_vScale.x, m_vScale.y/2, m_vScale.z );
+	if( m_pCursor->getReverse() ){
+		/*//
+		vPos.x -= g_GaugeReverseSize.cx + 40;
+		//*/
+		D3DXMATRIX m;
+		D3DXMatrixScaling( &m, -1,1,1);
+		D3DXMatrixMultiply(&mScale,&mScale,&m);
+		//*//
+	}
 	D3DXMatrixTranslation( &mPos, vPos.x, vPos.y, vPos.z);
 	m_mMatrix	= mScale * mPos ;
 
