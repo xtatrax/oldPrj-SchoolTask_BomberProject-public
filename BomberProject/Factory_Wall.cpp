@@ -42,7 +42,7 @@ Warning::Warning( LPDIRECT3DDEVICE9 pD3DDevice,D3DCOLORVALUE& Diffuse,D3DCOLORVA
 ,m_pTexture(pTexture)
 ,m_vPos(D3DXVECTOR3(0.0f,0.0f,0.0f))
 ,m_vRot(D3DXVECTOR3(0.0f,0.0f,0.0f))
-,m_vScale(D3DXVECTOR3(2.0f,2.0f,1.0f))
+,m_vScale(D3DXVECTOR3(2.0f,2.0f,0.0f))
 ,m_bToDraw(false)
 ,m_iDrawTime( 0 )
 ,m_pCoil( NULL )
