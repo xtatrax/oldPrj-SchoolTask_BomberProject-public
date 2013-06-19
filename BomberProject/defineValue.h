@@ -125,22 +125,23 @@
 #define MYVK_GAMEPAD_STICK_LEFT		( 'J' )
 
 
-#define MYVK_DEBUG_STOP_UPDATE		( VK_F12     )
-#define MYVK_DEBUG_SLOW_UPDATE		( VK_F11     )
-#define MYVK_DEBUG_OUTPUT_DBGSTR	( VK_F9      )
-#define MYVK_DEBUG_OUTPUT_MEMORY	( VK_F8      )
-#define MYVK_DEBUG_OBB_DRAW			( VK_F7      )
-#define MYVK_DEBUG_SWITCHING_SOUND	( VK_F6      )
-#define MYVK_DEBUG_COIL_INVISIBLE	( VK_CONTROL )
-#define MYVK_DEBUG_STAGE_RESTART	( VK_RETURN  )
-#define MYVK_DEBUG_STAGE_RELOAD		( VK_MENU    )
-#define MYVK_DEBUG_STAGE_RULER		( 'L'        )
+#define MYVK_DEBUG_STOP_UPDATE				( VK_F12     )
+#define MYVK_DEBUG_SLOW_UPDATE				( VK_F11     )
+#define MYVK_DEBUG_OUTPUT_DBGSTR			( VK_F9      )
+#define MYVK_DEBUG_OUTPUT_MEMORY			( VK_F8      )
+#define MYVK_DEBUG_OBB_DRAW					( VK_F7      )
+#define MYVK_DEBUG_SWITCHING_SOUND			( VK_F6      )
+#define MYVK_DEBUG_COIL_INVISIBLE			( VK_CONTROL )
+#define MYVK_DEBUG_STAGE_RESTART			( VK_RETURN  )
+#define MYVK_DEBUG_STAGE_RESTART_SUBKEY		( VK_SHIFT   )
+#define MYVK_DEBUG_STAGE_RELOAD_SUBKEY		( VK_MENU    )
+#define MYVK_DEBUG_STAGE_RULER				( 'L'        )
 
-#define UI_HEIGHT					( 88.0f )	//	: UIÇÃçÇÇ≥
-#define DRAW_CLIENT_MAGNIFICATION	( 50.0f )	//	: ï\é¶âÊñ ÇÃî{ó¶ x=800, y=512 : x=40, y=25.6
-#define MAGNETIC_RADIUS				( 0.5f )	//	: é•äEÇÃîºåa
-const float	CURSOR_FIELD_LENGHT			= 10.0f;
-const float CURSOR_FIELD_TIME			= 2.0f;		
+#define UI_HEIGHT							( 88.0f )	//	: UIÇÃçÇÇ≥
+#define DRAW_CLIENT_MAGNIFICATION			( 50.0f )	//	: ï\é¶âÊñ ÇÃî{ó¶ x=800, y=512 : x=40, y=25.6
+#define MAGNETIC_RADIUS						( 0.5f )	//	: é•äEÇÃîºåa
+const float	CURSOR_FIELD_LENGHT				= 10.0f;
+const float CURSOR_FIELD_TIME				= 2.0f;		
 
 static ULONG				RCVAL_SAVEDATA_IDENTIFIER_H = 0x534E4B42 ;	//	: BKNS
 static ULONG				RCVAL_SAVEDATA_IDENTIFIER_L = 0x5F455641 ;	//	: AVE_
@@ -181,7 +182,7 @@ static const D3DXVECTOR3	g_vMax						= D3DXVECTOR3(+FLT_MAX,+FLT_MAX,+FLT_MAX);
 static const D3DXVECTOR3	g_vMin						= D3DXVECTOR3(-FLT_MAX,-FLT_MAX,-FLT_MAX);
 static const wstring		g_sDefaultTexturePath		= L"media/Textures/" ;	//	: ÉeÉNÉXÉ`ÉÉÇÃíuÇ´èÍ
       //extern HWND			wiz::DxDevice::m_hWnd		;
-
+static const SIZE			g_GaugeReverseSize			= { 146,67 };
 
 
 //

@@ -406,6 +406,38 @@
 						</Filter>
 					</Filter>
 				</Filter>
+				<Filter
+					Name="Input"
+					>
+					<File
+						RelativePath=".\Controller\Controller.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Controller\Controller.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Controller\Input.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Controller\Input.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Controller\Input_Gamepad.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Controller\Input_Keyboard.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Controller\Input_Mouse.cpp"
+						>
+					</File>
+				</Filter>
 			</Filter>
 			<Filter
 				Name="0.Factorys"
@@ -934,38 +966,6 @@
 				</File>
 				<File
 					RelativePath=".\AnimationModelClass\AnimationModelClass.h"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="Input"
-				>
-				<File
-					RelativePath=".\Controller\Controller.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\Controller\Controller.h"
-					>
-				</File>
-				<File
-					RelativePath=".\Controller\Input.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\Controller\Input.h"
-					>
-				</File>
-				<File
-					RelativePath=".\Controller\Input_Gamepad.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\Controller\Input_Keyboard.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\Controller\Input_Mouse.cpp"
 					>
 				</File>
 			</Filter>
