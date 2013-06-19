@@ -39,7 +39,7 @@ Factory_Result::Factory_Result(FactoryPacket* fpac, int iDeadCount, int iMaxPosY
 		float	wide	= BASE_CLIENT_WIDTH/2;
 		float	height	= BASE_CLIENT_HEIGHT/2;
 
-		//RSULT
+		//RESULT
 		fpac->m_pVec->push_back(
 			new SpriteObject(
 				fpac->pD3DDevice,
@@ -69,16 +69,6 @@ Factory_Result::Factory_Result(FactoryPacket* fpac, int iDeadCount, int iMaxPosY
 				)
 		);
 
-		fpac->m_pVec->push_back(
-			new Score(
-				fpac->pD3DDevice,
-				fpac->AddTexture(L"Number_Base1.png"),
-				D3DXVECTOR3( 1.0f, 1.0f, 0.0f ),
-				D3DXVECTOR3( wide+100, height-30, 0.0f ),
-				iDeadCount,
-				&Rect( 0, 0, 512, 64 )
-			)
-		);
 
 		//Å‚“ž’B“_**************************************************************
 		fpac->m_pVec->push_back(
@@ -93,16 +83,6 @@ Factory_Result::Factory_Result(FactoryPacket* fpac, int iDeadCount, int iMaxPosY
 				g_vZero,
 				0xFFFFFFFF
 				)
-		);
-		fpac->m_pVec->push_back(
-			new Score(
-				fpac->pD3DDevice,
-				fpac->AddTexture(L"Number_Base2.png"),
-				D3DXVECTOR3( 1.0f, 1.0f, 0.0f ),
-				D3DXVECTOR3( wide+100, height+70.0f, 0.0f ),
-				iMaxPosY,
-				&Rect( 0, 0, 512, 64 )
-			)
 		);
 		//*****************************************************************************
 		//Please Click
@@ -125,6 +105,21 @@ Factory_Result::Factory_Result(FactoryPacket* fpac, int iDeadCount, int iMaxPosY
 		float	fLineLength	= 550.0f;
 		float	fPointSize	= 0.25f;
 		Factory_Cursor	MCfac( fpac, fLineLength, fPointSize )  ; 
+
+		//Score*****************************************************
+		fpac->m_pVec->push_back(
+			new ResultScore(
+				fpac->pD3DDevice,
+				fpac->AddTexture(L"Number_Base1.png"),
+				fpac->AddTexture(L"Number_Base2.png"),
+				D3DXVECTOR3( 1.0f, 1.0f, 0.0f ),
+				D3DXVECTOR3( 0.0f, 0.0f, 0.0f ),
+				iDeadCount,
+				iMaxPosY,
+				&Rect( 0, 0, 512, 64 )
+			)
+		);
+		//***********************************************************
 
 		//*****************************************************************************
 		//system::Sound* pSound = NULL;
