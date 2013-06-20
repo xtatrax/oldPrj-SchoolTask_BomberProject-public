@@ -246,19 +246,24 @@ MagnetField 定義部
 ////
 MagnetField::MagnetField(
 	const LPDIRECT3DDEVICE9		pD3DDevice	,
-	const LPDIRECT3DTEXTURE9	pTexture	,
+	const LPDIRECT3DTEXTURE9	pTextureN	,
+	const LPDIRECT3DTEXTURE9	pTextureS	,
 	const D3DXVECTOR3&			vScale		,
 	const D3DXVECTOR3&			vRot		,
 	const D3DXVECTOR3&			vPos		,
 	const D3DXVECTOR3&			vCenter		,
 	const RECT*					pRect		
 )
-:SpriteObject( pD3DDevice, pTexture, vScale, vRot, vPos, pRect, vCenter, g_vZero, 0xFFFFFFFF , OBJID_UI_SPRITE, false)
+:SpriteObject( pD3DDevice, pTextureN, vScale, vRot, vPos, pRect, vCenter, g_vZero, 0xFFFFFFFF , OBJID_UI_SPRITE, false)
 //,m_pCoil( NULL )
+,m_pTextureN( pTextureN )
+,m_pTextureS( pTextureS )
 ,m_vPos( vPos )
 ,m_vScale( vScale )
 ,m_vRot( vRot )
 ,m_fRotZ( NULL )
+,m_iNowPosNum( 1 )
+,m_bMagnetPole( POLE_N )
 {
 	try{
 	}
@@ -267,7 +272,6 @@ MagnetField::MagnetField(
 		//再スロー
 		throw;
 	}
-	setNowPos(1);
 };
 
 /////////////////// ////////////////////
@@ -298,26 +302,41 @@ void MagnetField::Draw(DrawPacket& i_DrawPacket)
 ////
 void MagnetField::Update(UpdatePacket& i_UpdatePacket)
 {
-	//if( !m_pCoil ){
-	//	m_pCoil	= ( Coil* )SearchObjectFromTypeID( i_UpdatePacket.pVec,typeid(Coil) ) ; 
-	//}
-
-	//static float s_fDir = 0.0f;
-	//m_vPos += D3DXVECTOR3(cos(D3DXToRadian(s_fDir)),sin(D3DXToRadian(s_fDir)),0.0f) * 2.5f;
-	//s_fDir += 1.25f;
-	//if(s_fDir >= 360.0f)s_fDir = 0.0f;
-	//m_fRotZ = s_fDir;
-
-	//float fCoilRotZ = m_pCoil->getRotZ()-90.0f;
-	//D3DXVECTOR3 vCartesian  = ConvertToCartesianCoordinates(50.0f, fCoilRotZ);
-	//D3DXVECTOR3 vCoilPos	= m_pCoil->getPos();
-	//m_vPos = vCoilPos + vCartesian;
-
 	D3DXMATRIX mScale, mRot, mPos;
 	D3DXMatrixScaling(&mScale,m_vScale.x,m_vScale.y,m_vScale.z);
 	D3DXMatrixRotationZ(&mRot,D3DXToRadian(m_vRot.z));
 	D3DXMatrixTranslation(&mPos,m_vPos.x,m_vPos.y,m_vPos.z);
 	m_mMatrix = mScale * mRot * mPos ;
+
+};
+
+void MagnetField::setNowPos(int i_iNum){
+	m_iNowPosNum = i_iNum;
+	switch(m_iNowPosNum){
+		case 1:
+			m_vPos = MAGNET_FIELD_POS_1;
+			break;
+		case 2:
+			m_vPos = MAGNET_FIELD_POS_2;
+			break;
+		case 3:
+			m_vPos = MAGNET_FIELD_POS_3;
+			break;
+		default:
+			break;
+	}
+	switch(m_bMagnetPole){
+		case POLE_N:
+			m_bMagnetPole = POLE_S;
+			setTexture(m_pTextureS);
+			break;
+		case POLE_S:
+			m_bMagnetPole = POLE_N;
+			setTexture(m_pTextureN);
+			break;
+		default:
+			break;
+	}
 };
 
 /************************************************************************
@@ -341,19 +360,23 @@ Coil 定義部
 ////
 Coil::Coil(
 	const LPDIRECT3DDEVICE9		pD3DDevice	,
-	const LPDIRECT3DTEXTURE9	pTexture	,
+	const LPDIRECT3DTEXTURE9	pTextureN	,
+	const LPDIRECT3DTEXTURE9	pTextureS	,
 	const D3DXVECTOR3&			vScale		,
 	const D3DXVECTOR3&			vRot		,
 	const D3DXVECTOR3&			vPos		,
 	const D3DXVECTOR3&			vCenter		,
 	const RECT*					pRect		
 )
-:SpriteObject( pD3DDevice, pTexture, vScale, vRot, vPos, pRect, vCenter, g_vZero, 0xFFFFFFFF , OBJID_UI_SPRITE, false)
+:SpriteObject( pD3DDevice, pTextureS, vScale, vRot, vPos, pRect, vCenter, g_vZero, 0xFFFFFFFF , OBJID_UI_SPRITE, false)
 ,m_pMagnetField( NULL )
+,m_pTextureN( pTextureN )
+,m_pTextureS( pTextureS )
 ,m_vPos( vPos )
 ,m_vScale( vScale )
 ,m_vRot( vRot )
 ,m_fRotZ( NULL )
+,m_bMagnetPole( POLE_S )
 {
 	try{
 	}
@@ -398,6 +421,7 @@ void Coil::Update(UpdatePacket& i_UpdatePacket)
 
 	float	fTargetDir = TwoPoint2Degree( m_pMagnetField->getPos() , m_vPos );
 	float	fReverse   = 0.0f;
+	float	fTurnAngle = 2.0f;
 	if(m_fRotZ > 180.0f){
 		fReverse = m_fRotZ - 180.0f;
 	}
@@ -407,11 +431,11 @@ void Coil::Update(UpdatePacket& i_UpdatePacket)
 
 	if(m_fRotZ < fTargetDir){
 		if(fTargetDir - m_fRotZ <= 180.0f){
-			m_fRotZ += 1.0f;
+			m_fRotZ += fTurnAngle;
 			m_fRotZ = float(int(m_fRotZ) % 360);						
 		}
 		else{
-			m_fRotZ -= 1.0f;
+			m_fRotZ -= fTurnAngle;
 			if(m_fRotZ < 0.0f){
 				m_fRotZ += 360.0f;
 			}
@@ -419,19 +443,19 @@ void Coil::Update(UpdatePacket& i_UpdatePacket)
 	}
 	else if(m_fRotZ > fTargetDir){
 		if(m_fRotZ - fTargetDir <= 180.0f){
-			m_fRotZ -= 1.0f;
+			m_fRotZ -= fTurnAngle;
 			if(m_fRotZ < 0.0f){
 				m_fRotZ += 360.0f;
 			}
 		}
 		else{
-			m_fRotZ += 1.0f;
+			m_fRotZ += fTurnAngle;
 			m_fRotZ = float(int(m_fRotZ) % 360);												
 		}
 	}
 
 	D3DXVECTOR3 vMove = g_vZero;
-	ArcMove( vMove , 1.0f,  m_fRotZ);
+	ArcMove( vMove , 1.5f,  m_fRotZ);
 	m_vPos += vMove;
 
 	D3DXMATRIX mScale, mRot, mPos;
@@ -447,10 +471,22 @@ void Coil::Update(UpdatePacket& i_UpdatePacket)
 	double dirY = vTargetDir.y * vTargetDir.y;
 	float m_fDistance = (float)sqrt(dirX + dirY);
 	int iMGNowPosNum = m_pMagnetField->getNowPosNum();
-	if(m_fDistance <= 10.0f){
+	if(m_fDistance <= 5.0f){
 		iMGNowPosNum++;
 		if(iMGNowPosNum > 3)iMGNowPosNum = 1;
 		m_pMagnetField->setNowPos(iMGNowPosNum);
+		switch(m_bMagnetPole){
+			case POLE_N:
+				m_bMagnetPole = POLE_S;
+				setTexture(m_pTextureS);
+				break;
+			case POLE_S:
+				m_bMagnetPole = POLE_N;
+				setTexture(m_pTextureN);
+				break;
+			default:
+				break;
+		}
 	}
 
 };
@@ -619,10 +655,11 @@ Factory_Title::Factory_Title(FactoryPacket* fpac){
 		fpac->m_pVec->push_back(
 			new MagnetField(
 				fpac->pD3DDevice,
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"MagnetField.png" ),
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"MagnetField_N.png" ),
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"MagnetField_S.png" ),
 				D3DXVECTOR3(1.0f,1.0f,0.0f),
 				g_vZero,
-				g_vZero,
+				MAGNET_FIELD_POS_1,
 				D3DXVECTOR3( 128.0f, 128.0f, 128.0f ),
 				Rect( 0, 0, 256, 256 )
 				)
@@ -632,7 +669,8 @@ Factory_Title::Factory_Title(FactoryPacket* fpac){
 		fpac->m_pVec->push_back(
 			new Coil(
 				fpac->pD3DDevice,
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Coil.png" ),
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Coil_N.png" ),
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Coil_S.png" ),
 				D3DXVECTOR3(0.2f,0.2f,0.0f),
 				D3DXVECTOR3( 0.0f, 0.0f, 90.0f ),
 				D3DXVECTOR3( 170.0f, 370.0f, 0.0f ),

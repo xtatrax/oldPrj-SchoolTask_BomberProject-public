@@ -46,7 +46,6 @@ Warning::Warning( LPDIRECT3DDEVICE9 pD3DDevice,D3DCOLORVALUE& Diffuse,D3DCOLORVA
 ,m_bToDraw(false)
 ,m_iDrawTime( 0 )
 ,m_pCoil( NULL )
-,m_bIsPlaySound( false )
 {
 	::ZeroMemory( &m_Material, sizeof(D3DMATERIAL9));
 	D3DXMATRIX mScalse, mRot, mPos;
@@ -88,10 +87,6 @@ Warning::~Warning(){
 void Warning::Draw(DrawPacket& i_DrawPacket)
 {
 	if(m_bToDraw){
-		if( !m_bIsPlaySound ){
-			i_DrawPacket.SearchSoundAndPlay( RCTEXT_SOUND_SE_WARNING_SPARK );
-			m_bIsPlaySound = true;
-		}
 		if(m_pTexture){
 			DWORD wkdword;
 			//現在のテクスチャステータスを得る
@@ -113,7 +108,14 @@ void Warning::Draw(DrawPacket& i_DrawPacket)
 			//float	f	= 0.5f ;
 			//i_DrawPacket.pD3DDevice->SetRenderState(D3DRS_ALPHAREF,*(DWORD*)&f);
 			//コモンメッシュのDraw()を呼ぶ
-			CommonMesh::Draw(i_DrawPacket);
+			RENDERSTATE_PARAM pParam[] = {
+				{ D3DRS_ALPHABLENDENABLE	, TRUE					},
+				{ D3DRS_BLENDOP				, D3DBLENDOP_ADD		},
+				{ D3DRS_SRCBLEND			, D3DBLEND_SRCALPHA		},
+				{ D3DRS_DESTBLEND			, D3DBLEND_ONE			},
+				{ D3DRS_FORCE_DWORD			, NULL					}
+			};
+			CommonMesh::Draw(i_DrawPacket,pParam);
 			i_DrawPacket.pD3DDevice->SetTexture(0,0);
 			//ステージを元に戻す
 			i_DrawPacket.pD3DDevice->SetTextureStageState(0,D3DTSS_COLOROP,wkdword);
@@ -131,11 +133,6 @@ void Warning::Draw(DrawPacket& i_DrawPacket)
 			i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &m_Matrix);
 			//コモンメッシュのDraw()を呼ぶ
 			CommonMesh::Draw(i_DrawPacket);
-		}
-	}else{
-		if( m_bIsPlaySound ){
-			i_DrawPacket.SoundStop( RCTEXT_SOUND_SE_WARNING_SPARK );
-			m_bIsPlaySound = false;
 		}
 	}
 }
@@ -363,21 +360,15 @@ void WallObject::Draw(DrawPacket& i_DrawPacket)
 			//float	f	= 0.5f ;
 			//i_DrawPacket.pD3DDevice->SetRenderState(D3DRS_ALPHAREF,*(DWORD*)&f);
 			//コモンメッシュのDraw()を呼ぶ
-			static bool alpha = true;
-			if( GetAsyncKeyState( MYVK_DEBUG_SWITCH_ALPHABLEND ) ) alpha ? alpha = false : alpha = true ;
-			if(alpha){
-				Debugger::DBGSTR::addStr(L"あるふぁぶれんど");
-				RENDERSTATE_PARAM pParam[] = {
-					{ D3DRS_ALPHABLENDENABLE	, TRUE					},
-					{ D3DRS_BLENDOP				, D3DBLENDOP_ADD		},
-					{ D3DRS_SRCBLEND			, D3DBLEND_SRCALPHA		},
-					{ D3DRS_DESTBLEND			, D3DBLEND_ONE			},
-					{ D3DRS_FORCE_DWORD			, NULL					}
-				};
-				CommonMesh::Draw(i_DrawPacket,pParam);
-			}else{
-				CommonMesh::Draw(i_DrawPacket);
-			}
+			Debugger::DBGSTR::addStr(L"あるふぁぶれんど");
+			RENDERSTATE_PARAM pParam[] = {
+				{ D3DRS_ALPHABLENDENABLE	, TRUE					},
+				{ D3DRS_BLENDOP				, D3DBLENDOP_ADD		},
+				{ D3DRS_SRCBLEND			, D3DBLEND_SRCALPHA		},
+				{ D3DRS_DESTBLEND			, D3DBLEND_ONE			},
+				{ D3DRS_FORCE_DWORD			, NULL					}
+			};
+			CommonMesh::Draw(i_DrawPacket,pParam);
 			i_DrawPacket.pD3DDevice->SetTexture(0,0);
 			//ステージを元に戻す
 			i_DrawPacket.pD3DDevice->SetTextureStageState(0,D3DTSS_COLOROP,wkdword);
@@ -455,11 +446,11 @@ void WallObject::Update( UpdatePacket& i_UpdatePacket ){
 								m_pWarning->setRot(D3DXVECTOR3(0.0f,0.0f,0.0f));								
 							}else{
 								if(vWallPos.x <= vColiPos.x){
-									vWarning.x = vWallPos.x + 2.0f;
+									vWarning.x = vWallPos.x + 1.0f;
 									m_pWarning->setRot(D3DXVECTOR3(0.0f,0.0f,-90.0f));
 								}
 								else{
-									vWarning.x = vWallPos.x - 2.0f;
+									vWarning.x = vWallPos.x - 1.0f;
 									m_pWarning->setRot(D3DXVECTOR3(0.0f,0.0f,90.0f));
 								}
 							}
@@ -482,7 +473,7 @@ void WallObject::Update( UpdatePacket& i_UpdatePacket ){
 								}
 							}
 						}
-						vWarning.z = -2.0f;
+						vWarning.z = -1.0f;
 						m_pWarning->setPos(vWarning);					
 					}
 					break;

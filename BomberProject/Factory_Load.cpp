@@ -131,18 +131,18 @@ void Load::Update(UpdatePacket& i_UpdatePacket)
 ***************************************************************************/
 Factory_Load::Factory_Load(FactoryPacket* fpac,Command* Com){
 	try{
-		//// MANUAL
-		//fpac->m_pVec->push_back(
-		//	new SpriteObject( fpac->pD3DDevice,
-		//			fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"MANUAL2.png" ),
-		//			D3DXVECTOR3( 0.8f, 0.8f, 0.0f ),
-		//			g_vZero,
-		//			D3DXVECTOR3( 100.0f, 50.0f, 0.0f ),					
-		//			&Rect( 0, 0, 1024, 512 ),
-		//			g_vZero,
-		//			g_vZero
-		//	)
-		//) ;
+		// MANUAL
+		fpac->m_pVec->push_back(
+			new SpriteObject( fpac->pD3DDevice,
+					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"MANUAL2.png" ),
+					D3DXVECTOR3( 0.8f, 0.8f, 0.0f ),
+					g_vZero,
+					D3DXVECTOR3( 100.0f, 50.0f, 0.0f ),					
+					&Rect( 0, 0, 1024, 512 ),
+					g_vZero,
+					g_vZero
+			)
+		) ;
 
 		//	NOWLOADING
 		fpac->m_pVec->push_back(
