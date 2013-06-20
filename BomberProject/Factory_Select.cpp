@@ -65,6 +65,7 @@ Factory_Select::Factory_Select(FactoryPacket* fpac ){
 /////////////////////////////////////////////////////////////////////////////////
 		fpac->m_pVec->push_back(
 			new SelectInformation(
+<<<<<<< HEAD
 					fpac->pD3DDevice								,	
 					fpac->AddTexture(L"Select_Frame_ver5px.png")	,	//↓マウスがここの上にあるとき表示する画像
 					fpac->AddTexture(L"Select_blue.png")			,	//枠外
@@ -81,6 +82,21 @@ Factory_Select::Factory_Select(FactoryPacket* fpac ){
 					0xFF00FFFF										,
 					0xFFFFCC00										,
 					0xFFFF0000										
+=======
+					fpac->pD3DDevice,						//↓マウスがここの上にあるとき表示する画像
+					fpac->AddTexture(L"Select_Manual_ver1.tga"),	//枠外
+					fpac->AddTexture(L"Select_Normal_ver1.png"),	//NORMAL
+					fpac->AddTexture(L"Select_Hard_ver1.png"),		//HARD
+					fpac->AddTexture(L"Select_Extra_ver1.png"),		//EXTRA
+
+					D3DXVECTOR3( 1.0f, 1.0f, 0.0f ),
+					g_vZero,
+					D3DXVECTOR3( 50.0f, 50.0f, 0.0f ),
+					Rect( 0, 0, 512, 512 ),
+					g_vZero,
+					g_vZero,
+					0xFFFFFFFF
+>>>>>>> Work_Space
 			)
 		);
 /////////////////////////////////////////////////////////////////////////////////
@@ -91,12 +107,12 @@ Factory_Select::Factory_Select(FactoryPacket* fpac ){
 				fpac->pD3DDevice,
 				fpac->AddTexture(L"NORMAL002.tga"),
 				fpac->AddTexture(L"NORMAL001.tga"),
-				g_vOne,
+				D3DXVECTOR3( 1.8f,1.8f,0.0f ),
 				g_vZero,
-				D3DXVECTOR3(704.5f, 150.0f, 0.0f),
-				Rect(0,0,215,26),
-				Rect(0,0,215,26),
-				g_vZero,
+				D3DXVECTOR3(980.0f, 120.0f, 0.0f),
+				Rect(0,0,220,30),
+				Rect(0,0,220,30),
+				D3DXVECTOR3( 220.0f,15.0f,0.0f ),
 				g_vZero,
 				0xFF00AA55,
 				0xFF008833,
@@ -118,12 +134,12 @@ Factory_Select::Factory_Select(FactoryPacket* fpac ){
 				fpac->pD3DDevice,	
 				fpac->AddTexture(L"HARD002.tga"),
 				fpac->AddTexture(L"HARD001.tga"),
-				g_vOne,
+				D3DXVECTOR3( 1.8f,1.8f,0.0f ),
 				g_vZero,
-				D3DXVECTOR3(740.0f, 300.0f, 0.0f),
-				Rect(0,0,144,26),
-				Rect(0,0,144,26),
-				g_vZero,
+				D3DXVECTOR3(980.0f, 240.0f, 0.0f),
+				Rect(0,0,148,30),
+				Rect(0,0,148,30),
+				D3DXVECTOR3( 148.0f,15.0f,0.0f ),
 				g_vZero,
 				0xFF00AA55,
 				0xFF008833,
@@ -145,12 +161,12 @@ Factory_Select::Factory_Select(FactoryPacket* fpac ){
 				fpac->pD3DDevice,	
 				fpac->AddTexture(L"EXTRA002.tga"),
 				fpac->AddTexture(L"EXTRA001.tga"),
-				g_vOne,
+				D3DXVECTOR3( 1.8f,1.8f,0.0f ),
 				g_vZero,
-				D3DXVECTOR3(722.5f, 450.0f, 0.0f),
-				Rect(0,0,179,26),
-				Rect(0,0,179,26),
-				g_vZero,
+				D3DXVECTOR3(980.0f, 360.0f, 0.0f),
+				Rect(0,0,183,30),
+				Rect(0,0,183,30),
+				D3DXVECTOR3( 183.0f,15.0f,0.0f ),
 				g_vZero,
 				0xFF00AA55,
 				0xFF008833,
@@ -164,6 +180,36 @@ Factory_Select::Factory_Select(FactoryPacket* fpac ){
 				OBJID_UI_BUTTON_EXTRA
 			)
 		);
+<<<<<<< HEAD
+=======
+/////////////////////////////////////////////////////////////////////////////////
+//                                 BACK                                        //
+/////////////////////////////////////////////////////////////////////////////////
+		fpac->AddButton(
+			new CustomButtonA(
+				fpac->pD3DDevice,	
+				fpac->AddTexture(L"BACK002.tga"),
+				fpac->AddTexture(L"BACK001.tga"),
+				g_vOne,
+				g_vZero,
+				D3DXVECTOR3(980.0f, 560.0f, 0.0f),
+				Rect(0,0,148,30),
+				Rect(0,0,148,30),
+				D3DXVECTOR3( 148.0f,15.0f,0.0f ),
+				g_vZero,
+				0xFF00AA55,
+				0xFF008833,
+				0xFFFFFFFF,
+				0xFFAAAAAA,
+				RCTEXT_SOUND_SE_SELECT,
+				RCTEXT_SOUND_SE_ENTER,
+				0.5f,
+				Command( GM_CHANGE_PARENTSTAGE, 0, 0 ),
+				3,
+				OBJID_UI_BUTTON_BACK
+			)
+		);
+>>>>>>> Work_Space
 		float	fLineLength	= 550.0f;
 		float	fPointSize	= 0.25f;
 		Factory_Cursor	MCfac( fpac, fLineLength, fPointSize )  ;
