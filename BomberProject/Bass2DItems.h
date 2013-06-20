@@ -136,6 +136,10 @@ public:
 	void	setColor( Color	color ){
 		m_Color	= color;
 	}
+
+	void setCenter(D3DXVECTOR3 i_vCenter){
+		m_vCenter = i_vCenter;
+	}
 };
 
 //**************************************************************************

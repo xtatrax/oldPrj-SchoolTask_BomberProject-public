@@ -171,6 +171,7 @@ static const char*			RCTEXT_SOUND_SE_GOAL		= "SE-GOAL"				;
 static const char*			RCTEXT_SOUND_SE_PLAYERBLOKEN= "SE-PLAYER_BLOKEN"	;
 static const char*			RCTEXT_SOUND_SE_INVISIBLE	= "SE-INVINGVLE"		;
 static const char*			RCTEXT_SOUND_SE_ITEMS		= "SE-ITEMS"			;
+static const char*			RCTEXT_SOUND_SE_SUPER_FULL	= "SE-ITEM_FULL"		;
 static const char*			RCTEXT_SOUND_SE_SETFIELD	= "SE-MAGNETIC_FIELD"	;
 static const char*			RCTEXT_SOUND_SE_SPARK		= "SE-SPARK002"			;
 
