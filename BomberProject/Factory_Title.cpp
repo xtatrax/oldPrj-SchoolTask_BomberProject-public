@@ -541,7 +541,7 @@ Factory_Title::Factory_Title(FactoryPacket* fpac){
 		//////////
 		Factory_Scroll		Ffac( fpac );
 		//fpac->m_pVec->push_back( new TestBehavior2());
-		//	:TitleName
+
 		fpac->m_pVec->push_back(
 			new SpriteObject(
 				fpac->pD3DDevice,
@@ -556,10 +556,13 @@ Factory_Title::Factory_Title(FactoryPacket* fpac){
 				0x25FFFFFF
 				)
 		);
+//////////////////////////////////////////////////////////////////////////////////////
+//		NAME																		//
+//////////////////////////////////////////////////////////////////////////////////////
 		fpac->m_pVec->push_back(
 			new SpriteObject(
 					fpac->pD3DDevice,
-					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, /*L"Lightning.tga"*/L"Title_Name005_02.tga" ),
+					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, /*L"Lightning.tga"*/L"Title_Name02.tga" ),
 					D3DXVECTOR3(SCALE_RATE,SCALE_RATE,0.0f),
 					g_vZero,
 					D3DXVECTOR3( 165.0f, 40.0f, 0.0f ),
@@ -574,7 +577,7 @@ Factory_Title::Factory_Title(FactoryPacket* fpac){
 		fpac->m_pVec->push_back(
 			new SpriteObject(
 				fpac->pD3DDevice,
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, /*L"Lightning.tga"*/L"Title_Name005_01.tga" ),
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, /*L"Lightning.tga"*/L"Title_Name01.tga" ),
 				D3DXVECTOR3(SCALE_RATE,SCALE_RATE,0.0f),
 				g_vZero,
 				D3DXVECTOR3( 165.0f, 40.0f, 0.0f ),
@@ -585,8 +588,9 @@ Factory_Title::Factory_Title(FactoryPacket* fpac){
 				0xFFFF8800
 				)
 		);
-
-		//START002_02
+//////////////////////////////////////////////////////////////////////////////////////
+//		STARTボタン																//
+//////////////////////////////////////////////////////////////////////////////////////
 		fpac->m_pVec->push_back(
 			new Title_Select(
 					fpac->pD3DDevice,
@@ -603,8 +607,6 @@ Factory_Title::Factory_Title(FactoryPacket* fpac){
 					0xFFFF8800
 				)
 		);
-
-		//START002_01
 		fpac->m_pVec->push_back(
 			new SpriteObject(
 				fpac->pD3DDevice,
@@ -618,9 +620,9 @@ Factory_Title::Factory_Title(FactoryPacket* fpac){
 				0xFF00FFFF
 				)
 		);
-
-
-		//EXIT002_02
+//////////////////////////////////////////////////////////////////////////////////////
+//		EXITボタン																	//
+//////////////////////////////////////////////////////////////////////////////////////
 		fpac->m_pVec->push_back(
 			new Title_Select(
 					fpac->pD3DDevice,
@@ -635,8 +637,6 @@ Factory_Title::Factory_Title(FactoryPacket* fpac){
 					0xFFFF8800
 				)
 		);
-
-		//EXIT002_01
 		fpac->m_pVec->push_back(
 			new SpriteObject(
 				fpac->pD3DDevice,
@@ -650,6 +650,7 @@ Factory_Title::Factory_Title(FactoryPacket* fpac){
 				0xFF00FFFF
 				)
 		);
+			
 		
 		//磁界
 		fpac->m_pVec->push_back(
