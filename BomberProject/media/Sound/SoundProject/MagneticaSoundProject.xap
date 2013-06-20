@@ -16,8 +16,8 @@ Global Settings
     Header File = MagneticaSoundProject.h;
     Exclude Category Names = 0;
     Exclude Variable Names = 0;
-    Last Modified Low = 3074593601;
-    Last Modified High = 30305706;
+    Last Modified Low = 30305706;
+    Last Modified High = 3074593601;
 
     Category
     {
@@ -239,14 +239,8 @@ Wave Bank
     Entry Names = 1;
     Seek Tables = 1;
     Compression Preset Name = Compression Preset;
-    Xbox Bank Last Modified Low = 0;
-    Xbox Bank Last Modified High = 0;
-    PC Bank Last Modified Low = 3074623602;
-    PC Bank Last Modified High = 30305706;
-    Header Last Modified Low = 0;
-    Header Last Modified High = 0;
-    Bank Last Revised Low = 3041931733;
-    Bank Last Revised High = 30305706;
+    Bank Last Revised Low = 2156213055;
+    Bank Last Revised High = 30305717;
 
     Wave
     {
@@ -716,8 +710,6 @@ Sound Bank
     Windows File = ..\MagneticaSound.xsb;
     Xbox Bank Path Edited = 0;
     Windows Bank Path Edited = 1;
-    Bank Last Modified Low = 3108585545;
-    Bank Last Modified High = 30305706;
     Header Last Modified High = 0;
     Header Last Modified Low = 0;
 
@@ -1007,7 +999,7 @@ Sound Bank
     Sound
     {
         Name = SE-MAGNETIC_FIELD;
-        Volume = -1200;
+        Volume = -240;
         Pitch = 0;
         Priority = 0;
 
