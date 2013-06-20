@@ -66,7 +66,7 @@ Factory_Select::Factory_Select(FactoryPacket* fpac ){
 		fpac->m_pVec->push_back(
 			new SelectInformation(
 					fpac->pD3DDevice								,	
-					fpac->AddTexture(L"Select_Frame_ver7px.png")	,	//↓マウスがここの上にあるとき表示する画像
+					fpac->AddTexture(L"Select_Frame_ver5px.png")	,	//↓マウスがここの上にあるとき表示する画像
 					fpac->AddTexture(L"Select_blue.png")			,	//枠外
 					fpac->AddTexture(L"Select_Normal_ver1.png")		,	//NORMAL
 					fpac->AddTexture(L"Select_Hard_ver1.png")		,	//HARD
@@ -80,7 +80,7 @@ Factory_Select::Factory_Select(FactoryPacket* fpac ){
 					0xFFFFFFFF										,
 					0xFF00FFFF										,
 					0xFFFFCC00										,
-					0xFFFF5555										
+					0xFFFF0000										
 			)
 		);
 /////////////////////////////////////////////////////////////////////////////////

@@ -108,6 +108,31 @@ void	SelectInformation::Update(UpdatePacket &i_UpdatePacket)
 		//	: EXTRA‚ÌŽž‚Ì‰æ‘œ
 			m_pTexture	= m_pExtraTex;
 			m_SpriteObject.setColor( m_ExtraFrameColor );
+			////	: —Î‰ÁŽZ
+			//if( m_ExtraFrameColor.byteColor.r >= 0xFF && m_ExtraFrameColor.byteColor.b == 0 ){
+			//	m_ExtraFrameColor.byteColor.g++;
+			//}
+			////	: ÔŒ¸ŽZ
+			//if( m_ExtraFrameColor.byteColor.r > 0 && m_ExtraFrameColor.byteColor.g == 0xFF && m_ExtraFrameColor.byteColor.b == 0){
+			//	m_ExtraFrameColor.byteColor.r--;
+			//}
+			////	: Â‰ÁŽZ
+			//if( m_ExtraFrameColor.byteColor.r == 0 && m_ExtraFrameColor.byteColor.g >= 0xFF ){
+			//	m_ExtraFrameColor.byteColor.b++;
+			//}
+			////	: —ÎŒ¸ŽZ
+			//if( m_ExtraFrameColor.byteColor.r == 0 && m_ExtraFrameColor.byteColor.g > 0 && m_ExtraFrameColor.byteColor.b == 0xFF){
+			//	m_ExtraFrameColor.byteColor.g--;
+			//}
+			////	: Ô‰ÁŽZ
+			//if( m_ExtraFrameColor.byteColor.g == 0 && m_ExtraFrameColor.byteColor.b >= 0xFF ){
+			//	m_ExtraFrameColor.byteColor.r++;
+			//}
+			////	: —ÎŒ¸ŽZ
+			//if( m_ExtraFrameColo.r == 0 && m_ExtraFrameColo.g > 0 && m_ExtraFrameColo.b == 0xFF){
+			//	m_ExtraFrameColo.g--;
+			//}
+
 	}
 	else
 	if( m_pButtonBack && m_pButtonBack->getButtonP()->getMouseSelect() ){
