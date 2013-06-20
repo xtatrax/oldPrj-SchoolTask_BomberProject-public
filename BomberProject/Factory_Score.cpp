@@ -472,6 +472,9 @@ void	AnimationScore::Update(UpdatePacket& i_UpdatePacket){
 ResultScore::ResultScore(LPDIRECT3DDEVICE9	pD3DDevice,
 				LPDIRECT3DTEXTURE9	pDeadTex,
 				LPDIRECT3DTEXTURE9	pMaxPosTex,
+				LPDIRECT3DTEXTURE9	pRate10Tex,
+				LPDIRECT3DTEXTURE9	pRate30Tex,
+				LPDIRECT3DTEXTURE9	pRate1Tex,
 				D3DXVECTOR3	&vScale,
 				D3DXVECTOR3	&vPos,
 				int			iDeadScore,
@@ -483,6 +486,9 @@ ResultScore::ResultScore(LPDIRECT3DDEVICE9	pD3DDevice,
 ,m_pMaxPosTex( pMaxPosTex )
 ,m_iNowDraw( 0 )
 ,m_pSelect( NULL )
+,m_pRate10Tex( pRate10Tex )
+,m_pRate30Tex( pRate30Tex )
+,m_pRate1Tex( pRate1Tex )
 {
 	float	wide	= BASE_CLIENT_WIDTH/2;
 	float	height	= BASE_CLIENT_HEIGHT/2;
@@ -566,13 +572,19 @@ ResultScore::ResultScore(LPDIRECT3DDEVICE9	pD3DDevice,
 	//*******************************************
 
 	m_pMaxPos	= new AnimationScore( pD3DDevice, m_pMaxPosTex, vScoreSize,
-						D3DXVECTOR3( wide+100.0f, height-120.0f, 0.0f ), iMaxPos, iDightMaxPos, &rScoreRect);
+						D3DXVECTOR3( wide, height-115.0f, 0.0f ), iMaxPos, iDightMaxPos, &rScoreRect);
 	m_pScratch	= new AnimationScore( pD3DDevice, m_pMaxPosTex, vScoreSize,
-						D3DXVECTOR3( wide+100.0f, height-50.0f, 0.0f ), iScratch, iDightScratch, &rScoreRect);
+						D3DXVECTOR3( wide, height-35.0f, 0.0f ), iScratch, iDightScratch, &rScoreRect);
 	m_pDead		= new AnimationScore( pD3DDevice, m_pDeadTex, vScoreSize,
-						D3DXVECTOR3( wide+100.0f, height+30.0f, 0.0f ), iDead, iDightDead, &rScoreRect);
-	m_pTotal	= new AnimationScore( pD3DDevice, m_pDeadTex, vScoreSize,
-						D3DXVECTOR3( wide+100.0f, height+100.0f, 0.0f ), TotalScore, iDightTotal, &rScoreRect);
+						D3DXVECTOR3( wide, height+45.0f, 0.0f ), iDead, iDightDead, &rScoreRect);
+	m_pTotal	= new AnimationScore( pD3DDevice, m_pMaxPosTex, D3DXVECTOR3( 1.0f, 1.0f, 0.0f ),
+						D3DXVECTOR3( wide+50, height+120.0f, 0.0f ), TotalScore, iDightTotal, &rScoreRect);
+	m_pRate_10	= new SpriteObject( pD3DDevice, m_pRate10Tex, vScoreSize, g_vZero, 
+									D3DXVECTOR3( wide+250.0f, height-115.0f, 0.0f ), Rect( 0, 0, 128, 64 ),g_vZero, g_vZero );
+	m_pRate_1	= new SpriteObject( pD3DDevice, m_pRate1Tex, vScoreSize, g_vZero, 
+									D3DXVECTOR3( wide+250.0f, height-35.0f, 0.0f ), Rect( 0, 0, 128, 64 ),g_vZero, g_vZero );
+	m_pRate_30	= new SpriteObject( pD3DDevice, m_pRate30Tex, vScoreSize, g_vZero, 
+									D3DXVECTOR3( wide+250.0f, height+45.0f, 0.0f ), Rect( 0, 0, 128, 64 ),g_vZero, g_vZero );
 
 }
 
@@ -589,6 +601,9 @@ ResultScore::~ResultScore(){
 	SafeDelete(m_pScratch);
 	SafeDelete(m_pMaxPos);
 	SafeDelete(m_pTotal);
+	SafeDelete(m_pRate_10);
+	SafeDelete(m_pRate_1);
+	SafeDelete(m_pRate_30);
 }
 
 /**************************************************************************
@@ -601,6 +616,9 @@ void	ResultScore::Draw(DrawPacket& i_DrawPacket){
 	m_pScratch->Draw( i_DrawPacket );
 	m_pDead->Draw( i_DrawPacket );
 	m_pTotal->Draw( i_DrawPacket );
+	m_pRate_10->Draw( i_DrawPacket );
+	m_pRate_1->Draw( i_DrawPacket );
+	m_pRate_30->Draw( i_DrawPacket );
 }
 
 /**************************************************************************
