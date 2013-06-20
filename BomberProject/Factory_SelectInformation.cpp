@@ -28,22 +28,27 @@ namespace bomberobject{
  SelectInformation ’è‹`•”
 ***************************************************************************/
 SelectInformation::SelectInformation(
-	const LPDIRECT3DDEVICE9		pD3DDevice	,
-	const LPDIRECT3DTEXTURE9	pTexture	,
-	const LPDIRECT3DTEXTURE9	pNomalTex	,
-	const LPDIRECT3DTEXTURE9	pHardTexture	,
-	const LPDIRECT3DTEXTURE9	pExtraTexture	,
-	const D3DXVECTOR3&			vScale		,
-	const D3DXVECTOR3&			vRot		,
-	const D3DXVECTOR3&			vPos		,
-	const RECT*					pRect		,
-	const D3DXVECTOR3&			vCenter		,
-	const D3DXVECTOR3&			vOffsetPos	,
-	const Color					color		,
+	const LPDIRECT3DDEVICE9		pD3DDevice			,
+	const LPDIRECT3DTEXTURE9	pFrameTexture		,
+	const LPDIRECT3DTEXTURE9	pDescTexture		,
+	const LPDIRECT3DTEXTURE9	pNomalTex			,
+	const LPDIRECT3DTEXTURE9	pHardTexture		,
+	const LPDIRECT3DTEXTURE9	pExtraTexture		,
+	const D3DXVECTOR3&			vScale				,
+	const D3DXVECTOR3&			vRot				,
+	const D3DXVECTOR3&			vPos				,
+	const RECT*					pRect				,
+	const D3DXVECTOR3&			vCenter				,
+	const D3DXVECTOR3&			vOffsetPos			,
+	const Color					DefaultFrameColor	,
+	const Color					NormalFrameColor	,
+	const Color					HardFrameColor		,
+	const Color					ExtraFrameColor		,
 	const wiz::OBJID			id
 )
-:SpriteObject( pD3DDevice, pTexture, vScale, vRot, vPos, pRect, vCenter, vOffsetPos, color, id)
-,m_pTex(		pTexture		)
+:SpriteObject( pD3DDevice, pDescTexture, vScale, vRot, vPos, pRect, vCenter, vOffsetPos, 0xFFFFFFFF, id)
+,m_SpriteObject(pD3DDevice, pFrameTexture, vScale, vRot, vPos, pRect, vCenter, vOffsetPos, 0xFFFFFFFF, id)
+,m_pDescTex(		pDescTexture	)
 ,m_pNomalTex(	pNomalTex		)
 ,m_pHardTex(	pHardTexture	)
 ,m_pExtraTex(	pExtraTexture	)
@@ -52,6 +57,11 @@ SelectInformation::SelectInformation(
 ,m_pButtonHard(NULL)	
 ,m_pButtonExtra(NULL)
 ,m_pButtonBack(NULL)
+,m_DefaultFrameColor(DefaultFrameColor)
+,m_NormalFrameColor(NormalFrameColor)
+,m_HardFrameColor(HardFrameColor)
+,m_ExtraFrameColor(ExtraFrameColor)
+
 {	
 }
 
@@ -67,7 +77,9 @@ SelectInformation::~SelectInformation()
 **********************************************************/
 void	SelectInformation::Draw(DrawPacket &i_DrawPacket)
 {
+
 	SpriteObject::Draw( i_DrawPacket );
+	m_SpriteObject.Draw( i_DrawPacket );
 }
 
 /**********************************************************
@@ -81,26 +93,52 @@ void	SelectInformation::Update(UpdatePacket &i_UpdatePacket)
 	if( !m_pButtonBack   ) m_pButtonBack    = (CustomButtonA*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_UI_BUTTON_BACK  );
 
 	if( m_pButtonNormal && m_pButtonNormal->getButtonP()->getMouseSelect() ){
-		//	: Normal‚Ì‚Ì‰æ‘œ
 			m_pTexture	= m_pNomalTex;
+			m_SpriteObject.setColor( m_NormalFrameColor );
 	}
 	else
 	if( m_pButtonHard && m_pButtonHard->getButtonP()->getMouseSelect() ){
-		//	: Hard‚Ì‚Ì‰æ‘œ
 			m_pTexture	= m_pHardTex;
+			m_SpriteObject.setColor( m_HardFrameColor );
 	}
 	else
 	if( m_pButtonExtra && m_pButtonExtra->getButtonP()->getMouseSelect() ){
-		//	: EXTRA‚Ì‚Ì‰æ‘œ
 			m_pTexture	= m_pExtraTex;
+			m_SpriteObject.setColor( m_ExtraFrameColor );
+			////	: —Î‰ÁZ
+			//if( m_ExtraFrameColor.byteColor.r >= 0xFF && m_ExtraFrameColor.byteColor.b == 0 ){
+			//	m_ExtraFrameColor.byteColor.g++;
+			//}
+			////	: ÔŒ¸Z
+			//if( m_ExtraFrameColor.byteColor.r > 0 && m_ExtraFrameColor.byteColor.g == 0xFF && m_ExtraFrameColor.byteColor.b == 0){
+			//	m_ExtraFrameColor.byteColor.r--;
+			//}
+			////	: Â‰ÁZ
+			//if( m_ExtraFrameColor.byteColor.r == 0 && m_ExtraFrameColor.byteColor.g >= 0xFF ){
+			//	m_ExtraFrameColor.byteColor.b++;
+			//}
+			////	: —ÎŒ¸Z
+			//if( m_ExtraFrameColor.byteColor.r == 0 && m_ExtraFrameColor.byteColor.g > 0 && m_ExtraFrameColor.byteColor.b == 0xFF){
+			//	m_ExtraFrameColor.byteColor.g--;
+			//}
+			////	: Ô‰ÁZ
+			//if( m_ExtraFrameColor.byteColor.g == 0 && m_ExtraFrameColor.byteColor.b >= 0xFF ){
+			//	m_ExtraFrameColor.byteColor.r++;
+			//}
+			////	: —ÎŒ¸Z
+			//if( m_ExtraFrameColo.r == 0 && m_ExtraFrameColo.g > 0 && m_ExtraFrameColo.b == 0xFF){
+			//	m_ExtraFrameColo.g--;
+			//}
+
 	}
 	else
 	if( m_pButtonBack && m_pButtonBack->getButtonP()->getMouseSelect() ){
-		//	: Backƒ{ƒ^ƒ“‚Ì‚Ì‰æ‘œ
+			m_pTexture	= m_pNomalTex;
 	}
 	else{
 		//	: ’Êí
-			m_pTexture	= m_pTex;	
+			m_pTexture	= m_pDescTex;	
+			m_SpriteObject.setColor( m_DefaultFrameColor );
 	}
 }
 /**************************************************************************

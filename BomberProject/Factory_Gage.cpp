@@ -145,7 +145,7 @@ Gage::~Gage(){
 備考　　　：
 *****************************************/
 void Gage::Recovery( float fAddValue ){
-	m_fRate += fAddValue ;
+	m_fRate += (fAddValue) ;
 	if( m_fRate >= 1.0f ){
 		m_fRate = 1.0f ;
 	}
@@ -162,7 +162,7 @@ void Gage::Recovery( float fAddValue ){
  備考　　　：
  *****************************************/
 void Gage::Consume( float fSubValue ){
-	m_fRate -= fSubValue ;
+	m_fRate -= (fSubValue) ;
 	if( m_fRate <= 0.0f ){
 		m_fRate = 0.0f ;
 	}
