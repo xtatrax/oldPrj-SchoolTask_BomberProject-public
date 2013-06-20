@@ -434,7 +434,7 @@ void	AnimationScore::Update(UpdatePacket& i_UpdatePacket){
 
 	if( m_iResultScore != 0 ){
 		m_fTime	+= i_UpdatePacket.pTime->getElapsedTime();
-		if( m_fTime >= 1.0f/(m_fTransRate*i) ){
+		if( m_fTime >= 1.0f/(m_fTransRate) ){
 			if( m_iResultScore > m_iDrawScore )
 				m_iDrawScore	+= i;
 			else{
