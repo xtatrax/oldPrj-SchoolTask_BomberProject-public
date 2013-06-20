@@ -220,6 +220,8 @@ protected:
 	float					m_Thicken		;
 	float					m_Length		;
 	LPDIRECT3DTEXTURE9		m_pTexture		;
+	LPDIRECT3DTEXTURE9		m_pTexturePoint	;
+	LPDIRECT3DTEXTURE9		m_pTextureLast	;
 	D3DXVECTOR3				m_vPos			;
 	SpriteObject*			m_pPintMark		;
 	float					m_fInitPosY		;
@@ -249,7 +251,12 @@ protected:
 	void RemoveTarget();
 
 public:
-	CheckPoint( LPDIRECT3DDEVICE9 pD3DDevice, float fLength,LPDIRECT3DTEXTURE9 pTexture,LPDIRECT3DTEXTURE9 pTexture2, wiz::OBJID id = OBJID_SYS_CHECKPOINT );
+	CheckPoint( LPDIRECT3DDEVICE9 pD3DDevice,
+				float fLength,
+				LPDIRECT3DTEXTURE9 pTexture,
+				LPDIRECT3DTEXTURE9 pTexture2, 
+				LPDIRECT3DTEXTURE9 pTexture3, 
+				wiz::OBJID id = OBJID_SYS_CHECKPOINT );
 	~CheckPoint();
 	/////////////////// ////////////////////
 	//// ä÷êîñº     ÅFvirtual void Update( UpdatePacket& i_UpdatePacket )

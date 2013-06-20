@@ -136,6 +136,10 @@ public:
 	void	setColor( Color	color ){
 		m_Color	= color;
 	}
+
+	void setCenter(D3DXVECTOR3 i_vCenter){
+		m_vCenter = i_vCenter;
+	}
 };
 
 //**************************************************************************
@@ -178,7 +182,7 @@ public:
 		const D3DXVECTOR3&			vOffsetPos	,
 		const Color					color		= 0xFFFFFFFF		,
 		const wiz::OBJID			id			= OBJID_UI_SPRITE	,
-		const bool					bApplyAspect= true
+		const bool					bApplyAspect= false
 	);
 /////////////////// ////////////////////
 //// ä÷êîñº     ÅF~SpriteObject();

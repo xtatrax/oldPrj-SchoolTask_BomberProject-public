@@ -279,7 +279,7 @@ void	CheckEffect::Expansion(){
 /****************************************************************************
 CheckPoint 定義部
 ****************************************************************************/
-CheckPoint::CheckPoint( LPDIRECT3DDEVICE9 pD3DDevice, float fLength,LPDIRECT3DTEXTURE9 pTexture,LPDIRECT3DTEXTURE9 pTexture2, wiz::OBJID id  )
+CheckPoint::CheckPoint( LPDIRECT3DDEVICE9 pD3DDevice, float fLength,LPDIRECT3DTEXTURE9 pTexture,LPDIRECT3DTEXTURE9 pTexture2,LPDIRECT3DTEXTURE9 pTexture3, wiz::OBJID id  )
 : Cylinder( pD3DDevice, CHECK_POINT_RADIUS, CHECK_POINT_RADIUS, fLength, g_vZero, D3DXVECTOR3( 0.0f,D3DXToRadian( 90.0f )
 		   , 0.0f ), CHECKPOINTCOLOR_CHAR, D3DCOLORVALUE(), CHECKPOINTCOLOR_CHAR, id, false, NULL, 18) 
 , m_pCoil( NULL )
@@ -289,6 +289,8 @@ CheckPoint::CheckPoint( LPDIRECT3DDEVICE9 pD3DDevice, float fLength,LPDIRECT3DTE
 , m_Thicken( 1.0f )
 , m_Length( fLength )
 , m_pTexture( pTexture )
+,m_pTexturePoint( pTexture2 )
+, m_pTextureLast( pTexture3 ) 
 {
 	m_pEffect	= new CheckEffect( pD3DDevice, g_vZero, fLength, pTexture );
 	m_pEffect2	= NULL;
@@ -332,7 +334,12 @@ void CheckPoint::Update( UpdatePacket& i_UpdatePacket ){
 		float	fTexPosY	= m_pCamera->getPosY() - m_fInitPosY;
 
 		//CHECK POINT テクスチャ*************************************************************
-		float	wide	= BASE_CLIENT_WIDTH / 50 * m_ItemContainer[ m_ActiveItem ]->vStartPos.x * CHECKPOINT_CHAR_RATE_X;
+		float	wide;
+		if(m_ActiveItem == m_ItemContainer.size()-1){
+			wide	= BASE_CLIENT_WIDTH / 50 * m_ItemContainer[ m_ActiveItem ]->vStartPos.x * CHECKPOINT_CHAR_RATE_X;
+		}else{
+			wide	= BASE_CLIENT_WIDTH / 50 * m_ItemContainer[ m_ActiveItem ]->vStartPos.x * CHECKPOINT_CHAR_RATE_X;
+		}
 		float	height	= ( (m_ItemContainer[ m_ActiveItem ]->vStartPos.y - fTexPosY)
 									* CHECKPOINT_CHAR_DOWNSPEED - BASE_CLIENT_HEIGHT ) * (-1.0f) * CHECKPOINT_CHAR_RATE_Y;
 
@@ -347,6 +354,10 @@ void CheckPoint::Update( UpdatePacket& i_UpdatePacket ){
 		while(fPosY <= fCoilPosY){
 			m_pCoil->setStartPos(m_ItemContainer[ m_ActiveItem ]->vStartPos);
 			m_ActiveItem++;
+			if(m_ActiveItem == m_ItemContainer.size()-1){
+				m_pPintMark->setTexture(m_pTextureLast);
+				m_pPintMark->setCenter(D3DXVECTOR3( 128.0f, 32.0f, 0.0f ));
+			}
 			if( m_pEffect != NULL ){
 				if( m_pEffect2 != NULL ){
 					if( m_pEffect->getMark() ){

@@ -138,12 +138,24 @@ PlayerCoil::PlayerCoil(
 	setPoleN();
 	SetBaseRot(vRot);
 
-	m_pModeChangeChar	= new SpriteObject( pD3DDevice, m_pTexMgr->addTexture( pD3DDevice, L"CHANGE3.png" ),D3DXVECTOR3( 0.25f, 0.25f, 0.0f ),
-										g_vZero, g_vZero, Rect( 0, 0, 512, 128 ), D3DXVECTOR3( 256.0f, 64.0f, 0.0f ), g_vZero );
+	m_pModeChangeChar	= new ModeChangeChar( pD3DDevice, m_pTexMgr->addTexture( pD3DDevice, L"CHANGE3.png" ),
+														D3DXVECTOR3( 0.25f, 0.25f, 0.0f ), &Rect( 0, 0, 512, 128 ) );
 	m_pSelect	= NULL;
 	m_pSelect2	= NULL;
 	m_pDeadChar	= NULL;
 	m_pSphere->ShaderChange( new CookTrance(pD3DDevice) );
+
+	const	D3DXVECTOR3	vDirTop		= D3DXVECTOR3( cosf( D3DXToRadian(-45.0f) ), sinf( D3DXToRadian(-45.0f) ), 0.0f );
+	const	D3DXVECTOR3	vDirLeft	= D3DXVECTOR3( cosf( D3DXToRadian(-45.0f) ), sinf( D3DXToRadian(45.0f) ), 0.0f );
+	const	D3DXVECTOR3	vDirBottom	= D3DXVECTOR3( cosf( D3DXToRadian(45.0f) ), sinf( D3DXToRadian(45.0f) ), 0.0f );
+	const	D3DXVECTOR3	vDirRight	= D3DXVECTOR3( cosf( D3DXToRadian(45.0f) ), sinf( D3DXToRadian(-45.0f) ), 0.0f );
+	const	float	fRangeW	= 40.0f;
+	const	float	fRangeH	= 40.0f;
+	m_pLineTop		= new Line( D3DXVECTOR3( -27.5f, -10.0f, 0.0f ), vDirTop,	 fRangeW, 0xFF00FFFF );
+	m_pLineLeft		= new Line( m_pLineTop->getEndPos(),		 vDirLeft,	 fRangeH, 0xFF00FFFF );
+	m_pLineBottom	= new Line( D3DXVECTOR3( -27.5f, -10.0f, 0.0f ), vDirBottom,	 fRangeW, 0xFF00FFFF );
+	m_pLineRight	= new Line( m_pLineBottom->getEndPos(),		 vDirRight,	 fRangeH, 0xFF00FFFF );
+
 
 	//爆散エフェクトのポインタ
 	for( int i = 0; i < PARTICLS_NUM; i++ )
@@ -249,7 +261,7 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 	if( !m_pCamera )			m_pCamera				=             ( Camera* ) SearchObjectFromID( i_UpdatePacket.pVec, OBJID_SYS_CAMERA ) ; 
 	if( !m_pMagneticumObject )	m_pMagneticumObject		= ( MagneticumObject3D* ) SearchObjectFromID( i_UpdatePacket.pVec, OBJID_3D_STATIC_MAGNET ) ; 
 	if( !m_pReStart )			m_pReStart				=		 ( StartSprite* ) SearchObjectFromID( i_UpdatePacket.pVec, OBJID_SYS_START  ) ;
-	if( !m_pSuperGage )			m_pSuperGage			=             (SuperGage*)SearchObjectFromID( i_UpdatePacket.pVec, OBJID_UI_SUPERGAUGE );
+	if( !m_pSuperGage )			m_pSuperGage			=          ( SuperGage* ) SearchObjectFromID( i_UpdatePacket.pVec, OBJID_UI_SUPERGAUGE );
 	if( m_pPlayer ){
 		//デバック用-----------------------------------------------------------
 		// 磁界反転
@@ -257,8 +269,8 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 		//-----------------------------------------------------------------------
 
 		if( m_enumCoilState != COIL_STATE_STICK ){
-			m_bModeChangeChar	= false;
-			m_iAlpha			= 255;
+			m_bModeChangeChar		= false;
+			m_bReDrawing_ChangeChar	= true;
 		}
 		//状態ごとの処理
 		switch(m_enumCoilState){
@@ -273,8 +285,9 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 			//磁界中心に吸着
 			case COIL_STATE_STICK:
 				if( m_bReDrawing_ChangeChar ){
-					m_bModeChangeChar	= true;
-					m_pModeChangeChar->setAlpha(0xFF);
+					m_bModeChangeChar		= true;
+					m_bReDrawing_ChangeChar	= false;
+					m_pModeChangeChar->setStart();
 				}
 				Update_StateStick(i_UpdatePacket);
 				break;
@@ -296,14 +309,18 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 				break;
 		}
 
-		//ゲージが最大になったらコイルを無敵状態に
-		if(m_pSuperGage && m_pSuperGage->getRate() <= 0.0f && m_enumCoilStateSuper == COIL_STATE_SUPER_CHARGE)m_enumCoilStateSuper = COIL_STATE_SUPER_READY;
+		//ゲージが最大になったらCOIL_STATE_SUPER_READYに
+		if(m_pSuperGage && m_pSuperGage->getRate() <= 0.0f && m_enumCoilStateSuper == COIL_STATE_SUPER_CHARGE){
+			m_enumCoilStateSuper = COIL_STATE_SUPER_READY;
+			i_UpdatePacket.SearchSoundAndPlay(RCTEXT_SOUND_SE_SUPER_FULL);
+		}
+		//COIL_STATE_SUPER_READYの間はLineを更新
+		if(m_enumCoilStateSuper == COIL_STATE_SUPER_READY)Update_Line();
+		//ホイールクリックで無敵状態に
 		//if(m_enumCoilState == COIL_STATE_MOVE && m_enumCoilStateSuper == COIL_STATE_SUPER_READY && Cursor2D::getLButtonState() && Cursor2D::getRButtonState())m_enumCoilStateSuper = COIL_STATE_SUPER_CHANGING;
 		if(m_enumCoilState == COIL_STATE_MOVE && m_enumCoilStateSuper == COIL_STATE_SUPER_READY && Cursor2D::getMButtonState())m_enumCoilStateSuper = COIL_STATE_SUPER_CHANGING;
-		if(m_enumCoilStateSuper == COIL_STATE_SUPER_MOVE || m_enumCoilStateSuper == COIL_STATE_SUPER_CHANGING){
-			//無敵状態
-			SuperMode(i_UpdatePacket);
-		}
+		//無敵状態
+		if(m_enumCoilStateSuper == COIL_STATE_SUPER_MOVE || m_enumCoilStateSuper == COIL_STATE_SUPER_CHANGING)SuperMode(i_UpdatePacket);
 
 		//デバック用-----------------------------------------------------------
 		//Debugger::DBGSTR::addStr( L"角度 = %f\n",m_fMoveDir);
@@ -592,12 +609,7 @@ void PlayerCoil::Update_StateStick(UpdatePacket& i_UpdatePacket){
 		}
 	}
 
-	m_iAlpha	-= 5;
-	if( m_iAlpha <= 0 ){
-		m_pModeChangeChar->setAlpha(0);
-	}else{
-		m_pModeChangeChar->setAlpha(m_iAlpha);
-	}
+	m_pModeChangeChar->Update(i_UpdatePacket);
 };
 
 
@@ -694,18 +706,9 @@ void PlayerCoil::SuperMode( UpdatePacket& i_UpdatePacket ){
 	//ゲージ減少
 	static float s_fTimeAccumulator = 0 ;
 	if(m_enumCoilState == COIL_STATE_MOVE && m_enumCoilStateSuper == COIL_STATE_SUPER_MOVE){
-		//	: すーぱモードの時
-		//static float s_fTimeTotal = 0.0f;
-		//s_fTimeTotal += (float)SUPER_GAGE_MAX / (float)COIL_SUPER_MODE_TIME * (float)i_UpdatePacket.pTime->getElapsedTime();
-		//if(s_fTimeTotal >= 1.0f){
-		//	m_pSuperGage->Consume( -(1.0f / COIL_SUPER_MODE_TIME * (float)i_UpdatePacket.pTime->getElapsedTime()) );
-		//	s_fTimeTotal -= (int)s_fTimeTotal;
-		//}
 		if( ( s_fTimeAccumulator += i_UpdatePacket.pTime->getElapsedTime()) < COIL_SUPER_MODE_TIME ){
 			float fOneSecondSub = (1.0f / (float)COIL_SUPER_MODE_TIME);
 			float fFrameSub     = fOneSecondSub * (float)i_UpdatePacket.pTime->getElapsedTime();
-			Debugger::DBGSTR::addStr(L"fOneSecondSub = %f\n",fOneSecondSub);
-			Debugger::DBGSTR::addStr(L"fFrameSub     = %f\n",fFrameSub);
 			m_pSuperGage->Consume( -fFrameSub );	
 		}
 	}else{
@@ -881,6 +884,12 @@ void PlayerCoil::Draw(DrawPacket& i_DrawPacket){
 #if defined( ON_DEBUGGINGPROCESS )
 	if( m_pDSPH ) m_pDSPH->Draw( i_DrawPacket );
 #endif
+	if(m_enumCoilStateSuper == COIL_STATE_SUPER_READY){
+		m_pLineTop->draw(i_DrawPacket.pD3DDevice);
+		m_pLineLeft->draw(i_DrawPacket.pD3DDevice);
+		m_pLineBottom->draw(i_DrawPacket.pD3DDevice);
+		m_pLineRight->draw(i_DrawPacket.pD3DDevice);
+	}
 
 	//爆散
 	if( m_pDeadEffect[0] != NULL ){
@@ -1029,6 +1038,59 @@ bool PlayerCoil::CheckDistance( D3DXVECTOR3& i_vMagneticFieldPos, float i_iBorde
 	}
 }
 
+/////////////////// ////////////////////
+//// 関数名     ：SuperGage::Update_Line()
+//// カテゴリ   ：関数
+//// 用途       ：Lineの更新
+//// 引数       ：なし
+//// 戻値       ：なし
+//// 担当       ：本多寛之
+//// 備考       ：
+////            ：
+void PlayerCoil::Update_Line(){
+
+	D3DXMATRIX		mLineScale, mLinePos;
+	D3DXVECTOR3		vLineScale = D3DXVECTOR3(1.0f,1.0f,0.0f),
+					vLinePos,
+					vBaseLinePos;
+	Point			BaseLinePos  = T3DPointTo2DPoint(m_pCamera,m_vPos);
+	static float	s_fMovingDistance	= 0.0f; 
+	
+	vBaseLinePos = D3DXVECTOR3((float)BaseLinePos.x,(float)BaseLinePos.y,0.0f);
+	//vBaseLinePos.y -= 
+	D3DXMatrixScaling( &mLineScale, vLineScale.x, vLineScale.y, vLineScale.z );
+
+	//左上部
+	vLineScale;
+	vLinePos	= D3DXVECTOR3(vBaseLinePos.x - s_fMovingDistance, 
+							  vBaseLinePos.y - s_fMovingDistance,
+							  0.0f);
+	D3DXMatrixTranslation( &mLinePos, vLinePos.x, vLinePos.y, vLinePos.z);
+	m_pLineTop->setMatrix( mLineScale * mLinePos );
+	//右上部
+	vLinePos	= D3DXVECTOR3(vBaseLinePos.x + s_fMovingDistance,
+							  vBaseLinePos.y - s_fMovingDistance,
+							  0.0f);
+	D3DXMatrixTranslation( &mLinePos, vLinePos.x, vLinePos.y, vLinePos.z);
+	m_pLineLeft->setMatrix( mLineScale * mLinePos );
+	//左下部
+	vLinePos	= D3DXVECTOR3(vBaseLinePos.x - s_fMovingDistance,
+							  vBaseLinePos.y + s_fMovingDistance,
+							  0.0f);
+	D3DXMatrixTranslation( &mLinePos, vLinePos.x, vLinePos.y, vLinePos.z);
+	m_pLineBottom->setMatrix( mLineScale * mLinePos );
+	//右下部
+	vLinePos	= D3DXVECTOR3(vBaseLinePos.x + s_fMovingDistance,
+							  vBaseLinePos.y + s_fMovingDistance, 
+							  0.0f);
+	D3DXMatrixTranslation( &mLinePos, vLinePos.x, vLinePos.y, vLinePos.z);
+	m_pLineRight->setMatrix( mLineScale * mLinePos );
+	
+	s_fMovingDistance	+= 0.8f;
+	if(s_fMovingDistance >= 6.0f){
+		s_fMovingDistance	= 0.0f;
+	}	
+}
 
 /**************************************************************************
  Factory_Coil 定義部

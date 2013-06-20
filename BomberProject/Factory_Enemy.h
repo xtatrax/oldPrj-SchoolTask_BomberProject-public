@@ -66,133 +66,134 @@ class EnemyModel : public SimpleCommonMesh {
 
 protected:
 
-/////////////////// ////////////////////
-//// 用途       ：UpdateTargetItem()
-//// カテゴリ   ：
-//// 用途       ：関数
-//// 引数       ：なし
-//// 戻値       ：なし
-//// 担当者     ：鴫原 徹
-//// 備考       ：
+	/////////////////// ////////////////////
+	//// 用途       ：UpdateTargetItem()
+	//// カテゴリ   ：
+	//// 用途       ：関数
+	//// 引数       ：なし
+	//// 戻値       ：なし
+	//// 担当者     ：鴫原 徹
+	//// 備考       ：
 	void UpdateTargetItem();
 
 public:
 
-/////////////////// ////////////////////
-//// 関数名     ：EnemyModel(LPDIRECT3DDEVICE9 pD3DDevice,D3DCOLORVALUE& Diffuse,
-////            ：  D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,LPDIRECT3DTEXTURE9 pTexture = 0);
-//// カテゴリ   ：コンストラクタ
-//// 用途       ：球体を作成
-//// 引数       ：  LPDIRECT3DDEVICE9 pD3DDevice,   ////IDirect3DDevice9インターフェイスへのポインタ
-////            ：  D3DCOLORVALUE& Diffuse,         //ディフューズ色
-////            ：  D3DCOLORVALUE& Specular,            //スペキュラ色
-////            ：  D3DCOLORVALUE& Ambient,          //アンビエント色
-////            ：  LPDIRECT3DTEXTURE9 pTexture = 0	//テクスチャを張るときは指定
-//// 戻値       ：なし（失敗時は例外をthrow）
-//// 担当者     ： (山ノ井先生のひな形より)
-//// 備考       ：PrimitiveSphereの派生型
-////           ：
-////
+	/////////////////// ////////////////////
+	//// 関数名     ：EnemyModel(LPDIRECT3DDEVICE9 pD3DDevice,D3DCOLORVALUE& Diffuse,
+	////            ：  D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,LPDIRECT3DTEXTURE9 pTexture = 0);
+	//// カテゴリ   ：コンストラクタ
+	//// 用途       ：球体を作成
+	//// 引数       ：  LPDIRECT3DDEVICE9 pD3DDevice,   ////IDirect3DDevice9インターフェイスへのポインタ
+	////            ：  D3DCOLORVALUE& Diffuse,         //ディフューズ色
+	////            ：  D3DCOLORVALUE& Specular,            //スペキュラ色
+	////            ：  D3DCOLORVALUE& Ambient,          //アンビエント色
+	////            ：  LPDIRECT3DTEXTURE9 pTexture = 0	//テクスチャを張るときは指定
+	//// 戻値       ：なし（失敗時は例外をthrow）
+	//// 担当者     ： (山ノ井先生のひな形より)
+	//// 備考       ：PrimitiveSphereの派生型
+	////           ：
+	////
 	EnemyModel(
 		const LPDIRECT3DDEVICE9 pD3DDevice,
 		const char *pFileName,
 		const TextureManager* pTexMgr ,
 		const wiz::OBJID id = OBJID_3D_ENEMY);
 
-/////////////////// ////////////////////
-//// 用途       ：~EnemyModel();
-//// カテゴリ   ：デストラクタ
-//// 用途       ：
-//// 引数       ：
-//// 戻値       ：無し
-//// 担当者     ：鴫原 徹
-//// 備考       ：
+	/////////////////// ////////////////////
+	//// 用途       ：~EnemyModel();
+	//// カテゴリ   ：デストラクタ
+	//// 用途       ：
+	//// 引数       ：
+	//// 戻値       ：無し
+	//// 担当者     ：鴫原 徹
+	//// 備考       ：
 	~EnemyModel();
 
-/////////////////// ////////////////////
-//// 用途       ：void Draw( DrawPacket& i_DrawPacket )
-//// カテゴリ   ：関数
-//// 用途       ：オブジェクトをディスプレイに表示する
-//// 引数       ：  DrawPacket& i_DrawPacket             // 画面描画時に必要なデータ群 ↓内容下記
-////            ：  ├ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 インターフェイスへのポインタ
-////            ：  ├ vector<Object*>&    Vec                     // オブジェクトの配列
-////            ：  ├ Tempus2*            i_DrawPacket.pTime	   // 時間を管理するクラスへのポインター
-////            ：  └ Command             i_DrawPacket.pCommand   // コマンド
-//// 戻値       ：無し
-//// 担当者     ：斎藤謙吾
-//// 引継ぎ     ： 本多寛之
-//// 備考       ：
+	/////////////////// ////////////////////
+	//// 用途       ：void Draw( DrawPacket& i_DrawPacket )
+	//// カテゴリ   ：関数
+	//// 用途       ：オブジェクトをディスプレイに表示する
+	//// 引数       ：  DrawPacket& i_DrawPacket             // 画面描画時に必要なデータ群 ↓内容下記
+	////            ：  ├ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 インターフェイスへのポインタ
+	////            ：  ├ vector<Object*>&    Vec                     // オブジェクトの配列
+	////            ：  ├ Tempus2*            i_DrawPacket.pTime	   // 時間を管理するクラスへのポインター
+	////            ：  └ Command             i_DrawPacket.pCommand   // コマンド
+	//// 戻値       ：無し
+	//// 担当者     ：斎藤謙吾
+	//// 引継ぎ     ： 本多寛之
+	//// 備考       ：
 	void Draw( DrawPacket& i_DrawPacket );
 
-/////////////////// ////////////////////
-//// 用途       ：void Update( UpdatePacket& i_UpdatePacket )
-//// カテゴリ   ：関数
-//// 用途       ：オブジェクトを更新
-//// 引数       ：  UpdatePacket& i_UpdatePacket     // アップデート時に必要なデータ群 ↓内容下記
-////            ：  ├       LPDIRECT3DDEVICE9  pD3DDevice      // IDirect3DDevice9 インターフェイスへのポインタ
-////            ：  ├       Tempus2*           pTime           // 時間を管理するクラスへのポインター
-////            ：  ├       vector<Object*>&   Vec,            // オブジェクトの配列
-////            ：  ├ const CONTROLER_STATE*   pCntlState      // コントローラのステータス
-////            ：  └       Command            pCommand        // コマンド
-//// 戻値       ：無し
-//// 担当者     ：斎藤謙吾
-//// 引継ぎ     ： 本多寛之
-//// 備考       ：
-////            ：
-////
+	/////////////////// ////////////////////
+	//// 用途       ：void Update( UpdatePacket& i_UpdatePacket )
+	//// カテゴリ   ：関数
+	//// 用途       ：オブジェクトを更新
+	//// 引数       ：  UpdatePacket& i_UpdatePacket     // アップデート時に必要なデータ群 ↓内容下記
+	////            ：  ├       LPDIRECT3DDEVICE9  pD3DDevice      // IDirect3DDevice9 インターフェイスへのポインタ
+	////            ：  ├       Tempus2*           pTime           // 時間を管理するクラスへのポインター
+	////            ：  ├       vector<Object*>&   Vec,            // オブジェクトの配列
+	////            ：  ├ const CONTROLER_STATE*   pCntlState      // コントローラのステータス
+	////            ：  └       Command            pCommand        // コマンド
+	//// 戻値       ：無し
+	//// 担当者     ：斎藤謙吾
+	//// 引継ぎ     ： 本多寛之
+	//// 備考       ：
+	////            ：
+	////
 	void Update( UpdatePacket& i_UpdatePacket );
 
-/////////////////// ////////////////////
-//// 用途       ：void AddEnemy( DrawPacket& i_DrawPacket )
-//// カテゴリ   ：関数
-//// 用途       ：Enemyの追加
-//// 引数       ：  LPDIRECT3DDEVICE9 pD3DDevice,	////IDirect3DDevice9インターフェイスへのポインタ
-////		    ：  D3DXVECTOR3 &vScale				//拡大縮小
-////		    ：  D3DXVECTOR3 &vRot				//回転角
-////		    ：  D3DXVECTOR3 &vPos				//位置
-////            ：  D3DCOLORVALUE& Diffuse,			//ディフューズ色
-////            ：  D3DCOLORVALUE& Specular,		//スペキュラ色
-////            ：  D3DCOLORVALUE& Ambient,			//アンビエント色
-//// 戻値       ：無し
-//// 担当者     ：斎藤謙吾
-//// 引継ぎ     ： 本多寛之
-//// 備考       ：
+	/////////////////// ////////////////////
+	//// 用途       ：void AddEnemy( DrawPacket& i_DrawPacket )
+	//// カテゴリ   ：関数
+	//// 用途       ：Enemyの追加
+	//// 引数       ：  LPDIRECT3DDEVICE9 pD3DDevice,	////IDirect3DDevice9インターフェイスへのポインタ
+	////		    ：  D3DXVECTOR3 &vScale				//拡大縮小
+	////		    ：  D3DXVECTOR3 &vRot				//回転角
+	////		    ：  D3DXVECTOR3 &vPos				//位置
+	////            ：  D3DCOLORVALUE& Diffuse,			//ディフューズ色
+	////            ：  D3DCOLORVALUE& Specular,		//スペキュラ色
+	////            ：  D3DCOLORVALUE& Ambient,			//アンビエント色
+	//// 戻値       ：無し
+	//// 担当者     ：斎藤謙吾
+	//// 引継ぎ     ： 本多寛之
+	//// 備考       ：
 	void AddEnemy(
-		const D3DXVECTOR3 &vScale		,
-		const D3DXVECTOR3 &vRot			,
-		const D3DXVECTOR3 &vPos			,
-		const D3DCOLORVALUE& Diffuse	,
-		const D3DCOLORVALUE& Specular	,
-		const D3DCOLORVALUE& Ambient
+		const D3DXVECTOR3&		vScale		,
+		const D3DXVECTOR3&		vRot		,
+		const D3DXVECTOR3&		vPos		,
+		const D3DCOLORVALUE&	Diffuse		,
+		const D3DCOLORVALUE&	Specular	,
+		const D3DCOLORVALUE&	Ambient		,
+		const POLE				Pole
 	);
 
-/////////////////// ////////////////////
-//// 関数名     ：void	PlayerCoil::CreateEffect( UpdatePacket& i_UpdatePacket );
-//// カテゴリ   ：
-//// 用途       ：
-//// 引数       ：  DrawPacket& i_DrawPacket             // 画面描画時に必要なデータ群 ↓内容下記
-////            ：  ├       LPDIRECT3DDEVICE9  pD3DDevice      // IDirect3DDevice9 インターフェイスへのポインタ
-////            ：  ├       Tempus2*           pTime           // 時間を管理するクラスへのポインター
-////            ：  ├       vector<Object*>&   Vec,            // オブジェクトの配列
-////            ：  ├ const CONTROLER_STATE*   pCntlState      // コントローラのステータス
-////            ：  └       Command            pCommand        // コマンド
-//// 戻値       ：なし
-//// 担当       ：佐藤涼
-//// 備考       ：
-////            ：
-////
-void	CreateEffect( UpdatePacket& i_UpdatePacket, TARGETCONTAINER::iterator it );
+	/////////////////// ////////////////////
+	//// 関数名     ：void	PlayerCoil::CreateEffect( UpdatePacket& i_UpdatePacket );
+	//// カテゴリ   ：
+	//// 用途       ：
+	//// 引数       ：  DrawPacket& i_DrawPacket             // 画面描画時に必要なデータ群 ↓内容下記
+	////            ：  ├       LPDIRECT3DDEVICE9  pD3DDevice      // IDirect3DDevice9 インターフェイスへのポインタ
+	////            ：  ├       Tempus2*           pTime           // 時間を管理するクラスへのポインター
+	////            ：  ├       vector<Object*>&   Vec,            // オブジェクトの配列
+	////            ：  ├ const CONTROLER_STATE*   pCntlState      // コントローラのステータス
+	////            ：  └       Command            pCommand        // コマンド
+	//// 戻値       ：なし
+	//// 担当       ：佐藤涼
+	//// 備考       ：
+	////            ：
+	////
+	void	CreateEffect( UpdatePacket& i_UpdatePacket, TARGETCONTAINER::iterator it );
 
 
-/////////////////// ////////////////////
-//// 用途       ：bool HitTestWall( OBB Obb )
-//// カテゴリ   ：メンバ関数
-//// 用途       ：壁との衝突判定
-//// 引数       ：  OBB Obb           //  : 検査対象のOBB
-//// 戻値       ：衝突していればtrue
-//// 担当者     ：曳地 大洋
-//// 備考       ：
-void HitTestWall( OBB , UpdatePacket& i_UpdatePacket);
+	/////////////////// ////////////////////
+	//// 用途       ：bool HitTestWall( OBB Obb )
+	//// カテゴリ   ：メンバ関数
+	//// 用途       ：壁との衝突判定
+	//// 引数       ：  OBB Obb           //  : 検査対象のOBB
+	//// 戻値       ：衝突していればtrue
+	//// 担当者     ：曳地 大洋
+	//// 備考       ：
+	void HitTestWall( OBB , UpdatePacket& i_UpdatePacket);
 
 
 };

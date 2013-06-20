@@ -102,6 +102,7 @@ extern class Continue ;
 extern class Dead ;
 extern class StartSprite;
 extern class SuperGage;
+extern class ModeChangeChar;
 //**************************************************************************//
 // class PlayerCoil : public MagneticumObject ;
 //
@@ -144,7 +145,7 @@ class PlayerCoil : public MagneticumObject3D{
 	bool			m_bReDrawing_ChangeChar	;
 	int				m_iAlpha			;
 
-	SpriteObject*			m_pModeChangeChar			;	//	: 
+	ModeChangeChar*			m_pModeChangeChar			;	//	: 
 	MouseCursor*			m_pCursor					;	//	: カーソルオブジェクトへのポインタ
 	Camera*					m_pCamera					;	//	: Cameraへのポインタ
 	SuperGage*				m_pSuperGage				;
@@ -156,6 +157,12 @@ class PlayerCoil : public MagneticumObject3D{
 	ProvisionalPlayer3D*	m_pPlayer					;	//	: ユーザ設置磁界へのポインタ
 	MagneticumObject3D*		m_pMagneticumObject			;	//	: 初期配置磁界へのポインタ
 	DeadEffect*				m_pDeadEffect[PARTICLS_NUM]	;	//	: 死亡時の爆散エフェクトのポインタ
+	
+	Line*					m_pLineTop					;
+	Line*					m_pLineLeft					;
+	Line*					m_pLineBottom				;
+	Line*					m_pLineRight				;
+	
 	COIL_STATE				m_enumCoilState				;	//	: 自分の状態
 	COIL_STATE_SUPER		m_enumCoilStateSuper		;	//	: 無敵状態
 
@@ -394,6 +401,17 @@ public:
 	//// 担当者     ：本多寛之
 	//// 備考       ：
 	bool CheckDistance( D3DXVECTOR3& i_vMagneticFieldPos, float i_iBorder, bool IsPlayer );
+
+	/////////////////// ////////////////////
+	//// 関数名     ：Update_Line()
+	//// カテゴリ   ：関数
+	//// 用途       ：Lineの更新
+	//// 引数       ：なし
+	//// 戻値       ：なし
+	//// 担当       ：本多寛之
+	//// 備考       ：
+	////            ：
+	void Update_Line();
 
 	/////////////////// ////////////////////
 	//// 関数名     ：D3DXVECTOR3 gPlayerCoil::etPos() const
