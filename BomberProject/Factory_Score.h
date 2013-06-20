@@ -129,12 +129,16 @@ class AnimationScore : public Score{
 	int		m_iResultScore;		//最終的なスコア
 	bool	m_bNext;			//アニメーションするスコアを次に進める
 	bool	m_bClickRock;		//
+	float	m_fTransRate;
+	float	m_fTime;
+	int		m_iDight;
 public:
 	AnimationScore(LPDIRECT3DDEVICE9	pD3DDevice,
 				LPDIRECT3DTEXTURE9	pTexture,
 				D3DXVECTOR3	&vScale,
 				D3DXVECTOR3	&vPos,
 				int			iScore,
+				int			iDight,
 				Rect*		Rect	= NULL);
 	virtual ~AnimationScore();
 
