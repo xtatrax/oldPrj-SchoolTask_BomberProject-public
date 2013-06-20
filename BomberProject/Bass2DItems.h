@@ -182,7 +182,7 @@ public:
 		const D3DXVECTOR3&			vOffsetPos	,
 		const Color					color		= 0xFFFFFFFF		,
 		const wiz::OBJID			id			= OBJID_UI_SPRITE	,
-		const bool					bApplyAspect= false
+		const bool					bApplyAspect= true
 	);
 /////////////////// ////////////////////
 //// ä÷êîñº     ÅF~SpriteObject();
