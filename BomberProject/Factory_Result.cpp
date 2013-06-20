@@ -73,10 +73,10 @@ Factory_Result::Factory_Result(FactoryPacket* fpac, int iDeadCount, int iMaxPosY
 		fpac->m_pVec->push_back(
 			new SpriteObject(
 				fpac->pD3DDevice,
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"ScratchPoint.png" ),
-				D3DXVECTOR3( 0.5f, 1.0f, 0.0f ),
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"SCRATCH_TIME2.png" ),
+				D3DXVECTOR3( 0.5f, 1.5f, 0.0f ),
 				g_vZero,
-				D3DXVECTOR3( wide-128-200, height-40.0f, 0.0f ),
+				D3DXVECTOR3( wide-128-200, height-60.0f, 0.0f ),
 				NULL,
 				g_vZero,
 				g_vZero,
