@@ -10,7 +10,7 @@
 namespace wiz{
 namespace bomberobject{
 
-	const	int MAX_DIGIT	= 5;
+	const	int MAX_DIGIT	= 6;
 /**************************************************************************
  class Score : public Sprite;
  用途　：数字の描画用クラス
