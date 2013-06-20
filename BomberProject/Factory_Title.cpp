@@ -14,6 +14,7 @@
 #include "Factory_Title.h"
 #include "Factory_Scroll.h"
 #include "Factory_Cursor.h"
+#include "Factory_Coil.h"
 
 namespace wiz{
 	namespace bomberobject{
@@ -223,6 +224,236 @@ void Title_Select::Update(UpdatePacket& i_UpdatePacket)
 	}
 };
 
+/************************************************************************
+MagnetField 定義部
+************************************************************************/
+/////////////////// ////////////////////
+//// 関数名     ：MagnetField(LPDIRECT3DDEVICE9 pD3DDevice,LPDIRECT3DTEXTURE9 pTexture,
+////            ：    D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos, RECT* pRect);
+//// カテゴリ   ：コンストラクタ
+//// 用途       ：スプライトを描画
+//// 引数       ：  LPDIRECT3DDEVICE9 pD3DDevice    // IDirect3DDevice9 インターフェイスへのポインタ
+////            ：  LPDIRECT3DTEXTURE9 pTexture     // 貼り付けたいテクスチャ
+////            ：  D3DXVECTOR3 &vScale             // 大きさ
+////            ：  D3DXVECTOR3 &vRot               // 三軸回転
+////            ：  D3DXVECTOR3 &vPos               // 設置座標
+////            ：  RECT* pRect                     // 描画したい範囲(NULLで全体を描画)
+//// 戻値       ：なし
+//// 担当者     ：本多寛之
+//// 備考       ：
+////            ：
+////
+MagnetField::MagnetField(
+	const LPDIRECT3DDEVICE9		pD3DDevice	,
+	const LPDIRECT3DTEXTURE9	pTexture	,
+	const D3DXVECTOR3&			vScale		,
+	const D3DXVECTOR3&			vRot		,
+	const D3DXVECTOR3&			vPos		,
+	const D3DXVECTOR3&			vCenter		,
+	const RECT*					pRect		
+)
+:SpriteObject( pD3DDevice, pTexture, vScale, vRot, vPos, pRect, vCenter, g_vZero, 0xFFFFFFFF , OBJID_UI_SPRITE, false)
+//,m_pCoil( NULL )
+,m_vPos( vPos )
+,m_vScale( vScale )
+,m_vRot( vRot )
+,m_fRotZ( NULL )
+{
+	try{
+	}
+	catch(...){
+		SafeRelease(m_pSprite);
+		//再スロー
+		throw;
+	}
+	setNowPos(1);
+};
+
+/////////////////// ////////////////////
+//// 関数名     ：void MagnetField::Draw( DrawPacket& i_DrawPacket)
+//// カテゴリ   ：関数
+//// 用途       ：スプライトを描画
+//// 引数       ：DrawPacket& i_DrawPacket    //もろもろのデータ
+//// 戻値       ：なし
+//// 担当者     ：本多寛之
+//// 備考       ：
+////            ：
+////
+void MagnetField::Draw(DrawPacket& i_DrawPacket)
+{
+	//	: 描画は親クラスに任せる
+	SpriteObject::Draw(i_DrawPacket);
+};
+
+/////////////////// ////////////////////
+//// 関数名     ：void MagnetField::Update( UpdatePacket& i_UpdatePacket)
+//// カテゴリ   ：関数
+//// 用途       ：データの更新
+//// 引数       ：UpdatePacket& i_UpdatePacket    //もろもろのデータ
+//// 戻値       ：なし
+//// 担当者     ：本多寛之
+//// 備考       ：
+////            ：
+////
+void MagnetField::Update(UpdatePacket& i_UpdatePacket)
+{
+	//if( !m_pCoil ){
+	//	m_pCoil	= ( Coil* )SearchObjectFromTypeID( i_UpdatePacket.pVec,typeid(Coil) ) ; 
+	//}
+
+	//static float s_fDir = 0.0f;
+	//m_vPos += D3DXVECTOR3(cos(D3DXToRadian(s_fDir)),sin(D3DXToRadian(s_fDir)),0.0f) * 2.5f;
+	//s_fDir += 1.25f;
+	//if(s_fDir >= 360.0f)s_fDir = 0.0f;
+	//m_fRotZ = s_fDir;
+
+	//float fCoilRotZ = m_pCoil->getRotZ()-90.0f;
+	//D3DXVECTOR3 vCartesian  = ConvertToCartesianCoordinates(50.0f, fCoilRotZ);
+	//D3DXVECTOR3 vCoilPos	= m_pCoil->getPos();
+	//m_vPos = vCoilPos + vCartesian;
+
+	D3DXMATRIX mScale, mRot, mPos;
+	D3DXMatrixScaling(&mScale,m_vScale.x,m_vScale.y,m_vScale.z);
+	D3DXMatrixRotationZ(&mRot,D3DXToRadian(m_vRot.z));
+	D3DXMatrixTranslation(&mPos,m_vPos.x,m_vPos.y,m_vPos.z);
+	m_mMatrix = mScale * mRot * mPos ;
+};
+
+/************************************************************************
+Coil 定義部
+************************************************************************/
+/////////////////// ////////////////////
+//// 関数名     ：Coil(LPDIRECT3DDEVICE9 pD3DDevice,LPDIRECT3DTEXTURE9 pTexture,
+////            ：    D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos, RECT* pRect);
+//// カテゴリ   ：コンストラクタ
+//// 用途       ：スプライトを描画
+//// 引数       ：  LPDIRECT3DDEVICE9 pD3DDevice    // IDirect3DDevice9 インターフェイスへのポインタ
+////            ：  LPDIRECT3DTEXTURE9 pTexture     // 貼り付けたいテクスチャ
+////            ：  D3DXVECTOR3 &vScale             // 大きさ
+////            ：  D3DXVECTOR3 &vRot               // 三軸回転
+////            ：  D3DXVECTOR3 &vPos               // 設置座標
+////            ：  RECT* pRect                     // 描画したい範囲(NULLで全体を描画)
+//// 戻値       ：なし
+//// 担当者     ：本多寛之
+//// 備考       ：
+////            ：
+////
+Coil::Coil(
+	const LPDIRECT3DDEVICE9		pD3DDevice	,
+	const LPDIRECT3DTEXTURE9	pTexture	,
+	const D3DXVECTOR3&			vScale		,
+	const D3DXVECTOR3&			vRot		,
+	const D3DXVECTOR3&			vPos		,
+	const D3DXVECTOR3&			vCenter		,
+	const RECT*					pRect		
+)
+:SpriteObject( pD3DDevice, pTexture, vScale, vRot, vPos, pRect, vCenter, g_vZero, 0xFFFFFFFF , OBJID_UI_SPRITE, false)
+,m_pMagnetField( NULL )
+,m_vPos( vPos )
+,m_vScale( vScale )
+,m_vRot( vRot )
+,m_fRotZ( NULL )
+{
+	try{
+	}
+	catch(...){
+		SafeRelease(m_pSprite);
+		//再スロー
+		throw;
+	}
+};
+
+/////////////////// ////////////////////
+//// 関数名     ：void Coil::Draw( DrawPacket& i_DrawPacket)
+//// カテゴリ   ：関数
+//// 用途       ：スプライトを描画
+//// 引数       ：DrawPacket& i_DrawPacket    //もろもろのデータ
+//// 戻値       ：なし
+//// 担当者     ：本多寛之
+//// 備考       ：
+////            ：
+////
+void Coil::Draw(DrawPacket& i_DrawPacket)
+{
+	//	: 描画は親クラスに任せる
+	SpriteObject::Draw(i_DrawPacket);
+};
+
+/////////////////// ////////////////////
+//// 関数名     ：void Coil::Update( UpdatePacket& i_UpdatePacket)
+//// カテゴリ   ：関数
+//// 用途       ：データの更新
+//// 引数       ：UpdatePacket& i_UpdatePacket    //もろもろのデータ
+//// 戻値       ：なし
+//// 担当者     ：本多寛之
+//// 備考       ：
+////            ：
+////
+void Coil::Update(UpdatePacket& i_UpdatePacket)
+{
+	if( !m_pMagnetField ){
+		m_pMagnetField	= ( MagnetField* )SearchObjectFromTypeID( i_UpdatePacket.pVec,typeid(MagnetField) ) ; 
+	}
+
+	float	fTargetDir = TwoPoint2Degree( m_pMagnetField->getPos() , m_vPos );
+	float	fReverse   = 0.0f;
+	if(m_fRotZ > 180.0f){
+		fReverse = m_fRotZ - 180.0f;
+	}
+	else{
+		fReverse = m_fRotZ + 180.0f;
+	}
+
+	if(m_fRotZ < fTargetDir){
+		if(fTargetDir - m_fRotZ <= 180.0f){
+			m_fRotZ += 1.0f;
+			m_fRotZ = float(int(m_fRotZ) % 360);						
+		}
+		else{
+			m_fRotZ -= 1.0f;
+			if(m_fRotZ < 0.0f){
+				m_fRotZ += 360.0f;
+			}
+		}
+	}
+	else if(m_fRotZ > fTargetDir){
+		if(m_fRotZ - fTargetDir <= 180.0f){
+			m_fRotZ -= 1.0f;
+			if(m_fRotZ < 0.0f){
+				m_fRotZ += 360.0f;
+			}
+		}
+		else{
+			m_fRotZ += 1.0f;
+			m_fRotZ = float(int(m_fRotZ) % 360);												
+		}
+	}
+
+	D3DXVECTOR3 vMove = g_vZero;
+	ArcMove( vMove , 1.0f,  m_fRotZ);
+	m_vPos += vMove;
+
+	D3DXMATRIX mScale, mRot, mPos;
+	D3DXMatrixScaling(&mScale,m_vScale.x,m_vScale.y,m_vScale.z);
+	D3DXMatrixRotationZ(&mRot,D3DXToRadian(m_vRot.z + m_fRotZ));
+	D3DXMatrixTranslation(&mPos,m_vPos.x,m_vPos.y,m_vPos.z);
+	m_mMatrix = mScale * mRot * mPos ;
+
+	//	: 自分から対象までのベクトルを算出
+	D3DXVECTOR3	vTargetDir	= m_pMagnetField->getPos() - m_vPos;
+	//	: 自分と対象までの距離を求める
+	double dirX = vTargetDir.x * vTargetDir.x;
+	double dirY = vTargetDir.y * vTargetDir.y;
+	float m_fDistance = (float)sqrt(dirX + dirY);
+	int iMGNowPosNum = m_pMagnetField->getNowPosNum();
+	if(m_fDistance <= 10.0f){
+		iMGNowPosNum++;
+		if(iMGNowPosNum > 3)iMGNowPosNum = 1;
+		m_pMagnetField->setNowPos(iMGNowPosNum);
+	}
+
+};
+
 /**************************************************************************
  Factory_Title 定義部
 ****************************************************************************/
@@ -237,6 +468,40 @@ void Title_Select::Update(UpdatePacket& i_UpdatePacket)
 ***************************************************************************/
 Factory_Title::Factory_Title(FactoryPacket* fpac){
 	try{
+		//////////
+		//	: ライトの設定
+        D3DCOLORVALUE Diffuse = {1.0f,1.0f,1.0f,0.0f};
+        D3DCOLORVALUE Specular = {1.0f,1.0f,1.0f,0.0f};
+        D3DCOLORVALUE Ambient = {0.5f,0.5f,0.5f,0.0f};
+        fpac->m_pVec->push_back(
+			new DirectionalLight(
+				fpac->pD3DDevice,
+				Diffuse,
+				Specular,
+				Ambient,
+				D3DXVECTOR3( -0.0f, -1.0f, 0.0f)
+			)
+		);
+		//	: ライトの設定
+		//////////
+
+		//////////
+		//	: カメラの設定
+		float ECXPos = 25.1f;
+		float ECYPos = 10.666f;		
+        fpac->m_pVec->push_back(
+			new Camera(
+				fpac->pD3DDevice,
+				D3DXVECTOR3( ECXPos, ECYPos, -55.7f),
+				D3DXVECTOR3( ECXPos, ECYPos,   0.0f),
+				1 ,
+				55.8f,
+				30.0f
+			)
+		);
+
+		//	: カメラの設定
+		//////////
 		Factory_Scroll		Ffac( fpac );
 		//fpac->m_pVec->push_back( new TestBehavior2());
 		//	:TitleName
@@ -348,8 +613,32 @@ Factory_Title::Factory_Title(FactoryPacket* fpac){
 				0xFF00FFFF
 				)
 		);
-			
+		
+		//磁界
+		fpac->m_pVec->push_back(
+			new MagnetField(
+				fpac->pD3DDevice,
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"MagnetField.png" ),
+				D3DXVECTOR3(1.0f,1.0f,0.0f),
+				g_vZero,
+				g_vZero,
+				D3DXVECTOR3( 128.0f, 128.0f, 128.0f ),
+				Rect( 0, 0, 256, 256 )
+				)
+		);
 
+		//コイル
+		fpac->m_pVec->push_back(
+			new Coil(
+				fpac->pD3DDevice,
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Coil.png" ),
+				D3DXVECTOR3(0.2f,0.2f,0.0f),
+				D3DXVECTOR3( 0.0f, 0.0f, 90.0f ),
+				D3DXVECTOR3( 170.0f, 370.0f, 0.0f ),
+				D3DXVECTOR3( 128.0f, 128.0f, 128.0f ),
+				Rect( 0, 0, 256, 256 )
+				)
+		);
 
 
 		//Click_Please

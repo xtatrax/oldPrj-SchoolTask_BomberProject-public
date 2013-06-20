@@ -168,18 +168,22 @@ void EnemyModel::Update( UpdatePacket& i_UpdatePacket){
 			double dirX = vTargetDir.x * vTargetDir.x;
 			double dirY = vTargetDir.y * vTargetDir.y;
 			float  fLng	= (float)sqrt(dirX + dirY);
-
 			if(fLng <= (float)MGPRM_MAGNETICUM){
+				float  enemySpeed = 0.0f, SplitLng = MGPRM_MAGNETICUM/3.0f; 
+				if(fLng <= SplitLng)			enemySpeed = ENEMY_SPEED_LV3;
+				else if(fLng <= SplitLng*2.0f)	enemySpeed = ENEMY_SPEED_LV2;
+				else							enemySpeed = ENEMY_SPEED_LV1;
+				D3DXVec3Normalize(&vTargetDir,&vTargetDir);
 				if((*it)->m_bPole != m_pPlayer->getMagnetPole()){
-					(*it)->m_vPos += vTargetDir * ENEMY_SPEED;
+					(*it)->m_vPos += vTargetDir * enemySpeed;
 				}else{
-					(*it)->m_vPos -= vTargetDir * ENEMY_SPEED;
+					(*it)->m_vPos -= vTargetDir * enemySpeed;
 				}
 			}
 		}
 
 		float DeadLine  = (float)TwoPointToBassLength( (*it)->m_vPos, m_pCoil->getPos() ) ;
-		if( m_pCoil->getState() == COIL_STATE_MOVE && DeadLine < ENEMY_RADIUS ){
+		if( m_pCoil->getState() == COIL_STATE_MOVE && DeadLine < ENEMY_RADIUS && (*it)->m_vIsAlive ){
 			if(m_pCoil->getSuperMode() == COIL_STATE_SUPER_CHARGE || m_pCoil->getSuperMode() == COIL_STATE_SUPER_READY){
 				m_pCoil->setState(COIL_STATE_DEAD);
 			}
