@@ -65,10 +65,9 @@ Factory_Select::Factory_Select(FactoryPacket* fpac ){
 /////////////////////////////////////////////////////////////////////////////////
 		fpac->m_pVec->push_back(
 			new SelectInformation(
-<<<<<<< HEAD
 					fpac->pD3DDevice								,	
 					fpac->AddTexture(L"Select_Frame_ver5px.png")	,	//↓マウスがここの上にあるとき表示する画像
-					fpac->AddTexture(L"Select_blue.png")			,	//枠外
+					fpac->AddTexture(L"Select_Manual_ver1.tga")			,	//枠外
 					fpac->AddTexture(L"Select_Normal_ver1.png")		,	//NORMAL
 					fpac->AddTexture(L"Select_Hard_ver1.png")		,	//HARD
 					fpac->AddTexture(L"Select_Extra_ver1.png")		,	//EXTRA
@@ -82,21 +81,21 @@ Factory_Select::Factory_Select(FactoryPacket* fpac ){
 					0xFF00FFFF										,
 					0xFFFFCC00										,
 					0xFFFF0000										
-=======
-					fpac->pD3DDevice,						//↓マウスがここの上にあるとき表示する画像
-					fpac->AddTexture(L"Select_Manual_ver1.tga"),	//枠外
-					fpac->AddTexture(L"Select_Normal_ver1.png"),	//NORMAL
-					fpac->AddTexture(L"Select_Hard_ver1.png"),		//HARD
-					fpac->AddTexture(L"Select_Extra_ver1.png"),		//EXTRA
-
-					D3DXVECTOR3( 1.0f, 1.0f, 0.0f ),
-					g_vZero,
-					D3DXVECTOR3( 50.0f, 50.0f, 0.0f ),
-					Rect( 0, 0, 512, 512 ),
-					g_vZero,
-					g_vZero,
-					0xFFFFFFFF
->>>>>>> Work_Space
+//=======
+//					fpac->pD3DDevice,						//↓マウスがここの上にあるとき表示する画像
+//					fpac->AddTexture(L"Select_Manual_ver1.tga"),	//枠外
+//					fpac->AddTexture(L"Select_Normal_ver1.png"),	//NORMAL
+//					fpac->AddTexture(L"Select_Hard_ver1.png"),		//HARD
+//					fpac->AddTexture(L"Select_Extra_ver1.png"),		//EXTRA
+//
+//					D3DXVECTOR3( 1.0f, 1.0f, 0.0f ),
+//					g_vZero,
+//					D3DXVECTOR3( 50.0f, 50.0f, 0.0f ),
+//					Rect( 0, 0, 512, 512 ),
+//					g_vZero,
+//					g_vZero,
+//					0xFFFFFFFF
+//>>>>>>> Work_Space
 			)
 		);
 /////////////////////////////////////////////////////////////////////////////////
@@ -180,8 +179,6 @@ Factory_Select::Factory_Select(FactoryPacket* fpac ){
 				OBJID_UI_BUTTON_EXTRA
 			)
 		);
-<<<<<<< HEAD
-=======
 /////////////////////////////////////////////////////////////////////////////////
 //                                 BACK                                        //
 /////////////////////////////////////////////////////////////////////////////////
@@ -209,7 +206,6 @@ Factory_Select::Factory_Select(FactoryPacket* fpac ){
 				OBJID_UI_BUTTON_BACK
 			)
 		);
->>>>>>> Work_Space
 		float	fLineLength	= 550.0f;
 		float	fPointSize	= 0.25f;
 		Factory_Cursor	MCfac( fpac, fLineLength, fPointSize )  ;
