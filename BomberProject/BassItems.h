@@ -23,75 +23,12 @@ namespace baseitems{
 //	: 仮宣言
 class CommonMesh;
 class SimpleCommonMesh ;
+class CustomShader;
 //	: 仮宣言
 //////////
 
 enum SHADING{
 	SHADING_COOKTRANCE,
-};
-class CustomShader{
-	
-};
-class CookTrance : public CustomShader{
-	friend class CommonMesh				;
-	friend class SimpleCommonMesh		;
-	Camera*			m_pCamera			;
-	Light*			m_pLight			;
-	LPD3DXEFFECT	m_pEffect			;
-	D3DXHANDLE		m_hTech				;
-	D3DXHANDLE		m_hWorldViewProj	;
-	D3DXHANDLE		m_hWorld			;
-	D3DXHANDLE		m_hWIT				;
-	D3DXHANDLE		m_hLightDir			;
-	D3DXHANDLE		m_hEyePos			;
-	D3DXHANDLE		m_hTexture			;
-	D3DXHANDLE		m_hDif				;
-	D3DXHANDLE		m_hAmb				;
-public:
-	CookTrance(LPDIRECT3DDEVICE9 pD3DDevice);
-	~CookTrance();
-
-	/////////////////// ////////////////////
-	//// 関数名     ：void CommonMesh::Draw( DrawPacket& i_DrawPacket )
-	//// カテゴリ   ：仮想関数
-	//// 用途       ：メッシュを描画
-	//// 引数       ：  
-	//// 戻値       ：無し
-	//// 担当者     ： (山ノ井先生のひな形より)
-	//// 備考       ：なるべくこの関数は使わず DrawCommonMesh 関数を使うようにしてください
-	////            ：
-	////
-	void Draw(DrawPacket& i_DrawPacket,CommonMesh* i_pComMesh);
-
-	/////////////////// ////////////////////
-	//// 関数名     ：void CommonMesh::Draw( DrawPacket& i_DrawPacket )
-	//// カテゴリ   ：仮想関数
-	//// 用途       ：メッシュを描画
-	//// 引数       ：  
-	//// 戻値       ：無し
-	//// 担当者     ： (山ノ井先生のひな形より)
-	//// 備考       ：なるべくこの関数は使わず DrawCommonMesh 関数を使うようにしてください
-	////            ：
-	////
-	void Draw(DrawPacket& i_DrawPacket,SimpleCommonMesh* i_pComMesh);
-
-	/////////////////// ////////////////////
-	//// 関数名     ：void CommonMesh::Draw( DrawPacket& i_DrawPacket )
-	//// カテゴリ   ：仮想関数
-	//// 用途       ：メッシュを描画
-	//// 引数       ：  
-	//// 戻値       ：無し
-	//// 担当者     ： (山ノ井先生のひな形より)
-	//// 備考       ：なるべくこの関数は使わず DrawCommonMesh 関数を使うようにしてください
-	////            ：
-	////
-	void Draw(
-		DrawPacket&				i_DrawPacket	,
-		LPD3DXMESH				i_pMesh			,
-		LPDIRECT3DTEXTURE9		i_pTexture		,
-		D3DXMATRIX				i_mMatrix		,
-		D3DMATERIAL9			i_Material
-	);
 };
 /**************************************************************************
 class CommonMesh : public Object;
@@ -99,6 +36,8 @@ class CommonMesh : public Object;
 ****************************************************************************/
 class CommonMesh : public Object{
 public:
+	friend class CustomShader;
+
 	//Boxのテクスチャパターン
 	//パターンは呼び出し側で指定するので、これだけpublicにする
 	enum {PtnUV_1_1 = 0, PtnUV_6_1,PtnUV_YWrap,PtnUV_ZWrap, PtnUV_1_4};
@@ -1287,6 +1226,7 @@ public:
  用途: 単純なコモンメッシュクラス
 ****************************************************************************/
 class SimpleCommonMesh : public CommonMesh{
+	friend class CustomShader;
 protected:
 	//このオブジェクトは有効かどうか
 	bool m_IsActive;
@@ -2306,7 +2246,71 @@ public:
 	***************************************************************************/
 	virtual void DrawShadowVolume(LPDIRECT3DDEVICE9 pD3DDevice,LPD3DXEFFECT pEffect,D3DXMATRIX& mCameraView,D3DXMATRIX& mCameraProj);
 };
+/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
+class CustomShader{
+	
+};
+class CookTrance : public CustomShader{
+	friend class CommonMesh				;
+	friend class SimpleCommonMesh		;
+	Camera*			m_pCamera			;
+	Light*			m_pLight			;
+	LPD3DXEFFECT	m_pEffect			;
+	D3DXHANDLE		m_hTech				;
+	D3DXHANDLE		m_hWorldViewProj	;
+	D3DXHANDLE		m_hWorld			;
+	D3DXHANDLE		m_hWIT				;
+	D3DXHANDLE		m_hLightDir			;
+	D3DXHANDLE		m_hEyePos			;
+	D3DXHANDLE		m_hTexture			;
+	D3DXHANDLE		m_hDif				;
+	D3DXHANDLE		m_hAmb				;
+public:
+	CookTrance(LPDIRECT3DDEVICE9 pD3DDevice);
+	~CookTrance();
 
+	/////////////////// ////////////////////
+	//// 関数名     ：void CommonMesh::Draw( DrawPacket& i_DrawPacket )
+	//// カテゴリ   ：仮想関数
+	//// 用途       ：メッシュを描画
+	//// 引数       ：  
+	//// 戻値       ：無し
+	//// 担当者     ： (山ノ井先生のひな形より)
+	//// 備考       ：なるべくこの関数は使わず DrawCommonMesh 関数を使うようにしてください
+	////            ：
+	////
+	void Draw(DrawPacket& i_DrawPacket,CommonMesh* i_pComMesh);
+
+	/////////////////// ////////////////////
+	//// 関数名     ：void CommonMesh::Draw( DrawPacket& i_DrawPacket )
+	//// カテゴリ   ：仮想関数
+	//// 用途       ：メッシュを描画
+	//// 引数       ：  
+	//// 戻値       ：無し
+	//// 担当者     ： (山ノ井先生のひな形より)
+	//// 備考       ：なるべくこの関数は使わず DrawCommonMesh 関数を使うようにしてください
+	////            ：
+	////
+	void Draw(DrawPacket& i_DrawPacket,SimpleCommonMesh* i_pComMesh);
+
+	/////////////////// ////////////////////
+	//// 関数名     ：void CommonMesh::Draw( DrawPacket& i_DrawPacket )
+	//// カテゴリ   ：仮想関数
+	//// 用途       ：メッシュを描画
+	//// 引数       ：  
+	//// 戻値       ：無し
+	//// 担当者     ： (山ノ井先生のひな形より)
+	//// 備考       ：なるべくこの関数は使わず DrawCommonMesh 関数を使うようにしてください
+	////            ：
+	////
+	void Draw(
+		DrawPacket&				i_DrawPacket	,
+		LPD3DXMESH				i_pMesh			,
+		LPDIRECT3DTEXTURE9		i_pTexture		,
+		D3DXMATRIX				i_mMatrix		,
+		D3DMATERIAL9			i_Material
+	);
+};
 
 
 /*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/

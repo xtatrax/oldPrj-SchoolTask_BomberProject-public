@@ -87,8 +87,11 @@ void CookTrance::Draw(DrawPacket& i_DrawPacket,CommonMesh* i_pComMesh){
 void CookTrance::Draw(DrawPacket& i_DrawPacket,SimpleCommonMesh* i_pComMesh){
 	//Draw(
 	//	i_DrawPacket,
-
-	//	);
+	//	((CommonMesh*)i_pComMesh)->m_pMesh,
+	//	i_pComMesh->m_pTexture,
+	//	i_pComMesh->m_WorldMatrix,
+	//	((CommonMesh*)i_pComMesh)->m_Material
+	//);
 }
 /////////////////// ////////////////////
 //// ä÷êîñº     ÅFvoid CommonMesh::Draw( DrawPacket& i_DrawPacket )

@@ -17,13 +17,17 @@
 
 namespace wiz{
 namespace bomberobject{
-
+class CustomButtonA ;
 class SelectInformation : public SpriteObject{
 	LPDIRECT3DTEXTURE9	m_pTex			;
 	LPDIRECT3DTEXTURE9	m_pNomalTex		;
 	LPDIRECT3DTEXTURE9	m_pHardTex		;
 	LPDIRECT3DTEXTURE9	m_pExtraTex		;
 	int					m_iPtn			;
+	CustomButtonA*		m_pButtonNormal	;
+	CustomButtonA*		m_pButtonHard	;
+	CustomButtonA*		m_pButtonExtra	;
+	CustomButtonA*		m_pButtonBack	;
 public:
 	SelectInformation(
 		const LPDIRECT3DDEVICE9		pD3DDevice	,

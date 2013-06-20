@@ -17,26 +17,27 @@
 namespace wiz{
 namespace bomberobject{
 CustomButtonA::CustomButtonA(
-	const LPDIRECT3DDEVICE9		pD3DDevice		,
-	const LPDIRECT3DTEXTURE9	pFrameTexture	,
-	const LPDIRECT3DTEXTURE9	pStringTexture	,
-	const D3DXVECTOR3			vScalse			,
-	const D3DXVECTOR3			vRot			,
-	const D3DXVECTOR3			vPos			,
-	const RECT*					pFrameRect		,
-	const RECT*					pStringRect		,
-	const D3DXVECTOR3			vCenter			,
-	const D3DXVECTOR3			vOffset			,
+	const LPDIRECT3DDEVICE9		pD3DDevice				,
+	const LPDIRECT3DTEXTURE9	pFrameTexture			,
+	const LPDIRECT3DTEXTURE9	pStringTexture			,
+	const D3DXVECTOR3			vScalse					,
+	const D3DXVECTOR3			vRot					,
+	const D3DXVECTOR3			vPos					,
+	const RECT*					pFrameRect				,
+	const RECT*					pStringRect				,
+	const D3DXVECTOR3			vCenter					,
+	const D3DXVECTOR3			vOffset					,
 	const Color					dwFrameSelectColor		,
 	const Color					dwFrameUnSelectColor	,
 	const Color					dwStringSelectColor		,
 	const Color					dwStringUnSelectColor	,
-	const char*					sSelectSound	,
-	const char*					sDecisionSound	,
-	const float					fWaitTime		,
-	const Command				Com				,
-	const DWORD					dwIndex			,
-	int							iPtn
+	const char*					sSelectSound			,
+	const char*					sDecisionSound			,
+	const float					fWaitTime				,
+	const Command				Com						,
+	const DWORD					dwIndex					,
+	const wiz::OBJID			id						,
+	const bool					bApplyAspect	
 )
 :ButtonSprite(
 		pD3DDevice				,
@@ -53,11 +54,12 @@ CustomButtonA::CustomButtonA(
 		sDecisionSound			,
 		fWaitTime				,
 		Com						,
-		dwIndex
+		dwIndex					,
+		id						,
+		bApplyAspect
 	)
 ,m_dwStringSelectColor(dwStringSelectColor)
 ,m_dwStringUnSelectColor(dwStringUnSelectColor)
-,m_iPtn( iPtn )
 {
 	m_pSprite = new PrimitiveSprite(
 		pD3DDevice				,
@@ -90,22 +92,12 @@ CustomButtonA::~CustomButtonA()
 ////            F
 ////
 void CustomButtonA::Update( UpdatePacket& i_UpdatePacket ){
-	if( !m_pSelect ) m_pSelect = ( SelectInformation* )SearchObjectFromID(i_UpdatePacket.pVec,OBJID_UI_SELECTINFORMATION       );
 	
-	static	int	iTime	= 0;
-	if( iTime == 0 ){
-		if( m_pSelect )	m_pSelect->setPtn( 0 );
-	}
-
 	if( ButtonSprite::m_ButtonState.getMouseSelect() ){
 		m_pSprite->setColor( m_dwStringSelectColor );
-		if( m_pSelect )	m_pSelect->setPtn( m_iPtn );
 	}else{
 		m_pSprite->setColor( m_dwStringUnSelectColor );	
 	}
-
-	++iTime;
-	iTime	%= 3;
 
 	ButtonSprite::Update(i_UpdatePacket);
 };

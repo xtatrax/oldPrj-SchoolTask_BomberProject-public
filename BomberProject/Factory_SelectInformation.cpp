@@ -17,6 +17,7 @@
 //////////
 //////////
 //	: 追加のインクルード
+#include "Factory_CustomButtonA.h"
 //	: 追加のインクルード
 //////////
 
@@ -47,6 +48,10 @@ SelectInformation::SelectInformation(
 ,m_pHardTex(	pHardTexture	)
 ,m_pExtraTex(	pExtraTexture	)
 ,m_iPtn(		0				)
+,m_pButtonNormal( NULL )
+,m_pButtonHard(NULL)	
+,m_pButtonExtra(NULL)
+,m_pButtonBack(NULL)
 {	
 }
 
@@ -70,21 +75,28 @@ void	SelectInformation::Draw(DrawPacket &i_DrawPacket)
 **********************************************************/
 void	SelectInformation::Update(UpdatePacket &i_UpdatePacket)
 {
-	switch( m_iPtn ){
-		case	0:
-			m_pTexture	= m_pTex;
-			break;
-		case	1:
+	if( !m_pButtonNormal ) m_pButtonNormal  = (CustomButtonA*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_UI_BUTTON_NORMAL);
+	if( !m_pButtonHard   ) m_pButtonHard    = (CustomButtonA*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_UI_BUTTON_HARD  );
+	if( !m_pButtonExtra  ) m_pButtonExtra   = (CustomButtonA*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_UI_BUTTON_EXTRA );
+	if( !m_pButtonBack   ) m_pButtonBack    = (CustomButtonA*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_UI_BUTTON_BACK  );
+
+	if( m_pButtonNormal && m_pButtonNormal->getButtonP()->getMouseSelect() ){
 			m_pTexture	= m_pNomalTex;
-			break;
-		case	2:
+	}
+	else
+	if( m_pButtonHard && m_pButtonHard->getButtonP()->getMouseSelect() ){
 			m_pTexture	= m_pHardTex;
-			break;
-		case	3:
+	}
+	else
+	if( m_pButtonExtra && m_pButtonExtra->getButtonP()->getMouseSelect() ){
 			m_pTexture	= m_pExtraTex;
-			break;
-		default:
-			break;
+	}
+	else
+	if( m_pButtonBack && m_pButtonBack->getButtonP()->getMouseSelect() ){
+			m_pTexture	= m_pNomalTex;
+	}
+	else{
+			m_pTexture	= m_pTex;	
 	}
 }
 /**************************************************************************
