@@ -137,7 +137,7 @@ Factory_Main::Factory_Main(FactoryPacket* fpac, DWORD dwStageNum, DWORD dwResump
 		StageLoader			loader(fpac->pD3DDevice,L"media/Map/Stages.csv", dwStageNum,*fpac->m_pVec,*fpac->m_pTexMgr);
 		Factory_Coil		Cfac( fpac , dwResumptionCheckPoint, vStartPos );
 		Factory_Wall		Wfac( fpac );
-		Factory_Item		Ifac( fpac ) ;
+		if(dwStageNum != 5)	Factory_Item		Ifac( fpac ) ;
 		Factory_Description	Dfac( fpac ) ;
 		Factory_Gage		Gfac( fpac ) ;
 		Factory_Score		Sfac( fpac ) ;
