@@ -60,6 +60,19 @@ namespace bomberobject{
 Factory_Select::Factory_Select(FactoryPacket* fpac ){
 	try{
 
+		fpac->m_pVec->push_back(
+			new SpriteObject(
+				fpac->pD3DDevice,
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"LEVEL1.png" ),
+				D3DXVECTOR3( 1.2f, 1.2f, 0.0f ),
+				g_vZero,
+				D3DXVECTOR3(670.0f, 20.0f, 0.0f),
+				NULL,
+				g_vZero,
+				g_vZero,
+				0xFFFFFFFF
+				)
+			) ;
 /////////////////////////////////////////////////////////////////////////////////
 //                           説明用のテクスチャ                          //
 /////////////////////////////////////////////////////////////////////////////////
@@ -108,7 +121,8 @@ Factory_Select::Factory_Select(FactoryPacket* fpac ){
 				fpac->AddTexture(L"NORMAL001.tga"),
 				D3DXVECTOR3( 1.8f,1.8f,0.0f ),
 				g_vZero,
-				D3DXVECTOR3(980.0f, 120.0f, 0.0f),
+				//D3DXVECTOR3(980.0f, 120.0f, 0.0f),
+				D3DXVECTOR3(980.0f, 150.0f, 0.0f),
 				Rect(0,0,220,30),
 				Rect(0,0,220,30),
 				D3DXVECTOR3( 220.0f,15.0f,0.0f ),
@@ -135,7 +149,8 @@ Factory_Select::Factory_Select(FactoryPacket* fpac ){
 				fpac->AddTexture(L"HARD001.tga"),
 				D3DXVECTOR3( 1.8f,1.8f,0.0f ),
 				g_vZero,
-				D3DXVECTOR3(980.0f, 240.0f, 0.0f),
+				//D3DXVECTOR3(980.0f, 240.0f, 0.0f),
+				D3DXVECTOR3(980.0f, 270.0f, 0.0f),
 				Rect(0,0,148,30),
 				Rect(0,0,148,30),
 				D3DXVECTOR3( 148.0f,15.0f,0.0f ),
@@ -162,7 +177,8 @@ Factory_Select::Factory_Select(FactoryPacket* fpac ){
 				fpac->AddTexture(L"EXTRA001.tga"),
 				D3DXVECTOR3( 1.8f,1.8f,0.0f ),
 				g_vZero,
-				D3DXVECTOR3(980.0f, 360.0f, 0.0f),
+				//D3DXVECTOR3(980.0f, 360.0f, 0.0f),
+				D3DXVECTOR3(980.0f, 390.0f, 0.0f),
 				Rect(0,0,183,30),
 				Rect(0,0,183,30),
 				D3DXVECTOR3( 183.0f,15.0f,0.0f ),
