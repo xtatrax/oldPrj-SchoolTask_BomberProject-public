@@ -369,12 +369,17 @@ AnimationScore::AnimationScore(LPDIRECT3DDEVICE9	pD3DDevice,
 				D3DXVECTOR3	&vScale,
 				D3DXVECTOR3	&vPos,
 				int			iScore,
+				int			iDight,
 				Rect*		Rect	)
 :Score( pD3DDevice, pTexture, vScale, vPos, 0, Rect )
 ,m_iResultScore( iScore )
 ,m_iDrawScore( 0 )
 ,m_bNext( false )
 ,m_bClickRock( false )
+,m_fTransRate( float( iScore )/float(iDight) )
+,m_fHourlyRate( 0.0f )
+,m_iDight( iDight+1 )
+,m_fTime( 0.0f )
 {
 }
 
@@ -407,16 +412,48 @@ void	AnimationScore::Update(UpdatePacket& i_UpdatePacket){
 
 	Score::Update( i_UpdatePacket );
 
-	if( m_iResultScore > m_iDrawScore )
-		++m_iDrawScore;
-	else
-		m_bNext	= true;
+	int	i	= 0;
 
-	if( Cursor2D::getLButtonState() ){
-		if( m_bClickRock )
-			m_iDrawScore	= m_iResultScore;
+	switch( m_iDight ){
+		case	1:
+			i	= 1;
+			break;
+		case	2:
+			i	= 2;
+			break;
+		case	3:
+			i	= 3;
+			break;
+		case	4:
+		case	5:
+			i	= 4;
+			break;
+		default:
+			break;
 	}
-	else	m_bClickRock	= true;
+
+	if( m_iResultScore != 0 ){
+		m_fTime	+= i_UpdatePacket.pTime->getElapsedTime();
+		if( m_fTime >= 1.0f/(m_fTransRate) ){
+			if( m_iResultScore > m_iDrawScore )
+				m_iDrawScore	+= i;
+			else{
+				m_bNext	= true;
+			}
+
+			if( m_iResultScore < m_iDrawScore ){
+				m_iDrawScore	= m_iResultScore;
+			}
+
+			m_fTime	= 0;
+		}
+		if( Cursor2D::getLButtonState() ){
+			if( m_bClickRock )
+				m_iDrawScore	= m_iResultScore;
+		}
+		else	m_bClickRock	= true;
+	}
+	else	m_bNext	= true;
 }
 
 /**************************************************************************
@@ -451,23 +488,92 @@ ResultScore::ResultScore(LPDIRECT3DDEVICE9	pD3DDevice,
 	float	wide	= BASE_CLIENT_WIDTH/2;
 	float	height	= BASE_CLIENT_HEIGHT/2;
 
-	int iDead		= iDeadScore;
+	//int iMaxPos		= 482;
+	//int iScratch	= 81;
+	//int iDead		= 3;
 	int iMaxPos		= iMaxPosScore;
 	int iScratch	= iScratchScore;
+	int iDead		= iDeadScore;
 
 	D3DXVECTOR3	vScoreSize	= vScale;
 	Rect		rScoreRect	= Rect( 0, 0, 512, 64 );
 
 	int TotalScore	= (iMaxPos*10)+iScratch-(iDead*100);
 
+	int iDightMaxPos	= 0;
+	int iDightScratch	= 0;
+	int iDightDead		= 0;
+	int iDightTotal		= 0;
+
+	//*******************************************
+	// MaxPosの桁数の取得
+	int	i	= 10000, dight	= 5;
+	while(1){
+		iDightMaxPos	= iMaxPos / i;
+		if( iDightMaxPos >= 1 ){
+			iDightMaxPos	= dight;
+			break;
+		}
+		iDightMaxPos	= 1;
+		i	/= 10;
+		dight--;
+		if( i == 1 )	break;
+	}
+
+	//*******************************************
+	// スクラッチの桁数の取得
+	i	= 10000, dight	= 5;
+	while(1){
+		iDightScratch	= iScratch / i;
+		if( iDightScratch >= 1 ){
+			iDightScratch	= dight;
+			break;
+		}
+		iDightScratch	= 1;
+		i	/= 10;
+		dight--;
+		if( i == 1 )	break;
+	}
+
+	//*******************************************
+	// 死亡回数の桁数の取得
+	i	= 10000, dight	= 5;
+	while(1){
+		iDightDead	= iDead / i;
+		if( iDightDead >= 1 ){
+			iDightDead	= dight;
+			break;
+		}
+		iDightDead	= 1;
+		i	/= 10;
+		dight--;
+		if( i == 1 )	break;
+	}
+
+	//*******************************************
+	// トータルスコアの桁数の取得
+	i	= 10000, dight	= 5;
+	while(1){
+		iDightTotal	= TotalScore / i;
+		if( iDightTotal >= 1 ){
+			iDightTotal	= dight;
+			break;
+		}
+		iDightTotal	= 1;
+		i	/= 10;
+		dight--;
+		if( i == 1 )	break;
+	}
+	//*******************************************
+
 	m_pMaxPos	= new AnimationScore( pD3DDevice, m_pMaxPosTex, vScoreSize,
-						D3DXVECTOR3( wide+100.0f, height-120.0f, 0.0f ), iMaxPos, &rScoreRect);
+						D3DXVECTOR3( wide+100.0f, height-120.0f, 0.0f ), iMaxPos, iDightMaxPos, &rScoreRect);
 	m_pScratch	= new AnimationScore( pD3DDevice, m_pMaxPosTex, vScoreSize,
-						D3DXVECTOR3( wide+100.0f, height-50.0f, 0.0f ), iScratch, &rScoreRect);
+						D3DXVECTOR3( wide+100.0f, height-50.0f, 0.0f ), iScratch, iDightScratch, &rScoreRect);
 	m_pDead		= new AnimationScore( pD3DDevice, m_pDeadTex, vScoreSize,
-						D3DXVECTOR3( wide+100.0f, height+30.0f, 0.0f ), iDead, &rScoreRect);
+						D3DXVECTOR3( wide+100.0f, height+30.0f, 0.0f ), iDead, iDightDead, &rScoreRect);
 	m_pTotal	= new AnimationScore( pD3DDevice, m_pDeadTex, vScoreSize,
-						D3DXVECTOR3( wide+100.0f, height+100.0f, 0.0f ), TotalScore, &rScoreRect);
+						D3DXVECTOR3( wide+100.0f, height+100.0f, 0.0f ), TotalScore, iDightTotal, &rScoreRect);
 
 }
 

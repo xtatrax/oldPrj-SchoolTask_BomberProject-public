@@ -99,6 +99,7 @@ extern class ProvisionalPlayer3D ;
 extern class Continue ;
 extern class Dead ;
 extern class StartSprite;
+extern class ModeChangeChar;
 //**************************************************************************//
 // class PlayerCoil : public MagneticumObject ;
 //
@@ -141,7 +142,7 @@ class PlayerCoil : public MagneticumObject3D{
 	bool			m_bReDrawing_ChangeChar	;
 	int				m_iAlpha			;
 
-	SpriteObject*			m_pModeChangeChar			;	//	: 
+	ModeChangeChar*			m_pModeChangeChar			;	//	: 
 	MouseCursor*			m_pCursor					;	//	: カーソルオブジェクトへのポインタ
 	Camera*					m_pCamera					;	//	: Cameraへのポインタ
 	Box*					m_pSuperField				;	//	: 無敵時のフィールド
