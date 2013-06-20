@@ -43,11 +43,11 @@ Factory_Result::Factory_Result(FactoryPacket* fpac, int iDeadCount, int iMaxPosY
 		fpac->m_pVec->push_back(
 			new SpriteObject(
 				fpac->pD3DDevice,
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"RESULT.png" ),
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Clear3.png" ),
 				D3DXVECTOR3( 1.0f, 1.0f, 0.0f ),
 				g_vZero,
-				D3DXVECTOR3( wide-128, 50.0f, 0.0f ),
-				NULL,
+				D3DXVECTOR3( wide-256, 50.0f, 0.0f ),
+				Rect( 0, 128, 512, 256 ),
 				g_vZero,
 				g_vZero,
 				0xFFFFFFFF
@@ -103,7 +103,7 @@ Factory_Result::Factory_Result(FactoryPacket* fpac, int iDeadCount, int iMaxPosY
 		fpac->m_pVec->push_back(
 			new SpriteObject(
 				fpac->pD3DDevice,
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"TotalPoint.png" ),
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"TOTAL_POINT2.png" ),
 				D3DXVECTOR3( 1.0f, 1.0f, 0.0f ),
 				g_vZero,
 				D3DXVECTOR3( wide-128-250, height+100.0f, 0.0f ),

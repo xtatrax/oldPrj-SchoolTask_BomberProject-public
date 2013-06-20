@@ -44,7 +44,7 @@ Factory_Clear::Factory_Clear(FactoryPacket* fpac, int iDeadCount, int iMaxPosY, 
 		fpac->m_pVec->push_back(
 			new SpriteObject(
 				fpac->pD3DDevice,
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Clear2.png" ),
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Clear3.png" ),
 				D3DXVECTOR3( 1.0f, 1.0f, 0.0f ),
 				g_vZero,
 				D3DXVECTOR3( wide-256, 50.0f, 0.0f ),
@@ -104,7 +104,7 @@ Factory_Clear::Factory_Clear(FactoryPacket* fpac, int iDeadCount, int iMaxPosY, 
 		fpac->m_pVec->push_back(
 			new SpriteObject(
 				fpac->pD3DDevice,
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"TotalPoint.png" ),
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"TOTAL_POINT2.png" ),
 				D3DXVECTOR3( 1.0f, 1.0f, 0.0f ),
 				g_vZero,
 				D3DXVECTOR3( wide-128-250, height+100.0f, 0.0f ),
@@ -144,9 +144,9 @@ Factory_Clear::Factory_Clear(FactoryPacket* fpac, int iDeadCount, int iMaxPosY, 
 				fpac->AddTexture(L"Number_Base2.png"),
 				D3DXVECTOR3( 1.0f, 1.0f, 0.0f ),
 				D3DXVECTOR3( 0.0f, 0.0f, 0.0f ),
-				iDeadCount,		//死亡回数
-				iMaxPosY,		//Max座標
-				iScratchPoint,	//スクラッチポイント
+				iDeadCount,
+				iMaxPosY,
+				iScratchPoint,
 				&Rect( 0, 0, 512, 64 )
 			)
 		);

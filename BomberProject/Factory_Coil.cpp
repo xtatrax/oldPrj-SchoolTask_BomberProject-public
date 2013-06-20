@@ -100,6 +100,7 @@ PlayerCoil::PlayerCoil(
 ,m_bDrawContinue(		false								)
 ,m_bRestart(			true								)
 ,m_iDeadCount(			0									)
+,m_pSuperGage(			NULL								)
 ,m_pSuperField(			NULL								)
 ,m_fTurnAngle(			PLAYER_TURN_ANGLE_Lv1				)
 ,m_pCursor(				NULL								)
@@ -137,8 +138,8 @@ PlayerCoil::PlayerCoil(
 	setPoleN();
 	SetBaseRot(vRot);
 
-	m_pModeChangeChar	= new ModeChangeChar( pD3DDevice, m_pTexMgr->addTexture( pD3DDevice, L"CHANGE3.png" ),
-									D3DXVECTOR3( 0.25f, 0.25f, 0.0f ), &Rect( 0, 0, 512, 128 ) );
+	m_pModeChangeChar	= new SpriteObject( pD3DDevice, m_pTexMgr->addTexture( pD3DDevice, L"CHANGE3.png" ),D3DXVECTOR3( 0.25f, 0.25f, 0.0f ),
+										g_vZero, g_vZero, Rect( 0, 0, 512, 128 ), D3DXVECTOR3( 256.0f, 64.0f, 0.0f ), g_vZero );
 	m_pSelect	= NULL;
 	m_pSelect2	= NULL;
 	m_pDeadChar	= NULL;
@@ -168,6 +169,7 @@ PlayerCoil::~PlayerCoil(){
 	m_pMagneticumObject		= NULL ;
 	m_pCamera				= NULL ;
 	m_pSphere				= NULL ;
+	m_pSuperGage			= NULL ;
 	m_pSuperField			= NULL ;
 	m_pReStart				= NULL ;
 	
@@ -235,6 +237,10 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 		CheckPoint*		pc		= (CheckPoint*)SearchObjectFromID( i_UpdatePacket.pVec, OBJID_SYS_CHECKPOINT );
 		if( pc )		m_vPos	= pc->getLastPosition();
 	}
+	if( GetAsyncKeyState( MYVK_DEBUG_INVISIBLEGAUGE_MAX ) ){
+		m_pSuperGage->Recovery(-1) ;
+	}
+
 #endif
 
 	wiz::CONTROLER_STATE Controller1P = i_UpdatePacket.pCntlState[0] ;
@@ -243,6 +249,7 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 	if( !m_pCamera )			m_pCamera				=             ( Camera* ) SearchObjectFromID( i_UpdatePacket.pVec, OBJID_SYS_CAMERA ) ; 
 	if( !m_pMagneticumObject )	m_pMagneticumObject		= ( MagneticumObject3D* ) SearchObjectFromID( i_UpdatePacket.pVec, OBJID_3D_STATIC_MAGNET ) ; 
 	if( !m_pReStart )			m_pReStart				=		 ( StartSprite* ) SearchObjectFromID( i_UpdatePacket.pVec, OBJID_SYS_START  ) ;
+	if( !m_pSuperGage )			m_pSuperGage			=             (SuperGage*)SearchObjectFromID( i_UpdatePacket.pVec, OBJID_UI_SUPERGAUGE );
 	if( m_pPlayer ){
 		//デバック用-----------------------------------------------------------
 		// 磁界反転
@@ -251,8 +258,7 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 
 		if( m_enumCoilState != COIL_STATE_STICK ){
 			m_bModeChangeChar	= false;
-			m_bReDrawing_ChangeChar	= true;
-			//m_iAlpha			= 255;
+			m_iAlpha			= 255;
 		}
 		//状態ごとの処理
 		switch(m_enumCoilState){
@@ -268,9 +274,7 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 			case COIL_STATE_STICK:
 				if( m_bReDrawing_ChangeChar ){
 					m_bModeChangeChar	= true;
-					m_bReDrawing_ChangeChar	= false;
-					m_pModeChangeChar->setStart();
-					//m_pModeChangeChar->setAlpha(0xFF);
+					m_pModeChangeChar->setAlpha(0xFF);
 				}
 				Update_StateStick(i_UpdatePacket);
 				break;
@@ -291,6 +295,9 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 			default:
 				break;
 		}
+
+		//ゲージが最大になったらコイルを無敵状態に
+		if(m_pSuperGage && m_pSuperGage->getRate() <= 0.0f && m_enumCoilStateSuper == COIL_STATE_SUPER_CHARGE)m_enumCoilStateSuper = COIL_STATE_SUPER_READY;
 		//if(m_enumCoilState == COIL_STATE_MOVE && m_enumCoilStateSuper == COIL_STATE_SUPER_READY && Cursor2D::getLButtonState() && Cursor2D::getRButtonState())m_enumCoilStateSuper = COIL_STATE_SUPER_CHANGING;
 		if(m_enumCoilState == COIL_STATE_MOVE && m_enumCoilStateSuper == COIL_STATE_SUPER_READY && Cursor2D::getMButtonState())m_enumCoilStateSuper = COIL_STATE_SUPER_CHANGING;
 		if(m_enumCoilStateSuper == COIL_STATE_SUPER_MOVE || m_enumCoilStateSuper == COIL_STATE_SUPER_CHANGING){
@@ -385,7 +392,6 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 	mTexMatrix	= mTexPos * mTexScale;
 	m_pModeChangeChar->setMatrix(mTexMatrix);
 	//***************************************************
-
 };
 
 /////////////////// ////////////////////
@@ -489,7 +495,7 @@ void PlayerCoil::Update_StateMove(UpdatePacket& i_UpdatePacket){
 		m_fMoveDir = MagneticDecision(m_fMoveDir,m_pPlayer->getPos(),m_pPlayer->getMagnetPole());
 	}
 
-	if( m_pMagneticumObject && m_enumCoilStateSuper != COIL_STATE_SUPER_MOVE )
+	if( m_pMagneticumObject && m_enumCoilStateSuper != COIL_STATE_SUPER_MOVE && m_enumCoilStateSuper != COIL_STATE_SUPER_CHANGING )
 		m_pMagneticumObject->HitTest();
 	//	//設置磁界と自機の判定
 	//	TARGETCONTAINER ItemMap_Target = m_pMagneticumObject->getMapTarget();
@@ -586,13 +592,12 @@ void PlayerCoil::Update_StateStick(UpdatePacket& i_UpdatePacket){
 		}
 	}
 
-	m_pModeChangeChar->Update(i_UpdatePacket);
-	//m_iAlpha	-= 5;
-	//if( m_iAlpha <= 0 ){
-	//	m_pModeChangeChar->setAlpha(0);
-	//}else{
-	//	m_pModeChangeChar->setAlpha(m_iAlpha);
-	//}
+	m_iAlpha	-= 5;
+	if( m_iAlpha <= 0 ){
+		m_pModeChangeChar->setAlpha(0);
+	}else{
+		m_pModeChangeChar->setAlpha(m_iAlpha);
+	}
 };
 
 
@@ -686,6 +691,27 @@ void PlayerCoil::SuperMode( UpdatePacket& i_UpdatePacket ){
 	s_iInterval++;
 	if(s_iInterval >= COIL_SUPER_MODE_TIME*2 - ((int)s_fTimeCount*2-1)) s_iInterval = 0;
 
+	//ゲージ減少
+	static float s_fTimeAccumulator = 0 ;
+	if(m_enumCoilState == COIL_STATE_MOVE && m_enumCoilStateSuper == COIL_STATE_SUPER_MOVE){
+		//	: すーぱモードの時
+		//static float s_fTimeTotal = 0.0f;
+		//s_fTimeTotal += (float)SUPER_GAGE_MAX / (float)COIL_SUPER_MODE_TIME * (float)i_UpdatePacket.pTime->getElapsedTime();
+		//if(s_fTimeTotal >= 1.0f){
+		//	m_pSuperGage->Consume( -(1.0f / COIL_SUPER_MODE_TIME * (float)i_UpdatePacket.pTime->getElapsedTime()) );
+		//	s_fTimeTotal -= (int)s_fTimeTotal;
+		//}
+		if( ( s_fTimeAccumulator += i_UpdatePacket.pTime->getElapsedTime()) < COIL_SUPER_MODE_TIME ){
+			float fOneSecondSub = (1.0f / (float)COIL_SUPER_MODE_TIME);
+			float fFrameSub     = fOneSecondSub * (float)i_UpdatePacket.pTime->getElapsedTime();
+			Debugger::DBGSTR::addStr(L"fOneSecondSub = %f\n",fOneSecondSub);
+			Debugger::DBGSTR::addStr(L"fFrameSub     = %f\n",fFrameSub);
+			m_pSuperGage->Consume( -fFrameSub );	
+		}
+	}else{
+		s_fTimeAccumulator = 0 ;	
+	}
+
 	//無敵モード終了
 	if(s_fTimeCount >= COIL_SUPER_MODE_TIME){
 		m_enumCoilStateSuper = COIL_STATE_SUPER_CHARGE;
@@ -770,7 +796,7 @@ void PlayerCoil::Update_StateContinue(UpdatePacket& i_UpdatePacket){
 			if( m_bRestart ){
 				if( m_pReStart )	m_pReStart->ReStart();
 				m_bRestart	= false;
-			}
+			}//m_bReadyToStart = true;
 		}
 	}
 };

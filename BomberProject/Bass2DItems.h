@@ -203,6 +203,10 @@ public:
 ////            ÅF
 ////
 	virtual void Draw(DrawPacket& i_DrawPacket);
+
+	void setTexture(LPDIRECT3DTEXTURE9&	i_pTexture){
+		m_pTexture = i_pTexture;
+	}
 };
 
 //**************************************************************************
