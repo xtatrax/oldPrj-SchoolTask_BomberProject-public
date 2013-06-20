@@ -243,7 +243,7 @@ void ProvisionalPlayer3D::Update( UpdatePacket& i_UpdatePacket ){
 				}
 			}
 			else{
-				if(!m_pPlayerCoil->getReadyToStart()){
+				if( m_pPlayerCoil->getState() == COIL_STATE_STICK && (!m_pPlayerCoil->getReadyToStart()) ){
 					m_bDrawing	= true;
 				}
 				else{

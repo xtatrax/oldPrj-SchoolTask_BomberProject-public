@@ -75,7 +75,7 @@ void	Score::Draw(DrawPacket& i_DrawPacket){
 ***************************************************************************/
 void	Score::Update(UpdatePacket& i_UpdatePacket){
 
-	int	iDigit	= 10000;
+	int	iDigit	= 100000;
 	for( int i = 0; i < MAX_DIGIT; i++ ){
 		int	a	= m_iScore / iDigit;
 		if( a >= 10 ){
@@ -578,10 +578,10 @@ Factory_Score::Factory_Score(FactoryPacket *fpac){
 		//ScratchPoint
 		fpac->m_pVec->push_back(
 			new SpriteObject( fpac->pD3DDevice,
-					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"ScratchPoint.png" ),
-					D3DXVECTOR3( 0.5f, 0.5f, 0.0f ),
+					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"SCRATCH_TIME2.png" ),
+					D3DXVECTOR3( 0.5f, 0.65f, 0.0f ),
 					g_vZero,
-					D3DXVECTOR3( 10.0f, 500.0f, 0.0f ),					
+					D3DXVECTOR3( 10.0f, 516.0f, 0.0f ),					
 					&Rect( 0, 0, 512, 64 ),
 					g_vZero,
 					g_vZero
@@ -606,7 +606,7 @@ Factory_Score::Factory_Score(FactoryPacket *fpac){
 			new DeadScore( fpac->pD3DDevice,
 					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Number_Base1.png" ),
 					D3DXVECTOR3( 0.4f, 0.4f, 0.0f ),
-					D3DXVECTOR3( 900.0f, 40.0f, 0.0f ),					
+					D3DXVECTOR3( 850.0f, 40.0f, 0.0f ),					
 					//D3DXVECTOR3( 880.0f, 50.0f, 0.0f ),					
 					&Rect( 0, 0, 512, 64 )
 			)
@@ -617,7 +617,7 @@ Factory_Score::Factory_Score(FactoryPacket *fpac){
 			new ArrivalPos( fpac->pD3DDevice,
 					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Number_Base2.png" ),
 					D3DXVECTOR3( 0.4f, 0.4f, 0.0f ),
-					D3DXVECTOR3( 780.0f, 550.0f, 0.0f ),					
+					D3DXVECTOR3( 730.0f, 550.0f, 0.0f ),					
 					//D3DXVECTOR3( 880.0f, 90.0f, 0.0f ),					
 					&Rect( 0, 0, 512, 64 )
 			)
@@ -627,7 +627,7 @@ Factory_Score::Factory_Score(FactoryPacket *fpac){
 			new GoalPos( fpac->pD3DDevice,
 					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Number_Base2.png" ),
 					D3DXVECTOR3( 0.4f, 0.4f, 0.0f ),
-					D3DXVECTOR3( 900.0f, 550.0f, 0.0f ),					
+					D3DXVECTOR3( 850.0f, 550.0f, 0.0f ),					
 					//D3DXVECTOR3( 880.0f, 90.0f, 0.0f ),					
 					&Rect( 0, 0, 512, 64 )
 			)
