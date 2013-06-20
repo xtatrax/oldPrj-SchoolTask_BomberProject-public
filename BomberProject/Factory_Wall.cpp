@@ -176,7 +176,7 @@ void Warning::Update( UpdatePacket& i_UpdatePacket ){
 		s_iInterval++;
 
 		++m_iDrawTime;
-		if( m_iDrawTime > 60 ){
+		if( m_iDrawTime > 6 ){
 			m_pCoil->ScratchTime_Update();
 			m_iDrawTime	= 0;
 		}

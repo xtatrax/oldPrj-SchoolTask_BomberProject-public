@@ -55,14 +55,14 @@ Factory_Clear::Factory_Clear(FactoryPacket* fpac, int iDeadCount, int iMaxPosY, 
 				)
 		);
 
-		//死亡回数*****************************************************************
+		//最高到達点**************************************************************
 		fpac->m_pVec->push_back(
 			new SpriteObject(
 				fpac->pD3DDevice,
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"dead_count1.png" ),
-				D3DXVECTOR3( 0.5f, 1.6f, 0.0f ),
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"MAX_RANGE1.png" ),
+				D3DXVECTOR3( 0.5f, 1.5f, 0.0f ),
 				g_vZero,
-				D3DXVECTOR3( wide-128-150, height-50.0f, 0.0f ),
+				D3DXVECTOR3( wide-128-200, height-140.0f, 0.0f ),
 				NULL,
 				g_vZero,
 				g_vZero,
@@ -70,14 +70,44 @@ Factory_Clear::Factory_Clear(FactoryPacket* fpac, int iDeadCount, int iMaxPosY, 
 				)
 		);
 
-		//最高到達点**************************************************************
+		//掠めた回数*****************************************************************
 		fpac->m_pVec->push_back(
 			new SpriteObject(
 				fpac->pD3DDevice,
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"MAX_RANGE1.png" ),
-				D3DXVECTOR3( 0.5f, 1.6f, 0.0f ),
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"ScratchPoint.png" ),
+				D3DXVECTOR3( 0.5f, 1.0f, 0.0f ),
 				g_vZero,
-				D3DXVECTOR3( wide-128-150, height+50.0f, 0.0f ),
+				D3DXVECTOR3( wide-128-200, height-40.0f, 0.0f ),
+				NULL,
+				g_vZero,
+				g_vZero,
+				0xFFFFFFFF
+				)
+		);
+
+		//死亡回数*****************************************************************
+		fpac->m_pVec->push_back(
+			new SpriteObject(
+				fpac->pD3DDevice,
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"dead_count1.png" ),
+				D3DXVECTOR3( 0.5f, 1.5f, 0.0f ),
+				g_vZero,
+				D3DXVECTOR3( wide-128-200, height+20.0f, 0.0f ),
+				NULL,
+				g_vZero,
+				g_vZero,
+				0xFFFFFFFF
+				)
+		);
+
+		//トータルポイント*****************************************************************
+		fpac->m_pVec->push_back(
+			new SpriteObject(
+				fpac->pD3DDevice,
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"TotalPoint.png" ),
+				D3DXVECTOR3( 1.0f, 1.0f, 0.0f ),
+				g_vZero,
+				D3DXVECTOR3( wide-128-250, height+100.0f, 0.0f ),
 				NULL,
 				g_vZero,
 				g_vZero,
