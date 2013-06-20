@@ -65,7 +65,7 @@ const float			COIL_BASSROT					= 90.0f;
 const float			PLAYER_TURN_ANGLE_Lv1			= 1.0f;
 const float			PLAYER_TURN_ANGLE_Lv2			= 2.0f;
 const float			PLAYER_TURN_ANGLE_Lv3			= 2.5f;
-const float			COIL_SUPER_MODE_TIME			= 3.0f;
+const float			COIL_SUPER_MODE_TIME			= 4.0f;
 //const float			COIL_SUPER_MODE_TIME			= 5.0f;
 const float			COIL_ROTATION_ANGLE				= 15.35f;
 const float			COIL_EXPANSION_VALUE_STICK		= 1.5f;
@@ -560,18 +560,18 @@ public:
 		m_enumCoilStateSuper = i_State;
 	}
 
-	///////////////////// ////////////////////
-	////// 関数名     ：bool getReadyToSuper()
-	////// カテゴリ   ：ゲッター
-	////// 用途       ：m_bReadyToSuperを獲得
-	////// 引数       ：なし
-	////// 戻値       ：なし
-	////// 担当       ：本多寛之
-	////// 備考       ：
-	//////            ：
-	//bool getReadyToSuper() const{
-	//	return m_bReadyToSuper;
-	//}
+	/////////////////// ////////////////////
+	//// 関数名     ：bool getReadyToSuper()
+	//// カテゴリ   ：ゲッター
+	//// 用途       ：m_bReadyToSuperを獲得
+	//// 引数       ：なし
+	//// 戻値       ：なし
+	//// 担当       ：本多寛之
+	//// 備考       ：
+	////            ：
+	bool getReadyToStart() const{
+		return m_bReadyToStart;
+	}
 
 	/////////////////// ////////////////////
 	//// 関数名     ：LPDIRECT3DTEXTURE9 getDeadText()
