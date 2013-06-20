@@ -67,9 +67,9 @@ Factory_Select::Factory_Select(FactoryPacket* fpac ){
 			new SelectInformation(
 					fpac->pD3DDevice,						//↓マウスがここの上にあるとき表示する画像
 					fpac->AddTexture(L"Select_blue.png"),	//枠外
-					fpac->AddTexture(L"Select_Green.png"),	//NORMAL
-					fpac->AddTexture(L"Select_Orenge.png"),	//HARD
-					fpac->AddTexture(L"Select_Pink.png"),	//EXTRA
+					fpac->AddTexture(L"Select_Normal_ver1.png"),	//NORMAL
+					fpac->AddTexture(L"Select_Hard_ver1.png"),	//HARD
+					fpac->AddTexture(L"Select_Extra_ver1.png"),	//EXTRA
 					D3DXVECTOR3( 1.0f, 1.0f, 0.0f ),
 					g_vZero,
 					D3DXVECTOR3( 50.0f, 50.0f, 0.0f ),
@@ -158,6 +158,33 @@ Factory_Select::Factory_Select(FactoryPacket* fpac ){
 				Command( GM_OPENSTAGE_LOAD_PLAY, 5, 0 ),
 				2,
 				OBJID_UI_BUTTON_EXTRA
+			)
+		);
+/////////////////////////////////////////////////////////////////////////////////
+//                                 BACK                                        //
+/////////////////////////////////////////////////////////////////////////////////
+		fpac->AddButton(
+			new CustomButtonA(
+				fpac->pD3DDevice,	
+				fpac->AddTexture(L"BACK.png"),
+				NULL,//fpac->AddTexture(L"EXTRA001.tga"),
+				g_vOne,
+				g_vZero,
+				D3DXVECTOR3(722.5f, 550.0f, 0.0f),
+				Rect(0,0,179,26),
+				Rect(0,0,179,26),
+				g_vZero,
+				g_vZero,
+				0xFF00AA55,
+				0xFF008833,
+				0xFFFF5555,
+				0xFF880000,
+				RCTEXT_SOUND_SE_SELECT,
+				RCTEXT_SOUND_SE_ENTER,
+				0.5f,
+				Command( GM_CHANGE_PARENTSTAGE, 0, 0 ),
+				3,
+				OBJID_UI_BUTTON_BACK
 			)
 		);
 		float	fLineLength	= 550.0f;

@@ -300,8 +300,8 @@ public:
 	 用途: 決定フラグをセットする
 	 戻り値: なし。
 	***************************************************************************/
-	void setPressed(){
-		m_IsPressed = true;
+	void setPressed( bool b = true ){
+		m_IsPressed = b;
 	}
 //////////
 //	: ゲッター
