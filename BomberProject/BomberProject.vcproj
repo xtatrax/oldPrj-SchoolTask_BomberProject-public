@@ -902,11 +902,23 @@
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
 			<File
+				RelativePath=".\CookTrance.fx"
+				>
+			</File>
+			<File
+				RelativePath=".\Effects.rc"
+				>
+			</File>
+			<File
 				RelativePath=".\GameHinagata.rc"
 				>
 			</File>
 			<File
 				RelativePath=".\Icon.ico"
+				>
+			</File>
+			<File
+				RelativePath=".\resource1.h"
 				>
 			</File>
 		</Filter>

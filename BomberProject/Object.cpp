@@ -71,10 +71,10 @@ DirectionalLight::DirectionalLight(LPDIRECT3DDEVICE9 pD3DDevice,
     :Light()
 	,Object(id)
 {
-    m_Light.Type       = D3DLIGHT_DIRECTIONAL;
-    m_Light.Diffuse = Diffuse;
-    m_Light.Specular = Specular;
-    m_Light.Ambient = Ambient;
+    m_Light.Type		= D3DLIGHT_DIRECTIONAL;
+    m_Light.Diffuse		= Diffuse;
+    m_Light.Specular	= Specular;
+    m_Light.Ambient		= Ambient;
     D3DXVec3Normalize((D3DXVECTOR3*)&m_Light.Direction, &Direction);
     // ライトをレンダリングパイプラインに設定
     pD3DDevice->SetLight( 0, &m_Light );

@@ -32,6 +32,125 @@ namespace wiz {
 
 namespace baseitems{
 
+CookTrance::CookTrance(LPDIRECT3DDEVICE9 pD3DDevice)
+:m_pEffect(NULL)
+,m_pCamera(NULL)
+,m_pLight(NULL)
+{
+
+	try{
+		//	: シェーダの生成
+		LPD3DXBUFFER	pErrors	= NULL ;
+		D3DXCreateEffectFromResource(
+			pD3DDevice,
+			NULL,
+			MAKEINTRESOURCE( FXID_COOKTRANCEEFFECT ),
+			NULL,
+			NULL,
+			0,
+			NULL,
+			&m_pEffect,
+			&pErrors );
+		if( pErrors ) {
+			MessageBoxA( 0, (LPCSTR)pErrors->GetBufferPointer(), 0, 0 );
+			throw BaseException(
+				(LPCWSTR)pErrors->GetBufferPointer(),
+				L"CookTrance::CookTrance");
+		}
+
+		//	: シェーダで使用するハンドルの設定
+		m_hTech				= m_pEffect->GetTechniqueByName( "FirstTech" );
+		m_hWorldViewProj	= m_pEffect->GetParameterByName( NULL, "g_mWorldViewProj" );
+		m_hWorld			= m_pEffect->GetParameterByName( NULL, "g_mWorld" );
+		m_hWIT				= m_pEffect->GetParameterByName( NULL, "g_mWIT" );
+		m_hLightDir			= m_pEffect->GetParameterByName( NULL, "g_vLightDir" );
+		m_hEyePos			= m_pEffect->GetParameterByName( NULL, "g_vEyePos" );
+		m_hTexture			= m_pEffect->GetParameterByName( NULL, "g_Texture" );
+		m_hDif				= m_pEffect->GetParameterByName( NULL, "g_Kd" );
+		m_hAmb				= m_pEffect->GetParameterByName( NULL, "g_Ka" );
+	}catch(BaseException e){
+		throw BaseException(
+			e.what_w(),
+			L"↑CookTrance::CookTrance"
+		);
+	}
+	catch(...){
+		throw;
+	}
+}
+CookTrance::~CookTrance(){
+	SafeRelease(m_pEffect);
+}
+void CookTrance::Draw(DrawPacket& i_DrawPacket,CommonMesh* i_pComMesh){
+
+}
+void CookTrance::Draw(DrawPacket& i_DrawPacket,SimpleCommonMesh* i_pComMesh){
+	//Draw(
+	//	i_DrawPacket,
+
+	//	);
+}
+/////////////////// ////////////////////
+//// 関数名     ：void CommonMesh::Draw( DrawPacket& i_DrawPacket )
+//// カテゴリ   ：仮想関数
+//// 用途       ：メッシュを描画
+//// 引数       ：  
+//// 戻値       ：無し
+//// 担当者     ： (山ノ井先生のひな形より)
+//// 備考       ：なるべくこの関数は使わず DrawCommonMesh 関数を使うようにしてください
+////            ：
+////
+void CookTrance::Draw(
+		DrawPacket&			i_DrawPacket	,
+		LPD3DXMESH			i_pMesh			,
+		LPDIRECT3DTEXTURE9	i_pTexture		,
+		D3DXMATRIX			i_mMatrix		,
+		D3DMATERIAL9		i_Material
+){
+	if( !i_pMesh   )return ;
+	if( !m_pCamera ) m_pCamera = (Camera*)SearchObjectFromID(i_DrawPacket.pVec,OBJID_SYS_CAMERA);
+	if( !m_pLight  ) m_pLight  =  (Light*)SearchObjectFromID(i_DrawPacket.pVec,OBJID_SYS_DIRECTIONAL);
+	if( !m_pCamera ){ OutputDebugString(L"CookTrance::Draw()でCameraを見つけることができませんでした");return;}
+	//if( !i_pTexture ){
+	//	: プログラマブルシェーダに対するパラメータの設定
+	D3DXMATRIX  mView , mProj ;
+	m_pCamera->GetMatrix(mView , mProj);
+	D3DXMATRIX	mWorldViewProj = i_mMatrix * mView * mProj ;
+	m_pEffect->SetMatrix( m_hWorldViewProj, &mWorldViewProj );	//	: 行列を設定
+	
+	m_pEffect->SetMatrix( m_hWorld, &i_mMatrix );					//	: ワールド行列を渡す
+
+	D3DXMATRIX	mWIT, mInverse ;
+	D3DXMatrixInverse( &mInverse, NULL, &i_mMatrix );
+	D3DXMatrixTranspose( &mWIT, &mInverse );
+	m_pEffect->SetMatrix( m_hWIT, &mWIT );						//	: ワールド行列の逆転置行列を渡す（法線ベクトルの変換行列）
+
+	m_pEffect->SetTexture( m_hTexture, i_pTexture );			//	: テクスチャを渡す
+
+	D3DXVECTOR3 vLightDir3D = m_pLight->getStatus().Direction;
+	D3DXVECTOR4	vLightDir4D( vLightDir3D, 0.0f );
+	m_pEffect->SetVector( m_hLightDir, &vLightDir4D );			//	: ライトの向きをシェーダに渡す（４次元ベクトルに変換して渡す）
+
+	D3DXVECTOR4 Diffuse		= D3DXVECTOR4( i_Material.Diffuse.r, i_Material.Diffuse.g, i_Material.Diffuse.b, i_Material.Diffuse.a);
+	D3DXVECTOR4 Specular	= D3DXVECTOR4(0.0f,0.0f,0.0f,0.0f);
+	D3DXVECTOR4 Ambient		= D3DXVECTOR4( i_Material.Ambient.r, i_Material.Ambient.g, i_Material.Ambient.b, i_Material.Ambient.a);
+	m_pEffect->SetVector( m_hDif, &Diffuse );			//	: 
+	m_pEffect->SetVector( m_hAmb, &Ambient );			//	: ライトの向きをシェーダに渡す（４次元ベクトルに変換して渡す）
+
+	D3DXVECTOR4	vEyePos( m_pCamera->getEye(), 0.0f );
+	m_pEffect->SetVector( m_hEyePos, &vEyePos );				//	: カメラの位置を表すベクトルを渡す
+
+	m_pEffect->SetTechnique( m_hTech );							//	: テクニックの設定
+	
+	//	: プログラマブルシェーダを使用してメッシュを描画
+	m_pEffect->Begin( 0, 0 );
+	m_pEffect->BeginPass( 0 );
+	//pd3dDevice->SetTexture( 0, m_pTexture );
+	i_pMesh->DrawSubset( 0 );
+	m_pEffect->EndPass();
+	m_pEffect->End();
+
+}
 /**************************************************************************
  CommonMesh 実体
 ***************************************************************************/
@@ -452,6 +571,7 @@ void CommonMesh::ReleaseObj(){
     //後始末
     //SafeDelete(m_pShadowVolume);
     SafeRelease(m_pMesh);
+	SafeDelete(m_pShader);
 }
 
 
@@ -460,13 +580,14 @@ void CommonMesh::ReleaseObj(){
  用途: コンストラクタ
  戻り値: なし
 ***************************************************************************/
-CommonMesh::CommonMesh( wiz::OBJID id ):
+CommonMesh::CommonMesh( wiz::OBJID id , CustomShader* pShader):
 	Object( id ),
 	//m_pShadowVolume(0),
 	m_pMesh(0),
 	m_bWrapMode(true),
 	m_bWireFrame(false),
-	m_bShadeModeFlat(false)
+	m_bShadeModeFlat(false),
+	m_pShader(pShader)
 {
 }
 /**************************************************************************
@@ -939,13 +1060,13 @@ void CommonMesh::CreateMeshFormX(
             throw BaseException(
 				msg.c_str(),
                 L"LoadMeshFromX::LoadMeshFromX()"
-                );
+            );
         }
 		//
 		//////////
 		//	: テクスチャ名をワイド化
-		wstring wsTexName  ;
-		wchar_t* wpTexName = NULL;
+		//wstring wsTexName  ;
+		//wchar_t* wpTexName = NULL;
 		//if(pTexName){
 		//	wpTexName = new wchar_t[ strlen(pTexName) +1 ];
 		//	size_t ret;
@@ -960,7 +1081,7 @@ void CommonMesh::CreateMeshFormX(
 		//D3DXMATERIAL d3dxMaterials = *(D3DXMATERIAL*)pD3DXMtrlBuffer->GetBufferPointer();
 		//m_MaterialItems.init(pD3DDevice,pD3DXMtrlBuffer,dwMQty,TexMgr,g_sDefaultTexturePath.c_str(),wpTexName);
 		//m_BassMesh.m_AABB = AABB(m_BassMesh.m_pMesh);
-		delete [] wpTexName;
+		//delete [] wpTexName;
 	}
     catch(...){
         //コンストラクタ例外発生
@@ -980,7 +1101,7 @@ void CommonMesh::CreateMeshFormX(
 //// 備考       ：なるべくこの関数は使わず DrawCommonMesh 関数を使うようにしてください
 ////            ：
 ////
-void CommonMesh::Draw(DrawPacket& i_DrawPacket) {
+void CommonMesh::Draw(DrawPacket& i_DrawPacket,RENDERSTATE_PARAM* pParam) {
     //無効チェック
     if((!m_pMesh) || (!i_DrawPacket.pD3DDevice)){
         throw BaseException(L"デバイスかメッシュが無効です。",
@@ -1001,10 +1122,13 @@ void CommonMesh::Draw(DrawPacket& i_DrawPacket) {
         // スペキュラー有効の設定
         i_DrawPacket.pD3DDevice->SetRenderState(D3DRS_SPECULARENABLE, 1);
     }
+
+	ChangeRenderStateArray(i_DrawPacket.pD3DDevice,pParam);
     // マテリアルをレンダリングパイプラインに設定
     i_DrawPacket.pD3DDevice->SetMaterial( &m_Material);
     //描画
     m_pMesh->DrawSubset(0);
+	ChangeRenderStateArray(i_DrawPacket.pD3DDevice,pParam);
     if(m_Material.Specular.r > 0.0f
         || m_Material.Specular.g > 0.0f
         || m_Material.Specular.b > 0.0f)

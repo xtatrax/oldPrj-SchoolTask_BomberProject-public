@@ -142,6 +142,8 @@ PlayerCoil::PlayerCoil(
 	m_pSelect	= NULL;
 	m_pSelect2	= NULL;
 	m_pDeadChar	= NULL;
+	m_pSphere->ShaderChange( new CookTrance(pD3DDevice) );
+
 	//爆散エフェクトのポインタ
 	for( int i = 0; i < PARTICLS_NUM; i++ )
 		m_pDeadEffect[i]	= NULL;
@@ -807,6 +809,7 @@ void PlayerCoil::Update_StateStop(UpdatePacket& i_UpdatePacket){
 ////            ：
 ////
 void PlayerCoil::Draw(DrawPacket& i_DrawPacket){
+
 	if(m_pTexture){
 		DWORD wkdword;
 		//現在のテクスチャステータスを得る
@@ -822,8 +825,9 @@ void PlayerCoil::Draw(DrawPacket& i_DrawPacket){
 		// マトリックスをレンダリングパイプラインに設定
 		i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &m_Matrix);
 		//コモンメッシュのDraw()を呼ぶ
-		CommonMesh::Draw(i_DrawPacket);
-		m_pSphere->Draw(i_DrawPacket);
+		//CommonMesh::Draw(i_DrawPacket);
+		//((CookTrance*)m_pSphere->getShader())->Draw(i_DrawPacket,m_pMesh,m_pTexture,m_Matrix);
+		//m_pSphere->Draw(i_DrawPacket);
 		if(m_enumCoilStateSuper == COIL_STATE_SUPER_MOVE || m_enumCoilStateSuper == COIL_STATE_SUPER_CHANGING){
 			m_pSuperField->Draw(i_DrawPacket);
 		}
@@ -837,6 +841,7 @@ void PlayerCoil::Draw(DrawPacket& i_DrawPacket){
 		i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &m_Matrix);
 		//コモンメッシュのDraw()を呼ぶ
 		CommonMesh::Draw(i_DrawPacket);
+		//((CookTrance*)m_pSphere->getShader())->Draw(i_DrawPacket,m_pSphere->,m_pTexture,m_Matrix,);
 		m_pSphere->Draw(i_DrawPacket);
 		if(m_enumCoilStateSuper == COIL_STATE_SUPER_MOVE || m_enumCoilStateSuper == COIL_STATE_SUPER_CHANGING){
 			m_pSuperField->Draw(i_DrawPacket);

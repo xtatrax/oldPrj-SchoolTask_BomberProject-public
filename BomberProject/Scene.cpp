@@ -77,29 +77,18 @@ Scene::Scene(LPDIRECT3DDEVICE9 pD3DDevice,Command* pCommand)
 ,m_bUpdateThreadResumeRequest(false)
 ,m_fStageNotFoundMessageTime(0.0f)
 {
-    try{
+	try{
         //無効チェック
         if(!pD3DDevice){
             throw BaseException(L"シーンの初期化に失敗しました。デバイスが無効です。",
             L"Scene::Scene()");
-        }
+		}
 //////////
 //	: デバッグ用設定
 #if defined(DEBUG) || defined(_DEBUG) || defined(ON_DEBUGGINGPROCESS)
-		try{
 			//ルートのステージにデバッグメニューを設定
-			pCommand->m_Command = GM_OPENSTAGE_TITLE ;
-		}
-		catch(LoaderException& e){
-			//	: ロード失敗
-			::MessageBox(wiz::DxDevice::m_hWnd,e.what_w(),L"エラー",MB_OK);
-			if( !m_pRootStage ) m_pRootStage = new TitleStage(pD3DDevice);
-			//SafeDeleteStage(this->m_pStgBuf);
-		}
-		catch(...){
-			throw ;
-		}
-
+		//pCommand->m_Command = GM_OPENSTAGE_TITLE ;
+		*pCommand = Command(GM_OPENSTAGE_PLAY,3,0) ;
 #else 
 //	: リリース用設定
 		//ルートのステージにタイトルメニューを設定

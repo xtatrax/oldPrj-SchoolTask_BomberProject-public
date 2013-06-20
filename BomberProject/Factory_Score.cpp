@@ -28,7 +28,7 @@ Score::Score(LPDIRECT3DDEVICE9	pD3DDevice,
 				D3DXVECTOR3	&vPos,
 				int			iScore,
 				Rect*		Rect)
-:SpriteObject( pD3DDevice, pTexture, vScale, g_vZero, vPos, Rect, g_vZero, g_vZero, 0xFFFFFFFF, OBJID_UI_SCORE, false )
+:SpriteObject( pD3DDevice, pTexture, vScale, g_vZero, vPos, Rect, g_vZero, g_vZero, 0xFFFFFFFF, OBJID_UI_SCORE, true )
 ,m_vPos( vPos )
 ,m_vScale( vScale )
 ,m_iScore( iScore )

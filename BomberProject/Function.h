@@ -698,6 +698,7 @@ inline void ChangeRenderState(const LPDIRECT3DDEVICE9 i_pDevice, RENDERSTATE_PAR
 //// 備考       ：i_pParam の最後には必ず { D3DRS_FORCE_DWORD , NULL } を指定してください
 ////            ：
 inline void SetRenderStateArray(const LPDIRECT3DDEVICE9 i_pDevice,RENDERSTATE_PARAM* i_pParam){
+	if( !i_pParam ) return ;
 	for(WORD i = 0 ; i_pParam[i].renderType != D3DRS_FORCE_DWORD ; i++){
 		SetRenderState(i_pDevice , i_pParam[i]);
 	}
@@ -716,6 +717,7 @@ inline void SetRenderStateArray(const LPDIRECT3DDEVICE9 i_pDevice,RENDERSTATE_PA
 //// 備考       ：i_pParam の最後には必ず { D3DRS_FORCE_DWORD , NULL } を指定してください
 ////            ：
 inline void ChangeRenderStateArray(const LPDIRECT3DDEVICE9 i_pDevice,RENDERSTATE_PARAM* io_pParam){
+	if( !io_pParam ) return ;
 	for(WORD i = 0 ; io_pParam[i].renderType != D3DRS_FORCE_DWORD ; i++){
 		ChangeRenderState(i_pDevice , io_pParam[i]);
 	}

@@ -53,6 +53,7 @@
 	//-------------------------------//
 	//		プレゼンモード定義       //
 	//-------------------------------//
+		//#define DEBUG_STRINGS_ON					/* デバッグ用文字列を有効化 */
 		//#define CF_FULLSCREEN				/* フルスクリーンモード       */
 		//#define DEBUG_STRINGS_ON			/* デバッグ用文字列を有効化 */
 
@@ -136,6 +137,7 @@
 #define MYVK_DEBUG_STAGE_RESTART_SUBKEY		( VK_SHIFT   )
 #define MYVK_DEBUG_STAGE_RELOAD_SUBKEY		( VK_MENU    )
 #define MYVK_DEBUG_STAGE_RULER				( 'L'        )
+#define MYVK_DEBUG_SWITCH_ALPHABLEND		( 'A'        )
 
 #define UI_HEIGHT							( 88.0f )	//	: UIの高さ
 #define DRAW_CLIENT_MAGNIFICATION			( 50.0f )	//	: 表示画面の倍率 x=800, y=512 : x=40, y=25.6
@@ -264,6 +266,7 @@ namespace wiz{
 		OBJID_SYS_GUIDELINE			,	//	: XYZガイド線( Debug用 )
 		OBJID_SYS_CAMERA			,	//	: カメラ
 		OBJID_SYS_LIGHT				,	//	: ライト
+		OBJID_SYS_DIRECTIONAL		,	//	: 方向性ライト
 		OBJID_SYS_CURSOR			,	//	: カーソル
 		OBJID_SYS_SOUND				,	//	: 音声
 		OBJID_SYS_CHECKPOINT		,	//	: チェックポイント

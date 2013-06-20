@@ -452,6 +452,8 @@ protected:
 	////            ：
 	////
     virtual ~Light();
+public:
+	D3DLIGHT9 getStatus(){ return m_Light ; }
 };
 
 //**************************************************************************
@@ -483,7 +485,7 @@ public:
         D3DCOLORVALUE Specular,
         D3DCOLORVALUE Ambient,
         D3DXVECTOR3 Direction,
-		wiz::OBJID id = OBJID_SYS_LIGHT);
+		wiz::OBJID id = OBJID_SYS_DIRECTIONAL);
 	/////////////////// ////////////////////
 	//// 用途       ：virtual ~DirectionalLight()
 	//// カテゴリ   ：セストラクタ
