@@ -160,6 +160,33 @@ Factory_Select::Factory_Select(FactoryPacket* fpac ){
 				OBJID_UI_BUTTON_EXTRA
 			)
 		);
+/////////////////////////////////////////////////////////////////////////////////
+//                                 BACK                                        //
+/////////////////////////////////////////////////////////////////////////////////
+		fpac->AddButton(
+			new CustomButtonA(
+				fpac->pD3DDevice,	
+				fpac->AddTexture(L"BACK.png"),
+				NULL,//fpac->AddTexture(L"EXTRA001.tga"),
+				g_vOne,
+				g_vZero,
+				D3DXVECTOR3(722.5f, 550.0f, 0.0f),
+				Rect(0,0,179,26),
+				Rect(0,0,179,26),
+				g_vZero,
+				g_vZero,
+				0xFF00AA55,
+				0xFF008833,
+				0xFFFF5555,
+				0xFF880000,
+				RCTEXT_SOUND_SE_SELECT,
+				RCTEXT_SOUND_SE_ENTER,
+				0.5f,
+				Command( GM_CHANGE_PARENTSTAGE, 0, 0 ),
+				3,
+				OBJID_UI_BUTTON_BACK
+			)
+		);
 		float	fLineLength	= 550.0f;
 		float	fPointSize	= 0.25f;
 		Factory_Cursor	MCfac( fpac, fLineLength, fPointSize )  ;
