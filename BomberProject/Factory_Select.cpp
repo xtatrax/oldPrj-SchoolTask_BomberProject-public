@@ -67,9 +67,9 @@ Factory_Select::Factory_Select(FactoryPacket* fpac ){
 			new SelectInformation(
 					fpac->pD3DDevice,						//↓マウスがここの上にあるとき表示する画像
 					fpac->AddTexture(L"Select_blue.png"),	//枠外
-					fpac->AddTexture(L"Select_Green.png"),	//NORMAL
-					fpac->AddTexture(L"Select_Orenge.png"),	//HARD
-					fpac->AddTexture(L"Select_Pink.png"),	//EXTRA
+					fpac->AddTexture(L"Select_Normal_ver1.png"),	//NORMAL
+					fpac->AddTexture(L"Select_Hard_ver1.png"),	//HARD
+					fpac->AddTexture(L"Select_Extra_ver1.png"),	//EXTRA
 					D3DXVECTOR3( 1.0f, 1.0f, 0.0f ),
 					g_vZero,
 					D3DXVECTOR3( 50.0f, 50.0f, 0.0f ),
