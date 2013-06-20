@@ -143,6 +143,11 @@ void Stage::ButtonUpdate(UpdatePacket& i_UpdatePacket)
 			if(	dwSM != ULONG_MAX ){
 				if(	!m_ButtonVec.empty() )
 				{
+					if( m_SelectIndex >= m_ButtonVec.size() ){
+						OutputDebugString( L"Stage::ButtonUpdate‚Å–³Œø‚ÈINDEX‚ªŽQÆ‚³‚ê‚Ü‚µ‚½B\n" );
+						return ;
+					}
+					
 					m_ButtonVec[m_SelectIndex]->setPressed();
 					m_SelectLock = true;
 				}
