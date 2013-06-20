@@ -158,7 +158,8 @@ static const wchar_t*		RCTEXT_SOUND_SOUNDBANK		= L"media/Sound/MagneticaSound.xs
 
 static const char*			RCTEXT_SOUND_BGM_CLEAR		= "BGM-CLEAR"			;
 static const char*			RCTEXT_SOUND_BGM_GAMEOVER	= "BGM-GAME_OVER"		;
-static const char*			RCTEXT_SOUND_BGM_PLAY		= "BGM-PLAY001"			;
+//static const char*			RCTEXT_SOUND_BGM_PLAY		= "BGM-PLAY001"			;
+static const char*			RCTEXT_SOUND_BGM_PLAY		= "BGM-PLAY002"			;
 static const char*			RCTEXT_SOUND_BGM_TITLE		= "BGM-TITLE"			;
 static const char*			RCTEXT_SOUND_SE_ALERT		= "SE-ALERT002"			;
 static const char*			RCTEXT_SOUND_SE_BREAKENEMY	= "SE-BLOKEN_ENEMY"		;
