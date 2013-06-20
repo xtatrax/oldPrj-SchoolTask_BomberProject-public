@@ -385,7 +385,7 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 			);
 			FMemoryTex* mt = new FMemoryTex(
 				m_pD3DDevice,
-				m_pTexMgr->addTexture( m_pD3DDevice, L"memory.png" )
+				m_pTexMgr->addTexture( m_pD3DDevice, L"USB.png" )
 			);
 			
 			//	: ƒS[ƒ‹‚Ì’Ç‰Á
