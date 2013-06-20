@@ -93,19 +93,16 @@ void	SelectInformation::Update(UpdatePacket &i_UpdatePacket)
 	if( !m_pButtonBack   ) m_pButtonBack    = (CustomButtonA*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_UI_BUTTON_BACK  );
 
 	if( m_pButtonNormal && m_pButtonNormal->getButtonP()->getMouseSelect() ){
-		//	: Normal‚Ì‚Ì‰æ‘œ
 			m_pTexture	= m_pNomalTex;
 			m_SpriteObject.setColor( m_NormalFrameColor );
 	}
 	else
 	if( m_pButtonHard && m_pButtonHard->getButtonP()->getMouseSelect() ){
-		//	: Hard‚Ì‚Ì‰æ‘œ
 			m_pTexture	= m_pHardTex;
 			m_SpriteObject.setColor( m_HardFrameColor );
 	}
 	else
 	if( m_pButtonExtra && m_pButtonExtra->getButtonP()->getMouseSelect() ){
-		//	: EXTRA‚Ì‚Ì‰æ‘œ
 			m_pTexture	= m_pExtraTex;
 			m_SpriteObject.setColor( m_ExtraFrameColor );
 			////	: —Î‰ÁZ
@@ -136,7 +133,7 @@ void	SelectInformation::Update(UpdatePacket &i_UpdatePacket)
 	}
 	else
 	if( m_pButtonBack && m_pButtonBack->getButtonP()->getMouseSelect() ){
-		//	: Backƒ{ƒ^ƒ“‚Ì‚Ì‰æ‘œ
+			m_pTexture	= m_pNomalTex;
 	}
 	else{
 		//	: ’Êí

@@ -87,8 +87,8 @@ Scene::Scene(LPDIRECT3DDEVICE9 pD3DDevice,Command* pCommand)
 //	: デバッグ用設定
 #if defined(DEBUG) || defined(_DEBUG) || defined(ON_DEBUGGINGPROCESS)
 			//ルートのステージにデバッグメニューを設定
-		//pCommand->m_Command = GM_OPENSTAGE_TITLE ;
-		*pCommand = Command(GM_OPENSTAGE_PLAY,3,0) ;
+		pCommand->m_Command = GM_OPENSTAGE_TITLE ;
+		//*pCommand = Command(GM_OPENSTAGE_PLAY,3,0) ;
 #else 
 //	: リリース用設定
 		//ルートのステージにタイトルメニューを設定

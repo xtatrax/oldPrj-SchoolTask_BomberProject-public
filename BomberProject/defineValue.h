@@ -137,6 +137,7 @@
 #define MYVK_DEBUG_STAGE_RESTART			( VK_RETURN  )
 #define MYVK_DEBUG_STAGE_RESTART_SUBKEY		( VK_SHIFT   )
 #define MYVK_DEBUG_STAGE_RELOAD_SUBKEY		( VK_MENU    )
+#define MYVK_DEBUG_INVISIBLEGAUGE_MAX		( 'X'     )
 #define MYVK_DEBUG_STAGE_RULER				( 'L'        )
 #define MYVK_DEBUG_SWITCH_ALPHABLEND		( 'A'        )
 
@@ -155,24 +156,23 @@ static const char*			RCTEXT_SAVEDATA_FILENAME	= "SaveData/Save.bkn"  ;
 static const wchar_t*		RCTEXT_SOUND_WAVEBANK		= L"media/Sound/MagneticaWave.xwb"  ;
 static const wchar_t*		RCTEXT_SOUND_SOUNDBANK		= L"media/Sound/MagneticaSound.xsb" ;
 
-static const char*			RCTEXT_SOUND_BGM_CLEAR			= "BGM-CLEAR"			;	//	: クリア画面のBGM
-static const char*			RCTEXT_SOUND_BGM_GAMEOVER		= "BGM-GAME_OVER"		;	//	: ゲームオーバー画面のBGM
-static const char*			RCTEXT_SOUND_BGM_PLAY			= "BGM-PLAY001"			;	//	: プレイ画面のBGM
-static const char*			RCTEXT_SOUND_BGM_TITLE			= "BGM-TITLE"			;	//	: 体とる画面のBGM
-static const char*			RCTEXT_SOUND_SE_ALERT			= "SE-ALERT002"			;	//	: 敵が近づいてきた時の音
-static const char*			RCTEXT_SOUND_SE_BREAKENEMY		= "SE-BLOKEN_ENEMY"		;	//	: 敵が死んだ時の音
-static const char*			RCTEXT_SOUND_SE_CHECKPOINT		= "SE-CHACK_POINT"		;	//	: チェックポイント通過時の音
-static const char*			RCTEXT_SOUND_SE_CLEAR			= "SE-CLEAR"			;	//	: クリア画面のエフェクトの音
-static const char*			RCTEXT_SOUND_SE_SELECT			= "SE-SELECT"			;	//	: ボタン選択時の音
-static const char*			RCTEXT_SOUND_SE_ENTER			= "SE-ENTER"			;	//	: ボタンが選択された時の音
-static const char*			RCTEXT_SOUND_SE_FIRE			= "SE-FIRE"				;	//	: 発射時の音
-static const char*			RCTEXT_SOUND_SE_GOAL			= "SE-GOAL"				;	//	: ゴールした時の音
-static const char*			RCTEXT_SOUND_SE_PLAYERBLOKEN	= "SE-PLAYER_BLOKEN"	;	//	: プレイヤーが死んだ時の音
-static const char*			RCTEXT_SOUND_SE_INVISIBLE		= "SE-INVINGVLE"		;	//	: 無敵時の音
-static const char*			RCTEXT_SOUND_SE_ITEMS			= "SE-ITEMS"			;	//	: アイテムをとった時の音
-static const char*			RCTEXT_SOUND_SE_SETFIELD		= "SE-MAGNETIC_FIELD"	;	//	: ユーザ設置磁界
-static const char*			RCTEXT_SOUND_SE_SPARK			= "SE-SPARK002"			;	//	: びりびり
-static const char*			RCTEXT_SOUND_SE_WARNING_SPARK	= "SE-SPARK002"			;	//	: びりびり
+static const char*			RCTEXT_SOUND_BGM_CLEAR		= "BGM-CLEAR"			;
+static const char*			RCTEXT_SOUND_BGM_GAMEOVER	= "BGM-GAME_OVER"		;
+static const char*			RCTEXT_SOUND_BGM_PLAY		= "BGM-PLAY001"			;
+static const char*			RCTEXT_SOUND_BGM_TITLE		= "BGM-TITLE"			;
+static const char*			RCTEXT_SOUND_SE_ALERT		= "SE-ALERT002"			;
+static const char*			RCTEXT_SOUND_SE_BREAKENEMY	= "SE-BLOKEN_ENEMY"		;
+static const char*			RCTEXT_SOUND_SE_CHECKPOINT	= "SE-CHACK_POINT"		;
+static const char*			RCTEXT_SOUND_SE_CLEAR		= "SE-CLEAR"			;
+static const char*			RCTEXT_SOUND_SE_SELECT		= "SE-SELECT"			;
+static const char*			RCTEXT_SOUND_SE_ENTER		= "SE-ENTER"			;
+static const char*			RCTEXT_SOUND_SE_FIRE		= "SE-FIRE"				;
+static const char*			RCTEXT_SOUND_SE_GOAL		= "SE-GOAL"				;
+static const char*			RCTEXT_SOUND_SE_PLAYERBLOKEN= "SE-PLAYER_BLOKEN"	;
+static const char*			RCTEXT_SOUND_SE_INVISIBLE	= "SE-INVINGVLE"		;
+static const char*			RCTEXT_SOUND_SE_ITEMS		= "SE-ITEMS"			;
+static const char*			RCTEXT_SOUND_SE_SETFIELD	= "SE-MAGNETIC_FIELD"	;
+static const char*			RCTEXT_SOUND_SE_SPARK		= "SE-SPARK002"			;
 
 static const char*			RCTEXT_MODEL_ENEMY			= "media/Model/mine.x"	;
 
