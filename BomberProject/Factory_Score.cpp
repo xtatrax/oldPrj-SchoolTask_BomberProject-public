@@ -498,7 +498,7 @@ ResultScore::ResultScore(LPDIRECT3DDEVICE9	pD3DDevice,
 	D3DXVECTOR3	vScoreSize	= vScale;
 	Rect		rScoreRect	= Rect( 0, 0, 512, 64 );
 
-	int TotalScore	= (iMaxPos*10)+iScratch-(iDead*100);
+	int TotalScore	= (iMaxPos*10)+iScratch-(iDead*30);
 
 	int iDightMaxPos	= 0;
 	int iDightScratch	= 0;
