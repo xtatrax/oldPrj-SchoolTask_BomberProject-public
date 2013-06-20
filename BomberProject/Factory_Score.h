@@ -161,13 +161,22 @@ class ResultScore : public Score{
 	AnimationScore*		m_pScratch;		//
 	AnimationScore*		m_pDead;		//死亡回数用アニメーションスコアのポインタ
 	AnimationScore*		m_pTotal;		//
+	SpriteObject*		m_pRate_10;
+	SpriteObject*		m_pRate_30;
+	SpriteObject*		m_pRate_1;
 	LPDIRECT3DTEXTURE9	m_pDeadTex;		//死亡回数スコアのテクスチャ
 	LPDIRECT3DTEXTURE9	m_pMaxPosTex;	//最高位置スコアのテクスチャ
+	LPDIRECT3DTEXTURE9	m_pRate10Tex;	//
+	LPDIRECT3DTEXTURE9	m_pRate30Tex;	//
+	LPDIRECT3DTEXTURE9	m_pRate1Tex;	//
 	int					m_iNowDraw;		//アニメーションさせたいスコアの番号
 public:
 	ResultScore(LPDIRECT3DDEVICE9	pD3DDevice,
 				LPDIRECT3DTEXTURE9	pDeadTex,
 				LPDIRECT3DTEXTURE9	pMaxPosTex,
+				LPDIRECT3DTEXTURE9	pRate10Tex,
+				LPDIRECT3DTEXTURE9	pRate30Tex,
+				LPDIRECT3DTEXTURE9	pRate1Tex,
 				D3DXVECTOR3	&vScale,
 				D3DXVECTOR3	&vPos,
 				int			iDeadScore,
