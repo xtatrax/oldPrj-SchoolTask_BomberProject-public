@@ -19,30 +19,40 @@ namespace wiz{
 namespace bomberobject{
 class CustomButtonA ;
 class SelectInformation : public SpriteObject{
-	LPDIRECT3DTEXTURE9	m_pTex			;
-	LPDIRECT3DTEXTURE9	m_pNomalTex		;
-	LPDIRECT3DTEXTURE9	m_pHardTex		;
-	LPDIRECT3DTEXTURE9	m_pExtraTex		;
-	int					m_iPtn			;
-	CustomButtonA*		m_pButtonNormal	;
-	CustomButtonA*		m_pButtonHard	;
-	CustomButtonA*		m_pButtonExtra	;
-	CustomButtonA*		m_pButtonBack	;
+	SpriteObject		m_SpriteObject		;
+	LPDIRECT3DTEXTURE9	m_pDescTex			;
+	LPDIRECT3DTEXTURE9	m_pNomalTex			;
+	LPDIRECT3DTEXTURE9	m_pHardTex			;
+	LPDIRECT3DTEXTURE9	m_pExtraTex			;
+	int					m_iPtn				;
+	CustomButtonA*		m_pButtonNormal		;
+	CustomButtonA*		m_pButtonHard		;
+	CustomButtonA*		m_pButtonExtra		;
+	CustomButtonA*		m_pButtonBack		;
+	Color				m_DefaultFrameColor	;
+	Color				m_NormalFrameColor	;
+	Color				m_HardFrameColor	;
+	Color				m_ExtraFrameColor	;
+
 public:
 	SelectInformation(
-		const LPDIRECT3DDEVICE9		pD3DDevice	,
-		const LPDIRECT3DTEXTURE9	pTexture	,
-		const LPDIRECT3DTEXTURE9	pNomalTex	,
-		const LPDIRECT3DTEXTURE9	pHardTexture	,
-		const LPDIRECT3DTEXTURE9	pExtraTexture	,
-		const D3DXVECTOR3&			vScale		,
-		const D3DXVECTOR3&			vRot		,
-		const D3DXVECTOR3&			vPos		,
-		const RECT*					pRect		,
-		const D3DXVECTOR3&			vCenter		,
-		const D3DXVECTOR3&			vOffsetPos	,
-		const Color					color		,
-		const wiz::OBJID			id			= OBJID_UI_SELECTINFORMATION
+		const LPDIRECT3DDEVICE9		pD3DDevice			,
+		const LPDIRECT3DTEXTURE9	pFrameTexture		,
+		const LPDIRECT3DTEXTURE9	pDescTexture		,
+		const LPDIRECT3DTEXTURE9	pNomalTex			,
+		const LPDIRECT3DTEXTURE9	pHardTexture		,
+		const LPDIRECT3DTEXTURE9	pExtraTexture		,
+		const D3DXVECTOR3&			vScale				,
+		const D3DXVECTOR3&			vRot				,
+		const D3DXVECTOR3&			vPos				,
+		const RECT*					pRect				,
+		const D3DXVECTOR3&			vCenter				,
+		const D3DXVECTOR3&			vOffsetPos			,
+		const Color					DefaultFrameColor	,
+		const Color					NormalFrameColor	,
+		const Color					HardFrameColor		,
+		const Color					ExtraFrameColor		,
+		const wiz::OBJID			id					= OBJID_UI_SELECTINFORMATION
 	);
 
 	~SelectInformation();
