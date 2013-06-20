@@ -172,11 +172,11 @@ void Item::setDrawTarget(){
 void	Item::Update(UpdatePacket& i_UpdatePacket)
 {
 
-	vector<Object*>	Vec	= *(i_UpdatePacket.pVec);
+	vector<Object*>*	pVec	= i_UpdatePacket.pVec;
 
-	if( !m_pPlayerCoil )	m_pPlayerCoil	= (PlayerCoil*)SearchObjectFromID(&Vec,OBJID_3D_COIL);
-	if( !m_pSuperGage )		m_pSuperGage	= (SuperGage*)SearchObjectFromID(&Vec,OBJID_UI_SUPERGAUGE);
-	if( !m_pCamera )		m_pCamera		= (Camera*)SearchObjectFromID(&Vec, OBJID_SYS_CAMERA);
+	if( !m_pPlayerCoil )	m_pPlayerCoil	= (PlayerCoil*)SearchObjectFromID(pVec, OBJID_3D_COIL       );
+	if( !m_pSuperGage )		m_pSuperGage	=  (SuperGage*)SearchObjectFromID(pVec, OBJID_UI_SUPERGAUGE );
+	if( !m_pCamera )		m_pCamera		=     (Camera*)SearchObjectFromID(pVec, OBJID_SYS_CAMERA    );
 
 	//コイルの位置取得
 	D3DXVECTOR3	cPos	= m_pPlayerCoil->getPos();
@@ -227,10 +227,10 @@ void	Item::Update(UpdatePacket& i_UpdatePacket)
 					continue;
 				}
 			}
-			//ゲージが最大になったらコイルを無敵状態に
-			if(m_pSuperGage->getRate() <= 0.0f){
-				m_pPlayerCoil->setSuperMode(COIL_STATE_SUPER_READY);
-			}
+			////ゲージが最大になったらコイルを無敵状態に
+			//if(m_pSuperGage->getRate() <= 0.0f){
+			//	m_pPlayerCoil->setSuperMode(COIL_STATE_SUPER_READY);
+			//}
 		}
 		if(m_pPlayerCoil->getSuperMode() == COIL_STATE_SUPER_READY && !m_pSuperGage->getAcquired()){
 				m_pSuperGage->setAcquired(true);
@@ -249,19 +249,30 @@ void	Item::Update(UpdatePacket& i_UpdatePacket)
 
 		it++;
 	}
-	if(m_pPlayerCoil->getState() == COIL_STATE_MOVE && m_pPlayerCoil->getSuperMode() == COIL_STATE_SUPER_MOVE){
-		//	: すーぱモードの時
-		//static float s_fTimeTotal = 0.0f;
-		//s_fTimeTotal += (float)SUPER_GAGE_MAX / (float)COIL_SUPER_MODE_TIME * (float)i_UpdatePacket.pTime->getElapsedTime();
-		//if(s_fTimeTotal >= 1.0f){
-		//	m_pSuperGage->Consume( -(1.0f / COIL_SUPER_MODE_TIME * (float)i_UpdatePacket.pTime->getElapsedTime()) );
-		//	s_fTimeTotal -= (int)s_fTimeTotal;
-		//}
-		static float s_fTimeAccumulator = 0 ;
-		if( ( s_fTimeAccumulator += i_UpdatePacket.pTime->getElapsedTime()) < COIL_SUPER_MODE_TIME ){
-			m_pSuperGage->Consume( -(1.0f / COIL_SUPER_MODE_TIME * (float)i_UpdatePacket.pTime->getElapsedTime()) );	
-		}
-	}
+//#if defined( ON_DEBUGGINGPROCESS ) | defined( PRESENTATION )
+//	if( GetAsyncKeyState( MYVK_DEBUG_INVISIBLEGAUGE_MAX ) ){
+//		m_pSuperGage->Recovery(-1) ;
+//	}
+//#endif
+//	static float s_fTimeAccumulator = 0 ;
+//	if(m_pPlayerCoil->getState() == COIL_STATE_MOVE && m_pPlayerCoil->getSuperMode() == COIL_STATE_SUPER_MOVE){
+//		//	: すーぱモードの時
+//		//static float s_fTimeTotal = 0.0f;
+//		//s_fTimeTotal += (float)SUPER_GAGE_MAX / (float)COIL_SUPER_MODE_TIME * (float)i_UpdatePacket.pTime->getElapsedTime();
+//		//if(s_fTimeTotal >= 1.0f){
+//		//	m_pSuperGage->Consume( -(1.0f / COIL_SUPER_MODE_TIME * (float)i_UpdatePacket.pTime->getElapsedTime()) );
+//		//	s_fTimeTotal -= (int)s_fTimeTotal;
+//		//}
+//		if( ( s_fTimeAccumulator += i_UpdatePacket.pTime->getElapsedTime()) < COIL_SUPER_MODE_TIME ){
+//			float fOneSecondSub = (1.0f / (float)COIL_SUPER_MODE_TIME);
+//			float fFrameSub     = fOneSecondSub * (float)i_UpdatePacket.pTime->getElapsedTime();
+//			Debugger::DBGSTR::addStr(L"fOneSecondSub = %f\n",fOneSecondSub);
+//			Debugger::DBGSTR::addStr(L"fFrameSub     = %f\n",fFrameSub);
+//			m_pSuperGage->Consume( -fFrameSub );	
+//		}
+//	}else{
+//		s_fTimeAccumulator = 0 ;	
+//	}
 
 }
 
