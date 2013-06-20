@@ -60,6 +60,9 @@ namespace bomberobject{
 Factory_Select::Factory_Select(FactoryPacket* fpac ){
 	try{
 
+/////////////////////////////////////////////////////////////////////////////////
+//                           説明用のテクスチャ                          //
+/////////////////////////////////////////////////////////////////////////////////
 		fpac->m_pVec->push_back(
 			new SelectInformation(
 					fpac->pD3DDevice,						//↓マウスがここの上にあるとき表示する画像
