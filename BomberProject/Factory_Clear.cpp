@@ -144,9 +144,9 @@ Factory_Clear::Factory_Clear(FactoryPacket* fpac, int iDeadCount, int iMaxPosY, 
 				fpac->AddTexture(L"Number_Base2.png"),
 				D3DXVECTOR3( 1.0f, 1.0f, 0.0f ),
 				D3DXVECTOR3( 0.0f, 0.0f, 0.0f ),
-				iDeadCount,
-				iMaxPosY,
-				iScratchPoint,
+				iDeadCount,		//死亡回数
+				iMaxPosY,		//Max座標
+				iScratchPoint,	//スクラッチポイント
 				&Rect( 0, 0, 512, 64 )
 			)
 		);
