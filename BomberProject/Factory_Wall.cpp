@@ -42,8 +42,10 @@ Warning::Warning( LPDIRECT3DDEVICE9 pD3DDevice,D3DCOLORVALUE& Diffuse,D3DCOLORVA
 ,m_pTexture(pTexture)
 ,m_vPos(D3DXVECTOR3(0.0f,0.0f,0.0f))
 ,m_vRot(D3DXVECTOR3(0.0f,0.0f,0.0f))
-,m_vScale(D3DXVECTOR3(2.0f,2.0f,1.0f))
+,m_vScale(D3DXVECTOR3(2.0f,2.0f,0.0f))
 ,m_bToDraw(false)
+,m_iDrawTime( 0 )
+,m_pCoil( NULL )
 {
 	::ZeroMemory( &m_Material, sizeof(D3DMATERIAL9));
 	D3DXMATRIX mScalse, mRot, mPos;
@@ -145,6 +147,7 @@ void Warning::Draw(DrawPacket& i_DrawPacket)
 ////            F
 ////
 void Warning::Update( UpdatePacket& i_UpdatePacket ){
+	if( !m_pCoil )	m_pCoil	= (PlayerCoil*)SearchObjectFromID( i_UpdatePacket.pVec, OBJID_3D_COIL	) ;
 	if(m_bToDraw){
 		D3DXMATRIX mScalse, mRot, mPos;
 		D3DXMatrixScaling(&mScalse,m_vScale.x,m_vScale.y,m_vScale.z);
@@ -172,6 +175,12 @@ void Warning::Update( UpdatePacket& i_UpdatePacket ){
 		}
 		if(s_iInterval >= WARNING_INTERVAL)s_iInterval = 0;
 		s_iInterval++;
+
+		++m_iDrawTime;
+		if( m_iDrawTime > 6 ){
+			m_pCoil->ScratchTime_Update();
+			m_iDrawTime	= 0;
+		}
 	}
 }
 

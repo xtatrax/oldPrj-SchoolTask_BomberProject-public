@@ -35,8 +35,10 @@ class	GaugeKind	: public	SpriteObject
 担当者：佐藤涼
 ************************************************/
 class	GaugeKind	: public SpriteObject{
-	D3DXVECTOR3		m_vPos;
-	D3DXVECTOR3		m_vScale;
+	float			m_fMovePos	;
+	D3DXVECTOR3		m_vPos		;
+	D3DXVECTOR3		m_vScale	;
+	MouseCursor*	m_pCursor	;
 public:
 	GaugeKind(
 		const LPDIRECT3DDEVICE9		pD3DDevice	,		//	: デバイス

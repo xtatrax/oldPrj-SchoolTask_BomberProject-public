@@ -30,7 +30,7 @@ using namespace bomberobject;
  用途: コンストラクタ
  戻り値: なし（失敗時は例外をthrow）
 ***************************************************************************/
-ResultStage::ResultStage(LPDIRECT3DDEVICE9 pD3DDevice,Stage* pStage)
+ResultStage::ResultStage(LPDIRECT3DDEVICE9 pD3DDevice, int iDeadCount, int iMaxPosY, int iScratchPoint, Stage* pStage)
 	:Stage(pStage)
 {
 	try{
@@ -39,7 +39,7 @@ ResultStage::ResultStage(LPDIRECT3DDEVICE9 pD3DDevice,Stage* pStage)
 		FPac.m_pTexMgr  = &this->m_TexMgr   ;
 		FPac.m_pVec     = &this->m_Vec      ;
 		FPac.pD3DDevice =  pD3DDevice       ;
-		Factory_Result	resultF( &FPac );
+		Factory_Result	resultF( &FPac, iDeadCount, iMaxPosY, iScratchPoint);
 	}
 	catch(...){
 		Clear();
@@ -54,14 +54,6 @@ ResultStage();
 ***************************************************************************/
 ResultStage::~ResultStage(){
 	
-}
-
-void	ResultStage::Update(UpdatePacket &i_UpdatePacket){
-
-	if( Cursor2D::getLButtonState()/* || Cursor2D::getRButtonState()*/ ){
-		//選ばれた画面へとぶ
-		i_UpdatePacket.pCommand->m_Command	= GM_OPENSTAGE_TITLE;
-	}
 }
 
 }

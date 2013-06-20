@@ -5,11 +5,12 @@
 #include "BassItems.h"
 #include "Factory_Coil.h"
 #include "Factory_Goal.h"
+#include "Factory_Title.h"
 
 namespace wiz{
 namespace bomberobject{
 
-	const	int MAX_DIGIT_DEAD	= 4;
+	const	int MAX_DIGIT	= 5;
 /**************************************************************************
  class Score : public Sprite;
  用途　：数字の描画用クラス
@@ -19,9 +20,8 @@ class Score : public SpriteObject{
 protected:
 	D3DXVECTOR3	m_vPos;
 	D3DXVECTOR3	m_vScale;
-	int			m_iDigit;
 	int			m_iScore;
-	int			m_DigitArr[MAX_DIGIT_DEAD];
+	int			m_DigitArr[MAX_DIGIT];
 	bool		m_bFirst;
 	PlayerCoil*	m_pCoil;
 public:
@@ -29,7 +29,6 @@ public:
 				LPDIRECT3DTEXTURE9	pTexture,
 				D3DXVECTOR3	&vScale,
 				D3DXVECTOR3	&vPos,
-				int			iDigit,
 				int			iScore,
 				Rect*		Rect	= NULL );
 	virtual ~Score();
@@ -64,6 +63,7 @@ public:
  担当者：佐藤涼
 ****************************************************************************/
 class ArrivalPos : public Score{
+	int		m_iMaxPosY;	//最高到達点
 public:
 	ArrivalPos(LPDIRECT3DDEVICE9	pD3DDevice,
 				LPDIRECT3DTEXTURE9	pTexture,
@@ -74,7 +74,32 @@ public:
 
 	void	Draw(DrawPacket& i_DrawPacket);
 	void	Update(UpdatePacket& i_UpdatePacket);
+
+	//ゲッター
+	int	getMaxPosY(){
+		return	m_iMaxPosY;
+	}
 };
+
+/**************************************************************************
+ class ScratchPoint : public Score;
+ 用途　：到達地点描画クラス
+ 担当者：佐藤涼
+****************************************************************************/
+class ScratchPoint : public Score{
+public:
+	ScratchPoint(LPDIRECT3DDEVICE9	pD3DDevice,
+				LPDIRECT3DTEXTURE9	pTexture,
+				D3DXVECTOR3	&vScale,
+				D3DXVECTOR3	&vPos,
+				Rect*		Rect	= NULL );
+	virtual ~ScratchPoint();
+
+	void	Draw(DrawPacket& i_DrawPacket);
+	void	Update(UpdatePacket& i_UpdatePacket);
+
+};
+
 /**************************************************************************
  class GoalPos : public Score;
  用途　：到達地点描画クラス
@@ -92,7 +117,66 @@ public:
 
 	void	Draw(DrawPacket& i_DrawPacket);
 	void	Update(UpdatePacket& i_UpdatePacket);
-};/**************************************************************************
+};
+
+/**************************************************************************
+ class AnimationScore : public Score;
+ 用途　：アニメーションスコア描画クラス
+ 担当者：佐藤涼
+****************************************************************************/
+class AnimationScore : public Score{
+	int		m_iDrawScore;		//描画するスコア
+	int		m_iResultScore;		//最終的なスコア
+	bool	m_bNext;			//アニメーションするスコアを次に進める
+	bool	m_bClickRock;		//
+public:
+	AnimationScore(LPDIRECT3DDEVICE9	pD3DDevice,
+				LPDIRECT3DTEXTURE9	pTexture,
+				D3DXVECTOR3	&vScale,
+				D3DXVECTOR3	&vPos,
+				int			iScore,
+				Rect*		Rect	= NULL);
+	virtual ~AnimationScore();
+
+	void	Draw(DrawPacket& i_DrawPacket);
+	void	Update(UpdatePacket& i_UpdatePacket);
+
+	bool	getNext(){
+		return	m_bNext;
+	}
+};
+
+/**************************************************************************
+ class ResultScore : public Score;
+ 用途　：リザルトスコア描画クラス
+ 担当者：佐藤涼
+****************************************************************************/
+class ResultScore : public Score{
+	Title_Select*		m_pSelect;
+	AnimationScore*		m_pMaxPos;		//最高位置用アニメーションスコアのポインタ
+	AnimationScore*		m_pScratch;		//
+	AnimationScore*		m_pDead;		//死亡回数用アニメーションスコアのポインタ
+	AnimationScore*		m_pTotal;		//
+	LPDIRECT3DTEXTURE9	m_pDeadTex;		//死亡回数スコアのテクスチャ
+	LPDIRECT3DTEXTURE9	m_pMaxPosTex;	//最高位置スコアのテクスチャ
+	int					m_iNowDraw;		//アニメーションさせたいスコアの番号
+public:
+	ResultScore(LPDIRECT3DDEVICE9	pD3DDevice,
+				LPDIRECT3DTEXTURE9	pDeadTex,
+				LPDIRECT3DTEXTURE9	pMaxPosTex,
+				D3DXVECTOR3	&vScale,
+				D3DXVECTOR3	&vPos,
+				int			iDeadScore,
+				int			iMaxPosScore,
+				int			iScratchScore,
+				Rect*		rect	= NULL);
+	virtual ~ResultScore();
+
+	void	Draw(DrawPacket& i_DrawPacket);
+	void	Update(UpdatePacket& i_UpdatePacket);
+};
+
+/**************************************************************************
  class Factory_Score;
  用途: メイン工場クラス
 ****************************************************************************/

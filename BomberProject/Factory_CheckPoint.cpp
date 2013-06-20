@@ -31,9 +31,14 @@
 
 const float CHECK_POINT_RADIUS = 0.25f ;
 const float EFFECT_SIZE	= 2.0f;
-const D3DXVECTOR3 CHECK_POINT_CHAR_SIZE = D3DXVECTOR3(5.0f,1.5f,1.0f);
+const D3DXVECTOR3 CHECK_POINT_CHAR_SIZE = D3DXVECTOR3(1.0f,1.0f,0.0f);
 D3DCOLORVALUE CHECKPOINTCOLOR = { 0.5f, 1.0f, 0.5f, 0.5f } ;
 D3DCOLORVALUE CHECKPOINTCOLOR_CHAR = { 1.0f, 1.0f, 1.0f, 1.0f } ;
+
+const	float	CHECKPOINT_CHAR_DOWNSPEED	= 20.0f;
+const	float	CHECKPOINT_CHAR_RATE_Y		= (1.0f/CHECK_POINT_CHAR_SIZE.y);
+const	float	CHECKPOINT_CHAR_RATE_X		= (1.0f/CHECK_POINT_CHAR_SIZE.x);
+
 namespace wiz{
 namespace bomberobject{
 
@@ -287,7 +292,9 @@ CheckPoint::CheckPoint( LPDIRECT3DDEVICE9 pD3DDevice, float fLength,LPDIRECT3DTE
 {
 	m_pEffect	= new CheckEffect( pD3DDevice, g_vZero, fLength, pTexture );
 	m_pEffect2	= NULL;
-	m_pPintMark = new Box(pD3DDevice,CHECK_POINT_CHAR_SIZE,g_vZero,g_vZero,CHECKPOINTCOLOR, D3DCOLORVALUE(), CHECKPOINTCOLOR,OBJID_3D_BOX,false,pTexture2);
+	//m_pPintMark = new Box(pD3DDevice,CHECK_POINT_CHAR_SIZE,g_vZero,g_vZero,CHECKPOINTCOLOR, D3DCOLORVALUE(), CHECKPOINTCOLOR,OBJID_3D_BOX,false,pTexture2);
+	m_pPintMark = new SpriteObject( pD3DDevice, pTexture2, CHECK_POINT_CHAR_SIZE, g_vZero, g_vZero,
+									Rect( 0, 0, 512, 64 ), D3DXVECTOR3( 256.0f, 32.0f, 0.0f ), D3DXVECTOR3( 0.0f, -87.0f, 0.0f ));
 }
 CheckPoint::~CheckPoint(){
 	m_pCoil		= NULL ;
@@ -314,15 +321,29 @@ CheckPoint::~CheckPoint(){
 ////
 void CheckPoint::Update( UpdatePacket& i_UpdatePacket ){
 	if( !m_pCoil   ) m_pCoil   = (PlayerCoil*)SearchObjectFromID( i_UpdatePacket.pVec, OBJID_3D_COIL	) ;
-	if( !m_pCamera ) m_pCamera = (    Camera*)SearchObjectFromID( i_UpdatePacket.pVec, OBJID_SYS_CAMERA ) ;
+	if( !m_pCamera ){
+		m_pCamera = (    Camera*)SearchObjectFromID( i_UpdatePacket.pVec, OBJID_SYS_CAMERA ) ;
+		m_fInitPosY	= 	m_pCamera->getPosY();
+	}
 	if( m_pCoil && m_ActiveItem < m_ItemContainer.size()){
 		float fPosY		= m_ItemContainer[ m_ActiveItem ]->fPosY;
 		float fCoilPosY = m_pCoil->getPos().y;
-		D3DXMATRIX mScale, mRot, mPos;
+
+		float	fTexPosY	= m_pCamera->getPosY() - m_fInitPosY;
+
+		//CHECK POINT テクスチャ*************************************************************
+		float	wide	= BASE_CLIENT_WIDTH / 50 * m_ItemContainer[ m_ActiveItem ]->vStartPos.x * CHECKPOINT_CHAR_RATE_X;
+		float	height	= ( (m_ItemContainer[ m_ActiveItem ]->vStartPos.y - fTexPosY)
+									* CHECKPOINT_CHAR_DOWNSPEED - BASE_CLIENT_HEIGHT ) * (-1.0f) * CHECKPOINT_CHAR_RATE_Y;
+
+		D3DXMATRIX mTexMatrix, mScale, mRot, mPos;
 		D3DXMatrixScaling(&mScale,CHECK_POINT_CHAR_SIZE.x,CHECK_POINT_CHAR_SIZE.y,CHECK_POINT_CHAR_SIZE.z);
 		D3DXMatrixRotationZ(&mRot,D3DXToRadian(0));
-		D3DXMatrixTranslation(&mPos, m_ItemContainer[ m_ActiveItem ]->vStartPos.x,m_ItemContainer[ m_ActiveItem ]->vStartPos.y,m_ItemContainer[ m_ActiveItem ]->vStartPos.z);
-		m_pPintMark->CalcMatrix(mPos,mScale,mRot);
+		D3DXMatrixTranslation(&mPos, wide,height,0.0f);
+		mTexMatrix	= mPos*mScale*mRot;
+		m_pPintMark->setMatrix( mTexMatrix );
+		//*************************************************************************************
+
 		while(fPosY <= fCoilPosY){
 			m_pCoil->setStartPos(m_ItemContainer[ m_ActiveItem ]->vStartPos);
 			m_ActiveItem++;
@@ -396,6 +417,7 @@ void CheckPoint::Draw( DrawPacket& i_DrawPacket ){
 		float DrawBeginLength = m_pCamera->getPosY() + DRAW_TOLERANCE ;
 		if( DrawBeginLength > m_ItemContainer[ m_ActiveItem ]->fPosY ){
 			m_BasePos = D3DXVECTOR3( m_pCamera->getAt().x, m_ItemContainer[ m_ActiveItem ]->fPosY,0.0f) ;
+			m_pPintMark->Draw(i_DrawPacket);
 			CalcWorldMatrix();
 			//Cylinder::Draw( i_DrawPacket );
 			OBB obb = OBB( m_BasePos, m_BaseQt, m_BaseScale );
@@ -410,7 +432,6 @@ void CheckPoint::Draw( DrawPacket& i_DrawPacket ){
 	if( m_pEffect2 != NULL ){
 		m_pEffect2->Draw( i_DrawPacket );
 	}
-	m_pPintMark->Draw(i_DrawPacket);
 };
 
 /////////////////// ////////////////////

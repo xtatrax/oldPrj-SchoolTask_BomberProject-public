@@ -38,6 +38,8 @@ GaugeKind::GaugeKind(const LPDIRECT3DDEVICE9 pD3DDevice, const LPDIRECT3DTEXTURE
 		:SpriteObject( pD3DDevice, pTex, vScale, g_vZero, vPos, &Rect, g_vZero, g_vZero,-1 ,OBJID_UI_SPRITE,false )
 ,m_vPos( vPos )
 ,m_vScale( vScale )
+,m_pCursor( NULL )
+,m_fMovePos( 0 )
 {
 }
 
@@ -64,14 +66,16 @@ void	GaugeKind::Drow(DrawPacket &i_DrawPacket)
 ***************************************************/
 void	GaugeKind::Update(UpdatePacket &i_UpdatePacket)
 {
-	//マウス用データ*************************
-	Point MousePos ;
-	GetCursorPos( &MousePos ) ;
-	ScreenToClient( wiz::DxDevice::m_hWnd , &MousePos) ;
-	//*****************************************
+	if( !m_pCursor ) m_pCursor = (MouseCursor*)SearchObjectFromID(i_UpdatePacket.pVec, OBJID_SYS_CURSOR);
 
-	m_vPos.x	 = (float)MousePos.x +  30.0f ;
-	m_vPos.y	 = (float)MousePos.y + -60.0f ;
+	if( !m_pCursor ) return ;
+
+	m_vPos.x	 = (float)m_pCursor->get2DPos().x +  30.0f + m_fMovePos ;
+	m_vPos.y	 = (float)m_pCursor->get2DPos().y + -60.0f ;
+
+	if( m_pCursor->getReverse() )
+			m_fMovePos	= -(185.0f);
+	else	m_fMovePos	= 0.0f;
 
 	D3DXMATRIX	mScale, mPos;
 	D3DXMatrixScaling( &mScale, m_vScale.x, m_vScale.y, m_vScale.z );
@@ -332,11 +336,23 @@ void SuperGage::Update( UpdatePacket& i_UpdatePacket ){
 	if( !m_pCursor ) m_pCursor = (MouseCursor*)SearchObjectFromID(i_UpdatePacket.pVec, OBJID_SYS_CURSOR);
 
 	if( !m_pCursor ) return ;
+
 	D3DXMATRIX	mPos, mScale, mRot ;
 	D3DXVECTOR3 vPos ;
 	vPos.x	= (float)m_pCursor->get2DPos().x + m_vBassPos.x - m_GaugeRect.right * m_vScale.x;
 	vPos.y	= (float)m_pCursor->get2DPos().y + m_vBassPos.y;
 	vPos.z	= 0.0f	;
+	if( m_pCursor->getReverse() ){
+		////	:
+
+		///*//
+		//vPos.x -= g_GaugeReverseSize.cx + 40;
+		////*/
+		//D3DXMATRIX m;
+		//D3DXMatrixScaling( &m, -1,1,1);
+		//D3DXMatrixMultiply(&mScale,&mScale,&m);
+		////*//
+	}
 	D3DXMatrixScaling( &mScale, m_vScale.x/2, m_vScale.y, m_vScale.z );
 	D3DXMatrixRotationYawPitchRoll( &mRot, m_vRot.x, m_vRot.y, m_vRot.z );
 	D3DXMatrixTranslation( &mPos, vPos.x, vPos.y, vPos.z);
@@ -347,6 +363,16 @@ void SuperGage::Update( UpdatePacket& i_UpdatePacket ){
 
 	//ゲージ用に座標のみ再計算
 	vPos.x		= (float)m_pCursor->get2DPos().x + m_vBassPos.x ;
+	if( m_pCursor->getReverse() ){
+		///*//
+		//vPos.x -= g_GaugeReverseSize.cx + 40;
+		vPos.x -=  85;
+		//*/
+		D3DXMATRIX m;
+		D3DXMatrixScaling( &m, -1,1,1);
+		D3DXMatrixMultiply(&mScale,&mScale,&m);
+		//*//
+	}
 	D3DXMatrixTranslation( &mPos, vPos.x, vPos.y, vPos.z);
 	m_Matrix	= mScale * mRot * mPos ;
 	//ゲージの描画
@@ -375,6 +401,17 @@ void SuperGage::Update_Line(){
 
 	D3DXMatrixScaling( &mLineScale, vLineScale.x, vLineScale.y, vLineScale.z );
 
+	int	iDir	= 1;
+	if( m_pCursor->getReverse() ){
+		vBaseLinePos.x	-= 85.0f;
+		iDir	*= -1;
+		//*/
+		D3DXMATRIX m;
+		D3DXMatrixScaling( &m, -1,1,1);
+		D3DXMatrixMultiply(&mLineScale,&mLineScale,&m);
+		//*//
+	}
+
 	//上部
 	vLineScale;
 	vLinePos	= D3DXVECTOR3(vBaseLinePos.x, vBaseLinePos.y - s_fMovingDistance, 0.0f);
@@ -382,7 +419,7 @@ void SuperGage::Update_Line(){
 	m_pLineTop->setMatrix( mLineScale * mLinePos );
 
 	//左部
-	vLinePos	= D3DXVECTOR3(vBaseLinePos.x - s_fMovingDistance, vBaseLinePos.y, 0.0f);
+	vLinePos	= D3DXVECTOR3(vBaseLinePos.x - s_fMovingDistance*iDir, vBaseLinePos.y, 0.0f);
 	D3DXMatrixTranslation( &mLinePos, vLinePos.x, vLinePos.y, vLinePos.z);
 	m_pLineLeft->setMatrix( mLineScale * mLinePos );
 
@@ -392,7 +429,7 @@ void SuperGage::Update_Line(){
 	m_pLineBottom->setMatrix( mLineScale * mLinePos );
 
 	//右部
-	vLinePos	= D3DXVECTOR3(vBaseLinePos.x + s_fMovingDistance, vBaseLinePos.y, 0.0f);
+	vLinePos	= D3DXVECTOR3(vBaseLinePos.x + s_fMovingDistance*iDir, vBaseLinePos.y, 0.0f);
 	D3DXMatrixTranslation( &mLinePos, vLinePos.x, vLinePos.y, vLinePos.z);
 	m_pLineRight->setMatrix( mLineScale * mLinePos );
 	
@@ -498,6 +535,15 @@ void MagneticGage_N::Update( UpdatePacket& i_UpdatePacket ){
 	vPos.y	= (float)m_pCursor->get2DPos().y + fMovePos/*+  m_GaugeRect.top*/	;
 	vPos.z	= 0.0f	;
 	D3DXMatrixScaling( &mScale, m_vScale.x, m_vScale.y/2, m_vScale.z );
+	if( m_pCursor->getReverse() ){
+		/*//
+		vPos.x -= g_GaugeReverseSize.cx + 40;
+		//*/
+		D3DXMATRIX m;
+		D3DXMatrixScaling( &m, -1,1,1);
+		D3DXMatrixMultiply(&mScale,&mScale,&m);
+		//*//
+	}
 	D3DXMatrixTranslation( &mPos, vPos.x, vPos.y, vPos.z);
 	m_mMatrix	= mScale * mPos ;
 
@@ -612,8 +658,16 @@ void MagneticGage_S::Update( UpdatePacket& i_UpdatePacket ){
 	vPos.x	 = (float)m_pCursor->get2DPos().x	;
 	vPos.y	 = (float)m_pCursor->get2DPos().y + fMovePos/*+  m_GaugeRect.top*/	;
 	vPos.z	 = 0.0f	;
-	//vPos	+= m_v;
 	D3DXMatrixScaling( &mScale, m_vScale.x, m_vScale.y/2, m_vScale.z );
+	if( m_pCursor->getReverse() ){
+		/*//
+		vPos.x -= g_GaugeReverseSize.cx + 40;
+		//*/
+		D3DXMATRIX m;
+		D3DXMatrixScaling( &m, -1,1,1);
+		D3DXMatrixMultiply(&mScale,&mScale,&m);
+		//*//
+	}
 	D3DXMatrixTranslation( &mPos, vPos.x, vPos.y, vPos.z);
 	m_mMatrix	= mScale * mPos ;
 

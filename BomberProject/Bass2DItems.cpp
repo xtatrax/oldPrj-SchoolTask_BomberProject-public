@@ -276,17 +276,17 @@ void PrimitiveSprite::Draw(DrawPacket& i_DrawPacket)
 ////            ÅF
 ////
 SpriteObject::SpriteObject(
-	const LPDIRECT3DDEVICE9 pD3DDevice,
-	const LPDIRECT3DTEXTURE9 pTexture,
-	const D3DXVECTOR3 &vScale,
-	const D3DXVECTOR3 &vRot,
-	const D3DXVECTOR3 &vPos,
-	const RECT *pRect,
-	const D3DXVECTOR3 &vCenter,
-	const D3DXVECTOR3 &vOffsetPos,
-	const Color color,
-	const wiz::OBJID id,
-	const bool bApplyAspect
+	const LPDIRECT3DDEVICE9		pD3DDevice		,
+	const LPDIRECT3DTEXTURE9	pTexture		,
+	const D3DXVECTOR3&			vScale			,
+	const D3DXVECTOR3&			vRot			,
+	const D3DXVECTOR3&			vPos			,
+	const RECT*					pRect			,
+	const D3DXVECTOR3&			vCenter			,
+	const D3DXVECTOR3&			vOffsetPos		,
+	const Color					color			,
+	const wiz::OBJID			id				,
+	const bool					bApplyAspect
 )
 	:Object(id)
 	,PrimitiveSprite(pD3DDevice,pTexture,pRect,vCenter,vOffsetPos,color,bApplyAspect)

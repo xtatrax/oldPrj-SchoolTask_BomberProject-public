@@ -135,7 +135,13 @@ class PlayerCoil : public MagneticumObject3D{
 	bool			m_bDrawContinue		;	//	: コンテニュー表示フラグ
 	int				m_iDeadCount		;	//	: 死亡回数
 	bool			m_bRestart			;
+	int				m_iMaxPosY			;
+	int				m_iScratchTime		;
+	bool			m_bModeChangeChar	;
+	bool			m_bReDrawing_ChangeChar	;
+	int				m_iAlpha			;
 
+	SpriteObject*			m_pModeChangeChar			;	//	: 
 	MouseCursor*			m_pCursor					;	//	: カーソルオブジェクトへのポインタ
 	Camera*					m_pCamera					;	//	: Cameraへのポインタ
 	Box*					m_pSuperField				;	//	: 無敵時のフィールド
@@ -453,6 +459,24 @@ public:
 		return	m_vStartPos;
 	}
 
+	int	getMaxPos(){
+		return m_iMaxPosY;
+	}
+
+	//****************************************
+	//スクラッチポイントのゲッター、セッター
+	int	getScratchTime(){
+		return	m_iScratchTime;
+	}
+
+	void	ScratchTime_Update(){
+		++m_iScratchTime;
+	}
+	//*****************************************
+
+	void	setMaxPos(int iMaxPosY){
+		m_iMaxPosY	= iMaxPosY;
+	}
 	/////////////////// ////////////////////
 	//// 関数名     ：void PlayerCoil::setState( COIL_STATE i_State )
 	//// カテゴリ   ：セッター

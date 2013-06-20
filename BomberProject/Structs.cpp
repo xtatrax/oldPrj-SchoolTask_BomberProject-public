@@ -33,6 +33,6 @@ void				FactoryPacket::SearchSoundAndPlay(	const char*  SoundName )	{	if( m_pSta
 void				FactoryPacket::SearchSoundAndStop(	const char*  SoundName )	{	if( m_pStage && m_pStage->m_pSound )	m_pStage->m_pSound->SearchSoundAndPlay( SoundName )	; }
 void				FactoryPacket::SearchWaveAndPlay(	const char*  WaveName  )	{	if( m_pStage && m_pStage->m_pSound )	m_pStage->m_pSound->SearchSoundAndPlay( WaveName  )	; }
 void				FactoryPacket::SearchWaveAndStop(	const char*  WaveName  )	{	if( m_pStage && m_pStage->m_pSound )	m_pStage->m_pSound->SearchSoundAndPlay( WaveName  )	; }
-void				FactoryPacket::SetSound(			system::Sound* pSound    )	{	if( m_pStage->m_pSound ) SafeDelete( m_pStage->m_pSound ) ; m_pStage->m_pSound = pSound		; }
+void				FactoryPacket::SetSound(			system::Sound* pSound    )	{	if( m_pStage->m_pMySound ) SafeDelete( m_pStage->m_pMySound ) ; m_pStage->m_pMySound = pSound		; }
 }
 }

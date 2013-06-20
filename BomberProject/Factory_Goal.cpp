@@ -269,7 +269,10 @@ void FMemoryTex::OrientGoal(UpdatePacket& i_UpdatePacket){
 					dirPtn	 = 3;
 				}
 				else{
-					i_UpdatePacket.pCommand->m_Command	= GM_OPENSTAGE_RESULT;
+					i_UpdatePacket.pCommand->m_Command	= GM_OPENSTAGE_CLEAR;
+					i_UpdatePacket.pCommand->m_Param1	= m_pCoil->getDeadCount();
+					i_UpdatePacket.pCommand->m_Param2	= m_pCoil->getMaxPos();
+					i_UpdatePacket.pCommand->m_Param3	= m_pCoil->getScratchTime();
 				}
 				break;
 	}

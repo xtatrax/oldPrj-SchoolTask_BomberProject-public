@@ -406,6 +406,38 @@
 						</Filter>
 					</Filter>
 				</Filter>
+				<Filter
+					Name="Input"
+					>
+					<File
+						RelativePath=".\Controller\Controller.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Controller\Controller.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Controller\Input.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Controller\Input.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Controller\Input_Gamepad.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Controller\Input_Keyboard.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Controller\Input_Mouse.cpp"
+						>
+					</File>
+				</Filter>
 			</Filter>
 			<Filter
 				Name="0.Factorys"
@@ -438,14 +470,14 @@
 						</File>
 					</Filter>
 					<Filter
-						Name="Factory_Result"
+						Name="Factory_Clear"
 						>
 						<File
-							RelativePath=".\Factory_Result.cpp"
+							RelativePath=".\Factory_Clear.cpp"
 							>
 						</File>
 						<File
-							RelativePath=".\Factory_Result.h"
+							RelativePath=".\Factory_Clear.h"
 							>
 						</File>
 					</Filter>
@@ -488,6 +520,18 @@
 					<Filter
 						Name="00.‰æ–Ê‘S‘Ì‚ð\’z‚·‚éHêŒQ"
 						>
+					</Filter>
+					<Filter
+						Name="Factory_Result"
+						>
+						<File
+							RelativePath=".\Factory_Result.cpp"
+							>
+						</File>
+						<File
+							RelativePath=".\Factory_Result.h"
+							>
+						</File>
 					</Filter>
 				</Filter>
 				<Filter
@@ -725,6 +769,18 @@
 							>
 						</File>
 					</Filter>
+					<Filter
+						Name="Factory_SelectInformation"
+						>
+						<File
+							RelativePath=".\Factory_SelectInformation.cpp"
+							>
+						</File>
+						<File
+							RelativePath=".\Factory_SelectInformation.h"
+							>
+						</File>
+					</Filter>
 				</Filter>
 				<Filter
 					Name="00.1ƒtƒBƒ‹ƒ^[/1Factory/1Class‚ð“O’ê‚µ‚Ä‚­‚¾‚³‚¢"
@@ -794,11 +850,11 @@
 					Name="Stage_Clear"
 					>
 					<File
-						RelativePath=".\Stage_Result.cpp"
+						RelativePath=".\Stage_Clear.cpp"
 						>
 					</File>
 					<File
-						RelativePath=".\Stage_Result.h"
+						RelativePath=".\Stage_Clear.h"
 						>
 					</File>
 				</Filter>
@@ -826,6 +882,18 @@
 						>
 					</File>
 				</Filter>
+				<Filter
+					Name="Stage_Result"
+					>
+					<File
+						RelativePath=".\Stage_Result.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Stage_Result.h"
+						>
+					</File>
+				</Filter>
 			</Filter>
 		</Filter>
 		<Filter
@@ -847,6 +915,10 @@
 			>
 			<File
 				RelativePath=".\defineValue.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\defineValue.h"
 				>
 			</File>
 			<File
@@ -906,38 +978,6 @@
 				</File>
 				<File
 					RelativePath=".\AnimationModelClass\AnimationModelClass.h"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="Input"
-				>
-				<File
-					RelativePath=".\Controller\Controller.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\Controller\Controller.h"
-					>
-				</File>
-				<File
-					RelativePath=".\Controller\Input.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\Controller\Input.h"
-					>
-				</File>
-				<File
-					RelativePath=".\Controller\Input_Gamepad.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\Controller\Input_Keyboard.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\Controller\Input_Mouse.cpp"
 					>
 				</File>
 			</Filter>

@@ -12,6 +12,8 @@
 #include "StdAfx.h"
 #include "Factory_Select.h"
 #include "Factory_Cursor.h"
+#include "Factory_CustomButtonA.h"
+#include "Factory_SelectInformation.h"
 
 namespace wiz{
 namespace bomberobject{
@@ -59,132 +61,103 @@ Factory_Select::Factory_Select(FactoryPacket* fpac ){
 	try{
 
 /////////////////////////////////////////////////////////////////////////////////
+//                           説明用のテクスチャ                          //
+/////////////////////////////////////////////////////////////////////////////////
+		fpac->m_pVec->push_back(
+			new SelectInformation(
+					fpac->pD3DDevice,						//↓マウスがここの上にあるとき表示する画像
+					fpac->AddTexture(L"Select_blue.png"),	//枠外
+					fpac->AddTexture(L"Select_Green.png"),	//NORMAL
+					fpac->AddTexture(L"Select_Orenge.png"),	//HARD
+					fpac->AddTexture(L"Select_Pink.png"),	//EXTRA
+					D3DXVECTOR3( 1.0f, 1.0f, 0.0f ),
+					g_vZero,
+					D3DXVECTOR3( 50.0f, 50.0f, 0.0f ),
+					Rect( 0, 0, 512, 512 ),
+					g_vZero,
+					g_vZero,
+					0xFFFFFFFF
+			)
+		);
+/////////////////////////////////////////////////////////////////////////////////
 //                                 NORMAL                                      //
 /////////////////////////////////////////////////////////////////////////////////
-		//緑
 		fpac->AddButton(
-			new ButtonSprite(
-				fpac->pD3DDevice,	
+			new CustomButtonA(
+				fpac->pD3DDevice,
 				fpac->AddTexture(L"NORMAL002.tga"),
+				fpac->AddTexture(L"NORMAL001.tga"),
 				g_vOne,
 				g_vZero,
-				D3DXVECTOR3(404.5f, 150.0f, 0.0f),
+				D3DXVECTOR3(704.5f, 150.0f, 0.0f),
+				Rect(0,0,215,26),
 				Rect(0,0,215,26),
 				g_vZero,
 				g_vZero,
 				0xFF00AA55,
 				0xFF008833,
-				RCTEXT_SOUND_SE_SELECT,
-				RCTEXT_SOUND_SE_ENTER,
-				0.5f,
-				Command( GM_OPENSTAGE_LOAD_PLAY, 3, 0 ),
-				0
-			)
-		);
-		//青
-		fpac->AddButton(
-			new ButtonSprite(
-				fpac->pD3DDevice,	
-				fpac->AddTexture(L"NORMAL001.tga"),
-				g_vOne,
-				g_vZero,
-				D3DXVECTOR3(404.5f, 150.0f, 0.0f),
-				Rect(0,0,215,26),
-				g_vZero,
-				g_vZero,
 				0xFF00FFFF,
 				0xFF0000DD,
 				RCTEXT_SOUND_SE_SELECT,
 				RCTEXT_SOUND_SE_ENTER,
-				0.5f,
+				1.0f,
 				Command( GM_OPENSTAGE_LOAD_PLAY, 3, 0 ),
+				0,
 				1
 			)
 		);
 /////////////////////////////////////////////////////////////////////////////////
 //                                  HARD                                       //
 /////////////////////////////////////////////////////////////////////////////////
-		//緑
 		fpac->AddButton(
-			new ButtonSprite(
+			new CustomButtonA(
 				fpac->pD3DDevice,	
 				fpac->AddTexture(L"HARD002.tga"),
+				fpac->AddTexture(L"HARD001.tga"),
 				g_vOne,
 				g_vZero,
-				D3DXVECTOR3(440.0f, 300.0f, 0.0f),
+				D3DXVECTOR3(740.0f, 300.0f, 0.0f),
+				Rect(0,0,144,26),
 				Rect(0,0,144,26),
 				g_vZero,
 				g_vZero,
 				0xFF00AA55,
 				0xFF008833,
-				RCTEXT_SOUND_SE_SELECT,
-				RCTEXT_SOUND_SE_ENTER,
-				0.5f,
-				Command( GM_OPENSTAGE_LOAD_PLAY, 4, 0 ),
-				2
-			)
-		);
-		//オレンジ
-		fpac->AddButton(
-			new ButtonSprite(
-				fpac->pD3DDevice,	
-				fpac->AddTexture(L"HARD001.tga"),
-				g_vOne,
-				g_vZero,
-				D3DXVECTOR3(440.0f, 300.0f, 0.0f),
-				Rect(0,0,144,26),
-				g_vZero,
-				g_vZero,
 				0xFFFFCC00,
 				0xFFDD3300,
 				RCTEXT_SOUND_SE_SELECT,
 				RCTEXT_SOUND_SE_ENTER,
-				0.5f,
+				1.0f,
 				Command( GM_OPENSTAGE_LOAD_PLAY, 4, 0 ),
-				3
+				1,
+				2
 			)
 		);
 /////////////////////////////////////////////////////////////////////////////////
 //                                 EXTRA                                       //
 /////////////////////////////////////////////////////////////////////////////////
-		//緑
 		fpac->AddButton(
-			new ButtonSprite(
+			new CustomButtonA(
 				fpac->pD3DDevice,	
 				fpac->AddTexture(L"EXTRA002.tga"),
+				fpac->AddTexture(L"EXTRA001.tga"),
 				g_vOne,
 				g_vZero,
-				D3DXVECTOR3(422.5f, 450.0f, 0.0f),
+				D3DXVECTOR3(722.5f, 450.0f, 0.0f),
+				Rect(0,0,179,26),
 				Rect(0,0,179,26),
 				g_vZero,
 				g_vZero,
 				0xFF00AA55,
 				0xFF008833,
-				RCTEXT_SOUND_SE_SELECT,
-				RCTEXT_SOUND_SE_ENTER,
-				0.5f,
-				Command( GM_OPENSTAGE_LOAD_PLAY, 5, 0 ),
-				4
-			)
-		);
-		//赤
-		fpac->AddButton(
-			new ButtonSprite(
-				fpac->pD3DDevice,	
-				fpac->AddTexture(L"EXTRA001.tga"),
-				g_vOne,
-				g_vZero,
-				D3DXVECTOR3(422.5f, 450.0f, 0.0f),
-				Rect(0,0,179,26),
-				g_vZero,
-				g_vZero,
 				0xFFFF5555,
 				0xFF880000,
 				RCTEXT_SOUND_SE_SELECT,
 				RCTEXT_SOUND_SE_ENTER,
-				0.5f,
+				1.0f,
 				Command( GM_OPENSTAGE_LOAD_PLAY, 5, 0 ),
-				5
+				2,
+				3
 			)
 		);
 		float	fLineLength	= 550.0f;

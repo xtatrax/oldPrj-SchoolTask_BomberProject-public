@@ -44,6 +44,7 @@ protected:
 	//	: メニュー等の画面へのポインタをとっておく
 	Stage*						m_pParStage		;	//	: 親ステージ
 	Stage*						m_pChildStage	;	//	: 子ステージ
+	system::Sound*				m_pMySound		;
 	system::Sound*				m_pSound		;
 	bool						m_IsDialog		;	//	: ダイアログステージかどうか
 	bool						m_bUpdate		;	//	: このフラグをtrueにするとステージのupdateが止まります
