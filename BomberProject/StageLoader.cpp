@@ -258,10 +258,10 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 					g_vOne		,
 					g_vZero			,
 					i_Data.vPos			,
-					//i_Data.bPool		,
 					i_Data.Diffuse		,
 					i_Data.Specular		,
-					i_Data.Ambient
+					i_Data.Ambient		,
+					i_Data.bPool
 				);
 			}else{
 				//	: “o˜^‚ª‚È‚©‚Á‚½ê‡
@@ -297,10 +297,10 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 					g_vOne		,
 					g_vZero			,
 					i_Data.vPos			,
-					//i_Data.bPool		,
 					i_Data.Diffuse		,
 					i_Data.Specular		,
-					i_Data.Ambient
+					i_Data.Ambient		,
+					i_Data.bPool
 				);
 			}
 			//	: “G(ƒEƒCƒ‹ƒX?)
@@ -341,6 +341,7 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 						100.0f			,
 						m_pTexMgr->addTexture(m_pD3DDevice,L"particle.png"),
 						m_pTexMgr->addTexture(m_pD3DDevice,L"CHECK_POINT1.png"),
+						m_pTexMgr->addTexture(m_pD3DDevice,L"LAST.png"),
 						ObjectID
 					);
 
@@ -385,7 +386,7 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 			);
 			FMemoryTex* mt = new FMemoryTex(
 				m_pD3DDevice,
-				m_pTexMgr->addTexture( m_pD3DDevice, L"memory.png" )
+				m_pTexMgr->addTexture( m_pD3DDevice, L"USB.png" )
 			);
 			
 			//	: ƒS[ƒ‹‚Ì’Ç‰Á
@@ -398,9 +399,9 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 			//	GoalAmbient
 			//);
 			mt->AddMemory(
-				D3DXVECTOR3(20.0f,5.0f,0.0f),
+				D3DXVECTOR3(4.0f,16.0f,0.0f),
 				g_vZero			,
-				D3DXVECTOR3(20.0f,i_Data.vPos.y + 2.0f ,0.0f),
+				D3DXVECTOR3(23.0f,i_Data.vPos.y + 2.0f ,0.0f),
 				MemoryDiffuse		,
 				MemorySpecular	,
 				MemoryAmbient

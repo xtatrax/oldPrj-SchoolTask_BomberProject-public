@@ -158,7 +158,8 @@ static const wchar_t*		RCTEXT_SOUND_SOUNDBANK			= L"media/Sound/MagneticaSound.x
 
 static const char*			RCTEXT_SOUND_BGM_CLEAR			= "BGM-CLEAR"			;
 static const char*			RCTEXT_SOUND_BGM_GAMEOVER		= "BGM-GAME_OVER"		;
-static const char*			RCTEXT_SOUND_BGM_PLAY			= "BGM-PLAY001"			;
+//static const char*			RCTEXT_SOUND_BGM_PLAY		= "BGM-PLAY001"			;
+static const char*			RCTEXT_SOUND_BGM_PLAY			= "BGM-PLAY002"			;
 static const char*			RCTEXT_SOUND_BGM_TITLE			= "BGM-TITLE"			;
 static const char*			RCTEXT_SOUND_SE_ALERT			= "SE-ALERT002"			;
 static const char*			RCTEXT_SOUND_SE_BREAKENEMY		= "SE-BLOKEN_ENEMY"		;
@@ -171,23 +172,24 @@ static const char*			RCTEXT_SOUND_SE_GOAL			= "SE-GOAL"				;
 static const char*			RCTEXT_SOUND_SE_PLAYERBLOKEN	= "SE-PLAYER_BLOKEN"	;
 static const char*			RCTEXT_SOUND_SE_INVISIBLE		= "SE-INVINGVLE"		;
 static const char*			RCTEXT_SOUND_SE_ITEMS			= "SE-ITEMS"			;
+static const char*			RCTEXT_SOUND_SE_SUPER_FULL		= "SE-ITEM_FULL"		;
 static const char*			RCTEXT_SOUND_SE_SETFIELD		= "SE-MAGNETIC_FIELD"	;
 static const char*			RCTEXT_SOUND_SE_SPARK			= "SE-SPARK002"			;
 static const char*			RCTEXT_SOUND_SE_SPARK_WARNING	= "SE-SPARK002"			;
 
 static const char*			RCTEXT_MODEL_ENEMY				= "media/Model/mine.x"	;
 
-static const float			MGPRM_INVISIBLESOUND_TIME	= 0.7f	; /* é•äEÇÃâeãøîºåa*/
-static const int			MGPRM_MAGNETICUM			= 10	; /* é•äEÇÃâeãøîºåa*/
-static const int			MGPRM_MAGNETICUM_QUAD		= ( MGPRM_MAGNETICUM * MGPRM_MAGNETICUM );
-static const int			DRAWING_RANGE				= 25;
-static const D3DXVECTOR3	g_vZero						= D3DXVECTOR3(0.0f,0.0f,0.0f);
-static const D3DXVECTOR3	g_vOne						= D3DXVECTOR3(1.0f,1.0f,1.0f);
-static const D3DXVECTOR3	g_vMax						= D3DXVECTOR3(+FLT_MAX,+FLT_MAX,+FLT_MAX);
-static const D3DXVECTOR3	g_vMin						= D3DXVECTOR3(-FLT_MAX,-FLT_MAX,-FLT_MAX);
-static const wstring		g_sDefaultTexturePath		= L"media/Textures/" ;	//	: ÉeÉNÉXÉ`ÉÉÇÃíuÇ´èÍ
-      //extern HWND			wiz::DxDevice::m_hWnd		;
-static const SIZE			g_GaugeReverseSize			= { 146,67 };
+static const float			MGPRM_INVISIBLESOUND_TIME		= 0.7f	; /* é•äEÇÃâeãøîºåa*/
+static const int			MGPRM_MAGNETICUM				= 10	; /* é•äEÇÃâeãøîºåa*/
+static const int			MGPRM_MAGNETICUM_QUAD			= ( MGPRM_MAGNETICUM * MGPRM_MAGNETICUM );
+static const int			DRAWING_RANGE					= 25;
+static const D3DXVECTOR3	g_vZero							= D3DXVECTOR3(0.0f,0.0f,0.0f);
+static const D3DXVECTOR3	g_vOne							= D3DXVECTOR3(1.0f,1.0f,1.0f);
+static const D3DXVECTOR3	g_vMax							= D3DXVECTOR3(+FLT_MAX,+FLT_MAX,+FLT_MAX);
+static const D3DXVECTOR3	g_vMin							= D3DXVECTOR3(-FLT_MAX,-FLT_MAX,-FLT_MAX);
+static const wstring		g_sDefaultTexturePath			= L"media/Textures/" ;	//	: ÉeÉNÉXÉ`ÉÉÇÃíuÇ´èÍ
+      //extern HWND			wiz::DxDevice::m_hWnd			;
+static const SIZE			g_GaugeReverseSize				= { 146,67 };
 
 
 //

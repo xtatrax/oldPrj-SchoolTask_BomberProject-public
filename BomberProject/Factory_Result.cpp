@@ -43,7 +43,7 @@ Factory_Result::Factory_Result(FactoryPacket* fpac, int iDeadCount, int iMaxPosY
 		fpac->m_pVec->push_back(
 			new SpriteObject(
 				fpac->pD3DDevice,
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Clear3.png" ),
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Clear4.png" ),
 				D3DXVECTOR3( 1.0f, 1.0f, 0.0f ),
 				g_vZero,
 				D3DXVECTOR3( wide-256, 50.0f, 0.0f ),
@@ -104,7 +104,7 @@ Factory_Result::Factory_Result(FactoryPacket* fpac, int iDeadCount, int iMaxPosY
 			new SpriteObject(
 				fpac->pD3DDevice,
 				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"TOTAL_POINT2.png" ),
-				D3DXVECTOR3( 1.0f, 1.0f, 0.0f ),
+				D3DXVECTOR3( 0.6f, 1.5f, 0.0f ),
 				g_vZero,
 				D3DXVECTOR3( wide-128-250, height+100.0f, 0.0f ),
 				NULL,
@@ -143,7 +143,10 @@ Factory_Result::Factory_Result(FactoryPacket* fpac, int iDeadCount, int iMaxPosY
 				fpac->pD3DDevice,
 				fpac->AddTexture(L"Number_Base1.png"),
 				fpac->AddTexture(L"Number_Base2.png"),
-				D3DXVECTOR3( 1.0f, 1.0f, 0.0f ),
+				fpac->AddTexture(L"Rate_Number.png"),
+				fpac->AddTexture(L"Rate_Number2.png"),
+				fpac->AddTexture(L"Rate_Number3.png"),
+				D3DXVECTOR3( 0.8f, 0.8f, 0.0f ),
 				D3DXVECTOR3( 0.0f, 0.0f, 0.0f ),
 				iDeadCount,
 				iMaxPosY,
