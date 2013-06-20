@@ -250,11 +250,16 @@ void	Item::Update(UpdatePacket& i_UpdatePacket)
 		it++;
 	}
 	if(m_pPlayerCoil->getState() == COIL_STATE_MOVE && m_pPlayerCoil->getSuperMode() == COIL_STATE_SUPER_MOVE){
-		static float s_fTimeTotal = 0.0f;
-		s_fTimeTotal += (float)SUPER_GAGE_MAX / (float)COIL_SUPER_MODE_TIME * (float)i_UpdatePacket.pTime->getElapsedTime();
-		if(s_fTimeTotal >= 1.0f){
-			m_pSuperGage->Consume( -(1.0f / COIL_SUPER_MODE_TIME * (float)i_UpdatePacket.pTime->getElapsedTime()) );
-			s_fTimeTotal -= (int)s_fTimeTotal;
+		//	: ‚·[‚Ïƒ‚[ƒh‚ÌŽž
+		//static float s_fTimeTotal = 0.0f;
+		//s_fTimeTotal += (float)SUPER_GAGE_MAX / (float)COIL_SUPER_MODE_TIME * (float)i_UpdatePacket.pTime->getElapsedTime();
+		//if(s_fTimeTotal >= 1.0f){
+		//	m_pSuperGage->Consume( -(1.0f / COIL_SUPER_MODE_TIME * (float)i_UpdatePacket.pTime->getElapsedTime()) );
+		//	s_fTimeTotal -= (int)s_fTimeTotal;
+		//}
+		static float s_fTimeAccumulator = 0 ;
+		if( ( s_fTimeAccumulator += i_UpdatePacket.pTime->getElapsedTime()) < COIL_SUPER_MODE_TIME ){
+			m_pSuperGage->Consume( -(1.0f / COIL_SUPER_MODE_TIME * (float)i_UpdatePacket.pTime->getElapsedTime()) );	
 		}
 	}
 
