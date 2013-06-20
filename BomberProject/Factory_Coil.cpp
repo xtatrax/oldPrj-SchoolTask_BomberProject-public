@@ -885,10 +885,10 @@ void PlayerCoil::Draw(DrawPacket& i_DrawPacket){
 	if( m_pDSPH ) m_pDSPH->Draw( i_DrawPacket );
 #endif
 	if(m_enumCoilStateSuper == COIL_STATE_SUPER_READY){
-		m_pLineTop->draw(i_DrawPacket.pD3DDevice);
-		m_pLineLeft->draw(i_DrawPacket.pD3DDevice);
-		m_pLineBottom->draw(i_DrawPacket.pD3DDevice);
-		m_pLineRight->draw(i_DrawPacket.pD3DDevice);
+		//m_pLineTop->draw(i_DrawPacket.pD3DDevice);
+		//m_pLineLeft->draw(i_DrawPacket.pD3DDevice);
+		//m_pLineBottom->draw(i_DrawPacket.pD3DDevice);
+		//m_pLineRight->draw(i_DrawPacket.pD3DDevice);
 	}
 
 	//”šŽU
