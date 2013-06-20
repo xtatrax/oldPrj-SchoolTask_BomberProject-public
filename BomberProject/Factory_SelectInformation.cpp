@@ -81,21 +81,25 @@ void	SelectInformation::Update(UpdatePacket &i_UpdatePacket)
 	if( !m_pButtonBack   ) m_pButtonBack    = (CustomButtonA*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_UI_BUTTON_BACK  );
 
 	if( m_pButtonNormal && m_pButtonNormal->getButtonP()->getMouseSelect() ){
+		//	: Normal‚Ì‚Ì‰æ‘œ
 			m_pTexture	= m_pNomalTex;
 	}
 	else
 	if( m_pButtonHard && m_pButtonHard->getButtonP()->getMouseSelect() ){
+		//	: Hard‚Ì‚Ì‰æ‘œ
 			m_pTexture	= m_pHardTex;
 	}
 	else
 	if( m_pButtonExtra && m_pButtonExtra->getButtonP()->getMouseSelect() ){
+		//	: EXTRA‚Ì‚Ì‰æ‘œ
 			m_pTexture	= m_pExtraTex;
 	}
 	else
 	if( m_pButtonBack && m_pButtonBack->getButtonP()->getMouseSelect() ){
-			m_pTexture	= m_pNomalTex;
+		//	: Backƒ{ƒ^ƒ“‚Ì‚Ì‰æ‘œ
 	}
 	else{
+		//	: ’Êí
 			m_pTexture	= m_pTex;	
 	}
 }
