@@ -93,8 +93,12 @@ void ButtonSprite::Update(UpdatePacket& i_UpdatePacket){
 	}else{
 		m_Color = m_UnSelectColor;
 	}
-	if( m_bIsSelectWait && (m_fTimeAccumulator += (float)i_UpdatePacket.pTime->getElapsedTime()) >= m_fWaitTime )
+	if( m_bIsSelectWait && (m_fTimeAccumulator += (float)i_UpdatePacket.pTime->getElapsedTime()) >= m_fWaitTime ){
 			*i_UpdatePacket.pCommand = m_ButtonState.CommandIssue();
+			m_bIsSelectWait = false ;
+			m_fTimeAccumulator = 0 ;
+			m_ButtonState.setPressed(false);
+	}
 };
 
 
