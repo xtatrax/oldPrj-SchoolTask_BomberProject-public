@@ -46,6 +46,7 @@ Warning::Warning( LPDIRECT3DDEVICE9 pD3DDevice,D3DCOLORVALUE& Diffuse,D3DCOLORVA
 ,m_bToDraw(false)
 ,m_iDrawTime( 0 )
 ,m_pCoil( NULL )
+,m_bIsPlaySound( false )
 {
 	::ZeroMemory( &m_Material, sizeof(D3DMATERIAL9));
 	D3DXMATRIX mScalse, mRot, mPos;
@@ -87,6 +88,10 @@ Warning::~Warning(){
 void Warning::Draw(DrawPacket& i_DrawPacket)
 {
 	if(m_bToDraw){
+		if( !m_bIsPlaySound ){
+			i_DrawPacket.SearchSoundAndPlay( RCTEXT_SOUND_SE_WARNING_SPARK );
+			m_bIsPlaySound = true;
+		}
 		if(m_pTexture){
 			DWORD wkdword;
 			//現在のテクスチャステータスを得る
@@ -126,6 +131,11 @@ void Warning::Draw(DrawPacket& i_DrawPacket)
 			i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &m_Matrix);
 			//コモンメッシュのDraw()を呼ぶ
 			CommonMesh::Draw(i_DrawPacket);
+		}
+	}else{
+		if( m_bIsPlaySound ){
+			i_DrawPacket.SoundStop( RCTEXT_SOUND_SE_WARNING_SPARK );
+			m_bIsPlaySound = false;
 		}
 	}
 }

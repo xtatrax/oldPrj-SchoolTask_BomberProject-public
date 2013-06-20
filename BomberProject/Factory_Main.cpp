@@ -160,7 +160,7 @@ Factory_Main::Factory_Main(FactoryPacket* fpac, DWORD dwStageNum, DWORD dwResump
 			)
 		);
 		pSound->SearchSoundAndPlay( RCTEXT_SOUND_BGM_PLAY );
-		pSound->SearchSoundAndPlay( RCTEXT_SOUND_SE_SPARK );
+		//pSound->SearchSoundAndPlay( RCTEXT_SOUND_SE_SPARK );
 		//	: ‰¹º‚Ì\’z‚ÆBGM‚ÌÄ¶ŠJn
 		//////////
 
