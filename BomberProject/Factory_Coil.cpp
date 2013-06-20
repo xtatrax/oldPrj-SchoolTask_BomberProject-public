@@ -138,8 +138,8 @@ PlayerCoil::PlayerCoil(
 	setPoleN();
 	SetBaseRot(vRot);
 
-	m_pModeChangeChar	= new SpriteObject( pD3DDevice, m_pTexMgr->addTexture( pD3DDevice, L"CHANGE3.png" ),D3DXVECTOR3( 0.25f, 0.25f, 0.0f ),
-										g_vZero, g_vZero, Rect( 0, 0, 512, 128 ), D3DXVECTOR3( 256.0f, 64.0f, 0.0f ), g_vZero );
+	m_pModeChangeChar	= new ModeChangeChar( pD3DDevice, m_pTexMgr->addTexture( pD3DDevice, L"CHANGE3.png" ),
+														D3DXVECTOR3( 0.25f, 0.25f, 0.0f ), &Rect( 0, 0, 512, 128 ) );
 	m_pSelect	= NULL;
 	m_pSelect2	= NULL;
 	m_pDeadChar	= NULL;
@@ -257,8 +257,8 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 		//-----------------------------------------------------------------------
 
 		if( m_enumCoilState != COIL_STATE_STICK ){
-			m_bModeChangeChar	= false;
-			m_iAlpha			= 255;
+			m_bModeChangeChar		= false;
+			m_bReDrawing_ChangeChar	= true;
 		}
 		//ó‘Ô‚²‚Æ‚Ìˆ—
 		switch(m_enumCoilState){
@@ -273,8 +273,9 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 			//Ž¥ŠE’†S‚É‹z’…
 			case COIL_STATE_STICK:
 				if( m_bReDrawing_ChangeChar ){
-					m_bModeChangeChar	= true;
-					m_pModeChangeChar->setAlpha(0xFF);
+					m_bModeChangeChar		= true;
+					m_bReDrawing_ChangeChar	= false;
+					m_pModeChangeChar->setStart();
 				}
 				Update_StateStick(i_UpdatePacket);
 				break;
@@ -592,12 +593,7 @@ void PlayerCoil::Update_StateStick(UpdatePacket& i_UpdatePacket){
 		}
 	}
 
-	m_iAlpha	-= 5;
-	if( m_iAlpha <= 0 ){
-		m_pModeChangeChar->setAlpha(0);
-	}else{
-		m_pModeChangeChar->setAlpha(m_iAlpha);
-	}
+	m_pModeChangeChar->Update(i_UpdatePacket);
 };
 
 
