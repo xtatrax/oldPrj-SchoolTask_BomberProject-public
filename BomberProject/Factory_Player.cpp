@@ -156,7 +156,7 @@ void ProvisionalPlayer3D::Update( UpdatePacket& i_UpdatePacket ){
 		Rebound	= Cursor2D::getRButtonState();
 	}
 
-	if( m_pPlayerCoil->getState() == COIL_STATE_MOVE || m_pPlayerCoil->getState() == COIL_STATE_STICK ){
+	if( m_pPlayerCoil->getState() == COIL_STATE_MOVE || (m_pPlayerCoil->getState() == COIL_STATE_STICK && m_pPlayerCoil->getReadyToStart()) ){
 		if( (Suction || Rebound) && !(Suction && Rebound)){ 
 			if( (Suction && m_pMGage_N->getRate() > GAUGE_VANISHRATE) || (Rebound && m_pMGage_S->getRate() > GAUGE_VANISHRATE) ){				
 				if( !m_bLastMouseLB && !m_bLastMouseRB){
@@ -243,7 +243,12 @@ void ProvisionalPlayer3D::Update( UpdatePacket& i_UpdatePacket ){
 				}
 			}
 			else{
-				m_bDrawing	= false;
+				if(!m_pPlayerCoil->getReadyToStart()){
+					m_bDrawing	= true;
+				}
+				else{
+					m_bDrawing	= false;					
+				}
 			}
 		}else{
 			if(m_pPlayerCoil->getState() != COIL_STATE_STICK){

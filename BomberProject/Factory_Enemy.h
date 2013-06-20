@@ -19,7 +19,9 @@
 namespace wiz{
 namespace bomberobject{
 
-const float ENEMY_SPEED = 0.01f;
+const float ENEMY_SPEED_LV3 = 0.09f;
+const float ENEMY_SPEED_LV2 = 0.06f;
+const float ENEMY_SPEED_LV1 = 0.03f;
 const float ENEMY_RADIUS = 1.5f;
 
 

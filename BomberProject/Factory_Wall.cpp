@@ -425,55 +425,36 @@ void WallObject::Update( UpdatePacket& i_UpdatePacket ){
 									vWarning = vColiPos;
 						float		fRotZ	 = (*it)->m_fRotZ;
 						if(fRotZ < 90.0f){
-							if(vWallPos.x <= vColiPos.x){
-								if(vWallPos.y - vWallSiz.y > vColiPos.y){
-									vWarning.x = vWallPos.x;
-									m_pWarning->setRot(D3DXVECTOR3(0.0f,0.0f,180.0f));
-									
-								}else if(vWallPos.y + vWallSiz.y < vColiPos.y){
-									vWarning.x = vWallPos.x;
-									m_pWarning->setRot(D3DXVECTOR3(0.0f,0.0f,0.0f));								
-								}else{
+							if(vWallPos.y - vWallSiz.y > vColiPos.y){
+								vWarning.x = vWallPos.x;
+								m_pWarning->setRot(D3DXVECTOR3(0.0f,0.0f,180.0f));
+							}else if(vWallPos.y + vWallSiz.y < vColiPos.y){
+								vWarning.x = vWallPos.x;
+								m_pWarning->setRot(D3DXVECTOR3(0.0f,0.0f,0.0f));								
+							}else{
+								if(vWallPos.x <= vColiPos.x){
 									vWarning.x = vWallPos.x + 2.0f;
 									m_pWarning->setRot(D3DXVECTOR3(0.0f,0.0f,-90.0f));
 								}
-							}
-							else{
-								if(vWallPos.y - vWallSiz.y > vColiPos.y){
-									vWarning.x = vWallPos.x;
-									m_pWarning->setRot(D3DXVECTOR3(0.0f,0.0f,180.0f));
-									
-								}else if(vWallPos.y + vWallSiz.y < vColiPos.y){
-									vWarning.x = vWallPos.x;
-									m_pWarning->setRot(D3DXVECTOR3(0.0f,0.0f,0.0f));								
-								}else{
+								else{
 									vWarning.x = vWallPos.x - 2.0f;
 									m_pWarning->setRot(D3DXVECTOR3(0.0f,0.0f,90.0f));
 								}
 							}
 						}else{
-							if(vWallPos.y <= vColiPos.y){
-								if(vWallPos.x - vWallSiz.y > vColiPos.x){
-									vWarning.y = vWallPos.y;
-									m_pWarning->setRot(D3DXVECTOR3(0.0f,0.0f,90.0f));
-									
-								}else if(vWallPos.x + vWallSiz.y < vColiPos.x){
-									vWarning.y = vWallPos.y;
-									m_pWarning->setRot(D3DXVECTOR3(0.0f,0.0f,-90.0f));								
-								}else{
+							if(vWallPos.x - vWallSiz.y > vColiPos.x){
+								vWarning.y = vWallPos.y;
+								m_pWarning->setRot(D3DXVECTOR3(0.0f,0.0f,90.0f));
+								
+							}else if(vWallPos.x + vWallSiz.y < vColiPos.x){
+								vWarning.y = vWallPos.y;
+								m_pWarning->setRot(D3DXVECTOR3(0.0f,0.0f,-90.0f));								
+							}else{
+								if(vWallPos.y <= vColiPos.y){
 									vWarning.y = vWallPos.y + 1.0f;
 									m_pWarning->setRot(D3DXVECTOR3(0.0f,0.0f,0.0f));
 								}
-							}
-							else{
-								if(vWallPos.x - vWallSiz.y > vColiPos.x){
-									vWarning.y = vWallPos.y;
-									m_pWarning->setRot(D3DXVECTOR3(0.0f,0.0f,90.0f));
-									
-								}else if(vWallPos.x + vWallSiz.y < vColiPos.x){
-									vWarning.y = vWallPos.y;
-									m_pWarning->setRot(D3DXVECTOR3(0.0f,0.0f,-90.0f));								
-								}else{
+								else{
 									vWarning.y = vWallPos.y - 1.0f;
 									m_pWarning->setRot(D3DXVECTOR3(0.0f,0.0f,180.0f));
 								}
