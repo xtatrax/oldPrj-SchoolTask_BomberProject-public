@@ -258,10 +258,10 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 					g_vOne		,
 					g_vZero			,
 					i_Data.vPos			,
-					//i_Data.bPool		,
 					i_Data.Diffuse		,
 					i_Data.Specular		,
-					i_Data.Ambient
+					i_Data.Ambient		,
+					i_Data.bPool
 				);
 			}else{
 				//	: “o˜^‚ª‚È‚©‚Á‚½ê‡
@@ -297,10 +297,10 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 					g_vOne		,
 					g_vZero			,
 					i_Data.vPos			,
-					//i_Data.bPool		,
 					i_Data.Diffuse		,
 					i_Data.Specular		,
-					i_Data.Ambient
+					i_Data.Ambient		,
+					i_Data.bPool
 				);
 			}
 			//	: “G(ƒEƒCƒ‹ƒX?)
