@@ -20,36 +20,6 @@ namespace wiz{
 namespace bomberobject{
 
 /**************************************************************************
-class ModeChangeChar;
-
-用途　：開始時のスタート文
-担当者：佐藤涼
-**************************************************************************/
-class ModeChangeChar : public SpriteObject{
-	bool	m_bAllDraw;
-	bool	m_bAnimeDir;
-	float	m_fInterval;
-	Rect	m_BaseRect;
-public:
-	ModeChangeChar(LPDIRECT3DDEVICE9	pD3DDevice,
-				LPDIRECT3DTEXTURE9	pTexture,
-				D3DXVECTOR3	&vScale,
-				Rect*	Rect	= NULL	);
-
-	~ModeChangeChar();
-	void	Draw( DrawPacket& i_DrawPacket );
-	void	Update( UpdatePacket& i_UpdatePacket );
-
-	void	setStart(){
-		m_bAllDraw		= false	;
-		m_bAnimeDir		= true	;
-		m_fInterval		= 0.0f	;
-		m_vOffsetPos.x	= 0.0f	;
-		m_pRect->right	= 0		;
-	}
-};
-
-/**************************************************************************
 class StartSprite;
 
 用途　：開始時のスタート文

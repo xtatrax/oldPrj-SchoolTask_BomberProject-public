@@ -42,9 +42,9 @@ extern class EnemyModel ;
 // 用途    : エフェクト
 //**************************************************************************//
 class Warning : public PrimitiveBox{
-	PlayerCoil*			m_pCoil		;
-	PrimitivePlate		m_Plate		;
-	int					m_iPtn		;
+	PlayerCoil*			m_pCoil	;
+	PrimitivePlate		m_Plate;
+	int	m_iPtn;
 	LPDIRECT3DTEXTURE9	m_pTexture	;
 	D3DMATERIAL9		m_Material	;
 	D3DXMATRIX			m_Matrix	;
