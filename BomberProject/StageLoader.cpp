@@ -398,9 +398,9 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 			//	GoalAmbient
 			//);
 			mt->AddMemory(
-				D3DXVECTOR3(20.0f,5.0f,0.0f),
+				D3DXVECTOR3(4.0f,16.0f,0.0f),
 				g_vZero			,
-				D3DXVECTOR3(20.0f,i_Data.vPos.y + 2.0f ,0.0f),
+				D3DXVECTOR3(23.0f,i_Data.vPos.y + 2.0f ,0.0f),
 				MemoryDiffuse		,
 				MemorySpecular	,
 				MemoryAmbient
