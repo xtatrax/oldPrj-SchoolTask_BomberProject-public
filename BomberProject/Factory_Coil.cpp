@@ -481,7 +481,7 @@ void PlayerCoil::Update_StateStart(UpdatePacket& i_UpdatePacket){
 void PlayerCoil::Update_StateMove(UpdatePacket& i_UpdatePacket){
 	//プレイヤー磁界と自機の判定
 	bool bCheckDistance = CheckDistance( m_pPlayer->getPos(), (float)MGPRM_MAGNETICUM_QUAD, true );
-	if( m_pPlayer->getDrawing() && bCheckDistance ){
+	if( m_pPlayer->getDrawing() && bCheckDistance && m_enumCoilStateSuper != COIL_STATE_SUPER_CHANGING){
 		m_fMoveDir = MagneticDecision(m_fMoveDir,m_pPlayer->getPos(),m_pPlayer->getMagnetPole());
 	}
 
