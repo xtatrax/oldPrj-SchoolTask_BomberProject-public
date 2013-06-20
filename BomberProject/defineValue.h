@@ -147,34 +147,35 @@
 const float	CURSOR_FIELD_LENGHT				= 10.0f;
 const float CURSOR_FIELD_TIME				= 2.0f;		
 
-static ULONG				RCVAL_SAVEDATA_IDENTIFIER_H = 0x534E4B42 ;	//	: BKNS
-static ULONG				RCVAL_SAVEDATA_IDENTIFIER_L = 0x5F455641 ;	//	: AVE_
+static ULONG				RCVAL_SAVEDATA_IDENTIFIER_H		= 0x534E4B42 ;	//	: BKNS
+static ULONG				RCVAL_SAVEDATA_IDENTIFIER_L		= 0x5F455641 ;	//	: AVE_
 
-static const char*			RCTEXT_SAVEDATA_EXTENSION	= "bkn"  ;
-static const char*			RCTEXT_SAVEDATA_FILENAME	= "SaveData/Save.bkn"  ;
+static const char*			RCTEXT_SAVEDATA_EXTENSION		= "bkn"  ;
+static const char*			RCTEXT_SAVEDATA_FILENAME		= "SaveData/Save.bkn"  ;
 
-static const wchar_t*		RCTEXT_SOUND_WAVEBANK		= L"media/Sound/MagneticaWave.xwb"  ;
-static const wchar_t*		RCTEXT_SOUND_SOUNDBANK		= L"media/Sound/MagneticaSound.xsb" ;
+static const wchar_t*		RCTEXT_SOUND_WAVEBANK			= L"media/Sound/MagneticaWave.xwb"  ;
+static const wchar_t*		RCTEXT_SOUND_SOUNDBANK			= L"media/Sound/MagneticaSound.xsb" ;
 
-static const char*			RCTEXT_SOUND_BGM_CLEAR		= "BGM-CLEAR"			;
-static const char*			RCTEXT_SOUND_BGM_GAMEOVER	= "BGM-GAME_OVER"		;
-static const char*			RCTEXT_SOUND_BGM_PLAY		= "BGM-PLAY001"			;
-static const char*			RCTEXT_SOUND_BGM_TITLE		= "BGM-TITLE"			;
-static const char*			RCTEXT_SOUND_SE_ALERT		= "SE-ALERT002"			;
-static const char*			RCTEXT_SOUND_SE_BREAKENEMY	= "SE-BLOKEN_ENEMY"		;
-static const char*			RCTEXT_SOUND_SE_CHECKPOINT	= "SE-CHACK_POINT"		;
-static const char*			RCTEXT_SOUND_SE_CLEAR		= "SE-CLEAR"			;
-static const char*			RCTEXT_SOUND_SE_SELECT		= "SE-SELECT"			;
-static const char*			RCTEXT_SOUND_SE_ENTER		= "SE-ENTER"			;
-static const char*			RCTEXT_SOUND_SE_FIRE		= "SE-FIRE"				;
-static const char*			RCTEXT_SOUND_SE_GOAL		= "SE-GOAL"				;
-static const char*			RCTEXT_SOUND_SE_PLAYERBLOKEN= "SE-PLAYER_BLOKEN"	;
-static const char*			RCTEXT_SOUND_SE_INVISIBLE	= "SE-INVINGVLE"		;
-static const char*			RCTEXT_SOUND_SE_ITEMS		= "SE-ITEMS"			;
-static const char*			RCTEXT_SOUND_SE_SETFIELD	= "SE-MAGNETIC_FIELD"	;
-static const char*			RCTEXT_SOUND_SE_SPARK		= "SE-SPARK002"			;
+static const char*			RCTEXT_SOUND_BGM_CLEAR			= "BGM-CLEAR"			;
+static const char*			RCTEXT_SOUND_BGM_GAMEOVER		= "BGM-GAME_OVER"		;
+static const char*			RCTEXT_SOUND_BGM_PLAY			= "BGM-PLAY001"			;
+static const char*			RCTEXT_SOUND_BGM_TITLE			= "BGM-TITLE"			;
+static const char*			RCTEXT_SOUND_SE_ALERT			= "SE-ALERT002"			;
+static const char*			RCTEXT_SOUND_SE_BREAKENEMY		= "SE-BLOKEN_ENEMY"		;
+static const char*			RCTEXT_SOUND_SE_CHECKPOINT		= "SE-CHACK_POINT"		;
+static const char*			RCTEXT_SOUND_SE_CLEAR			= "SE-CLEAR"			;
+static const char*			RCTEXT_SOUND_SE_SELECT			= "SE-SELECT"			;
+static const char*			RCTEXT_SOUND_SE_ENTER			= "SE-ENTER"			;
+static const char*			RCTEXT_SOUND_SE_FIRE			= "SE-FIRE"				;
+static const char*			RCTEXT_SOUND_SE_GOAL			= "SE-GOAL"				;
+static const char*			RCTEXT_SOUND_SE_PLAYERBLOKEN	= "SE-PLAYER_BLOKEN"	;
+static const char*			RCTEXT_SOUND_SE_INVISIBLE		= "SE-INVINGVLE"		;
+static const char*			RCTEXT_SOUND_SE_ITEMS			= "SE-ITEMS"			;
+static const char*			RCTEXT_SOUND_SE_SETFIELD		= "SE-MAGNETIC_FIELD"	;
+static const char*			RCTEXT_SOUND_SE_SPARK			= "SE-SPARK002"			;
+static const char*			RCTEXT_SOUND_SE_SPARK_WARNING	= "SE-SPARK002"			;
 
-static const char*			RCTEXT_MODEL_ENEMY			= "media/Model/mine.x"	;
+static const char*			RCTEXT_MODEL_ENEMY				= "media/Model/mine.x"	;
 
 static const float			MGPRM_INVISIBLESOUND_TIME	= 0.7f	; /* Ž¥ŠE‚Ì‰e‹¿”¼Œa*/
 static const int			MGPRM_MAGNETICUM			= 10	; /* Ž¥ŠE‚Ì‰e‹¿”¼Œa*/

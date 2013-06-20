@@ -136,7 +136,7 @@ void	SelectInformation::Update(UpdatePacket &i_UpdatePacket)
 	}
 	else
 	if( m_pButtonBack && m_pButtonBack->getButtonP()->getMouseSelect() ){
-			m_pTexture	= m_pNomalTex;
+			m_pTexture	= m_pDescTex;	
 	}
 	else{
 		//	: �ʏ펞
