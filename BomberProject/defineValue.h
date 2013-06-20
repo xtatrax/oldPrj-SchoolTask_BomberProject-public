@@ -80,18 +80,17 @@
 //////////
 //	: グローバルな変数
 
-
 //	: デファイン定数
 #define MAP_PARTS_HEIGHT		(    1.0f)	/*  */
 #define MAP_PARTS_WIDTH			(    1.0f)	/*  */
+#define BASE_CLIENT_HEIGHT		(  600.0f)	/* 基準になる描画領域の高さ */
+#define BASE_CLIENT_WIDTH		( 1024.0f)	/* 基準になる描画領域の幅   */
 #if defined(CF_FULLSCREEN)
-#define BASE_CLIENT_HEIGHT		(  600.0f)	/* 基準になる描画領域の高さ */
-#define BASE_CLIENT_WIDTH		( 1024.0f)	/* 基準になる描画領域の幅   */
-#define STANDARD_WINDOW_HEIGHT  (  768.0f)	/* ウインドウモードの高さ   */
-#define STANDARD_WINDOW_WIDTH   ( 1366.0f)	/* ウインドウモードの幅     */
+#define STANDARD_WINDOW_HEIGHT  (  720.0f)	/* ウインドウモードの高さ   */
+#define STANDARD_WINDOW_WIDTH   ( 1280.0f)	/* ウインドウモードの幅     */
+//#define STANDARD_WINDOW_HEIGHT  (  768.0f)	/* ウインドウモードの高さ   */
+//#define STANDARD_WINDOW_WIDTH   ( 1366.0f)	/* ウインドウモードの幅     */
 #else
-#define BASE_CLIENT_HEIGHT		(  600.0f)	/* 基準になる描画領域の高さ */
-#define BASE_CLIENT_WIDTH		( 1024.0f)	/* 基準になる描画領域の幅   */
 #define STANDARD_WINDOW_HEIGHT  (  600.0f)	/* ウインドウモードの高さ   */
 #define STANDARD_WINDOW_WIDTH   ( 1024.0f)	/* ウインドウモードの幅     */
 #endif
@@ -126,22 +125,23 @@
 #define MYVK_GAMEPAD_STICK_LEFT		( 'J' )
 
 
-#define MYVK_DEBUG_STOP_UPDATE		( VK_F12     )
-#define MYVK_DEBUG_SLOW_UPDATE		( VK_F11     )
-#define MYVK_DEBUG_OUTPUT_DBGSTR	( VK_F9      )
-#define MYVK_DEBUG_OUTPUT_MEMORY	( VK_F8      )
-#define MYVK_DEBUG_OBB_DRAW			( VK_F7      )
-#define MYVK_DEBUG_SWITCHING_SOUND	( VK_F6      )
-#define MYVK_DEBUG_COIL_INVISIBLE	( VK_CONTROL )
-#define MYVK_DEBUG_STAGE_RESTART	( VK_RETURN  )
-#define MYVK_DEBUG_STAGE_RELOAD		( VK_MENU    )
-#define MYVK_DEBUG_STAGE_RULER		( 'L'        )
+#define MYVK_DEBUG_STOP_UPDATE				( VK_F12     )
+#define MYVK_DEBUG_SLOW_UPDATE				( VK_F11     )
+#define MYVK_DEBUG_OUTPUT_DBGSTR			( VK_F9      )
+#define MYVK_DEBUG_OUTPUT_MEMORY			( VK_F8      )
+#define MYVK_DEBUG_OBB_DRAW					( VK_F7      )
+#define MYVK_DEBUG_SWITCHING_SOUND			( VK_F6      )
+#define MYVK_DEBUG_COIL_INVISIBLE			( VK_CONTROL )
+#define MYVK_DEBUG_STAGE_RESTART			( VK_RETURN  )
+#define MYVK_DEBUG_STAGE_RESTART_SUBKEY		( VK_SHIFT   )
+#define MYVK_DEBUG_STAGE_RELOAD_SUBKEY		( VK_MENU    )
+#define MYVK_DEBUG_STAGE_RULER				( 'L'        )
 
-#define UI_HEIGHT					( 88.0f )	//	: UIの高さ
-#define DRAW_CLIENT_MAGNIFICATION	( 50.0f )	//	: 表示画面の倍率 x=800, y=512 : x=40, y=25.6
-#define MAGNETIC_RADIUS				( 0.5f )	//	: 磁界の半径
-const float	CURSOR_FIELD_LENGHT			= 10.0f;
-const float CURSOR_FIELD_TIME			= 2.0f;		
+#define UI_HEIGHT							( 88.0f )	//	: UIの高さ
+#define DRAW_CLIENT_MAGNIFICATION			( 50.0f )	//	: 表示画面の倍率 x=800, y=512 : x=40, y=25.6
+#define MAGNETIC_RADIUS						( 0.5f )	//	: 磁界の半径
+const float	CURSOR_FIELD_LENGHT				= 10.0f;
+const float CURSOR_FIELD_TIME				= 2.0f;		
 
 static ULONG				RCVAL_SAVEDATA_IDENTIFIER_H = 0x534E4B42 ;	//	: BKNS
 static ULONG				RCVAL_SAVEDATA_IDENTIFIER_L = 0x5F455641 ;	//	: AVE_
@@ -182,7 +182,7 @@ static const D3DXVECTOR3	g_vMax						= D3DXVECTOR3(+FLT_MAX,+FLT_MAX,+FLT_MAX);
 static const D3DXVECTOR3	g_vMin						= D3DXVECTOR3(-FLT_MAX,-FLT_MAX,-FLT_MAX);
 static const wstring		g_sDefaultTexturePath		= L"media/Textures/" ;	//	: テクスチャの置き場
       //extern HWND			wiz::DxDevice::m_hWnd		;
-
+static const SIZE			g_GaugeReverseSize			= { 146,67 };
 
 
 //
@@ -203,7 +203,8 @@ namespace wiz{
 		GM_OPENSTAGE_PLAY			,	//	: プレイ画面を開く
 		GM_OPENSTAGE_GAMECLEAR		,	//	: クリア画面を開く
 		GM_OPENSTAGE_GAMEOVER		,	//	: ゲームオーバー画面を開く
-		GM_OPENSTAGE_RESULT			,	//	: 結果画面を開く
+		GM_OPENSTAGE_CLEAR			,	//	: クリア画面を開く
+		GM_OPENSTAGE_RESULT			,	//	: リザルト画面を開く
 		GM_OPENSTAGE_RANKING		,	//	: ランキング画面を開く
 		GM_OPENSTAGE_OPTION			,	//	: オプション画面を開く
 		GM_EXIT						,	//	: ゲームを終了する
@@ -266,7 +267,6 @@ namespace wiz{
 		OBJID_SYS_CURSOR			,	//	: カーソル
 		OBJID_SYS_SOUND				,	//	: 音声
 		OBJID_SYS_CHECKPOINT		,	//	: チェックポイント
-		OBJID_SYS_CHECKPOINT_CHAR	,	//	: チェックポイント
 		OBJID_SYS_CLEARAREA			,	//	: クリア領域
 		OBJID_SYS_RENDERTARGET		,	//	: レンダーターゲット
 		OBJID_SYS_END				,	
@@ -277,30 +277,32 @@ namespace wiz{
 
 		//	:サウンドまわり
 		//	:BGM
-		OBJID_SOUND_BGM_TITLE		,
-		OBJID_SOUND_BGM_PLAY		,
-		OBJID_SOUND_BGM_CLEAR		,
-		OBJID_SOUND_BGM_GAME_OVER	,
+		//OBJID_SOUND_BGM_TITLE			,
+		//OBJID_SOUND_BGM_PLAY			,
+		//OBJID_SOUND_BGM_CLEAR			,
+		//OBJID_SOUND_BGM_GAME_OVER		,
 
 		//	:効果音
-		OBJID_SOUND_SE_ALERT		,
-		OBJID_SOUND_SE_BLOKEN_ENEMY	,
-		OBJID_SOUND_SE_CHACK_POINT	,
-		OBJID_SOUND_SE_CLEAR		,
-		OBJID_SOUND_SE_ENTER		,
-		OBJID_SOUND_SE_FIRE			,
-		OBJID_SOUND_SE_GOAL			,
-		OBJID_SOUND_SE_PLAYER_BLOKEN,
-		OBJID_SOUND_SE_INVINGVLE	,
-		OBJID_SOUND_SE_ITEMS		,
-		OBJID_SOUND_SE_MAGNETIC_FIELD,
-		OBJID_SOUND_SE_SPARK		,
+		//OBJID_SOUND_SE_ALERT			,
+		//OBJID_SOUND_SE_BLOKEN_ENEMY		,
+		//OBJID_SOUND_SE_CHACK_POINT		,
+		//OBJID_SOUND_SE_CLEAR			,
+		//OBJID_SOUND_SE_ENTER			,
+		//OBJID_SOUND_SE_FIRE				,
+		//OBJID_SOUND_SE_GOAL				,
+		//OBJID_SOUND_SE_PLAYER_BLOKEN	,
+		//OBJID_SOUND_SE_INVINGVLE		,
+		//OBJID_SOUND_SE_ITEMS			,
+		//OBJID_SOUND_SE_MAGNETIC_FIELD	,
+		//OBJID_SOUND_SE_SPARK			,
 
 
 		//	: UI周り
 		OBJID_UI_BEGIN				= 0x2000,
 		OBJID_UI_SPRITE				,	//	: UIに使うスプライト
 		OBJID_UI_SPRITEBUTTON		,	//	: スプライトボタンのUI
+		OBJID_UI_SELECTINFORMATION	,	//	: セレクト画面の情報ウインドウ
+		OBJID_UI_CHECKPOINT_CHAR	,	//	: チェックポイント
 		OBJID_UI_LIFE				,	//	: ライフ( 念のため )
 		OBJID_UI_SUPERGAUGE			,	//	: ゲージ
 		OBJID_UI_MAGNETGAUGE_N		,	//	: N極ゲージ

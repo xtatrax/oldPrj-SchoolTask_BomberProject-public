@@ -42,7 +42,8 @@ extern class EnemyModel ;
 // ópìr    : ÉGÉtÉFÉNÉg
 //**************************************************************************//
 class Warning : public PrimitiveBox{
-	PrimitivePlate m_Plate;
+	PlayerCoil*			m_pCoil	;
+	PrimitivePlate		m_Plate;
 	int	m_iPtn;
 	LPDIRECT3DTEXTURE9	m_pTexture	;
 	D3DMATERIAL9		m_Material	;
@@ -51,6 +52,7 @@ class Warning : public PrimitiveBox{
 	D3DXVECTOR3			m_vRot		;	//	: âÒì]
 	D3DXVECTOR3			m_vScale	;	//	: êLèk
 	bool				m_bToDraw	;
+	int					m_iDrawTime ;
 public:
 	/////////////////// ////////////////////
 	//// ópìr       ÅFWarning(	LPDIRECT3DDEVICE9 pD3DDevice,LPDIRECT3DTEXTURE9 pTexture,wiz::OBJID id = OBJID_3D_WALL);
@@ -126,6 +128,7 @@ public:
 	bool getToDraw(){
 		return m_bToDraw;
 	}
+
 };
 
 
@@ -178,14 +181,14 @@ class WallObject : public PrimitiveBox{
 			m_Obb = OBB( vOBBScale, vOBBRot, vPos ) ;
 			m_Obb_W = OBB( vOBBScale_W, vOBBRot, vPos ) ;
 			m_fRotZ = vRot.z;
-			D3DXMATRIX mScalse, mRot, mPos;
-			D3DXMatrixIdentity(&mScalse);
+			D3DXMATRIX mScale, mRot, mPos;
+			D3DXMatrixIdentity(&mScale);
 			D3DXMatrixIdentity(&mRot);
 			D3DXMatrixIdentity(&mPos);
-			D3DXMatrixScaling(&mScalse,vScale.x,vScale.y,vScale.z);
+			D3DXMatrixScaling(&mScale,vScale.x,vScale.y,vScale.z);
 			D3DXMatrixRotationZ(&mRot,vOBBRot.z);
 			D3DXMatrixTranslation(&mPos, vPos.x,vPos.y,vPos.z);
-			m_Matrix = mScalse * mRot * mPos ;
+			m_Matrix = mScale * mRot * mPos ;
 			m_Material.Ambient = Ambient ;
 			m_Material.Diffuse = Diffuse ;
 			m_Material.Specular = Specular ;

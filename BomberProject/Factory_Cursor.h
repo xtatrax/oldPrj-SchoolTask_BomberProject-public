@@ -22,6 +22,13 @@
 namespace wiz{
 namespace bomberobject{
 
+enum MOUSE_POSITION{
+	RIGTH	,
+	LEFT	,
+};
+
+
+	class PlayerCoil;
 
 //**************************************************************************//
 // class MouseCursor : public PrimitiveBox
@@ -32,18 +39,20 @@ namespace bomberobject{
 //**************************************************************************//
 class MouseCursor : public Box , public  PrimitiveSprite{
 
-	int					m_Ptn		;
-	float				m_MovePosY	;
-	Camera*				m_pCamera	;
-	D3DXMATRIX			m_mScale	;
-	D3DXVECTOR3			m_v3DPos	;
-	D3DXVECTOR3			m_vScale	;
-	Point				m_v2DPos	;
-	Line*				m_pLine		;
-	Line*				m_pLine2	;
-	Torus*				m_pTorus	;
-	SpriteObject*		m_pSelectPos;
+	int					m_Ptn			;
+	float				m_MovePosY		;
+	Camera*				m_pCamera		;
+	PlayerCoil*			m_pCoil			;
+	D3DXMATRIX			m_mScale		;
+	D3DXVECTOR3			m_v3DPos		;
+	D3DXVECTOR3			m_vScale		;
+	Point				m_v2DPos		;
+	Line*				m_pLine			;
+	Line*				m_pLine2		;
+	Torus*				m_pTorus		;
+	SpriteObject*		m_pSelectPos	;
 	float				m_fTorusMagnification;
+	bool				m_bIsReverse	;
 //protected:
 
 public:
@@ -101,6 +110,7 @@ public:
 	void Update( UpdatePacket& i_UpdatePacket );
 	Point		get2DPos(){ return m_v2DPos ; };
 	D3DXVECTOR3	get3DPos(){ return m_v3DPos ; };
+	bool		getReverse(){ return m_bIsReverse ; }; 
 
 protected:
 

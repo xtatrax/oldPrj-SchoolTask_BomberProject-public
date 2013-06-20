@@ -36,7 +36,7 @@ namespace wiz{
 void Stage::Clear(){
 	//SafeDelete(m_pChildStage);
 	SafeDelete(m_pParStage);
-	SafeDelete(m_pSound);
+	SafeDelete(m_pMySound);
 	SafeDeletePointerContainer(m_Vec);
 	m_ButtonVec.clear();
 	m_TexMgr.Release();
@@ -53,7 +53,7 @@ Stage::Stage(Stage* Par)
 :m_pParStage(Par),m_pChildStage(0),m_IsDialog(true)
 ,m_bUpdate( true )
 ,m_SelectIndex(0),m_SelectLock(true),m_IsAnimetion(false)
-,m_pSound( NULL )
+,m_pMySound( NULL ),m_pSound( NULL )
 #if defined(DEBUG) | defined(_DEBUG) | defined(ON_DEBUGGINGPROCESS)
 ,m_bSlow(false)
 #endif
@@ -178,13 +178,20 @@ void Stage::Update(UpdatePacket& i_UpdatePacket)
 
 	//	: 自分にSoundが登録されているかを確認
 	//if( !m_pSound )	m_pSound = (Sound*)SearchObjectFromID( &this->m_Vec,OBJID_SYS_SOUND );
-	////	: 自分にSoundの登録が見当たらなかった
-	////	: なおかつ
-	////	: 親ステージが存在する場合
-	//if( !m_pSound && m_pParStage && m_pParStage->m_pSound ){
-	//	m_pSound = m_pParStage->m_pSound ;
-	//	this->m_Vec.push_back(m_pSound);
-	//}
+	if( !m_pSound ){
+		//	: 使えるサウンドの登録がない
+		if( m_pMySound ){
+			//	: 自分のサウンドを持っている
+			m_pSound = m_pMySound ;
+			//	: 自分のサウンドを登録
+		}else{
+			//	: 自分のサウンドもない
+			if( m_pParStage && m_pParStage->m_pSound ){
+				//	: 親がサウンドを持っている
+				m_pSound = m_pParStage->m_pSound ;
+			}
+		}
+	}
 	i_UpdatePacket.pVec		= &m_Vec ;
 	//i_UpdatePacket.m_pStage	= this ;
 	i_UpdatePacket.SetStage( this );

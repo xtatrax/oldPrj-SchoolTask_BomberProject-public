@@ -56,13 +56,14 @@ Reply::Reply(const LPDIRECT3DDEVICE9 pD3DDevice,const  LPDIRECT3DTEXTURE9 pTextu
 		const D3DXVECTOR3 &vScale,const D3DXVECTOR3 &vRot,const D3DXVECTOR3 &vPos,
 		const RECT *pRect,const  D3DXVECTOR3 &vCenter,const  D3DXVECTOR3 &vOffsetPos,const  Color color)
 :SpriteObject( pD3DDevice, pTexture, vScale, vRot, vPos, pRect, vCenter, vOffsetPos, color )
-,m_vPos( vPos )
-,m_bMark( mark )
-,m_bPushRock( false )
-,m_bWhichDraw( false )
-,m_iTime( 0 )
-,m_bPush( false )
-,m_bSelect( false )
+,m_vPos(		vPos	)
+,m_bMark(		mark	)
+,m_bPushRock(	false	)
+,m_bWhichDraw(	false	)
+,m_iTime(		0		)
+,m_bPush(		false	)
+,m_bSelect(		false	)
+,m_pCoil(		NULL	)
 {
 	try{
 		//	: 初期マトリックスを計算
@@ -80,6 +81,9 @@ Reply::Reply(const LPDIRECT3DDEVICE9 pD3DDevice,const  LPDIRECT3DTEXTURE9 pTextu
 	}
 };
 
+Reply::~Reply(){
+	m_pCoil		= NULL;
+}
 /////////////////// ////////////////////
 //// 関数名     ：void Reply::Draw( DrawPacket& i_DrawPacket)
 //// カテゴリ   ：関数
@@ -108,11 +112,16 @@ void Reply::Draw(DrawPacket& i_DrawPacket)
 ////
 void Reply::Update(UpdatePacket& i_UpdatePacket)
 {
+	if( !m_pCoil )		m_pCoil		= (PlayerCoil*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_3D_COIL);
 	if( Cursor2D::isHitSprite( this ) ){
 		if( Cursor2D::getLButtonState()/* || Cursor2D::getRButtonState()*/ ){
 			if( m_bPushRock ){
-				if( m_bMark )
-					i_UpdatePacket.pCommand->m_Command	= GM_OPENSTAGE_TITLE;
+				if( m_bMark ){
+					i_UpdatePacket.pCommand->m_Command	= GM_OPENSTAGE_RESULT;
+					i_UpdatePacket.pCommand->m_Param1	= m_pCoil->getDeadCount();
+					i_UpdatePacket.pCommand->m_Param2	= m_pCoil->getMaxPos();
+					i_UpdatePacket.pCommand->m_Param3	= m_pCoil->getScratchTime();
+				}
 				else{
 					m_bWhichDraw	= true;
 				}
@@ -133,7 +142,7 @@ void Reply::Update(UpdatePacket& i_UpdatePacket)
 	else{
 		//	: マウスが画像の範囲外にいるとき
 		m_Color	= 0xA0FFFFFF;
-
+		m_bSelect = false;
 		if( Cursor2D::getLButtonState() )	m_bPushRock	= false;
 		else				m_bPushRock	= true;
 	}
@@ -194,11 +203,11 @@ Dead::Dead(	const LPDIRECT3DDEVICE9 pD3DDevice,const  LPDIRECT3DTEXTURE9 pTextur
 		int		iCount	= iDeadCount+1;
 
 		D3DXVECTOR3	vScoreScale		= D3DXVECTOR3( 1.0f, 1.0f, 0.0f );
-		D3DXVECTOR3	vScorePos		= D3DXVECTOR3( wide+80*vScoreScale.x, height-32.0f*vScoreScale.y+65.0f, 0.0f );
+		D3DXVECTOR3	vScorePos		= D3DXVECTOR3( wide+40.0f*vScoreScale.x, height-32.0f*vScoreScale.y+65.0f, 0.0f );
 		D3DXVECTOR3	vCountCharScale	= D3DXVECTOR3( 0.6f, 2.0f, 0.0f );
-		D3DXVECTOR3	vCountCharPos	= D3DXVECTOR3( wide-256, height, 0.0f );
+		D3DXVECTOR3	vCountCharPos	= D3DXVECTOR3( wide-256-40, height, 0.0f );
 
-		m_pDeadScore			= new Score( pD3DDevice, pDeadCountTex, vScoreScale, vScorePos, 4, iCount, &Rect( 0, 0, 512, 64 ) );
+		m_pDeadScore			= new Score( pD3DDevice, pDeadCountTex, vScoreScale, vScorePos, iCount, &Rect( 0, 0, 512, 64 ) );
 		m_pDeadCountChar		= new SpriteObject( pD3DDevice, pCountCharTex, vCountCharScale, g_vZero, vCountCharPos, NULL, g_vZero,g_vZero );
 
 	}
@@ -420,7 +429,7 @@ void Continue::Update(UpdatePacket& i_UpdatePacket)
 		else{
 			//	: マウスが画像の範囲外にいるとき
 			m_Color	= 0xA0FFFFFF;
-
+			m_bSelect = false;
 			if( Cursor2D::getLButtonState() )	m_bPushRock	= false;
 			else				m_bPushRock	= true;
 		}
