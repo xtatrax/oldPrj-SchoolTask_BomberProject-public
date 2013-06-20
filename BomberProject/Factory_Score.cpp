@@ -458,7 +458,7 @@ ResultScore::ResultScore(LPDIRECT3DDEVICE9	pD3DDevice,
 	D3DXVECTOR3	vScoreSize	= vScale;
 	Rect		rScoreRect	= Rect( 0, 0, 512, 64 );
 
-	int TotalScore	= (iMaxPos+iScratch-iDead)*10;
+	int TotalScore	= (iMaxPos*10)+iScratch-(iDead*100);
 
 	m_pMaxPos	= new AnimationScore( pD3DDevice, m_pMaxPosTex, vScoreSize,
 						D3DXVECTOR3( wide+100.0f, height-120.0f, 0.0f ), iMaxPos, &rScoreRect);

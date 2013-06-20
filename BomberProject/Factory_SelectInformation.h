@@ -19,10 +19,18 @@ namespace wiz{
 namespace bomberobject{
 
 class SelectInformation : public SpriteObject{
+	LPDIRECT3DTEXTURE9	m_pTex			;
+	LPDIRECT3DTEXTURE9	m_pNomalTex		;
+	LPDIRECT3DTEXTURE9	m_pHardTex		;
+	LPDIRECT3DTEXTURE9	m_pExtraTex		;
+	int					m_iPtn			;
 public:
 	SelectInformation(
 		const LPDIRECT3DDEVICE9		pD3DDevice	,
 		const LPDIRECT3DTEXTURE9	pTexture	,
+		const LPDIRECT3DTEXTURE9	pNomalTex	,
+		const LPDIRECT3DTEXTURE9	pHardTexture	,
+		const LPDIRECT3DTEXTURE9	pExtraTexture	,
 		const D3DXVECTOR3&			vScale		,
 		const D3DXVECTOR3&			vRot		,
 		const D3DXVECTOR3&			vPos		,
@@ -32,6 +40,18 @@ public:
 		const Color					color		,
 		const wiz::OBJID			id			= OBJID_UI_SELECTINFORMATION
 	);
+
+	~SelectInformation();
+
+	void	Draw(DrawPacket& i_DrawPacket);
+	void	Update(UpdatePacket& i_UpdatePacket);
+
+	void	setPtn( int i ){
+		m_iPtn	= i;
+	}
+	int		getPtn(){
+		return	m_iPtn;
+	}
 };
 
 

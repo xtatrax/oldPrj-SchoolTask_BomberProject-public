@@ -13,6 +13,7 @@
 #include "Factory_Select.h"
 #include "Factory_Cursor.h"
 #include "Factory_CustomButtonA.h"
+#include "Factory_SelectInformation.h"
 
 namespace wiz{
 namespace bomberobject{
@@ -60,6 +61,25 @@ Factory_Select::Factory_Select(FactoryPacket* fpac ){
 	try{
 
 /////////////////////////////////////////////////////////////////////////////////
+//                           説明用のテクスチャ                          //
+/////////////////////////////////////////////////////////////////////////////////
+		fpac->m_pVec->push_back(
+			new SelectInformation(
+					fpac->pD3DDevice,						//↓マウスがここの上にあるとき表示する画像
+					fpac->AddTexture(L"Select_blue.png"),	//枠外
+					fpac->AddTexture(L"Select_Green.png"),	//NORMAL
+					fpac->AddTexture(L"Select_Orenge.png"),	//HARD
+					fpac->AddTexture(L"Select_Pink.png"),	//EXTRA
+					D3DXVECTOR3( 1.0f, 1.0f, 0.0f ),
+					g_vZero,
+					D3DXVECTOR3( 50.0f, 50.0f, 0.0f ),
+					Rect( 0, 0, 512, 512 ),
+					g_vZero,
+					g_vZero,
+					0xFFFFFFFF
+			)
+		);
+/////////////////////////////////////////////////////////////////////////////////
 //                                 NORMAL                                      //
 /////////////////////////////////////////////////////////////////////////////////
 		fpac->AddButton(
@@ -69,7 +89,7 @@ Factory_Select::Factory_Select(FactoryPacket* fpac ){
 				fpac->AddTexture(L"NORMAL001.tga"),
 				g_vOne,
 				g_vZero,
-				D3DXVECTOR3(404.5f, 150.0f, 0.0f),
+				D3DXVECTOR3(704.5f, 150.0f, 0.0f),
 				Rect(0,0,215,26),
 				Rect(0,0,215,26),
 				g_vZero,
@@ -82,7 +102,8 @@ Factory_Select::Factory_Select(FactoryPacket* fpac ){
 				RCTEXT_SOUND_SE_ENTER,
 				1.0f,
 				Command( GM_OPENSTAGE_LOAD_PLAY, 3, 0 ),
-				0
+				0,
+				1
 			)
 		);
 /////////////////////////////////////////////////////////////////////////////////
@@ -95,7 +116,7 @@ Factory_Select::Factory_Select(FactoryPacket* fpac ){
 				fpac->AddTexture(L"HARD001.tga"),
 				g_vOne,
 				g_vZero,
-				D3DXVECTOR3(440.0f, 300.0f, 0.0f),
+				D3DXVECTOR3(740.0f, 300.0f, 0.0f),
 				Rect(0,0,144,26),
 				Rect(0,0,144,26),
 				g_vZero,
@@ -108,7 +129,8 @@ Factory_Select::Factory_Select(FactoryPacket* fpac ){
 				RCTEXT_SOUND_SE_ENTER,
 				1.0f,
 				Command( GM_OPENSTAGE_LOAD_PLAY, 4, 0 ),
-				1
+				1,
+				2
 			)
 		);
 /////////////////////////////////////////////////////////////////////////////////
@@ -121,7 +143,7 @@ Factory_Select::Factory_Select(FactoryPacket* fpac ){
 				fpac->AddTexture(L"EXTRA001.tga"),
 				g_vOne,
 				g_vZero,
-				D3DXVECTOR3(422.5f, 450.0f, 0.0f),
+				D3DXVECTOR3(722.5f, 450.0f, 0.0f),
 				Rect(0,0,179,26),
 				Rect(0,0,179,26),
 				g_vZero,
@@ -134,7 +156,8 @@ Factory_Select::Factory_Select(FactoryPacket* fpac ){
 				RCTEXT_SOUND_SE_ENTER,
 				1.0f,
 				Command( GM_OPENSTAGE_LOAD_PLAY, 5, 0 ),
-				2
+				2,
+				3
 			)
 		);
 		float	fLineLength	= 550.0f;

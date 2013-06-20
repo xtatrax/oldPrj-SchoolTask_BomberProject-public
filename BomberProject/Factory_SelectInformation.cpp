@@ -29,6 +29,9 @@ namespace bomberobject{
 SelectInformation::SelectInformation(
 	const LPDIRECT3DDEVICE9		pD3DDevice	,
 	const LPDIRECT3DTEXTURE9	pTexture	,
+	const LPDIRECT3DTEXTURE9	pNomalTex	,
+	const LPDIRECT3DTEXTURE9	pHardTexture	,
+	const LPDIRECT3DTEXTURE9	pExtraTexture	,
 	const D3DXVECTOR3&			vScale		,
 	const D3DXVECTOR3&			vRot		,
 	const D3DXVECTOR3&			vPos		,
@@ -39,8 +42,50 @@ SelectInformation::SelectInformation(
 	const wiz::OBJID			id
 )
 :SpriteObject( pD3DDevice, pTexture, vScale, vRot, vPos, pRect, vCenter, vOffsetPos, color, id)
+,m_pTex(		pTexture		)
+,m_pNomalTex(	pNomalTex		)
+,m_pHardTex(	pHardTexture	)
+,m_pExtraTex(	pExtraTexture	)
+,m_iPtn(		0				)
+{	
+}
+
+/**********************************************************
+デストラクタ
+**********************************************************/
+SelectInformation::~SelectInformation()
 {
-	
+}
+
+/**********************************************************
+描画
+**********************************************************/
+void	SelectInformation::Draw(DrawPacket &i_DrawPacket)
+{
+	SpriteObject::Draw( i_DrawPacket );
+}
+
+/**********************************************************
+更新
+**********************************************************/
+void	SelectInformation::Update(UpdatePacket &i_UpdatePacket)
+{
+	switch( m_iPtn ){
+		case	0:
+			m_pTexture	= m_pTex;
+			break;
+		case	1:
+			m_pTexture	= m_pNomalTex;
+			break;
+		case	2:
+			m_pTexture	= m_pHardTex;
+			break;
+		case	3:
+			m_pTexture	= m_pExtraTex;
+			break;
+		default:
+			break;
+	}
 }
 /**************************************************************************
  Factory_SelectInformation 定義部
