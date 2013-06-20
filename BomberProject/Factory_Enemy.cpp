@@ -288,7 +288,9 @@ void EnemyModel::AddEnemy(
 		const D3DXVECTOR3&		vPos		,
 		const D3DCOLORVALUE&	Diffuse		,
 		const D3DCOLORVALUE&	Specular	,
-		const D3DCOLORVALUE&	Ambient
+		const D3DCOLORVALUE&	Ambient		,
+		const POLE				Pole
+
 	)
 {
 
@@ -304,7 +306,7 @@ void EnemyModel::AddEnemy(
 	//‰ñ“]‚Ì‰Šú‰»
 	//D3DXQuaternionRotationYawPitchRoll(&pItem->m_vRot,D3DXToRadian(vRot.y),D3DXToRadian(vRot.x),D3DXToRadian(vRot.z));
 	int	i	= rand()%10;
-	if( i < 5 ){
+	if( Pole == POLE_N ){
 		pItem->m_bPole	= POLE_N;
 		pItem->m_Material.Ambient.a = 1.0f ; pItem->m_Material.Ambient.b = 0.0f ; pItem->m_Material.Ambient.g = 0.0f ; pItem->m_Material.Ambient.r = 1.0f ;
 		pItem->m_Material.Specular.a = 0.0f ; pItem->m_Material.Specular.b = 0.0f ; pItem->m_Material.Specular.g = 0.0f ; pItem->m_Material.Specular.r = 0.0f ;
