@@ -562,10 +562,10 @@ Factory_Score::Factory_Score(FactoryPacket *fpac){
 			)
 		);
 
-		//NowPos
+		//NOW RANGE
 		fpac->m_pVec->push_back(
 			new SpriteObject( fpac->pD3DDevice,
-					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"MAX_RANGE1.png" ),
+					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"NOW_RANGE1.png" ),
 					D3DXVECTOR3( 0.5f, 0.5f, 0.0f ),
 					g_vZero,
 					D3DXVECTOR3( 750.0f, 520.0f, 0.0f ),					
@@ -575,13 +575,13 @@ Factory_Score::Factory_Score(FactoryPacket *fpac){
 			)
 		);
 
-		//ScratchPoint
+		//SCRATCH TIME
 		fpac->m_pVec->push_back(
 			new SpriteObject( fpac->pD3DDevice,
-					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"ScratchPoint.png" ),
-					D3DXVECTOR3( 0.5f, 0.5f, 0.0f ),
+					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"SCRATCH_TIME2.png" ),
+					D3DXVECTOR3( 0.5f, 0.65f, 0.0f ),
 					g_vZero,
-					D3DXVECTOR3( 10.0f, 500.0f, 0.0f ),					
+					D3DXVECTOR3( 10.0f, 516.0f, 0.0f ),					
 					&Rect( 0, 0, 512, 64 ),
 					g_vZero,
 					g_vZero
