@@ -52,12 +52,9 @@ class Warning : public PrimitiveBox{
 	D3DXVECTOR3			m_vRot		;	//	: âÒì]
 	D3DXVECTOR3			m_vScale	;	//	: êLèk
 	bool				m_bToDraw	;
-<<<<<<< HEAD
-	int					m_iDrawTime ;
-=======
 	bool				m_bIsPlaySound	;
 	float				m_fDrawTime ;
->>>>>>> workspace
+
 public:
 	/////////////////// ////////////////////
 	//// ópìr       ÅFWarning(	LPDIRECT3DDEVICE9 pD3DDevice,LPDIRECT3DTEXTURE9 pTexture,wiz::OBJID id = OBJID_3D_WALL);
