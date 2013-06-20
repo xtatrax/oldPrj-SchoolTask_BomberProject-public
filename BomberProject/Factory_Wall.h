@@ -54,7 +54,6 @@ class Warning : public PrimitiveBox{
 	bool				m_bToDraw	;
 	bool				m_bIsPlaySound	;
 	float				m_fDrawTime ;
-
 public:
 	/////////////////// ////////////////////
 	//// ópìr       ÅFWarning(	LPDIRECT3DDEVICE9 pD3DDevice,LPDIRECT3DTEXTURE9 pTexture,wiz::OBJID id = OBJID_3D_WALL);

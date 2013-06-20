@@ -19,6 +19,93 @@ namespace wiz{
 namespace bomberobject{
 
 /**************************************************************************
+ ModeChangeChar 定義部
+**************************************************************************/
+/**************************************************************************
+ ModeChangeChar(LPDIRECT3DDEVICE9	pD3DDevice,
+				LPDIRECT3DTEXTURE9	pTexture,
+				D3DXVECTOR3	vScale,
+				D3DXVECTOR3	vPos,
+				Rect		rect,
+				D3DXVECTOR3	vCenter)
+ 用途　：コンストラクタ
+ 戻り値：なし
+ 担当者：佐藤涼
+***************************************************************************/
+ModeChangeChar::ModeChangeChar(LPDIRECT3DDEVICE9	pD3DDevice,
+				LPDIRECT3DTEXTURE9	pTexture,
+				D3DXVECTOR3	&vScale,
+				Rect*		Rect		)
+:SpriteObject( pD3DDevice, pTexture, vScale, g_vZero, g_vZero, Rect, g_vZero, g_vZero, 0xFFFFFFFF, OBJID_UI_SPRITE )
+,m_bAllDraw( false )
+,m_bAnimeDir( true )
+,m_fInterval( 0 )
+,m_BaseRect( Rect )
+{
+}
+
+/**************************************************************************
+ ~ModeChangeChar()
+ 用途　：デストラクタ
+ 戻り値：なし
+ 担当者：佐藤涼
+***************************************************************************/
+ModeChangeChar::~ModeChangeChar()
+{
+}
+
+/**************************************************************************
+ 関数名：Draw( DrawPacket& i_DrawPacket )
+ 用途　：描画
+ 引数　：DrawPacket& i_DrawPacket
+ 戻り値：なし
+ 担当者：佐藤涼
+***************************************************************************/
+void	ModeChangeChar::Draw( DrawPacket& i_DrawPacket )
+{
+	SpriteObject::Draw( i_DrawPacket );
+}
+
+/**************************************************************************
+ 関数名：Update( UpdatePacket& i_UpdatePacket )
+ 用途　：更新
+ 引数　：UpdatePacket& i_UpdatePacket
+ 戻り値：なし
+ 担当者：佐藤涼
+***************************************************************************/
+void	ModeChangeChar::Update( UpdatePacket& i_UpdatePacket )
+{
+	const	int		iTransRect	= 30;		//一度に変化させるRECTの値
+	const	float	fMovePos	= 15.0f;	//RECTの描画に合わせた変化させる座標の値
+	const	float	fStopTime	= 0.5f;		//画像が全描画になった時、止めておく時間（秒）
+
+	if( !m_bAllDraw ){
+		if( m_bAnimeDir ){
+			m_pRect->right	+= iTransRect;
+			m_vOffsetPos.x	-= fMovePos;
+		}
+		else
+			m_pRect->right	-= iTransRect;
+	}
+	else{
+		m_fInterval += i_UpdatePacket.pTime->getElapsedTime();
+		if( m_fInterval >= fStopTime ){
+			m_bAllDraw	= false;
+			m_bAnimeDir	= false;
+		}
+	}
+
+	if( (m_pRect->right >= m_BaseRect.right) && m_bAnimeDir ){
+		m_pRect->right	= m_BaseRect.right;
+		m_bAllDraw	= true;
+	}
+
+	if( m_pRect->right <= m_BaseRect.left )
+		m_pRect->right	= m_BaseRect.left;
+
+}
+
+/**************************************************************************
  StartSprite 定義部
 **************************************************************************/
 /**************************************************************************
