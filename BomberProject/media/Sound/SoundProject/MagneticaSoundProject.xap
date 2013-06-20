@@ -16,8 +16,8 @@ Global Settings
     Header File = MagneticaSoundProject.h;
     Exclude Category Names = 0;
     Exclude Variable Names = 0;
-    Last Modified Low = 30305706;
-    Last Modified High = 3074593601;
+    Last Modified Low = 548786202;
+    Last Modified High = 30305720;
 
     Category
     {
@@ -239,31 +239,8 @@ Wave Bank
     Entry Names = 1;
     Seek Tables = 1;
     Compression Preset Name = Compression Preset;
-    Bank Last Revised Low = 2156213055;
-    Bank Last Revised High = 30305717;
-
-    Wave
-    {
-        Name = SE-ENTER;
-        File = GameSounds\SE-ENTER.wav;
-        Build Settings Last Modified Low = 3136042970;
-        Build Settings Last Modified High = 30305339;
-
-        Cache
-        {
-            Format Tag = 0;
-            Channels = 2;
-            Sampling Rate = 44100;
-            Bits Per Sample = 1;
-            Play Region Offset = 44;
-            Play Region Length = 354688;
-            Loop Region Offset = 0;
-            Loop Region Length = 0;
-            File Type = 1;
-            Last Modified Low = 2449588036;
-            Last Modified High = 30305652;
-        }
-    }
+    Bank Last Revised Low = 264148284;
+    Bank Last Revised High = 30305721;
 
     Wave
     {
@@ -697,8 +674,31 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 1931171304;
-            Last Modified High = 30305698;
+            Last Modified Low = 950552285;
+            Last Modified High = 30305712;
+        }
+    }
+
+    Wave
+    {
+        Name = SE-ENTER;
+        File = GameSounds_Origin\SE-ENTER.wav;
+        Build Settings Last Modified Low = 4177173734;
+        Build Settings Last Modified High = 30305720;
+
+        Cache
+        {
+            Format Tag = 0;
+            Channels = 2;
+            Sampling Rate = 44100;
+            Bits Per Sample = 1;
+            Play Region Offset = 4096;
+            Play Region Length = 354688;
+            Loop Region Offset = 0;
+            Loop Region Length = 0;
+            File Type = 1;
+            Last Modified Low = 2450992039;
+            Last Modified High = 30305652;
         }
     }
 }
@@ -710,13 +710,11 @@ Sound Bank
     Windows File = ..\MagneticaSound.xsb;
     Xbox Bank Path Edited = 0;
     Windows Bank Path Edited = 1;
-    Header Last Modified High = 0;
-    Header Last Modified Low = 0;
 
     Sound
     {
         Name = SE-BLOKEN_ENEMY;
-        Volume = -1200;
+        Volume = -160;
         Pitch = 0;
         Priority = 0;
 
@@ -752,7 +750,7 @@ Sound Bank
                     Bank Name = MagneticaWave;
                     Bank Index = 0;
                     Entry Name = SE-BLOKEN_ENEMY;
-                    Entry Index = 15;
+                    Entry Index = 14;
                     Weight = 255;
                     Weight Min = 0;
                 }
@@ -799,7 +797,7 @@ Sound Bank
                     Bank Name = MagneticaWave;
                     Bank Index = 0;
                     Entry Name = SE-CHACK_POINT;
-                    Entry Index = 16;
+                    Entry Index = 15;
                     Weight = 255;
                     Weight Min = 0;
                 }
@@ -846,7 +844,7 @@ Sound Bank
                     Bank Name = MagneticaWave;
                     Bank Index = 0;
                     Entry Name = SE-CLEAR;
-                    Entry Index = 17;
+                    Entry Index = 16;
                     Weight = 255;
                     Weight Min = 0;
                 }
@@ -894,7 +892,7 @@ Sound Bank
                     Bank Name = MagneticaWave;
                     Bank Index = 0;
                     Entry Name = SE-INVINGVLE;
-                    Entry Index = 3;
+                    Entry Index = 2;
                     Weight = 255;
                     Weight Min = 0;
                 }
@@ -941,7 +939,7 @@ Sound Bank
                     Bank Name = MagneticaWave;
                     Bank Index = 0;
                     Entry Name = SE-ITEM_FULL;
-                    Entry Index = 4;
+                    Entry Index = 3;
                     Weight = 255;
                     Weight Min = 0;
                 }
@@ -952,7 +950,7 @@ Sound Bank
     Sound
     {
         Name = SE-ITEMS;
-        Volume = -1200;
+        Volume = -1910;
         Pitch = 0;
         Priority = 0;
 
@@ -988,7 +986,7 @@ Sound Bank
                     Bank Name = MagneticaWave;
                     Bank Index = 0;
                     Entry Name = SE-ITEMS;
-                    Entry Index = 5;
+                    Entry Index = 4;
                     Weight = 255;
                     Weight Min = 0;
                 }
@@ -999,7 +997,7 @@ Sound Bank
     Sound
     {
         Name = SE-MAGNETIC_FIELD;
-        Volume = -240;
+        Volume = 30;
         Pitch = 0;
         Priority = 0;
 
@@ -1036,7 +1034,7 @@ Sound Bank
                     Bank Name = MagneticaWave;
                     Bank Index = 0;
                     Entry Name = SE-MAGNETIC_FIELD;
-                    Entry Index = 6;
+                    Entry Index = 5;
                     Weight = 255;
                     Weight Min = 0;
                 }
@@ -1083,7 +1081,7 @@ Sound Bank
                     Bank Name = MagneticaWave;
                     Bank Index = 0;
                     Entry Name = SE-PLAYER_BLOKEN;
-                    Entry Index = 7;
+                    Entry Index = 6;
                     Weight = 255;
                     Weight Min = 0;
                 }
@@ -1094,7 +1092,7 @@ Sound Bank
     Sound
     {
         Name = SE-SELECT;
-        Volume = -1200;
+        Volume = -200;
         Pitch = 0;
         Priority = 0;
 
@@ -1130,7 +1128,7 @@ Sound Bank
                     Bank Name = MagneticaWave;
                     Bank Index = 0;
                     Entry Name = SE-SELECT;
-                    Entry Index = 8;
+                    Entry Index = 7;
                     Weight = 255;
                     Weight Min = 0;
                 }
@@ -1178,7 +1176,7 @@ Sound Bank
                     Bank Name = MagneticaWave;
                     Bank Index = 0;
                     Entry Name = SE-SPARK002;
-                    Entry Index = 9;
+                    Entry Index = 8;
                     Weight = 255;
                     Weight Min = 0;
                 }
@@ -1226,7 +1224,7 @@ Sound Bank
                     Bank Name = MagneticaWave;
                     Bank Index = 0;
                     Entry Name = BGM-CLEAR;
-                    Entry Index = 10;
+                    Entry Index = 9;
                     Weight = 255;
                     Weight Min = 0;
                 }
@@ -1274,7 +1272,7 @@ Sound Bank
                     Bank Name = MagneticaWave;
                     Bank Index = 0;
                     Entry Name = BGM-GAME_OVER;
-                    Entry Index = 11;
+                    Entry Index = 10;
                     Weight = 255;
                     Weight Min = 0;
                 }
@@ -1322,7 +1320,7 @@ Sound Bank
                     Bank Name = MagneticaWave;
                     Bank Index = 0;
                     Entry Name = BGM-PLAY001;
-                    Entry Index = 12;
+                    Entry Index = 11;
                     Weight = 255;
                     Weight Min = 0;
                 }
@@ -1370,7 +1368,7 @@ Sound Bank
                     Bank Name = MagneticaWave;
                     Bank Index = 0;
                     Entry Name = BGM-TITLE;
-                    Entry Index = 13;
+                    Entry Index = 12;
                     Weight = 255;
                     Weight Min = 0;
                 }
@@ -1418,54 +1416,7 @@ Sound Bank
                     Bank Name = MagneticaWave;
                     Bank Index = 0;
                     Entry Name = SE-ALERT002;
-                    Entry Index = 14;
-                    Weight = 255;
-                    Weight Min = 0;
-                }
-            }
-        }
-    }
-
-    Sound
-    {
-        Name = SE-ENTER;
-        Volume = -1200;
-        Pitch = 0;
-        Priority = 0;
-
-        Category Entry
-        {
-            Name = Default;
-        }
-
-        Track
-        {
-            Volume = 0;
-            Use Filter = 0;
-
-            Play Wave Event
-            {
-                Break Loop = 0;
-                Use Speaker Position = 0;
-                Use Center Speaker = 1;
-                New Speaker Position On Loop = 1;
-                Speaker Position Angle = 0.000000;
-                Speaker Position Arc = 0.000000;
-
-                Event Header
-                {
-                    Timestamp = 0;
-                    Relative = 0;
-                    Random Recurrence = 0;
-                    Random Offset = 0;
-                }
-
-                Wave Entry
-                {
-                    Bank Name = MagneticaWave;
-                    Bank Index = 0;
-                    Entry Name = SE-ENTER;
-                    Entry Index = 0;
+                    Entry Index = 13;
                     Weight = 255;
                     Weight Min = 0;
                 }
@@ -1512,7 +1463,7 @@ Sound Bank
                     Bank Name = MagneticaWave;
                     Bank Index = 0;
                     Entry Name = SE-FIRE;
-                    Entry Index = 1;
+                    Entry Index = 0;
                     Weight = 255;
                     Weight Min = 0;
                 }
@@ -1559,7 +1510,7 @@ Sound Bank
                     Bank Name = MagneticaWave;
                     Bank Index = 0;
                     Entry Name = SE-GOAL;
-                    Entry Index = 2;
+                    Entry Index = 1;
                     Weight = 255;
                     Weight Min = 0;
                 }
@@ -1606,7 +1557,7 @@ Sound Bank
                     Bank Name = MagneticaWave;
                     Bank Index = 0;
                     Entry Name = SE-MODE_CHANGE;
-                    Entry Index = 18;
+                    Entry Index = 17;
                     Weight = 255;
                     Weight Min = 0;
                 }
@@ -1654,6 +1605,53 @@ Sound Bank
                     Bank Name = MagneticaWave;
                     Bank Index = 0;
                     Entry Name = BGM-PLAY002;
+                    Entry Index = 18;
+                    Weight = 255;
+                    Weight Min = 0;
+                }
+            }
+        }
+    }
+
+    Sound
+    {
+        Name = SE-ENTER;
+        Volume = -1200;
+        Pitch = 0;
+        Priority = 0;
+
+        Category Entry
+        {
+            Name = Default;
+        }
+
+        Track
+        {
+            Volume = 0;
+            Use Filter = 0;
+
+            Play Wave Event
+            {
+                Break Loop = 0;
+                Use Speaker Position = 0;
+                Use Center Speaker = 1;
+                New Speaker Position On Loop = 1;
+                Speaker Position Angle = 0.000000;
+                Speaker Position Arc = 0.000000;
+
+                Event Header
+                {
+                    Timestamp = 0;
+                    Relative = 0;
+                    Random Recurrence = 0;
+                    Random Offset = 0;
+                }
+
+                Wave Entry
+                {
+                    Bank Name = MagneticaWave;
+                    Bank Index = 0;
+                    Entry Name = SE-ENTER;
                     Entry Index = 19;
                     Weight = 255;
                     Weight Min = 0;
@@ -1964,26 +1962,6 @@ Sound Bank
 
     Cue
     {
-        Name = SE-ENTER;
-
-        Variation
-        {
-            Variation Type = 3;
-            Variation Table Type = 1;
-            New Variation on Loop = 0;
-        }
-
-        Sound Entry
-        {
-            Name = SE-ENTER;
-            Index = 15;
-            Weight Min = 0;
-            Weight Max = 255;
-        }
-    }
-
-    Cue
-    {
         Name = SE-FIRE;
 
         Variation
@@ -1996,7 +1974,7 @@ Sound Bank
         Sound Entry
         {
             Name = SE-FIRE;
-            Index = 16;
+            Index = 15;
             Weight Min = 0;
             Weight Max = 255;
         }
@@ -2016,7 +1994,7 @@ Sound Bank
         Sound Entry
         {
             Name = SE-GOAL;
-            Index = 17;
+            Index = 16;
             Weight Min = 0;
             Weight Max = 255;
         }
@@ -2036,7 +2014,7 @@ Sound Bank
         Sound Entry
         {
             Name = SE-MODE_CHANGE;
-            Index = 18;
+            Index = 17;
             Weight Min = 0;
             Weight Max = 255;
         }
@@ -2056,6 +2034,26 @@ Sound Bank
         Sound Entry
         {
             Name = BGM-PLAY002;
+            Index = 18;
+            Weight Min = 0;
+            Weight Max = 255;
+        }
+    }
+
+    Cue
+    {
+        Name = SE-ENTER;
+
+        Variation
+        {
+            Variation Type = 3;
+            Variation Table Type = 1;
+            New Variation on Loop = 0;
+        }
+
+        Sound Entry
+        {
+            Name = SE-ENTER;
             Index = 19;
             Weight Min = 0;
             Weight Max = 255;
