@@ -105,9 +105,9 @@ void	SelectInformation::Update(UpdatePacket &i_UpdatePacket)
 	if( m_pButtonExtra && m_pButtonExtra->getButtonP()->getMouseSelect() ){
 			m_pTexture	= m_pExtraTex;
 			m_SpriteObject.setColor( m_ExtraFrameColor );
-			Debugger::DBGSTR::addStr(L" R = %d\n",m_ExtraFrameColor.byteColor.r);
-			Debugger::DBGSTR::addStr(L" G = %d\n",m_ExtraFrameColor.byteColor.g);
-			Debugger::DBGSTR::addStr(L" B = %d\n",m_ExtraFrameColor.byteColor.b);
+			//Debugger::DBGSTR::addStr(L" R = %d\n",m_ExtraFrameColor.byteColor.r);
+			//Debugger::DBGSTR::addStr(L" G = %d\n",m_ExtraFrameColor.byteColor.g);
+			//Debugger::DBGSTR::addStr(L" B = %d\n",m_ExtraFrameColor.byteColor.b);
 			//	: —Î‰ÁŽZ
 			if( m_ExtraFrameColor.byteColor.r >= 0xFF && m_ExtraFrameColor.byteColor.b == 0 ){
 				m_ExtraFrameColor.byteColor.g += 17;
