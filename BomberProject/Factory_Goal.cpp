@@ -219,7 +219,7 @@ void FMemoryTex::OrientGoal(UpdatePacket& i_UpdatePacket){
 	const float	rate		= 0.1f;			//移動する速さ
 	const float	ScaleRate	= rate*rate;	//大きさの変化率
 	const float DirRate		= rate*60;		//角度の変化率
-	const float	OrientPos	= m_vPos.x + (m_vScale.x / 2 - 4);	//向かうべき位置
+	const float	OrientPos	= m_vPos.x + (m_vScale.x / 2 - 4) +1.0f ;	//向かうべき位置
 
 	int			dirPtn		= 1;		//向くべき角度を示す
 	const float	TopDir		= 90.0f;	//上を向いた時のの角度
@@ -241,7 +241,7 @@ void FMemoryTex::OrientGoal(UpdatePacket& i_UpdatePacket){
 	//****************************
 	//位置の変更
 	switch( m_iPtn ){
-		case 1:	if( m_vPos.y >= move.y )
+		case 1:	if( m_vPos.y-1.0f >= move.y )
 					move.y	+= rate;
 				else	m_iPtn	= 2;
 				break;
