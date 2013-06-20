@@ -739,7 +739,7 @@ inline void ChangeRenderStateArray(const LPDIRECT3DDEVICE9 i_pDevice,RENDERSTATE
 ////            ÅF
 #define SOF_NOTFOUND ( UINT_MAX )
 inline Object* SearchObjectFromID(vector<Object*>* i_pVec, DWORD i_dwID, vector<Object*>::size_type* o_Point = NULL, vector<Object*>* o_pVec = NULL, vector<vector<Object*>::size_type>* o_PointList = NULL){
-
+	if( !i_pVec ) return NULL ;
 	vector<Object*>::size_type	sz = i_pVec->size(),
 								 i = 0 ;
 
