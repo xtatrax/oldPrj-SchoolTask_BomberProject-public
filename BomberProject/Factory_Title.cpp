@@ -672,7 +672,7 @@ Factory_Title::Factory_Title(FactoryPacket* fpac){
 				fpac->pD3DDevice,
 				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Coil_N.png" ),
 				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Coil_S.png" ),
-				D3DXVECTOR3(0.2f,0.2f,0.0f),
+				D3DXVECTOR3(0.35f,0.35f,0.0f),
 				D3DXVECTOR3( 0.0f, 0.0f, 90.0f ),
 				D3DXVECTOR3( 170.0f, 370.0f, 0.0f ),
 				D3DXVECTOR3( 128.0f, 128.0f, 128.0f ),

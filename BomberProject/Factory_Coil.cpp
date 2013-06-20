@@ -145,6 +145,18 @@ PlayerCoil::PlayerCoil(
 	m_pDeadChar	= NULL;
 	m_pSphere->ShaderChange( new CookTrance(pD3DDevice) );
 
+	const	D3DXVECTOR3	vDirTop		= D3DXVECTOR3( cosf( D3DXToRadian(-45.0f) ), sinf( D3DXToRadian(-45.0f) ), 0.0f );
+	const	D3DXVECTOR3	vDirLeft	= D3DXVECTOR3( cosf( D3DXToRadian(-45.0f) ), sinf( D3DXToRadian(45.0f) ), 0.0f );
+	const	D3DXVECTOR3	vDirBottom	= D3DXVECTOR3( cosf( D3DXToRadian(45.0f) ), sinf( D3DXToRadian(45.0f) ), 0.0f );
+	const	D3DXVECTOR3	vDirRight	= D3DXVECTOR3( cosf( D3DXToRadian(45.0f) ), sinf( D3DXToRadian(-45.0f) ), 0.0f );
+	const	float	fRangeW	= 40.0f;
+	const	float	fRangeH	= 40.0f;
+	m_pLineTop		= new Line( D3DXVECTOR3( -27.5f, -10.0f, 0.0f ), vDirTop,	 fRangeW, 0xFF00FFFF );
+	m_pLineLeft		= new Line( m_pLineTop->getEndPos(),		 vDirLeft,	 fRangeH, 0xFF00FFFF );
+	m_pLineBottom	= new Line( D3DXVECTOR3( -27.5f, -10.0f, 0.0f ), vDirBottom,	 fRangeW, 0xFF00FFFF );
+	m_pLineRight	= new Line( m_pLineBottom->getEndPos(),		 vDirRight,	 fRangeH, 0xFF00FFFF );
+
+
 	//爆散エフェクトのポインタ
 	for( int i = 0; i < PARTICLS_NUM; i++ )
 		m_pDeadEffect[i]	= NULL;
@@ -297,14 +309,18 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 				break;
 		}
 
-		//ゲージが最大になったらコイルを無敵状態に
-		if(m_pSuperGage && m_pSuperGage->getRate() <= 0.0f && m_enumCoilStateSuper == COIL_STATE_SUPER_CHARGE)m_enumCoilStateSuper = COIL_STATE_SUPER_READY;
+		//ゲージが最大になったらCOIL_STATE_SUPER_READYに
+		if(m_pSuperGage && m_pSuperGage->getRate() <= 0.0f && m_enumCoilStateSuper == COIL_STATE_SUPER_CHARGE){
+			m_enumCoilStateSuper = COIL_STATE_SUPER_READY;
+			i_UpdatePacket.SearchSoundAndPlay(RCTEXT_SOUND_SE_SUPER_FULL);
+		}
+		//COIL_STATE_SUPER_READYの間はLineを更新
+		if(m_enumCoilStateSuper == COIL_STATE_SUPER_READY)Update_Line();
+		//ホイールクリックで無敵状態に
 		//if(m_enumCoilState == COIL_STATE_MOVE && m_enumCoilStateSuper == COIL_STATE_SUPER_READY && Cursor2D::getLButtonState() && Cursor2D::getRButtonState())m_enumCoilStateSuper = COIL_STATE_SUPER_CHANGING;
 		if(m_enumCoilState == COIL_STATE_MOVE && m_enumCoilStateSuper == COIL_STATE_SUPER_READY && Cursor2D::getMButtonState())m_enumCoilStateSuper = COIL_STATE_SUPER_CHANGING;
-		if(m_enumCoilStateSuper == COIL_STATE_SUPER_MOVE || m_enumCoilStateSuper == COIL_STATE_SUPER_CHANGING){
-			//無敵状態
-			SuperMode(i_UpdatePacket);
-		}
+		//無敵状態
+		if(m_enumCoilStateSuper == COIL_STATE_SUPER_MOVE || m_enumCoilStateSuper == COIL_STATE_SUPER_CHANGING)SuperMode(i_UpdatePacket);
 
 		//デバック用-----------------------------------------------------------
 		//Debugger::DBGSTR::addStr( L"角度 = %f\n",m_fMoveDir);
@@ -877,6 +893,12 @@ void PlayerCoil::Draw(DrawPacket& i_DrawPacket){
 #if defined( ON_DEBUGGINGPROCESS )
 	if( m_pDSPH ) m_pDSPH->Draw( i_DrawPacket );
 #endif
+	if(m_enumCoilStateSuper == COIL_STATE_SUPER_READY){
+		m_pLineTop->draw(i_DrawPacket.pD3DDevice);
+		m_pLineLeft->draw(i_DrawPacket.pD3DDevice);
+		m_pLineBottom->draw(i_DrawPacket.pD3DDevice);
+		m_pLineRight->draw(i_DrawPacket.pD3DDevice);
+	}
 
 	//爆散
 	if( m_pDeadEffect[0] != NULL ){
@@ -1025,6 +1047,59 @@ bool PlayerCoil::CheckDistance( D3DXVECTOR3& i_vMagneticFieldPos, float i_iBorde
 	}
 }
 
+/////////////////// ////////////////////
+//// 関数名     ：SuperGage::Update_Line()
+//// カテゴリ   ：関数
+//// 用途       ：Lineの更新
+//// 引数       ：なし
+//// 戻値       ：なし
+//// 担当       ：本多寛之
+//// 備考       ：
+////            ：
+void PlayerCoil::Update_Line(){
+
+	D3DXMATRIX		mLineScale, mLinePos;
+	D3DXVECTOR3		vLineScale = D3DXVECTOR3(1.0f,1.0f,0.0f),
+					vLinePos,
+					vBaseLinePos;
+	Point			BaseLinePos  = T3DPointTo2DPoint(m_pCamera,m_vPos);
+	static float	s_fMovingDistance	= 0.0f; 
+	
+	vBaseLinePos = D3DXVECTOR3((float)BaseLinePos.x,(float)BaseLinePos.y,0.0f);
+
+	D3DXMatrixScaling( &mLineScale, vLineScale.x, vLineScale.y, vLineScale.z );
+
+	//左上部
+	vLineScale;
+	vLinePos	= D3DXVECTOR3(vBaseLinePos.x - s_fMovingDistance, 
+							  vBaseLinePos.y - s_fMovingDistance,
+							  0.0f);
+	D3DXMatrixTranslation( &mLinePos, vLinePos.x, vLinePos.y, vLinePos.z);
+	m_pLineTop->setMatrix( mLineScale * mLinePos );
+	//右上部
+	vLinePos	= D3DXVECTOR3(vBaseLinePos.x + s_fMovingDistance,
+							  vBaseLinePos.y - s_fMovingDistance,
+							  0.0f);
+	D3DXMatrixTranslation( &mLinePos, vLinePos.x, vLinePos.y, vLinePos.z);
+	m_pLineLeft->setMatrix( mLineScale * mLinePos );
+	//左下部
+	vLinePos	= D3DXVECTOR3(vBaseLinePos.x - s_fMovingDistance,
+							  vBaseLinePos.y + s_fMovingDistance,
+							  0.0f);
+	D3DXMatrixTranslation( &mLinePos, vLinePos.x, vLinePos.y, vLinePos.z);
+	m_pLineBottom->setMatrix( mLineScale * mLinePos );
+	//右下部
+	vLinePos	= D3DXVECTOR3(vBaseLinePos.x + s_fMovingDistance,
+							  vBaseLinePos.y + s_fMovingDistance, 
+							  0.0f);
+	D3DXMatrixTranslation( &mLinePos, vLinePos.x, vLinePos.y, vLinePos.z);
+	m_pLineRight->setMatrix( mLineScale * mLinePos );
+	
+	s_fMovingDistance	+= 0.8f;
+	if(s_fMovingDistance >= 6.0f){
+		s_fMovingDistance	= 0.0f;
+	}	
+}
 
 /**************************************************************************
  Factory_Coil 定義部
