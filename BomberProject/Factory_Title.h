@@ -91,15 +91,19 @@ class MagnetField  public SpriteObject
 *************************************************************************/
 class	MagnetField	: public SpriteObject{
 	//Coil*			m_pCoil;
+	LPDIRECT3DTEXTURE9 m_pTextureN;
+	LPDIRECT3DTEXTURE9 m_pTextureS;
 	D3DXVECTOR3		m_vPos;
 	D3DXVECTOR3		m_vScale;
 	D3DXVECTOR3		m_vRot;
 	float			m_fRotZ;
 	int				m_iNowPosNum;
+	POLE			m_bMagnetPole;
 public:
 	MagnetField(
 		const LPDIRECT3DDEVICE9		pD3DDevice	,
-		const LPDIRECT3DTEXTURE9	pTexture	,
+		const LPDIRECT3DTEXTURE9	pTextureN	,
+		const LPDIRECT3DTEXTURE9	pTextureS	,
 		const D3DXVECTOR3&			vScale		,
 		const D3DXVECTOR3&			vRot		,
 		const D3DXVECTOR3&			vPos		,
@@ -117,22 +121,7 @@ public:
 	int getNowPosNum(){
 		return m_iNowPosNum;
 	}
-	void setNowPos(int i_iNum){
-		m_iNowPosNum = i_iNum;
-		switch(m_iNowPosNum){
-			case 1:
-				m_vPos = MAGNET_FIELD_POS_1;
-				break;
-			case 2:
-				m_vPos = MAGNET_FIELD_POS_2;
-				break;
-			case 3:
-				m_vPos = MAGNET_FIELD_POS_3;
-				break;
-			default:
-				break;
-		}
-	}
+	void setNowPos(int i_iNum);
 };
 
 /*************************************************************************
@@ -143,14 +132,18 @@ class Coil  public SpriteObject
 *************************************************************************/
 class	Coil	: public SpriteObject{
 	MagnetField*	m_pMagnetField;
+	LPDIRECT3DTEXTURE9 m_pTextureN;
+	LPDIRECT3DTEXTURE9 m_pTextureS;
 	D3DXVECTOR3		m_vPos;
 	D3DXVECTOR3		m_vScale;
 	D3DXVECTOR3		m_vRot;
 	float			m_fRotZ;
+	POLE			m_bMagnetPole;
 public:
 	Coil(
 		const LPDIRECT3DDEVICE9		pD3DDevice	,
-		const LPDIRECT3DTEXTURE9	pTexture	,
+		const LPDIRECT3DTEXTURE9	pTextureN	,
+		const LPDIRECT3DTEXTURE9	pTextureS	,
 		const D3DXVECTOR3&			vScale		,
 		const D3DXVECTOR3&			vRot		,
 		const D3DXVECTOR3&			vPos		,

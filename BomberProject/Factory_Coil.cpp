@@ -100,6 +100,7 @@ PlayerCoil::PlayerCoil(
 ,m_bDrawContinue(		false								)
 ,m_bRestart(			true								)
 ,m_iDeadCount(			0									)
+,m_pSuperGage(			NULL								)
 ,m_pSuperField(			NULL								)
 ,m_fTurnAngle(			PLAYER_TURN_ANGLE_Lv1				)
 ,m_pCursor(				NULL								)
@@ -168,6 +169,7 @@ PlayerCoil::~PlayerCoil(){
 	m_pMagneticumObject		= NULL ;
 	m_pCamera				= NULL ;
 	m_pSphere				= NULL ;
+	m_pSuperGage			= NULL ;
 	m_pSuperField			= NULL ;
 	m_pReStart				= NULL ;
 	
@@ -235,6 +237,10 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 		CheckPoint*		pc		= (CheckPoint*)SearchObjectFromID( i_UpdatePacket.pVec, OBJID_SYS_CHECKPOINT );
 		if( pc )		m_vPos	= pc->getLastPosition();
 	}
+	if( GetAsyncKeyState( MYVK_DEBUG_INVISIBLEGAUGE_MAX ) ){
+		m_pSuperGage->Recovery(-1) ;
+	}
+
 #endif
 
 	wiz::CONTROLER_STATE Controller1P = i_UpdatePacket.pCntlState[0] ;
@@ -243,6 +249,7 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 	if( !m_pCamera )			m_pCamera				=             ( Camera* ) SearchObjectFromID( i_UpdatePacket.pVec, OBJID_SYS_CAMERA ) ; 
 	if( !m_pMagneticumObject )	m_pMagneticumObject		= ( MagneticumObject3D* ) SearchObjectFromID( i_UpdatePacket.pVec, OBJID_3D_STATIC_MAGNET ) ; 
 	if( !m_pReStart )			m_pReStart				=		 ( StartSprite* ) SearchObjectFromID( i_UpdatePacket.pVec, OBJID_SYS_START  ) ;
+	if( !m_pSuperGage )			m_pSuperGage			=             (SuperGage*)SearchObjectFromID( i_UpdatePacket.pVec, OBJID_UI_SUPERGAUGE );
 	if( m_pPlayer ){
 		//デバック用-----------------------------------------------------------
 		// 磁界反転
@@ -288,6 +295,9 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 			default:
 				break;
 		}
+
+		//ゲージが最大になったらコイルを無敵状態に
+		if(m_pSuperGage && m_pSuperGage->getRate() <= 0.0f && m_enumCoilStateSuper == COIL_STATE_SUPER_CHARGE)m_enumCoilStateSuper = COIL_STATE_SUPER_READY;
 		//if(m_enumCoilState == COIL_STATE_MOVE && m_enumCoilStateSuper == COIL_STATE_SUPER_READY && Cursor2D::getLButtonState() && Cursor2D::getRButtonState())m_enumCoilStateSuper = COIL_STATE_SUPER_CHANGING;
 		if(m_enumCoilState == COIL_STATE_MOVE && m_enumCoilStateSuper == COIL_STATE_SUPER_READY && Cursor2D::getMButtonState())m_enumCoilStateSuper = COIL_STATE_SUPER_CHANGING;
 		if(m_enumCoilStateSuper == COIL_STATE_SUPER_MOVE || m_enumCoilStateSuper == COIL_STATE_SUPER_CHANGING){
@@ -680,6 +690,27 @@ void PlayerCoil::SuperMode( UpdatePacket& i_UpdatePacket ){
 	}
 	s_iInterval++;
 	if(s_iInterval >= COIL_SUPER_MODE_TIME*2 - ((int)s_fTimeCount*2-1)) s_iInterval = 0;
+
+	//ゲージ減少
+	static float s_fTimeAccumulator = 0 ;
+	if(m_enumCoilState == COIL_STATE_MOVE && m_enumCoilStateSuper == COIL_STATE_SUPER_MOVE){
+		//	: すーぱモードの時
+		//static float s_fTimeTotal = 0.0f;
+		//s_fTimeTotal += (float)SUPER_GAGE_MAX / (float)COIL_SUPER_MODE_TIME * (float)i_UpdatePacket.pTime->getElapsedTime();
+		//if(s_fTimeTotal >= 1.0f){
+		//	m_pSuperGage->Consume( -(1.0f / COIL_SUPER_MODE_TIME * (float)i_UpdatePacket.pTime->getElapsedTime()) );
+		//	s_fTimeTotal -= (int)s_fTimeTotal;
+		//}
+		if( ( s_fTimeAccumulator += i_UpdatePacket.pTime->getElapsedTime()) < COIL_SUPER_MODE_TIME ){
+			float fOneSecondSub = (1.0f / (float)COIL_SUPER_MODE_TIME);
+			float fFrameSub     = fOneSecondSub * (float)i_UpdatePacket.pTime->getElapsedTime();
+			Debugger::DBGSTR::addStr(L"fOneSecondSub = %f\n",fOneSecondSub);
+			Debugger::DBGSTR::addStr(L"fFrameSub     = %f\n",fFrameSub);
+			m_pSuperGage->Consume( -fFrameSub );	
+		}
+	}else{
+		s_fTimeAccumulator = 0 ;	
+	}
 
 	//無敵モード終了
 	if(s_fTimeCount >= COIL_SUPER_MODE_TIME){
