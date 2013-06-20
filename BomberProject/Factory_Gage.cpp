@@ -187,7 +187,7 @@ void Gage::Consume( float fSubValue ){
 void Gage::Update( UpdatePacket& i_UpdatePacket ){
 	//ÉQÅ[ÉWÇÃï`âÊ
 	m_GaugeRect.right  = m_BassRect.right ;
-	m_GaugeRect.right *= m_fRate ;
+	m_GaugeRect.right  = (LONG)( m_GaugeRect.right * m_fRate ) ;
 	//m_GaugeRect.right  = m_BassRect.left - m_BassRect.right ;
 	//m_GaugeRect.right *= 1.0f - m_fRate ;
 	
@@ -377,7 +377,7 @@ void SuperGage::Update( UpdatePacket& i_UpdatePacket ){
 	m_Matrix	= mScale * mRot * mPos ;
 	//ÉQÅ[ÉWÇÃï`âÊ
 	m_GaugeRect.right  = /*m_BassRect.left -*/ m_BassRect.right ;
-	m_GaugeRect.right *= 1.0f - m_fRate ;
+	m_GaugeRect.right  = (LONG)( m_GaugeRect.right * (1.0f - m_fRate)) ;
 	
 }
 

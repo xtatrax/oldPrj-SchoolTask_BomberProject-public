@@ -107,7 +107,6 @@ void Warning::Draw(DrawPacket& i_DrawPacket)
 			//i_DrawPacket.pD3DDevice->SetRenderState(D3DRS_ALPHAFUNC,D3DCMP_GREATEREQUAL);
 			//float	f	= 0.5f ;
 			//i_DrawPacket.pD3DDevice->SetRenderState(D3DRS_ALPHAREF,*(DWORD*)&f);
-
 			//コモンメッシュのDraw()を呼ぶ
 			CommonMesh::Draw(i_DrawPacket);
 			i_DrawPacket.pD3DDevice->SetTexture(0,0);
@@ -353,9 +352,22 @@ void WallObject::Draw(DrawPacket& i_DrawPacket)
 			//i_DrawPacket.pD3DDevice->SetRenderState(D3DRS_ALPHAFUNC,D3DCMP_GREATEREQUAL);
 			//float	f	= 0.5f ;
 			//i_DrawPacket.pD3DDevice->SetRenderState(D3DRS_ALPHAREF,*(DWORD*)&f);
-
 			//コモンメッシュのDraw()を呼ぶ
-			CommonMesh::Draw(i_DrawPacket);
+			static bool alpha = true;
+			if( GetAsyncKeyState( MYVK_DEBUG_SWITCH_ALPHABLEND ) ) alpha ? alpha = false : alpha = true ;
+			if(alpha){
+				Debugger::DBGSTR::addStr(L"あるふぁぶれんど");
+				RENDERSTATE_PARAM pParam[] = {
+					{ D3DRS_ALPHABLENDENABLE	, TRUE					},
+					{ D3DRS_BLENDOP				, D3DBLENDOP_ADD		},
+					{ D3DRS_SRCBLEND			, D3DBLEND_SRCALPHA		},
+					{ D3DRS_DESTBLEND			, D3DBLEND_ONE			},
+					{ D3DRS_FORCE_DWORD			, NULL					}
+				};
+				CommonMesh::Draw(i_DrawPacket,pParam);
+			}else{
+				CommonMesh::Draw(i_DrawPacket);
+			}
 			i_DrawPacket.pD3DDevice->SetTexture(0,0);
 			//ステージを元に戻す
 			i_DrawPacket.pD3DDevice->SetTextureStageState(0,D3DTSS_COLOROP,wkdword);

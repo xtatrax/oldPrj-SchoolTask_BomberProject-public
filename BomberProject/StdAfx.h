@@ -91,6 +91,7 @@ using namespace std;
 
 //////////
 //
+#include "resource1.h"
 
 #include "DefineValue.h"
 #include "userInclude.h"

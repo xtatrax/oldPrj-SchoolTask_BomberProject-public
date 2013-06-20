@@ -19,6 +19,80 @@
 namespace wiz {
 namespace baseitems{
 
+//////////
+//	: 仮宣言
+class CommonMesh;
+class SimpleCommonMesh ;
+//	: 仮宣言
+//////////
+
+enum SHADING{
+	SHADING_COOKTRANCE,
+};
+class CustomShader{
+	
+};
+class CookTrance : public CustomShader{
+	friend class CommonMesh				;
+	friend class SimpleCommonMesh		;
+	Camera*			m_pCamera			;
+	Light*			m_pLight			;
+	LPD3DXEFFECT	m_pEffect			;
+	D3DXHANDLE		m_hTech				;
+	D3DXHANDLE		m_hWorldViewProj	;
+	D3DXHANDLE		m_hWorld			;
+	D3DXHANDLE		m_hWIT				;
+	D3DXHANDLE		m_hLightDir			;
+	D3DXHANDLE		m_hEyePos			;
+	D3DXHANDLE		m_hTexture			;
+	D3DXHANDLE		m_hDif				;
+	D3DXHANDLE		m_hAmb				;
+public:
+	CookTrance(LPDIRECT3DDEVICE9 pD3DDevice);
+	~CookTrance();
+
+	/////////////////// ////////////////////
+	//// 関数名     ：void CommonMesh::Draw( DrawPacket& i_DrawPacket )
+	//// カテゴリ   ：仮想関数
+	//// 用途       ：メッシュを描画
+	//// 引数       ：  
+	//// 戻値       ：無し
+	//// 担当者     ： (山ノ井先生のひな形より)
+	//// 備考       ：なるべくこの関数は使わず DrawCommonMesh 関数を使うようにしてください
+	////            ：
+	////
+	void Draw(DrawPacket& i_DrawPacket,CommonMesh* i_pComMesh);
+
+	/////////////////// ////////////////////
+	//// 関数名     ：void CommonMesh::Draw( DrawPacket& i_DrawPacket )
+	//// カテゴリ   ：仮想関数
+	//// 用途       ：メッシュを描画
+	//// 引数       ：  
+	//// 戻値       ：無し
+	//// 担当者     ： (山ノ井先生のひな形より)
+	//// 備考       ：なるべくこの関数は使わず DrawCommonMesh 関数を使うようにしてください
+	////            ：
+	////
+	void Draw(DrawPacket& i_DrawPacket,SimpleCommonMesh* i_pComMesh);
+
+	/////////////////// ////////////////////
+	//// 関数名     ：void CommonMesh::Draw( DrawPacket& i_DrawPacket )
+	//// カテゴリ   ：仮想関数
+	//// 用途       ：メッシュを描画
+	//// 引数       ：  
+	//// 戻値       ：無し
+	//// 担当者     ： (山ノ井先生のひな形より)
+	//// 備考       ：なるべくこの関数は使わず DrawCommonMesh 関数を使うようにしてください
+	////            ：
+	////
+	void Draw(
+		DrawPacket&				i_DrawPacket	,
+		LPD3DXMESH				i_pMesh			,
+		LPDIRECT3DTEXTURE9		i_pTexture		,
+		D3DXMATRIX				i_mMatrix		,
+		D3DMATERIAL9			i_Material
+	);
+};
 /**************************************************************************
 class CommonMesh : public Object;
 用途: コモンメッシュクラス
@@ -41,6 +115,8 @@ protected:
 	//フラットモードにするかどうか
 	//デフォルトはfalse（グーロー シェーディング モード）
 	bool m_bShadeModeFlat;
+
+	CustomShader* m_pShader;
 protected:
 	//テスト用
 	D3DMATERIAL9	m_Material ;
@@ -200,7 +276,7 @@ protected:
 	用途: コンストラクタ
 	戻り値: なし
 	***************************************************************************/
-	CommonMesh( wiz::OBJID id );
+	CommonMesh( wiz::OBJID id , CustomShader* pShader = NULL );
 
 	/**************************************************************************
 	virtual ~CommonMesh();
@@ -292,7 +368,7 @@ protected:
 		const char *pFileName,
 		const TextureManager* pTexMgr
 	);
-
+	
 	/////////////////// ////////////////////
 	//// 関数名     ：void CommonMesh::Draw( DrawPacket& i_DrawPacket )
 	//// カテゴリ   ：仮想関数
@@ -303,7 +379,7 @@ protected:
 	//// 備考       ：なるべくこの関数は使わず DrawCommonMesh 関数を使うようにしてください
 	////            ：
 	////
-	void Draw(DrawPacket& i_DrawPacket);
+	void Draw(DrawPacket& i_DrawPacket,RENDERSTATE_PARAM* pParam = NULL);
 	/**************************************************************************
 	void DrawCommonMesh(
 	LPDIRECT3DDEVICE9 pD3DDevice,    //IDirect3DDevice9 インターフェイスへのポインタ
@@ -328,6 +404,14 @@ protected:
 	***************************************************************************/
 	void DrawCommonShadowVolume( LPDIRECT3DDEVICE9 pD3DDevice,D3DXMATRIX& AllMatrix, LPD3DXEFFECT pEffect,D3DXMATRIX& mCameraView,D3DXMATRIX& mCameraProj);
 public:
+	void ShaderChange( CustomShader* pShader ){
+		SafeDelete( m_pShader );
+		m_pShader = pShader;
+	}
+	CustomShader* getShader(){
+		return m_pShader;
+	}
+
 	/**************************************************************************
 	void SetWireFrame(
 	bool Value	//ワイアフレームにするかどうか
@@ -2420,7 +2504,7 @@ inline Point T3DPointTo2DPoint(Camera* i_pCamera,D3DXVECTOR3 po){
 
 	float x =    fXHalfCorrection     +  (STANDARD_WINDOW_WIDTH /2) ;
 	float y =    -fYReverseCoordinate + (STANDARD_WINDOW_HEIGHT /2) ;
-	return Point( x , y );
+	return Point( (int)x , (int)y );
 
 }
 class Cursor3D : public Cursor2D{
