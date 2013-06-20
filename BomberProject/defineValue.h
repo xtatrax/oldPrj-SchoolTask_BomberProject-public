@@ -47,13 +47,14 @@
 	//#define CF_FULLSCREEN				/* フルスクリーンモード       */
 
 	//#define ___MLP_DEBUG_TIMEDRAW_ 
-	#define ON_GUIDELINE
+	//#define ON_GUIDELINE
 #else
 	#if defined( PRESENTATION )
 	//-------------------------------//
 	//		プレゼンモード定義       //
 	//-------------------------------//
 		//#define DEBUG_STRINGS_ON					/* デバッグ用文字列を有効化 */
+		//#define CF_MEMORYMANAGER_ENABLE			/* 自作メモリ管理システムを有効化 */
 		//#define CF_FULLSCREEN				/* フルスクリーンモード       */
 		//#define DEBUG_STRINGS_ON			/* デバッグ用文字列を有効化 */
 
@@ -304,7 +305,11 @@ namespace wiz{
 		OBJID_UI_BEGIN				= 0x2000,
 		OBJID_UI_SPRITE				,	//	: UIに使うスプライト
 		OBJID_UI_SPRITEBUTTON		,	//	: スプライトボタンのUI
-		OBJID_UI_SELECTINFORMATION	,	//	: セレクト画面の情報ウインドウ
+		OBJID_UI_BUTTON_NORMAL		,	//	:
+		OBJID_UI_BUTTON_HARD		,	//	:
+		OBJID_UI_BUTTON_EXTRA		,	//	:
+		OBJID_UI_BUTTON_BACK		,	//	:
+		OBJID_UI_SELECTINFORMATION	,	//	:
 		OBJID_UI_CHECKPOINT_CHAR	,	//	: チェックポイント
 		OBJID_UI_LIFE				,	//	: ライフ( 念のため )
 		OBJID_UI_SUPERGAUGE			,	//	: ゲージ

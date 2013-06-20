@@ -47,7 +47,9 @@ public:
 		const char*					sDecisionSound	,
 		const float					fWaitTime		,
 		const Command				Com				,
-		const DWORD					dwIndex
+		const DWORD					dwIndex			,
+		const wiz::OBJID			id				= OBJID_UI_SPRITEBUTTON,
+		const bool					bApplyAspect	= true
 	);
 	virtual ~ButtonSprite();
 /////////////////// ////////////////////

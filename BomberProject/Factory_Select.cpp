@@ -103,7 +103,7 @@ Factory_Select::Factory_Select(FactoryPacket* fpac ){
 				1.0f,
 				Command( GM_OPENSTAGE_LOAD_PLAY, 3, 0 ),
 				0,
-				1
+				OBJID_UI_BUTTON_NORMAL
 			)
 		);
 /////////////////////////////////////////////////////////////////////////////////
@@ -130,7 +130,7 @@ Factory_Select::Factory_Select(FactoryPacket* fpac ){
 				1.0f,
 				Command( GM_OPENSTAGE_LOAD_PLAY, 4, 0 ),
 				1,
-				2
+				OBJID_UI_BUTTON_HARD
 			)
 		);
 /////////////////////////////////////////////////////////////////////////////////
@@ -157,7 +157,7 @@ Factory_Select::Factory_Select(FactoryPacket* fpac ){
 				1.0f,
 				Command( GM_OPENSTAGE_LOAD_PLAY, 5, 0 ),
 				2,
-				3
+				OBJID_UI_BUTTON_EXTRA
 			)
 		);
 		float	fLineLength	= 550.0f;

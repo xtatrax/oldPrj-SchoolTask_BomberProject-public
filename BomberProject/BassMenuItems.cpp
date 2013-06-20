@@ -32,10 +32,12 @@ ButtonSprite::ButtonSprite(
 		const char*					sDecisionSound	,
 		const float					fWaitTime		,
 		const Command				Com				,
-		const DWORD					dwIndex
+		const DWORD					dwIndex			,
+		const wiz::OBJID			id				,
+		const bool					bApplyAspect	
 )
 :m_ButtonState(Com,dwIndex)
-,SpriteObject(pD3DDevice,pTexture,vScalse,vRot,vPos,pRect,vCenter,vOffset,dwUnSelectColor)
+,SpriteObject(pD3DDevice,pTexture,vScalse,vRot,vPos,pRect,vCenter,vOffset,dwUnSelectColor,id ,bApplyAspect)
 ,m_SelectColor(dwSelectColor)
 ,m_UnSelectColor(dwUnSelectColor)
 ,m_sSelectSound(sSelectSound)

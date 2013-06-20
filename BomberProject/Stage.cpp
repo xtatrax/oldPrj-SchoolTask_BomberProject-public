@@ -362,14 +362,18 @@ void Stage::DefaultRender(){
 void Stage::CommandTranslator(DrawPacket& i_DrawPacket){
 	switch(i_DrawPacket.pCommand->m_Command){
 		case GM_CHANGE_CHILDSTAGE:
+		{
 			if( m_pChildStage )
 				m_pChildStage->m_IsDialog = false ;
 			break ;
+		}
 		case GM_CHANGE_PARENTSTAGE:
+		{
 			m_IsDialog = true ;
 			break ;
-
+		}
 	}
+	Debugger::DBGSTR::addStr(L"Translator");
 };
 void Stage::AddButton(wiz::Object* pButton){
 	Button* pb = pButton->getButtonP();
