@@ -75,6 +75,8 @@ const D3DXVECTOR3	COIL_SUPER_MODE_FIELD_SCALE		= D3DXVECTOR3(10.0f,10.0f,0.0f);
 const D3DXVECTOR3	COIL_SCALE_ADD_VALUE_START		= D3DXVECTOR3(0.03f,0.03f,0.03f);
 const D3DXVECTOR3	COIL_SCALE_ADD_VALUE_STOP		= D3DXVECTOR3(0.03f,0.03f,0.03f);
 const D3DXVECTOR3	COIL_SCALE_ADD_VALUE_STICK		= D3DXVECTOR3(0.045f,0.045f,0.045f);
+const int			MAX_DIGHT_SCORE					= 1000000;
+const int			LIMIT_TIME						= 180;
 
 enum COIL_STATE{			//自機の状態
 	COIL_STATE_START,		//スタート
@@ -103,6 +105,7 @@ extern class Dead ;
 extern class StartSprite;
 extern class SuperGage;
 extern class ModeChangeChar;
+extern class TimeScore;
 //**************************************************************************//
 // class PlayerCoil : public MagneticumObject ;
 //
@@ -158,6 +161,7 @@ class PlayerCoil : public MagneticumObject3D{
 	ProvisionalPlayer3D*	m_pPlayer					;	//	: ユーザ設置磁界へのポインタ
 	MagneticumObject3D*		m_pMagneticumObject			;	//	: 初期配置磁界へのポインタ
 	DeadEffect*				m_pDeadEffect[PARTICLS_NUM]	;	//	: 死亡時の爆散エフェクトのポインタ
+	TimeScore*				m_pTime;
 	
 	Line*					m_pLineTop					;
 	Line*					m_pLineLeft					;
@@ -493,7 +497,8 @@ public:
 	}
 
 	void	ScratchTime_Update(){
-		++m_iScratchTime;
+		if( m_iScratchTime < MAX_DIGHT_SCORE )
+			++m_iScratchTime;
 	}
 
 	void	setRecordTime(){
