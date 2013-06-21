@@ -575,6 +575,10 @@ ResultScore::ResultScore(LPDIRECT3DDEVICE9	pD3DDevice,
 	Rect		rScoreRect	= Rect( 0, 0, 512, 64 );
 
 	int TotalScore	= (iMaxPos*10)+iScratch-(iDead*30);
+	Debugger::DBGWRITINGLOGTEXT::addStrToFile(L"Score.txt",L"MaxPos     = %d\n",iMaxPosScore);
+	Debugger::DBGWRITINGLOGTEXT::addStrToFile(L"Score.txt",L"Scratch    = %d\n",iScratchScore);
+	Debugger::DBGWRITINGLOGTEXT::addStrToFile(L"Score.txt",L"DeadCount  = %d\n",iDeadScore);
+	Debugger::DBGWRITINGLOGTEXT::addStrToFile(L"Score.txt",L"TotalScore = %d\n",TotalScore);
 
 	int iDightMaxPos	= 0;
 	int iDightScratch	= 0;
@@ -641,6 +645,7 @@ ResultScore::ResultScore(LPDIRECT3DDEVICE9	pD3DDevice,
 		if( i == 1 )	break;
 	}
 	//*******************************************
+
 
 	m_pMaxPos	= new AnimationScore( pD3DDevice, m_pMaxPosTex, vScoreSize,
 						D3DXVECTOR3( wide, height-115.0f, 0.0f ), iMaxPos, iDightMaxPos, &rScoreRect);
