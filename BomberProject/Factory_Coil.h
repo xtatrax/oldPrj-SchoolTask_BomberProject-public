@@ -163,10 +163,10 @@ class PlayerCoil : public MagneticumObject3D{
 	DeadEffect*				m_pDeadEffect[PARTICLS_NUM]	;	//	: 死亡時の爆散エフェクトのポインタ
 	TimeScore*				m_pTime;
 	
-	Line*					m_pLineTop					;
-	Line*					m_pLineLeft					;
-	Line*					m_pLineBottom				;
-	Line*					m_pLineRight				;
+	Line3D*					m_pLine1					;
+	Line3D*					m_pLine2					;
+	Line3D*					m_pLine3					;
+	Line3D*					m_pLine4					;
 	
 	COIL_STATE				m_enumCoilState				;	//	: 自分の状態
 	COIL_STATE_SUPER		m_enumCoilStateSuper		;	//	: 無敵状態
