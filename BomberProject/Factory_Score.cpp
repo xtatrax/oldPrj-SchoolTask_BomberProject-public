@@ -690,7 +690,7 @@ Factory_Score::Factory_Score(FactoryPacket *fpac){
 		//NowPos
 		fpac->m_pVec->push_back(
 			new SpriteObject( fpac->pD3DDevice,
-					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"MAX_RANGE1.png" ),
+					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"NOW_RANGE1.png" ),
 					D3DXVECTOR3( 0.5f, 0.5f, 0.0f ),
 					g_vZero,
 					D3DXVECTOR3( 750.0f, 520.0f, 0.0f ),					
