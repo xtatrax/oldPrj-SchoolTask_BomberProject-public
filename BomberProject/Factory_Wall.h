@@ -166,10 +166,11 @@ class WallObject : public PrimitiveBox{
 		DrawOBB*       m_pDOB		;
 		~WallItem(){SafeDelete(m_pDOB);}
 #endif
-		WallItem(D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos,
+		WallItem(D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos, int iPtn,
 			D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient)
 		:m_bHidden(true)
 		,m_fMapKey(vPos.y)
+		,m_iPtn( iPtn )
 #if defined(ON_DEBUGGINGPROCESS) | defined( PRESENTATION )
 		,m_pDOB()
 #endif

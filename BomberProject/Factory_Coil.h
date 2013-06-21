@@ -492,6 +492,7 @@ public:
 
 	//****************************************
 	//スクラッチポイントのゲッター、セッター
+	//描画用スクラッチ
 	int	getScratchTime(){
 		return	m_iScratchTime;
 	}
@@ -501,8 +502,13 @@ public:
 			++m_iScratchTime;
 	}
 
+	//結果用スクラッチ
 	void	setRecordTime(){
 		m_fRecordTime	= m_iScratchTime;
+	}
+
+	int		getRecordTime(){
+		return	m_fRecordTime;
 	}
 	//*****************************************
 

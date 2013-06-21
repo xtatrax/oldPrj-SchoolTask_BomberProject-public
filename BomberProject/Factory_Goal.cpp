@@ -17,6 +17,11 @@
 #include "Factory_Wall.h"
 #include "BassItems.h"
 
+const D3DXVECTOR3	GOAL_CHAR_SIZE			= D3DXVECTOR3(1.0f,1.0f,0.0f);
+const	float		GOAL_CHAR_RATE_Y		= (1.0f/GOAL_CHAR_SIZE.y);
+const	float		GOAL_CHAR_RATE_X		= (1.0f/GOAL_CHAR_SIZE.x);
+const	float		GOAL_CHAR_DOWNSPEED		= 20.0f;
+
 namespace wiz{
 namespace bomberobject{
 
@@ -325,7 +330,7 @@ void FMemoryTex::OrientGoal(UpdatePacket& i_UpdatePacket){
 担当者　　：佐藤涼
 備考　　　：
 ****************************************************************************/
-GoalObject::GoalObject( LPDIRECT3DDEVICE9 pD3DDevice, D3DXVECTOR3 vPos , LPDIRECT3DTEXTURE9 pTexture,wiz::OBJID id)
+GoalObject::GoalObject( LPDIRECT3DDEVICE9 pD3DDevice, D3DXVECTOR3 vPos , LPDIRECT3DTEXTURE9 pTexture, LPDIRECT3DTEXTURE9 pGoakCharTex,wiz::OBJID id)
 	:PrimitiveBox(pD3DDevice,
 					D3DCOLORVALUE(),
 					D3DCOLORVALUE(),
@@ -333,7 +338,10 @@ GoalObject::GoalObject( LPDIRECT3DDEVICE9 pD3DDevice, D3DXVECTOR3 vPos , LPDIREC
 					id,
 					pTexture)
 ,m_pCoil( NULL )
+,m_pCamera( NULL )
 ,m_bPlaySound( true )
+,m_pGoalCharTex( pGoakCharTex )
+,m_fInitPosY( 0 )
 {
 	try{
 		D3DXVECTOR3		vScale = D3DXVECTOR3( 100.0f, 1.0f, 0.0f) ;
@@ -346,6 +354,10 @@ GoalObject::GoalObject( LPDIRECT3DDEVICE9 pD3DDevice, D3DXVECTOR3 vPos , LPDIREC
 		m_Material.Diffuse	= COLOR2D3DCOLORVALUE(0xFFFFFF00);
 		m_Material.Specular	= COLOR2D3DCOLORVALUE(0xFFFFFF00);
 		m_Material.Ambient	= COLOR2D3DCOLORVALUE(0xFFFFFF00);
+
+		m_pGoalChar	= 	new SpriteObject( pD3DDevice, m_pGoalCharTex, GOAL_CHAR_SIZE, g_vZero, g_vZero,
+									Rect( 0, 0, 256, 64 ), D3DXVECTOR3( 128.0f, 32.0f, 0.0f ), D3DXVECTOR3( 100.0f, -87.0f, 0.0f ));
+
 	}
 	catch(...){
 		//再スロー
@@ -354,7 +366,9 @@ GoalObject::GoalObject( LPDIRECT3DDEVICE9 pD3DDevice, D3DXVECTOR3 vPos , LPDIREC
 }
 GoalObject::~GoalObject(){
 	
-	m_pCoil = NULL ;
+	m_pCoil		= NULL ;
+	m_pGoalChar	= NULL;
+	m_pCamera	= NULL;
 	//SafeDeletePointerMap( m_ItemMap_All ) ;
 
 
@@ -370,6 +384,7 @@ GoalObject::~GoalObject(){
 ***************************************************************/
 void	GoalObject::Draw(DrawPacket &i_DrawPacket){
 	PrimitiveBox::Draw( i_DrawPacket );
+	m_pGoalChar->Draw( i_DrawPacket );
 }
 
 /*******************************************************************
@@ -386,6 +401,10 @@ void	GoalObject::Draw(DrawPacket &i_DrawPacket){
 void	GoalObject::Update(UpdatePacket& i_UpdatePacket)
 {
 	if( !m_pCoil  ) m_pCoil		= (PlayerCoil*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_3D_COIL		) ;
+	if( !m_pCamera ){
+		m_pCamera = (    Camera*)SearchObjectFromID( i_UpdatePacket.pVec, OBJID_SYS_CAMERA ) ;
+		m_fInitPosY	= 	m_pCamera->getPosY();
+	}
 
 
 	//衝突判定
@@ -397,6 +416,29 @@ void	GoalObject::Update(UpdatePacket& i_UpdatePacket)
 			m_bPlaySound	= false;
 		}
 	}
+
+	//*****************************************************************************************************
+	//ゴールの文字
+	float	fTexPosY	= 0.0f;
+	if( m_pCamera )
+		fTexPosY	= m_pCamera->getPosY() - m_fInitPosY;
+
+	D3DXVECTOR3	p;
+	GetWorldPos(p);
+	float	m_fGoalPosX = p.x;
+	float	m_fGoalPosY = p.y;
+
+	float	wide	= BASE_CLIENT_WIDTH / 50 * m_fGoalPosX * GOAL_CHAR_RATE_X;
+	float	height	= ( (m_fGoalPosY - fTexPosY)
+								* GOAL_CHAR_DOWNSPEED - BASE_CLIENT_HEIGHT ) * (-1.0f) * GOAL_CHAR_RATE_Y;
+
+	D3DXMATRIX mTexMatrix, mScale, mRot, mPos;
+	D3DXMatrixScaling(&mScale,GOAL_CHAR_SIZE.x,GOAL_CHAR_SIZE.y,GOAL_CHAR_SIZE.z);
+	D3DXMatrixRotationZ(&mRot,D3DXToRadian(0));
+	D3DXMatrixTranslation(&mPos, wide,height,0.0f);
+	mTexMatrix	= mPos*mScale*mRot;
+	m_pGoalChar->setMatrix( mTexMatrix );
+
 }
 
 
@@ -414,42 +456,6 @@ void	GoalObject::Update(UpdatePacket& i_UpdatePacket)
 ***************************************************************************/
 Factory_Goal::Factory_Goal(FactoryPacket* fpac){
 	try{
-        //D3DCOLORVALUE MemoryDiffuse = {1.0f,1.0f,1.0f,0.0f};
-        //D3DCOLORVALUE MemorySpecular = {0.0f,0.0f,0.0f,0.0f};
-        //D3DCOLORVALUE MemoryAmbient = {1.0f,1.0f,1.0f,0.0f};
-
-        //D3DCOLORVALUE GoalDiffuse = {0.0f,1.0f,1.0f,0.3f};
-        //D3DCOLORVALUE GoalSpecular = {0.0f,0.0f,0.0f,0.0f};
-        //D3DCOLORVALUE GoalAmbient = {0.0f,1.0f,1.0f,0.3f};
-
-		//FMemoryTex* mt = new FMemoryTex(fpac->pD3DDevice,fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"memory.png" ));
-		// GoalObject* gl = new GoalObject(fpac->pD3DDevice,NULL);
-		////お試し
-		//gl->addGoal(	D3DXVECTOR3( 10.0f, 3.0f, 1.0f ),
-		//				D3DXVECTOR3( 0.0f, 0.0f, 90.0f ),
-		//				D3DXVECTOR3( 20.0f, 20.0f, 0.0f ),
-		//				GoalDiffuse,
-		//				GoalSpecular,
-		//				GoalAmbient);
-
-		//mt->AddMemory(	D3DXVECTOR3(20.0f,5.0f,0.0f),
-		//				g_vZero,
-		//				D3DXVECTOR3(20.0f,20.0f * 8.0f-8.0f ,0.0f),
-		//				MemoryDiffuse,
-		//				MemorySpecular,
-		//				MemoryAmbient	);
-
-		//fpac->m_pVec->push_back( mt );
-
-		//gl->addGoal(	D3DXVECTOR3( 50.0f, 2.0f, 0.0f ),
-		//				g_vZero,
-		//				//D3DXVECTOR3( 20.0f, 20.0f, 0.0f ),
-		//				D3DXVECTOR3( 25.0f, 20.0f * 8.0f-10.0f, 0.0f ),
-		//				GoalDiffuse,
-		//				GoalSpecular,
-		//				GoalAmbient);
-		//fpac->m_pVec->push_back(gl);
-
 	}
 	catch(...){
 		//再throw
