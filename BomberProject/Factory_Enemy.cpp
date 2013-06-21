@@ -51,6 +51,8 @@ EnemyModel::EnemyModel(const LPDIRECT3DDEVICE9 pD3DDevice,const char *pFileName,
 {
 	CommonMesh::CreateMeshFormX( pD3DDevice, pFileName, pTexMgr);
 	::ZeroMemory( &m_Material, sizeof(D3DMATERIAL9));
+	ShaderChange( new CookTrance(pD3DDevice) );
+
 }
 
 /////////////////// ////////////////////
@@ -253,7 +255,8 @@ void EnemyModel::Draw(DrawPacket& i_DrawPacket)
 			//マティリアル設定
 			this->m_WorldMatrix = (*it)->m_Matrix   ;	
 			this->SetMaterial((*it)->m_Material)	;
-			SimpleCommonMesh::Draw(i_DrawPacket)	;
+			((CookTrance*)this->m_pShader)->Draw(i_DrawPacket,this);
+			//SimpleCommonMesh::Draw(i_DrawPacket)	;
 		}
 		//爆散
 		if( (*it)->m_pDeadEffect[0] != NULL ){

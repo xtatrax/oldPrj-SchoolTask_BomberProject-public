@@ -427,7 +427,7 @@ public:
 // 担当者  : 
 // 用途    : ライトクラス
 //**************************************************************************
-class Light{
+class Light : public Object{
 protected:
     D3DLIGHT9   m_Light;
 	/////////////////// ////////////////////
@@ -440,7 +440,7 @@ protected:
 	//// 備考       ：直接構築できないように、プロテクトにする
 	////            ：
 	////
-    Light();
+    Light(wiz::OBJID id);
 	/////////////////// ////////////////////
 	//// 用途       ：Light()
 	//// カテゴリ   ：ですとらくた
@@ -462,7 +462,7 @@ public:
 // 担当者  : 
 // 用途    : ディレクショナルライトクラス
 //**************************************************************************
-class DirectionalLight : public Light , public Object{
+class DirectionalLight : public Light {
 public:
 	/////////////////// ////////////////////
 	//// 用途       ：DirectionalLight(LPDIRECT3DDEVICE9 pD3DDevice,

@@ -71,9 +71,9 @@ Factory_Main::Factory_Main(FactoryPacket* fpac, DWORD dwStageNum, DWORD dwResump
 
 		//////////
 		//	: ƒ‰ƒCƒg‚ÌÝ’è
-        D3DCOLORVALUE Diffuse = {1.0f,1.0f,1.0f,0.0f};
-        D3DCOLORVALUE Specular = {1.0f,1.0f,1.0f,0.0f};
-        D3DCOLORVALUE Ambient = {0.5f,0.5f,0.5f,0.0f};
+        D3DCOLORVALUE Diffuse = {0.5f,0.5f,0.5f,0.0f};
+        D3DCOLORVALUE Specular = {0.5f,0.5f,0.5f,0.0f};
+        D3DCOLORVALUE Ambient = {0.3f,0.3f,0.3f,0.0f};
         fpac->m_pVec->push_back(
 			new DirectionalLight(
 				fpac->pD3DDevice,
@@ -105,6 +105,9 @@ Factory_Main::Factory_Main(FactoryPacket* fpac, DWORD dwStageNum, DWORD dwResump
 
 		//////////
 		//	: ”wŒi‚Ì‰¼”z’u
+        D3DCOLORVALUE wDiffuse = {1.0f,1.0f,1.0f,0.0f};
+        D3DCOLORVALUE wSpecular = {0.0f,0.0f,0.0f,0.0f};
+        D3DCOLORVALUE wAmbient = {0.5f,0.5f,0.5f,0.0f};
 		float fBoxSizeX = 90.0f ;
 		for( int i = 0 ; i < 20 ; i++ ){
 			fpac->m_pVec->push_back(
@@ -113,9 +116,9 @@ Factory_Main::Factory_Main(FactoryPacket* fpac, DWORD dwStageNum, DWORD dwResump
 					D3DXVECTOR3( 50.0f, fBoxSizeX    , 0.0f ),
 					D3DXVECTOR3( 25.0f, fBoxSizeX *i , 0.0f ),
 					g_vZero,
-					Diffuse,
-					Specular,
-					Ambient,
+					wDiffuse,
+					wSpecular,
+					wAmbient,
 					OBJID_3D_BOX,
 					false,
 					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"BGP_PLAY.tga")

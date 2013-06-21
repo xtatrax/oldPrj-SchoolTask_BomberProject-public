@@ -55,7 +55,7 @@ Reply ’è‹`•”
 Reply::Reply(const LPDIRECT3DDEVICE9 pD3DDevice,const  LPDIRECT3DTEXTURE9 pTexture,const bool mark,
 		const D3DXVECTOR3 &vScale,const D3DXVECTOR3 &vRot,const D3DXVECTOR3 &vPos,
 		const RECT *pRect,const  D3DXVECTOR3 &vCenter,const  D3DXVECTOR3 &vOffsetPos,const  Color color)
-:SpriteObject( pD3DDevice, pTexture, vScale, vRot, vPos, pRect, vCenter, vOffsetPos, color )
+:SpriteObject(	pD3DDevice, pTexture, vScale, vRot, vPos, pRect, vCenter, vOffsetPos, color )
 ,m_vPos(		vPos	)
 ,m_bMark(		mark	)
 ,m_bPushRock(	false	)
@@ -146,7 +146,7 @@ void Reply::Update(UpdatePacket& i_UpdatePacket)
 		if( Cursor2D::getLButtonState() )	m_bPushRock	= false;
 		else				m_bPushRock	= true;
 	}
-		if( m_bPush ){
+	if( m_bPush ){
 		m_iTime++;
 		if( m_iTime > 30 ){
 			//‘I‚Î‚ê‚½‰æ–Ê‚Ö‚Æ‚Ô
