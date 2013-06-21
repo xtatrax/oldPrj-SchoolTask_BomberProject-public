@@ -354,6 +354,7 @@ void CheckPoint::Update( UpdatePacket& i_UpdatePacket ){
 		while(fPosY <= fCoilPosY){
 			m_pCoil->setStartPos(m_ItemContainer[ m_ActiveItem ]->vStartPos);
 			m_ActiveItem++;
+			m_pCoil->setRecordTime();
 			if(m_ActiveItem == m_ItemContainer.size()-1){
 				m_pPintMark->setTexture(m_pTextureLast);
 				m_pPintMark->setCenter(D3DXVECTOR3( 128.0f, 32.0f, 0.0f ));

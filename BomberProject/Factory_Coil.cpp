@@ -120,6 +120,7 @@ PlayerCoil::PlayerCoil(
 //**********************************************************************************
 ,m_iMaxPosY(				0								)
 ,m_iScratchTime(			0								)
+,m_fRecordTime(				0								)
 ,m_bModeChangeChar(			false							)
 ,m_bReDrawing_ChangeChar(	true							)
 ,m_enumCoilState(		COIL_STATE_STOP						)
@@ -797,6 +798,7 @@ void PlayerCoil::Update_StateContinue(UpdatePacket& i_UpdatePacket){
 		if( m_vScale.x >= m_vOriginScale.x && m_vScale.y >= m_vOriginScale.y ){
 			m_vScale = m_vOriginScale;
 			if( m_bRestart ){
+				m_iScratchTime	= m_fRecordTime;
 				if( m_pReStart )	m_pReStart->ReStart();
 				m_bRestart	= false;
 			}//m_bReadyToStart = true;
