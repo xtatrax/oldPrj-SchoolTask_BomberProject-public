@@ -408,7 +408,7 @@ void	TimeScore::Update(UpdatePacket& i_UpdatePacket){
 		if( m_iTime == 0 ){
 			m_pCoil->setState( COIL_STATE_DEAD );
 		}
-		else if( m_pCoil->getState() == COIL_STATE_MOVE ){
+		else if( m_pCoil->getState() == COIL_STATE_MOVE || m_pCoil->getState() == COIL_STATE_STICK ){
 			m_fElapsedTime	+= i_UpdatePacket.pTime->getElapsedTime();
 			if( m_fElapsedTime >= 1.0f ){
 				--m_iTime;
@@ -751,7 +751,7 @@ Factory_Score::Factory_Score(FactoryPacket *fpac){
 					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"TIME2.png" ),
 					D3DXVECTOR3( 0.5f, 0.5f, 0.0f ),
 					g_vZero,
-					D3DXVECTOR3( 10.0f, 10.0f, 0.0f ),					
+					D3DXVECTOR3( 50.0f, 10.0f, 0.0f ),					
 					&Rect( 0, 0, 256, 64 ),
 					g_vZero,
 					g_vZero
