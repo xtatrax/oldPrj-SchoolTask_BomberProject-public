@@ -55,7 +55,7 @@
 	//-------------------------------//
 		//#define DEBUG_STRINGS_ON					/* デバッグ用文字列を有効化 */
 		//#define CF_MEMORYMANAGER_ENABLE			/* 自作メモリ管理システムを有効化 */
-		//#define CF_FULLSCREEN				/* フルスクリーンモード       */
+//		#define CF_FULLSCREEN				/* フルスクリーンモード       */
 		//#define DEBUG_STRINGS_ON			/* デバッグ用文字列を有効化 */
 
 	#else
@@ -89,8 +89,8 @@
 #define BASE_CLIENT_WIDTH		( 1024.0f)	/* 基準になる描画領域の幅   */
 #if defined(CF_FULLSCREEN)
 
-#define STANDARD_WINDOW_HEIGHT		(  768.0f)	/* 基準になる描画領域の高さ */
-#define STANDARD_WINDOW_WIDTH		( 1280.0f)	/* 基準になる描画領域の幅   */
+#define STANDARD_WINDOW_HEIGHT		(  600.0f)	/* 基準になる描画領域の高さ */
+#define STANDARD_WINDOW_WIDTH		( 1024.0f)	/* 基準になる描画領域の幅   */
 
 //#define STANDARD_WINDOW_HEIGHT  (  800.0f)	/* ウインドウモードの高さ   */
 //#define STANDARD_WINDOW_WIDTH   ( 1280.0f)	/* ウインドウモードの幅     */
@@ -196,7 +196,7 @@ static const D3DXVECTOR3	g_vMin							= D3DXVECTOR3(-FLT_MAX,-FLT_MAX,-FLT_MAX);
 static const wstring		g_sDefaultTexturePath			= L"media/Textures/" ;	//	: テクスチャの置き場
       //extern HWND			wiz::DxDevice::m_hWnd			;
 static const SIZE			g_GaugeReverseSize				= { 146,67 };
-static const bool			g_bIsCookTranceEnable_Coil		= false;
+
 
 //
 //////////
