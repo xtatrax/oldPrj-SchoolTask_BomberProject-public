@@ -493,7 +493,7 @@ public:
 	//****************************************
 	//スクラッチポイントのゲッター、セッター
 	int	getScratchTime(){
-		return	m_fRecordTime;
+		return	m_iScratchTime;
 	}
 
 	void	ScratchTime_Update(){
