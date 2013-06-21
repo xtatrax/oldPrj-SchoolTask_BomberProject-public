@@ -55,7 +55,7 @@
 	//-------------------------------//
 		//#define DEBUG_STRINGS_ON					/* デバッグ用文字列を有効化 */
 		//#define CF_MEMORYMANAGER_ENABLE			/* 自作メモリ管理システムを有効化 */
-		#define CF_FULLSCREEN				/* フルスクリーンモード       */
+		//#define CF_FULLSCREEN				/* フルスクリーンモード       */
 		//#define DEBUG_STRINGS_ON			/* デバッグ用文字列を有効化 */
 
 	#else
@@ -196,7 +196,7 @@ static const D3DXVECTOR3	g_vMin							= D3DXVECTOR3(-FLT_MAX,-FLT_MAX,-FLT_MAX);
 static const wstring		g_sDefaultTexturePath			= L"media/Textures/" ;	//	: テクスチャの置き場
       //extern HWND			wiz::DxDevice::m_hWnd			;
 static const SIZE			g_GaugeReverseSize				= { 146,67 };
-
+static const bool			g_bIsCookTranceEnable_Coil		= false;
 
 //
 //////////

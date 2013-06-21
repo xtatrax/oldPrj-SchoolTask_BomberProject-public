@@ -222,7 +222,7 @@ void MouseCursor::Update2DPos(){
 						vRB = T2DPointTo3DPoint( m_pCamera ,poBuf ) ,
 						vCPos = m_pCoil->getPos() ;
 
-			if(		vLT.x > m_pCoil->getPos().x && vRB.x < m_pCoil->getPos().x  
+			if(		vLT.x > m_pCoil->getPos().x +1.0f && vRB.x < m_pCoil->getPos().x +1.0f 
 				//&&	vLT.y < m_pCoil->getPos().y && vRB.y > m_pCoil->getPos().y
 			){
 				m_bIsReverse = false ;
@@ -240,7 +240,7 @@ void MouseCursor::Update2DPos(){
 						vRB = T2DPointTo3DPoint( m_pCamera ,poBuf ) ,
 						vCPos = m_pCoil->getPos() ;
 
-			if(		vLT.x < m_pCoil->getPos().x && vRB.x > m_pCoil->getPos().x  
+			if(		vLT.x < m_pCoil->getPos().x -1.0f&& vRB.x > m_pCoil->getPos().x  -1.0f
 				//&&	vLT.y < m_pCoil->getPos().y && vRB.y > m_pCoil->getPos().y
 			){
 				m_bIsReverse = true ;

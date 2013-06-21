@@ -78,7 +78,7 @@ float4	PS( VS_OUTPUT In ) : COLOR0
 	float	LH	= dot( L, H );
 	
 	//	: Beckman‚Ì•ª•zŠÖ”
-	const float m 	= 0.1f ;	//	: ”÷×‰š“Ê‚Ì•ª•zŒW”
+	const float m 	= 0.5f ;	//	: ”÷×‰š“Ê‚Ì•ª•zŒW”
 	float NH2		= NH * NH ;
 	float D 		= exp( -(1-NH2) / (NH2 * m * m ) ) / ( 4 * m * m * NH2 * NH2 );
 	

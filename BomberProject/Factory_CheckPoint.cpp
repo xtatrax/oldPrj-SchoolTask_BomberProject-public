@@ -77,9 +77,9 @@ CheckEffect::CheckEffect(LPDIRECT3DDEVICE9 pD3DDevice,
 {
 	::ZeroMemory( &m_Material, sizeof(D3DMATERIAL9));
 
-	D3DCOLORVALUE Diffuse = {0.0f,0.0f,0.0f,0.0f};
-	D3DCOLORVALUE Specular = {0.0f,0.0f,0.0f,0.0f};
-	D3DCOLORVALUE Ambient = {0.5f,1.0f,0.5f,0.0f};
+	D3DCOLORVALUE Diffuse	= {0.0f,0.0f,0.0f,0.0f};
+	D3DCOLORVALUE Specular	= {0.0f,0.0f,0.0f,0.0f};
+	D3DCOLORVALUE Ambient	= {0.5f,1.0f,0.5f,0.0f};
 
 	m_Material.Diffuse	= Diffuse;
 	m_Material.Specular	= Specular;
@@ -117,14 +117,16 @@ void CheckEffect::Draw(DrawPacket& i_DrawPacket)
 {
 	//描画する個数を設定
 	int	num	= 0;
-	if( m_bMark )	num	= 1;
-	else			num	= DRAWING_NUMBER;
+	if( m_bMark )
+		num	= 1;
+	else
+		num	= DRAWING_NUMBER;
 
 	for( int i = 0; i < num; i++ ){
 		//updateで描画位置を決定
 		update( i ,i_DrawPacket);
 
-	//テクスチャがある場合
+		//テクスチャがある場合
 		if(m_pTexture){
 			DWORD wkdword;
 			//現在のテクスチャステータスを得る

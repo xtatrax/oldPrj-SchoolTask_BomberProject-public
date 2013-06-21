@@ -307,7 +307,7 @@ MagneticField::MagneticField(
 						D3DCOLORVALUE(),
 						D3DCOLORVALUE(),
 						D3DCOLORVALUE()
-	)
+)
 ,m_Pole( POLE_N )
 ,m_bEffect( bEffect )
 ,m_vNormalSize(vScale)
@@ -354,8 +354,19 @@ void	MagneticField::Draw(DrawPacket &i_DrawPacket){
 		//i_DrawPacket.pD3DDevice->SetFVF(PlateFVF);
 		// マトリックスをレンダリングパイプラインに設定
 		i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &m_mMatrix);
-		//コモンメッシュのDraw()を呼ぶ
-		CommonMesh::Draw(i_DrawPacket);
+		if( GetAsyncKeyState( MYVK_DEBUG_SWITCH_ALPHABLEND ) ){
+			//コモンメッシュのDraw()を呼ぶ
+			RENDERSTATE_PARAM pParam[] = {
+				{ D3DRS_ALPHABLENDENABLE	, TRUE					},
+				{ D3DRS_BLENDOP				, D3DBLENDOP_ADD		},
+				{ D3DRS_SRCBLEND			, D3DBLEND_SRCALPHA		},
+				{ D3DRS_DESTBLEND			, D3DBLEND_ONE			},
+				{ D3DRS_FORCE_DWORD			, NULL					}
+			};
+			CommonMesh::Draw(i_DrawPacket,pParam);
+		}else{
+			CommonMesh::Draw(i_DrawPacket);		
+		}
 		i_DrawPacket.pD3DDevice->SetTexture(0,0);
 		//ステージを元に戻す
 		i_DrawPacket.pD3DDevice->SetTextureStageState(0,D3DTSS_COLOROP,wkdword);
@@ -365,7 +376,19 @@ void	MagneticField::Draw(DrawPacket &i_DrawPacket){
 		// マトリックスをレンダリングパイプラインに設定
 		i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &m_mMatrix);
 		//コモンメッシュのDraw()を呼ぶ
-		CommonMesh::Draw(i_DrawPacket);
+		if( GetAsyncKeyState( MYVK_DEBUG_SWITCH_ALPHABLEND ) ){
+			//コモンメッシュのDraw()を呼ぶ
+			RENDERSTATE_PARAM pParam[] = {
+				{ D3DRS_ALPHABLENDENABLE	, TRUE					},
+				{ D3DRS_BLENDOP				, D3DBLENDOP_ADD		},
+				{ D3DRS_SRCBLEND			, D3DBLEND_SRCALPHA		},
+				{ D3DRS_DESTBLEND			, D3DBLEND_ONE			},
+				{ D3DRS_FORCE_DWORD			, NULL					}
+			};
+			CommonMesh::Draw(i_DrawPacket,pParam);
+		}else{
+			CommonMesh::Draw(i_DrawPacket);		
+		}
 	}
 	//Cylinder::Draw(i_DrawPacket);
 };

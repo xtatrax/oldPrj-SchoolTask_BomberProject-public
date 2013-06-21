@@ -30,6 +30,9 @@ class CustomShader;
 enum SHADING{
 	SHADING_COOKTRANCE,
 };
+
+
+
 /**************************************************************************
 class CommonMesh : public Object;
 用途: コモンメッシュクラス
@@ -2248,11 +2251,13 @@ public:
 };
 /*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 class CustomShader{
-	
+protected:
+	LPD3DXMESH			pickoutMesh(CommonMesh* pComMesh);
+	D3DMATERIAL9		pickoutMaterial(CommonMesh* pComMesh);
+	D3DXMATRIX			pickoutMatrix(SimpleCommonMesh* pComMesh);
+	LPDIRECT3DTEXTURE9	pickoutTexture(SimpleCommonMesh* pComMesh);
 };
 class CookTrance : public CustomShader{
-	friend class CommonMesh				;
-	friend class SimpleCommonMesh		;
 	Camera*			m_pCamera			;
 	Light*			m_pLight			;
 	LPD3DXEFFECT	m_pEffect			;
@@ -2311,8 +2316,6 @@ public:
 		D3DMATERIAL9			i_Material
 	);
 };
-
-
 /*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 
 class PrimitiveCylinder : public Cylinder{

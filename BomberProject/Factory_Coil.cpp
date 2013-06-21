@@ -860,7 +860,7 @@ void PlayerCoil::Draw(DrawPacket& i_DrawPacket){
 		i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &m_Matrix);
 		//コモンメッシュのDraw()を呼ぶ
 		//CommonMesh::Draw(i_DrawPacket);
-		//((CookTrance*)m_pSphere->getShader())->Draw(i_DrawPacket,m_pMesh,m_pTexture,m_Matrix);
+		((CookTrance*)m_pSphere->getShader())->Draw(i_DrawPacket,m_pSphere);
 		//m_pSphere->Draw(i_DrawPacket);
 		if(m_enumCoilStateSuper == COIL_STATE_SUPER_MOVE || m_enumCoilStateSuper == COIL_STATE_SUPER_CHANGING){
 			m_pSuperField->Draw(i_DrawPacket);
@@ -875,8 +875,12 @@ void PlayerCoil::Draw(DrawPacket& i_DrawPacket){
 		i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &m_Matrix);
 		//コモンメッシュのDraw()を呼ぶ
 		CommonMesh::Draw(i_DrawPacket);
-		//((CookTrance*)m_pSphere->getShader())->Draw(i_DrawPacket,m_pSphere->,m_pTexture,m_Matrix,);
-		m_pSphere->Draw(i_DrawPacket);
+		if( g_bIsCookTranceEnable_Coil ){
+			((CookTrance*)m_pSphere->getShader())->Draw(i_DrawPacket,m_pSphere);
+		}
+		else{
+			m_pSphere->Draw(i_DrawPacket);
+		}
 		if(m_enumCoilStateSuper == COIL_STATE_SUPER_MOVE || m_enumCoilStateSuper == COIL_STATE_SUPER_CHANGING){
 			m_pSuperField->Draw(i_DrawPacket);
 		}
@@ -885,10 +889,10 @@ void PlayerCoil::Draw(DrawPacket& i_DrawPacket){
 	if( m_pDSPH ) m_pDSPH->Draw( i_DrawPacket );
 #endif
 	if(m_enumCoilStateSuper == COIL_STATE_SUPER_READY){
-		//m_pLineTop->draw(i_DrawPacket.pD3DDevice);
-		//m_pLineLeft->draw(i_DrawPacket.pD3DDevice);
-		//m_pLineBottom->draw(i_DrawPacket.pD3DDevice);
-		//m_pLineRight->draw(i_DrawPacket.pD3DDevice);
+		m_pLineTop->draw(i_DrawPacket.pD3DDevice);
+		m_pLineLeft->draw(i_DrawPacket.pD3DDevice);
+		m_pLineBottom->draw(i_DrawPacket.pD3DDevice);
+		m_pLineRight->draw(i_DrawPacket.pD3DDevice);
 	}
 
 	//爆散

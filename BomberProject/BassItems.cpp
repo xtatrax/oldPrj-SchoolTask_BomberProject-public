@@ -31,6 +31,18 @@
 namespace wiz {
 
 namespace baseitems{
+LPD3DXMESH			CustomShader::pickoutMesh(wiz::baseitems::CommonMesh *pComMesh){
+	return pComMesh->m_pMesh;
+}
+D3DMATERIAL9		CustomShader::pickoutMaterial(wiz::baseitems::CommonMesh *pComMesh){
+	return pComMesh->m_Material;
+}
+D3DXMATRIX			CustomShader::pickoutMatrix(wiz::baseitems::SimpleCommonMesh *pComMesh){
+	return pComMesh->m_WorldMatrix ;
+}
+LPDIRECT3DTEXTURE9	CustomShader::pickoutTexture(wiz::baseitems::SimpleCommonMesh* pComMesh){
+	return pComMesh->m_pTexture ;
+}
 
 CookTrance::CookTrance(LPDIRECT3DDEVICE9 pD3DDevice)
 :m_pEffect(NULL)
@@ -85,13 +97,14 @@ void CookTrance::Draw(DrawPacket& i_DrawPacket,CommonMesh* i_pComMesh){
 
 }
 void CookTrance::Draw(DrawPacket& i_DrawPacket,SimpleCommonMesh* i_pComMesh){
-	//Draw(
-	//	i_DrawPacket,
-	//	((CommonMesh*)i_pComMesh)->m_pMesh,
-	//	i_pComMesh->m_pTexture,
-	//	i_pComMesh->m_WorldMatrix,
-	//	((CommonMesh*)i_pComMesh)->m_Material
-	//);
+	if( !this ) { OutputDebugString(L"CookTrance::Drawぬるぽ＼(^o^)／\n");return;}
+	Draw(
+		i_DrawPacket,
+		this->pickoutMesh(i_pComMesh),
+		this->pickoutTexture(i_pComMesh),
+		this->pickoutMatrix(i_pComMesh),
+		this->pickoutMaterial(i_pComMesh)
+	);
 }
 /////////////////// ////////////////////
 //// 関数名     ：void CommonMesh::Draw( DrawPacket& i_DrawPacket )
@@ -128,7 +141,8 @@ void CookTrance::Draw(
 	D3DXMatrixTranspose( &mWIT, &mInverse );
 	m_pEffect->SetMatrix( m_hWIT, &mWIT );						//	: ワールド行列の逆転置行列を渡す（法線ベクトルの変換行列）
 
-	m_pEffect->SetTexture( m_hTexture, i_pTexture );			//	: テクスチャを渡す
+	if( i_pTexture )
+		m_pEffect->SetTexture( m_hTexture, i_pTexture );			//	: テクスチャを渡す
 
 	D3DXVECTOR3 vLightDir3D = m_pLight->getStatus().Direction;
 	D3DXVECTOR4	vLightDir4D( vLightDir3D, 0.0f );

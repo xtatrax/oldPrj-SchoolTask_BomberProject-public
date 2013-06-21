@@ -29,7 +29,9 @@ namespace wiz{
 //// 備考       ：直接構築できないように、プロテクトにする
 ////            ：
 ////
-Light::Light(){
+Light::Light(wiz::OBJID id)
+:Object(id)
+{
     // D3DLIGHT9構造体を0でクリアする
     ::ZeroMemory(&m_Light, sizeof(D3DLIGHT9));
 }
@@ -68,8 +70,7 @@ DirectionalLight::DirectionalLight(LPDIRECT3DDEVICE9 pD3DDevice,
     D3DCOLORVALUE Ambient,
     D3DXVECTOR3 Direction,
 	wiz::OBJID id)
-    :Light()
-	,Object(id)
+    :Light(id)
 {
     m_Light.Type		= D3DLIGHT_DIRECTIONAL;
     m_Light.Diffuse		= Diffuse;
