@@ -506,25 +506,26 @@ void WallObject::Update( UpdatePacket& i_UpdatePacket ){
 			m_pEnemy->HitTestWall( (*it)->m_Obb, i_UpdatePacket );
 		}
 
+		//**************************************************************************************
+		LPDIRECT3DVERTEXBUFFER9 pVB = 0;
+		CommonMeshVertex* pVer = 0;
+		m_pMesh->GetVertexBuffer(&pVB);
+		pVB->Lock(0,0,(VOID**)&pVer,0);
+		DWORD vsize = m_pMesh->GetNumVertices();
+		for(DWORD n = 0;n < vsize;n++){ //頂点の数を取得する
+			//法線と頂点からuv値を得る
+			BoxVecNomal2UV_1_4(pVer[n].vec,pVer[n].normal,(*it)->m_iPtn,pVer[n].tu,pVer[n].tv);
+		}
+		pVB->Unlock();
+		//***********************************************************************************
+
+		(*it)->m_iPtn++;
+		m_Plate.Update( (*it)->m_iPtn );
+
 		++it;
 	}
 
 
-	//**************************************************************************************
-	LPDIRECT3DVERTEXBUFFER9 pVB = 0;
-	CommonMeshVertex* pVer = 0;
-	m_pMesh->GetVertexBuffer(&pVB);
-	pVB->Lock(0,0,(VOID**)&pVer,0);
-	DWORD vsize = m_pMesh->GetNumVertices();
-	for(DWORD n = 0;n < vsize;n++){ //頂点の数を取得する
-		//法線と頂点からuv値を得る
-		BoxVecNomal2UV_1_4(pVer[n].vec,pVer[n].normal,m_Ptn,pVer[n].tu,pVer[n].tv);
-	}
-	pVB->Unlock();
-	//***********************************************************************************
-
-	++m_Ptn;
-	m_Plate.Update( m_Ptn );
 	//static	int	s_Time	= 0;
 
 }
@@ -547,8 +548,10 @@ void WallObject::Update( UpdatePacket& i_UpdatePacket ){
 void WallObject::AddWall(D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos,
 			D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient)
 {
-	WallItem* pItem = new WallItem(vScale,vRot,vPos,Diffuse,Specular,Ambient);
+	WallItem* pItem = new WallItem(vScale,vRot,vPos,m_Ptn,Diffuse,Specular,Ambient);
 	m_ItemMap_All.insert(ALLCONTAINER::value_type(vPos.y,pItem));
+
+	m_Ptn++;
 }
 
 
