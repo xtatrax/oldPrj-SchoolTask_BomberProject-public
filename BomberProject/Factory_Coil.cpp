@@ -148,16 +148,16 @@ PlayerCoil::PlayerCoil(
 	m_pDeadChar	= NULL;
 	m_pSphere->ShaderChange( new CookTrance(pD3DDevice) );
 
-	const	D3DXVECTOR3	vDirTop		= D3DXVECTOR3( cosf( D3DXToRadian(-45.0f) ), sinf( D3DXToRadian(-45.0f) ), 0.0f );
-	const	D3DXVECTOR3	vDirLeft	= D3DXVECTOR3( cosf( D3DXToRadian(-45.0f) ), sinf( D3DXToRadian(45.0f) ), 0.0f );
-	const	D3DXVECTOR3	vDirBottom	= D3DXVECTOR3( cosf( D3DXToRadian(45.0f) ), sinf( D3DXToRadian(45.0f) ), 0.0f );
-	const	D3DXVECTOR3	vDirRight	= D3DXVECTOR3( cosf( D3DXToRadian(45.0f) ), sinf( D3DXToRadian(-45.0f) ), 0.0f );
-	const	float	fRangeW	= 40.0f;
-	const	float	fRangeH	= 40.0f;
-	m_pLineTop		= new Line( D3DXVECTOR3( -27.5f, -10.0f, 0.0f ), vDirTop,	 fRangeW, 0xFF00FFFF );
-	m_pLineLeft		= new Line( m_pLineTop->getEndPos(),		 vDirLeft,	 fRangeH, 0xFF00FFFF );
-	m_pLineBottom	= new Line( D3DXVECTOR3( -27.5f, -10.0f, 0.0f ), vDirBottom,	 fRangeW, 0xFF00FFFF );
-	m_pLineRight	= new Line( m_pLineBottom->getEndPos(),		 vDirRight,	 fRangeH, 0xFF00FFFF );
+	const	D3DXVECTOR3	vDir1	= D3DXVECTOR3( cosf( D3DXToRadian(45.0f) ), sinf( D3DXToRadian(45.0f) ), 0.0f );
+	const	D3DXVECTOR3	vDir2	= D3DXVECTOR3( cosf( D3DXToRadian(315.0f) ), sinf( D3DXToRadian(315.0f) ), 0.0f );
+	const	D3DXVECTOR3	vDir3	= D3DXVECTOR3( cosf( D3DXToRadian(225.0f) ), sinf( D3DXToRadian(225.0f) ), 0.0f );
+	const	D3DXVECTOR3	vDir4	= D3DXVECTOR3( cosf( D3DXToRadian(135.0f) ), sinf( D3DXToRadian(135.0f) ), 0.0f );
+	const	float	fRangeW	= 3.5f;
+	const	float	fRangeH	= 3.5f;
+	m_pLine1		= new Line3D( g_vZero, vDir1, fRangeW, 0xFF00FFFF );
+	m_pLine2		= new Line3D( m_pLine1->getEndPos(), vDir2, fRangeH, 0xFF00FFFF );
+	m_pLine3		= new Line3D( m_pLine2->getEndPos(), vDir3, fRangeW, 0xFF00FFFF );
+	m_pLine4		= new Line3D( m_pLine3->getEndPos(), vDir4, fRangeH, 0xFF00FFFF );
 
 
 	//爆散エフェクトのポインタ
@@ -251,6 +251,7 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 	if( GetAsyncKeyState( MYVK_DEBUG_STAGE_RULER ) ){
 		CheckPoint*		pc		= (CheckPoint*)SearchObjectFromID( i_UpdatePacket.pVec, OBJID_SYS_CHECKPOINT );
 		if( pc )		m_vPos	= pc->getLastPosition();
+		m_vPos.y -= 30.0f;
 	}
 	if( GetAsyncKeyState( MYVK_DEBUG_INVISIBLEGAUGE_MAX ) ){
 		m_pSuperGage->Recovery(-1) ;
@@ -892,10 +893,10 @@ void PlayerCoil::Draw(DrawPacket& i_DrawPacket){
 	if( m_pDSPH ) m_pDSPH->Draw( i_DrawPacket );
 #endif
 	if(m_enumCoilStateSuper == COIL_STATE_SUPER_READY){
-		//m_pLineTop->draw(i_DrawPacket.pD3DDevice);
-		//m_pLineLeft->draw(i_DrawPacket.pD3DDevice);
-		//m_pLineBottom->draw(i_DrawPacket.pD3DDevice);
-		//m_pLineRight->draw(i_DrawPacket.pD3DDevice);
+		m_pLine1->draw(i_DrawPacket.pD3DDevice);
+		m_pLine2->draw(i_DrawPacket.pD3DDevice);
+		m_pLine3->draw(i_DrawPacket.pD3DDevice);
+		m_pLine4->draw(i_DrawPacket.pD3DDevice);
 	}
 
 	//爆散
@@ -1058,43 +1059,40 @@ void PlayerCoil::Update_Line(){
 
 	D3DXMATRIX		mLineScale, mLinePos;
 	D3DXVECTOR3		vLineScale = D3DXVECTOR3(1.0f,1.0f,0.0f),
-					vLinePos,
-					vBaseLinePos;
-	Point			BaseLinePos  = T3DPointTo2DPoint(m_pCamera,m_vPos);
+		vBaseLinePos = D3DXVECTOR3(-m_pLine1->getEndPos().x,-m_pLine2->getEndPos().y,0.0f),
+					vLinePos;
 	static float	s_fMovingDistance	= 0.0f; 
 	
-	vBaseLinePos = D3DXVECTOR3((float)BaseLinePos.x,(float)BaseLinePos.y,0.0f);
-	//vBaseLinePos.y -= 
 	D3DXMatrixScaling( &mLineScale, vLineScale.x, vLineScale.y, vLineScale.z );
 
 	//左上部
 	vLineScale;
 	vLinePos	= D3DXVECTOR3(vBaseLinePos.x - s_fMovingDistance, 
-							  vBaseLinePos.y - s_fMovingDistance,
-							  0.0f);
-	D3DXMatrixTranslation( &mLinePos, vLinePos.x, vLinePos.y, vLinePos.z);
-	m_pLineTop->setMatrix( mLineScale * mLinePos );
-	//右上部
-	vLinePos	= D3DXVECTOR3(vBaseLinePos.x + s_fMovingDistance,
-							  vBaseLinePos.y - s_fMovingDistance,
-							  0.0f);
-	D3DXMatrixTranslation( &mLinePos, vLinePos.x, vLinePos.y, vLinePos.z);
-	m_pLineLeft->setMatrix( mLineScale * mLinePos );
-	//左下部
-	vLinePos	= D3DXVECTOR3(vBaseLinePos.x - s_fMovingDistance,
 							  vBaseLinePos.y + s_fMovingDistance,
 							  0.0f);
 	D3DXMatrixTranslation( &mLinePos, vLinePos.x, vLinePos.y, vLinePos.z);
-	m_pLineBottom->setMatrix( mLineScale * mLinePos );
-	//右下部
+	m_pLine1->setMatrix( mLineScale * mLinePos );
+	//右上部
 	vLinePos	= D3DXVECTOR3(vBaseLinePos.x + s_fMovingDistance,
-							  vBaseLinePos.y + s_fMovingDistance, 
+							  vBaseLinePos.y + s_fMovingDistance,
 							  0.0f);
 	D3DXMatrixTranslation( &mLinePos, vLinePos.x, vLinePos.y, vLinePos.z);
-	m_pLineRight->setMatrix( mLineScale * mLinePos );
+	m_pLine2->setMatrix( mLineScale * mLinePos );
+	//左下部
+	vLinePos	= D3DXVECTOR3(vBaseLinePos.x + s_fMovingDistance,
+							  vBaseLinePos.y - s_fMovingDistance,
+							  0.0f);
+	D3DXMatrixTranslation( &mLinePos, vLinePos.x, vLinePos.y, vLinePos.z);
+	m_pLine3->setMatrix( mLineScale * mLinePos );
+	//右下部
+	vLinePos	= D3DXVECTOR3(vBaseLinePos.x - s_fMovingDistance,
+							  vBaseLinePos.y - s_fMovingDistance, 
+							  0.0f);
+	D3DXMatrixTranslation( &mLinePos, vLinePos.x, vLinePos.y, vLinePos.z);
+	m_pLine4->setMatrix( mLineScale * mLinePos );
 	
-	s_fMovingDistance	+= 0.8f;
-	if(s_fMovingDistance >= 6.0f){
+	s_fMovingDistance	+= 0.05f;
+	if(s_fMovingDistance >= 0.3f){
 		s_fMovingDistance	= 0.0f;
 	}	
 }
