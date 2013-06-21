@@ -4782,9 +4782,13 @@ void PrimitivePlate::Draw(DrawPacket &i_DrawPacket){
 	if( m_pTexture ){
 		//	: 頂点バッファを用いてモデルを描画する
 		pD3DDevice->SetFVF( Vertex::getFVF() );						//	: 頂点データの形式を設定
+		pD3DDevice->SetSamplerState(0,D3DSAMP_ADDRESSU,D3DTADDRESS_CLAMP);
+		pD3DDevice->SetSamplerState(0,D3DSAMP_ADDRESSV,D3DTADDRESS_CLAMP);
 		pD3DDevice->SetTexture( 0, m_pTexture );										//	: テクスチャを設定（NULL の場合はテクスチャ無し）
 	}else{
 		pD3DDevice->SetFVF( Vertex::getFVF() );										//	: 頂点データの形式を設定	
+		pD3DDevice->SetSamplerState(0,D3DSAMP_ADDRESSU,D3DTADDRESS_CLAMP);
+		pD3DDevice->SetSamplerState(0,D3DSAMP_ADDRESSV,D3DTADDRESS_CLAMP);
 	}
 	pD3DDevice->DrawPrimitive( D3DPT_TRIANGLESTRIP, 0, 2 );						//	: 頂点データの描画（描画の仕方、描画開始位置、プリミティブ数）
 

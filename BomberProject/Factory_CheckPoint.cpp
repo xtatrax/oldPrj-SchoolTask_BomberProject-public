@@ -327,6 +327,9 @@ void CheckPoint::Update( UpdatePacket& i_UpdatePacket ){
 		m_pCamera = (    Camera*)SearchObjectFromID( i_UpdatePacket.pVec, OBJID_SYS_CAMERA ) ;
 		m_fInitPosY	= 	m_pCamera->getPosY();
 	}
+	if( m_ActiveItem >= m_ItemContainer.size() ){
+		m_ActiveItem = m_ItemContainer.size() -1;
+	}
 	if( m_pCoil && m_ActiveItem < m_ItemContainer.size()){
 		float fPosY		= m_ItemContainer[ m_ActiveItem ]->fPosY;
 		float fCoilPosY = m_pCoil->getPos().y;
@@ -334,12 +337,13 @@ void CheckPoint::Update( UpdatePacket& i_UpdatePacket ){
 		float	fTexPosY	= m_pCamera->getPosY() - m_fInitPosY;
 
 		//CHECK POINT テクスチャ*************************************************************
-		float	wide;
-		if(m_ActiveItem == m_ItemContainer.size()-1){
-			wide	= BASE_CLIENT_WIDTH / 50 * m_ItemContainer[ m_ActiveItem ]->vStartPos.x * CHECKPOINT_CHAR_RATE_X;
-		}else{
-			wide	= BASE_CLIENT_WIDTH / 50 * m_ItemContainer[ m_ActiveItem ]->vStartPos.x * CHECKPOINT_CHAR_RATE_X;
-		}
+		//float	wide;
+		//if(m_ActiveItem == m_ItemContainer.size()-1){
+		//	wide	= BASE_CLIENT_WIDTH / 50 * m_ItemContainer[ m_ActiveItem ]->vStartPos.x * CHECKPOINT_CHAR_RATE_X;
+		//}else{
+		//	wide	= BASE_CLIENT_WIDTH / 50 * m_ItemContainer[ m_ActiveItem ]->vStartPos.x * CHECKPOINT_CHAR_RATE_X;
+		//}
+		float	wide	= BASE_CLIENT_WIDTH / 50 * m_ItemContainer[ m_ActiveItem ]->vStartPos.x * CHECKPOINT_CHAR_RATE_X;
 		float	height	= ( (m_ItemContainer[ m_ActiveItem ]->vStartPos.y - fTexPosY)
 									* CHECKPOINT_CHAR_DOWNSPEED - BASE_CLIENT_HEIGHT ) * (-1.0f) * CHECKPOINT_CHAR_RATE_Y;
 
@@ -436,7 +440,14 @@ void CheckPoint::Draw( DrawPacket& i_DrawPacket ){
 			//m_pCoil->HitTestWall();
 		}
 
+		Debugger::DBGSTR::addStr(L"m_ActiveItem = %d\n",m_ActiveItem);
 	}
+	else/* if(m_ActiveItem == m_ItemContainer.size()-1)*/{
+		Debugger::DBGSTR::addStr(L"m_ActiveItem = %d\n",m_ActiveItem);
+		Debugger::DBGSTR::addStr(L"らすと");
+		m_pPintMark->Draw(i_DrawPacket);
+	}
+
 	if( m_pEffect != NULL ){
 		m_pEffect->Draw( i_DrawPacket );
 	}
