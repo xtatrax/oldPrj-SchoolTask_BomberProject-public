@@ -55,7 +55,7 @@
 	//-------------------------------//
 		//#define DEBUG_STRINGS_ON					/* デバッグ用文字列を有効化 */
 		//#define CF_MEMORYMANAGER_ENABLE			/* 自作メモリ管理システムを有効化 */
-		#define CF_FULLSCREEN				/* フルスクリーンモード       */
+//		#define CF_FULLSCREEN				/* フルスクリーンモード       */
 		//#define DEBUG_STRINGS_ON			/* デバッグ用文字列を有効化 */
 
 	#else
