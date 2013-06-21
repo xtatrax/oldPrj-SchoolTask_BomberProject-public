@@ -34,7 +34,7 @@
 //#include "Object.h"
 //#include "Scene.h"
 //
-//#include "Factory_CheckPoint.h"
+//#include "Factory_CheckPoint.h"6
 //#include "Factory_Coil.h"
 //#include "Factory_Goal.h"
 //#include "Factory_Gage.h"
@@ -133,7 +133,8 @@ Factory_Main::Factory_Main(FactoryPacket* fpac, DWORD dwStageNum, DWORD dwResump
 		float	fPointSize	= 0.125f;
 		Factory_Cursor		Mfac( fpac, fLineLength, fPointSize )  ; 
 		Factory_Player		Pfac( fpac );
-		Factory_Item		Ifac( fpac ) ;
+		if( dwStageNum != 5 )
+			Factory_Item	Ifac( fpac ) ;
 		Factory_Wall		Wfac( fpac );
 		if( dwStageNum == 0 )	dwStageNum = 5 ;
 		StageLoader			loader(fpac->pD3DDevice,L"media/Map/Stages.csv", dwStageNum,*fpac->m_pVec,*fpac->m_pTexMgr);
@@ -160,7 +161,7 @@ Factory_Main::Factory_Main(FactoryPacket* fpac, DWORD dwStageNum, DWORD dwResump
 			)
 		);
 		pSound->SearchSoundAndPlay( RCTEXT_SOUND_BGM_PLAY );
-		pSound->SearchSoundAndPlay( RCTEXT_SOUND_SE_SPARK );
+		//pSound->SearchSoundAndPlay( RCTEXT_SOUND_SE_SPARK );
 		//	: ‰¹º‚Ì\’z‚ÆBGM‚ÌÄ¶ŠJn
 		//////////
 
