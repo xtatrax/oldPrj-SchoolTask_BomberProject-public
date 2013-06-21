@@ -27,8 +27,9 @@ Score::Score(LPDIRECT3DDEVICE9	pD3DDevice,
 				D3DXVECTOR3	&vScale,
 				D3DXVECTOR3	&vPos,
 				int			iScore,
-				Rect*		Rect)
-:SpriteObject( pD3DDevice, pTexture, vScale, g_vZero, vPos, Rect, g_vZero, g_vZero, 0xFFFFFFFF, OBJID_UI_SCORE, true )
+				Rect*		Rect,
+				wiz::OBJID	id		)
+:SpriteObject( pD3DDevice, pTexture, vScale, g_vZero, vPos, Rect, g_vZero, g_vZero, 0xFFFFFFFF, id, true )
 ,m_vPos( vPos )
 ,m_vScale( vScale )
 ,m_iScore( iScore )
@@ -351,6 +352,76 @@ void	GoalPos::Update(UpdatePacket& i_UpdatePacket){
 }
 
 /**************************************************************************
+ TimeScore 定義部
+***************************************************************************/
+/**************************************************************************
+ TimeScore(LPDIRECT3DDEVICE9	pD3DDevice,
+				LPDIRECT3DTEXTURE9	pTexture,
+				D3DXVECTOR3	vScale,
+				D3DXVECTOR3	vPos,
+				Rect		rect,
+				D3DXVECTOR3	vCenter)
+ 用途　：コンストラクタ
+ 戻り値：なし
+ 担当者：佐藤涼
+***************************************************************************/
+TimeScore::TimeScore(LPDIRECT3DDEVICE9	pD3DDevice,
+				LPDIRECT3DTEXTURE9	pTexture,
+				D3DXVECTOR3	&vScale,
+				D3DXVECTOR3	&vPos,
+				int			iTime,
+				Rect*		Rect)
+:Score( pD3DDevice, pTexture, vScale, vPos, 0, Rect, OBJID_UI_TIME )
+,m_iTime( iTime )
+,m_fElapsedTime( 0 )
+{
+}
+
+/**************************************************************************
+ TimeScore::~TimeScore();
+ 用途: デストラクタ
+ 戻り値: なし
+***************************************************************************/
+TimeScore::~TimeScore(){
+	Score::~Score();
+}
+
+/**************************************************************************
+ TimeScore::Draw(DrawPacket& i_DrawPacket);
+ 用途: 描画
+ 戻り値: なし
+***************************************************************************/
+void	TimeScore::Draw(DrawPacket& i_DrawPacket){
+	Score::Draw( i_DrawPacket );
+}
+
+/**************************************************************************
+ TimeScore::Update(UpdatePacket& i_UpdatePacket)
+ 用途: 更新
+ 戻り値: なし
+***************************************************************************/
+void	TimeScore::Update(UpdatePacket& i_UpdatePacket){
+
+	if( !m_pCoil ) m_pCoil = (PlayerCoil*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_3D_COIL);
+
+	if( m_pCoil ){
+		if( m_iTime == 0 ){
+			m_pCoil->setState( COIL_STATE_DEAD );
+		}
+		else if( m_pCoil->getState() == COIL_STATE_MOVE ){
+			m_fElapsedTime	+= i_UpdatePacket.pTime->getElapsedTime();
+			if( m_fElapsedTime >= 1.0f ){
+				--m_iTime;
+				m_fElapsedTime	= 0;
+			}
+		}
+	}
+
+	m_iScore	= m_iTime;
+	Score::Update( i_UpdatePacket );
+}
+
+/**************************************************************************
  AnimationScore 定義部
 ***************************************************************************/
 /**************************************************************************
@@ -580,11 +651,11 @@ ResultScore::ResultScore(LPDIRECT3DDEVICE9	pD3DDevice,
 	m_pTotal	= new AnimationScore( pD3DDevice, m_pMaxPosTex, D3DXVECTOR3( 1.0f, 1.0f, 0.0f ),
 						D3DXVECTOR3( wide+50, height+120.0f, 0.0f ), TotalScore, iDightTotal, &rScoreRect);
 	m_pRate_10	= new SpriteObject( pD3DDevice, m_pRate10Tex, vScoreSize, g_vZero, 
-									D3DXVECTOR3( wide+250.0f, height-115.0f, 0.0f ), Rect( 0, 0, 128, 64 ),g_vZero, g_vZero );
+									D3DXVECTOR3( wide+250.0f, height-115.0f, 0.0f ), Rect( 0, 0, 256, 64 ),g_vZero, g_vZero );
 	m_pRate_1	= new SpriteObject( pD3DDevice, m_pRate1Tex, vScoreSize, g_vZero, 
-									D3DXVECTOR3( wide+250.0f, height-35.0f, 0.0f ), Rect( 0, 0, 128, 64 ),g_vZero, g_vZero );
+									D3DXVECTOR3( wide+250.0f, height-35.0f, 0.0f ), Rect( 0, 0, 256, 64 ),g_vZero, g_vZero );
 	m_pRate_30	= new SpriteObject( pD3DDevice, m_pRate30Tex, vScoreSize, g_vZero, 
-									D3DXVECTOR3( wide+250.0f, height+45.0f, 0.0f ), Rect( 0, 0, 128, 64 ),g_vZero, g_vZero );
+									D3DXVECTOR3( wide+250.0f, height+45.0f, 0.0f ), Rect( 0, 0, 256, 64 ),g_vZero, g_vZero );
 
 }
 
@@ -674,6 +745,19 @@ void	ResultScore::Update(UpdatePacket& i_UpdatePacket){
 ***************************************************************************/
 Factory_Score::Factory_Score(FactoryPacket *fpac){
 	try{
+		//Time
+		fpac->m_pVec->push_back(
+			new SpriteObject( fpac->pD3DDevice,
+					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"TIME2.png" ),
+					D3DXVECTOR3( 0.5f, 0.5f, 0.0f ),
+					g_vZero,
+					D3DXVECTOR3( 10.0f, 10.0f, 0.0f ),					
+					&Rect( 0, 0, 256, 64 ),
+					g_vZero,
+					g_vZero
+			)
+		);
+
 		//DeadCount
 		fpac->m_pVec->push_back(
 			new SpriteObject( fpac->pD3DDevice,
@@ -690,7 +774,7 @@ Factory_Score::Factory_Score(FactoryPacket *fpac){
 		//NowPos
 		fpac->m_pVec->push_back(
 			new SpriteObject( fpac->pD3DDevice,
-					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"MAX_RANGE1.png" ),
+					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"NOW_RANGE1.png" ),
 					D3DXVECTOR3( 0.5f, 0.5f, 0.0f ),
 					g_vZero,
 					D3DXVECTOR3( 750.0f, 520.0f, 0.0f ),					
@@ -763,6 +847,16 @@ Factory_Score::Factory_Score(FactoryPacket *fpac){
 					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Number_Base2.png" ),
 					D3DXVECTOR3( 0.4f, 0.4f, 0.0f ),
 					D3DXVECTOR3( 100.0f, 550.0f, 0.0f ),					
+					&Rect( 0, 0, 512, 64 )
+			)
+		);
+		//Time
+		fpac->m_pVec->push_back(
+			new TimeScore( fpac->pD3DDevice,
+					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Number_Base1.png" ),
+					D3DXVECTOR3( 0.4f, 0.4f, 0.0f ),
+					D3DXVECTOR3( 30.0f, 50.0f, 0.0f ),
+					LIMIT_TIME,
 					&Rect( 0, 0, 512, 64 )
 			)
 		);

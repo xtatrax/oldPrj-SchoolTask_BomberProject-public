@@ -121,6 +121,7 @@ class	Continue	: public SpriteObject{
 	Reply*			m_pReply_No;
 	SpriteObject*	m_pRethinking;
 	SpriteObject*	m_pContinueChar				;	//	: コンテニューロゴのポインタ
+	TimeScore*		m_pTime;
 
 	LPDIRECT3DTEXTURE9	m_pRethinkingTex;	//Really?
 	LPDIRECT3DTEXTURE9	m_pAnswerTex	;	//Yes : No
