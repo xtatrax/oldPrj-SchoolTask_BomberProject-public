@@ -328,6 +328,7 @@ namespace wiz{
 		OBJID_UI_SCORE				,	//	: スコア
 		OBJID_UI_TIME				,	//	: 時間( いる? )
 		OBJID_UI_END				,
+		OBJID_UI_NOTICE				,	//	: スーパーたまった(Ready)
 
 		//	: 3Dオブジェ
 		////

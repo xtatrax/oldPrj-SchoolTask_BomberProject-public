@@ -27,15 +27,76 @@ namespace wiz{
 namespace bomberobject{
 
 /******************************************************
- GaugeKind 定義部
+ SuperNotice 定義部
 ******************************************************/
 /****************************************************
 用途　：コンストラクタ
 担当者：佐藤涼
 ****************************************************/
-GaugeKind::GaugeKind(const LPDIRECT3DDEVICE9 pD3DDevice, const LPDIRECT3DTEXTURE9 pTex,
-		const D3DXVECTOR3 &vScale, const D3DXVECTOR3 &vRot, const D3DXVECTOR3 &vPos, const RECT Rect)
-		:SpriteObject( pD3DDevice, pTex, vScale, g_vZero, vPos, &Rect, g_vZero, g_vZero,-1 ,OBJID_UI_SPRITE,false )
+SuperNotice::SuperNotice(const LPDIRECT3DDEVICE9 pD3DDevice, const LPDIRECT3DTEXTURE9 pTex,
+		const D3DXVECTOR3 &vScale, const D3DXVECTOR3 &vPos, const RECT Rect, const wiz::OBJID id)
+		:SpriteObject( pD3DDevice, pTex, vScale, g_vZero, vPos, &Rect, g_vZero, g_vZero,-1 , id, false )
+,m_vPos( vPos )
+,m_vScale( vScale )
+,m_pCursor( NULL )
+,m_fMovePos( 0 )
+,m_vInitPos( vPos )
+,m_bDraw( false )
+{
+}
+
+/****************************************************
+用途　：デストラクタ
+担当者：佐藤涼
+****************************************************/
+SuperNotice::~SuperNotice()
+{
+}
+
+/***************************************************
+用途　：描画
+担当者：佐藤涼
+***************************************************/
+void	SuperNotice::Draw(DrawPacket &i_DrawPacket)
+{
+	if( m_bDraw ){
+		SpriteObject::Draw( i_DrawPacket );
+	}
+}
+
+/***************************************************
+用途　：更新
+担当者：佐藤涼
+***************************************************/
+void	SuperNotice::Update(UpdatePacket &i_UpdatePacket)
+{
+	if( !m_pCursor ) m_pCursor = (MouseCursor*)SearchObjectFromID(i_UpdatePacket.pVec, OBJID_SYS_CURSOR);
+
+	if( !m_pCursor ) return ;
+
+	m_vPos.x	 = (float)m_pCursor->get2DPos().x +  30.0f + m_vInitPos.x + m_fMovePos ;
+	m_vPos.y	 = (float)m_pCursor->get2DPos().y + -60.0f + m_vInitPos.y ;
+
+	if( m_pCursor->getReverse() )
+			m_fMovePos	= -(185.0f);
+	else	m_fMovePos	= 0.0f;
+
+	D3DXMATRIX	mScale, mPos;
+	D3DXMatrixScaling( &mScale, m_vScale.x, m_vScale.y, m_vScale.z );
+	D3DXMatrixTranslation( &mPos, m_vPos.x, m_vPos.y, m_vPos.z );
+	m_mMatrix	= mScale * mPos;
+}
+
+/******************************************************
+ Relationship_Gage 定義部
+******************************************************/
+/****************************************************
+用途　：コンストラクタ
+担当者：佐藤涼
+****************************************************/
+Relationship_Gage::Relationship_Gage(const LPDIRECT3DDEVICE9 pD3DDevice, const LPDIRECT3DTEXTURE9 pTex,
+		const D3DXVECTOR3 &vScale, const D3DXVECTOR3 &vRot, const D3DXVECTOR3 &vPos, const RECT Rect, const wiz::OBJID id)
+		:SpriteObject( pD3DDevice, pTex, vScale, g_vZero, vPos, &Rect, g_vZero, g_vZero,-1 ,id,false )
 ,m_vPos( vPos )
 ,m_vScale( vScale )
 ,m_pCursor( NULL )
@@ -47,7 +108,7 @@ GaugeKind::GaugeKind(const LPDIRECT3DDEVICE9 pD3DDevice, const LPDIRECT3DTEXTURE
 用途　：デストラクタ
 担当者：佐藤涼
 ****************************************************/
-GaugeKind::~GaugeKind()
+Relationship_Gage::~Relationship_Gage()
 {
 }
 
@@ -55,7 +116,7 @@ GaugeKind::~GaugeKind()
 用途　：描画
 担当者：佐藤涼
 ***************************************************/
-void	GaugeKind::Drow(DrawPacket &i_DrawPacket)
+void	Relationship_Gage::Draw(DrawPacket &i_DrawPacket)
 {
 	SpriteObject::Draw( i_DrawPacket );
 }
@@ -64,7 +125,7 @@ void	GaugeKind::Drow(DrawPacket &i_DrawPacket)
 用途　：更新
 担当者：佐藤涼
 ***************************************************/
-void	GaugeKind::Update(UpdatePacket &i_UpdatePacket)
+void	Relationship_Gage::Update(UpdatePacket &i_UpdatePacket)
 {
 	if( !m_pCursor ) m_pCursor = (MouseCursor*)SearchObjectFromID(i_UpdatePacket.pVec, OBJID_SYS_CURSOR);
 
@@ -260,6 +321,7 @@ SuperGage::SuperGage(
 ,m_pLineBottom( NULL )
 ,m_pLineRight( NULL )
 ,m_bAcquired(false)
+,m_pSuperNotice( NULL )
 {
 	const	D3DXVECTOR3	vDirTop		= D3DXVECTOR3( cosf( D3DXToRadian(0.0f) ), sinf( D3DXToRadian(0.0f) ), 0.0f );
 	const	D3DXVECTOR3	vDirLeft	= D3DXVECTOR3( cosf( D3DXToRadian(90.0f) ), sinf( D3DXToRadian(90.0f) ), 0.0f );
@@ -284,7 +346,8 @@ SuperGage::SuperGage(
 ////            ：
 ////
 SuperGage::~SuperGage(){
-	m_pCursor = NULL;
+	m_pCursor		= NULL;
+	m_pSuperNotice	= NULL;
 	SafeDelete( m_pLineTop );
 	SafeDelete( m_pLineLeft );
 	SafeDelete( m_pLineBottom );
@@ -334,8 +397,10 @@ void SuperGage::Draw(DrawPacket& i_DrawPacket){
 ////
 void SuperGage::Update( UpdatePacket& i_UpdatePacket ){
 	if( !m_pCursor ) m_pCursor = (MouseCursor*)SearchObjectFromID(i_UpdatePacket.pVec, OBJID_SYS_CURSOR);
+	if( !m_pSuperNotice ) m_pSuperNotice = (SuperNotice*)SearchObjectFromID(i_UpdatePacket.pVec, OBJID_UI_NOTICE);
 
 	if( !m_pCursor ) return ;
+	if( !m_pSuperNotice ) return ;
 
 	D3DXMATRIX	mPos, mScale, mRot ;
 	D3DXVECTOR3 vPos ;
@@ -378,7 +443,13 @@ void SuperGage::Update( UpdatePacket& i_UpdatePacket ){
 	//ゲージの描画
 	m_GaugeRect.right  = /*m_BassRect.left -*/ m_BassRect.right ;
 	m_GaugeRect.right  = (LONG)( m_GaugeRect.right * (1.0f - m_fRate)) ;
-	
+
+	if( m_pSuperNotice ){
+		if( m_fRate <= 0.0f )
+			m_pSuperNotice->setDraw( true );
+		else
+			m_pSuperNotice->setDraw( false );
+	}
 }
 
 /////////////////// ////////////////////
@@ -702,7 +773,7 @@ Factory_Gage::Factory_Gage(FactoryPacket* fpac){
 	try{
 		//ゲージの種類
 		fpac->m_pVec->push_back(
-			new GaugeKind(
+			new Relationship_Gage(
 				fpac->pD3DDevice,
 				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Gauge_Kind.png" ),
 				D3DXVECTOR3( 0.25f, 0.25f, 0.0f ),
@@ -755,7 +826,18 @@ Factory_Gage::Factory_Gage(FactoryPacket* fpac){
 				//Rect(0,0,256,32)
 			)
 		);
-				//D3DXVECTOR3( 80.0f,-170.0f,0.0f),
+
+		//Ready
+		fpac->m_pVec->push_back(
+			new SuperNotice(
+				fpac->pD3DDevice,
+				fpac->AddTexture( L"Ready.png" ),
+				D3DXVECTOR3( 0.25f, 0.25f, 0.0f ),
+				D3DXVECTOR3( 50.0f, 35.0f, 0.0f ),
+				Rect( 0, 0, 256, 64 )
+			)
+		);
+
 	}
 	catch(...){
 		//再throw

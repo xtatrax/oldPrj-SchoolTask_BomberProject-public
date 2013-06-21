@@ -751,7 +751,7 @@ Factory_Score::Factory_Score(FactoryPacket *fpac){
 					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"TIME2.png" ),
 					D3DXVECTOR3( 0.5f, 0.5f, 0.0f ),
 					g_vZero,
-					D3DXVECTOR3( 50.0f, 10.0f, 0.0f ),					
+					D3DXVECTOR3( 50.0f, 10.0f, 0.0f ),			
 					&Rect( 0, 0, 256, 64 ),
 					g_vZero,
 					g_vZero
