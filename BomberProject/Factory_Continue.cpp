@@ -309,6 +309,7 @@ Continue::Continue(const LPDIRECT3DDEVICE9 pD3DDevice,const  LPDIRECT3DTEXTURE9 
 ,m_pReply_No( NULL )
 ,m_pRethinking( NULL )
 ,m_pContinueChar( NULL )
+,m_pTime( NULL )
 ,m_bPushRock( false )
 ,m_bWhichDraw( true )
 ,m_pRethinkingTex(pTexture_Rethinking)
@@ -356,6 +357,9 @@ Continue::~Continue(){
 	SAFE_DELETE( m_pReply_No );
 	SAFE_DELETE( m_pRethinking );
 	SAFE_DELETE( m_pContinueChar );
+
+	m_pTime					= NULL ;
+
 }
 
 /////////////////// ////////////////////
@@ -398,12 +402,15 @@ void Continue::Draw(DrawPacket& i_DrawPacket)
 void Continue::Update(UpdatePacket& i_UpdatePacket)
 {
 	if( m_bWhichDraw ){
-		if( !m_pCoil ) m_pCoil = (PlayerCoil*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_3D_COIL);
+		if( !m_pTime )	m_pTime	= ( TimeScore* ) SearchObjectFromID( i_UpdatePacket.pVec, OBJID_UI_TIME );
+		if( !m_pCoil )	m_pCoil = (PlayerCoil*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_3D_COIL);
 		if( Cursor2D::isHitSprite( this ) ){
 			if( Cursor2D::getLButtonState()/* || Cursor2D::getRButtonState()*/ ){
 				if( m_bPushRock ){
-					if( m_bMark )
+					if( m_bMark ){
+						if( m_pTime )		m_pTime->setTime();
 						m_pCoil->setReadyContinue(true);
+					}
 					else{
 						if( m_pReply_No != NULL){
 							m_pReply_No->setWhichDraw( false );

@@ -34,7 +34,7 @@
 //#include "Object.h"
 //#include "Scene.h"
 //
-//#include "Factory_CheckPoint.h"
+//#include "Factory_CheckPoint.h"6
 //#include "Factory_Coil.h"
 //#include "Factory_Goal.h"
 //#include "Factory_Gage.h"

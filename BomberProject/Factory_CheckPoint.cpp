@@ -287,6 +287,7 @@ CheckPoint::CheckPoint( LPDIRECT3DDEVICE9 pD3DDevice, float fLength,LPDIRECT3DTE
 , m_pCoil( NULL )
 , m_pCamera( NULL )
 , m_ActiveItem( NULL )
+, m_pTime( NULL )
 , m_Color( CHECKPOINTCOLOR )
 , m_Thicken( 1.0f )
 , m_Length( fLength )
@@ -303,6 +304,7 @@ CheckPoint::CheckPoint( LPDIRECT3DDEVICE9 pD3DDevice, float fLength,LPDIRECT3DTE
 CheckPoint::~CheckPoint(){
 	m_pCoil		= NULL ;
 	m_pCamera	= NULL ;
+	m_pTime		= NULL ;
 	SAFE_DELETE( m_pEffect );
 	SAFE_DELETE( m_pEffect2 );
 	m_pPintMark	= NULL;
@@ -324,7 +326,8 @@ CheckPoint::~CheckPoint(){
 ////            F
 ////
 void CheckPoint::Update( UpdatePacket& i_UpdatePacket ){
-	if( !m_pCoil   ) m_pCoil   = (PlayerCoil*)SearchObjectFromID( i_UpdatePacket.pVec, OBJID_3D_COIL	) ;
+	if( !m_pTime )		m_pTime	= ( TimeScore* )SearchObjectFromID( i_UpdatePacket.pVec, OBJID_UI_TIME );
+	if( !m_pCoil   )	m_pCoil	= (PlayerCoil*)SearchObjectFromID( i_UpdatePacket.pVec, OBJID_3D_COIL	) ;
 	if( !m_pCamera ){
 		m_pCamera = (    Camera*)SearchObjectFromID( i_UpdatePacket.pVec, OBJID_SYS_CAMERA ) ;
 		m_fInitPosY	= 	m_pCamera->getPosY();
@@ -356,6 +359,8 @@ void CheckPoint::Update( UpdatePacket& i_UpdatePacket ){
 		while(fPosY <= fCoilPosY){
 			m_pCoil->setStartPos(m_ItemContainer[ m_ActiveItem ]->vStartPos);
 			m_ActiveItem++;
+			m_pCoil->setRecordTime();
+			m_pTime->setTime();
 			if(m_ActiveItem == m_ItemContainer.size()-1){
 				m_pPintMark->setTexture(m_pTextureLast);
 				m_pPintMark->setCenter(D3DXVECTOR3( 128.0f, 32.0f, 0.0f ));

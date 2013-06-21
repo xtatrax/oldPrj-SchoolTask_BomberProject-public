@@ -28,6 +28,7 @@
 #include "Factory_CheckPoint.h"
 #include "Factory_Continue.h"
 #include "Factory_Description.h"
+#include "Factory_Score.h"
 
 //	: 追加のインクルード
 //////////
@@ -108,6 +109,7 @@ PlayerCoil::PlayerCoil(
 ,m_pMagneticumObject(	NULL								)
 ,m_pCamera(				NULL								)
 ,m_pReStart(			NULL								)
+,m_pTime(				NULL								)
 //テクスチャ*********************************************************************
 ,m_pDeadTex(			m_pTexMgr->addTexture( pD3DDevice, L"DeadPerticul.png"	))
 ,m_pContinueTex(		m_pTexMgr->addTexture( pD3DDevice, L"CONTINUE4.png"		))
@@ -120,6 +122,7 @@ PlayerCoil::PlayerCoil(
 //**********************************************************************************
 ,m_iMaxPosY(				0								)
 ,m_iScratchTime(			0								)
+,m_fRecordTime(				0								)
 ,m_bModeChangeChar(			false							)
 ,m_bReDrawing_ChangeChar(	true							)
 ,m_enumCoilState(		COIL_STATE_STOP						)
@@ -262,6 +265,7 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 	if( !m_pMagneticumObject )	m_pMagneticumObject		= ( MagneticumObject3D* ) SearchObjectFromID( i_UpdatePacket.pVec, OBJID_3D_STATIC_MAGNET ) ; 
 	if( !m_pReStart )			m_pReStart				=		 ( StartSprite* ) SearchObjectFromID( i_UpdatePacket.pVec, OBJID_SYS_START  ) ;
 	if( !m_pSuperGage )			m_pSuperGage			=          ( SuperGage* ) SearchObjectFromID( i_UpdatePacket.pVec, OBJID_UI_SUPERGAUGE );
+
 	if( m_pPlayer ){
 		//デバック用-----------------------------------------------------------
 		// 磁界反転
@@ -448,7 +452,8 @@ void	PlayerCoil::CreateEffect( UpdatePacket& i_UpdatePacket ){
 	m_pSelect2	= new Continue( i_UpdatePacket.pD3DDevice, m_pAnswerTex, m_pRethinkingTex, m_pContinueTex, false, D3DXVECTOR3(1.0f,1.0f,0.0f),g_vZero,
 								D3DXVECTOR3( wide-128.0f,height+100.0f,0.0f ),Rect( 256,0,512,64 ), g_vZero, g_vZero );
 
-	m_iDeadCount++;
+	if( m_iDeadCount < MAX_DIGHT_SCORE )
+		m_iDeadCount++;
 };
 
 /////////////////// ////////////////////
@@ -770,6 +775,7 @@ void PlayerCoil::Update_StateDead(UpdatePacket& i_UpdatePacket){
 void PlayerCoil::Update_StateContinue(UpdatePacket& i_UpdatePacket){
 	D3DXVECTOR3 vPlayer = g_vZero;
 	float		fTargetDir = NULL;
+
 	//マウス座標計算
 	if( m_pCursor ) vPlayer = m_pCursor->get3DPos();
 	fTargetDir = TwoPoint2Degree( vPlayer , m_vPos );
@@ -797,6 +803,7 @@ void PlayerCoil::Update_StateContinue(UpdatePacket& i_UpdatePacket){
 		if( m_vScale.x >= m_vOriginScale.x && m_vScale.y >= m_vOriginScale.y ){
 			m_vScale = m_vOriginScale;
 			if( m_bRestart ){
+				m_iScratchTime	= m_fRecordTime;
 				if( m_pReStart )	m_pReStart->ReStart();
 				m_bRestart	= false;
 			}//m_bReadyToStart = true;
