@@ -141,6 +141,7 @@ class PlayerCoil : public MagneticumObject3D{
 	bool			m_bRestart			;
 	int				m_iMaxPosY			;
 	int				m_iScratchTime		;
+	int				m_fRecordTime		;
 	bool			m_bModeChangeChar	;
 	bool			m_bReDrawing_ChangeChar	;
 	int				m_iAlpha			;
@@ -488,11 +489,15 @@ public:
 	//****************************************
 	//スクラッチポイントのゲッター、セッター
 	int	getScratchTime(){
-		return	m_iScratchTime;
+		return	m_fRecordTime;
 	}
 
 	void	ScratchTime_Update(){
 		++m_iScratchTime;
+	}
+
+	void	setRecordTime(){
+		m_fRecordTime	= m_iScratchTime;
 	}
 	//*****************************************
 
