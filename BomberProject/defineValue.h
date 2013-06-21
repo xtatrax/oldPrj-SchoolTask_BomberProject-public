@@ -55,7 +55,7 @@
 	//-------------------------------//
 		//#define DEBUG_STRINGS_ON					/* デバッグ用文字列を有効化 */
 		//#define CF_MEMORYMANAGER_ENABLE			/* 自作メモリ管理システムを有効化 */
-		//#define CF_FULLSCREEN				/* フルスクリーンモード       */
+		#define CF_FULLSCREEN				/* フルスクリーンモード       */
 		//#define DEBUG_STRINGS_ON			/* デバッグ用文字列を有効化 */
 
 	#else
@@ -88,10 +88,16 @@
 #define BASE_CLIENT_HEIGHT		(  600.0f)	/* 基準になる描画領域の高さ */
 #define BASE_CLIENT_WIDTH		( 1024.0f)	/* 基準になる描画領域の幅   */
 #if defined(CF_FULLSCREEN)
-#define STANDARD_WINDOW_HEIGHT  (  720.0f)	/* ウインドウモードの高さ   */
-#define STANDARD_WINDOW_WIDTH   ( 1280.0f)	/* ウインドウモードの幅     */
+
+#define STANDARD_WINDOW_HEIGHT		(  600.0f)	/* 基準になる描画領域の高さ */
+#define STANDARD_WINDOW_WIDTH		( 1024.0f)	/* 基準になる描画領域の幅   */
+
+//#define STANDARD_WINDOW_HEIGHT  (  800.0f)	/* ウインドウモードの高さ   */
+//#define STANDARD_WINDOW_WIDTH   ( 1280.0f)	/* ウインドウモードの幅     */
+
 //#define STANDARD_WINDOW_HEIGHT  (  768.0f)	/* ウインドウモードの高さ   */
 //#define STANDARD_WINDOW_WIDTH   ( 1366.0f)	/* ウインドウモードの幅     */
+
 #else
 #define STANDARD_WINDOW_HEIGHT  (  600.0f)	/* ウインドウモードの高さ   */
 #define STANDARD_WINDOW_WIDTH   ( 1024.0f)	/* ウインドウモードの幅     */
@@ -147,47 +153,49 @@
 const float	CURSOR_FIELD_LENGHT				= 10.0f;
 const float CURSOR_FIELD_TIME				= 2.0f;		
 
-static ULONG				RCVAL_SAVEDATA_IDENTIFIER_H = 0x534E4B42 ;	//	: BKNS
-static ULONG				RCVAL_SAVEDATA_IDENTIFIER_L = 0x5F455641 ;	//	: AVE_
+static ULONG				RCVAL_SAVEDATA_IDENTIFIER_H		= 0x534E4B42 ;	//	: BKNS
+static ULONG				RCVAL_SAVEDATA_IDENTIFIER_L		= 0x5F455641 ;	//	: AVE_
 
-static const char*			RCTEXT_SAVEDATA_EXTENSION	= "bkn"  ;
-static const char*			RCTEXT_SAVEDATA_FILENAME	= "SaveData/Save.bkn"  ;
+static const char*			RCTEXT_SAVEDATA_EXTENSION		= "bkn"  ;
+static const char*			RCTEXT_SAVEDATA_FILENAME		= "SaveData/Save.bkn"  ;
 
-static const wchar_t*		RCTEXT_SOUND_WAVEBANK		= L"media/Sound/MagneticaWave.xwb"  ;
-static const wchar_t*		RCTEXT_SOUND_SOUNDBANK		= L"media/Sound/MagneticaSound.xsb" ;
+static const wchar_t*		RCTEXT_SOUND_WAVEBANK			= L"media/Sound/MagneticaWave.xwb"  ;
+static const wchar_t*		RCTEXT_SOUND_SOUNDBANK			= L"media/Sound/MagneticaSound.xsb" ;
 
-static const char*			RCTEXT_SOUND_BGM_CLEAR		= "BGM-CLEAR"			;
-static const char*			RCTEXT_SOUND_BGM_GAMEOVER	= "BGM-GAME_OVER"		;
+static const char*			RCTEXT_SOUND_BGM_CLEAR			= "BGM-CLEAR"			;
+static const char*			RCTEXT_SOUND_BGM_GAMEOVER		= "BGM-GAME_OVER"		;
 //static const char*			RCTEXT_SOUND_BGM_PLAY		= "BGM-PLAY001"			;
-static const char*			RCTEXT_SOUND_BGM_PLAY		= "BGM-PLAY002"			;
-static const char*			RCTEXT_SOUND_BGM_TITLE		= "BGM-TITLE"			;
-static const char*			RCTEXT_SOUND_SE_ALERT		= "SE-ALERT002"			;
-static const char*			RCTEXT_SOUND_SE_BREAKENEMY	= "SE-BLOKEN_ENEMY"		;
-static const char*			RCTEXT_SOUND_SE_CHECKPOINT	= "SE-CHACK_POINT"		;
-static const char*			RCTEXT_SOUND_SE_CLEAR		= "SE-CLEAR"			;
-static const char*			RCTEXT_SOUND_SE_SELECT		= "SE-SELECT"			;
-static const char*			RCTEXT_SOUND_SE_ENTER		= "SE-ENTER"			;
-static const char*			RCTEXT_SOUND_SE_FIRE		= "SE-FIRE"				;
-static const char*			RCTEXT_SOUND_SE_GOAL		= "SE-GOAL"				;
-static const char*			RCTEXT_SOUND_SE_PLAYERBLOKEN= "SE-PLAYER_BLOKEN"	;
-static const char*			RCTEXT_SOUND_SE_INVISIBLE	= "SE-INVINGVLE"		;
-static const char*			RCTEXT_SOUND_SE_ITEMS		= "SE-ITEMS"			;
-static const char*			RCTEXT_SOUND_SE_SETFIELD	= "SE-MAGNETIC_FIELD"	;
-static const char*			RCTEXT_SOUND_SE_SPARK		= "SE-SPARK002"			;
+static const char*			RCTEXT_SOUND_BGM_PLAY			= "BGM-PLAY002"			;
+static const char*			RCTEXT_SOUND_BGM_TITLE			= "BGM-TITLE"			;
+static const char*			RCTEXT_SOUND_SE_ALERT			= "SE-ALERT002"			;
+static const char*			RCTEXT_SOUND_SE_BREAKENEMY		= "SE-BLOKEN_ENEMY"		;
+static const char*			RCTEXT_SOUND_SE_CHECKPOINT		= "SE-CHACK_POINT"		;
+static const char*			RCTEXT_SOUND_SE_CLEAR			= "SE-CLEAR"			;
+static const char*			RCTEXT_SOUND_SE_SELECT			= "SE-SELECT"			;
+static const char*			RCTEXT_SOUND_SE_ENTER			= "SE-ENTER"			;
+static const char*			RCTEXT_SOUND_SE_FIRE			= "SE-FIRE"				;
+static const char*			RCTEXT_SOUND_SE_GOAL			= "SE-GOAL"				;
+static const char*			RCTEXT_SOUND_SE_PLAYERBLOKEN	= "SE-PLAYER_BLOKEN"	;
+static const char*			RCTEXT_SOUND_SE_INVISIBLE		= "SE-INVINGVLE"		;
+static const char*			RCTEXT_SOUND_SE_ITEMS			= "SE-ITEMS"			;
+static const char*			RCTEXT_SOUND_SE_SUPER_FULL		= "SE-ITEM_FULL"		;
+static const char*			RCTEXT_SOUND_SE_SETFIELD		= "SE-MAGNETIC_FIELD"	;
+static const char*			RCTEXT_SOUND_SE_SPARK			= "SE-SPARK002"			;
+static const char*			RCTEXT_SOUND_SE_SPARK_WARNING	= "SE-SPARK002"			;
 
-static const char*			RCTEXT_MODEL_ENEMY			= "media/Model/mine.x"	;
+static const char*			RCTEXT_MODEL_ENEMY				= "media/Model/mine.x"	;
 
-static const float			MGPRM_INVISIBLESOUND_TIME	= 0.7f	; /* 磁界の影響半径*/
-static const int			MGPRM_MAGNETICUM			= 10	; /* 磁界の影響半径*/
-static const int			MGPRM_MAGNETICUM_QUAD		= ( MGPRM_MAGNETICUM * MGPRM_MAGNETICUM );
-static const int			DRAWING_RANGE				= 25;
-static const D3DXVECTOR3	g_vZero						= D3DXVECTOR3(0.0f,0.0f,0.0f);
-static const D3DXVECTOR3	g_vOne						= D3DXVECTOR3(1.0f,1.0f,1.0f);
-static const D3DXVECTOR3	g_vMax						= D3DXVECTOR3(+FLT_MAX,+FLT_MAX,+FLT_MAX);
-static const D3DXVECTOR3	g_vMin						= D3DXVECTOR3(-FLT_MAX,-FLT_MAX,-FLT_MAX);
-static const wstring		g_sDefaultTexturePath		= L"media/Textures/" ;	//	: テクスチャの置き場
-      //extern HWND			wiz::DxDevice::m_hWnd		;
-static const SIZE			g_GaugeReverseSize			= { 146,67 };
+static const float			MGPRM_INVISIBLESOUND_TIME		= 0.7f	; /* 磁界の影響半径*/
+static const int			MGPRM_MAGNETICUM				= 10	; /* 磁界の影響半径*/
+static const int			MGPRM_MAGNETICUM_QUAD			= ( MGPRM_MAGNETICUM * MGPRM_MAGNETICUM );
+static const int			DRAWING_RANGE					= 25;
+static const D3DXVECTOR3	g_vZero							= D3DXVECTOR3(0.0f,0.0f,0.0f);
+static const D3DXVECTOR3	g_vOne							= D3DXVECTOR3(1.0f,1.0f,1.0f);
+static const D3DXVECTOR3	g_vMax							= D3DXVECTOR3(+FLT_MAX,+FLT_MAX,+FLT_MAX);
+static const D3DXVECTOR3	g_vMin							= D3DXVECTOR3(-FLT_MAX,-FLT_MAX,-FLT_MAX);
+static const wstring		g_sDefaultTexturePath			= L"media/Textures/" ;	//	: テクスチャの置き場
+      //extern HWND			wiz::DxDevice::m_hWnd			;
+static const SIZE			g_GaugeReverseSize				= { 146,67 };
 
 
 //

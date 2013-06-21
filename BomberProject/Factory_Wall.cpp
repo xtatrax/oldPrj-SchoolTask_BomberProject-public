@@ -46,6 +46,7 @@ Warning::Warning( LPDIRECT3DDEVICE9 pD3DDevice,D3DCOLORVALUE& Diffuse,D3DCOLORVA
 ,m_bToDraw(false)
 ,m_fDrawTime( 0 )
 ,m_pCoil( NULL )
+,m_bIsPlaySound( false )
 {
 	::ZeroMemory( &m_Material, sizeof(D3DMATERIAL9));
 	D3DXMATRIX mScalse, mRot, mPos;
@@ -87,6 +88,10 @@ Warning::~Warning(){
 void Warning::Draw(DrawPacket& i_DrawPacket)
 {
 	if(m_bToDraw){
+		if(!m_bIsPlaySound){
+			i_DrawPacket.SearchSoundAndPlay(RCTEXT_SOUND_SE_SPARK_WARNING);
+			m_bIsPlaySound = true;
+		}
 		if(m_pTexture){
 			DWORD wkdword;
 			//現在のテクスチャステータスを得る
@@ -133,6 +138,11 @@ void Warning::Draw(DrawPacket& i_DrawPacket)
 			i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &m_Matrix);
 			//コモンメッシュのDraw()を呼ぶ
 			CommonMesh::Draw(i_DrawPacket);
+		}
+	}else{
+		if(m_bIsPlaySound){
+			i_DrawPacket.SoundStop(RCTEXT_SOUND_SE_SPARK_WARNING);
+			m_bIsPlaySound = false ;
 		}
 	}
 }
@@ -182,7 +192,7 @@ void Warning::Update( UpdatePacket& i_UpdatePacket ){
 		if(s_iInterval >= WARNING_INTERVAL)s_iInterval = 0;
 		s_iInterval++;
 
-		m_fDrawTime	+= i_UpdatePacket.pTime->getElapsedTime();
+		m_fDrawTime	+= (float)i_UpdatePacket.pTime->getElapsedTime();
 		if( m_fDrawTime > 0.01f ){
 			m_pCoil->ScratchTime_Update();
 			m_fDrawTime	= 0;
@@ -360,7 +370,6 @@ void WallObject::Draw(DrawPacket& i_DrawPacket)
 			//float	f	= 0.5f ;
 			//i_DrawPacket.pD3DDevice->SetRenderState(D3DRS_ALPHAREF,*(DWORD*)&f);
 			//コモンメッシュのDraw()を呼ぶ
-			Debugger::DBGSTR::addStr(L"あるふぁぶれんど");
 			RENDERSTATE_PARAM pParam[] = {
 				{ D3DRS_ALPHABLENDENABLE	, TRUE					},
 				{ D3DRS_BLENDOP				, D3DBLENDOP_ADD		},

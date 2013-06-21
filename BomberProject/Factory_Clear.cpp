@@ -17,6 +17,7 @@
 #include "Factory_Score.h"
 #include "Factory_Title.h"
 #include "Factory_Cursor.h"
+#include "Factory_CustomButtonA.h"
 
 namespace wiz{
 namespace bomberobject{
@@ -116,19 +117,32 @@ Factory_Clear::Factory_Clear(FactoryPacket* fpac, int iDeadCount, int iMaxPosY, 
 		);
 		//*****************************************************************************
 		//Please Click
-		fpac->m_pVec->push_back(
-			new Title_Select(
-					fpac->pD3DDevice,
-					fpac->AddTexture( L"Click_Please1.png" ),
-					GM_OPENSTAGE_TITLE,
-					D3DXVECTOR3(1.0f,1.0f,0.0f),
-					g_vZero,
-					D3DXVECTOR3( wide-256.0f, 500.0f, 0.0f ),
-					Rect( 0, 0, 512, 64 ),
-					g_vZero,
-					g_vZero,
-					0xFFFFFFFF
-				)
+/////////////////////////////////////////////////////////////////////////////////
+//                                 BACK                                        //
+/////////////////////////////////////////////////////////////////////////////////
+		fpac->AddButton(
+			new CustomButtonA(
+				fpac->pD3DDevice,	
+				fpac->AddTexture(L"BACK002.tga"),
+				fpac->AddTexture(L"BACK001.tga"),
+				g_vOne,
+				g_vZero,
+				D3DXVECTOR3(980.0f, 560.0f, 0.0f),
+				Rect(0,0,148,30),
+				Rect(0,0,148,30),
+				D3DXVECTOR3( 148.0f,15.0f,0.0f ),
+				g_vZero,
+				0xFF00AA55,
+				0xFF008833,
+				0xFFFFFFFF,
+				0xFFAAAAAA,
+				RCTEXT_SOUND_SE_SELECT,
+				RCTEXT_SOUND_SE_ENTER,
+				0.5f,
+				Command( GM_OPENSTAGE_TITLE, 0, 0 ),
+				0,
+				OBJID_UI_BUTTON_BACK
+			)
 		);
 
 		//ÉJÅ[É\Éã*************************************************
