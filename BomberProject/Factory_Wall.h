@@ -161,6 +161,7 @@ class WallObject : public PrimitiveBox{
 		float			m_fMapKey	;
 		bool			m_bHidden	;
 		float			m_fRotZ		;
+		int				m_iPtn		;
 #if defined(ON_DEBUGGINGPROCESS) | defined( PRESENTATION )
 		DrawOBB*       m_pDOB		;
 		~WallItem(){SafeDelete(m_pDOB);}
