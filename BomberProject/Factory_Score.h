@@ -30,7 +30,9 @@ public:
 				D3DXVECTOR3	&vScale,
 				D3DXVECTOR3	&vPos,
 				int			iScore,
-				Rect*		Rect	= NULL );
+				Rect*		Rect	= NULL,
+				wiz::OBJID	id		= OBJID_UI_SCORE
+	);
 	virtual ~Score();
 
 	void	Draw(DrawPacket& i_DrawPacket);
@@ -117,6 +119,31 @@ public:
 
 	void	Draw(DrawPacket& i_DrawPacket);
 	void	Update(UpdatePacket& i_UpdatePacket);
+};
+
+/**************************************************************************
+ class TimeScore : public Score;
+ 用途　：到達地点描画クラス
+ 担当者：佐藤涼
+****************************************************************************/
+class TimeScore : public Score{
+	int		m_iTime;
+	float	m_fElapsedTime;
+public:
+	TimeScore(LPDIRECT3DDEVICE9	pD3DDevice,
+				LPDIRECT3DTEXTURE9	pTexture,
+				D3DXVECTOR3	&vScale,
+				D3DXVECTOR3	&vPos,
+				int			iTime,
+				Rect*		Rect	= NULL );
+	virtual ~TimeScore();
+
+	void	Draw(DrawPacket& i_DrawPacket);
+	void	Update(UpdatePacket& i_UpdatePacket);
+	void	setTime(){
+		m_iTime	= LIMIT_TIME;
+	}
+
 };
 
 /**************************************************************************

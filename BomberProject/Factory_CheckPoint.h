@@ -19,6 +19,7 @@
 //	: インクルード
 #include "Factory_Coil.h"
 #include "BassItems.h"
+#include "Factory_Score.h"
 //	: インクルード
 //////////
 namespace wiz{
@@ -224,6 +225,7 @@ protected:
 	LPDIRECT3DTEXTURE9		m_pTextureLast	;
 	D3DXVECTOR3				m_vPos			;
 	SpriteObject*			m_pPintMark		;
+	TimeScore*				m_pTime			;
 	float					m_fInitPosY		;
 	/////////////////// ////////////////////
 	//// 関数名     ：
