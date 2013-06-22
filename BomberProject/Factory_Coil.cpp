@@ -82,8 +82,7 @@ PlayerCoil::PlayerCoil(
 		D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,
 		wiz::OBJID id
 	)
-:MagneticumObject3D(	pD3DDevice, NULL, Radius1, Radius2, Lenght,
-						vRot, vPos, Diffuse, Specular, Ambient, id )
+:MagneticumObject3D(	pD3DDevice, id )
 ,m_vPos(				vPos								)
 ,m_vRot(				vRot								)
 ,m_vScale(				D3DXVECTOR3( 0.0f, 0.0f, 0.0f)		)
@@ -426,7 +425,8 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 ////            ：  ├ const CONTROLER_STATE*   pCntlState      // コントローラのステータス
 ////            ：  └       Command            pCommand        // コマンド
 //// 戻値       ：なし
-//// 担当       ：佐藤涼, 曳地 大洋（画像の配置）
+//// 担当       ：佐藤涼
+//// 編集       ：曳地 大洋（画像の配置）
 //// 備考       ：
 ////            ：
 ////
@@ -711,7 +711,7 @@ void PlayerCoil::SuperMode( UpdatePacket& i_UpdatePacket ){
 	//ゲージ減少
 	static float s_fTimeAccumulator = 0 ;
 	if(m_enumCoilState == COIL_STATE_MOVE && m_enumCoilStateSuper == COIL_STATE_SUPER_MOVE){
-		if( ( s_fTimeAccumulator += i_UpdatePacket.pTime->getElapsedTime()) < COIL_SUPER_MODE_TIME ){
+		if( ( s_fTimeAccumulator += (float)i_UpdatePacket.pTime->getElapsedTime()) < COIL_SUPER_MODE_TIME ){
 			float fOneSecondSub = (1.0f / (float)COIL_SUPER_MODE_TIME);
 			float fFrameSub     = fOneSecondSub * (float)i_UpdatePacket.pTime->getElapsedTime();
 			m_pSuperGage->Consume( -fFrameSub );	

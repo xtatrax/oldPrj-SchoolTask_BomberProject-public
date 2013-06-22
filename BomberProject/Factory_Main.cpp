@@ -71,8 +71,8 @@ Factory_Main::Factory_Main(FactoryPacket* fpac, DWORD dwStageNum, DWORD dwResump
 
 		//////////
 		//	: ƒ‰ƒCƒg‚ÌÝ’è
-        D3DCOLORVALUE Diffuse = {0.5f,0.5f,0.5f,0.0f};
-        D3DCOLORVALUE Specular = {0.5f,0.5f,0.5f,0.0f};
+        D3DCOLORVALUE Diffuse = {1.0f,1.0f,1.0f,0.0f};
+        D3DCOLORVALUE Specular = {1.0f,1.0f,1.0f,0.0f};
         D3DCOLORVALUE Ambient = {0.3f,0.3f,0.3f,0.0f};
         fpac->m_pVec->push_back(
 			new DirectionalLight(
@@ -96,7 +96,7 @@ Factory_Main::Factory_Main(FactoryPacket* fpac, DWORD dwStageNum, DWORD dwResump
 				D3DXVECTOR3( ECXPos, ECYPos, -55.7f),
 				D3DXVECTOR3( ECXPos, ECYPos,   0.0f),
 				1 ,
-				55.8f,
+				56.0f,
 				30.0f
 			)
 		);
@@ -114,7 +114,7 @@ Factory_Main::Factory_Main(FactoryPacket* fpac, DWORD dwStageNum, DWORD dwResump
 				new Box(
 					fpac->pD3DDevice ,
 					D3DXVECTOR3( 50.0f, fBoxSizeX    , 0.0f ),
-					D3DXVECTOR3( 25.0f, fBoxSizeX *i , 0.0f ),
+					D3DXVECTOR3( 25.0f, fBoxSizeX *i , 0.2f ),
 					g_vZero,
 					wDiffuse,
 					wSpecular,

@@ -4,6 +4,8 @@
 //	開発環境		：MSVC++ 2008
 //	最適タブ数		：4
 //	担当者			：鴫原 徹
+//	引継ぎ			：曳地 大洋
+//	└→			：本多 寛之
 //	内包ﾃﾞｰﾀと備考	：メインファクトリー
 //					▼
 //	namespace wiz;
@@ -22,52 +24,68 @@ namespace bomberobject{
 
 
 ///**************************************************************************
-// MagneticumObject 定義部
+// PlaneCircle 定義部
 //****************************************************************************/
-///////////////////// ////////////////////
-////// 関数名     ：MagneticumObject( LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTexture,
-//////            ：    D3DXVECTOR3 &vScale, D3DXVECTOR3 &vRot, D3DXVECTOR3 &vPos, RECT* pRect,
-//////            ：    Color color = 0xFFFFFFFF, wiz::OBJID id = OBJID_3D_PLAYER )
-////// カテゴリ   ：コンストラクタ
-////// 用途       ：
-////// 引数       ：
-////// 戻値       ：なし
-////// 担当       ：鴫原 徹
-////// 備考       ：
-//////            ：
-//////
-//MagneticumObject::MagneticumObject(
-//	LPDIRECT3DDEVICE9 pD3DDevice,				//	: デバイス
-//	LPDIRECT3DTEXTURE9 pTexture,				//	: テクスチャー
-//	D3DXVECTOR3 &vScale,						//	: 伸縮
-//	D3DXVECTOR3 &vRot,							//	: 回転
-//	D3DXVECTOR3 &vPos,							//	: 位置
-//	RECT* pRect,								//	: 描画範囲
-//	Color color ,								//	: 色
-//	wiz::OBJID id 								//	: ID
-//)
-//:SpriteObject(pD3DDevice,pTexture,vScale,vRot,vPos,
-//	pRect,g_vZero,g_vZero,color,id)
-//,m_vPos( vPos )
-//,m_vScale( vScale )
-//,m_bMagnetPole( POLE_S )
-//{
-//}
-//
-///////////////////// ////////////////////
-////// 関数名     ：void Update( UpdatePacket& i_UpdatePacket )
-////// カテゴリ   ：
-////// 用途       ：
-////// 引数       ：
-////// 戻値       ：なし
-////// 担当       ：鴫原 徹
-////// 備考       ：
-//////            ：
-//////
-//void MagneticumObject::Update( UpdatePacket& i_UpdatePacket ){
-//
-//};
-//
+/////////////////// ////////////////////
+//// 関数名     ：
+//// 用途       ：
+//// 引数       ：
+//// 戻値       ：なし
+//// 担当       ：鴫原 徹
+//// 備考       ：
+////            ：
+////
+MagnetFieldCircle::MagnetFieldCircle(LPDIRECT3DDEVICE9 pD3DDevice,DWORD dwVertexQty){
+
+	m_dwVertexQty	= dwVertexQty  +1 ;
+	float iRotSize	= 360.0f / (dwVertexQty -1) ;
+	Vertex* m_pVertex;
+
+	pD3DDevice->CreateVertexBuffer( Vertex::getSize() * m_dwVertexQty , D3DUSAGE_WRITEONLY, Vertex::getFVF(), D3DPOOL_MANAGED, &m_pVertexBuffer, NULL );
+	m_pVertexBuffer->Lock( 0, 0, (void**)&m_pVertex ,0 );	//	: 頂点データのアドレスを取得するとともに、データへのアクセスを開始する	
+
+	m_pVertex[ 0 ]	= Vertex( D3DXVECTOR3( 0.0f, 0.0f, 0.0f ) , 0x3FFFFFFF );
+
+	for ( DWORD i = 1 ; i < m_dwVertexQty  ; i++ ){
+		m_pVertex[ i ]	= Vertex( D3DXVECTOR3(  cosf( D3DXToRadian( iRotSize * i ) ) , sinf(D3DXToRadian( iRotSize * i ) ) , 0.0f )	, 0x3FFFFFFF );
+	}
+	m_pVertexBuffer->Unlock();
+	D3DXMatrixScaling( &m_mMatrix, 10.0f, 10.0f, 1.0f );
+}
+
+/////////////////// ////////////////////
+//// 関数名     ：
+//// カテゴリ   ：
+//// 用途       ：
+//// 引数       ：
+//// 戻値       ：なし
+//// 担当       ：鴫原 徹
+//// 備考       ：
+////            ：
+////
+void MagnetFieldCircle::Draw(DrawPacket& i_DrawPacket){
+	 //ワールド変換行列を設定
+	i_DrawPacket.pD3DDevice->SetTransform( D3DTS_WORLD , &m_mMatrix );								//変換済み頂点の場合は無視される
+
+	i_DrawPacket.pD3DDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, 1);
+    i_DrawPacket.pD3DDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
+    i_DrawPacket.pD3DDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
+
+	////頂点アルファを使えるようにするデフォルトでもこのように設定されている
+ //   i_DrawPacket.pD3DDevice->SetRenderState(D3DRS_DIFFUSEMATERIALSOURCE , D3DMCS_COLOR1);
+ //   //上の設定を有効にする
+ //   i_DrawPacket.pD3DDevice->SetRenderState(D3DRS_COLORVERTEX, TRUE); 
+
+	//	: 頂点バッファを用いてモデルを描画する
+	i_DrawPacket.pD3DDevice->SetRenderState( D3DRS_LIGHTING, FALSE );
+	i_DrawPacket.pD3DDevice->SetStreamSource( 0, m_pVertexBuffer , 0 , Vertex::getSize() );		//	: 描画対象となる頂点バッファを設定
+	i_DrawPacket.pD3DDevice->SetFVF( Vertex::getFVF() );											//	: 頂点データの形式を設定
+	i_DrawPacket.pD3DDevice->DrawPrimitive( D3DPT_TRIANGLEFAN  , 0, m_dwVertexQty  );	//	: 頂点データの描画（描画の仕方、描画開始位置、プリミティブ数）
+	i_DrawPacket.pD3DDevice->SetRenderState( D3DRS_LIGHTING, TRUE );
+    //i_DrawPacket.pD3DDevice->SetRenderState(D3DRS_COLORVERTEX, FALSE); 
+	i_DrawPacket.pD3DDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, 0);
+}
+
 
 
 //3D変換用
@@ -88,7 +106,6 @@ namespace bomberobject{
 ////
 MagneticumObject3D::MagneticumObject3D(
 	LPDIRECT3DDEVICE9 pD3DDevice,				//	: デバイス
-	LPDIRECT3DTEXTURE9 pTexture,				//	: テクスチャー
 	wiz::OBJID id 								//	: ID
 )
 :PrimitiveCylinder(
@@ -100,42 +117,12 @@ MagneticumObject3D::MagneticumObject3D(
 				   NULL)
 ,m_bMagnetPole( POLE_S )
 ,m_fMagneticum((float)MGPRM_MAGNETICUM)
-,m_pMagneticField( NULL )
-,m_pMagneticField2( NULL )
-,m_pMagneticField3( NULL )
-,m_pMagneticField4( NULL )
+,m_MagneticField( pD3DDevice, 32 )
 ,m_pCoil(	NULL )
 ,m_pCamera(	NULL )
+,m_fEffectSizeRate(0)
 {
 	::ZeroMemory( &m_Material, sizeof(D3DMATERIAL9) ) ;
-	//磁界　外側
-	m_pMagneticField	= new	MagneticField(pD3DDevice,
-									NULL,
-									D3DXVECTOR3( m_fMagneticum,m_fMagneticum,0.0f ),
-									D3DXQUATERNION( 0.0f, 0.0f, 0.0f, 0.0f ),
-									g_vMin,
-									false);
-	//磁界　真ん中
-	m_pMagneticField2	= new	MagneticField(pD3DDevice,
-									NULL,
-									D3DXVECTOR3( m_fMagneticum/3*2,m_fMagneticum/3*2,0.0f ),
-									D3DXQUATERNION( 0.0f, 0.0f, 0.0f, 0.0f ),
-									g_vMin,
-									false);
-	//磁界　内側
-	m_pMagneticField3	= new	MagneticField(pD3DDevice,
-									NULL,
-									D3DXVECTOR3( m_fMagneticum/3,m_fMagneticum/3,0.0f ),
-									D3DXQUATERNION( 0.0f, 0.0f, 0.0f, 0.0f ),
-									g_vMin,
-									false);
-	//エフェクト用
-	m_pMagneticField4	= new	MagneticField(pD3DDevice,
-									NULL,
-									D3DXVECTOR3( m_fMagneticum,m_fMagneticum,0.0f ),
-									D3DXQUATERNION( 0.0f, 0.0f, 0.0f, 0.0f ),
-									g_vMin,
-									true);
 }
 /////////////////// ////////////////////
 //// 用途       ：MagneticumObject3D(
@@ -179,12 +166,10 @@ MagneticumObject3D::MagneticumObject3D(
 		   Diffuse,Specular,Ambient,
 		   id)
 ,m_bMagnetPole( POLE_N )
-,m_pMagneticField ( NULL )
-,m_pMagneticField2( NULL )
-,m_pMagneticField3( NULL )
-,m_pMagneticField4( NULL )
+,m_MagneticField( pD3DDevice, 32 )
 ,m_pCoil(NULL)
 ,m_pCamera(	NULL )
+,m_fEffectSizeRate(0)
 
 {
 	::ZeroMemory( &m_Material, sizeof(D3DMATERIAL9) ) ;
@@ -200,143 +185,12 @@ MagneticumObject3D::MagneticumObject3D(
 ////	
 MagneticumObject3D::~MagneticumObject3D(){
 	//磁界　外側
-	SafeDelete( m_pMagneticField  );
-	SafeDelete( m_pMagneticField2 );
-	SafeDelete( m_pMagneticField3 );
-	SafeDelete( m_pMagneticField4 );
 	SafeDeletePointerMap( m_ItemMap_All );
 	m_ItemMap_All.clear();
 	m_ItemMap_Target.clear();
 
 }
 
-/////////////////// ////////////////////
-//// 用途       ：void Draw( DrawPacket& i_DrawPacket )
-//// カテゴリ   ：関数
-//// 用途       ：オブジェクトをディスプレイに表示する
-//// 引数       ：  DrawPacket& i_DrawPacket             // 画面描画時に必要なデータ群 ↓内容下記
-////			   ：  ├ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 インターフェイスへのポインタ
-////			   ：  ├ vector<Object*>&    Vec                     // オブジェクトの配列
-////			   ：  ├ Tempus2*            i_DrawPacket.pTime	   // 時間を管理するクラスへのポインター
-////               ：  └ Command             i_DrawPacket.pCommand   // コマンド
-//// 戻値       ：無し
-//// 担当者     ：曳地 大洋
-//// 備考       ：
-void MagneticumObject3D::Draw(DrawPacket& i_DrawPacket)
-{
-	TARGETCONTAINER::iterator	it  = m_ItemMap_Target.begin(),
-								end = m_ItemMap_Target.end();
-	while(it != end){
-		Magnet3DItem* pNowItem  = (*it);
-		//setPole( pNowItem->m_bMagnetPole );
-		////テクスチャがある場合
-		//if(m_pTexture){
-		//	DWORD wkdword;
-		//	//現在のテクスチャステータスを得る
-		//	i_DrawPacket.pD3DDevice->GetTextureStageState(0,D3DTSS_COLOROP,&wkdword);
-		//	//ステージの設定
-		//	i_DrawPacket.pD3DDevice->SetTexture(0,m_pTexture);
-		//	//デフィーズ色とテクスチャを掛け合わせる設定
-		//	i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLOROP, D3DTOP_MODULATE4X );
-		//	i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLORARG1, D3DTA_TEXTURE );
-		//	i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLORARG2, D3DTA_DIFFUSE );
-
-		//	//i_DrawPacket.pD3DDevice->SetFVF(PlateFVF);
-		//	// マトリックスをレンダリングパイプラインに設定
-		//	i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &pNowItem->m_Matrix);
-		//	//コモンメッシュのDraw()を呼ぶ
-		//	CommonMesh::Draw(i_DrawPacket);
-		//	i_DrawPacket.pD3DDevice->SetTexture(0,0);
-		//	//ステージを元に戻す
-		//	i_DrawPacket.pD3DDevice->SetTextureStageState(0,D3DTSS_COLOROP,wkdword);
-		//}
-		//else{
-		////テクスチャがない場合
-		//	// マトリックスをレンダリングパイプラインに設定
-		//	i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &pNowItem->m_Matrix);
-		//	//コモンメッシュのDraw()を呼ぶ
-		//	CommonMesh::Draw(i_DrawPacket);
-		//}
-		m_pMagneticField->SetPos(pNowItem->m_vPos);
-		m_pMagneticField->setPole(pNowItem->m_bMagnetPole);
-		m_pMagneticField->Update( UpdatePacket( i_DrawPacket ) );
-
-		m_pMagneticField2->SetPos(pNowItem->m_vPos);
-		m_pMagneticField2->setPole(pNowItem->m_bMagnetPole);
-		m_pMagneticField2->Update( UpdatePacket( i_DrawPacket ) );
-
-		m_pMagneticField3->SetPos(pNowItem->m_vPos);
-		m_pMagneticField3->setPole(pNowItem->m_bMagnetPole);
-		m_pMagneticField3->Update( UpdatePacket( i_DrawPacket ) );
-
-		m_pMagneticField4->setRadius( (*it)->m_fEffectSize );
-		m_pMagneticField4->SetPos(pNowItem->m_vPos);
-		m_pMagneticField4->setPole(pNowItem->m_bMagnetPole);
-		m_pMagneticField4->Update( UpdatePacket( i_DrawPacket ) );
-		(*it)->m_fEffectSize	= m_pMagneticField4->getRadius();
-		
-		m_pMagneticField->Draw(i_DrawPacket);
-		m_pMagneticField2->Draw(i_DrawPacket);
-		m_pMagneticField3->Draw(i_DrawPacket);
-		m_pMagneticField4->Draw(i_DrawPacket);
-
-		++it;
-	}
-}
-
-
-/////////////////// ////////////////////
-//// 関数名     ：void Update( UpdatePacket& i_UpdatePacket )
-//// カテゴリ   ：
-//// 用途       ：
-//// 引数       ：
-//// 戻値       ：なし
-//// 担当       ：鴫原 徹
-//// 備考       ：
-////            ：
-////
-void MagneticumObject3D::Update( UpdatePacket& i_UpdatePacket ){
-	if(m_pCamera == NULL){
-		m_pCamera = (Camera*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_SYS_CAMERA);
-	}
-	if( !m_pCoil ) 
-		m_pCoil = (PlayerCoil*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_3D_COIL);
-
-	setDrawTarget();
-	TARGETCONTAINER::iterator	it  = m_ItemMap_Target.begin(),
-								end = m_ItemMap_Target.end();
-	while(it != end){
-		Magnet3DItem* pNowItem  = (*it);
-		setPole( pNowItem->m_bMagnetPole );
-
-		//計算はUpdateで
-		//拡大縮小
-		D3DXMATRIX mScale;
-		D3DXMatrixIdentity(&mScale);
-		D3DXMatrixScaling(&mScale,
-			pNowItem->m_vScale.x,pNowItem->m_vScale.y,pNowItem->m_vScale.z);
-		//回転
-		D3DXMATRIX mRot;
-		D3DXMatrixIdentity(&mRot);
-		D3DXMatrixRotationQuaternion(&mRot,&pNowItem->m_vRot);
-		//移動用
-		D3DXMATRIX mMove;
-		D3DXMatrixIdentity(&mMove);
-		D3DXMatrixTranslation(&mMove,
-			pNowItem->m_vPos.x,pNowItem->m_vPos.y,pNowItem->m_vPos.z);
-		//ミックス行列
-		pNowItem->m_Matrix = mScale * mRot * mMove;
-		//マティリアル設定
-		m_Material = pNowItem->m_Material;
-
-		//m_pMagneticField4->SetPos(pNowItem->m_vPos);
-		//m_pMagneticField4->setPole(pNowItem->m_bMagnetPole);
-		//m_pMagneticField4->Update( i_UpdatePacket );
-
-		++it;
-	}
-
-}
 void MagneticumObject3D::setDrawTarget(){
 
 	//////////
@@ -374,6 +228,101 @@ void MagneticumObject3D::setDrawTarget(){
 	//////////
 
 }
+
+
+/////////////////// ////////////////////
+//// 関数名     ：void Update( UpdatePacket& i_UpdatePacket )
+//// カテゴリ   ：
+//// 用途       ：
+//// 引数       ：
+//// 戻値       ：なし
+//// 担当       ：鴫原 徹
+//// 備考       ：
+////            ：
+////
+void MagneticumObject3D::Update( UpdatePacket& i_UpdatePacket ){
+	if( !m_pCamera )	m_pCamera	=     (Camera*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_SYS_CAMERA	) ;
+	if( !m_pCoil )		m_pCoil		= (PlayerCoil*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_3D_COIL		) ;
+
+	setDrawTarget();
+
+	m_fEffectSizeRate += i_UpdatePacket.pTime->getElapsedTime() / MGPRM_EFFECTINTERVAL ;
+	Debugger::DBGSTR::addStr(L"m_fEffectSizeRate = %f\n",m_fEffectSizeRate);
+	m_fEffectSizeRate >= 1.0f && ( m_fEffectSizeRate = 0 ) ;
+
+}
+/////////////////// ////////////////////
+//// 用途       ：void Draw( DrawPacket& i_DrawPacket )
+//// カテゴリ   ：関数
+//// 用途       ：オブジェクトをディスプレイに表示する
+//// 引数       ：  DrawPacket& i_DrawPacket             // 画面描画時に必要なデータ群 ↓内容下記
+////			   ：  ├ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 インターフェイスへのポインタ
+////			   ：  ├ vector<Object*>&    Vec                     // オブジェクトの配列
+////			   ：  ├ Tempus2*            i_DrawPacket.pTime	   // 時間を管理するクラスへのポインター
+////               ：  └ Command             i_DrawPacket.pCommand   // コマンド
+//// 戻値       ：無し
+//// 担当者     ：曳地 大洋
+//// 備考       ：
+void MagneticumObject3D::Draw(DrawPacket& i_DrawPacket)
+{
+	TARGETCONTAINER::iterator	it  = m_ItemMap_Target.begin(),
+								end = m_ItemMap_Target.end();
+	while(it != end){
+		Magnet3DItem* pNowItem  = (*it);
+
+		//	: 色の決定
+		m_MagneticField.setPole(pNowItem->m_bMagnetPole);
+
+		//////////
+		//	: 基本Matrixの準備
+		D3DXMATRIX mAll, mScale, mMove;
+
+		D3DXMatrixTranslation(&mMove,
+			pNowItem->m_vPos.x,
+			pNowItem->m_vPos.y,
+			pNowItem->m_vPos.z-0.2f
+		);
+		//	: 基本Matrixの準備
+		//////////
+
+		//////////
+		//	: 範囲の描画
+
+		//	: 分割数
+		BYTE byPartitionQty = 3 ;
+
+		float fCircleSize ;
+		for( BYTE i = byPartitionQty ; i >= 1 ; i-- ){
+			fCircleSize = (float)MGPRM_MAGNETICUM * ( (float)i/(float)byPartitionQty ) ;
+			D3DXMatrixIdentity(&mScale);
+			D3DXMatrixScaling(&mScale, fCircleSize, fCircleSize, 0.0f);
+			mAll = mScale * mMove;
+			m_MagneticField.setMatrix(mAll) ;
+			m_MagneticField.Draw(i_DrawPacket);
+		}
+		//	: 範囲の描画
+		//////////
+
+
+		//////////
+		//	: エフェクトの描画
+		if( pNowItem->m_bMagnetPole == m_pCoil->getMagnetPole() )
+			fCircleSize =(float)MGPRM_MAGNETICUM * m_fEffectSizeRate;
+		else
+			fCircleSize =(float)MGPRM_MAGNETICUM * (1.0f-m_fEffectSizeRate);
+
+		D3DXMatrixIdentity(&mScale);
+		D3DXMatrixScaling(&mScale, fCircleSize, fCircleSize, 0.0f);
+		mAll = mScale * mMove;
+		m_MagneticField.setMatrix(mAll) ;
+		m_MagneticField.Draw(i_DrawPacket);
+		//	: エフェクトの描画
+		//////////
+
+		++it;
+	}
+}
+
 /////////////////// ////////////////////
 //// 用途       ：void AddMagnetic( DrawPacket& i_DrawPacket )
 //// カテゴリ   ：関数
@@ -393,18 +342,9 @@ void MagneticumObject3D::AddMagnetic(D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXV
 {
 	Magnet3DItem* pItem			= new Magnet3DItem	;
 	pItem->m_bHidden			= true				;
-	pItem->m_vScale				= vScale			;
 	pItem->m_vPos				= vPos				;
 	pItem->m_fMapKey			= vPos.y			;
 	pItem->m_bMagnetPole		= vPole				;
-	pItem->m_fEffectSize		= m_fMagneticum		;
-    ::ZeroMemory(&pItem->m_Material,sizeof(D3DMATERIAL9)) ;
-	pItem->m_Material.Diffuse	= Diffuse			;
-	pItem->m_Material.Specular	= Specular			;
-	pItem->m_Material.Ambient	= Ambient			;
-	//回転の初期化
-	D3DXQuaternionRotationYawPitchRoll(&pItem->m_vRot,
-			D3DXToRadian(vRot.y),D3DXToRadian(vRot.x),D3DXToRadian(vRot.z)) ;
 
 
 	m_ItemMap_All.insert(multimap<float,Magnet3DItem*>::value_type(pItem->m_vPos.y,pItem));	
