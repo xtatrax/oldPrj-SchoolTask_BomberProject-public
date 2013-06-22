@@ -51,7 +51,7 @@ ProvisionalPlayer3D::ProvisionalPlayer3D(
 	D3DXVECTOR3	       &vPos,							//	: 位置
 	wiz::OBJID id 										//	: ID
 )
-	:MagneticumObject3D( fpac->pD3DDevice, pTexture, id )
+:MagneticumObject3D( fpac->pD3DDevice, id )
 ,m_Camera(NULL)
 ,m_pCursor(NULL)
 ,m_pPlayerCoil(NULL)
@@ -87,43 +87,6 @@ ProvisionalPlayer3D::~ProvisionalPlayer3D(){
 	m_pMGage_N		= NULL;
 	m_pMGage_S		= NULL;
 }
-
-/////////////////// ////////////////////
-//// 用途       ：void Draw( DrawPacket& i_DrawPacket )
-//// カテゴリ   ：関数
-//// 用途       ：オブジェクトをディスプレイに表示する
-//// 引数       ：  DrawPacket& i_DrawPacket             // 画面描画時に必要なデータ群 ↓内容下記
-////			   ：  ├ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 インターフェイスへのポインタ
-////			   ：  ├ vector<Object*>&    Vec                     // オブジェクトの配列
-////			   ：  ├ Tempus2*            i_DrawPacket.pTime	   // 時間を管理するクラスへのポインター
-////               ：  └ Command             i_DrawPacket.pCommand   // コマンド
-//// 戻値       ：無し
-//// 担当者     ：曳地 大洋
-//// 備考       ：
-void ProvisionalPlayer3D::Draw(DrawPacket& i_DrawPacket)
-{
-
-	if( m_pPlayerCoil && ( m_pPlayerCoil->getState() == COIL_STATE_MOVE || m_pPlayerCoil->getState() == COIL_STATE_STICK ) ){
-		if( m_bDrawing ){ 
-			if(  !m_bPlaySound ){
-				m_bPlaySound = true ;
-				i_DrawPacket.SearchSoundAndPlay( RCTEXT_SOUND_SE_SETFIELD ) ;
-			}
-			m_pMagneticField->Draw(i_DrawPacket);
-			m_pMagneticField2->Draw(i_DrawPacket);
-			m_pMagneticField3->Draw(i_DrawPacket);
-			m_pMagneticField4->Draw(i_DrawPacket);
-		}
-		else{
-			m_bPlaySound = false ;
-			i_DrawPacket.SoundStop(RCTEXT_SOUND_SE_SETFIELD);
-		}
-	}else{
-		m_bPlaySound = false ;
-		i_DrawPacket.SoundStop( RCTEXT_SOUND_SE_SETFIELD );
-	}
-}
-
 /////////////////// ////////////////////
 //// 関数名     ：void Update( UpdatePacket& i_UpdatePacket )
 //// カテゴリ   ：
@@ -169,31 +132,11 @@ void ProvisionalPlayer3D::Update( UpdatePacket& i_UpdatePacket ){
 						m_vPos = m_pCursor->get3DPos();
 
 						if(Suction){
-							m_pMagneticField->setPole(POLE_N);
-							m_pMagneticField2->setPole(POLE_N);
-							m_pMagneticField3->setPole(POLE_N);
-							m_pMagneticField4->setPole(POLE_N);
+							m_MagneticField.setPole(POLE_N);
 						}
 						else if(Rebound){
-							m_pMagneticField->setPole(POLE_S);
-							m_pMagneticField2->setPole(POLE_S);
-							m_pMagneticField3->setPole(POLE_S);
-							m_pMagneticField4->setPole(POLE_S);
+							m_MagneticField.setPole(POLE_S);
 						}
-
-						//磁界に描画地点を渡す
-						m_pMagneticField->SetPos(m_vPos);
-						m_pMagneticField2->SetPos(m_vPos);
-						m_pMagneticField3->SetPos(m_vPos);
-						m_pMagneticField4->SetPos(m_vPos);
-
-
-						m_pMagneticField->Update(i_UpdatePacket);
-						m_pMagneticField2->Update(i_UpdatePacket);
-						m_pMagneticField3->Update(i_UpdatePacket);
-
-						m_pMagneticField4->SetPos(m_vPos);
-						m_pMagneticField4->Update(i_UpdatePacket);
 
 						if( Suction )
 							setPoleN() ;
@@ -214,24 +157,6 @@ void ProvisionalPlayer3D::Update( UpdatePacket& i_UpdatePacket ){
 
 					if( !Suction && Rebound  )m_pMGage_N->Recovery(PLAYER_RECOVERY_POINT);
 					if( Suction  && !Rebound )m_pMGage_S->Recovery(PLAYER_RECOVERY_POINT);
-
-					//	: 拡大縮小
-					D3DXMATRIX mScale ;
-					D3DXMatrixIdentity( &mScale ) ;
-					D3DXMatrixScaling( &mScale, m_vScale.x, m_vScale.y, m_vScale.z ) ;
-					
-					//	: 回転
-					D3DXMATRIX mRot ;
-					D3DXMatrixIdentity( &mRot ) ;
-					D3DXMatrixRotationQuaternion( &mRot, &m_vRot ) ;
-					
-					//	: 移動用
-					D3DXMATRIX mMove ;
-					D3DXMatrixIdentity( &mMove ) ;
-					D3DXMatrixTranslation( &mMove, m_vPos.x, m_vPos.y, m_vPos.z ) ;
-					
-					//	: ミックス行列
-					m_Matrix = mScale * mRot * mMove ;
 
 					//	: マティリアル設定
 					m_Material = m_Material ;
@@ -263,8 +188,6 @@ void ProvisionalPlayer3D::Update( UpdatePacket& i_UpdatePacket ){
 	m_bLastMouseLB = Cursor2D::getLButtonState() ;
 	m_bLastMouseRB = Cursor2D::getRButtonState() ;
 
-	//磁界のエフェクトを動かす
-	m_pMagneticField4->Update(i_UpdatePacket);
 
 	if(m_pPlayerCoil->getState() == COIL_STATE_CONTINUE){
 		if( m_pMGage_N ) m_pMGage_N->ResetGauge();
@@ -273,6 +196,58 @@ void ProvisionalPlayer3D::Update( UpdatePacket& i_UpdatePacket ){
 
 };
 
+/////////////////// ////////////////////
+//// 用途       ：void Draw( DrawPacket& i_DrawPacket )
+//// カテゴリ   ：関数
+//// 用途       ：オブジェクトをディスプレイに表示する
+//// 引数       ：  DrawPacket& i_DrawPacket             // 画面描画時に必要なデータ群 ↓内容下記
+////			   ：  ├ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 インターフェイスへのポインタ
+////			   ：  ├ vector<Object*>&    Vec                     // オブジェクトの配列
+////			   ：  ├ Tempus2*            i_DrawPacket.pTime	   // 時間を管理するクラスへのポインター
+////               ：  └ Command             i_DrawPacket.pCommand   // コマンド
+//// 戻値       ：無し
+//// 担当者     ：曳地 大洋
+//// 備考       ：
+void ProvisionalPlayer3D::Draw(DrawPacket& i_DrawPacket)
+{
+
+	if( m_pPlayerCoil && ( m_pPlayerCoil->getState() == COIL_STATE_MOVE || m_pPlayerCoil->getState() == COIL_STATE_STICK ) ){
+		if( m_bDrawing ){ 
+			if(  !m_bPlaySound ){
+				m_bPlaySound = true ;
+				i_DrawPacket.SearchSoundAndPlay( RCTEXT_SOUND_SE_SETFIELD ) ;
+			}
+
+			//	: 拡大縮小
+			D3DXMATRIX mScale ;
+			D3DXMatrixIdentity( &mScale ) ;
+			D3DXMatrixScaling( &mScale, m_vScale.x, m_vScale.y, m_vScale.z ) ;
+			
+			//	: 回転
+			D3DXMATRIX mRot ;
+			D3DXMatrixIdentity( &mRot ) ;
+			D3DXMatrixRotationQuaternion( &mRot, &m_vRot ) ;
+			
+			//	: 移動用
+			D3DXMATRIX mMove ;
+			D3DXMatrixIdentity( &mMove ) ;
+			D3DXMatrixTranslation( &mMove, m_vPos.x, m_vPos.y, m_vPos.z ) ;
+			
+			//	: ミックス行列
+			m_Matrix = mScale * mRot * mMove ;
+			m_MagneticField.Draw(i_DrawPacket);
+		}
+		else{
+			m_bPlaySound = false ;
+			i_DrawPacket.SoundStop(RCTEXT_SOUND_SE_SETFIELD);
+		}
+	}else{
+		m_bPlaySound = false ;
+		i_DrawPacket.SoundStop( RCTEXT_SOUND_SE_SETFIELD );
+	}
+}
+
+namespace old{
 /**************************************************************************
  MagneticField 定義部
 ****************************************************************************/
@@ -316,6 +291,7 @@ MagneticField::MagneticField(
 
 {
 	try{
+
 		//D3DXMatrixIdentity(&m_mMatrix);
         // D3DMATERIAL9構造体を0でクリア
         ::ZeroMemory( &m_Material, sizeof(D3DMATERIAL9));
@@ -339,6 +315,8 @@ MagneticField::MagneticField(
 備考　　　：
 ***************************************************************/
 void	MagneticField::Draw(DrawPacket &i_DrawPacket){
+
+
 	//テクスチャがある場合
 	if(m_pTexture){
 		DWORD wkdword;
@@ -481,6 +459,7 @@ void	MagneticField::Update(UpdatePacket& i_UpdatePacket)
 };
 
 
+}
 
 /**************************************************************************
  Factory_Player 定義部

@@ -781,6 +781,18 @@
 							>
 						</File>
 					</Filter>
+					<Filter
+						Name="Factory_PlaneCircle"
+						>
+						<File
+							RelativePath=".\Factory_PlaneCircle.cpp"
+							>
+						</File>
+						<File
+							RelativePath=".\Factory_PlaneCircle.h"
+							>
+						</File>
+					</Filter>
 				</Filter>
 				<Filter
 					Name="00.1フィルター/1Factory/1Classを徹底してください"

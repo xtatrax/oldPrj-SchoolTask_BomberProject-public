@@ -144,7 +144,7 @@ public:
 		return	m_bDrawing;
 	}
 };
-
+namespace old{
 /************************************************************************
 class MagneticField : public Cylinder
 
@@ -190,7 +190,7 @@ public:
 		m_Material.Diffuse.a	= i_fAlpha;
 	}
 };
-
+}
 /**************************************************************************
  class Factory_Player;
  用途: メイン工場クラス

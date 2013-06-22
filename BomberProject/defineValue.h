@@ -188,6 +188,7 @@ static const char*			RCTEXT_MODEL_ENEMY				= "media/Model/mine.x"	;
 static const float			MGPRM_INVISIBLESOUND_TIME		= 0.7f	; /* é•äEÇÃâeãøîºåa*/
 static const int			MGPRM_MAGNETICUM				= 10	; /* é•äEÇÃâeãøîºåa*/
 static const int			MGPRM_MAGNETICUM_QUAD			= ( MGPRM_MAGNETICUM * MGPRM_MAGNETICUM );
+static const float			MGPRM_EFFECTINTERVAL			= 0.85f	; /* é•äEÇÃâeãøîºåa*/
 static const int			DRAWING_RANGE					= 25;
 static const D3DXVECTOR3	g_vZero							= D3DXVECTOR3(0.0f,0.0f,0.0f);
 static const D3DXVECTOR3	g_vOne							= D3DXVECTOR3(1.0f,1.0f,1.0f);
@@ -196,7 +197,7 @@ static const D3DXVECTOR3	g_vMin							= D3DXVECTOR3(-FLT_MAX,-FLT_MAX,-FLT_MAX);
 static const wstring		g_sDefaultTexturePath			= L"media/Textures/" ;	//	: ÉeÉNÉXÉ`ÉÉÇÃíuÇ´èÍ
       //extern HWND			wiz::DxDevice::m_hWnd			;
 static const SIZE			g_GaugeReverseSize				= { 146,67 };
-
+static const bool			g_bIsCookTranceEnable_Coil		= false ;
 
 //
 //////////
