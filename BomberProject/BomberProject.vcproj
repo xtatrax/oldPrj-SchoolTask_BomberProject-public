@@ -782,14 +782,14 @@
 						</File>
 					</Filter>
 					<Filter
-						Name="Factory_PlaneCircle"
+						Name="Factory_MagnetField"
 						>
 						<File
-							RelativePath=".\Factory_PlaneCircle.cpp"
+							RelativePath=".\Factory_MagnetField.cpp"
 							>
 						</File>
 						<File
-							RelativePath=".\Factory_PlaneCircle.h"
+							RelativePath=".\Factory_MagnetField.h"
 							>
 						</File>
 					</Filter>

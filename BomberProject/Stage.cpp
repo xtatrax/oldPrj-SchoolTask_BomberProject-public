@@ -242,7 +242,7 @@ void Stage::Update(UpdatePacket& i_UpdatePacket)
 
 	if(m_bUpdate){
 		ButtonUpdate(i_UpdatePacket);
-		//clock_t sc = TLIB::Tempus::getClock();
+		clock_t sc = TLIB::Tempus::getClock();
 		//配置オブジェクトの描画
 		vector<Object*>::iterator it = m_Vec.begin();
 		while( it != m_Vec.end() ){
@@ -257,8 +257,8 @@ void Stage::Update(UpdatePacket& i_UpdatePacket)
 			}
 			it++;
 		}
-		//clock_t nc = TLIB::Tempus::getClock();
-		//Debugger::DBGSTR::addStr( L" Update時間 : %f\n", TLIB::Tempus::TwoDwTime2ElapsedTime(sc,nc));
+		clock_t nc = TLIB::Tempus::getClock();
+		Debugger::DBGSTR::addStr( L" Update時間 : %f\n", TLIB::Tempus::TwoDwTime2ElapsedTime(sc,nc));
 	}
 }
 /////////////////// ////////////////////
@@ -275,7 +275,7 @@ void Stage::Render(RenderPacket& i_RenderPacket){
 	i_RenderPacket.pVec		= &m_Vec	;
 	i_RenderPacket.pTxMgr	= &m_TexMgr ; 
 	i_RenderPacket.SetStage( this );
-	//clock_t sc = TLIB::Tempus::getClock();
+	clock_t sc = TLIB::Tempus::getClock();
 	//配置オブジェクトの描画
 	vector<Object*>::iterator it = m_Vec.begin();
 	while( it != m_Vec.end() ){
@@ -283,12 +283,11 @@ void Stage::Render(RenderPacket& i_RenderPacket){
 			(*it)->AccessBegin();
 			(*it)->TargetRender(i_RenderPacket);
 			(*it)->AccessEnd();
-	//::MessageBoxA( wiz::DxDevice::m_hWnd,"rennda-","kita",0);
 		}
 		it++;
 	}
-	//clock_t nc = TLIB::Tempus::getClock();
-	//Debugger::DBGSTR::addStr( L" Render時間 : %f\n", TLIB::Tempus::TwoDwTime2ElapsedTime(sc,nc));
+	clock_t nc = TLIB::Tempus::getClock();
+	Debugger::DBGSTR::addStr( L" Render時間 : %f\n", TLIB::Tempus::TwoDwTime2ElapsedTime(sc,nc));
 
 }
 
@@ -308,7 +307,7 @@ void Stage::Draw(DrawPacket& i_DrawPacket)
 		i_DrawPacket.pVec		= &m_Vec ;
 		i_DrawPacket.pTxMgr		= &m_TexMgr ; 
 		i_DrawPacket.SetStage( this );
-		//clock_t sc = TLIB::Tempus::getClock();
+		clock_t sc = TLIB::Tempus::getClock();
 		//配置オブジェクトの描画
 		vector<Object*>::size_type sz = m_Vec.size();
 		for(vector<Object*>::size_type i = 0;i < sz;i++){
@@ -317,8 +316,8 @@ void Stage::Draw(DrawPacket& i_DrawPacket)
 			m_Vec[i]->AccessEnd();
 		}
 		CommandTranslator(i_DrawPacket);
-		//clock_t nc = TLIB::Tempus::getClock();
-		//Debugger::DBGSTR::addStr( L"   Draw時間 : %f\n", TLIB::Tempus::TwoDwTime2ElapsedTime(sc,nc));
+		clock_t nc = TLIB::Tempus::getClock();
+		Debugger::DBGSTR::addStr( L"   Draw時間 : %f\n", TLIB::Tempus::TwoDwTime2ElapsedTime(sc,nc));
 	}
 	catch(exception& e){
         throw e;
@@ -378,7 +377,6 @@ void Stage::CommandTranslator(DrawPacket& i_DrawPacket){
 			break ;
 		}
 	}
-	Debugger::DBGSTR::addStr(L"Translator");
 };
 void Stage::AddButton(wiz::Object* pButton){
 	Button* pb = pButton->getButtonP();

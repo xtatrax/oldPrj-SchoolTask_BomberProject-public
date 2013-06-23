@@ -187,13 +187,11 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 			//	: é•äE
 
 			//	: ÇΩÅ[Ç∞Ç¡Ç∆ÅB
-			typedef MagneticumObject3D TARGET_CLASS;
+			typedef StaticMagnetField TARGET_CLASS;
 			wiz::OBJID ObjectID = OBJID_3D_STATIC_MAGNET ;
 			if((it = m_ObjeTypeMap.find( ObjectID )) != m_ObjeTypeMap.end()){
 				//	: ìoò^Çå©Ç¬ÇØÇΩèÍçá
 				dynamic_cast< TARGET_CLASS* >(( *m_pVec )[it->second])->AddMagnetic(
-					i_Data.vScale		,
-					i_Data.vRot			,
 					i_Data.vPos			,
 					i_Data.bPool		,
 					i_Data.Diffuse		,
@@ -227,8 +225,6 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 
 				//	: ìoò^Ç™Ç»Ç©Ç¡ÇΩèÍçá
 				mgb->AddMagnetic(
-					i_Data.vScale	,
-					i_Data.vRot		,
 					i_Data.vPos		,
 					i_Data.bPool	,
 					i_Data.Diffuse	,
@@ -381,6 +377,7 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 				m_pD3DDevice	,
 				D3DXVECTOR3(20.0f, i_Data.vPos.y,  0.0f),
 				NULL			,
+				m_pTexMgr->addTexture( m_pD3DDevice, L"GOAL1.png" ),
 				ObjectID
 			);
 			FMemoryTex* mt = new FMemoryTex(

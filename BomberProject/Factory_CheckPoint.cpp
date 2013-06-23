@@ -332,9 +332,11 @@ void CheckPoint::Update( UpdatePacket& i_UpdatePacket ){
 		m_pCamera = (    Camera*)SearchObjectFromID( i_UpdatePacket.pVec, OBJID_SYS_CAMERA ) ;
 		m_fInitPosY	= 	m_pCamera->getPosY();
 	}
-	if( m_ActiveItem >= m_ItemContainer.size() ){
-		m_ActiveItem = m_ItemContainer.size() -1;
-	}
+	//if( m_ActiveItem >= m_ItemContainer.size() ){
+	//	m_ActiveItem = m_ItemContainer.size() -1;
+	//}
+	float	wide	= 0;
+	float	height	= 0;
 	if( m_pCoil && m_ActiveItem < m_ItemContainer.size()){
 		float fPosY		= m_ItemContainer[ m_ActiveItem ]->fPosY;
 		float fCoilPosY = m_pCoil->getPos().y;
@@ -348,10 +350,11 @@ void CheckPoint::Update( UpdatePacket& i_UpdatePacket ){
 		//}else{
 		//	wide	= BASE_CLIENT_WIDTH / 50 * m_ItemContainer[ m_ActiveItem ]->vStartPos.x * CHECKPOINT_CHAR_RATE_X;
 		//}
-		float	wide	= BASE_CLIENT_WIDTH / 50 * m_ItemContainer[ m_ActiveItem ]->vStartPos.x * CHECKPOINT_CHAR_RATE_X;
-		float	height	= ( (m_ItemContainer[ m_ActiveItem ]->vStartPos.y - fTexPosY)
-									* CHECKPOINT_CHAR_DOWNSPEED - BASE_CLIENT_HEIGHT ) * (-1.0f) * CHECKPOINT_CHAR_RATE_Y;
-
+		wide	= BASE_CLIENT_WIDTH / 50 * m_ItemContainer[ m_ActiveItem ]->vStartPos.x * CHECKPOINT_CHAR_RATE_X;
+		height	= ( (m_ItemContainer[ m_ActiveItem ]->vStartPos.y - fTexPosY)
+										* CHECKPOINT_CHAR_DOWNSPEED - BASE_CLIENT_HEIGHT ) * (-1.0f) * CHECKPOINT_CHAR_RATE_Y;
+		Debugger::DBGSTR::addStr(L" なう%d\n",m_ActiveItem);
+		Debugger::DBGSTR::addStr(L" まっくす%d\n",m_ItemContainer.size());
 		D3DXMATRIX mTexMatrix, mScale, mRot, mPos;
 		D3DXMatrixScaling(&mScale,CHECK_POINT_CHAR_SIZE.x,CHECK_POINT_CHAR_SIZE.y,CHECK_POINT_CHAR_SIZE.z);
 		D3DXMatrixRotationZ(&mRot,D3DXToRadian(0));
@@ -360,7 +363,7 @@ void CheckPoint::Update( UpdatePacket& i_UpdatePacket ){
 		m_pPintMark->setMatrix( mTexMatrix );
 		//*************************************************************************************
 
-		while(fPosY <= fCoilPosY){
+		if(fPosY <= fCoilPosY){
 			m_pCoil->setStartPos(m_ItemContainer[ m_ActiveItem ]->vStartPos);
 			m_ActiveItem++;
 			m_pCoil->setRecordTime();
@@ -390,9 +393,9 @@ void CheckPoint::Update( UpdatePacket& i_UpdatePacket ){
 
 		D3DXVECTOR3	pos	= D3DXVECTOR3(0.0f,m_ItemContainer[ m_ActiveItem ]->fPosY,0.0f);
 		if( m_pEffect != NULL ){
-			if( !(m_pEffect->getStart()) )
+			if( !(m_pEffect->getStart()) ){
 				m_pEffect->setPosY( m_ItemContainer[ m_ActiveItem ]->fPosY );
-			else{
+		}else{
 				if( m_pEffect->getCreating() ){
 					m_pEffect2	= new CheckEffect( i_UpdatePacket.pD3DDevice, 
 								pos, m_Length, m_pTexture);
@@ -415,6 +418,18 @@ void CheckPoint::Update( UpdatePacket& i_UpdatePacket ){
 			m_pEffect2->Update( i_UpdatePacket );
 		}
 	}
+	else{
+		wide	= BASE_CLIENT_WIDTH / 50 * m_ItemContainer[ m_ActiveItem-1 ]->vStartPos.x * CHECKPOINT_CHAR_RATE_X;
+		height	= ( (m_ItemContainer[ m_ActiveItem-1 ]->vStartPos.y - (m_pCamera->getPosY() - m_fInitPosY))
+										* CHECKPOINT_CHAR_DOWNSPEED - BASE_CLIENT_HEIGHT ) * (-1.0f) * CHECKPOINT_CHAR_RATE_Y;
+		D3DXMATRIX mTexMatrix, mScale, mRot, mPos;
+		D3DXMatrixScaling(&mScale,CHECK_POINT_CHAR_SIZE.x,CHECK_POINT_CHAR_SIZE.y,CHECK_POINT_CHAR_SIZE.z);
+		D3DXMatrixRotationZ(&mRot,D3DXToRadian(0));
+		D3DXMatrixTranslation(&mPos, wide,height,0.0f);
+		mTexMatrix	= mPos*mScale*mRot;
+		m_pPintMark->setMatrix( mTexMatrix );
+
+	}
 
 	//Blink();
 };
@@ -435,16 +450,21 @@ void CheckPoint::Update( UpdatePacket& i_UpdatePacket ){
 ////
 void CheckPoint::Draw( DrawPacket& i_DrawPacket ){
 	if( m_pCamera && m_ActiveItem < m_ItemContainer.size()){
-
+		//	: カメラがある
+		//	: 描画対象がいる
 		float DrawBeginLength = m_pCamera->getPosY() + DRAW_TOLERANCE ;
 		if( DrawBeginLength > m_ItemContainer[ m_ActiveItem ]->fPosY ){
+			//	: 画面の中にいる
+			
+			//	
 			m_BasePos = D3DXVECTOR3( m_pCamera->getAt().x, m_ItemContainer[ m_ActiveItem ]->fPosY,0.0f) ;
+
+			//	:　メッセージ？を描画
 			m_pPintMark->Draw(i_DrawPacket);
+
+			//	:　Matrixの計算
 			CalcWorldMatrix();
 			//Cylinder::Draw( i_DrawPacket );
-			OBB obb = OBB( m_BasePos, m_BaseQt, m_BaseScale );
-			//DrawOBB(i_DrawPacket);
-			//m_pCoil->HitTestWall();
 		}
 
 		Debugger::DBGSTR::addStr(L"m_ActiveItem = %d\n",m_ActiveItem);

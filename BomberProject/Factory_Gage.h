@@ -34,22 +34,54 @@ class	GaugeKind	: public	SpriteObject
 用途　：ゲージの種類を描画
 担当者：佐藤涼
 ************************************************/
-class	GaugeKind	: public SpriteObject{
+class	SuperNotice	: public SpriteObject{
+	float			m_fMovePos	;
+	D3DXVECTOR3		m_vPos		;
+	D3DXVECTOR3		m_vScale	;
+	MouseCursor*	m_pCursor	;
+	D3DXVECTOR3		m_vInitPos	;
+	bool			m_bDraw		;
+public:
+	SuperNotice(
+		const LPDIRECT3DDEVICE9		pD3DDevice	,				//	: デバイス
+		const LPDIRECT3DTEXTURE9	pTex		,				//	: コア部分のTexture
+		const D3DXVECTOR3			&vScale		,				//	: 伸縮
+		const D3DXVECTOR3			&vPos		,				//	: 位置
+		const RECT					Rect		,				//	: 描画範囲
+		const wiz::OBJID			id	=	OBJID_UI_NOTICE		//	: ID
+	);
+	~SuperNotice();
+	void	Draw(DrawPacket& i_DrawPacket);
+	void	Update(UpdatePacket& i_UpdatePacket);
+
+	void	setDraw( bool i_bDraw ){
+		m_bDraw	= i_bDraw;
+	}
+};
+
+/************************************************
+class	GaugeKind	: public	SpriteObject
+
+用途　：ゲージの種類を描画
+担当者：佐藤涼
+************************************************/
+class	Relationship_Gage	: public SpriteObject{
 	float			m_fMovePos	;
 	D3DXVECTOR3		m_vPos		;
 	D3DXVECTOR3		m_vScale	;
 	MouseCursor*	m_pCursor	;
 public:
-	GaugeKind(
-		const LPDIRECT3DDEVICE9		pD3DDevice	,		//	: デバイス
-		const LPDIRECT3DTEXTURE9	pTex		,		//	: コア部分のTexture
-		const D3DXVECTOR3			&vScale		,		//	: 伸縮
-		const D3DXVECTOR3			&vRot		,		//	: 回転
-		const D3DXVECTOR3			&vPos		,		//	: 位置
-		const RECT					Rect				//	: 描画範囲
+	Relationship_Gage(
+		const LPDIRECT3DDEVICE9		pD3DDevice	,				//	: デバイス
+		const LPDIRECT3DTEXTURE9	pTex		,				//	: コア部分のTexture
+		const D3DXVECTOR3			&vScale		,				//	: 伸縮
+		const D3DXVECTOR3			&vRot		,				//	: 回転
+		const D3DXVECTOR3			&vPos		,				//	: 位置
+		const RECT					Rect		,				//	: 描画範囲
+		const wiz::OBJID			id	=	OBJID_UI_SPRITE		//	: ID
 	);
-	~GaugeKind();
-	void	Drow(DrawPacket& i_DrawPacket);
+	~Relationship_Gage();
+	void	Draw(DrawPacket& i_DrawPacket);
 	void	Update(UpdatePacket& i_UpdatePacket);
 };
 
@@ -134,6 +166,7 @@ class SuperGage : public Gage{
 	Line*			m_pLineBottom	;
 	Line*			m_pLineRight	;
 	bool			m_bAcquired		;
+	SuperNotice*	m_pSuperNotice	;
 public:
 	SuperGage(
 		LPDIRECT3DDEVICE9	pD3DDevice	,		//	: デバイス

@@ -32,7 +32,7 @@
 ///#define CF_LOADINGANIMATION			/* ロード画面でアニメーション */
 //#define CF_OVERLORDNEW_ENABLE			/* 自作のnewを強制化 */
 
-//#define CF_DEBUG_TIMEDRAW				/* 時間を描画 */
+#define CF_DEBUG_TIMEDRAW				/* 時間を描画 */
 //#define CF_LOADINGANIMATION			/* ロード画面でアニメーション */
 
 
@@ -89,8 +89,8 @@
 #define BASE_CLIENT_WIDTH		( 1024.0f)	/* 基準になる描画領域の幅   */
 #if defined(CF_FULLSCREEN)
 
-#define STANDARD_WINDOW_HEIGHT		(  600.0f)	/* 基準になる描画領域の高さ */
-#define STANDARD_WINDOW_WIDTH		( 1024.0f)	/* 基準になる描画領域の幅   */
+#define STANDARD_WINDOW_HEIGHT		(  768.0f)	/* 基準になる描画領域の高さ */
+#define STANDARD_WINDOW_WIDTH		( 1280.0f)	/* 基準になる描画領域の幅   */
 
 //#define STANDARD_WINDOW_HEIGHT  (  800.0f)	/* ウインドウモードの高さ   */
 //#define STANDARD_WINDOW_WIDTH   ( 1280.0f)	/* ウインドウモードの幅     */
@@ -320,6 +320,7 @@ namespace wiz{
 		OBJID_UI_BUTTON_HARD		,	//	:
 		OBJID_UI_BUTTON_EXTRA		,	//	:
 		OBJID_UI_BUTTON_BACK		,	//	:
+		OBJID_UI_TITLEMAGNETFIELD	,	//	:
 		OBJID_UI_SELECTINFORMATION	,	//	:
 		OBJID_UI_CHECKPOINT_CHAR	,	//	: チェックポイント
 		OBJID_UI_LIFE				,	//	: ライフ( 念のため )
@@ -327,9 +328,9 @@ namespace wiz{
 		OBJID_UI_MAGNETGAUGE_N		,	//	: N極ゲージ
 		OBJID_UI_MAGNETGAUGE_S		,	//	: S極ゲージ
 		OBJID_UI_SCORE				,	//	: スコア
-		OBJID_UI_TIME				,	//	: 時間( いる? )
-		OBJID_UI_END				,
-
+		OBJID_UI_TIME				,	//	: 時間
+		OBJID_UI_NOTICE				,	//	: スーパーたまった(Ready)
+		OBJID_UI_END				,	//	: UIのID宣言終了
 		//	: 3Dオブジェ
 		////
 		// プリミティブ系

@@ -11,10 +11,6 @@
 //
 #pragma once
 
-#include "StdAfx.h"
-#include "Factory_Title.h"
-#include "Factory_Sound.h"
-
 const D3DXVECTOR3 MAGNET_FIELD_POS_1 = D3DXVECTOR3( 230.0f, 370.0f, 0.0f );
 const D3DXVECTOR3 MAGNET_FIELD_POS_2 = D3DXVECTOR3( 290.0f, 460.0f, 0.0f );
 const D3DXVECTOR3 MAGNET_FIELD_POS_3 = D3DXVECTOR3( 170.0f, 460.0f, 0.0f );
@@ -84,12 +80,12 @@ public:
 };
 
 /*************************************************************************
-class MagnetField  public SpriteObject
+class MagnetFieldMini  public SpriteObject
 
 担当者：本多寛之
 用途　：磁界
 *************************************************************************/
-class	MagnetField	: public SpriteObject{
+class	MagnetFieldMini	: public SpriteObject{
 	//Coil*			m_pCoil;
 	LPDIRECT3DTEXTURE9 m_pTextureN;
 	LPDIRECT3DTEXTURE9 m_pTextureS;
@@ -100,7 +96,7 @@ class	MagnetField	: public SpriteObject{
 	int				m_iNowPosNum;
 	POLE			m_bMagnetPole;
 public:
-	MagnetField(
+	MagnetFieldMini(
 		const LPDIRECT3DDEVICE9		pD3DDevice	,
 		const LPDIRECT3DTEXTURE9	pTextureN	,
 		const LPDIRECT3DTEXTURE9	pTextureS	,
@@ -131,7 +127,7 @@ class Coil  public SpriteObject
 用途　：コイル
 *************************************************************************/
 class	Coil	: public SpriteObject{
-	MagnetField*	m_pMagnetField;
+	MagnetFieldMini*	m_pMagnetField;
 	LPDIRECT3DTEXTURE9 m_pTextureN;
 	LPDIRECT3DTEXTURE9 m_pTextureS;
 	D3DXVECTOR3		m_vPos;

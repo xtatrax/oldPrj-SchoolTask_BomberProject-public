@@ -12,7 +12,7 @@
 //					▼
 //	namespace wiz;
 //		namespace bomberobject;
-//			class PlayerCoil : public MagneticumObject3D ;
+//			class PlayerCoil : public MagnetField ;
 //			class Factory_Coil ;
 //
 
@@ -82,7 +82,8 @@ PlayerCoil::PlayerCoil(
 		D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,
 		wiz::OBJID id
 	)
-:MagneticumObject3D(	pD3DDevice, id )
+:Cylinder(				pD3DDevice,Radius1,Radius2,Lenght,vPos,vRot,Diffuse,Specular,Ambient, id )
+,MagneticObject()
 ,m_vPos(				vPos								)
 ,m_vRot(				vRot								)
 ,m_vScale(				D3DXVECTOR3( 0.0f, 0.0f, 0.0f)		)
@@ -147,16 +148,16 @@ PlayerCoil::PlayerCoil(
 	m_pDeadChar	= NULL;
 	m_pSphere->ShaderChange( new CookTrance(pD3DDevice) );
 
-	const	D3DXVECTOR3	vDirTop		= D3DXVECTOR3( cosf( D3DXToRadian(-45.0f) ), sinf( D3DXToRadian(-45.0f) ), 0.0f );
-	const	D3DXVECTOR3	vDirLeft	= D3DXVECTOR3( cosf( D3DXToRadian(-45.0f) ), sinf( D3DXToRadian(45.0f) ), 0.0f );
-	const	D3DXVECTOR3	vDirBottom	= D3DXVECTOR3( cosf( D3DXToRadian(45.0f) ), sinf( D3DXToRadian(45.0f) ), 0.0f );
-	const	D3DXVECTOR3	vDirRight	= D3DXVECTOR3( cosf( D3DXToRadian(45.0f) ), sinf( D3DXToRadian(-45.0f) ), 0.0f );
-	const	float	fRangeW	= 40.0f;
-	const	float	fRangeH	= 40.0f;
-	m_pLineTop		= new Line( D3DXVECTOR3( -27.5f, -10.0f, 0.0f ), vDirTop,	 fRangeW, 0xFF00FFFF );
-	m_pLineLeft		= new Line( m_pLineTop->getEndPos(),		 vDirLeft,	 fRangeH, 0xFF00FFFF );
-	m_pLineBottom	= new Line( D3DXVECTOR3( -27.5f, -10.0f, 0.0f ), vDirBottom,	 fRangeW, 0xFF00FFFF );
-	m_pLineRight	= new Line( m_pLineBottom->getEndPos(),		 vDirRight,	 fRangeH, 0xFF00FFFF );
+	const	D3DXVECTOR3	vDir1	= D3DXVECTOR3( cosf( D3DXToRadian(45.0f) ), sinf( D3DXToRadian(45.0f) ), 0.0f );
+	const	D3DXVECTOR3	vDir2	= D3DXVECTOR3( cosf( D3DXToRadian(315.0f) ), sinf( D3DXToRadian(315.0f) ), 0.0f );
+	const	D3DXVECTOR3	vDir3	= D3DXVECTOR3( cosf( D3DXToRadian(225.0f) ), sinf( D3DXToRadian(225.0f) ), 0.0f );
+	const	D3DXVECTOR3	vDir4	= D3DXVECTOR3( cosf( D3DXToRadian(135.0f) ), sinf( D3DXToRadian(135.0f) ), 0.0f );
+	const	float	fRangeW	= 3.5f;
+	const	float	fRangeH	= 3.5f;
+	m_pLine1		= new Line3D( g_vZero, vDir1, fRangeW, 0xFF00FFFF );
+	m_pLine2		= new Line3D( m_pLine1->getEndPos(), vDir2, fRangeH, 0xFF00FFFF );
+	m_pLine3		= new Line3D( m_pLine2->getEndPos(), vDir3, fRangeW, 0xFF00FFFF );
+	m_pLine4		= new Line3D( m_pLine3->getEndPos(), vDir4, fRangeH, 0xFF00FFFF );
 
 
 	//爆散エフェクトのポインタ
@@ -250,6 +251,7 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 	if( GetAsyncKeyState( MYVK_DEBUG_STAGE_RULER ) ){
 		CheckPoint*		pc		= (CheckPoint*)SearchObjectFromID( i_UpdatePacket.pVec, OBJID_SYS_CHECKPOINT );
 		if( pc )		m_vPos	= pc->getLastPosition();
+		m_vPos.y -= 30.0f;
 	}
 	if( GetAsyncKeyState( MYVK_DEBUG_INVISIBLEGAUGE_MAX ) ){
 		m_pSuperGage->Recovery(-1) ;
@@ -261,7 +263,7 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 
 	if( !m_pCursor )			m_pCursor				=        ( MouseCursor* ) SearchObjectFromID( i_UpdatePacket.pVec, OBJID_SYS_CURSOR ) ; 
 	if( !m_pCamera )			m_pCamera				=             ( Camera* ) SearchObjectFromID( i_UpdatePacket.pVec, OBJID_SYS_CAMERA ) ; 
-	if( !m_pMagneticumObject )	m_pMagneticumObject		= ( MagneticumObject3D* ) SearchObjectFromID( i_UpdatePacket.pVec, OBJID_3D_STATIC_MAGNET ) ; 
+	if( !m_pMagneticumObject )	m_pMagneticumObject		=  ( StaticMagnetField* ) SearchObjectFromID( i_UpdatePacket.pVec, OBJID_3D_STATIC_MAGNET ) ; 
 	if( !m_pReStart )			m_pReStart				=		 ( StartSprite* ) SearchObjectFromID( i_UpdatePacket.pVec, OBJID_SYS_START  ) ;
 	if( !m_pSuperGage )			m_pSuperGage			=          ( SuperGage* ) SearchObjectFromID( i_UpdatePacket.pVec, OBJID_UI_SUPERGAUGE );
 
@@ -330,6 +332,7 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 		//Debugger::DBGSTR::addStr( L"状態 = %d\n",m_enumCoilState);
 		//-----------------------------------------------------------------------
 
+		m_Material = MagneticObject::getMaterial() ;
 		//マトリクス計算
 		D3DXMATRIX mPos, mPos2, mScale, mRotZ, mRotX;
 		D3DXVECTOR3 vCartesian  = ConvertToCartesianCoordinates(1.6f*(m_vScale.x/m_vOriginScale.x), m_fMoveDir);
@@ -340,7 +343,7 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 		D3DXMatrixRotationX( &mRotX, D3DXToRadian( m_vRot.x ) );
 		m_Matrix = mScale * (mRotX*mRotZ) * mPos2 ;
 		m_pSphere->CalcMatrix(mPos,mScale,mRotZ);
-		m_pSphere->SetMaterial( m_Material );
+		m_pSphere->SetMaterial(m_Material );
 
 	} else {
 		m_pPlayer = (ProvisionalPlayer3D*)SearchObjectFromID( i_UpdatePacket.pVec , OBJID_3D_USERMAGNET );
@@ -514,7 +517,7 @@ void PlayerCoil::Update_StateMove(UpdatePacket& i_UpdatePacket){
 	//プレイヤー磁界と自機の判定
 	bool bCheckDistance = CheckDistance( m_pPlayer->getPos(), (float)MGPRM_MAGNETICUM_QUAD, true );
 	if( m_pPlayer->getDrawing() && bCheckDistance && m_enumCoilStateSuper != COIL_STATE_SUPER_CHANGING){
-		m_fMoveDir = MagneticDecision(m_fMoveDir,m_pPlayer->getPos(),m_pPlayer->getMagnetPole());
+		MagneticDecision(m_pPlayer->getPos(),m_pPlayer->getMagnetPole());
 	}
 
 	if( m_pMagneticumObject && m_enumCoilStateSuper != COIL_STATE_SUPER_MOVE && m_enumCoilStateSuper != COIL_STATE_SUPER_CHANGING )
@@ -851,55 +854,29 @@ void PlayerCoil::Update_StateStop(UpdatePacket& i_UpdatePacket){
 ////
 void PlayerCoil::Draw(DrawPacket& i_DrawPacket){
 
-	if(m_pTexture){
-		DWORD wkdword;
-		//現在のテクスチャステータスを得る
-		i_DrawPacket.pD3DDevice->GetTextureStageState(0,D3DTSS_COLOROP,&wkdword);
-		//ステージの設定
-		i_DrawPacket.pD3DDevice->SetTexture(0,m_pTexture);
-		//デフィーズ色とテクスチャを掛け合わせる設定
-		i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLOROP, D3DTOP_MODULATE4X );
-		i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLORARG1, D3DTA_TEXTURE );
-		i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLORARG2, D3DTA_DIFFUSE );
+	//テクスチャがない場合
+	// マトリックスをレンダリングパイプラインに設定
+	i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &m_Matrix);
+	//コモンメッシュのDraw()を呼ぶ
+	CommonMesh::Draw(i_DrawPacket);
 
-		//i_DrawPacket.pD3DDevice->SetFVF(PlateFVF);
-		// マトリックスをレンダリングパイプラインに設定
-		i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &m_Matrix);
-		//コモンメッシュのDraw()を呼ぶ
-		//CommonMesh::Draw(i_DrawPacket);
+	if( g_bIsCookTranceEnable_Coil ){
 		((CookTrance*)m_pSphere->getShader())->Draw(i_DrawPacket,m_pSphere);
-		//m_pSphere->Draw(i_DrawPacket);
-		if(m_enumCoilStateSuper == COIL_STATE_SUPER_MOVE || m_enumCoilStateSuper == COIL_STATE_SUPER_CHANGING){
-			m_pSuperField->Draw(i_DrawPacket);
-		}
-		i_DrawPacket.pD3DDevice->SetTexture(0,0);
-		//ステージを元に戻す
-		i_DrawPacket.pD3DDevice->SetTextureStageState(0,D3DTSS_COLOROP,wkdword);
 	}
 	else{
-	//テクスチャがない場合
-		// マトリックスをレンダリングパイプラインに設定
-		i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &m_Matrix);
-		//コモンメッシュのDraw()を呼ぶ
-		CommonMesh::Draw(i_DrawPacket);
-		if( g_bIsCookTranceEnable_Coil ){
-			((CookTrance*)m_pSphere->getShader())->Draw(i_DrawPacket,m_pSphere);
-		}
-		else{
-			m_pSphere->Draw(i_DrawPacket);
-		}
-		if(m_enumCoilStateSuper == COIL_STATE_SUPER_MOVE || m_enumCoilStateSuper == COIL_STATE_SUPER_CHANGING){
-			m_pSuperField->Draw(i_DrawPacket);
-		}
+		m_pSphere->Draw(i_DrawPacket);
+	}
+	if(m_enumCoilStateSuper == COIL_STATE_SUPER_MOVE || m_enumCoilStateSuper == COIL_STATE_SUPER_CHANGING){
+		m_pSuperField->Draw(i_DrawPacket);
 	}
 #if defined( ON_DEBUGGINGPROCESS )
 	if( m_pDSPH ) m_pDSPH->Draw( i_DrawPacket );
 #endif
 	if(m_enumCoilStateSuper == COIL_STATE_SUPER_READY){
-		m_pLineTop->draw(i_DrawPacket.pD3DDevice);
-		m_pLineLeft->draw(i_DrawPacket.pD3DDevice);
-		m_pLineBottom->draw(i_DrawPacket.pD3DDevice);
-		m_pLineRight->draw(i_DrawPacket.pD3DDevice);
+		m_pLine1->draw(i_DrawPacket.pD3DDevice);
+		m_pLine2->draw(i_DrawPacket.pD3DDevice);
+		m_pLine3->draw(i_DrawPacket.pD3DDevice);
+		m_pLine4->draw(i_DrawPacket.pD3DDevice);
 	}
 
 	//爆散
@@ -942,71 +919,72 @@ void PlayerCoil::Draw(DrawPacket& i_DrawPacket){
 //// 担当       ：本多寛之
 //// 備考       ：
 ////　　　　　　：
-float PlayerCoil::MagneticDecision( float i_fCoilDir, D3DXVECTOR3& i_vMagnetPos, POLE i_bMagnetPole_Field ) const{
-	float	fTargetDir = TwoPoint2Degree( i_vMagnetPos , getPos() );
-	float	fReverse   = 0.0f;
-	if(i_fCoilDir > 180.0f){
-		fReverse = i_fCoilDir - 180.0f;
+void PlayerCoil::MagneticDecision( D3DXVECTOR3& i_vMagnetPos, POLE i_bMagnetPole_Field ) {
+	float	fWorkDir	= m_fMoveDir ;
+	float	fTargetDir	= TwoPoint2Degree( i_vMagnetPos , getPos() );
+	float	fReverse	= 0.0f;
+	if(fWorkDir > 180.0f){
+		fReverse = fWorkDir - 180.0f;
 	}
 	else{
-		fReverse = i_fCoilDir + 180.0f;
+		fReverse = fWorkDir + 180.0f;
 	}
 
 	if(i_bMagnetPole_Field != this->getMagnetPole()){
-		if(i_fCoilDir < fTargetDir){
-			if(fTargetDir - i_fCoilDir <= 180.0f){
-				i_fCoilDir += m_fTurnAngle;
-				i_fCoilDir = float(int(i_fCoilDir) % 360);						
+		if(fWorkDir < fTargetDir){
+			if(fTargetDir - fWorkDir <= 180.0f){
+				fWorkDir += m_fTurnAngle;
+				fWorkDir = float(int(fWorkDir) % 360);						
 			}
 			else{
-				i_fCoilDir -= m_fTurnAngle;
-				if(i_fCoilDir < 0.0f){
-					i_fCoilDir += 360.0f;
+				fWorkDir -= m_fTurnAngle;
+				if(fWorkDir < 0.0f){
+					fWorkDir += 360.0f;
 				}
 			}
 		}
-		else if(i_fCoilDir > fTargetDir){
-			if(i_fCoilDir - fTargetDir <= 180.0f){
-				i_fCoilDir -= m_fTurnAngle;
-				if(i_fCoilDir < 0.0f){
-					i_fCoilDir += 360.0f;
+		else if(fWorkDir > fTargetDir){
+			if(fWorkDir - fTargetDir <= 180.0f){
+				fWorkDir -= m_fTurnAngle;
+				if(fWorkDir < 0.0f){
+					fWorkDir += 360.0f;
 				}
 			}
 			else{
-				i_fCoilDir += m_fTurnAngle;
-				i_fCoilDir = float(int(i_fCoilDir) % 360);												
+				fWorkDir += m_fTurnAngle;
+				fWorkDir = float(int(fWorkDir) % 360);												
 			}
 		}
 	}
 	else{
 		if(fReverse != fTargetDir){
-			if(i_fCoilDir < fTargetDir){
-				if(fTargetDir - i_fCoilDir <= 180.0f){
-					i_fCoilDir -= m_fTurnAngle;
-					if(i_fCoilDir < 0.0f){
-						i_fCoilDir += 360.0f;
+			if(fWorkDir < fTargetDir){
+				if(fTargetDir - fWorkDir <= 180.0f){
+					fWorkDir -= m_fTurnAngle;
+					if(fWorkDir < 0.0f){
+						fWorkDir += 360.0f;
 					}
 				}
 				else{
-					i_fCoilDir += m_fTurnAngle;
-					i_fCoilDir = float(int(i_fCoilDir) % 360);						
+					fWorkDir += m_fTurnAngle;
+					fWorkDir = float(int(fWorkDir) % 360);						
 				}
 			}
-			else if(i_fCoilDir > fTargetDir){
-				if(i_fCoilDir - fTargetDir <= 180.0f){
-					i_fCoilDir += m_fTurnAngle;
-					i_fCoilDir = float(int(i_fCoilDir) % 360);												
+			else if(fWorkDir > fTargetDir){
+				if(fWorkDir - fTargetDir <= 180.0f){
+					fWorkDir += m_fTurnAngle;
+					fWorkDir = float(int(fWorkDir) % 360);												
 				}
 				else{
-					i_fCoilDir -= m_fTurnAngle;
-					if(i_fCoilDir < 0.0f){
-						i_fCoilDir += 360.0f;
+					fWorkDir -= m_fTurnAngle;
+					if(fWorkDir < 0.0f){
+						fWorkDir += 360.0f;
 					}
 				}
 			}
 		}
 	}
-	return i_fCoilDir;
+	m_fMoveDir = fWorkDir ;
 };
 
 /////////////////// ////////////////////
@@ -1062,43 +1040,40 @@ void PlayerCoil::Update_Line(){
 
 	D3DXMATRIX		mLineScale, mLinePos;
 	D3DXVECTOR3		vLineScale = D3DXVECTOR3(1.0f,1.0f,0.0f),
-					vLinePos,
-					vBaseLinePos;
-	Point			BaseLinePos  = T3DPointTo2DPoint(m_pCamera,m_vPos);
+		vBaseLinePos = D3DXVECTOR3(-m_pLine1->getEndPos().x,-m_pLine2->getEndPos().y,0.0f),
+					vLinePos;
 	static float	s_fMovingDistance	= 0.0f; 
 	
-	vBaseLinePos = D3DXVECTOR3((float)BaseLinePos.x,(float)BaseLinePos.y,0.0f);
-	//vBaseLinePos.y -= 
 	D3DXMatrixScaling( &mLineScale, vLineScale.x, vLineScale.y, vLineScale.z );
 
 	//左上部
 	vLineScale;
 	vLinePos	= D3DXVECTOR3(vBaseLinePos.x - s_fMovingDistance, 
-							  vBaseLinePos.y - s_fMovingDistance,
-							  0.0f);
-	D3DXMatrixTranslation( &mLinePos, vLinePos.x, vLinePos.y, vLinePos.z);
-	m_pLineTop->setMatrix( mLineScale * mLinePos );
-	//右上部
-	vLinePos	= D3DXVECTOR3(vBaseLinePos.x + s_fMovingDistance,
-							  vBaseLinePos.y - s_fMovingDistance,
-							  0.0f);
-	D3DXMatrixTranslation( &mLinePos, vLinePos.x, vLinePos.y, vLinePos.z);
-	m_pLineLeft->setMatrix( mLineScale * mLinePos );
-	//左下部
-	vLinePos	= D3DXVECTOR3(vBaseLinePos.x - s_fMovingDistance,
 							  vBaseLinePos.y + s_fMovingDistance,
 							  0.0f);
 	D3DXMatrixTranslation( &mLinePos, vLinePos.x, vLinePos.y, vLinePos.z);
-	m_pLineBottom->setMatrix( mLineScale * mLinePos );
-	//右下部
+	m_pLine1->setMatrix( mLineScale * mLinePos );
+	//右上部
 	vLinePos	= D3DXVECTOR3(vBaseLinePos.x + s_fMovingDistance,
-							  vBaseLinePos.y + s_fMovingDistance, 
+							  vBaseLinePos.y + s_fMovingDistance,
 							  0.0f);
 	D3DXMatrixTranslation( &mLinePos, vLinePos.x, vLinePos.y, vLinePos.z);
-	m_pLineRight->setMatrix( mLineScale * mLinePos );
+	m_pLine2->setMatrix( mLineScale * mLinePos );
+	//左下部
+	vLinePos	= D3DXVECTOR3(vBaseLinePos.x + s_fMovingDistance,
+							  vBaseLinePos.y - s_fMovingDistance,
+							  0.0f);
+	D3DXMatrixTranslation( &mLinePos, vLinePos.x, vLinePos.y, vLinePos.z);
+	m_pLine3->setMatrix( mLineScale * mLinePos );
+	//右下部
+	vLinePos	= D3DXVECTOR3(vBaseLinePos.x - s_fMovingDistance,
+							  vBaseLinePos.y - s_fMovingDistance, 
+							  0.0f);
+	D3DXMatrixTranslation( &mLinePos, vLinePos.x, vLinePos.y, vLinePos.z);
+	m_pLine4->setMatrix( mLineScale * mLinePos );
 	
-	s_fMovingDistance	+= 0.8f;
-	if(s_fMovingDistance >= 6.0f){
+	s_fMovingDistance	+= 0.05f;
+	if(s_fMovingDistance >= 0.3f){
 		s_fMovingDistance	= 0.0f;
 	}	
 }

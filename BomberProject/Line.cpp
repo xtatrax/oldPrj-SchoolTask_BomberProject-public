@@ -66,7 +66,6 @@ void	Line::setColor( DWORD i_dwColor )
 	m_Vertices[ 1 ].dwColor	= m_dwColor ;
 }
 
-
 void	Line::draw( const LPDIRECT3DDEVICE9 i_pd3dDevice ) const
 {
 	i_pd3dDevice->SetFVF( Vertex::getFVF() );
@@ -78,12 +77,12 @@ void	Line::draw( const LPDIRECT3DDEVICE9 i_pd3dDevice ) const
 }
 
 
-Line2::Line2()
+Line3D::Line3D()
 	: m_vStartPos( D3DXVECTOR3(0.0f, 0.0f, 0.0f) ), m_vDir( D3DXVECTOR3(1.0f, 0.0f, 0.0f) ), m_vEndPos( m_vDir ), m_fLength( 1.0f ), m_fAngle( 0.0f ), m_dwColor(0xFFFFFFFF)
 {
 }
 
-Line2::Line2( const D3DXVECTOR3& i_vStartPos, const D3DXVECTOR3& i_vDirection, float i_fLength, DWORD i_dwColor )
+Line3D::Line3D( const D3DXVECTOR3& i_vStartPos, const D3DXVECTOR3& i_vDirection, float i_fLength, DWORD i_dwColor )
 	: m_vStartPos( i_vStartPos ), m_fLength( i_fLength ), m_dwColor( i_dwColor )
 {
 	D3DXVec3Normalize( &m_vDir, &i_vDirection );
@@ -96,7 +95,7 @@ Line2::Line2( const D3DXVECTOR3& i_vStartPos, const D3DXVECTOR3& i_vDirection, f
 	m_Vertices[ 1 ]	= Vertex( m_vEndPos, m_dwColor );
 }
 
-Line2::Line2( const D3DXVECTOR3& i_vStartPos, const D3DXVECTOR3& i_vEndPos, DWORD i_dwColor )
+Line3D::Line3D( const D3DXVECTOR3& i_vStartPos, const D3DXVECTOR3& i_vEndPos, DWORD i_dwColor )
 	: m_vStartPos( i_vStartPos ), m_vEndPos( i_vEndPos ), m_dwColor( i_dwColor )
 {
 	D3DXVECTOR3	v	= m_vEndPos - m_vStartPos ;
@@ -110,12 +109,12 @@ Line2::Line2( const D3DXVECTOR3& i_vStartPos, const D3DXVECTOR3& i_vEndPos, DWOR
 	m_Vertices[ 1 ]	= Vertex( m_vEndPos, m_dwColor );
 }
 
-//Line2::Line2( float i_fRadian, float i_fLength, DWORD i_dwColor )
+//Line3D::Line3D( float i_fRadian, float i_fLength, DWORD i_dwColor )
 //{
-//	*this	= Line2( D3DXVECTOR3(cos(i_fRadian), sin(i_fRadian), 0.0f), i_fLength, i_dwColor );
+//	*this	= Line3D( D3DXVECTOR3(cos(i_fRadian), sin(i_fRadian), 0.0f), i_fLength, i_dwColor );
 //}
 
-void	Line2::setMatrix( const D3DXMATRIX& i_Matrix )
+void	Line3D::setMatrix( const D3DXMATRIX& i_Matrix )
 {
 	D3DXVECTOR4	vTransformed ;
 	
@@ -134,15 +133,14 @@ void	Line2::setMatrix( const D3DXMATRIX& i_Matrix )
 	D3DXVec3Normalize( &m_vDir, &v );
 }
 
-void	Line2::setColor( DWORD i_dwColor )
+void	Line3D::setColor( DWORD i_dwColor )
 {
 	m_dwColor	= i_dwColor ;
 	m_Vertices[ 0 ].dwColor	= m_dwColor ;
 	m_Vertices[ 1 ].dwColor	= m_dwColor ;
 }
 
-
-void	Line2::draw( const LPDIRECT3DDEVICE9 i_pd3dDevice ) const
+void	Line3D::draw( const LPDIRECT3DDEVICE9 i_pd3dDevice ) const
 {
 	i_pd3dDevice->SetFVF( Vertex::getFVF() );
 	i_pd3dDevice->SetTexture( 0, NULL );

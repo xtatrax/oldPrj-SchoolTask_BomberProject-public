@@ -18,6 +18,7 @@
 #include "Factory_Magnetic.h"
 #include "Factory_Gage.h"
 #include "Factory_Sound.h"
+#include "Factory_MagnetField.h"
 
 const int	START_EFFECTIVE_RANGE		= 12;
 const int 	START_EFFECTIVE_RANGE_QUAD	= (START_EFFECTIVE_RANGE * START_EFFECTIVE_RANGE);
@@ -56,17 +57,13 @@ extern class	MagneticGage_S	;
 // 担当者  : 曳地大洋
 // 用途    : 仮のユーザー設置磁界
 //**************************************************************************//
-class ProvisionalPlayer3D : public MagneticumObject3D{
+class ProvisionalPlayer3D : public MagnetField{
 	MouseCursor*	m_pCursor		;
 	Camera*			m_Camera		;
 	PlayerCoil*		m_pPlayerCoil	;
 	MagneticGage_N* m_pMGage_N		;
 	MagneticGage_S* m_pMGage_S		;
 	D3DXMATRIX		m_Matrix		;
-	D3DXVECTOR3		m_vPos			;
-	D3DXQUATERNION	m_vRot			;
-	D3DXVECTOR3		m_vScale		;
-	float			m_MovePosY		;
 	bool			m_bLastMouseRB	;
 	bool			m_bLastMouseLB	;
 	bool			m_bDrawing		;
@@ -120,17 +117,6 @@ public:
 		}
 	}	;
 
-	/////////////////// ////////////////////
-	//// 関数名     ：float getMoveY() const
-	//// カテゴリ   ：ゲッター
-	//// 用途       ：m_MovePosYを獲得
-	//// 引数       ：なし
-	//// 戻値       ：なし
-	//// 担当       ：本多寛之
-	//// 備考       ：
-	////            ：
-	float getMoveY() const { return m_MovePosY	;	}	;
-
 	/****************************************
 	関数名　：bool	getDrawing()
 	カテゴリ：関数
@@ -144,53 +130,7 @@ public:
 		return	m_bDrawing;
 	}
 };
-namespace old{
-/************************************************************************
-class MagneticField : public Cylinder
 
-担当者	: 佐藤涼
-用途	: 磁界の範囲
-************************************************************************/
-class	MagneticField : public Cylinder{
-	POLE		m_Pole;	//磁界の極：t=S極, f=N極
-	bool		m_bEffect;
-	D3DXVECTOR3	m_vNormalSize;
-	D3DXMATRIX	m_mMatrix;
-	MagneticGage_N* m_pMGage_N		;
-	MagneticGage_S* m_pMGage_S		;
-public:
-	MagneticField(
-		const LPDIRECT3DDEVICE9		pD3DDevice	,
-		const LPDIRECT3DTEXTURE9	pTexture	,
-		const D3DXVECTOR3&			vScale		,
-		const D3DXQUATERNION&		vRot		,
-		const D3DXVECTOR3&			vPos		,
-		const bool					bEffect
-	);
-    void	Draw(DrawPacket& i_DrawPacket) ;
-	void	Update(UpdatePacket& i_UpdatePacket);
-
-	void	setPole( POLE pole ){
-		m_Pole	= pole;
-	}
-	POLE	getPole(){
-		return	m_Pole;
-	}
-
-	void	setRadius(float i_fRadius){
-		m_Radius1	= i_fRadius;
-		m_Radius2	= i_fRadius;
-	}
-
-	float	getRadius(){
-		return	m_Radius1;
-	}
-
-	void	setAlpha( float i_fAlpha ){
-		m_Material.Diffuse.a	= i_fAlpha;
-	}
-};
-}
 /**************************************************************************
  class Factory_Player;
  用途: メイン工場クラス

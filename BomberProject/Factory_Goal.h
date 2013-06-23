@@ -133,14 +133,18 @@ class Item : public PrimitiveSphere
 íSìñé“ÅFç≤ì°ó¡
 *******************************************************/
 class	GoalObject	:public PrimitiveBox{
-	PlayerCoil*	m_pCoil;
-	bool		m_bPlaySound;
-	OBB			m_Obb;
-
+	PlayerCoil*			m_pCoil;
+	Camera*				m_pCamera;
+	SpriteObject*		m_pGoalChar;
+	bool				m_bPlaySound;
+	OBB					m_Obb;
+	float				m_fInitPosY;
+	LPDIRECT3DTEXTURE9	m_pGoalCharTex;
 public:
 	GoalObject(	LPDIRECT3DDEVICE9 pD3DDevice,
 				D3DXVECTOR3 vPos,
 				LPDIRECT3DTEXTURE9 pTexture,
+				LPDIRECT3DTEXTURE9 pGoakCharTex,
 				wiz::OBJID id = OBJID_SYS_CLEARAREA
 				);
 	/////////////////// ////////////////////

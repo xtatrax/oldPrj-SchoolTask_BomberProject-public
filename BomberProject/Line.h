@@ -73,21 +73,20 @@ public:
 	}
 };
 
-class Line2
+class Line3D
 {
 	struct Vertex
 	{
 		D3DXVECTOR3 vPos ;
-		float fRhw ;
 		DWORD dwColor ;
 
 		Vertex()
-			: vPos( 0.0f, 0.0f, 0.0f ), fRhw( 1.0f ), dwColor( 0xFFFFFFFF )
+			: vPos( 0.0f, 0.0f, 0.0f ), dwColor( 0xFFFFFFFF )
 		{
 		}
 
 		Vertex( const D3DXVECTOR3& i_vPos, DWORD i_dwColor )
-			: vPos( i_vPos ), fRhw( 1.0f ), dwColor( i_dwColor )
+			: vPos( i_vPos ), dwColor( i_dwColor )
 		{
 		}
 
@@ -113,10 +112,10 @@ private:
 	DWORD		m_dwColor ;
 
 public:
-	Line2();
-	Line2( const D3DXVECTOR3& i_vStartPos, const D3DXVECTOR3& i_vDirection, float i_fLength, DWORD i_dwColor = 0xFFFFFFFF );
-	Line2( const D3DXVECTOR3& i_vStartPos, const D3DXVECTOR3& i_vEndPos, DWORD i_dwColor = 0xFFFFFFFF );
-	Line2( float i_fRadian, float i_fLength, DWORD i_dwColor = 0xFFFFFFFF );
+	Line3D();
+	Line3D( const D3DXVECTOR3& i_vStartPos, const D3DXVECTOR3& i_vDirection, float i_fLength, DWORD i_dwColor = 0xFFFFFFFF );
+	Line3D( const D3DXVECTOR3& i_vStartPos, const D3DXVECTOR3& i_vEndPos, DWORD i_dwColor = 0xFFFFFFFF );
+	Line3D( float i_fRadian, float i_fLength, DWORD i_dwColor = 0xFFFFFFFF );
 
 	void	setMatrix( const D3DXMATRIX& i_Matrix );
 	void	setColor( DWORD i_dwColor );
