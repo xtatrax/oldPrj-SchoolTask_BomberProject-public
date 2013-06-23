@@ -15,7 +15,7 @@
 #include "StdAfx.h"
 #include "Stage.h"
 namespace wiz{
-
+namespace dbgstage{
 /**************************************************************************
  class DebugStage : public Stage;
  用途: メニュータイプのステージクラス
@@ -54,5 +54,8 @@ public:
 };
 
 
-//end of namespace wiz.
 }
+//end of namespace dbgstage.
+using namespace dbgstage;
+}
+//end of namespace wiz.

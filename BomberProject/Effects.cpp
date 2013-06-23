@@ -15,6 +15,6 @@
 
 
 namespace wiz{
-
-
+namespace effect{
+}
 }//	: wiz

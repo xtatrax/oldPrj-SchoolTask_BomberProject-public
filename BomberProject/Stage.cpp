@@ -24,6 +24,7 @@
 
 
 namespace wiz{
+namespace system{
 /*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*/
 /**************************************************************************
  Stage ’è‹`•”
@@ -477,5 +478,7 @@ void MenuStage::Draw(DrawPacket& i_DrawPacket){
 	Stage::Draw(i_DrawPacket);
 }
 
+}
+//end of namespace system.
 }
 //end of namespace wiz.

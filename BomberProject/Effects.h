@@ -13,6 +13,7 @@
 #pragma once
 #include "BassItems.h"
 namespace wiz{
+namespace effect{
 //extern class Player;
 
 class Effect : public Object{
@@ -223,5 +224,5 @@ struct fRect{
 };
 
 
-
+}
 }	//	: wiz

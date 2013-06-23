@@ -25,7 +25,7 @@ namespace wiz{
 //class wiz::menuobject::Button;
 using namespace menuobject ;
 //class Button2;
-
+namespace system{
 
 /*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*/
 //**************************************************************************//
@@ -389,6 +389,8 @@ public:
     virtual void Draw(DrawPacket& i_DrawPacket);
 };
 /*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*/
-
+}
+//end of namespace system.
+using namespace system;
 }
 //end of namespace wiz.

@@ -27,7 +27,7 @@
 
 namespace wiz{
 using namespace bomberobject;
-
+namespace system{
 /**************************************************************************
  Scene ’è‹`•”
 ***************************************************************************/
@@ -419,6 +419,8 @@ void Scene::SafeDeleteStage(Stage* &pStage){
 }
 
 
+}
+//end of namespace system.
 }
 //end of namespace wiz.
 

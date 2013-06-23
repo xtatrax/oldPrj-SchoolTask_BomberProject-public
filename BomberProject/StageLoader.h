@@ -20,10 +20,12 @@
 #include "CSV.h"
 
 namespace wiz{
-
+namespace system{
 // âºêÈåæ	
 class StageLoader ;
 using namespace menuobject ;
+
+
 //class Button2;
 //**************************************************************************
 // class StageFactory;
@@ -205,6 +207,7 @@ public:
 
 
 
-
+}
+using namespace system;
 }
 //end of namespace wiz.
