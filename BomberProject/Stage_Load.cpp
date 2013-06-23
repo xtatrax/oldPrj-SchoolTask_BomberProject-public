@@ -16,7 +16,7 @@
 
 namespace wiz{
 using namespace bomberobject;
-
+namespace stage{
 /**************************************************************************
  LoadStage ’è‹`•”
 ****************************************************************************/
@@ -55,5 +55,7 @@ LoadStage::~LoadStage(){
 	
 }
 
+}
+//end of namespace stage.
 }
 //end of namespace wiz.

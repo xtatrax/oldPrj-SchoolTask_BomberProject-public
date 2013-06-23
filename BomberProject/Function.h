@@ -26,9 +26,10 @@
 #include "StdAfx.h"
 
 namespace wiz{
-
+namespace system{
 extern class Object ;
-
+}
+using namespace system;
 namespace functions{
 
 #define TL_SQUARE(n)							((n)*(n))

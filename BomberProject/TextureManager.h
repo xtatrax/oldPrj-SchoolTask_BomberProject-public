@@ -12,7 +12,7 @@
 //
 #pragma once
 namespace wiz {
-
+namespace system{
 //**************************************************************************
 // class TextureManager;
 //
@@ -272,3 +272,7 @@ public:
 };//ÅyENDÅzTexture
 
 }
+//end of namespace system.
+using namespace system;
+}
+//end of namespace wiz.

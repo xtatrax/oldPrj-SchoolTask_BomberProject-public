@@ -19,7 +19,7 @@
 
 namespace wiz{
 using namespace bomberobject;
-
+namespace stage{
 
 
 
@@ -112,5 +112,7 @@ void PlayStage::Update(UpdatePacket& i_UpdatePacket){
 	Stage::Update( i_UpdatePacket );
 }
 
+}
+//end of namespace stage.
 }
 //end of namespace wiz.

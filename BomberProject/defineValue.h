@@ -353,6 +353,7 @@ namespace wiz{
 
 		//	: 
 		//OBJID_3D_MAGNET			,	//	: é•êŒ
+		OBJID_3D_BACKGROUND			,	//	: îwåi
 		OBJID_3D_WALL				,	//	: ï«
 		OBJID_3D_ITEM				,	//	: ÉAÉCÉeÉÄ
 

@@ -15,6 +15,7 @@
 #include "Stage.h"
 #include "Scene.h"
 namespace wiz{
+namespace stage{
 /*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*/
 /**************************************************************************
  class ResultStage : public Stage;
@@ -41,5 +42,7 @@ ResultStage();
 };
 /*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*/
 
+}
+//end of namespace stage.
 }
 //end of namespace wiz.

@@ -15,7 +15,7 @@
 #include "Object.h"
 
 namespace wiz{
-
+namespace system{
 /**************************************************************************
  Light ’è‹`•”
 ****************************************************************************/
@@ -654,6 +654,9 @@ void Guide::Draw(DrawPacket& i_DrawPacket){
 
 
 
+
+}
+//end of namespace system.
 
 }
 //end of namespace wiz.

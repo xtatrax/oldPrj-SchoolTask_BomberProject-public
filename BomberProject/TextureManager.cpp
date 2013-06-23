@@ -14,6 +14,7 @@
 #include "TextureManager.h"
 #include "TL-String.h"
 namespace wiz {
+namespace system{
 /**************************************************************************
  TextureManager ’è‹`•”
 /***************************************************************************/
@@ -470,3 +471,6 @@ bool TextureManager::Texture::checkFilePath( wstring filepath ) const{
 	return ( _wcsicmp(m_strFilePath.c_str(),filepath.c_str()) == 0 );
 }
 }
+//end of namespace system.
+}
+//end of namespace wiz.
