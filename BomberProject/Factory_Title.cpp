@@ -93,7 +93,7 @@ void ClickChar::Draw(DrawPacket& i_DrawPacket)
 void ClickChar::Update(UpdatePacket& i_UpdatePacket)
 {
 	if( !m_pCursor ) m_pCursor = ( MouseCursor* )SearchObjectFromID(i_UpdatePacket.pVec,OBJID_SYS_CURSOR       );
-
+	if( !m_pCursor ) return ;
 	Point MousePos = Point(0,0) ;
 	if( m_pCursor ) MousePos = m_pCursor->get2DPos();
 
@@ -226,10 +226,10 @@ void Title_Select::Update(UpdatePacket& i_UpdatePacket)
 };
 
 /************************************************************************
-MagnetField 定義部
+MagnetFieldMini 定義部
 ************************************************************************/
 /////////////////// ////////////////////
-//// 関数名     ：MagnetField(LPDIRECT3DDEVICE9 pD3DDevice,LPDIRECT3DTEXTURE9 pTexture,
+//// 関数名     ：MagnetFieldMini(LPDIRECT3DDEVICE9 pD3DDevice,LPDIRECT3DTEXTURE9 pTexture,
 ////            ：    D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos, RECT* pRect);
 //// カテゴリ   ：コンストラクタ
 //// 用途       ：スプライトを描画
@@ -244,7 +244,7 @@ MagnetField 定義部
 //// 備考       ：
 ////            ：
 ////
-MagnetField::MagnetField(
+MagnetFieldMini::MagnetFieldMini(
 	const LPDIRECT3DDEVICE9		pD3DDevice	,
 	const LPDIRECT3DTEXTURE9	pTextureN	,
 	const LPDIRECT3DTEXTURE9	pTextureS	,
@@ -254,7 +254,7 @@ MagnetField::MagnetField(
 	const D3DXVECTOR3&			vCenter		,
 	const RECT*					pRect		
 )
-:SpriteObject( pD3DDevice, pTextureN, vScale, vRot, vPos, pRect, vCenter, g_vZero, 0xFFFFFFFF , OBJID_UI_SPRITE, false)
+:SpriteObject( pD3DDevice, pTextureN, vScale, vRot, vPos, pRect, vCenter, g_vZero, 0xFFFFFFFF , OBJID_UI_TITLEMAGNETFIELD)
 //,m_pCoil( NULL )
 ,m_pTextureN( pTextureN )
 ,m_pTextureS( pTextureS )
@@ -275,7 +275,7 @@ MagnetField::MagnetField(
 };
 
 /////////////////// ////////////////////
-//// 関数名     ：void MagnetField::Draw( DrawPacket& i_DrawPacket)
+//// 関数名     ：void MagnetFieldMini::Draw( DrawPacket& i_DrawPacket)
 //// カテゴリ   ：関数
 //// 用途       ：スプライトを描画
 //// 引数       ：DrawPacket& i_DrawPacket    //もろもろのデータ
@@ -284,14 +284,14 @@ MagnetField::MagnetField(
 //// 備考       ：
 ////            ：
 ////
-void MagnetField::Draw(DrawPacket& i_DrawPacket)
+void MagnetFieldMini::Draw(DrawPacket& i_DrawPacket)
 {
 	//	: 描画は親クラスに任せる
 	SpriteObject::Draw(i_DrawPacket);
 };
 
 /////////////////// ////////////////////
-//// 関数名     ：void MagnetField::Update( UpdatePacket& i_UpdatePacket)
+//// 関数名     ：void MagnetFieldMini::Update( UpdatePacket& i_UpdatePacket)
 //// カテゴリ   ：関数
 //// 用途       ：データの更新
 //// 引数       ：UpdatePacket& i_UpdatePacket    //もろもろのデータ
@@ -300,7 +300,7 @@ void MagnetField::Draw(DrawPacket& i_DrawPacket)
 //// 備考       ：
 ////            ：
 ////
-void MagnetField::Update(UpdatePacket& i_UpdatePacket)
+void MagnetFieldMini::Update(UpdatePacket& i_UpdatePacket)
 {
 	D3DXMATRIX mScale, mRot, mPos;
 	D3DXMatrixScaling(&mScale,m_vScale.x,m_vScale.y,m_vScale.z);
@@ -310,7 +310,7 @@ void MagnetField::Update(UpdatePacket& i_UpdatePacket)
 
 };
 
-void MagnetField::setNowPos(int i_iNum){
+void MagnetFieldMini::setNowPos(int i_iNum){
 	m_iNowPosNum = i_iNum;
 	switch(m_iNowPosNum){
 		case 1:
@@ -415,9 +415,8 @@ void Coil::Draw(DrawPacket& i_DrawPacket)
 ////
 void Coil::Update(UpdatePacket& i_UpdatePacket)
 {
-	if( !m_pMagnetField ){
-		m_pMagnetField	= ( MagnetField* )SearchObjectFromTypeID( i_UpdatePacket.pVec,typeid(MagnetField) ) ; 
-	}
+	if( !m_pMagnetField ) m_pMagnetField	= ( MagnetFieldMini* )SearchObjectFromID( i_UpdatePacket.pVec,OBJID_UI_TITLEMAGNETFIELD) ; 
+	if( !m_pMagnetField ) return ;
 
 	float	fTargetDir = TwoPoint2Degree( m_pMagnetField->getPos() , m_vPos );
 	float	fReverse   = 0.0f;
@@ -654,7 +653,7 @@ Factory_Title::Factory_Title(FactoryPacket* fpac){
 		
 		//磁界
 		fpac->m_pVec->push_back(
-			new MagnetField(
+			new MagnetFieldMini(
 				fpac->pD3DDevice,
 				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"MagnetField_N.png" ),
 				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"MagnetField_S.png" ),

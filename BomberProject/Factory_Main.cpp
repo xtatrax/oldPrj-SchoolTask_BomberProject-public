@@ -68,6 +68,9 @@ Factory_Main::Factory_Main(FactoryPacket* fpac, DWORD dwStageNum, DWORD dwResump
 		//	: ガイドライン
 		fpac->m_pVec->push_back(new Guide( fpac->pD3DDevice ) );
 #endif
+		Debugger::DBGWRITINGLOGTEXT::addStrToFile(L"Score.txt",L"\n\n//////////\n");
+		Debugger::DBGWRITINGLOGTEXT::addStrToFile(L"Score.txt",L"//  : \n");
+		Debugger::DBGWRITINGLOGTEXT::addStrToFile(L"Score.txt",L"StageNum   = %d\n",dwStageNum);
 
 		//////////
 		//	: ライトの設定
@@ -89,14 +92,15 @@ Factory_Main::Factory_Main(FactoryPacket* fpac, DWORD dwStageNum, DWORD dwResump
 		//////////
 		//	: カメラの設定
 		float ECXPos = 25.1f;
-		float ECYPos = 10.666f;		
+		float ECYPos = 10.666f;
+		float ECZPos = -55.7f;
         fpac->m_pVec->push_back(
 			new Camera(
 				fpac->pD3DDevice,
-				D3DXVECTOR3( ECXPos, ECYPos, -55.7f),
+				D3DXVECTOR3( ECXPos, ECYPos, ECZPos),
 				D3DXVECTOR3( ECXPos, ECYPos,   0.0f),
 				1 ,
-				56.0f,
+				ECZPos+0.5f,
 				30.0f
 			)
 		);

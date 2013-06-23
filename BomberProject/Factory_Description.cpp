@@ -88,7 +88,7 @@ void	ModeChangeChar::Update( UpdatePacket& i_UpdatePacket )
 			m_pRect->right	-= iTransRect;
 	}
 	else{
-		m_fInterval += i_UpdatePacket.pTime->getElapsedTime();
+		m_fInterval += (float)i_UpdatePacket.pTime->getElapsedTime();
 		if( m_fInterval >= fStopTime ){
 			m_bAllDraw	= false;
 			m_bAnimeDir	= false;

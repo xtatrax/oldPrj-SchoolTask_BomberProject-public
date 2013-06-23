@@ -11,7 +11,7 @@
 //					▼
 //	namespace wiz;
 //		namespace bomberobject;
-//			class PlayerCoil : public MagneticumObject3D ;
+//			class PlayerCoil : public MagnetField ;
 //			class Factory_Coil ;
 //	const	float			COIL_SPEED						= 0.08f;
 //	const	float			COIL_SPEED_SUPER				= 0.12f;
@@ -48,6 +48,7 @@
 #include "Factory_Cursor.h"
 #include "Factory_Player.h"
 #include "Factory_Gage.h"
+#include "Factory_MagnetField.h"
 
 //#include "Factory_Description.h"
 //	: インクルード
@@ -115,8 +116,7 @@ extern class TimeScore;
 //         : 佐藤涼
 // 用途    : ユーザーが誘導する対象になる物
 //**************************************************************************//
-class PlayerCoil : public MagneticumObject3D{
-	friend MagneticumObject3D;
+class PlayerCoil : public Cylinder ,public MagneticObject{
 #if defined( ON_DEBUGGINGPROCESS ) | defined( PRESENTATION )
 	//	: デバッグ用のデータ
 	DrawSphere*		m_pDSPH		;				//	: 球領界描画クラスのポインタ
@@ -159,14 +159,14 @@ class PlayerCoil : public MagneticumObject3D{
 	Dead*					m_pDeadChar					;	//	: ロゴ(You'er Dead)
 	StartSprite*			m_pReStart					;	//	: 
 	ProvisionalPlayer3D*	m_pPlayer					;	//	: ユーザ設置磁界へのポインタ
-	MagneticumObject3D*		m_pMagneticumObject			;	//	: 初期配置磁界へのポインタ
+	StaticMagnetField*		m_pMagneticumObject			;	//	: 初期配置磁界へのポインタ
 	DeadEffect*				m_pDeadEffect[PARTICLS_NUM]	;	//	: 死亡時の爆散エフェクトのポインタ
 	TimeScore*				m_pTime;
 	
-	Line*					m_pLineTop					;
-	Line*					m_pLineLeft					;
-	Line*					m_pLineBottom				;
-	Line*					m_pLineRight				;
+	Line3D*					m_pLine1					;
+	Line3D*					m_pLine2					;
+	Line3D*					m_pLine3					;
+	Line3D*					m_pLine4					;
 	
 	COIL_STATE				m_enumCoilState				;	//	: 自分の状態
 	COIL_STATE_SUPER		m_enumCoilStateSuper		;	//	: 無敵状態
@@ -392,7 +392,7 @@ public:
 	//// 担当       ：本多寛之
 	//// 備考       ：
 	////　　　　　　：
-	float MagneticDecision( float i_fCoilDir, D3DXVECTOR3& i_vMagnetPos, POLE i_bMagnetPole_Field ) const;
+	void MagneticDecision( D3DXVECTOR3& i_vMagnetPos, POLE i_bMagnetPole_Field ) ;
 
 	/////////////////// ////////////////////
 	//// 用途       ：bool PlayerCoil::CheckDistance( D3DXVECTOR3& i_vMagneticFieldPos, D3DXVECTOR3& i_vCoilPos, float i_iBorder, bool IsPlayer )
@@ -492,6 +492,7 @@ public:
 
 	//****************************************
 	//スクラッチポイントのゲッター、セッター
+	//描画用スクラッチ
 	int	getScratchTime(){
 		return	m_fRecordTime;
 	}
@@ -501,8 +502,13 @@ public:
 			++m_iScratchTime;
 	}
 
+	//結果用スクラッチ
 	void	setRecordTime(){
 		m_fRecordTime	= m_iScratchTime;
+	}
+
+	int		getRecordTime(){
+		return	m_fRecordTime;
 	}
 	//*****************************************
 

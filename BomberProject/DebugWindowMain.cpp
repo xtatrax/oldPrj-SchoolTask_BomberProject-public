@@ -189,15 +189,15 @@ DebugWindow::DebugWindow(START_PACKET pac)
 			//	: シーンの描画
 			if(::PeekMessage(&msg,NULL,0,0,PM_REMOVE))
 			{
-				switch(msg.message)
-				{
+				//switch(msg.message)
+				//{
 
-					default:
+					//default:
 						// メッセージの翻訳とディスパッチ
 						::TranslateMessage(&msg);
 						::DispatchMessage(&msg);
 						break;
-				}
+				//}
 			}
 			else
 			{  // 処理するメッセージが無いときは描画を行う

@@ -408,8 +408,8 @@ void	TimeScore::Update(UpdatePacket& i_UpdatePacket){
 		if( m_iTime == 0 ){
 			m_pCoil->setState( COIL_STATE_DEAD );
 		}
-		else if( m_pCoil->getState() == COIL_STATE_MOVE ){
-			m_fElapsedTime	+= i_UpdatePacket.pTime->getElapsedTime();
+		else if( m_pCoil->getState() == COIL_STATE_MOVE || m_pCoil->getState() == COIL_STATE_STICK ){
+			m_fElapsedTime	+= (float)i_UpdatePacket.pTime->getElapsedTime();
 			if( m_fElapsedTime >= 1.0f ){
 				--m_iTime;
 				m_fElapsedTime	= 0;
@@ -503,7 +503,7 @@ void	AnimationScore::Update(UpdatePacket& i_UpdatePacket){
 	}
 
 	if( m_iResultScore != 0 ){
-		m_fTime	+= i_UpdatePacket.pTime->getElapsedTime();
+		m_fTime	+= (float)i_UpdatePacket.pTime->getElapsedTime();
 		if( m_fTime >= 1.0f/(m_fTransRate) ){
 			if( m_iResultScore > m_iDrawScore )
 				m_iDrawScore	+= i;
@@ -575,6 +575,10 @@ ResultScore::ResultScore(LPDIRECT3DDEVICE9	pD3DDevice,
 	Rect		rScoreRect	= Rect( 0, 0, 512, 64 );
 
 	int TotalScore	= (iMaxPos*10)+iScratch-(iDead*30);
+	Debugger::DBGWRITINGLOGTEXT::addStrToFile(L"Score.txt",L"MaxPos     = %d\n",iMaxPosScore);
+	Debugger::DBGWRITINGLOGTEXT::addStrToFile(L"Score.txt",L"Scratch    = %d\n",iScratchScore);
+	Debugger::DBGWRITINGLOGTEXT::addStrToFile(L"Score.txt",L"DeadCount  = %d\n",iDeadScore);
+	Debugger::DBGWRITINGLOGTEXT::addStrToFile(L"Score.txt",L"TotalScore = %d\n",TotalScore);
 
 	int iDightMaxPos	= 0;
 	int iDightScratch	= 0;
@@ -642,10 +646,6 @@ ResultScore::ResultScore(LPDIRECT3DDEVICE9	pD3DDevice,
 	}
 	//*******************************************
 
-	Debugger::DBGWRITINGLOGTEXT::addStrToFile(L"Score.txt",L"MaxPos     = %d\n",iDightMaxPos);
-	Debugger::DBGWRITINGLOGTEXT::addStrToFile(L"Score.txt",L"Scratch    = %d\n",iDightScratch);
-	Debugger::DBGWRITINGLOGTEXT::addStrToFile(L"Score.txt",L"DeadCount  = %d\n",iDightDead);
-	Debugger::DBGWRITINGLOGTEXT::addStrToFile(L"Score.txt",L"TotalPoint = %d\n",iDightTotal);
 
 	m_pMaxPos	= new AnimationScore( pD3DDevice, m_pMaxPosTex, vScoreSize,
 						D3DXVECTOR3( wide, height-115.0f, 0.0f ), iMaxPos, iDightMaxPos, &rScoreRect);
@@ -756,7 +756,7 @@ Factory_Score::Factory_Score(FactoryPacket *fpac){
 					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"TIME2.png" ),
 					D3DXVECTOR3( 0.5f, 0.5f, 0.0f ),
 					g_vZero,
-					D3DXVECTOR3( 10.0f, 10.0f, 0.0f ),					
+					D3DXVECTOR3( 50.0f, 10.0f, 0.0f ),			
 					&Rect( 0, 0, 256, 64 ),
 					g_vZero,
 					g_vZero
