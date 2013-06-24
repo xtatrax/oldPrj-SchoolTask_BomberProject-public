@@ -26,7 +26,7 @@
 
 namespace wiz{
 using namespace bomberobject;
-namespace system{
+
 /////////////////// ////////////////////
 //// 関数名     ：
 //// カテゴリ   ：
@@ -91,7 +91,7 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 					//	: インスタンスを生成
 					mgb = new TARGET_CLASS(
 						m_pD3DDevice,
-						m_pTexMgr->addTexture(m_pD3DDevice,L"Lightning.tga"),
+						m_pTexMgr->addTexture(m_pD3DDevice,L"Lightning.png"),
 						ObjectID
 					);
 					//	: オブジェクトリストへ登録
@@ -485,23 +485,7 @@ void StageLoader::PointSearch( vector<vector<wstring>>& i_vvCsvData, CSVMATRIX& 
 			POOL			= 0x8000,
 
 			IS_OK			= STAGE_NUMBER | OBJECT_TYPE ,
-			ALL_OK			= STAGE_NUMBER 
-							| OBJECT_TYPE
-							| FILE_PATH
-							| TEX_PATH
-							| MOTION_NUM
-							| TRAC_SPEED
-							| SCALE_X
-							| SCALE_Y
-							| SCALE_Z
-							| ROT_X
-							| ROT_Y
-							| ROT_Z
-							| POS_X
-							| POS_Y
-							| POS_Z
-							| POOL
-							,
+			ALL_OK			= STAGE_NUMBER | OBJECT_TYPE | FILE_PATH | TEX_PATH | MOTION_NUM | TRAC_SPEED | SCALE_X   |  SCALE_Y   | SCALE_Z ,
 		};
 		WORD  SearchFlag = 0 ;
 		for(BYTE i = 1 , Lane = i_vvCsvData.size(); i < Lane ; i++ ){
@@ -620,12 +604,8 @@ void StageLoader::ObjectsLoader(wstring i_sFileName){
 		);
 	}
 	CSVMATRIX o_CsvMatrix ;					//	: 各パラメータの書いてある列を格納する構造体
-	{
-	DWORD dwSTime = TLIB::Tempus::TimeGetTime();
 	PointSearch(vvCsvData, o_CsvMatrix);	//	: 各パラメータが書いてある行を獲得
-	DWORD dwETime = TLIB::Tempus::TimeGetTime();
-	Debugger::DBGWRITINGLOGTEXT::addStr( L"StageLoader::ObjectsLoader >> PointSearch : %f\n", TLIB::Tempus::TwoDwTime2ElapsedTime(dwSTime,dwETime));
-	}
+
 	//	: i		> 現在のセル
 	//	: vvSz	> 最大のセル数
 	//	: Line	> 列
@@ -633,16 +613,14 @@ void StageLoader::ObjectsLoader(wstring i_sFileName){
 	D3DCOLORVALUE Specular	= {0.0f,0.0f,0.0f,0.0f};
 	D3DCOLORVALUE Ambient	= {0.5f,0.5f,0.5f,1.0f};
 
-	DWORD dwSTime = TLIB::Tempus::TimeGetTime();
-	vector<vector<wstring>>::size_type i = 0, Line = 0, vvSz = vvCsvData.size() ;
-	while(	(i + o_CsvMatrix.Line) < vvSz  )
+	for(vector<vector<wstring>>::size_type i = 1 , vvSz = vvCsvData.size() , Line = 0;
+		(i + o_CsvMatrix.Line) < vvSz ; i++ )
 	{
-
+		
 		MapPartsStatus Status ;
 		//////////
 		//	: このひとかたまりで一行
 		Line				= o_CsvMatrix.Line + i ;
-		//									Data       ─    │
 		int		iNumber		= getCsvLong(	vvCsvData, Line, o_CsvMatrix.Column.uiNumber			) ;
 		Status.enClassid	= getCsvLong(	vvCsvData, Line, o_CsvMatrix.Column.uiType				) ;
 		Status.dwMotionNum	= getCsvLong(	vvCsvData, Line, o_CsvMatrix.Column.uiMotionNum			) ;
@@ -668,12 +646,7 @@ void StageLoader::ObjectsLoader(wstring i_sFileName){
 		//	: このひとかたまりで一行
 		//////////
 		m_ObjeMap[iNumber] = Status;
-		i++;
 	}
-	Debugger::DBGWRITINGLOGTEXT::addStr( L"StageLoader::ObjectsLoader >> for : %d\n", i);
-	DWORD dwETime = TLIB::Tempus::TimeGetTime();
-	Debugger::DBGWRITINGLOGTEXT::addStr( L"StageLoader::ObjectsLoader >> for : %f\n", TLIB::Tempus::TwoDwTime2ElapsedTime(dwSTime,dwETime));
-
 }
 
 /////////////////// ////////////////////
@@ -697,8 +670,10 @@ void StageLoader::PointSearch( vector<vector<wstring>>& i_vvCsvData , POINT& o_N
 		BYTE  SearchFlag = 0 ;
 		for(BYTE i = 1 , Lane = i_vvCsvData.size(); i < Lane ; i++ ){
 			for(BYTE j = 0 , Line = i_vvCsvData[i].size() ; j < Line ; j++){
+
 				//	: Objectリストを読み込み
 				if(i_vvCsvData[i][j] == L"ObjectsCSV" ){ ObjectsLoader(i_vvCsvData[i][j+1]); SearchFlag |= OBJECTS_CSV ; }
+
 				//	: 読み込み位置の設定
 				if(i_vvCsvData[i][j] == L"StageNumber"){ o_NumberPoint.x = j ; o_NumberPoint.y = i ; SearchFlag |= STAGE_NUMBER ; }
 				if(i_vvCsvData[i][j] == L"FilePath"   ){ o_PathPoint.x   = j ; o_PathPoint.y   = i ; SearchFlag |= FILE_PATH    ; }
@@ -883,6 +858,6 @@ StageLoader::StageLoader(LPDIRECT3DDEVICE9 pD3DDevice, vector<Object*>& Vec, Tex
 }
 /*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 
-}
+
 }
 //end of namespace wiz.

@@ -17,7 +17,7 @@
 #include "Stage.h"
 
 namespace wiz{
-namespace system{
+
 //**************************************************************************
 // class Scene;
 //
@@ -279,9 +279,6 @@ public:
 	};
 
 };
-}
-//end of namespace system.
-using namespace system ;
 }
 //end of namespace wiz.
 

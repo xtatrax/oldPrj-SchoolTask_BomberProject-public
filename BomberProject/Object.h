@@ -19,10 +19,9 @@
 #include "Controller/Controller.h"
 
 namespace wiz{
-namespace system{
 
-
-extern class Button ;
+	extern class Object ;
+	extern class Button ;
 
 //**************************************************************************
 // class Object;
@@ -772,9 +771,6 @@ public:
 	};
 
 
-}
-//end of namespace system.
-using namespace system;
 }
 //end of namespace wiz.
 

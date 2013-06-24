@@ -22,7 +22,6 @@
 using namespace TLIB;
 namespace wiz{
 extern bool GameQuitFlag ;
-namespace system{
 /**************************************************************************
  àÀë∂Ç∑ÇÈÉNÉâÉX
 ****************************************************************************/
@@ -294,9 +293,6 @@ private:
 ////            ÅF
 ////
 };
-}
-//end of namespace system.
-using namespace system;
 }
 //end of namespace wiz.
 

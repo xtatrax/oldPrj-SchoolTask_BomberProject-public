@@ -31,7 +31,6 @@
 //	: 追加のインクルード
 //////////
 
-
 namespace wiz{
 namespace bomberobject{
 
@@ -95,31 +94,6 @@ Factory_Main::Factory_Main(FactoryPacket* fpac, DWORD dwStageNum, DWORD dwResump
 		//	: カメラの設定
 		//////////
 
-		//////////
-		//	: 背景の仮配置
-		Factory_BG Bfac(fpac);
-		//D3DCOLORVALUE wDiffuse = {1.0f,1.0f,1.0f,0.0f};
-		//D3DCOLORVALUE wSpecular = {0.0f,0.0f,0.0f,0.0f};
-		//D3DCOLORVALUE wAmbient = {0.5f,0.5f,0.5f,0.0f};
-		//float fBoxSizeX = 90.0f ;
-		//for( int i = 0 ; i < 20 ; i++ ){
-		//	fpac->m_pVec->push_back(
-		//		new Box(
-		//			fpac->pD3DDevice ,
-		//			D3DXVECTOR3( 50.0f, fBoxSizeX    , 0.0f ),
-		//			D3DXVECTOR3( 25.0f, fBoxSizeX *i , 0.2f ),
-		//			g_vZero,
-		//			wDiffuse,
-		//			wSpecular,
-		//			wAmbient,
-		//			OBJID_3D_BOX,
-		//			false,
-		//			fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"BGP_PLAY.tga")
-		//		)
-		//	);
-		//}
-		//	: 背景の仮配置
-		//////////
 
 //←──────────────────────────────────────────────→//	
 
@@ -127,11 +101,12 @@ Factory_Main::Factory_Main(FactoryPacket* fpac, DWORD dwStageNum, DWORD dwResump
 		//	: 下請け工場へ発注
 		float	fLineLength	= 230.0f;
 		float	fPointSize	= 0.125f;
+		Factory_BG			Bfac( fpac ) ;
 		Factory_Cursor		Mfac( fpac, fLineLength, fPointSize )  ; 
 		Factory_Player		Pfac( fpac );
 		if( dwStageNum != 5 )
 			Factory_Item	Ifac( fpac ) ;
-		Factory_Wall		Wfac( fpac );
+		Factory_Wall		Wfac( fpac ) ;
 		if( dwStageNum == 0 )	dwStageNum = 5 ;
 		StageLoader			loader(fpac->pD3DDevice,L"media/Map/Stages.csv", dwStageNum,*fpac->m_pVec,*fpac->m_pTexMgr);
 		Factory_Coil		Cfac( fpac , dwResumptionCheckPoint, vStartPos );

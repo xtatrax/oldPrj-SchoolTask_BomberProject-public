@@ -23,17 +23,16 @@
 
 #include "StdAfx.h"
 namespace wiz{
-namespace system{
 class  Object ; 
-class  Sound ;
 class  Stage ;
 class  TextureManager ;
 struct CONTROLER_STATE;
+namespace system{
+class  Sound ;
 }
 namespace functions {
 extern void EarnFromMeshOBB(const LPD3DXBASEMESH i_pMesh,D3DXVECTOR3& o_vPos ,D3DXVECTOR3& o_vSize);
 }
-using namespace system ;
 using namespace functions ;
 namespace structs{
 /*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
@@ -227,9 +226,9 @@ extern struct DrawPacket	;
 extern struct RenderPacket	;
 struct BassPacket{
 private:
-	wiz::system::Stage*	m_pStage;
+	wiz::Stage*	m_pStage;
 public:
-	void SetStage( wiz::system::Stage* pStage ){ m_pStage = pStage ; }
+	void SetStage( wiz::Stage* pStage ){ m_pStage = pStage ; }
 	LPDIRECT3DDEVICE9		pD3DDevice	;	// デバイス
 	vector<Object*>*		pVec		;	// オブジェコンテナ
 	TextureManager*			pTxMgr		;	// テクスチャ管理クラス
@@ -307,7 +306,7 @@ inline UpdatePacket::UpdatePacket( DrawPacket i_DrawPacket )
 //**************************************************************************//
 struct FactoryPacket{
 private:
-	wiz::system::Stage*	m_pStage;
+	wiz::Stage*	m_pStage;
 public:
 	//Device
 	LPDIRECT3DDEVICE9 pD3DDevice ;
@@ -318,8 +317,8 @@ public:
 	//テクスチャのポインタのベクトル
 	TextureManager* m_pTexMgr;
 public:
-	FactoryPacket(wiz::system::Stage* i_pStage):m_pStage(i_pStage){};
-	FactoryPacket(		LPDIRECT3DDEVICE9 i_pD3DDevice, bool i_IsDialog, vector<Object*>* i_pVec, TextureManager* i_pTexMgr,wiz::system::Stage* i_pStage = NULL)
+	FactoryPacket(Stage* i_pStage):m_pStage(i_pStage){};
+	FactoryPacket(		LPDIRECT3DDEVICE9 i_pD3DDevice, bool i_IsDialog, vector<Object*>* i_pVec, TextureManager* i_pTexMgr,Stage* i_pStage = NULL)
 		:pD3DDevice(	i_pD3DDevice	)
 		,m_IsDialog(	i_IsDialog		)
 		,m_pVec(		i_pVec			)
@@ -593,8 +592,6 @@ struct RENDERSTATE_PARAM{
 
 
 
-}
-//end of namespace structs.
+}//end of namespace structs.
 using namespace structs;
-}
-//end of namespace wiz.
+}//end of namespace wiz.
