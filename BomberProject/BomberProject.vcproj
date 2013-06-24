@@ -540,14 +540,6 @@
 					<Filter
 						Name="Factory_BackGround"
 						>
-						<File
-							RelativePath=".\Factory_BackGround.cpp"
-							>
-						</File>
-						<File
-							RelativePath=".\Factory_BackGround.h"
-							>
-						</File>
 					</Filter>
 					<Filter
 						Name="Factory_Item"

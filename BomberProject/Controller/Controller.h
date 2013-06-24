@@ -49,7 +49,6 @@ public:
 };
 };
 namespace wiz {
-namespace system{
 //**************************************************************************//
 // struct;
 // ’S“–  : Ž°Œ´ “O
@@ -399,7 +398,5 @@ public:
         return MAX_CONTROLLERS;
     }
 };
-}
-//end of namespace system.
-}
-//end of namespace wiz.
+
+};

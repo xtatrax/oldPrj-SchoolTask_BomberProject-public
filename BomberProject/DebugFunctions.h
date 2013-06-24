@@ -24,9 +24,6 @@ class DBGWRITINGLOGTEXT{
 	static wstring DefaultLogFolder ;
 	static wstring DefaultLogFileName; 
 public:
-	static void OutputSystemLog(LPCWSTR i_sOutPutString){
-		OutputDebugStringW(i_sOutPutString);
-	}
 	/////////////////// ////////////////////
 	//// 関数名     ：static void Init()
 	//// カテゴリ   ：イニシャライザ

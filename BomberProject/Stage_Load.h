@@ -16,7 +16,6 @@
 #include "Scene.h"
 #include "Factory_Load.h"
 namespace wiz{
-namespace stage{
 /*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*/
 /**************************************************************************
  class LoadStage : public Stage;
@@ -43,7 +42,5 @@ ResultStage();
 };
 /*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*/
 
-}
-//end of namespace stage.
 }
 //end of namespace wiz.

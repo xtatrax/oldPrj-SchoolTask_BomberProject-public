@@ -15,8 +15,7 @@
 #include "Stage.h"
 #include "Scene.h"
 namespace wiz{
-namespace stage{
-//class PlayStage;
+class PlayStage;
 /*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*/
 /**************************************************************************
  class PlayStage : public Stage;
@@ -112,7 +111,6 @@ PlayStage();
 	DWORD getNowStage(){ return m_dwNowStage ; }
 };
 /*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*/
-}
-//end of namespace stage.
+
 }
 //end of namespace wiz.
