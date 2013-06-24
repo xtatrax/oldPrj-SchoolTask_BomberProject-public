@@ -187,6 +187,20 @@ void ProvisionalPlayer3D::Update( UpdatePacket& i_UpdatePacket ){
 		if( m_pMGage_S ) m_pMGage_S->ResetGauge();
 	}
 	MagnetField::Update(i_UpdatePacket);
+
+	//ƒQ[ƒW‚ª3Š„Ø‚Á‚½‚çA¥ŠE‚ğ“_–Å‚³‚¹‚é
+	if( MagnetField::getMagnetPole() == POLE_S && m_bDrawing ){
+		if(m_pMGage_S->getRate() < 0.3f)
+				MagnetField::Flashing(i_UpdatePacket, POLE_S);
+		else	MagnetField::Reset();
+	}
+	else if( MagnetField::getMagnetPole() == POLE_N && m_bDrawing ){
+		if(m_pMGage_N->getRate() < 0.3f)
+				MagnetField::Flashing(i_UpdatePacket, POLE_N);
+		else	MagnetField::Reset();
+	}
+	//***************************************************************
+
 };
 
 /////////////////// ////////////////////

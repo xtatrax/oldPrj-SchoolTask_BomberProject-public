@@ -48,6 +48,9 @@ MagnetFieldCircle::MagnetFieldCircle(LPDIRECT3DDEVICE9 pD3DDevice,DWORD dwVertex
 	}
 	m_pVertexBuffer->Unlock();
 	D3DXMatrixScaling( &m_mMatrix, 10.0f, 10.0f, 1.0f );
+
+	m_dwColor_S	= 0x3F0000FF;
+	m_dwColor_N	= 0x3FFF0000;
 }
 
 /////////////////// ////////////////////
@@ -220,6 +223,43 @@ void MagnetField::HitTest(){
 		m_pCoil->MagneticDecision(m_vPos,MagneticObject::getMagnetPole());
 }
 
+void	MagnetField::Flashing( UpdatePacket& i_UpdatePacket, POLE i_Pole ){
+	static bool	s_bPtn		= true;
+	static int	s_iInterval	= 0;
+	if( i_Pole == POLE_S ){
+		if( s_bPtn ){
+			m_MagneticField.setColor( i_Pole, 0x000000FF );
+			//s_iInterval++;
+		}
+		else{
+			m_MagneticField.setColor( i_Pole, 0x3F0000FF );
+			s_iInterval++;
+		}
+	}
+	else{
+		if( s_bPtn ){
+			m_MagneticField.setColor( i_Pole, 0x00FF0000 );
+			//s_iInterval++;
+		}
+		else{
+			m_MagneticField.setColor( i_Pole, 0x3FFF0000 );
+			s_iInterval++;
+		}
+	}
+
+	if( s_bPtn ){
+		//if( s_iInterval >= 2 ){
+			s_bPtn	= false;
+		//	s_iInterval	= 0;
+		//}
+	}
+	else{
+		if( s_iInterval >= 5 ){
+			s_bPtn	= true;
+			s_iInterval	= 0;
+		}
+	}
+}
 
 /**************************************************************************
  StaticMagnetField ’è‹`•”
