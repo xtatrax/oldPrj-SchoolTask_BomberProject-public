@@ -47,7 +47,7 @@ MagnetFieldCircle::MagnetFieldCircle(LPDIRECT3DDEVICE9 pD3DDevice,DWORD dwVertex
 		m_pVertex[ i ]	= Vertex( D3DXVECTOR3(  cosf( D3DXToRadian( iRotSize * i ) ) , sinf(D3DXToRadian( iRotSize * i ) ) , 0.0f )	, 0x3FFFFFFF );
 	}
 	m_pVertexBuffer->Unlock();
-	D3DXMatrixScaling( &m_mMatrix, 10.0f, 10.0f, 1.0f );
+	D3DXMatrixScaling( &m_mMatrix, 10.0f, 10.0f, 0.0f );
 }
 
 /////////////////// ////////////////////
@@ -170,7 +170,7 @@ void MagnetField::Draw(DrawPacket& i_DrawPacket)
 	D3DXMatrixTranslation(&mMove,
 		m_vPos.x,
 		m_vPos.y,
-		m_vPos.z-0.2f
+		m_vPos.z+0.2f
 	);
 	//	: Šî–{Matrix‚Ì€”õ
 	//////////
@@ -185,7 +185,7 @@ void MagnetField::Draw(DrawPacket& i_DrawPacket)
 	for( BYTE i = byPartitionQty ; i >= 1 ; i-- ){
 		fCircleSize = (float)MGPRM_MAGNETICUM * ( (float)i/(float)byPartitionQty ) ;
 		D3DXMatrixIdentity(&mScale);
-		D3DXMatrixScaling(&mScale, fCircleSize, fCircleSize, 0.0f);
+		D3DXMatrixScaling(&mScale, fCircleSize, fCircleSize, 0.1f);
 		mAll = mScale * mMove;
 		m_MagneticField.setMatrix(mAll) ;
 		m_MagneticField.Draw(i_DrawPacket);
@@ -206,7 +206,7 @@ void MagnetField::Draw(DrawPacket& i_DrawPacket)
 		fCircleSize =(float)MGPRM_MAGNETICUM * (1.0f-m_fEffectSizeRate);
 
 	D3DXMatrixIdentity(&mScale);
-	D3DXMatrixScaling(&mScale, fCircleSize, fCircleSize, 0.0f);
+	D3DXMatrixScaling(&mScale, fCircleSize, fCircleSize, 0.1f);
 	mAll = mScale * mMove;
 	m_MagneticField.setMatrix(mAll) ;
 	m_MagneticField.Draw(i_DrawPacket);

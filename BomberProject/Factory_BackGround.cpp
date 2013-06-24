@@ -30,7 +30,7 @@ namespace bomberobject{
 
 BackGround::BackGround(LPDIRECT3DDEVICE9 pD3DDevice,D3DXVECTOR3 vScalse,LPDIRECT3DTEXTURE9 pTextuer)
 :Box( pD3DDevice, vScalse,
-	 D3DXVECTOR3(vScalse.x/2,0.0f,0.0f), g_vZero,
+	 D3DXVECTOR3(vScalse.x/2,0.0f,0.3f), g_vZero,
 	 getD3DCOLORVALUE(1.0f,1.0f,1.0f,1.0f),
 	 getD3DCOLORVALUE(0.0f,0.0f,0.0f,0.0f),
 	 getD3DCOLORVALUE(1.0f,1.0f,1.0f,1.0f),
