@@ -805,7 +805,7 @@ Factory_Score::Factory_Score(FactoryPacket *fpac){
 		//Slash
 		fpac->m_pVec->push_back(
 			new SpriteObject( fpac->pD3DDevice,
-					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"slash2.png" ),
+					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"slash.png" ),
 					D3DXVECTOR3( 0.5f, 0.5f, 0.0f ),
 					g_vZero,
 					D3DXVECTOR3( 870.0f, 550.0f, 0.0f ),					
