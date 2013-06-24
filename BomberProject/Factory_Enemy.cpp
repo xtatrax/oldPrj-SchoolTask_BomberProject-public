@@ -70,8 +70,11 @@ EnemyModel::~EnemyModel(){
 	m_pPlayer	= NULL ;
 	m_pCoil		= NULL ;
 
+	Debugger::DBGWRITINGLOGTEXT::addStr(L"EnemyModel::~EnemyModel  >                                m_ItemMap_All.size(%d)\n",m_ItemMap_All.size());
 	SafeDeletePointerMap( m_ItemMap_All );
+	Debugger::DBGWRITINGLOGTEXT::addStr(L"EnemyModel::~EnemyModel  > SafeDeletePointerMap     >>>>  m_ItemMap_All.size(%d)\n",m_ItemMap_All.size());
 	m_ItemMap_Target.clear();
+	Debugger::DBGWRITINGLOGTEXT::addStr(L"EnemyModel::~EnemyModel  > m_ItemMap_Target.clear() >>>>  m_ItemMap_All.size(%d)\n",m_ItemMap_All.size());
 
 }
 

@@ -206,10 +206,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE
             pClassName,                     //ウインドウクラス名
             pWndTitle,                      //ウインドウのタイトル
             WS_OVERLAPPED | WS_SYSMENU,            //移動バーをもつ通常のウインドウ
-            CW_USEDEFAULT, CW_USEDEFAULT,   //位置はWindowsに任せる
-            iClientWidth,                    //ウインドウ幅（暫定）
-            iClientHeight,                   //ウインドウ高さ（暫定）
-            NULL,                            //親ウインドウ（トップレベルなので、なし）
+            100,
+			100,							//
+            iClientWidth,					//ウインドウ幅（暫定）
+            iClientHeight,					//ウインドウ高さ（暫定）
+            NULL,							//親ウインドウ（トップレベルなので、なし）
             NULL,                           //メニューなし
             hInstance,                      //このインスタンス
             NULL                            //使用しない
