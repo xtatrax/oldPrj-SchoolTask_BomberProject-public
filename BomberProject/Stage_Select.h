@@ -17,7 +17,6 @@
 #include "Factory_Title.h"
 
 namespace wiz{
-namespace stage{
 /*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*/
 /**************************************************************************
  class StageSelect : public Stage;
@@ -44,7 +43,5 @@ StageSelect();
 };
 /*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*/
 
-}
-//end of namespace stage.
 }
 //end of namespace wiz.

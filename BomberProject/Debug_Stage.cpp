@@ -16,7 +16,7 @@
 #include "Factory_Main.h"
 
 namespace wiz{
-namespace dbgstage{
+
 
 /**************************************************************************
  DebugStage ’è‹`•”
@@ -266,8 +266,5 @@ DebugMenu::DebugMenu(LPDIRECT3DDEVICE9 pD3DDevice,Stage* Par)
 		throw;
 	}
 }
-
-}
-//end of namespace dbgstage.
 }
 //end of namespace wiz.

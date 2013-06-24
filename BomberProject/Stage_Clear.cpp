@@ -17,7 +17,7 @@
 
 namespace wiz{
 using namespace bomberobject;
-namespace stage{
+
 /**************************************************************************
  ClearStage ’è‹`•”
 ****************************************************************************/
@@ -56,7 +56,5 @@ ClearStage::~ClearStage(){
 	
 }
 
-}
-//end of namespace stage.
 }
 //end of namespace wiz.

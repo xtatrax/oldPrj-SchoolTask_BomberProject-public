@@ -20,7 +20,6 @@
 #include <process.h>
 
 namespace wiz{
-namespace system{
 /**************************************************************************
  DxDevice ’è‹`•”
 ***************************************************************************/
@@ -526,8 +525,7 @@ unsigned __stdcall DxDevice::updateThreadLauncher(void *args){
 	//reinterpret_cast<DxDevice*>(args)->UpdateThreadRun();
 	return 0;
 }
-}
-//end of namespace system.
+
 }
 //end of namespace wiz.
 
