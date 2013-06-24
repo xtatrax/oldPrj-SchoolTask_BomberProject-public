@@ -560,6 +560,8 @@ ResultScore::ResultScore(LPDIRECT3DDEVICE9	pD3DDevice,
 ,m_pRate10Tex( pRate10Tex )
 ,m_pRate30Tex( pRate30Tex )
 ,m_pRate1Tex( pRate1Tex )
+,m_pRank( NULL )
+,m_ResulRank( Rank_C )
 {
 	float	wide	= BASE_CLIENT_WIDTH/2;
 	float	height	= BASE_CLIENT_HEIGHT/2;
@@ -579,6 +581,12 @@ ResultScore::ResultScore(LPDIRECT3DDEVICE9	pD3DDevice,
 	Debugger::DBGWRITINGLOGTEXT::addStrToFile(L"Score.txt",L"Scratch    = %d\n",iScratchScore);
 	Debugger::DBGWRITINGLOGTEXT::addStrToFile(L"Score.txt",L"DeadCount  = %d\n",iDeadScore);
 	Debugger::DBGWRITINGLOGTEXT::addStrToFile(L"Score.txt",L"TotalScore = %d\n",TotalScore);
+
+	if( TotalScore > 10000 )		m_ResulRank	= Rank_S;
+	else if( TotalScore > 5000 )	m_ResulRank	= Rank_A;
+	else if( TotalScore > 2500 )	m_ResulRank	= Rank_B;
+	else							m_ResulRank	= Rank_C;
+	//m_ResulRank
 
 	int iDightMaxPos	= 0;
 	int iDightScratch	= 0;
@@ -672,6 +680,7 @@ ResultScore::ResultScore(LPDIRECT3DDEVICE9	pD3DDevice,
  –ß‚è’l: ‚È‚µ
 ***************************************************************************/
 ResultScore::~ResultScore(){
+	m_pRank		= NULL;
 	m_pSelect	= NULL;
 	SafeDelete(m_pDead);
 	SafeDelete(m_pScratch);
@@ -705,6 +714,7 @@ void	ResultScore::Draw(DrawPacket& i_DrawPacket){
 void	ResultScore::Update(UpdatePacket& i_UpdatePacket){
 
 	if( !m_pSelect )	m_pSelect	= (Title_Select*)SearchObjectFromTypeID(i_UpdatePacket.pVec, typeid(Title_Select) ) ;
+	if( !m_pRank )		m_pRank		= (Rank*)SearchObjectFromID(i_UpdatePacket.pVec, OBJID_UI_RANK ) ;
 
 	switch( m_iNowDraw ){
 		case 0:
@@ -730,6 +740,8 @@ void	ResultScore::Update(UpdatePacket& i_UpdatePacket){
 		default:
 			if( m_pSelect )
 				m_pSelect->setCanSelect(true);
+			if( m_pRank )
+				m_pRank->setDrawing( true, m_ResulRank );
 			break;
 	}
 	

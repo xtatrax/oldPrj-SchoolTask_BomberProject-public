@@ -6,6 +6,7 @@
 #include "Factory_Coil.h"
 #include "Factory_Goal.h"
 #include "Factory_Title.h"
+#include "Factory_Result.h"
 
 namespace wiz{
 namespace bomberobject{
@@ -183,6 +184,7 @@ public:
  担当者：佐藤涼
 ****************************************************************************/
 class ResultScore : public Score{
+	Rank*				m_pRank;
 	Title_Select*		m_pSelect;
 	AnimationScore*		m_pMaxPos;		//最高位置用アニメーションスコアのポインタ
 	AnimationScore*		m_pScratch;		//
@@ -197,6 +199,7 @@ class ResultScore : public Score{
 	LPDIRECT3DTEXTURE9	m_pRate30Tex;	//
 	LPDIRECT3DTEXTURE9	m_pRate1Tex;	//
 	int					m_iNowDraw;		//アニメーションさせたいスコアの番号
+	Result_Rank			m_ResulRank;
 public:
 	ResultScore(LPDIRECT3DDEVICE9	pD3DDevice,
 				LPDIRECT3DTEXTURE9	pDeadTex,

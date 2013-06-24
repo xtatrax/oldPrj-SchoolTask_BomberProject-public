@@ -22,6 +22,39 @@
 namespace wiz{
 namespace bomberobject{
 
+/***********************************************************************
+ Rank ’è‹`•”
+***********************************************************************/
+Rank::Rank( LPDIRECT3DDEVICE9	pD3DDevice,
+			LPDIRECT3DTEXTURE9	pTex_S,
+			LPDIRECT3DTEXTURE9	pTex_A,
+			LPDIRECT3DTEXTURE9	pTex_B,
+			LPDIRECT3DTEXTURE9	pTex_C,
+			D3DXVECTOR3	&vScale,
+			D3DXVECTOR3	&vRot,
+			D3DXVECTOR3	&vPos,
+			Rect*		Rect,
+			wiz::OBJID	id		)
+:SpriteObject( pD3DDevice, NULL, vScale, vRot, vPos, Rect, g_vZero, g_vZero, 0xFFFFFFFF, id )
+,m_pTex_S( pTex_S )
+,m_pTex_A( pTex_A )
+,m_pTex_B( pTex_B )
+,m_pTex_C( pTex_C )
+,m_bDrawing( false )
+{
+}
+
+Rank::~Rank(){
+}
+
+void	Rank::Draw(DrawPacket &i_DrawPacket){
+	if( m_bDrawing )
+		SpriteObject::Draw(i_DrawPacket);
+}
+
+void	Rank::Update(UpdatePacket &i_UpdatePacket){
+}
+
 /**************************************************************************
  Factory_Result ’è‹`•”
 ****************************************************************************/
@@ -166,6 +199,20 @@ Factory_Result::Factory_Result(FactoryPacket* fpac, int iDeadCount, int iMaxPosY
 			)
 		);
 		//***********************************************************
+		// RANK ( S~C )
+		fpac->m_pVec->push_back(
+			new Rank(
+				fpac->pD3DDevice,
+				fpac->AddTexture( L"Rank_S.png" ),
+				fpac->AddTexture( L"Rank_A.png" ),
+				fpac->AddTexture( L"Rank_B.png" ),
+				fpac->AddTexture( L"Rank_C.png" ),
+				D3DXVECTOR3( 1.0f, 1.0f, 1.0f ),
+				D3DXVECTOR3( 0.0f, 0.0f, D3DXToRadian(30.0f) ),
+				D3DXVECTOR3( 900.0f, 400.0f, 0.0f ),
+				&Rect( 0, 0, 128, 128 )
+			)
+		);
 
 		//*****************************************************************************
 		//system::Sound* pSound = NULL;
