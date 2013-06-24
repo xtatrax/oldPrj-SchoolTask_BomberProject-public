@@ -117,7 +117,7 @@ PlayerCoil::PlayerCoil(
 ,m_pDeadCharTex(		m_pTexMgr->addTexture( pD3DDevice, L"dead6.png"			))
 ,m_pDeadCountTex(		m_pTexMgr->addTexture( pD3DDevice, L"Number_Base1.png"	))
 ,m_pRethinkingTex(		m_pTexMgr->addTexture( pD3DDevice, L"REALLY4.png"		))
-,m_pAnswerTex(			m_pTexMgr->addTexture( pD3DDevice, L"YESorNO5.png"		))
+,m_pAnswerTex(			m_pTexMgr->addTexture( pD3DDevice, L"YESorNO.png"		))
 ,m_pCountCharTex(		m_pTexMgr->addTexture( pD3DDevice, L"dead_count1.png"	))
 //**********************************************************************************
 ,m_iMaxPosY(				0								)
@@ -142,7 +142,7 @@ PlayerCoil::PlayerCoil(
 	setPoleN();
 	SetBaseRot(vRot);
 
-	m_pModeChangeChar	= new ModeChangeChar( pD3DDevice, m_pTexMgr->addTexture( pD3DDevice, L"CHANGE3.png" ),
+	m_pModeChangeChar	= new ModeChangeChar( pD3DDevice, m_pTexMgr->addTexture( pD3DDevice, L"CHANGE.png" ),
 														D3DXVECTOR3( 0.25f, 0.25f, 0.0f ), &Rect( 0, 0, 512, 128 ) );
 	m_pSelect	= NULL;
 	m_pSelect2	= NULL;

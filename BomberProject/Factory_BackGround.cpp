@@ -91,7 +91,7 @@ void BackGround::Draw( DrawPacket& i_DrawPacket ){
 }
 Factory_BG::Factory_BG(FactoryPacket *fpac){
 
-	fpac->AddObject( new BackGround(fpac->pD3DDevice,D3DXVECTOR3(50.0f,90.0f,0.0f), fpac->AddTexture(L"BGP_PLAY.tga")) );
+	fpac->AddObject( new BackGround(fpac->pD3DDevice,D3DXVECTOR3(50.0f,90.0f,0.0f), fpac->AddTexture(L"BGP_PLAY.png")) );
 }
 }
 }

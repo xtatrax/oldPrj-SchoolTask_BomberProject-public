@@ -194,8 +194,8 @@ Factory_Result::Factory_Result(FactoryPacket* fpac, int iDeadCount, int iMaxPosY
 		fpac->AddButton(
 			new CustomButtonA(
 				fpac->pD3DDevice,	
-				fpac->AddTexture(L"BACK002.tga"),
-				fpac->AddTexture(L"BACK001.tga"),
+				fpac->AddTexture(L"BACK002.png"),
+				fpac->AddTexture(L"BACK001.png"),
 				g_vOne,
 				g_vZero,
 				D3DXVECTOR3(980.0f, 560.0f, 0.0f),
