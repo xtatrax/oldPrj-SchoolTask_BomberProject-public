@@ -419,7 +419,7 @@ void SuperGage::Update( UpdatePacket& i_UpdatePacket ){
 		//D3DXMatrixMultiply(&mScale,&mScale,&m);
 		////*//
 	}
-	D3DXMatrixScaling( &mScale, m_vScale.x/2, m_vScale.y, m_vScale.z );
+	D3DXMatrixScaling( &mScale, m_vScale.x, m_vScale.y, m_vScale.z );
 	D3DXMatrixRotationYawPitchRoll( &mRot, m_vRot.x, m_vRot.y, m_vRot.z );
 	D3DXMatrixTranslation( &mPos, vPos.x, vPos.y, vPos.z);
 	m_mMatrix	= mScale * mRot * mPos ;
@@ -764,11 +764,11 @@ Factory_Gage::Factory_Gage(FactoryPacket* fpac){
 		fpac->m_pVec->push_back(
 			new Relationship_Gage(
 				fpac->pD3DDevice,
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Gauge_Kind.png" ),
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"GAGE.png" ),
 				D3DXVECTOR3( 0.25f, 0.25f, 0.0f ),
 				g_vZero,
 				D3DXVECTOR3( 0.0f, 0.0f, 0.0f ),
-				Rect( 0, 0, 32, 64 )
+				Rect( 0, 192, 32, 256 )
 			)
 		);
 
@@ -776,14 +776,12 @@ Factory_Gage::Factory_Gage(FactoryPacket* fpac){
 		fpac->m_pVec->push_back(
 			new SuperGage(
 				fpac->pD3DDevice,
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Gauge_Super5.png" ),
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"GAGE.png" ),
 				D3DXVECTOR3(0.4f,0.25f,0.0f),
 				D3DXVECTOR3(0.0f,0.0f,0.0f),
-				//D3DXVECTOR3(950.0,30.0f,0.0f),
-				//D3DXVECTOR3(140.0,-55.0f,0.0f),
 				D3DXVECTOR3(43.0f,-35.0f,0.0f),
-				Rect(0,32,512,64),
-				Rect(0,0,512,32)
+				Rect(0,160,256,192),
+				Rect(0,128,256,160)
 			)
 		);
 
@@ -791,28 +789,22 @@ Factory_Gage::Factory_Gage(FactoryPacket* fpac){
 		fpac->m_pVec->push_back(
 			new MagneticGage_N(
 				fpac->pD3DDevice,
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Gauge_N5.png" ),
-				//D3DXVECTOR3( 60.0f,-250.0f,0.0f),
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"GAGE.png" ),
 				D3DXVECTOR3( 105.0f,-410.0f,0.0f),
 				D3DXVECTOR3( 0.4f, 0.4f, 0.0f ),
 				Rect(0,32,256,64),
 				Rect(0,0,256,32)
-				//Rect(0,32,-300,64),
-				//Rect(0,0,256,32)
 			)
 		);
 		//Ž¥ŠE—pSƒQ[ƒW
 		fpac->m_pVec->push_back(
 			new MagneticGage_S(
 				fpac->pD3DDevice,
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Gauge_S5.png" ),
-				//D3DXVECTOR3( 60.0f,-220.0f,0.0f),
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"GAGE.png" ),
 				D3DXVECTOR3( 105.0f,-410.0f,0.0f),
 				D3DXVECTOR3( 0.4f, 0.4f, 0.0f ),
-				Rect(0,32,256,64),
+				Rect(0,64,256,96),
 				Rect(0,0,256,32)
-				//Rect(0,32,-256,64),
-				//Rect(0,0,256,32)
 			)
 		);
 
@@ -820,10 +812,10 @@ Factory_Gage::Factory_Gage(FactoryPacket* fpac){
 		fpac->m_pVec->push_back(
 			new SuperNotice(
 				fpac->pD3DDevice,
-				fpac->AddTexture( L"Ready.png" ),
-				D3DXVECTOR3( 0.25f, 0.25f, 0.0f ),
-				D3DXVECTOR3( 50.0f, 35.0f, 0.0f ),
-				Rect( 0, 0, 256, 64 )
+				fpac->AddTexture( L"GAGE.png" ),
+				D3DXVECTOR3( 0.5f, 0.25f, 0.0f ),
+				D3DXVECTOR3( 35.0f, 25.0f, 0.0f ),
+				Rect( 0, 96, 120, 128 )
 			)
 		);
 
