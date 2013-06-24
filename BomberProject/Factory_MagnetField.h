@@ -17,6 +17,8 @@
 namespace wiz{
 namespace bomberobject{
 
+extern class MagneticGage_N;
+extern class MagneticGage_S;
 
 
 class MagnetFieldCircle{
@@ -33,6 +35,8 @@ class MagnetFieldCircle{
 	DWORD						m_dwVertexQty	;
 	LPDIRECT3DVERTEXBUFFER9		m_pVertexBuffer	;	//バッファ
 	D3DXMATRIX					m_mMatrix		;
+	DWORD						m_dwColor_N		;
+	DWORD						m_dwColor_S		;
 public:
 	MagnetFieldCircle(LPDIRECT3DDEVICE9 pD3DDevice,DWORD pVertexQty);
 	void Draw(DrawPacket& i_DrawPacket);
@@ -45,20 +49,32 @@ public:
 
 
 		if( pl == POLE_S ){
-			m_pVertex[ 0 ].dwColor = 0x3F0000FF;
+			m_pVertex[ 0 ].dwColor = m_dwColor_S;
 			for ( DWORD i = 1 ; i <= m_dwVertexQty  ; i++ ){
-				m_pVertex[ i ].dwColor = 0x3F0000FF;
+				m_pVertex[ i ].dwColor = m_dwColor_S;
 			}
 		}else{
-			m_pVertex[ 0 ].dwColor = 0x3FFF0000;
+			m_pVertex[ 0 ].dwColor = m_dwColor_N;
 			for ( DWORD i = 1 ; i <= m_dwVertexQty  ; i++ ){
-				m_pVertex[ i ].dwColor = 0x3FFF0000;
+				m_pVertex[ i ].dwColor = m_dwColor_N;
 			}
 		
 		}
 		m_pVertexBuffer->Unlock();
 	}
 
+	void	setColor( POLE pl, DWORD i_dwColor){
+		if( pl == POLE_S ){
+			m_dwColor_S	= i_dwColor;
+		}else{		
+			m_dwColor_N	= i_dwColor;
+		}
+	}
+
+	void	ResetColor(){
+		m_dwColor_S	= 0x3F0000FF;
+		m_dwColor_N	= 0x3FFF0000;
+	}
 };
 
 //3D変換用
@@ -79,6 +95,8 @@ class MagnetField : public Object, public MagneticObject{
 protected:
 	Camera*				m_pCamera			;
 	PlayerCoil*			m_pCoil				;
+	MagneticGage_N*		m_pPole_N			;
+	MagneticGage_S*		m_pPole_S			;
 	MagnetFieldCircle	m_MagneticField		;
 	D3DXVECTOR3			m_vPos				;
 	float				m_fEffectSizeRate	;
@@ -181,7 +199,10 @@ public:
 	//multimap<float, Magnet3DItem*> getMapTarget() const{
 	//	return m_ItemMap_Target;
 	//}
-
+	void	Flashing( UpdatePacket& i_UpdatePacket, POLE i_Pole );
+	void	Reset(){
+		m_MagneticField.ResetColor();
+	}
 };
 
 class StaticMagnetField : public MagnetField {

@@ -147,6 +147,7 @@ class PlayerCoil : public Cylinder ,public MagneticObject{
 	int				m_fRecordTime		;
 	bool			m_bModeChangeChar	;
 	bool			m_bReDrawing_ChangeChar	;
+	bool			m_bStandby			;
 	int				m_iAlpha			;
 
 	ModeChangeChar*			m_pModeChangeChar			;	//	: 
@@ -494,7 +495,7 @@ public:
 	//スクラッチポイントのゲッター、セッター
 	//描画用スクラッチ
 	int	getScratchTime(){
-		return	m_fRecordTime;
+		return	m_iScratchTime;
 	}
 
 	void	ScratchTime_Update(){
@@ -627,6 +628,9 @@ public:
 		return m_bReadyToStart;
 	}
 
+	bool	getStandby() const{
+		return	m_bStandby;
+	}
 	/////////////////// ////////////////////
 	//// 関数名     ：LPDIRECT3DTEXTURE9 getDeadText()
 	//// カテゴリ   ：ゲッター

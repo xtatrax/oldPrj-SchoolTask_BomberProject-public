@@ -22,6 +22,64 @@
 namespace wiz{
 namespace bomberobject{
 
+/***********************************************************************
+ Rank 定義部
+***********************************************************************/
+Rank::Rank( LPDIRECT3DDEVICE9	pD3DDevice,
+			LPDIRECT3DTEXTURE9	pRankTex,
+			LPDIRECT3DTEXTURE9	pFrameTex,
+			D3DXVECTOR3	&vScale,
+			D3DXVECTOR3	&vRot,
+			D3DXVECTOR3	&vPos,
+			Rect*		Rect,
+			wiz::OBJID	id		)
+:SpriteObject( pD3DDevice, NULL, vScale, vRot, vPos, Rect, g_vZero, g_vZero, 0xFFFFFFFF, id )
+,m_bDrawing( false )
+,m_pRankTex( pRankTex )
+,m_pFrameTex( pFrameTex )
+,m_ResultRank( Rank_C )
+,m_vScale( vScale )
+,m_vRot( vRot )
+,m_vPos( vPos )
+{
+}
+
+Rank::~Rank(){
+}
+
+void	Rank::Draw(DrawPacket &i_DrawPacket){
+	if( m_bDrawing ){
+
+		D3DXMATRIX	mMatrix, mPos, mScale, mRot;
+
+		D3DXMatrixRotationYawPitchRoll( &mRot, m_vRot.x, m_vRot.y, m_vRot.z );
+
+		//フレーム******************************
+		D3DXMatrixScaling( &mScale, m_vScale.x, m_vScale.y, m_vScale.z );
+		D3DXMatrixTranslation( &mPos, m_vPos.x, m_vPos.y, m_vPos.z );
+		mMatrix = mScale * mRot * mPos ;
+		SpriteObject::setMatrix(mMatrix);
+
+		setRect( Rank_S );	//128x128
+		m_pTexture	= m_pFrameTex;
+		SpriteObject::Draw(i_DrawPacket);
+		//****************************************
+
+		//ランク**********************************************
+		D3DXMatrixScaling( &mScale, m_vScale.x-0.2f, m_vScale.y-0.2f, m_vScale.z-0.2f );
+		D3DXMatrixTranslation( &mPos, m_vPos.x+15.0f, m_vPos.y+20.0f, m_vPos.z );
+		mMatrix = mScale * mRot * mPos ;
+		SpriteObject::setMatrix(mMatrix);
+
+		setRect( m_ResultRank );
+		m_pTexture	= m_pRankTex;
+		SpriteObject::Draw(i_DrawPacket);
+		//*****************************************************
+
+	}
+}
+
+
 /**************************************************************************
  Factory_Result 定義部
 ****************************************************************************/
@@ -40,6 +98,21 @@ Factory_Result::Factory_Result(FactoryPacket* fpac, int iDeadCount, int iMaxPosY
 		float	wide	= BASE_CLIENT_WIDTH/2;
 		float	height	= BASE_CLIENT_HEIGHT/2;
 
+		//Frame
+		fpac->m_pVec->push_back(
+			new SpriteObject(
+				fpac->pD3DDevice,
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Frame_Clear3.png" ),
+				D3DXVECTOR3( 1.8f, 1.5f, 0.0f ),
+				g_vZero,
+				D3DXVECTOR3( 53.0f, 150.0f, 0.0f ),
+				Rect( 0, 0, 512, 256 ),
+				g_vZero,
+				g_vZero,
+				0xFFFFFFFF
+			)
+		);
+
 		//RESULT
 		fpac->m_pVec->push_back(
 			new SpriteObject(
@@ -47,7 +120,7 @@ Factory_Result::Factory_Result(FactoryPacket* fpac, int iDeadCount, int iMaxPosY
 				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Clear4.png" ),
 				D3DXVECTOR3( 1.0f, 1.0f, 0.0f ),
 				g_vZero,
-				D3DXVECTOR3( wide-256, 50.0f, 0.0f ),
+				D3DXVECTOR3( wide-256, 20.0f, 0.0f ),
 				Rect( 0, 128, 512, 256 ),
 				g_vZero,
 				g_vZero,
@@ -60,9 +133,9 @@ Factory_Result::Factory_Result(FactoryPacket* fpac, int iDeadCount, int iMaxPosY
 			new SpriteObject(
 				fpac->pD3DDevice,
 				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"MAX_RANGE1.png" ),
-				D3DXVECTOR3( 0.5f, 1.5f, 0.0f ),
+				D3DXVECTOR3( 0.8f, 1.5f, 0.0f ),
 				g_vZero,
-				D3DXVECTOR3( wide-128-200, height-140.0f, 0.0f ),
+				D3DXVECTOR3( 80.0f, 135.0f, 0.0f ),
 				NULL,
 				g_vZero,
 				g_vZero,
@@ -75,9 +148,9 @@ Factory_Result::Factory_Result(FactoryPacket* fpac, int iDeadCount, int iMaxPosY
 			new SpriteObject(
 				fpac->pD3DDevice,
 				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"SCRATCH_TIME2.png" ),
-				D3DXVECTOR3( 0.5f, 1.5f, 0.0f ),
+				D3DXVECTOR3( 0.8f, 1.5f, 0.0f ),
 				g_vZero,
-				D3DXVECTOR3( wide-128-200, height-60.0f, 0.0f ),
+				D3DXVECTOR3( 80.0f, height-90.0f, 0.0f ),
 				NULL,
 				g_vZero,
 				g_vZero,
@@ -90,9 +163,9 @@ Factory_Result::Factory_Result(FactoryPacket* fpac, int iDeadCount, int iMaxPosY
 			new SpriteObject(
 				fpac->pD3DDevice,
 				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"dead_count1.png" ),
-				D3DXVECTOR3( 0.5f, 1.5f, 0.0f ),
+				D3DXVECTOR3( 0.8f, 1.5f, 0.0f ),
 				g_vZero,
-				D3DXVECTOR3( wide-128-200, height+20.0f, 0.0f ),
+				D3DXVECTOR3( 80.0f, height-15.0f, 0.0f ),
 				NULL,
 				g_vZero,
 				g_vZero,
@@ -104,7 +177,7 @@ Factory_Result::Factory_Result(FactoryPacket* fpac, int iDeadCount, int iMaxPosY
 		fpac->m_pVec->push_back(
 			new SpriteObject(
 				fpac->pD3DDevice,
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"TOTAL_POINT2.png" ),
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"TOTAL_POINT3.png" ),
 				D3DXVECTOR3( 0.6f, 1.5f, 0.0f ),
 				g_vZero,
 				D3DXVECTOR3( wide-128-250, height+100.0f, 0.0f ),
@@ -143,11 +216,6 @@ Factory_Result::Factory_Result(FactoryPacket* fpac, int iDeadCount, int iMaxPosY
 			)
 		);
 
-		//カーソル*************************************************
-		float	fLineLength	= 550.0f;
-		float	fPointSize	= 0.25f;
-		Factory_Cursor	MCfac( fpac, fLineLength, fPointSize )  ; 
-
 		//Score*****************************************************
 		fpac->m_pVec->push_back(
 			new ResultScore(
@@ -166,6 +234,24 @@ Factory_Result::Factory_Result(FactoryPacket* fpac, int iDeadCount, int iMaxPosY
 			)
 		);
 		//***********************************************************
+		// RANK ( S~C )
+		fpac->m_pVec->push_back(
+			new Rank(
+				fpac->pD3DDevice,
+				fpac->AddTexture( L"RANK_ver1.png" ),
+				fpac->AddTexture( L"RANK_Base2.png" ),
+				D3DXVECTOR3( 1.0f, 1.0f, 1.0f ),
+				D3DXVECTOR3( 0.0f, 0.0f, 0.0f/*D3DXToRadian(30.0f)*/ ),
+				D3DXVECTOR3( 830.0f, 400.0f, 0.0f ),
+				&Rect( 0, 0, 128, 128 )
+			)
+		);
+
+		//カーソル*************************************************
+		float	fLineLength	= 550.0f;
+		float	fPointSize	= 0.25f;
+		Factory_Cursor	MCfac( fpac, fLineLength, fPointSize )  ; 
+
 
 		//*****************************************************************************
 		//system::Sound* pSound = NULL;

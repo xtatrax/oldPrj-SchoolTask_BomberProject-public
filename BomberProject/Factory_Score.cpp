@@ -556,10 +556,11 @@ ResultScore::ResultScore(LPDIRECT3DDEVICE9	pD3DDevice,
 ,m_pDeadTex( pDeadTex )
 ,m_pMaxPosTex( pMaxPosTex )
 ,m_iNowDraw( 0 )
-,m_pSelect( NULL )
 ,m_pRate10Tex( pRate10Tex )
 ,m_pRate30Tex( pRate30Tex )
 ,m_pRate1Tex( pRate1Tex )
+,m_pRank( NULL )
+,m_ResultRank( Rank_C )
 {
 	float	wide	= BASE_CLIENT_WIDTH/2;
 	float	height	= BASE_CLIENT_HEIGHT/2;
@@ -570,7 +571,7 @@ ResultScore::ResultScore(LPDIRECT3DDEVICE9	pD3DDevice,
 	int iMaxPos		= iMaxPosScore;
 	int iScratch	= iScratchScore;
 	int iDead		= iDeadScore;
-
+	D3DXVECTOR3 vRateSize( 0.5f, 0.5f, 0.0f ) ;
 	D3DXVECTOR3	vScoreSize	= vScale;
 	Rect		rScoreRect	= Rect( 0, 0, 512, 64 );
 
@@ -579,6 +580,13 @@ ResultScore::ResultScore(LPDIRECT3DDEVICE9	pD3DDevice,
 	Debugger::DBGWRITINGLOGTEXT::addStrToFile(L"Score.txt",L"Scratch    = %d\n",iScratchScore);
 	Debugger::DBGWRITINGLOGTEXT::addStrToFile(L"Score.txt",L"DeadCount  = %d\n",iDeadScore);
 	Debugger::DBGWRITINGLOGTEXT::addStrToFile(L"Score.txt",L"TotalScore = %d\n",TotalScore);
+
+	//“_”‚É‰ž‚¶‚½ƒ‰ƒ“ƒN‚ÌÝ’è************************************
+	if( TotalScore >= 10000 )		m_ResultRank	= Rank_S;
+	else if( TotalScore >= 5000 )	m_ResultRank	= Rank_A;
+	else if( TotalScore >= 2500 )	m_ResultRank	= Rank_B;
+	else							m_ResultRank	= Rank_C;
+	//***************************************************************
 
 	int iDightMaxPos	= 0;
 	int iDightScratch	= 0;
@@ -648,19 +656,19 @@ ResultScore::ResultScore(LPDIRECT3DDEVICE9	pD3DDevice,
 
 
 	m_pMaxPos	= new AnimationScore( pD3DDevice, m_pMaxPosTex, vScoreSize,
-						D3DXVECTOR3( wide, height-115.0f, 0.0f ), iMaxPos, iDightMaxPos, &rScoreRect);
+						D3DXVECTOR3( wide+90.0f, height-140.0f, 0.0f ), iMaxPos, iDightMaxPos, &rScoreRect);
 	m_pScratch	= new AnimationScore( pD3DDevice, m_pMaxPosTex, vScoreSize,
-						D3DXVECTOR3( wide, height-35.0f, 0.0f ), iScratch, iDightScratch, &rScoreRect);
+						D3DXVECTOR3( wide+90.0f, height-70.0f, 0.0f ), iScratch, iDightScratch, &rScoreRect);
 	m_pDead		= new AnimationScore( pD3DDevice, m_pDeadTex, vScoreSize,
-						D3DXVECTOR3( wide, height+45.0f, 0.0f ), iDead, iDightDead, &rScoreRect);
+						D3DXVECTOR3( wide+90.0f, height+5.0f, 0.0f ), iDead, iDightDead, &rScoreRect);
 	m_pTotal	= new AnimationScore( pD3DDevice, m_pMaxPosTex, D3DXVECTOR3( 1.0f, 1.0f, 0.0f ),
-						D3DXVECTOR3( wide+50, height+120.0f, 0.0f ), TotalScore, iDightTotal, &rScoreRect);
-	m_pRate_10	= new SpriteObject( pD3DDevice, m_pRate10Tex, vScoreSize, g_vZero, 
-									D3DXVECTOR3( wide+250.0f, height-115.0f, 0.0f ), Rect( 0, 0, 256, 64 ),g_vZero, g_vZero );
-	m_pRate_1	= new SpriteObject( pD3DDevice, m_pRate1Tex, vScoreSize, g_vZero, 
-									D3DXVECTOR3( wide+250.0f, height-35.0f, 0.0f ), Rect( 0, 0, 256, 64 ),g_vZero, g_vZero );
-	m_pRate_30	= new SpriteObject( pD3DDevice, m_pRate30Tex, vScoreSize, g_vZero, 
-									D3DXVECTOR3( wide+250.0f, height+45.0f, 0.0f ), Rect( 0, 0, 256, 64 ),g_vZero, g_vZero );
+						D3DXVECTOR3( wide+90.0f, height+120.0f, 0.0f ), TotalScore, iDightTotal, &rScoreRect);
+	m_pRate_10	= new SpriteObject( pD3DDevice, m_pRate10Tex, vRateSize, g_vZero, 
+									D3DXVECTOR3( wide+340.0f, height-140.0f+15.0f, 0.0f ), Rect( 0, 0, 256, 64 ),g_vZero, g_vZero );
+	m_pRate_1	= new SpriteObject( pD3DDevice, m_pRate1Tex, vRateSize, g_vZero, 
+									D3DXVECTOR3( wide+340.0f, height-70.0f+15.0f, 0.0f ), Rect( 0, 0, 256, 64 ),g_vZero, g_vZero );
+	m_pRate_30	= new SpriteObject( pD3DDevice, m_pRate30Tex, vRateSize, g_vZero, 
+									D3DXVECTOR3( wide+340.0f, height+20.0f, 0.0f ), Rect( 0, 0, 256, 64 ),g_vZero, g_vZero );
 
 }
 
@@ -672,7 +680,7 @@ ResultScore::ResultScore(LPDIRECT3DDEVICE9	pD3DDevice,
  –ß‚è’l: ‚È‚µ
 ***************************************************************************/
 ResultScore::~ResultScore(){
-	m_pSelect	= NULL;
+	m_pRank		= NULL;
 	SafeDelete(m_pDead);
 	SafeDelete(m_pScratch);
 	SafeDelete(m_pMaxPos);
@@ -704,7 +712,7 @@ void	ResultScore::Draw(DrawPacket& i_DrawPacket){
 ***************************************************************************/
 void	ResultScore::Update(UpdatePacket& i_UpdatePacket){
 
-	if( !m_pSelect )	m_pSelect	= (Title_Select*)SearchObjectFromTypeID(i_UpdatePacket.pVec, typeid(Title_Select) ) ;
+	if( !m_pRank )		m_pRank		= (Rank*)SearchObjectFromID(i_UpdatePacket.pVec, OBJID_UI_RANK ) ;
 
 	switch( m_iNowDraw ){
 		case 0:
@@ -728,8 +736,8 @@ void	ResultScore::Update(UpdatePacket& i_UpdatePacket){
 				++m_iNowDraw;
 			break;
 		default:
-			if( m_pSelect )
-				m_pSelect->setCanSelect(true);
+			if( m_pRank )
+				m_pRank->setDrawing( true, m_ResultRank );
 			break;
 	}
 	
