@@ -89,8 +89,8 @@
 #define BASE_CLIENT_WIDTH		( 1024.0f)	/* 基準になる描画領域の幅   */
 #if defined(CF_FULLSCREEN)
 
-#define STANDARD_WINDOW_HEIGHT		(  600.0f)	/* 基準になる描画領域の高さ */
-#define STANDARD_WINDOW_WIDTH		( 1024.0f)	/* 基準になる描画領域の幅   */
+#define STANDARD_WINDOW_HEIGHT		(  768.0f)	/* 基準になる描画領域の高さ */
+#define STANDARD_WINDOW_WIDTH		( 1280.0f)	/* 基準になる描画領域の幅   */
 
 //#define STANDARD_WINDOW_HEIGHT  (  800.0f)	/* ウインドウモードの高さ   */
 //#define STANDARD_WINDOW_WIDTH   ( 1280.0f)	/* ウインドウモードの幅     */
@@ -165,7 +165,7 @@ static const wchar_t*		RCTEXT_SOUND_SOUNDBANK			= L"media/Sound/MagneticaSound.x
 static const char*			RCTEXT_SOUND_BGM_CLEAR			= "BGM-CLEAR"			;
 static const char*			RCTEXT_SOUND_BGM_GAMEOVER		= "BGM-GAME_OVER"		;
 //static const char*			RCTEXT_SOUND_BGM_PLAY		= "BGM-PLAY001"			;
-static const char*			RCTEXT_SOUND_BGM_PLAY			= "BGM-PLAY002"			;
+static const char*			RCTEXT_SOUND_BGM_PLAY			= "BGM-PLAY"			;
 static const char*			RCTEXT_SOUND_BGM_TITLE			= "BGM-TITLE"			;
 static const char*			RCTEXT_SOUND_SE_ALERT			= "SE-ALERT002"			;
 static const char*			RCTEXT_SOUND_SE_BREAKENEMY		= "SE-BLOKEN_ENEMY"		;
