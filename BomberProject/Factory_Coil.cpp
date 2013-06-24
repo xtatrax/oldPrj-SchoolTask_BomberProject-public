@@ -1047,7 +1047,6 @@ void PlayerCoil::Update_Line(){
 	D3DXMatrixScaling( &mLineScale, vLineScale.x, vLineScale.y, vLineScale.z );
 
 	//ç∂è„ïî
-	vLineScale;
 	vLinePos	= D3DXVECTOR3(vBaseLinePos.x - s_fMovingDistance, 
 							  vBaseLinePos.y + s_fMovingDistance,
 							  0.0f);
