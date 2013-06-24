@@ -573,7 +573,7 @@ Factory_Wall::Factory_Wall(FactoryPacket* fpac){
 		D3DCOLORVALUE WallSpecular = {0.0f,0.0f,0.0f,0.0f};
 		D3DCOLORVALUE WallAmbient = {0.5f,0.5f,0.5f,1.0f};
 		fpac->m_pVec->push_back( new Warning(fpac->pD3DDevice,WallDiffuse,WallSpecular,WallAmbient,
-												fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Warning.tga" )));
+												fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Warning.png" )));
 	}
 	catch(...){
 		//Äthrow
