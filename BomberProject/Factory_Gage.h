@@ -24,6 +24,8 @@
 
 const	int		SUPER_GAGE_MAX		= 512;
 const	int		MAGNETIC_GAGE_MAX	= 256;
+const	float	GAUGE_POS_HIGH		= 23.0f;
+const	float	GAUGE_POS_LOW		= 31.0f;
 
 namespace wiz{
 namespace bomberobject{
@@ -145,9 +147,9 @@ public:
 	}
 
 	void ChangePos(){
-		if( m_fMovePos == 23.0f )
-				m_fMovePos	= 31.0f;
-		else	m_fMovePos	= 23.0f;
+		if( m_fMovePos == GAUGE_POS_HIGH )
+				m_fMovePos	= GAUGE_POS_LOW;
+		else	m_fMovePos	= GAUGE_POS_HIGH;
 	}
 	//void getGaugeRot_Right(int i_iValue){
 	//	m_GaugeRect.right = i_iValue;
