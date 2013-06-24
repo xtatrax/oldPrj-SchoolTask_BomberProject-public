@@ -546,7 +546,7 @@ Factory_Title::Factory_Title(FactoryPacket* fpac){
 		fpac->m_pVec->push_back(
 			new SpriteObject(
 				fpac->pD3DDevice,
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, /*L"Lightning.tga"*/L"BGP_TITLE03.tga" ),
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"BGP_TITLE03.png" ),
 				D3DXVECTOR3(SCALE_RATE,SCALE_RATE,0.0f),
 				g_vZero,
 				D3DXVECTOR3( 0.0f, 0.0f, 0.0f ),
@@ -563,7 +563,7 @@ Factory_Title::Factory_Title(FactoryPacket* fpac){
 		fpac->m_pVec->push_back(
 			new SpriteObject(
 					fpac->pD3DDevice,
-					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, /*L"Lightning.tga"*/L"Title_Name02.tga" ),
+					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Title_Name02.png" ),
 					D3DXVECTOR3(SCALE_RATE,SCALE_RATE,0.0f),
 					g_vZero,
 					D3DXVECTOR3( 165.0f, 40.0f, 0.0f ),
@@ -578,7 +578,7 @@ Factory_Title::Factory_Title(FactoryPacket* fpac){
 		fpac->m_pVec->push_back(
 			new SpriteObject(
 				fpac->pD3DDevice,
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, /*L"Lightning.tga"*/L"Title_Name01.tga" ),
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Title_Name01.png" ),
 				D3DXVECTOR3(SCALE_RATE,SCALE_RATE,0.0f),
 				g_vZero,
 				D3DXVECTOR3( 165.0f, 40.0f, 0.0f ),
@@ -595,7 +595,7 @@ Factory_Title::Factory_Title(FactoryPacket* fpac){
 		fpac->m_pVec->push_back(
 			new Title_Select(
 					fpac->pD3DDevice,
-					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Title_Start002_02.tga" ),
+					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Title_Start02.png" ),
 					GM_CHANGE_CHILDSTAGE,
 					//GM_OPENSTAGE_PLAY,
 					//GM_OPENSTAGE_LOAD,
@@ -611,7 +611,7 @@ Factory_Title::Factory_Title(FactoryPacket* fpac){
 		fpac->m_pVec->push_back(
 			new SpriteObject(
 				fpac->pD3DDevice,
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Title_Start002_01.tga" ),
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Title_Start01.png" ),
 				D3DXVECTOR3(SCALE_RATE,SCALE_RATE,0.0f),
 				g_vZero,
 				D3DXVECTOR3( 630.0f, 280.0f, 0.0f ),
@@ -627,7 +627,7 @@ Factory_Title::Factory_Title(FactoryPacket* fpac){
 		fpac->m_pVec->push_back(
 			new Title_Select(
 					fpac->pD3DDevice,
-					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Title_Exit002_02.tga" ),
+					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Title_Exit02.png" ),
 					GM_EXIT,
 					D3DXVECTOR3(SCALE_RATE,SCALE_RATE,0.0f),
 					g_vZero,
@@ -641,7 +641,7 @@ Factory_Title::Factory_Title(FactoryPacket* fpac){
 		fpac->m_pVec->push_back(
 			new SpriteObject(
 				fpac->pD3DDevice,
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Title_EXIT002_01.tga" ),
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Title_EXIT01.png" ),
 				D3DXVECTOR3(SCALE_RATE,SCALE_RATE,0.0f),
 				g_vZero,
 				D3DXVECTOR3( 660.0f, 420.0f, 0.0f ),
@@ -695,7 +695,7 @@ Factory_Title::Factory_Title(FactoryPacket* fpac){
 			)
 		);						
 		float	fLineLength	= 550.0f;
-		float	fPointSize	= 0.25f;
+		float	fPointSize	= 1.0f;
 		Factory_Cursor	MCfac( fpac, fLineLength, fPointSize )  ; 
 
 		system::Sound* pSound = NULL;
