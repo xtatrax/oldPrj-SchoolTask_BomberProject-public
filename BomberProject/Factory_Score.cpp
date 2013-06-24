@@ -76,7 +76,7 @@ void	Score::Draw(DrawPacket& i_DrawPacket){
 ***************************************************************************/
 void	Score::Update(UpdatePacket& i_UpdatePacket){
 
-	int	iDigit	= 100000;
+	int	iDigit	= MAX_DIGHT_SCORE/10;
 	for( int i = 0; i < MAX_DIGIT; i++ ){
 		int	a	= m_iScore / iDigit;
 		if( a >= 10 ){
@@ -595,7 +595,7 @@ ResultScore::ResultScore(LPDIRECT3DDEVICE9	pD3DDevice,
 
 	//*******************************************
 	// MaxPosの桁数の取得
-	int	i	= 10000, dight	= 5;
+	int	i	= MAX_DIGHT_SCORE/10, dight	= MAX_DIGIT;
 	while(1){
 		iDightMaxPos	= iMaxPos / i;
 		if( iDightMaxPos >= 1 ){
@@ -610,7 +610,7 @@ ResultScore::ResultScore(LPDIRECT3DDEVICE9	pD3DDevice,
 
 	//*******************************************
 	// スクラッチの桁数の取得
-	i	= 10000, dight	= 5;
+	i	= MAX_DIGHT_SCORE/10, dight	= MAX_DIGIT;
 	while(1){
 		iDightScratch	= iScratch / i;
 		if( iDightScratch >= 1 ){
@@ -625,7 +625,7 @@ ResultScore::ResultScore(LPDIRECT3DDEVICE9	pD3DDevice,
 
 	//*******************************************
 	// 死亡回数の桁数の取得
-	i	= 10000, dight	= 5;
+	i	= MAX_DIGHT_SCORE/10, dight	= MAX_DIGIT;
 	while(1){
 		iDightDead	= iDead / i;
 		if( iDightDead >= 1 ){
@@ -640,7 +640,7 @@ ResultScore::ResultScore(LPDIRECT3DDEVICE9	pD3DDevice,
 
 	//*******************************************
 	// トータルスコアの桁数の取得
-	i	= 10000, dight	= 5;
+	i	= MAX_DIGHT_SCORE/10, dight	= MAX_DIGIT;
 	while(1){
 		iDightTotal	= TotalScore / i;
 		if( iDightTotal >= 1 ){
