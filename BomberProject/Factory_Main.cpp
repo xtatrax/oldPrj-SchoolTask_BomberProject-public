@@ -63,7 +63,7 @@ Factory_Main::Factory_Main(FactoryPacket* fpac, DWORD dwStageNum, DWORD dwResump
 		//	: ƒ‰ƒCƒg‚ÌÝ’è
         D3DCOLORVALUE Diffuse = {1.0f,1.0f,1.0f,0.0f};
         D3DCOLORVALUE Specular = {1.0f,1.0f,1.0f,0.0f};
-        D3DCOLORVALUE Ambient = {0.3f,0.3f,0.3f,0.0f};
+        D3DCOLORVALUE Ambient = {0.5f,0.5f,0.5f,0.0f};
         fpac->m_pVec->push_back(
 			new DirectionalLight(
 				fpac->pD3DDevice,

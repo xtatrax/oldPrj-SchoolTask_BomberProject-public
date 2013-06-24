@@ -555,7 +555,7 @@ MagneticGage_N::MagneticGage_N(
 ,m_vScale( vScale )
 {
 	this->m_Color.byteColor.a = byGaugeAlpha ;
-	m_fMovePos	= 31.0f;
+	m_fMovePos	= GAUGE_POS_LOW;
 }
 /////////////////// ////////////////////
 //// ŠÖ”–¼     F~MagneticGage_N();
@@ -594,12 +594,6 @@ void MagneticGage_N::Update( UpdatePacket& i_UpdatePacket ){
 	if( !m_pCursor ) return ;
 
 	Gage::Update(i_UpdatePacket);
-
-	//if( m_pCoil != NULL ){
-	//	if( m_pCoil->getMagnetPole() == POLE_N )
-	//			m_fMovePos	= 31.0f;
-	//	else	m_fMovePos	= 23.0f;
-	//}
 
 	D3DXMATRIX	mPos, mScale ;
 	D3DXVECTOR3 vPos ;
@@ -677,7 +671,7 @@ MagneticGage_S::MagneticGage_S(
 ,m_vScale( vScale )
 {
 	this->m_Color.byteColor.a = byGaugeAlpha ;
-	m_fMovePos	= 23.0f;
+	m_fMovePos	= GAUGE_POS_HIGH;
 }
 /////////////////// ////////////////////
 //// ŠÖ”–¼     F~MagneticGage_N();
@@ -716,13 +710,6 @@ void MagneticGage_S::Update( UpdatePacket& i_UpdatePacket ){
 	if( !m_pCursor ) return ;
 
 	Gage::Update(i_UpdatePacket);
-
-	//float	fMovePos	= 0.0f;
-	//if( m_pCoil != NULL ){
-	//	if( m_pCoil->getMagnetPole() == POLE_S )
-	//			fMovePos	= 31.0f;
-	//	else	fMovePos	= 23.0f;
-	//}
 
 	D3DXMATRIX	mPos, mScale ;
 	D3DXVECTOR3 vPos ;
