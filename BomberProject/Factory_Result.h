@@ -34,16 +34,16 @@ class  Rank  : public SpriteObject
 ************************************************************/
 class	Rank	: public	SpriteObject{
 	bool				m_bDrawing;
-	LPDIRECT3DTEXTURE9	m_pTex_S;
-	LPDIRECT3DTEXTURE9	m_pTex_A;
-	LPDIRECT3DTEXTURE9	m_pTex_B;
-	LPDIRECT3DTEXTURE9	m_pTex_C;
+	LPDIRECT3DTEXTURE9	m_pRankTex;
+	LPDIRECT3DTEXTURE9	m_pFrameTex;
+	Result_Rank			m_ResultRank;
+	D3DXVECTOR3			m_vPos;
+	D3DXVECTOR3			m_vRot;
+	D3DXVECTOR3			m_vScale;
 public:
 	Rank(	LPDIRECT3DDEVICE9	pD3DDevice,
-			LPDIRECT3DTEXTURE9	pTex_S,
-			LPDIRECT3DTEXTURE9	pTex_A,
-			LPDIRECT3DTEXTURE9	pTex_B,
-			LPDIRECT3DTEXTURE9	pTex_C,
+			LPDIRECT3DTEXTURE9	pRankTex,
+			LPDIRECT3DTEXTURE9	pFrameTex,
 			D3DXVECTOR3	&vScale,
 			D3DXVECTOR3	&vRot,
 			D3DXVECTOR3	&vPos,
@@ -52,24 +52,48 @@ public:
 	);
 	~Rank();
 	void	Draw(DrawPacket& i_DrawPacket);
-	void	Update(UpdatePacket& i_UpdatePacket);
-	void	setDrawing( bool i_bDraw, int i_iRank ){
-		m_bDrawing	= i_bDraw;
 
+	void	setDrawing( bool i_bDraw, Result_Rank i_iRank ){
+		m_bDrawing		= i_bDraw;
+		m_ResultRank	= i_iRank;
+
+	}
+
+	void setRect( Result_Rank i_iRank ){
 		switch( i_iRank ){
-			case	1:
-				m_pTexture	= m_pTex_S;
+			case	Rank_S:
+				m_pRect->left	= 0;
+				m_pRect->top	= 0;
+				m_pRect->right	= 128;
+				m_pRect->bottom	= 128;
+				//m_pRect	= Rect( 0, 0, 128, 128 );
 				break;
-			case	2:
-				m_pTexture	= m_pTex_A;
+			case	Rank_A:
+				m_pRect->left	= 128;
+				m_pRect->top	= 0;
+				m_pRect->right	= 256;
+				m_pRect->bottom	= 128;
+				//m_pRect	= Rect( 128, 0, 256, 128 );
 				break;
-			case	3:
-				m_pTexture	= m_pTex_B;
+			case	Rank_B:
+				m_pRect->left	= 0;
+				m_pRect->top	= 128;
+				m_pRect->right	= 128;
+				m_pRect->bottom	= 256;
+				//m_pRect	= Rect( 0, 128, 128, 256 );
 				break;
-			case	4:
-				m_pTexture	= m_pTex_C;
+			case	Rank_C:
+				m_pRect->left	= 128;
+				m_pRect->top	= 128;
+				m_pRect->right	= 256;
+				m_pRect->bottom	= 256;
+				//m_pRect	= Rect( 128, 128, 256, 256 );
 				break;
 			default	 :
+				m_pRect->left	= 128;
+				m_pRect->top	= 128;
+				m_pRect->right	= 256;
+				m_pRect->bottom	= 256;
 				break;
 		};
 	}

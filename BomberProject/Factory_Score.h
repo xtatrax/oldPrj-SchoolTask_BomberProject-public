@@ -185,7 +185,6 @@ public:
 ****************************************************************************/
 class ResultScore : public Score{
 	Rank*				m_pRank;
-	Title_Select*		m_pSelect;
 	AnimationScore*		m_pMaxPos;		//最高位置用アニメーションスコアのポインタ
 	AnimationScore*		m_pScratch;		//
 	AnimationScore*		m_pDead;		//死亡回数用アニメーションスコアのポインタ
@@ -199,7 +198,7 @@ class ResultScore : public Score{
 	LPDIRECT3DTEXTURE9	m_pRate30Tex;	//
 	LPDIRECT3DTEXTURE9	m_pRate1Tex;	//
 	int					m_iNowDraw;		//アニメーションさせたいスコアの番号
-	Result_Rank			m_ResulRank;
+	Result_Rank			m_ResultRank;
 public:
 	ResultScore(LPDIRECT3DDEVICE9	pD3DDevice,
 				LPDIRECT3DTEXTURE9	pDeadTex,
