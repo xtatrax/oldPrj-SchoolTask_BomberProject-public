@@ -41,7 +41,7 @@
 	//		デバッグモード定義       //
 	//-------------------------------//
 	#define ON_DEBUGGINGPROCESS					/* デバックモード             */
-	#define DEBUG_STRINGS_ON					/* デバッグ用文字列を有効化 */
+	//#define DEBUG_STRINGS_ON					/* デバッグ用文字列を有効化 */
 	//#define CF_DEBUGINFORMATIONWINDOW_ENABLE	/* デバッグ情報表示用ウインドウを有効化 */
 	//#define CF_MEMORYMANAGER_ENABLE			/* 自作メモリ管理システムを有効化 */
 	//#define CF_FULLSCREEN				/* フルスクリーンモード       */
@@ -330,6 +330,7 @@ namespace wiz{
 		OBJID_UI_SCORE				,	//	: スコア
 		OBJID_UI_TIME				,	//	: 時間
 		OBJID_UI_NOTICE				,	//	: スーパーたまった(Ready)
+		OBJID_UI_RANK				,	//	: ランク
 		OBJID_UI_END				,	//	: UIのID宣言終了
 		//	: 3Dオブジェ
 		////

@@ -13,7 +13,7 @@
 //
 #pragma once
 #include "Object.h"
-#include "AnimationModelClass/AnimationModelClass.h"
+//#include "AnimationModelClass/AnimationModelClass.h"
 #include "Bass2DItems.h"
 #include "TL-String.h"
 namespace wiz {
@@ -2546,6 +2546,7 @@ public:
 	////            ：
 	////
 	DrawSphere(LPDIRECT3DDEVICE9 pD3DDevice, SPHERE i_Sphere, Color i_Color = 0xFF0000FF, wiz::OBJID id = OBJID_3D_DRAWOBB);
+
 	/////////////////// ////////////////////
 	//// 関数名     ：DrawSphere::~DrawSphere()
 	//// カテゴリ   ：デストラクタ
@@ -2557,6 +2558,7 @@ public:
 	////            ：
 	////
 	virtual ~DrawSphere();
+
 	/////////////////// ////////////////////
 	//// 関数名     ：void Draw( LPDIRECT3DDEVICE9 pD3DDevice , vector<Object*>& Vec)
 	//// カテゴリ   ：仮想関数

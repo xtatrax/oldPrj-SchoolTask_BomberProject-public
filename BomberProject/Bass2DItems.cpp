@@ -383,6 +383,7 @@ void SpriteObject::Draw(DrawPacket& i_DrawPacket)
 /**************************************************************************
   ’è‹`•”
 ***************************************************************************/
+namespace Avoidance{
 
 RenderTargetSprite::RenderTargetSprite(BassPacket* i_BassPacket, UINT i_Width, UINT i_Height, wiz::OBJID id )
 : m_sfRenderTarget( NULL )
@@ -469,6 +470,6 @@ void RenderTargetSprite::TargetRender( RenderPacket& i_RenderPacket ){
 void RenderTargetSprite::Draw(DrawPacket& i_DrawPacket){
 	PrimitiveSprite::Draw(i_DrawPacket);
 }
-
+}
 }//end of namespace	base2Dobject.
 }//end of namespace	wiz.

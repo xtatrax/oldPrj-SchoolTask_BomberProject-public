@@ -12,6 +12,7 @@
 #include "StdAfx.h"
 #include "Factory_Select.h"
 #include "Factory_Cursor.h"
+#include "Factory_Title.h"
 #include "Factory_CustomButtonA.h"
 #include "Factory_SelectInformation.h"
 
@@ -63,7 +64,7 @@ Factory_Select::Factory_Select(FactoryPacket* fpac ){
 		fpac->m_pVec->push_back(
 			new SpriteObject(
 				fpac->pD3DDevice,
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"LEVEL1.png" ),
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"LEVEL.png" ),
 				D3DXVECTOR3( 1.2f, 1.2f, 0.0f ),
 				g_vZero,
 				D3DXVECTOR3(670.0f, 20.0f, 0.0f),
@@ -80,7 +81,7 @@ Factory_Select::Factory_Select(FactoryPacket* fpac ){
 			new SelectInformation(
 					fpac->pD3DDevice								,	
 					fpac->AddTexture(L"Select_Frame_ver5px.png")	,	//↓マウスがここの上にあるとき表示する画像
-					fpac->AddTexture(L"Select_Manual_ver1.tga")			,	//枠外
+					fpac->AddTexture(L"Select_Manual.png")			,	//枠外
 					fpac->AddTexture(L"Select_Normal_ver1.png")		,	//NORMAL
 					fpac->AddTexture(L"Select_Hard_ver1.png")		,	//HARD
 					fpac->AddTexture(L"Select_Extra_ver1.png")		,	//EXTRA
@@ -94,21 +95,6 @@ Factory_Select::Factory_Select(FactoryPacket* fpac ){
 					0xFF00FFFF										,
 					0xFFFFCC00										,
 					0xFFFF0000										
-//=======
-//					fpac->pD3DDevice,						//↓マウスがここの上にあるとき表示する画像
-//					fpac->AddTexture(L"Select_Manual_ver1.tga"),	//枠外
-//					fpac->AddTexture(L"Select_Normal_ver1.png"),	//NORMAL
-//					fpac->AddTexture(L"Select_Hard_ver1.png"),		//HARD
-//					fpac->AddTexture(L"Select_Extra_ver1.png"),		//EXTRA
-//
-//					D3DXVECTOR3( 1.0f, 1.0f, 0.0f ),
-//					g_vZero,
-//					D3DXVECTOR3( 50.0f, 50.0f, 0.0f ),
-//					Rect( 0, 0, 512, 512 ),
-//					g_vZero,
-//					g_vZero,
-//					0xFFFFFFFF
-//>>>>>>> Work_Space
 			)
 		);
 /////////////////////////////////////////////////////////////////////////////////
@@ -117,8 +103,8 @@ Factory_Select::Factory_Select(FactoryPacket* fpac ){
 		fpac->AddButton(
 			new CustomButtonA(
 				fpac->pD3DDevice,
-				fpac->AddTexture(L"NORMAL002.tga"),
-				fpac->AddTexture(L"NORMAL001.tga"),
+				fpac->AddTexture(L"Select_NORMAL002.png"),
+				fpac->AddTexture(L"Select_NORMAL001.png"),
 				D3DXVECTOR3( 1.8f,1.8f,0.0f ),
 				g_vZero,
 				//D3DXVECTOR3(980.0f, 120.0f, 0.0f),
@@ -144,11 +130,10 @@ Factory_Select::Factory_Select(FactoryPacket* fpac ){
 		fpac->AddButton(
 			new CustomButtonA(
 				fpac->pD3DDevice,	
-				fpac->AddTexture(L"HARD002.tga"),
-				fpac->AddTexture(L"HARD001.tga"),
+				fpac->AddTexture(L"Select_HARD002.png"),
+				fpac->AddTexture(L"Select_HARD001.png"),
 				D3DXVECTOR3( 1.8f,1.8f,0.0f ),
 				g_vZero,
-				//D3DXVECTOR3(980.0f, 240.0f, 0.0f),
 				D3DXVECTOR3(980.0f, 270.0f, 0.0f),
 				Rect(0,0,148,30),
 				Rect(0,0,148,30),
@@ -171,11 +156,10 @@ Factory_Select::Factory_Select(FactoryPacket* fpac ){
 		fpac->AddButton(
 			new CustomButtonA(
 				fpac->pD3DDevice,	
-				fpac->AddTexture(L"EXTRA002.tga"),
-				fpac->AddTexture(L"EXTRA001.tga"),
+				fpac->AddTexture(L"Select_EXTRA002.png"),
+				fpac->AddTexture(L"Select_EXTRA001.png"),
 				D3DXVECTOR3( 1.8f,1.8f,0.0f ),
 				g_vZero,
-				//D3DXVECTOR3(980.0f, 360.0f, 0.0f),
 				D3DXVECTOR3(980.0f, 390.0f, 0.0f),
 				Rect(0,0,183,30),
 				Rect(0,0,183,30),
@@ -198,8 +182,8 @@ Factory_Select::Factory_Select(FactoryPacket* fpac ){
 		fpac->AddButton(
 			new CustomButtonA(
 				fpac->pD3DDevice,	
-				fpac->AddTexture(L"BACK002.tga"),
-				fpac->AddTexture(L"BACK001.tga"),
+				fpac->AddTexture(L"BACK002.png"),
+				fpac->AddTexture(L"BACK001.png"),
 				g_vOne,
 				g_vZero,
 				D3DXVECTOR3(980.0f, 560.0f, 0.0f),
@@ -220,30 +204,18 @@ Factory_Select::Factory_Select(FactoryPacket* fpac ){
 
 		);
 
-		//fpac->AddButton(
-		//	new CustomButtonA(
-		//		fpac->pD3DDevice,	
-		//		fpac->AddTexture(L"BACK002.tga"),
-		//		fpac->AddTexture(L"BACK001.tga"),
-		//		g_vOne,
-		//		g_vZero,
-		//		D3DXVECTOR3(90.0f, 50.0f, 0.0f),
-		//		Rect(0,0,148,30),
-		//		Rect(0,0,148,30),
-		//		D3DXVECTOR3( 148.0f,15.0f,0.0f ),
-		//		g_vZero,
-		//		0xFF00AA55,
-		//		0xFF008833,
-		//		0xFFFFFFFF,
-		//		0xFFAAAAAA,
-		//		RCTEXT_SOUND_SE_SELECT,
-		//		RCTEXT_SOUND_SE_ENTER,
-		//		0.5f,
-		//		Command( GM_WITHOUT, 0, 0 ),
-		//		OBJID_UI_BUTTON_BACK,
-		//		true
-		//	)
-		//);
+		//Click_Please
+		fpac->m_pVec->push_back(
+			new ClickChar(
+					fpac->pD3DDevice,
+					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Click_Please1.png"),
+					D3DXVECTOR3( 0.5f, 0.5f, 0.0f ),
+					g_vZero,
+					g_vZero,
+					Rect( 0, 0, 512, 64 ),
+					D3DXVECTOR3( 40.0f, -70.0f, 0.0f )
+			)
+		);						
 
 		float	fLineLength	= 550.0f;
 		float	fPointSize	= 0.25f;

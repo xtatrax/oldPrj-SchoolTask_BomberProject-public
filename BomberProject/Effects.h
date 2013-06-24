@@ -158,6 +158,7 @@ public:
 		for( ;it != m_ParticleList.end(); it++ ){
 			SAFE_DELETE(*it);
 		}
+		m_ParticleList.clear();
 	};
 
 	void Draw(IDirect3DDevice9* pd3dDevice){
