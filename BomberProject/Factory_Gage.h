@@ -98,7 +98,7 @@ protected:
 	Rect	m_GaugeRect;
 	Rect	m_FrameRect;
 	float	m_fRate;
-	
+	float	m_fMovePos;
 public:
 	Gage(
 		const LPDIRECT3DDEVICE9	pD3DDevice	,		//	: デバイス
@@ -144,6 +144,11 @@ public:
 		m_fRate = 1.0f ;
 	}
 
+	void ChangePos(){
+		if( m_fMovePos == 23.0f )
+				m_fMovePos	= 31.0f;
+		else	m_fMovePos	= 23.0f;
+	}
 	//void getGaugeRot_Right(int i_iValue){
 	//	m_GaugeRect.right = i_iValue;
 	//}
