@@ -125,6 +125,7 @@ PlayerCoil::PlayerCoil(
 ,m_fRecordTime(				0								)
 ,m_bModeChangeChar(			false							)
 ,m_bReDrawing_ChangeChar(	true							)
+,m_bStandby(				false							)
 ,m_enumCoilState(		COIL_STATE_STOP						)
 ,m_enumCoilStateSuper(	COIL_STATE_SUPER_CHARGE				)
 #if defined( ON_DEBUGGINGPROCESS ) | defined( PRESENTATION )
@@ -276,6 +277,7 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 		if( m_enumCoilState != COIL_STATE_STICK ){
 			m_bModeChangeChar		= false;
 			m_bReDrawing_ChangeChar	= true;
+			m_bStandby				= false;
 		}
 		//èÛë‘Ç≤Ç∆ÇÃèàóù
 		switch(m_enumCoilState){
@@ -593,7 +595,9 @@ void PlayerCoil::Update_StateStick(UpdatePacket& i_UpdatePacket){
 				}
 				break;
 		}
+		m_bStandby	= true;
 	}else{
+		m_bStandby	= false;
 		static bool s_bExpanding = true;
 		if(s_bExpanding){
 			m_vScale += COIL_SCALE_ADD_VALUE_STICK;

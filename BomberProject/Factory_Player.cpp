@@ -115,7 +115,8 @@ void ProvisionalPlayer3D::Update( UpdatePacket& i_UpdatePacket ){
 		Rebound	= Cursor2D::getRButtonState();
 	}
 
-	if( m_pPlayerCoil->getState() == COIL_STATE_MOVE || (m_pPlayerCoil->getState() == COIL_STATE_STICK && m_pPlayerCoil->getReadyToStart()) ){
+	if( m_pPlayerCoil->getState() == COIL_STATE_MOVE
+		|| (m_pPlayerCoil->getState() == COIL_STATE_STICK && m_pPlayerCoil->getReadyToStart() && m_pPlayerCoil->getStandby() ) ){
 		if( (Suction || Rebound) && !(Suction && Rebound)){ 
 			if( (Suction && m_pMGage_N->getRate() > GAUGE_VANISHRATE) || (Rebound && m_pMGage_S->getRate() > GAUGE_VANISHRATE) ){				
 				if( !m_bLastMouseLB && !m_bLastMouseRB){
@@ -176,6 +177,9 @@ void ProvisionalPlayer3D::Update( UpdatePacket& i_UpdatePacket ){
 			}
 		}
 	}else{
+		if( m_pPlayerCoil->getState() == COIL_STATE_STICK )
+			m_bDrawing	= true;
+		else
 			m_bDrawing	= false;
 	}
 	m_bLastMouseLB = Cursor2D::getLButtonState() ;
@@ -188,17 +192,19 @@ void ProvisionalPlayer3D::Update( UpdatePacket& i_UpdatePacket ){
 	}
 	MagnetField::Update(i_UpdatePacket);
 
-	//ƒQ[ƒW‚ª3Š„Ø‚Á‚½‚çA¥ŠE‚ğ“_–Å‚³‚¹‚é
-	if( MagnetField::getMagnetPole() == POLE_S && m_bDrawing ){
-		if(m_pMGage_S->getRate() < 0.3f)
-				MagnetField::Flashing(i_UpdatePacket, POLE_S);
-		else	MagnetField::Reset();
-	}
-	else if( MagnetField::getMagnetPole() == POLE_N && m_bDrawing ){
-		if(m_pMGage_N->getRate() < 0.3f)
-				MagnetField::Flashing(i_UpdatePacket, POLE_N);
-		else	MagnetField::Reset();
-	}
+	//ƒQ[ƒW‚ª3Š„Ø‚Á‚½‚çA¥ŠE‚ğ“_–Å‚³‚¹‚é*******************
+	if(m_pPlayerCoil->getState() != COIL_STATE_STICK){
+		if( MagnetField::getMagnetPole() == POLE_S && m_bDrawing ){
+			if(m_pMGage_S->getRate() < 0.3f)
+					MagnetField::Flashing(i_UpdatePacket, POLE_S);
+			else	MagnetField::Reset();
+		}
+		else if( MagnetField::getMagnetPole() == POLE_N && m_bDrawing ){
+			if(m_pMGage_N->getRate() < 0.3f)
+					MagnetField::Flashing(i_UpdatePacket, POLE_N);
+			else	MagnetField::Reset();
+		}
+	}else	MagnetField::Reset();
 	//***************************************************************
 
 };
