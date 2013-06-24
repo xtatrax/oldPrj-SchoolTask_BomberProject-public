@@ -654,15 +654,6 @@ ResultScore::ResultScore(LPDIRECT3DDEVICE9	pD3DDevice,
 	m_pDead		= new AnimationScore( pD3DDevice, m_pDeadTex, vScoreSize,
 						D3DXVECTOR3( wide+90.0f, height+5.0f, 0.0f ), iDead, iDightDead, &rScoreRect);
 	m_pTotal	= new AnimationScore( pD3DDevice, m_pMaxPosTex, D3DXVECTOR3( 1.0f, 1.0f, 0.0f ),
-//<<<<<<< HEAD
-//						D3DXVECTOR3( wide+50, height+120.0f, 0.0f ), TotalScore, iDightTotal, &rScoreRect);
-//	m_pRate_10	= new SpriteObject( pD3DDevice, m_pRate10Tex, vScoreSize, g_vZero, 
-//									D3DXVECTOR3( wide+250.0f, height-115.0f, 0.0f ), Rect( 0, 0, 256, 64 ),g_vZero, g_vZero );
-//	m_pRate_1	= new SpriteObject( pD3DDevice, m_pRate1Tex, vScoreSize, g_vZero, 
-//									D3DXVECTOR3( wide+250.0f, height-35.0f, 0.0f ), Rect( 0, 0, 256, 64 ),g_vZero, g_vZero );
-//	m_pRate_30	= new SpriteObject( pD3DDevice, m_pRate30Tex, vScoreSize, g_vZero, 
-//									D3DXVECTOR3( wide+250.0f, height+45.0f, 0.0f ), Rect( 0, 0, 256, 64 ),g_vZero, g_vZero );
-//=======
 						D3DXVECTOR3( wide+90.0f, height+120.0f, 0.0f ), TotalScore, iDightTotal, &rScoreRect);
 	//	~10
 	m_pRate_10	= new SpriteObject( pD3DDevice, m_pRate10Tex, vRateSize, g_vZero, 
@@ -673,7 +664,6 @@ ResultScore::ResultScore(LPDIRECT3DDEVICE9	pD3DDevice,
 	//	~30
 	m_pRate_30	= new SpriteObject( pD3DDevice, m_pRate30Tex, vRateSize, g_vZero, 
 									D3DXVECTOR3( wide+340.0f, height+20.0f, 0.0f ), Rect( 0, 0, 256, 64 ),g_vZero, g_vZero );
-//>>>>>>> workspace
 
 }
 
