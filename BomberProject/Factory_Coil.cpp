@@ -32,12 +32,6 @@
 
 //	: 追加のインクルード
 //////////
-//#include "Object.h"
-//#include "Scene.h"
-//#include "BassItems.h"
-//#include "Factory_Wall.h"
-//#include "Factory_Cursor.h"
-//
 
 namespace wiz{
 namespace bomberobject{
@@ -117,7 +111,7 @@ PlayerCoil::PlayerCoil(
 ,m_pDeadCharTex(		m_pTexMgr->addTexture( pD3DDevice, L"dead6.png"			))
 ,m_pDeadCountTex(		m_pTexMgr->addTexture( pD3DDevice, L"Number_Base1.png"	))
 ,m_pRethinkingTex(		m_pTexMgr->addTexture( pD3DDevice, L"REALLY4.png"		))
-,m_pAnswerTex(			m_pTexMgr->addTexture( pD3DDevice, L"YESorNO5.png"		))
+,m_pAnswerTex(			m_pTexMgr->addTexture( pD3DDevice, L"YESorNO.png"		))
 ,m_pCountCharTex(		m_pTexMgr->addTexture( pD3DDevice, L"dead_count1.png"	))
 //**********************************************************************************
 ,m_iMaxPosY(				0								)
@@ -125,6 +119,7 @@ PlayerCoil::PlayerCoil(
 ,m_fRecordTime(				0								)
 ,m_bModeChangeChar(			false							)
 ,m_bReDrawing_ChangeChar(	true							)
+,m_bStandby(				false							)
 ,m_enumCoilState(		COIL_STATE_STOP						)
 ,m_enumCoilStateSuper(	COIL_STATE_SUPER_CHARGE				)
 #if defined( ON_DEBUGGINGPROCESS ) | defined( PRESENTATION )
@@ -141,7 +136,7 @@ PlayerCoil::PlayerCoil(
 	setPoleN();
 	SetBaseRot(vRot);
 
-	m_pModeChangeChar	= new ModeChangeChar( pD3DDevice, m_pTexMgr->addTexture( pD3DDevice, L"CHANGE3.png" ),
+	m_pModeChangeChar	= new ModeChangeChar( pD3DDevice, m_pTexMgr->addTexture( pD3DDevice, L"CHANGE.png" ),
 														D3DXVECTOR3( 0.25f, 0.25f, 0.0f ), &Rect( 0, 0, 512, 128 ) );
 	m_pSelect	= NULL;
 	m_pSelect2	= NULL;
@@ -276,6 +271,7 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 		if( m_enumCoilState != COIL_STATE_STICK ){
 			m_bModeChangeChar		= false;
 			m_bReDrawing_ChangeChar	= true;
+			m_bStandby				= false;
 		}
 		//状態ごとの処理
 		switch(m_enumCoilState){
@@ -593,7 +589,9 @@ void PlayerCoil::Update_StateStick(UpdatePacket& i_UpdatePacket){
 				}
 				break;
 		}
+		m_bStandby	= true;
 	}else{
+		m_bStandby	= false;
 		static bool s_bExpanding = true;
 		if(s_bExpanding){
 			m_vScale += COIL_SCALE_ADD_VALUE_STICK;

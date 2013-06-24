@@ -61,6 +61,7 @@ ProvisionalPlayer3D::ProvisionalPlayer3D(
 ,m_bLastMouseLB(false)
 ,m_bDrawing(false)
 ,m_bPlaySound(false)
+,m_bChangeFirst( false )
 {
 	D3DXMatrixIdentity( &m_Matrix ) ;
 	setPoleS();
@@ -115,7 +116,8 @@ void ProvisionalPlayer3D::Update( UpdatePacket& i_UpdatePacket ){
 		Rebound	= Cursor2D::getRButtonState();
 	}
 
-	if( m_pPlayerCoil->getState() == COIL_STATE_MOVE || (m_pPlayerCoil->getState() == COIL_STATE_STICK && m_pPlayerCoil->getReadyToStart()) ){
+	if( m_pPlayerCoil->getState() == COIL_STATE_MOVE
+		|| (m_pPlayerCoil->getState() == COIL_STATE_STICK && m_pPlayerCoil->getReadyToStart() && m_pPlayerCoil->getStandby() ) ){
 		if( (Suction || Rebound) && !(Suction && Rebound)){ 
 			if( (Suction && m_pMGage_N->getRate() > GAUGE_VANISHRATE) || (Rebound && m_pMGage_S->getRate() > GAUGE_VANISHRATE) ){				
 				if( !m_bLastMouseLB && !m_bLastMouseRB){
@@ -175,7 +177,24 @@ void ProvisionalPlayer3D::Update( UpdatePacket& i_UpdatePacket ){
 				if( m_pMGage_S ) m_pMGage_S->Recovery(PLAYER_RECOVERY_POINT);
 			}
 		}
+		m_bChangeFirst	= true;
 	}else{
+		if( m_pPlayerCoil->getState() == COIL_STATE_STICK ){
+			m_bDrawing	= true;
+			if( m_pMGage_N && m_pMGage_S && m_bChangeFirst){
+				//Rate‚ÌŒğŠ·************************************
+				float	fRate	= 0.0f;
+				fRate	= m_pMGage_N->getRate();
+				m_pMGage_N->setRate( m_pMGage_S->getRate() );
+				m_pMGage_S->setRate( fRate );
+				//***********************************************
+				//ˆÊ’u‚Ì“ü‚ê‘Ö‚¦*******************************
+				m_pMGage_N->ChangePos();
+				m_pMGage_S->ChangePos();
+				//***********************************************
+				m_bChangeFirst	= false;
+			}
+		}else
 			m_bDrawing	= false;
 	}
 	m_bLastMouseLB = Cursor2D::getLButtonState() ;
@@ -187,6 +206,22 @@ void ProvisionalPlayer3D::Update( UpdatePacket& i_UpdatePacket ){
 		if( m_pMGage_S ) m_pMGage_S->ResetGauge();
 	}
 	MagnetField::Update(i_UpdatePacket);
+
+	//ƒQ[ƒW‚ª3Š„Ø‚Á‚½‚çA¥ŠE‚ğ“_–Å‚³‚¹‚é*******************
+	if(m_pPlayerCoil->getState() != COIL_STATE_STICK){
+		if( MagnetField::getMagnetPole() == POLE_S && m_bDrawing ){
+			if(m_pMGage_S->getRate() < 0.3f)
+					MagnetField::Flashing(i_UpdatePacket, POLE_S);
+			else	MagnetField::Reset();
+		}
+		else if( MagnetField::getMagnetPole() == POLE_N && m_bDrawing ){
+			if(m_pMGage_N->getRate() < 0.3f)
+					MagnetField::Flashing(i_UpdatePacket, POLE_N);
+			else	MagnetField::Reset();
+		}
+	}else	MagnetField::Reset();
+	//***************************************************************
+
 };
 
 /////////////////// ////////////////////

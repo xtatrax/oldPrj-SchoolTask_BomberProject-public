@@ -216,6 +216,8 @@ public:
 	}
 };
 
+namespace Avoidance{
+
 //**************************************************************************
 // 
 //
@@ -257,7 +259,7 @@ public:
 //// îıçl       ÅF
 	void Draw(DrawPacket& i_DrawPacket);
 };
-
+}
 }//end of namespace base2Dobject.
 using namespace base2Dobject;
 }//end of namespace wiz.

@@ -91,7 +91,7 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 					//	: インスタンスを生成
 					mgb = new TARGET_CLASS(
 						m_pD3DDevice,
-						m_pTexMgr->addTexture(m_pD3DDevice,L"Lightning.tga"),
+						m_pTexMgr->addTexture(m_pD3DDevice,L"Lightning.png"),
 						ObjectID
 					);
 					//	: オブジェクトリストへ登録
@@ -377,7 +377,7 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 				m_pD3DDevice	,
 				D3DXVECTOR3(20.0f, i_Data.vPos.y,  0.0f),
 				NULL			,
-				m_pTexMgr->addTexture( m_pD3DDevice, L"GOAL1.png" ),
+				m_pTexMgr->addTexture( m_pD3DDevice, L"GOAL.png" ),
 				ObjectID
 			);
 			FMemoryTex* mt = new FMemoryTex(

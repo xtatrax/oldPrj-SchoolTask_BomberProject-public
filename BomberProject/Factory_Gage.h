@@ -19,11 +19,13 @@
 #include "Object.h"
 #include "Factory_Cursor.h"
 #include "Factory_Coil.h"
-#include "Factory_Magnetic.h"
+//#include "Factory_Magnetic.h"
 #include "Line.h"
 
 const	int		SUPER_GAGE_MAX		= 512;
 const	int		MAGNETIC_GAGE_MAX	= 256;
+const	float	GAUGE_POS_HIGH		= 23.0f;
+const	float	GAUGE_POS_LOW		= 31.0f;
 
 namespace wiz{
 namespace bomberobject{
@@ -98,7 +100,7 @@ protected:
 	Rect	m_GaugeRect;
 	Rect	m_FrameRect;
 	float	m_fRate;
-	
+	float	m_fMovePos;
 public:
 	Gage(
 		const LPDIRECT3DDEVICE9	pD3DDevice	,		//	: デバイス
@@ -144,6 +146,11 @@ public:
 		m_fRate = 1.0f ;
 	}
 
+	void ChangePos(){
+		if( m_fMovePos == GAUGE_POS_HIGH )
+				m_fMovePos	= GAUGE_POS_LOW;
+		else	m_fMovePos	= GAUGE_POS_HIGH;
+	}
 	//void getGaugeRot_Right(int i_iValue){
 	//	m_GaugeRect.right = i_iValue;
 	//}

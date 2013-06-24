@@ -56,8 +56,9 @@ void TextureManager::Release(){
 	vector< Texture* >::iterator	it  = m_vecTextures.begin()	;
 	while(it != m_vecTextures.end()){
 		SafeDelete( *it );
+		
 		//*it = NULL ;
-		it++;
+		it = m_vecTextures.erase(it);
 	}
 	m_vecTextures.clear();
 };
