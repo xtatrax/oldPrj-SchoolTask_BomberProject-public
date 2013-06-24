@@ -253,15 +253,15 @@ Factory_Result::Factory_Result(FactoryPacket* fpac, int iDeadCount, int iMaxPosY
 
 
 		//*****************************************************************************
-		//system::Sound* pSound = NULL;
-		//fpac->SetSound(
-		//	pSound = new system::Sound( 
-		//		RCTEXT_SOUND_WAVEBANK,
-		//		RCTEXT_SOUND_SOUNDBANK,
-		//		OBJID_SYS_SOUND
-		//	)
-		//);
-		//pSound->SearchSoundAndPlay( RCTEXT_SOUND_BGM_CLEAR );
+		system::Sound* pSound = NULL;
+		fpac->SetSound(
+			pSound = new system::Sound( 
+				RCTEXT_SOUND_WAVEBANK,
+				RCTEXT_SOUND_SOUNDBANK,
+				OBJID_SYS_SOUND
+			)
+		);
+		pSound->SearchSoundAndPlay( RCTEXT_SOUND_BGM_GAMEOVER );
 
 	}
 	catch(...){
