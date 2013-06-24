@@ -284,22 +284,22 @@ Effect::Effect(LPDIRECT3DDEVICE9 pD3DDevice, const wchar_t* i_filename,DWORD i_D
 			i_Decolorisation = i_Decolorisation >> 8 ;		//1色分シフト
 		}
 
-		D3DXCreateTextureFromFileEx(
-			pD3DDevice,
-			i_filename,			         // ファイル名
-			0,
-			0,
-			0,
-			0,
-			D3DFMT_A1R5G5B5,                // 色抜きを可能に
-			D3DPOOL_MANAGED,
-			D3DX_FILTER_LINEAR,
-			D3DX_FILTER_LINEAR,
-			D3DCOLOR_ARGB(Decolorisations[0], Decolorisations[1], Decolorisations[2], Decolorisations[3]),  // 指定された色を透過色とする
-			NULL,
-			NULL,
-			&m_pTexture                   // テクスチャ名
-		);
+		//D3DXCreateTextureFromFileEx(
+		//	pD3DDevice,
+		//	i_filename,			         // ファイル名
+		//	0,
+		//	0,
+		//	0,
+		//	0,
+		//	D3DFMT_A1R5G5B5,                // 色抜きを可能に
+		//	D3DPOOL_MANAGED,
+		//	D3DX_FILTER_LINEAR,
+		//	D3DX_FILTER_LINEAR,
+		//	D3DCOLOR_ARGB(Decolorisations[0], Decolorisations[1], Decolorisations[2], Decolorisations[3]),  // 指定された色を透過色とする
+		//	NULL,
+		//	NULL,
+		//	&m_pTexture                   // テクスチャ名
+		//);
 	}else{
 		m_pTexture = 0 ;
 	}

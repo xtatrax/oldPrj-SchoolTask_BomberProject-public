@@ -41,7 +41,7 @@
 	//		デバッグモード定義       //
 	//-------------------------------//
 	#define ON_DEBUGGINGPROCESS					/* デバックモード             */
-	#define DEBUG_STRINGS_ON					/* デバッグ用文字列を有効化 */
+	//#define DEBUG_STRINGS_ON					/* デバッグ用文字列を有効化 */
 	//#define CF_DEBUGINFORMATIONWINDOW_ENABLE	/* デバッグ情報表示用ウインドウを有効化 */
 	//#define CF_MEMORYMANAGER_ENABLE			/* 自作メモリ管理システムを有効化 */
 	//#define CF_FULLSCREEN				/* フルスクリーンモード       */

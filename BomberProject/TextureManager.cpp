@@ -361,7 +361,7 @@ TextureManager::Texture::Texture(LPDIRECT3DDEVICE9 pD3DDevice,const wchar_t* fil
 		}
 	}
 	catch(wiz::BaseException& e){
-        SAFE_RELEASE(m_pTexture);
+        SafeRelease(m_pTexture);
         //再スロー
         throw BaseException(
 				e.what_w(), 
@@ -371,7 +371,7 @@ TextureManager::Texture::Texture(LPDIRECT3DDEVICE9 pD3DDevice,const wchar_t* fil
     catch(...){
         //コンストラクタ例外発生
         //後始末
-        SAFE_RELEASE(m_pTexture);
+        SafeRelease(m_pTexture);
         //再スロー
         throw;
     }
@@ -433,7 +433,7 @@ TextureManager::Texture::Texture(LPDIRECT3DDEVICE9 pD3DDevice,const wchar_t* fil
 		}
 	}
 	catch(wiz::BaseException& e){
-        SAFE_RELEASE(m_pTexture);
+        SafeRelease(m_pTexture);
         //再スロー
         throw BaseException(
 				e.what_w(), 
@@ -443,7 +443,7 @@ TextureManager::Texture::Texture(LPDIRECT3DDEVICE9 pD3DDevice,const wchar_t* fil
     catch(...){
         //コンストラクタ例外発生
         //後始末
-        SAFE_RELEASE(m_pTexture);
+        SafeRelease(m_pTexture);
         //再スロー
         throw;
     }
@@ -459,7 +459,7 @@ TextureManager::Texture::Texture(LPDIRECT3DDEVICE9 pD3DDevice,const wchar_t* fil
 ////
 TextureManager::Texture::~Texture(){
     //後始末
-    SAFE_RELEASE(m_pTexture);
+    SafeRelease(m_pTexture);
 }
 
 bool TextureManager::Texture::checkTextureName( wstring name ) const{
