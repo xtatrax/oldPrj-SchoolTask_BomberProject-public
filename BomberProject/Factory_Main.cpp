@@ -27,22 +27,9 @@
 #include "Factory_Score.h"
 #include "Factory_Wall.h"
 #include "Factory_CheckPointSave.h"
+#include "Factory_BackGround.h"
 //	: 追加のインクルード
 //////////
-
-
-//#include "Object.h"
-//#include "Scene.h"
-//
-//#include "Factory_CheckPoint.h"6
-//#include "Factory_Coil.h"
-//#include "Factory_Goal.h"
-//#include "Factory_Gage.h"
-//#include "Factory_Magnetic.h"
-//#include "Factory_Stage1.h"
-//#include "Factory_Description.h"
-//#include "Factory_Cursor.h"
-//#include "BassItems.h"
 
 namespace wiz{
 namespace bomberobject{
@@ -107,30 +94,6 @@ Factory_Main::Factory_Main(FactoryPacket* fpac, DWORD dwStageNum, DWORD dwResump
 		//	: カメラの設定
 		//////////
 
-		//////////
-		//	: 背景の仮配置
-        D3DCOLORVALUE wDiffuse = {1.0f,1.0f,1.0f,0.0f};
-        D3DCOLORVALUE wSpecular = {0.0f,0.0f,0.0f,0.0f};
-        D3DCOLORVALUE wAmbient = {0.5f,0.5f,0.5f,0.0f};
-		float fBoxSizeX = 90.0f ;
-		for( int i = 0 ; i < 20 ; i++ ){
-			fpac->m_pVec->push_back(
-				new Box(
-					fpac->pD3DDevice ,
-					D3DXVECTOR3( 50.0f, fBoxSizeX    , 0.0f ),
-					D3DXVECTOR3( 25.0f, fBoxSizeX *i , 0.2f ),
-					g_vZero,
-					wDiffuse,
-					wSpecular,
-					wAmbient,
-					OBJID_3D_BOX,
-					false,
-					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"BGP_PLAY.tga")
-				)
-			);
-		}
-		//	: 背景の仮配置
-		//////////
 
 //←──────────────────────────────────────────────→//	
 
@@ -142,9 +105,10 @@ Factory_Main::Factory_Main(FactoryPacket* fpac, DWORD dwStageNum, DWORD dwResump
 		Factory_Player		Pfac( fpac );
 		if( dwStageNum != 5 )
 			Factory_Item	Ifac( fpac ) ;
-		Factory_Wall		Wfac( fpac );
+		Factory_Wall		Wfac( fpac ) ;
 		if( dwStageNum == 0 )	dwStageNum = 5 ;
 		StageLoader			loader(fpac->pD3DDevice,L"media/Map/Stages.csv", dwStageNum,*fpac->m_pVec,*fpac->m_pTexMgr);
+		Factory_BG			Bfac( fpac ) ;
 		Factory_Coil		Cfac( fpac , dwResumptionCheckPoint, vStartPos );
 		Factory_Description	Dfac( fpac ) ;
 		Factory_Gage		Gfac( fpac ) ;
