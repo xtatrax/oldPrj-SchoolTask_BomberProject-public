@@ -221,7 +221,7 @@ Factory_Select::Factory_Select(FactoryPacket* fpac ){
 		);						
 
 		float	fLineLength	= 550.0f;
-		float	fPointSize	= 0.25f;
+		float	fPointSize	= 1.0f;
 		Factory_Cursor	MCfac( fpac, fLineLength, fPointSize )  ;
 	}
 	catch(LoaderException& e){
