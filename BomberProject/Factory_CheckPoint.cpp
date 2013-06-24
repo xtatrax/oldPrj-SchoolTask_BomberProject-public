@@ -282,8 +282,7 @@ void	CheckEffect::Expansion(){
 CheckPoint 定義部
 ****************************************************************************/
 CheckPoint::CheckPoint( LPDIRECT3DDEVICE9 pD3DDevice, float fLength,LPDIRECT3DTEXTURE9 pTexture,LPDIRECT3DTEXTURE9 pTexture2,LPDIRECT3DTEXTURE9 pTexture3, wiz::OBJID id  )
-: Cylinder( pD3DDevice, CHECK_POINT_RADIUS, CHECK_POINT_RADIUS, fLength, g_vZero, D3DXVECTOR3( 0.0f,D3DXToRadian( 90.0f )
-		   , 0.0f ), CHECKPOINTCOLOR_CHAR, D3DCOLORVALUE(), CHECKPOINTCOLOR_CHAR, id, false, NULL, 18) 
+:Object( id )
 , m_pCoil( NULL )
 , m_pCamera( NULL )
 , m_ActiveItem( NULL )
@@ -456,15 +455,9 @@ void CheckPoint::Draw( DrawPacket& i_DrawPacket ){
 		if( DrawBeginLength > m_ItemContainer[ m_ActiveItem ]->fPosY ){
 			//	: 画面の中にいる
 			
-			//	
-			m_BasePos = D3DXVECTOR3( m_pCamera->getAt().x, m_ItemContainer[ m_ActiveItem ]->fPosY,0.0f) ;
-
 			//	:　メッセージ？を描画
 			m_pPintMark->Draw(i_DrawPacket);
 
-			//	:　Matrixの計算
-			CalcWorldMatrix();
-			//Cylinder::Draw( i_DrawPacket );
 		}
 
 		Debugger::DBGSTR::addStr(L"m_ActiveItem = %d\n",m_ActiveItem);

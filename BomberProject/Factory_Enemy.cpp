@@ -71,9 +71,6 @@ EnemyModel::~EnemyModel(){
 	m_pCoil		= NULL ;
 
 	SafeDeletePointerMap( m_ItemMap_All );
-	TARGETCONTAINER::iterator it	= m_ItemMap_Target.begin();
-	TARGETCONTAINER::iterator end	= m_ItemMap_Target.end();
-	m_ItemMap_All.clear();
 	m_ItemMap_Target.clear();
 
 }
