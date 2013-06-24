@@ -12,6 +12,7 @@
 #include "StdAfx.h"
 #include "Factory_Select.h"
 #include "Factory_Cursor.h"
+#include "Factory_Title.h"
 #include "Factory_CustomButtonA.h"
 #include "Factory_SelectInformation.h"
 
@@ -222,6 +223,20 @@ Factory_Select::Factory_Select(FactoryPacket* fpac ){
 				OBJID_UI_BUTTON_BACK
 			)
 		);
+
+		//Click_Please
+		fpac->m_pVec->push_back(
+			new ClickChar(
+					fpac->pD3DDevice,
+					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Click_Please1.png"),
+					D3DXVECTOR3( 0.5f, 0.5f, 0.0f ),
+					g_vZero,
+					g_vZero,
+					Rect( 0, 0, 512, 64 ),
+					D3DXVECTOR3( 40.0f, -70.0f, 0.0f )
+			)
+		);						
+
 		float	fLineLength	= 550.0f;
 		float	fPointSize	= 0.25f;
 		Factory_Cursor	MCfac( fpac, fLineLength, fPointSize )  ;
