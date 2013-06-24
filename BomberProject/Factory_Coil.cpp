@@ -318,7 +318,6 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 		//COIL_STATE_SUPER_READYの間はLineを更新
 		if(m_enumCoilStateSuper == COIL_STATE_SUPER_READY)Update_Line();
 		//ホイールクリックで無敵状態に
-		//if(m_enumCoilState == COIL_STATE_MOVE && m_enumCoilStateSuper == COIL_STATE_SUPER_READY && Cursor2D::getLButtonState() && Cursor2D::getRButtonState())m_enumCoilStateSuper = COIL_STATE_SUPER_CHANGING;
 		if(m_enumCoilState == COIL_STATE_MOVE && m_enumCoilStateSuper == COIL_STATE_SUPER_READY && Cursor2D::getMButtonState())m_enumCoilStateSuper = COIL_STATE_SUPER_CHANGING;
 		//無敵状態
 		if(m_enumCoilStateSuper == COIL_STATE_SUPER_MOVE || m_enumCoilStateSuper == COIL_STATE_SUPER_CHANGING)SuperMode(i_UpdatePacket);
@@ -867,15 +866,15 @@ void PlayerCoil::Draw(DrawPacket& i_DrawPacket){
 	if(m_enumCoilStateSuper == COIL_STATE_SUPER_MOVE || m_enumCoilStateSuper == COIL_STATE_SUPER_CHANGING){
 		m_pSuperField->Draw(i_DrawPacket);
 	}
-#if defined( ON_DEBUGGINGPROCESS )
-	if( m_pDSPH ) m_pDSPH->Draw( i_DrawPacket );
-#endif
 	if(m_enumCoilStateSuper == COIL_STATE_SUPER_READY){
 		m_pLine1->draw(i_DrawPacket.pD3DDevice);
 		m_pLine2->draw(i_DrawPacket.pD3DDevice);
 		m_pLine3->draw(i_DrawPacket.pD3DDevice);
 		m_pLine4->draw(i_DrawPacket.pD3DDevice);
 	}
+#if defined( ON_DEBUGGINGPROCESS )
+	if( m_pDSPH ) m_pDSPH->Draw( i_DrawPacket );
+#endif
 
 	//爆散
 	if( m_pDeadEffect[0] != NULL ){
@@ -1040,12 +1039,9 @@ void PlayerCoil::Update_Line(){
 	D3DXVECTOR3		vLineScale = D3DXVECTOR3(1.0f,1.0f,0.0f),
 		vBaseLinePos = D3DXVECTOR3(-m_pLine1->getEndPos().x,-m_pLine2->getEndPos().y,0.0f),
 					vLinePos;
-	static float	s_fMovingDistance	= 0.0f; 
+	static float	s_fMovingDistance	= 0.0f;
 	
-	D3DXMatrixScaling( &mLineScale, vLineScale.x, vLineScale.y, vLineScale.z );
-
 	//左上部
-	vLineScale;
 	vLinePos	= D3DXVECTOR3(vBaseLinePos.x - s_fMovingDistance, 
 							  vBaseLinePos.y + s_fMovingDistance,
 							  0.0f);
@@ -1070,7 +1066,7 @@ void PlayerCoil::Update_Line(){
 	D3DXMatrixTranslation( &mLinePos, vLinePos.x, vLinePos.y, vLinePos.z);
 	m_pLine4->setMatrix( mLineScale * mLinePos );
 	
-	s_fMovingDistance	+= 0.05f;
+	s_fMovingDistance	+= 0.04f;
 	if(s_fMovingDistance >= 0.3f){
 		s_fMovingDistance	= 0.0f;
 	}	
