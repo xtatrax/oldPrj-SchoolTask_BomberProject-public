@@ -189,6 +189,7 @@ Gage::Gage(
 ,m_GaugeRect( GaugeRect )
 ,m_FrameRect( FrameRect )
 ,m_fRate( 1.0f )
+,m_fMovePos( 0.0f )
 {
 	m_mGaugeMatrix = m_mMatrix ;
 }
@@ -554,6 +555,7 @@ MagneticGage_N::MagneticGage_N(
 ,m_vScale( vScale )
 {
 	this->m_Color.byteColor.a = byGaugeAlpha ;
+	m_fMovePos	= 31.0f;
 }
 /////////////////// ////////////////////
 //// ŠÖ”–¼     F~MagneticGage_N();
@@ -593,17 +595,16 @@ void MagneticGage_N::Update( UpdatePacket& i_UpdatePacket ){
 
 	Gage::Update(i_UpdatePacket);
 
-	float	fMovePos	= 0.0f;
-	if( m_pCoil != NULL ){
-		if( m_pCoil->getMagnetPole() == POLE_N )
-				fMovePos	= 31.0f;
-		else	fMovePos	= 23.0f;
-	}
+	//if( m_pCoil != NULL ){
+	//	if( m_pCoil->getMagnetPole() == POLE_N )
+	//			m_fMovePos	= 31.0f;
+	//	else	m_fMovePos	= 23.0f;
+	//}
 
 	D3DXMATRIX	mPos, mScale ;
 	D3DXVECTOR3 vPos ;
 	vPos.x	= (float)m_pCursor->get2DPos().x	;
-	vPos.y	= (float)m_pCursor->get2DPos().y + fMovePos/*+  m_GaugeRect.top*/	;
+	vPos.y	= (float)m_pCursor->get2DPos().y + m_fMovePos/*+  m_GaugeRect.top*/	;
 	vPos.z	= 0.0f	;
 	D3DXMatrixScaling( &mScale, m_vScale.x, m_vScale.y/2, m_vScale.z );
 	if( m_pCursor->getReverse() ){
@@ -676,6 +677,7 @@ MagneticGage_S::MagneticGage_S(
 ,m_vScale( vScale )
 {
 	this->m_Color.byteColor.a = byGaugeAlpha ;
+	m_fMovePos	= 23.0f;
 }
 /////////////////// ////////////////////
 //// ŠÖ”–¼     F~MagneticGage_N();
@@ -715,19 +717,19 @@ void MagneticGage_S::Update( UpdatePacket& i_UpdatePacket ){
 
 	Gage::Update(i_UpdatePacket);
 
-	float	fMovePos	= 0.0f;
-	if( m_pCoil != NULL ){
-		if( m_pCoil->getMagnetPole() == POLE_S )
-				fMovePos	= 31.0f;
-		else	fMovePos	= 23.0f;
-	}
+	//float	fMovePos	= 0.0f;
+	//if( m_pCoil != NULL ){
+	//	if( m_pCoil->getMagnetPole() == POLE_S )
+	//			fMovePos	= 31.0f;
+	//	else	fMovePos	= 23.0f;
+	//}
 
 	D3DXMATRIX	mPos, mScale ;
 	D3DXVECTOR3 vPos ;
 	//23.0f ã
 	//31.0f ‰º
 	vPos.x	 = (float)m_pCursor->get2DPos().x	;
-	vPos.y	 = (float)m_pCursor->get2DPos().y + fMovePos/*+  m_GaugeRect.top*/	;
+	vPos.y	 = (float)m_pCursor->get2DPos().y + m_fMovePos/*+  m_GaugeRect.top*/	;
 	vPos.z	 = 0.0f	;
 	D3DXMatrixScaling( &mScale, m_vScale.x, m_vScale.y/2, m_vScale.z );
 	if( m_pCursor->getReverse() ){
