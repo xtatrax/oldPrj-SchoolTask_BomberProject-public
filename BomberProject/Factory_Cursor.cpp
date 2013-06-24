@@ -37,7 +37,7 @@ namespace bomberobject{
 ***************************************************************************/
 MouseCursor::MouseCursor( LPDIRECT3DDEVICE9 pD3DDevice, TextureManager* m_pTexMgr, float fLineLength, float fPointSize)
 :Box( pD3DDevice, D3DXVECTOR3( 1.0f, 1.0f, 1.0f), g_vZero, g_vZero, COLOR2D3DCOLORVALUE(0x0FFFFF0F), COLOR2D3DCOLORVALUE(0x0FFFFF0F), COLOR2D3DCOLORVALUE(0x0FFFFF0F),  OBJID_SYS_CURSOR, false, m_pTexMgr->addTexture( pD3DDevice, L"Field.png" ) )
-,PrimitiveSprite(pD3DDevice, m_pTexMgr->addTexture( pD3DDevice, L"CARSOL.tga" ), NULL, D3DXVECTOR3( 92.0f, 67.0f, 0.0f ), g_vZero)
+,PrimitiveSprite(pD3DDevice, NULL, NULL, D3DXVECTOR3( 92.0f, 67.0f, 0.0f ), g_vZero)
 ,m_Ptn(0)
 ,m_MovePosY(0)
 ,m_pCamera( NULL )
