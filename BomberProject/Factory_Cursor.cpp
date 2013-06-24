@@ -61,8 +61,8 @@ MouseCursor::MouseCursor( LPDIRECT3DDEVICE9 pD3DDevice, TextureManager* m_pTexMg
 
 	//m_vScale	= D3DXVECTOR3( 0.125f, 0.125f, 0.0f );
 	m_vScale	= D3DXVECTOR3( fPointSize, fPointSize, 0.0f );
-	m_pSelectPos	= new SpriteObject( pD3DDevice, m_pTexMgr->addTexture( pD3DDevice, L"point.png" ), m_vScale,
-							g_vZero, g_vZero, NULL, D3DXVECTOR3( 16.0f, 16.0f, 0.0f ), g_vZero,-1,OBJID_UI_SPRITE,false );
+	m_pSelectPos	= new SpriteObject( pD3DDevice, m_pTexMgr->addTexture( pD3DDevice, L"GAGE.png" ), m_vScale,
+							g_vZero, g_vZero, Rect(128-8,96,128,106), D3DXVECTOR3( 4.0f, 4.0f, 0.0f ), g_vZero,-1,OBJID_UI_SPRITE,false );
 
 	m_pLine			= new Line( g_vZero, vDir, fRange, 0xFFFFFF00 );
 	m_pLine2		= new Line( m_pLine->getEndPos(), vDir2, fLineLength, 0xFFFFFF00 );
