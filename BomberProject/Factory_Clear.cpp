@@ -187,8 +187,8 @@ Factory_Clear::Factory_Clear(FactoryPacket* fpac, int iDeadCount, int iMaxPosY, 
 				fpac->AddTexture( L"RANK_ver1.png" ),
 				fpac->AddTexture( L"RANK_Base2.png" ),
 				D3DXVECTOR3( 1.0f, 1.0f, 1.0f ),
-				D3DXVECTOR3( 0.0f, 0.0f, D3DXToRadian(30.0f) ),
-				D3DXVECTOR3( 900.0f, 350.0f, 0.0f ),
+				D3DXVECTOR3( 0.0f, 0.0f, 0.0f/*D3DXToRadian(30.0f)*/ ),
+				D3DXVECTOR3( 830.0f, 400.0f, 0.0f ),
 				&Rect( 0, 0, 128, 128 )
 			)
 		);

@@ -876,6 +876,13 @@ void PlayerCoil::Draw(DrawPacket& i_DrawPacket){
 #if defined( ON_DEBUGGINGPROCESS )
 	if( m_pDSPH ) m_pDSPH->Draw( i_DrawPacket );
 #endif
+	//ライン用にワールド座標再定義
+	D3DXMATRIX	mRot, mPos;
+	D3DXMatrixRotationYawPitchRoll( &mRot, 0.0f, 0.0f, 0.0f );
+	D3DXMatrixTranslation( &mPos, m_vPos.x, m_vPos.y, m_vPos.z );
+	m_Matrix	= mRot*mPos;
+	i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &m_Matrix);
+
 	if(m_enumCoilStateSuper == COIL_STATE_SUPER_READY){
 		m_pLine1->draw(i_DrawPacket.pD3DDevice);
 		m_pLine2->draw(i_DrawPacket.pD3DDevice);
