@@ -211,7 +211,6 @@ Factory_Result::Factory_Result(FactoryPacket* fpac, int iDeadCount, int iMaxPosY
 				RCTEXT_SOUND_SE_ENTER,
 				0.5f,
 				Command( GM_OPENSTAGE_TITLE, 0, 0 ),
-				0,
 				OBJID_UI_BUTTON_BACK
 			)
 		);

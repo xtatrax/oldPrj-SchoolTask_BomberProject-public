@@ -61,6 +61,7 @@ ProvisionalPlayer3D::ProvisionalPlayer3D(
 ,m_bLastMouseLB(false)
 ,m_bDrawing(false)
 ,m_bPlaySound(false)
+,m_bChangeFirst( false )
 {
 	D3DXMatrixIdentity( &m_Matrix ) ;
 	setPoleS();
@@ -176,10 +177,24 @@ void ProvisionalPlayer3D::Update( UpdatePacket& i_UpdatePacket ){
 				if( m_pMGage_S ) m_pMGage_S->Recovery(PLAYER_RECOVERY_POINT);
 			}
 		}
+		m_bChangeFirst	= true;
 	}else{
-		if( m_pPlayerCoil->getState() == COIL_STATE_STICK )
+		if( m_pPlayerCoil->getState() == COIL_STATE_STICK ){
 			m_bDrawing	= true;
-		else
+			if( m_pMGage_N && m_pMGage_S && m_bChangeFirst){
+				//Rate‚ÌŒðŠ·************************************
+				float	fRate	= 0.0f;
+				fRate	= m_pMGage_N->getRate();
+				m_pMGage_N->setRate( m_pMGage_S->getRate() );
+				m_pMGage_S->setRate( fRate );
+				//***********************************************
+				//ˆÊ’u‚Ì“ü‚ê‘Ö‚¦*******************************
+				m_pMGage_N->ChangePos();
+				m_pMGage_S->ChangePos();
+				//***********************************************
+				m_bChangeFirst	= false;
+			}
+		}else
 			m_bDrawing	= false;
 	}
 	m_bLastMouseLB = Cursor2D::getLButtonState() ;

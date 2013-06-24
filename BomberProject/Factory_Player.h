@@ -68,6 +68,7 @@ class ProvisionalPlayer3D : public MagnetField{
 	bool			m_bLastMouseLB	;
 	bool			m_bDrawing		;
 	bool			m_bPlaySound	;
+	bool			m_bChangeFirst	;
 	//struct PolyItem{
 	//	LPDIRECT3DTEXTURE9 m_pTexture;
 	//	D3DMATERIAL9   m_Material;

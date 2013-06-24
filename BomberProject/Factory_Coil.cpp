@@ -32,12 +32,6 @@
 
 //	: 追加のインクルード
 //////////
-//#include "Object.h"
-//#include "Scene.h"
-//#include "BassItems.h"
-//#include "Factory_Wall.h"
-//#include "Factory_Cursor.h"
-//
 
 namespace wiz{
 namespace bomberobject{

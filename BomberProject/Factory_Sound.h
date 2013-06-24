@@ -27,7 +27,6 @@ protected:
 	class MyQue{
 		XACTINDEX CueNum	;
 		IXACT3Cue *m_pCue	;
-		
 	};
 
 protected:
