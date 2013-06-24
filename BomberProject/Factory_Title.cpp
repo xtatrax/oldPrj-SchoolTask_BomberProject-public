@@ -368,7 +368,7 @@ Coil::Coil(
 	const D3DXVECTOR3&			vCenter		,
 	const RECT*					pRect		
 )
-:SpriteObject( pD3DDevice, pTextureS, vScale, vRot, vPos, pRect, vCenter, g_vZero, 0xFFFFFFFF , OBJID_UI_SPRITE, false)
+:SpriteObject( pD3DDevice, pTextureS, vScale, vRot, vPos, pRect, vCenter, g_vZero, 0xFFFFFFFF , OBJID_UI_SPRITE)
 ,m_pMagnetField( NULL )
 ,m_pTextureN( pTextureN )
 ,m_pTextureS( pTextureS )
