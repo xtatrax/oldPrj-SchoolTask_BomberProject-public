@@ -135,7 +135,6 @@ Factory_Select::Factory_Select(FactoryPacket* fpac ){
 				RCTEXT_SOUND_SE_ENTER,
 				1.0f,
 				Command( GM_OPENSTAGE_LOAD_PLAY, 3, 0 ),
-				0,
 				OBJID_UI_BUTTON_NORMAL
 			)
 		);
@@ -163,7 +162,6 @@ Factory_Select::Factory_Select(FactoryPacket* fpac ){
 				RCTEXT_SOUND_SE_ENTER,
 				1.0f,
 				Command( GM_OPENSTAGE_LOAD_PLAY, 4, 0 ),
-				1,
 				OBJID_UI_BUTTON_HARD
 			)
 		);
@@ -191,7 +189,6 @@ Factory_Select::Factory_Select(FactoryPacket* fpac ){
 				RCTEXT_SOUND_SE_ENTER,
 				1.0f,
 				Command( GM_OPENSTAGE_LOAD_PLAY, 5, 0 ),
-				2,
 				OBJID_UI_BUTTON_EXTRA
 			)
 		);
@@ -218,10 +215,36 @@ Factory_Select::Factory_Select(FactoryPacket* fpac ){
 				RCTEXT_SOUND_SE_ENTER,
 				0.5f,
 				Command( GM_CHANGE_PARENTSTAGE, 0, 0 ),
-				3,
 				OBJID_UI_BUTTON_BACK
 			)
+
 		);
+
+		//fpac->AddButton(
+		//	new CustomButtonA(
+		//		fpac->pD3DDevice,	
+		//		fpac->AddTexture(L"BACK002.tga"),
+		//		fpac->AddTexture(L"BACK001.tga"),
+		//		g_vOne,
+		//		g_vZero,
+		//		D3DXVECTOR3(90.0f, 50.0f, 0.0f),
+		//		Rect(0,0,148,30),
+		//		Rect(0,0,148,30),
+		//		D3DXVECTOR3( 148.0f,15.0f,0.0f ),
+		//		g_vZero,
+		//		0xFF00AA55,
+		//		0xFF008833,
+		//		0xFFFFFFFF,
+		//		0xFFAAAAAA,
+		//		RCTEXT_SOUND_SE_SELECT,
+		//		RCTEXT_SOUND_SE_ENTER,
+		//		0.5f,
+		//		Command( GM_WITHOUT, 0, 0 ),
+		//		OBJID_UI_BUTTON_BACK,
+		//		true
+		//	)
+		//);
+
 		float	fLineLength	= 550.0f;
 		float	fPointSize	= 0.25f;
 		Factory_Cursor	MCfac( fpac, fLineLength, fPointSize )  ;

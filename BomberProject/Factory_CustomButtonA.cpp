@@ -35,8 +35,8 @@ CustomButtonA::CustomButtonA(
 	const char*					sDecisionSound			,
 	const float					fWaitTime				,
 	const Command				Com						,
-	const DWORD					dwIndex					,
 	const wiz::OBJID			id						,
+	const bool					bKillAfterIssuing		,
 	const bool					bApplyAspect	
 )
 :ButtonSprite(
@@ -54,8 +54,8 @@ CustomButtonA::CustomButtonA(
 		sDecisionSound			,
 		fWaitTime				,
 		Com						,
-		dwIndex					,
 		id						,
+		bKillAfterIssuing		,
 		bApplyAspect
 	)
 ,m_dwStringSelectColor(dwStringSelectColor)

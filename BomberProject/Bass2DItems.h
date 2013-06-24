@@ -30,6 +30,9 @@ public:
     static bool			m_bMouseLB		;
     static bool			m_bMouseRB		;
     static bool			m_bMouseMB		;
+    static bool			m_bMouseLBLock	;
+    static bool			m_bMouseRBLock	;
+    static bool			m_bMouseMBLock	;
 public:
 	friend class DxDevice;
 	friend class MouseUtilityCushion ;

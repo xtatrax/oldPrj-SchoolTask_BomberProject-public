@@ -18,25 +18,25 @@ namespace menuobject{
 
 
 ButtonSprite::ButtonSprite(
-		const LPDIRECT3DDEVICE9		pD3DDevice		,
-		const LPDIRECT3DTEXTURE9	pTexture		,
-		const D3DXVECTOR3			vScalse			,
-		const D3DXVECTOR3			vRot			,
-		const D3DXVECTOR3			vPos			,
-		const RECT*					pRect			,
-		const D3DXVECTOR3			vCenter			,
-		const D3DXVECTOR3			vOffset			,
-		const Color					dwSelectColor	,
-		const Color					dwUnSelectColor	,
-		const char*					sSelectSound	,
-		const char*					sDecisionSound	,
-		const float					fWaitTime		,
-		const Command				Com				,
-		const DWORD					dwIndex			,
-		const wiz::OBJID			id				,
+		const LPDIRECT3DDEVICE9		pD3DDevice			,
+		const LPDIRECT3DTEXTURE9	pTexture			,
+		const D3DXVECTOR3			vScalse				,
+		const D3DXVECTOR3			vRot				,
+		const D3DXVECTOR3			vPos				,
+		const RECT*					pRect				,
+		const D3DXVECTOR3			vCenter				,
+		const D3DXVECTOR3			vOffset				,
+		const Color					dwSelectColor		,
+		const Color					dwUnSelectColor		,
+		const char*					sSelectSound		,
+		const char*					sDecisionSound		,
+		const float					fWaitTime			,
+		const Command				Com					,
+		const wiz::OBJID			id					,
+		const bool					bKillAfterIssuing	,
 		const bool					bApplyAspect	
 )
-:m_ButtonState(Com,dwIndex)
+:m_ButtonState(Com)
 ,SpriteObject(pD3DDevice,pTexture,vScalse,vRot,vPos,pRect,vCenter,vOffset,dwUnSelectColor,id ,bApplyAspect)
 ,m_SelectColor(dwSelectColor)
 ,m_UnSelectColor(dwUnSelectColor)
@@ -46,6 +46,7 @@ ButtonSprite::ButtonSprite(
 ,m_fWaitTime(fWaitTime)
 ,m_fTimeAccumulator(0)
 ,m_bIsSelectWait(false)
+,m_bKillAfterIssuing(bKillAfterIssuing)
 {
 	try{
 	}
@@ -71,7 +72,6 @@ ButtonSprite::~ButtonSprite(){};
 ////            ÅF
 ////
 void ButtonSprite::Update(UpdatePacket& i_UpdatePacket){
-
 	if( Cursor2D::isHitSprite(this) ){
 		m_ButtonState.setMouseSelect(true);
 		if( !m_bIsPlaySelectSound  ){
@@ -98,6 +98,9 @@ void ButtonSprite::Update(UpdatePacket& i_UpdatePacket){
 			m_bIsSelectWait = false ;
 			m_fTimeAccumulator = 0 ;
 			m_ButtonState.setPressed(false);
+			if( m_bKillAfterIssuing ){
+				Object::setDead(); 
+			}
 	}
 };
 
@@ -121,6 +124,9 @@ void ButtonSprite::Draw(DrawPacket& i_DrawPacket){
 			i_DrawPacket.SearchSoundAndPlay(m_sDecisionSound);
 			m_bIsSelectWait = true ;
 			*i_DrawPacket.pCommand = m_ButtonState.CommandIssue();
+			if( m_bKillAfterIssuing ){
+				Object::setDead(); 
+			}
 		}
 	}else{
 		m_Color = m_UnSelectColor;

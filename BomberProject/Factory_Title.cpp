@@ -15,11 +15,13 @@
 #include "Factory_Scroll.h"
 #include "Factory_Cursor.h"
 #include "Factory_Coil.h"
+#include "Factory_CustomButtonA.h"
 
 namespace wiz{
 	namespace bomberobject{
 
 const	float	SCALE_RATE	=	1.4f;
+
 
 /************************************************************************
 ClickChar ’è‹`•”
