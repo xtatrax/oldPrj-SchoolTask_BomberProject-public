@@ -320,7 +320,7 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 			i_UpdatePacket.SearchSoundAndPlay(RCTEXT_SOUND_SE_SUPER_FULL);
 		}
 		//COIL_STATE_SUPER_READYの間はLineを更新
-		if(m_enumCoilStateSuper == COIL_STATE_SUPER_READY)Update_Line();
+		if(m_enumCoilStateSuper == COIL_STATE_SUPER_READY && m_enumCoilState != COIL_STATE_DEAD)Update_Line();
 		//ホイールクリックで無敵状態に
 		//if(m_enumCoilState == COIL_STATE_MOVE && m_enumCoilStateSuper == COIL_STATE_SUPER_READY && Cursor2D::getLButtonState() && Cursor2D::getRButtonState())m_enumCoilStateSuper = COIL_STATE_SUPER_CHANGING;
 		if(m_enumCoilState == COIL_STATE_MOVE && m_enumCoilStateSuper == COIL_STATE_SUPER_READY && Cursor2D::getMButtonState())m_enumCoilStateSuper = COIL_STATE_SUPER_CHANGING;
@@ -892,7 +892,7 @@ void PlayerCoil::Draw(DrawPacket& i_DrawPacket){
 #if defined( ON_DEBUGGINGPROCESS )
 	if( m_pDSPH ) m_pDSPH->Draw( i_DrawPacket );
 #endif
-	if(m_enumCoilStateSuper == COIL_STATE_SUPER_READY){
+	if(m_enumCoilStateSuper == COIL_STATE_SUPER_READY  && m_enumCoilState != COIL_STATE_DEAD){
 		m_pLine1->draw(i_DrawPacket.pD3DDevice);
 		m_pLine2->draw(i_DrawPacket.pD3DDevice);
 		m_pLine3->draw(i_DrawPacket.pD3DDevice);
