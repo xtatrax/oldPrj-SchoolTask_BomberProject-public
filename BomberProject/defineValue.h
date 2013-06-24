@@ -55,7 +55,7 @@
 	//-------------------------------//
 		//#define DEBUG_STRINGS_ON					/* デバッグ用文字列を有効化 */
 		//#define CF_MEMORYMANAGER_ENABLE			/* 自作メモリ管理システムを有効化 */
-		//#define CF_FULLSCREEN				/* フルスクリーンモード       */
+//		#define CF_FULLSCREEN				/* フルスクリーンモード       */
 		//#define DEBUG_STRINGS_ON			/* デバッグ用文字列を有効化 */
 
 	#else
@@ -165,7 +165,7 @@ static const wchar_t*		RCTEXT_SOUND_SOUNDBANK			= L"media/Sound/MagneticaSound.x
 static const char*			RCTEXT_SOUND_BGM_CLEAR			= "BGM-CLEAR"			;
 static const char*			RCTEXT_SOUND_BGM_GAMEOVER		= "BGM-GAME_OVER"		;
 //static const char*			RCTEXT_SOUND_BGM_PLAY		= "BGM-PLAY001"			;
-static const char*			RCTEXT_SOUND_BGM_PLAY			= "BGM-PLAY"			;
+static const char*			RCTEXT_SOUND_BGM_PLAY			= "BGM-PLAY002"			;
 static const char*			RCTEXT_SOUND_BGM_TITLE			= "BGM-TITLE"			;
 static const char*			RCTEXT_SOUND_SE_ALERT			= "SE-ALERT002"			;
 static const char*			RCTEXT_SOUND_SE_BREAKENEMY		= "SE-BLOKEN_ENEMY"		;
@@ -353,7 +353,6 @@ namespace wiz{
 
 		//	: 
 		//OBJID_3D_MAGNET			,	//	: 磁石
-		OBJID_3D_BACKGROUND			,	//	: 背景
 		OBJID_3D_WALL				,	//	: 壁
 		OBJID_3D_ITEM				,	//	: アイテム
 

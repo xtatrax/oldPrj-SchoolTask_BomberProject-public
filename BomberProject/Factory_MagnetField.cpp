@@ -32,11 +32,10 @@ namespace bomberobject{
 //// ”õl       F
 ////            F
 ////
-MagnetFieldCircle::MagnetFieldCircle(LPDIRECT3DDEVICE9 pD3DDevice,DWORD dwVertexQty)
-{
+MagnetFieldCircle::MagnetFieldCircle(LPDIRECT3DDEVICE9 pD3DDevice,DWORD dwVertexQty){
 
-	m_dwVertexQty	= dwVertexQty  ;
-	float iRotSize	= 360.0f / (dwVertexQty -2) ;
+	m_dwVertexQty	= dwVertexQty  +1 ;
+	float iRotSize	= 360.0f / (dwVertexQty -1) ;
 	Vertex* m_pVertex;
 
 	pD3DDevice->CreateVertexBuffer( Vertex::getSize() * m_dwVertexQty , D3DUSAGE_WRITEONLY, Vertex::getFVF(), D3DPOOL_MANAGED, &m_pVertexBuffer, NULL );
@@ -44,11 +43,11 @@ MagnetFieldCircle::MagnetFieldCircle(LPDIRECT3DDEVICE9 pD3DDevice,DWORD dwVertex
 
 	m_pVertex[ 0 ]	= Vertex( D3DXVECTOR3( 0.0f, 0.0f, 0.0f ) , 0x3FFFFFFF );
 
-	for ( DWORD i = 1 ; i <= m_dwVertexQty  ; i++ ){
+	for ( DWORD i = 1 ; i < m_dwVertexQty  ; i++ ){
 		m_pVertex[ i ]	= Vertex( D3DXVECTOR3(  cosf( D3DXToRadian( iRotSize * i ) ) , sinf(D3DXToRadian( iRotSize * i ) ) , 0.0f )	, 0x3FFFFFFF );
 	}
 	m_pVertexBuffer->Unlock();
-	D3DXMatrixScaling( &m_mMatrix, 10.0f, 10.0f, -0.2f );
+	D3DXMatrixScaling( &m_mMatrix, 10.0f, 10.0f, 1.0f );
 }
 
 /////////////////// ////////////////////
