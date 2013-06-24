@@ -232,6 +232,8 @@ public:
 			m_ButtonVec.push_back(&pButtonPlate->m_ButtonPrm);
  ****************************************************************************/
 class Button {
+	friend struct BassPacket;
+	friend class  Stage ;
 protected:
 	DWORD	m_Index;				//メニュー上のインデックス
 	bool	m_IsSelect;				//選択フラグ
@@ -246,6 +248,11 @@ protected:
 			MouseSelectIndex	= index ;
 		return			MouseSelectIndex	;
 	}
+	void setIndex( DWORD dwIndex ){
+		if( m_Index == ULONG_MAX ){
+			m_Index = dwIndex ;
+		}
+	}
 public:
 	/**************************************************************************
 	 Button(
@@ -256,8 +263,8 @@ public:
 	 用途: コンストラクタ
 	 戻り値: なし
 	***************************************************************************/
-    Button(Command Cmd,DWORD Index)
-		:m_Index(Index),m_IsPressed(false),m_IsSelect(false),m_Command(Cmd)
+    Button(Command Cmd)
+		:m_Index(ULONG_MAX),m_IsPressed(false),m_IsSelect(false),m_Command(Cmd)
 		,m_IsMouseSelect( false )
 	{
 		//もしインデックスが0番なら、初期状態で選択されている

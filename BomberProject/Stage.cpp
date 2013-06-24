@@ -251,8 +251,9 @@ void Stage::Update(UpdatePacket& i_UpdatePacket)
 				(*it)->Update(i_UpdatePacket) ;
 				(*it)->AccessEnd();
 			} else {
-				SAFE_DELETE( (*it) ) ;
-				it = m_Vec.erase( it ) ;
+				//EraseButton( it );
+				SAFE_DELETE( (*it) )	;
+				it = m_Vec.erase( it )	;
 				continue;
 			}
 			it++;
@@ -261,6 +262,41 @@ void Stage::Update(UpdatePacket& i_UpdatePacket)
 		Debugger::DBGSTR::addStr( L" Update時間 : %f\n", TLIB::Tempus::TwoDwTime2ElapsedTime(sc,nc));
 	}
 }
+/**************************************************************************
+ void AddButton(
+ Button* pButton	//ボタンのポインタ
+ );
+ 用途: メニューにボタンを追加する。これ以外にm_Vecにも必ず入れる
+ 戻り値: なし
+***************************************************************************/
+void Stage::EraseButton(vector<Object*>::iterator ObjIt){
+	if( (*ObjIt)->getButtonP() ){
+		Button		*pTargetButton	= (*ObjIt)->getButtonP(),
+					*pNowButton		= NULL;
+
+		DWORD dwIndex = 0;
+		vector<Button*>::iterator	it  = m_ButtonVec.begin(),
+									end = m_ButtonVec.end();
+
+		//	: サーチループ
+		while( it != end ){
+			pNowButton = (*it);
+			if( pTargetButton == pNowButton ){
+				it = m_ButtonVec.erase( it );
+				//	: 番号詰めループ
+				while( it != end ){
+					(*it)->setIndex(dwIndex);
+					dwIndex++;
+					it++;
+				}
+				break;
+			}
+			dwIndex++;
+			it++;
+		}
+	}
+}
+
 /////////////////// ////////////////////
 //// 関数名     ：void Render(RenderPacket& i_RenderPacket);
 //// カテゴリ   ：関数
@@ -380,6 +416,7 @@ void Stage::CommandTranslator(DrawPacket& i_DrawPacket){
 };
 void Stage::AddButton(wiz::Object* pButton){
 	Button* pb = pButton->getButtonP();
+	pb->setIndex(m_ButtonVec.size());
 	m_ButtonVec.push_back( pb );
 }
 /*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/

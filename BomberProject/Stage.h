@@ -41,6 +41,7 @@ protected:
 	friend struct UpdatePacket		;
 	friend struct RenderPacket		;
 	friend struct DrawPacket		;
+	friend class  Button			;
 	//	: メニュー等の画面へのポインタをとっておく
 	Stage*						m_pParStage		;	//	: 親ステージ
 	Stage*						m_pChildStage	;	//	: 子ステージ
@@ -54,14 +55,22 @@ protected:
 	vector<Button*>::size_type	m_SelectIndex	;
 	bool m_SelectLock;
 	bool m_IsAnimetion;
-/**************************************************************************
- void AddButton(
- Button* pButton	//ボタンのポインタ
- );
- 用途: メニューにボタンを追加する。これ以外にm_Vecにも必ず入れる
- 戻り値: なし
-***************************************************************************/
+	/**************************************************************************
+	 void AddButton(
+	 Button* pButton	//ボタンのポインタ
+	 );
+	 用途: メニューにボタンを追加する。これ以外にm_Vecにも必ず入れる
+	 戻り値: なし
+	***************************************************************************/
 	void AddButton(Object* pButton);
+	/**************************************************************************
+	 void AddButton(
+	 Button* pButton	//ボタンのポインタ
+	 );
+	 用途: メニューにボタンを追加する。これ以外にm_Vecにも必ず入れる
+	 戻り値: なし
+	***************************************************************************/
+	void EraseButton(vector<Object*>::iterator ObjIt);
 #if defined(DEBUG) | defined(_DEBUG) | defined(ON_DEBUGGINGPROCESS)
 	bool m_bSlow;
 #endif
