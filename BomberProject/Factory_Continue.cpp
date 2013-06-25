@@ -208,7 +208,7 @@ Dead::Dead(	const LPDIRECT3DDEVICE9 pD3DDevice,const  LPDIRECT3DTEXTURE9 pTextur
 		D3DXVECTOR3	vCountCharPos	= D3DXVECTOR3( wide-256-40, height, 0.0f );
 
 		m_pDeadScore			= new Score( pD3DDevice, pDeadCountTex, vScoreScale, vScorePos, iCount, &Rect( 0, 0, 512, 64 ) );
-		m_pDeadCountChar		= new SpriteObject( pD3DDevice, pCountCharTex, vCountCharScale, g_vZero, vCountCharPos, NULL, g_vZero,g_vZero );
+		m_pDeadCountChar		= new SpriteObject( pD3DDevice, pCountCharTex, vCountCharScale, g_vZero, vCountCharPos, &Rect( 0, 192, 512, 256 ), g_vZero,g_vZero );
 
 	}
 	catch(...){
