@@ -182,6 +182,8 @@ static const char*			RCTEXT_SOUND_SE_SUPER_FULL		= "SE-ITEM_FULL"		;
 static const char*			RCTEXT_SOUND_SE_SETFIELD		= "SE-MAGNETIC_FIELD"	;
 static const char*			RCTEXT_SOUND_SE_SPARK			= "SE-SPARK002"			;
 static const char*			RCTEXT_SOUND_SE_SPARK_WARNING	= "SE-SPARK002"			;
+static const char*			RCTEXT_SOUND_SE_COUNT_UP		= "SE-COUNT_UP"			;
+static const char*			RCTEXT_SOUND_SE_COUNT_FINISH	= "SE-COUNT_FINISH"		;
 
 static const char*			RCTEXT_MODEL_ENEMY				= "media/Model/mine.x"	;
 
