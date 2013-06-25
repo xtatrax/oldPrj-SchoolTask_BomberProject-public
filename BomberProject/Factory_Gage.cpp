@@ -250,8 +250,6 @@ void Gage::Update( UpdatePacket& i_UpdatePacket ){
 	//ƒQ[ƒW‚Ì•`‰æ
 	m_GaugeRect.right  = m_BassRect.right ;
 	m_GaugeRect.right  = (LONG)( m_GaugeRect.right * m_fRate ) ;
-	//m_GaugeRect.right  = m_BassRect.left - m_BassRect.right ;
-	//m_GaugeRect.right *= 1.0f - m_fRate ;
 	
 }
 
@@ -598,13 +596,10 @@ void MagneticGage_N::Update( UpdatePacket& i_UpdatePacket ){
 	D3DXMATRIX	mPos, mScale ;
 	D3DXVECTOR3 vPos ;
 	vPos.x	= (float)m_pCursor->get2DPos().x	;
-	vPos.y	= (float)m_pCursor->get2DPos().y + m_fMovePos/*+  m_GaugeRect.top*/	;
+	vPos.y	= (float)m_pCursor->get2DPos().y + m_fMovePos;
 	vPos.z	= 0.0f	;
 	D3DXMatrixScaling( &mScale, m_vScale.x, m_vScale.y/2, m_vScale.z );
 	if( m_pCursor->getReverse() ){
-		/*//
-		vPos.x -= g_GaugeReverseSize.cx + 40;
-		//*/
 		D3DXMATRIX m;
 		D3DXMatrixScaling( &m, -1,1,1);
 		D3DXMatrixMultiply(&mScale,&mScale,&m);
@@ -713,16 +708,12 @@ void MagneticGage_S::Update( UpdatePacket& i_UpdatePacket ){
 
 	D3DXMATRIX	mPos, mScale ;
 	D3DXVECTOR3 vPos ;
-	//23.0f ã
-	//31.0f ‰º
+
 	vPos.x	 = (float)m_pCursor->get2DPos().x	;
-	vPos.y	 = (float)m_pCursor->get2DPos().y + m_fMovePos/*+  m_GaugeRect.top*/	;
+	vPos.y	 = (float)m_pCursor->get2DPos().y + m_fMovePos	;
 	vPos.z	 = 0.0f	;
 	D3DXMatrixScaling( &mScale, m_vScale.x, m_vScale.y/2, m_vScale.z );
 	if( m_pCursor->getReverse() ){
-		/*//
-		vPos.x -= g_GaugeReverseSize.cx + 40;
-		//*/
 		D3DXMATRIX m;
 		D3DXMatrixScaling( &m, -1,1,1);
 		D3DXMatrixMultiply(&mScale,&mScale,&m);
