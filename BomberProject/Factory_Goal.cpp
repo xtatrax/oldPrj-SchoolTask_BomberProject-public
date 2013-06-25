@@ -225,24 +225,28 @@ void FMemoryTex::OrientGoal(UpdatePacket& i_UpdatePacket){
 	const float	rate		= 0.1f;			//ˆÚ“®‚·‚é‘¬‚³
 	const float	ScaleRate	= rate*rate;	//‘å‚«‚³‚Ì•Ï‰»—¦
 	const float DirRate		= rate*60;		//Šp“x‚Ì•Ï‰»—¦
-	const float	OrientPos	= m_vPos.x + (m_vScale.x / 2 - 4) +1.0f ;	//Œü‚©‚¤‚×‚«ˆÊ’u
+	const float	OrientPos	= m_vPos.x + (m_vScale.x / 2 - 4) -7.3f ;	//Œü‚©‚¤‚×‚«ˆÊ’u
 
 	int			dirPtn		= 1;		//Œü‚­‚×‚«Šp“x‚ðŽ¦‚·
 	const float	TopDir		= 90.0f;	//ã‚ðŒü‚¢‚½Žž‚Ì‚ÌŠp“x
 	const float	RightDir	= 0.0f;		//‰E‚ðŒü‚¢‚½Žž‚Ì‚ÌŠp“x
 	const float	LeftDir		= 180.0f;	//¶‚ðŒü‚¢‚½Žž‚Ì‚ÌŠp“x
 
-	const float LeastScale	= 0.3f;	//Å‚àk¬‚µ‚½Žž‚Ì‘å‚«‚³
+	static float LeastScale	= 0.3f;	//Å‚àk¬‚µ‚½Žž‚Ì‘å‚«‚³
 
 	//****************************
 	//‘å‚«‚³‚Ì•ÏX
 	if( scale.x > LeastScale ){
 		scale.x	-= ScaleRate;
+		scale.y	-= ScaleRate;
 		scale.z	-= ScaleRate;
 	}
 	else{
 		scale.x	= LeastScale;
 		scale.y	= LeastScale;
+		scale.z	= LeastScale;
+
+		if( scale.x == 0 )	m_bEnding	= true;
 	}
 	//****************************
 	//ˆÊ’u‚Ì•ÏX
@@ -275,8 +279,8 @@ void FMemoryTex::OrientGoal(UpdatePacket& i_UpdatePacket){
 					dirPtn	 = 3;
 				}
 				else{
-					m_bEnding	= true;
 					m_iPtn		= 5;
+					LeastScale	= 0;
 				}
 				break;
 		default:
@@ -313,11 +317,17 @@ void FMemoryTex::OrientGoal(UpdatePacket& i_UpdatePacket){
 		m_pCoil->setScale(scale);
 		m_pCoil->setDir(dir);
 	}
-	else{
-		i_UpdatePacket.pCommand->m_Command	= GM_OPENSTAGE_CLEAR;
-		i_UpdatePacket.pCommand->m_Param1	= m_pCoil->getDeadCount();
-		i_UpdatePacket.pCommand->m_Param2	= m_pCoil->getMaxPos();
-		i_UpdatePacket.pCommand->m_Param3	= m_pCoil->getScratchTime();
+	else{ 
+		static float s_fTimeCount = 0.0f;
+		s_fTimeCount += (float)i_UpdatePacket.pTime->getElapsedTime();
+		if(s_fTimeCount >= 0.5f){
+			i_UpdatePacket.pCommand->m_Command	= GM_OPENSTAGE_CLEAR;
+			i_UpdatePacket.pCommand->m_Param1	= m_pCoil->getDeadCount();
+			i_UpdatePacket.pCommand->m_Param2	= m_pCoil->getMaxPos();
+			i_UpdatePacket.pCommand->m_Param3	= m_pCoil->getScratchTime();
+			s_fTimeCount = 0.0f;
+			LeastScale	 = 0.3f;
+		}
 	}
 }
 
