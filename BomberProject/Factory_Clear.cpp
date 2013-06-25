@@ -196,7 +196,7 @@ Factory_Clear::Factory_Clear(FactoryPacket* fpac, int iDeadCount, int iMaxPosY, 
 		fpac->m_pVec->push_back(
 			new ClickChar(
 					fpac->pD3DDevice,
-					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Click_Please1.png"),
+					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"user_txt.png"),
 					D3DXVECTOR3( 0.5f, 0.5f, 0.0f ),
 					g_vZero,
 					g_vZero,
