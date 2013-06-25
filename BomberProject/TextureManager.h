@@ -179,7 +179,7 @@ public:
 class TextureManager::Texture{
 	
 	LPDIRECT3DTEXTURE9	m_pTexture     ;
-	wstring				m_strTexName   ;
+	//wstring				m_strTexName   ;
 	wstring				m_strFilePath  ;
 
 public:

@@ -23,6 +23,56 @@
 namespace wiz{
 namespace bomberobject{
 
+
+class ContinueBehavior : public Behavior{
+	PlayerCoil*			m_pCoil			;
+	ButtonSprite		m_YesButton		;
+	ButtonSprite		m_NoButton		;
+	SpriteObject		m_PageName		;
+	LPDIRECT3DTEXTURE9	m_pDeadTex		;
+	LPDIRECT3DTEXTURE9	m_pContinueTex	;
+	LPDIRECT3DTEXTURE9	m_pCheckTex		;
+	bool				m_bIsCheck		;
+public:
+	ContinueBehavior(BassPacket& i_BassPacket);
+	/////////////////// ////////////////////
+	//// 用途       ：void Draw( DrawPacket& i_DrawPacket )
+	//// カテゴリ   ：関数
+	//// 用途       ：オブジェクトをディスプレイに表示する
+	//// 引数       ：  DrawPacket& i_DrawPacket             // 画面描画時に必要なデータ群 ↓内容下記
+	////            ：  ├ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 インターフェイスへのポインタ
+	////            ：  ├ vector<Object*>&    Vec                     // オブジェクトの配列
+	////            ：  ├ Tempus2*            i_DrawPacket.pTime	   // 時間を管理するクラスへのポインター
+	////            ：  └ Command             i_DrawPacket.pCommand   // コマンド
+	//// 戻値       ：無し
+	//// 担当者     ：鴫原 徹
+
+	//// 備考       ：
+	void Draw( DrawPacket& i_DrawPacket );
+
+	/////////////////// ////////////////////
+	//// 用途       ：void Update( UpdatePacket& i_UpdatePacket )
+	//// カテゴリ   ：関数
+	//// 用途       ：オブジェクトを更新
+	//// 引数       ：
+	//// 戻値       ：無し
+	//// 担当者     ：鴫原 徹
+	//// 備考       ：
+	////            ：
+	////
+	void Update( UpdatePacket& i_UpdatePacket );
+
+};
+
+
+
+
+
+
+
+
+
+
 /*************************************************************************
 class Reply  public SpriteObject
 
