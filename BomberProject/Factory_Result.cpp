@@ -180,7 +180,7 @@ Factory_Result::Factory_Result(FactoryPacket* fpac, int iDeadCount, int iMaxPosY
 				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"TEST.png" ),
 				D3DXVECTOR3( 1.0f, 1.5f, 0.0f ),
 				g_vZero,
-				D3DXVECTOR3( wide-430.0f, height+85.0f, 0.0f ),
+				D3DXVECTOR3( wide-430.0f, height+86.0f, 0.0f ),
 				Rect( 0, 65, 512, 128),
 				g_vZero,
 				g_vZero,

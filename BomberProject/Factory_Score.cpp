@@ -770,7 +770,7 @@ Factory_Score::Factory_Score(FactoryPacket *fpac){
 					D3DXVECTOR3( 1.0f, 1.0f, 0.0f ),
 					g_vZero,
 					D3DXVECTOR3( 10.0f, 10.0f, 0.0f ),		
-					&Rect( 128, 96, 256, 128 ),
+					&Rect( 129, 96, 256, 127 ),
 					g_vZero,
 					g_vZero
 			)
