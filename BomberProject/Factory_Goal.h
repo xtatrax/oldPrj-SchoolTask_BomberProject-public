@@ -32,6 +32,7 @@ class FMemoryTex : public PrimitiveBox{
 	D3DXVECTOR3		m_vScale ;
 	D3DXVECTOR3		m_vPos ;
 	int				m_iPtn;
+	bool			m_bEnding;
 	struct mItem{
 		D3DMATERIAL9	mMaterial;
 		D3DXMATRIX		mMatrix;

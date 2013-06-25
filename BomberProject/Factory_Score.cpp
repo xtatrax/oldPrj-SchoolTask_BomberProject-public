@@ -668,7 +668,6 @@ ResultScore::ResultScore(LPDIRECT3DDEVICE9	pD3DDevice,
 						D3DXVECTOR3( wide+90.0f, height+5.0f, 0.0f ), iDead, iDightDead, false, &rScoreRect);
 	m_pTotal	= new AnimationScore( pD3DDevice, m_pMaxPosTex, D3DXVECTOR3( 1.0f, 1.0f, 0.0f ),
 						D3DXVECTOR3( 500.0f, height+160.0f, 0.0f ), TotalScore, iDightTotal, true, &rScoreRect);
-						//D3DXVECTOR3( wide+90.0f, height+120.0f, 0.0f ), TotalScore, iDightTotal, true, &rScoreRect);
 	m_pRate_10	= new SpriteObject( pD3DDevice, m_pRate10Tex, vRateSize, g_vZero, 
 									D3DXVECTOR3( wide+340.0f, height-140.0f+15.0f, 0.0f ), Rect( 0, 0, 256, 64 ),g_vZero, g_vZero );
 	m_pRate_1	= new SpriteObject( pD3DDevice, m_pRate1Tex, vRateSize, g_vZero, 
