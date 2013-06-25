@@ -53,7 +53,11 @@ class EnemyModel : public SimpleCommonMesh {
 
 		DeadEffect*		m_pDeadEffect[PARTICLS_NUM_ENEMY]	;
 		EnemyItem():m_bHidden(true){}
-		virtual ~EnemyItem(){}
+		virtual ~EnemyItem(){
+			for( int i=0; i<PARTICLS_NUM_ENEMY; i++ ){
+				SafeDelete( m_pDeadEffect[i] );
+			}
+		}
 	};
 	
 	//map<オブジェクトのポジション,WallItem>
