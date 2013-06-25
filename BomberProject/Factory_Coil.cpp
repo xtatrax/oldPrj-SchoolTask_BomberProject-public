@@ -444,6 +444,7 @@ void	PlayerCoil::CreateEffect( UpdatePacket& i_UpdatePacket ){
 	m_pDeadChar	= new Dead( i_UpdatePacket.pD3DDevice, m_pDeadCharTex, m_pDeadCountTex, m_pCountCharTex,
 							m_iDeadCount, vScale,g_vZero,vPos,NULL,g_vZero,g_vZero);
 
+	//i_UpdatePacket.AddObject(new ContinueBehavior( i_UpdatePacket ));
 	//Yes,No�̍쐬
 	m_pSelect	= new Continue( i_UpdatePacket.pD3DDevice, m_pAnswerTex, NULL, NULL, true, D3DXVECTOR3(1.0f,1.0f,0.0f),g_vZero,
 								D3DXVECTOR3( wide-128.0f,height-50.0f,0.0f ),Rect( 0,0,256,64 ), g_vZero, g_vZero );

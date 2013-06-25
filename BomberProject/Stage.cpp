@@ -200,7 +200,7 @@ void Stage::Update(UpdatePacket& i_UpdatePacket)
 	i_UpdatePacket.pVec		= &m_Vec ;
 	//i_UpdatePacket.m_pStage	= this ;
 	i_UpdatePacket.SetStage( this );
-
+	i_UpdatePacket.pTxMgr = &m_TexMgr ;
 #if defined(DEBUG) | defined(_DEBUG) | defined(ON_DEBUGGINGPROCESS)
 	float fElapsedTime = (float)i_UpdatePacket.pTime->getElapsedTime();
 	if(GetAsyncKeyState( MYVK_DEBUG_STOP_UPDATE )){
@@ -251,7 +251,7 @@ void Stage::Update(UpdatePacket& i_UpdatePacket)
 				(*it)->Update(i_UpdatePacket) ;
 				(*it)->AccessEnd();
 			} else {
-				//EraseButton( it );
+				EraseButton( it );
 				SAFE_DELETE( (*it) )	;
 				it = m_Vec.erase( it )	;
 				continue;
@@ -283,17 +283,26 @@ void Stage::EraseButton(vector<Object*>::iterator ObjIt){
 			pNowButton = (*it);
 			if( pTargetButton == pNowButton ){
 				it = m_ButtonVec.erase( it );
-				//	: ”Ô†‹l‚ßƒ‹[ƒv
-				while( it != end ){
-					(*it)->setIndex(dwIndex);
-					dwIndex++;
-					it++;
-				}
+			//	//	: ”Ô†‹l‚ßƒ‹[ƒv
+			//	while( it != end ){
+			//		(*it)->setIndex(dwIndex);
+			//		dwIndex++;
+			//		it++;
+			//	}
+			//	break;
 				break;
 			}
-			dwIndex++;
 			it++;
 		}
+		it  = m_ButtonVec.begin()	;
+		end = m_ButtonVec.end()		;
+
+		//	: ”Ô†‹l‚ßƒ‹[ƒv
+		while( it != end ){
+			(*it)->setIndex( dwIndex++ );
+			it++;
+		}
+
 	}
 }
 

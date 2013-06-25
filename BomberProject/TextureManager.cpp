@@ -291,6 +291,7 @@ LPDIRECT3DTEXTURE9 TextureManager::addTextureExLight(
 ////            ÅF
 ////
 LPDIRECT3DTEXTURE9 TextureManager::TextureSearchFromName(const wchar_t* filename) {
+	if( m_vecTextures.empty() ) return NULL ;
 	vector< Texture* >::iterator it;
 	for(it = m_vecTextures.begin();it != m_vecTextures.end();it++){
 		if((*it)->checkTextureName(filename))
@@ -308,6 +309,7 @@ LPDIRECT3DTEXTURE9 TextureManager::TextureSearchFromName(const wchar_t* filename
 ////            ÅF
 ////
 LPDIRECT3DTEXTURE9 TextureManager::TextureSearchFromFilePath(const wchar_t* path){
+	if( m_vecTextures.empty() ) return NULL ;
 	vector< Texture* >::iterator it;
 	for(it = m_vecTextures.begin();it != m_vecTextures.end();it++){
 		if((*it)->checkFilePath(path))
@@ -335,7 +337,7 @@ LPDIRECT3DTEXTURE9 TextureManager::TextureSearchFromFilePath(const wchar_t* path
 TextureManager::Texture::Texture(LPDIRECT3DDEVICE9 pD3DDevice,const wchar_t* filepath,const wchar_t* texturename )
 :m_pTexture( 0 )
 ,m_strFilePath( filepath )
-,m_strTexName( texturename )
+//,m_strTexName( texturename )
 {
 	try{
 		wstring sFileName ;
@@ -408,7 +410,7 @@ TextureManager::Texture::Texture(LPDIRECT3DDEVICE9 pD3DDevice,const wchar_t* fil
     DWORD MipFilter, D3DCOLOR ColorKey, D3DXIMAGE_INFO *pSrcInfo, PALETTEENTRY *pPalette, const wchar_t* texturename )
 :m_pTexture(0)
 ,m_strFilePath(filepath)
-,m_strTexName(texturename)
+//,m_strTexName(texturename)
 {
 	try{
 		 
@@ -464,7 +466,8 @@ TextureManager::Texture::~Texture(){
 }
 
 bool TextureManager::Texture::checkTextureName( wstring name ) const{
-	return  (m_strTexName != L"" ) && (m_strTexName == name);
+	//return  (m_strTexName != L"" ) && (m_strTexName == name);
+	return false ;
 }
 
 bool TextureManager::Texture::checkFilePath( wstring filepath ) const{

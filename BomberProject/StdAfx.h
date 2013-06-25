@@ -93,7 +93,7 @@ using namespace std;
 //
 #include "resource1.h"
 
-#include "DefineValue.h"
+#include "ComparingFlags.h"
 #include "userInclude.h"
 
 extern wiz::RENDERSTATE_PARAM g_GlobalRenderStates[];

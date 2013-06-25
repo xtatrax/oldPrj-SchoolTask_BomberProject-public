@@ -22,64 +22,6 @@
 
 
 //////////
-//	: コンパイリングフラグ
-#define CF_SINGLETHREAD					/* シングルスレッドモード  ( 無効にするとマルチスレッド的になりますがバグります )   */
-#define DRAW_MOUSE	(false)				/* マウスを描画するかどうか */
-
-#define DEBUG_KEYBORD_ON				/* デバッグ用キーボード操作を有効化 */
-#define CF_OVERLORDNEW_ENABLE			/* 自作のnewを強制化(Manager有効時) */
-#define CF_MEMORYOUTPUTPROCESS_ENABLE	/* 自作メモリ管理システムにより管理されているアイテムのファイルへの書き出しを可能にする(Manager有効時) */
-///#define CF_LOADINGANIMATION			/* ロード画面でアニメーション */
-//#define CF_OVERLORDNEW_ENABLE			/* 自作のnewを強制化 */
-
-#define CF_DEBUG_TIMEDRAW				/* 時間を描画 */
-//#define CF_LOADINGANIMATION			/* ロード画面でアニメーション */
-
-
-#if defined(DEBUG) || defined(_DEBUG)
-	//-------------------------------//
-	//		デバッグモード定義       //
-	//-------------------------------//
-	#define ON_DEBUGGINGPROCESS					/* デバックモード             */
-	//#define DEBUG_STRINGS_ON					/* デバッグ用文字列を有効化 */
-	//#define CF_DEBUGINFORMATIONWINDOW_ENABLE	/* デバッグ情報表示用ウインドウを有効化 */
-	//#define CF_MEMORYMANAGER_ENABLE			/* 自作メモリ管理システムを有効化 */
-	//#define CF_FULLSCREEN				/* フルスクリーンモード       */
-
-	//#define ___MLP_DEBUG_TIMEDRAW_ 
-	//#define ON_GUIDELINE
-#else
-	#if defined( PRESENTATION )
-	//-------------------------------//
-	//		プレゼンモード定義       //
-	//-------------------------------//
-		//#define DEBUG_STRINGS_ON					/* デバッグ用文字列を有効化 */
-		//#define CF_MEMORYMANAGER_ENABLE			/* 自作メモリ管理システムを有効化 */
-//		#define CF_FULLSCREEN				/* フルスクリーンモード       */
-		//#define DEBUG_STRINGS_ON			/* デバッグ用文字列を有効化 */
-
-	#else
-	//-------------------------------//
-	//		リリースモード定義       //
-	//-------------------------------//
-
-		#define CF_FULLSCREEN				/* フルスクリーンモード       */
-	#endif
-
-#endif
-//
-//////////
-
-//////////
-// マクロ関数
-
-#define TL_SQUARE(n)							((n)*(n))
-
-//
-//////////
-
-
-//////////
 //	: グローバルな変数
 
 //	: デファイン定数
@@ -233,6 +175,11 @@ namespace wiz{
 		GM_CHANGE_PARENTSTAGE	,
 		GM_CHANGE_CHILDSTAGE	,
 
+
+		GM_BUTTON_YES	,
+		GM_BUTTON_NO	,
+
+
 		//////////
 		//	: 
 		GM_PLAYOPENING_END	,
@@ -289,6 +236,7 @@ namespace wiz{
 
 		OBJID_BEHAVIOR_TEST					,
 		OBJID_BEHAVIOR_CHECKPOINTSAVE		,
+		OBJID_BEHAVIOR_CONTINUECHECK		,
 
 		//	:サウンドまわり
 		//	:BGM
