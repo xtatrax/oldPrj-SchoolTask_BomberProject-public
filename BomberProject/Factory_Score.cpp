@@ -766,11 +766,11 @@ Factory_Score::Factory_Score(FactoryPacket *fpac){
 		//Time
 		fpac->m_pVec->push_back(
 			new SpriteObject( fpac->pD3DDevice,
-					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"TIME2.png" ),
-					D3DXVECTOR3( 0.5f, 0.5f, 0.0f ),
+					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"GAGE.png" ),
+					D3DXVECTOR3( 1.0f, 1.0f, 0.0f ),
 					g_vZero,
 					D3DXVECTOR3( 10.0f, 10.0f, 0.0f ),		
-					&Rect( 0, 0, 256, 64 ),
+					&Rect( 128, 96, 256, 128 ),
 					g_vZero,
 					g_vZero
 			)
@@ -779,11 +779,11 @@ Factory_Score::Factory_Score(FactoryPacket *fpac){
 		//DeadCount
 		fpac->m_pVec->push_back(
 			new SpriteObject( fpac->pD3DDevice,
-					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"dead_count1.png" ),
+					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"TEST.png" ),
 					D3DXVECTOR3( 0.5f, 0.5f, 0.0f ),
 					g_vZero,
 					D3DXVECTOR3( 760.0f, 13.0f, 0.0f ),					
-					&Rect( 0, 0, 512, 64 ),
+					&Rect( 0, 192, 512, 256 ),
 					g_vZero,
 					g_vZero
 			)
@@ -818,11 +818,11 @@ Factory_Score::Factory_Score(FactoryPacket *fpac){
 		//Slash
 		fpac->m_pVec->push_back(
 			new SpriteObject( fpac->pD3DDevice,
-					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"slash.png" ),
+					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"GAGE.png" ),
 					D3DXVECTOR3( 0.5f, 0.5f, 0.0f ),
 					g_vZero,
 					D3DXVECTOR3( 870.0f, 550.0f, 0.0f ),					
-					&Rect( 0, 0, 64, 64 ),
+					&Rect( 64, 192, 128, 256 ),
 					g_vZero,
 					g_vZero
 			)

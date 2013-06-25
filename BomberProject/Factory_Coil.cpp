@@ -107,12 +107,12 @@ PlayerCoil::PlayerCoil(
 //テクスチャ*********************************************************************
 ,m_pDeadTex(			m_pTexMgr->addTexture( pD3DDevice, L"DeadPerticul.png"	))
 ,m_pContinueTex(		m_pTexMgr->addTexture( pD3DDevice, L"CONTINUE4.png"		))
-,m_pTitleTex(			m_pTexMgr->addTexture( pD3DDevice, L"GAME_END3.png"		))
+,m_pTitleTex(			NULL )
 ,m_pDeadCharTex(		m_pTexMgr->addTexture( pD3DDevice, L"dead6.png"			))
 ,m_pDeadCountTex(		m_pTexMgr->addTexture( pD3DDevice, L"Number_Base1.png"	))
 ,m_pRethinkingTex(		m_pTexMgr->addTexture( pD3DDevice, L"REALLY4.png"		))
-,m_pAnswerTex(			m_pTexMgr->addTexture( pD3DDevice, L"YESorNO.png"		))
-,m_pCountCharTex(		m_pTexMgr->addTexture( pD3DDevice, L"dead_count1.png"	))
+,m_pAnswerTex(			m_pTexMgr->addTexture( pD3DDevice, L"TEST.png"		))
+,m_pCountCharTex(		m_pTexMgr->addTexture( pD3DDevice, L"TEST.png"	))
 //**********************************************************************************
 ,m_iMaxPosY(				0								)
 ,m_iScratchTime(			0								)
