@@ -107,12 +107,12 @@ PlayerCoil::PlayerCoil(
 //テクスチャ*********************************************************************
 ,m_pDeadTex(			m_pTexMgr->addTexture( pD3DDevice, L"DeadPerticul.png"	))
 ,m_pContinueTex(		m_pTexMgr->addTexture( pD3DDevice, L"CONTINUE4.png"		))
-,m_pTitleTex(			m_pTexMgr->addTexture( pD3DDevice, L"GAME_END3.png"		))
+,m_pTitleTex(			NULL )
 ,m_pDeadCharTex(		m_pTexMgr->addTexture( pD3DDevice, L"dead6.png"			))
 ,m_pDeadCountTex(		m_pTexMgr->addTexture( pD3DDevice, L"Number_Base1.png"	))
 ,m_pRethinkingTex(		m_pTexMgr->addTexture( pD3DDevice, L"REALLY4.png"		))
-,m_pAnswerTex(			m_pTexMgr->addTexture( pD3DDevice, L"YESorNO.png"		))
-,m_pCountCharTex(		m_pTexMgr->addTexture( pD3DDevice, L"dead_count1.png"	))
+,m_pAnswerTex(			m_pTexMgr->addTexture( pD3DDevice, L"TEST.png"		))
+,m_pCountCharTex(		m_pTexMgr->addTexture( pD3DDevice, L"TEST.png"	))
 //**********************************************************************************
 ,m_iMaxPosY(				0								)
 ,m_iScratchTime(			0								)
@@ -141,7 +141,7 @@ PlayerCoil::PlayerCoil(
 	m_pSelect	= NULL;
 	m_pSelect2	= NULL;
 	m_pDeadChar	= NULL;
-	m_pSphere->ShaderChange( new CookTrance(pD3DDevice) );
+	//m_pSphere->ShaderChange( new CookTrance(pD3DDevice) );
 
 	const	D3DXVECTOR3	vDir1	= D3DXVECTOR3( cosf( D3DXToRadian(45.0f) ), sinf( D3DXToRadian(45.0f) ), 0.0f );
 	const	D3DXVECTOR3	vDir2	= D3DXVECTOR3( cosf( D3DXToRadian(315.0f) ), sinf( D3DXToRadian(315.0f) ), 0.0f );
@@ -444,7 +444,6 @@ void	PlayerCoil::CreateEffect( UpdatePacket& i_UpdatePacket ){
 	m_pDeadChar	= new Dead( i_UpdatePacket.pD3DDevice, m_pDeadCharTex, m_pDeadCountTex, m_pCountCharTex,
 							m_iDeadCount, vScale,g_vZero,vPos,NULL,g_vZero,g_vZero);
 
-	//i_UpdatePacket.AddObject(new ContinueBehavior( i_UpdatePacket ));
 	//Yes,Noの作成
 	m_pSelect	= new Continue( i_UpdatePacket.pD3DDevice, m_pAnswerTex, NULL, NULL, true, D3DXVECTOR3(1.0f,1.0f,0.0f),g_vZero,
 								D3DXVECTOR3( wide-128.0f,height-50.0f,0.0f ),Rect( 0,0,256,64 ), g_vZero, g_vZero );
@@ -867,6 +866,16 @@ void PlayerCoil::Draw(DrawPacket& i_DrawPacket){
 	if(m_enumCoilStateSuper == COIL_STATE_SUPER_MOVE || m_enumCoilStateSuper == COIL_STATE_SUPER_CHANGING){
 		m_pSuperField->Draw(i_DrawPacket);
 	}
+#if defined( ON_DEBUGGINGPROCESS )
+	if( m_pDSPH ) m_pDSPH->Draw( i_DrawPacket );
+#endif
+	//ライン用にワールド座標再定義
+	D3DXMATRIX	mRot, mPos;
+	D3DXMatrixIdentity( &mRot );
+	D3DXMatrixTranslation( &mPos, m_vPos.x, m_vPos.y, m_vPos.z );
+	m_Matrix	= mRot*mPos;
+	i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &m_Matrix);
+
 	if(m_enumCoilStateSuper == COIL_STATE_SUPER_READY){
 		m_pLine1->draw(i_DrawPacket.pD3DDevice);
 		m_pLine2->draw(i_DrawPacket.pD3DDevice);
@@ -1041,6 +1050,7 @@ void PlayerCoil::Update_Line(){
 		vBaseLinePos = D3DXVECTOR3(-m_pLine1->getEndPos().x,-m_pLine2->getEndPos().y,0.0f),
 					vLinePos;
 	static float	s_fMovingDistance	= 0.0f;
+	D3DXMatrixScaling( &mLineScale, vLineScale.x, vLineScale.y, vLineScale.z );
 	
 	//左上部
 	vLinePos	= D3DXVECTOR3(vBaseLinePos.x - s_fMovingDistance, 

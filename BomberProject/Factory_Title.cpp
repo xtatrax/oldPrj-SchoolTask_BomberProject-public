@@ -706,7 +706,7 @@ Factory_Title::Factory_Title(FactoryPacket* fpac){
 			)
 		);
 		pSound->SearchSoundAndPlay( RCTEXT_SOUND_BGM_TITLE );
-
+//*/
 	}
 	catch(...){
 		//çƒthrow

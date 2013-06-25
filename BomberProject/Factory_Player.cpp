@@ -136,6 +136,7 @@ void ProvisionalPlayer3D::Update( UpdatePacket& i_UpdatePacket ){
 							m_MagneticField.setPole(POLE_S);
 						}
 
+						//磁界の属性を設定
 						if( Suction )
 							setPoleN() ;
 						if( Rebound )
@@ -143,11 +144,7 @@ void ProvisionalPlayer3D::Update( UpdatePacket& i_UpdatePacket ){
 					}
 				}
 
-				/********************
-				L : コイルの極と反対のゲージをConsume
-				R : コイルの極と同じゲージをConsume
-				********************/
-
+				//現在消費中のゲージが残っているならはいる
 				if( (Suction && m_pMGage_N->getRate() > GAUGE_VANISHRATE) || (Rebound && m_pMGage_S->getRate() > GAUGE_VANISHRATE) ){	
 	
 					if( Suction  && !Rebound && m_pPlayerCoil->getState() != COIL_STATE_STICK )m_pMGage_N->Consume(PLAYER_CONSUME_POIMT);
@@ -163,12 +160,7 @@ void ProvisionalPlayer3D::Update( UpdatePacket& i_UpdatePacket ){
 				}
 			}
 			else{
-				if( m_pPlayerCoil->getState() == COIL_STATE_STICK && (!m_pPlayerCoil->getReadyToStart()) ){
-					m_bDrawing	= true;
-				}
-				else{
-					m_bDrawing	= false;					
-				}
+				m_bDrawing	= false;					
 			}
 		}else{
 			if(m_pPlayerCoil->getState() != COIL_STATE_STICK){
@@ -179,6 +171,7 @@ void ProvisionalPlayer3D::Update( UpdatePacket& i_UpdatePacket ){
 		}
 		m_bChangeFirst	= true;
 	}else{
+		//COIL_STATE_STICKだが、アニメーションが終わっていない
 		if( m_pPlayerCoil->getState() == COIL_STATE_STICK ){
 			m_bDrawing	= true;
 			if( m_pMGage_N && m_pMGage_S && m_bChangeFirst){
@@ -187,20 +180,19 @@ void ProvisionalPlayer3D::Update( UpdatePacket& i_UpdatePacket ){
 				fRate	= m_pMGage_N->getRate();
 				m_pMGage_N->setRate( m_pMGage_S->getRate() );
 				m_pMGage_S->setRate( fRate );
-				//***********************************************
 				//位置の入れ替え*******************************
 				m_pMGage_N->ChangePos();
 				m_pMGage_S->ChangePos();
 				//***********************************************
 				m_bChangeFirst	= false;
 			}
-		}else
-			m_bDrawing	= false;
+		}else	m_bDrawing	= false;
 	}
 	m_bLastMouseLB = Cursor2D::getLButtonState() ;
 	m_bLastMouseRB = Cursor2D::getRButtonState() ;
 
 
+	//死んでコンテニュー時にゲージを戻す
 	if(m_pPlayerCoil->getState() == COIL_STATE_CONTINUE){
 		if( m_pMGage_N ) m_pMGage_N->ResetGauge();
 		if( m_pMGage_S ) m_pMGage_S->ResetGauge();

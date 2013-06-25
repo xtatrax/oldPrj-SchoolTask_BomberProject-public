@@ -13,8 +13,6 @@
 #ifndef TLIBDEBUGGER_STRINGS
 #define TLIBDEBUGGER_STRINGS
 #include "StdAfx.h"
-#include "TL-String.h"			/* 文字列操作ユーテリティ */
-
 namespace Debugger{
 //************************************************//
 //class DBGWRITINGLOGTEXT

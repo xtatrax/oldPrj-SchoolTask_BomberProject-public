@@ -53,13 +53,14 @@ TextureManager::~TextureManager(){
 ////            ：
 ////
 void TextureManager::Release(){
-	vector< Texture* >::iterator	it  = m_vecTextures.begin()	;
-	while(it != m_vecTextures.end()){
-		SafeDelete( *it );
-		
-		//*it = NULL ;
-		it = m_vecTextures.erase(it);
-	}
+	//vector< Texture* >::iterator	it  = m_vecTextures.begin()	;
+	//while(it != m_vecTextures.end()){
+	//	SafeDelete( *it );
+	//	
+	//	//*it = NULL ;
+	//	it = m_vecTextures.erase(it);
+	//}
+	SafeDeletePointerContainer( m_vecTextures );
 	m_vecTextures.clear();
 };
 /////////////////// ////////////////////
@@ -291,7 +292,6 @@ LPDIRECT3DTEXTURE9 TextureManager::addTextureExLight(
 ////            ：
 ////
 LPDIRECT3DTEXTURE9 TextureManager::TextureSearchFromName(const wchar_t* filename) {
-	if( m_vecTextures.empty() ) return NULL ;
 	vector< Texture* >::iterator it;
 	for(it = m_vecTextures.begin();it != m_vecTextures.end();it++){
 		if((*it)->checkTextureName(filename))
@@ -309,7 +309,6 @@ LPDIRECT3DTEXTURE9 TextureManager::TextureSearchFromName(const wchar_t* filename
 ////            ：
 ////
 LPDIRECT3DTEXTURE9 TextureManager::TextureSearchFromFilePath(const wchar_t* path){
-	if( m_vecTextures.empty() ) return NULL ;
 	vector< Texture* >::iterator it;
 	for(it = m_vecTextures.begin();it != m_vecTextures.end();it++){
 		if((*it)->checkFilePath(path))
@@ -337,7 +336,7 @@ LPDIRECT3DTEXTURE9 TextureManager::TextureSearchFromFilePath(const wchar_t* path
 TextureManager::Texture::Texture(LPDIRECT3DDEVICE9 pD3DDevice,const wchar_t* filepath,const wchar_t* texturename )
 :m_pTexture( 0 )
 ,m_strFilePath( filepath )
-//,m_strTexName( texturename )
+,m_strTexName( texturename )
 {
 	try{
 		wstring sFileName ;
@@ -410,7 +409,7 @@ TextureManager::Texture::Texture(LPDIRECT3DDEVICE9 pD3DDevice,const wchar_t* fil
     DWORD MipFilter, D3DCOLOR ColorKey, D3DXIMAGE_INFO *pSrcInfo, PALETTEENTRY *pPalette, const wchar_t* texturename )
 :m_pTexture(0)
 ,m_strFilePath(filepath)
-//,m_strTexName(texturename)
+,m_strTexName(texturename)
 {
 	try{
 		 
@@ -461,13 +460,16 @@ TextureManager::Texture::Texture(LPDIRECT3DDEVICE9 pD3DDevice,const wchar_t* fil
 ////            ：
 ////
 TextureManager::Texture::~Texture(){
-    //後始末
-    SafeRelease(m_pTexture);
+	if( this && m_pTexture){
+	    //後始末
+		SafeRelease(m_pTexture);
+	}else{
+		Debugger::DBGWRITINGLOGTEXT::OutputSystemLog(L"TextureManager::Texture::~Texture で this がぬるぽっ!てます｡");
+	}
 }
 
 bool TextureManager::Texture::checkTextureName( wstring name ) const{
-	//return  (m_strTexName != L"" ) && (m_strTexName == name);
-	return false ;
+	return  (m_strTexName != L"" ) && (m_strTexName == name);
 }
 
 bool TextureManager::Texture::checkFilePath( wstring filepath ) const{

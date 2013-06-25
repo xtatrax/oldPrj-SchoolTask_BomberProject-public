@@ -246,6 +246,10 @@ int DxDevice::MainThreadRun(){
 	//	: メインスレッドループ
 	while(true){
 
+		if( !this ){
+			Debugger::DBGWRITINGLOGTEXT::addStr(L"DxDevice::MainThreadRun メインゲームループで this が ぬるぽじょうほうををキャッチしちゃいました><、");
+			return 1;
+		}
 		if( m_bDestroy ){
 			#ifndef CF_SINGLETHREAD
 				CloseHandle(m_hUpdateThread);
@@ -387,7 +391,7 @@ void DxDevice::UpdateScene()
 		m_RenderPacket.pCommand		= &m_Com		;
 
 		pScene->Update(m_UpdatePacket);
-		pScene->Render(m_RenderPacket);
+		//pScene->Render(m_RenderPacket);
 
 		#ifndef CF_SINGLETHREAD 
 			//	: マルチスレッドモードの場合

@@ -106,7 +106,7 @@ Factory_Result::Factory_Result(FactoryPacket* fpac, int iDeadCount, int iMaxPosY
 				D3DXVECTOR3( 1.8f, 1.5f, 0.0f ),
 				g_vZero,
 				D3DXVECTOR3( 53.0f, 150.0f, 0.0f ),
-				Rect( 0, 0, 512, 256 ),
+				&Rect( 0, 0, 512, 256 ),
 				g_vZero,
 				g_vZero,
 				0xFFFFFFFF
@@ -121,7 +121,7 @@ Factory_Result::Factory_Result(FactoryPacket* fpac, int iDeadCount, int iMaxPosY
 				D3DXVECTOR3( 1.0f, 1.0f, 0.0f ),
 				g_vZero,
 				D3DXVECTOR3( wide-256, 20.0f, 0.0f ),
-				Rect( 0, 128, 512, 256 ),
+				&Rect( 0, 128, 512, 256 ),
 				g_vZero,
 				g_vZero,
 				0xFFFFFFFF
@@ -132,11 +132,11 @@ Factory_Result::Factory_Result(FactoryPacket* fpac, int iDeadCount, int iMaxPosY
 		fpac->m_pVec->push_back(
 			new SpriteObject(
 				fpac->pD3DDevice,
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"MAX_RANGE1.png" ),
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"TEST.png" ),
 				D3DXVECTOR3( 0.8f, 1.5f, 0.0f ),
 				g_vZero,
 				D3DXVECTOR3( 80.0f, 135.0f, 0.0f ),
-				NULL,
+				Rect( 0, 128, 512, 192),
 				g_vZero,
 				g_vZero,
 				0xFFFFFFFF
@@ -162,11 +162,11 @@ Factory_Result::Factory_Result(FactoryPacket* fpac, int iDeadCount, int iMaxPosY
 		fpac->m_pVec->push_back(
 			new SpriteObject(
 				fpac->pD3DDevice,
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"dead_count1.png" ),
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"TEST.png" ),
 				D3DXVECTOR3( 0.8f, 1.5f, 0.0f ),
 				g_vZero,
 				D3DXVECTOR3( 80.0f, height-15.0f, 0.0f ),
-				NULL,
+				&Rect( 0, 192, 512, 256 ),
 				g_vZero,
 				g_vZero,
 				0xFFFFFFFF
@@ -177,11 +177,11 @@ Factory_Result::Factory_Result(FactoryPacket* fpac, int iDeadCount, int iMaxPosY
 		fpac->m_pVec->push_back(
 			new SpriteObject(
 				fpac->pD3DDevice,
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"TOTAL_POINT.png" ),
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"TEST.png" ),
 				D3DXVECTOR3( 1.0f, 1.5f, 0.0f ),
 				g_vZero,
 				D3DXVECTOR3( wide-430.0f, height+85.0f, 0.0f ),
-				NULL,
+				Rect( 0, 65, 512, 128),
 				g_vZero,
 				g_vZero,
 				0xFFFFFFFF
@@ -253,15 +253,15 @@ Factory_Result::Factory_Result(FactoryPacket* fpac, int iDeadCount, int iMaxPosY
 
 
 		//*****************************************************************************
-		//system::Sound* pSound = NULL;
-		//fpac->SetSound(
-		//	pSound = new system::Sound( 
-		//		RCTEXT_SOUND_WAVEBANK,
-		//		RCTEXT_SOUND_SOUNDBANK,
-		//		OBJID_SYS_SOUND
-		//	)
-		//);
-		//pSound->SearchSoundAndPlay( RCTEXT_SOUND_BGM_CLEAR );
+		system::Sound* pSound = NULL;
+		fpac->SetSound(
+			pSound = new system::Sound( 
+				RCTEXT_SOUND_WAVEBANK,
+				RCTEXT_SOUND_SOUNDBANK,
+				OBJID_SYS_SOUND
+			)
+		);
+		pSound->SearchSoundAndPlay( RCTEXT_SOUND_BGM_GAMEOVER );
 
 	}
 	catch(...){
