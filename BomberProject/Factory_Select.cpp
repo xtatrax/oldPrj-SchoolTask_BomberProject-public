@@ -82,9 +82,9 @@ Factory_Select::Factory_Select(FactoryPacket* fpac ){
 					fpac->pD3DDevice								,	
 					fpac->AddTexture(L"Select_Frame_ver5px.png")	,	//↓マウスがここの上にあるとき表示する画像
 					fpac->AddTexture(L"Select_Manual.png")			,	//枠外
-					fpac->AddTexture(L"Select_Normal_ver1.png")		,	//NORMAL
-					fpac->AddTexture(L"Select_Hard_ver1.png")		,	//HARD
-					fpac->AddTexture(L"Select_Extra_ver1.png")		,	//EXTRA
+					fpac->AddTexture(L"Select_Normal.png")		,	//NORMAL
+					fpac->AddTexture(L"Select_Hard.png")		,	//HARD
+					fpac->AddTexture(L"Select_Extra.png")		,	//EXTRA
 					D3DXVECTOR3( 1.0f, 1.0f, 0.0f )					,
 					g_vZero											,
 					D3DXVECTOR3( 50.0f, 50.0f, 0.0f )				,
