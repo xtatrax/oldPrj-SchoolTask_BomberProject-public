@@ -204,7 +204,6 @@ void EnemyModel::Update( UpdatePacket& i_UpdatePacket){
 			if((*it)->m_vIsAlive){
 				for( int i = 0; i < PARTICLS_NUM_ENEMY; i++ ){
 					SafeDelete( (*it)->m_pDeadEffect[i] );
-					continue;
 				}
 			}
 		}
