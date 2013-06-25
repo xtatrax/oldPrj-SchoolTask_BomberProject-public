@@ -34,8 +34,8 @@ namespace bomberobject{
 ////
 MagnetFieldCircle::MagnetFieldCircle(LPDIRECT3DDEVICE9 pD3DDevice,DWORD dwVertexQty){
 
-	m_dwVertexQty	= dwVertexQty  +1 ;
-	float iRotSize	= 360.0f / (dwVertexQty -1) ;
+	m_dwVertexQty	= dwVertexQty ;
+	float iRotSize	= 360.0f / (dwVertexQty -2 ) ;
 	Vertex* m_pVertex;
 
 	pD3DDevice->CreateVertexBuffer( Vertex::getSize() * m_dwVertexQty , D3DUSAGE_WRITEONLY, Vertex::getFVF(), D3DPOOL_MANAGED, &m_pVertexBuffer, NULL );
@@ -43,8 +43,8 @@ MagnetFieldCircle::MagnetFieldCircle(LPDIRECT3DDEVICE9 pD3DDevice,DWORD dwVertex
 
 	m_pVertex[ 0 ]	= Vertex( D3DXVECTOR3( 0.0f, 0.0f, 0.0f ) , 0x3FFFFFFF );
 
-	for ( DWORD i = 1 ; i < m_dwVertexQty  ; i++ ){
-		m_pVertex[ i ]	= Vertex( D3DXVECTOR3(  cosf( D3DXToRadian( iRotSize * i ) ) , sinf(D3DXToRadian( iRotSize * i ) ) , 0.0f )	, 0x3FFFFFFF );
+	for ( DWORD i = 0 ; i < m_dwVertexQty-1  ; i++ ){
+		m_pVertex[ i+1 ]	= Vertex( D3DXVECTOR3(  cosf( D3DXToRadian( iRotSize * i ) ) , sinf(D3DXToRadian( iRotSize * i ) ) , 0.0f )	, 0x3FFFFFFF );
 	}
 	m_pVertexBuffer->Unlock();
 	D3DXMatrixScaling( &m_mMatrix, 10.0f, 10.0f, 1.0f );
@@ -64,6 +64,10 @@ MagnetFieldCircle::MagnetFieldCircle(LPDIRECT3DDEVICE9 pD3DDevice,DWORD dwVertex
 ////            ：
 ////
 void MagnetFieldCircle::Draw(DrawPacket& i_DrawPacket){
+	if( !this ){
+		Debugger::DBGWRITINGLOGTEXT::addStr(L"MagnetFieldCircle::Draw で this が NULL なのです・・・");
+		return;
+	}
 	 //ワールド変換行列を設定
 	i_DrawPacket.pD3DDevice->SetTransform( D3DTS_WORLD , &m_mMatrix );								//変換済み頂点の場合は無視される
 
@@ -80,7 +84,7 @@ void MagnetFieldCircle::Draw(DrawPacket& i_DrawPacket){
 	i_DrawPacket.pD3DDevice->SetRenderState( D3DRS_LIGHTING, FALSE );
 	i_DrawPacket.pD3DDevice->SetStreamSource( 0, m_pVertexBuffer , 0 , Vertex::getSize() );		//	: 描画対象となる頂点バッファを設定
 	i_DrawPacket.pD3DDevice->SetFVF( Vertex::getFVF() );											//	: 頂点データの形式を設定
-	i_DrawPacket.pD3DDevice->DrawPrimitive( D3DPT_TRIANGLEFAN  , 0, m_dwVertexQty  );	//	: 頂点データの描画（描画の仕方、描画開始位置、プリミティブ数）
+	i_DrawPacket.pD3DDevice->DrawPrimitive( D3DPT_TRIANGLEFAN  , 0, m_dwVertexQty -1  );	//	: 頂点データの描画（描画の仕方、描画開始位置、プリミティブ数）
 	i_DrawPacket.pD3DDevice->SetRenderState( D3DRS_LIGHTING, TRUE );
     //i_DrawPacket.pD3DDevice->SetRenderState(D3DRS_COLORVERTEX, FALSE); 
 	i_DrawPacket.pD3DDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, 0);
@@ -109,7 +113,7 @@ MagnetField::MagnetField(
 	wiz::OBJID id 								//	: ID
 )
 :Object(id)
-,m_MagneticField( pD3DDevice, 32 )
+,m_MagneticField( pD3DDevice, 64 )
 ,m_pCoil(	NULL )
 ,m_pCamera(	NULL )
 ,m_fEffectSizeRate( NULL )

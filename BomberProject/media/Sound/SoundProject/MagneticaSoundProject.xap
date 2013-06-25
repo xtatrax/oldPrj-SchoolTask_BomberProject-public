@@ -16,8 +16,8 @@ Global Settings
     Header File = MagneticaSoundProject.h;
     Exclude Category Names = 0;
     Exclude Variable Names = 0;
-    Last Modified Low = 548786202;
-    Last Modified High = 30305720;
+    Last Modified Low = 772679754;
+    Last Modified High = 30306487;
 
     Category
     {
@@ -239,8 +239,12 @@ Wave Bank
     Entry Names = 1;
     Seek Tables = 1;
     Compression Preset Name = Compression Preset;
-    Bank Last Revised Low = 264148284;
-    Bank Last Revised High = 30305721;
+    Xbox Bank Last Modified Low = 0;
+    Xbox Bank Last Modified High = 0;
+    PC Bank Last Modified Low = 774979885;
+    PC Bank Last Modified High = 30306487;
+    Bank Last Revised Low = 727967196;
+    Bank Last Revised High = 30306487;
 
     Wave
     {
@@ -701,6 +705,52 @@ Wave Bank
             Last Modified High = 30305652;
         }
     }
+
+    Wave
+    {
+        Name = SE-COUNT_FINISH;
+        File = C:\Users\COS-MOS\Desktop\新しいフォルダー\SE-COUNT_FINISH.wav;
+        Build Settings Last Modified Low = 1392022491;
+        Build Settings Last Modified High = 30306485;
+
+        Cache
+        {
+            Format Tag = 0;
+            Channels = 2;
+            Sampling Rate = 44100;
+            Bits Per Sample = 1;
+            Play Region Offset = 44;
+            Play Region Length = 73760;
+            Loop Region Offset = 0;
+            Loop Region Length = 0;
+            File Type = 1;
+            Last Modified Low = 1897718070;
+            Last Modified High = 30306420;
+        }
+    }
+
+    Wave
+    {
+        Name = SE-COUNT_UP;
+        File = C:\Users\COS-MOS\Desktop\新しいフォルダー\SE-COUNT_UP.wav;
+        Build Settings Last Modified Low = 3135179551;
+        Build Settings Last Modified High = 30306485;
+
+        Cache
+        {
+            Format Tag = 0;
+            Channels = 2;
+            Sampling Rate = 44100;
+            Bits Per Sample = 1;
+            Play Region Offset = 44;
+            Play Region Length = 8544;
+            Loop Region Offset = 0;
+            Loop Region Length = 0;
+            File Type = 1;
+            Last Modified Low = 2535132493;
+            Last Modified High = 30306485;
+        }
+    }
 }
 
 Sound Bank
@@ -710,6 +760,10 @@ Sound Bank
     Windows File = ..\MagneticaSound.xsb;
     Xbox Bank Path Edited = 0;
     Windows Bank Path Edited = 1;
+    Bank Last Modified Low = 812842051;
+    Bank Last Modified High = 30306487;
+    Header Last Modified High = 0;
+    Header Last Modified Low = 0;
 
     Sound
     {
@@ -1660,6 +1714,100 @@ Sound Bank
         }
     }
 
+    Sound
+    {
+        Name = SE-COUNT_FINISH;
+        Volume = -1730;
+        Pitch = 0;
+        Priority = 0;
+
+        Category Entry
+        {
+            Name = Default;
+        }
+
+        Track
+        {
+            Volume = 0;
+            Use Filter = 0;
+
+            Play Wave Event
+            {
+                Break Loop = 0;
+                Use Speaker Position = 0;
+                Use Center Speaker = 1;
+                New Speaker Position On Loop = 1;
+                Speaker Position Angle = 0.000000;
+                Speaker Position Arc = 0.000000;
+
+                Event Header
+                {
+                    Timestamp = 0;
+                    Relative = 0;
+                    Random Recurrence = 0;
+                    Random Offset = 0;
+                }
+
+                Wave Entry
+                {
+                    Bank Name = MagneticaWave;
+                    Bank Index = 0;
+                    Entry Name = SE-COUNT_FINISH;
+                    Entry Index = 20;
+                    Weight = 255;
+                    Weight Min = 0;
+                }
+            }
+        }
+    }
+
+    Sound
+    {
+        Name = SE-COUNT_UP;
+        Volume = -1020;
+        Pitch = 0;
+        Priority = 0;
+
+        Category Entry
+        {
+            Name = Default;
+        }
+
+        Track
+        {
+            Volume = 0;
+            Use Filter = 0;
+
+            Play Wave Event
+            {
+                Break Loop = 0;
+                Use Speaker Position = 0;
+                Use Center Speaker = 1;
+                New Speaker Position On Loop = 1;
+                Speaker Position Angle = 0.000000;
+                Speaker Position Arc = 0.000000;
+
+                Event Header
+                {
+                    Timestamp = 0;
+                    Relative = 0;
+                    Random Recurrence = 0;
+                    Random Offset = 0;
+                }
+
+                Wave Entry
+                {
+                    Bank Name = MagneticaWave;
+                    Bank Index = 0;
+                    Entry Name = SE-COUNT_UP;
+                    Entry Index = 21;
+                    Weight = 255;
+                    Weight Min = 0;
+                }
+            }
+        }
+    }
+
     Cue
     {
         Name = SE-BLOKEN_ENEMY;
@@ -2055,6 +2203,46 @@ Sound Bank
         {
             Name = SE-ENTER;
             Index = 19;
+            Weight Min = 0;
+            Weight Max = 255;
+        }
+    }
+
+    Cue
+    {
+        Name = SE-COUNT_FINISH;
+
+        Variation
+        {
+            Variation Type = 3;
+            Variation Table Type = 1;
+            New Variation on Loop = 0;
+        }
+
+        Sound Entry
+        {
+            Name = SE-COUNT_FINISH;
+            Index = 20;
+            Weight Min = 0;
+            Weight Max = 255;
+        }
+    }
+
+    Cue
+    {
+        Name = SE-COUNT_UP;
+
+        Variation
+        {
+            Variation Type = 3;
+            Variation Table Type = 1;
+            New Variation on Loop = 0;
+        }
+
+        Sound Entry
+        {
+            Name = SE-COUNT_UP;
+            Index = 21;
             Weight Min = 0;
             Weight Max = 255;
         }

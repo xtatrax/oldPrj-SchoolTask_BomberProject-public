@@ -803,7 +803,7 @@
 					</Filter>
 				</Filter>
 				<Filter
-					Name="00.1フィルター/1Factory/1Objectを徹底してください"
+					Name="00.1フィルター/1Factory/1Classを徹底してください"
 					>
 				</Filter>
 				<Filter
@@ -945,10 +945,6 @@
 		<Filter
 			Name="StdAfx"
 			>
-			<File
-				RelativePath=".\ComparingFlags.h"
-				>
-			</File>
 			<File
 				RelativePath=".\defineValue.cpp"
 				>

@@ -28,102 +28,6 @@
 namespace wiz{
 namespace bomberobject{
 
-const static D3DXVECTOR3 RCVEC_CONTINUE_PAGETITLE_POSITION(BASE_CLIENT_WIDTH/2-256.0f,BASE_CLIENT_HEIGHT/2-200.0f,0.0f);
-const static D3DXVECTOR3 RCVEC_CONTINUE_YES_POSITION(BASE_CLIENT_WIDTH/2-128.0f,BASE_CLIENT_HEIGHT/2-50.0f,0.0f);
-const static D3DXVECTOR3 RCVEC_CONTINUE_NO_POSITION(BASE_CLIENT_WIDTH/2-128.0f,BASE_CLIENT_HEIGHT/2+100.0f,0.0f);
-/************************************************************************
-ContinueBehavior 定義部
-************************************************************************/
-ContinueBehavior::ContinueBehavior(BassPacket& i_BassPacket)
-:Behavior(OBJID_BEHAVIOR_CONTINUECHECK)
-,m_pDeadTex(i_BassPacket.AddTexture(L"dead6.png"))
-,m_pContinueTex(i_BassPacket.AddTexture(L"CONTINUE4.png"))
-,m_pCheckTex(i_BassPacket.AddTexture(L"REALLY4.png"))
-,m_PageName(
-		i_BassPacket.pD3DDevice,
-		m_pContinueTex,
-		D3DXVECTOR3( 1.0f, 1.0f, 0.0f ),
-		g_vZero,
-		RCVEC_CONTINUE_PAGETITLE_POSITION,
-		Rect( 0, 0, 512, 64 ),
-		g_vZero,
-		g_vZero
-	)
-,m_YesButton(	//	: はい。
-		i_BassPacket.pD3DDevice		,
-		i_BassPacket.AddTexture(L"YESorNO.png"),
-		g_vOne						,
-		g_vZero						,
-		RCVEC_CONTINUE_YES_POSITION	,
-		Rect( 0,0,256,64 )			,
-		g_vZero						,
-		g_vZero						,
-		0xFFFFFFFF					,
-		0x88888888					,
-		RCTEXT_SOUND_SE_SELECT		,
-		RCTEXT_SOUND_SE_ENTER		,
-		1.0f						,
-		GM_BUTTON_YES				,
-		OBJID_UI_SPRITEBUTTON		,
-		true
-	)
-,m_NoButton(	//	: いいえ ・・;
-		i_BassPacket.pD3DDevice		,
-		i_BassPacket.AddTexture(L"YESorNO.png"),
-		g_vOne						,
-		g_vZero						,
-		RCVEC_CONTINUE_NO_POSITION	,
-		Rect( 256,0,512,64 )		,
-		g_vZero						,
-		g_vZero						,
-		0xFFFFFFFF					,
-		0x88888888					,
-		RCTEXT_SOUND_SE_SELECT		,
-		RCTEXT_SOUND_SE_ENTER		,
-		1.0f						,
-		GM_BUTTON_NO				,
-		OBJID_UI_SPRITEBUTTON		,
-		true
-	)
-,m_bIsCheck( false )
-{
-
-}
-
-void ContinueBehavior::Update(wiz::UpdatePacket &i_UpdatePacket){
-	m_YesButton.Update(i_UpdatePacket);
-	m_NoButton.Update(i_UpdatePacket);
-	if( !m_bIsCheck ){
-		if( i_UpdatePacket.pCommand->m_Command == GM_BUTTON_YES ){
-			//	: 復帰処理
-		}
-		if( i_UpdatePacket.pCommand->m_Command == GM_BUTTON_NO ){
-			m_PageName.changeTexture(m_pCheckTex);
-			m_bIsCheck = true ;
-			
-		}
-	}
-	if( m_bIsCheck ){
-		if( i_UpdatePacket.pCommand->m_Command == GM_BUTTON_YES ){
-			// : 終了処理
-		}
-		if( i_UpdatePacket.pCommand->m_Command == GM_BUTTON_NO ){
-			m_PageName.changeTexture(m_pContinueTex);
-			m_bIsCheck = false ;
-		}
-	}
-}
-void ContinueBehavior::Draw(wiz::DrawPacket &i_DrawPacket){
-	m_YesButton.Draw(i_DrawPacket);
-	m_NoButton.Draw(i_DrawPacket);
-}
-
-
-
-
-
-
-
 /************************************************************************
 Reply 定義部
 ************************************************************************/
@@ -304,7 +208,7 @@ Dead::Dead(	const LPDIRECT3DDEVICE9 pD3DDevice,const  LPDIRECT3DTEXTURE9 pTextur
 		D3DXVECTOR3	vCountCharPos	= D3DXVECTOR3( wide-256-40, height, 0.0f );
 
 		m_pDeadScore			= new Score( pD3DDevice, pDeadCountTex, vScoreScale, vScorePos, iCount, &Rect( 0, 0, 512, 64 ) );
-		m_pDeadCountChar		= new SpriteObject( pD3DDevice, pCountCharTex, vCountCharScale, g_vZero, vCountCharPos, NULL, g_vZero,g_vZero );
+		m_pDeadCountChar		= new SpriteObject( pD3DDevice, pCountCharTex, vCountCharScale, g_vZero, vCountCharPos, &Rect( 0, 192, 512, 256 ), g_vZero,g_vZero );
 
 	}
 	catch(...){

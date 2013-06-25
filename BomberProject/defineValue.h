@@ -22,6 +22,64 @@
 
 
 //////////
+//	: コンパイリングフラグ
+#define CF_SINGLETHREAD					/* シングルスレッドモード  ( 無効にするとマルチスレッド的になりますがバグります )   */
+#define DRAW_MOUSE	(true)				/* マウスを描画するかどうか */
+
+#define DEBUG_KEYBORD_ON				/* デバッグ用キーボード操作を有効化 */
+#define CF_OVERLORDNEW_ENABLE			/* 自作のnewを強制化(Manager有効時) */
+#define CF_MEMORYOUTPUTPROCESS_ENABLE	/* 自作メモリ管理システムにより管理されているアイテムのファイルへの書き出しを可能にする(Manager有効時) */
+///#define CF_LOADINGANIMATION			/* ロード画面でアニメーション */
+//#define CF_OVERLORDNEW_ENABLE			/* 自作のnewを強制化 */
+
+#define CF_DEBUG_TIMEDRAW				/* 時間を描画 */
+//#define CF_LOADINGANIMATION			/* ロード画面でアニメーション */
+
+
+#if defined(DEBUG) || defined(_DEBUG)
+	//-------------------------------//
+	//		デバッグモード定義       //
+	//-------------------------------//
+	#define ON_DEBUGGINGPROCESS					/* デバックモード             */
+	//#define DEBUG_STRINGS_ON					/* デバッグ用文字列を有効化 */
+	//#define CF_DEBUGINFORMATIONWINDOW_ENABLE	/* デバッグ情報表示用ウインドウを有効化 */
+	//#define CF_MEMORYMANAGER_ENABLE			/* 自作メモリ管理システムを有効化 */
+	//#define CF_FULLSCREEN				/* フルスクリーンモード       */
+
+	//#define ___MLP_DEBUG_TIMEDRAW_ 
+	//#define ON_GUIDELINE
+#else
+	#if defined( PRESENTATION )
+	//-------------------------------//
+	//		プレゼンモード定義       //
+	//-------------------------------//
+		//#define DEBUG_STRINGS_ON					/* デバッグ用文字列を有効化 */
+		//#define CF_MEMORYMANAGER_ENABLE			/* 自作メモリ管理システムを有効化 */
+//		#define CF_FULLSCREEN				/* フルスクリーンモード       */
+		//#define DEBUG_STRINGS_ON			/* デバッグ用文字列を有効化 */
+
+	#else
+	//-------------------------------//
+	//		リリースモード定義       //
+	//-------------------------------//
+
+		#define CF_FULLSCREEN				/* フルスクリーンモード       */
+	#endif
+
+#endif
+//
+//////////
+
+//////////
+// マクロ関数
+
+#define TL_SQUARE(n)							((n)*(n))
+
+//
+//////////
+
+
+//////////
 //	: グローバルな変数
 
 //	: デファイン定数
@@ -41,13 +99,10 @@
 //#define STANDARD_WINDOW_WIDTH   ( 1366.0f)	/* ウインドウモードの幅     */
 
 #else
-#define STANDARD_WINDOW_HEIGHT  (  600.0f)	/* ウインドウモードの高さ   */
-#define STANDARD_WINDOW_WIDTH   ( 1024.0f)	/* ウインドウモードの幅     */
+#define STANDARD_WINDOW_HEIGHT  (  768.0f)	/* ウインドウモードの高さ   */
+#define STANDARD_WINDOW_WIDTH   ( 1280.0f)	/* ウインドウモードの幅     */
 #endif
-//#define BASE_CLIENT_HEIGHT		(  600.0f)	/* 基準になる描画領域の高さ */
-//#define BASE_CLIENT_WIDTH		( 1024.0f)	/* 基準になる描画領域の幅   */
-//#define STANDARD_WINDOW_HEIGHT  ( 1200.0f)	/* ウインドウモードの高さ   */
-//#define STANDARD_WINDOW_WIDTH   ( 1920.0f)	/* ウインドウモードの幅     */
+
 #define DRAW_TOLERANCE			(   20.0f)	/* カメラからの描画距離 */
 
 #define DEFAULT_WINDOW_TITLE		( L"Magnetica" )
@@ -124,6 +179,8 @@ static const char*			RCTEXT_SOUND_SE_SUPER_FULL		= "SE-ITEM_FULL"		;
 static const char*			RCTEXT_SOUND_SE_SETFIELD		= "SE-MAGNETIC_FIELD"	;
 static const char*			RCTEXT_SOUND_SE_SPARK			= "SE-SPARK002"			;
 static const char*			RCTEXT_SOUND_SE_SPARK_WARNING	= "SE-SPARK002"			;
+static const char*			RCTEXT_SOUND_SE_COUNT_UP		= "SE-COUNT_UP"			;
+static const char*			RCTEXT_SOUND_SE_COUNT_FINISH	= "SE-COUNT_FINISH"		;
 
 static const char*			RCTEXT_MODEL_ENEMY				= "media/Model/mine.x"	;
 
@@ -174,11 +231,6 @@ namespace wiz{
 
 		GM_CHANGE_PARENTSTAGE	,
 		GM_CHANGE_CHILDSTAGE	,
-
-
-		GM_BUTTON_YES	,
-		GM_BUTTON_NO	,
-
 
 		//////////
 		//	: 
@@ -236,7 +288,6 @@ namespace wiz{
 
 		OBJID_BEHAVIOR_TEST					,
 		OBJID_BEHAVIOR_CHECKPOINTSAVE		,
-		OBJID_BEHAVIOR_CONTINUECHECK		,
 
 		//	:サウンドまわり
 		//	:BGM

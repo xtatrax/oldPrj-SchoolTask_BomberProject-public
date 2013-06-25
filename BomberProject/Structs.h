@@ -22,10 +22,6 @@
 #pragma once
 
 #include "StdAfx.h"
-#include "DefineValue.h"
-extern ULONG	RCVAL_SAVEDATA_IDENTIFIER_H	;	//	: BKNS
-extern ULONG	RCVAL_SAVEDATA_IDENTIFIER_L	;	//	: AVE_
-
 namespace wiz{
 class  Object ; 
 class  Stage ;
