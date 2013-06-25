@@ -459,8 +459,12 @@ TextureManager::Texture::Texture(LPDIRECT3DDEVICE9 pD3DDevice,const wchar_t* fil
 ////            ÅF
 ////
 TextureManager::Texture::~Texture(){
-    //å„énññ
-    SafeRelease(m_pTexture);
+	if( this && m_pTexture){
+	    //å„énññ
+		SafeRelease(m_pTexture);
+	}else{
+		Debugger::DBGWRITINGLOGTEXT::OutputSystemLog(L"TextureManager::Texture::~Texture Ç≈ this Ç™Ç ÇÈÇ€Ç¡!ÇƒÇ‹Ç∑°");
+	}
 }
 
 bool TextureManager::Texture::checkTextureName( wstring name ) const{
