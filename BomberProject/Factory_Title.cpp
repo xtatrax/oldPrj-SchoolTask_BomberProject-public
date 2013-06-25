@@ -540,7 +540,7 @@ Factory_Title::Factory_Title(FactoryPacket* fpac){
 
 		//	: ÉJÉÅÉâÇÃê›íË
 		//////////
-		Factory_Scroll		Ffac( fpac );
+		//Factory_Scroll		Ffac( fpac );
 		//fpac->m_pVec->push_back( new TestBehavior2());
 
 		fpac->m_pVec->push_back(
@@ -589,7 +589,7 @@ Factory_Title::Factory_Title(FactoryPacket* fpac){
 				0xFFFF8800
 				)
 		);
-//////////////////////////////////////////////////////////////////////////////////////
+/*/////////////////////////////////////////////////////////////////////////////////////
 //		STARTÉ{É^Éì																//
 //////////////////////////////////////////////////////////////////////////////////////
 		fpac->m_pVec->push_back(
@@ -706,7 +706,7 @@ Factory_Title::Factory_Title(FactoryPacket* fpac){
 			)
 		);
 		pSound->SearchSoundAndPlay( RCTEXT_SOUND_BGM_TITLE );
-
+//*/
 	}
 	catch(...){
 		//çƒthrow
