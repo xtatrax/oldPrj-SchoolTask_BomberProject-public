@@ -492,7 +492,7 @@ void	AnimationScore::Update(UpdatePacket& i_UpdatePacket){
 			i	= 1;
 			break;
 		case	2:
-			i	= 2;
+			i	= 1;
 			break;
 		case	3:
 			i	= 3;
@@ -508,9 +508,15 @@ void	AnimationScore::Update(UpdatePacket& i_UpdatePacket){
 	if( m_iResultScore != 0 ){
 		m_fTime	+= (float)i_UpdatePacket.pTime->getElapsedTime();
 		if( m_fTime >= 1.0f/(m_fTransRate) ){
-			if( m_iResultScore > m_iDrawScore )
+			if( m_iResultScore > m_iDrawScore ){
 				m_iDrawScore	+= i;
-			else{
+				if( m_iResultScore != m_iDrawScore )
+					i_UpdatePacket.SearchWaveAndPlay(RCTEXT_SOUND_SE_COUNT_UP);
+				else{
+					if( m_iResultScore != 0 )
+						i_UpdatePacket.SearchWaveAndPlay( RCTEXT_SOUND_SE_COUNT_FINISH );
+				}
+			}else{
 				m_bNext	= true;
 			}
 
@@ -521,8 +527,11 @@ void	AnimationScore::Update(UpdatePacket& i_UpdatePacket){
 			m_fTime	= 0;
 		}
 		if( Cursor2D::getLButtonState() ){
-			if( m_bClickRock )
+			if( m_bClickRock ){
 				m_iDrawScore	= m_iResultScore;
+				if( m_iResultScore != 0 )
+					i_UpdatePacket.SearchWaveAndPlay( RCTEXT_SOUND_SE_COUNT_FINISH );
+			}
 		}
 		else	m_bClickRock	= true;
 	}
@@ -721,35 +730,35 @@ void	ResultScore::Update(UpdatePacket& i_UpdatePacket){
 
 	switch( m_iNowDraw ){
 		case 0:
-			i_UpdatePacket.SearchWaveAndPlay(RCTEXT_SOUND_SE_COUNT_UP);
+			//i_UpdatePacket.SearchWaveAndPlay(RCTEXT_SOUND_SE_COUNT_UP);
 			m_pMaxPos->Update( i_UpdatePacket );
 			if( m_pMaxPos->getNext() ){
 				++m_iNowDraw;
-				i_UpdatePacket.SearchWaveAndPlay( RCTEXT_SOUND_SE_COUNT_FINISH );
+				//i_UpdatePacket.SearchWaveAndPlay( RCTEXT_SOUND_SE_COUNT_FINISH );
 			}
 			break;
 		case 1:
-			i_UpdatePacket.SearchWaveAndPlay(RCTEXT_SOUND_SE_COUNT_UP);
+			///i_UpdatePacket.SearchWaveAndPlay(RCTEXT_SOUND_SE_COUNT_UP);
 			m_pScratch->Update( i_UpdatePacket );
 			if( m_pScratch->getNext() ){
 				++m_iNowDraw;
-				i_UpdatePacket.SearchWaveAndPlay( RCTEXT_SOUND_SE_COUNT_FINISH );
+				//i_UpdatePacket.SearchWaveAndPlay( RCTEXT_SOUND_SE_COUNT_FINISH );
 			}
 			break;
 		case 2:
-			i_UpdatePacket.SearchWaveAndPlay(RCTEXT_SOUND_SE_COUNT_UP);
+			//i_UpdatePacket.SearchWaveAndPlay(RCTEXT_SOUND_SE_COUNT_UP);
 			m_pDead->Update( i_UpdatePacket );
 			if( m_pDead->getNext() ){
 				++m_iNowDraw;
-				i_UpdatePacket.SearchWaveAndPlay( RCTEXT_SOUND_SE_COUNT_FINISH );
+				//i_UpdatePacket.SearchWaveAndPlay( RCTEXT_SOUND_SE_COUNT_FINISH );
 			}
 			break;
 		case 3:
-			i_UpdatePacket.SearchWaveAndPlay(RCTEXT_SOUND_SE_COUNT_UP);
+			//i_UpdatePacket.SearchWaveAndPlay(RCTEXT_SOUND_SE_COUNT_UP);
 			m_pTotal->Update( i_UpdatePacket );
 			if( m_pTotal->getNext() ){
 				++m_iNowDraw;
-				i_UpdatePacket.SearchWaveAndPlay( RCTEXT_SOUND_SE_COUNT_FINISH );
+				//i_UpdatePacket.SearchWaveAndPlay( RCTEXT_SOUND_SE_COUNT_FINISH );
 			}
 			break;
 		default:
