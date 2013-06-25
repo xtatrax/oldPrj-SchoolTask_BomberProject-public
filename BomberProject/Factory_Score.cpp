@@ -721,24 +721,36 @@ void	ResultScore::Update(UpdatePacket& i_UpdatePacket){
 
 	switch( m_iNowDraw ){
 		case 0:
+			i_UpdatePacket.SearchWaveAndPlay(RCTEXT_SOUND_SE_COUNT_UP);
 			m_pMaxPos->Update( i_UpdatePacket );
-			if( m_pMaxPos->getNext() )
+			if( m_pMaxPos->getNext() ){
 				++m_iNowDraw;
+				i_UpdatePacket.SearchWaveAndPlay( RCTEXT_SOUND_SE_COUNT_FINISH );
+			}
 			break;
 		case 1:
+			i_UpdatePacket.SearchWaveAndPlay(RCTEXT_SOUND_SE_COUNT_UP);
 			m_pScratch->Update( i_UpdatePacket );
-			if( m_pScratch->getNext() )
+			if( m_pScratch->getNext() ){
 				++m_iNowDraw;
+				i_UpdatePacket.SearchWaveAndPlay( RCTEXT_SOUND_SE_COUNT_FINISH );
+			}
 			break;
 		case 2:
+			i_UpdatePacket.SearchWaveAndPlay(RCTEXT_SOUND_SE_COUNT_UP);
 			m_pDead->Update( i_UpdatePacket );
-			if( m_pDead->getNext() )
+			if( m_pDead->getNext() ){
 				++m_iNowDraw;
+				i_UpdatePacket.SearchWaveAndPlay( RCTEXT_SOUND_SE_COUNT_FINISH );
+			}
 			break;
 		case 3:
+			i_UpdatePacket.SearchWaveAndPlay(RCTEXT_SOUND_SE_COUNT_UP);
 			m_pTotal->Update( i_UpdatePacket );
-			if( m_pTotal->getNext() )
+			if( m_pTotal->getNext() ){
 				++m_iNowDraw;
+				i_UpdatePacket.SearchWaveAndPlay( RCTEXT_SOUND_SE_COUNT_FINISH );
+			}
 			break;
 		default:
 			if( m_pRank )
