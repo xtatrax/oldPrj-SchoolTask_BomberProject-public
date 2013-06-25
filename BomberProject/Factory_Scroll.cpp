@@ -97,8 +97,8 @@ Factory_Scroll::Factory_Scroll(FactoryPacket* fpac)
 		fpac->m_pVec->push_back(
 			new ScrollObject(
 				fpac->pD3DDevice,
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, /*L"Lightning.tga"*/L"BGP_TITLE01.png" ),
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, /*L"Lightning.tga"*/L"BGP_TITLE02.tga" ),
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"BGP_TITLE01.png" ),
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"BGP_TITLE02.png" ),
 				D3DXVECTOR3( 1.0f, 1.0f, 0.2f )
 			)
 		);
