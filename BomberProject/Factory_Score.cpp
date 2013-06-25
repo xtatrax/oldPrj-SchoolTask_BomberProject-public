@@ -34,6 +34,7 @@ Score::Score(LPDIRECT3DDEVICE9	pD3DDevice,
 ,m_vScale( vScale )
 ,m_iScore( iScore )
 ,m_bFirst( false )
+,m_bTotal( false )
 ,m_pCoil( NULL )
 {
 	for( int i = 0; i < MAX_DIGIT; i++ )
@@ -63,7 +64,7 @@ void	Score::Draw(DrawPacket& i_DrawPacket){
 			else if( i == MAX_DIGIT-1 )
 				m_bFirst	= true;
 		}
-		if( m_bFirst )
+		if( m_bFirst || m_bTotal )
 			SpriteObject::Draw( i_DrawPacket );
 	}
 	m_bFirst	= false;
@@ -76,7 +77,7 @@ void	Score::Draw(DrawPacket& i_DrawPacket){
 ***************************************************************************/
 void	Score::Update(UpdatePacket& i_UpdatePacket){
 
-	int	iDigit	= 100000;
+	int	iDigit	= MAX_DIGHT_SCORE/10;
 	for( int i = 0; i < MAX_DIGIT; i++ ){
 		int	a	= m_iScore / iDigit;
 		if( a >= 10 ){
@@ -441,6 +442,7 @@ AnimationScore::AnimationScore(LPDIRECT3DDEVICE9	pD3DDevice,
 				D3DXVECTOR3	&vPos,
 				int			iScore,
 				int			iDight,
+				bool		bTotal,
 				Rect*		Rect	)
 :Score( pD3DDevice, pTexture, vScale, vPos, 0, Rect )
 ,m_iResultScore( iScore )
@@ -451,6 +453,7 @@ AnimationScore::AnimationScore(LPDIRECT3DDEVICE9	pD3DDevice,
 ,m_iDight( iDight+1 )
 ,m_fTime( 0.0f )
 {
+	m_bTotal	= bTotal;
 }
 
 /**************************************************************************
@@ -576,6 +579,8 @@ ResultScore::ResultScore(LPDIRECT3DDEVICE9	pD3DDevice,
 	Rect		rScoreRect	= Rect( 0, 0, 512, 64 );
 
 	int TotalScore	= (iMaxPos*10)+iScratch-(iDead*30);
+	if( TotalScore >= MAX_DIGHT_SCORE )
+		TotalScore	= MAX_DIGHT_SCORE-1;
 	Debugger::DBGWRITINGLOGTEXT::addStrToFile(L"Score.txt",L"MaxPos     = %d\n",iMaxPosScore);
 	Debugger::DBGWRITINGLOGTEXT::addStrToFile(L"Score.txt",L"Scratch    = %d\n",iScratchScore);
 	Debugger::DBGWRITINGLOGTEXT::addStrToFile(L"Score.txt",L"DeadCount  = %d\n",iDeadScore);
@@ -595,7 +600,7 @@ ResultScore::ResultScore(LPDIRECT3DDEVICE9	pD3DDevice,
 
 	//*******************************************
 	// MaxPosの桁数の取得
-	int	i	= 10000, dight	= 5;
+	int	i	= MAX_DIGHT_SCORE/10, dight	= MAX_DIGIT;
 	while(1){
 		iDightMaxPos	= iMaxPos / i;
 		if( iDightMaxPos >= 1 ){
@@ -610,7 +615,7 @@ ResultScore::ResultScore(LPDIRECT3DDEVICE9	pD3DDevice,
 
 	//*******************************************
 	// スクラッチの桁数の取得
-	i	= 10000, dight	= 5;
+	i	= MAX_DIGHT_SCORE/10, dight	= MAX_DIGIT;
 	while(1){
 		iDightScratch	= iScratch / i;
 		if( iDightScratch >= 1 ){
@@ -625,7 +630,7 @@ ResultScore::ResultScore(LPDIRECT3DDEVICE9	pD3DDevice,
 
 	//*******************************************
 	// 死亡回数の桁数の取得
-	i	= 10000, dight	= 5;
+	i	= MAX_DIGHT_SCORE/10, dight	= MAX_DIGIT;
 	while(1){
 		iDightDead	= iDead / i;
 		if( iDightDead >= 1 ){
@@ -640,7 +645,7 @@ ResultScore::ResultScore(LPDIRECT3DDEVICE9	pD3DDevice,
 
 	//*******************************************
 	// トータルスコアの桁数の取得
-	i	= 10000, dight	= 5;
+	i	= MAX_DIGHT_SCORE/10, dight	= MAX_DIGIT;
 	while(1){
 		iDightTotal	= TotalScore / i;
 		if( iDightTotal >= 1 ){
@@ -656,13 +661,14 @@ ResultScore::ResultScore(LPDIRECT3DDEVICE9	pD3DDevice,
 
 
 	m_pMaxPos	= new AnimationScore( pD3DDevice, m_pMaxPosTex, vScoreSize,
-						D3DXVECTOR3( wide+90.0f, height-140.0f, 0.0f ), iMaxPos, iDightMaxPos, &rScoreRect);
+						D3DXVECTOR3( wide+90.0f, height-140.0f, 0.0f ), iMaxPos, iDightMaxPos, false, &rScoreRect);
 	m_pScratch	= new AnimationScore( pD3DDevice, m_pMaxPosTex, vScoreSize,
-						D3DXVECTOR3( wide+90.0f, height-70.0f, 0.0f ), iScratch, iDightScratch, &rScoreRect);
+						D3DXVECTOR3( wide+90.0f, height-70.0f, 0.0f ), iScratch, iDightScratch, false, &rScoreRect);
 	m_pDead		= new AnimationScore( pD3DDevice, m_pDeadTex, vScoreSize,
-						D3DXVECTOR3( wide+90.0f, height+5.0f, 0.0f ), iDead, iDightDead, &rScoreRect);
+						D3DXVECTOR3( wide+90.0f, height+5.0f, 0.0f ), iDead, iDightDead, false, &rScoreRect);
 	m_pTotal	= new AnimationScore( pD3DDevice, m_pMaxPosTex, D3DXVECTOR3( 1.0f, 1.0f, 0.0f ),
-						D3DXVECTOR3( 500.0f, height+160.0f, 0.0f ), TotalScore, iDightTotal, &rScoreRect);
+						D3DXVECTOR3( 500.0f, height+160.0f, 0.0f ), TotalScore, iDightTotal, true, &rScoreRect);
+						//D3DXVECTOR3( wide+90.0f, height+120.0f, 0.0f ), TotalScore, iDightTotal, true, &rScoreRect);
 	m_pRate_10	= new SpriteObject( pD3DDevice, m_pRate10Tex, vRateSize, g_vZero, 
 									D3DXVECTOR3( wide+340.0f, height-140.0f+15.0f, 0.0f ), Rect( 0, 0, 256, 64 ),g_vZero, g_vZero );
 	m_pRate_1	= new SpriteObject( pD3DDevice, m_pRate1Tex, vRateSize, g_vZero, 
