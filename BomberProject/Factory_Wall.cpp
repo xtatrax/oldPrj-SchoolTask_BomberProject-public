@@ -520,7 +520,8 @@ void WallObject::Update( UpdatePacket& i_UpdatePacket ){
 		//***********************************************************************************
 
 		(*it)->m_iPtn++;
-		m_Plate.Update( (*it)->m_iPtn );
+		(*it)->m_iPtn	%= 4;
+		//m_Plate.Update( (*it)->m_iPtn );
 
 		++it;
 	}
@@ -552,6 +553,7 @@ void WallObject::AddWall(D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos
 	m_ItemMap_All.insert(ALLCONTAINER::value_type(vPos.y,pItem));
 
 	m_Ptn++;
+	m_Ptn	%= 4;
 }
 
 
