@@ -311,7 +311,7 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 		}
 
 		//ƒQ[ƒW‚ªÅ‘å‚É‚È‚Á‚½‚çCOIL_STATE_SUPER_READY‚É
-		if(m_pSuperGage && m_pSuperGage->getRate() <= 0.0f && m_enumCoilStateSuper == COIL_STATE_SUPER_CHARGE){
+		if(m_pSuperGage && m_pSuperGage->getRate() <= 0.0f && m_enumCoilStateSuper == COIL_STATE_SUPER_CHARGE && m_enumCoilState != COIL_STATE_CLEAR){
 			m_enumCoilStateSuper = COIL_STATE_SUPER_READY;
 			i_UpdatePacket.SearchSoundAndPlay(RCTEXT_SOUND_SE_SUPER_FULL);
 		}
@@ -875,7 +875,7 @@ void PlayerCoil::Draw(DrawPacket& i_DrawPacket){
 	m_Matrix	= mRot*mPos;
 	i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &m_Matrix);
 
-	if(m_enumCoilStateSuper == COIL_STATE_SUPER_READY && m_enumCoilState != COIL_STATE_DEAD){
+	if(m_enumCoilStateSuper == COIL_STATE_SUPER_READY && m_enumCoilState != COIL_STATE_DEAD && m_enumCoilState != COIL_STATE_CLEAR){
 		m_pLine1->draw(i_DrawPacket.pD3DDevice);
 		m_pLine2->draw(i_DrawPacket.pD3DDevice);
 		m_pLine3->draw(i_DrawPacket.pD3DDevice);
