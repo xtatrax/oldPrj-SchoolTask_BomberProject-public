@@ -24,6 +24,7 @@ protected:
 	int			m_iScore;
 	int			m_DigitArr[MAX_DIGIT];
 	bool		m_bFirst;
+	bool		m_bTotal;
 	PlayerCoil*	m_pCoil;
 public:
 	Score(LPDIRECT3DDEVICE9	pD3DDevice,
@@ -167,6 +168,7 @@ public:
 				D3DXVECTOR3	&vPos,
 				int			iScore,
 				int			iDight,
+				bool		bTotal	= false,
 				Rect*		Rect	= NULL);
 	virtual ~AnimationScore();
 
