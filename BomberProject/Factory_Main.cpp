@@ -100,7 +100,7 @@ Factory_Main::Factory_Main(FactoryPacket* fpac, DWORD dwStageNum, DWORD dwResump
 		//////////
 		//	: â∫êøÇØçHèÍÇ÷î≠íç
 		float	fLineLength	= 230.0f;
-		float	fPointSize	= 0.125f;
+		float	fPointSize	= 0.5f;
 		Factory_BG			Bfac( fpac ) ;
 		Factory_Cursor		Mfac( fpac, fLineLength, fPointSize )  ; 
 		Factory_Player		Pfac( fpac );
