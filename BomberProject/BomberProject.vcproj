@@ -1002,18 +1002,6 @@
 				>
 			</File>
 			<Filter
-				Name="AnimationModelClass"
-				>
-				<File
-					RelativePath=".\AnimationModelClass\AnimationModelClass.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\AnimationModelClass\AnimationModelClass.h"
-					>
-				</File>
-			</Filter>
-			<Filter
 				Name="Tempus"
 				>
 				<File
@@ -1022,18 +1010,6 @@
 				</File>
 				<File
 					RelativePath=".\Tempus\Tempus.h"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="SCS"
-				>
-				<File
-					RelativePath=".\SeiyaEffect.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\SeiyaEffect.h"
 					>
 				</File>
 			</Filter>

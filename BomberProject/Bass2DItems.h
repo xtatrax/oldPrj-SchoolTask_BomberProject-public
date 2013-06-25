@@ -30,6 +30,9 @@ public:
     static bool			m_bMouseLB		;
     static bool			m_bMouseRB		;
     static bool			m_bMouseMB		;
+    static bool			m_bMouseLBLock	;
+    static bool			m_bMouseRBLock	;
+    static bool			m_bMouseMBLock	;
 public:
 	friend class DxDevice;
 	friend class MouseUtilityCushion ;
@@ -213,6 +216,8 @@ public:
 	}
 };
 
+namespace Avoidance{
+
 //**************************************************************************
 // 
 //
@@ -254,7 +259,7 @@ public:
 //// îıçl       ÅF
 	void Draw(DrawPacket& i_DrawPacket);
 };
-
+}
 }//end of namespace base2Dobject.
 using namespace base2Dobject;
 }//end of namespace wiz.

@@ -22,34 +22,35 @@ namespace menuobject{
 
 class ButtonSprite : public SpriteObject{
 protected:
-	Button			m_ButtonState		;
-	Color			m_SelectColor		;
-	Color			m_UnSelectColor		;
-	const char*		m_sSelectSound		;
-	const char*		m_sDecisionSound	;
-	float			m_fWaitTime			;
-	float			m_fTimeAccumulator	;
-	bool			m_bIsSelectWait		;
-	bool			m_bIsPlaySelectSound;
+	Button			m_ButtonState			;
+	Color			m_SelectColor			;
+	Color			m_UnSelectColor			;
+	const char*		m_sSelectSound			;
+	const char*		m_sDecisionSound		;
+	float			m_fWaitTime				;
+	float			m_fTimeAccumulator		;
+	bool			m_bIsSelectWait			;
+	bool			m_bIsPlaySelectSound	;
+	bool			m_bKillAfterIssuing		;
 public:
 	ButtonSprite(
-		const LPDIRECT3DDEVICE9		pD3DDevice		,
-		const LPDIRECT3DTEXTURE9	pTexture		,
-		const D3DXVECTOR3			vScalse			,
-		const D3DXVECTOR3			vRot			,
-		const D3DXVECTOR3			vPos			,
-		const RECT*					pRect			,
-		const D3DXVECTOR3			vCenter			,
-		const D3DXVECTOR3			vOffset			,
-		const Color					dwSelectColor	,
-		const Color					dwUnSelectColor	,
-		const char*					sSelectSound	,
-		const char*					sDecisionSound	,
-		const float					fWaitTime		,
-		const Command				Com				,
-		const DWORD					dwIndex			,
-		const wiz::OBJID			id				= OBJID_UI_SPRITEBUTTON,
-		const bool					bApplyAspect	= true
+		const LPDIRECT3DDEVICE9		pD3DDevice			,
+		const LPDIRECT3DTEXTURE9	pTexture			,
+		const D3DXVECTOR3			vScalse				,
+		const D3DXVECTOR3			vRot				,
+		const D3DXVECTOR3			vPos				,
+		const RECT*					pRect				,
+		const D3DXVECTOR3			vCenter				,
+		const D3DXVECTOR3			vOffset				,
+		const Color					dwSelectColor		,
+		const Color					dwUnSelectColor		,
+		const char*					sSelectSound		,
+		const char*					sDecisionSound		,
+		const float					fWaitTime			,
+		const Command				Com					,
+		const wiz::OBJID			id					= OBJID_UI_SPRITEBUTTON	,
+		const bool					bKillAfterIssuing	= false					,
+		const bool					bApplyAspect		= true
 	);
 	virtual ~ButtonSprite();
 /////////////////// ////////////////////

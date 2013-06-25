@@ -25,27 +25,27 @@ class CustomButtonA : public ButtonSprite{
 	int					m_iPtn					;
 public:
 	CustomButtonA(
-		const LPDIRECT3DDEVICE9		pD3DDevice		,
-		const LPDIRECT3DTEXTURE9	pFrameTexture	,
-		const LPDIRECT3DTEXTURE9	pStringTexture	,
-		const D3DXVECTOR3			vScalse			,
-		const D3DXVECTOR3			vRot			,
-		const D3DXVECTOR3			vPos			,
-		const RECT*					pFrameRect		,
-		const RECT*					pStringRect		,
-		const D3DXVECTOR3			vCenter			,
-		const D3DXVECTOR3			vOffset			,
+		const LPDIRECT3DDEVICE9		pD3DDevice				,
+		const LPDIRECT3DTEXTURE9	pFrameTexture			,
+		const LPDIRECT3DTEXTURE9	pStringTexture			,
+		const D3DXVECTOR3			vScalse					,
+		const D3DXVECTOR3			vRot					,
+		const D3DXVECTOR3			vPos					,
+		const RECT*					pFrameRect				,
+		const RECT*					pStringRect				,
+		const D3DXVECTOR3			vCenter					,
+		const D3DXVECTOR3			vOffset					,
 		const Color					dwFrameSelectColor		,
 		const Color					dwFrameUnSelectColor	,
 		const Color					dwStringSelectColor		,
 		const Color					dwStringUnSelectColor	,
-		const char*					sSelectSound	,
-		const char*					sDecisionSound	,
-		const float					fWaitTime		,
-		const Command				Com				,
-		const DWORD					dwIndex			,
-		const wiz::OBJID			id				,
-		const bool					bApplyAspect	= true
+		const char*					sSelectSound			,
+		const char*					sDecisionSound			,
+		const float					fWaitTime				,
+		const Command				Com						,
+		const wiz::OBJID			id						,
+		const bool					bKillAfterIssuing		= false		,
+		const bool					bApplyAspect			= true
 	);
 
 

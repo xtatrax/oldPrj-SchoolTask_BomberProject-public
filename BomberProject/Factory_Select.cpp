@@ -121,7 +121,6 @@ Factory_Select::Factory_Select(FactoryPacket* fpac ){
 				RCTEXT_SOUND_SE_ENTER,
 				1.0f,
 				Command( GM_OPENSTAGE_LOAD_PLAY, 3, 0 ),
-				0,
 				OBJID_UI_BUTTON_NORMAL
 			)
 		);
@@ -148,7 +147,6 @@ Factory_Select::Factory_Select(FactoryPacket* fpac ){
 				RCTEXT_SOUND_SE_ENTER,
 				1.0f,
 				Command( GM_OPENSTAGE_LOAD_PLAY, 4, 0 ),
-				1,
 				OBJID_UI_BUTTON_HARD
 			)
 		);
@@ -175,7 +173,6 @@ Factory_Select::Factory_Select(FactoryPacket* fpac ){
 				RCTEXT_SOUND_SE_ENTER,
 				1.0f,
 				Command( GM_OPENSTAGE_LOAD_PLAY, 5, 0 ),
-				2,
 				OBJID_UI_BUTTON_EXTRA
 			)
 		);
@@ -202,9 +199,9 @@ Factory_Select::Factory_Select(FactoryPacket* fpac ){
 				RCTEXT_SOUND_SE_ENTER,
 				0.5f,
 				Command( GM_CHANGE_PARENTSTAGE, 0, 0 ),
-				3,
 				OBJID_UI_BUTTON_BACK
 			)
+
 		);
 
 		//Click_Please
@@ -221,7 +218,7 @@ Factory_Select::Factory_Select(FactoryPacket* fpac ){
 		);						
 
 		float	fLineLength	= 550.0f;
-		float	fPointSize	= 0.25f;
+		float	fPointSize	= 1.0f;
 		Factory_Cursor	MCfac( fpac, fLineLength, fPointSize )  ;
 	}
 	catch(LoaderException& e){

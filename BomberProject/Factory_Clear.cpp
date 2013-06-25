@@ -121,10 +121,10 @@ Factory_Clear::Factory_Clear(FactoryPacket* fpac, int iDeadCount, int iMaxPosY, 
 		fpac->m_pVec->push_back(
 			new SpriteObject(
 				fpac->pD3DDevice,
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"TOTAL_POINT3.png" ),
-				D3DXVECTOR3( 0.6f, 1.5f, 0.0f ),
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"TOTAL_POINT.png" ),
+				D3DXVECTOR3( 1.0f, 1.5f, 0.0f ),
 				g_vZero,
-				D3DXVECTOR3( wide-128-250, height+100.0f, 0.0f ),
+				D3DXVECTOR3( wide-430.0f, height+90.0f, 0.0f ),
 				NULL,
 				g_vZero,
 				g_vZero,
@@ -156,7 +156,6 @@ Factory_Clear::Factory_Clear(FactoryPacket* fpac, int iDeadCount, int iMaxPosY, 
 				RCTEXT_SOUND_SE_ENTER,
 				0.5f,
 				Command( GM_OPENSTAGE_TITLE, 0, 0 ),
-				0,
 				OBJID_UI_BUTTON_BACK
 			)
 		);
@@ -195,7 +194,7 @@ Factory_Clear::Factory_Clear(FactoryPacket* fpac, int iDeadCount, int iMaxPosY, 
 
 		//ÉJÅ[É\Éã*************************************************
 		float	fLineLength	= 550.0f;
-		float	fPointSize	= 0.25f;
+		float	fPointSize	= 1.0f;
 		Factory_Cursor	MCfac( fpac, fLineLength, fPointSize )  ; 
 
 

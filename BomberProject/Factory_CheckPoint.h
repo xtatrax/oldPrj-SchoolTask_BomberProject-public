@@ -200,7 +200,7 @@ public:
 
 /******************************************************:
 ******************************************************/
-class CheckPoint : public Cylinder{
+class CheckPoint : public Object{
 protected:
 	struct ITEM{
 		float			fPosY		;
