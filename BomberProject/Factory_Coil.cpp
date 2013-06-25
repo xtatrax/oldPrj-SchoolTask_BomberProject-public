@@ -358,7 +358,6 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 		if(m_enumCoilState != COIL_STATE_DEAD){
 			for( int i = 0; i < PARTICLS_NUM; i++ ){
 				SafeDelete( m_pDeadEffect[i] );
-				continue;
 			}
 		}
 	}
@@ -876,7 +875,7 @@ void PlayerCoil::Draw(DrawPacket& i_DrawPacket){
 	m_Matrix	= mRot*mPos;
 	i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &m_Matrix);
 
-	if(m_enumCoilStateSuper == COIL_STATE_SUPER_READY){
+	if(m_enumCoilStateSuper == COIL_STATE_SUPER_READY && m_enumCoilState != COIL_STATE_DEAD){
 		m_pLine1->draw(i_DrawPacket.pD3DDevice);
 		m_pLine2->draw(i_DrawPacket.pD3DDevice);
 		m_pLine3->draw(i_DrawPacket.pD3DDevice);

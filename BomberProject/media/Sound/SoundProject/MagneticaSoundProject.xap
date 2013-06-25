@@ -16,8 +16,8 @@ Global Settings
     Header File = MagneticaSoundProject.h;
     Exclude Category Names = 0;
     Exclude Variable Names = 0;
-    Last Modified Low = 772679754;
-    Last Modified High = 30306487;
+    Last Modified Low = 3146745759;
+    Last Modified High = 30306701;
 
     Category
     {
@@ -241,10 +241,10 @@ Wave Bank
     Compression Preset Name = Compression Preset;
     Xbox Bank Last Modified Low = 0;
     Xbox Bank Last Modified High = 0;
-    PC Bank Last Modified Low = 774979885;
-    PC Bank Last Modified High = 30306487;
-    Bank Last Revised Low = 727967196;
-    Bank Last Revised High = 30306487;
+    PC Bank Last Modified Low = 3146795762;
+    PC Bank Last Modified High = 30306701;
+    Bank Last Revised Low = 3075691695;
+    Bank Last Revised High = 30306701;
 
     Wave
     {
@@ -662,29 +662,6 @@ Wave Bank
 
     Wave
     {
-        Name = BGM-PLAY002;
-        File = GameSounds\BGM-PLAY002.wav;
-        Build Settings Last Modified Low = 930350957;
-        Build Settings Last Modified High = 30305706;
-
-        Cache
-        {
-            Format Tag = 0;
-            Channels = 2;
-            Sampling Rate = 44100;
-            Bits Per Sample = 1;
-            Play Region Offset = 44;
-            Play Region Length = 12101664;
-            Loop Region Offset = 0;
-            Loop Region Length = 0;
-            File Type = 1;
-            Last Modified Low = 950552285;
-            Last Modified High = 30305712;
-        }
-    }
-
-    Wave
-    {
         Name = SE-ENTER;
         File = GameSounds_Origin\SE-ENTER.wav;
         Build Settings Last Modified Low = 4177173734;
@@ -709,9 +686,9 @@ Wave Bank
     Wave
     {
         Name = SE-COUNT_FINISH;
-        File = C:\Users\COS-MOS\Desktop\新しいフォルダー\SE-COUNT_FINISH.wav;
-        Build Settings Last Modified Low = 1392022491;
-        Build Settings Last Modified High = 30306485;
+        File = D:\Work_Space\TeamBokan\BomberProject_\BomberProject\media\Sound\SoundProject\GameSounds\SE-COUNT_FINISH.wav;
+        Build Settings Last Modified Low = 530397750;
+        Build Settings Last Modified High = 30306700;
 
         Cache
         {
@@ -724,17 +701,17 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 1897718070;
-            Last Modified High = 30306420;
+            Last Modified Low = 2957506573;
+            Last Modified High = 30306700;
         }
     }
 
     Wave
     {
         Name = SE-COUNT_UP;
-        File = C:\Users\COS-MOS\Desktop\新しいフォルダー\SE-COUNT_UP.wav;
-        Build Settings Last Modified Low = 3135179551;
-        Build Settings Last Modified High = 30306485;
+        File = D:\Work_Space\TeamBokan\BomberProject_\BomberProject\media\Sound\SoundProject\GameSounds\SE-COUNT_UP.wav;
+        Build Settings Last Modified Low = 594401411;
+        Build Settings Last Modified High = 30306700;
 
         Cache
         {
@@ -747,8 +724,31 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 2535132493;
-            Last Modified High = 30306485;
+            Last Modified Low = 2957506573;
+            Last Modified High = 30306700;
+        }
+    }
+
+    Wave
+    {
+        Name = BGM-PLAY002;
+        File = GameSounds\BGM-PLAY002.wav;
+        Build Settings Last Modified Low = 2394432729;
+        Build Settings Last Modified High = 30306701;
+
+        Cache
+        {
+            Format Tag = 0;
+            Channels = 2;
+            Sampling Rate = 44100;
+            Bits Per Sample = 1;
+            Play Region Offset = 44;
+            Play Region Length = 12101664;
+            Loop Region Offset = 0;
+            Loop Region Length = 0;
+            File Type = 1;
+            Last Modified Low = 1183193450;
+            Last Modified High = 30306701;
         }
     }
 }
@@ -760,8 +760,8 @@ Sound Bank
     Windows File = ..\MagneticaSound.xsb;
     Xbox Bank Path Edited = 0;
     Windows Bank Path Edited = 1;
-    Bank Last Modified Low = 812842051;
-    Bank Last Modified High = 30306487;
+    Bank Last Modified Low = 3183257847;
+    Bank Last Modified High = 30306701;
     Header Last Modified High = 0;
     Header Last Modified Low = 0;
 
@@ -1621,54 +1621,6 @@ Sound Bank
 
     Sound
     {
-        Name = BGM-PLAY002;
-        Volume = -2090;
-        Pitch = 0;
-        Priority = 0;
-
-        Category Entry
-        {
-            Name = Default;
-        }
-
-        Track
-        {
-            Volume = 0;
-            Use Filter = 0;
-
-            Play Wave Event
-            {
-                Loop Count = 255;
-                Break Loop = 0;
-                Use Speaker Position = 0;
-                Use Center Speaker = 1;
-                New Speaker Position On Loop = 1;
-                Speaker Position Angle = 0.000000;
-                Speaker Position Arc = 0.000000;
-
-                Event Header
-                {
-                    Timestamp = 0;
-                    Relative = 0;
-                    Random Recurrence = 0;
-                    Random Offset = 0;
-                }
-
-                Wave Entry
-                {
-                    Bank Name = MagneticaWave;
-                    Bank Index = 0;
-                    Entry Name = BGM-PLAY002;
-                    Entry Index = 18;
-                    Weight = 255;
-                    Weight Min = 0;
-                }
-            }
-        }
-    }
-
-    Sound
-    {
         Name = SE-ENTER;
         Volume = -1200;
         Pitch = 0;
@@ -1706,7 +1658,7 @@ Sound Bank
                     Bank Name = MagneticaWave;
                     Bank Index = 0;
                     Entry Name = SE-ENTER;
-                    Entry Index = 19;
+                    Entry Index = 18;
                     Weight = 255;
                     Weight Min = 0;
                 }
@@ -1753,7 +1705,7 @@ Sound Bank
                     Bank Name = MagneticaWave;
                     Bank Index = 0;
                     Entry Name = SE-COUNT_FINISH;
-                    Entry Index = 20;
+                    Entry Index = 19;
                     Weight = 255;
                     Weight Min = 0;
                 }
@@ -1800,6 +1752,54 @@ Sound Bank
                     Bank Name = MagneticaWave;
                     Bank Index = 0;
                     Entry Name = SE-COUNT_UP;
+                    Entry Index = 20;
+                    Weight = 255;
+                    Weight Min = 0;
+                }
+            }
+        }
+    }
+
+    Sound
+    {
+        Name = BGM-PLAY002;
+        Volume = -2030;
+        Pitch = 0;
+        Priority = 0;
+
+        Category Entry
+        {
+            Name = Default;
+        }
+
+        Track
+        {
+            Volume = 0;
+            Use Filter = 0;
+
+            Play Wave Event
+            {
+                Loop Count = 255;
+                Break Loop = 0;
+                Use Speaker Position = 0;
+                Use Center Speaker = 1;
+                New Speaker Position On Loop = 1;
+                Speaker Position Angle = 0.000000;
+                Speaker Position Arc = 0.000000;
+
+                Event Header
+                {
+                    Timestamp = 0;
+                    Relative = 0;
+                    Random Recurrence = 0;
+                    Random Offset = 0;
+                }
+
+                Wave Entry
+                {
+                    Bank Name = MagneticaWave;
+                    Bank Index = 0;
+                    Entry Name = BGM-PLAY002;
                     Entry Index = 21;
                     Weight = 255;
                     Weight Min = 0;
@@ -2170,26 +2170,6 @@ Sound Bank
 
     Cue
     {
-        Name = BGM-PLAY002;
-
-        Variation
-        {
-            Variation Type = 3;
-            Variation Table Type = 1;
-            New Variation on Loop = 0;
-        }
-
-        Sound Entry
-        {
-            Name = BGM-PLAY002;
-            Index = 18;
-            Weight Min = 0;
-            Weight Max = 255;
-        }
-    }
-
-    Cue
-    {
         Name = SE-ENTER;
 
         Variation
@@ -2202,7 +2182,7 @@ Sound Bank
         Sound Entry
         {
             Name = SE-ENTER;
-            Index = 19;
+            Index = 18;
             Weight Min = 0;
             Weight Max = 255;
         }
@@ -2222,7 +2202,7 @@ Sound Bank
         Sound Entry
         {
             Name = SE-COUNT_FINISH;
-            Index = 20;
+            Index = 19;
             Weight Min = 0;
             Weight Max = 255;
         }
@@ -2242,6 +2222,26 @@ Sound Bank
         Sound Entry
         {
             Name = SE-COUNT_UP;
+            Index = 20;
+            Weight Min = 0;
+            Weight Max = 255;
+        }
+    }
+
+    Cue
+    {
+        Name = BGM-PLAY002;
+
+        Variation
+        {
+            Variation Type = 3;
+            Variation Table Type = 1;
+            New Variation on Loop = 0;
+        }
+
+        Sound Entry
+        {
+            Name = BGM-PLAY002;
             Index = 21;
             Weight Min = 0;
             Weight Max = 255;
