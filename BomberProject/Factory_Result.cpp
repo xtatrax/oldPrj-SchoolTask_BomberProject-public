@@ -246,6 +246,18 @@ Factory_Result::Factory_Result(FactoryPacket* fpac, int iDeadCount, int iMaxPosY
 			)
 		);
 
+		//Click_Please
+		fpac->m_pVec->push_back(
+			new ClickChar(
+					fpac->pD3DDevice,
+					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"user_txt.png"),
+					D3DXVECTOR3( 0.5f, 0.5f, 0.0f ),
+					g_vZero,
+					g_vZero,
+					Rect( 0, 64, 512, 128 ),
+					D3DXVECTOR3( 40.0f, -75.0f, 0.0f )
+			)
+		);						
 		//ƒJ[ƒ\ƒ‹*************************************************
 		float	fLineLength	= 550.0f;
 		float	fPointSize	= 1.0f;
@@ -253,15 +265,15 @@ Factory_Result::Factory_Result(FactoryPacket* fpac, int iDeadCount, int iMaxPosY
 
 
 		//*****************************************************************************
-		//system::Sound* pSound = NULL;
-		//fpac->SetSound(
-		//	pSound = new system::Sound( 
-		//		RCTEXT_SOUND_WAVEBANK,
-		//		RCTEXT_SOUND_SOUNDBANK,
-		//		OBJID_SYS_SOUND
-		//	)
-		//);
-		//pSound->SearchSoundAndPlay( RCTEXT_SOUND_BGM_CLEAR );
+		system::Sound* pSound = NULL;
+		fpac->SetSound(
+			pSound = new system::Sound( 
+				RCTEXT_SOUND_WAVEBANK,
+				RCTEXT_SOUND_SOUNDBANK,
+				OBJID_SYS_SOUND
+			)
+		);
+		pSound->SearchSoundAndPlay( RCTEXT_SOUND_BGM_CLEAR );
 
 	}
 	catch(...){
