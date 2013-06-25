@@ -316,7 +316,7 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 			i_UpdatePacket.SearchSoundAndPlay(RCTEXT_SOUND_SE_SUPER_FULL);
 		}
 		//COIL_STATE_SUPER_READYの間はLineを更新
-		if(m_enumCoilStateSuper == COIL_STATE_SUPER_READY)Update_Line();
+		//if(m_enumCoilStateSuper == COIL_STATE_SUPER_READY)Update_Line();
 		//ホイールクリックで無敵状態に
 		if(m_enumCoilState == COIL_STATE_MOVE && m_enumCoilStateSuper == COIL_STATE_SUPER_READY && Cursor2D::getMButtonState())m_enumCoilStateSuper = COIL_STATE_SUPER_CHANGING;
 		//無敵状態
@@ -877,6 +877,7 @@ void PlayerCoil::Draw(DrawPacket& i_DrawPacket){
 	i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &m_Matrix);
 
 	if(m_enumCoilStateSuper == COIL_STATE_SUPER_READY){
+		Update_Line();
 		m_pLine1->draw(i_DrawPacket.pD3DDevice);
 		m_pLine2->draw(i_DrawPacket.pD3DDevice);
 		m_pLine3->draw(i_DrawPacket.pD3DDevice);

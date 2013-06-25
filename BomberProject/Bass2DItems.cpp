@@ -23,9 +23,9 @@ Point		Cursor2D::m_vMousePoint      ;
 bool		Cursor2D::m_bMouseLB = false ;
 bool		Cursor2D::m_bMouseMB = false ;
 bool		Cursor2D::m_bMouseRB = false ;
-//bool		Cursor2D::m_bMouseLBLock = false ;
-//bool		Cursor2D::m_bMouseMBLock = false ;
-//bool		Cursor2D::m_bMouseRBLock = false ;
+bool		Cursor2D::m_bMouseLBLock = false ;
+bool		Cursor2D::m_bMouseMBLock = false ;
+bool		Cursor2D::m_bMouseRBLock = false ;
 DWORD		Cursor2D::m_tLastTime	= timeGetTime() ;
 const float	Cursor2D::m_fLockTime	= 0.3f ;
 
@@ -36,33 +36,79 @@ Point Cursor2D::getPos(){
 }
 bool Cursor2D::clickLButtonWithLock()
 {
-	//	: 前回押された時より0.3秒経過していなかったら無効
-	DWORD now = timeGetTime();
-	float fTime = (float)TLIB::Tempus::TwoDwTime2ElapsedTime(m_tLastTime,now);
-	if( m_bMouseLB &&  fTime > m_fLockTime)
-	{
-		m_tLastTime = timeGetTime();
-		return true ;
+
+	bool ret = false ;
+	//	: 前回押されていた 今回はなされた
+	if( m_bMouseLBLock && !m_bMouseLB ){
+		//	: 前回押された時より0.3秒経過していなかったら無効
+		DWORD now = timeGetTime();
+		float fTime = (float)TLIB::Tempus::TwoDwTime2ElapsedTime(m_tLastTime,now);
+		if( fTime > m_fLockTime ){
+			m_tLastTime = TLIB::Tempus::TimeGetTime(); 
+			ret = true ;
+		}
 	}
-	return false;
+
+	//	: 押されている
+	if( m_bMouseLB ){
+		//	: 押されていた
+		m_bMouseLBLock = true ;
+	}else{
+		//	: 押されていなかった
+		m_bMouseLBLock = false ;
+	}
+
+	return ret;
 };
 bool Cursor2D::clickMButtonWithLock()
 {
-	if( m_bMouseMB && (float)TLIB::Tempus::TwoDwTime2ElapsedTime(m_tLastTime,TLIB::Tempus::TimeGetTime()) > m_fLockTime)
-	{
-		m_tLastTime = TLIB::Tempus::TimeGetTime();
-		return true ;
+	bool ret = false ;
+	//	: 前回押されていた 今回はなされた
+	if( m_bMouseMBLock && !m_bMouseMB ){
+		//	: 前回押された時より0.3秒経過していなかったら無効
+		DWORD now = timeGetTime();
+		float fTime = (float)TLIB::Tempus::TwoDwTime2ElapsedTime(m_tLastTime,now);
+		if( fTime > m_fLockTime ){
+			m_tLastTime = TLIB::Tempus::TimeGetTime(); 
+			ret = true ;
+		}
 	}
-	return false;
+
+	//	: 押されている
+	if( m_bMouseMB ){
+		//	: 押されていた
+		m_bMouseMBLock = true ;
+	}else{
+		//	: 押されていなかった
+		m_bMouseMBLock = false ;
+	}
+
+	return ret;
 };
 bool Cursor2D::clickRButtonWithLock()
 {
-	if( m_bMouseRB && (float)TLIB::Tempus::TwoDwTime2ElapsedTime(m_tLastTime,TLIB::Tempus::TimeGetTime()) > m_fLockTime)
-	{
-		m_tLastTime = TLIB::Tempus::TimeGetTime();
-		return true ;
+	bool ret = false ;
+	//	: 前回押されていた 今回はなされた
+	if( m_bMouseRBLock && !m_bMouseRB ){
+		//	: 前回押された時より0.3秒経過していなかったら無効
+		DWORD now = timeGetTime();
+		float fTime = (float)TLIB::Tempus::TwoDwTime2ElapsedTime(m_tLastTime,now);
+		if( fTime > m_fLockTime ){
+			m_tLastTime = TLIB::Tempus::TimeGetTime(); 
+			ret = true ;
+		}
 	}
-	return false;
+
+	//	: 押されている
+	if( m_bMouseRB ){
+		//	: 押されていた
+		m_bMouseRBLock = true ;
+	}else{
+		//	: 押されていなかった
+		m_bMouseRBLock = false ;
+	}
+
+	return ret;
 };
 
 /////////////////// ////////////////////
@@ -337,6 +383,7 @@ void SpriteObject::Draw(DrawPacket& i_DrawPacket)
 /**************************************************************************
   定義部
 ***************************************************************************/
+namespace Avoidance{
 
 RenderTargetSprite::RenderTargetSprite(BassPacket* i_BassPacket, UINT i_Width, UINT i_Height, wiz::OBJID id )
 : m_sfRenderTarget( NULL )
@@ -346,9 +393,9 @@ RenderTargetSprite::RenderTargetSprite(BassPacket* i_BassPacket, UINT i_Width, U
 , PrimitiveSprite( i_BassPacket->pD3DDevice,  NULL, NULL, g_vZero, g_vZero)
 {
 	//	: テクスチャを動的に生成する（横６４０ピクセル・縦４８０ピクセル、３２ビットカラー）
-	D3DXCreateTexture( i_BassPacket->pD3DDevice, i_Width, i_Height, 0, D3DUSAGE_RENDERTARGET, D3DFMT_A8R8G8B8, D3DPOOL_DEFAULT, &m_pTexture );
-	i_BassPacket->pD3DDevice->CreateDepthStencilSurface( i_Width, i_Height, D3DFMT_D16, D3DMULTISAMPLE_NONE, 0, FALSE, &m_sfRenderTargetZ, NULL );	//	深度バッファを生成
-	m_pTexture->GetSurfaceLevel( 0, &m_sfRenderTarget );																	//	テクスチャからサーフェイスを取得
+	//D3DXCreateTexture( i_BassPacket->pD3DDevice, i_Width, i_Height, 0, D3DUSAGE_RENDERTARGET, D3DFMT_A8R8G8B8, D3DPOOL_DEFAULT, &m_pTexture );
+	//i_BassPacket->pD3DDevice->CreateDepthStencilSurface( i_Width, i_Height, D3DFMT_D16, D3DMULTISAMPLE_NONE, 0, FALSE, &m_sfRenderTargetZ, NULL );	//	深度バッファを生成
+	//m_pTexture->GetSurfaceLevel( 0, &m_sfRenderTarget );																	//	テクスチャからサーフェイスを取得
 
 
 }
@@ -423,6 +470,6 @@ void RenderTargetSprite::TargetRender( RenderPacket& i_RenderPacket ){
 void RenderTargetSprite::Draw(DrawPacket& i_DrawPacket){
 	PrimitiveSprite::Draw(i_DrawPacket);
 }
-
+}
 }//end of namespace	base2Dobject.
 }//end of namespace	wiz.
