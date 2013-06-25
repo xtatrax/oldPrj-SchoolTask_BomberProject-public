@@ -316,7 +316,7 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 			i_UpdatePacket.SearchSoundAndPlay(RCTEXT_SOUND_SE_SUPER_FULL);
 		}
 		//COIL_STATE_SUPER_READYの間はLineを更新
-		//if(m_enumCoilStateSuper == COIL_STATE_SUPER_READY)Update_Line();
+		if(m_enumCoilStateSuper == COIL_STATE_SUPER_READY)Update_Line();
 		//ホイールクリックで無敵状態に
 		if(m_enumCoilState == COIL_STATE_MOVE && m_enumCoilStateSuper == COIL_STATE_SUPER_READY && Cursor2D::getMButtonState())m_enumCoilStateSuper = COIL_STATE_SUPER_CHANGING;
 		//無敵状態
@@ -871,13 +871,12 @@ void PlayerCoil::Draw(DrawPacket& i_DrawPacket){
 #endif
 	//ライン用にワールド座標再定義
 	D3DXMATRIX	mRot, mPos;
-	D3DXMatrixRotationYawPitchRoll( &mRot, 0.0f, 0.0f, 0.0f );
+	D3DXMatrixIdentity( &mRot );
 	D3DXMatrixTranslation( &mPos, m_vPos.x, m_vPos.y, m_vPos.z );
 	m_Matrix	= mRot*mPos;
 	i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &m_Matrix);
 
 	if(m_enumCoilStateSuper == COIL_STATE_SUPER_READY){
-		Update_Line();
 		m_pLine1->draw(i_DrawPacket.pD3DDevice);
 		m_pLine2->draw(i_DrawPacket.pD3DDevice);
 		m_pLine3->draw(i_DrawPacket.pD3DDevice);
@@ -1051,6 +1050,7 @@ void PlayerCoil::Update_Line(){
 		vBaseLinePos = D3DXVECTOR3(-m_pLine1->getEndPos().x,-m_pLine2->getEndPos().y,0.0f),
 					vLinePos;
 	static float	s_fMovingDistance	= 0.0f;
+	D3DXMatrixScaling( &mLineScale, vLineScale.x, vLineScale.y, vLineScale.z );
 	
 	//左上部
 	vLinePos	= D3DXVECTOR3(vBaseLinePos.x - s_fMovingDistance, 

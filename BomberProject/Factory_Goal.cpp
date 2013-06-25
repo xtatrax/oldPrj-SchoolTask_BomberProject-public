@@ -47,6 +47,7 @@ FMemoryTex::FMemoryTex( LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTextur
 					pTexture)
 	,m_pCamera( NULL )
 	,m_pCoil( NULL )
+	,m_bEnding( false )
 {
 	::ZeroMemory( &m_Material, sizeof(D3DMATERIAL9));
 	m_iPtn		= 1;
@@ -274,11 +275,11 @@ void FMemoryTex::OrientGoal(UpdatePacket& i_UpdatePacket){
 					dirPtn	 = 3;
 				}
 				else{
-					i_UpdatePacket.pCommand->m_Command	= GM_OPENSTAGE_CLEAR;
-					i_UpdatePacket.pCommand->m_Param1	= m_pCoil->getDeadCount();
-					i_UpdatePacket.pCommand->m_Param2	= m_pCoil->getMaxPos();
-					i_UpdatePacket.pCommand->m_Param3	= m_pCoil->getScratchTime();
+					m_bEnding	= true;
+					m_iPtn		= 5;
 				}
+				break;
+		default:
 				break;
 	}
 	//****************************
@@ -307,9 +308,17 @@ void FMemoryTex::OrientGoal(UpdatePacket& i_UpdatePacket){
 	}
 	//**************************************************
 
-	m_pCoil->setPos(move);
-	m_pCoil->setScale(scale);
-	m_pCoil->setDir(dir);
+	if( !m_bEnding ){
+		m_pCoil->setPos(move);
+		m_pCoil->setScale(scale);
+		m_pCoil->setDir(dir);
+	}
+	else{
+		i_UpdatePacket.pCommand->m_Command	= GM_OPENSTAGE_CLEAR;
+		i_UpdatePacket.pCommand->m_Param1	= m_pCoil->getDeadCount();
+		i_UpdatePacket.pCommand->m_Param2	= m_pCoil->getMaxPos();
+		i_UpdatePacket.pCommand->m_Param3	= m_pCoil->getScratchTime();
+	}
 }
 
 /**************************************************************************
