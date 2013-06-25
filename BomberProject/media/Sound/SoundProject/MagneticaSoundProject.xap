@@ -16,8 +16,8 @@ Global Settings
     Header File = MagneticaSoundProject.h;
     Exclude Category Names = 0;
     Exclude Variable Names = 0;
-    Last Modified Low = 3229253754;
-    Last Modified High = 30306699;
+    Last Modified Low = 3146745759;
+    Last Modified High = 30306701;
 
     Category
     {
@@ -241,10 +241,10 @@ Wave Bank
     Compression Preset Name = Compression Preset;
     Xbox Bank Last Modified Low = 0;
     Xbox Bank Last Modified High = 0;
-    PC Bank Last Modified Low = 594421412;
-    PC Bank Last Modified High = 30306700;
-    Bank Last Revised Low = 594401411;
-    Bank Last Revised High = 30306700;
+    PC Bank Last Modified Low = 3146795762;
+    PC Bank Last Modified High = 30306701;
+    Bank Last Revised Low = 3075691695;
+    Bank Last Revised High = 30306701;
 
     Wave
     {
@@ -701,8 +701,8 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 1897718070;
-            Last Modified High = 30306420;
+            Last Modified Low = 2957506573;
+            Last Modified High = 30306700;
         }
     }
 
@@ -724,8 +724,8 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 2535132493;
-            Last Modified High = 30306485;
+            Last Modified Low = 2957506573;
+            Last Modified High = 30306700;
         }
     }
 
@@ -733,8 +733,8 @@ Wave Bank
     {
         Name = BGM-PLAY002;
         File = GameSounds\BGM-PLAY002.wav;
-        Build Settings Last Modified Low = 2511392694;
-        Build Settings Last Modified High = 30306699;
+        Build Settings Last Modified Low = 2394432729;
+        Build Settings Last Modified High = 30306701;
 
         Cache
         {
@@ -742,13 +742,13 @@ Wave Bank
             Channels = 2;
             Sampling Rate = 44100;
             Bits Per Sample = 1;
-            Play Region Offset = 4096;
-            Play Region Length = 13187584;
+            Play Region Offset = 44;
+            Play Region Length = 12101664;
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 4286962432;
-            Last Modified High = 30305833;
+            Last Modified Low = 1183193450;
+            Last Modified High = 30306701;
         }
     }
 }
@@ -760,8 +760,8 @@ Sound Bank
     Windows File = ..\MagneticaSound.xsb;
     Xbox Bank Path Edited = 0;
     Windows Bank Path Edited = 1;
-    Bank Last Modified Low = 622152998;
-    Bank Last Modified High = 30306700;
+    Bank Last Modified Low = 3183257847;
+    Bank Last Modified High = 30306701;
     Header Last Modified High = 0;
     Header Last Modified Low = 0;
 
