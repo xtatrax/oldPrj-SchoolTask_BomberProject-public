@@ -250,7 +250,9 @@ int DxDevice::MainThreadRun(){
 			#ifndef CF_SINGLETHREAD
 				CloseHandle(m_hUpdateThread);
 			#endif
+			Debugger::DBGWRITINGLOGTEXT::addStr(L"デバイスの破棄の開始");
 			this->Clear();
+			Debugger::DBGWRITINGLOGTEXT::addStr(L"デバイスの破棄の完了");
 			DestroyWindow(m_hWnd);
 			return 0;
 		}

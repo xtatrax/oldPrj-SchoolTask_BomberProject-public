@@ -585,10 +585,12 @@ void CommonMesh::TorusVec2UV(float x,float y,float z,float inr,float outr,float&
  ＊デバイスが喪失したときに呼ばれる。すべてのObjectの派生クラスは、個別に対応をとる
 ***************************************************************************/
 void CommonMesh::ReleaseObj(){
+	//Debugger::DBGWRITINGLOGTEXT::addStr(L"CommonMesh::ReleaseObj()\n");
     //後始末
     //SafeDelete(m_pShadowVolume);
     SafeRelease(m_pMesh);
-	SafeDelete(m_pShader);
+	//Debugger::DBGWRITINGLOGTEXT::addStr(L"m_pShader = %X\n",m_pShader);
+	//SafeDelete(m_pShader);
 }
 
 
@@ -597,14 +599,14 @@ void CommonMesh::ReleaseObj(){
  用途: コンストラクタ
  戻り値: なし
 ***************************************************************************/
-CommonMesh::CommonMesh( wiz::OBJID id , CustomShader* pShader):
-	Object( id ),
-	//m_pShadowVolume(0),
-	m_pMesh(0),
-	m_bWrapMode(true),
-	m_bWireFrame(false),
-	m_bShadeModeFlat(false),
-	m_pShader(pShader)
+CommonMesh::CommonMesh( wiz::OBJID id , CustomShader* pShader)
+	:Object( id )
+	//,m_pShadowVolume(0)
+	,m_pMesh(0)
+	,m_bWrapMode(true)
+	,m_bWireFrame(false)
+	,m_bShadeModeFlat(false)
+	//,m_pShader(pShader)
 {
 }
 /**************************************************************************
@@ -613,6 +615,9 @@ CommonMesh::CommonMesh( wiz::OBJID id , CustomShader* pShader):
  戻り値: なし
 ***************************************************************************/
 CommonMesh::~CommonMesh(){
+
+	//Debugger::DBGWRITINGLOGTEXT::addStr(L"CommonMesh::~CommonMesh()\n");
+
 	ReleaseObj();
 }
 /**************************************************************************
@@ -3137,6 +3142,8 @@ m_pTexture(pTexture)
  戻り値: なし
 ***************************************************************************/
  SimpleCommonMesh::~SimpleCommonMesh(){
+	Debugger::DBGWRITINGLOGTEXT::addStr(L"SimpleCommonMesh::~SimpleCommonMesh()\n");
+
 	//マルチコモンメッシュ配列のクリア
 	 SafeDeletePointerContainer(m_MultiVec);
 	//自身のメッシュのクリアは親クラスで行なう
@@ -4269,6 +4276,8 @@ m_Stacks(Stacks)
 Cylinder::~Cylinder(){
 	//何もしない
 	//オブジェクトの開放は親クラスで行なう
+	Debugger::DBGWRITINGLOGTEXT::addStr(L"Cylinder::~Cylinder()\n");
+
 }
 /**************************************************************************
 	virtual void Cylinder::ChangeDevice(

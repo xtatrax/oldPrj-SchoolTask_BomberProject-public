@@ -182,13 +182,16 @@ PlayerCoil::~PlayerCoil(){
 	m_pSuperGage			= NULL ;
 	m_pSuperField			= NULL ;
 	m_pReStart				= NULL ;
-	
+
 	SAFE_DELETE(m_pModeChangeChar);
 	SAFE_DELETE(m_pSelect);
 	SAFE_DELETE(m_pSelect2);
 	SAFE_DELETE(m_pDeadChar);
-	for( int i = 0; i < PARTICLS_NUM; i++ )
-		SAFE_DELETE(m_pDeadEffect[i]);
+	int i ;
+	for( i = 0; i < PARTICLS_NUM; i++ ){
+		SafeDelete(m_pDeadEffect[i]);
+	}
+	Debugger::DBGWRITINGLOGTEXT::addStr(L"PlayerCoil::~PlayerCoil >>>> for  >>>> SAFE_DELETE(m_pDeadEffect[i]); [%d / %d]å¬ çÌèúäÆóπ \n" , i, PARTICLS_NUM  );
 
 };
 

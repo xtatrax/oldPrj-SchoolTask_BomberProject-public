@@ -35,11 +35,22 @@ namespace wiz{
 ***************************************************************************/
 void Stage::Clear(){
 	//SafeDelete(m_pChildStage);
+	Debugger::DBGWRITINGLOGTEXT::addStr(L"Stage::Clear  >  %X íœŠJn\n",this);
+
 	SafeDelete(m_pParStage);
+	Debugger::DBGWRITINGLOGTEXT::addStr(L"SafeDelete(m_pParStage) Š®—¹\n",this);
+
 	SafeDelete(m_pMySound);
+	Debugger::DBGWRITINGLOGTEXT::addStr(L"SafeDelete(m_pMySound)  Š®—¹\n",this);
+
 	SafeDeletePointerContainer(m_Vec);
+	Debugger::DBGWRITINGLOGTEXT::addStr(L"SafeDeletePointerContainer(m_Vec);  Š®—¹\n",this);
+
 	m_ButtonVec.clear();
+	Debugger::DBGWRITINGLOGTEXT::addStr(L"m_ButtonVec.clear(); Š®—¹\n",this);
+
 	m_TexMgr.Release();
+	Debugger::DBGWRITINGLOGTEXT::addStr(L"m_TexMgr.Release(); Š®—¹\n",this);
 }
 
 /**************************************************************************
