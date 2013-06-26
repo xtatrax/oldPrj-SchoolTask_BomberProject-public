@@ -177,16 +177,22 @@ PlayerCoil::~PlayerCoil(){
 	m_pCamera				= NULL ;
 	m_pPlayer				= NULL ;
 	m_pMagneticumObject		= NULL ;
-	m_pCamera				= NULL ;
+	m_pCursor				= NULL ;
 	m_pSphere				= NULL ;
 	m_pSuperGage			= NULL ;
 	m_pSuperField			= NULL ;
 	m_pReStart				= NULL ;
+	m_pTime					= NULL ;
+
 	
-	SAFE_DELETE(m_pModeChangeChar);
-	SAFE_DELETE(m_pSelect);
-	SAFE_DELETE(m_pSelect2);
-	SAFE_DELETE(m_pDeadChar);
+	SafeDelete(m_pModeChangeChar);
+	SafeDelete(m_pSelect);
+	SafeDelete(m_pSelect2);
+	SafeDelete(m_pDeadChar);
+	SafeDelete(m_pLine1);
+	SafeDelete(m_pLine2);
+	SafeDelete(m_pLine3);
+	SafeDelete(m_pLine4);
 	for( int i = 0; i < PARTICLS_NUM; i++ )
 		SAFE_DELETE(m_pDeadEffect[i]);
 
