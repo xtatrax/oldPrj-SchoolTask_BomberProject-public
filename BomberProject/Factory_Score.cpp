@@ -129,6 +129,7 @@ DeadScore::DeadScore(LPDIRECT3DDEVICE9	pD3DDevice,
 				Rect*		Rect)
 :Score( pD3DDevice, pTexture, vScale, vPos, 0, Rect )
 {
+	m_pCoil	= NULL;
 }
 
 /**************************************************************************
@@ -185,6 +186,7 @@ ArrivalPos::ArrivalPos(LPDIRECT3DDEVICE9	pD3DDevice,
 :Score( pD3DDevice, pTexture, vScale, vPos, 0, Rect )
 ,m_iMaxPosY( 0 )
 {
+	m_pCoil	= NULL;
 }
 
 /**************************************************************************
@@ -250,6 +252,7 @@ ScratchPoint::ScratchPoint(LPDIRECT3DDEVICE9	pD3DDevice,
 				Rect*		Rect)
 :Score( pD3DDevice, pTexture, vScale, vPos, 0, Rect )
 {
+	m_pCoil	= NULL;
 }
 
 /**************************************************************************
@@ -307,6 +310,7 @@ GoalPos::GoalPos(LPDIRECT3DDEVICE9	pD3DDevice,
 :Score( pD3DDevice, pTexture, vScale, vPos, 0, Rect )
 ,m_pGoalObject(NULL)
 {
+	m_pCoil	= NULL;
 }
 
 /**************************************************************************
@@ -376,6 +380,7 @@ TimeScore::TimeScore(LPDIRECT3DDEVICE9	pD3DDevice,
 ,m_iTime( iTime )
 ,m_fElapsedTime( 0 )
 {
+	m_pCoil	= NULL;
 }
 
 /**************************************************************************
@@ -454,6 +459,7 @@ AnimationScore::AnimationScore(LPDIRECT3DDEVICE9	pD3DDevice,
 ,m_fTime( 0.0f )
 {
 	m_bTotal	= bTotal;
+	m_pCoil	= NULL;
 }
 
 /**************************************************************************
@@ -684,6 +690,7 @@ ResultScore::ResultScore(LPDIRECT3DDEVICE9	pD3DDevice,
 	m_pRate_30	= new SpriteObject( pD3DDevice, m_pRate30Tex, vRateSize, g_vZero, 
 									D3DXVECTOR3( wide+340.0f, height+20.0f, 0.0f ), Rect( 0, 0, 256, 64 ),g_vZero, g_vZero );
 
+	m_pCoil	= NULL;
 }
 
 
@@ -694,6 +701,7 @@ ResultScore::ResultScore(LPDIRECT3DDEVICE9	pD3DDevice,
  –ß‚è’l: ‚È‚µ
 ***************************************************************************/
 ResultScore::~ResultScore(){
+	Score::~Score();
 	m_pRank		= NULL;
 	SafeDelete(m_pDead);
 	SafeDelete(m_pScratch);
@@ -730,35 +738,27 @@ void	ResultScore::Update(UpdatePacket& i_UpdatePacket){
 
 	switch( m_iNowDraw ){
 		case 0:
-			//i_UpdatePacket.SearchWaveAndPlay(RCTEXT_SOUND_SE_COUNT_UP);
 			m_pMaxPos->Update( i_UpdatePacket );
 			if( m_pMaxPos->getNext() ){
 				++m_iNowDraw;
-				//i_UpdatePacket.SearchWaveAndPlay( RCTEXT_SOUND_SE_COUNT_FINISH );
 			}
 			break;
 		case 1:
-			///i_UpdatePacket.SearchWaveAndPlay(RCTEXT_SOUND_SE_COUNT_UP);
 			m_pScratch->Update( i_UpdatePacket );
 			if( m_pScratch->getNext() ){
 				++m_iNowDraw;
-				//i_UpdatePacket.SearchWaveAndPlay( RCTEXT_SOUND_SE_COUNT_FINISH );
 			}
 			break;
 		case 2:
-			//i_UpdatePacket.SearchWaveAndPlay(RCTEXT_SOUND_SE_COUNT_UP);
 			m_pDead->Update( i_UpdatePacket );
 			if( m_pDead->getNext() ){
 				++m_iNowDraw;
-				//i_UpdatePacket.SearchWaveAndPlay( RCTEXT_SOUND_SE_COUNT_FINISH );
 			}
 			break;
 		case 3:
-			//i_UpdatePacket.SearchWaveAndPlay(RCTEXT_SOUND_SE_COUNT_UP);
 			m_pTotal->Update( i_UpdatePacket );
 			if( m_pTotal->getNext() ){
 				++m_iNowDraw;
-				//i_UpdatePacket.SearchWaveAndPlay( RCTEXT_SOUND_SE_COUNT_FINISH );
 			}
 			break;
 		default:
