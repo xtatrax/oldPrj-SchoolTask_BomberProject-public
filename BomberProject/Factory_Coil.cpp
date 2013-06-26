@@ -193,8 +193,11 @@ PlayerCoil::~PlayerCoil(){
 	SafeDelete(m_pLine2);
 	SafeDelete(m_pLine3);
 	SafeDelete(m_pLine4);
-	for( int i = 0; i < PARTICLS_NUM; i++ )
-		SAFE_DELETE(m_pDeadEffect[i]);
+	int i ;
+	for( i = 0; i < PARTICLS_NUM; i++ ){
+		SafeDelete(m_pDeadEffect[i]);
+	}
+	Debugger::DBGWRITINGLOGTEXT::addStr(L"PlayerCoil::~PlayerCoil >>>> for  >>>> SAFE_DELETE(m_pDeadEffect[i]); [%d / %d]ŒÂ íœŠ®—¹ \n" , i, PARTICLS_NUM  );
 
 };
 

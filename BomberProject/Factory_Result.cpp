@@ -273,7 +273,7 @@ Factory_Result::Factory_Result(FactoryPacket* fpac, int iDeadCount, int iMaxPosY
 				OBJID_SYS_SOUND
 			)
 		);
-		pSound->SearchSoundAndPlay( RCTEXT_SOUND_BGM_CLEAR );
+		pSound->SearchSoundAndPlay( RCTEXT_SOUND_BGM_GAMEOVER );
 
 	}
 	catch(...){

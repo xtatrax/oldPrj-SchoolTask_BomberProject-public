@@ -355,16 +355,55 @@ inline void SafeDeletePointerMap(T& c){
 ////            ：std::map
 ////            ：std::multimap
 ////
+namespace Avoid{
+inline void widen(const std::string &src, std::wstring &dest) {
+	wchar_t *wcs = new wchar_t[src.length() + 1];
+	size_t ret;
+	mbstowcs_s(&ret, wcs, src.length() + 1, src.c_str(), src.length() + 1);
+	dest = wcs;
+	delete [] wcs;
+}
+}
 template<typename T>
 inline void SafeDeletePointerContainer(T& c){
 	try{
+		if( c.empty() ){
+#if defined(CF_DEBUG_DEBUGLOG_OUTPUTTEXT)
+			Debugger::DBGWRITINGLOGTEXT::addStr(L"SafeDeletePointerContainer(T& c) > %d個  \n" , c.size()  );
+#endif
+			return;
+		}
+#if defined(CF_DEBUG_DEBUGLOG_OUTPUTTEXT)
+		Debugger::DBGWRITINGLOGTEXT::addStr(L"\n////////// \n"   );
+		Debugger::DBGWRITINGLOGTEXT::addStr(L"// \n"  );
+		Debugger::DBGWRITINGLOGTEXT::addStr(L"// \n"  );
+		Debugger::DBGWRITINGLOGTEXT::addStr(L"SafeDeletePointerContainer(T& c) > %d個 削除開始 \n" , c.size()  );
+		DWORD num = 0;
+#endif
 		T::iterator	it  = c.begin()	;
 		while(it != c.end()){
+#if defined(CF_DEBUG_DEBUGLOG_OUTPUTTEXT)
+			num++;
+			const type_info& yp = typeid(*(*it));
+			wstring buf ;
+			Avoid::widen( string( yp.name() ), buf);
+			Debugger::DBGWRITINGLOGTEXT::addStr(L"SafeDeletePointerContainer(T& c) > [%d / %d]個 削除開始 ( %s )\n" , num   , c.size() , buf.c_str() );
+#endif
 			SafeDelete( *it );
 			//*it = NULL ;
+#if defined(CF_DEBUG_DEBUGLOG_OUTPUTTEXT)
+			Debugger::DBGWRITINGLOGTEXT::addStr(L"SafeDeletePointerContainer(T& c) > it++\n" );
+#endif
 			it++;
+#if defined(CF_DEBUG_DEBUGLOG_OUTPUTTEXT)
+			Debugger::DBGWRITINGLOGTEXT::addStr(L"SafeDeletePointerContainer(T& c) > [%d / %d]個 削除完了 ( %s )\n" , num , c.size() , buf.c_str() );
+#endif
 		}
 		c.clear();
+		Debugger::DBGWRITINGLOGTEXT::addStr(L"SafeDeletePointerContainer(T& c) > %d個 削除完了\n" , num  );
+		Debugger::DBGWRITINGLOGTEXT::addStr(L"// \n"  );
+		Debugger::DBGWRITINGLOGTEXT::addStr(L"// \n"  );
+		Debugger::DBGWRITINGLOGTEXT::addStr(L"////////// \n"   );
 	}catch(...){
 		throw ;
 	}
