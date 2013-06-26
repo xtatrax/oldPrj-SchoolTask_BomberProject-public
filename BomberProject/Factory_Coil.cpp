@@ -141,7 +141,7 @@ PlayerCoil::PlayerCoil(
 	m_pSelect	= NULL;
 	m_pSelect2	= NULL;
 	m_pDeadChar	= NULL;
-	m_pSphere->ShaderChange( new CookTrance(pD3DDevice) );
+	//m_pSphere->ShaderChange( new CookTrance(pD3DDevice) );
 
 	const	D3DXVECTOR3	vDir1	= D3DXVECTOR3( cosf( D3DXToRadian(45.0f) ), sinf( D3DXToRadian(45.0f) ), 0.0f );
 	const	D3DXVECTOR3	vDir2	= D3DXVECTOR3( cosf( D3DXToRadian(315.0f) ), sinf( D3DXToRadian(315.0f) ), 0.0f );
@@ -177,16 +177,22 @@ PlayerCoil::~PlayerCoil(){
 	m_pCamera				= NULL ;
 	m_pPlayer				= NULL ;
 	m_pMagneticumObject		= NULL ;
-	m_pCamera				= NULL ;
+	m_pCursor				= NULL ;
 	m_pSphere				= NULL ;
 	m_pSuperGage			= NULL ;
 	m_pSuperField			= NULL ;
 	m_pReStart				= NULL ;
+	m_pTime					= NULL ;
 
-	SAFE_DELETE(m_pModeChangeChar);
-	SAFE_DELETE(m_pSelect);
-	SAFE_DELETE(m_pSelect2);
-	SAFE_DELETE(m_pDeadChar);
+	
+	SafeDelete(m_pModeChangeChar);
+	SafeDelete(m_pSelect);
+	SafeDelete(m_pSelect2);
+	SafeDelete(m_pDeadChar);
+	SafeDelete(m_pLine1);
+	SafeDelete(m_pLine2);
+	SafeDelete(m_pLine3);
+	SafeDelete(m_pLine4);
 	int i ;
 	for( i = 0; i < PARTICLS_NUM; i++ ){
 		SafeDelete(m_pDeadEffect[i]);
@@ -314,7 +320,7 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 		}
 
 		//ƒQ[ƒW‚ªÅ‘å‚É‚È‚Á‚½‚çCOIL_STATE_SUPER_READY‚É
-		if(m_pSuperGage && m_pSuperGage->getRate() <= 0.0f && m_enumCoilStateSuper == COIL_STATE_SUPER_CHARGE){
+		if(m_pSuperGage && m_pSuperGage->getRate() <= 0.0f && m_enumCoilStateSuper == COIL_STATE_SUPER_CHARGE && m_enumCoilState != COIL_STATE_CLEAR){
 			m_enumCoilStateSuper = COIL_STATE_SUPER_READY;
 			i_UpdatePacket.SearchSoundAndPlay(RCTEXT_SOUND_SE_SUPER_FULL);
 		}
@@ -361,7 +367,6 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 		if(m_enumCoilState != COIL_STATE_DEAD){
 			for( int i = 0; i < PARTICLS_NUM; i++ ){
 				SafeDelete( m_pDeadEffect[i] );
-				continue;
 			}
 		}
 	}
@@ -879,7 +884,7 @@ void PlayerCoil::Draw(DrawPacket& i_DrawPacket){
 	m_Matrix	= mRot*mPos;
 	i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &m_Matrix);
 
-	if(m_enumCoilStateSuper == COIL_STATE_SUPER_READY){
+	if(m_enumCoilStateSuper == COIL_STATE_SUPER_READY && m_enumCoilState != COIL_STATE_DEAD && m_enumCoilState != COIL_STATE_CLEAR){
 		m_pLine1->draw(i_DrawPacket.pD3DDevice);
 		m_pLine2->draw(i_DrawPacket.pD3DDevice);
 		m_pLine3->draw(i_DrawPacket.pD3DDevice);

@@ -51,7 +51,7 @@ EnemyModel::EnemyModel(const LPDIRECT3DDEVICE9 pD3DDevice,const char *pFileName,
 {
 	CommonMesh::CreateMeshFormX( pD3DDevice, pFileName, pTexMgr);
 	::ZeroMemory( &m_Material, sizeof(D3DMATERIAL9));
-	ShaderChange( new CookTrance(pD3DDevice) );
+	//ShaderChange( new CookTrance(pD3DDevice) );
 
 }
 
@@ -204,7 +204,6 @@ void EnemyModel::Update( UpdatePacket& i_UpdatePacket){
 			if((*it)->m_vIsAlive){
 				for( int i = 0; i < PARTICLS_NUM_ENEMY; i++ ){
 					SafeDelete( (*it)->m_pDeadEffect[i] );
-					continue;
 				}
 			}
 		}

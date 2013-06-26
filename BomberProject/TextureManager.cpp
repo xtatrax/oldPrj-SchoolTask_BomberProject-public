@@ -53,13 +53,14 @@ TextureManager::~TextureManager(){
 ////            ÅF
 ////
 void TextureManager::Release(){
-	vector< Texture* >::iterator	it  = m_vecTextures.begin()	;
-	while(it != m_vecTextures.end()){
-		SafeDelete( *it );
-		
-		//*it = NULL ;
-		it = m_vecTextures.erase(it);
-	}
+	//vector< Texture* >::iterator	it  = m_vecTextures.begin()	;
+	//while(it != m_vecTextures.end()){
+	//	SafeDelete( *it );
+	//	
+	//	//*it = NULL ;
+	//	it = m_vecTextures.erase(it);
+	//}
+	SafeDeletePointerContainer( m_vecTextures );
 	m_vecTextures.clear();
 };
 /////////////////// ////////////////////

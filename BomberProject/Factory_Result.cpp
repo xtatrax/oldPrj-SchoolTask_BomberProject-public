@@ -180,7 +180,7 @@ Factory_Result::Factory_Result(FactoryPacket* fpac, int iDeadCount, int iMaxPosY
 				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"TEST.png" ),
 				D3DXVECTOR3( 1.0f, 1.5f, 0.0f ),
 				g_vZero,
-				D3DXVECTOR3( wide-430.0f, height+85.0f, 0.0f ),
+				D3DXVECTOR3( wide-430.0f, height+86.0f, 0.0f ),
 				Rect( 0, 65, 512, 128),
 				g_vZero,
 				g_vZero,
@@ -246,6 +246,18 @@ Factory_Result::Factory_Result(FactoryPacket* fpac, int iDeadCount, int iMaxPosY
 			)
 		);
 
+		//Click_Please
+		fpac->m_pVec->push_back(
+			new ClickChar(
+					fpac->pD3DDevice,
+					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"user_txt.png"),
+					D3DXVECTOR3( 0.5f, 0.5f, 0.0f ),
+					g_vZero,
+					g_vZero,
+					Rect( 0, 64, 512, 128 ),
+					D3DXVECTOR3( 40.0f, -75.0f, 0.0f )
+			)
+		);						
 		//ÉJÅ[É\Éã*************************************************
 		float	fLineLength	= 550.0f;
 		float	fPointSize	= 1.0f;

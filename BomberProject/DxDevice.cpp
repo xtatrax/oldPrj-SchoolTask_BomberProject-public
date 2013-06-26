@@ -246,6 +246,10 @@ int DxDevice::MainThreadRun(){
 	//	: メインスレッドループ
 	while(true){
 
+		if( !this ){
+			Debugger::DBGWRITINGLOGTEXT::addStr(L"DxDevice::MainThreadRun メインゲームループで this が ぬるぽじょうほうををキャッチしちゃいました><、");
+			return 1;
+		}
 		if( m_bDestroy ){
 			#ifndef CF_SINGLETHREAD
 				CloseHandle(m_hUpdateThread);

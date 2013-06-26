@@ -70,6 +70,10 @@ SelectInformation::SelectInformation(
 **********************************************************/
 SelectInformation::~SelectInformation()
 {
+	m_pButtonNormal = NULL;
+	m_pButtonHard = NULL;	
+	m_pButtonExtra = NULL;
+	m_pButtonBack = NULL;
 }
 
 /**********************************************************

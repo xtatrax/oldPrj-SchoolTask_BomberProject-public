@@ -72,6 +72,7 @@ Warning::Warning( LPDIRECT3DDEVICE9 pD3DDevice,D3DCOLORVALUE& Diffuse,D3DCOLORVA
 //// ’S“–ŽÒ     FŽ°Œ´ “O
 //// ”õl       F
 Warning::~Warning(){
+	m_pCoil = NULL;
 }
 /////////////////// ////////////////////
 //// —p“r       Fvoid Draw( DrawPacket& i_DrawPacket )
@@ -224,11 +225,11 @@ WallObject::WallObject( LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTextur
 ,m_Ptn(0)
 ,m_Plate( pD3DDevice, pTexture, 0xFFFFFFFF )
 ,m_pWarning( NULL )
+,m_pPlayerCoil(NULL)
+,m_pCamera(NULL)
+,m_pEnemy(NULL)
 {
 	::ZeroMemory( &m_Material, sizeof(D3DMATERIAL9));
-	m_pPlayerCoil	= NULL;
-	m_pCamera		= NULL;
-	m_pEnemy		= NULL;
 	m_Material.Ambient	= getD3DCOLORVALUE(0.0f,0.5f,0.5f,0.5f);
 	m_Material.Diffuse	= getD3DCOLORVALUE(0.0f,0.7f,0.7f,0.7f);
 	m_Material.Specular	= getD3DCOLORVALUE(0.0f,0.0f,0.0f,0.0f);
@@ -520,7 +521,8 @@ void WallObject::Update( UpdatePacket& i_UpdatePacket ){
 		//***********************************************************************************
 
 		(*it)->m_iPtn++;
-		m_Plate.Update( (*it)->m_iPtn );
+		(*it)->m_iPtn	%= 4;
+		//m_Plate.Update( (*it)->m_iPtn );
 
 		++it;
 	}
@@ -552,6 +554,7 @@ void WallObject::AddWall(D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos
 	m_ItemMap_All.insert(ALLCONTAINER::value_type(vPos.y,pItem));
 
 	m_Ptn++;
+	m_Ptn	%= 4;
 }
 
 
