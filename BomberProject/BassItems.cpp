@@ -585,11 +585,11 @@ void CommonMesh::TorusVec2UV(float x,float y,float z,float inr,float outr,float&
  ＊デバイスが喪失したときに呼ばれる。すべてのObjectの派生クラスは、個別に対応をとる
 ***************************************************************************/
 void CommonMesh::ReleaseObj(){
-	//Debugger::DBGWRITINGLOGTEXT::addStr(L"CommonMesh::ReleaseObj()\n");
+	Debugger::DBGWRITINGLOGTEXT::addStr(L"CommonMesh::ReleaseObj()\n");
     //後始末
     //SafeDelete(m_pShadowVolume);
     SafeRelease(m_pMesh);
-	//Debugger::DBGWRITINGLOGTEXT::addStr(L"m_pShader = %X\n",m_pShader);
+	Debugger::DBGWRITINGLOGTEXT::addStr(L"SafeRelease(m_pMesh); OK \n");
 	//SafeDelete(m_pShader);
 }
 
