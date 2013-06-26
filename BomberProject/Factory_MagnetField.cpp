@@ -116,6 +116,8 @@ MagnetField::MagnetField(
 ,m_MagneticField( pD3DDevice, 64 )
 ,m_pCoil(	NULL )
 ,m_pCamera(	NULL )
+,m_pPole_N(NULL)
+,m_pPole_S(NULL)
 ,m_fEffectSizeRate( NULL )
 {
 }
@@ -129,7 +131,10 @@ MagnetField::MagnetField(
 //// îıçl       ÅF
 ////	
 MagnetField::~MagnetField(){
-
+	m_pCamera = NULL;
+	m_pCoil	  = NULL;
+	m_pPole_N = NULL;
+	m_pPole_S = NULL;
 }
 
 /////////////////// ////////////////////

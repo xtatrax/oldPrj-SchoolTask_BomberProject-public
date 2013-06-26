@@ -83,6 +83,7 @@ ProvisionalPlayer3D::~ProvisionalPlayer3D(){
 	m_pPlayerCoil	= NULL;
 	m_pMGage_N		= NULL;
 	m_pMGage_S		= NULL;
+	m_pCursor		= NULL;
 }
 /////////////////// ////////////////////
 //// ä÷êîñº     ÅFvoid Update( UpdatePacket& i_UpdatePacket )
