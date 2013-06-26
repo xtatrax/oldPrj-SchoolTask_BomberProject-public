@@ -192,6 +192,18 @@ Factory_Clear::Factory_Clear(FactoryPacket* fpac, int iDeadCount, int iMaxPosY, 
 			)
 		);
 
+		//Click_Please
+		fpac->m_pVec->push_back(
+			new ClickChar(
+					fpac->pD3DDevice,
+					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"user_txt.png"),
+					D3DXVECTOR3( 0.5f, 0.5f, 0.0f ),
+					g_vZero,
+					g_vZero,
+					Rect( 0, 0, 512, 64 ),
+					D3DXVECTOR3( 40.0f, -70.0f, 0.0f )
+			)
+		);						
 		//ÉJÅ[É\Éã*************************************************
 		float	fLineLength	= 550.0f;
 		float	fPointSize	= 1.0f;

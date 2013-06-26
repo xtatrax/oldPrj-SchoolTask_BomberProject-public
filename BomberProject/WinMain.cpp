@@ -258,6 +258,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE
 		int ret =  (int) device->MainThreadRun();
 		ReleaseCapture();
 
+		Debugger::DBGWRITINGLOGTEXT::addStr(L"ゲームシステム終了処理開始");
 		SafeDelete( device );
 		::PostQuitMessage(0);
 		ShowCursor(true);
