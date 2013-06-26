@@ -24,7 +24,7 @@
 //////////
 //	: コンパイリングフラグ
 #define CF_SINGLETHREAD					/* シングルスレッドモード  ( 無効にするとマルチスレッド的になりますがバグります )   */
-#define DRAW_MOUSE	(true)				/* マウスを描画するかどうか */
+#define DRAW_MOUSE	(false)				/* マウスを描画するかどうか */
 
 #define DEBUG_KEYBORD_ON				/* デバッグ用キーボード操作を有効化 */
 #define CF_OVERLORDNEW_ENABLE			/* 自作のnewを強制化(Manager有効時) */
