@@ -31,7 +31,7 @@
 #define CF_MEMORYOUTPUTPROCESS_ENABLE	/* 自作メモリ管理システムにより管理されているアイテムのファイルへの書き出しを可能にする(Manager有効時) */
 ///#define CF_LOADINGANIMATION			/* ロード画面でアニメーション */
 //#define CF_OVERLORDNEW_ENABLE			/* 自作のnewを強制化 */
-
+#define CF_DEBUG_DEBUGLOG_OUTPUTTEXT	/* DEBUG用のログを吐き出す */
 #define CF_DEBUG_TIMEDRAW				/* 時間を描画 */
 //#define CF_LOADINGANIMATION			/* ロード画面でアニメーション */
 
@@ -89,8 +89,8 @@
 #define BASE_CLIENT_WIDTH		( 1024.0f)	/* 基準になる描画領域の幅   */
 #if defined(CF_FULLSCREEN)
 
-#define STANDARD_WINDOW_HEIGHT		(  768.0f)	/* 基準になる描画領域の高さ */
-#define STANDARD_WINDOW_WIDTH		( 1280.0f)	/* 基準になる描画領域の幅   */
+#define STANDARD_WINDOW_HEIGHT		(  768.0f)	/* ウインドウモードの高さ */
+#define STANDARD_WINDOW_WIDTH		( 1280.0f)	/* ウインドウモードの幅   */
 
 //#define STANDARD_WINDOW_HEIGHT  (  800.0f)	/* ウインドウモードの高さ   */
 //#define STANDARD_WINDOW_WIDTH   ( 1280.0f)	/* ウインドウモードの幅     */

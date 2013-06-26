@@ -267,9 +267,12 @@ void Scene::CommandTranslator(DrawPacket& i_DrawPacket){
 
 		case GM_OPENSTAGE_CLEAR:
 			//	: ゲームクリア画面
+			Debugger::DBGWRITINGLOGTEXT::addStr(L"Scene::CommandTranslator  >>>>  GM_OPENSTAGE_CLEAR  ステージ削除開始  ");
 			SafeDeleteStage(m_pRootStage);
+			Debugger::DBGWRITINGLOGTEXT::addStr(L"Scene::CommandTranslator  >>>>  GM_OPENSTAGE_CLEAR  ステージ削除OK  ");
 			m_pRootStage = new ClearStage(i_DrawPacket.pD3DDevice, i_DrawPacket.pCommand->m_Param1,
 														i_DrawPacket.pCommand->m_Param2, i_DrawPacket.pCommand->m_Param3 );
+			Debugger::DBGWRITINGLOGTEXT::addStr(L"Scene::CommandTranslator  >>>>  GM_OPENSTAGE_CLEAR  ステージ作成OK  ");
 			break;
 
 		case GM_OPENSTAGE_RESULT:

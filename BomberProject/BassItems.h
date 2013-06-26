@@ -58,7 +58,7 @@ protected:
 	//デフォルトはfalse（グーロー シェーディング モード）
 	bool m_bShadeModeFlat;
 
-	CustomShader* m_pShader;
+	//CustomShader* m_pShader;
 protected:
 	//テスト用
 	D3DMATERIAL9	m_Material ;
@@ -347,11 +347,11 @@ protected:
 	void DrawCommonShadowVolume( LPDIRECT3DDEVICE9 pD3DDevice,D3DXMATRIX& AllMatrix, LPD3DXEFFECT pEffect,D3DXMATRIX& mCameraView,D3DXMATRIX& mCameraProj);
 public:
 	void ShaderChange( CustomShader* pShader ){
-		SafeDelete( m_pShader );
-		m_pShader = pShader;
+	//	SafeDelete( m_pShader );
+	//	m_pShader = pShader;
 	}
 	CustomShader* getShader(){
-		return m_pShader;
+		return NULL;//m_pShader;
 	}
 
 	/**************************************************************************

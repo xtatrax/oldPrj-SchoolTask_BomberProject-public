@@ -47,6 +47,7 @@ MagneticObject::MagneticObject()
 //// îıçl       ÅF
 ////	
 MagneticObject::~MagneticObject(){
+	Debugger::DBGWRITINGLOGTEXT::addStr(L"MagneticObject::~MagneticObject()\n");
 }
 
 

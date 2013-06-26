@@ -74,7 +74,33 @@ PlayStage();
  ñﬂÇËíl: Ç»Çµ
 ***************************************************************************/
 PlayStage::~PlayStage(){
-	
+	Debugger::DBGWRITINGLOGTEXT::addStr(L"////////////////////////////////////////////////////////\n");
+	Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
+	Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
+	Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
+	Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
+	Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
+	Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
+	Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
+	Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
+	Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
+	Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
+	Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
+	Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
+	Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
+	Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
+	Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
+	Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
+	Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
+	Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
+	Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
+	Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
+	Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
+	Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
+	Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
+	Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
+	Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
+	Debugger::DBGWRITINGLOGTEXT::addStr(L"PlayStage::~PlayStage %X\n",this);
 }
 /////////////////// ////////////////////
 //// ópìr       ÅFvirtual void Update( UpdatePacket& i_UpdatePacket )
