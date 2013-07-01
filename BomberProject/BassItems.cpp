@@ -585,10 +585,11 @@ void CommonMesh::TorusVec2UV(float x,float y,float z,float inr,float outr,float&
  ＊デバイスが喪失したときに呼ばれる。すべてのObjectの派生クラスは、個別に対応をとる
 ***************************************************************************/
 void CommonMesh::ReleaseObj(){
-	Debugger::DBGWRITINGLOGTEXT::addStr(L"CommonMesh::ReleaseObj()\n");
+	Debugger::DBGWRITINGLOGTEXT::addStr(L"CommonMesh::ReleaseObj()  >>>  m_pMesh = %X\n",m_pMesh);
     //後始末
     //SafeDelete(m_pShadowVolume);
     SafeRelease(m_pMesh);
+
 	Debugger::DBGWRITINGLOGTEXT::addStr(L"SafeRelease(m_pMesh); OK \n");
 	//SafeDelete(m_pShader);
 }
@@ -616,9 +617,10 @@ CommonMesh::CommonMesh( wiz::OBJID id , CustomShader* pShader)
 ***************************************************************************/
 CommonMesh::~CommonMesh(){
 
-	//Debugger::DBGWRITINGLOGTEXT::addStr(L"CommonMesh::~CommonMesh()\n");
+	Debugger::DBGWRITINGLOGTEXT::addStr(L"CommonMesh::~CommonMesh()\n");
 
 	ReleaseObj();
+	Debugger::DBGWRITINGLOGTEXT::addStr(L"ReleaseObj() OK\n");
 }
 /**************************************************************************
 void CommonMesh::CreateBox(
@@ -1064,15 +1066,15 @@ void CommonMesh::CreateMeshFormX(
 {
 	try{
 		// Xファイルからメッシュをロードする 
-		LPD3DXBUFFER pD3DXMtrlBuffer = NULL;
-		DWORD dwMQty;
+		//LPD3DXBUFFER pD3DXMtrlBuffer = NULL;
+		//DWORD dwMQty;
 		if(FAILED(D3DXLoadMeshFromXA(pFileName,
-								D3DXMESH_SYSTEMMEM,
+								D3DXMESH_MANAGED,
 								pD3DDevice,
 								NULL,
-								&pD3DXMtrlBuffer,
 								NULL,
-								&dwMQty,
+								NULL,
+								NULL,
 								&m_pMesh))){
 			string	 buf1 = pFileName ;
 			wstring  buf2 ;
@@ -3147,6 +3149,8 @@ m_pTexture(pTexture)
 	//マルチコモンメッシュ配列のクリア
 	 SafeDeletePointerContainer(m_MultiVec);
 	//自身のメッシュのクリアは親クラスで行なう
+	 	//SafeRelease(m_pTexture);
+
  }
 
 /**************************************************************************

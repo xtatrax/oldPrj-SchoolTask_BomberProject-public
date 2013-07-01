@@ -70,6 +70,13 @@ SelectInformation::SelectInformation(
 **********************************************************/
 SelectInformation::~SelectInformation()
 {
+	this->m_pTexture = NULL ;
+
+	//SafeRelease( m_pDescTex );	
+	//SafeRelease( m_pNomalTex );	
+	//SafeRelease( m_pHardTex );	
+	//SafeRelease( m_pExtraTex );		
+
 	m_pButtonNormal = NULL;
 	m_pButtonHard = NULL;	
 	m_pButtonExtra = NULL;

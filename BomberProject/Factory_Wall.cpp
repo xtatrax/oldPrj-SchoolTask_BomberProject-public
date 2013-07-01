@@ -37,15 +37,16 @@ namespace bomberobject{
 ***************************************************************************/
 Warning::Warning( LPDIRECT3DDEVICE9 pD3DDevice,D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,LPDIRECT3DTEXTURE9 pTexture,wiz::OBJID id)
 :PrimitiveBox(pD3DDevice,Diffuse,Specular,Ambient,id,pTexture)
+,m_pCoil( NULL )
 ,m_Plate( pD3DDevice, pTexture, 0xFFFFFFFF )
-,m_iPtn(0)
 ,m_pTexture(pTexture)
 ,m_vPos(D3DXVECTOR3(0.0f,0.0f,0.0f))
 ,m_vRot(D3DXVECTOR3(0.0f,0.0f,0.0f))
 ,m_vScale(D3DXVECTOR3(2.0f,2.0f,0.0f))
-,m_bToDraw(false)
+,m_iPtn(0)
+,m_iPtnInterval( 0 )
 ,m_fDrawTime( 0 )
-,m_pCoil( NULL )
+,m_bToDraw(false)
 ,m_bIsPlaySound( false )
 {
 	::ZeroMemory( &m_Material, sizeof(D3DMATERIAL9));
@@ -173,8 +174,7 @@ void Warning::Update( UpdatePacket& i_UpdatePacket ){
 		m_Matrix = mScalse * mRot * mPos ;
 
 		const int  WARNING_INTERVAL = 2;
-		static int s_iInterval = 0;
-		if(s_iInterval >= WARNING_INTERVAL){
+		if(m_iPtnInterval >= WARNING_INTERVAL){
 			//**************************************************************************************
 			LPDIRECT3DVERTEXBUFFER9 pVB = 0;
 			CommonMeshVertex* pVer = 0;
@@ -190,8 +190,8 @@ void Warning::Update( UpdatePacket& i_UpdatePacket ){
 			++m_iPtn;
 			m_Plate.Update( m_iPtn );
 		}
-		if(s_iInterval >= WARNING_INTERVAL)s_iInterval = 0;
-		s_iInterval++;
+		if(m_iPtnInterval >= WARNING_INTERVAL)m_iPtnInterval = 0;
+		m_iPtnInterval++;
 
 		m_fDrawTime	+= (float)i_UpdatePacket.pTime->getElapsedTime();
 		if( m_fDrawTime > 0.01f ){
@@ -526,10 +526,6 @@ void WallObject::Update( UpdatePacket& i_UpdatePacket ){
 
 		++it;
 	}
-
-
-	//static	int	s_Time	= 0;
-
 }
 
 /////////////////// ////////////////////
@@ -575,6 +571,7 @@ Factory_Wall::Factory_Wall(FactoryPacket* fpac){
  		D3DCOLORVALUE WallDiffuse = {0.7f,0.7f,0.7f,1.0f};
 		D3DCOLORVALUE WallSpecular = {0.0f,0.0f,0.0f,0.0f};
 		D3DCOLORVALUE WallAmbient = {0.5f,0.5f,0.5f,1.0f};
+
 		fpac->m_pVec->push_back( new Warning(fpac->pD3DDevice,WallDiffuse,WallSpecular,WallAmbient,
 												fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Warning.png" )));
 	}

@@ -461,8 +461,10 @@ TextureManager::Texture::Texture(LPDIRECT3DDEVICE9 pD3DDevice,const wchar_t* fil
 ////
 TextureManager::Texture::~Texture(){
 	if( this && m_pTexture){
+		Debugger::DBGWRITINGLOGTEXT::addStr( L"TextureManager::Texture::~Texture(0x%X)  >>>  m_strFilePath( 0x%X ) = %s\n", this,m_pTexture , m_strFilePath.c_str() );
 	    //ŒãŽn––
-		SafeRelease(m_pTexture);
+		int ret = SafeRelease(m_pTexture);
+		Debugger::DBGWRITINGLOGTEXT::addStr( L"TextureManager::Texture::~Texture(0x%X)  >>>  %d \n", this,ret );
 	}else{
 		Debugger::DBGWRITINGLOGTEXT::OutputSystemLog(L"TextureManager::Texture::~Texture ‚Å this ‚ª‚Ê‚é‚Û‚Á!‚Ä‚Ü‚·¡");
 	}

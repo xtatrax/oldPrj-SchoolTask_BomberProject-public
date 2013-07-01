@@ -52,6 +52,7 @@ class MouseCursor : public Box , public  PrimitiveSprite{
 	Torus*				m_pTorus		;
 	SpriteObject*		m_pSelectPos	;
 	float				m_fTorusMagnification;
+	float				m_fTorusTimeCount	;
 	bool				m_bIsReverse	;
 //protected:
 
@@ -66,7 +67,7 @@ public:
 	//// 戻値       ：無し
 	//// 担当者     ：本多寛之
 	//// 備考       ：
-	MouseCursor(LPDIRECT3DDEVICE9  pD3DDevice,TextureManager* m_TexMgr, float fLineLength, float fPointSize);
+	MouseCursor(LPDIRECT3DDEVICE9  pD3DDevice,TextureManager* m_TexMgr, float fLineLength, float fPointSize,LPDIRECT3DTEXTURE9 pTex);
 
 	/////////////////// ////////////////////
 	//// 用途       ：~MouseCursor();

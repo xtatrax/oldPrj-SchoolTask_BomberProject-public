@@ -21,7 +21,7 @@ namespace bomberobject{
 
 extern class PlayerCoil ;
 const int PARTICLS_NUM	= 50;
-const int PARTICLS_NUM_ENEMY = 20; 
+//const int PARTICLS_NUM_ENEMY = 20; 
 
 /**************************************************************************
 class DeadEffect;
@@ -30,16 +30,17 @@ class DeadEffect;
 担当者：佐藤涼
 **************************************************************************/
 class DeadEffect : public PrimitiveBox{
-	D3DXMATRIX		m_Matrix;
-	D3DXVECTOR3		m_vPos ;
-	float			m_fLife;
-	float			m_fDir;
-	float			m_fSpeed;
-	float			m_fAccele;
-	int				m_iDirZ;
 
-	PlayerCoil*		m_pCoil;
-	Camera*			m_pCamera;
+	struct EffectItem{
+		D3DXVECTOR3		m_vPos	;
+		float			m_fDir	;
+
+		EffectItem(){}
+		virtual ~EffectItem(){}
+	};
+
+	multimap<float,EffectItem*>		m_ItemMap_Target	;	//描画対象のWallItem
+
 public:
 	/////////////////// ////////////////////
 	//// 用途       ：Description(	LPDIRECT3DDEVICE9 pD3DDevice,LPDIRECT3DTEXTURE9 pTexture,wiz::OBJID id = OBJID_3D_WALL);
@@ -51,14 +52,15 @@ public:
 	//// 戻値       ：無し
 	//// 担当者     ：佐藤涼
 	//// 備考       ：
-	DeadEffect(LPDIRECT3DDEVICE9 pD3DDevice,
-				D3DXVECTOR3	vPos,
-				float		vDir,
-				LPDIRECT3DTEXTURE9 pTexture,
-				wiz::OBJID id = OBJID_3D_WALL
+	DeadEffect(LPDIRECT3DDEVICE9	pD3DDevice,
+				LPDIRECT3DTEXTURE9	pTexture,
+				D3DXVECTOR3			vPos,
+				wiz::OBJID id = OBJID_3D_DEADEFFECT
 				);
 
 	~DeadEffect();
+
+	void	addEffect( D3DXVECTOR3 vPos,float fDir );
 	/////////////////// ////////////////////
 	//// 用途       ：void Draw( DrawPacket& i_DrawPacket )
 	//// カテゴリ   ：関数
@@ -85,9 +87,34 @@ public:
 	////
 	void Update( UpdatePacket& i_UpdatePacket );
 
+	void	setMatrix(D3DXVECTOR3 vPos);
+	void	setPos( D3DXVECTOR3 i_vPos );
+
 	float	getColor(){
 		return	m_Material.Ambient.r;
 	}
+};
+
+/**************************************************************************
+class Factory_DeadEffct;
+
+用途　：メイン工場クラス
+担当者：佐藤涼
+****************************************************************************/
+class Factory_DeadEffect{
+public:
+/**************************************************************************
+ Factory_DeadEffct(FactoryPacket* fpac);
+ 用途: コンストラクタ（サンプルオブジェクトを配列に追加する）
+ 戻り値: なし
+***************************************************************************/
+	Factory_DeadEffect(FactoryPacket* fpac);
+/**************************************************************************
+ ~MyFactory();
+ 用途: デストラクタ
+ 戻り値: なし
+***************************************************************************/
+	~Factory_DeadEffect();
 };
 
 }

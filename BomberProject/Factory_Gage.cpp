@@ -21,8 +21,6 @@
 #include "Factory_Player.h"
 #include "Factory_Coil.h"
 const static BYTE	byGaugeAlpha = 0xFF ;
-//const static float	 = 0xA0 ;
-//const static float	byGaugeAlpha = 0xA0 ;
 namespace wiz{
 namespace bomberobject{
 
@@ -51,6 +49,7 @@ SuperNotice::SuperNotice(const LPDIRECT3DDEVICE9 pD3DDevice, const LPDIRECT3DTEX
 ****************************************************/
 SuperNotice::~SuperNotice()
 {
+	m_pCursor = NULL;
 }
 
 /***************************************************
@@ -110,6 +109,7 @@ Relationship_Gage::Relationship_Gage(const LPDIRECT3DDEVICE9 pD3DDevice, const L
 ****************************************************/
 Relationship_Gage::~Relationship_Gage()
 {
+	m_pCursor = NULL;
 }
 
 /***************************************************
@@ -314,12 +314,13 @@ SuperGage::SuperGage(
 ,m_vBassPos(vPos)
 ,m_vScale( vScale )
 ,m_vRot( vRot )
+,m_fLineMoveDistance( 0.0f )
+,m_bAcquired(false)
 ,m_pCursor( NULL )
 ,m_pLineTop( NULL )
 ,m_pLineLeft( NULL )
 ,m_pLineBottom( NULL )
 ,m_pLineRight( NULL )
-,m_bAcquired(false)
 ,m_pSuperNotice( NULL )
 {
 	const	D3DXVECTOR3	vDirTop		= D3DXVECTOR3( cosf( D3DXToRadian(0.0f) ), sinf( D3DXToRadian(0.0f) ), 0.0f );
@@ -467,7 +468,6 @@ void SuperGage::Update_Line(){
 	D3DXVECTOR3		vLineScale	= D3DXVECTOR3(1.0f,1.0f,0.0f),vLinePos, 
 					vBaseLinePos = D3DXVECTOR3((float)m_pCursor->get2DPos().x + m_vBassPos.x/**0.225f*/,
 												(float)m_pCursor->get2DPos().y + m_vBassPos.y,0.0f);
-	static float	s_fMovingDistance	= 0.0f; 
 
 	D3DXMatrixScaling( &mLineScale, vLineScale.x, vLineScale.y, vLineScale.z );
 
@@ -484,28 +484,28 @@ void SuperGage::Update_Line(){
 
 	//ã•”
 	vLineScale;
-	vLinePos	= D3DXVECTOR3(vBaseLinePos.x, vBaseLinePos.y - s_fMovingDistance, 0.0f);
+	vLinePos	= D3DXVECTOR3(vBaseLinePos.x, vBaseLinePos.y - m_fLineMoveDistance, 0.0f);
 	D3DXMatrixTranslation( &mLinePos, vLinePos.x, vLinePos.y, vLinePos.z);
 	m_pLineTop->setMatrix( mLineScale * mLinePos );
 
 	//¶•”
-	vLinePos	= D3DXVECTOR3(vBaseLinePos.x - s_fMovingDistance*iDir, vBaseLinePos.y, 0.0f);
+	vLinePos	= D3DXVECTOR3(vBaseLinePos.x - m_fLineMoveDistance*iDir, vBaseLinePos.y, 0.0f);
 	D3DXMatrixTranslation( &mLinePos, vLinePos.x, vLinePos.y, vLinePos.z);
 	m_pLineLeft->setMatrix( mLineScale * mLinePos );
 
 	//‰º•”
-	vLinePos	= D3DXVECTOR3(vBaseLinePos.x, vBaseLinePos.y + s_fMovingDistance, 0.0f);
+	vLinePos	= D3DXVECTOR3(vBaseLinePos.x, vBaseLinePos.y + m_fLineMoveDistance, 0.0f);
 	D3DXMatrixTranslation( &mLinePos, vLinePos.x, vLinePos.y, vLinePos.z);
 	m_pLineBottom->setMatrix( mLineScale * mLinePos );
 
 	//‰E•”
-	vLinePos	= D3DXVECTOR3(vBaseLinePos.x + s_fMovingDistance*iDir, vBaseLinePos.y, 0.0f);
+	vLinePos	= D3DXVECTOR3(vBaseLinePos.x + m_fLineMoveDistance*iDir, vBaseLinePos.y, 0.0f);
 	D3DXMatrixTranslation( &mLinePos, vLinePos.x, vLinePos.y, vLinePos.z);
 	m_pLineRight->setMatrix( mLineScale * mLinePos );
 	
-	s_fMovingDistance	+= 0.8f;
-	if(s_fMovingDistance >= 6.0f){
-		s_fMovingDistance	= 0.0f;
+	m_fLineMoveDistance	+= 0.8f;
+	if(m_fLineMoveDistance >= 6.0f){
+		m_fLineMoveDistance	= 0.0f;
 		m_bAcquired = false;
 	}	
 }
@@ -751,11 +751,12 @@ void MagneticGage_S::Draw(DrawPacket& i_DrawPacket){
 ***************************************************************************/
 Factory_Gage::Factory_Gage(FactoryPacket* fpac){
 	try{
+
 		//ƒQ[ƒW‚ÌŽí—Þ
 		fpac->m_pVec->push_back(
 			new Relationship_Gage(
 				fpac->pD3DDevice,
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"GAGE.png" ),
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"GAGE1.png" ),
 				D3DXVECTOR3( 0.25f, 0.25f, 0.0f ),
 				g_vZero,
 				D3DXVECTOR3( 0.0f, 0.0f, 0.0f ),
@@ -767,7 +768,7 @@ Factory_Gage::Factory_Gage(FactoryPacket* fpac){
 		fpac->m_pVec->push_back(
 			new SuperGage(
 				fpac->pD3DDevice,
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"GAGE.png" ),
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"GAGE2.png" ),
 				D3DXVECTOR3(0.4f,0.25f,0.0f),
 				D3DXVECTOR3(0.0f,0.0f,0.0f),
 				D3DXVECTOR3(43.0f,-35.0f,0.0f),
@@ -780,7 +781,7 @@ Factory_Gage::Factory_Gage(FactoryPacket* fpac){
 		fpac->m_pVec->push_back(
 			new MagneticGage_N(
 				fpac->pD3DDevice,
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"GAGE.png" ),
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"GAGE3.png" ),
 				D3DXVECTOR3( 105.0f,-410.0f,0.0f),
 				D3DXVECTOR3( 0.4f, 0.4f, 0.0f ),
 				Rect(0,32,256,64),
@@ -791,7 +792,7 @@ Factory_Gage::Factory_Gage(FactoryPacket* fpac){
 		fpac->m_pVec->push_back(
 			new MagneticGage_S(
 				fpac->pD3DDevice,
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"GAGE.png" ),
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"GAGE4.png" ),
 				D3DXVECTOR3( 105.0f,-410.0f,0.0f),
 				D3DXVECTOR3( 0.4f, 0.4f, 0.0f ),
 				Rect(0,64,256,96),
@@ -803,7 +804,7 @@ Factory_Gage::Factory_Gage(FactoryPacket* fpac){
 		fpac->m_pVec->push_back(
 			new SuperNotice(
 				fpac->pD3DDevice,
-				fpac->AddTexture( L"GAGE.png" ),
+				fpac->AddTexture( L"GAGE5.png" ),
 				D3DXVECTOR3( 0.5f, 0.25f, 0.0f ),
 				D3DXVECTOR3( 35.0f, 25.0f, 0.0f ),
 				Rect( 0, 96, 120, 128 )

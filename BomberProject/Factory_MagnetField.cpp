@@ -34,8 +34,8 @@ namespace bomberobject{
 ////
 MagnetFieldCircle::MagnetFieldCircle(LPDIRECT3DDEVICE9 pD3DDevice,DWORD dwVertexQty){
 
-	m_dwVertexQty	= dwVertexQty ;
-	float iRotSize	= 360.0f / (dwVertexQty -2 ) ;
+	m_dwVertexQty	= dwVertexQty +1 ;	//	: 角数　+　中心頂点
+	float iRotSize	= 360.0f / ( dwVertexQty -1 ) ;
 	Vertex* m_pVertex;
 
 	pD3DDevice->CreateVertexBuffer( Vertex::getSize() * m_dwVertexQty , D3DUSAGE_WRITEONLY, Vertex::getFVF(), D3DPOOL_MANAGED, &m_pVertexBuffer, NULL );
@@ -43,11 +43,15 @@ MagnetFieldCircle::MagnetFieldCircle(LPDIRECT3DDEVICE9 pD3DDevice,DWORD dwVertex
 
 	m_pVertex[ 0 ]	= Vertex( D3DXVECTOR3( 0.0f, 0.0f, 0.0f ) , 0x3FFFFFFF );
 
-	for ( DWORD i = 0 ; i < m_dwVertexQty-1  ; i++ ){
-		m_pVertex[ i+1 ]	= Vertex( D3DXVECTOR3(  cosf( D3DXToRadian( iRotSize * i ) ) , sinf(D3DXToRadian( iRotSize * i ) ) , 0.0f )	, 0x3FFFFFFF );
+	for ( DWORD i = 0 ; i < dwVertexQty  ; i++ ){
+		m_pVertex[ i+1 ]	= Vertex(
+			D3DXVECTOR3(  cosf( D3DXToRadian( iRotSize * i ) ) ,
+			sinf(D3DXToRadian( iRotSize * i ) ) , 0.0f )	,
+			0x3FFFFFFF
+		);
 	}
 	m_pVertexBuffer->Unlock();
-	D3DXMatrixScaling( &m_mMatrix, 10.0f, 10.0f, 1.0f );
+	//D3DXMatrixScaling( &m_mMatrix, 10.0f, 10.0f, 1.0f );
 
 	m_dwColor_S	= 0x3F0000FF;
 	m_dwColor_N	= 0x3FFF0000;
@@ -84,7 +88,7 @@ void MagnetFieldCircle::Draw(DrawPacket& i_DrawPacket){
 	i_DrawPacket.pD3DDevice->SetRenderState( D3DRS_LIGHTING, FALSE );
 	i_DrawPacket.pD3DDevice->SetStreamSource( 0, m_pVertexBuffer , 0 , Vertex::getSize() );		//	: 描画対象となる頂点バッファを設定
 	i_DrawPacket.pD3DDevice->SetFVF( Vertex::getFVF() );											//	: 頂点データの形式を設定
-	i_DrawPacket.pD3DDevice->DrawPrimitive( D3DPT_TRIANGLEFAN  , 0, m_dwVertexQty -1  );	//	: 頂点データの描画（描画の仕方、描画開始位置、プリミティブ数）
+	i_DrawPacket.pD3DDevice->DrawPrimitive( D3DPT_TRIANGLEFAN  , 0, m_dwVertexQty -1 );	//	: 頂点データの描画（描画の仕方、描画開始位置、プリミティブ数）
 	i_DrawPacket.pD3DDevice->SetRenderState( D3DRS_LIGHTING, TRUE );
     //i_DrawPacket.pD3DDevice->SetRenderState(D3DRS_COLORVERTEX, FALSE); 
 	i_DrawPacket.pD3DDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, 0);
@@ -119,6 +123,8 @@ MagnetField::MagnetField(
 ,m_pPole_N(NULL)
 ,m_pPole_S(NULL)
 ,m_fEffectSizeRate( NULL )
+,m_bPtn( true )
+,m_iFlashingInterval( 0 )
 {
 }
 /////////////////// ////////////////////
@@ -233,39 +239,32 @@ void MagnetField::HitTest(){
 }
 
 void	MagnetField::Flashing( UpdatePacket& i_UpdatePacket, POLE i_Pole ){
-	static bool	s_bPtn		= true;
-	static int	s_iInterval	= 0;
 	if( i_Pole == POLE_S ){
-		if( s_bPtn ){
+		if( m_bPtn ){
 			m_MagneticField.setColor( i_Pole, 0x000000FF );
-			//s_iInterval++;
 		}
 		else{
 			m_MagneticField.setColor( i_Pole, 0x3F0000FF );
-			s_iInterval++;
+			m_iFlashingInterval++;
 		}
 	}
 	else{
-		if( s_bPtn ){
+		if( m_bPtn ){
 			m_MagneticField.setColor( i_Pole, 0x00FF0000 );
-			//s_iInterval++;
 		}
 		else{
 			m_MagneticField.setColor( i_Pole, 0x3FFF0000 );
-			s_iInterval++;
+			m_iFlashingInterval++;
 		}
 	}
 
-	if( s_bPtn ){
-		//if( s_iInterval >= 2 ){
-			s_bPtn	= false;
-		//	s_iInterval	= 0;
-		//}
+	if( m_bPtn ){
+			m_bPtn	= false;
 	}
 	else{
-		if( s_iInterval >= 5 ){
-			s_bPtn	= true;
-			s_iInterval	= 0;
+		if( m_iFlashingInterval >= 5 ){
+			m_bPtn	= true;
+			m_iFlashingInterval	= 0;
 		}
 	}
 }

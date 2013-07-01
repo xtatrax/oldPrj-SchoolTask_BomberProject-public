@@ -565,9 +565,9 @@ ResultScore::ResultScore(LPDIRECT3DDEVICE9	pD3DDevice,
 				int			iScratchScore,
 				Rect*		rect	)
 :Score( pD3DDevice, NULL, vScale, vPos, 0, rect )
+,m_iNowDraw( 0 )
 ,m_pDeadTex( pDeadTex )
 ,m_pMaxPosTex( pMaxPosTex )
-,m_iNowDraw( 0 )
 ,m_pRate10Tex( pRate10Tex )
 ,m_pRate30Tex( pRate30Tex )
 ,m_pRate1Tex( pRate1Tex )
@@ -668,21 +668,71 @@ ResultScore::ResultScore(LPDIRECT3DDEVICE9	pD3DDevice,
 	}
 	//*******************************************
 
+	m_pMaxPos	= new AnimationScore(
+		pD3DDevice,
+		pMaxPosTex,
+		vScoreSize,
+		D3DXVECTOR3( wide+90.0f, height-140.0f, 0.0f ),
+		iMaxPos,
+		iDightMaxPos,
+		false,
+		&rScoreRect
+	);
+	m_pScratch	= new AnimationScore(
+		pD3DDevice,
+		pMaxPosTex,
+		vScoreSize,
+		D3DXVECTOR3( wide+90.0f, height-70.0f, 0.0f ),
+		iScratch,
+		iDightScratch,
+		false,
+		&rScoreRect);
+	m_pDead		= new AnimationScore(
+		pD3DDevice,
+		pDeadTex, 
+		vScoreSize,
+		D3DXVECTOR3( wide+90.0f, height+5.0f, 0.0f ),
+		iDead,
+		iDightDead,
+		false,
+		&rScoreRect);
+	m_pTotal	= new AnimationScore(
+		pD3DDevice,
+		pMaxPosTex,
+		D3DXVECTOR3( 1.0f, 1.0f, 0.0f ),
+		D3DXVECTOR3( 500.0f, height+160.0f, 0.0f ),
+		TotalScore,
+		iDightTotal,
+		true,
+		&rScoreRect);
+	m_pRate_10	= new SpriteObject(
+		pD3DDevice,
+		pRate10Tex,
+		vRateSize,
+		g_vZero, 
+		D3DXVECTOR3( wide+340.0f, height-140.0f+15.0f, 0.0f ),
+		Rect( 0, 0, 256, 64 ),
+		g_vZero,
+		g_vZero );
+	m_pRate_1	= new SpriteObject(
+		pD3DDevice,
+		pRate1Tex,
+		vRateSize,
+		g_vZero, 
+		D3DXVECTOR3( wide+340.0f, height-70.0f+15.0f, 0.0f ),
+		Rect( 0, 0, 256, 64 ),
+		g_vZero,
+		g_vZero );
+	m_pRate_30	= new SpriteObject(
+		pD3DDevice,
+		pRate30Tex,
+		vRateSize,
+		g_vZero, 
+		D3DXVECTOR3( wide+340.0f, height+20.0f, 0.0f ),
+		Rect( 0, 0, 256, 64 ),
+		g_vZero,
+		g_vZero );
 
-	m_pMaxPos	= new AnimationScore( pD3DDevice, m_pMaxPosTex, vScoreSize,
-						D3DXVECTOR3( wide+90.0f, height-140.0f, 0.0f ), iMaxPos, iDightMaxPos, false, &rScoreRect);
-	m_pScratch	= new AnimationScore( pD3DDevice, m_pMaxPosTex, vScoreSize,
-						D3DXVECTOR3( wide+90.0f, height-70.0f, 0.0f ), iScratch, iDightScratch, false, &rScoreRect);
-	m_pDead		= new AnimationScore( pD3DDevice, m_pDeadTex, vScoreSize,
-						D3DXVECTOR3( wide+90.0f, height+5.0f, 0.0f ), iDead, iDightDead, false, &rScoreRect);
-	m_pTotal	= new AnimationScore( pD3DDevice, m_pMaxPosTex, D3DXVECTOR3( 1.0f, 1.0f, 0.0f ),
-						D3DXVECTOR3( 500.0f, height+160.0f, 0.0f ), TotalScore, iDightTotal, true, &rScoreRect);
-	m_pRate_10	= new SpriteObject( pD3DDevice, m_pRate10Tex, vRateSize, g_vZero, 
-									D3DXVECTOR3( wide+340.0f, height-140.0f+15.0f, 0.0f ), Rect( 0, 0, 256, 64 ),g_vZero, g_vZero );
-	m_pRate_1	= new SpriteObject( pD3DDevice, m_pRate1Tex, vRateSize, g_vZero, 
-									D3DXVECTOR3( wide+340.0f, height-70.0f+15.0f, 0.0f ), Rect( 0, 0, 256, 64 ),g_vZero, g_vZero );
-	m_pRate_30	= new SpriteObject( pD3DDevice, m_pRate30Tex, vRateSize, g_vZero, 
-									D3DXVECTOR3( wide+340.0f, height+20.0f, 0.0f ), Rect( 0, 0, 256, 64 ),g_vZero, g_vZero );
 
 }
 
@@ -787,7 +837,7 @@ Factory_Score::Factory_Score(FactoryPacket *fpac){
 		//Time
 		fpac->m_pVec->push_back(
 			new SpriteObject( fpac->pD3DDevice,
-					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"GAGE.png" ),
+					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"GAGE6.png" ),
 					D3DXVECTOR3( 1.0f, 1.0f, 0.0f ),
 					g_vZero,
 					D3DXVECTOR3( 10.0f, 10.0f, 0.0f ),		
@@ -839,7 +889,7 @@ Factory_Score::Factory_Score(FactoryPacket *fpac){
 		//Slash
 		fpac->m_pVec->push_back(
 			new SpriteObject( fpac->pD3DDevice,
-					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"GAGE.png" ),
+					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"GAGE7.png" ),
 					D3DXVECTOR3( 0.5f, 0.5f, 0.0f ),
 					g_vZero,
 					D3DXVECTOR3( 870.0f, 550.0f, 0.0f ),					

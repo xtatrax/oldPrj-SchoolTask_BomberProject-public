@@ -45,6 +45,7 @@ public:
 		const Command*				Com			,
 		const Color					color		= 0xFFFFFFFF
 	);
+	~Load();
 	void	Draw(DrawPacket& i_DrawPacket);
 	void	Update(UpdatePacket& i_UpdatePacket);
 };

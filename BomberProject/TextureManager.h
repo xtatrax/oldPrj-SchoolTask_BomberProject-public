@@ -12,7 +12,6 @@
 //
 #pragma once
 namespace wiz {
-
 //**************************************************************************
 // class TextureManager;
 //
@@ -22,7 +21,9 @@ namespace wiz {
 //         : テクスチャーを管理できます
 //**************************************************************************
 class TextureManager{
+public:
 	class Texture;
+private:
 	vector< Texture* > m_vecTextures;
 public:
 	/////////////////// ////////////////////
@@ -177,12 +178,11 @@ public:
 // 用途    : テクスチャを管理します
 //**************************************************************************
 class TextureManager::Texture{
-	
+	friend class TextureManager ;
 	LPDIRECT3DTEXTURE9	m_pTexture     ;
 	wstring				m_strTexName   ;
 	wstring				m_strFilePath  ;
 
-public:
 	/////////////////// ////////////////////
 	//// 用途       ：TextureManager::Texture::Texture(LPDIRECT3DDEVICE9 pD3DDevice,const wchar_t* filepath,
 	////            ：    const wchar_t* texturename = L"")
@@ -244,6 +244,7 @@ public:
 		const wchar_t*		texturename = L""
 	);
 
+public:
 	/////////////////// ////////////////////
 	//// 用途       ：TextureManager::Texture::~Texture()
 	//// カテゴリ   ：デストラクタ
@@ -270,5 +271,4 @@ public:
 	bool	checkTextureName( wstring name ) const;
 	bool	checkFilePath(    wstring path ) const;
 };//【END】Texture
-
 }

@@ -42,6 +42,11 @@ BackGround::BackGround(LPDIRECT3DDEVICE9 pD3DDevice,D3DXVECTOR3 vScalse,LPDIRECT
 ,m_uiYNum(0){
 	
 }
+
+BackGround::~BackGround(){
+	m_pCamera = NULL;
+}
+
 /////////////////// ////////////////////
 //// 用途       ：void update( UpdatePacket& i_UpdatePacket )
 //// カテゴリ   ：関数
@@ -90,8 +95,9 @@ void BackGround::Draw( DrawPacket& i_DrawPacket ){
 	this->SetBasePos(vWorkPos);
 }
 Factory_BG::Factory_BG(FactoryPacket *fpac){
-
-	fpac->AddObject( new BackGround(fpac->pD3DDevice,D3DXVECTOR3(50.0f,90.0f,0.0f), fpac->AddTexture(L"BackStage.png")) );
+		//LPDIRECT3DTEXTURE9 pTex;
+		//0(fpac->pD3DDevice,L"BackStage.png",&pTex);
+	fpac->AddObject( new BackGround(fpac->pD3DDevice,D3DXVECTOR3(50.0f,90.0f,0.0f), /*pTex*/fpac->AddTexture(L"BackStage.png")) );
 }
 }
 }

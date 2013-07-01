@@ -66,6 +66,10 @@ ClickChar::ClickChar(
 	}
 };
 
+ClickChar::~ClickChar(){
+	m_pCursor = NULL;
+}
+
 /////////////////// ////////////////////
 //// 関数名     ：void ClickChar::Draw( DrawPacket& i_DrawPacket)
 //// カテゴリ   ：関数
@@ -158,6 +162,9 @@ Title_Select::Title_Select(const LPDIRECT3DDEVICE9 pD3DDevice,const LPDIRECT3DTE
 		throw;
 	}
 };
+
+Title_Select::~Title_Select(){
+}
 
 /////////////////// ////////////////////
 //// 関数名     ：void Title_Select::Draw( DrawPacket& i_DrawPacket)
@@ -257,7 +264,6 @@ MagnetFieldMini::MagnetFieldMini(
 	const RECT*					pRect		
 )
 :SpriteObject( pD3DDevice, pTextureN, vScale, vRot, vPos, pRect, vCenter, g_vZero, 0xFFFFFFFF , OBJID_UI_TITLEMAGNETFIELD)
-//,m_pCoil( NULL )
 ,m_pTextureN( pTextureN )
 ,m_pTextureS( pTextureS )
 ,m_vPos( vPos )
@@ -275,6 +281,9 @@ MagnetFieldMini::MagnetFieldMini(
 		throw;
 	}
 };
+
+MagnetFieldMini::~MagnetFieldMini(){	
+}
 
 /////////////////// ////////////////////
 //// 関数名     ：void MagnetFieldMini::Draw( DrawPacket& i_DrawPacket)
@@ -377,7 +386,7 @@ Coil::Coil(
 ,m_vPos( vPos )
 ,m_vScale( vScale )
 ,m_vRot( vRot )
-,m_fRotZ( NULL )
+,m_fRotZ( 0.0f )
 ,m_bMagnetPole( POLE_S )
 {
 	try{
@@ -388,6 +397,10 @@ Coil::Coil(
 		throw;
 	}
 };
+
+Coil::~Coil(){
+	m_pMagnetField = NULL;
+}
 
 /////////////////// ////////////////////
 //// 関数名     ：void Coil::Draw( DrawPacket& i_DrawPacket)
@@ -546,6 +559,21 @@ Factory_Title::Factory_Title(FactoryPacket* fpac){
 		fpac->m_pVec->push_back(
 			new SpriteObject(
 				fpac->pD3DDevice,
+				fpac->AddTexture(L"BGP_TITLE01.png"),
+				D3DXVECTOR3( 1.0f, 1.0f, 0.0f ),
+				g_vZero,
+				g_vZero,
+				NULL,
+				g_vZero,
+				g_vZero,
+				0xFFFFFFFF
+			)
+		) ;
+
+
+		fpac->m_pVec->push_back(
+			new SpriteObject(
+				fpac->pD3DDevice,
 				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"BGP_TITLE03.png" ),
 				D3DXVECTOR3(SCALE_RATE,SCALE_RATE,0.0f),
 				g_vZero,
@@ -592,67 +620,112 @@ Factory_Title::Factory_Title(FactoryPacket* fpac){
 //////////////////////////////////////////////////////////////////////////////////////
 //		STARTボタン																//
 //////////////////////////////////////////////////////////////////////////////////////
-		fpac->m_pVec->push_back(
-			new Title_Select(
-					fpac->pD3DDevice,
-					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Title_Start02.png" ),
-					GM_CHANGE_CHILDSTAGE,
-					//GM_OPENSTAGE_PLAY,
-					//GM_OPENSTAGE_LOAD,
-					D3DXVECTOR3(SCALE_RATE,SCALE_RATE,0.0f),
-					g_vZero,
-					D3DXVECTOR3( 630.0f, 280.0f, 0.0f ),
-					Rect( 0, 0, 221, 31 ),
-					g_vZero,
-					g_vZero,
-					0xFFFF8800
-				)
-		);
-		fpac->m_pVec->push_back(
-			new SpriteObject(
+		fpac->AddButton(
+			new CustomButtonA(
 				fpac->pD3DDevice,
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Title_Start01.png" ),
+				fpac->AddTexture(L"Title_Start02.png"),
+				fpac->AddTexture(L"Title_Start01.png"),
 				D3DXVECTOR3(SCALE_RATE,SCALE_RATE,0.0f),
 				g_vZero,
 				D3DXVECTOR3( 630.0f, 280.0f, 0.0f ),
 				Rect( 0, 0, 221, 31 ),
+				Rect( 0, 0, 221, 31 ),
 				g_vZero,
 				g_vZero,
-				0xFF00FFFF
-				)
+				0xFFFF8800,
+				0xFF558855,
+				0xFF00FFFF,
+				0xFF00FFFF,
+				RCTEXT_SOUND_SE_SELECT,
+				RCTEXT_SOUND_SE_ENTER,
+				1.0f,
+				Command( GM_CHANGE_CHILDSTAGE, 3, 0 ),
+				OBJID_UI_BUTTON_NORMAL
+			)
 		);
+		//fpac->m_pVec->push_back(
+		//	new Title_Select(
+		//			fpac->pD3DDevice,
+		//			pTex/*fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Title_Start02.png" )*/,
+		//			GM_CHANGE_CHILDSTAGE,
+		//			//GM_OPENSTAGE_PLAY,
+		//			//GM_OPENSTAGE_LOAD,
+		//			D3DXVECTOR3(SCALE_RATE,SCALE_RATE,0.0f),
+		//			g_vZero,
+		//			D3DXVECTOR3( 630.0f, 280.0f, 0.0f ),
+		//			Rect( 0, 0, 221, 31 ),
+		//			g_vZero,
+		//			g_vZero,
+		//			0xFFFF8800
+		//		)
+		//);
+		//fpac->m_pVec->push_back(
+		//	new SpriteObject(
+		//		fpac->pD3DDevice,
+		//		pTex/*fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Title_Start01.png" )*/,
+		//		D3DXVECTOR3(SCALE_RATE,SCALE_RATE,0.0f),
+		//		g_vZero,
+		//		D3DXVECTOR3( 630.0f, 280.0f, 0.0f ),
+		//		Rect( 0, 0, 221, 31 ),
+		//		g_vZero,
+		//		g_vZero,
+		//		0xFF00FFFF
+		//		)
+		//);
 //////////////////////////////////////////////////////////////////////////////////////
 //		EXITボタン																	//
 //////////////////////////////////////////////////////////////////////////////////////
-		fpac->m_pVec->push_back(
-			new Title_Select(
-					fpac->pD3DDevice,
-					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Title_Exit02.png" ),
-					GM_EXIT,
-					D3DXVECTOR3(SCALE_RATE,SCALE_RATE,0.0f),
-					g_vZero,
-					D3DXVECTOR3( 660.0f, 420.0f, 0.0f ),
-					Rect( 0, 0, 143, 31 ),
-					g_vZero,
-					g_vZero,
-					0xFFFF8800
-				)
-		);
-		fpac->m_pVec->push_back(
-			new SpriteObject(
+		fpac->AddButton(
+			new CustomButtonA(
 				fpac->pD3DDevice,
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Title_EXIT01.png" ),
+				fpac->AddTexture(L"Title_Exit02.png"),
+				fpac->AddTexture(L"Title_Exit01.png"),
 				D3DXVECTOR3(SCALE_RATE,SCALE_RATE,0.0f),
 				g_vZero,
-				D3DXVECTOR3( 660.0f, 420.0f, 0.0f ),
+					D3DXVECTOR3( 660.0f, 420.0f, 0.0f ),
+				Rect( 0, 0, 143, 31 ),
 				Rect( 0, 0, 143, 31 ),
 				g_vZero,
 				g_vZero,
-				0xFF00FFFF
-				)
+				0xFFFF8800,
+				0xFF558855,
+				0xFF00FFFF,
+				0xFF00FFFF,
+				RCTEXT_SOUND_SE_SELECT,
+				RCTEXT_SOUND_SE_ENTER,
+				1.0f,
+				Command( GM_EXIT, 3, 0 ),
+				OBJID_UI_BUTTON_NORMAL
+			)
 		);
+		//fpac->m_pVec->push_back(
+		//	new Title_Select(
+		//			fpac->pD3DDevice,
+		//			pTex/*fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Title_Exit02.png" )*/,
+		//			GM_EXIT,
+		//			D3DXVECTOR3(SCALE_RATE,SCALE_RATE,0.0f),
+		//			g_vZero,
+		//			D3DXVECTOR3( 660.0f, 420.0f, 0.0f ),
+		//			Rect( 0, 0, 143, 31 ),
+		//			g_vZero,
+		//			g_vZero,
+		//			0xFFFF8800
+		//		)
+		//);
+		//fpac->m_pVec->push_back(
+		//	new SpriteObject(
+		//		fpac->pD3DDevice,
+		//		pTex/*fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Title_EXIT01.png" )*/,
+		//		D3DXVECTOR3(SCALE_RATE,SCALE_RATE,0.0f),
+		//		g_vZero,
+		//		D3DXVECTOR3( 660.0f, 420.0f, 0.0f ),
+		//		Rect( 0, 0, 143, 31 ),
+		//		g_vZero,
+		//		g_vZero,
+		//		0xFF00FFFF
+		//		)
+		//);
 			
-		
 		//磁界
 		fpac->m_pVec->push_back(
 			new MagnetFieldMini(
@@ -666,7 +739,6 @@ Factory_Title::Factory_Title(FactoryPacket* fpac){
 				Rect( 0, 0, 256, 256 )
 				)
 		);
-
 		//コイル
 		fpac->m_pVec->push_back(
 			new Coil(
@@ -680,7 +752,6 @@ Factory_Title::Factory_Title(FactoryPacket* fpac){
 				Rect( 0, 0, 256, 256 )
 				)
 		);
-
 
 		//Click_Please
 		fpac->m_pVec->push_back(

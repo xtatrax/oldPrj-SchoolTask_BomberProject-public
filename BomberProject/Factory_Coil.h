@@ -101,12 +101,11 @@ enum COIL_STATE_SUPER{
 namespace wiz{
 namespace bomberobject{
 extern class ProvisionalPlayer3D ;
-extern class Continue ;
-extern class Dead ;
 extern class StartSprite;
 extern class SuperGage;
 extern class ModeChangeChar;
 extern class TimeScore;
+extern class ContinueBehavior;
 //**************************************************************************//
 // class PlayerCoil : public MagneticumObject ;
 //
@@ -130,39 +129,48 @@ class PlayerCoil : public Cylinder ,public MagneticObject{
 	D3DXVECTOR3		m_vOriginScale		;	//	: 元の大きさ
 	D3DXVECTOR3		m_vMove				;	//	: 移動距離
 	D3DXVECTOR3		m_vStartPos			;	//	: 再スタート位置
+	int				m_iDeadCount		;	//	: 死亡回数
+	int				m_iMaxPosY			;
+	int				m_iScratchTime		;
+	int				m_fRecordTime		;
+	int				m_iChangeColorInterval;
 	float			m_OBBRadius			;	//	: 多分SphereRadius
 	float			m_fMoveDir			;	//	: 移動角度
 	float			m_fMovdSpeed		;	//	: 移動速度
 	float			m_fAcceleration		;	//	: 加速
 	float			m_fTurnAngle		;	//	: 回転角度
+	float			m_fSuperTimeCount	;
+	float			m_fSuperFieldRotZ	;
+	float			m_fSuperTimeAccumulator;
+	float			m_fLineMovingDistance;
 	bool			m_bLastMouseRB		;	//	: マウスのRボタンが押されているか
 	bool			m_bLastMouseLB		;	//	: マウスのLボタンが押されているか
 	bool			m_bReadyToStart		;	//	: 発射する準備が出来たか
 	bool			m_bReadyContinue	;	//	: コンティニューする準備が出来たか
-	bool			m_bDrawContinue		;	//	: コンテニュー表示フラグ
-	int				m_iDeadCount		;	//	: 死亡回数
 	bool			m_bRestart			;
-	int				m_iMaxPosY			;
-	int				m_iScratchTime		;
-	int				m_fRecordTime		;
 	bool			m_bModeChangeChar	;
 	bool			m_bReDrawing_ChangeChar	;
 	bool			m_bStandby			;
-	int				m_iAlpha			;
+	bool			m_bIsFirstDeadLoop	;
+	bool			m_bExpanding		;
+	bool			m_bIsColorChange	;
+	bool			m_bSuperSound		;
 
-	ModeChangeChar*			m_pModeChangeChar			;	//	: 
+
+
+
 	MouseCursor*			m_pCursor					;	//	: カーソルオブジェクトへのポインタ
 	Camera*					m_pCamera					;	//	: Cameraへのポインタ
 	SuperGage*				m_pSuperGage				;
 	Box*					m_pSuperField				;	//	: 無敵時のフィールド
-	Continue*				m_pSelect					;	//	: ロゴ(Continue)
-	Continue*				m_pSelect2					;	//	: ロゴ(Title)
-	Dead*					m_pDeadChar					;	//	: ロゴ(You'er Dead)
 	StartSprite*			m_pReStart					;	//	: 
 	ProvisionalPlayer3D*	m_pPlayer					;	//	: ユーザ設置磁界へのポインタ
 	StaticMagnetField*		m_pMagneticumObject			;	//	: 初期配置磁界へのポインタ
-	DeadEffect*				m_pDeadEffect[PARTICLS_NUM]	;	//	: 死亡時の爆散エフェクトのポインタ
+	DeadEffect*				m_pDeadEffect				;	//	: 死亡時の爆散エフェクトのポインタ
+	ModeChangeChar*			m_pModeChangeChar			;	//	: 
+	//DeadEffect*				m_pDeadEffect[PARTICLS_NUM]	;	//	: 死亡時の爆散エフェクトのポインタ
 	TimeScore*				m_pTime;
+	ContinueBehavior*		m_pContinueBehavior			;
 	
 	Line3D*					m_pLine1					;
 	Line3D*					m_pLine2					;
@@ -222,6 +230,7 @@ public:
 		D3DCOLORVALUE&		Diffuse				,
 		D3DCOLORVALUE&		Specular			,
 		D3DCOLORVALUE&		Ambient				,
+		LPDIRECT3DTEXTURE9 pTex					,
 		wiz::OBJID			id					= OBJID_3D_COIL
 	);
 
@@ -525,7 +534,10 @@ public:
 	//// 担当       ：本多寛之
 	//// 備考       ：
 	////            ：
-	void setState( COIL_STATE i_State ){ m_enumCoilState = i_State; }	;
+	void setState( COIL_STATE i_State ){
+		m_enumCoilState = i_State; 
+		if( m_enumCoilState == COIL_STATE_DEAD ) m_bIsFirstDeadLoop = true;
+	};
 
 	/////////////////// ////////////////////
 	//// 関数名     ：void PlayerCoil::setPos(D3DXVECTOR3 i_vPos)

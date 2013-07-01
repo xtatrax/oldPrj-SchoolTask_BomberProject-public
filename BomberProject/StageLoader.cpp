@@ -371,7 +371,6 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 			D3DCOLORVALUE GoalAmbient = {0.0f,1.0f,1.0f,0.3f};
 
 			wiz::OBJID ObjectID = OBJID_SYS_CLEARAREA ;
-
 			//	: インスタンスを生成
 			GoalObject* mgb = new GoalObject(
 				m_pD3DDevice	,

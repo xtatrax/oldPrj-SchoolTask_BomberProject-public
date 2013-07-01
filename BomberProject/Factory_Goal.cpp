@@ -64,6 +64,24 @@ FMemoryTex::FMemoryTex( LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTextur
 	pVB->Unlock();
 
 }
+/////////////////// ////////////////////
+//// 関数名     ：FMemoryTex::~FMemoryTex()
+//// カテゴリ   ：デストラクタ
+//// 用途       ：破棄
+//// 引数       ：なし
+//// 戻値       ：なし
+//// 担当者     ：鴫原 徹
+//// 備考       ：
+////            ：
+////
+FMemoryTex::~FMemoryTex(){
+	m_pCamera = NULL;
+	m_pCoil	  = NULL;
+
+	SafeDeletePointerMap( m_ItemMap_Memory );
+	m_ItemMap_Memory.clear();
+	m_ItemMap_Target.clear();
+}
 
 /////////////////// ////////////////////
 //// 用途       ：void Draw( DrawPacket& i_DrawPacket )
@@ -225,7 +243,7 @@ void FMemoryTex::OrientGoal(UpdatePacket& i_UpdatePacket){
 	const float	rate		= 0.1f;			//移動する速さ
 	const float	ScaleRate	= rate*rate;	//大きさの変化率
 	const float DirRate		= rate*60;		//角度の変化率
-	const float	OrientPos	= m_vPos.x + (m_vScale.x / 2 - 4) -7.3f ;	//向かうべき位置
+	const float	OrientPos	= m_vPos.x + ((m_vScale.x - 1.0f) * (-0.2f) ) ;	//向かうべき位置
 
 	int			dirPtn		= 1;		//向くべき角度を示す
 	const float	TopDir		= 90.0f;	//上を向いた時のの角度

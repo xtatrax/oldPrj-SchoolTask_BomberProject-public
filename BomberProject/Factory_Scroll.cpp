@@ -18,63 +18,84 @@ namespace bomberobject{
 /************************************************************************
 ScrollObject íËã`ïî
 ************************************************************************/
-ScrollObject::ScrollObject(LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pFrontTexture, LPDIRECT3DTEXTURE9 pBGTexture,D3DXVECTOR3& vScale)
-	:Object(OBJID_UI_SPRITE){
-	//for( BYTE i = 0 ; i < m_csbySpriteQty ; i++ ){
-	//	m_pBGSpriteArr[i] = NULL;
-	//}
-	//m_pFrontSprite = NULL;
+ScrollObject::ScrollObject(const LPDIRECT3DDEVICE9 pD3DDevice, const LPDIRECT3DTEXTURE9 pTexture,
+							const D3DXVECTOR3& vScale, const D3DXVECTOR3& vPos, RECT pRect)
+:SpriteObject( pD3DDevice, pTexture, vScale, g_vZero, vPos, &pRect, g_vZero, g_vZero, 0xFFFFFFFF , OBJID_UI_SPRITE, true)
+,m_vPos1(g_vZero)
+,m_vPos2(D3DXVECTOR3(0.0f,(float)pRect.top-pRect.bottom,0.0f))
+,m_vScale(vScale)
+{
 
 	//ÉOÉâÉfÅ[ÉVÉáÉì
-	for( BYTE i = 0 ; i < m_csbySpriteQty ; i++ ){
-		m_pBGSpriteArr[i] = new SpriteObject(
-			pD3DDevice,
-			pBGTexture,
-			vScale,
-			g_vZero,
-			D3DXVECTOR3( 0.0f, i*(-600.0f) , 0.0f ),// iÇÃÇ∆Ç±ÇÎÇÕÇ†Ç∆Ç≈Ç÷ÇÒÇ±Ç§ÇµÇÈÅI
-			NULL,
-			g_vZero,
-			g_vZero
-		);
-		m_vPos[i]	= D3DXVECTOR3( 0.0f, i*(-600.0f) , 0.0f );
-	}
-	//îwåi
-	m_pFrontSprite = new SpriteObject(
-		pD3DDevice,
-		pFrontTexture,
-		g_vOne,
-		g_vZero,
-		D3DXVECTOR3( 0.0f, 0.0f, 0.0f ),
-		NULL,
-		g_vZero,
-		g_vZero,
-		0xFFFFFFFF
-	);
+	//LPDIRECT3DTEXTURE9 pTex = NULL;
+	//for( BYTE i = 0 ; i < g_csbySpriteQty ; i++ ){
+	//	0(pD3DDevice,L"BGP_TITLE02.png",&pTex2);
+	//	g_pBGSpriteArr[i] = new SpriteObject(
+	//		pD3DDevice,
+	//		pTex2,
+	//		vScale,
+	//		g_vZero,
+	//		D3DXVECTOR3( 0.0f, i*(-600.0f) , 0.0f ),// iÇÃÇ∆Ç±ÇÎÇÕÇ†Ç∆Ç≈Ç÷ÇÒÇ±Ç§ÇµÇÈÅI
+	//		NULL,
+	//		g_vZero,
+	//		g_vZero
+	//	);
+	//	g_vPos[i]	= D3DXVECTOR3( 0.0f, i*(-600.0f) , 0.0f );
+	//}
+	////îwåi
+	//g_pFrontSprite = new SpriteObject(
+	//	pD3DDevice,
+	//	pFrontTexture,
+	//	g_vOne,
+	//	g_vZero,
+	//	D3DXVECTOR3( 0.0f, 0.0f, 0.0f ),
+	//	NULL,
+	//	g_vZero,
+	//	g_vZero,
+	//	0xFFFFFFFF
+	//);
 
 }
 void ScrollObject::Update( UpdatePacket& i_UpdatePacket) {
-	for(int i = 0; i < m_csbySpriteQty; i++){
-		if( m_pBGSpriteArr[i] != NULL ){
-			m_vPos[i].y += 0.6f;
-			if(m_vPos[i].y >= 600.0f){
-				m_vPos[i].y = -600.0f;
-			}
-		}
-	}
+	//for(int i = 0; i < g_csbySpriteQty; i++){
+	//	if( g_pBGSpriteArr[i] != NULL ){
+	//		g_vPos[i].y += 0.6f;
+	//		if(g_vPos[i].y >= 600.0f){
+	//			g_vPos[i].y = -600.0f;
+	//		}
+	//	}
+	//}
+	D3DXMATRIX mScale, mPos;
+
+	m_vPos1.y += 0.6f;
+	if(m_vPos1.y >= BASE_CLIENT_HEIGHT)m_vPos1.y = -BASE_CLIENT_HEIGHT;
+	D3DXMatrixScaling(&mScale,m_vScale.x,m_vScale.y, m_vScale.z);
+	D3DXMatrixTranslation(&mPos,m_vPos1.x,m_vPos1.y,m_vPos1.z);
+	m_Matrix1 = mScale * mPos;
+
+	m_vPos2.y += 0.6f;
+	if(m_vPos2.y >= BASE_CLIENT_HEIGHT)m_vPos2.y = -BASE_CLIENT_HEIGHT;
+	D3DXMatrixScaling(&mScale,m_vScale.x,m_vScale.y, m_vScale.z);
+	D3DXMatrixTranslation(&mPos,m_vPos2.x,m_vPos2.y,m_vPos2.z);
+	m_Matrix2 = mScale * mPos;
+
 };
 void ScrollObject::Draw( DrawPacket& i_DrawPacket )
 {
-	for(int i = 0;i < m_csbySpriteQty; i++){
-		if( m_pBGSpriteArr[i] != NULL ){
-			D3DXMATRIX	mPos;
-			D3DXMatrixTranslation( &mPos, m_vPos[i].x, m_vPos[i].y, m_vPos[i].z );
-			m_pBGSpriteArr[i]->setMatrix( mPos );
-			m_pBGSpriteArr[i]->Draw( i_DrawPacket );
-		}
-	}
-	if( m_pFrontSprite != NULL )
-		m_pFrontSprite->Draw( i_DrawPacket );
+	//for(int i = 0;i < g_csbySpriteQty; i++){
+	//	if( g_pBGSpriteArr[i] != NULL ){
+	//		D3DXMATRIX	mPos;
+	//		D3DXMatrixTranslation( &mPos, g_vPos[i].x, g_vPos[i].y, g_vPos[i].z );
+	//		g_pBGSpriteArr[i]->setMatrix( mPos );
+	//		g_pBGSpriteArr[i]->Draw( i_DrawPacket );
+	//	}
+	//}
+	//if( g_pFrontSprite != NULL )
+	//	g_pFrontSprite->Draw( i_DrawPacket );
+	setMatrix(m_Matrix1);
+	SpriteObject::Draw(i_DrawPacket);
+	setMatrix(m_Matrix2);
+	SpriteObject::Draw(i_DrawPacket);
 };
 /**************************************************************************
  ScrollObject::~ScrollObject();
@@ -83,10 +104,10 @@ void ScrollObject::Draw( DrawPacket& i_DrawPacket )
 ***************************************************************************/
 ScrollObject::~ScrollObject()
 {
-	SAFE_DELETE(m_pFrontSprite);
-	for( BYTE i = 0 ; i < m_csbySpriteQty ; i++ ){
-		SAFE_DELETE(m_pBGSpriteArr[i]);
-	}
+	//SAFE_DELETE(g_pFrontSprite);
+	//for( BYTE i = 0 ; i < g_csbySpriteQty ; i++ ){
+	//	SAFE_DELETE(g_pBGSpriteArr[i]);
+	//}
 }
 /**************************************************************************
  Factory_Scroll íËã`ïî
@@ -94,14 +115,20 @@ ScrollObject::~ScrollObject()
 Factory_Scroll::Factory_Scroll(FactoryPacket* fpac)
 {
 	try{
-		fpac->m_pVec->push_back(
-			new ScrollObject(
-				fpac->pD3DDevice,
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"BGP_TITLE01.png" ),
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"BGP_TITLE02.png" ),
-				D3DXVECTOR3( 1.0f, 1.0f, 0.2f )
-			)
-		);
+		//LPDIRECT3DTEXTURE9 pTex = NULL;
+		//LPDIRECT3DTEXTURE9 pTex2 = NULL ;
+		//0(fpac->pD3DDevice,L"BGP_TITLE01.png",&pTex);
+		//0(fpac->pD3DDevice,L"BGP_TITLE02.png",&pTex2);
+		//fpac->m_pVec->push_back(
+		//	new ScrollObject(
+		//		fpac->pD3DDevice,
+		//		pTex/*fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"BGP_TITLE01.png" )*/,
+		//		pTex2/*fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"BGP_TITLE02.png" )*/,
+		//		D3DXVECTOR3( 1.0f, 1.0f, 0.2f )
+		//	)
+		//);
+		LPDIRECT3DTEXTURE9 pTex = NULL ;
+		fpac->m_pVec->push_back( new ScrollObject(fpac->pD3DDevice,fpac->AddTexture(L"Title_Back2.png"),D3DXVECTOR3( 1.0f, 1.0f, 0.0f),g_vZero,Rect(0,0,(int)BASE_CLIENT_WIDTH,(int)BASE_CLIENT_HEIGHT)));
 	}
 		catch(...){
 		//çƒthrow

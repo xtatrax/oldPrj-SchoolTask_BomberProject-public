@@ -38,19 +38,20 @@ void Stage::Clear(){
 	Debugger::DBGWRITINGLOGTEXT::addStr(L"Stage::Clear  >  %X 削除開始\n",this);
 
 	SafeDelete(m_pParStage);
-	Debugger::DBGWRITINGLOGTEXT::addStr(L"SafeDelete(m_pParStage) 完了\n",this);
+	Debugger::DBGWRITINGLOGTEXT::addStr(L"SafeDelete(m_pParStage) 完了\n");
 
 	SafeDelete(m_pMySound);
-	Debugger::DBGWRITINGLOGTEXT::addStr(L"SafeDelete(m_pMySound)  完了\n",this);
+	Debugger::DBGWRITINGLOGTEXT::addStr(L"SafeDelete(m_pMySound)  完了\n");
 
-	SafeDeletePointerContainer(m_Vec);
-	Debugger::DBGWRITINGLOGTEXT::addStr(L"SafeDeletePointerContainer(m_Vec);  完了\n",this);
+	//SafeDeletePointerContainer(m_Vec);
+	SefeDeletePointerVector(m_Vec);
+	Debugger::DBGWRITINGLOGTEXT::addStr(L"SafeDeletePointerContainer(m_Vec);  完了\n");
 
 	m_ButtonVec.clear();
-	Debugger::DBGWRITINGLOGTEXT::addStr(L"m_ButtonVec.clear(); 完了\n",this);
+	Debugger::DBGWRITINGLOGTEXT::addStr(L"m_ButtonVec.clear(); 完了\n");
 
-	m_TexMgr.Release();
-	Debugger::DBGWRITINGLOGTEXT::addStr(L"m_TexMgr.Release(); 完了\n",this);
+	//m_TexMgr.Release();
+	//Debugger::DBGWRITINGLOGTEXT::addStr(L"m_TexMgr.Release(); 完了\n",this);
 }
 
 /**************************************************************************
@@ -158,7 +159,7 @@ void Stage::ButtonUpdate(UpdatePacket& i_UpdatePacket)
 						OutputDebugString( L"Stage::ButtonUpdateで無効なINDEXが参照されました。\n" );
 						return ;
 					}
-					
+
 					m_ButtonVec[m_SelectIndex]->setPressed();
 					m_SelectLock = true;
 				}
@@ -212,7 +213,7 @@ void Stage::Update(UpdatePacket& i_UpdatePacket)
 	//i_UpdatePacket.m_pStage	= this ;
 	i_UpdatePacket.SetStage( this );
 
-#if defined(DEBUG) | defined(_DEBUG) | defined(ON_DEBUGGINGPROCESS)
+#if 0
 	float fElapsedTime = (float)i_UpdatePacket.pTime->getElapsedTime();
 	if(GetAsyncKeyState( MYVK_DEBUG_STOP_UPDATE )){
 		static float s_fTime = 0;

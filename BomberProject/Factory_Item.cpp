@@ -44,7 +44,8 @@ Item::Item(FactoryPacket* fpac,LPDIRECT3DTEXTURE9 pTexture, wiz::OBJID id)
 						D3DCOLORVALUE(),
 						D3DCOLORVALUE(),
 						D3DCOLORVALUE(),
-						pTexture
+						pTexture,
+						id
 	)
 	,m_pPlayerCoil(NULL)
 	,m_pSuperGage(NULL)
@@ -341,7 +342,7 @@ Factory_Item::Factory_Item(FactoryPacket* fpac){
         D3DCOLORVALUE BallDiffuse = {0.0f,0.7f,0.7f,1.0f};
         D3DCOLORVALUE BallSpecular = {0.0f,0.0f,0.0f,0.0f};
         D3DCOLORVALUE BallAmbient = {0.0f,0.7f,0.7f,1.0f};
-		Item*	it	=	new	Item(fpac,NULL,OBJID_UNK);
+		Item*	it	=	new	Item(fpac,NULL,OBJID_3D_ITEM);
 
 		//ÉAÉCÉeÉÄ(è¨)
 		for(int i = 0; i < 9; i++){

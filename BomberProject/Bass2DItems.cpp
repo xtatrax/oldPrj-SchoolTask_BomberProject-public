@@ -267,6 +267,7 @@ PrimitiveSprite::PrimitiveSprite(
 PrimitiveSprite::~PrimitiveSprite(){
 	SafeDelete(m_pRect);
 	SafeRelease(m_pSprite);
+	//SafeRelease(m_pTexture);
 }
 
 

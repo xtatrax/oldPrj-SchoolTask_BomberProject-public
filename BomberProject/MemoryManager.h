@@ -344,6 +344,23 @@ inline void SafeDeletePointerMap(T& c){
 	}
 	c.clear();
 }
+/**************************************************************************
+template<class C>
+void SefeDeletePointerVector(
+vector<C*>& vec	//C型の配列の参照
+);
+用途: ポインタの配列（vector）を安全にクリアする
+戻り値: なし
+***************************************************************************/
+template<class C>
+void SefeDeletePointerVector(vector<C*>& Vec){
+	size_t maxsz = Vec.size();
+	for(size_t i = 0;i < maxsz;i++){
+		delete Vec[i];
+	}
+	Vec.clear();
+}
+
 /////////////////// ////////////////////
 //// 関数名     ：template<typename T> inline void SafeDeletePointerContainer(T& c)
 //// カテゴリ   ：テンプレート関数
@@ -400,10 +417,12 @@ inline void SafeDeletePointerContainer(T& c){
 #endif
 		}
 		c.clear();
+#if defined(CF_DEBUG_DEBUGLOG_OUTPUTTEXT)
 		Debugger::DBGWRITINGLOGTEXT::addStr(L"SafeDeletePointerContainer(T& c) > %d個 削除完了\n" , num  );
 		Debugger::DBGWRITINGLOGTEXT::addStr(L"// \n"  );
 		Debugger::DBGWRITINGLOGTEXT::addStr(L"// \n"  );
 		Debugger::DBGWRITINGLOGTEXT::addStr(L"////////// \n"   );
+#endif
 	}catch(...){
 		throw ;
 	}
@@ -420,11 +439,13 @@ inline void SafeDeletePointerContainer(T& c){
 ////            ：
 ////
 template<typename T>
-inline void SafeRelease(T*& p){
+inline int SafeRelease(T*& p){
+	int ret = 0 ;
     if(p){
-        p->Release();
+		ret = p->Release();
     }
     p = 0;
+	return ret ;
 }
 
 //};

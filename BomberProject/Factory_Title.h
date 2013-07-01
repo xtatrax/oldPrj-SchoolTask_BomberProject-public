@@ -39,6 +39,7 @@ public:
 		const RECT*					pRect		,
 		const D3DXVECTOR3&			vOffsetPos
 	);
+	~ClickChar();
 	void	Draw(DrawPacket& i_DrawPacket);
 	void	Update(UpdatePacket& i_UpdatePacket);
 };
@@ -71,6 +72,7 @@ public:
 		const Color					color		= 0xFFFFFFFF,
 		bool						bCanSelect	= true
 	);
+	~Title_Select();
 	void	Draw(DrawPacket& i_DrawPacket);
 	void	Update(UpdatePacket& i_UpdatePacket);
 
@@ -86,7 +88,6 @@ class MagnetFieldMini  public SpriteObject
 ópìrÅ@ÅFé•äE
 *************************************************************************/
 class	MagnetFieldMini	: public SpriteObject{
-	//Coil*			m_pCoil;
 	LPDIRECT3DTEXTURE9 m_pTextureN;
 	LPDIRECT3DTEXTURE9 m_pTextureS;
 	D3DXVECTOR3		m_vPos;
@@ -106,6 +107,7 @@ public:
 		const D3DXVECTOR3&			vCenter		,
 		const RECT*					pRect		
 	);
+	~MagnetFieldMini();
 	void	Draw(DrawPacket& i_DrawPacket);
 	void	Update(UpdatePacket& i_UpdatePacket);
 	float	getRotZ(){
@@ -146,6 +148,7 @@ public:
 		const D3DXVECTOR3&			vCenter		,
 		const RECT*					pRect		
 	);
+	~Coil();
 	void	Draw(DrawPacket& i_DrawPacket);
 	void	Update(UpdatePacket& i_UpdatePacket);
 	float	getRotZ(){

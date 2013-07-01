@@ -14,14 +14,21 @@
 #include "StdAfx.h"
 namespace wiz{
 namespace bomberobject{
+//const static BYTE	g_csbySpriteQty  = 2 ;
+//D3DXVECTOR3			g_vPos[2];
+//SpriteObject*		g_pBGSpriteArr[g_csbySpriteQty];
 
-class ScrollObject : public Object{
-	const static BYTE	m_csbySpriteQty  = 2 ;
-	D3DXVECTOR3			m_vPos[2];
-	SpriteObject*		m_pBGSpriteArr[m_csbySpriteQty];
-	SpriteObject*		m_pFrontSprite;
+class ScrollObject : public SpriteObject{
+	D3DXMATRIX	m_Matrix1;
+	D3DXMATRIX	m_Matrix2;
+	D3DXVECTOR3 m_vPos1;
+	D3DXVECTOR3 m_vPos2;
+	D3DXVECTOR3 m_vScale;
+
 public:
-	ScrollObject(LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pFrontTexture, LPDIRECT3DTEXTURE9 pBGTexture,D3DXVECTOR3& vScale);
+	ScrollObject(const LPDIRECT3DDEVICE9 pD3DDevice,const LPDIRECT3DTEXTURE9 pTexture,
+					const D3DXVECTOR3& vScale, const D3DXVECTOR3& vPos, RECT pRect
+);
 
 /////////////////// ////////////////////
 //// ópìr       ÅFvirtual void Update( UpdatePacket& i_UpdatePacket )

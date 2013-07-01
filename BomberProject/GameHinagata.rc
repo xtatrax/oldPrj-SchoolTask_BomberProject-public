@@ -79,7 +79,7 @@ BEGIN
         BLOCK "041104b0"
         BEGIN
             VALUE "CompanyName", "WiZ::TeamBokan"
-            VALUE "FileDescription", "2013年WiZ3年前期チーム制作作品"
+            VALUE "FileDescription", "2013年  WiZ 専門学校 国際情報工科大学校  3年生前期チーム制作作品"
             VALUE "FileVersion", "0, 8, 0, 1"
             VALUE "InternalName", " Magnetica"
             VALUE "LegalCopyright", "Copyright (C) 2013"

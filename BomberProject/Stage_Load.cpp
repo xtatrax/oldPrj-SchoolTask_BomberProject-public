@@ -39,6 +39,28 @@ LoadStage::LoadStage(LPDIRECT3DDEVICE9 pD3DDevice,Command* Com,Stage* pStage)
 		FPac.m_pVec     = &this->m_Vec      ;
 		FPac.pD3DDevice =  pD3DDevice       ;
 		Factory_Load	loadF( &FPac, Com );
+		Debugger::DBGWRITINGLOGTEXT::addStr(L"LoadStage::LoadStage()\n");
+		Debugger::DBGWRITINGLOGTEXT::addStr(L"LoadStage::LoadStage()\n");
+		Debugger::DBGWRITINGLOGTEXT::addStr(L"LoadStage::LoadStage()\n");
+		Debugger::DBGWRITINGLOGTEXT::addStr(L"LoadStage::LoadStage()\n");
+		Debugger::DBGWRITINGLOGTEXT::addStr(L"LoadStage::LoadStage()\n");
+		Debugger::DBGWRITINGLOGTEXT::addStr(L"LoadStage::LoadStage()\n");
+		Debugger::DBGWRITINGLOGTEXT::addStr(L"LoadStage::LoadStage()\n");
+		Debugger::DBGWRITINGLOGTEXT::addStr(L"LoadStage::LoadStage()\n");
+		Debugger::DBGWRITINGLOGTEXT::addStr(L"LoadStage::LoadStage()\n");
+		Debugger::DBGWRITINGLOGTEXT::addStr(L"LoadStage::LoadStage()\n");
+		Debugger::DBGWRITINGLOGTEXT::addStr(L"LoadStage::LoadStage()\n");
+		Debugger::DBGWRITINGLOGTEXT::addStr(L"LoadStage::LoadStage()\n");
+		Debugger::DBGWRITINGLOGTEXT::addStr(L"LoadStage::LoadStage()\n");
+		Debugger::DBGWRITINGLOGTEXT::addStr(L"LoadStage::LoadStage()\n");
+		Debugger::DBGWRITINGLOGTEXT::addStr(L"LoadStage::LoadStage()\n");
+		Debugger::DBGWRITINGLOGTEXT::addStr(L"LoadStage::LoadStage()\n");
+		Debugger::DBGWRITINGLOGTEXT::addStr(L"LoadStage::LoadStage()\n");
+		Debugger::DBGWRITINGLOGTEXT::addStr(L"LoadStage::LoadStage()\n");
+		Debugger::DBGWRITINGLOGTEXT::addStr(L"LoadStage::LoadStage()\n");
+		Debugger::DBGWRITINGLOGTEXT::addStr(L"LoadStage::LoadStage()\n");
+		Debugger::DBGWRITINGLOGTEXT::addStr(L"LoadStage::LoadStage()\n");
+
 	}
 	catch(...){
 		Clear();
@@ -52,7 +74,7 @@ LoadStage();
  –ß‚è’l: ‚È‚µ
 ***************************************************************************/
 LoadStage::~LoadStage(){
-	
+	Debugger::DBGWRITINGLOGTEXT::addStr(L"LoadStage::~LoadStage()\n");
 }
 
 }

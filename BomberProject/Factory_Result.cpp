@@ -97,7 +97,6 @@ Factory_Result::Factory_Result(FactoryPacket* fpac, int iDeadCount, int iMaxPosY
 	try{
 		float	wide	= BASE_CLIENT_WIDTH/2;
 		float	height	= BASE_CLIENT_HEIGHT/2;
-
 		//Frame
 		fpac->m_pVec->push_back(
 			new SpriteObject(
@@ -127,7 +126,6 @@ Factory_Result::Factory_Result(FactoryPacket* fpac, int iDeadCount, int iMaxPosY
 				0xFFFFFFFF
 				)
 		);
-
 		//最高到達点**************************************************************
 		fpac->m_pVec->push_back(
 			new SpriteObject(
@@ -142,7 +140,6 @@ Factory_Result::Factory_Result(FactoryPacket* fpac, int iDeadCount, int iMaxPosY
 				0xFFFFFFFF
 				)
 		);
-
 		//掠めた回数*****************************************************************
 		fpac->m_pVec->push_back(
 			new SpriteObject(
@@ -157,7 +154,6 @@ Factory_Result::Factory_Result(FactoryPacket* fpac, int iDeadCount, int iMaxPosY
 				0xFFFFFFFF
 				)
 		);
-
 		//死亡回数*****************************************************************
 		fpac->m_pVec->push_back(
 			new SpriteObject(
@@ -172,7 +168,6 @@ Factory_Result::Factory_Result(FactoryPacket* fpac, int iDeadCount, int iMaxPosY
 				0xFFFFFFFF
 				)
 		);
-
 		//トータルポイント*****************************************************************
 		fpac->m_pVec->push_back(
 			new SpriteObject(
@@ -214,7 +209,6 @@ Factory_Result::Factory_Result(FactoryPacket* fpac, int iDeadCount, int iMaxPosY
 				OBJID_UI_BUTTON_BACK
 			)
 		);
-
 		//Score*****************************************************
 		fpac->m_pVec->push_back(
 			new ResultScore(

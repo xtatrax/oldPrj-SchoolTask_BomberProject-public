@@ -60,7 +60,6 @@ namespace bomberobject{
 ***************************************************************************/
 Factory_Select::Factory_Select(FactoryPacket* fpac ){
 	try{
-
 		fpac->m_pVec->push_back(
 			new SpriteObject(
 				fpac->pD3DDevice,

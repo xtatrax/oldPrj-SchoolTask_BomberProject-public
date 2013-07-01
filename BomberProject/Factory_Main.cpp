@@ -20,7 +20,7 @@
 //	: 追加のインクルード
 #include "StageLoader.h"
 #include "Factory_Description.h"
-#include "Factory_Description.h"
+#include "Factory_Continue.h"
 #include "Factory_Enemy.h"
 #include "Factory_Item.h"
 #include "Factory_Player.h"
@@ -28,6 +28,7 @@
 #include "Factory_Wall.h"
 #include "Factory_CheckPointSave.h"
 #include "Factory_BackGround.h"
+#include "Factory_DeadEffect.h"
 //	: 追加のインクルード
 //////////
 
@@ -102,7 +103,7 @@ Factory_Main::Factory_Main(FactoryPacket* fpac, DWORD dwStageNum, DWORD dwResump
 		float	fLineLength	= 230.0f;
 		float	fPointSize	= 0.5f;
 		Factory_BG			Bfac( fpac ) ;
-		Factory_Cursor		Mfac( fpac, fLineLength, fPointSize )  ; 
+		Factory_Cursor		Mfac( fpac, fLineLength, fPointSize )  ;
 		Factory_Player		Pfac( fpac );
 		if( dwStageNum != 5 )
 			Factory_Item	Ifac( fpac ) ;
@@ -113,8 +114,10 @@ Factory_Main::Factory_Main(FactoryPacket* fpac, DWORD dwStageNum, DWORD dwResump
 		Factory_Description	Dfac( fpac ) ;
 		Factory_Gage		Gfac( fpac ) ;
 		Factory_Score		Sfac( fpac ) ;
+		Factory_Continue	Confac( fpac ) ;
+		//Factory_DeadEffect	DEfac( fpac ) ;
 		//Factory_Enemy		Efac( fpac ) ;
-		Factory_CheckPointSave	CPSfac( fpac , dwStageNum);
+		//Factory_CheckPointSave	CPSfac( fpac , dwStageNum);
 		//	: 下請け工場へ発注
 		//////////
 
@@ -145,8 +148,8 @@ Factory_Main::Factory_Main(FactoryPacket* fpac, DWORD dwStageNum, DWORD dwResump
 		fpac->m_pVec->push_back( wp );
 		//	: オブジェクトのソート( 透過処理の問題対策 )
 		//////////
+		Debugger::DBGWRITINGLOGTEXT::addStr(L"ゲーム開始");
 
-		
 	}
 	catch(LoaderException& e){
 		throw LoaderException(

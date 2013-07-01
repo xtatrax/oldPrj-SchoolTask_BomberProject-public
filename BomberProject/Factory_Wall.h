@@ -44,16 +44,17 @@ extern class EnemyModel ;
 class Warning : public PrimitiveBox{
 	PlayerCoil*			m_pCoil	;
 	PrimitivePlate		m_Plate;
-	int	m_iPtn;
 	LPDIRECT3DTEXTURE9	m_pTexture	;
 	D3DMATERIAL9		m_Material	;
 	D3DXMATRIX			m_Matrix	;
 	D3DXVECTOR3			m_vPos		;	//	: ç¿ïW
 	D3DXVECTOR3			m_vRot		;	//	: âÒì]
 	D3DXVECTOR3			m_vScale	;	//	: êLèk
+	int					m_iPtn;
+	int					m_iPtnInterval;
+	float				m_fDrawTime ;
 	bool				m_bToDraw	;
 	bool				m_bIsPlaySound	;
-	float				m_fDrawTime ;
 public:
 	/////////////////// ////////////////////
 	//// ópìr       ÅFWarning(	LPDIRECT3DDEVICE9 pD3DDevice,LPDIRECT3DTEXTURE9 pTexture,wiz::OBJID id = OBJID_3D_WALL);

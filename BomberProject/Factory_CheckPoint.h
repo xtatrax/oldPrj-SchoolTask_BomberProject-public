@@ -25,7 +25,8 @@
 namespace wiz{
 namespace bomberobject{
 
-const	int	DRAWING_NUMBER	= 26;
+const	int		DRAWING_NUMBER	= 26;
+const	float	EFFECT_SIZE		= 2.0f;
 /**************************************************************************
 class CheckEffect;
 
@@ -34,15 +35,24 @@ class CheckEffect;
 **************************************************************************/
 class CheckEffect : public PrimitiveBox{
 	D3DXMATRIX		m_Matrix;
-	D3DXVECTOR3		m_vPos ;
-	int				m_Num;
-	float			m_fWide;
-	float			m_fHight;
-	bool			m_bMark;
-	bool			m_bStart;
-	bool			m_bCreating;
+	bool			m_bVanish;		//消えたフラグ
 	PlayerCoil*		m_pCoil;
-	float			m_fPosXArr[DRAWING_NUMBER];
+	float			m_fPosY;		//棒状の描画すべき位置
+	D3DXVECTOR3		m_vPointScale;	//ポイント状のサイズ
+	D3DXVECTOR3		m_vPointPos;	//ポイント状の描画位置
+
+	struct EffectItem{
+		D3DXVECTOR3		m_vPos		;	//エフェクトの描画位置
+		D3DXVECTOR3		m_vScale	;	//エフェクトの大きさ
+		float			m_fInitPosX	;	//エフェクトの初期位置
+		bool			m_bStart	;	//アニメーションの開始フラグ
+
+		EffectItem(){}
+		virtual ~EffectItem(){}
+	};
+
+	multimap<float,EffectItem*>		m_ItemMap_Target	;	//描画対象のWallItem
+
 public:
 	/////////////////// ////////////////////
 	//// 用途       ：Description(	LPDIRECT3DDEVICE9 pD3DDevice,LPDIRECT3DTEXTURE9 pTexture,wiz::OBJID id = OBJID_3D_WALL);
@@ -60,6 +70,8 @@ public:
 				LPDIRECT3DTEXTURE9 pTexture,
 				wiz::OBJID id = OBJID_3D_WALL
 				);
+	
+	~CheckEffect();
 
 	/////////////////// ////////////////////
 	//// 用途       ：void Draw( DrawPacket& i_DrawPacket )
@@ -75,6 +87,10 @@ public:
 	//// 備考       ：
 	void Draw( DrawPacket& i_DrawPacket );
 
+	void PointDraw( DrawPacket& i_DrawPacket );
+
+	void setTexDraw(DrawPacket& i_DrawPacket);
+
 	/////////////////// ////////////////////
 	//// 用途       ：void update( int i )
 	//// カテゴリ   ：関数
@@ -85,115 +101,86 @@ public:
 	//// 備考       ：
 	////            ：
 	////
-	void update( int i ,DrawPacket& i_DrawPacket);
+	void update( D3DXVECTOR3& o_vPos , float i_fInitPosX, D3DXVECTOR3& o_vScale, bool& o_bStart, DrawPacket& i_DrawPacket);
 
-/************************************
-関数名　：void Pos_Update( int i )
-用途　　：描画位置の更新
-カテゴリ：
-引数　　：int i     //変更したいエフェクトの指定
-戻り値　：
-担当者　：佐藤涼
-備考　　：
-************************************/
-	void Pos_Update( int i );
-/*************************************
-関数名　：void	Reduction()
-用途　　：サイズ縮小
-カテゴリ：
-引数　　：
-戻り値　：
-担当者　：佐藤涼
-備考　　：
-*************************************/
-	void	Reduction();
+	void	addEffect( float i_vPosX, float i_vPosY);
+	void	setMatrix( const D3DXVECTOR3 i_vPos, const D3DXVECTOR3 i_vScale );
+///************************************
+//関数名　：void Pos_Update( int i )
+//用途　　：描画位置の更新
+//カテゴリ：
+//引数　　：int i     //変更したいエフェクトの指定
+//戻り値　：
+//担当者　：佐藤涼
+//備考　　：
+//************************************/
+	void	Pos_Update( float& i_fPosX );
+///*************************************
+//関数名　：void	Reduction()
+//用途　　：サイズ縮小
+//カテゴリ：
+//引数　　：
+//戻り値　：
+//担当者　：佐藤涼
+//備考　　：
+//*************************************/
+	void	Reduction( D3DXVECTOR3& o_vScale );
 
-/*************************************
-関数名　：void Expansion()
-用途　　：サイズ拡大（拡大率は縦横等価）
-カテゴリ：
-引数　　：
-戻り値　：
-担当者　：佐藤涼
-備考　　：
-*************************************/
+///*************************************
+//関数名　：void Expansion()
+//用途　　：サイズ拡大（拡大率は縦横等価）
+//カテゴリ：
+//引数　　：
+//戻り値　：
+//担当者　：佐藤涼
+//備考　　：
+//*************************************/
 	void	Expansion();
 
-/*************************************
-関数名　：void setPosY( float posY )
-用途　　：Y座標のみ変更
-カテゴリ：
-引数　　：float posY   //変更後Y座標
-戻り値　：
-担当者　：佐藤涼
-備考　　：
-*************************************/
-	void	setPosY( float posY ){
-		m_vPos.y	= posY;
+///*****************************************
+//エフェクトの状態を初期に戻す
+//*****************************************/
+	void	ResetState( D3DXVECTOR3& o_vPos, float i_fInitPosX, D3DXVECTOR3& o_vScale, bool& o_bStart );
+
+///*************************************
+//関数名　：void setPosY( float posY )
+//用途　　：Y座標のみ変更
+//カテゴリ：
+//引数　　：float posY   //変更後Y座標
+//戻り値　：
+//担当者　：佐藤涼
+//備考　　：
+//*************************************/
+	void	setInitPosY( float posY );
+
+	void	setPosY( float posY );
+
+	void	setPointPos( const D3DXVECTOR3& pos ){
+		m_vPointPos	= pos;
 	}
 
-/******************************************
-関数名　：void setStart( bool i_bStart )
-用途　　：アニメーション
-カテゴリ：
-引数　　：bool i_bStart    //アニメーション開始フラグ
-戻り値　：
-担当者　：佐藤涼
-備考　　：
-******************************************/
-	void	setStart(bool i_bStart){
-		m_bStart	= i_bStart;
-	}
+///******************************************
+//関数名　：void setStart( bool i_bStart )
+//用途　　：アニメーション
+//カテゴリ：
+//引数　　：bool i_bStart    //アニメーション開始フラグ
+//戻り値　：
+//担当者　：佐藤涼
+//備考　　：
+//******************************************/
+	void	setStart(bool i_bStart);
 
-/******************************************
-関数名　：bool setCreating(bool i_bCreating)
-用途　　：エフェクトの作成ができるか設定
-カテゴリ：
-引数　　：bool i_bCreating  //エフェクトの作成できるかフラグ
-戻り値　：
-担当者　：佐藤涼
-備考　　：
-******************************************/
-	void	setCreating(bool i_bCreating){
-		m_bCreating	= i_bCreating;
-	}
-
-/******************************************
-関数名　：bool getStart()
-用途　　：アニメーションしているか
-カテゴリ：
-引数　　：
-戻り値　：bool値　アニメーションしているか
-担当者　：佐藤涼
-備考　　：
-******************************************/
-	bool	getStart(){
-		return	m_bStart;
-	}
-
-/******************************************
-関数名　：bool getMark()
-用途　　：中途開始地点の描画をしているか
-カテゴリ：
-引数　　：
-戻り値　：bool値　中途開始地点の描画をしているか
-担当者　：佐藤涼
-備考　　：
-******************************************/
-	bool	getMark(){
-		return	m_bMark;
-	}
-/******************************************
-関数名　：bool getCreating()
-用途　　：エフェクトの作成ができるか
-カテゴリ：
-引数　　：
-戻り値　：bool値　エフェクトの作成ができるか
-担当者　：佐藤涼
-備考　　：
-******************************************/
-	bool	getCreating(){
-		return	m_bCreating;
+///******************************************
+//関数名　：bool getMark()
+//用途　　：中途開始地点の描画をしているか
+//カテゴリ：
+//引数　　：
+//戻り値　：bool値　中途開始地点の描画をしているか
+//担当者　：佐藤涼
+//備考　　：
+//******************************************/
+	bool	getVanish(){
+		return	m_bVanish;
 	}
 
 };
@@ -216,7 +203,6 @@ protected:
 	Camera*					m_pCamera		;
 	PlayerCoil*				m_pCoil			;
 	CheckEffect*			m_pEffect		;
-	CheckEffect*			m_pEffect2		;
 	D3DCOLORVALUE			m_Color			;
 	float					m_Thicken		;
 	float					m_Length		;
@@ -227,6 +213,8 @@ protected:
 	SpriteObject*			m_pPintMark		;
 	TimeScore*				m_pTime			;
 	float					m_fInitPosY		;
+	bool					m_bPlayerPass	;
+	bool					m_bFirstRead	;
 	/////////////////// ////////////////////
 	//// 関数名     ：
 	//// カテゴリ   ：メンバ関数
@@ -278,6 +266,7 @@ public:
 	////
     virtual void Update( UpdatePacket& i_UpdatePacket );
 
+	void PlayerPass(UpdatePacket& i_UpdatePacket);
 	/////////////////// ////////////////////
 	//// 関数名     ：virtual void Draw( DrawPacket& i_DrawPacket )
 	//// 用途       ：
@@ -309,19 +298,6 @@ public:
 		m_vPos	= i_vPos;
 		m_ItemContainer.push_back( new ITEM( i_vPos , m_ItemContainer.size() +1) );
 	}
-
-	/////////////////// ////////////////////
-	//// 関数名     ：void Blink()
-	//// 用途       ：
-	//// カテゴリ   ：
-	//// 用途       ：オブジェクトを明滅させる
-	//// 引数       ：
-	//// 戻値       ：無し
-	//// 担当者     ：佐藤涼
-	//// 備考       ：
-	////            ：
-	////
-	void	Blink();
 
 	/////////////////// ////////////////////
 	//// 関数名     ：
@@ -371,6 +347,9 @@ public:
 	size_t getActiveItem(){
 		return m_ActiveItem ;
 	}
+
+	void	EffectCreate(LPDIRECT3DDEVICE9 pD3DDevice);
+	void	setTexPos( size_t i_ActiveItem, float fTexPosY );
 };
 
 /**************************************************************************

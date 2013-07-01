@@ -34,6 +34,8 @@ class BackGround : public Box{
 public:
 	BackGround(LPDIRECT3DDEVICE9 pD3DDevice,D3DXVECTOR3 vScalse,LPDIRECT3DTEXTURE9 pTextuer);
 
+	~BackGround();
+
 	/////////////////// ////////////////////
 	//// 用途       ：void update( UpdatePacket& i_UpdatePacket )
 	//// カテゴリ   ：関数

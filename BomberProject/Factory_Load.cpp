@@ -77,6 +77,9 @@ Load::Load(
 	}
 };
 
+Load::~Load(){	
+}
+
 /////////////////// ////////////////////
 //// 関数名     ：void Load::Draw( DrawPacket& i_DrawPacket)
 //// カテゴリ   ：関数
@@ -113,8 +116,10 @@ void Load::Update(UpdatePacket& i_UpdatePacket)
 	m_iPtn	%= 4;
 
 	m_iTime++;
-	if( m_iTime > 240 )
+	if( m_iTime > 240 ){
 		*i_UpdatePacket.pCommand = m_Com;
+		Debugger::DBGWRITINGLOGTEXT::addStr(L"i_UpdatePacket.pCommand = m_Com\n");
+	}
 };
 
 /**************************************************************************
@@ -143,7 +148,6 @@ Factory_Load::Factory_Load(FactoryPacket* fpac,Command* Com){
 		//			g_vZero
 		//	)
 		//) ;
-
 		//	NOWLOADING
 		fpac->m_pVec->push_back(
 			new	Load(
@@ -159,16 +163,6 @@ Factory_Load::Factory_Load(FactoryPacket* fpac,Command* Com){
 				0xFFFFFFFF
 			)
 		);
-
-		//Sound* pSound = NULL;
-		//fpac->m_pVec->push_back(
-		//	pSound = new Sound( 
-		//		RCTEXT_SOUND_WAVEBANK,
-		//		RCTEXT_SOUND_SOUNDBANK,
-		//		OBJID_SYS_SOUND
-		//	)
-		//);
-		//pSound->SearchSoundAndPlay( RCTEXT_SOUND_BGM_TITLE );
 
 	}
 	catch(...){

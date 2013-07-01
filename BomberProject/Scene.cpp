@@ -206,7 +206,7 @@ void Scene::Draw(DrawPacket& i_DrawPacket){
 	if(m_pRootStage){
 		m_pRootStage->getActiveStage()->Draw(i_DrawPacket);
 	}
-	CommandTranslator(i_DrawPacket);
+	//CommandTranslator(i_DrawPacket);
 }
 
 /////////////////// ////////////////////
@@ -323,7 +323,9 @@ void Scene::CommandTranslator(DrawPacket& i_DrawPacket){
 
 		case GM_EXIT:
 			SafeDeleteStage(m_pRootStage);
-			::DestroyWindow(wiz::DxDevice::m_hWnd);
+			wiz::DxDevice::Destroy();
+
+			//::DestroyWindow(wiz::DxDevice::m_hWnd);
 			break;
 	}
 	if(m_bLoadingComplete){

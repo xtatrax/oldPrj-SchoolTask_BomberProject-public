@@ -22,132 +22,301 @@
 
 namespace wiz{
 namespace bomberobject{
+enum CONTINUEBEHAVIORFAZE{
+	CONTINUEBEHAVIORFAZE_WAIT				,
+	CONTINUEBEHAVIORFAZE_DRAWDEADMESSAGE	,
+	CONTINUEBEHAVIORFAZE_CONTINUESELECTION	,
+	CONTINUEBEHAVIORFAZE_CHECKSELECTION		,
 
-/*************************************************************************
-class Reply  public SpriteObject
+};
 
-担当者：佐藤涼
-用途　：コンテニュー時のボタン
-*************************************************************************/
-class	Reply	: public SpriteObject{
-	D3DXVECTOR3		m_vPos			;
-	bool			m_bMark			;
-	bool			m_bPushRock		;
-	bool			m_bWhichDraw	;
-	int				m_iTime			;
-	bool			m_bPush			;
-	bool			m_bSelect		;
-	DWORD			m_dNext			;
-	PlayerCoil*		m_pCoil			;
-
+class ContinueButton : public ButtonSprite{
+	Command			m_IssueCommand	;
+	bool			m_bIsOperating	;
 public:
-	Reply(
-		const LPDIRECT3DDEVICE9		pD3DDevice	,
-		const LPDIRECT3DTEXTURE9	pTexture	,
-		const bool					mark		,
-		const D3DXVECTOR3&			vScale		,
-		const D3DXVECTOR3&			vRot		,
-		const D3DXVECTOR3&			vPos		,
-		const RECT*					pRect		,
-		const D3DXVECTOR3&			vCenter		,
-		const D3DXVECTOR3&			vOffsetPos	,
-		const Color					color		= 0xFFFFFFFF
+	ContinueButton(
+		const LPDIRECT3DDEVICE9		pD3DDevice			,
+		const LPDIRECT3DTEXTURE9	pTexture			,
+		const D3DXVECTOR3			vScalse				,
+		const D3DXVECTOR3			vPos				,
+		const RECT*					pRect				,
+		const float					fWaitTime			,
+		const Command				Com					,
+		const wiz::OBJID			id						
 	);
-	~Reply();
-	void	Draw(DrawPacket& i_DrawPacket);
-	void	Update(UpdatePacket& i_UpdatePacket);
-
-	bool	getWhichDraw(){
-		return	m_bWhichDraw;
+	/////////////////// ////////////////////
+	//// 用途       ：virtual void Update( UpdatePacket& i_UpdatePacket )
+	//// カテゴリ   ：仮想関数
+	//// 用途       ：オブジェクトを更新
+	//// 引数       ：  UpdatePacket& i_UpdatePacket     // アップデート時に必要なデータ群 ↓内容下記
+	////            ：  ├       LPDIRECT3DDEVICE9  pD3DDevice      // IDirect3DDevice9 インターフェイスへのポインタ
+	////            ：  ├       Tempus2*           pTime           // 時間を管理するクラスへのポインター
+	////            ：  ├       vector<Object*>&   Vec,            // オブジェクトの配列
+	////            ：  ├ const CONTROLER_STATE*   pCntlState      // コントローラのステータス
+	////            ：  └       Command            pCommand        // コマンド
+	//// 戻値       ：無し
+	//// 担当者     ：鴫原 徹
+	//// 備考       ：
+	////            ：
+	////
+    virtual void Update( UpdatePacket& i_UpdatePacket ) ;
+	/////////////////// ////////////////////
+	//// 用途       ：virtual void Draw( DrawPacket& i_DrawPacket )
+	//// カテゴリ   ：仮想関数
+	//// 用途       ：オブジェクトをディスプレイに表示する
+	//// 引数       ：  DrawPacket& i_DrawPacket             // 画面描画時に必要なデータ群 ↓内容下記
+	////            ：  ├ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 インターフェイスへのポインタ
+	////            ：  ├ vector<Object*>&    Vec                     // オブジェクトの配列
+	////            ：  ├ Tempus2*            i_DrawPacket.pTime	   // 時間を管理するクラスへのポインター
+	////            ：  └ Command             i_DrawPacket.pCommand   // コマンド
+	//// 戻値       ：無し
+	//// 担当者     ：鴫原 徹
+	//// 備考       ：
+	////            ：
+	////
+	virtual void Draw( DrawPacket& i_DrawPacket );
+	void getIssueCommand(Command& ret){
+		if( m_IssueCommand.m_Command != GM_WITHOUT ){
+			ret = m_IssueCommand ;
+		}
 	}
-	void	setWhichDraw(bool b){
-		m_bWhichDraw	= b;
+	void OperationStart(){
+		m_bIsOperating = true ;
+	}
+	void OperationEnd(){
+		m_bIsOperating = false ;
 	}
 };
 
-/*************************************************************************
-class Dead  public SpriteObject
-
-担当者：佐藤涼
-用途　：死亡時に出す文字
-*************************************************************************/
-class	Dead	: public SpriteObject{
-	int				m_iTime;
-	Score*			m_pDeadScore;
-	SpriteObject*	m_pDeadCountChar;
+class ContinueBehavior : public Behavior{
+	LPDIRECT3DTEXTURE9		m_pPTContinue		;
+	LPDIRECT3DTEXTURE9		m_pPTReally			;
+	SpriteObject*			m_pPageTitle		;
+	SpriteObject*			m_pDeadMessage		;
+	ContinueButton*			m_pYesButton		;
+	ContinueButton*			m_pNoButton			;
+	Score*					m_pDeadScore		;
+	SpriteObject*			m_pDeadCountChar	;
+	PlayerCoil*				m_pCoil				;
+	TimeScore*				m_pTime				;
+	float					m_fDeadMessageTimeAccumulator	;
+	float					m_fFadeOutTimeAccumulator		;
+	const float				m_fMessageTime		;
+	const float				m_fFadeOutTime		;
+	float					m_fDeadMessageAlpha	;
+	CONTINUEBEHAVIORFAZE	m_NowBehaviorFaze	;
 public:
-	Dead(
-		const LPDIRECT3DDEVICE9		pD3DDevice	,
-		const LPDIRECT3DTEXTURE9	pTexture	,
-		const LPDIRECT3DTEXTURE9	pDeadCountTex	,
-		const LPDIRECT3DTEXTURE9	pCountCharTex	,
-		const int					iDeadCount	,
-		const D3DXVECTOR3&			vScale		,
-		const D3DXVECTOR3&			vRot		,
-		const D3DXVECTOR3&			vPos		,
-		const RECT*					pRect		,
-		const D3DXVECTOR3&			vCenter		,
-		const D3DXVECTOR3&			vOffsetPos	,
-		const Color					color		= 0xFFFFFFFF
-	);
-	~Dead();
-	void	Draw(DrawPacket& i_DrawPacket);
-	void	Update(UpdatePacket& i_UpdatePacket);
-	BYTE	getAlpha(){
-		return m_Color.byteColor.a;
+	ContinueBehavior( FactoryPacket& i_BassPacket);
+	~ContinueBehavior();
+
+	/////////////////// ////////////////////
+	//// 用途       ：virtual void Update( UpdatePacket& i_UpdatePacket )
+	//// カテゴリ   ：仮想関数
+	//// 用途       ：オブジェクトを更新
+	//// 引数       ：  UpdatePacket& i_UpdatePacket     // アップデート時に必要なデータ群 ↓内容下記
+	////            ：  ├       LPDIRECT3DDEVICE9  pD3DDevice      // IDirect3DDevice9 インターフェイスへのポインタ
+	////            ：  ├       Tempus2*           pTime           // 時間を管理するクラスへのポインター
+	////            ：  ├       vector<Object*>&   Vec,            // オブジェクトの配列
+	////            ：  ├ const CONTROLER_STATE*   pCntlState      // コントローラのステータス
+	////            ：  └       Command            pCommand        // コマンド
+	//// 戻値       ：無し
+	//// 担当者     ：鴫原 徹
+	//// 備考       ：
+	////            ：
+	////
+    virtual void Update( UpdatePacket& i_UpdatePacket ) ;
+	/////////////////// ////////////////////
+	//// 用途       ：virtual void Draw( DrawPacket& i_DrawPacket )
+	//// カテゴリ   ：仮想関数
+	//// 用途       ：オブジェクトをディスプレイに表示する
+	//// 引数       ：  DrawPacket& i_DrawPacket             // 画面描画時に必要なデータ群 ↓内容下記
+	////            ：  ├ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 インターフェイスへのポインタ
+	////            ：  ├ vector<Object*>&    Vec                     // オブジェクトの配列
+	////            ：  ├ Tempus2*            i_DrawPacket.pTime	   // 時間を管理するクラスへのポインター
+	////            ：  └ Command             i_DrawPacket.pCommand   // コマンド
+	//// 戻値       ：無し
+	//// 担当者     ：鴫原 徹
+	//// 備考       ：
+	////            ：
+	////
+	virtual void Draw( DrawPacket& i_DrawPacket );
+
+	void OperationStart(){
+		m_NowBehaviorFaze = CONTINUEBEHAVIORFAZE_DRAWDEADMESSAGE;
+		m_fDeadMessageAlpha = 255.0f ;
+		m_pDeadMessage->setAlpha(0xFF);
+		m_fDeadMessageTimeAccumulator = 0.0f ;
+		m_fFadeOutTimeAccumulator = 0.0f ;
+		m_pDeadScore->setScore(m_pCoil->getDeadCount()+1);
+		m_pDeadScore->setAlpha(0xFF);
+		m_pDeadCountChar->setAlpha(0xFF);
+
+	}
+	void OperationStop(){
+		m_NowBehaviorFaze = CONTINUEBEHAVIORFAZE_WAIT;
 	}
 };
 
-/*************************************************************************
-class Continue  public SpriteObject
 
+///*************************************************************************
+//class Reply  public SpriteObject
+//
+//担当者：佐藤涼
+//用途　：コンテニュー時のボタン
+//*************************************************************************/
+//class	Reply	: public SpriteObject{
+//	D3DXVECTOR3		m_vPos			;
+//	bool			m_bMark			;
+//	bool			m_bPushRock		;
+//	bool			m_bWhichDraw	;
+//	int				m_iTime			;
+//	bool			m_bPush			;
+//	bool			m_bSelect		;
+//	DWORD			m_dNext			;
+//	PlayerCoil*		m_pCoil			;
+//
+//public:
+//	Reply(
+//		const LPDIRECT3DDEVICE9		pD3DDevice	,
+//		const LPDIRECT3DTEXTURE9	pTexture	,
+//		const bool					mark		,
+//		const D3DXVECTOR3&			vScale		,
+//		const D3DXVECTOR3&			vRot		,
+//		const D3DXVECTOR3&			vPos		,
+//		const RECT*					pRect		,
+//		const D3DXVECTOR3&			vCenter		,
+//		const D3DXVECTOR3&			vOffsetPos	,
+//		const Color					color		= 0xFFFFFFFF
+//	);
+//	~Reply();
+//	void	Draw(DrawPacket& i_DrawPacket);
+//	void	Update(UpdatePacket& i_UpdatePacket);
+//
+//	bool	getWhichDraw(){
+//		return	m_bWhichDraw;
+//	}
+//	void	setWhichDraw(bool b){
+//		m_bWhichDraw	= b;
+//	}
+//};
+//
+///*************************************************************************
+//class Continue  public SpriteObject
+//
+//担当者：佐藤涼
+//用途　：コンテニュー時のボタン
+//*************************************************************************/
+//class	Continue	: public SpriteObject{
+//	D3DXVECTOR3		m_vPos;
+//	bool			m_bMark;
+//	bool			m_bPushRock;
+//	bool			m_bWhichDraw;
+//
+//	int				m_iTime			;
+//	bool			m_bPush			;
+//	bool			m_bSelect		;
+//	DWORD			m_dNext			;
+//	bool			m_bDrawing		;
+//
+//
+//	PlayerCoil*		m_pCoil;
+//	Reply*			m_pReply_Yes;
+//	Reply*			m_pReply_No;
+//	SpriteObject*	m_pRethinking;
+//	SpriteObject*	m_pContinueChar				;	//	: コンテニューロゴのポインタ
+//	TimeScore*		m_pTime;
+//
+//	LPDIRECT3DTEXTURE9	m_pRethinkingTex;	//Really?
+//	LPDIRECT3DTEXTURE9	m_pAnswerTex	;	//Yes : No
+//	LPDIRECT3DTEXTURE9	m_pContinueTex	;	//Yes : No
+//public:
+//	Continue(
+//		const LPDIRECT3DDEVICE9		pD3DDevice	,
+//		const LPDIRECT3DTEXTURE9	pTexture	,
+//		const LPDIRECT3DTEXTURE9	pTexture_Rethinking	,
+//		const LPDIRECT3DTEXTURE9	pTexture_Answer		,
+//		const bool					mark		,
+//		const D3DXVECTOR3&			vScale		,
+//		const D3DXVECTOR3&			vPos		,
+//		const RECT*					pRect		,
+//		const wiz::OBJID			id			,
+//		const Color					color		= 0xFFFFFFFF
+//	);
+//	~Continue();
+//	void	Draw(DrawPacket& i_DrawPacket);
+//	void	Update(UpdatePacket& i_UpdatePacket);
+//
+//	bool	getWhichDraw(){
+//		return	m_bWhichDraw;
+//	}
+//	void	setDrawing( bool i_bDrawing ){
+//		m_bDrawing	= i_bDrawing;
+//	}
+//};
+//
+///*************************************************************************
+//class Dead  public SpriteObject
+//
+//担当者：佐藤涼
+//用途　：死亡時に出す文字
+//*************************************************************************/
+//class	Dead	: public SpriteObject{
+//	float			m_fTime;
+//	int				m_iDeadCount;
+//	bool			m_bDrawing;
+//	Score*			m_pDeadScore;
+//	SpriteObject*	m_pDeadCountChar;
+//	Continue*		m_pSelect_Yes;
+//	Continue*		m_pSelect_No;
+//public:
+//	Dead(
+//		const LPDIRECT3DDEVICE9		pD3DDevice	,
+//		const LPDIRECT3DTEXTURE9	pTexture	,
+//		const LPDIRECT3DTEXTURE9	pDeadCountTex	,
+//		const LPDIRECT3DTEXTURE9	pCountCharTex	,
+//		const int					iDeadCount	,
+//		const D3DXVECTOR3&			vScale		,
+//		const D3DXVECTOR3&			vPos		,
+//		const RECT*					pRect		,
+//		const Color					color		= 0xFFFFFFFF,
+//		const wiz::OBJID			id			= OBJID_UI_DEAD_CHAR
+//
+//	);
+//	~Dead();
+//	void	Draw(DrawPacket& i_DrawPacket);
+//	void	Update(UpdatePacket& i_UpdatePacket);
+//	BYTE	getAlpha(){
+//		return m_Color.byteColor.a;
+//	}
+//	void	setDrawing( bool i_bDraw ){
+//		m_bDrawing	= i_bDraw;
+//	}
+//
+//	void	setCount( int i_iCount ){
+//		m_iDeadCount	= i_iCount;
+//	}
+//};
+
+/**************************************************************************
+class Factory_Continue;
+
+用途　：メイン工場クラス
 担当者：佐藤涼
-用途　：コンテニュー時のボタン
-*************************************************************************/
-class	Continue	: public SpriteObject{
-	D3DXVECTOR3		m_vPos;
-	bool			m_bMark;
-	bool			m_bPushRock;
-	bool			m_bWhichDraw;
-
-	int				m_iTime			;
-	bool			m_bPush			;
-	bool			m_bSelect		;
-	DWORD			m_dNext			;
-
-
-	PlayerCoil*		m_pCoil;
-	Reply*			m_pReply_Yes;
-	Reply*			m_pReply_No;
-	SpriteObject*	m_pRethinking;
-	SpriteObject*	m_pContinueChar				;	//	: コンテニューロゴのポインタ
-	TimeScore*		m_pTime;
-
-	LPDIRECT3DTEXTURE9	m_pRethinkingTex;	//Really?
-	LPDIRECT3DTEXTURE9	m_pAnswerTex	;	//Yes : No
-	LPDIRECT3DTEXTURE9	m_pContinueTex	;	//Yes : No
+****************************************************************************/
+class Factory_Continue{
 public:
-	Continue(
-		const LPDIRECT3DDEVICE9		pD3DDevice	,
-		const LPDIRECT3DTEXTURE9	pTexture	,
-		const LPDIRECT3DTEXTURE9	pTexture_Rethinking	,
-		const LPDIRECT3DTEXTURE9	pTexture_Answer		,
-		const bool					mark		,
-		const D3DXVECTOR3&			vScale		,
-		const D3DXVECTOR3&			vRot		,
-		const D3DXVECTOR3&			vPos		,
-		const RECT*					pRect		,
-		const D3DXVECTOR3&			vCenter		,
-		const D3DXVECTOR3&			vOffsetPos	,
-		const Color					color		= 0xFFFFFFFF
-	);
-	~Continue();
-	void	Draw(DrawPacket& i_DrawPacket);
-	void	Update(UpdatePacket& i_UpdatePacket);
-
-	bool	getWhichDraw(){
-		return	m_bWhichDraw;
-	}
+/**************************************************************************
+ Factory_Continue(FactoryPacket* fpac);
+ 用途: コンストラクタ（サンプルオブジェクトを配列に追加する）
+ 戻り値: なし
+***************************************************************************/
+	Factory_Continue(FactoryPacket* fpac);
+/**************************************************************************
+ ~MyFactory();
+ 用途: デストラクタ
+ 戻り値: なし
+***************************************************************************/
+	~Factory_Continue();
 };
 
 }

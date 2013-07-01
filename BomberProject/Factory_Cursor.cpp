@@ -35,8 +35,8 @@ namespace bomberobject{
  戻り値: なし
  担当：本多寛之
 ***************************************************************************/
-MouseCursor::MouseCursor( LPDIRECT3DDEVICE9 pD3DDevice, TextureManager* m_pTexMgr, float fLineLength, float fPointSize)
-:Box( pD3DDevice, D3DXVECTOR3( 1.0f, 1.0f, 1.0f), g_vZero, g_vZero, COLOR2D3DCOLORVALUE(0x0FFFFF0F), COLOR2D3DCOLORVALUE(0x0FFFFF0F), COLOR2D3DCOLORVALUE(0x0FFFFF0F),  OBJID_SYS_CURSOR, false, m_pTexMgr->addTexture( pD3DDevice, L"Field.png" ) )
+MouseCursor::MouseCursor( LPDIRECT3DDEVICE9 pD3DDevice, TextureManager* m_pTexMgr, float fLineLength, float fPointSize,LPDIRECT3DTEXTURE9 pTex)
+:Box( pD3DDevice, D3DXVECTOR3( 1.0f, 1.0f, 1.0f), g_vZero, g_vZero, COLOR2D3DCOLORVALUE(0x0FFFFF0F), COLOR2D3DCOLORVALUE(0x0FFFFF0F), COLOR2D3DCOLORVALUE(0x0FFFFF0F),  OBJID_SYS_CURSOR, false,  pTex )
 ,PrimitiveSprite(pD3DDevice, NULL, NULL, D3DXVECTOR3( 92.0f, 67.0f, 0.0f ), g_vZero)
 ,m_Ptn(0)
 ,m_MovePosY(0)
@@ -45,7 +45,9 @@ MouseCursor::MouseCursor( LPDIRECT3DDEVICE9 pD3DDevice, TextureManager* m_pTexMg
 ,m_pLine( NULL )
 ,m_pLine2( NULL )
 ,m_pTorus( NULL )
+,m_pSelectPos( NULL )
 ,m_fTorusMagnification(0)
+,m_fTorusTimeCount(0.0f)
 ,m_bIsReverse(false)
 
 {
@@ -58,10 +60,9 @@ MouseCursor::MouseCursor( LPDIRECT3DDEVICE9 pD3DDevice, TextureManager* m_pTexMg
 	const	D3DXVECTOR3	vDir	= D3DXVECTOR3( cosf( D3DXToRadian(-55.0f) ), sinf( D3DXToRadian(-55.0f) ), 0.0f );
 	const	D3DXVECTOR3	vDir2	= D3DXVECTOR3( cosf( D3DXToRadian(0.0f) ), sinf( D3DXToRadian(0.0f) ), 0.0f );
 	const	float		fRange	= 100.0f;
-
 	//m_vScale	= D3DXVECTOR3( 0.125f, 0.125f, 0.0f );
 	m_vScale	= D3DXVECTOR3( fPointSize, fPointSize, 0.0f );
-	m_pSelectPos	= new SpriteObject( pD3DDevice, m_pTexMgr->addTexture( pD3DDevice, L"GAGE.png" ), m_vScale,
+	m_pSelectPos	= new SpriteObject( pD3DDevice, m_pTexMgr->addTexture( pD3DDevice, L"GAGE0.png" ), m_vScale,
 							g_vZero, g_vZero, Rect(128-8,96,128,106), D3DXVECTOR3( 4.0f, 4.0f, 0.0f ), g_vZero,-1,OBJID_UI_SPRITE,false );
 
 	m_pLine			= new Line( g_vZero, vDir, fRange, 0xFFFFFF00 );
@@ -82,7 +83,6 @@ MouseCursor::MouseCursor( LPDIRECT3DDEVICE9 pD3DDevice, TextureManager* m_pTexMg
 		36,
 		150
 	);
-	
 }
 
 /////////////////// ////////////////////
@@ -95,6 +95,8 @@ MouseCursor::MouseCursor( LPDIRECT3DDEVICE9 pD3DDevice, TextureManager* m_pTexMg
 //// 備考       ：
 MouseCursor::~MouseCursor(){
 	m_MovePosY	= 0 ;
+	m_pCamera = ( NULL ) ;
+	m_pCoil   = ( NULL ) ;
 	SafeDelete( m_pLine	 )	;
 	SafeDelete( m_pLine2 )	;
 	SafeDelete( m_pTorus )	;
@@ -124,7 +126,6 @@ void MouseCursor::Update( UpdatePacket& i_UpdatePacket ){
 		m_pCamera && (m_MovePosY	= m_pCamera->getPosY());
 	}
 
-	static float s_fTimeCount = 0.0f;
 
 	//	: マウスの2D座標をアップデート
 	Update2DPos();
@@ -157,10 +158,10 @@ void MouseCursor::Update( UpdatePacket& i_UpdatePacket ){
 
 	if(m_fTorusMagnification >= CURSOR_FIELD_LENGHT){
 		m_fTorusMagnification = CURSOR_FIELD_LENGHT;
-		s_fTimeCount += (float)i_UpdatePacket.pTime->getElapsedTime();
-		if(s_fTimeCount >= CURSOR_FIELD_TIME){		
+		m_fTorusTimeCount += (float)i_UpdatePacket.pTime->getElapsedTime();
+		if( m_fTorusTimeCount >= CURSOR_FIELD_TIME){		
 			m_fTorusMagnification = 0.0f;
-			s_fTimeCount		  = 0.0f;
+			m_fTorusTimeCount	  = 0.0f;
 		}
 	}
 	else{
@@ -296,13 +297,13 @@ Factory_Cursor::Factory_Cursor(FactoryPacket* fpac, float fLineLength, float fPo
  		D3DCOLORVALUE MouseDiffuse = {0.7f,0.7f,0.7f,0.0f};
 		D3DCOLORVALUE MouseSpecular = {0.0f,0.0f,0.0f,0.0f};
 		D3DCOLORVALUE MouseAmbient = {0.5f,0.5f,0.5f,0.0f};
-
 		fpac->m_pVec->push_back(
 			new MouseCursor( 
 						fpac->pD3DDevice,
 						fpac->m_pTexMgr,
 						fLineLength,
-						fPointSize
+						fPointSize,
+						fpac->AddTexture(L"Field.png")
 			)
 		);
 

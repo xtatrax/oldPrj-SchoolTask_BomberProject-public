@@ -53,184 +53,89 @@ DebugMenu::DebugMenu(LPDIRECT3DDEVICE9 pD3DDevice,Stage* Par)
 :MenuStage(pD3DDevice){
 	m_pChildStage = 0;
 	try{
-		ButtonSprite* pButton = NULL;
-		LPDIRECT3DTEXTURE9 pTex;
-		m_Vec.push_back(
-			new SpriteObject(
-				pD3DDevice,
-				m_TexMgr.addTexture(pD3DDevice,L"DBG_DebugMenu.png"),
-				D3DXVECTOR3(1.0f,1.0f,1.0f),
-				g_vZero,
-				D3DXVECTOR3(450.0f,0.0f,0.0f),
-				NULL,
-				g_vZero,
-				g_vZero,
-				0xFFFFFFFF,
-				OBJID_UI_SPRITE
-			)
-		);
+		//ButtonSprite* pButton = NULL;
+		//LPDIRECT3DTEXTURE9 pTex;
+		//0(pD3DDevice,L"DBG_DebugMenu.png",&pTex);
+		//m_Vec.push_back(
+		//	new SpriteObject(
+		//		pD3DDevice,
+		//		pTex,//m_TexMgr.addTexture(pD3DDevice,L"DBG_DebugMenu.png"),
+		//		D3DXVECTOR3(1.0f,1.0f,1.0f),
+		//		g_vZero,
+		//		D3DXVECTOR3(450.0f,0.0f,0.0f),
+		//		NULL,
+		//		g_vZero,
+		//		g_vZero,
+		//		0xFFFFFFFF,
+		//		OBJID_UI_SPRITE
+		//	)
+		//);
 
-		//	: タイトル
-		pTex = m_TexMgr.addTexture(pD3DDevice,L"DBG_TITLE.png");
-		m_Vec.push_back((pButton = new ButtonSprite(
-			pD3DDevice,
-			pTex,
-			D3DXVECTOR3(0.3f,0.3f,0.3f),
-			g_vZero,
-			D3DXVECTOR3(50.0f,50.0f,0.0f),
-			NULL,
-			g_vZero,
-			g_vZero,
-			0xFFFFFFFF,
-			0xFFAAAAAA,
-			RCTEXT_SOUND_SE_SELECT,
-			RCTEXT_SOUND_SE_ENTER,
-			0.5f,
-			GM_OPENSTAGE_TITLE
-			)));
-		m_ButtonVec.push_back(pButton->getButtonP());
+		////	: タイトル
+		//0(pD3DDevice,L"DBG_TITLE.png",&pTex);
+		////pTex = m_TexMgr.addTexture(pD3DDevice,L"DBG_TITLE.png");
+		//m_Vec.push_back((pButton = new ButtonSprite(
+		//	pD3DDevice,
+		//	pTex,
+		//	D3DXVECTOR3(0.3f,0.3f,0.3f),
+		//	g_vZero,
+		//	D3DXVECTOR3(50.0f,50.0f,0.0f),
+		//	NULL,
+		//	g_vZero,
+		//	g_vZero,
+		//	0xFFFFFFFF,
+		//	0xFFAAAAAA,
+		//	RCTEXT_SOUND_SE_SELECT,
+		//	RCTEXT_SOUND_SE_ENTER,
+		//	0.5f,
+		//	GM_OPENSTAGE_TITLE
+		//	)));
+		//m_ButtonVec.push_back(pButton->getButtonP());
 
-		//	: プレイ
-		pTex = m_TexMgr.addTexture(pD3DDevice,L"DBG_PLAY.png");
-		m_Vec.push_back((pButton = new ButtonSprite(
-			pD3DDevice,
-			pTex,
-			D3DXVECTOR3(0.3f,0.3f,0.3f),
-			g_vZero,
-			D3DXVECTOR3(50.0f,150.0f,0.0f),
-			NULL,
-			g_vZero,
-			g_vZero,
-			0xFFFFFFFF,
-			0xFFAAAAAA,
-			RCTEXT_SOUND_SE_SELECT,
-			RCTEXT_SOUND_SE_ENTER,
-			0.5f,
-			GM_OPENSTAGE_PLAY
-			)));
-		m_ButtonVec.push_back(pButton->getButtonP());
+		////	: プレイ
+		//0(pD3DDevice,L"DBG_PLAY.png",&pTex);
+		////pTex = m_TexMgr.addTexture(pD3DDevice,L"DBG_PLAY.png");
+		//m_Vec.push_back((pButton = new ButtonSprite(
+		//	pD3DDevice,
+		//	pTex,
+		//	D3DXVECTOR3(0.3f,0.3f,0.3f),
+		//	g_vZero,
+		//	D3DXVECTOR3(50.0f,150.0f,0.0f),
+		//	NULL,
+		//	g_vZero,
+		//	g_vZero,
+		//	0xFFFFFFFF,
+		//	0xFFAAAAAA,
+		//	RCTEXT_SOUND_SE_SELECT,
+		//	RCTEXT_SOUND_SE_ENTER,
+		//	0.5f,
+		//	GM_OPENSTAGE_PLAY
+		//	)));
+		//m_ButtonVec.push_back(pButton->getButtonP());
 
-		//	: リザルト
-		pTex = m_TexMgr.addTexture(pD3DDevice,L"DBG_.png");
-		m_Vec.push_back((pButton = new ButtonSprite(
-			pD3DDevice,
-			pTex,
-			D3DXVECTOR3(0.3f,0.3f,0.3f),
-			g_vZero,
-			D3DXVECTOR3(50.0f,250.0f,0.0f),
-			NULL,
-			g_vZero,
-			g_vZero,
-			0xFFFFFFFF,
-			0xFFAAAAAA,
-			RCTEXT_SOUND_SE_SELECT,
-			RCTEXT_SOUND_SE_ENTER,
-			0.5f,
-			GM_WITHOUT
-			)));
-		m_ButtonVec.push_back(pButton->getButtonP());
+		////	: リザルト
+		//0(pD3DDevice,L"DBG_PLAY.png",&pTex);
+		//pTex = m_TexMgr.addTexture(pD3DDevice,L"DBG_.png");
+		//m_Vec.push_back((pButton = new ButtonSprite(
+		//	pD3DDevice,
+		//	pTex,
+		//	D3DXVECTOR3(0.3f,0.3f,0.3f),
+		//	g_vZero,
+		//	D3DXVECTOR3(50.0f,250.0f,0.0f),
+		//	NULL,
+		//	g_vZero,
+		//	g_vZero,
+		//	0xFFFFFFFF,
+		//	0xFFAAAAAA,
+		//	RCTEXT_SOUND_SE_SELECT,
+		//	RCTEXT_SOUND_SE_ENTER,
+		//	0.5f,
+		//	GM_WITHOUT
+		//	)));
+		//m_ButtonVec.push_back(pButton->getButtonP());
 
-		//	: げーむおーばー
-		pTex = m_TexMgr.addTexture(pD3DDevice,L"DBG_.png");
-		m_Vec.push_back((pButton = new ButtonSprite(
-			pD3DDevice,
-			pTex,
-			D3DXVECTOR3(0.3f,0.3f,0.3f),
-			g_vZero,
-			D3DXVECTOR3(50.0f,350.0f,0.0f),
-			NULL,
-			g_vZero,
-			g_vZero,
-			0xFFFFFFFF,
-			0xFFAAAAAA,
-			RCTEXT_SOUND_SE_SELECT,
-			RCTEXT_SOUND_SE_ENTER,
-			0.5f,
-			GM_WITHOUT
-			)));
-		m_ButtonVec.push_back(pButton->getButtonP());
-
-		//	: てとわーく
-		pTex = m_TexMgr.addTexture(pD3DDevice,L"DBG_.png");
-		m_Vec.push_back((pButton = new ButtonSprite(
-			pD3DDevice,
-			pTex,
-			D3DXVECTOR3(0.3f,0.3f,0.3f),
-			g_vZero,
-			D3DXVECTOR3(250.0f,50.0f,0.0f),
-			NULL,
-			g_vZero,
-			g_vZero,
-			0xFFFFFFFF,
-			0xFFAAAAAA,
-			RCTEXT_SOUND_SE_SELECT,
-			RCTEXT_SOUND_SE_ENTER,
-			0.5f,
-			GM_WITHOUT
-			)));
-		m_ButtonVec.push_back(pButton->getButtonP());
-
-		//	: 
-		pTex = m_TexMgr.addTexture(pD3DDevice,L"DBG_.png");
-		m_Vec.push_back((pButton = new ButtonSprite(
-			pD3DDevice,
-			pTex,
-			D3DXVECTOR3(0.3f,0.3f,0.3f),
-			g_vZero,
-			D3DXVECTOR3(250.0f,150.0f,0.0f),
-			NULL,
-			g_vZero,
-			g_vZero,
-			0xFFFFFFFF,
-			0xFFAAAAAA,
-			RCTEXT_SOUND_SE_SELECT,
-			RCTEXT_SOUND_SE_ENTER,
-			0.5f,
-			GM_WITHOUT
-			)));
-		m_ButtonVec.push_back(pButton->getButtonP());
-
-		//	: ステージローダー
-		pTex = m_TexMgr.addTexture(pD3DDevice,L"DBG_StageLoader.png");
-		m_Vec.push_back((pButton = new ButtonSprite(
-			pD3DDevice,
-			pTex,
-			D3DXVECTOR3(0.3f,0.3f,0.3f),
-			g_vZero,
-			D3DXVECTOR3(250.0f,250.0f,0.0f),
-			NULL,
-			g_vZero,
-			g_vZero,
-			0xFFFFFFFF,
-			0xFFAAAAAA,
-			RCTEXT_SOUND_SE_SELECT,
-			RCTEXT_SOUND_SE_ENTER,
-			0.5f,
-			GM_OPENDEBUGSTAGE_STAGELOADERTEST
-			)));
-		m_ButtonVec.push_back(pButton->getButtonP());
-
-		//	: てとらわーく
-		pTex = m_TexMgr.addTexture(pD3DDevice,L"DBG_TATRA.png");
-		m_Vec.push_back((pButton = new ButtonSprite(
-			pD3DDevice,
-			pTex,
-			D3DXVECTOR3(0.3f,0.3f,0.3f),
-			g_vZero,
-			D3DXVECTOR3(250.0f,350.0f,0.0f),
-			NULL,
-			g_vZero,
-			g_vZero,
-			0xFFFFFFFF,
-			0xFFAAAAAA,
-			RCTEXT_SOUND_SE_SELECT,
-			RCTEXT_SOUND_SE_ENTER,
-			0.5f,
-			GM_OPENDEBUGSTAGE_TATEAWORKSPACE
-			)));
-		m_ButtonVec.push_back(pButton->getButtonP());
-
-		//pTex = m_TexMgr.addTexture(pD3DDevice,L"media/Textures/DBG_CREATE.png");
+		////	: げーむおーばー
+		//pTex = m_TexMgr.addTexture(pD3DDevice,L"DBG_.png");
 		//m_Vec.push_back((pButton = new ButtonSprite(
 		//	pD3DDevice,
 		//	pTex,
@@ -242,10 +147,109 @@ DebugMenu::DebugMenu(LPDIRECT3DDEVICE9 pD3DDevice,Stage* Par)
 		//	g_vZero,
 		//	0xFFFFFFFF,
 		//	0xFFAAAAAA,
-		//	GM_OPENDEBUGSTAGE_STAGECREATE,
-		//	3
+		//	RCTEXT_SOUND_SE_SELECT,
+		//	RCTEXT_SOUND_SE_ENTER,
+		//	0.5f,
+		//	GM_WITHOUT
 		//	)));
 		//m_ButtonVec.push_back(pButton->getButtonP());
+
+		////	: てとわーく
+		//pTex = m_TexMgr.addTexture(pD3DDevice,L"DBG_.png");
+		//m_Vec.push_back((pButton = new ButtonSprite(
+		//	pD3DDevice,
+		//	pTex,
+		//	D3DXVECTOR3(0.3f,0.3f,0.3f),
+		//	g_vZero,
+		//	D3DXVECTOR3(250.0f,50.0f,0.0f),
+		//	NULL,
+		//	g_vZero,
+		//	g_vZero,
+		//	0xFFFFFFFF,
+		//	0xFFAAAAAA,
+		//	RCTEXT_SOUND_SE_SELECT,
+		//	RCTEXT_SOUND_SE_ENTER,
+		//	0.5f,
+		//	GM_WITHOUT
+		//	)));
+		//m_ButtonVec.push_back(pButton->getButtonP());
+
+		////	: 
+		//pTex = m_TexMgr.addTexture(pD3DDevice,L"DBG_.png");
+		//m_Vec.push_back((pButton = new ButtonSprite(
+		//	pD3DDevice,
+		//	pTex,
+		//	D3DXVECTOR3(0.3f,0.3f,0.3f),
+		//	g_vZero,
+		//	D3DXVECTOR3(250.0f,150.0f,0.0f),
+		//	NULL,
+		//	g_vZero,
+		//	g_vZero,
+		//	0xFFFFFFFF,
+		//	0xFFAAAAAA,
+		//	RCTEXT_SOUND_SE_SELECT,
+		//	RCTEXT_SOUND_SE_ENTER,
+		//	0.5f,
+		//	GM_WITHOUT
+		//	)));
+		//m_ButtonVec.push_back(pButton->getButtonP());
+
+		////	: ステージローダー
+		//pTex = m_TexMgr.addTexture(pD3DDevice,L"DBG_StageLoader.png");
+		//m_Vec.push_back((pButton = new ButtonSprite(
+		//	pD3DDevice,
+		//	pTex,
+		//	D3DXVECTOR3(0.3f,0.3f,0.3f),
+		//	g_vZero,
+		//	D3DXVECTOR3(250.0f,250.0f,0.0f),
+		//	NULL,
+		//	g_vZero,
+		//	g_vZero,
+		//	0xFFFFFFFF,
+		//	0xFFAAAAAA,
+		//	RCTEXT_SOUND_SE_SELECT,
+		//	RCTEXT_SOUND_SE_ENTER,
+		//	0.5f,
+		//	GM_OPENDEBUGSTAGE_STAGELOADERTEST
+		//	)));
+		//m_ButtonVec.push_back(pButton->getButtonP());
+
+		////	: てとらわーく
+		//pTex = m_TexMgr.addTexture(pD3DDevice,L"DBG_TATRA.png");
+		//m_Vec.push_back((pButton = new ButtonSprite(
+		//	pD3DDevice,
+		//	pTex,
+		//	D3DXVECTOR3(0.3f,0.3f,0.3f),
+		//	g_vZero,
+		//	D3DXVECTOR3(250.0f,350.0f,0.0f),
+		//	NULL,
+		//	g_vZero,
+		//	g_vZero,
+		//	0xFFFFFFFF,
+		//	0xFFAAAAAA,
+		//	RCTEXT_SOUND_SE_SELECT,
+		//	RCTEXT_SOUND_SE_ENTER,
+		//	0.5f,
+		//	GM_OPENDEBUGSTAGE_TATEAWORKSPACE
+		//	)));
+		//m_ButtonVec.push_back(pButton->getButtonP());
+
+		////pTex = m_TexMgr.addTexture(pD3DDevice,L"media/Textures/DBG_CREATE.png");
+		////m_Vec.push_back((pButton = new ButtonSprite(
+		////	pD3DDevice,
+		////	pTex,
+		////	D3DXVECTOR3(0.3f,0.3f,0.3f),
+		////	g_vZero,
+		////	D3DXVECTOR3(50.0f,350.0f,0.0f),
+		////	NULL,
+		////	g_vZero,
+		////	g_vZero,
+		////	0xFFFFFFFF,
+		////	0xFFAAAAAA,
+		////	GM_OPENDEBUGSTAGE_STAGECREATE,
+		////	3
+		////	)));
+		////m_ButtonVec.push_back(pButton->getButtonP());
 	}
 	catch(wiz::BaseException& e){
         //再スロー

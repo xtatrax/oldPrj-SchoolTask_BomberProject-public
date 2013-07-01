@@ -145,7 +145,7 @@ public:
 	Particles(IDirect3DDevice9* pd3dDevice)
 		:m_pParticle(NULL)
 	{
-		D3DXCreateTextureFromFile(pd3dDevice, TEXT("media/Textures/kira1_96x96.png"), &m_pParticle);
+		//0(pd3dDevice, TEXT("media/Textures/kira1_96x96.png"), &m_pParticle);
 		srand((long)time(NULL));
 		BYTE pQt = rand();
 		do{

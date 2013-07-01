@@ -1255,12 +1255,6 @@ protected:
 	//グループ化する場合のマルチメッシュのポインタの配列
 	vector<MultiCommonMesh*> m_MultiVec;
 	/**************************************************************************
-	virtual D3DXVECTOR3 GetPos();
-	用途: 現在のポジションを返す
-	戻り値: 現在のポジション
-	***************************************************************************/
-	virtual D3DXVECTOR3 GetPos(){ return m_BasePos + m_Pos;}
-	/**************************************************************************
 	SimpleCommonMesh(
 	D3DXVECTOR3& Pos,                //位置
 	D3DXVECTOR3& Rot,				//回転(ラジアン単位)
@@ -1293,6 +1287,12 @@ protected:
 	***************************************************************************/
 	virtual void ChangeDevice(LPDIRECT3DDEVICE9 pD3DDevice);
 public:
+	/**************************************************************************
+	virtual D3DXVECTOR3 GetPos();
+	用途: 現在のポジションを返す
+	戻り値: 現在のポジション
+	***************************************************************************/
+	virtual D3DXVECTOR3 GetPos(){ return m_BasePos + m_Pos;}
 	/**************************************************************************
 	virtual ~SimpleCommonMesh();
 	用途: デストラクタ
@@ -2400,9 +2400,10 @@ class PrimitiveSphere : public Sphere {
 			const D3DCOLORVALUE&		Diffuse		,
 			const D3DCOLORVALUE&		Specular	,
 			const D3DCOLORVALUE&		Ambient		,
-			const LPDIRECT3DTEXTURE9	pTexture	= 0
+			const LPDIRECT3DTEXTURE9	pTexture	= 0,
+			const wiz::OBJID			id			= OBJID_3D_SPHERE
 		)
-			:Sphere( pD3DDevice,0.5f, g_vZero, g_vZero,Diffuse, Specular, Ambient,OBJID_3D_SPHERE, false, pTexture ,18, 18){}
+			:Sphere( pD3DDevice,0.5f, g_vZero, g_vZero,Diffuse, Specular, Ambient,id, false, pTexture ,18, 18){}
 };
 /*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 

@@ -30,24 +30,16 @@ namespace bomberobject{
  戻り値: なし
  担当：佐藤涼
 ***************************************************************************/
-DeadEffect::DeadEffect(LPDIRECT3DDEVICE9 pD3DDevice,
-						D3DXVECTOR3 vPos,
-						float		vDir,
-						LPDIRECT3DTEXTURE9 pTexture,
-						wiz::OBJID id)
+DeadEffect::DeadEffect(LPDIRECT3DDEVICE9	pD3DDevice,
+						LPDIRECT3DTEXTURE9	pTexture,
+						D3DXVECTOR3			vPos,
+						wiz::OBJID			id	)
 	:PrimitiveBox(pD3DDevice,
 					D3DCOLORVALUE(),
 					D3DCOLORVALUE(),
 					D3DCOLORVALUE(),
 					id,
 					pTexture)
-,m_pCoil( NULL )
-,m_pCamera( NULL )
-,m_vPos(vPos)
-,m_fLife(5.0f)
-,m_fDir(vDir)
-,m_fSpeed( float(rand()%100)+300 )
-,m_fAccele( -(m_fSpeed / 200) )
 {
 	::ZeroMemory( &m_Material, sizeof(D3DMATERIAL9));
 
@@ -70,11 +62,9 @@ DeadEffect::DeadEffect(LPDIRECT3DDEVICE9 pD3DDevice,
 	}
 	pVB->Unlock();
 
-	m_iDirZ	= rand()%100;
-	if( m_iDirZ < 50 )
-		m_iDirZ	= 1;
-	else
-		m_iDirZ	= -1;
+	for( int i = 0; i < PARTICLS_NUM; i++ ){
+		this->addEffect( vPos, i*(360.0f/PARTICLS_NUM) );
+	}
 
 }
 
@@ -82,9 +72,23 @@ DeadEffect::DeadEffect(LPDIRECT3DDEVICE9 pD3DDevice,
 デストラクタ
 *********************************/
 DeadEffect::~DeadEffect(){
-	m_pCoil		= NULL;
-	m_pCamera	= NULL;
+	SafeDeletePointerMap( m_ItemMap_Target );
+	m_ItemMap_Target.clear();
 }
+
+/*********************************
+追加
+*********************************/
+void	DeadEffect::addEffect( D3DXVECTOR3 vPos, float fDir){
+	EffectItem*	pItem	= new EffectItem;
+
+	pItem->m_vPos	= vPos;
+	pItem->m_fDir	= fDir;
+
+	m_ItemMap_Target.insert(multimap<float,EffectItem*>::value_type(pItem->m_vPos.y,pItem));
+
+}
+
 /////////////////// ////////////////////
 //// 用途       ：void Draw( DrawPacket& i_DrawPacket )
 //// カテゴリ   ：関数
@@ -99,33 +103,14 @@ DeadEffect::~DeadEffect(){
 //// 備考       ：
 void DeadEffect::Draw(DrawPacket& i_DrawPacket)
 {
-		//テクスチャがある場合
-	if(m_pTexture){
-		DWORD wkdword;
-		//現在のテクスチャステータスを得る
-		i_DrawPacket.pD3DDevice->GetTextureStageState(0,D3DTSS_COLOROP,&wkdword);
-		//ステージの設定
-		i_DrawPacket.pD3DDevice->SetTexture(0,m_pTexture);
-		//デフィーズ色とテクスチャを掛け合わせる設定
-		i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLOROP, D3DTOP_MODULATE4X );
-		i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLORARG1, D3DTA_TEXTURE );
-		i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLORARG2, D3DTA_DIFFUSE );
+	multimap<float,EffectItem*>::iterator it = m_ItemMap_Target.begin();
+	while(it != m_ItemMap_Target.end()){
 
-		//i_DrawPacket.pD3DDevice->SetFVF(PlateFVF);
-		// マトリックスをレンダリングパイプラインに設定
-		i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &m_Matrix);
-		//コモンメッシュのDraw()を呼ぶ
-		CommonMesh::Draw(i_DrawPacket);
-		i_DrawPacket.pD3DDevice->SetTexture(0,0);
-		//ステージを元に戻す
-		i_DrawPacket.pD3DDevice->SetTextureStageState(0,D3DTSS_COLOROP,wkdword);
-	}
-	else{
-	//テクスチャがない場合
-		// マトリックスをレンダリングパイプラインに設定
-		i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &m_Matrix);
-		//コモンメッシュのDraw()を呼ぶ
-		CommonMesh::Draw(i_DrawPacket);
+		setMatrix( it->second->m_vPos );
+		PrimitiveBox::CalcWorldMatrix();
+		PrimitiveBox::Draw(i_DrawPacket);
+
+		++it;
 	}
 }
 
@@ -145,35 +130,105 @@ void DeadEffect::Draw(DrawPacket& i_DrawPacket)
 ////            ：
 ////
 void DeadEffect::Update( UpdatePacket& i_UpdatePacket ){
-	if( !m_pCamera )	m_pCamera	=     (Camera*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_SYS_CAMERA);
-	if( !m_pCoil )		m_pCoil		= (PlayerCoil*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_3D_COIL);
 
-	const float MoveRate	= 0.003f;
 	const float ColorRate	= 0.003f;
-	m_vPos.x	+= cosf( m_fDir )*MoveRate*m_fSpeed;
-	m_vPos.y	+= sinf( m_fDir )*MoveRate*m_fSpeed;
-	m_vPos.z	+= cosf( m_fDir )*MoveRate*m_fSpeed*5*m_iDirZ;
 
-	m_fSpeed	+= m_fAccele;
-	if( m_fSpeed < 0.0f )
-		m_fSpeed	= 0.0f;
+	multimap<float,EffectItem*>::iterator it = m_ItemMap_Target.begin();
+	while(it != m_ItemMap_Target.end()){
 
-	if( m_Material.Ambient.r >= 0 ){
+		float	fDirZ	= it->second->m_fDir;
+		if( fDirZ >= 180.0f ){
+			fDirZ	-= 180.0f;
+		}
+		it->second->m_vPos.x	+= cosf( it->second->m_fDir )*2;
+		it->second->m_vPos.y	+= sinf( it->second->m_fDir )*2;
+		it->second->m_vPos.z	+= cosf( fDirZ )*5;
+
+		it++;
+	}
+
+	if( m_Material.Ambient.r > 0 ){
 		m_Material.Ambient.r	-= ColorRate;
 		m_Material.Ambient.g	-= ColorRate;
 		m_Material.Ambient.b	-= ColorRate;
 	}
-	//計算はUpdateで
-	//拡大縮小
-	D3DXMATRIX mScale;
-	D3DXMatrixIdentity(&mScale);
-	D3DXMatrixScaling( &mScale, 0.8f, 0.8f, 0.0f );
-	//移動用
-	D3DXMATRIX mMove;
-	D3DXMatrixIdentity(&mMove);
-	D3DXMatrixTranslation(&mMove,m_vPos.x,m_vPos.y,m_vPos.z);
-	//ミックス行列
-	m_Matrix = mScale * mMove;
+	else{
+		m_Material.Ambient.r	= 0;
+		m_Material.Ambient.g	= 0;
+		m_Material.Ambient.b	= 0;
+	}
+}
+
+/****************************************************
+マトリックスの設定
+****************************************************/
+void	DeadEffect::setMatrix( D3DXVECTOR3 vPos ){
+
+	PrimitiveBox::SetBasePos(vPos);
+	D3DXVECTOR3 vScale(0.8f, 0.8f, 0.0f);
+	PrimitiveBox::SetBaseScale(vScale);
+}
+
+/****************************************************
+座標の設定
+****************************************************/
+void	DeadEffect::setPos( D3DXVECTOR3 i_vPos ){
+	multimap<float,EffectItem*>::iterator it = m_ItemMap_Target.begin();
+	while(it != m_ItemMap_Target.end()){
+
+		it->second->m_vPos	= i_vPos;
+		++it;
+	}
+
+	m_Material.Ambient.r	= 255;
+	m_Material.Ambient.g	= 255;
+	m_Material.Ambient.b	= 255;
+}
+
+/**************************************************************************
+ Factory_DeadEffct 定義部
+****************************************************************************/
+/**************************************************************************
+ Factory_DeadEffct::Factory_DeadEffct(
+	LPDIRECT3DDEVICE9 pD3DDevice,	//デバイス
+	vector<Object*>& vec,			//オブジェクトの配列
+	TextureManager& TexMgr		//テクスチャの配列
+);
+ 用途: コンストラクタ（サンプルオブジェクトを配列に追加する）
+ 戻り値: なし
+***************************************************************************/
+Factory_DeadEffect::Factory_DeadEffect(FactoryPacket* fpac)
+{
+	try{
+
+		float	wide	= BASE_CLIENT_WIDTH/2;
+		float	height	= BASE_CLIENT_HEIGHT/2;
+
+		D3DXVECTOR3	vScale	= D3DXVECTOR3( 0.5f, 0.5f, 0.0f );
+		D3DXVECTOR3	vPos	= D3DXVECTOR3( (wide-512.0f*vScale.x), (height-256.0f*vScale.y-100), 0.0f );
+		LPDIRECT3DTEXTURE9 pTex;
+		pTex = fpac->AddTexture(L"DeadPerticul.png");
+		DeadEffect* dEffect	=	new DeadEffect( fpac->pD3DDevice, pTex, g_vZero );
+		//for( int i = 0; i < PARTICLS_NUM; i++ ){
+		//	dEffect->addEffect( i*(360.0f/PARTICLS_NUM) );
+		//}
+		fpac->m_pVec->push_back(dEffect);
+
+
+	}
+	catch(...){
+		//再throw
+		throw;
+	}
+
+}
+/**************************************************************************
+ Factory_DeadEffct::~Factory_DeadEffct();
+ 用途: デストラクタ
+ 戻り値: なし
+***************************************************************************/
+Factory_DeadEffect::~Factory_DeadEffect(){
+    //なにもしない
 }
 
 }

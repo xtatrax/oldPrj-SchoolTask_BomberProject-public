@@ -35,11 +35,17 @@ const float ENEMY_RADIUS = 1.5f;
 // ˆøŒp‚¬  : –{‘½Š°”V
 // —p“r    : “G
 //**************************************************************************//	
-class EnemyModel : public SimpleCommonMesh {
-	Camera*					m_pCamera	;
-	ProvisionalPlayer3D*	m_pPlayer	;
-	PlayerCoil*				m_pCoil		;
-	bool					m_bReset	;
+class EnemyModel : public Object {
+	LPD3DXMESH				m_pMesh			;
+	D3DMATERIAL9			m_Material		;
+	Camera*					m_pCamera		;
+	ProvisionalPlayer3D*	m_pPlayer		;
+	PlayerCoil*				m_pCoil			;
+	bool					m_bReset		;
+	D3DXMATRIX				m_WorldMatrix	;
+	LPDIRECT3DDEVICE9		m_pD3DDevice	;
+	LPDIRECT3DTEXTURE9		m_pTex			;
+
 	struct EnemyItem{
 		D3DMATERIAL9	m_Material		;
 		D3DXMATRIX		m_Matrix		;
@@ -49,14 +55,15 @@ class EnemyModel : public SimpleCommonMesh {
 		POLE			m_bPole			;
 		float			m_fMapKey		;
 		bool			m_bHidden		;
-		bool			m_vIsAlive		;
+		bool			m_bIsAlive		;
+		DeadEffect*		m_pDeadEffect	;
 
-		DeadEffect*		m_pDeadEffect[PARTICLS_NUM_ENEMY]	;
+		//DeadEffect*		m_pDeadEffect[PARTICLS_NUM_ENEMY]	;
 		EnemyItem():m_bHidden(true){}
 		virtual ~EnemyItem(){
-			for( int i=0; i<PARTICLS_NUM_ENEMY; i++ ){
-				SafeDelete( m_pDeadEffect[i] );
-			}
+			//for( int i=0; i<PARTICLS_NUM_ENEMY; i++ ){
+			//	SafeDelete( m_pDeadEffect[i] );
+			//}
 		}
 	};
 	
@@ -100,7 +107,7 @@ public:
 	EnemyModel(
 		const LPDIRECT3DDEVICE9 pD3DDevice,
 		const char *pFileName,
-		const TextureManager* pTexMgr ,
+		      TextureManager* pTexMgr ,
 		const wiz::OBJID id = OBJID_3D_ENEMY);
 
 	/////////////////// ////////////////////

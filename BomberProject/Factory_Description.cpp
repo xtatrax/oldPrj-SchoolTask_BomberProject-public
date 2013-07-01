@@ -459,6 +459,7 @@ Factory_Description::Factory_Description(FactoryPacket* fpac){
 		float	wide	= BASE_CLIENT_WIDTH/2;
 		float	height	= BASE_CLIENT_HEIGHT/2;
 
+
 		//スタートロゴ
 		fpac->m_pVec->push_back(
 			new StartSprite(

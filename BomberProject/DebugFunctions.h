@@ -128,6 +128,8 @@ public:
 	//// }
 	////
 	static void addStr(const wchar_t* addStr,...){
+		#if defined(CF_DEBUG_DEBUGLOG_OUTPUTTEXT)
+
 		if(!PathIsDirectory(DefaultLogFolder.c_str())){
 			if(!CreateDirectory(DefaultLogFolder.c_str(),NULL)){
 				int d;
@@ -145,6 +147,7 @@ public:
 			fwprintf_s(fp,L"%s",strBuf);
 			fclose(fp);
 		}
+		#endif
 	}
 	/////////////////// ////////////////////
 	//// ä÷êîñº     ÅF static void addStr(wchar_t* addStr,...)
@@ -198,6 +201,8 @@ public:
 	//// }
 	////
 	static void addStr(const char* addStr,...){
+		#if defined(CF_DEBUG_DEBUGLOG_OUTPUTTEXT)
+
 		if(!PathIsDirectory(DefaultLogFolder.c_str())){
 			if(!CreateDirectory(DefaultLogFolder.c_str(),NULL)){
 				int d;
@@ -215,6 +220,7 @@ public:
 			fwprintf_s(fp,L"%s",strBuf);
 			fclose(fp);
 		}
+		#endif
 	}
 	/////////////////// ////////////////////
 	//// ä÷êîñº     ÅF static void addStr(wstring FileName,wchar_t* addStr,...)
@@ -241,6 +247,7 @@ public:
 	//// }
 	////
 	static void addStrToFile(const wstring FileName,const wchar_t* addStr,...){
+		#if defined(CF_DEBUG_DEBUGLOG_OUTPUTTEXT)
 		if(!PathIsDirectory(DefaultLogFolder.c_str())){
 			if(!CreateDirectory(DefaultLogFolder.c_str(),NULL)){
 			}
@@ -257,6 +264,7 @@ public:
 			fwprintf_s(fp,L"%s",strBuf);
 			fclose(fp);
 		}
+		#endif
 	}
 	/////////////////// ////////////////////
 	//// ä÷êîñº     ÅF static void addStr(wstring FileName,wchar_t* addStr,...)
@@ -290,6 +298,8 @@ public:
 	//// }
 	////
 	static void addStrToFile(const string FileName,const char* addStr,...){
+		#if defined(CF_DEBUG_DEBUGLOG_OUTPUTTEXT)
+
 		//	: 
 		if(!PathIsDirectory(DefaultLogFolder.c_str())){
 			if(!CreateDirectory(DefaultLogFolder.c_str(),NULL)){
@@ -313,6 +323,7 @@ public:
 			fprintf_s(fp,"%s",strBuf);
 			fclose(fp);
 		}
+		#endif
 	}
 };
 #if defined( DIRECT3D_VERSION )

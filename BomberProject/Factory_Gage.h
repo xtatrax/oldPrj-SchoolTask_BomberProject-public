@@ -168,11 +168,12 @@ class SuperGage : public Gage{
 	D3DXMATRIX		m_Matrix		;
 	D3DXVECTOR3		m_vScale		;	//	: êLèk
 	D3DXVECTOR3		m_vRot			;	//	: âÒì]
+	float			m_fLineMoveDistance;
+	bool			m_bAcquired		;
 	Line*			m_pLineTop		;
 	Line*			m_pLineLeft		;
 	Line*			m_pLineBottom	;
 	Line*			m_pLineRight	;
-	bool			m_bAcquired		;
 	SuperNotice*	m_pSuperNotice	;
 public:
 	SuperGage(

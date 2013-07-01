@@ -60,7 +60,17 @@ public:
 				LPDIRECT3DTEXTURE9 pTexture,
 				wiz::OBJID id = OBJID_3D_WALL
 				);
-
+	/////////////////// ////////////////////
+	//// 関数名     ：~FMemoryTex();
+	//// カテゴリ   ：デストラクタ
+	//// 用途       ：破棄
+	//// 引数       ：なし
+	//// 戻値       ：なし
+	//// 担当者     ：鴫原 徹
+	//// 備考       ：
+	////            ：
+	////
+	~FMemoryTex();
 	/////////////////// ////////////////////
 	//// 用途       ：void Draw( DrawPacket& i_DrawPacket )
 	//// カテゴリ   ：関数
@@ -184,8 +194,6 @@ public:
 ***************************************************************************/
 	~Factory_Goal();
 //};
-
-	void GetOBBList( float Index, list<OBB>& ObbList );
 };
 
 

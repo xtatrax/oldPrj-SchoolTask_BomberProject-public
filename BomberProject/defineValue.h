@@ -26,15 +26,28 @@
 #define CF_SINGLETHREAD					/* シングルスレッドモード  ( 無効にするとマルチスレッド的になりますがバグります )   */
 #define DRAW_MOUSE	(false)				/* マウスを描画するかどうか */
 
-#define DEBUG_KEYBORD_ON				/* デバッグ用キーボード操作を有効化 */
-#define CF_OVERLORDNEW_ENABLE			/* 自作のnewを強制化(Manager有効時) */
-#define CF_MEMORYOUTPUTPROCESS_ENABLE	/* 自作メモリ管理システムにより管理されているアイテムのファイルへの書き出しを可能にする(Manager有効時) */
-///#define CF_LOADINGANIMATION			/* ロード画面でアニメーション */
+//#define DEBUG_KEYBORD_ON				/* デバッグ用キーボード操作を有効化 */
+//#define CF_OVERLORDNEW_ENABLE			/* 自作のnewを強制化(Manager有効時) */
+//#define CF_MEMORYOUTPUTPROCESS_ENABLE	/* 自作メモリ管理システムにより管理されているアイテムのファイルへの書き出しを可能にする(Manager有効時) */
+//#define CF_LOADINGANIMATION			/* ロード画面でアニメーション */
 //#define CF_OVERLORDNEW_ENABLE			/* 自作のnewを強制化 */
-#define CF_DEBUG_DEBUGLOG_OUTPUTTEXT	/* DEBUG用のログを吐き出す */
-#define CF_DEBUG_TIMEDRAW				/* 時間を描画 */
+//#define CF_DEBUG_DEBUGLOG_OUTPUTTEXT	/* DEBUG用のログを吐き出す */
+//#define CF_DEBUG_TIMEDRAW				/* 時間を描画 */
 //#define CF_LOADINGANIMATION			/* ロード画面でアニメーション */
 
+/////////////////////
+/////////////////////
+/////////////////////
+/////////////////////
+/////////////////////
+#define CF_DEBUG_JUMPTOOTHGOAL			/* ゴール手前へJUMP可能 */
+/////////////////////
+/////////////////////
+/////////////////////
+/////////////////////
+/////////////////////
+/////////////////////
+/////////////////////
 
 #if defined(DEBUG) || defined(_DEBUG)
 	//-------------------------------//
@@ -63,7 +76,7 @@
 	//		リリースモード定義       //
 	//-------------------------------//
 
-		#define CF_FULLSCREEN				/* フルスクリーンモード       */
+		//#define CF_FULLSCREEN				/* フルスクリーンモード       */
 	#endif
 
 #endif
@@ -232,6 +245,9 @@ namespace wiz{
 		GM_CHANGE_PARENTSTAGE	,
 		GM_CHANGE_CHILDSTAGE	,
 
+		GM_CONTINUEBUTTON_YES	,
+		GM_CONTINUEBUTTON_NO	,
+
 		//////////
 		//	: 
 		GM_PLAYOPENING_END	,
@@ -288,6 +304,7 @@ namespace wiz{
 
 		OBJID_BEHAVIOR_TEST					,
 		OBJID_BEHAVIOR_CHECKPOINTSAVE		,
+		OBJID_BEHAVIOR_CONTINUE				,
 
 		//	:サウンドまわり
 		//	:BGM
@@ -319,6 +336,8 @@ namespace wiz{
 		OBJID_UI_BUTTON_HARD		,	//	:
 		OBJID_UI_BUTTON_EXTRA		,	//	:
 		OBJID_UI_BUTTON_BACK		,	//	:
+		OBJID_UI_BUTTON_YES			,	//	:
+		OBJID_UI_BUTTON_NO			,	//	:
 		OBJID_UI_TITLEMAGNETFIELD	,	//	:
 		OBJID_UI_SELECTINFORMATION	,	//	:
 		OBJID_UI_CHECKPOINT_CHAR	,	//	: チェックポイント
@@ -330,6 +349,7 @@ namespace wiz{
 		OBJID_UI_TIME				,	//	: 時間
 		OBJID_UI_NOTICE				,	//	: スーパーたまった(Ready)
 		OBJID_UI_RANK				,	//	: ランク
+		OBJID_UI_DEAD_CHAR			,	//	: 死亡時だす文字
 		OBJID_UI_END				,	//	: UIのID宣言終了
 		//	: 3Dオブジェ
 		////
@@ -366,6 +386,7 @@ namespace wiz{
 		OBJID_3D_EFFECT				,	//	: エフェクト
 		OBJID_3D_WARNING			,	//	: 警告
 		OBJID_3D_ENEMY				,	//	: 敵
+		OBJID_3D_DEADEFFECT			,	//	: プレイヤー
 
 
 

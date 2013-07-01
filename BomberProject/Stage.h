@@ -50,7 +50,7 @@ protected:
 	bool						m_IsDialog		;	//	: ダイアログステージかどうか
 	bool						m_bUpdate		;	//	: このフラグをtrueにするとステージのupdateが止まります
     vector<Object*>				m_Vec			;	//	: 配置オブジェクトのポインタのベクトル
-    TextureManager				m_TexMgr		;	//	: テクスチャのポインタのベクトル
+	TextureManager				m_TexMgr		;	//	: テクスチャのポインタのベクトル
 	vector<Button*>				m_ButtonVec		;	//	: ボタンオブジェクトのみの配列（カメラなどは入れない）
 	vector<Button*>::size_type	m_SelectIndex	;
 	bool m_SelectLock;

@@ -30,7 +30,6 @@
 
 
 const float CHECK_POINT_RADIUS = 0.25f ;
-const float EFFECT_SIZE	= 2.0f;
 const D3DXVECTOR3 CHECK_POINT_CHAR_SIZE = D3DXVECTOR3(1.0f,1.0f,0.0f);
 D3DCOLORVALUE CHECKPOINTCOLOR = { 0.5f, 1.0f, 0.5f, 0.5f } ;
 D3DCOLORVALUE CHECKPOINTCOLOR_CHAR = { 1.0f, 1.0f, 1.0f, 1.0f } ;
@@ -42,20 +41,20 @@ const	float	CHECKPOINT_CHAR_RATE_X		= (1.0f/CHECK_POINT_CHAR_SIZE.x);
 namespace wiz{
 namespace bomberobject{
 
-/**************************************************************************
- CheckEffect 定義部
-****************************************************************************/
-/************************************************************************class MouseCursor : public Box , public  PrimitiveSprite{
-**
- CheckEffect::CheckEffect(
-	LPDIRECT3DDEVICE9 pD3DDevice,	//デバイス
-	LPDIRECT3DTEXTURE9 pTexture,	//テクスチャ
-	wiz::OBJID id					//オブジェクトの種類
-);
- 用途: コンストラクタ
- 戻り値: なし
- 担当：佐藤涼
-***************************************************************************/
+///**************************************************************************
+// CheckEffect 定義部
+//****************************************************************************/
+///************************************************************************class MouseCursor : public Box , public  PrimitiveSprite{
+//**
+// CheckEffect::CheckEffect(
+//	LPDIRECT3DDEVICE9 pD3DDevice,	//デバイス
+//	LPDIRECT3DTEXTURE9 pTexture,	//テクスチャ
+//	wiz::OBJID id					//オブジェクトの種類
+//);
+// 用途: コンストラクタ
+// 戻り値: なし
+// 担当：佐藤涼
+//***************************************************************************/
 CheckEffect::CheckEffect(LPDIRECT3DDEVICE9 pD3DDevice,
 						D3DXVECTOR3 vPos,
 						float		fLength,
@@ -66,15 +65,12 @@ CheckEffect::CheckEffect(LPDIRECT3DDEVICE9 pD3DDevice,
 					D3DCOLORVALUE(),
 					id,
 					pTexture)
-,m_vPos( vPos )
-,m_Num( (int)(fLength) )
-,m_fWide( EFFECT_SIZE*4 )
-,m_fHight( EFFECT_SIZE )
-,m_bMark( false )
-,m_bStart( false )
-,m_bCreating( true )
+,m_bVanish(false)
 ,m_pCoil( NULL )
+,m_vPointScale( g_vZero )
+,m_vPointPos( g_vZero )
 {
+	D3DXMatrixIdentity( &m_Matrix );
 	::ZeroMemory( &m_Material, sizeof(D3DMATERIAL9));
 
 	D3DCOLORVALUE Diffuse	= {0.0f,0.0f,0.0f,0.0f};
@@ -95,10 +91,35 @@ CheckEffect::CheckEffect(LPDIRECT3DDEVICE9 pD3DDevice,
 		BoxVecNomalUV(pVer[n].vec,pVer[n].normal,pVer[n].tu,pVer[n].tv);
 	}
 	pVB->Unlock();
+	SafeRelease( pVB );
+	//SafeDelete( pVer );
 
-	for( int i = 0; i < DRAWING_NUMBER; i++ ){
-		m_fPosXArr[i]	= float(i*2);
-	}
+	for( int i = 0; i < DRAWING_NUMBER; i++ )
+		addEffect( float(i*2), vPos.y );
+}
+
+/********************************
+デストラクタ
+********************************/
+CheckEffect::~CheckEffect(){
+	m_pCoil = NULL;
+	SafeDeletePointerMap( m_ItemMap_Target );
+	m_ItemMap_Target.clear();
+}
+
+/*********************************
+追加
+*********************************/
+void	CheckEffect::addEffect( float i_vPosX, float i_vPosY){
+	EffectItem*	pItem	= new EffectItem;
+
+	pItem->m_vPos		= D3DXVECTOR3( i_vPosX, i_vPosY, 0.0f );
+	pItem->m_vScale		= D3DXVECTOR3( EFFECT_SIZE*4, EFFECT_SIZE, 1.0f );
+	pItem->m_fInitPosX	= i_vPosX;
+	pItem->m_bStart		= false;
+
+	m_ItemMap_Target.insert(multimap<float,EffectItem*>::value_type(pItem->m_vPos.y,pItem));
+
 }
 
 /////////////////// ////////////////////
@@ -115,45 +136,57 @@ CheckEffect::CheckEffect(LPDIRECT3DDEVICE9 pD3DDevice,
 //// 備考       ：
 void CheckEffect::Draw(DrawPacket& i_DrawPacket)
 {
-	//描画する個数を設定
-	int	num	= 0;
-	if( m_bMark )
-		num	= 1;
-	else
-		num	= DRAWING_NUMBER;
+	multimap<float,EffectItem*>::iterator it = m_ItemMap_Target.begin();
+	while(it != m_ItemMap_Target.end()){
+		update( it->second->m_vPos , it->second->m_fInitPosX, it->second->m_vScale, it->second->m_bStart,i_DrawPacket);
+		setMatrix( it->second->m_vPos, it->second->m_vScale );
+		setTexDraw(i_DrawPacket);
+		++it;
+	}
+}
 
-	for( int i = 0; i < num; i++ ){
-		//updateで描画位置を決定
-		update( i ,i_DrawPacket);
+/*********************************************************************
+エフェクトをひとつだけ描画
+*********************************************************************/
+void	CheckEffect::PointDraw(DrawPacket &i_DrawPacket){
+	if( m_vPointScale.x < EFFECT_SIZE*3 )
+		Expansion();
+	//m_vPointScale.x	= EFFECT_SIZE*3;
+	//m_vPointScale.y	= EFFECT_SIZE*3;
+	setMatrix( m_vPointPos, m_vPointScale );
+	setTexDraw(i_DrawPacket);
+}
 
-		//テクスチャがある場合
-		if(m_pTexture){
-			DWORD wkdword;
-			//現在のテクスチャステータスを得る
-			i_DrawPacket.pD3DDevice->GetTextureStageState(0,D3DTSS_COLOROP,&wkdword);
-			//ステージの設定
-			i_DrawPacket.pD3DDevice->SetTexture(0,m_pTexture);
-			//デフィーズ色とテクスチャを掛け合わせる設定
-			i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLOROP, D3DTOP_MODULATE4X );
-			i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLORARG1, D3DTA_TEXTURE );
-			i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLORARG2, D3DTA_DIFFUSE );
+/**********************************************************
+**********************************************************/
+void	CheckEffect::setTexDraw(DrawPacket& i_DrawPacket){
+	//テクスチャがある場合
+	if(m_pTexture){
+		DWORD wkdword;
+		//現在のテクスチャステータスを得る
+		i_DrawPacket.pD3DDevice->GetTextureStageState(0,D3DTSS_COLOROP,&wkdword);
+		//ステージの設定
+		i_DrawPacket.pD3DDevice->SetTexture(0,m_pTexture);
+		//デフィーズ色とテクスチャを掛け合わせる設定
+		i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLOROP, D3DTOP_MODULATE4X );
+		i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLORARG1, D3DTA_TEXTURE );
+		i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLORARG2, D3DTA_DIFFUSE );
 
-			//i_DrawPacket.pD3DDevice->SetFVF(PlateFVF);
-			// マトリックスをレンダリングパイプラインに設定
-			i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &m_Matrix);
-			//コモンメッシュのDraw()を呼ぶ
-			CommonMesh::Draw(i_DrawPacket);
-			i_DrawPacket.pD3DDevice->SetTexture(0,0);
-			//ステージを元に戻す
-			i_DrawPacket.pD3DDevice->SetTextureStageState(0,D3DTSS_COLOROP,wkdword);
-		}
-		else{
-		//テクスチャがない場合
-			// マトリックスをレンダリングパイプラインに設定
-			i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &m_Matrix);
-			//コモンメッシュのDraw()を呼ぶ
-			CommonMesh::Draw(i_DrawPacket);
-		}
+		//i_DrawPacket.pD3DDevice->SetFVF(PlateFVF);
+		// マトリックスをレンダリングパイプラインに設定
+		i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &m_Matrix);
+		//コモンメッシュのDraw()を呼ぶ
+		CommonMesh::Draw(i_DrawPacket);
+		i_DrawPacket.pD3DDevice->SetTexture(0,0);
+		//ステージを元に戻す
+		i_DrawPacket.pD3DDevice->SetTextureStageState(0,D3DTSS_COLOROP,wkdword);
+	}
+	else{
+	//テクスチャがない場合
+		// マトリックスをレンダリングパイプラインに設定
+		i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &m_Matrix);
+		//コモンメッシュのDraw()を呼ぶ
+		CommonMesh::Draw(i_DrawPacket);
 	}
 }
 
@@ -172,48 +205,41 @@ void CheckEffect::Draw(DrawPacket& i_DrawPacket)
 //// 備考       ：
 ////            ：
 ////
-void CheckEffect::update( int i ,DrawPacket& i_DrawPacket){
+void CheckEffect::update( D3DXVECTOR3& o_vPos, float i_fInitPosX , D3DXVECTOR3& o_vScale, bool& o_bStart,DrawPacket& i_DrawPacket){
 
 	if( !m_pCoil   ) m_pCoil   = (PlayerCoil*)SearchObjectFromID( i_DrawPacket.pVec, OBJID_3D_COIL );
 	//スタート位置にエフェクトを出すか
-	if( !m_bMark ){
-		if( m_fWide > 0.0f ){
-			if( m_bStart ){
-				if( m_pCoil != NULL ){
-					Pos_Update(i);
-				}
-				Reduction();
+	if( o_bStart ){
+		if( o_vScale.x > 0.0f && o_vScale.y > 0.0f ){
+			if( m_pCoil != NULL ){
+				Pos_Update(o_vPos.x);
 			}
+			Reduction( o_vScale );	//縮小
+			m_bVanish	= false;
 		}
-		else{
-			m_bMark	= true;
-			m_Material.Ambient.r	= 0;
-			m_Material.Ambient.g	= 0;
-			m_Material.Ambient.b	= 0;
-		}
-		m_vPos.x	= m_fPosXArr[i];
+		else	ResetState( o_vPos, i_fInitPosX, o_vScale, o_bStart );
 	}
-	else{
-		if( m_pCoil != NULL )
-			m_vPos	= m_pCoil->getStartPos();
-		if( m_fWide < EFFECT_SIZE*3 )
-			Expansion();
-	}
+
+}
+
+/*******************************************************
+マトリックスの設定
+*******************************************************/
+void	CheckEffect::setMatrix( const D3DXVECTOR3 i_vPos, const D3DXVECTOR3 i_vScale ){
 	//計算はUpdateで
 	//拡大縮小
 	D3DXMATRIX mScale;
 	D3DXMatrixIdentity(&mScale);
-	D3DXMatrixScaling( &mScale, m_fWide, m_fHight, 0.0f );
+	D3DXMatrixScaling( &mScale, i_vScale.x, i_vScale.y, 1.0f );
 	//回転
 	D3DXMATRIX mRot;
 	D3DXMatrixIdentity(&mRot);
 	//移動用
 	D3DXMATRIX mMove;
 	D3DXMatrixIdentity(&mMove);
-	D3DXMatrixTranslation(&mMove,m_vPos.x,m_vPos.y,m_vPos.z);
+	D3DXMatrixTranslation(&mMove,i_vPos.x,i_vPos.y,i_vPos.z);
 	//ミックス行列
 	m_Matrix	= mScale * mRot * mMove;
-
 }
 
 /************************************
@@ -225,20 +251,21 @@ void CheckEffect::update( int i ,DrawPacket& i_DrawPacket){
 担当者　：佐藤涼
 備考　　：
 ************************************/
-void	CheckEffect::Pos_Update( int i ){
-	float	MigrationRate	= m_pCoil->getStartPos().x - m_fPosXArr[i];
+void	CheckEffect::Pos_Update( float& o_fPosX ){
+	float	MigrationRate	= m_pCoil->getStartPos().x - o_fPosX;
 	//描画すべき位置を算出
-	m_fPosXArr[i]	+= MigrationRate/10.0f + 0.2f;
+	o_fPosX	+= MigrationRate/10.0f + 0.2f;
 	if( MigrationRate > 0.0f ){
-		m_fPosXArr[i]	+= MigrationRate/10.0f + 0.2f;
-		if( m_pCoil->getStartPos().x - m_fPosXArr[i] < 0.0f )
-			m_fPosXArr[i]	= m_pCoil->getStartPos().x;
+		o_fPosX	+= MigrationRate/10.0f + 0.2f;
+		if( m_pCoil->getStartPos().x - o_fPosX < 0.0f )
+			o_fPosX	= m_pCoil->getStartPos().x;
 	}
 	else if( MigrationRate < 0.0f ){
-		m_fPosXArr[i]	+= MigrationRate/10.0f - 0.2f;
-		if( m_pCoil->getStartPos().x - m_fPosXArr[i] > 0.0f )
-			m_fPosXArr[i]	= m_pCoil->getStartPos().x;
+		o_fPosX	+= MigrationRate/10.0f - 0.2f;
+		if( m_pCoil->getStartPos().x - o_fPosX > 0.0f )
+			o_fPosX	= m_pCoil->getStartPos().x;
 	}
+
 }
 
 /*************************************
@@ -250,11 +277,9 @@ void	CheckEffect::Pos_Update( int i ){
 担当者　：佐藤涼
 備考　　：
 *************************************/
-void	CheckEffect::Reduction(){
-	float	rate = m_fWide / m_fHight;
-
-	m_fWide		-= 0.002f*rate;
-	m_fHight	-= 0.002f;
+void	CheckEffect::Reduction( D3DXVECTOR3& o_vScale ){
+	o_vScale.x	-= 0.2f;
+	o_vScale.y	-= 0.05f;
 }
 
 /*************************************
@@ -267,15 +292,51 @@ void	CheckEffect::Reduction(){
 備考　　：
 *************************************/
 void	CheckEffect::Expansion(){
-	m_fWide		+= 0.08f;
-	m_fHight	+= 0.08f;
+	m_vPointScale.x	+= 0.08f;
+	m_vPointScale.y	+= 0.08f;
+}
 
-	//float rate	= (EFFECT_SIZE*3) / 0.04f;
+/************************************************
+もろもろのリセット
+************************************************/
+void	CheckEffect::ResetState( D3DXVECTOR3& o_vPos, float i_fInitPosX, D3DXVECTOR3& o_vScale, bool& o_bStart ){
 
-	//m_Material.Ambient.r	+= rate;
-	//m_Material.Ambient.g	+= rate;
-	//m_Material.Ambient.b	+= rate;
-	m_Material.Ambient		=  CHECKPOINTCOLOR;
+	o_bStart		= false;
+	m_bVanish		= true;
+	o_vScale.x		= EFFECT_SIZE*4 ;
+	o_vScale.y		= EFFECT_SIZE;
+	m_vPointScale	= g_vZero;
+	o_vPos.x		= i_fInitPosX;
+	o_vPos.y		= m_fPosY;
+}
+
+/************************************************************************
+全てのエフェクトにアニメーション開始フラグをたてる
+************************************************************************/
+void	CheckEffect::setStart( bool i_bStart ){
+	multimap<float,EffectItem*>::iterator it = m_ItemMap_Target.begin();
+	while(it != m_ItemMap_Target.end()){
+		it->second->m_bStart	= i_bStart;
+		++it;
+	}
+}
+/**************************************************************
+チェックエフェクトのY座標初期位置
+**************************************************************/
+void	CheckEffect::setInitPosY(float posY){
+
+	multimap<float,EffectItem*>::iterator it = m_ItemMap_Target.begin();
+	while(it != m_ItemMap_Target.end()){
+		it->second->m_vPos.y	= posY;
+		++it;
+	}
+}
+
+/******************************************
+チェックポイントの描画位置更新（Y座標）
+******************************************/
+void	CheckEffect::setPosY(float posY){
+	m_fPosY	= posY;
 }
 
 /****************************************************************************
@@ -291,11 +352,12 @@ CheckPoint::CheckPoint( LPDIRECT3DDEVICE9 pD3DDevice, float fLength,LPDIRECT3DTE
 , m_Thicken( 1.0f )
 , m_Length( fLength )
 , m_pTexture( pTexture )
-,m_pTexturePoint( pTexture2 )
-, m_pTextureLast( pTexture3 ) 
+, m_pTexturePoint( pTexture2 )
+, m_pTextureLast( pTexture3 )
+, m_bPlayerPass( false )
+, m_bFirstRead( true )
 {
 	m_pEffect	= new CheckEffect( pD3DDevice, g_vZero, fLength, pTexture );
-	m_pEffect2	= NULL;
 	//m_pPintMark = new Box(pD3DDevice,CHECK_POINT_CHAR_SIZE,g_vZero,g_vZero,CHECKPOINTCOLOR, D3DCOLORVALUE(), CHECKPOINTCOLOR,OBJID_3D_BOX,false,pTexture2);
 	m_pPintMark = new SpriteObject( pD3DDevice, pTexture2, CHECK_POINT_CHAR_SIZE, g_vZero, g_vZero,
 									Rect( 0, 0, 512, 64 ), D3DXVECTOR3( 256.0f, 32.0f, 0.0f ), D3DXVECTOR3( 0.0f, -87.0f, 0.0f ));
@@ -304,10 +366,10 @@ CheckPoint::~CheckPoint(){
 	m_pCoil		= NULL ;
 	m_pCamera	= NULL ;
 	m_pTime		= NULL ;
-	SAFE_DELETE( m_pEffect );
-	SAFE_DELETE( m_pEffect2 );
-	m_pPintMark	= NULL;
+	SafeDelete( m_pEffect );
+	SafeDelete(m_pPintMark);
 	SafeDeletePointerContainer( m_ItemContainer ) ;
+	m_ItemContainer.clear();
 }
 /////////////////// ////////////////////
 //// 用途       ：virtual void Update( UpdatePacket& i_UpdatePacket )
@@ -331,106 +393,38 @@ void CheckPoint::Update( UpdatePacket& i_UpdatePacket ){
 		m_pCamera = (    Camera*)SearchObjectFromID( i_UpdatePacket.pVec, OBJID_SYS_CAMERA ) ;
 		m_fInitPosY	= 	m_pCamera->getPosY();
 	}
-	//if( m_ActiveItem >= m_ItemContainer.size() ){
-	//	m_ActiveItem = m_ItemContainer.size() -1;
-	//}
-	float	wide	= 0;
-	float	height	= 0;
+
+	float	fTexPosY	= m_pCamera->getPosY() - m_fInitPosY;
+	//全てのチェックポイントを通っていなかったら入る
 	if( m_pCoil && m_ActiveItem < m_ItemContainer.size()){
-		float fPosY		= m_ItemContainer[ m_ActiveItem ]->fPosY;
-		float fCoilPosY = m_pCoil->getPos().y;
 
-		float	fTexPosY	= m_pCamera->getPosY() - m_fInitPosY;
+		setTexPos( m_ActiveItem, fTexPosY );
 
-		//CHECK POINT テクスチャ*************************************************************
-		//float	wide;
-		//if(m_ActiveItem == m_ItemContainer.size()-1){
-		//	wide	= BASE_CLIENT_WIDTH / 50 * m_ItemContainer[ m_ActiveItem ]->vStartPos.x * CHECKPOINT_CHAR_RATE_X;
-		//}else{
-		//	wide	= BASE_CLIENT_WIDTH / 50 * m_ItemContainer[ m_ActiveItem ]->vStartPos.x * CHECKPOINT_CHAR_RATE_X;
-		//}
-		wide	= BASE_CLIENT_WIDTH / 50 * m_ItemContainer[ m_ActiveItem ]->vStartPos.x * CHECKPOINT_CHAR_RATE_X;
-		height	= ( (m_ItemContainer[ m_ActiveItem ]->vStartPos.y - fTexPosY)
-										* CHECKPOINT_CHAR_DOWNSPEED - BASE_CLIENT_HEIGHT ) * (-1.0f) * CHECKPOINT_CHAR_RATE_Y;
-		Debugger::DBGSTR::addStr(L" なう%d\n",m_ActiveItem);
-		Debugger::DBGSTR::addStr(L" まっくす%d\n",m_ItemContainer.size());
-		D3DXMATRIX mTexMatrix, mScale, mRot, mPos;
-		D3DXMatrixScaling(&mScale,CHECK_POINT_CHAR_SIZE.x,CHECK_POINT_CHAR_SIZE.y,CHECK_POINT_CHAR_SIZE.z);
-		D3DXMatrixRotationZ(&mRot,D3DXToRadian(0));
-		D3DXMatrixTranslation(&mPos, wide,height,0.0f);
-		mTexMatrix	= mPos*mScale*mRot;
-		m_pPintMark->setMatrix( mTexMatrix );
-		//*************************************************************************************
-
-		if(fPosY <= fCoilPosY){
-			m_pCoil->setStartPos(m_ItemContainer[ m_ActiveItem ]->vStartPos);
-			m_ActiveItem++;
-			m_pCoil->setRecordTime();
-			m_pTime->setTime();
-			if(m_ActiveItem == m_ItemContainer.size()-1){
-				m_pPintMark->setTexture(m_pTextureLast);
-				m_pPintMark->setCenter(D3DXVECTOR3( 128.0f, 32.0f, 0.0f ));
-			}
-			if( m_pEffect != NULL ){
-				if( m_pEffect2 != NULL ){
-					if( m_pEffect->getMark() ){
-						m_pEffect2->setStart(true);
-					}
-					else{
-						m_pEffect->setStart(true);
-					}
-				}
-				else{
-					m_pEffect->setStart(true);
-				}
-			}
-			i_UpdatePacket.SearchWaveAndPlay( RCTEXT_SOUND_SE_CHECKPOINT );
-			if(m_ActiveItem >= m_ItemContainer.size()) return ;
-			fPosY		= m_ItemContainer[ m_ActiveItem ]->fPosY;
+		if( m_bFirstRead ){
+			m_pEffect->setInitPosY(m_ItemContainer[ m_ActiveItem ]->fPosY);
+			m_bFirstRead	= false;
 		}
 
+		PlayerPass(i_UpdatePacket);
+		//コイルがチェックポイントを通過したか
+		if( m_bPlayerPass ){
+			if( m_ActiveItem < m_ItemContainer.size() ){
+				//エフェクトの更新***********************************************
 
-		D3DXVECTOR3	pos	= D3DXVECTOR3(0.0f,m_ItemContainer[ m_ActiveItem ]->fPosY,0.0f);
-		if( m_pEffect != NULL ){
-			if( !(m_pEffect->getStart()) ){
-				m_pEffect->setPosY( m_ItemContainer[ m_ActiveItem ]->fPosY );
-		}else{
-				if( m_pEffect->getCreating() ){
-					m_pEffect2	= new CheckEffect( i_UpdatePacket.pD3DDevice, 
-								pos, m_Length, m_pTexture);
-					m_pEffect->setCreating( false );
-				}
+				m_pEffect->setPointPos( m_pCoil->getStartPos() );				//復帰地点の位置を渡す
+				m_pEffect->setPosY( m_ItemContainer[ m_ActiveItem ]->fPosY );	//チェックポイントの位置を渡す
+				m_pEffect->setStart( true );									//アニメーションを開始
+				
+				//******************************************************************
 			}
-			m_pEffect->Update( i_UpdatePacket );
+			m_bPlayerPass	= false;
 		}
 
-		if( m_pEffect2 != NULL ){
-			if( !(m_pEffect2->getStart()) )
-				m_pEffect2->setPosY( m_ItemContainer[ m_ActiveItem ]->fPosY );
-			else{
-				if( m_pEffect2->getCreating() ){
-					m_pEffect	= new CheckEffect( i_UpdatePacket.pD3DDevice, 
-								pos, m_Length, m_pTexture);
-					m_pEffect2->setCreating( false );
-				}
-			}
-			m_pEffect2->Update( i_UpdatePacket );
-		}
 	}
 	else{
-		wide	= BASE_CLIENT_WIDTH / 50 * m_ItemContainer[ m_ActiveItem-1 ]->vStartPos.x * CHECKPOINT_CHAR_RATE_X;
-		height	= ( (m_ItemContainer[ m_ActiveItem-1 ]->vStartPos.y - (m_pCamera->getPosY() - m_fInitPosY))
-										* CHECKPOINT_CHAR_DOWNSPEED - BASE_CLIENT_HEIGHT ) * (-1.0f) * CHECKPOINT_CHAR_RATE_Y;
-		D3DXMATRIX mTexMatrix, mScale, mRot, mPos;
-		D3DXMatrixScaling(&mScale,CHECK_POINT_CHAR_SIZE.x,CHECK_POINT_CHAR_SIZE.y,CHECK_POINT_CHAR_SIZE.z);
-		D3DXMatrixRotationZ(&mRot,D3DXToRadian(0));
-		D3DXMatrixTranslation(&mPos, wide,height,0.0f);
-		mTexMatrix	= mPos*mScale*mRot;
-		m_pPintMark->setMatrix( mTexMatrix );
-
+		setTexPos( m_ActiveItem-1, fTexPosY );	//最後までいったらテクスチャ座標の更新を１つ前で固定
 	}
 
-	//Blink();
 };
 
 /////////////////// ////////////////////
@@ -463,40 +457,57 @@ void CheckPoint::Draw( DrawPacket& i_DrawPacket ){
 		Debugger::DBGSTR::addStr(L"m_ActiveItem = %d\n",m_ActiveItem);
 	}
 	else/* if(m_ActiveItem == m_ItemContainer.size()-1)*/{
-		Debugger::DBGSTR::addStr(L"m_ActiveItem = %d\n",m_ActiveItem);
-		Debugger::DBGSTR::addStr(L"らすと");
 		m_pPintMark->Draw(i_DrawPacket);
 	}
 
-	if( m_pEffect != NULL ){
+	if( m_pEffect ){
+		//チェックポイントの描画
 		m_pEffect->Draw( i_DrawPacket );
-	}
-	if( m_pEffect2 != NULL ){
-		m_pEffect2->Draw( i_DrawPacket );
-	}
+		//一度でもチェックポイントを通過したら入る
+		//復帰地点の描画
+		if(m_pEffect->getVanish())	m_pEffect->PointDraw( i_DrawPacket );
+	}	
 };
 
-/////////////////// ////////////////////
-//// 用途       ：virtual void Blink()
-//// カテゴリ   ：純粋仮想関数
-//// 用途       ：オブジェクトを明滅する
-//// 引数       ：なし　
-//// 戻値       ：無し
-//// 担当者     ：佐藤涼
-//// 備考       ：
-////            ：
-////
-void	CheckPoint::Blink(){
-	m_Color.a	-=	0.03f * m_Thicken + 0.01f;
+/*************************************************
+コイルがチェックポイントを通過したか
+*************************************************/
+void	CheckPoint::PlayerPass(UpdatePacket &i_UpdatePacket){
 
-	if( m_Color.a < 0.3f ){
-		m_Color.a	 =  0.3f;
-		m_Thicken	*= -1.0f;
+	float fPosY		= m_ItemContainer[ m_ActiveItem ]->fPosY;
+	float fCoilPosY = m_pCoil->getPos().y;
+
+	if(fPosY <= fCoilPosY){
+		m_pCoil->setStartPos(m_ItemContainer[ m_ActiveItem ]->vStartPos);
+		m_ActiveItem++;
+		m_pCoil->setRecordTime();
+		m_pTime->setTime();
+		if(m_ActiveItem == m_ItemContainer.size()-1){
+			m_pPintMark->setTexture(m_pTextureLast);
+			m_pPintMark->setCenter(D3DXVECTOR3( 128.0f, 32.0f, 0.0f ));
+		}
+		m_bPlayerPass	= true;	//通過フラグをたてる
+		i_UpdatePacket.SearchWaveAndPlay( RCTEXT_SOUND_SE_CHECKPOINT );
 	}
-	else if( m_Color.a > 0.9f ){
-		m_Color.a	 =  0.9f;
-		m_Thicken	*= -1.0f;
-	}
+}
+
+/*************************************************
+文字テクスチャの座標指定
+*************************************************/
+void	CheckPoint::setTexPos( size_t i_ActiveItem, float fTexPosY ){
+	float	wide	= 0;
+	float	height	= 0;
+	//CHECK POINT テクスチャ*************************************************************
+	wide	= BASE_CLIENT_WIDTH / 50 * m_ItemContainer[ i_ActiveItem ]->vStartPos.x * CHECKPOINT_CHAR_RATE_X;
+	height	= ( (m_ItemContainer[ i_ActiveItem ]->vStartPos.y - fTexPosY)
+									* CHECKPOINT_CHAR_DOWNSPEED - BASE_CLIENT_HEIGHT ) * (-1.0f) * CHECKPOINT_CHAR_RATE_Y;
+	D3DXMATRIX mTexMatrix, mScale, mRot, mPos;
+	D3DXMatrixScaling(&mScale,CHECK_POINT_CHAR_SIZE.x,CHECK_POINT_CHAR_SIZE.y,CHECK_POINT_CHAR_SIZE.z);
+	D3DXMatrixRotationZ(&mRot,D3DXToRadian(0));
+	D3DXMatrixTranslation(&mPos, wide,height,0.0f);
+	mTexMatrix	= mPos*mScale*mRot;
+	m_pPintMark->setMatrix( mTexMatrix );
+	//*************************************************************************************
 }
 
 /**************************************************************************

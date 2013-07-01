@@ -37,6 +37,7 @@ class MagnetFieldCircle{
 	D3DXMATRIX					m_mMatrix		;
 	DWORD						m_dwColor_N		;
 	DWORD						m_dwColor_S		;
+
 public:
 	MagnetFieldCircle(LPDIRECT3DDEVICE9 pD3DDevice,DWORD pVertexQty);
 	void Draw(DrawPacket& i_DrawPacket);
@@ -100,7 +101,8 @@ protected:
 	MagnetFieldCircle	m_MagneticField		;
 	D3DXVECTOR3			m_vPos				;
 	float				m_fEffectSizeRate	;
-
+	bool				m_bPtn				;
+	int					m_iFlashingInterval	;
 
 protected:
 

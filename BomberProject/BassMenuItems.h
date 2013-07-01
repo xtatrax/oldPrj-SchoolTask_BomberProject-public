@@ -83,6 +83,10 @@ public:
     virtual void Draw(DrawPacket& i_DrawPacket) ;
 
 	Button* getButtonP(){ return &m_ButtonState;}
+	void setWaitTime( float fTime ){
+		m_fWaitTime = fTime ;
+	}
+
 } ;
 }//end of namespace menuobject.
 using namespace menuobject ;

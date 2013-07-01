@@ -40,6 +40,9 @@ public:
 	void	Draw(DrawPacket& i_DrawPacket);
 	void	Update(UpdatePacket& i_UpdatePacket);
 	void	update_Matrix( int i );
+	void	setScore( int i_iScore ){
+		m_iScore	= i_iScore;
+	}
 
 };
 

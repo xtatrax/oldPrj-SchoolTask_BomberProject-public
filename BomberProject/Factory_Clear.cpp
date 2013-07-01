@@ -41,8 +41,6 @@ Factory_Clear::Factory_Clear(FactoryPacket* fpac, int iDeadCount, int iMaxPosY, 
 
 		float	wide	= BASE_CLIENT_WIDTH/2;
 		float	height	= BASE_CLIENT_HEIGHT/2;
-
-		//Frame
 		fpac->m_pVec->push_back(
 			new SpriteObject(
 				fpac->pD3DDevice,
@@ -56,7 +54,6 @@ Factory_Clear::Factory_Clear(FactoryPacket* fpac, int iDeadCount, int iMaxPosY, 
 				0xFFFFFFFF
 			)
 		);
-
 		//CLEAR
 		fpac->m_pVec->push_back(
 			new SpriteObject(
@@ -71,7 +68,6 @@ Factory_Clear::Factory_Clear(FactoryPacket* fpac, int iDeadCount, int iMaxPosY, 
 				0xFFFFFFFF
 				)
 		);
-
 		//最高到達点**************************************************************
 		fpac->m_pVec->push_back(
 			new SpriteObject(
@@ -86,7 +82,6 @@ Factory_Clear::Factory_Clear(FactoryPacket* fpac, int iDeadCount, int iMaxPosY, 
 				0xFFFFFFFF
 				)
 		);
-
 		//掠めた回数*****************************************************************
 		fpac->m_pVec->push_back(
 			new SpriteObject(
@@ -101,7 +96,6 @@ Factory_Clear::Factory_Clear(FactoryPacket* fpac, int iDeadCount, int iMaxPosY, 
 				0xFFFFFFFF
 				)
 		);
-
 		//死亡回数*****************************************************************
 		fpac->m_pVec->push_back(
 			new SpriteObject(
@@ -116,7 +110,6 @@ Factory_Clear::Factory_Clear(FactoryPacket* fpac, int iDeadCount, int iMaxPosY, 
 				0xFFFFFFFF
 				)
 		);
-
 		//トータルポイント*****************************************************************
 		fpac->m_pVec->push_back(
 			new SpriteObject(
@@ -124,15 +117,15 @@ Factory_Clear::Factory_Clear(FactoryPacket* fpac, int iDeadCount, int iMaxPosY, 
 				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"TEST.png" ),
 				D3DXVECTOR3( 1.0f, 1.5f, 0.0f ),
 				g_vZero,
-				D3DXVECTOR3( wide-430.0f, height+90.0f, 0.0f ),
+				D3DXVECTOR3( wide-430.0f, height+86.0f, 0.0f ),
 				Rect( 0, 65, 512, 128),
 				g_vZero,
 				g_vZero,
 				0xFFFFFFFF
 				)
 		);
-		//*****************************************************************************
 		//Please Click
+		//*****************************************************************************
 /////////////////////////////////////////////////////////////////////////////////
 //                                 BACK                                        //
 /////////////////////////////////////////////////////////////////////////////////
@@ -177,7 +170,6 @@ Factory_Clear::Factory_Clear(FactoryPacket* fpac, int iDeadCount, int iMaxPosY, 
 				&Rect( 0, 0, 512, 64 )
 			)
 		);
-
 		//***********************************************************
 		// RANK ( S~C )
 		fpac->m_pVec->push_back(
@@ -191,7 +183,6 @@ Factory_Clear::Factory_Clear(FactoryPacket* fpac, int iDeadCount, int iMaxPosY, 
 				&Rect( 0, 0, 128, 128 )
 			)
 		);
-
 		//Click_Please
 		fpac->m_pVec->push_back(
 			new ClickChar(
