@@ -26,14 +26,14 @@ namespace bomberobject{
 ***************************************************************************/
 /////////////////// ////////////////////
 //// 関数名     ：EnemyModel::EnemyModel(LPDIRECT3DDEVICE9 pD3DDevice,D3DCOLORVALUE& Diffuse,
-////            ：  D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,LPDIRECT3DTEXTURE9 pTexture = 0);
+////            ：  D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,LPTATRATEXTURE pTexture = 0);
 //// カテゴリ   ：コンストラクタ
 //// 用途       ：球体を作成
 //// 引数       ：  LPDIRECT3DDEVICE9 pD3DDevice,   ////IDirect3DDevice9インターフェイスへのポインタ
 ////            ：  D3DCOLORVALUE& Diffuse,         //ディフューズ色
 ////            ：  D3DCOLORVALUE& Specular,            //スペキュラ色
 ////            ：  D3DCOLORVALUE& Ambient,          //アンビエント色
-////            ：  LPDIRECT3DTEXTURE9 pTexture = 0	//テクスチャを張るときは指定
+////            ：  LPTATRATEXTURE pTexture = 0	//テクスチャを張るときは指定
 //// 戻値       ：なし（失敗時は例外をthrow）
 //// 担当者     ： (山ノ井先生のひな形より)
 //// 備考       ：
@@ -140,7 +140,7 @@ EnemyModel::~EnemyModel(){
 }
 
 /////////////////// ////////////////////
-//// 用途       ：WallObject(	LPDIRECT3DDEVICE9 pD3DDevice,LPDIRECT3DTEXTURE9 pTexture,wiz::OBJID id = OBJID_3D_WALL);
+//// 用途       ：WallObject(	LPDIRECT3DDEVICE9 pD3DDevice,LPTATRATEXTURE pTexture,wiz::OBJID id = OBJID_3D_WALL);
 //// カテゴリ   ：コンストラクタ
 //// 用途       ：関数
 //// 引数       ：なし
@@ -214,9 +214,9 @@ void EnemyModel::UpdateTargetItem(){
 ////
 
 void EnemyModel::Update( UpdatePacket& i_UpdatePacket){
-	if( !m_pCamera )	m_pCamera	=              (Camera*)SearchObjectFromID( i_UpdatePacket.pVec,OBJID_SYS_CAMERA	) ;		
-	if( !m_pPlayer )	m_pPlayer	= (ProvisionalPlayer3D*)SearchObjectFromID( i_UpdatePacket.pVec,OBJID_3D_USERMAGNET	) ;
-	if( !m_pCoil )		m_pCoil		=          (PlayerCoil*)SearchObjectFromID( i_UpdatePacket.pVec,OBJID_3D_COIL		) ;
+	if( !m_pCamera )	m_pCamera	=              (Camera*)i_UpdatePacket.SearchObjectFromID(OBJID_SYS_CAMERA	) ;		
+	if( !m_pPlayer )	m_pPlayer	= (ProvisionalPlayer3D*)i_UpdatePacket.SearchObjectFromID(OBJID_3D_USERMAGNET	) ;
+	if( !m_pCoil )		m_pCoil		=          (PlayerCoil*)i_UpdatePacket.SearchObjectFromID(OBJID_3D_COIL		) ;
 
 	if(m_pCoil->getState() == COIL_STATE_CONTINUE)m_bReset = true;
 
@@ -308,20 +308,20 @@ void EnemyModel::Draw(DrawPacket& i_DrawPacket)
 			//((CookTrance*)this->m_pShader)->Draw(i_DrawPacket,this);
 
 			// マトリックスをレンダリングパイプラインに設定
-			i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &m_WorldMatrix);
+			i_DrawPacket.GetDevice()->SetTransform(D3DTS_WORLD, &m_WorldMatrix);
 
 
 			//無効チェック
-			if((!m_pMesh) || (!i_DrawPacket.pD3DDevice)){
+			if((!m_pMesh) || (!i_DrawPacket.GetDevice())){
 				throw BaseException(L"デバイスかメッシュが無効です。",
 				L"CommonMesh::Draw()");
 			}
 			if(m_Material.Diffuse.a < 1.0f){
 				//もし、透明度が1.0未満なら
 				// アルファ合成の設定
-				i_DrawPacket.pD3DDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, 1);
-				i_DrawPacket.pD3DDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
-				i_DrawPacket.pD3DDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
+				i_DrawPacket.GetDevice()->SetRenderState(D3DRS_ALPHABLENDENABLE, 1);
+				i_DrawPacket.GetDevice()->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
+				i_DrawPacket.GetDevice()->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
 			}
 			if(m_Material.Specular.r > 0.0f
 				|| m_Material.Specular.g > 0.0f
@@ -329,27 +329,27 @@ void EnemyModel::Draw(DrawPacket& i_DrawPacket)
 			{
 				//もし、スペキュラーが設定していたら
 				// スペキュラー有効の設定
-				i_DrawPacket.pD3DDevice->SetRenderState(D3DRS_SPECULARENABLE, 1);
+				i_DrawPacket.GetDevice()->SetRenderState(D3DRS_SPECULARENABLE, 1);
 			}
 
-			//ChangeRenderStateArray(i_DrawPacket.pD3DDevice,pParam);
+			//ChangeRenderStateArray(i_DrawPacket.GetDevice(),pParam);
 			// マテリアルをレンダリングパイプラインに設定
-			i_DrawPacket.pD3DDevice->SetMaterial( &m_Material);
+			i_DrawPacket.GetDevice()->SetMaterial( &m_Material);
 			//描画
 			m_pMesh->DrawSubset(0);
-			//ChangeRenderStateArray(i_DrawPacket.pD3DDevice,pParam);
+			//ChangeRenderStateArray(i_DrawPacket.GetDevice(),pParam);
 			if(m_Material.Specular.r > 0.0f
 				|| m_Material.Specular.g > 0.0f
 				|| m_Material.Specular.b > 0.0f)
 			{
 				//もし、スペキュラーが設定していたら
 				// スペキュラーを元に戻す
-				i_DrawPacket.pD3DDevice->SetRenderState(D3DRS_SPECULARENABLE, 0);
+				i_DrawPacket.GetDevice()->SetRenderState(D3DRS_SPECULARENABLE, 0);
 			}
 			if(m_Material.Diffuse.a < 1.0f){
 				//もし、透明度が1.0未満なら
 				// アルファ合成を元に戻す
-				i_DrawPacket.pD3DDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, 0);
+				i_DrawPacket.GetDevice()->SetRenderState(D3DRS_ALPHABLENDENABLE, 0);
 			}
 		}
 
@@ -441,7 +441,7 @@ void EnemyModel::AddEnemy(
 void	EnemyModel::CreateEffect( UpdatePacket& i_UpdatePacket, TARGETCONTAINER::iterator it ){
 	//爆散エフェクトの作成
 	//for( int i = 0; i < PARTICLS_NUM_ENEMY; i++ ){
-	//	(*it)->m_pDeadEffect[i]	= new DeadEffect( i_UpdatePacket.pD3DDevice, (*it)->m_vPos,
+	//	(*it)->m_pDeadEffect[i]	= new DeadEffect( i_UpdatePacket.GetDevice(), (*it)->m_vPos,
 	//		float((360/PARTICLS_NUM_ENEMY) * i), m_pCoil->getDeadText() );
 	//}
 };

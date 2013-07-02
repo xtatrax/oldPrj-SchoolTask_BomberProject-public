@@ -46,10 +46,10 @@ class	SuperNotice	: public SpriteObject{
 public:
 	SuperNotice(
 		const LPDIRECT3DDEVICE9		pD3DDevice	,				//	: デバイス
-		const LPDIRECT3DTEXTURE9	pTex		,				//	: コア部分のTexture
+		const LPTATRATEXTURE	pTex		,				//	: コア部分のTexture
 		const D3DXVECTOR3			&vScale		,				//	: 伸縮
 		const D3DXVECTOR3			&vPos		,				//	: 位置
-		const RECT					Rect		,				//	: 描画範囲
+		const Rect					Rect		,				//	: 描画範囲
 		const wiz::OBJID			id	=	OBJID_UI_NOTICE		//	: ID
 	);
 	~SuperNotice();
@@ -75,11 +75,11 @@ class	Relationship_Gage	: public SpriteObject{
 public:
 	Relationship_Gage(
 		const LPDIRECT3DDEVICE9		pD3DDevice	,				//	: デバイス
-		const LPDIRECT3DTEXTURE9	pTex		,				//	: コア部分のTexture
+		const LPTATRATEXTURE	pTex		,				//	: コア部分のTexture
 		const D3DXVECTOR3			&vScale		,				//	: 伸縮
 		const D3DXVECTOR3			&vRot		,				//	: 回転
 		const D3DXVECTOR3			&vPos		,				//	: 位置
-		const RECT					Rect		,				//	: 描画範囲
+		const Rect					Rect		,				//	: 描画範囲
 		const wiz::OBJID			id	=	OBJID_UI_SPRITE		//	: ID
 	);
 	~Relationship_Gage();
@@ -104,13 +104,13 @@ protected:
 public:
 	Gage(
 		const LPDIRECT3DDEVICE9	pD3DDevice	,		//	: デバイス
-		const LPDIRECT3DTEXTURE9	pTex		,		//	: コア部分のTexture
+		const LPTATRATEXTURE	pTex		,		//	: コア部分のTexture
 		const D3DXVECTOR3			&vScale		,		//	: 伸縮
 		const D3DXVECTOR3			&vRot		,		//	: 回転
 		const D3DXVECTOR3			&vPos		,		//	: 位置
 		const D3DXVECTOR3			&vDirOffset	,		//	: 描画オフセット
-		const RECT				GaugeRect	,		//	: 描画範囲
-		const RECT				FrameRect	,		//	: 描画範囲
+		const Rect				GaugeRect	,		//	: 描画範囲
+		const Rect				FrameRect	,		//	: 描画範囲
 		const wiz::OBJID			id	//	: ID
 	);
 	~Gage();
@@ -178,12 +178,12 @@ class SuperGage : public Gage{
 public:
 	SuperGage(
 		LPDIRECT3DDEVICE9	pD3DDevice	,		//	: デバイス
-		LPDIRECT3DTEXTURE9	pTex		,		//	: コア部分のTexture
+		LPTATRATEXTURE	pTex		,		//	: コア部分のTexture
 		D3DXVECTOR3			&vScale		,		//	: 伸縮
 		D3DXVECTOR3			&vRot		,		//	: 回転
 		D3DXVECTOR3			&vPos		,		//	: 位置
-		RECT				GaugeRect	,		//	: 描画範囲
-		RECT				FrameRect	,		//	: 描画範囲
+		Rect				GaugeRect	,		//	: 描画範囲
+		Rect				FrameRect	,		//	: 描画範囲
 		wiz::OBJID			id=OBJID_UI_SUPERGAUGE	//	: ID
 	);
 	~SuperGage();
@@ -239,11 +239,11 @@ class MagneticGage_N : public Gage{
 public:
 	MagneticGage_N(
 		LPDIRECT3DDEVICE9	pD3DDevice	,		//	: デバイス
-		LPDIRECT3DTEXTURE9	pTex		,		//	: コア部分のTexture
+		LPTATRATEXTURE	pTex		,		//	: コア部分のTexture
 		D3DXVECTOR3			&vPos		,		//	: 位置
 		D3DXVECTOR3			&vScale		,		//	: 大きさ
-		RECT				GaugeRect	,		//	: 描画範囲
-		RECT				FrameRect	,		//	: 描画範囲
+		Rect				GaugeRect	,		//	: 描画範囲
+		Rect				FrameRect	,		//	: 描画範囲
 		wiz::OBJID			id=OBJID_UI_MAGNETGAUGE_N	//	: ID
 	);
 	
@@ -281,11 +281,11 @@ class MagneticGage_S : public Gage{
 public:
 	MagneticGage_S(
 		LPDIRECT3DDEVICE9	pD3DDevice	,		//	: デバイス
-		LPDIRECT3DTEXTURE9	pTex		,		//	: コア部分のTexture
+		LPTATRATEXTURE	pTex		,		//	: コア部分のTexture
 		D3DXVECTOR3			&vPos		,		//	: 位置
 		D3DXVECTOR3			&vScale		,		//	: 大きさ
-		RECT				GaugeRect	,		//	: 描画範囲
-		RECT				FrameRect	,		//	: 描画範囲
+		Rect				GaugeRect	,		//	: 描画範囲
+		Rect				FrameRect	,		//	: 描画範囲
 		wiz::OBJID			id = OBJID_UI_MAGNETGAUGE_S	//	: ID
 	);
 

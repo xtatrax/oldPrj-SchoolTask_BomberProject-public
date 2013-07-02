@@ -1,5 +1,5 @@
 ////////////////////////////// //////////////////////////////
-//	プロジェクト	：DirectX Program Bass Project
+//	プロジェクト	：BomberProject
 //	ファイル名		：Factory_Mouse.cpp
 //	開発環境		：MSVC++ 2008
 //	最適タブ数		：4
@@ -28,45 +28,38 @@ namespace bomberobject{
 /**************************************************************************
  MouseCursor::MouseCursor(
 	LPDIRECT3DDEVICE9 pD3DDevice,	//デバイス
-	LPDIRECT3DTEXTURE9 pTexture,	//テクスチャ
+	LPTATRATEXTURE pTexture,	//テクスチャ
 	wiz::OBJID id					//オブジェクトの種類
 );
  用途: コンストラクタ
  戻り値: なし
  担当：本多寛之
 ***************************************************************************/
-MouseCursor::MouseCursor( LPDIRECT3DDEVICE9 pD3DDevice, TextureManager* m_pTexMgr, float fLineLength, float fPointSize,LPDIRECT3DTEXTURE9 pTex)
+MouseCursor::MouseCursor( LPDIRECT3DDEVICE9 pD3DDevice, TextureManager* m_pTexMgr, float fLineLength, float fPointSize,LPTATRATEXTURE pTex)
 :Box( pD3DDevice, D3DXVECTOR3( 1.0f, 1.0f, 1.0f), g_vZero, g_vZero, COLOR2D3DCOLORVALUE(0x0FFFFF0F), COLOR2D3DCOLORVALUE(0x0FFFFF0F), COLOR2D3DCOLORVALUE(0x0FFFFF0F),  OBJID_SYS_CURSOR, false,  pTex )
 ,PrimitiveSprite(pD3DDevice, NULL, NULL, D3DXVECTOR3( 92.0f, 67.0f, 0.0f ), g_vZero)
+,m_SelectPos( pD3DDevice, m_pTexMgr->addTexture( pD3DDevice, L"GAGE0.png" ),&Rect(128-8,96,128,106), D3DXVECTOR3( 4.0f, 4.0f, 0.0f ), g_vZero, -1 ,false)
+,m_Line( g_vZero, D3DXVECTOR3( cosf( D3DXToRadian(-55.0f) ), sinf( D3DXToRadian(-55.0f) ), 0.0f ), 100.0f, g_YellowColor.dwColor )
+,m_Line2( m_Line.getEndPos(), D3DXVECTOR3( cosf( D3DXToRadian(0.0f) ), sinf( D3DXToRadian(0.0f) ), 0.0f ), fLineLength, g_YellowColor.dwColor )
 ,m_Ptn(0)
 ,m_MovePosY(0)
 ,m_pCamera( NULL )
 ,m_pCoil( NULL )
-,m_pLine( NULL )
-,m_pLine2( NULL )
 ,m_pTorus( NULL )
-,m_pSelectPos( NULL )
 ,m_fTorusMagnification(0)
 ,m_fTorusTimeCount(0.0f)
 ,m_bIsReverse(false)
 
 {
 
+	//	: 
 	D3DXVECTOR3 vScale = D3DXVECTOR3(0.5f,0.5f,0.0f);
 	D3DXMatrixScaling( &m_mScale, vScale.x, vScale.y, vScale.z );
 
 	Box::SetBaseScale( D3DXVECTOR3( (float)MGPRM_MAGNETICUM*2, (float)MGPRM_MAGNETICUM*2, 0.0f) );
 	
-	const	D3DXVECTOR3	vDir	= D3DXVECTOR3( cosf( D3DXToRadian(-55.0f) ), sinf( D3DXToRadian(-55.0f) ), 0.0f );
-	const	D3DXVECTOR3	vDir2	= D3DXVECTOR3( cosf( D3DXToRadian(0.0f) ), sinf( D3DXToRadian(0.0f) ), 0.0f );
-	const	float		fRange	= 100.0f;
-	//m_vScale	= D3DXVECTOR3( 0.125f, 0.125f, 0.0f );
 	m_vScale	= D3DXVECTOR3( fPointSize, fPointSize, 0.0f );
-	m_pSelectPos	= new SpriteObject( pD3DDevice, m_pTexMgr->addTexture( pD3DDevice, L"GAGE0.png" ), m_vScale,
-							g_vZero, g_vZero, Rect(128-8,96,128,106), D3DXVECTOR3( 4.0f, 4.0f, 0.0f ), g_vZero,-1,OBJID_UI_SPRITE,false );
 
-	m_pLine			= new Line( g_vZero, vDir, fRange, 0xFFFFFF00 );
-	m_pLine2		= new Line( m_pLine->getEndPos(), vDir2, fLineLength, 0xFFFFFF00 );
 
 	m_pTorus	= new Torus(
 		pD3DDevice,
@@ -97,10 +90,7 @@ MouseCursor::~MouseCursor(){
 	m_MovePosY	= 0 ;
 	m_pCamera = ( NULL ) ;
 	m_pCoil   = ( NULL ) ;
-	SafeDelete( m_pLine	 )	;
-	SafeDelete( m_pLine2 )	;
 	SafeDelete( m_pTorus )	;
-	SafeDelete( m_pSelectPos )	;
 }
 
 
@@ -120,9 +110,9 @@ MouseCursor::~MouseCursor(){
 ////            ：
 ////
 void MouseCursor::Update( UpdatePacket& i_UpdatePacket ){
-	if( !m_pCoil   ) m_pCoil = (PlayerCoil*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_3D_COIL);
+	if( !m_pCoil   ) m_pCoil = (PlayerCoil*)i_UpdatePacket.SearchObjectFromID(OBJID_3D_COIL);
 	if( !m_pCamera ){
-		m_pCamera = (Camera*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_SYS_CAMERA);
+		m_pCamera = (Camera*)i_UpdatePacket.SearchObjectFromID(OBJID_SYS_CAMERA);
 		m_pCamera && (m_MovePosY	= m_pCamera->getPosY());
 	}
 
@@ -136,8 +126,8 @@ void MouseCursor::Update( UpdatePacket& i_UpdatePacket ){
 
 	//Box::CalcWorldMatrix();
 
-	m_pLine->setMatrix( m_mMatrix );
-	m_pLine2->setMatrix( m_mMatrix );
+	m_Line.setMatrix( m_mMatrix );
+	m_Line2.setMatrix( m_mMatrix );
 
 	//	: ポイントの更新***********************************************
 	D3DXMATRIX mMatrix, mPos, mScale2 ;
@@ -145,7 +135,7 @@ void MouseCursor::Update( UpdatePacket& i_UpdatePacket ){
 	D3DXMatrixTranslation( &mPos, (float)m_v2DPos.x, (float)m_v2DPos.y, 0.0f);
 
 	mMatrix	= mScale2 * mPos;
-	m_pSelectPos->setMatrix( mMatrix );
+	m_SelectPos.setMatrix( mMatrix );
 	//*******************************************************************
 
 	D3DXMATRIX mPos2, mScale, mRot;
@@ -158,14 +148,14 @@ void MouseCursor::Update( UpdatePacket& i_UpdatePacket ){
 
 	if(m_fTorusMagnification >= CURSOR_FIELD_LENGHT){
 		m_fTorusMagnification = CURSOR_FIELD_LENGHT;
-		m_fTorusTimeCount += (float)i_UpdatePacket.pTime->getElapsedTime();
+		m_fTorusTimeCount += (float)i_UpdatePacket.GetTime()->getElapsedTime();
 		if( m_fTorusTimeCount >= CURSOR_FIELD_TIME){		
 			m_fTorusMagnification = 0.0f;
 			m_fTorusTimeCount	  = 0.0f;
 		}
 	}
 	else{
-		m_fTorusMagnification += CURSOR_FIELD_LENGHT * (float)i_UpdatePacket.pTime->getElapsedTime();
+		m_fTorusMagnification += CURSOR_FIELD_LENGHT * (float)i_UpdatePacket.GetTime()->getElapsedTime();
 	}
 
 	++m_Ptn;
@@ -178,7 +168,7 @@ void MouseCursor::Update( UpdatePacket& i_UpdatePacket ){
 //// 引数       ：  DrawPacket& i_DrawPacket             // 画面描画時に必要なデータ群 ↓内容下記
 ////            ：  ├ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 インターフェイスへのポインタ
 ////            ：  ├ vector<Object*>&    Vec                     // オブジェクトの配列
-////            ：  ├ Tempus2*            i_DrawPacket.pTime	   // 時間を管理するクラスへのポインター
+////            ：  ├ Tempus2*            i_DrawPacket.GetTime()	   // 時間を管理するクラスへのポインター
 ////            ：  └ Command             i_DrawPacket.pCommand   // コマンド
 //// 戻値       ：無し
 //// 担当者     ：本多寛之
@@ -188,9 +178,9 @@ void MouseCursor::Draw(DrawPacket& i_DrawPacket)
 {
 	//PrimitiveSprite::Draw(i_DrawPacket);
 	//Box::Draw(i_DrawPacket);
-	m_pLine->draw(i_DrawPacket.pD3DDevice);
-	m_pLine2->draw(i_DrawPacket.pD3DDevice);
-	m_pSelectPos->Draw(i_DrawPacket);
+	m_Line.draw(i_DrawPacket.GetDevice());
+	m_Line2.draw(i_DrawPacket.GetDevice());
+	m_SelectPos.Draw(i_DrawPacket);
 	if(m_pCamera)m_pTorus->Draw(i_DrawPacket);
 }
 /////////////////// ////////////////////

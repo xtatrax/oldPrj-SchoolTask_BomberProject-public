@@ -31,7 +31,7 @@ const	float	GAUGE_VANISHRATE	= 0.0f;
  ProvisionalPlayer3D 定義部
 ****************************************************************************/
 /////////////////// ////////////////////
-//// 関数名     ：ProvisionalPlayer3D( LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTexture,
+//// 関数名     ：ProvisionalPlayer3D( LPDIRECT3DDEVICE9 pD3DDevice, LPTATRATEXTURE pTexture,
 ////            ：    D3DXVECTOR3 &vScale, D3DXVECTOR3 &vRot, D3DXVECTOR3 &vPos, RECT* pRect,
 ////            ：    Color color = 0xFFFFFFFF, wiz::OBJID id = OBJID_3D_PLAYER )
 //// カテゴリ   ：コンストラクタ
@@ -44,8 +44,8 @@ const	float	GAUGE_VANISHRATE	= 0.0f;
 ////
 ProvisionalPlayer3D::ProvisionalPlayer3D(
 	FactoryPacket*	fpac,								//	: デバイス
-	LPDIRECT3DTEXTURE9 pTexture,						//	: テクスチャー
-	LPDIRECT3DTEXTURE9 pTexture2,						//	: テクスチャー２
+	LPTATRATEXTURE pTexture,						//	: テクスチャー
+	LPTATRATEXTURE pTexture2,						//	: テクスチャー２
 	D3DXVECTOR3		   &vScale,							//	: 伸縮
 	D3DXQUATERNION	   &vRot,							//	: 回転
 	D3DXVECTOR3	       &vPos,							//	: 位置
@@ -97,13 +97,13 @@ ProvisionalPlayer3D::~ProvisionalPlayer3D(){
 ////
 void ProvisionalPlayer3D::Update( UpdatePacket& i_UpdatePacket ){
 	if(m_Camera == NULL){
-		m_Camera = (Camera*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_SYS_CAMERA);
+		m_Camera = (Camera*)i_UpdatePacket.SearchObjectFromID(OBJID_SYS_CAMERA);
 		//m_Camera && (m_MovePosY	= m_Camera->getPosY());
 	}
-	if( !m_pPlayerCoil	)	m_pPlayerCoil	= (     PlayerCoil* )SearchObjectFromID(i_UpdatePacket.pVec,OBJID_3D_COIL          );
-	if( !m_pMGage_N		)	m_pMGage_N		= ( MagneticGage_N* )SearchObjectFromID(i_UpdatePacket.pVec,OBJID_UI_MAGNETGAUGE_N );
-	if( !m_pMGage_S		)	m_pMGage_S		= ( MagneticGage_S* )SearchObjectFromID(i_UpdatePacket.pVec,OBJID_UI_MAGNETGAUGE_S );
-	if( !m_pCursor		)	m_pCursor		= (    MouseCursor* )SearchObjectFromID(i_UpdatePacket.pVec,OBJID_SYS_CURSOR       );
+	if( !m_pPlayerCoil	)	m_pPlayerCoil	= (     PlayerCoil* )i_UpdatePacket.SearchObjectFromID(OBJID_3D_COIL          );
+	if( !m_pMGage_N		)	m_pMGage_N		= ( MagneticGage_N* )i_UpdatePacket.SearchObjectFromID(OBJID_UI_MAGNETGAUGE_N );
+	if( !m_pMGage_S		)	m_pMGage_S		= ( MagneticGage_S* )i_UpdatePacket.SearchObjectFromID(OBJID_UI_MAGNETGAUGE_S );
+	if( !m_pCursor		)	m_pCursor		= (    MouseCursor* )i_UpdatePacket.SearchObjectFromID(OBJID_SYS_CURSOR       );
 
 	RECT rc;
 	::GetClientRect(wiz::DxDevice::m_hWnd, &rc);
@@ -126,7 +126,6 @@ void ProvisionalPlayer3D::Update( UpdatePacket& i_UpdatePacket ){
 					if(Rebound)m_pMGage_S->Consume(PLAYER_INVOCATION_POINT);
 					if( (Suction && m_pMGage_N->getRate() > GAUGE_VANISHRATE) || (Rebound && m_pMGage_S->getRate() > GAUGE_VANISHRATE) ){
 
-						wiz::CONTROLER_STATE Controller1P = i_UpdatePacket.pCntlState[0] ;
 						D3DXVECTOR3 vMove = g_vZero ;
 						m_vPos = m_pCursor->get3DPos();
 
@@ -224,7 +223,7 @@ void ProvisionalPlayer3D::Update( UpdatePacket& i_UpdatePacket ){
 //// 引数       ：  DrawPacket& i_DrawPacket             // 画面描画時に必要なデータ群 ↓内容下記
 ////			   ：  ├ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 インターフェイスへのポインタ
 ////			   ：  ├ vector<Object*>&    Vec                     // オブジェクトの配列
-////			   ：  ├ Tempus2*            i_DrawPacket.pTime	   // 時間を管理するクラスへのポインター
+////			   ：  ├ Tempus2*            i_DrawPacket.GetTime()	   // 時間を管理するクラスへのポインター
 ////               ：  └ Command             i_DrawPacket.pCommand   // コマンド
 //// 戻値       ：無し
 //// 担当者     ：曳地 大洋

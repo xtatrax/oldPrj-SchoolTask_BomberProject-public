@@ -28,7 +28,7 @@ protected:
 	PlayerCoil*	m_pCoil;
 public:
 	Score(LPDIRECT3DDEVICE9	pD3DDevice,
-				LPDIRECT3DTEXTURE9	pTexture,
+				LPTATRATEXTURE	pTexture,
 				D3DXVECTOR3	&vScale,
 				D3DXVECTOR3	&vPos,
 				int			iScore,
@@ -54,7 +54,7 @@ public:
 class DeadScore : public Score{
 public:
 	DeadScore(LPDIRECT3DDEVICE9	pD3DDevice,
-				LPDIRECT3DTEXTURE9	pTexture,
+				LPTATRATEXTURE	pTexture,
 				D3DXVECTOR3	&vScale,
 				D3DXVECTOR3	&vPos,
 				Rect*		Rect	= NULL );
@@ -73,7 +73,7 @@ class ArrivalPos : public Score{
 	int		m_iMaxPosY;	//最高到達点
 public:
 	ArrivalPos(LPDIRECT3DDEVICE9	pD3DDevice,
-				LPDIRECT3DTEXTURE9	pTexture,
+				LPTATRATEXTURE	pTexture,
 				D3DXVECTOR3	&vScale,
 				D3DXVECTOR3	&vPos,
 				Rect*		Rect	= NULL );
@@ -96,7 +96,7 @@ public:
 class ScratchPoint : public Score{
 public:
 	ScratchPoint(LPDIRECT3DDEVICE9	pD3DDevice,
-				LPDIRECT3DTEXTURE9	pTexture,
+				LPTATRATEXTURE	pTexture,
 				D3DXVECTOR3	&vScale,
 				D3DXVECTOR3	&vPos,
 				Rect*		Rect	= NULL );
@@ -116,7 +116,7 @@ class GoalPos : public Score{
 	GoalObject*	m_pGoalObject;
 public:
 	GoalPos(LPDIRECT3DDEVICE9	pD3DDevice,
-				LPDIRECT3DTEXTURE9	pTexture,
+				LPTATRATEXTURE	pTexture,
 				D3DXVECTOR3	&vScale,
 				D3DXVECTOR3	&vPos,
 				Rect*		Rect	= NULL );
@@ -136,7 +136,7 @@ class TimeScore : public Score{
 	float	m_fElapsedTime;
 public:
 	TimeScore(LPDIRECT3DDEVICE9	pD3DDevice,
-				LPDIRECT3DTEXTURE9	pTexture,
+				LPTATRATEXTURE	pTexture,
 				D3DXVECTOR3	&vScale,
 				D3DXVECTOR3	&vPos,
 				int			iTime,
@@ -166,7 +166,7 @@ class AnimationScore : public Score{
 	int		m_iDight;
 public:
 	AnimationScore(LPDIRECT3DDEVICE9	pD3DDevice,
-				LPDIRECT3DTEXTURE9	pTexture,
+				LPTATRATEXTURE	pTexture,
 				D3DXVECTOR3	&vScale,
 				D3DXVECTOR3	&vPos,
 				int			iScore,
@@ -197,20 +197,20 @@ class ResultScore : public Score{
 	SpriteObject*		m_pRate_10;
 	SpriteObject*		m_pRate_30;
 	SpriteObject*		m_pRate_1;
-	LPDIRECT3DTEXTURE9	m_pDeadTex;		//死亡回数スコアのテクスチャ
-	LPDIRECT3DTEXTURE9	m_pMaxPosTex;	//最高位置スコアのテクスチャ
-	LPDIRECT3DTEXTURE9	m_pRate10Tex;	//
-	LPDIRECT3DTEXTURE9	m_pRate30Tex;	//
-	LPDIRECT3DTEXTURE9	m_pRate1Tex;	//
+	LPTATRATEXTURE		m_pDeadTex;		//死亡回数スコアのテクスチャ
+	LPTATRATEXTURE		m_pMaxPosTex;	//最高位置スコアのテクスチャ
+	LPTATRATEXTURE		m_pRate10Tex;	//
+	LPTATRATEXTURE		m_pRate30Tex;	//
+	LPTATRATEXTURE		m_pRate1Tex;	//
 	int					m_iNowDraw;		//アニメーションさせたいスコアの番号
 	Result_Rank			m_ResultRank;
 public:
 	ResultScore(LPDIRECT3DDEVICE9	pD3DDevice,
-				LPDIRECT3DTEXTURE9	pDeadTex,
-				LPDIRECT3DTEXTURE9	pMaxPosTex,
-				LPDIRECT3DTEXTURE9	pRate10Tex,
-				LPDIRECT3DTEXTURE9	pRate30Tex,
-				LPDIRECT3DTEXTURE9	pRate1Tex,
+				LPTATRATEXTURE	pDeadTex,
+				LPTATRATEXTURE	pMaxPosTex,
+				LPTATRATEXTURE	pRate10Tex,
+				LPTATRATEXTURE	pRate30Tex,
+				LPTATRATEXTURE	pRate1Tex,
 				D3DXVECTOR3	&vScale,
 				D3DXVECTOR3	&vPos,
 				int			iDeadScore,

@@ -32,11 +32,11 @@ class	ClickChar	: public SpriteObject{
 public:
 	ClickChar(
 		const LPDIRECT3DDEVICE9		pD3DDevice	,
-		const LPDIRECT3DTEXTURE9	pTexture	,
+		const LPTATRATEXTURE		pTexture	,
 		const D3DXVECTOR3&			vScale		,
 		const D3DXVECTOR3&			vRot		,
 		const D3DXVECTOR3&			vPos		,
-		const RECT*					pRect		,
+		const Rect*					pRect		,
 		const D3DXVECTOR3&			vOffsetPos
 	);
 	~ClickChar();
@@ -61,12 +61,12 @@ class	Title_Select	: public SpriteObject{
 public:
 	Title_Select(
 		const LPDIRECT3DDEVICE9		pD3DDevice	,
-		const LPDIRECT3DTEXTURE9	pTexture	,
+		const LPTATRATEXTURE	pTexture	,
 		const DWORD					next		,
 		const D3DXVECTOR3&			vScale		,
 		const D3DXVECTOR3&			vRot		,
 		const D3DXVECTOR3&			vPos		,
-		const RECT*					pRect		,
+		const Rect*					pRect		,
 		const D3DXVECTOR3&			vCenter		,
 		const D3DXVECTOR3&			vOffsetPos	,
 		const Color					color		= 0xFFFFFFFF,
@@ -88,8 +88,8 @@ class MagnetFieldMini  public SpriteObject
 ópìrÅ@ÅFé•äE
 *************************************************************************/
 class	MagnetFieldMini	: public SpriteObject{
-	LPDIRECT3DTEXTURE9 m_pTextureN;
-	LPDIRECT3DTEXTURE9 m_pTextureS;
+	LPTATRATEXTURE m_pTextureN;
+	LPTATRATEXTURE m_pTextureS;
 	D3DXVECTOR3		m_vPos;
 	D3DXVECTOR3		m_vScale;
 	D3DXVECTOR3		m_vRot;
@@ -99,13 +99,13 @@ class	MagnetFieldMini	: public SpriteObject{
 public:
 	MagnetFieldMini(
 		const LPDIRECT3DDEVICE9		pD3DDevice	,
-		const LPDIRECT3DTEXTURE9	pTextureN	,
-		const LPDIRECT3DTEXTURE9	pTextureS	,
+		const LPTATRATEXTURE	pTextureN	,
+		const LPTATRATEXTURE	pTextureS	,
 		const D3DXVECTOR3&			vScale		,
 		const D3DXVECTOR3&			vRot		,
 		const D3DXVECTOR3&			vPos		,
 		const D3DXVECTOR3&			vCenter		,
-		const RECT*					pRect		
+		const Rect*					pRect		
 	);
 	~MagnetFieldMini();
 	void	Draw(DrawPacket& i_DrawPacket);
@@ -130,8 +130,8 @@ class Coil  public SpriteObject
 *************************************************************************/
 class	Coil	: public SpriteObject{
 	MagnetFieldMini*	m_pMagnetField;
-	LPDIRECT3DTEXTURE9 m_pTextureN;
-	LPDIRECT3DTEXTURE9 m_pTextureS;
+	LPTATRATEXTURE m_pTextureN;
+	LPTATRATEXTURE m_pTextureS;
 	D3DXVECTOR3		m_vPos;
 	D3DXVECTOR3		m_vScale;
 	D3DXVECTOR3		m_vRot;
@@ -140,13 +140,13 @@ class	Coil	: public SpriteObject{
 public:
 	Coil(
 		const LPDIRECT3DDEVICE9		pD3DDevice	,
-		const LPDIRECT3DTEXTURE9	pTextureN	,
-		const LPDIRECT3DTEXTURE9	pTextureS	,
+		const LPTATRATEXTURE	pTextureN	,
+		const LPTATRATEXTURE	pTextureS	,
 		const D3DXVECTOR3&			vScale		,
 		const D3DXVECTOR3&			vRot		,
 		const D3DXVECTOR3&			vPos		,
 		const D3DXVECTOR3&			vCenter		,
-		const RECT*					pRect		
+		const Rect*					pRect		
 	);
 	~Coil();
 	void	Draw(DrawPacket& i_DrawPacket);

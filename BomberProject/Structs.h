@@ -22,11 +22,15 @@
 #pragma once
 
 #include "StdAfx.h"
+#include "TextureManager.h"
+
+//#include "DxDevice.h"
 namespace wiz{
 class  Object ; 
 class  Stage ;
 class  TextureManager ;
 struct CONTROLER_STATE;
+class  DxDevice;
 namespace system{
 class  Sound ;
 }
@@ -224,32 +228,51 @@ public:
 //**************************************************************************//
 extern struct DrawPacket	;
 extern struct RenderPacket	;
+extern struct UpdatePacket	;
 struct BassPacket{
-private:
-	wiz::Stage*	m_pStage;
-public:
+	friend struct UpdatePacket ;
+	friend class  DxDevice ;
+	friend class  wiz::Stage ;
+protected:
+	wiz::Stage*				m_pStage	;
+	LPDIRECT3DDEVICE9		m_pD3DDevice	;	// デバイス
+	//vector<Object*>*		pVec		;	// オブジェコンテナ
+	//TextureManager*		pTxMgr		;	// テクスチャ管理クラス
+	TLIB::Tempus2*			m_pTime		;	// 時間
+	Command*				m_pCommand	;	// コマンド
 	void SetStage( wiz::Stage* pStage ){ m_pStage = pStage ; }
-	LPDIRECT3DDEVICE9		pD3DDevice	;	// デバイス
-	vector<Object*>*		pVec		;	// オブジェコンテナ
-	TextureManager*			pTxMgr		;	// テクスチャ管理クラス
-	TLIB::Tempus2*			pTime		;	// 時間
-	Command*				pCommand	;	// コマンド
+public:
 	BassPacket()
-		:pD3DDevice( NULL )
-		,pVec( NULL )
-		,pTxMgr( NULL )
-		,pTime( NULL )
-		,pCommand( NULL )
+		:m_pD3DDevice( NULL )
+		//,pVec( NULL )
+		//,pTxMgr( NULL )
+		,m_pTime( NULL )
+		,m_pCommand( NULL )
 	
 	{}
-	LPDIRECT3DTEXTURE9 AddTexture(	const wchar_t*	sTextureName );
-	void AddButton(					Object*			pButton);
-	void AddObject(					Object*			pObje);
-	void SearchSoundAndPlay(		const char*		sSoundName );
-	void SearchSoundAndStop(		const char*		sSoundName );
-	void SearchWaveAndPlay(			const char*		sWaveName  );
-	void SearchWaveAndStop(			const char*		sWaveName  );
-	void SoundStop(					const char*		sSoundName  );
+	TLIB::Tempus2*				GetTime();
+	LPDIRECT3DDEVICE9	GetDevice();
+	LPTATRATEXTURE		AddTexture(	const wchar_t*		sTextureName	);
+	void AddButton(					Object*				pButton			);
+	void AddObject(					Object*				pObje			);
+	void SearchSoundAndPlay(		const char*			sSoundName		);
+	void SearchSoundAndStop(		const char*			sSoundName		);
+	void SearchWaveAndPlay(			const char*			sWaveName		);
+	void SearchWaveAndStop(			const char*			sWaveName		);
+	void SoundStop(					const char*			sSoundName		);
+	void PushCommand(				const Command		Com				);	//	: 現状実質SetCommand 
+	void ClearCommand();
+	Command PopCommand();
+
+	Object* SearchObjectFromID( 	DWORD				i_dwID,
+									vector<Object*>::size_type*				o_Point		= NULL,
+									vector<Object*>*						o_pVec		= NULL,
+									vector<vector<Object*>::size_type>*		o_PointList = NULL
+								);
+
+	Object* SearchObjectFromTypeID(	const type_info&						i_typeinfo,
+									vector<Object*>*						o_pVec		= NULL
+								);
 };
 //**************************************************************************//
 // struct UpdatePacket;
@@ -258,9 +281,9 @@ public:
 // 用途    : アップデート関数郡に流れるデータ
 //**************************************************************************//
 struct UpdatePacket : public BassPacket{
-	const CONTROLER_STATE*	pCntlState	;
+	const CONTROLER_STATE*	m_pCntlState	;
 	UpdatePacket::UpdatePacket();
-	UpdatePacket::UpdatePacket( DrawPacket i_DrawPacket )	;
+	UpdatePacket::UpdatePacket( BassPacket i_BassPacket )	;
 };
 //**************************************************************************//
 // struct RenderPacket;
@@ -280,17 +303,17 @@ struct DrawPacket : public BassPacket{
 };
 
 inline UpdatePacket::UpdatePacket()
-	:pCntlState( NULL )
+	:m_pCntlState( NULL )
 {
 }
-inline UpdatePacket::UpdatePacket( DrawPacket i_DrawPacket )
-	:pCntlState( NULL )
+inline UpdatePacket::UpdatePacket( BassPacket i_BassPacket )
+	:m_pCntlState( NULL )
 {
-	this->pD3DDevice	= i_DrawPacket.pD3DDevice	;
-	this->pCommand		= i_DrawPacket.pCommand		;
-	this->pTxMgr		= i_DrawPacket.pTxMgr		;
-	this->pTime			= i_DrawPacket.pTime		;
-	this->pVec			= i_DrawPacket.pVec			;
+	this->m_pD3DDevice	= i_BassPacket.m_pD3DDevice	;
+	this->m_pCommand	= i_BassPacket.m_pCommand		;
+	//this->pTxMgr		= i_BassPacket.pTxMgr		;
+	this->m_pTime		= i_BassPacket.m_pTime		;
+	//this->pVec		= i_BassPacket.pVec			;
 }
 
 
@@ -325,7 +348,7 @@ public:
 		,m_pTexMgr(		i_pTexMgr		)
 		,m_pStage(		i_pStage		)
 	{}
-	LPDIRECT3DTEXTURE9 AddTexture( const wchar_t* sTextureName );
+	LPTATRATEXTURE	 AddTexture( const wchar_t* sTextureName );
 	void AddButton(Object* pButton );
 	void AddObject(Object* pObje   );
 	void SetSound( system::Sound*  pSound  );
@@ -350,6 +373,7 @@ union Color {
 	Color(BYTE A ,BYTE R ,BYTE G , BYTE B )
 	{ byteColor.a = A;byteColor.r = R;byteColor.g = G;byteColor.b = B;};
 	Color& operator = (DWORD other){ dwColor = other ; return *this; };
+	operator DWORD(){ return dwColor; }
 };
 /*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 

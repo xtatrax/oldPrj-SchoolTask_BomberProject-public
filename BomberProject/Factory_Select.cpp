@@ -74,7 +74,7 @@ Factory_Select::Factory_Select(FactoryPacket* fpac ){
 				)
 			) ;
 /////////////////////////////////////////////////////////////////////////////////
-//                           説明用のテクスチャ                          //
+//                           説明用のテクスチャ                                //
 /////////////////////////////////////////////////////////////////////////////////
 		fpac->m_pVec->push_back(
 			new SelectInformation(
@@ -87,7 +87,7 @@ Factory_Select::Factory_Select(FactoryPacket* fpac ){
 					D3DXVECTOR3( 1.0f, 1.0f, 0.0f )					,
 					g_vZero											,
 					D3DXVECTOR3( 50.0f, 50.0f, 0.0f )				,
-					Rect( 0, 0, 512, 512 )							,
+					&Rect( 0, 0, 512, 512 )							,
 					g_vZero											,
 					g_vZero											,
 					0xFFFFFFFF										,
@@ -108,8 +108,8 @@ Factory_Select::Factory_Select(FactoryPacket* fpac ){
 				g_vZero,
 				//D3DXVECTOR3(980.0f, 120.0f, 0.0f),
 				D3DXVECTOR3(980.0f, 150.0f, 0.0f),
-				Rect(0,0,220,30),
-				Rect(0,0,220,30),
+				&Rect(0,0,220,30),
+				&Rect(0,0,220,30),
 				D3DXVECTOR3( 220.0f,15.0f,0.0f ),
 				g_vZero,
 				0xFF00AA55,
@@ -134,8 +134,8 @@ Factory_Select::Factory_Select(FactoryPacket* fpac ){
 				D3DXVECTOR3( 1.8f,1.8f,0.0f ),
 				g_vZero,
 				D3DXVECTOR3(980.0f, 270.0f, 0.0f),
-				Rect(0,0,148,30),
-				Rect(0,0,148,30),
+				&Rect(0,0,148,30),
+				&Rect(0,0,148,30),
 				D3DXVECTOR3( 148.0f,15.0f,0.0f ),
 				g_vZero,
 				0xFF00AA55,
@@ -160,8 +160,8 @@ Factory_Select::Factory_Select(FactoryPacket* fpac ){
 				D3DXVECTOR3( 1.8f,1.8f,0.0f ),
 				g_vZero,
 				D3DXVECTOR3(980.0f, 390.0f, 0.0f),
-				Rect(0,0,183,30),
-				Rect(0,0,183,30),
+				&Rect(0,0,183,30),
+				&Rect(0,0,183,30),
 				D3DXVECTOR3( 183.0f,15.0f,0.0f ),
 				g_vZero,
 				0xFF00AA55,
@@ -186,8 +186,8 @@ Factory_Select::Factory_Select(FactoryPacket* fpac ){
 				g_vOne,
 				g_vZero,
 				D3DXVECTOR3(980.0f, 560.0f, 0.0f),
-				Rect(0,0,148,30),
-				Rect(0,0,148,30),
+				&Rect(0,0,148,30),
+				&Rect(0,0,148,30),
 				D3DXVECTOR3( 148.0f,15.0f,0.0f ),
 				g_vZero,
 				0xFF00AA55,
@@ -211,7 +211,7 @@ Factory_Select::Factory_Select(FactoryPacket* fpac ){
 					D3DXVECTOR3( 0.5f, 0.5f, 0.0f ),
 					g_vZero,
 					g_vZero,
-					Rect( 0, 0, 512, 64 ),
+					&Rect( 0, 0, 512, 64 ),
 					D3DXVECTOR3( 40.0f, -70.0f, 0.0f )
 			)
 		);						

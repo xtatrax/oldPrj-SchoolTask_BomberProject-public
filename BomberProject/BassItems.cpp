@@ -40,7 +40,7 @@ D3DMATERIAL9		CustomShader::pickoutMaterial(wiz::baseitems::CommonMesh *pComMesh
 D3DXMATRIX			CustomShader::pickoutMatrix(wiz::baseitems::SimpleCommonMesh *pComMesh){
 	return pComMesh->m_WorldMatrix ;
 }
-LPDIRECT3DTEXTURE9	CustomShader::pickoutTexture(wiz::baseitems::SimpleCommonMesh* pComMesh){
+LPTATRATEXTURE		CustomShader::pickoutTexture(wiz::baseitems::SimpleCommonMesh* pComMesh){
 	return pComMesh->m_pTexture ;
 }
 
@@ -119,13 +119,13 @@ void CookTrance::Draw(DrawPacket& i_DrawPacket,SimpleCommonMesh* i_pComMesh){
 void CookTrance::Draw(
 		DrawPacket&			i_DrawPacket	,
 		LPD3DXMESH			i_pMesh			,
-		LPDIRECT3DTEXTURE9	i_pTexture		,
+		LPTATRATEXTURE		i_pTexture		,
 		D3DXMATRIX			i_mMatrix		,
 		D3DMATERIAL9		i_Material
 ){
 	if( !i_pMesh   )return ;
-	if( !m_pCamera ) m_pCamera = (Camera*)SearchObjectFromID(i_DrawPacket.pVec,OBJID_SYS_CAMERA);
-	if( !m_pLight  ) m_pLight  =  (Light*)SearchObjectFromID(i_DrawPacket.pVec,OBJID_SYS_DIRECTIONAL);
+	if( !m_pCamera ) m_pCamera = (Camera*)i_DrawPacket.SearchObjectFromID(OBJID_SYS_CAMERA);
+	if( !m_pLight  ) m_pLight  =  (Light*)i_DrawPacket.SearchObjectFromID(OBJID_SYS_DIRECTIONAL);
 	if( !m_pCamera ){ OutputDebugString(L"CookTrance::Draw()でCameraを見つけることができませんでした");return;}
 	//if( !i_pTexture ){
 	//	: プログラマブルシェーダに対するパラメータの設定
@@ -142,7 +142,7 @@ void CookTrance::Draw(
 	m_pEffect->SetMatrix( m_hWIT, &mWIT );						//	: ワールド行列の逆転置行列を渡す（法線ベクトルの変換行列）
 
 	if( i_pTexture )
-		m_pEffect->SetTexture( m_hTexture, i_pTexture );			//	: テクスチャを渡す
+		m_pEffect->SetTexture( m_hTexture, i_pTexture->getTexture() );			//	: テクスチャを渡す
 
 	D3DXVECTOR3 vLightDir3D = m_pLight->getStatus().Direction;
 	D3DXVECTOR4	vLightDir4D( vLightDir3D, 0.0f );
@@ -1127,16 +1127,16 @@ void CommonMesh::CreateMeshFormX(
 ////
 void CommonMesh::Draw(DrawPacket& i_DrawPacket,RENDERSTATE_PARAM* pParam) {
     //無効チェック
-    if((!m_pMesh) || (!i_DrawPacket.pD3DDevice)){
+    if((!m_pMesh) || (!i_DrawPacket.GetDevice())){
         throw BaseException(L"デバイスかメッシュが無効です。",
         L"CommonMesh::Draw()");
     }
     if(m_Material.Diffuse.a < 1.0f){
         //もし、透明度が1.0未満なら
         // アルファ合成の設定
-        i_DrawPacket.pD3DDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, 1);
-        i_DrawPacket.pD3DDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
-        i_DrawPacket.pD3DDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
+        i_DrawPacket.GetDevice()->SetRenderState(D3DRS_ALPHABLENDENABLE, 1);
+        i_DrawPacket.GetDevice()->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
+        i_DrawPacket.GetDevice()->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
     }
     if(m_Material.Specular.r > 0.0f
         || m_Material.Specular.g > 0.0f
@@ -1144,27 +1144,27 @@ void CommonMesh::Draw(DrawPacket& i_DrawPacket,RENDERSTATE_PARAM* pParam) {
     {
         //もし、スペキュラーが設定していたら
         // スペキュラー有効の設定
-        i_DrawPacket.pD3DDevice->SetRenderState(D3DRS_SPECULARENABLE, 1);
+        i_DrawPacket.GetDevice()->SetRenderState(D3DRS_SPECULARENABLE, 1);
     }
 
-	ChangeRenderStateArray(i_DrawPacket.pD3DDevice,pParam);
+	ChangeRenderStateArray(i_DrawPacket.GetDevice(),pParam);
     // マテリアルをレンダリングパイプラインに設定
-    i_DrawPacket.pD3DDevice->SetMaterial( &m_Material);
+    i_DrawPacket.GetDevice()->SetMaterial( &m_Material);
     //描画
     m_pMesh->DrawSubset(0);
-	ChangeRenderStateArray(i_DrawPacket.pD3DDevice,pParam);
+	ChangeRenderStateArray(i_DrawPacket.GetDevice(),pParam);
     if(m_Material.Specular.r > 0.0f
         || m_Material.Specular.g > 0.0f
         || m_Material.Specular.b > 0.0f)
     {
         //もし、スペキュラーが設定していたら
         // スペキュラーを元に戻す
-        i_DrawPacket.pD3DDevice->SetRenderState(D3DRS_SPECULARENABLE, 0);
+        i_DrawPacket.GetDevice()->SetRenderState(D3DRS_SPECULARENABLE, 0);
     }
     if(m_Material.Diffuse.a < 1.0f){
         //もし、透明度が1.0未満なら
         // アルファ合成を元に戻す
-        i_DrawPacket.pD3DDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, 0);
+        i_DrawPacket.GetDevice()->SetRenderState(D3DRS_ALPHABLENDENABLE, 0);
     }
 }
 
@@ -1174,13 +1174,13 @@ void CommonMesh::Draw(DrawPacket& i_DrawPacket,RENDERSTATE_PARAM* pParam) {
     LPDIRECT3DDEVICE9 pD3DDevice,    //IDirect3DDevice9 インターフェイスへのポインタ
 	D3DXMATRIX& Matrix,				//変換行列
 	D3DMATERIAL9& Material,			//マティリアル
-	LPDIRECT3DTEXTURE9 pTexture = 0			//テクスチャ
+	LPTATRATEXTURE pTexture = 0			//テクスチャ
  );
  用途: コモンオブジェクトを描画（派生クラスから呼ばれる）
  戻り値: なし。
 ***************************************************************************/
  void CommonMesh::DrawCommonMesh(LPDIRECT3DDEVICE9 pD3DDevice,D3DXMATRIX& Matrix,
-	 D3DMATERIAL9& Material,LPDIRECT3DTEXTURE9 pTexture){
+	 D3DMATERIAL9& Material,LPTATRATEXTURE pTexture){
     //無効チェック
     if((!m_pMesh) || (!pD3DDevice)){
 		return;
@@ -1199,7 +1199,7 @@ void CommonMesh::Draw(DrawPacket& i_DrawPacket,RENDERSTATE_PARAM* pParam) {
 			pD3DDevice->SetRenderState(D3DRS_WRAP0, D3DWRAPCOORD_0 | D3DWRAPCOORD_1 );
 		}
 		//ステージの設定
-		pD3DDevice->SetTexture(0,pTexture);
+		pD3DDevice->SetTexture(0,pTexture->getTexture());
 		//デフィーズ色とテクスチャを掛け合わせる設定
 		pD3DDevice->SetTextureStageState( 0, D3DTSS_COLOROP, D3DTOP_MODULATE );
 		pD3DDevice->SetTextureStageState( 0, D3DTSS_COLORARG1, D3DTA_TEXTURE );
@@ -1342,14 +1342,14 @@ MultiCommonMesh::~MultiCommonMesh(){
     D3DCOLORVALUE& Specular,            //スペキュラ色
     D3DCOLORVALUE& Ambient          //アンビエント色
 	bool IsShadowActive = false,	//影を描画するかどうか
-	LPDIRECT3DTEXTURE9 pTexture = 0			//テクスチャ
+	LPTATRATEXTURE pTexture = 0			//テクスチャ
     );
  用途: アイテムを追加
  戻り値: 追加したインデックス（失敗時は例外をthrow）
 ***************************************************************************/
 size_t MultiCommonMesh::AddItem(D3DXVECTOR3& Scale,D3DXVECTOR3& Pos,D3DXVECTOR3& Rot,
 		 D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,
-		 bool IsShadowActive,LPDIRECT3DTEXTURE9 pTexture){
+		 bool IsShadowActive,LPTATRATEXTURE pTexture){
 	CommonItem* pItem = 0;
 	try{
 		if(m_IsTextureActive){
@@ -1555,13 +1555,13 @@ bool MultiCommonMesh::IsTextureActive(){
 	return m_IsTextureActive;
 }
 /**************************************************************************
- LPDIRECT3DTEXTURE9 MultiCommonMesh::GetItemTexture(
+ LPTATRATEXTURE MultiCommonMesh::GetItemTexture(
 	size_t Index	//取得するインデックス
   );
  用途: テクスチャを取得する
  戻り値: 現在のテクスチャ（ない場合は0が返る）
 ***************************************************************************/
-LPDIRECT3DTEXTURE9 MultiCommonMesh::GetItemTexture(size_t Index){
+LPTATRATEXTURE MultiCommonMesh::GetItemTexture(size_t Index){
     //指定の配置オブジェクトへの適用
     size_t sz = m_ItemVec.size();
 	if(Index < sz){
@@ -1575,12 +1575,12 @@ LPDIRECT3DTEXTURE9 MultiCommonMesh::GetItemTexture(size_t Index){
 /**************************************************************************
  void MultiCommonMesh::SetItemTexture(
 	size_t Index,	//設定するインデックス
-	LPDIRECT3DTEXTURE9 pTexture	//設定するテクスチャ
+	LPTATRATEXTURE pTexture	//設定するテクスチャ
   );
  用途: テクスチャを設定する
  戻り値: なし
 ***************************************************************************/
-void MultiCommonMesh::SetItemTexture(size_t Index,LPDIRECT3DTEXTURE9 pTexture){
+void MultiCommonMesh::SetItemTexture(size_t Index,LPTATRATEXTURE pTexture){
 	if(m_IsTextureActive){
 		//テクスチャが有効なら0は設定できない
 		if(!pTexture){
@@ -2510,7 +2510,7 @@ void MultiCommonMesh::Draw(DrawPacket& i_DrawPacket){
 		}
 		//すでにワールド座標は変換済みと前提
 		//コモンメッシュの描画を呼ぶ
-		DrawCommonMesh(i_DrawPacket.pD3DDevice,m_ItemVec[i]->m_WorldMatrix,m_ItemVec[i]->m_Material,
+		DrawCommonMesh(i_DrawPacket.GetDevice(),m_ItemVec[i]->m_WorldMatrix,m_ItemVec[i]->m_Material,
 			m_ItemVec[i]->m_pTexture);
     }
 }
@@ -2779,7 +2779,7 @@ ParallelMultiBox::~ParallelMultiBox(){
     D3DCOLORVALUE& Specular,            //スペキュラ色
     D3DCOLORVALUE& Ambient,          //アンビエント色
 	bool IsShadowActive = false,	//影を描画するかどうか
-	LPDIRECT3DTEXTURE9 pTexture = 0			//テクスチャ
+	LPTATRATEXTURE pTexture = 0			//テクスチャ
     );
  用途: アイテムを追加
  ＊回転は受けつけない
@@ -2788,7 +2788,7 @@ ParallelMultiBox::~ParallelMultiBox(){
  size_t ParallelMultiBox::AddItem(
     D3DXVECTOR3& Scale,D3DXVECTOR3& Pos,
     D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,
-	bool IsShadowActive,LPDIRECT3DTEXTURE9 pTexture){
+	bool IsShadowActive,LPTATRATEXTURE pTexture){
 	try{
 		D3DXVECTOR3 Rot(0,0,0);				//回転は固定
 		return MultiCommonMesh::AddItem(Scale,Pos,Rot,
@@ -3069,7 +3069,7 @@ void MultiTorus::ChangeDevice(LPDIRECT3DDEVICE9 pD3DDevice){
     D3DCOLORVALUE& Specular,            //スペキュラ色
     D3DCOLORVALUE& Ambient,          //アンビエント色
 	bool IsShadowActive = false,	//影を描画するかどうか
-	LPDIRECT3DTEXTURE9 pTexture = 0,	//テクスチャを張るときは指定
+	LPTATRATEXTURE pTexture = 0,	//テクスチャを張るときは指定
     );
  用途: コンストラクタ
  戻り値: なし（失敗時は例外をthrow）
@@ -3078,7 +3078,7 @@ SimpleCommonMesh::SimpleCommonMesh(
 		const D3DXVECTOR3& Pos,const D3DXVECTOR3& Rot,
         const D3DCOLORVALUE& Diffuse,const D3DCOLORVALUE& Specular,const D3DCOLORVALUE& Ambient,
 		const wiz::OBJID id,
-		const bool IsShadowActive,const LPDIRECT3DTEXTURE9 pTexture
+		const bool IsShadowActive,const LPTATRATEXTURE pTexture
 	)
 :CommonMesh( id ),
 m_IsActive(true),
@@ -3250,21 +3250,21 @@ bool SimpleCommonMesh::IsTextureActive(){
 }
 
 /**************************************************************************
- LPDIRECT3DTEXTURE9 SimpleCommonMesh::GetTexture();
+ LPTATRATEXTURE SimpleCommonMesh::GetTexture();
  用途: テクスチャを取得する
  戻り値: 現在のテクスチャ（ない場合は0が返る）
 ***************************************************************************/
-LPDIRECT3DTEXTURE9 SimpleCommonMesh::GetTexture(){
+LPTATRATEXTURE SimpleCommonMesh::GetTexture(){
 	return m_pTexture;
 }
 /**************************************************************************
  void SimpleCommonMesh::SetTexture(
-	LPDIRECT3DTEXTURE9 pTexture	//設定するテクスチャ
+	LPTATRATEXTURE pTexture	//設定するテクスチャ
   );
  用途: テクスチャを設定する
  戻り値: なし
 ***************************************************************************/
-void SimpleCommonMesh::SetTexture(LPDIRECT3DTEXTURE9 pTexture){
+void SimpleCommonMesh::SetTexture(LPTATRATEXTURE pTexture){
 	//テクスチャがある場合
 	if(m_pTexture){
 		if(!pTexture){
@@ -3814,7 +3814,7 @@ void SimpleCommonMesh::Transform(vector<Object*>& Vec,
  戻り値: なし。
 ***************************************************************************/
 void SimpleCommonMesh::Draw(DrawPacket& i_DrawPacket){
-	LPDIRECT3DDEVICE9 pD3DDevice = i_DrawPacket.pD3DDevice ;
+	LPDIRECT3DDEVICE9 pD3DDevice = i_DrawPacket.GetDevice() ;
 	if(!m_IsActive){
 		//アクティブでなければ表示しない
 		return;
@@ -3903,7 +3903,7 @@ void Polygon::CreateInctance(LPDIRECT3DDEVICE9 pD3DDevice){
     D3DCOLORVALUE& Specular,            //スペキュラ色
     D3DCOLORVALUE& Ambient,          //アンビエント色
 	bool IsShadowActive = false,	//影を描画するかどうか
-	LPDIRECT3DTEXTURE9 pTexture = 0	//テクスチャを張るときは指定
+	LPTATRATEXTURE pTexture = 0	//テクスチャを張るときは指定
     );
  用途: コンストラクタ
  戻り値: なし（失敗時は例外をthrow）
@@ -3919,7 +3919,7 @@ Polygon::Polygon(
 	const D3DCOLORVALUE&		Ambient			,
 	const wiz::OBJID			id				,
 	const bool					IsShadowActive	,
-	const LPDIRECT3DTEXTURE9	pTexture
+	const LPTATRATEXTURE		pTexture
 )
 :SimpleCommonMesh(pos,rot,Diffuse,Specular,Ambient,id,IsShadowActive,pTexture),
 m_Length(Length),
@@ -3995,7 +3995,7 @@ void Box::CreateInctance(LPDIRECT3DDEVICE9 pD3DDevice){
     D3DCOLORVALUE& Specular,            //スペキュラ色
     D3DCOLORVALUE& Ambient,          //アンビエント色
 	bool IsShadowActive = false,	//影を描画するかどうか
-	LPDIRECT3DTEXTURE9 pTexture = 0,	//テクスチャを張るときは指定
+	LPTATRATEXTURE pTexture = 0,	//テクスチャを張るときは指定
 	int TexturePtn = PtnUV_1_1		//テクスチャのパターン
     );
  用途: コンストラクタ
@@ -4005,7 +4005,7 @@ Box::Box(const LPDIRECT3DDEVICE9 pD3DDevice,
 		 const D3DXVECTOR3& size,const D3DXVECTOR3& pos,const D3DXVECTOR3& rot,
 		 const D3DCOLORVALUE& Diffuse,const D3DCOLORVALUE& Specular,const D3DCOLORVALUE& Ambient,
 		 const wiz::OBJID id,
-		 const bool IsShadowActive,const LPDIRECT3DTEXTURE9 pTexture,const int TexturePtn
+		 const bool IsShadowActive,const LPTATRATEXTURE pTexture,const int TexturePtn
 	)
 :SimpleCommonMesh(pos,rot,Diffuse,Specular,Ambient,id,IsShadowActive,pTexture),
 m_Size(size),
@@ -4056,7 +4056,7 @@ void Box::ChangeDevice(LPDIRECT3DDEVICE9 pD3DDevice){
     D3DCOLORVALUE& Specular,            //スペキュラ色
     D3DCOLORVALUE& Ambient,          //アンビエント色
 	bool IsShadowActive = false,	//影を描画するかどうか
-	LPDIRECT3DTEXTURE9 pTexture = 0,	//テクスチャを張るときは指定
+	LPTATRATEXTURE pTexture = 0,	//テクスチャを張るときは指定
 	int TexturePtn = PtnUV_1_1		//テクスチャのパターン
     );
  用途: コンストラクタ
@@ -4071,7 +4071,7 @@ ParallelBox::ParallelBox(
 		const D3DCOLORVALUE&		Ambient			,
 		const wiz::OBJID			id				,
 		const bool					IsShadowActive	,
-		const LPDIRECT3DTEXTURE9	pTexture		,
+		const LPTATRATEXTURE		pTexture		,
 		const int					TexturePtn
 )
 :Box(pD3DDevice,size,pos,
@@ -4155,7 +4155,7 @@ void Sphere::CreateInctance(LPDIRECT3DDEVICE9 pD3DDevice){
     D3DCOLORVALUE& Specular,            //スペキュラ色
     D3DCOLORVALUE& Ambient,          //アンビエント色
 	bool IsShadowActive = false,	//影を描画するかどうか
-	LPDIRECT3DTEXTURE9 pTexture = 0,	//テクスチャを張るときは指定
+	LPTATRATEXTURE pTexture = 0,	//テクスチャを張るときは指定
 	UINT Slices = 18,	//主軸の回転スライス数
 	UINT Stacks = 18	//主軸に沿ったスライス数
     );
@@ -4166,7 +4166,7 @@ void Sphere::CreateInctance(LPDIRECT3DDEVICE9 pD3DDevice){
 		const FLOAT radius,const D3DXVECTOR3& pos,const D3DXVECTOR3& rot,
         const D3DCOLORVALUE& Diffuse,const D3DCOLORVALUE& Specular,const D3DCOLORVALUE& Ambient,
 		const wiz::OBJID id,
-		const bool IsShadowActive,const LPDIRECT3DTEXTURE9 pTexture,
+		const bool IsShadowActive,const LPTATRATEXTURE pTexture,
 		const UINT Slices,const UINT Stacks)
 :SimpleCommonMesh(pos,rot,Diffuse,Specular,Ambient,id,IsShadowActive,pTexture),
 m_Radius(radius),
@@ -4246,7 +4246,7 @@ void Cylinder::CreateInctance(LPDIRECT3DDEVICE9 pD3DDevice){
     D3DCOLORVALUE& Specular,            //スペキュラ色
     D3DCOLORVALUE& Ambient,          //アンビエント色
 	bool IsShadowActive = false,	//影を描画するかどうか
-	LPDIRECT3DTEXTURE9 pTexture = 0,	//テクスチャを張るときは指定
+	LPTATRATEXTURE pTexture = 0,	//テクスチャを張るときは指定
 	UINT Slices = 18,		//主軸を回転軸としたスライスの数。
 	UINT Stacks = 18		//主軸に沿ったスタック数。
     );
@@ -4258,7 +4258,7 @@ void Cylinder::CreateInctance(LPDIRECT3DDEVICE9 pD3DDevice){
 	 const D3DXVECTOR3& pos,const D3DXVECTOR3& rot,
 	 const D3DCOLORVALUE& Diffuse,const D3DCOLORVALUE& Specular,const D3DCOLORVALUE& Ambient,
 	 const wiz::OBJID id,
-	 const bool IsShadowActive,const LPDIRECT3DTEXTURE9 pTexture,
+	 const bool IsShadowActive,const LPTATRATEXTURE pTexture,
 	 const UINT Slices,const UINT Stacks)
 :SimpleCommonMesh(pos,rot,Diffuse,Specular,Ambient,id,IsShadowActive,pTexture),
 m_Radius1(Radius1),
@@ -4380,7 +4380,7 @@ void Torus::CreateInctance(LPDIRECT3DDEVICE9 pD3DDevice){
     D3DCOLORVALUE& Specular,            //スペキュラ色
     D3DCOLORVALUE& Ambient,          //アンビエント色
 	bool IsShadowActive = false,	//影を描画するかどうか
-	LPDIRECT3DTEXTURE9 pTexture = 0,	//テクスチャを張るときは指定
+	LPTATRATEXTURE pTexture = 0,	//テクスチャを張るときは指定
 	UINT Sides = 18,	//横断面の辺の数。値は 3 以上である必要がある。
 	UINT Rings = 18		//トーラスを構成する環の数。値は 3 以上である必要がある。     
 	);
@@ -4392,7 +4392,7 @@ Torus::Torus(
 		const FLOAT InnerRadius,const FLOAT OuterRadius,const D3DXVECTOR3& pos,const D3DXVECTOR3& rot,
 		const D3DCOLORVALUE& Diffuse,const D3DCOLORVALUE& Specular,const D3DCOLORVALUE& Ambient,
 		const wiz::OBJID id,
-		const bool IsShadowActive,const LPDIRECT3DTEXTURE9 pTexture,
+		const bool IsShadowActive,const LPTATRATEXTURE pTexture,
 		const UINT Sides,const UINT Rings)
 :SimpleCommonMesh(pos,rot,Diffuse,Specular,Ambient,id,IsShadowActive,pTexture),
 m_InnerRadius(InnerRadius),
@@ -4772,7 +4772,7 @@ void SimpleCommonMeshGroup::DrawShadowVolume(
 /**************************************************************************
  class PrimitivePlate 定義部
 ****************************************************************************/
-PrimitivePlate::PrimitivePlate( LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 i_pTexture, Color i_Color )
+PrimitivePlate::PrimitivePlate( LPDIRECT3DDEVICE9 pD3DDevice, LPTATRATEXTURE i_pTexture, Color i_Color )
 :m_pTexture( i_pTexture )
 ,m_pVertexBuffer( NULL )
 {
@@ -4800,7 +4800,7 @@ PrimitivePlate::PrimitivePlate( LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9
 }
 void PrimitivePlate::Draw(DrawPacket &i_DrawPacket){
 
-	LPDIRECT3DDEVICE9 pD3DDevice = i_DrawPacket.pD3DDevice ;
+	LPDIRECT3DDEVICE9 pD3DDevice = i_DrawPacket.GetDevice() ;
 	// マトリックスをレンダリングパイプラインに設定
 	pD3DDevice->SetTransform(D3DTS_WORLD, &m_mMatrix);
 
@@ -4811,7 +4811,7 @@ void PrimitivePlate::Draw(DrawPacket &i_DrawPacket){
 		pD3DDevice->SetFVF( Vertex::getFVF() );						//	: 頂点データの形式を設定
 		pD3DDevice->SetSamplerState(0,D3DSAMP_ADDRESSU,D3DTADDRESS_CLAMP);
 		pD3DDevice->SetSamplerState(0,D3DSAMP_ADDRESSV,D3DTADDRESS_CLAMP);
-		pD3DDevice->SetTexture( 0, m_pTexture );										//	: テクスチャを設定（NULL の場合はテクスチャ無し）
+		pD3DDevice->SetTexture( 0, m_pTexture->getTexture() );										//	: テクスチャを設定（NULL の場合はテクスチャ無し）
 	}else{
 		pD3DDevice->SetFVF( Vertex::getFVF() );										//	: 頂点データの形式を設定	
 		pD3DDevice->SetSamplerState(0,D3DSAMP_ADDRESSU,D3DTADDRESS_CLAMP);
@@ -4922,7 +4922,7 @@ void DrawSphere::Draw( DrawPacket& i_DrawPacket ) {
 	}
 	if( isEnableDraw ){
 
-		LPDIRECT3DDEVICE9 pD3DDevice = i_DrawPacket.pD3DDevice ;
+		LPDIRECT3DDEVICE9 pD3DDevice = i_DrawPacket.GetDevice() ;
 		SetBasePos( m_TargetSphere.m_Center );
 		CalcWorldMatrix();
 		Sphere::Draw( i_DrawPacket );
@@ -5050,14 +5050,14 @@ void DrawOBB::Draw( DrawPacket& i_DrawPacket ) {
 #if defined(ON_DEBUGGINGPROCESS) | defined( PRESENTATION )
 
 	//if(GetAsyncKeyState( MYVK_DEBUG_OBB_DRAW )){
-	if( m_fTimeAccumulator < 0.5f && ( m_fTimeAccumulator += (float)i_DrawPacket.pTime->getElapsedTime() ) ){
+	if( m_fTimeAccumulator < 0.5f && ( m_fTimeAccumulator += (float)i_DrawPacket.GetTime()->getElapsedTime() ) ){
 		if(GetAsyncKeyState( MYVK_DEBUG_OBB_DRAW )){
 			isEnableDraw ? isEnableDraw = false : isEnableDraw = true ;
 		}
 	}
 	if( isEnableDraw ){
 
-		LPDIRECT3DDEVICE9 pD3DDevice = i_DrawPacket.pD3DDevice ;
+		LPDIRECT3DDEVICE9 pD3DDevice = i_DrawPacket.GetDevice() ;
 		D3DXMATRIX  wm , mScale, mRot, mPos;
 		//座標変換無し
 		D3DXMatrixIdentity(&wm);
@@ -5221,7 +5221,7 @@ DrawOBBLite::~DrawOBBLite(){
 void DrawOBBLite::Draw( DrawPacket& i_DrawPacket ) {
 #if defined(ON_DEBUGGINGPROCESS) | defined( PRESENTATION )
 	//if(GetAsyncKeyState( MYVK_DEBUG_OBB_DRAW )){
-	if( m_fTimeAccumulator < 0.5f && ( m_fTimeAccumulator += (float)i_DrawPacket.pTime->getElapsedTime() ) ){
+	if( m_fTimeAccumulator < 0.5f && ( m_fTimeAccumulator += (float)i_DrawPacket.GetTime()->getElapsedTime() ) ){
 		if(GetAsyncKeyState( MYVK_DEBUG_OBB_DRAW )){
 			isEnableDraw ? isEnableDraw = false : isEnableDraw = true ;
 		}
@@ -5230,7 +5230,7 @@ void DrawOBBLite::Draw( DrawPacket& i_DrawPacket ) {
 		setDead();
 		return ;
 	}
-	LPDIRECT3DDEVICE9 pD3DDevice = i_DrawPacket.pD3DDevice ;
+	LPDIRECT3DDEVICE9 pD3DDevice = i_DrawPacket.GetDevice() ;
 	D3DXMATRIX  wm , mScale, mRot, mPos;
 	//座標変換無し
 	D3DXMatrixIdentity(&wm);

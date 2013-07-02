@@ -327,12 +327,12 @@ protected:
 	LPDIRECT3DDEVICE9 pD3DDevice,    //IDirect3DDevice9 インターフェイスへのポインタ
 	D3DXMATRIX& Matrix,			//変換行列
 	D3DMATERIAL9& Material,		//マティリアル
-	LPDIRECT3DTEXTURE9 pTexture = 0			//テクスチャ
+	LPTATRATEXTURE pTexture = 0			//テクスチャ
 	);
 	用途: コモンオブジェクトを描画（派生クラスから呼ばれる）
 	戻り値: なし。
 	***************************************************************************/
-	void DrawCommonMesh(LPDIRECT3DDEVICE9 pD3DDevice,D3DXMATRIX& Matrix,D3DMATERIAL9& Material,LPDIRECT3DTEXTURE9 pTexture = 0);
+	void DrawCommonMesh(LPDIRECT3DDEVICE9 pD3DDevice,D3DXMATRIX& Matrix,D3DMATERIAL9& Material,LPTATRATEXTURE pTexture = 0);
 	/**************************************************************************
 	void DrawCommonShadowVolume(
 	LPDIRECT3DDEVICE9 pD3DDevice,    //IDirect3DDevice9 インターフェイスへのポインタ
@@ -411,7 +411,7 @@ protected:
 		//影を描画するかどうか
 		bool m_IsShadowActive;
 		//テクスチャ
-		LPDIRECT3DTEXTURE9 m_pTexture;
+		LPTATRATEXTURE m_pTexture;
 		//派生クラスを作ってもClear()関数で
 		//削除できるように仮想デストラクタにしておく
 		virtual ~CommonItem(){}
@@ -449,12 +449,12 @@ public:
 	D3DCOLORVALUE& Specular,            //スペキュラ色
 	D3DCOLORVALUE& Ambient          //アンビエント色
 	bool IsShadowActive = false,	//影を描画するかどうか
-	LPDIRECT3DTEXTURE9 pTexture = 0			//テクスチャ
+	LPTATRATEXTURE pTexture = 0			//テクスチャ
 	);
 	用途: アイテムを追加
 	戻り値: 追加したインデックス（失敗時は例外をthrow）
 	***************************************************************************/
-	virtual size_t AddItem(D3DXVECTOR3& Scale,D3DXVECTOR3& Pos,D3DXVECTOR3& Rot,D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,bool IsShadowActive = false,LPDIRECT3DTEXTURE9 pTexture = 0);
+	virtual size_t AddItem(D3DXVECTOR3& Scale,D3DXVECTOR3& Pos,D3DXVECTOR3& Rot,D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,bool IsShadowActive = false,LPTATRATEXTURE pTexture = 0);
 	/**************************************************************************
 	size_t GetItemCount();
 	用途: 現在のアイテム数を得る
@@ -522,22 +522,22 @@ public:
 	bool IsTextureActive();
 
 	/**************************************************************************
-	LPDIRECT3DTEXTURE9 GetItemTexture(
+	LPTATRATEXTURE GetItemTexture(
 	size_t Index	//取得するインデックス
 	);
 	用途: テクスチャを取得する
 	戻り値: 現在のテクスチャ（ない場合は0が返る）
 	***************************************************************************/
-	LPDIRECT3DTEXTURE9 GetItemTexture(size_t Index);
+	LPTATRATEXTURE GetItemTexture(size_t Index);
 	/**************************************************************************
 	void SetItemTexture(
 	size_t Index,	//設定するインデックス
-	LPDIRECT3DTEXTURE9 pTexture	//設定するテクスチャ
+	LPTATRATEXTURE pTexture	//設定するテクスチャ
 	);
 	用途: テクスチャを設定する
 	戻り値: なし
 	***************************************************************************/
-	void SetItemTexture(size_t Index,LPDIRECT3DTEXTURE9 pTexture);
+	void SetItemTexture(size_t Index,LPTATRATEXTURE pTexture);
 
 	/**************************************************************************
 	bool IsShadowActiveItem(
@@ -1049,13 +1049,13 @@ public:
 	D3DCOLORVALUE& Specular,            //スペキュラ色
 	D3DCOLORVALUE& Ambient,          //アンビエント色
 	bool IsShadowActive = false,	//影を描画するかどうか
-	LPDIRECT3DTEXTURE9 pTexture = 0			//テクスチャ
+	LPTATRATEXTURE pTexture = 0			//テクスチャ
 	);
 	用途: アイテムを追加
 	＊回転は受けつけない
 	戻り値: 追加したインデックス（失敗時は例外をthrow）
 	***************************************************************************/
-	size_t AddItem(D3DXVECTOR3& Scale,D3DXVECTOR3& Pos,D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,bool IsShadowActive = false,LPDIRECT3DTEXTURE9 pTexture = 0);
+	size_t AddItem(D3DXVECTOR3& Scale,D3DXVECTOR3& Pos,D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,bool IsShadowActive = false,LPTATRATEXTURE pTexture = 0);
 	/**************************************************************************
 	void GetAABB(
 	size_t Index,			//インデックス
@@ -1251,7 +1251,7 @@ protected:
 	//影を描画するかどうか
 	bool m_IsShadowActive;
 	//テクスチャ
-	LPDIRECT3DTEXTURE9 m_pTexture;
+	LPTATRATEXTURE m_pTexture;
 	//グループ化する場合のマルチメッシュのポインタの配列
 	vector<MultiCommonMesh*> m_MultiVec;
 	/**************************************************************************
@@ -1262,7 +1262,7 @@ protected:
 	D3DCOLORVALUE& Specular,            //スペキュラ色
 	D3DCOLORVALUE& Ambient,          //アンビエント色
 	bool IsShadowActive = false,	//影を描画するかどうか
-	LPDIRECT3DTEXTURE9 pTexture = 0,	//テクスチャを張るときは指定
+	LPTATRATEXTURE pTexture = 0,	//テクスチャを張るときは指定
 	);
 	用途: コンストラクタ
 	戻り値: なし（失敗時は例外をthrow）
@@ -1275,7 +1275,7 @@ protected:
 		const D3DCOLORVALUE&		Ambient			,
 		const wiz::OBJID			id				,
 		const bool					IsShadowActive	= false	,
-		const LPDIRECT3DTEXTURE9	pTexture		= 0
+		const LPTATRATEXTURE		pTexture		= 0
 	);
 	/**************************************************************************
 	virtual void ChangeDevice(
@@ -1359,19 +1359,19 @@ public:
 	bool IsTextureActive();
 
 	/**************************************************************************
-	LPDIRECT3DTEXTURE9 GetTexture();
+	LPTATRATEXTURE GetTexture();
 	用途: テクスチャを取得する
 	戻り値: 現在のテクスチャ（ない場合は0が返る）
 	***************************************************************************/
-	LPDIRECT3DTEXTURE9 GetTexture();
+	LPTATRATEXTURE GetTexture();
 	/**************************************************************************
 	void SetTexture(
-	LPDIRECT3DTEXTURE9 pTexture	//設定するテクスチャ
+	LPTATRATEXTURE pTexture	//設定するテクスチャ
 	);
 	用途: テクスチャを設定する
 	戻り値: なし
 	***************************************************************************/
-	void SetTexture(LPDIRECT3DTEXTURE9 pTexture);
+	void SetTexture(LPTATRATEXTURE pTexture);
 
 	/**************************************************************************
 	bool IsShadowActive();
@@ -1678,7 +1678,7 @@ public:
 	D3DCOLORVALUE& Specular,            //スペキュラ色
 	D3DCOLORVALUE& Ambient,          //アンビエント色
 	bool IsShadowActive = false,	//影を描画するかどうか
-	LPDIRECT3DTEXTURE9 pTexture = 0	//テクスチャを張るときは指定
+	LPTATRATEXTURE pTexture = 0	//テクスチャを張るときは指定
 	);
 	用途: コンストラクタ
 	戻り値: なし（失敗時は例外をthrow）
@@ -1694,7 +1694,7 @@ public:
 		const D3DCOLORVALUE&		Ambient			,
 		const wiz::OBJID			id				= OBJID_3D_POLYGON	,
 		const bool					IsShadowActive	= false				,
-		const LPDIRECT3DTEXTURE9	pTexture		= 0
+		const LPTATRATEXTURE		pTexture		= 0
 	);
 	/**************************************************************************
 	virtual ~Polygon();
@@ -1742,7 +1742,7 @@ public:
 	D3DCOLORVALUE& Specular,            //スペキュラ色
 	D3DCOLORVALUE& Ambient,          //アンビエント色
 	bool IsShadowActive = false,	//影を描画するかどうか
-	LPDIRECT3DTEXTURE9 pTexture = 0,	//テクスチャを張るときは指定
+	LPTATRATEXTURE pTexture = 0,	//テクスチャを張るときは指定
 	int TexturePtn = PtnUV_1_1		//テクスチャのパターン
 	);
 	用途: コンストラクタ
@@ -1758,7 +1758,7 @@ public:
 		const D3DCOLORVALUE&		Ambient			,
 		const wiz::OBJID			id				= OBJID_3D_BOX	,
 		const bool					IsShadowActive	= false			,
-		const LPDIRECT3DTEXTURE9	pTexture		= 0				,
+		const LPTATRATEXTURE		pTexture		= 0				,
 		const int					TexturePtn		= PtnUV_1_1
 	);
 	/**************************************************************************
@@ -1793,7 +1793,7 @@ public:
 	D3DCOLORVALUE& Specular,            //スペキュラ色
 	D3DCOLORVALUE& Ambient,          //アンビエント色
 	bool IsShadowActive = false,	//影を描画するかどうか
-	LPDIRECT3DTEXTURE9 pTexture = 0,	//テクスチャを張るときは指定
+	LPTATRATEXTURE pTexture = 0,	//テクスチャを張るときは指定
 	int TexturePtn = PtnUV_1_1		//テクスチャのパターン
 	);
 	用途: コンストラクタ
@@ -1808,7 +1808,7 @@ public:
 		const D3DCOLORVALUE&		Ambient			,
 		const wiz::OBJID			id				= OBJID_3D_BOX_PARALLEL		,
 		const bool					IsShadowActive	= false						,
-		const LPDIRECT3DTEXTURE9	pTexture		= 0							,
+		const LPTATRATEXTURE		pTexture		= 0							,
 		const int					TexturePtn		= PtnUV_1_1
 	);
 	/**************************************************************************
@@ -1861,7 +1861,7 @@ public:
 	D3DCOLORVALUE& Specular,            //スペキュラ色
 	D3DCOLORVALUE& Ambient,          //アンビエント色
 	bool IsShadowActive = false,	//影を描画するかどうか
-	LPDIRECT3DTEXTURE9 pTexture = 0,	//テクスチャを張るときは指定
+	LPTATRATEXTURE pTexture = 0,	//テクスチャを張るときは指定
 	UINT Slices = 18,	//主軸の回転スライス数
 	UINT Stacks = 18	//主軸に沿ったスライス数
 	);
@@ -1878,7 +1878,7 @@ public:
 		const D3DCOLORVALUE&		Ambient			,
 		const wiz::OBJID			id				= OBJID_3D_SPHERE	,
 		const bool					IsShadowActive	= false				,
-		const LPDIRECT3DTEXTURE9	pTexture		= 0					,
+		const LPTATRATEXTURE		pTexture		= 0					,
 		const UINT					Slices			= 18				,
 		const UINT					Stacks			= 18
 	);
@@ -1933,7 +1933,7 @@ public:
 		D3DCOLORVALUE& Specular,            //スペキュラ色
 		D3DCOLORVALUE& Ambient,          //アンビエント色
 		bool IsShadowActive = false,	//影を描画するかどうか
-		LPDIRECT3DTEXTURE9 pTexture = 0,	//テクスチャを張るときは指定
+		LPTATRATEXTURE pTexture = 0,	//テクスチャを張るときは指定
 		UINT Slices = 18,		//主軸を回転軸としたスライスの数。
 		UINT Stacks = 18		//主軸に沿ったスタック数。
 		);
@@ -1952,7 +1952,7 @@ public:
 		const D3DCOLORVALUE& Ambient				,
 		const wiz::OBJID id = OBJID_3D_CYLINDER		,
 		const bool IsShadowActive = false			,
-		const LPDIRECT3DTEXTURE9 pTexture = 0		,
+		const LPTATRATEXTURE pTexture = 0		,
 		const UINT Slices = 18						,
 		const UINT Stacks = 18
 	);
@@ -2041,7 +2041,7 @@ public:
 	D3DCOLORVALUE& Specular,            //スペキュラ色
 	D3DCOLORVALUE& Ambient,          //アンビエント色
 	bool IsShadowActive = false,	//影を描画するかどうか
-	LPDIRECT3DTEXTURE9 pTexture = 0,	//テクスチャを張るときは指定
+	LPTATRATEXTURE pTexture = 0,	//テクスチャを張るときは指定
 	UINT Sides = 18,	//横断面の辺の数。値は 3 以上である必要がある。
 	UINT Rings = 18		//トーラスを構成する環の数。値は 3 以上である必要がある。     
 	);
@@ -2059,7 +2059,7 @@ public:
 		const D3DCOLORVALUE&		Ambient			,
 		const wiz::OBJID			id				= OBJID_3D_SPHERE	,
 		const bool					IsShadowActive	= false				,
-		const LPDIRECT3DTEXTURE9	pTexture		= 0					,
+		const LPTATRATEXTURE	pTexture		= 0					,
 		const UINT					Sides			= 18				,
 		const UINT					Rings			= 18
 	);
@@ -2255,7 +2255,7 @@ protected:
 	LPD3DXMESH			pickoutMesh(CommonMesh* pComMesh);
 	D3DMATERIAL9		pickoutMaterial(CommonMesh* pComMesh);
 	D3DXMATRIX			pickoutMatrix(SimpleCommonMesh* pComMesh);
-	LPDIRECT3DTEXTURE9	pickoutTexture(SimpleCommonMesh* pComMesh);
+	LPTATRATEXTURE		pickoutTexture(SimpleCommonMesh* pComMesh);
 };
 class CookTrance : public CustomShader{
 	Camera*			m_pCamera			;
@@ -2311,7 +2311,7 @@ public:
 	void Draw(
 		DrawPacket&				i_DrawPacket	,
 		LPD3DXMESH				i_pMesh			,
-		LPDIRECT3DTEXTURE9		i_pTexture		,
+		LPTATRATEXTURE		i_pTexture		,
 		D3DXMATRIX				i_mMatrix		,
 		D3DMATERIAL9			i_Material
 	);
@@ -2326,7 +2326,7 @@ public:
 		  D3DCOLORVALUE& Specular,
 		  D3DCOLORVALUE& Ambient,
 		  wiz::OBJID id = OBJID_3D_CYLINDER,
-		  LPDIRECT3DTEXTURE9 pTexture = 0 )
+		  LPTATRATEXTURE pTexture = 0 )
 	:Cylinder(pD3DDevice, 0.5, 0.5, 1, g_vZero, g_vZero, Diffuse, Specular, Ambient,id, false, pTexture)
 	{
 		
@@ -2334,14 +2334,14 @@ public:
 
 	/////////////////// ////////////////////
 	//// 用途       ：PrimitiveCylinder(
-	////									LPDIRECT3DDEVICE9 pD3DDevice,LPDIRECT3DTEXTURE9 pTexture,
+	////									LPDIRECT3DDEVICE9 pD3DDevice,LPTATRATEXTURE pTexture,
 	////									float Radius1,float Radius2,float Lenght,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos,
 	////									D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,
 	////									wiz::OBJID id = OBJID_3D_MAGNET)
 	//// カテゴリ   ：コンストラクタ
 	//// 用途       ：Player用のコンストラクタ
 	//// 引数       ：  LPDIRECT3DDEVICE9 pD3DDevice,	//デバイス
-	////			  :   LPDIRECT3DTEXTURE9 pTexture,  //テクスチャ	
+	////			  :   LPTATRATEXTURE pTexture,  //テクスチャ	
 	////		      :   float Radius1						//円の直径1
 	////		      :   float Radius2						//円の直径2
 	////			  :   float Lenght						//高さ
@@ -2357,7 +2357,7 @@ public:
 	////	
 	PrimitiveCylinder(
 			LPDIRECT3DDEVICE9 pD3DDevice,
-			LPDIRECT3DTEXTURE9 pTexture,
+			LPTATRATEXTURE pTexture,
 			float Radius1,
 			float Radius2,
 			float Lenght,
@@ -2383,7 +2383,7 @@ public:
 	PrimitiveBox(LPDIRECT3DDEVICE9 pD3DDevice,
         D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,
 		wiz::OBJID id = OBJID_3D_BOX,
-		LPDIRECT3DTEXTURE9 pTexture = 0)
+		LPTATRATEXTURE pTexture = 0)
 		:Box( pD3DDevice, g_vOne, g_vZero, g_vZero, Diffuse, Specular, Ambient, id, false, pTexture, PtnUV_1_4)
 	{
 	}
@@ -2400,7 +2400,7 @@ class PrimitiveSphere : public Sphere {
 			const D3DCOLORVALUE&		Diffuse		,
 			const D3DCOLORVALUE&		Specular	,
 			const D3DCOLORVALUE&		Ambient		,
-			const LPDIRECT3DTEXTURE9	pTexture	= 0,
+			const LPTATRATEXTURE		pTexture	= 0,
 			const wiz::OBJID			id			= OBJID_3D_SPHERE
 		)
 			:Sphere( pD3DDevice,0.5f, g_vZero, g_vZero,Diffuse, Specular, Ambient,id, false, pTexture ,18, 18){}
@@ -2410,7 +2410,7 @@ class PrimitiveSphere : public Sphere {
 /*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 class PrimitivePlate {
 protected:
-	LPDIRECT3DTEXTURE9		m_pTexture	;
+	LPTATRATEXTURE		m_pTexture	;
 	D3DXMATRIX				m_mMatrix	;
 	LPDIRECT3DVERTEXBUFFER9 m_pVertexBuffer;
 	D3DXVECTOR3				m_vPos;
@@ -2449,7 +2449,7 @@ protected:
 	Vertex	*v ;	//	: 頂点バッファが内包する頂点データへのポインタを格納するためのポインタ
 
 public:
-	PrimitivePlate(LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 i_pTexture = NULL, Color i_Color = 0xFFFF0000);
+	PrimitivePlate(LPDIRECT3DDEVICE9 pD3DDevice, LPTATRATEXTURE i_pTexture = NULL, Color i_Color = 0xFFFF0000);
 	/////////////////// ////////////////////
 	//// 関数名     ：void Draw( LPDIRECT3DDEVICE9 pD3DDevice , vector<Object*>& Vec)
 	//// カテゴリ   ：仮想関数
@@ -2480,7 +2480,7 @@ public:
 //***********************************************
 class PlateObject : public PrimitivePlate, Object{
 public:
-	PlateObject(LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 i_pTexture = NULL, Color i_Color = 0xFFFF0000)
+	PlateObject(LPDIRECT3DDEVICE9 pD3DDevice, LPTATRATEXTURE i_pTexture = NULL, Color i_Color = 0xFFFF0000)
 		:PrimitivePlate( pD3DDevice, i_pTexture, i_Color)
 		,Object( OBJID_UNK )
 	{

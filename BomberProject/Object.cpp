@@ -254,7 +254,7 @@ void Camera::Draw(DrawPacket& i_DrawPacket){
 
     // ビューポートの取得
     D3DVIEWPORT9 vp;
-    if(FAILED(i_DrawPacket.pD3DDevice->GetViewport(&vp))){
+    if(FAILED(i_DrawPacket.GetDevice()->GetViewport(&vp))){
         //実行失敗
 		//WinMainのCatchまで飛ぶ
         throw BaseException(
@@ -273,9 +273,9 @@ void Camera::Draw(DrawPacket& i_DrawPacket){
     D3DXMatrixIdentity(&m_Proj);
     D3DXMatrixPerspectiveFovLH(&m_Proj, D3DXToRadian(m_FovY), aspect,m_Near,m_Far);
     // 射影行列の設定
-    i_DrawPacket.pD3DDevice->SetTransform(D3DTS_PROJECTION,&m_Proj);
+    i_DrawPacket.GetDevice()->SetTransform(D3DTS_PROJECTION,&m_Proj);
     // カメラの設定
-    i_DrawPacket.pD3DDevice->SetTransform(D3DTS_VIEW,&m_View);
+    i_DrawPacket.GetDevice()->SetTransform(D3DTS_VIEW,&m_View);
 }
 
 
@@ -403,9 +403,11 @@ LookAtCamera::~LookAtCamera(){
 void LookAtCamera::Update( UpdatePacket& i_UpdatePacket ){
 
 
-    if(i_UpdatePacket.pCntlState[0].bConnected){
-		BoxCon wButtons = i_UpdatePacket.pCntlState[0].Gamepad.wButtons.XConState;
-		Point  sThumbR  = Point( i_UpdatePacket.pCntlState[0].Gamepad.sThumbRX, i_UpdatePacket.pCntlState[0].Gamepad.sThumbRY);
+
+	CONTROLER_STATE Controller1P = i_UpdatePacket.m_pCntlState[0];
+    if(Controller1P.bConnected){
+		BoxCon wButtons = Controller1P.Gamepad.wButtons.XConState;
+		Point  sThumbR  = Point( Controller1P.Gamepad.sThumbRX, Controller1P.Gamepad.sThumbRY);
 
 		D3DXVECTOR3 ObjPos(0,0,0);
 		if(m_pObject){
@@ -633,7 +635,7 @@ void Guide::ChangeDevice(LPDIRECT3DDEVICE9 pD3DDevice){
  戻り値: なし。
 ***************************************************************************/
 void Guide::Draw(DrawPacket& i_DrawPacket){
-	LPDIRECT3DDEVICE9 pD3DDevice = i_DrawPacket.pD3DDevice ;
+	LPDIRECT3DDEVICE9 pD3DDevice = i_DrawPacket.GetDevice() ;
 	if(!m_pVB){
 		//バッファが無効なら何もしない
 		return;

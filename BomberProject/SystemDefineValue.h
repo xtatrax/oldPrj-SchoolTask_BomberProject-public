@@ -7,8 +7,8 @@
 //	内包ﾃﾞｰﾀと備考	：グローバルなディファイン値群
 //					▼
 //
-#ifndef	__Define_Value__
-#define	__Define_Value__
+#ifndef	_System_Define_Value__
+#define	_System_Define_Value__
 
  
 
@@ -31,7 +31,7 @@
 //#define CF_MEMORYOUTPUTPROCESS_ENABLE	/* 自作メモリ管理システムにより管理されているアイテムのファイルへの書き出しを可能にする(Manager有効時) */
 //#define CF_LOADINGANIMATION			/* ロード画面でアニメーション */
 //#define CF_OVERLORDNEW_ENABLE			/* 自作のnewを強制化 */
-//#define CF_DEBUG_DEBUGLOG_OUTPUTTEXT	/* DEBUG用のログを吐き出す */
+#define CF_DEBUG_DEBUGLOG_OUTPUTTEXT	/* DEBUG用のログを吐き出す */
 //#define CF_DEBUG_TIMEDRAW				/* 時間を描画 */
 //#define CF_LOADINGANIMATION			/* ロード画面でアニメーション */
 

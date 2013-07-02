@@ -47,10 +47,10 @@ class MouseCursor : public Box , public  PrimitiveSprite{
 	D3DXVECTOR3			m_v3DPos		;
 	D3DXVECTOR3			m_vScale		;
 	Point				m_v2DPos		;
-	Line*				m_pLine			;
-	Line*				m_pLine2		;
+	Line				m_Line			;
+	Line				m_Line2			;
 	Torus*				m_pTorus		;
-	SpriteObject*		m_pSelectPos	;
+	PrimitiveSprite		m_SelectPos		;
 	float				m_fTorusMagnification;
 	float				m_fTorusTimeCount	;
 	bool				m_bIsReverse	;
@@ -58,16 +58,16 @@ class MouseCursor : public Box , public  PrimitiveSprite{
 
 public:
 	/////////////////// ////////////////////
-	//// 用途       ：MouseCursor(	LPDIRECT3DDEVICE9 pD3DDevice,LPDIRECT3DTEXTURE9 pTexture,wiz::OBJID id = OBJID_3D_WALL);
+	//// 用途       ：MouseCursor(	LPDIRECT3DDEVICE9 pD3DDevice,LPTATRATEXTURE pTexture,wiz::OBJID id = OBJID_3D_WALL);
 	//// カテゴリ   ：コンストラクタ
 	//// 用途       ：
 	//// 引数       ：LPDIRECT3DDEVICE9 pD3DDevice //デバイス
-	////			： LPDIRECT3DTEXTURE9 pTexture  //テクスチャ
+	////			： LPTATRATEXTURE pTexture  //テクスチャ
 	////            ：pTexture,wiz::OBJID id = OBJID_3D_WALL //ID
 	//// 戻値       ：無し
 	//// 担当者     ：本多寛之
 	//// 備考       ：
-	MouseCursor(LPDIRECT3DDEVICE9  pD3DDevice,TextureManager* m_TexMgr, float fLineLength, float fPointSize,LPDIRECT3DTEXTURE9 pTex);
+	MouseCursor(LPDIRECT3DDEVICE9  pD3DDevice,TextureManager* m_TexMgr, float fLineLength, float fPointSize,LPTATRATEXTURE pTex);
 
 	/////////////////// ////////////////////
 	//// 用途       ：~MouseCursor();
@@ -86,7 +86,7 @@ public:
 	//// 引数       ：  DrawPacket& i_DrawPacket             // 画面描画時に必要なデータ群 ↓内容下記
 	////            ：  ├ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 インターフェイスへのポインタ
 	////            ：  ├ vector<Object*>&    Vec                     // オブジェクトの配列
-	////            ：  ├ Tempus2*            i_DrawPacket.pTime	   // 時間を管理するクラスへのポインター
+	////            ：  ├ Tempus2*            i_DrawPacket.GetTime()	   // 時間を管理するクラスへのポインター
 	////            ：  └ Command             i_DrawPacket.pCommand   // コマンド
 	//// 戻値       ：無し
 	//// 担当者     ：本多寛之

@@ -23,7 +23,7 @@ namespace bomberobject{
 /**************************************************************************
  DeadEffect::DeadEffect(
 	LPDIRECT3DDEVICE9 pD3DDevice,	//デバイス
-	LPDIRECT3DTEXTURE9 pTexture,	//テクスチャ
+	LPTATRATEXTURE pTexture,	//テクスチャ
 	wiz::OBJID id					//オブジェクトの種類
 );
  用途: コンストラクタ
@@ -31,7 +31,7 @@ namespace bomberobject{
  担当：佐藤涼
 ***************************************************************************/
 DeadEffect::DeadEffect(LPDIRECT3DDEVICE9	pD3DDevice,
-						LPDIRECT3DTEXTURE9	pTexture,
+						LPTATRATEXTURE	pTexture,
 						D3DXVECTOR3			vPos,
 						wiz::OBJID			id	)
 	:PrimitiveBox(pD3DDevice,
@@ -96,7 +96,7 @@ void	DeadEffect::addEffect( D3DXVECTOR3 vPos, float fDir){
 //// 引数       ：  DrawPacket& i_DrawPacket             // 画面描画時に必要なデータ群 ↓内容下記
 ////            ：  ├ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 インターフェイスへのポインタ
 ////            ：  ├ vector<Object*>&    Vec                     // オブジェクトの配列
-////            ：  ├ Tempus2*            i_DrawPacket.pTime	   // 時間を管理するクラスへのポインター
+////            ：  ├ Tempus2*            i_DrawPacket.GetTime()	   // 時間を管理するクラスへのポインター
 ////            ：  └ Command             i_DrawPacket.pCommand   // コマンド
 //// 戻値       ：無し
 //// 担当者     ：佐藤涼
@@ -206,7 +206,7 @@ Factory_DeadEffect::Factory_DeadEffect(FactoryPacket* fpac)
 
 		D3DXVECTOR3	vScale	= D3DXVECTOR3( 0.5f, 0.5f, 0.0f );
 		D3DXVECTOR3	vPos	= D3DXVECTOR3( (wide-512.0f*vScale.x), (height-256.0f*vScale.y-100), 0.0f );
-		LPDIRECT3DTEXTURE9 pTex;
+		LPTATRATEXTURE pTex;
 		pTex = fpac->AddTexture(L"DeadPerticul.png");
 		DeadEffect* dEffect	=	new DeadEffect( fpac->pD3DDevice, pTex, g_vZero );
 		//for( int i = 0; i < PARTICLS_NUM; i++ ){

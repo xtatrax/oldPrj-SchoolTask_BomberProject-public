@@ -29,15 +29,15 @@ namespace bomberobject{
 ***************************************************************************/
 SelectInformation::SelectInformation(
 	const LPDIRECT3DDEVICE9		pD3DDevice			,
-	const LPDIRECT3DTEXTURE9	pFrameTexture		,
-	const LPDIRECT3DTEXTURE9	pDescTexture		,
-	const LPDIRECT3DTEXTURE9	pNomalTex			,
-	const LPDIRECT3DTEXTURE9	pHardTexture		,
-	const LPDIRECT3DTEXTURE9	pExtraTexture		,
+	const LPTATRATEXTURE	pFrameTexture		,
+	const LPTATRATEXTURE	pDescTexture		,
+	const LPTATRATEXTURE	pNomalTex			,
+	const LPTATRATEXTURE	pHardTexture		,
+	const LPTATRATEXTURE	pExtraTexture		,
 	const D3DXVECTOR3&			vScale				,
 	const D3DXVECTOR3&			vRot				,
 	const D3DXVECTOR3&			vPos				,
-	const RECT*					pRect				,
+	const Rect*					pRect				,
 	const D3DXVECTOR3&			vCenter				,
 	const D3DXVECTOR3&			vOffsetPos			,
 	const Color					DefaultFrameColor	,
@@ -98,10 +98,10 @@ void	SelectInformation::Draw(DrawPacket &i_DrawPacket)
 **********************************************************/
 void	SelectInformation::Update(UpdatePacket &i_UpdatePacket)
 {
-	if( !m_pButtonNormal ) m_pButtonNormal  = (CustomButtonA*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_UI_BUTTON_NORMAL);
-	if( !m_pButtonHard   ) m_pButtonHard    = (CustomButtonA*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_UI_BUTTON_HARD  );
-	if( !m_pButtonExtra  ) m_pButtonExtra   = (CustomButtonA*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_UI_BUTTON_EXTRA );
-	if( !m_pButtonBack   ) m_pButtonBack    = (CustomButtonA*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_UI_BUTTON_BACK  );
+	if( !m_pButtonNormal ) m_pButtonNormal  = (CustomButtonA*)i_UpdatePacket.SearchObjectFromID(OBJID_UI_BUTTON_NORMAL);
+	if( !m_pButtonHard   ) m_pButtonHard    = (CustomButtonA*)i_UpdatePacket.SearchObjectFromID(OBJID_UI_BUTTON_HARD  );
+	if( !m_pButtonExtra  ) m_pButtonExtra   = (CustomButtonA*)i_UpdatePacket.SearchObjectFromID(OBJID_UI_BUTTON_EXTRA );
+	if( !m_pButtonBack   ) m_pButtonBack    = (CustomButtonA*)i_UpdatePacket.SearchObjectFromID(OBJID_UI_BUTTON_BACK  );
 
 	if( m_pButtonNormal && m_pButtonNormal->getButtonP()->getMouseSelect() ){
 			m_pTexture	= m_pNomalTex;

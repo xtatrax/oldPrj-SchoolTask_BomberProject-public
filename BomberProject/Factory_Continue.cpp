@@ -33,10 +33,10 @@ namespace bomberobject{
 
 ContinueButton::ContinueButton(
 		const LPDIRECT3DDEVICE9		pD3DDevice			,
-		const LPDIRECT3DTEXTURE9	pTexture			,
+		const LPTATRATEXTURE	pTexture			,
 		const D3DXVECTOR3			vScalse				,
 		const D3DXVECTOR3			vPos				,
-		const RECT*					pRect				,
+		const Rect*					pRect				,
 		const float					fWaitTime			,
 		const Command				Com					,
 		const wiz::OBJID			id					
@@ -51,7 +51,7 @@ ContinueButton::ContinueButton(
 void ContinueButton::Update( UpdatePacket& i_UpdatePacket ){
 	if( !m_bIsOperating ) return ;
 	ButtonSprite::Update(i_UpdatePacket);
-	m_IssueCommand = *i_UpdatePacket.pCommand ;
+	m_IssueCommand = i_UpdatePacket.PopCommand() ;
 }
 void ContinueButton::Draw(DrawPacket& i_DrawPacket){
 	if( !m_bIsOperating ) return ;
@@ -90,7 +90,7 @@ ContinueBehavior::ContinueBehavior(
 		g_vOne					,
 		g_vZero					,
 		D3DXVECTOR3( wide-256.0f,height-200.0f,0.0f ),
-		Rect( 0, 0, 512, 64 )	,
+		&Rect( 0, 0, 512, 64 )	,
 		g_vZero					,
 		g_vZero					
 	);
@@ -113,7 +113,7 @@ ContinueBehavior::ContinueBehavior(
 		i_BassPacket.AddTexture(L"TEST.png")	,
 		g_vOne					,
 		D3DXVECTOR3(wide-128.0f,height-50.0f,0.0f),
-		Rect( 0,0,256,64 )		,
+		&Rect( 0,0,256,64 )		,
 		0.0f					,
 		GM_CONTINUEBUTTON_YES	,
 		OBJID_UI_BUTTON_YES		
@@ -125,7 +125,7 @@ ContinueBehavior::ContinueBehavior(
 		i_BassPacket.AddTexture(L"TEST.png")	,
 		g_vOne					,
 		D3DXVECTOR3(wide-128.0f,height+100.0f,0.1f),
-		Rect( 256,0,512,64 )	,
+		&Rect( 256,0,512,64 )	,
 		0.0f					,
 		GM_CONTINUEBUTTON_NO	,
 		OBJID_UI_BUTTON_NO		
@@ -202,17 +202,17 @@ ContinueBehavior::~ContinueBehavior(){
 ////            ：
 ////
 void ContinueBehavior::Update( UpdatePacket& i_UpdatePacket ){
-	if( !m_pCoil )  m_pCoil = (PlayerCoil*)SearchObjectFromID( i_UpdatePacket.pVec, OBJID_3D_COIL );
-	if( !m_pTime )	m_pTime	= ( TimeScore*)SearchObjectFromID( i_UpdatePacket.pVec, OBJID_UI_TIME );
+	if( !m_pCoil )  m_pCoil = (PlayerCoil*)i_UpdatePacket.SearchObjectFromID( OBJID_3D_COIL );
+	if( !m_pTime )	m_pTime	= ( TimeScore*)i_UpdatePacket.SearchObjectFromID( OBJID_UI_TIME );
 	if( m_NowBehaviorFaze == CONTINUEBEHAVIORFAZE_WAIT ) return;
 
 
 	if( m_NowBehaviorFaze == CONTINUEBEHAVIORFAZE_DRAWDEADMESSAGE ){
 		//	: デッドメッセージ描画フェイズ
 		m_pDeadScore->Update(i_UpdatePacket);
-		if( ( m_fDeadMessageTimeAccumulator += (float)i_UpdatePacket.pTime->getElapsedTime()) > m_fMessageTime){
+		if( ( m_fDeadMessageTimeAccumulator += (float)i_UpdatePacket.GetTime()->getElapsedTime()) > m_fMessageTime){
 			//	: フェードアウトフェイズ
-			if( (m_fDeadMessageAlpha -= ( ( 255.0f / m_fFadeOutTime ) * (float)i_UpdatePacket.pTime->getElapsedTime())) <= 0.0f){
+			if( (m_fDeadMessageAlpha -= ( ( 255.0f / m_fFadeOutTime ) * (float)i_UpdatePacket.GetTime()->getElapsedTime())) <= 0.0f){
 				m_NowBehaviorFaze = CONTINUEBEHAVIORFAZE_CONTINUESELECTION;
 				m_pYesButton->OperationStart();
 				m_pNoButton->OperationStart();
@@ -238,10 +238,14 @@ void ContinueBehavior::Update( UpdatePacket& i_UpdatePacket ){
 
 			}else if( m_NowBehaviorFaze == CONTINUEBEHAVIORFAZE_CHECKSELECTION ){
 				//	: リザルト画面へ遷移命令
-				i_UpdatePacket.pCommand->m_Command	= GM_OPENSTAGE_RESULT;
-				i_UpdatePacket.pCommand->m_Param1	= m_pCoil->getDeadCount();
-				i_UpdatePacket.pCommand->m_Param2	= m_pCoil->getMaxPos();
-				i_UpdatePacket.pCommand->m_Param3	= m_pCoil->getScratchTime();
+				i_UpdatePacket.PushCommand( 
+					Command(
+						GM_OPENSTAGE_RESULT			,
+						m_pCoil->getDeadCount()		,
+						m_pCoil->getMaxPos()		,
+						m_pCoil->getScratchTime()
+					)
+				);
 			}
 		}
 		if( cmd.m_Command == GM_CONTINUEBUTTON_NO ){
@@ -267,7 +271,7 @@ void ContinueBehavior::Update( UpdatePacket& i_UpdatePacket ){
 //// 引数       ：  DrawPacket& i_DrawPacket             // 画面描画時に必要なデータ群 ↓内容下記
 ////            ：  ├ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 インターフェイスへのポインタ
 ////            ：  ├ vector<Object*>&    Vec                     // オブジェクトの配列
-////            ：  ├ Tempus2*            i_DrawPacket.pTime	   // 時間を管理するクラスへのポインター
+////            ：  ├ Tempus2*            i_DrawPacket.GetTime()	   // 時間を管理するクラスへのポインター
 ////            ：  └ Command             i_DrawPacket.pCommand   // コマンド
 //// 戻値       ：無し
 //// 担当者     ：鴫原 徹
@@ -292,18 +296,18 @@ void ContinueBehavior::Draw( DrawPacket& i_DrawPacket ){
 //Reply 定義部
 //************************************************************************/
 ///////////////////// ////////////////////
-////// 関数名     ：Reply(LPDIRECT3DDEVICE9 pD3DDevice,LPDIRECT3DTEXTURE9 pTexture,DWORD next,
-//////            ：    D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos, RECT* pRect,
+////// 関数名     ：Reply(LPDIRECT3DDEVICE9 pD3DDevice,LPTATRATEXTURE pTexture,DWORD next,
+//////            ：    D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos, Rect* pRect,
 //////            ：    D3DXVECTOR3& vCenter,D3DXVECTOR3& vOffsetPos,Color color = 0xFFFFFFFF);
 ////// カテゴリ   ：コンストラクタ
 ////// 用途       ：タイトルへ戻るの再確認
 ////// 引数       ：  LPDIRECT3DDEVICE9 pD3DDevice    // IDirect3DDevice9 インターフェイスへのポインタ
-//////            ：  LPDIRECT3DTEXTURE9 pTexture     // 貼り付けたいテクスチャ
+//////            ：  LPTATRATEXTURE pTexture     // 貼り付けたいテクスチャ
 //////            ：  DWORD next                      // 次の画面
 //////            ：  D3DXVECTOR3 &vScale             // 大きさ
 //////            ：  D3DXVECTOR3 &vRot               // 三軸回転
 //////            ：  D3DXVECTOR3 &vPos               // 設置座標
-//////            ：  RECT* pRect                     // 描画したい範囲(NULLで全体を描画)
+//////            ：  Rect* pRect                     // 描画したい範囲(NULLで全体を描画)
 //////            ：  D3DXVECTOR3& vCenter            // 中心
 //////            ：  D3DXVECTOR3& vOffsetPos         // オフセット座標
 //////            ：  Color color = 0xFFFFFFFF        // 色
@@ -312,9 +316,9 @@ void ContinueBehavior::Draw( DrawPacket& i_DrawPacket ){
 ////// 備考       ：
 //////            ：
 //////
-//Reply::Reply(const LPDIRECT3DDEVICE9 pD3DDevice,const  LPDIRECT3DTEXTURE9 pTexture,const bool mark,
+//Reply::Reply(const LPDIRECT3DDEVICE9 pD3DDevice,const  LPTATRATEXTURE pTexture,const bool mark,
 //		const D3DXVECTOR3 &vScale,const D3DXVECTOR3 &vRot,const D3DXVECTOR3 &vPos,
-//		const RECT *pRect,const  D3DXVECTOR3 &vCenter,const  D3DXVECTOR3 &vOffsetPos,const  Color color)
+//		const Rect *pRect,const  D3DXVECTOR3 &vCenter,const  D3DXVECTOR3 &vOffsetPos,const  Color color)
 //:SpriteObject(	pD3DDevice, pTexture, vScale, vRot, vPos, pRect, vCenter, vOffsetPos, color )
 //,m_vPos(		vPos	)
 //,m_bMark(		mark	)
@@ -372,7 +376,7 @@ void ContinueBehavior::Draw( DrawPacket& i_DrawPacket ){
 //////
 //void Reply::Update(UpdatePacket& i_UpdatePacket)
 //{
-//	if( !m_pCoil )		m_pCoil		= (PlayerCoil*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_3D_COIL);
+//	if( !m_pCoil )		m_pCoil		= (PlayerCoil*)i_UpdatePacket.SearchObjectFromID(OBJID_3D_COIL);
 //	if( Cursor2D::isHitSprite( this ) ){
 //		if( Cursor2D::getLButtonState()/* || Cursor2D::getRButtonState()*/ ){
 //			if( m_bPushRock ){
@@ -421,18 +425,18 @@ void ContinueBehavior::Draw( DrawPacket& i_DrawPacket ){
 //Continue 定義部
 //************************************************************************/
 ///////////////////// ////////////////////
-////// 関数名     ：Continue(LPDIRECT3DDEVICE9 pD3DDevice,LPDIRECT3DTEXTURE9 pTexture,DWORD next,
-//////            ：    D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos, RECT* pRect,
+////// 関数名     ：Continue(LPDIRECT3DDEVICE9 pD3DDevice,LPTATRATEXTURE pTexture,DWORD next,
+//////            ：    D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos, Rect* pRect,
 //////            ：    D3DXVECTOR3& vCenter,D3DXVECTOR3& vOffsetPos,Color color = 0xFFFFFFFF);
 ////// カテゴリ   ：コンストラクタ
 ////// 用途       ：コンテニューするか確認
 ////// 引数       ：  LPDIRECT3DDEVICE9 pD3DDevice    // IDirect3DDevice9 インターフェイスへのポインタ
-//////            ：  LPDIRECT3DTEXTURE9 pTexture     // 貼り付けたいテクスチャ
+//////            ：  LPTATRATEXTURE pTexture     // 貼り付けたいテクスチャ
 //////            ：  DWORD next                      // 次の画面
 //////            ：  D3DXVECTOR3 &vScale             // 大きさ
 //////            ：  D3DXVECTOR3 &vRot               // 三軸回転
 //////            ：  D3DXVECTOR3 &vPos               // 設置座標
-//////            ：  RECT* pRect                     // 描画したい範囲(NULLで全体を描画)
+//////            ：  Rect* pRect                     // 描画したい範囲(NULLで全体を描画)
 //////            ：  D3DXVECTOR3& vCenter            // 中心
 //////            ：  D3DXVECTOR3& vOffsetPos         // オフセット座標
 //////            ：  Color color = 0xFFFFFFFF        // 色
@@ -441,10 +445,10 @@ void ContinueBehavior::Draw( DrawPacket& i_DrawPacket ){
 ////// 備考       ：
 //////            ：
 //////
-//Continue::Continue(const LPDIRECT3DDEVICE9 pD3DDevice,const  LPDIRECT3DTEXTURE9 pTexture_Answer,
-//		const LPDIRECT3DTEXTURE9 pTexture_Rethinking, const LPDIRECT3DTEXTURE9 pTexture_Continue,
+//Continue::Continue(const LPDIRECT3DDEVICE9 pD3DDevice,const  LPTATRATEXTURE pTexture_Answer,
+//		const LPTATRATEXTURE pTexture_Rethinking, const LPTATRATEXTURE pTexture_Continue,
 //		const bool mark,const D3DXVECTOR3 &vScale,const D3DXVECTOR3 &vPos,
-//		const RECT *pRect,const wiz::OBJID id, const  Color color)
+//		const Rect *pRect,const wiz::OBJID id, const  Color color)
 //:SpriteObject( pD3DDevice, pTexture_Answer, vScale, g_vZero, vPos, pRect, g_vZero, g_vZero, color, id )
 //,m_vPos( vPos )
 //,m_bMark( mark )
@@ -548,7 +552,7 @@ void ContinueBehavior::Draw( DrawPacket& i_DrawPacket ){
 //////
 //void Continue::Update(UpdatePacket& i_UpdatePacket)
 //{
-//	if( !m_pCoil )	m_pCoil	=	( PlayerCoil* ) SearchObjectFromID( i_UpdatePacket.pVec, OBJID_3D_COIL );
+//	if( !m_pCoil )	m_pCoil	=	( PlayerCoil* ) i_UpdatePacket.SearchObjectFromID( OBJID_3D_COIL );
 //
 //	if( m_pCoil && m_pCoil->getState() != COIL_STATE_DEAD ){
 //		m_bDrawing	= false;
@@ -556,7 +560,7 @@ void ContinueBehavior::Draw( DrawPacket& i_DrawPacket ){
 //
 //	if( m_bDrawing ){
 //		if( m_bWhichDraw ){
-//			if( !m_pTime )	m_pTime	= ( TimeScore* ) SearchObjectFromID( i_UpdatePacket.pVec, OBJID_UI_TIME );
+//			if( !m_pTime )	m_pTime	= ( TimeScore* ) i_UpdatePacket.SearchObjectFromID( OBJID_UI_TIME );
 //			if( Cursor2D::isHitSprite( this ) ){
 //				if( Cursor2D::getLButtonState()/* || Cursor2D::getRButtonState()*/ ){
 //					if( m_bPushRock ){
@@ -619,18 +623,18 @@ void ContinueBehavior::Draw( DrawPacket& i_DrawPacket ){
 //Dead 定義部
 //************************************************************************/
 ///////////////////// ////////////////////
-////// 関数名     ：Dead(LPDIRECT3DDEVICE9 pD3DDevice,LPDIRECT3DTEXTURE9 pTexture,
-//////            ：    D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos, RECT* pRect,
+////// 関数名     ：Dead(LPDIRECT3DDEVICE9 pD3DDevice,LPTATRATEXTURE pTexture,
+//////            ：    D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos, Rect* pRect,
 //////            ：    D3DXVECTOR3& vCenter,D3DXVECTOR3& vOffsetPos,Color color = 0xFFFFFFFF);
 ////// カテゴリ   ：コンストラクタ
 ////// 用途       ：死亡時に表示する文字
 ////// 引数       ：  LPDIRECT3DDEVICE9 pD3DDevice    // IDirect3DDevice9 インターフェイスへのポインタ
-//////            ：  LPDIRECT3DTEXTURE9 pTexture     // 貼り付けたいテクスチャ
+//////            ：  LPTATRATEXTURE pTexture     // 貼り付けたいテクスチャ
 //////            ：  DWORD next                      // 次の画面
 //////            ：  D3DXVECTOR3 &vScale             // 大きさ
 //////            ：  D3DXVECTOR3 &vRot               // 三軸回転
 //////            ：  D3DXVECTOR3 &vPos               // 設置座標
-//////            ：  RECT* pRect                     // 描画したい範囲(NULLで全体を描画)
+//////            ：  Rect* pRect                     // 描画したい範囲(NULLで全体を描画)
 //////            ：  D3DXVECTOR3& vCenter            // 中心
 //////            ：  D3DXVECTOR3& vOffsetPos         // オフセット座標
 //////            ：  Color color = 0xFFFFFFFF        // 色
@@ -639,10 +643,10 @@ void ContinueBehavior::Draw( DrawPacket& i_DrawPacket ){
 ////// 備考       ：
 //////            ：
 //////
-//Dead::Dead(	const LPDIRECT3DDEVICE9 pD3DDevice,const  LPDIRECT3DTEXTURE9 pTexture,
-//			const LPDIRECT3DTEXTURE9 pDeadCountTex, const  LPDIRECT3DTEXTURE9 pCountCharTex,const int iDeadCount,
+//Dead::Dead(	const LPDIRECT3DDEVICE9 pD3DDevice,const  LPTATRATEXTURE pTexture,
+//			const LPTATRATEXTURE pDeadCountTex, const  LPTATRATEXTURE pCountCharTex,const int iDeadCount,
 //			const D3DXVECTOR3 &vScale,const D3DXVECTOR3 &vPos,
-//			const RECT *pRect,const  Color color,const wiz::OBJID id)
+//			const Rect *pRect,const  Color color,const wiz::OBJID id)
 //:SpriteObject( pD3DDevice, pTexture, vScale, g_vZero, vPos, pRect, g_vZero, g_vZero, color, id )
 //,m_fTime(0)
 //,m_pDeadScore( NULL )
@@ -722,11 +726,11 @@ void ContinueBehavior::Draw( DrawPacket& i_DrawPacket ){
 //////
 //void Dead::Update(UpdatePacket& i_UpdatePacket)
 //{
-//	if( !m_pSelect_Yes )	m_pSelect_Yes	=	( Continue* ) SearchObjectFromID( i_UpdatePacket.pVec, OBJID_UI_ANS_YES );
-//	if( !m_pSelect_No )		m_pSelect_No	=	( Continue* ) SearchObjectFromID( i_UpdatePacket.pVec, OBJID_UI_ANS_NO );
+//	if( !m_pSelect_Yes )	m_pSelect_Yes	=	( Continue* ) i_UpdatePacket.SearchObjectFromID( OBJID_UI_ANS_YES );
+//	if( !m_pSelect_No )		m_pSelect_No	=	( Continue* ) i_UpdatePacket.SearchObjectFromID( OBJID_UI_ANS_NO );
 //
 //	if( m_bDrawing ){
-//		m_fTime	+= (float)i_UpdatePacket.pTime->getElapsedTime();
+//		m_fTime	+= (float)i_UpdatePacket.GetTime()->getElapsedTime();
 //		if( m_fTime >= 1.5f ){
 //			m_Color.byteColor.a	-= 5;
 //			if( m_Color.byteColor.a <= 5){
@@ -772,9 +776,9 @@ Factory_Continue::Factory_Continue(FactoryPacket* fpac)
 
 		//D3DXVECTOR3	vScale	= D3DXVECTOR3( 0.5f, 0.5f, 0.0f );
 		//D3DXVECTOR3	vPos	= D3DXVECTOR3( (wide-512.0f*vScale.x), (height-256.0f*vScale.y-100), 0.0f );
-		//LPDIRECT3DTEXTURE9 pTex;
-		//LPDIRECT3DTEXTURE9 pTex2;
-		//LPDIRECT3DTEXTURE9 pTex3;
+		//LPTATRATEXTURE pTex;
+		//LPTATRATEXTURE pTex2;
+		//LPTATRATEXTURE pTex3;
 		//0(fpac->pD3DDevice,L"dead6.png",&pTex);
 		//0(fpac->pD3DDevice,L"Number_Base1.png",&pTex2);
 		//0(fpac->pD3DDevice,L"TEST.png",&pTex3);

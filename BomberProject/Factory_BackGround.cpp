@@ -28,7 +28,7 @@
 namespace wiz{
 namespace bomberobject{
 
-BackGround::BackGround(LPDIRECT3DDEVICE9 pD3DDevice,D3DXVECTOR3 vScalse,LPDIRECT3DTEXTURE9 pTextuer)
+BackGround::BackGround(LPDIRECT3DDEVICE9 pD3DDevice,D3DXVECTOR3 vScalse,LPTATRATEXTURE pTextuer)
 :Box( pD3DDevice, vScalse,
 	 D3DXVECTOR3(vScalse.x/2,0.0f,0.3f), g_vZero,
 	 getD3DCOLORVALUE(1.0f,1.0f,1.0f,1.0f),
@@ -58,7 +58,7 @@ BackGround::~BackGround(){
 ////            ：
 ////
 void BackGround::Update( UpdatePacket& i_UpdatePacket ){
-	if( !m_pCamera ) m_pCamera = (Camera*) SearchObjectFromID(i_UpdatePacket.pVec,OBJID_SYS_CAMERA);
+	if( !m_pCamera ) m_pCamera = (Camera*) i_UpdatePacket.SearchObjectFromID(OBJID_SYS_CAMERA);
 	if( !m_pCamera ){ Debugger::DBGWRITINGLOGTEXT::OutputSystemLog(L"BackGround::Update(壁紙)がCameraを見つけられませんでした><\n"); return ;}
 	float fEyePos = m_pCamera->getPosY();
 	this->m_BasePos;
@@ -75,7 +75,7 @@ void BackGround::Update( UpdatePacket& i_UpdatePacket ){
 //// 引数       ：  DrawPacket& i_DrawPacket             // 画面描画時に必要なデータ群 ↓内容下記
 ////            ：  ├ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 インターフェイスへのポインタ
 ////            ：  ├ vector<Object*>&    Vec                     // オブジェクトの配列
-////            ：  ├ Tempus2*            i_DrawPacket.pTime	   // 時間を管理するクラスへのポインター
+////            ：  ├ Tempus2*            i_DrawPacket.GetTime()	   // 時間を管理するクラスへのポインター
 ////            ：  └ Command             i_DrawPacket.pCommand   // コマンド
 //// 戻値       ：無し
 //// 担当者     ：鴫原 徹
@@ -95,7 +95,7 @@ void BackGround::Draw( DrawPacket& i_DrawPacket ){
 	this->SetBasePos(vWorkPos);
 }
 Factory_BG::Factory_BG(FactoryPacket *fpac){
-		//LPDIRECT3DTEXTURE9 pTex;
+		//LPTATRATEXTURE pTex;
 		//0(fpac->pD3DDevice,L"BackStage.png",&pTex);
 	fpac->AddObject( new BackGround(fpac->pD3DDevice,D3DXVECTOR3(50.0f,90.0f,0.0f), /*pTex*/fpac->AddTexture(L"BackStage.png")) );
 }

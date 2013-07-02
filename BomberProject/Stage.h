@@ -38,7 +38,7 @@ class Stage{
 protected:
 	friend struct FactoryPacket		;
 	friend struct BassPacket		;
-	friend struct UpdatePacket		;
+	friend struct wiz::structs::UpdatePacket		;
 	friend struct RenderPacket		;
 	friend struct DrawPacket		;
 	friend class  Button			;
@@ -241,7 +241,7 @@ public:
 	//// 引数       ：  DrawPacket& i_DrawPacket             // 画面描画時に必要なデータ群 ↓内容下記
 	////            ：  ├ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 インターフェイスへのポインタ
 	////            ：  ├ vector<Object*>&    Vec                     // オブジェクトの配列
-	////            ：  ├ Tempus2*            i_DrawPacket.pTime	   // 時間を管理するクラスへのポインター
+	////            ：  ├ Tempus2*            i_DrawPacket.GetTime()	   // 時間を管理するクラスへのポインター
 	////            ：  └ Command             i_DrawPacket.pCommand   // コマンド
 	//// 戻値       ：無し
 	//// 担当者     ：鴫原 徹(山ノ井先生のひな形より)
@@ -273,7 +273,7 @@ public:
 	//// 引数       ：  DrawPacket& i_DrawPacket             // 画面描画時に必要なデータ群 ↓内容下記
 	////            ：  ├ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 インターフェイスへのポインタ
 	////            ：  ├ vector<Object*>&    Vec                     // オブジェクトの配列
-	////            ：  ├ Tempus2*            i_DrawPacket.pTime	   // 時間を管理するクラスへのポインター
+	////            ：  ├ Tempus2*            i_DrawPacket.GetTime()	   // 時間を管理するクラスへのポインター
 	////            ：  └ Command             i_DrawPacket.pCommand   // コマンド
 	//// 戻値       ：無し
 	//// 担当者     ：鴫原 徹

@@ -48,7 +48,7 @@ namespace bomberobject{
 //**
 // CheckEffect::CheckEffect(
 //	LPDIRECT3DDEVICE9 pD3DDevice,	//デバイス
-//	LPDIRECT3DTEXTURE9 pTexture,	//テクスチャ
+//	LPTATRATEXTURE pTexture,	//テクスチャ
 //	wiz::OBJID id					//オブジェクトの種類
 //);
 // 用途: コンストラクタ
@@ -58,7 +58,7 @@ namespace bomberobject{
 CheckEffect::CheckEffect(LPDIRECT3DDEVICE9 pD3DDevice,
 						D3DXVECTOR3 vPos,
 						float		fLength,
-						LPDIRECT3DTEXTURE9 pTexture,wiz::OBJID id)
+						LPTATRATEXTURE pTexture,wiz::OBJID id)
 	:PrimitiveBox(pD3DDevice,
 					D3DCOLORVALUE(),
 					D3DCOLORVALUE(),
@@ -96,6 +96,7 @@ CheckEffect::CheckEffect(LPDIRECT3DDEVICE9 pD3DDevice,
 
 	for( int i = 0; i < DRAWING_NUMBER; i++ )
 		addEffect( float(i*2), vPos.y );
+	Debugger::DBGWRITINGLOGTEXT::addStr(L"CheckEffect::CheckEffect OK\n");
 }
 
 /********************************
@@ -129,7 +130,7 @@ void	CheckEffect::addEffect( float i_vPosX, float i_vPosY){
 //// 引数       ：  DrawPacket& i_DrawPacket             // 画面描画時に必要なデータ群 ↓内容下記
 ////            ：  ├ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 インターフェイスへのポインタ
 ////            ：  ├ vector<Object*>&    Vec                     // オブジェクトの配列
-////            ：  ├ Tempus2*            i_DrawPacket.pTime	   // 時間を管理するクラスへのポインター
+////            ：  ├ Tempus2*            i_DrawPacket.GetTime()	   // 時間を管理するクラスへのポインター
 ////            ：  └ Command             i_DrawPacket.pCommand   // コマンド
 //// 戻値       ：無し
 //// 担当者     ：佐藤涼
@@ -164,27 +165,27 @@ void	CheckEffect::setTexDraw(DrawPacket& i_DrawPacket){
 	if(m_pTexture){
 		DWORD wkdword;
 		//現在のテクスチャステータスを得る
-		i_DrawPacket.pD3DDevice->GetTextureStageState(0,D3DTSS_COLOROP,&wkdword);
+		i_DrawPacket.GetDevice()->GetTextureStageState(0,D3DTSS_COLOROP,&wkdword);
 		//ステージの設定
-		i_DrawPacket.pD3DDevice->SetTexture(0,m_pTexture);
+		i_DrawPacket.GetDevice()->SetTexture(0,m_pTexture->getTexture());
 		//デフィーズ色とテクスチャを掛け合わせる設定
-		i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLOROP, D3DTOP_MODULATE4X );
-		i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLORARG1, D3DTA_TEXTURE );
-		i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLORARG2, D3DTA_DIFFUSE );
+		i_DrawPacket.GetDevice()->SetTextureStageState( 0, D3DTSS_COLOROP, D3DTOP_MODULATE4X );
+		i_DrawPacket.GetDevice()->SetTextureStageState( 0, D3DTSS_COLORARG1, D3DTA_TEXTURE );
+		i_DrawPacket.GetDevice()->SetTextureStageState( 0, D3DTSS_COLORARG2, D3DTA_DIFFUSE );
 
-		//i_DrawPacket.pD3DDevice->SetFVF(PlateFVF);
+		//i_DrawPacket.GetDevice()->SetFVF(PlateFVF);
 		// マトリックスをレンダリングパイプラインに設定
-		i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &m_Matrix);
+		i_DrawPacket.GetDevice()->SetTransform(D3DTS_WORLD, &m_Matrix);
 		//コモンメッシュのDraw()を呼ぶ
 		CommonMesh::Draw(i_DrawPacket);
-		i_DrawPacket.pD3DDevice->SetTexture(0,0);
+		i_DrawPacket.GetDevice()->SetTexture(0,0);
 		//ステージを元に戻す
-		i_DrawPacket.pD3DDevice->SetTextureStageState(0,D3DTSS_COLOROP,wkdword);
+		i_DrawPacket.GetDevice()->SetTextureStageState(0,D3DTSS_COLOROP,wkdword);
 	}
 	else{
 	//テクスチャがない場合
 		// マトリックスをレンダリングパイプラインに設定
-		i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &m_Matrix);
+		i_DrawPacket.GetDevice()->SetTransform(D3DTS_WORLD, &m_Matrix);
 		//コモンメッシュのDraw()を呼ぶ
 		CommonMesh::Draw(i_DrawPacket);
 	}
@@ -207,7 +208,7 @@ void	CheckEffect::setTexDraw(DrawPacket& i_DrawPacket){
 ////
 void CheckEffect::update( D3DXVECTOR3& o_vPos, float i_fInitPosX , D3DXVECTOR3& o_vScale, bool& o_bStart,DrawPacket& i_DrawPacket){
 
-	if( !m_pCoil   ) m_pCoil   = (PlayerCoil*)SearchObjectFromID( i_DrawPacket.pVec, OBJID_3D_COIL );
+	if( !m_pCoil   ) m_pCoil   = (PlayerCoil*)i_DrawPacket.SearchObjectFromID( OBJID_3D_COIL );
 	//スタート位置にエフェクトを出すか
 	if( o_bStart ){
 		if( o_vScale.x > 0.0f && o_vScale.y > 0.0f ){
@@ -342,32 +343,27 @@ void	CheckEffect::setPosY(float posY){
 /****************************************************************************
 CheckPoint 定義部
 ****************************************************************************/
-CheckPoint::CheckPoint( LPDIRECT3DDEVICE9 pD3DDevice, float fLength,LPDIRECT3DTEXTURE9 pTexture,LPDIRECT3DTEXTURE9 pTexture2,LPDIRECT3DTEXTURE9 pTexture3, wiz::OBJID id  )
+CheckPoint::CheckPoint( LPDIRECT3DDEVICE9 pD3DDevice, float fLength,LPTATRATEXTURE pTexture,LPTATRATEXTURE pTexture2,LPTATRATEXTURE pTexture3, wiz::OBJID id  )
 :Object( id )
-, m_pCoil( NULL )
-, m_pCamera( NULL )
-, m_ActiveItem( NULL )
-, m_pTime( NULL )
-, m_Color( CHECKPOINTCOLOR )
-, m_Thicken( 1.0f )
-, m_Length( fLength )
-, m_pTexture( pTexture )
-, m_pTexturePoint( pTexture2 )
-, m_pTextureLast( pTexture3 )
-, m_bPlayerPass( false )
-, m_bFirstRead( true )
+,m_Effect(pD3DDevice, g_vZero, fLength, pTexture)
+,m_PintMark(pD3DDevice, pTexture2, CHECK_POINT_CHAR_SIZE, g_vZero, g_vZero,&Rect( 0, 0, 512, 64 ), D3DXVECTOR3( 256.0f, 32.0f, 0.0f ), D3DXVECTOR3( 0.0f, -87.0f, 0.0f ))
+,m_pCoil( NULL )
+,m_pCamera( NULL )
+,m_ActiveItem( NULL )
+,m_pTime( NULL )
+,m_Color( CHECKPOINTCOLOR )
+,m_Thicken( 1.0f )
+,m_Length( fLength )
+,m_pTextureLast( pTexture3 )
+,m_bPlayerPass( false )
+,m_bFirstRead( true )
 {
-	m_pEffect	= new CheckEffect( pD3DDevice, g_vZero, fLength, pTexture );
-	//m_pPintMark = new Box(pD3DDevice,CHECK_POINT_CHAR_SIZE,g_vZero,g_vZero,CHECKPOINTCOLOR, D3DCOLORVALUE(), CHECKPOINTCOLOR,OBJID_3D_BOX,false,pTexture2);
-	m_pPintMark = new SpriteObject( pD3DDevice, pTexture2, CHECK_POINT_CHAR_SIZE, g_vZero, g_vZero,
-									Rect( 0, 0, 512, 64 ), D3DXVECTOR3( 256.0f, 32.0f, 0.0f ), D3DXVECTOR3( 0.0f, -87.0f, 0.0f ));
+	Debugger::DBGWRITINGLOGTEXT::addStr(L"CheckPoint::CheckPoint OK\n");
 }
 CheckPoint::~CheckPoint(){
 	m_pCoil		= NULL ;
 	m_pCamera	= NULL ;
 	m_pTime		= NULL ;
-	SafeDelete( m_pEffect );
-	SafeDelete(m_pPintMark);
 	SafeDeletePointerContainer( m_ItemContainer ) ;
 	m_ItemContainer.clear();
 }
@@ -387,10 +383,10 @@ CheckPoint::~CheckPoint(){
 ////            ：
 ////
 void CheckPoint::Update( UpdatePacket& i_UpdatePacket ){
-	if( !m_pTime )		m_pTime	= ( TimeScore* )SearchObjectFromID( i_UpdatePacket.pVec, OBJID_UI_TIME );
-	if( !m_pCoil   )	m_pCoil	= (PlayerCoil*)SearchObjectFromID( i_UpdatePacket.pVec, OBJID_3D_COIL	) ;
+	if( !m_pTime )		m_pTime	= ( TimeScore* )i_UpdatePacket.SearchObjectFromID( OBJID_UI_TIME );
+	if( !m_pCoil   )	m_pCoil	= (PlayerCoil*)i_UpdatePacket.SearchObjectFromID( OBJID_3D_COIL	) ;
 	if( !m_pCamera ){
-		m_pCamera = (    Camera*)SearchObjectFromID( i_UpdatePacket.pVec, OBJID_SYS_CAMERA ) ;
+		m_pCamera = (    Camera*)i_UpdatePacket.SearchObjectFromID( OBJID_SYS_CAMERA ) ;
 		m_fInitPosY	= 	m_pCamera->getPosY();
 	}
 
@@ -401,7 +397,7 @@ void CheckPoint::Update( UpdatePacket& i_UpdatePacket ){
 		setTexPos( m_ActiveItem, fTexPosY );
 
 		if( m_bFirstRead ){
-			m_pEffect->setInitPosY(m_ItemContainer[ m_ActiveItem ]->fPosY);
+			m_Effect.setInitPosY(m_ItemContainer[ m_ActiveItem ]->fPosY);
 			m_bFirstRead	= false;
 		}
 
@@ -411,9 +407,9 @@ void CheckPoint::Update( UpdatePacket& i_UpdatePacket ){
 			if( m_ActiveItem < m_ItemContainer.size() ){
 				//エフェクトの更新***********************************************
 
-				m_pEffect->setPointPos( m_pCoil->getStartPos() );				//復帰地点の位置を渡す
-				m_pEffect->setPosY( m_ItemContainer[ m_ActiveItem ]->fPosY );	//チェックポイントの位置を渡す
-				m_pEffect->setStart( true );									//アニメーションを開始
+				m_Effect.setPointPos( m_pCoil->getStartPos() );				//復帰地点の位置を渡す
+				m_Effect.setPosY( m_ItemContainer[ m_ActiveItem ]->fPosY );	//チェックポイントの位置を渡す
+				m_Effect.setStart( true );									//アニメーションを開始
 				
 				//******************************************************************
 			}
@@ -434,7 +430,7 @@ void CheckPoint::Update( UpdatePacket& i_UpdatePacket ){
 //// 引数       ：  DrawPacket& i_DrawPacket             // 画面描画時に必要なデータ群 ↓内容下記
 ////            ：  ├ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 インターフェイスへのポインタ
 ////            ：  ├ vector<Object*>&    Vec                     // オブジェクトの配列
-////            ：  ├ Tempus2*            i_DrawPacket.pTime	   // 時間を管理するクラスへのポインター
+////            ：  ├ Tempus2*            i_DrawPacket.GetTime()	   // 時間を管理するクラスへのポインター
 ////            ：  └ Command             i_DrawPacket.pCommand   // コマンド
 //// 戻値       ：無し
 //// 担当者     ：鴫原 徹 本多寛之(編集)
@@ -450,23 +446,22 @@ void CheckPoint::Draw( DrawPacket& i_DrawPacket ){
 			//	: 画面の中にいる
 			
 			//	:　メッセージ？を描画
-			m_pPintMark->Draw(i_DrawPacket);
+			m_PintMark.Draw(i_DrawPacket);
 
 		}
 
 		Debugger::DBGSTR::addStr(L"m_ActiveItem = %d\n",m_ActiveItem);
 	}
 	else/* if(m_ActiveItem == m_ItemContainer.size()-1)*/{
-		m_pPintMark->Draw(i_DrawPacket);
+		m_PintMark.Draw(i_DrawPacket);
 	}
 
-	if( m_pEffect ){
-		//チェックポイントの描画
-		m_pEffect->Draw( i_DrawPacket );
-		//一度でもチェックポイントを通過したら入る
-		//復帰地点の描画
-		if(m_pEffect->getVanish())	m_pEffect->PointDraw( i_DrawPacket );
-	}	
+	//チェックポイントの描画
+	m_Effect.Draw( i_DrawPacket );
+	//一度でもチェックポイントを通過したら入る
+	//復帰地点の描画
+	if(m_Effect.getVanish())	m_Effect.PointDraw( i_DrawPacket );
+		
 };
 
 /*************************************************
@@ -483,8 +478,8 @@ void	CheckPoint::PlayerPass(UpdatePacket &i_UpdatePacket){
 		m_pCoil->setRecordTime();
 		m_pTime->setTime();
 		if(m_ActiveItem == m_ItemContainer.size()-1){
-			m_pPintMark->setTexture(m_pTextureLast);
-			m_pPintMark->setCenter(D3DXVECTOR3( 128.0f, 32.0f, 0.0f ));
+			m_PintMark.setTexture(m_pTextureLast);
+			m_PintMark.setCenter(D3DXVECTOR3( 128.0f, 32.0f, 0.0f ));
 		}
 		m_bPlayerPass	= true;	//通過フラグをたてる
 		i_UpdatePacket.SearchWaveAndPlay( RCTEXT_SOUND_SE_CHECKPOINT );
@@ -506,7 +501,7 @@ void	CheckPoint::setTexPos( size_t i_ActiveItem, float fTexPosY ){
 	D3DXMatrixRotationZ(&mRot,D3DXToRadian(0));
 	D3DXMatrixTranslation(&mPos, wide,height,0.0f);
 	mTexMatrix	= mPos*mScale*mRot;
-	m_pPintMark->setMatrix( mTexMatrix );
+	m_PintMark.setMatrix( mTexMatrix );
 	//*************************************************************************************
 }
 

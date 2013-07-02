@@ -23,18 +23,18 @@ namespace wiz{
 Load 定義部
 ************************************************************************/
 /////////////////// ////////////////////
-//// 関数名     ：Load(LPDIRECT3DDEVICE9 pD3DDevice,LPDIRECT3DTEXTURE9 pTexture,DWORD next,
-////            ：    D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos, RECT* pRect,
+//// 関数名     ：Load(LPDIRECT3DDEVICE9 pD3DDevice,LPTATRATEXTURE pTexture,DWORD next,
+////            ：    D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos, Rect* pRect,
 ////            ：    D3DXVECTOR3& vCenter,D3DXVECTOR3& vOffsetPos,Color color = 0xFFFFFFFF);
 //// カテゴリ   ：コンストラクタ
 //// 用途       ：スプライトを描画
 //// 引数       ：  LPDIRECT3DDEVICE9 pD3DDevice    // IDirect3DDevice9 インターフェイスへのポインタ
-////            ：  LPDIRECT3DTEXTURE9 pTexture     // 貼り付けたいテクスチャ
+////            ：  LPTATRATEXTURE pTexture     // 貼り付けたいテクスチャ
 ////            ：  DWORD next                      // 次の画面
 ////            ：  D3DXVECTOR3 &vScale             // 大きさ
 ////            ：  D3DXVECTOR3 &vRot               // 三軸回転
 ////            ：  D3DXVECTOR3 &vPos               // 設置座標
-////            ：  RECT* pRect                     // 描画したい範囲(NULLで全体を描画)
+////            ：  Rect* pRect                     // 描画したい範囲(NULLで全体を描画)
 ////            ：  D3DXVECTOR3& vCenter            // 中心
 ////            ：  D3DXVECTOR3& vOffsetPos         // オフセット座標
 ////            ：  Color color = 0xFFFFFFFF        // 色
@@ -45,11 +45,11 @@ Load 定義部
 ////
 Load::Load(
 		const LPDIRECT3DDEVICE9		pD3DDevice	,
-		const LPDIRECT3DTEXTURE9	pTexture	,
+		const LPTATRATEXTURE	pTexture	,
 		const D3DXVECTOR3&			vScale		,
 		const D3DXVECTOR3&			vRot		,
 		const D3DXVECTOR3&			vPos		,
-		const RECT*					pRect		,
+		const Rect*					pRect		,
 		const D3DXVECTOR3&			vCenter		,
 		const D3DXVECTOR3&			vOffsetPos	,
 		const Command*				Com			,
@@ -117,7 +117,7 @@ void Load::Update(UpdatePacket& i_UpdatePacket)
 
 	m_iTime++;
 	if( m_iTime > 240 ){
-		*i_UpdatePacket.pCommand = m_Com;
+		i_UpdatePacket.PushCommand( m_Com );
 		Debugger::DBGWRITINGLOGTEXT::addStr(L"i_UpdatePacket.pCommand = m_Com\n");
 	}
 };
@@ -156,7 +156,7 @@ Factory_Load::Factory_Load(FactoryPacket* fpac,Command* Com){
 				D3DXVECTOR3(0.5f,0.5f,0.0f),
 				g_vZero,
 				D3DXVECTOR3( 500.0f, 530.0f, 0.0f ),
-				Rect( 0, 0, 1024, 128 ),
+				&Rect( 0, 0, 1024, 128 ),
 				g_vZero,
 				g_vZero,
 				Com,

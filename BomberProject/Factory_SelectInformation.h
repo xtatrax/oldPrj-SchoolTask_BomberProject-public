@@ -20,10 +20,10 @@ namespace bomberobject{
 class CustomButtonA ;
 class SelectInformation : public SpriteObject{
 	SpriteObject		m_SpriteObject		;
-	LPDIRECT3DTEXTURE9	m_pDescTex			;
-	LPDIRECT3DTEXTURE9	m_pNomalTex			;
-	LPDIRECT3DTEXTURE9	m_pHardTex			;
-	LPDIRECT3DTEXTURE9	m_pExtraTex			;
+	LPTATRATEXTURE	m_pDescTex			;
+	LPTATRATEXTURE	m_pNomalTex			;
+	LPTATRATEXTURE	m_pHardTex			;
+	LPTATRATEXTURE	m_pExtraTex			;
 	int					m_iPtn				;
 	CustomButtonA*		m_pButtonNormal		;
 	CustomButtonA*		m_pButtonHard		;
@@ -37,15 +37,15 @@ class SelectInformation : public SpriteObject{
 public:
 	SelectInformation(
 		const LPDIRECT3DDEVICE9		pD3DDevice			,
-		const LPDIRECT3DTEXTURE9	pFrameTexture		,
-		const LPDIRECT3DTEXTURE9	pDescTexture		,
-		const LPDIRECT3DTEXTURE9	pNomalTex			,
-		const LPDIRECT3DTEXTURE9	pHardTexture		,
-		const LPDIRECT3DTEXTURE9	pExtraTexture		,
+		const LPTATRATEXTURE	pFrameTexture		,
+		const LPTATRATEXTURE	pDescTexture		,
+		const LPTATRATEXTURE	pNomalTex			,
+		const LPTATRATEXTURE	pHardTexture		,
+		const LPTATRATEXTURE	pExtraTexture		,
 		const D3DXVECTOR3&			vScale				,
 		const D3DXVECTOR3&			vRot				,
 		const D3DXVECTOR3&			vPos				,
-		const RECT*					pRect				,
+		const Rect*					pRect				,
 		const D3DXVECTOR3&			vCenter				,
 		const D3DXVECTOR3&			vOffsetPos			,
 		const Color					DefaultFrameColor	,

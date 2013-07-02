@@ -151,7 +151,7 @@ Scene::~Scene()
     Clear();
 }
 /////////////////// ////////////////////
-//// 関数名     ：void Update(LPDIRECT3DDEVICE9 pD3DDevice,Tempus2* i_DrawPacket.pTime,
+//// 関数名     ：void Update(LPDIRECT3DDEVICE9 pD3DDevice,Tempus2* i_DrawPacket.GetTime(),
 ////            ：      const CONTROLER_STATE* pCntlState,Command& i_DrawPacket.pCommand)
 //// カテゴリ   ：関数
 //// 用途       ：シーンを更新
@@ -169,8 +169,8 @@ void Scene::Update(UpdatePacket& i_UpdatePacket){
 
 #if defined(DEBUG) | defined(_DEBUG) | defined(ON_DEBUGGINGPROCESS)
 		//	:  バックボタンでデバッグメニューへ
-		if(i_UpdatePacket.pCntlState->Gamepad.wPressedButtons.XConState.BACK)
-			i_UpdatePacket.pCommand->m_Command = GM_OPENDEBUGSTAGE_DEBUGMENU;
+		if(i_UpdatePacket.m_pCntlState->Gamepad.wPressedButtons.XConState.BACK)
+			i_UpdatePacket.PushCommand( GM_OPENDEBUGSTAGE_DEBUGMENU );
 #endif
 		m_pRootStage->getActiveStage()->Update(i_UpdatePacket);
 	}
@@ -222,12 +222,12 @@ void Scene::Draw(DrawPacket& i_DrawPacket){
 ////
 void Scene::CommandTranslator(DrawPacket& i_DrawPacket){
 
-	Command comBuf = *i_DrawPacket.pCommand ;
-	switch(i_DrawPacket.pCommand->m_Command){
+	Command comBuf = i_DrawPacket.PopCommand();
+	switch(comBuf.m_Command){
 		case GM_OPENSTAGE_TITLE:
 			//	: タイトル画面
 			SafeDeleteStage(m_pRootStage);
-			m_pRootStage = new StageSelect( i_DrawPacket.pD3DDevice , new TitleStage(i_DrawPacket.pD3DDevice));
+			m_pRootStage = new StageSelect( i_DrawPacket.GetDevice() , new TitleStage(i_DrawPacket.GetDevice()));
 			
 			break;
 		case GM_OPENSTAGE_LOAD_PLAY:
@@ -237,22 +237,27 @@ void Scene::CommandTranslator(DrawPacket& i_DrawPacket){
 			//	: ロード画面
 			PRGOTO_GM_OPENSTAGE_LOAD:
 			SafeDeleteStage(m_pRootStage);
-			m_pRootStage = new LoadStage(i_DrawPacket.pD3DDevice,&comBuf);
+			Debugger::DBGWRITINGLOGTEXT::addStr(L"Scene::CommandTranslator  >>>>  PRGOTO_GM_OPENSTAGE_LOAD  ステージ作成開始  ");
+			m_pRootStage = new LoadStage(i_DrawPacket.GetDevice(),&comBuf);
+			Debugger::DBGWRITINGLOGTEXT::addStr(L"Scene::CommandTranslator  >>>>  PRGOTO_GM_OPENSTAGE_LOAD  ステージ作成OK  ");
 			break;
 		case GM_OPENSTAGE_PLAY:
 			try{
 				//	: ゲームステージ
-
-				this->m_pStgBuf = new PlayStage(i_DrawPacket.pD3DDevice, i_DrawPacket.pCommand->m_Param1, i_DrawPacket.pCommand->m_Param2);
+				Debugger::DBGWRITINGLOGTEXT::addStr(L"Scene::CommandTranslator  >>>>  GM_OPENSTAGE_PLAY  ステージ作成開始  ");
+				this->m_pStgBuf = new PlayStage(i_DrawPacket.GetDevice(), comBuf.m_Param1, comBuf.m_Param2);
+				Debugger::DBGWRITINGLOGTEXT::addStr(L"Scene::CommandTranslator  >>>>  GM_OPENSTAGE_PLAY  ステージ作成完了  ");
 				//	: 
+				Debugger::DBGWRITINGLOGTEXT::addStr(L"Scene::CommandTranslator  >>>>  GM_OPENSTAGE_PLAY  前ステージ削除開始  ");
 				SafeDeleteStage(m_pRootStage);
+				Debugger::DBGWRITINGLOGTEXT::addStr(L"Scene::CommandTranslator  >>>>  GM_OPENSTAGE_PLAY  前ステージ削除終了  ");
 				m_pRootStage = this->m_pStgBuf;
 				this->m_pStgBuf = NULL ;
 			}
 			catch(LoaderException& e){
 				//	: ロード失敗
 				::MessageBox(wiz::DxDevice::m_hWnd,e.what_w(),L"エラー",MB_OK);
-				if( !m_pRootStage ) m_pRootStage = new TitleStage(i_DrawPacket.pD3DDevice);
+				if( !m_pRootStage ) m_pRootStage = new TitleStage(i_DrawPacket.GetDevice());
 				SafeDeleteStage(this->m_pStgBuf);
 			}
 			catch(...){
@@ -262,7 +267,7 @@ void Scene::CommandTranslator(DrawPacket& i_DrawPacket){
 			break;
 		case GM_OPENDEBUGSTAGE_DEBUGMENU:
 			SafeDeleteStage(m_pRootStage);
-			m_pRootStage = new DebugMenu(i_DrawPacket.pD3DDevice);
+			m_pRootStage = new DebugMenu(i_DrawPacket.GetDevice());
 			break;
 
 		case GM_OPENSTAGE_CLEAR:
@@ -270,25 +275,25 @@ void Scene::CommandTranslator(DrawPacket& i_DrawPacket){
 			Debugger::DBGWRITINGLOGTEXT::addStr(L"Scene::CommandTranslator  >>>>  GM_OPENSTAGE_CLEAR  ステージ削除開始  ");
 			SafeDeleteStage(m_pRootStage);
 			Debugger::DBGWRITINGLOGTEXT::addStr(L"Scene::CommandTranslator  >>>>  GM_OPENSTAGE_CLEAR  ステージ削除OK  ");
-			m_pRootStage = new ClearStage(i_DrawPacket.pD3DDevice, i_DrawPacket.pCommand->m_Param1,
-														i_DrawPacket.pCommand->m_Param2, i_DrawPacket.pCommand->m_Param3 );
+			m_pRootStage = new ClearStage(i_DrawPacket.GetDevice(), comBuf.m_Param1,
+														comBuf.m_Param2, comBuf.m_Param3 );
 			Debugger::DBGWRITINGLOGTEXT::addStr(L"Scene::CommandTranslator  >>>>  GM_OPENSTAGE_CLEAR  ステージ作成OK  ");
 			break;
 
 		case GM_OPENSTAGE_RESULT:
 			//	: リザルト画面
 			SafeDeleteStage(m_pRootStage);
-			m_pRootStage = new ResultStage(i_DrawPacket.pD3DDevice, i_DrawPacket.pCommand->m_Param1,
-														i_DrawPacket.pCommand->m_Param2, i_DrawPacket.pCommand->m_Param3 );
+			m_pRootStage = new ResultStage(i_DrawPacket.GetDevice(), comBuf.m_Param1,
+														comBuf.m_Param2, comBuf.m_Param3 );
 			break;
 
 		case GM_OPENDEBUGSTAGE_PLAY_RELOAD:
 			//	: リロード
 			try{
 				//	: ゲームステージ
-				PlayerCoil* pc = (PlayerCoil*)i_DrawPacket.pCommand->m_Param1 ;
+				PlayerCoil* pc = (PlayerCoil*)comBuf.m_Param1 ;
 				DWORD dwStageNum = m_pRootStage ? ((PlayStage*)m_pRootStage)->getNowStage() : 0 ;
-				this->m_pStgBuf = new PlayStage( i_DrawPacket.pD3DDevice, dwStageNum ,i_DrawPacket.pCommand->m_Param2, pc->getPos() );
+				this->m_pStgBuf = new PlayStage( i_DrawPacket.GetDevice(), dwStageNum ,comBuf.m_Param2, pc->getPos() );
 				//	: 
 				SafeDeleteStage(m_pRootStage);
 				m_pRootStage = this->m_pStgBuf;
@@ -297,7 +302,7 @@ void Scene::CommandTranslator(DrawPacket& i_DrawPacket){
 			catch(LoaderException& e){
 				//	: ロード失敗
 				::MessageBox(wiz::DxDevice::m_hWnd,e.what_w(),L"エラー",MB_OK);
-				if( !m_pRootStage ) m_pRootStage = new TitleStage(i_DrawPacket.pD3DDevice);
+				if( !m_pRootStage ) m_pRootStage = new TitleStage(i_DrawPacket.GetDevice());
 				SafeDeleteStage(this->m_pStgBuf);
 			}
 			catch(...){
@@ -332,18 +337,15 @@ void Scene::CommandTranslator(DrawPacket& i_DrawPacket){
 		SafeDeleteStage(m_pRootStage);
 		m_pRootStage = m_pStgBuf;
 		m_bLoadingComplete = false;
-		i_DrawPacket.pTime->TimeUpdate();
-		i_DrawPacket.pTime->TimeUpdate();
+		i_DrawPacket.GetTime()->TimeUpdate();
+		i_DrawPacket.GetTime()->TimeUpdate();
 	}
 	if( m_fStageNotFoundMessageTime > 0.0f ){
-		float f = (float)i_DrawPacket.pTime->getElapsedTime();
+		float f = (float)i_DrawPacket.GetTime()->getElapsedTime();
 		m_fStageNotFoundMessageTime -= f ;
 		Debugger::DBGSTR::addStrTop(L"未対応のシーンです");
 	}
-	i_DrawPacket.pCommand->m_Command = GM_WITHOUT ;
-	i_DrawPacket.pCommand->m_Param1  = 0 ;
-	i_DrawPacket.pCommand->m_Param2  = 0 ;
-
+	i_DrawPacket.ClearCommand();
 }
 unsigned __stdcall Scene::LoadingThread(void *args)
 //void Scene::LoadingThread(void* args)
@@ -369,7 +371,7 @@ unsigned __stdcall Scene::LoadingThread(void *args)
 		//		break;
 		//	//case GM_OPENDEBUGSTAGE_STAGECREATE:
 		//	//	SafeDeleteStage();
-		//	//	m_pRootStage = new DevelopStage(i_DrawPacket.pD3DDevice);
+		//	//	m_pRootStage = new DevelopStage(i_DrawPacket.GetDevice());
 		//	//	break;
 		//}
 		//This->m_bLoadingComplete = true;

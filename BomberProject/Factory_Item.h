@@ -69,7 +69,7 @@ protected:
 	TARGETCONTAINER		m_ItemMap_Target	;	//描画対象のアイテム
 	void	setDrawTarget();
 public:
-	Item(FactoryPacket* fpac,LPDIRECT3DTEXTURE9 pTexture, wiz::OBJID id);
+	Item(FactoryPacket* fpac,LPTATRATEXTURE pTexture, wiz::OBJID id);
 	/////////////////// ////////////////////
 	//// 関数名     ：~Item();
 	//// カテゴリ   ：デストラクタ

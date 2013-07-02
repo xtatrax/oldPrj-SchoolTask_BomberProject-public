@@ -31,8 +31,8 @@ namespace bomberobject{
 用途　：コンストラクタ
 担当者：佐藤涼
 ****************************************************/
-SuperNotice::SuperNotice(const LPDIRECT3DDEVICE9 pD3DDevice, const LPDIRECT3DTEXTURE9 pTex,
-		const D3DXVECTOR3 &vScale, const D3DXVECTOR3 &vPos, const RECT Rect, const wiz::OBJID id)
+SuperNotice::SuperNotice(const LPDIRECT3DDEVICE9 pD3DDevice, const LPTATRATEXTURE pTex,
+		const D3DXVECTOR3 &vScale, const D3DXVECTOR3 &vPos, const Rect Rect, const wiz::OBJID id)
 		:SpriteObject( pD3DDevice, pTex, vScale, g_vZero, vPos, &Rect, g_vZero, g_vZero,-1 , id, false )
 ,m_vPos( vPos )
 ,m_vScale( vScale )
@@ -69,7 +69,7 @@ void	SuperNotice::Draw(DrawPacket &i_DrawPacket)
 ***************************************************/
 void	SuperNotice::Update(UpdatePacket &i_UpdatePacket)
 {
-	if( !m_pCursor ) m_pCursor = (MouseCursor*)SearchObjectFromID(i_UpdatePacket.pVec, OBJID_SYS_CURSOR);
+	if( !m_pCursor ) m_pCursor = (MouseCursor*)i_UpdatePacket.SearchObjectFromID( OBJID_SYS_CURSOR);
 
 	if( !m_pCursor ) return ;
 
@@ -93,8 +93,8 @@ void	SuperNotice::Update(UpdatePacket &i_UpdatePacket)
 用途　：コンストラクタ
 担当者：佐藤涼
 ****************************************************/
-Relationship_Gage::Relationship_Gage(const LPDIRECT3DDEVICE9 pD3DDevice, const LPDIRECT3DTEXTURE9 pTex,
-		const D3DXVECTOR3 &vScale, const D3DXVECTOR3 &vRot, const D3DXVECTOR3 &vPos, const RECT Rect, const wiz::OBJID id)
+Relationship_Gage::Relationship_Gage(const LPDIRECT3DDEVICE9 pD3DDevice, const LPTATRATEXTURE pTex,
+		const D3DXVECTOR3 &vScale, const D3DXVECTOR3 &vRot, const D3DXVECTOR3 &vPos, const Rect Rect, const wiz::OBJID id)
 		:SpriteObject( pD3DDevice, pTex, vScale, g_vZero, vPos, &Rect, g_vZero, g_vZero,-1 ,id,false )
 ,m_vPos( vPos )
 ,m_vScale( vScale )
@@ -127,7 +127,7 @@ void	Relationship_Gage::Draw(DrawPacket &i_DrawPacket)
 ***************************************************/
 void	Relationship_Gage::Update(UpdatePacket &i_UpdatePacket)
 {
-	if( !m_pCursor ) m_pCursor = (MouseCursor*)SearchObjectFromID(i_UpdatePacket.pVec, OBJID_SYS_CURSOR);
+	if( !m_pCursor ) m_pCursor = (MouseCursor*)i_UpdatePacket.SearchObjectFromID( OBJID_SYS_CURSOR);
 
 	if( !m_pCursor ) return ;
 
@@ -150,23 +150,23 @@ void	Relationship_Gage::Update(UpdatePacket &i_UpdatePacket)
 /************************************************************************
  関数名     ：Gage::Gage(
                 LPDIRECT3DDEVICE9 pD3DDevice,
-                LPDIRECT3DTEXTURE9 pTex,
+                LPTATRATEXTURE pTex,
                 D3DXVECTOR3 &vScale,
                 D3DXVECTOR3 &vRot,
                 D3DXVECTOR3 &vPos,
                 D3DXVECTOR3 &vDirOffset,
-                RECT* vRect,
+                Rect* vRect,
                 wiz::OBJID id
 				)
 カテゴリ：コンストラクタ
 用途　　：LPDIRECT3DDEVICE9 pD3DDevice   // デバイス
-引数　　：LPDIRECT3DTEXTURE9 pTex        // テクスチャ―
+引数　　：LPTATRATEXTURE pTex        // テクスチャ―
 　　　　：D3DXVECTOR3 &vScale            // 伸縮
 　　　　：D3DXVECTOR3 &vRot              // 回転
 　　　　：D3DXVECTOR3 &vPos              // 位置
 　　　　：D3DXVECTOR3 &vDirOffset        // 描画オフセット
-　　　　：RECT* vRect                    // 描画範囲
-　　　　：RECT* vRect2                   // 描画範囲
+　　　　：Rect* vRect                    // 描画範囲
+　　　　：Rect* vRect2                   // 描画範囲
 　　　　：wiz::OBJID id                  // ID
 戻り値　：
 担当者　：佐藤涼
@@ -174,13 +174,13 @@ void	Relationship_Gage::Update(UpdatePacket &i_UpdatePacket)
 *************************************************************************/
 Gage::Gage(
 	const LPDIRECT3DDEVICE9		pD3DDevice	,
-	const LPDIRECT3DTEXTURE9	pTex		,
+	const LPTATRATEXTURE	pTex		,
 	const D3DXVECTOR3			&vScale		,
 	const D3DXVECTOR3			&vRot		,
 	const D3DXVECTOR3			&vPos		,
 	const D3DXVECTOR3			&vDirOffset	,
-	const RECT					GaugeRect	,		//	: 描画範囲
-	const RECT					FrameRect	,		//	: 描画範囲
+	const Rect					GaugeRect	,		//	: 描画範囲
+	const Rect					FrameRect	,		//	: 描画範囲
 	const wiz::OBJID			id
 )
 :SpriteObject(pD3DDevice,pTex,vScale,vRot,vPos,
@@ -264,10 +264,10 @@ void Gage::Update( UpdatePacket& i_UpdatePacket ){
 ***************************************************************/
 void Gage::Draw(DrawPacket& i_DrawPacket){
 	//枠の描画
-	m_pRect	= m_FrameRect;
+	m_pRect	= &m_FrameRect;
 	SpriteObject::Draw( i_DrawPacket );
 	//ゲージの描画
-	m_pRect	= m_GaugeRect;
+	m_pRect	= &m_GaugeRect;
 	SpriteObject::Draw( i_DrawPacket );
 }
 
@@ -277,23 +277,23 @@ void Gage::Draw(DrawPacket& i_DrawPacket){
 /************************************************************************
  関数名     ：SuperGage::SuperGage(
                 LPDIRECT3DDEVICE9 pD3DDevice,
-                LPDIRECT3DTEXTURE9 pTex,
+                LPTATRATEXTURE pTex,
                 D3DXVECTOR3 &vScale,
                 D3DXVECTOR3 &vRot,
                 D3DXVECTOR3 &vPos,
                 D3DXVECTOR3 &vDirOffset,
-                RECT* vRect,
+                Rect* vRect,
                 wiz::OBJID id
 				)
 カテゴリ：コンストラクタ
 用途　　：LPDIRECT3DDEVICE9 pD3DDevice   // デバイス
-引数　　：LPDIRECT3DTEXTURE9 pTex        // テクスチャ―
+引数　　：LPTATRATEXTURE pTex        // テクスチャ―
 　　　　：D3DXVECTOR3 &vScale            // 伸縮
 　　　　：D3DXVECTOR3 &vRot              // 回転
 　　　　：D3DXVECTOR3 &vPos              // 位置
 　　　　：D3DXVECTOR3 &vDirOffset        // 描画オフセット
-　　　　：RECT* vRect                    // 描画範囲
-　　　　：RECT* vRect2                   // 描画範囲
+　　　　：Rect* vRect                    // 描画範囲
+　　　　：Rect* vRect2                   // 描画範囲
 　　　　：wiz::OBJID id                  // ID
 戻り値　：
 担当者　：佐藤涼
@@ -301,12 +301,12 @@ void Gage::Draw(DrawPacket& i_DrawPacket){
 *************************************************************************/
 SuperGage::SuperGage(
 	LPDIRECT3DDEVICE9	pD3DDevice	,
-	LPDIRECT3DTEXTURE9	pTex		,
+	LPTATRATEXTURE	pTex		,
 	D3DXVECTOR3			&vScale		,
 	D3DXVECTOR3			&vRot		,
 	D3DXVECTOR3			&vPos		,
-	RECT				GaugeRect	,
-	RECT				FrameRect	,
+	Rect				GaugeRect	,
+	Rect				FrameRect	,
 	wiz::OBJID			id
 )
 :Gage(pD3DDevice,pTex,vScale,vRot,vPos,g_vZero,
@@ -367,17 +367,17 @@ void SuperGage::Draw(DrawPacket& i_DrawPacket){
 
 	//枠の描画
 	m_mMatrix = m_Matrix ;
-	m_pRect	= m_FrameRect;
+	m_pRect	= &m_FrameRect;
 	SpriteObject::Draw( i_DrawPacket );
 	//ゲージの描画
-	m_pRect	= m_GaugeRect;
+	m_pRect	= &m_GaugeRect;
 	SpriteObject::Draw( i_DrawPacket );
 
 	if(m_bAcquired){
-		m_pLineTop->draw(i_DrawPacket.pD3DDevice);
-		m_pLineLeft->draw(i_DrawPacket.pD3DDevice);
-		m_pLineBottom->draw(i_DrawPacket.pD3DDevice);
-		m_pLineRight->draw(i_DrawPacket.pD3DDevice);
+		m_pLineTop->draw(i_DrawPacket.GetDevice());
+		m_pLineLeft->draw(i_DrawPacket.GetDevice());
+		m_pLineBottom->draw(i_DrawPacket.GetDevice());
+		m_pLineRight->draw(i_DrawPacket.GetDevice());
 	}
 }
 /////////////////// ////////////////////
@@ -396,8 +396,8 @@ void SuperGage::Draw(DrawPacket& i_DrawPacket){
 ////            ：
 ////
 void SuperGage::Update( UpdatePacket& i_UpdatePacket ){
-	if( !m_pCursor ) m_pCursor = (MouseCursor*)SearchObjectFromID(i_UpdatePacket.pVec, OBJID_SYS_CURSOR);
-	if( !m_pSuperNotice ) m_pSuperNotice = (SuperNotice*)SearchObjectFromID(i_UpdatePacket.pVec, OBJID_UI_NOTICE);
+	if( !m_pCursor ) m_pCursor = (MouseCursor*)i_UpdatePacket.SearchObjectFromID( OBJID_SYS_CURSOR);
+	if( !m_pSuperNotice ) m_pSuperNotice = (SuperNotice*)i_UpdatePacket.SearchObjectFromID( OBJID_UI_NOTICE);
 
 	if( !m_pCursor ) return ;
 	if( !m_pSuperNotice ) return ;
@@ -516,22 +516,22 @@ void SuperGage::Update_Line(){
 /************************************************************************
  関数名     ：MagneticGage_N::MagneticGage_N(
                 LPDIRECT3DDEVICE9 pD3DDevice,
-                LPDIRECT3DTEXTURE9 pTex,
+                LPTATRATEXTURE pTex,
                 D3DXVECTOR3 &vScale,
                 D3DXVECTOR3 &vRot,
                 D3DXVECTOR3 &vPos,
                 D3DXVECTOR3 &vDirOffset,
-                RECT* vRect,
+                Rect* vRect,
                 wiz::OBJID id
 				)
 カテゴリ：コンストラクタ
 用途　　：LPDIRECT3DDEVICE9 pD3DDevice   // デバイス
-引数　　：LPDIRECT3DTEXTURE9 pTex        // テクスチャ―
+引数　　：LPTATRATEXTURE pTex        // テクスチャ―
 　　　　：D3DXVECTOR3 &vScale            // 伸縮
 　　　　：D3DXVECTOR3 &vRot              // 回転
 　　　　：D3DXVECTOR3 &vPos              // 位置
-　　　　：RECT* vRect                    // 描画範囲
-　　　　：RECT* vRect2                   // 描画範囲
+　　　　：Rect* vRect                    // 描画範囲
+　　　　：Rect* vRect2                   // 描画範囲
 　　　　：wiz::OBJID id                  // ID
 戻り値　：
 担当者　：本多寛之
@@ -539,11 +539,11 @@ void SuperGage::Update_Line(){
 *************************************************************************/
 MagneticGage_N::MagneticGage_N(
 	LPDIRECT3DDEVICE9	pD3DDevice	,
-	LPDIRECT3DTEXTURE9	pTex		,
+	LPTATRATEXTURE	pTex		,
 	D3DXVECTOR3			&vPos		,
 	D3DXVECTOR3			&vScale		,
-	RECT				GaugeRect	,
-	RECT				FrameRect	,
+	Rect				GaugeRect	,
+	Rect				FrameRect	,
 	wiz::OBJID			id
 )
 :Gage(pD3DDevice,pTex,g_vOne,g_vZero,g_vZero,vPos,
@@ -585,10 +585,10 @@ MagneticGage_N::~MagneticGage_N(){
 ////            ：
 ////
 void MagneticGage_N::Update( UpdatePacket& i_UpdatePacket ){
-	if( !m_pCoil )	 m_pCoil	= (PlayerCoil*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_3D_COIL);
+	if( !m_pCoil )	 m_pCoil	= (PlayerCoil*)i_UpdatePacket.SearchObjectFromID(OBJID_3D_COIL);
 	if( !m_pCoil ) return ;
 
-	if( !m_pCursor ) m_pCursor = (MouseCursor*)SearchObjectFromID(i_UpdatePacket.pVec, OBJID_SYS_CURSOR);
+	if( !m_pCursor ) m_pCursor = (MouseCursor*)i_UpdatePacket.SearchObjectFromID( OBJID_SYS_CURSOR);
 	if( !m_pCursor ) return ;
 
 	Gage::Update(i_UpdatePacket);
@@ -629,22 +629,22 @@ void MagneticGage_N::Draw(DrawPacket& i_DrawPacket){
 /************************************************************************
  関数名     ：MagneticGage_S::MagneticGage_S(
                 LPDIRECT3DDEVICE9 pD3DDevice,
-                LPDIRECT3DTEXTURE9 pTex,
+                LPTATRATEXTURE pTex,
                 D3DXVECTOR3 &vScale,
                 D3DXVECTOR3 &vRot,
                 D3DXVECTOR3 &vPos,
                 D3DXVECTOR3 &vDirOffset,
-                RECT* vRect,
+                Rect* vRect,
                 wiz::OBJID id
 				)
 カテゴリ：コンストラクタ
 用途　　：LPDIRECT3DDEVICE9 pD3DDevice   // デバイス
-引数　　：LPDIRECT3DTEXTURE9 pTex        // テクスチャ―
+引数　　：LPTATRATEXTURE pTex        // テクスチャ―
 　　　　：D3DXVECTOR3 &vScale            // 伸縮
 　　　　：D3DXVECTOR3 &vRot              // 回転
 　　　　：D3DXVECTOR3 &vPos              // 位置
-　　　　：RECT* vRect                    // 描画範囲
-　　　　：RECT* vRect2                   // 描画範囲
+　　　　：Rect* vRect                    // 描画範囲
+　　　　：Rect* vRect2                   // 描画範囲
 　　　　：wiz::OBJID id                  // ID
 戻り値　：
 担当者　：本多寛之
@@ -652,11 +652,11 @@ void MagneticGage_N::Draw(DrawPacket& i_DrawPacket){
 *************************************************************************/
 MagneticGage_S::MagneticGage_S(
 	LPDIRECT3DDEVICE9	pD3DDevice	,
-	LPDIRECT3DTEXTURE9	pTex		,
+	LPTATRATEXTURE	pTex		,
 	D3DXVECTOR3			&vPos		,
 	D3DXVECTOR3			&vScale		,
-	RECT				GaugeRect	,
-	RECT				FrameRect	,
+	Rect				GaugeRect	,
+	Rect				FrameRect	,
 	wiz::OBJID			id
 )
 :Gage(pD3DDevice,pTex,g_vOne,g_vZero,g_vZero,vPos,
@@ -698,10 +698,10 @@ MagneticGage_S::~MagneticGage_S(){
 ////            ：
 ////
 void MagneticGage_S::Update( UpdatePacket& i_UpdatePacket ){
-	if( !m_pCoil )		 m_pCoil	= (PlayerCoil*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_3D_COIL);
+	if( !m_pCoil )		 m_pCoil	= (PlayerCoil*)i_UpdatePacket.SearchObjectFromID(OBJID_3D_COIL);
 	if( !m_pCoil )	return;
 
-	if( !m_pCursor ) m_pCursor = (MouseCursor*)SearchObjectFromID(i_UpdatePacket.pVec, OBJID_SYS_CURSOR);
+	if( !m_pCursor ) m_pCursor = (MouseCursor*)i_UpdatePacket.SearchObjectFromID( OBJID_SYS_CURSOR);
 	if( !m_pCursor ) return ;
 
 	Gage::Update(i_UpdatePacket);

@@ -74,6 +74,7 @@ Factory_Main::Factory_Main(FactoryPacket* fpac, DWORD dwStageNum, DWORD dwResump
 				D3DXVECTOR3( -0.0f, -1.0f, 0.0f)
 			)
 		);
+		Debugger::DBGWRITINGLOGTEXT::addStr(L"Factory_Main::Factory_Main  >>>>  ライト作成OK  ");
 		//	: ライトの設定
 		//////////
 
@@ -92,6 +93,7 @@ Factory_Main::Factory_Main(FactoryPacket* fpac, DWORD dwStageNum, DWORD dwResump
 				30.0f
 			)
 		);
+		Debugger::DBGWRITINGLOGTEXT::addStr(L"Factory_Main::Factory_Main  >>>>  カメラ作成OK  ");
 		//	: カメラの設定
 		//////////
 

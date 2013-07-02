@@ -93,7 +93,9 @@ using namespace std;
 //
 #include "resource1.h"
 
-#include "DefineValue.h"
+#include "SystemDefineValue.h"
 #include "userInclude.h"
+#include "BomberDefineValue.h"
+
 
 extern wiz::RENDERSTATE_PARAM g_GlobalRenderStates[];

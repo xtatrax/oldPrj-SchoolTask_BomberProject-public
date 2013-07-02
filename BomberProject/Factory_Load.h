@@ -35,11 +35,11 @@ class	Load	: public SpriteObject{
 public:
 	Load(
 		const LPDIRECT3DDEVICE9		pD3DDevice	,
-		const LPDIRECT3DTEXTURE9	pTexture	,
+		const LPTATRATEXTURE	pTexture	,
 		const D3DXVECTOR3&			vScale		,
 		const D3DXVECTOR3&			vRot		,
 		const D3DXVECTOR3&			vPos		,
-		const RECT*					pRect		,
+		const Rect*					pRect		,
 		const D3DXVECTOR3&			vCenter		,
 		const D3DXVECTOR3&			vOffsetPos	,
 		const Command*				Com			,

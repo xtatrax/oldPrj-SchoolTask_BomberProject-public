@@ -64,6 +64,8 @@
 				LinkIncremental="2"
 				GenerateDebugInformation="true"
 				SubSystem="2"
+				HeapReserveSize="0"
+				StackReserveSize="0"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -247,6 +249,10 @@
 			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
+			<File
+				RelativePath=".\BomberDefineValue.cpp"
+				>
+			</File>
 			<File
 				RelativePath=".\Function.cpp"
 				>
@@ -946,11 +952,7 @@
 			Name="StdAfx"
 			>
 			<File
-				RelativePath=".\defineValue.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\defineValue.h"
+				RelativePath=".\BomberDefineValue.h"
 				>
 			</File>
 			<File
@@ -983,6 +985,14 @@
 			</File>
 			<File
 				RelativePath=".\StdAfx.h"
+				>
+			</File>
+			<File
+				RelativePath=".\SystemDefineValue.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\SystemDefineValue.h"
 				>
 			</File>
 			<File
@@ -1062,6 +1072,10 @@
 				>
 			</File>
 		</Filter>
+		<File
+			RelativePath=".\ClassDiagram1.cd"
+			>
+		</File>
 		<File
 			RelativePath=".\CommentTemplate.txt"
 			>

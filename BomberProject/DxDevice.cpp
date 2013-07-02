@@ -229,7 +229,7 @@ void DxDevice::End(){
 ////
 int DxDevice::MainThreadRun(){
  	Tempus2 mainFTime;
-	m_DrawPacket.pTime = &mainFTime;
+	m_DrawPacket.m_pTime = &mainFTime;
 
 	#ifndef CF_SINGLETHREAD
 	/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
@@ -238,7 +238,7 @@ int DxDevice::MainThreadRun(){
 		StartUpdateThread();
 	/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 	#else
-		m_UpdatePacket.pTime = &mainFTime;
+		m_UpdatePacket.m_pTime = &mainFTime;
 	#endif 
 
 
@@ -314,7 +314,10 @@ int DxDevice::MainThreadRun(){
 
         }
     }
-
+	m_DrawPacket.m_pTime = NULL;
+	#ifdef CF_SINGLETHREAD
+		m_UpdatePacket.m_pTime = NULL;
+	#endif 
 	return (int) msg.wParam;
 }
 /////////////////// ////////////////////
@@ -329,7 +332,7 @@ int DxDevice::MainThreadRun(){
 int DxDevice::UpdateThreadRun(){
 	TLIB::Tempus::Tempus();
 	Tempus2 updateFTime;
-	m_UpdatePacket.pTime = &updateFTime ;
+	m_UpdatePacket.m_pTime = &updateFTime ;
 
 	MSG msg;    //メッセージ構造体の宣言定義
 	//メッセージループ
@@ -357,6 +360,7 @@ int DxDevice::UpdateThreadRun(){
 			UpdateScene();
 		}
     }
+	m_UpdatePacket.m_pTime = NULL ;
 	return 0;
 }
 
@@ -386,11 +390,12 @@ void DxDevice::UpdateScene()
 				L"DxDevice::RenderScene()"
 				);
 		}
-		m_UpdatePacket.pCntlState	= m_Controller.GetState();
-		m_UpdatePacket.pD3DDevice	= m_pD3DDevice	;
-		m_UpdatePacket.pCommand		= &m_Com		;
-		m_RenderPacket.pD3DDevice	= m_pD3DDevice	;
-		m_RenderPacket.pCommand		= &m_Com		;
+		m_UpdatePacket.m_pCntlState	= m_Controller.GetState();
+		m_UpdatePacket.m_pD3DDevice	= m_pD3DDevice	;
+		m_UpdatePacket.m_pCommand	= &m_Com		;
+
+		//m_RenderPacket.pD3DDevice	= m_pD3DDevice	;
+		//m_RenderPacket.pCommand		= &m_Com		;
 
 		pScene->Update(m_UpdatePacket);
 		//pScene->Render(m_RenderPacket);
@@ -447,8 +452,8 @@ void DxDevice::RenderScene()
 		// 描画開始宣言
 		if(SUCCEEDED(m_pD3DDevice->BeginScene())) {
 
-			m_DrawPacket.pD3DDevice	= m_pD3DDevice ;
-			m_DrawPacket.pCommand	= &m_Com ;
+			m_DrawPacket.m_pD3DDevice	= m_pD3DDevice ;
+			m_DrawPacket.m_pCommand		= &m_Com ;
 
 			pScene->Draw(m_DrawPacket);///**************************
 

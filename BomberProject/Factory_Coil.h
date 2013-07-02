@@ -180,18 +180,18 @@ class PlayerCoil : public Cylinder ,public MagneticObject{
 	COIL_STATE				m_enumCoilState				;	//	: 自分の状態
 	COIL_STATE_SUPER		m_enumCoilStateSuper		;	//	: 無敵状態
 
-	LPDIRECT3DTEXTURE9	m_pDeadTex		;	//爆散エフェクトの画像
-	LPDIRECT3DTEXTURE9	m_pContinueTex	;	//Continue
-	LPDIRECT3DTEXTURE9	m_pTitleTex		;	//Title
-	LPDIRECT3DTEXTURE9	m_pDeadCharTex	;	//You'er Dead
-	LPDIRECT3DTEXTURE9	m_pDeadCountTex	;	//死んだ回数
-	LPDIRECT3DTEXTURE9	m_pRethinkingTex;	//Really?
-	LPDIRECT3DTEXTURE9	m_pAnswerTex	;	//Yes : No
-	LPDIRECT3DTEXTURE9	m_pCountCharTex	;
+	LPTATRATEXTURE	m_pDeadTex		;	//爆散エフェクトの画像
+	LPTATRATEXTURE	m_pContinueTex	;	//Continue
+	LPTATRATEXTURE	m_pTitleTex		;	//Title
+	LPTATRATEXTURE	m_pDeadCharTex	;	//You'er Dead
+	LPTATRATEXTURE	m_pDeadCountTex	;	//死んだ回数
+	LPTATRATEXTURE	m_pRethinkingTex;	//Really?
+	LPTATRATEXTURE	m_pAnswerTex	;	//Yes : No
+	LPTATRATEXTURE	m_pCountCharTex	;
 public:
 	/////////////////// ////////////////////
 	//// 関数名     ：PlayerCoil::PlayerCoil(
-	////            ：    LPDIRECT3DDEVICE9 pD3DDevice,LPDIRECT3DTEXTURE9 pTexture,
+	////            ：    LPDIRECT3DDEVICE9 pD3DDevice,LPTATRATEXTURE pTexture,
 	////            ：    float Radius1,float Radius2,float Lenght,
 	////            ：    D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos,
 	////            ：    D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,
@@ -199,7 +199,7 @@ public:
 	//// カテゴリ   ：コンストラクタ
 	//// 用途       ：
 	//// 引数       ：  LPDIRECT3DDEVICE9   pD3DDevice   // デバイス
-	////            ：  LPDIRECT3DTEXTURE9  pTexture     // テクスチャ	
+	////            ：  LPTATRATEXTURE  pTexture     // テクスチャ	
 	////            ：  float               Radius1      // 錐の直径1
 	////            ：  float               Radius2      // 錐の直径2
 	////            ：  float               Radius3      // 球の直径
@@ -230,7 +230,7 @@ public:
 		D3DCOLORVALUE&		Diffuse				,
 		D3DCOLORVALUE&		Specular			,
 		D3DCOLORVALUE&		Ambient				,
-		LPDIRECT3DTEXTURE9 pTex					,
+		LPTATRATEXTURE pTex					,
 		wiz::OBJID			id					= OBJID_3D_COIL
 	);
 
@@ -334,7 +334,7 @@ public:
 	//// 引数       ：  DrawPacket& i_DrawPacket             // 画面描画時に必要なデータ群 ↓内容下記
 	////			  ：  ├ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 インターフェイスへのポインタ
 	////			  ：  ├ vector<Object*>&    Vec                     // オブジェクトの配列
-	////			  ：  ├ Tempus2*            i_DrawPacket.pTime	   // 時間を管理するクラスへのポインター
+	////			  ：  ├ Tempus2*            i_DrawPacket.GetTime()	   // 時間を管理するクラスへのポインター
 	////              ：  └ Command             i_DrawPacket.pCommand   // コマンド
 	//// 戻値       ：なし
 	//// 担当       ：本多寛之
@@ -644,7 +644,7 @@ public:
 		return	m_bStandby;
 	}
 	/////////////////// ////////////////////
-	//// 関数名     ：LPDIRECT3DTEXTURE9 getDeadText()
+	//// 関数名     ：LPTATRATEXTURE getDeadText()
 	//// カテゴリ   ：ゲッター
 	//// 用途       ：m_pDeadTexを獲得
 	//// 引数       ：なし
@@ -652,7 +652,7 @@ public:
 	//// 担当       ：本多寛之
 	//// 備考       ：
 	////            ：
-	LPDIRECT3DTEXTURE9 getDeadText() const{
+	LPTATRATEXTURE getDeadText() const{
 		return m_pDeadTex;
 	}
 

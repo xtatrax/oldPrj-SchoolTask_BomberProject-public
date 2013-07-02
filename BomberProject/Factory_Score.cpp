@@ -13,7 +13,7 @@ namespace bomberobject{
 ***************************************************************************/
 /**************************************************************************
  Score(LPDIRECT3DDEVICE9	pD3DDevice,
-				LPDIRECT3DTEXTURE9	pTexture,
+				LPTATRATEXTURE	pTexture,
 				D3DXVECTOR3	vScale,
 				D3DXVECTOR3	vPos,
 				Rect		rect,
@@ -23,7 +23,7 @@ namespace bomberobject{
  íSìñé“ÅFç≤ì°ó¡
 ***************************************************************************/
 Score::Score(LPDIRECT3DDEVICE9	pD3DDevice,
-				LPDIRECT3DTEXTURE9	pTexture,
+				LPTATRATEXTURE	pTexture,
 				D3DXVECTOR3	&vScale,
 				D3DXVECTOR3	&vPos,
 				int			iScore,
@@ -113,7 +113,7 @@ void	Score::update_Matrix(int i){
 ***************************************************************************/
 /**************************************************************************
  DeadScore(LPDIRECT3DDEVICE9	pD3DDevice,
-				LPDIRECT3DTEXTURE9	pTexture,
+				LPTATRATEXTURE	pTexture,
 				D3DXVECTOR3	vScale,
 				D3DXVECTOR3	vPos,
 				Rect		rect,
@@ -123,7 +123,7 @@ void	Score::update_Matrix(int i){
  íSìñé“ÅFç≤ì°ó¡
 ***************************************************************************/
 DeadScore::DeadScore(LPDIRECT3DDEVICE9	pD3DDevice,
-				LPDIRECT3DTEXTURE9	pTexture,
+				LPTATRATEXTURE	pTexture,
 				D3DXVECTOR3	&vScale,
 				D3DXVECTOR3	&vPos,
 				Rect*		Rect)
@@ -156,7 +156,7 @@ void	DeadScore::Draw(DrawPacket& i_DrawPacket){
 ***************************************************************************/
 void	DeadScore::Update(UpdatePacket& i_UpdatePacket){
 
-	if( !m_pCoil )	m_pCoil = (PlayerCoil*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_3D_COIL);
+	if( !m_pCoil )	m_pCoil = (PlayerCoil*)i_UpdatePacket.SearchObjectFromID(OBJID_3D_COIL);
 
 	if( m_pCoil )	m_iScore	= m_pCoil->getDeadCount();
 
@@ -168,7 +168,7 @@ void	DeadScore::Update(UpdatePacket& i_UpdatePacket){
 ***************************************************************************/
 /**************************************************************************
  ArrivalPos(LPDIRECT3DDEVICE9	pD3DDevice,
-				LPDIRECT3DTEXTURE9	pTexture,
+				LPTATRATEXTURE	pTexture,
 				D3DXVECTOR3	vScale,
 				D3DXVECTOR3	vPos,
 				Rect		rect,
@@ -178,7 +178,7 @@ void	DeadScore::Update(UpdatePacket& i_UpdatePacket){
  íSìñé“ÅFç≤ì°ó¡
 ***************************************************************************/
 ArrivalPos::ArrivalPos(LPDIRECT3DDEVICE9	pD3DDevice,
-				LPDIRECT3DTEXTURE9	pTexture,
+				LPTATRATEXTURE	pTexture,
 				D3DXVECTOR3	&vScale,
 				D3DXVECTOR3	&vPos,
 				Rect*		Rect)
@@ -212,7 +212,7 @@ void	ArrivalPos::Draw(DrawPacket& i_DrawPacket){
 ***************************************************************************/
 void	ArrivalPos::Update(UpdatePacket& i_UpdatePacket){
 
-	if( !m_pCoil ) m_pCoil = (PlayerCoil*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_3D_COIL);
+	if( !m_pCoil ) m_pCoil = (PlayerCoil*)i_UpdatePacket.SearchObjectFromID(OBJID_3D_COIL);
 
 	if( m_pCoil ){
 		//ÉRÉCÉãÇÃåªç›à íu
@@ -234,7 +234,7 @@ void	ArrivalPos::Update(UpdatePacket& i_UpdatePacket){
 ***************************************************************************/
 /**************************************************************************
  ScratchPoint(LPDIRECT3DDEVICE9	pD3DDevice,
-				LPDIRECT3DTEXTURE9	pTexture,
+				LPTATRATEXTURE	pTexture,
 				D3DXVECTOR3	vScale,
 				D3DXVECTOR3	vPos,
 				Rect		rect,
@@ -244,7 +244,7 @@ void	ArrivalPos::Update(UpdatePacket& i_UpdatePacket){
  íSìñé“ÅFç≤ì°ó¡
 ***************************************************************************/
 ScratchPoint::ScratchPoint(LPDIRECT3DDEVICE9	pD3DDevice,
-				LPDIRECT3DTEXTURE9	pTexture,
+				LPTATRATEXTURE	pTexture,
 				D3DXVECTOR3	&vScale,
 				D3DXVECTOR3	&vPos,
 				Rect*		Rect)
@@ -277,7 +277,7 @@ void	ScratchPoint::Draw(DrawPacket& i_DrawPacket){
 ***************************************************************************/
 void	ScratchPoint::Update(UpdatePacket& i_UpdatePacket){
 
-	if( !m_pCoil ) m_pCoil = (PlayerCoil*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_3D_COIL);
+	if( !m_pCoil ) m_pCoil = (PlayerCoil*)i_UpdatePacket.SearchObjectFromID(OBJID_3D_COIL);
 
 	if( m_pCoil ){
 		m_iScore	=	m_pCoil->getScratchTime();
@@ -290,7 +290,7 @@ void	ScratchPoint::Update(UpdatePacket& i_UpdatePacket){
 ***************************************************************************/
 /**************************************************************************
  GoalPos(LPDIRECT3DDEVICE9	pD3DDevice,
-				LPDIRECT3DTEXTURE9	pTexture,
+				LPTATRATEXTURE	pTexture,
 				D3DXVECTOR3	vScale,
 				D3DXVECTOR3	vPos,
 				Rect		rect,
@@ -300,7 +300,7 @@ void	ScratchPoint::Update(UpdatePacket& i_UpdatePacket){
  íSìñé“ÅFç≤ì°ó¡
 ***************************************************************************/
 GoalPos::GoalPos(LPDIRECT3DDEVICE9	pD3DDevice,
-				LPDIRECT3DTEXTURE9	pTexture,
+				LPTATRATEXTURE	pTexture,
 				D3DXVECTOR3	&vScale,
 				D3DXVECTOR3	&vPos,
 				Rect*		Rect)
@@ -335,8 +335,8 @@ void	GoalPos::Draw(DrawPacket& i_DrawPacket){
 ***************************************************************************/
 void	GoalPos::Update(UpdatePacket& i_UpdatePacket){
 
-	if( !m_pCoil       )	m_pCoil			= (PlayerCoil*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_3D_COIL			) ;
-	if( !m_pGoalObject )	m_pGoalObject	= (GoalObject*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_SYS_CLEARAREA	) ;
+	if( !m_pCoil       )	m_pCoil			= (PlayerCoil*)i_UpdatePacket.SearchObjectFromID(OBJID_3D_COIL			) ;
+	if( !m_pGoalObject )	m_pGoalObject	= (GoalObject*)i_UpdatePacket.SearchObjectFromID(OBJID_SYS_CLEARAREA	) ;
 
 	if(m_pGoalObject != NULL){
 		//if( m_iScore < int(m_pCoil->getPos().y)-5 )
@@ -357,7 +357,7 @@ void	GoalPos::Update(UpdatePacket& i_UpdatePacket){
 ***************************************************************************/
 /**************************************************************************
  TimeScore(LPDIRECT3DDEVICE9	pD3DDevice,
-				LPDIRECT3DTEXTURE9	pTexture,
+				LPTATRATEXTURE	pTexture,
 				D3DXVECTOR3	vScale,
 				D3DXVECTOR3	vPos,
 				Rect		rect,
@@ -367,7 +367,7 @@ void	GoalPos::Update(UpdatePacket& i_UpdatePacket){
  íSìñé“ÅFç≤ì°ó¡
 ***************************************************************************/
 TimeScore::TimeScore(LPDIRECT3DDEVICE9	pD3DDevice,
-				LPDIRECT3DTEXTURE9	pTexture,
+				LPTATRATEXTURE	pTexture,
 				D3DXVECTOR3	&vScale,
 				D3DXVECTOR3	&vPos,
 				int			iTime,
@@ -403,14 +403,14 @@ void	TimeScore::Draw(DrawPacket& i_DrawPacket){
 ***************************************************************************/
 void	TimeScore::Update(UpdatePacket& i_UpdatePacket){
 
-	if( !m_pCoil ) m_pCoil = (PlayerCoil*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_3D_COIL);
+	if( !m_pCoil ) m_pCoil = (PlayerCoil*)i_UpdatePacket.SearchObjectFromID(OBJID_3D_COIL);
 
 	if( m_pCoil ){
 		if( m_iTime == 0 ){
 			m_pCoil->setState( COIL_STATE_DEAD );
 		}
 		else if( m_pCoil->getState() == COIL_STATE_MOVE || m_pCoil->getState() == COIL_STATE_STICK ){
-			m_fElapsedTime	+= (float)i_UpdatePacket.pTime->getElapsedTime();
+			m_fElapsedTime	+= (float)i_UpdatePacket.GetTime()->getElapsedTime();
 			if( m_fElapsedTime >= 1.0f ){
 				--m_iTime;
 				m_fElapsedTime	= 0;
@@ -427,7 +427,7 @@ void	TimeScore::Update(UpdatePacket& i_UpdatePacket){
 ***************************************************************************/
 /**************************************************************************
  AnimationScore(LPDIRECT3DDEVICE9	pD3DDevice,
-				LPDIRECT3DTEXTURE9	pTexture,
+				LPTATRATEXTURE	pTexture,
 				D3DXVECTOR3	vScale,
 				D3DXVECTOR3	vPos,
 				Rect		rect,
@@ -437,7 +437,7 @@ void	TimeScore::Update(UpdatePacket& i_UpdatePacket){
  íSìñé“ÅFç≤ì°ó¡
 ***************************************************************************/
 AnimationScore::AnimationScore(LPDIRECT3DDEVICE9	pD3DDevice,
-				LPDIRECT3DTEXTURE9	pTexture,
+				LPTATRATEXTURE	pTexture,
 				D3DXVECTOR3	&vScale,
 				D3DXVECTOR3	&vPos,
 				int			iScore,
@@ -506,7 +506,7 @@ void	AnimationScore::Update(UpdatePacket& i_UpdatePacket){
 	}
 
 	if( m_iResultScore != 0 ){
-		m_fTime	+= (float)i_UpdatePacket.pTime->getElapsedTime();
+		m_fTime	+= (float)i_UpdatePacket.GetTime()->getElapsedTime();
 		if( m_fTime >= 1.0f/(m_fTransRate) ){
 			if( m_iResultScore > m_iDrawScore ){
 				m_iDrawScore	+= i;
@@ -543,7 +543,7 @@ void	AnimationScore::Update(UpdatePacket& i_UpdatePacket){
 ***************************************************************************/
 /**************************************************************************
  ResultScore(LPDIRECT3DDEVICE9	pD3DDevice,
-				LPDIRECT3DTEXTURE9	pTexture,
+				LPTATRATEXTURE	pTexture,
 				D3DXVECTOR3	vScale,
 				D3DXVECTOR3	vPos,
 				Rect		rect,
@@ -553,11 +553,11 @@ void	AnimationScore::Update(UpdatePacket& i_UpdatePacket){
  íSìñé“ÅFç≤ì°ó¡
 ***************************************************************************/
 ResultScore::ResultScore(LPDIRECT3DDEVICE9	pD3DDevice,
-				LPDIRECT3DTEXTURE9	pDeadTex,
-				LPDIRECT3DTEXTURE9	pMaxPosTex,
-				LPDIRECT3DTEXTURE9	pRate10Tex,
-				LPDIRECT3DTEXTURE9	pRate30Tex,
-				LPDIRECT3DTEXTURE9	pRate1Tex,
+				LPTATRATEXTURE	pDeadTex,
+				LPTATRATEXTURE	pMaxPosTex,
+				LPTATRATEXTURE	pRate10Tex,
+				LPTATRATEXTURE	pRate30Tex,
+				LPTATRATEXTURE	pRate1Tex,
 				D3DXVECTOR3	&vScale,
 				D3DXVECTOR3	&vPos,
 				int			iDeadScore,
@@ -711,7 +711,7 @@ ResultScore::ResultScore(LPDIRECT3DDEVICE9	pD3DDevice,
 		vRateSize,
 		g_vZero, 
 		D3DXVECTOR3( wide+340.0f, height-140.0f+15.0f, 0.0f ),
-		Rect( 0, 0, 256, 64 ),
+		&Rect( 0, 0, 256, 64 ),
 		g_vZero,
 		g_vZero );
 	m_pRate_1	= new SpriteObject(
@@ -720,7 +720,7 @@ ResultScore::ResultScore(LPDIRECT3DDEVICE9	pD3DDevice,
 		vRateSize,
 		g_vZero, 
 		D3DXVECTOR3( wide+340.0f, height-70.0f+15.0f, 0.0f ),
-		Rect( 0, 0, 256, 64 ),
+		&Rect( 0, 0, 256, 64 ),
 		g_vZero,
 		g_vZero );
 	m_pRate_30	= new SpriteObject(
@@ -729,7 +729,7 @@ ResultScore::ResultScore(LPDIRECT3DDEVICE9	pD3DDevice,
 		vRateSize,
 		g_vZero, 
 		D3DXVECTOR3( wide+340.0f, height+20.0f, 0.0f ),
-		Rect( 0, 0, 256, 64 ),
+		&Rect( 0, 0, 256, 64 ),
 		g_vZero,
 		g_vZero );
 
@@ -776,7 +776,7 @@ void	ResultScore::Draw(DrawPacket& i_DrawPacket){
 ***************************************************************************/
 void	ResultScore::Update(UpdatePacket& i_UpdatePacket){
 
-	if( !m_pRank )		m_pRank		= (Rank*)SearchObjectFromID(i_UpdatePacket.pVec, OBJID_UI_RANK ) ;
+	if( !m_pRank )		m_pRank		= (Rank*)i_UpdatePacket.SearchObjectFromID( OBJID_UI_RANK ) ;
 
 	switch( m_iNowDraw ){
 		case 0:

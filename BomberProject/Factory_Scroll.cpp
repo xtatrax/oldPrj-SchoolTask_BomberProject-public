@@ -18,8 +18,8 @@ namespace bomberobject{
 /************************************************************************
 ScrollObject 定義部
 ************************************************************************/
-ScrollObject::ScrollObject(const LPDIRECT3DDEVICE9 pD3DDevice, const LPDIRECT3DTEXTURE9 pTexture,
-							const D3DXVECTOR3& vScale, const D3DXVECTOR3& vPos, RECT pRect)
+ScrollObject::ScrollObject(const LPDIRECT3DDEVICE9 pD3DDevice, const LPTATRATEXTURE pTexture,
+							const D3DXVECTOR3& vScale, const D3DXVECTOR3& vPos, Rect pRect)
 :SpriteObject( pD3DDevice, pTexture, vScale, g_vZero, vPos, &pRect, g_vZero, g_vZero, 0xFFFFFFFF , OBJID_UI_SPRITE, true)
 ,m_vPos1(g_vZero)
 ,m_vPos2(D3DXVECTOR3(0.0f,(float)pRect.top-pRect.bottom,0.0f))
@@ -27,7 +27,7 @@ ScrollObject::ScrollObject(const LPDIRECT3DDEVICE9 pD3DDevice, const LPDIRECT3DT
 {
 
 	//グラデーション
-	//LPDIRECT3DTEXTURE9 pTex = NULL;
+	//LPTATRATEXTURE pTex = NULL;
 	//for( BYTE i = 0 ; i < g_csbySpriteQty ; i++ ){
 	//	0(pD3DDevice,L"BGP_TITLE02.png",&pTex2);
 	//	g_pBGSpriteArr[i] = new SpriteObject(
@@ -115,8 +115,8 @@ ScrollObject::~ScrollObject()
 Factory_Scroll::Factory_Scroll(FactoryPacket* fpac)
 {
 	try{
-		//LPDIRECT3DTEXTURE9 pTex = NULL;
-		//LPDIRECT3DTEXTURE9 pTex2 = NULL ;
+		//LPTATRATEXTURE pTex = NULL;
+		//LPTATRATEXTURE pTex2 = NULL ;
 		//0(fpac->pD3DDevice,L"BGP_TITLE01.png",&pTex);
 		//0(fpac->pD3DDevice,L"BGP_TITLE02.png",&pTex2);
 		//fpac->m_pVec->push_back(
@@ -127,7 +127,7 @@ Factory_Scroll::Factory_Scroll(FactoryPacket* fpac)
 		//		D3DXVECTOR3( 1.0f, 1.0f, 0.2f )
 		//	)
 		//);
-		LPDIRECT3DTEXTURE9 pTex = NULL ;
+		LPTATRATEXTURE pTex = NULL ;
 		fpac->m_pVec->push_back( new ScrollObject(fpac->pD3DDevice,fpac->AddTexture(L"Title_Back2.png"),D3DXVECTOR3( 1.0f, 1.0f, 0.0f),g_vZero,Rect(0,0,(int)BASE_CLIENT_WIDTH,(int)BASE_CLIENT_HEIGHT)));
 	}
 		catch(...){

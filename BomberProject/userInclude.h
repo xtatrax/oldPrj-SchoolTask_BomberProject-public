@@ -27,5 +27,6 @@
 #include "BassMenuItems.h"
 #include "Factory_Sound.h"
 #include "Factory_Cursor.h"
+#include "TextureManager.h"
 
 #endif

@@ -27,16 +27,16 @@ const	float	SCALE_RATE	=	1.4f;
 ClickChar 定義部
 ************************************************************************/
 /////////////////// ////////////////////
-//// 関数名     ：ClickChar(LPDIRECT3DDEVICE9 pD3DDevice,LPDIRECT3DTEXTURE9 pTexture,
-////            ：    D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos, RECT* pRect);
+//// 関数名     ：ClickChar(LPDIRECT3DDEVICE9 pD3DDevice,LPTATRATEXTURE pTexture,
+////            ：    D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos, Rect* pRect);
 //// カテゴリ   ：コンストラクタ
 //// 用途       ：スプライトを描画
 //// 引数       ：  LPDIRECT3DDEVICE9 pD3DDevice    // IDirect3DDevice9 インターフェイスへのポインタ
-////            ：  LPDIRECT3DTEXTURE9 pTexture     // 貼り付けたいテクスチャ
+////            ：  LPTATRATEXTURE pTexture     // 貼り付けたいテクスチャ
 ////            ：  D3DXVECTOR3 &vScale             // 大きさ
 ////            ：  D3DXVECTOR3 &vRot               // 三軸回転
 ////            ：  D3DXVECTOR3 &vPos               // 設置座標
-////            ：  RECT* pRect                     // 描画したい範囲(NULLで全体を描画)
+////            ：  Rect* pRect                     // 描画したい範囲(NULLで全体を描画)
 //// 戻値       ：なし
 //// 担当者     ：佐藤涼
 //// 備考       ：
@@ -44,11 +44,11 @@ ClickChar 定義部
 ////
 ClickChar::ClickChar(
 	const LPDIRECT3DDEVICE9		pD3DDevice	,
-	const LPDIRECT3DTEXTURE9	pTexture	,
+	const LPTATRATEXTURE	pTexture	,
 	const D3DXVECTOR3&			vScale		,
 	const D3DXVECTOR3&			vRot		,
 	const D3DXVECTOR3&			vPos		,
-	const RECT*					pRect		,
+	const Rect*					pRect		,
 	const D3DXVECTOR3&			vOffsetPos
 )
 :SpriteObject( pD3DDevice, pTexture, vScale, vRot, vPos, pRect, g_vZero, g_vZero, 0xFFFFFFFF , OBJID_UI_SPRITE, false)
@@ -98,7 +98,7 @@ void ClickChar::Draw(DrawPacket& i_DrawPacket)
 ////
 void ClickChar::Update(UpdatePacket& i_UpdatePacket)
 {
-	if( !m_pCursor ) m_pCursor = ( MouseCursor* )SearchObjectFromID(i_UpdatePacket.pVec,OBJID_SYS_CURSOR       );
+	if( !m_pCursor ) m_pCursor = ( MouseCursor* )i_UpdatePacket.SearchObjectFromID( OBJID_SYS_CURSOR  );
 	if( !m_pCursor ) return ;
 	Point MousePos = Point(0,0) ;
 	if( m_pCursor ) MousePos = m_pCursor->get2DPos();
@@ -116,18 +116,18 @@ void ClickChar::Update(UpdatePacket& i_UpdatePacket)
 Title_Select 定義部
 ************************************************************************/
 /////////////////// ////////////////////
-//// 関数名     ：Title_Select(LPDIRECT3DDEVICE9 pD3DDevice,LPDIRECT3DTEXTURE9 pTexture,DWORD next,
-////            ：    D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos, RECT* pRect,
+//// 関数名     ：Title_Select(LPDIRECT3DDEVICE9 pD3DDevice,LPTATRATEXTURE pTexture,DWORD next,
+////            ：    D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos, Rect* pRect,
 ////            ：    D3DXVECTOR3& vCenter,D3DXVECTOR3& vOffsetPos,Color color = 0xFFFFFFFF);
 //// カテゴリ   ：コンストラクタ
 //// 用途       ：スプライトを描画
 //// 引数       ：  LPDIRECT3DDEVICE9 pD3DDevice    // IDirect3DDevice9 インターフェイスへのポインタ
-////            ：  LPDIRECT3DTEXTURE9 pTexture     // 貼り付けたいテクスチャ
+////            ：  LPTATRATEXTURE pTexture     // 貼り付けたいテクスチャ
 ////            ：  DWORD next                      // 次の画面
 ////            ：  D3DXVECTOR3 &vScale             // 大きさ
 ////            ：  D3DXVECTOR3 &vRot               // 三軸回転
 ////            ：  D3DXVECTOR3 &vPos               // 設置座標
-////            ：  RECT* pRect                     // 描画したい範囲(NULLで全体を描画)
+////            ：  Rect* pRect                     // 描画したい範囲(NULLで全体を描画)
 ////            ：  D3DXVECTOR3& vCenter            // 中心
 ////            ：  D3DXVECTOR3& vOffsetPos         // オフセット座標
 ////            ：  Color color = 0xFFFFFFFF        // 色
@@ -136,9 +136,9 @@ Title_Select 定義部
 //// 備考       ：
 ////            ：
 ////
-Title_Select::Title_Select(const LPDIRECT3DDEVICE9 pD3DDevice,const LPDIRECT3DTEXTURE9 pTexture,const DWORD next,
+Title_Select::Title_Select(const LPDIRECT3DDEVICE9 pD3DDevice,const LPTATRATEXTURE pTexture,const DWORD next,
 		const D3DXVECTOR3 &vScale,const D3DXVECTOR3 &vRot,const D3DXVECTOR3 &vPos,
-		const RECT *pRect,const D3DXVECTOR3 &vCenter,const D3DXVECTOR3 &vOffsetPos,const Color color, bool bCanSelect)
+		const Rect *pRect,const D3DXVECTOR3 &vCenter,const D3DXVECTOR3 &vOffsetPos,const Color color, bool bCanSelect)
 :SpriteObject( pD3DDevice, pTexture, vScale, vRot, vPos, pRect, vCenter, vOffsetPos, color )
 ,m_vPos( vPos )
 ,m_dNext( next )
@@ -228,7 +228,7 @@ void Title_Select::Update(UpdatePacket& i_UpdatePacket)
 		m_iTime++;
 		if( m_iTime > 30 ){
 			//選ばれた画面へとぶ
-			i_UpdatePacket.pCommand->m_Command	= m_dNext;
+			i_UpdatePacket.PushCommand( m_dNext );
 			m_bPush = false ;
 		}
 	}
@@ -238,16 +238,16 @@ void Title_Select::Update(UpdatePacket& i_UpdatePacket)
 MagnetFieldMini 定義部
 ************************************************************************/
 /////////////////// ////////////////////
-//// 関数名     ：MagnetFieldMini(LPDIRECT3DDEVICE9 pD3DDevice,LPDIRECT3DTEXTURE9 pTexture,
-////            ：    D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos, RECT* pRect);
+//// 関数名     ：MagnetFieldMini(LPDIRECT3DDEVICE9 pD3DDevice,LPTATRATEXTURE pTexture,
+////            ：    D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos, Rect* pRect);
 //// カテゴリ   ：コンストラクタ
 //// 用途       ：スプライトを描画
 //// 引数       ：  LPDIRECT3DDEVICE9 pD3DDevice    // IDirect3DDevice9 インターフェイスへのポインタ
-////            ：  LPDIRECT3DTEXTURE9 pTexture     // 貼り付けたいテクスチャ
+////            ：  LPTATRATEXTURE pTexture     // 貼り付けたいテクスチャ
 ////            ：  D3DXVECTOR3 &vScale             // 大きさ
 ////            ：  D3DXVECTOR3 &vRot               // 三軸回転
 ////            ：  D3DXVECTOR3 &vPos               // 設置座標
-////            ：  RECT* pRect                     // 描画したい範囲(NULLで全体を描画)
+////            ：  Rect* pRect                     // 描画したい範囲(NULLで全体を描画)
 //// 戻値       ：なし
 //// 担当者     ：本多寛之
 //// 備考       ：
@@ -255,13 +255,13 @@ MagnetFieldMini 定義部
 ////
 MagnetFieldMini::MagnetFieldMini(
 	const LPDIRECT3DDEVICE9		pD3DDevice	,
-	const LPDIRECT3DTEXTURE9	pTextureN	,
-	const LPDIRECT3DTEXTURE9	pTextureS	,
+	const LPTATRATEXTURE	pTextureN	,
+	const LPTATRATEXTURE	pTextureS	,
 	const D3DXVECTOR3&			vScale		,
 	const D3DXVECTOR3&			vRot		,
 	const D3DXVECTOR3&			vPos		,
 	const D3DXVECTOR3&			vCenter		,
-	const RECT*					pRect		
+	const Rect*					pRect		
 )
 :SpriteObject( pD3DDevice, pTextureN, vScale, vRot, vPos, pRect, vCenter, g_vZero, 0xFFFFFFFF , OBJID_UI_TITLEMAGNETFIELD)
 ,m_pTextureN( pTextureN )
@@ -354,16 +354,16 @@ void MagnetFieldMini::setNowPos(int i_iNum){
 Coil 定義部
 ************************************************************************/
 /////////////////// ////////////////////
-//// 関数名     ：Coil(LPDIRECT3DDEVICE9 pD3DDevice,LPDIRECT3DTEXTURE9 pTexture,
-////            ：    D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos, RECT* pRect);
+//// 関数名     ：Coil(LPDIRECT3DDEVICE9 pD3DDevice,LPTATRATEXTURE pTexture,
+////            ：    D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos, Rect* pRect);
 //// カテゴリ   ：コンストラクタ
 //// 用途       ：スプライトを描画
 //// 引数       ：  LPDIRECT3DDEVICE9 pD3DDevice    // IDirect3DDevice9 インターフェイスへのポインタ
-////            ：  LPDIRECT3DTEXTURE9 pTexture     // 貼り付けたいテクスチャ
+////            ：  LPTATRATEXTURE pTexture     // 貼り付けたいテクスチャ
 ////            ：  D3DXVECTOR3 &vScale             // 大きさ
 ////            ：  D3DXVECTOR3 &vRot               // 三軸回転
 ////            ：  D3DXVECTOR3 &vPos               // 設置座標
-////            ：  RECT* pRect                     // 描画したい範囲(NULLで全体を描画)
+////            ：  Rect* pRect                     // 描画したい範囲(NULLで全体を描画)
 //// 戻値       ：なし
 //// 担当者     ：本多寛之
 //// 備考       ：
@@ -371,13 +371,13 @@ Coil 定義部
 ////
 Coil::Coil(
 	const LPDIRECT3DDEVICE9		pD3DDevice	,
-	const LPDIRECT3DTEXTURE9	pTextureN	,
-	const LPDIRECT3DTEXTURE9	pTextureS	,
+	const LPTATRATEXTURE	pTextureN	,
+	const LPTATRATEXTURE	pTextureS	,
 	const D3DXVECTOR3&			vScale		,
 	const D3DXVECTOR3&			vRot		,
 	const D3DXVECTOR3&			vPos		,
 	const D3DXVECTOR3&			vCenter		,
-	const RECT*					pRect		
+	const Rect*					pRect		
 )
 :SpriteObject( pD3DDevice, pTextureS, vScale, vRot, vPos, pRect, vCenter, g_vZero, 0xFFFFFFFF , OBJID_UI_SPRITE)
 ,m_pMagnetField( NULL )
@@ -430,7 +430,7 @@ void Coil::Draw(DrawPacket& i_DrawPacket)
 ////
 void Coil::Update(UpdatePacket& i_UpdatePacket)
 {
-	if( !m_pMagnetField ) m_pMagnetField	= ( MagnetFieldMini* )SearchObjectFromID( i_UpdatePacket.pVec,OBJID_UI_TITLEMAGNETFIELD) ; 
+	if( !m_pMagnetField ) m_pMagnetField	= ( MagnetFieldMini* )i_UpdatePacket.SearchObjectFromID( OBJID_UI_TITLEMAGNETFIELD ) ; 
 	if( !m_pMagnetField ) return ;
 
 	float	fTargetDir = TwoPoint2Degree( m_pMagnetField->getPos() , m_vPos );
@@ -628,8 +628,8 @@ Factory_Title::Factory_Title(FactoryPacket* fpac){
 				D3DXVECTOR3(SCALE_RATE,SCALE_RATE,0.0f),
 				g_vZero,
 				D3DXVECTOR3( 630.0f, 280.0f, 0.0f ),
-				Rect( 0, 0, 221, 31 ),
-				Rect( 0, 0, 221, 31 ),
+				&Rect( 0, 0, 221, 31 ),
+				&Rect( 0, 0, 221, 31 ),
 				g_vZero,
 				g_vZero,
 				0xFFFF8800,
@@ -682,9 +682,9 @@ Factory_Title::Factory_Title(FactoryPacket* fpac){
 				fpac->AddTexture(L"Title_Exit01.png"),
 				D3DXVECTOR3(SCALE_RATE,SCALE_RATE,0.0f),
 				g_vZero,
-					D3DXVECTOR3( 660.0f, 420.0f, 0.0f ),
-				Rect( 0, 0, 143, 31 ),
-				Rect( 0, 0, 143, 31 ),
+				D3DXVECTOR3( 660.0f, 420.0f, 0.0f ),
+				&Rect( 0, 0, 143, 31 ),
+				&Rect( 0, 0, 143, 31 ),
 				g_vZero,
 				g_vZero,
 				0xFFFF8800,
@@ -736,7 +736,7 @@ Factory_Title::Factory_Title(FactoryPacket* fpac){
 				g_vZero,
 				MAGNET_FIELD_POS_1,
 				D3DXVECTOR3( 128.0f, 128.0f, 128.0f ),
-				Rect( 0, 0, 256, 256 )
+				&Rect( 0, 0, 256, 256 )
 				)
 		);
 		//コイル
@@ -749,7 +749,7 @@ Factory_Title::Factory_Title(FactoryPacket* fpac){
 				D3DXVECTOR3( 0.0f, 0.0f, 90.0f ),
 				D3DXVECTOR3( 170.0f, 370.0f, 0.0f ),
 				D3DXVECTOR3( 128.0f, 128.0f, 128.0f ),
-				Rect( 0, 0, 256, 256 )
+				&Rect( 0, 0, 256, 256 )
 				)
 		);
 
@@ -761,7 +761,7 @@ Factory_Title::Factory_Title(FactoryPacket* fpac){
 					D3DXVECTOR3( 0.5f, 0.5f, 0.0f ),
 					g_vZero,
 					g_vZero,
-					Rect( 0, 0, 512, 64 ),
+					&Rect( 0, 0, 512, 64 ),
 					D3DXVECTOR3( 40.0f, -70.0f, 0.0f )
 			)
 		);						

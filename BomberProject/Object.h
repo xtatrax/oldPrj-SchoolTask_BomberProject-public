@@ -17,12 +17,18 @@
 #include "TextureManager.h"
 #include "Tempus/Tempus.h"
 #include "Controller/Controller.h"
+#include "Structs.h"
 
 namespace wiz{
 
 	extern class Object ;
 	extern class Button ;
-
+//namespace structs{
+//	extern struct UpdatePacket	;
+//	extern struct RenderPacket	;
+//	extern struct DrawPacket	;
+//	extern struct Command		;
+//};
 //**************************************************************************
 // class Object;
 //
@@ -178,7 +184,7 @@ public:
 	//// 備考       ：継承したものでも必ずとも定義をしなくても良い
 	////            ：
 	////
-    virtual void Update( UpdatePacket& i_UpdatePacket ){};
+	virtual void Update( structs::UpdatePacket& i_UpdatePacket ){};
 
 	/////////////////// ////////////////////
 	//// 用途       ：virtual void TargetRender( LPDIRECT3DDEVICE9 pD3DDevice
@@ -193,7 +199,7 @@ public:
 	//// 備考       ：継承したものでも必ずとも定義をしなくても良い
 	////            ：
 	////
-	virtual void TargetRender( RenderPacket& i_RenderPacket ){};
+	virtual void TargetRender( structs::RenderPacket& i_RenderPacket ){};
 
 	/////////////////// ////////////////////
 	//// 用途       ：virtual void Draw( DrawPacket& i_DrawPacket )
@@ -202,14 +208,14 @@ public:
 	//// 引数       ：  DrawPacket& i_DrawPacket             // 画面描画時に必要なデータ群 ↓内容下記
 	////            ：  ├ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 インターフェイスへのポインタ
 	////            ：  ├ vector<Object*>&    Vec                     // オブジェクトの配列
-	////            ：  ├ Tempus2*            i_DrawPacket.pTime	   // 時間を管理するクラスへのポインター
+	////            ：  ├ Tempus2*            i_DrawPacket.GetTime()	   // 時間を管理するクラスへのポインター
 	////            ：  └ Command             i_DrawPacket.pCommand   // コマンド
 	//// 戻値       ：無し
 	//// 担当者     ：
 	//// 備考       ：継承するものは何れかのレベルで必ず定義をすること｡
 	////            ：
 	////
-    virtual void Draw( DrawPacket& i_DrawPacket ) = 0;
+    virtual void Draw( structs::DrawPacket& i_DrawPacket ) = 0;
 };
 
 
@@ -235,12 +241,12 @@ class Button {
 	friend struct BassPacket;
 	friend class  Stage ;
 protected:
-	DWORD	m_Index;				//メニュー上のインデックス
-	bool	m_IsSelect;				//選択フラグ
+	DWORD				m_Index;				//メニュー上のインデックス
+	bool				m_IsSelect;				//選択フラグ
 
-	bool	m_IsMouseSelect;		//マウスによって選択されている
-	bool	m_IsPressed;			//決定フラグ
-	Command	m_Command;				//コマンド
+	bool				m_IsMouseSelect;		//マウスによって選択されている
+	bool				m_IsPressed;			//決定フラグ
+	structs::Command	m_Command;				//コマンド
 
 	static DWORD MouseSelectIndex(bool Set = false ,DWORD index = 0){
 		static DWORD	MouseSelectIndex	;
@@ -418,7 +424,7 @@ public:
 	//// 引数       ：  DrawPacket& i_DrawPacket             // 画面描画時に必要なデータ群 ↓内容下記
 	////            ：  ├ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 インターフェイスへのポインタ
 	////            ：  ├ vector<Object*>&    Vec                     // オブジェクトの配列
-	////            ：  ├ Tempus2*            i_DrawPacket.pTime	   // 時間を管理するクラスへのポインター
+	////            ：  ├ Tempus2*            i_DrawPacket.GetTime()	   // 時間を管理するクラスへのポインター
 	////            ：  └ Command             i_DrawPacket.pCommand   // コマンド
 	//// 戻値       ：無し
 	//// 担当者     ：

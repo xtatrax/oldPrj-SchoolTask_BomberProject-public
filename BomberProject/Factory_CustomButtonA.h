@@ -26,13 +26,13 @@ class CustomButtonA : public ButtonSprite{
 public:
 	CustomButtonA(
 		const LPDIRECT3DDEVICE9		pD3DDevice				,
-		const LPDIRECT3DTEXTURE9	pFrameTexture			,
-		const LPDIRECT3DTEXTURE9	pStringTexture			,
+		const LPTATRATEXTURE		pFrameTexture			,
+		const LPTATRATEXTURE		pStringTexture			,
 		const D3DXVECTOR3			vScalse					,
 		const D3DXVECTOR3			vRot					,
 		const D3DXVECTOR3			vPos					,
-		const RECT*					pFrameRect				,
-		const RECT*					pStringRect				,
+		const Rect*					pFrameRect				,
+		const Rect*					pStringRect				,
 		const D3DXVECTOR3			vCenter					,
 		const D3DXVECTOR3			vOffset					,
 		const Color					dwFrameSelectColor		,
@@ -75,7 +75,7 @@ public:
 	//// 引数       ：  DrawPacket& i_DrawPacket             // 画面描画時に必要なデータ群 ↓内容下記
 	////            ：  ├ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 インターフェイスへのポインタ
 	////            ：  ├ vector<Object*>&    Vec                     // オブジェクトの配列
-	////            ：  ├ Tempus2*            i_DrawPacket.pTime	   // 時間を管理するクラスへのポインター
+	////            ：  ├ Tempus2*            i_DrawPacket.GetTime()	   // 時間を管理するクラスへのポインター
 	////            ：  └ Command             i_DrawPacket.pCommand   // コマンド
 	//// 戻値       ：無し
 	//// 担当者     ：

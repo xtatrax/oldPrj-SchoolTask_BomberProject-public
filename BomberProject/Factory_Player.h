@@ -43,7 +43,7 @@ extern class	MagneticGage_S	;
 //class ProvisionalPlayer : public MagneticumObject{
 //public:
 //	//	: 
-//	ProvisionalPlayer( LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTexture,
+//	ProvisionalPlayer( LPDIRECT3DDEVICE9 pD3DDevice, LPTATRATEXTURE pTexture,
 //		D3DXVECTOR3 &vScale, D3DXVECTOR3 &vRot, D3DXVECTOR3 &vPos, RECT* pRect,
 //		Color color = 0xFFFFFFFF, wiz::OBJID id = OBJID_3D_MAGNET );
 //	//	: 
@@ -70,7 +70,7 @@ class ProvisionalPlayer3D : public MagnetField{
 	bool			m_bPlaySound	;
 	bool			m_bChangeFirst	;
 	//struct PolyItem{
-	//	LPDIRECT3DTEXTURE9 m_pTexture;
+	//	LPTATRATEXTURE m_pTexture;
 	//	D3DMATERIAL9   m_Material;
 	//	D3DXMATRIX	   m_Matrix;
 	//	D3DXVECTOR3    m_vScale ;
@@ -82,7 +82,7 @@ class ProvisionalPlayer3D : public MagnetField{
 
 public:
 	//	: 
-	ProvisionalPlayer3D( FactoryPacket* fpac, LPDIRECT3DTEXTURE9 pTexture, LPDIRECT3DTEXTURE9 pTexture2,
+	ProvisionalPlayer3D( FactoryPacket* fpac, LPTATRATEXTURE pTexture, LPTATRATEXTURE pTexture2,
 		D3DXVECTOR3 &vScale, D3DXQUATERNION &vRot, D3DXVECTOR3 &vPos,
 		wiz::OBJID id = OBJID_3D_USERMAGNET );
 	/////////////////// ////////////////////

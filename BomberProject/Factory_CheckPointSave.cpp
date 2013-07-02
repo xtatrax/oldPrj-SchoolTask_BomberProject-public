@@ -49,8 +49,8 @@ CheckPointSave::CheckPointSave(DWORD dwStageNum)
 ////            F
 ////
 void CheckPointSave::Update( UpdatePacket& i_UpdatePacket ){
-	!m_pCoil		&& (       m_pCoil = (PlayerCoil*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_3D_COIL			) ) ;
-	!m_pCheckPoint	&& ( m_pCheckPoint = (CheckPoint*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_SYS_CHECKPOINT	) ) ;
+	!m_pCoil		&& (       m_pCoil = (PlayerCoil*)i_UpdatePacket.SearchObjectFromID(OBJID_3D_COIL			) ) ;
+	!m_pCheckPoint	&& ( m_pCheckPoint = (CheckPoint*)i_UpdatePacket.SearchObjectFromID(OBJID_SYS_CHECKPOINT	) ) ;
 	if( m_pCheckPoint->getActiveItem() > m_Data.dwCheckPoint){
 		m_Data.dwCheckPoint = m_pCheckPoint->getActiveItem();
 		m_Data.dwDeadNum	= m_pCoil->getDeadCount();

@@ -199,7 +199,7 @@ m_SoundBankFileName(L"")
 		::MessageBoxA(
 			wiz::DxDevice::m_hWnd,
 			e.what(),
-			"エラー",
+			"サウンドエラー",
 			MB_OK);
 	}
 	catch(...){
@@ -208,7 +208,7 @@ m_SoundBankFileName(L"")
 		::MessageBoxA(
 			NULL,
 			"_Soundで未知のエラー",
-			"エラー",
+			"サウンドエラー",
 			MB_OK);
 		//再throw
 	}

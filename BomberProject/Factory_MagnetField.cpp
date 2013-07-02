@@ -73,25 +73,26 @@ void MagnetFieldCircle::Draw(DrawPacket& i_DrawPacket){
 		return;
 	}
 	 //ワールド変換行列を設定
-	i_DrawPacket.pD3DDevice->SetTransform( D3DTS_WORLD , &m_mMatrix );								//変換済み頂点の場合は無視される
+	i_DrawPacket.GetDevice()->SetTransform( D3DTS_WORLD , &m_mMatrix );								//変換済み頂点の場合は無視される
 
-	i_DrawPacket.pD3DDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, 1);
-    i_DrawPacket.pD3DDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
-    i_DrawPacket.pD3DDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
+	i_DrawPacket.GetDevice()->SetRenderState(D3DRS_ALPHABLENDENABLE, 1);
+    i_DrawPacket.GetDevice()->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
+    i_DrawPacket.GetDevice()->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
 
 	////頂点アルファを使えるようにするデフォルトでもこのように設定されている
- //   i_DrawPacket.pD3DDevice->SetRenderState(D3DRS_DIFFUSEMATERIALSOURCE , D3DMCS_COLOR1);
+ //   i_DrawPacket.GetDevice()->SetRenderState(D3DRS_DIFFUSEMATERIALSOURCE , D3DMCS_COLOR1);
  //   //上の設定を有効にする
- //   i_DrawPacket.pD3DDevice->SetRenderState(D3DRS_COLORVERTEX, TRUE); 
-
+ //   i_DrawPacket.GetDevice()->SetRenderState(D3DRS_COLORVERTEX, TRUE); 
+	i_DrawPacket.GetDevice()->SetRenderState( D3DRS_CULLMODE , D3DCULL_NONE );
 	//	: 頂点バッファを用いてモデルを描画する
-	i_DrawPacket.pD3DDevice->SetRenderState( D3DRS_LIGHTING, FALSE );
-	i_DrawPacket.pD3DDevice->SetStreamSource( 0, m_pVertexBuffer , 0 , Vertex::getSize() );		//	: 描画対象となる頂点バッファを設定
-	i_DrawPacket.pD3DDevice->SetFVF( Vertex::getFVF() );											//	: 頂点データの形式を設定
-	i_DrawPacket.pD3DDevice->DrawPrimitive( D3DPT_TRIANGLEFAN  , 0, m_dwVertexQty -1 );	//	: 頂点データの描画（描画の仕方、描画開始位置、プリミティブ数）
-	i_DrawPacket.pD3DDevice->SetRenderState( D3DRS_LIGHTING, TRUE );
-    //i_DrawPacket.pD3DDevice->SetRenderState(D3DRS_COLORVERTEX, FALSE); 
-	i_DrawPacket.pD3DDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, 0);
+	i_DrawPacket.GetDevice()->SetRenderState( D3DRS_LIGHTING, FALSE );
+	i_DrawPacket.GetDevice()->SetStreamSource( 0, m_pVertexBuffer , 0 , Vertex::getSize() );		//	: 描画対象となる頂点バッファを設定
+	i_DrawPacket.GetDevice()->SetFVF( Vertex::getFVF() );											//	: 頂点データの形式を設定
+	i_DrawPacket.GetDevice()->DrawPrimitive( D3DPT_TRIANGLEFAN  , 0, m_dwVertexQty -1 );	//	: 頂点データの描画（描画の仕方、描画開始位置、プリミティブ数）
+	i_DrawPacket.GetDevice()->SetRenderState( D3DRS_LIGHTING, TRUE );
+    //i_DrawPacket.GetDevice()->SetRenderState(D3DRS_COLORVERTEX, FALSE); 
+	i_DrawPacket.GetDevice()->SetRenderState(D3DRS_ALPHABLENDENABLE, 0);
+	i_DrawPacket.GetDevice()->SetRenderState( D3DRS_CULLMODE , D3DCULL_CCW );
 }
 
 
@@ -102,7 +103,7 @@ void MagnetFieldCircle::Draw(DrawPacket& i_DrawPacket){
 ****************************************************************************/
 /////////////////// ////////////////////
 //// 関数名     ：MagnetField( LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTexture,
-////            ：    D3DXVECTOR3 &vScale, D3DXVECTOR3 &vRot, D3DXVECTOR3 &vPos, RECT* pRect,
+////            ：    D3DXVECTOR3 &vScale, D3DXVECTOR3 &vRot, D3DXVECTOR3 &vPos, Rect* pRect,
 ////            ：    Color color = 0xFFFFFFFF, wiz::OBJID id = OBJID_3D_PLAYER )
 //// カテゴリ   ：コンストラクタ
 //// 用途       ：
@@ -154,10 +155,10 @@ MagnetField::~MagnetField(){
 ////            ：
 ////
 void MagnetField::Update( UpdatePacket& i_UpdatePacket ){
-	if( !m_pCamera )	m_pCamera	=     (Camera*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_SYS_CAMERA	) ;
-	if( !m_pCoil )		m_pCoil		= (PlayerCoil*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_3D_COIL		) ;
+	if( !m_pCamera )	m_pCamera	=     (Camera*)i_UpdatePacket.SearchObjectFromID(OBJID_SYS_CAMERA	) ;
+	if( !m_pCoil )		m_pCoil		= (PlayerCoil*)i_UpdatePacket.SearchObjectFromID(OBJID_3D_COIL		) ;
 
-	m_fEffectSizeRate += (float)i_UpdatePacket.pTime->getElapsedTime() / MGPRM_EFFECTINTERVAL ;
+	m_fEffectSizeRate += (float)i_UpdatePacket.GetTime()->getElapsedTime() / MGPRM_EFFECTINTERVAL ;
 	Debugger::DBGSTR::addStr(L"m_fEffectSizeRate = %f\n",m_fEffectSizeRate);
 	m_fEffectSizeRate >= 1.0f && ( m_fEffectSizeRate = 0 ) ;
 
@@ -169,7 +170,7 @@ void MagnetField::Update( UpdatePacket& i_UpdatePacket ){
 //// 引数       ：  DrawPacket& i_DrawPacket             // 画面描画時に必要なデータ群 ↓内容下記
 ////            ：  ├ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 インターフェイスへのポインタ
 ////            ：  ├ vector<Object*>&    Vec                     // オブジェクトの配列
-////            ：  ├ Tempus2*            i_DrawPacket.pTime	   // 時間を管理するクラスへのポインター
+////            ：  ├ Tempus2*            i_DrawPacket.GetTime()	   // 時間を管理するクラスへのポインター
 ////            ：  └ Command             i_DrawPacket.pCommand   // コマンド
 //// 戻値       ：無し
 //// 担当者     ：曳地 大洋
@@ -375,7 +376,7 @@ void StaticMagnetField::Update( UpdatePacket& i_UpdatePacket ){
 //// 引数       ：  DrawPacket& i_DrawPacket             // 画面描画時に必要なデータ群 ↓内容下記
 ////            ：  ├ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 インターフェイスへのポインタ
 ////            ：  ├ vector<Object*>&    Vec                     // オブジェクトの配列
-////            ：  ├ Tempus2*            i_DrawPacket.pTime	   // 時間を管理するクラスへのポインター
+////            ：  ├ Tempus2*            i_DrawPacket.GetTime()	   // 時間を管理するクラスへのポインター
 ////            ：  └ Command             i_DrawPacket.pCommand   // コマンド
 //// 戻値       ：無し
 //// 担当者     ：曳地 大洋

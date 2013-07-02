@@ -36,10 +36,10 @@ class ContinueButton : public ButtonSprite{
 public:
 	ContinueButton(
 		const LPDIRECT3DDEVICE9		pD3DDevice			,
-		const LPDIRECT3DTEXTURE9	pTexture			,
+		const LPTATRATEXTURE	pTexture			,
 		const D3DXVECTOR3			vScalse				,
 		const D3DXVECTOR3			vPos				,
-		const RECT*					pRect				,
+		const Rect*					pRect				,
 		const float					fWaitTime			,
 		const Command				Com					,
 		const wiz::OBJID			id						
@@ -67,7 +67,7 @@ public:
 	//// 引数       ：  DrawPacket& i_DrawPacket             // 画面描画時に必要なデータ群 ↓内容下記
 	////            ：  ├ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 インターフェイスへのポインタ
 	////            ：  ├ vector<Object*>&    Vec                     // オブジェクトの配列
-	////            ：  ├ Tempus2*            i_DrawPacket.pTime	   // 時間を管理するクラスへのポインター
+	////            ：  ├ Tempus2*            i_DrawPacket.GetTime()	   // 時間を管理するクラスへのポインター
 	////            ：  └ Command             i_DrawPacket.pCommand   // コマンド
 	//// 戻値       ：無し
 	//// 担当者     ：鴫原 徹
@@ -89,8 +89,8 @@ public:
 };
 
 class ContinueBehavior : public Behavior{
-	LPDIRECT3DTEXTURE9		m_pPTContinue		;
-	LPDIRECT3DTEXTURE9		m_pPTReally			;
+	LPTATRATEXTURE		m_pPTContinue		;
+	LPTATRATEXTURE		m_pPTReally			;
 	SpriteObject*			m_pPageTitle		;
 	SpriteObject*			m_pDeadMessage		;
 	ContinueButton*			m_pYesButton		;
@@ -132,7 +132,7 @@ public:
 	//// 引数       ：  DrawPacket& i_DrawPacket             // 画面描画時に必要なデータ群 ↓内容下記
 	////            ：  ├ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 インターフェイスへのポインタ
 	////            ：  ├ vector<Object*>&    Vec                     // オブジェクトの配列
-	////            ：  ├ Tempus2*            i_DrawPacket.pTime	   // 時間を管理するクラスへのポインター
+	////            ：  ├ Tempus2*            i_DrawPacket.GetTime()	   // 時間を管理するクラスへのポインター
 	////            ：  └ Command             i_DrawPacket.pCommand   // コマンド
 	//// 戻値       ：無し
 	//// 担当者     ：鴫原 徹
@@ -178,12 +178,12 @@ public:
 //public:
 //	Reply(
 //		const LPDIRECT3DDEVICE9		pD3DDevice	,
-//		const LPDIRECT3DTEXTURE9	pTexture	,
+//		const LPTATRATEXTURE	pTexture	,
 //		const bool					mark		,
 //		const D3DXVECTOR3&			vScale		,
 //		const D3DXVECTOR3&			vRot		,
 //		const D3DXVECTOR3&			vPos		,
-//		const RECT*					pRect		,
+//		const Rect*					pRect		,
 //		const D3DXVECTOR3&			vCenter		,
 //		const D3DXVECTOR3&			vOffsetPos	,
 //		const Color					color		= 0xFFFFFFFF
@@ -226,19 +226,19 @@ public:
 //	SpriteObject*	m_pContinueChar				;	//	: コンテニューロゴのポインタ
 //	TimeScore*		m_pTime;
 //
-//	LPDIRECT3DTEXTURE9	m_pRethinkingTex;	//Really?
-//	LPDIRECT3DTEXTURE9	m_pAnswerTex	;	//Yes : No
-//	LPDIRECT3DTEXTURE9	m_pContinueTex	;	//Yes : No
+//	LPTATRATEXTURE	m_pRethinkingTex;	//Really?
+//	LPTATRATEXTURE	m_pAnswerTex	;	//Yes : No
+//	LPTATRATEXTURE	m_pContinueTex	;	//Yes : No
 //public:
 //	Continue(
 //		const LPDIRECT3DDEVICE9		pD3DDevice	,
-//		const LPDIRECT3DTEXTURE9	pTexture	,
-//		const LPDIRECT3DTEXTURE9	pTexture_Rethinking	,
-//		const LPDIRECT3DTEXTURE9	pTexture_Answer		,
+//		const LPTATRATEXTURE	pTexture	,
+//		const LPTATRATEXTURE	pTexture_Rethinking	,
+//		const LPTATRATEXTURE	pTexture_Answer		,
 //		const bool					mark		,
 //		const D3DXVECTOR3&			vScale		,
 //		const D3DXVECTOR3&			vPos		,
-//		const RECT*					pRect		,
+//		const Rect*					pRect		,
 //		const wiz::OBJID			id			,
 //		const Color					color		= 0xFFFFFFFF
 //	);
@@ -271,13 +271,13 @@ public:
 //public:
 //	Dead(
 //		const LPDIRECT3DDEVICE9		pD3DDevice	,
-//		const LPDIRECT3DTEXTURE9	pTexture	,
-//		const LPDIRECT3DTEXTURE9	pDeadCountTex	,
-//		const LPDIRECT3DTEXTURE9	pCountCharTex	,
+//		const LPTATRATEXTURE	pTexture	,
+//		const LPTATRATEXTURE	pDeadCountTex	,
+//		const LPTATRATEXTURE	pCountCharTex	,
 //		const int					iDeadCount	,
 //		const D3DXVECTOR3&			vScale		,
 //		const D3DXVECTOR3&			vPos		,
-//		const RECT*					pRect		,
+//		const Rect*					pRect		,
 //		const Color					color		= 0xFFFFFFFF,
 //		const wiz::OBJID			id			= OBJID_UI_DEAD_CHAR
 //

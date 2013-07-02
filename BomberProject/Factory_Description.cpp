@@ -23,7 +23,7 @@ namespace bomberobject{
 **************************************************************************/
 /**************************************************************************
  ModeChangeChar(LPDIRECT3DDEVICE9	pD3DDevice,
-				LPDIRECT3DTEXTURE9	pTexture,
+				LPTATRATEXTURE	pTexture,
 				D3DXVECTOR3	vScale,
 				D3DXVECTOR3	vPos,
 				Rect		rect,
@@ -33,7 +33,7 @@ namespace bomberobject{
  担当者：佐藤涼
 ***************************************************************************/
 ModeChangeChar::ModeChangeChar(LPDIRECT3DDEVICE9	pD3DDevice,
-				LPDIRECT3DTEXTURE9	pTexture,
+				LPTATRATEXTURE	pTexture,
 				D3DXVECTOR3	&vScale,
 				Rect*		Rect		)
 :SpriteObject( pD3DDevice, pTexture, vScale, g_vZero, g_vZero, Rect, g_vZero, g_vZero, 0xFFFFFFFF, OBJID_UI_SPRITE )
@@ -88,7 +88,7 @@ void	ModeChangeChar::Update( UpdatePacket& i_UpdatePacket )
 			m_pRect->right	-= iTransRect;
 	}
 	else{
-		m_fInterval += (float)i_UpdatePacket.pTime->getElapsedTime();
+		m_fInterval += (float)i_UpdatePacket.GetTime()->getElapsedTime();
 		if( m_fInterval >= fStopTime ){
 			m_bAllDraw	= false;
 			m_bAnimeDir	= false;
@@ -110,7 +110,7 @@ void	ModeChangeChar::Update( UpdatePacket& i_UpdatePacket )
 **************************************************************************/
 /**************************************************************************
  StartSprite(LPDIRECT3DDEVICE9	pD3DDevice,
-				LPDIRECT3DTEXTURE9	pTexture,
+				LPTATRATEXTURE	pTexture,
 				D3DXVECTOR3	vScale,
 				D3DXVECTOR3	vPos,
 				Rect		rect,
@@ -120,7 +120,7 @@ void	ModeChangeChar::Update( UpdatePacket& i_UpdatePacket )
  担当者：佐藤涼
 ***************************************************************************/
 StartSprite::StartSprite(LPDIRECT3DDEVICE9	pD3DDevice,
-				LPDIRECT3DTEXTURE9	pTexture,
+				LPTATRATEXTURE	pTexture,
 				D3DXVECTOR3	&vScale,
 				D3DXVECTOR3	&vPos,
 				Rect*		Rect)
@@ -169,7 +169,7 @@ void	StartSprite::Draw( DrawPacket& i_DrawPacket )
 ***************************************************************************/
 void	StartSprite::Update( UpdatePacket& i_UpdatePacket )
 {
-	if( !m_pCoil )	m_pCoil = (PlayerCoil*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_3D_COIL);
+	if( !m_pCoil )	m_pCoil = (PlayerCoil*)i_UpdatePacket.SearchObjectFromID(OBJID_3D_COIL);
 
 	int		rate	= 0;
 	BYTE	ChangeAlpha	= (255/40);
@@ -226,14 +226,14 @@ void	StartSprite::Update( UpdatePacket& i_UpdatePacket )
 /**************************************************************************
  Description::Description(
 	LPDIRECT3DDEVICE9 pD3DDevice,	//デバイス
-	LPDIRECT3DTEXTURE9 pTexture,	//テクスチャ
+	LPTATRATEXTURE pTexture,	//テクスチャ
 	wiz::OBJID id					//オブジェクトの種類
 );
  用途: コンストラクタ
  戻り値: なし
  担当：佐藤涼
 ***************************************************************************/
-Description::Description( LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTexture, wiz::OBJID id)
+Description::Description( LPDIRECT3DDEVICE9 pD3DDevice, LPTATRATEXTURE pTexture, wiz::OBJID id)
 	:PrimitiveBox(pD3DDevice,
 					D3DCOLORVALUE(),
 					D3DCOLORVALUE(),
@@ -280,7 +280,7 @@ Description::~Description(){
 //// 引数       ：  DrawPacket& i_DrawPacket             // 画面描画時に必要なデータ群 ↓内容下記
 ////            ：  ├ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 インターフェイスへのポインタ
 ////            ：  ├ vector<Object*>&    Vec                     // オブジェクトの配列
-////            ：  ├ Tempus2*            i_DrawPacket.pTime	   // 時間を管理するクラスへのポインター
+////            ：  ├ Tempus2*            i_DrawPacket.GetTime()	   // 時間を管理するクラスへのポインター
 ////            ：  └ Command             i_DrawPacket.pCommand   // コマンド
 //// 戻値       ：無し
 //// 担当者     ：佐藤涼
@@ -294,27 +294,27 @@ void Description::Draw(DrawPacket& i_DrawPacket)
 			if(m_pTexture){
 				DWORD wkdword;
 				//現在のテクスチャステータスを得る
-				i_DrawPacket.pD3DDevice->GetTextureStageState(0,D3DTSS_COLOROP,&wkdword);
+				i_DrawPacket.GetDevice()->GetTextureStageState(0,D3DTSS_COLOROP,&wkdword);
 				//ステージの設定
-				i_DrawPacket.pD3DDevice->SetTexture(0,m_pTexture);
+				i_DrawPacket.GetDevice()->SetTexture(0,m_pTexture->getTexture());
 				//デフィーズ色とテクスチャを掛け合わせる設定
-				i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLOROP, D3DTOP_MODULATE4X );
-				i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLORARG1, D3DTA_TEXTURE );
-				i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLORARG2, D3DTA_DIFFUSE );
+				i_DrawPacket.GetDevice()->SetTextureStageState( 0, D3DTSS_COLOROP, D3DTOP_MODULATE4X );
+				i_DrawPacket.GetDevice()->SetTextureStageState( 0, D3DTSS_COLORARG1, D3DTA_TEXTURE );
+				i_DrawPacket.GetDevice()->SetTextureStageState( 0, D3DTSS_COLORARG2, D3DTA_DIFFUSE );
 
-				//i_DrawPacket.pD3DDevice->SetFVF(PlateFVF);
+				//i_DrawPacket.GetDevice()->SetFVF(PlateFVF);
 				// マトリックスをレンダリングパイプラインに設定
-				i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &it->second->m_Matrix);
+				i_DrawPacket.GetDevice()->SetTransform(D3DTS_WORLD, &it->second->m_Matrix);
 				//コモンメッシュのDraw()を呼ぶ
 				CommonMesh::Draw(i_DrawPacket);
-				i_DrawPacket.pD3DDevice->SetTexture(0,0);
+				i_DrawPacket.GetDevice()->SetTexture(0,0);
 				//ステージを元に戻す
-				i_DrawPacket.pD3DDevice->SetTextureStageState(0,D3DTSS_COLOROP,wkdword);
+				i_DrawPacket.GetDevice()->SetTextureStageState(0,D3DTSS_COLOROP,wkdword);
 			}
 			else{
 			//テクスチャがない場合
 				// マトリックスをレンダリングパイプラインに設定
-				i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &it->second->m_Matrix);
+				i_DrawPacket.GetDevice()->SetTransform(D3DTS_WORLD, &it->second->m_Matrix);
 				//コモンメッシュのDraw()を呼ぶ
 				CommonMesh::Draw(i_DrawPacket);
 			}
@@ -339,8 +339,8 @@ void Description::Draw(DrawPacket& i_DrawPacket)
 ////            ：
 ////
 void Description::Update( UpdatePacket& i_UpdatePacket ){
-	if( !m_pCamera )	m_pCamera	=     (Camera*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_SYS_CAMERA);
-	if( !m_pCoil   )	m_pCoil		= (PlayerCoil*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_3D_COIL);
+	if( !m_pCamera )	m_pCamera	=     (Camera*)i_UpdatePacket.SearchObjectFromID(OBJID_SYS_CAMERA);
+	if( !m_pCoil   )	m_pCoil		= (PlayerCoil*)i_UpdatePacket.SearchObjectFromID(OBJID_3D_COIL);
 
 	m_ItemMap_Target.clear();
 	multimap<float,DescItem*>::iterator it = m_ItemMap_Desc.begin();

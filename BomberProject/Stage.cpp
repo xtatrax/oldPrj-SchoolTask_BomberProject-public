@@ -37,14 +37,17 @@ void Stage::Clear(){
 	//SafeDelete(m_pChildStage);
 	Debugger::DBGWRITINGLOGTEXT::addStr(L"Stage::Clear  >  %X 削除開始\n",this);
 
+	Debugger::DBGWRITINGLOGTEXT::addStr(L"SafeDelete(m_pParStage) 開始\n");
 	SafeDelete(m_pParStage);
 	Debugger::DBGWRITINGLOGTEXT::addStr(L"SafeDelete(m_pParStage) 完了\n");
 
+	Debugger::DBGWRITINGLOGTEXT::addStr(L"SafeDelete(m_pMySound)  開始\n");
 	SafeDelete(m_pMySound);
 	Debugger::DBGWRITINGLOGTEXT::addStr(L"SafeDelete(m_pMySound)  完了\n");
 
-	//SafeDeletePointerContainer(m_Vec);
-	SefeDeletePointerVector(m_Vec);
+	Debugger::DBGWRITINGLOGTEXT::addStr(L"SafeDeletePointerContainer(m_Vec);  開始\n");
+	SafeDeletePointerContainer(m_Vec);
+	//SefeDeletePointerVector(m_Vec);
 	Debugger::DBGWRITINGLOGTEXT::addStr(L"SafeDeletePointerContainer(m_Vec);  完了\n");
 
 	m_ButtonVec.clear();
@@ -98,8 +101,7 @@ Stage::~Stage(){
 ////
 void Stage::ButtonUpdate(UpdatePacket& i_UpdatePacket)
 {
-	if( i_UpdatePacket.pTxMgr == NULL ) i_UpdatePacket.pTxMgr = &m_TexMgr ;
-	CONTROLER_STATE	ControllerState1P = i_UpdatePacket.pCntlState[0];
+	CONTROLER_STATE	ControllerState1P = i_UpdatePacket.m_pCntlState[0];
     if(!m_SelectLock){
 
 		DWORD dwSM = 0;
@@ -192,7 +194,7 @@ void Stage::ButtonUpdate(UpdatePacket& i_UpdatePacket)
 ***************************************************************************/
 void Stage::Update(UpdatePacket& i_UpdatePacket)
 {
-
+	if( this == NULL ) Debugger::DBGWRITINGLOGTEXT::addStr(L"Stage Is NULL A");
 	//	: 自分にSoundが登録されているかを確認
 	//if( !m_pSound )	m_pSound = (Sound*)SearchObjectFromID( &this->m_Vec,OBJID_SYS_SOUND );
 	if( !m_pSound ){
@@ -209,12 +211,12 @@ void Stage::Update(UpdatePacket& i_UpdatePacket)
 			}
 		}
 	}
-	i_UpdatePacket.pVec		= &m_Vec ;
-	//i_UpdatePacket.m_pStage	= this ;
+	if( this == NULL ) Debugger::DBGWRITINGLOGTEXT::addStr(L"Stage Is NULL B");
 	i_UpdatePacket.SetStage( this );
+	if( this == NULL ) Debugger::DBGWRITINGLOGTEXT::addStr(L"Stage Is NULL C");
 
 #if 0
-	float fElapsedTime = (float)i_UpdatePacket.pTime->getElapsedTime();
+	float fElapsedTime = (float)i_UpdatePacket.GetTime()->getElapsedTime();
 	if(GetAsyncKeyState( MYVK_DEBUG_STOP_UPDATE )){
 		static float s_fTime = 0;
 		s_fTime += fElapsedTime ;
@@ -261,6 +263,7 @@ void Stage::Update(UpdatePacket& i_UpdatePacket)
 			if(!(*it)->getDead()){
 				(*it)->AccessBegin();
 				(*it)->Update(i_UpdatePacket) ;
+				if( this == NULL ) Debugger::DBGWRITINGLOGTEXT::addStr(L"Stage Is NULL D");
 				(*it)->AccessEnd();
 			} else {
 				//EraseButton( it );
@@ -270,8 +273,9 @@ void Stage::Update(UpdatePacket& i_UpdatePacket)
 			}
 			it++;
 		}
+		if( this == NULL ) Debugger::DBGWRITINGLOGTEXT::addStr(L"Stage Is NULL D");
 		clock_t nc = TLIB::Tempus::getClock();
-		Debugger::DBGSTR::addStr( L" Update時間 : %f\n", TLIB::Tempus::TwoDwTime2ElapsedTime(sc,nc));
+		if( this == NULL ) Debugger::DBGSTR::addStr( L" Update時間 : %f\n", TLIB::Tempus::TwoDwTime2ElapsedTime(sc,nc));
 	}
 }
 /**************************************************************************
@@ -320,9 +324,9 @@ void Stage::EraseButton(vector<Object*>::iterator ObjIt){
 ////            ：
 ////
 void Stage::Render(RenderPacket& i_RenderPacket){
-	i_RenderPacket.pVec		= &m_Vec	;
-	i_RenderPacket.pTxMgr	= &m_TexMgr ; 
+
 	i_RenderPacket.SetStage( this );
+
 	clock_t sc = TLIB::Tempus::getClock();
 	//配置オブジェクトの描画
 	vector<Object*>::iterator it = m_Vec.begin();
@@ -352,9 +356,9 @@ void Stage::Render(RenderPacket& i_RenderPacket){
 void Stage::Draw(DrawPacket& i_DrawPacket)
 {
 	try{
-		i_DrawPacket.pVec		= &m_Vec ;
-		i_DrawPacket.pTxMgr		= &m_TexMgr ; 
+
 		i_DrawPacket.SetStage( this );
+
 		clock_t sc = TLIB::Tempus::getClock();
 		//配置オブジェクトの描画
 		vector<Object*>::size_type sz = m_Vec.size();
@@ -404,7 +408,7 @@ void Stage::DefaultRender(){
 //// 引数       ：  DrawPacket& i_DrawPacket             // 画面描画時に必要なデータ群 ↓内容下記
 ////            ：  ├ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 インターフェイスへのポインタ
 ////            ：  ├ vector<Object*>&    Vec                     // オブジェクトの配列
-////            ：  ├ Tempus2*            i_DrawPacket.pTime	   // 時間を管理するクラスへのポインター
+////            ：  ├ Tempus2*            i_DrawPacket.GetTime()	   // 時間を管理するクラスへのポインター
 ////            ：  └ Command             i_DrawPacket.pCommand   // コマンド
 //// 戻値       ：無し
 //// 担当者     ：鴫原 徹
@@ -412,7 +416,7 @@ void Stage::DefaultRender(){
 ////            ：
 ////
 void Stage::CommandTranslator(DrawPacket& i_DrawPacket){
-	switch(i_DrawPacket.pCommand->m_Command){
+	switch(i_DrawPacket.PopCommand().m_Command){
 		case GM_CHANGE_CHILDSTAGE:
 		{
 			if( m_pChildStage )

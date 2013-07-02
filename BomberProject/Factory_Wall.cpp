@@ -14,6 +14,7 @@
 #include "Scene.h"
 #include "Factory_Wall.h"
 #include "BassItems.h"
+#include "TextureManager.h"
 
 
 namespace wiz{
@@ -28,18 +29,24 @@ namespace bomberobject{
 /**************************************************************************
  WallObject::WallObject(
 	LPDIRECT3DDEVICE9 pD3DDevice,	//デバイス
-	LPDIRECT3DTEXTURE9 pTexture,	//テクスチャ
+	LPTATRATEXTURE pTexture,	//テクスチャ
 	wiz::OBJID id					//オブジェクトの種類
 );
  用途: コンストラクタ
  戻り値: なし
  担当：本多寛之
 ***************************************************************************/
-Warning::Warning( LPDIRECT3DDEVICE9 pD3DDevice,D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,LPDIRECT3DTEXTURE9 pTexture,wiz::OBJID id)
-:PrimitiveBox(pD3DDevice,Diffuse,Specular,Ambient,id,pTexture)
+Warning::Warning(
+		LPDIRECT3DDEVICE9 pD3DDevice	,
+		D3DCOLORVALUE&		Diffuse		,
+		D3DCOLORVALUE&		Specular	,
+		D3DCOLORVALUE&		Ambient		,
+		LPTATRATEXTURE		pTexture	,
+		wiz::OBJID id
+)
+:Box(pD3DDevice,g_vOne,g_vZero,g_vZero,Diffuse,Specular,Ambient,id,false,pTexture)
 ,m_pCoil( NULL )
 ,m_Plate( pD3DDevice, pTexture, 0xFFFFFFFF )
-,m_pTexture(pTexture)
 ,m_vPos(D3DXVECTOR3(0.0f,0.0f,0.0f))
 ,m_vRot(D3DXVECTOR3(0.0f,0.0f,0.0f))
 ,m_vScale(D3DXVECTOR3(2.0f,2.0f,0.0f))
@@ -82,7 +89,7 @@ Warning::~Warning(){
 //// 引数       ：  DrawPacket& i_DrawPacket             // 画面描画時に必要なデータ群 ↓内容下記
 ////            ：  ├ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 インターフェイスへのポインタ
 ////            ：  ├ vector<Object*>&    Vec                     // オブジェクトの配列
-////            ：  ├ Tempus2*            i_DrawPacket.pTime	   // 時間を管理するクラスへのポインター
+////            ：  ├ Tempus2*            i_DrawPacket.GetTime()	   // 時間を管理するクラスへのポインター
 ////            ：  └ Command             i_DrawPacket.pCommand   // コマンド
 //// 戻値       ：無し
 //// 担当者     ：本多寛之
@@ -97,23 +104,23 @@ void Warning::Draw(DrawPacket& i_DrawPacket)
 		if(m_pTexture){
 			DWORD wkdword;
 			//現在のテクスチャステータスを得る
-			i_DrawPacket.pD3DDevice->GetTextureStageState(0,D3DTSS_COLOROP,&wkdword);
+			i_DrawPacket.GetDevice()->GetTextureStageState(0,D3DTSS_COLOROP,&wkdword);
 			//ステージの設定
-			i_DrawPacket.pD3DDevice->SetTexture(0,m_pTexture);
+			i_DrawPacket.GetDevice()->SetTexture(0,m_pTexture->getTexture());
 			//デフィーズ色とテクスチャを掛け合わせる設定
-			i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLOROP, D3DTOP_MODULATE4X );
-			i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLORARG1, D3DTA_TEXTURE );
-			i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLORARG2, D3DTA_DIFFUSE );
+			i_DrawPacket.GetDevice()->SetTextureStageState( 0, D3DTSS_COLOROP, D3DTOP_MODULATE4X );
+			i_DrawPacket.GetDevice()->SetTextureStageState( 0, D3DTSS_COLORARG1, D3DTA_TEXTURE );
+			i_DrawPacket.GetDevice()->SetTextureStageState( 0, D3DTSS_COLORARG2, D3DTA_DIFFUSE );
 
-			//i_DrawPacket.pD3DDevice->SetFVF(PlateFVF);
+			//i_DrawPacket.GetDevice()->SetFVF(PlateFVF);
 			// マトリックスをレンダリングパイプラインに設定
-			i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &m_Matrix);
+			i_DrawPacket.GetDevice()->SetTransform(D3DTS_WORLD, &m_Matrix);
 
 			//田村T透過案
-			//i_DrawPacket.pD3DDevice->SetRenderState(D3DRS_ALPHATESTENABLE,TRUE);
-			//i_DrawPacket.pD3DDevice->SetRenderState(D3DRS_ALPHAFUNC,D3DCMP_GREATEREQUAL);
+			//i_DrawPacket.GetDevice()->SetRenderState(D3DRS_ALPHATESTENABLE,TRUE);
+			//i_DrawPacket.GetDevice()->SetRenderState(D3DRS_ALPHAFUNC,D3DCMP_GREATEREQUAL);
 			//float	f	= 0.5f ;
-			//i_DrawPacket.pD3DDevice->SetRenderState(D3DRS_ALPHAREF,*(DWORD*)&f);
+			//i_DrawPacket.GetDevice()->SetRenderState(D3DRS_ALPHAREF,*(DWORD*)&f);
 			//コモンメッシュのDraw()を呼ぶ
 			RENDERSTATE_PARAM pParam[] = {
 				{ D3DRS_ALPHABLENDENABLE	, TRUE					},
@@ -123,9 +130,9 @@ void Warning::Draw(DrawPacket& i_DrawPacket)
 				{ D3DRS_FORCE_DWORD			, NULL					}
 			};
 			CommonMesh::Draw(i_DrawPacket,pParam);
-			i_DrawPacket.pD3DDevice->SetTexture(0,0);
+			i_DrawPacket.GetDevice()->SetTexture(0,0);
 			//ステージを元に戻す
-			i_DrawPacket.pD3DDevice->SetTextureStageState(0,D3DTSS_COLOROP,wkdword);
+			i_DrawPacket.GetDevice()->SetTextureStageState(0,D3DTSS_COLOROP,wkdword);
 
 			D3DXMATRIX m ;
 			//D3DXMatrixScale( &m, );
@@ -137,7 +144,7 @@ void Warning::Draw(DrawPacket& i_DrawPacket)
 		else{
 		//テクスチャがない場合
 			// マトリックスをレンダリングパイプラインに設定
-			i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &m_Matrix);
+			i_DrawPacket.GetDevice()->SetTransform(D3DTS_WORLD, &m_Matrix);
 			//コモンメッシュのDraw()を呼ぶ
 			CommonMesh::Draw(i_DrawPacket);
 		}
@@ -165,7 +172,7 @@ void Warning::Draw(DrawPacket& i_DrawPacket)
 ////            ：
 ////
 void Warning::Update( UpdatePacket& i_UpdatePacket ){
-	if( !m_pCoil )	m_pCoil	= (PlayerCoil*)SearchObjectFromID( i_UpdatePacket.pVec, OBJID_3D_COIL	) ;
+	if( !m_pCoil )	m_pCoil	= (PlayerCoil*)i_UpdatePacket.SearchObjectFromID( OBJID_3D_COIL	) ;
 	if(m_bToDraw){
 		D3DXMATRIX mScalse, mRot, mPos;
 		D3DXMatrixScaling(&mScalse,m_vScale.x,m_vScale.y,m_vScale.z);
@@ -193,7 +200,7 @@ void Warning::Update( UpdatePacket& i_UpdatePacket ){
 		if(m_iPtnInterval >= WARNING_INTERVAL)m_iPtnInterval = 0;
 		m_iPtnInterval++;
 
-		m_fDrawTime	+= (float)i_UpdatePacket.pTime->getElapsedTime();
+		m_fDrawTime	+= (float)i_UpdatePacket.GetTime()->getElapsedTime();
 		if( m_fDrawTime > 0.01f ){
 			m_pCoil->ScratchTime_Update();
 			m_fDrawTime	= 0;
@@ -207,21 +214,24 @@ void Warning::Update( UpdatePacket& i_UpdatePacket ){
 /**************************************************************************
  WallObject::WallObject(
 	LPDIRECT3DDEVICE9 pD3DDevice,	//デバイス
-	LPDIRECT3DTEXTURE9 pTexture,	//テクスチャ
+	LPTATRATEXTURE pTexture,	//テクスチャ
 	wiz::OBJID id					//オブジェクトの種類
 );
  用途: コンストラクタ
  戻り値: なし
  担当：本多寛之
 ***************************************************************************/
-WallObject::WallObject( LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTexture,wiz::OBJID id)
-:PrimitiveBox(pD3DDevice,
-		D3DCOLORVALUE(),
-		D3DCOLORVALUE(),
-		D3DCOLORVALUE(),
-		id,
-		pTexture)
-,m_pWallTex( pTexture )
+WallObject::WallObject( LPDIRECT3DDEVICE9 pD3DDevice, LPTATRATEXTURE pTexture,wiz::OBJID id)
+:Box(pD3DDevice,
+	g_vOne,
+	g_vZero,
+	g_vZero,
+	D3DCOLORVALUE(),
+	D3DCOLORVALUE(),
+	D3DCOLORVALUE(),
+	id,
+	false,
+	pTexture)
 ,m_Ptn(0)
 ,m_Plate( pD3DDevice, pTexture, 0xFFFFFFFF )
 ,m_pWarning( NULL )
@@ -255,7 +265,7 @@ WallObject::~WallObject(){
 }
 
 /////////////////// ////////////////////
-//// 用途       ：WallObject(	LPDIRECT3DDEVICE9 pD3DDevice,LPDIRECT3DTEXTURE9 pTexture,wiz::OBJID id = OBJID_3D_WALL);
+//// 用途       ：WallObject(	LPDIRECT3DDEVICE9 pD3DDevice,LPTATRATEXTURE pTexture,wiz::OBJID id = OBJID_3D_WALL);
 //// カテゴリ   ：コンストラクタ
 //// 用途       ：関数
 //// 引数       ：なし
@@ -338,38 +348,39 @@ void WallObject::GetOBBList( float Index, list<OBB>& ObbList ){
 //// 引数       ：  DrawPacket& i_DrawPacket             // 画面描画時に必要なデータ群 ↓内容下記
 ////            ：  ├ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 インターフェイスへのポインタ
 ////            ：  ├ vector<Object*>&    Vec                     // オブジェクトの配列
-////            ：  ├ Tempus2*            i_DrawPacket.pTime	   // 時間を管理するクラスへのポインター
+////            ：  ├ Tempus2*            i_DrawPacket.GetTime()	   // 時間を管理するクラスへのポインター
 ////            ：  └ Command             i_DrawPacket.pCommand   // コマンド
 //// 戻値       ：無し
 //// 担当者     ：本多寛之
 //// 備考       ：
 void WallObject::Draw(DrawPacket& i_DrawPacket)
 {
-	m_pTexture = m_pWallTex ;
+	// m_pTexture = m_pWallTex ;
 	TARGETCONTAINER::iterator it	= m_ItemMap_Target.begin();
 	TARGETCONTAINER::iterator end	= m_ItemMap_Target.end();
 	while(it != end){
 		//テクスチャがある場合
-		if(m_pWallTex){
+		if(m_pTexture){
+
 			DWORD wkdword;
 			//現在のテクスチャステータスを得る
-			i_DrawPacket.pD3DDevice->GetTextureStageState(0,D3DTSS_COLOROP,&wkdword);
+			i_DrawPacket.GetDevice()->GetTextureStageState(0,D3DTSS_COLOROP,&wkdword);
 			//ステージの設定
-			i_DrawPacket.pD3DDevice->SetTexture(0,m_pTexture);
+			i_DrawPacket.GetDevice()->SetTexture(0,m_pTexture->getTexture());
 			//デフィーズ色とテクスチャを掛け合わせる設定
-			i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLOROP, D3DTOP_MODULATE4X );
-			i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLORARG1, D3DTA_TEXTURE );
-			i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLORARG2, D3DTA_DIFFUSE );
+			i_DrawPacket.GetDevice()->SetTextureStageState( 0, D3DTSS_COLOROP, D3DTOP_MODULATE4X );
+			i_DrawPacket.GetDevice()->SetTextureStageState( 0, D3DTSS_COLORARG1, D3DTA_TEXTURE );
+			i_DrawPacket.GetDevice()->SetTextureStageState( 0, D3DTSS_COLORARG2, D3DTA_DIFFUSE );
 
-			//i_DrawPacket.pD3DDevice->SetFVF(PlateFVF);
+			//i_DrawPacket.GetDevice()->SetFVF(PlateFVF);
 			// マトリックスをレンダリングパイプラインに設定
-			i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &(*it)->m_Matrix);
+			i_DrawPacket.GetDevice()->SetTransform(D3DTS_WORLD, &(*it)->m_Matrix);
 
 			//田村T透過案
-			//i_DrawPacket.pD3DDevice->SetRenderState(D3DRS_ALPHATESTENABLE,TRUE);
-			//i_DrawPacket.pD3DDevice->SetRenderState(D3DRS_ALPHAFUNC,D3DCMP_GREATEREQUAL);
+			//i_DrawPacket.GetDevice()->SetRenderState(D3DRS_ALPHATESTENABLE,TRUE);
+			//i_DrawPacket.GetDevice()->SetRenderState(D3DRS_ALPHAFUNC,D3DCMP_GREATEREQUAL);
 			//float	f	= 0.5f ;
-			//i_DrawPacket.pD3DDevice->SetRenderState(D3DRS_ALPHAREF,*(DWORD*)&f);
+			//i_DrawPacket.GetDevice()->SetRenderState(D3DRS_ALPHAREF,*(DWORD*)&f);
 			//コモンメッシュのDraw()を呼ぶ
 			RENDERSTATE_PARAM pParam[] = {
 				{ D3DRS_ALPHABLENDENABLE	, TRUE					},
@@ -379,11 +390,11 @@ void WallObject::Draw(DrawPacket& i_DrawPacket)
 				{ D3DRS_FORCE_DWORD			, NULL					}
 			};
 			CommonMesh::Draw(i_DrawPacket,pParam);
-			i_DrawPacket.pD3DDevice->SetTexture(0,0);
+			i_DrawPacket.GetDevice()->SetTexture(0,0);
 			//ステージを元に戻す
-			i_DrawPacket.pD3DDevice->SetTextureStageState(0,D3DTSS_COLOROP,wkdword);
+			i_DrawPacket.GetDevice()->SetTextureStageState(0,D3DTSS_COLOROP,wkdword);
 
-			D3DXMATRIX m ;
+			//D3DXMATRIX m ;
 			//D3DXMatrixScale( &m, );
 			//D3DXVECTOR3	v	= MatrixCalculator( (*it)->m_Matrix, m_Plate.getPos() );
 			//m_Plate.setMatrixPos( v );
@@ -394,7 +405,7 @@ void WallObject::Draw(DrawPacket& i_DrawPacket)
 		else{
 		//テクスチャがない場合
 			// マトリックスをレンダリングパイプラインに設定
-			i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &(*it)->m_Matrix);
+			i_DrawPacket.GetDevice()->SetTransform(D3DTS_WORLD, &(*it)->m_Matrix);
 			//コモンメッシュのDraw()を呼ぶ
 			CommonMesh::Draw(i_DrawPacket);
 		}
@@ -402,7 +413,7 @@ void WallObject::Draw(DrawPacket& i_DrawPacket)
 		if( (*it)->m_pDOB ){
 			(*it)->m_pDOB->Draw(i_DrawPacket);
 		}else{
-			(*it)->m_pDOB = new DrawOBB(i_DrawPacket.pD3DDevice,(*it)->m_Obb);
+			(*it)->m_pDOB = new DrawOBB(i_DrawPacket.GetDevice(),(*it)->m_Obb);
 		}
 #endif
 
@@ -427,10 +438,10 @@ void WallObject::Draw(DrawPacket& i_DrawPacket)
 ////            ：
 ////
 void WallObject::Update( UpdatePacket& i_UpdatePacket ){
-	if( !m_pCamera     )	m_pCamera		=     (Camera*)SearchObjectFromID( i_UpdatePacket.pVec, OBJID_SYS_CAMERA	) ;
-	if( !m_pPlayerCoil )	m_pPlayerCoil	= (PlayerCoil*)SearchObjectFromID( i_UpdatePacket.pVec, OBJID_3D_COIL		) ;
-	if( !m_pEnemy      )	m_pEnemy		= (EnemyModel*)SearchObjectFromID( i_UpdatePacket.pVec, OBJID_3D_ENEMY		) ;
-	if( !m_pWarning    )	m_pWarning		=    (Warning*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_3D_WARNING		) ;
+	if( !m_pCamera     )	m_pCamera		=     (Camera*)i_UpdatePacket.SearchObjectFromID( OBJID_SYS_CAMERA	) ;
+	if( !m_pPlayerCoil )	m_pPlayerCoil	= (PlayerCoil*)i_UpdatePacket.SearchObjectFromID( OBJID_3D_COIL		) ;
+	if( !m_pEnemy      )	m_pEnemy		= (EnemyModel*)i_UpdatePacket.SearchObjectFromID( OBJID_3D_ENEMY		) ;
+	if( !m_pWarning    )	m_pWarning		=    (Warning*)i_UpdatePacket.SearchObjectFromID(OBJID_3D_WARNING		) ;
 
 	UpdateTargetItem();
 	TARGETCONTAINER::iterator it	= m_ItemMap_Target.begin();
@@ -572,8 +583,16 @@ Factory_Wall::Factory_Wall(FactoryPacket* fpac){
 		D3DCOLORVALUE WallSpecular = {0.0f,0.0f,0.0f,0.0f};
 		D3DCOLORVALUE WallAmbient = {0.5f,0.5f,0.5f,1.0f};
 
-		fpac->m_pVec->push_back( new Warning(fpac->pD3DDevice,WallDiffuse,WallSpecular,WallAmbient,
-												fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Warning.png" )));
+		fpac->m_pVec->push_back(
+			new Warning(
+				fpac->pD3DDevice,
+				WallDiffuse,
+				WallSpecular,
+				WallAmbient,
+				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Warning.png" ),
+				OBJID_3D_WARNING
+			)
+		);
 	}
 	catch(...){
 		//再throw

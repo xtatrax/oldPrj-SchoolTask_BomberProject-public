@@ -43,7 +43,7 @@ extern class WallObject ;
 ****************************************************************************/
 /////////////////// ////////////////////
 //// 関数名     ：PlayerCoil::PlayerCoil(
-////            ：    LPDIRECT3DDEVICE9 pD3DDevice,LPDIRECT3DTEXTURE9 pTexture,
+////            ：    LPDIRECT3DDEVICE9 pD3DDevice,LPTATRATEXTURE pTexture,
 ////            ：    float Radius1,float Radius2,float Lenght,
 ////            ：    D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos,
 ////            ：    D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,
@@ -51,7 +51,7 @@ extern class WallObject ;
 //// カテゴリ   ：コンストラクタ
 //// 用途       ：
 //// 引数       ：  LPDIRECT3DDEVICE9   pD3DDevice   // デバイス
-////            ：  LPDIRECT3DTEXTURE9  pTexture     // テクスチャ	
+////            ：  LPTATRATEXTURE  pTexture     // テクスチャ	
 ////            ：  float               Radius1      // 錐の直径1
 ////            ：  float               Radius2      // 錐の直径2
 ////            ：  float               Radius3      // 球の直径
@@ -74,7 +74,7 @@ PlayerCoil::PlayerCoil(
 		float Radius1,float Radius2,float Radius3,float Lenght,
 		D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos,
 		D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,
-		LPDIRECT3DTEXTURE9 pTex,
+		LPTATRATEXTURE pTex,
 		wiz::OBJID id
 	)
 :Cylinder(pD3DDevice,Radius1,Radius2,Lenght,vPos,vRot,Diffuse,Specular,Ambient, id )
@@ -139,7 +139,7 @@ PlayerCoil::PlayerCoil(
 	D3DXMatrixIdentity( &m_Matrix ) ;
 	m_pSphere	  = new Sphere(pD3DDevice,Radius3,vPos,vRot,Diffuse,Specular,Ambient);
 	D3DXVECTOR3	v = COIL_SUPER_MODE_FIELD_SCALE;
-		//LPDIRECT3DTEXTURE9 pTex2;
+		//LPTATRATEXTURE pTex2;
 		//0(pD3DDevice,L"SuperField.png",&pTex2);
 	m_pSuperField = new Box(pD3DDevice,v,vPos,vRot,Diffuse,Specular,Ambient,OBJID_3D_BOX,false,
 									/*pTex2*/m_pTexMgr->addTexture( pD3DDevice, L"SuperField.png" ) );
@@ -260,34 +260,34 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 		SPHERE sp;
 		sp.m_Center = g_vMax ;
 		sp.m_Radius = 1.0f ;
-		m_pDSPH = new DrawSphere( i_UpdatePacket.pD3DDevice, sp );
+		m_pDSPH = new DrawSphere( i_UpdatePacket.GetDevice(), sp );
 	}
 	if( GetAsyncKeyState( MYVK_DEBUG_INVISIBLEGAUGE_MAX ) ){
 		m_pSuperGage->Recovery(-1) ;
 	}
+	wiz::CONTROLER_STATE Controller1P = i_UpdatePacket.m_pCntlState[0] ;
+	//デバック用-----------------------------------------------------------
+	// 磁界反転
+	Controller1P.Gamepad.wPressedButtons.XConState.Y && this->ChangePole() ;
+	//-----------------------------------------------------------------------
 
 #endif
 #if defined(CF_DEBUG_JUMPTOOTHGOAL)
 	if( GetAsyncKeyState( MYVK_DEBUG_STAGE_RULER ) ){
-		GoalObject*		pc		= (GoalObject*)SearchObjectFromID( i_UpdatePacket.pVec, OBJID_SYS_CLEARAREA );
+		GoalObject*		pc		= (GoalObject*)i_UpdatePacket.SearchObjectFromID( OBJID_SYS_CLEARAREA );
 		if( pc )		m_vPos	= pc->GetPos();
 		m_vPos.y -= 3.0f;
 	}
 #endif
-	wiz::CONTROLER_STATE Controller1P = i_UpdatePacket.pCntlState[0] ;
 
-	if( !m_pCursor )			m_pCursor				=        ( MouseCursor* ) SearchObjectFromID( i_UpdatePacket.pVec, OBJID_SYS_CURSOR ) ; 
-	if( !m_pCamera )			m_pCamera				=             ( Camera* ) SearchObjectFromID( i_UpdatePacket.pVec, OBJID_SYS_CAMERA ) ; 
-	if( !m_pMagneticumObject )	m_pMagneticumObject		=  ( StaticMagnetField* ) SearchObjectFromID( i_UpdatePacket.pVec, OBJID_3D_STATIC_MAGNET ) ; 
-	if( !m_pReStart )			m_pReStart				=		 ( StartSprite* ) SearchObjectFromID( i_UpdatePacket.pVec, OBJID_SYS_START  ) ;
-	if( !m_pSuperGage )			m_pSuperGage			=          ( SuperGage* ) SearchObjectFromID( i_UpdatePacket.pVec, OBJID_UI_SUPERGAUGE );
-	if( !m_pContinueBehavior )	m_pContinueBehavior		=	( ContinueBehavior* ) SearchObjectFromID( i_UpdatePacket.pVec, OBJID_BEHAVIOR_CONTINUE );
+	if( !m_pCursor )			m_pCursor				=        ( MouseCursor* ) i_UpdatePacket.SearchObjectFromID( OBJID_SYS_CURSOR ) ; 
+	if( !m_pCamera )			m_pCamera				=             ( Camera* ) i_UpdatePacket.SearchObjectFromID( OBJID_SYS_CAMERA ) ; 
+	if( !m_pMagneticumObject )	m_pMagneticumObject		=  ( StaticMagnetField* ) i_UpdatePacket.SearchObjectFromID( OBJID_3D_STATIC_MAGNET ) ; 
+	if( !m_pReStart )			m_pReStart				=		 ( StartSprite* ) i_UpdatePacket.SearchObjectFromID( OBJID_SYS_START  ) ;
+	if( !m_pSuperGage )			m_pSuperGage			=          ( SuperGage* ) i_UpdatePacket.SearchObjectFromID( OBJID_UI_SUPERGAUGE );
+	if( !m_pContinueBehavior )	m_pContinueBehavior		=	( ContinueBehavior* ) i_UpdatePacket.SearchObjectFromID( OBJID_BEHAVIOR_CONTINUE );
 
 	if( m_pPlayer ){
-		//デバック用-----------------------------------------------------------
-		// 磁界反転
-		Controller1P.Gamepad.wPressedButtons.XConState.Y && this->ChangePole() ;
-		//-----------------------------------------------------------------------
 
 		if( m_enumCoilState != COIL_STATE_STICK ){
 			m_bModeChangeChar		= false;
@@ -362,7 +362,7 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 		m_pSphere->SetMaterial(m_Material );
 
 	} else {
-		m_pPlayer = (ProvisionalPlayer3D*)SearchObjectFromID( i_UpdatePacket.pVec , OBJID_3D_USERMAGNET );
+		m_pPlayer = (ProvisionalPlayer3D*)i_UpdatePacket.SearchObjectFromID( OBJID_3D_USERMAGNET );
 	}
 	//カメラ座標設定
 	if( m_pCamera ){
@@ -603,7 +603,7 @@ void PlayerCoil::Update_StateStick(UpdatePacket& i_UpdatePacket){
 //// 引数       ：  DrawPacket& i_DrawPacket             // 画面描画時に必要なデータ群 ↓内容下記
 ////            ：  ├ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 インターフェイスへのポインタ
 ////            ：  ├ vector<Object*>&    Vec                     // オブジェクトの配列
-////            ：  ├ Tempus2*            i_DrawPacket.pTime	   // 時間を管理するクラスへのポインター
+////            ：  ├ Tempus2*            i_DrawPacket.GetTime()	   // 時間を管理するクラスへのポインター
 ////            ：  └ Command             i_DrawPacket.pCommand   // コマンド
 //// 戻値       ：なし
 //// 担当       ：本多寛之
@@ -623,7 +623,7 @@ void PlayerCoil::SuperMode( UpdatePacket& i_UpdatePacket ){
 				m_bSuperSound = true ;
 			}
 			if(m_enumCoilState == COIL_STATE_MOVE)
-				m_fSuperTimeCount += (float)i_UpdatePacket.pTime->getElapsedTime();
+				m_fSuperTimeCount += (float)i_UpdatePacket.GetTime()->getElapsedTime();
 
 			m_fSuperFieldRotZ += 5.0f;
 			if(m_fMoveDir > 360.0f)m_fMoveDir = float(int(m_fMoveDir) % 360);
@@ -637,7 +637,7 @@ void PlayerCoil::SuperMode( UpdatePacket& i_UpdatePacket ){
 			break;
 
 		case COIL_STATE_SUPER_CHANGING:
-			m_fSuperTimeCount += (float)i_UpdatePacket.pTime->getElapsedTime()*0.7f;
+			m_fSuperTimeCount += (float)i_UpdatePacket.GetTime()->getElapsedTime()*0.7f;
 			m_fSuperFieldRotZ += 5.0f;
 			D3DXMatrixTranslation( &mPos  , m_vPos.x , m_vPos.y , m_vPos.z ) ;
 			if(m_vScale.x >= m_vScale.x * m_fSuperTimeCount && m_vScale.y >= m_vScale.y * m_fSuperTimeCount){
@@ -683,9 +683,9 @@ void PlayerCoil::SuperMode( UpdatePacket& i_UpdatePacket ){
 
 	//ゲージ減少
 	if(m_enumCoilState == COIL_STATE_MOVE && m_enumCoilStateSuper == COIL_STATE_SUPER_MOVE){
-		if( ( m_fSuperTimeAccumulator += (float)i_UpdatePacket.pTime->getElapsedTime()) < COIL_SUPER_MODE_TIME ){
+		if( ( m_fSuperTimeAccumulator += (float)i_UpdatePacket.GetTime()->getElapsedTime()) < COIL_SUPER_MODE_TIME ){
 			float fOneSecondSub = (1.0f / (float)COIL_SUPER_MODE_TIME);
-			float fFrameSub     = fOneSecondSub * (float)i_UpdatePacket.pTime->getElapsedTime();
+			float fFrameSub     = fOneSecondSub * (float)i_UpdatePacket.GetTime()->getElapsedTime();
 			m_pSuperGage->Consume( -fFrameSub );	
 		}
 	}else{
@@ -825,7 +825,7 @@ void PlayerCoil::Draw(DrawPacket& i_DrawPacket){
 
 	//テクスチャがない場合
 	// マトリックスをレンダリングパイプラインに設定
-	i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &m_Matrix);
+	i_DrawPacket.GetDevice()->SetTransform(D3DTS_WORLD, &m_Matrix);
 	//コモンメッシュのDraw()を呼ぶ
 	CommonMesh::Draw(i_DrawPacket);
 
@@ -846,13 +846,13 @@ void PlayerCoil::Draw(DrawPacket& i_DrawPacket){
 	D3DXMatrixIdentity( &mRot );
 	D3DXMatrixTranslation( &mPos, m_vPos.x, m_vPos.y, m_vPos.z );
 	m_Matrix	= mRot*mPos;
-	i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &m_Matrix);
+	i_DrawPacket.GetDevice()->SetTransform(D3DTS_WORLD, &m_Matrix);
 
 	if(m_enumCoilStateSuper == COIL_STATE_SUPER_READY && m_enumCoilState != COIL_STATE_DEAD && m_enumCoilState != COIL_STATE_CLEAR){
-		m_pLine1->draw(i_DrawPacket.pD3DDevice);
-		m_pLine2->draw(i_DrawPacket.pD3DDevice);
-		m_pLine3->draw(i_DrawPacket.pD3DDevice);
-		m_pLine4->draw(i_DrawPacket.pD3DDevice);
+		m_pLine1->draw(i_DrawPacket.GetDevice());
+		m_pLine2->draw(i_DrawPacket.GetDevice());
+		m_pLine3->draw(i_DrawPacket.GetDevice());
+		m_pLine4->draw(i_DrawPacket.GetDevice());
 	}
 #if defined( ON_DEBUGGINGPROCESS )
 	if( m_pDSPH ) m_pDSPH->Draw( i_DrawPacket );
@@ -1056,7 +1056,7 @@ Factory_Coil::Factory_Coil( FactoryPacket* fpac, DWORD dwResumptionCheckPoint, D
 		CheckPoint*									pc		= (CheckPoint*)SearchObjectFromID( fpac->m_pVec, OBJID_SYS_CHECKPOINT );
 		if( vStartPos )								vPos	= *vStartPos;
 		else if( dwResumptionCheckPoint && pc )		vPos	= pc->getThisPosition(dwResumptionCheckPoint);
-		//LPDIRECT3DTEXTURE9 pTex;
+		//LPTATRATEXTURE pTex;
 		//0(fpac->pD3DDevice,L"DeadPerticul.png",&pTex);
 		fpac->m_pVec->push_back(
 			new PlayerCoil(

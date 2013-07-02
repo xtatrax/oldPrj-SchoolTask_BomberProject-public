@@ -31,14 +31,14 @@ namespace bomberobject{
 /**************************************************************************
  FMemoryTex::FMemoryTex(
 	LPDIRECT3DDEVICE9 pD3DDevice,	//デバイス
-	LPDIRECT3DTEXTURE9 pTexture,	//テクスチャ
+	LPTATRATEXTURE pTexture,	//テクスチャ
 	wiz::OBJID id					//オブジェクトの種類
 );
  用途: コンストラクタ
  戻り値: なし
  担当：佐藤涼
 ***************************************************************************/
-FMemoryTex::FMemoryTex( LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTexture, wiz::OBJID id)
+FMemoryTex::FMemoryTex( LPDIRECT3DDEVICE9 pD3DDevice, LPTATRATEXTURE pTexture, wiz::OBJID id)
 	:PrimitiveBox(pD3DDevice,
 					D3DCOLORVALUE(),
 					D3DCOLORVALUE(),
@@ -90,7 +90,7 @@ FMemoryTex::~FMemoryTex(){
 //// 引数       ：  DrawPacket& i_DrawPacket             // 画面描画時に必要なデータ群 ↓内容下記
 ////            ：  ├ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 インターフェイスへのポインタ
 ////            ：  ├ vector<Object*>&    Vec                     // オブジェクトの配列
-////            ：  ├ Tempus2*            i_DrawPacket.pTime	   // 時間を管理するクラスへのポインター
+////            ：  ├ Tempus2*            i_DrawPacket.GetTime()	   // 時間を管理するクラスへのポインター
 ////            ：  └ Command             i_DrawPacket.pCommand   // コマンド
 //// 戻値       ：無し
 //// 担当者     ：佐藤涼
@@ -103,27 +103,27 @@ void FMemoryTex::Draw(DrawPacket& i_DrawPacket)
 		if(m_pTexture){
 			DWORD wkdword;
 			//現在のテクスチャステータスを得る
-			i_DrawPacket.pD3DDevice->GetTextureStageState(0,D3DTSS_COLOROP,&wkdword);
+			i_DrawPacket.GetDevice()->GetTextureStageState(0,D3DTSS_COLOROP,&wkdword);
 			//ステージの設定
-			i_DrawPacket.pD3DDevice->SetTexture(0,m_pTexture);
+			i_DrawPacket.GetDevice()->SetTexture(0,m_pTexture->getTexture());
 			//デフィーズ色とテクスチャを掛け合わせる設定
-			i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLOROP, D3DTOP_MODULATE4X );
-			i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLORARG1, D3DTA_TEXTURE );
-			i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLORARG2, D3DTA_DIFFUSE );
+			i_DrawPacket.GetDevice()->SetTextureStageState( 0, D3DTSS_COLOROP, D3DTOP_MODULATE4X );
+			i_DrawPacket.GetDevice()->SetTextureStageState( 0, D3DTSS_COLORARG1, D3DTA_TEXTURE );
+			i_DrawPacket.GetDevice()->SetTextureStageState( 0, D3DTSS_COLORARG2, D3DTA_DIFFUSE );
 
-			//i_DrawPacket.pD3DDevice->SetFVF(PlateFVF);
+			//i_DrawPacket.GetDevice()->SetFVF(PlateFVF);
 			// マトリックスをレンダリングパイプラインに設定
-			i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &it->second->mMatrix);
+			i_DrawPacket.GetDevice()->SetTransform(D3DTS_WORLD, &it->second->mMatrix);
 			//コモンメッシュのDraw()を呼ぶ
 			CommonMesh::Draw(i_DrawPacket);
-			i_DrawPacket.pD3DDevice->SetTexture(0,0);
+			i_DrawPacket.GetDevice()->SetTexture(0,0);
 			//ステージを元に戻す
-			i_DrawPacket.pD3DDevice->SetTextureStageState(0,D3DTSS_COLOROP,wkdword);
+			i_DrawPacket.GetDevice()->SetTextureStageState(0,D3DTSS_COLOROP,wkdword);
 		}
 		else{
 		//テクスチャがない場合
 			// マトリックスをレンダリングパイプラインに設定
-			i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &it->second->mMatrix);
+			i_DrawPacket.GetDevice()->SetTransform(D3DTS_WORLD, &it->second->mMatrix);
 			//コモンメッシュのDraw()を呼ぶ
 			CommonMesh::Draw(i_DrawPacket);
 		}
@@ -147,8 +147,8 @@ void FMemoryTex::Draw(DrawPacket& i_DrawPacket)
 ////            ：
 ////
 void FMemoryTex::Update( UpdatePacket& i_UpdatePacket ){
-	if( !m_pCamera	)	m_pCamera	=     (Camera*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_SYS_CAMERA	) ;
-	if( !m_pCoil	)	m_pCoil		= (PlayerCoil*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_3D_COIL		) ;
+	if( !m_pCamera	)	m_pCamera	=     (Camera*)i_UpdatePacket.SearchObjectFromID(OBJID_SYS_CAMERA	) ;
+	if( !m_pCoil	)	m_pCoil		= (PlayerCoil*)i_UpdatePacket.SearchObjectFromID(OBJID_3D_COIL		) ;
 
 	m_ItemMap_Target.clear();
 	multimap<float,mItem*>::iterator it = m_ItemMap_Memory.begin();
@@ -337,12 +337,17 @@ void FMemoryTex::OrientGoal(UpdatePacket& i_UpdatePacket){
 	}
 	else{ 
 		static float s_fTimeCount = 0.0f;
-		s_fTimeCount += (float)i_UpdatePacket.pTime->getElapsedTime();
+		s_fTimeCount += (float)i_UpdatePacket.GetTime()->getElapsedTime();
 		if(s_fTimeCount >= 0.5f){
-			i_UpdatePacket.pCommand->m_Command	= GM_OPENSTAGE_CLEAR;
-			i_UpdatePacket.pCommand->m_Param1	= m_pCoil->getDeadCount();
-			i_UpdatePacket.pCommand->m_Param2	= m_pCoil->getMaxPos();
-			i_UpdatePacket.pCommand->m_Param3	= m_pCoil->getScratchTime();
+
+			i_UpdatePacket.PushCommand( 
+				Command(
+					GM_OPENSTAGE_RESULT			,
+					m_pCoil->getDeadCount()		,
+					m_pCoil->getMaxPos()		,
+					m_pCoil->getScratchTime()
+				)
+			);
 			s_fTimeCount = 0.0f;
 			LeastScale	 = 0.3f;
 		}
@@ -355,19 +360,19 @@ void FMemoryTex::OrientGoal(UpdatePacket& i_UpdatePacket){
 /***************************************************************************
 関数名　　：GoalObject(
                    FactoryPacket* fpac,
-                   LPDIRECT3DTEXTURE9 pTexture,
+                   LPTATRATEXTURE pTexture,
                    wiz::OBJID id
               )
 カテゴリ　：コンストラクタ
 用途　　　：
 引数　　　：FactoryPacket* fpac           //デバイスなど
-　　　　　：LPDIRECT3DTEXTURE9 pTexture   //テクスチャ―
+　　　　　：LPTATRATEXTURE pTexture   //テクスチャ―
 　　　　　：wiz::OBJID id                 //ID
 戻り値　　：
 担当者　　：佐藤涼
 備考　　　：
 ****************************************************************************/
-GoalObject::GoalObject( LPDIRECT3DDEVICE9 pD3DDevice, D3DXVECTOR3 vPos , LPDIRECT3DTEXTURE9 pTexture, LPDIRECT3DTEXTURE9 pGoakCharTex,wiz::OBJID id)
+GoalObject::GoalObject( LPDIRECT3DDEVICE9 pD3DDevice, D3DXVECTOR3 vPos , LPTATRATEXTURE pTexture, LPTATRATEXTURE pGoakCharTex,wiz::OBJID id)
 	:PrimitiveBox(pD3DDevice,
 					D3DCOLORVALUE(),
 					D3DCOLORVALUE(),
@@ -393,7 +398,7 @@ GoalObject::GoalObject( LPDIRECT3DDEVICE9 pD3DDevice, D3DXVECTOR3 vPos , LPDIREC
 		m_Material.Ambient	= COLOR2D3DCOLORVALUE(0xFFFFFF00);
 
 		m_pGoalChar	= 	new SpriteObject( pD3DDevice, m_pGoalCharTex, GOAL_CHAR_SIZE, g_vZero, g_vZero,
-									Rect( 0, 0, 256, 64 ), D3DXVECTOR3( 128.0f, 32.0f, 0.0f ), D3DXVECTOR3( 100.0f, -87.0f, 0.0f ));
+									&Rect( 0, 0, 256, 64 ), D3DXVECTOR3( 128.0f, 32.0f, 0.0f ), D3DXVECTOR3( 100.0f, -87.0f, 0.0f ));
 
 	}
 	catch(...){
@@ -437,9 +442,9 @@ void	GoalObject::Draw(DrawPacket &i_DrawPacket){
 ********************************************************************/
 void	GoalObject::Update(UpdatePacket& i_UpdatePacket)
 {
-	if( !m_pCoil  ) m_pCoil		= (PlayerCoil*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_3D_COIL		) ;
+	if( !m_pCoil  ) m_pCoil		= (PlayerCoil*)i_UpdatePacket.SearchObjectFromID(OBJID_3D_COIL		) ;
 	if( !m_pCamera ){
-		m_pCamera = (    Camera*)SearchObjectFromID( i_UpdatePacket.pVec, OBJID_SYS_CAMERA ) ;
+		m_pCamera = (    Camera*)i_UpdatePacket.SearchObjectFromID( OBJID_SYS_CAMERA ) ;
 		m_fInitPosY	= 	m_pCamera->getPosY();
 	}
 

@@ -44,7 +44,7 @@ class EnemyModel : public Object {
 	bool					m_bReset		;
 	D3DXMATRIX				m_WorldMatrix	;
 	LPDIRECT3DDEVICE9		m_pD3DDevice	;
-	LPDIRECT3DTEXTURE9		m_pTex			;
+	LPTATRATEXTURE		m_pTex			;
 
 	struct EnemyItem{
 		D3DMATERIAL9	m_Material		;
@@ -91,14 +91,14 @@ public:
 
 	/////////////////// ////////////////////
 	//// 関数名     ：EnemyModel(LPDIRECT3DDEVICE9 pD3DDevice,D3DCOLORVALUE& Diffuse,
-	////            ：  D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,LPDIRECT3DTEXTURE9 pTexture = 0);
+	////            ：  D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,LPTATRATEXTURE pTexture = 0);
 	//// カテゴリ   ：コンストラクタ
 	//// 用途       ：球体を作成
 	//// 引数       ：  LPDIRECT3DDEVICE9 pD3DDevice,   ////IDirect3DDevice9インターフェイスへのポインタ
 	////            ：  D3DCOLORVALUE& Diffuse,         //ディフューズ色
 	////            ：  D3DCOLORVALUE& Specular,            //スペキュラ色
 	////            ：  D3DCOLORVALUE& Ambient,          //アンビエント色
-	////            ：  LPDIRECT3DTEXTURE9 pTexture = 0	//テクスチャを張るときは指定
+	////            ：  LPTATRATEXTURE pTexture = 0	//テクスチャを張るときは指定
 	//// 戻値       ：なし（失敗時は例外をthrow）
 	//// 担当者     ： (山ノ井先生のひな形より)
 	//// 備考       ：PrimitiveSphereの派生型
@@ -127,7 +127,7 @@ public:
 	//// 引数       ：  DrawPacket& i_DrawPacket             // 画面描画時に必要なデータ群 ↓内容下記
 	////            ：  ├ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 インターフェイスへのポインタ
 	////            ：  ├ vector<Object*>&    Vec                     // オブジェクトの配列
-	////            ：  ├ Tempus2*            i_DrawPacket.pTime	   // 時間を管理するクラスへのポインター
+	////            ：  ├ Tempus2*            i_DrawPacket.GetTime()	   // 時間を管理するクラスへのポインター
 	////            ：  └ Command             i_DrawPacket.pCommand   // コマンド
 	//// 戻値       ：無し
 	//// 担当者     ：斎藤謙吾

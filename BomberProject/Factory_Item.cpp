@@ -28,18 +28,18 @@ namespace bomberobject{
 ****************************************************************************/
 /***************************************************************************
 関数名　　　：Item( FactoryPacket* fpac,
-                      LPDIRECT3DTEXTURE9 pTexture,
+                      LPTATRATEXTURE pTexture,
                       wiz::OBJID id )
 カテゴリ　　：コンストラクタ
 用途　　　　：
 引数　　　　：FactoryPacket* fpac           // : デバイスなど
-　　　　　　：LPDIRECT3DTEXTURE9 pTexture   // : テクスチャ―
+　　　　　　：LPTATRATEXTURE pTexture   // : テクスチャ―
 　　　　　　：wiz::OBJID id                 // : ID
 戻り値　　　：
 担当者　　　：佐藤涼
 備考　　　　：
 ****************************************************************************/
-Item::Item(FactoryPacket* fpac,LPDIRECT3DTEXTURE9 pTexture, wiz::OBJID id)
+Item::Item(FactoryPacket* fpac,LPTATRATEXTURE pTexture, wiz::OBJID id)
 	:PrimitiveSphere(fpac->pD3DDevice,
 						D3DCOLORVALUE(),
 						D3DCOLORVALUE(),
@@ -89,31 +89,34 @@ Item::~Item(){
 void	Item::Draw(DrawPacket &i_DrawPacket){
 	TARGETCONTAINER::iterator it = m_ItemMap_Target.begin();
 	while(it != m_ItemMap_Target.end()){
+		
+		//PrimitiveSphere::m_WorldMatrix = (*it)->m_mMatrix ;
+
 		//テクスチャがある場合
 		if(m_pTexture){
 			DWORD wkdword;
 			//現在のテクスチャステータスを得る
-			i_DrawPacket.pD3DDevice->GetTextureStageState(0,D3DTSS_COLOROP,&wkdword);
+			i_DrawPacket.GetDevice()->GetTextureStageState(0,D3DTSS_COLOROP,&wkdword);
 			//ステージの設定
-			i_DrawPacket.pD3DDevice->SetTexture(0,m_pTexture);
+			i_DrawPacket.GetDevice()->SetTexture(0,m_pTexture->getTexture());
 			//デフィーズ色とテクスチャを掛け合わせる設定
-			i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLOROP, D3DTOP_MODULATE4X );
-			i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLORARG1, D3DTA_TEXTURE );
-			i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLORARG2, D3DTA_DIFFUSE );
+			i_DrawPacket.GetDevice()->SetTextureStageState( 0, D3DTSS_COLOROP, D3DTOP_MODULATE4X );
+			i_DrawPacket.GetDevice()->SetTextureStageState( 0, D3DTSS_COLORARG1, D3DTA_TEXTURE );
+			i_DrawPacket.GetDevice()->SetTextureStageState( 0, D3DTSS_COLORARG2, D3DTA_DIFFUSE );
 
-			//i_DrawPacket.pD3DDevice->SetFVF(PlateFVF);
+			//i_DrawPacket.GetDevice()->SetFVF(PlateFVF);
 			// マトリックスをレンダリングパイプラインに設定
-			i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &(*it)->m_mMatrix);
+			i_DrawPacket.GetDevice()->SetTransform(D3DTS_WORLD,&(*it)->m_mMatrix );
 			//コモンメッシュのDraw()を呼ぶ
 			CommonMesh::Draw(i_DrawPacket);
-			i_DrawPacket.pD3DDevice->SetTexture(0,0);
+			i_DrawPacket.GetDevice()->SetTexture(0,0);
 			//ステージを元に戻す
-			i_DrawPacket.pD3DDevice->SetTextureStageState(0,D3DTSS_COLOROP,wkdword);
+			i_DrawPacket.GetDevice()->SetTextureStageState(0,D3DTSS_COLOROP,wkdword);
 		}
 		else{
 		//テクスチャがない場合
 			// マトリックスをレンダリングパイプラインに設定
-			i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &(*it)->m_mMatrix);
+			i_DrawPacket.GetDevice()->SetTransform(D3DTS_WORLD, &(*it)->m_mMatrix);
 			//コモンメッシュのDraw()を呼ぶ
 			CommonMesh::Draw(i_DrawPacket);
 		}
@@ -173,11 +176,10 @@ void Item::setDrawTarget(){
 void	Item::Update(UpdatePacket& i_UpdatePacket)
 {
 
-	vector<Object*>*	pVec	= i_UpdatePacket.pVec;
 
-	if( !m_pPlayerCoil )	m_pPlayerCoil	= (PlayerCoil*)SearchObjectFromID(pVec, OBJID_3D_COIL       );
-	if( !m_pSuperGage )		m_pSuperGage	=  (SuperGage*)SearchObjectFromID(pVec, OBJID_UI_SUPERGAUGE );
-	if( !m_pCamera )		m_pCamera		=     (Camera*)SearchObjectFromID(pVec, OBJID_SYS_CAMERA    );
+	if( !m_pPlayerCoil )	m_pPlayerCoil	= (PlayerCoil*)i_UpdatePacket.SearchObjectFromID( OBJID_3D_COIL       );
+	if( !m_pSuperGage )		m_pSuperGage	=  (SuperGage*)i_UpdatePacket.SearchObjectFromID( OBJID_UI_SUPERGAUGE );
+	if( !m_pCamera )		m_pCamera		=     (Camera*)i_UpdatePacket.SearchObjectFromID( OBJID_SYS_CAMERA    );
 
 	//コイルの位置取得
 	D3DXVECTOR3	cPos	= m_pPlayerCoil->getPos();
@@ -259,14 +261,14 @@ void	Item::Update(UpdatePacket& i_UpdatePacket)
 //	if(m_pPlayerCoil->getState() == COIL_STATE_MOVE && m_pPlayerCoil->getSuperMode() == COIL_STATE_SUPER_MOVE){
 //		//	: すーぱモードの時
 //		//static float s_fTimeTotal = 0.0f;
-//		//s_fTimeTotal += (float)SUPER_GAGE_MAX / (float)COIL_SUPER_MODE_TIME * (float)i_UpdatePacket.pTime->getElapsedTime();
+//		//s_fTimeTotal += (float)SUPER_GAGE_MAX / (float)COIL_SUPER_MODE_TIME * (float)i_UpdatePacket.GetTime()->getElapsedTime();
 //		//if(s_fTimeTotal >= 1.0f){
-//		//	m_pSuperGage->Consume( -(1.0f / COIL_SUPER_MODE_TIME * (float)i_UpdatePacket.pTime->getElapsedTime()) );
+//		//	m_pSuperGage->Consume( -(1.0f / COIL_SUPER_MODE_TIME * (float)i_UpdatePacket.GetTime()->getElapsedTime()) );
 //		//	s_fTimeTotal -= (int)s_fTimeTotal;
 //		//}
-//		if( ( s_fTimeAccumulator += i_UpdatePacket.pTime->getElapsedTime()) < COIL_SUPER_MODE_TIME ){
+//		if( ( s_fTimeAccumulator += i_UpdatePacket.GetTime()->getElapsedTime()) < COIL_SUPER_MODE_TIME ){
 //			float fOneSecondSub = (1.0f / (float)COIL_SUPER_MODE_TIME);
-//			float fFrameSub     = fOneSecondSub * (float)i_UpdatePacket.pTime->getElapsedTime();
+//			float fFrameSub     = fOneSecondSub * (float)i_UpdatePacket.GetTime()->getElapsedTime();
 //			Debugger::DBGSTR::addStr(L"fOneSecondSub = %f\n",fOneSecondSub);
 //			Debugger::DBGSTR::addStr(L"fFrameSub     = %f\n",fFrameSub);
 //			m_pSuperGage->Consume( -fFrameSub );	

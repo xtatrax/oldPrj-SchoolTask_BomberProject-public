@@ -26,8 +26,8 @@ namespace bomberobject{
  Rank ’è‹`•”
 ***********************************************************************/
 Rank::Rank( LPDIRECT3DDEVICE9	pD3DDevice,
-			LPDIRECT3DTEXTURE9	pRankTex,
-			LPDIRECT3DTEXTURE9	pFrameTex,
+			LPTATRATEXTURE	pRankTex,
+			LPTATRATEXTURE	pFrameTex,
 			D3DXVECTOR3	&vScale,
 			D3DXVECTOR3	&vRot,
 			D3DXVECTOR3	&vPos,
@@ -134,7 +134,7 @@ Factory_Result::Factory_Result(FactoryPacket* fpac, int iDeadCount, int iMaxPosY
 				D3DXVECTOR3( 0.8f, 1.5f, 0.0f ),
 				g_vZero,
 				D3DXVECTOR3( 80.0f, 135.0f, 0.0f ),
-				Rect( 0, 128, 512, 192),
+				&Rect( 0, 128, 512, 192),
 				g_vZero,
 				g_vZero,
 				0xFFFFFFFF
@@ -176,7 +176,7 @@ Factory_Result::Factory_Result(FactoryPacket* fpac, int iDeadCount, int iMaxPosY
 				D3DXVECTOR3( 1.0f, 1.5f, 0.0f ),
 				g_vZero,
 				D3DXVECTOR3( wide-430.0f, height+86.0f, 0.0f ),
-				Rect( 0, 65, 512, 128),
+				&Rect( 0, 65, 512, 128),
 				g_vZero,
 				g_vZero,
 				0xFFFFFFFF
@@ -194,8 +194,8 @@ Factory_Result::Factory_Result(FactoryPacket* fpac, int iDeadCount, int iMaxPosY
 				g_vOne,
 				g_vZero,
 				D3DXVECTOR3(980.0f, 560.0f, 0.0f),
-				Rect(0,0,148,30),
-				Rect(0,0,148,30),
+				&Rect(0,0,148,30),
+				&Rect(0,0,148,30),
 				D3DXVECTOR3( 148.0f,15.0f,0.0f ),
 				g_vZero,
 				0xFF00AA55,
@@ -248,7 +248,7 @@ Factory_Result::Factory_Result(FactoryPacket* fpac, int iDeadCount, int iMaxPosY
 					D3DXVECTOR3( 0.5f, 0.5f, 0.0f ),
 					g_vZero,
 					g_vZero,
-					Rect( 0, 64, 512, 128 ),
+					&Rect( 0, 64, 512, 128 ),
 					D3DXVECTOR3( 40.0f, -75.0f, 0.0f )
 			)
 		);						

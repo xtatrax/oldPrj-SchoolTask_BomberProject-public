@@ -806,7 +806,14 @@ inline Object* SearchObjectFromTypeID(vector<Object*>* i_pVec,const type_info& i
 };
 
 
-
+/////////////////// ////////////////////
+//// 関数名     ：
+//// カテゴリ   ：
+//// 用途       ：
+//// 引数       ：
+//// 担当       ：
+//// 備考       ：
+////            ：
 inline D3DCOLORVALUE getD3DCOLORVALUE(float a, float r, float g, float b){
 	D3DCOLORVALUE c = { a, r, g, b } ;
 	return c ;

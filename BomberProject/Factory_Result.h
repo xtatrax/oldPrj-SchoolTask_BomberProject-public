@@ -34,16 +34,16 @@ class  Rank  : public SpriteObject
 ************************************************************/
 class	Rank	: public	SpriteObject{
 	bool				m_bDrawing;
-	LPDIRECT3DTEXTURE9	m_pRankTex;
-	LPDIRECT3DTEXTURE9	m_pFrameTex;
+	LPTATRATEXTURE	m_pRankTex;
+	LPTATRATEXTURE	m_pFrameTex;
 	Result_Rank			m_ResultRank;
 	D3DXVECTOR3			m_vPos;
 	D3DXVECTOR3			m_vRot;
 	D3DXVECTOR3			m_vScale;
 public:
 	Rank(	LPDIRECT3DDEVICE9	pD3DDevice,
-			LPDIRECT3DTEXTURE9	pRankTex,
-			LPDIRECT3DTEXTURE9	pFrameTex,
+			LPTATRATEXTURE	pRankTex,
+			LPTATRATEXTURE	pFrameTex,
 			D3DXVECTOR3	&vScale,
 			D3DXVECTOR3	&vRot,
 			D3DXVECTOR3	&vPos,

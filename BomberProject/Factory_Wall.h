@@ -41,10 +41,9 @@ extern class EnemyModel ;
 //     
 // 用途    : エフェクト
 //**************************************************************************//
-class Warning : public PrimitiveBox{
+class Warning : public Box{
 	PlayerCoil*			m_pCoil	;
 	PrimitivePlate		m_Plate;
-	LPDIRECT3DTEXTURE9	m_pTexture	;
 	D3DMATERIAL9		m_Material	;
 	D3DXMATRIX			m_Matrix	;
 	D3DXVECTOR3			m_vPos		;	//	: 座標
@@ -57,20 +56,23 @@ class Warning : public PrimitiveBox{
 	bool				m_bIsPlaySound	;
 public:
 	/////////////////// ////////////////////
-	//// 用途       ：Warning(	LPDIRECT3DDEVICE9 pD3DDevice,LPDIRECT3DTEXTURE9 pTexture,wiz::OBJID id = OBJID_3D_WALL);
+	//// 用途       ：Warning(	LPDIRECT3DDEVICE9 pD3DDevice,LPTATRATEXTURE pTexture,wiz::OBJID id = OBJID_3D_WALL);
 	//// カテゴリ   ：コンストラクタ
 	//// 用途       ：
 	//// 引数       ：LPDIRECT3DDEVICE9 pD3DDevice //デバイス
-	////			  : LPDIRECT3DTEXTURE9 pTexture  //テクスチャ
+	////			  : LPTATRATEXTURE pTexture  //テクスチャ
 	////			  : pTexture,wiz::OBJID id = OBJID_3D_WALL //ID
 	//// 戻値       ：無し
 	//// 担当者     ：本多寛之
 	//// 備考       ：
-	Warning(LPDIRECT3DDEVICE9 pD3DDevice,
-			D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,
-			LPDIRECT3DTEXTURE9 pTexture,
-			wiz::OBJID id = OBJID_3D_WARNING
-			);
+	Warning(
+		LPDIRECT3DDEVICE9 pD3DDevice	,
+		D3DCOLORVALUE&		Diffuse		,
+		D3DCOLORVALUE&		Specular	,
+		D3DCOLORVALUE&		Ambient		,
+		LPTATRATEXTURE		pTexture	,
+		wiz::OBJID id
+	);
 	/////////////////// ////////////////////
 	//// 用途       ：~Warning();
 	//// カテゴリ   ：デストラクタ
@@ -87,7 +89,7 @@ public:
 	//// 引数       ：  DrawPacket& i_DrawPacket             // 画面描画時に必要なデータ群 ↓内容下記
 	////            ：  ├ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 インターフェイスへのポインタ
 	////            ：  ├ vector<Object*>&    Vec                     // オブジェクトの配列
-	////            ：  ├ Tempus2*            i_DrawPacket.pTime	   // 時間を管理するクラスへのポインター
+	////            ：  ├ Tempus2*            i_DrawPacket.GetTime()	   // 時間を管理するクラスへのポインター
 	////            ：  └ Command             i_DrawPacket.pCommand   // コマンド
 	//// 戻値       ：無し
 	//// 担当者     ：本多寛之
@@ -146,13 +148,12 @@ public:
 // 編集    : 鴫原 徹
 // 用途    : 壁
 //**************************************************************************//
-class WallObject : public PrimitiveBox{
+class WallObject : public Box{
 	int					m_Ptn			;
 	PlayerCoil*			m_pPlayerCoil	;
 	EnemyModel*			m_pEnemy		;
 	Camera*				m_pCamera		;
 	PrimitivePlate		m_Plate			;
-	LPDIRECT3DTEXTURE9	m_pWallTex		;
 	Warning*			m_pWarning		;
 	struct WallItem{
 		D3DMATERIAL9	m_Material	;
@@ -189,7 +190,7 @@ class WallObject : public PrimitiveBox{
 			D3DXMatrixIdentity(&mScale);
 			D3DXMatrixIdentity(&mRot);
 			D3DXMatrixIdentity(&mPos);
-			D3DXMatrixScaling(&mScale,vScale.x,vScale.y,vScale.z);
+			D3DXMatrixScaling(&mScale,vScale.x,vScale.y,0);
 			D3DXMatrixRotationZ(&mRot,vOBBRot.z);
 			D3DXMatrixTranslation(&mPos, vPos.x,vPos.y,vPos.z);
 			m_Matrix = mScale * mRot * mPos ;
@@ -209,7 +210,7 @@ class WallObject : public PrimitiveBox{
 protected:
 
 	/////////////////// ////////////////////
-	//// 用途       ：WallObject(	LPDIRECT3DDEVICE9 pD3DDevice,LPDIRECT3DTEXTURE9 pTexture,wiz::OBJID id = OBJID_3D_WALL);
+	//// 用途       ：WallObject(	LPDIRECT3DDEVICE9 pD3DDevice,LPTATRATEXTURE pTexture,wiz::OBJID id = OBJID_3D_WALL);
 	//// カテゴリ   ：コンストラクタ
 	//// 用途       ：関数
 	//// 引数       ：なし
@@ -220,17 +221,17 @@ protected:
 
 public:
 	/////////////////// ////////////////////
-	//// 用途       ：WallObject(	LPDIRECT3DDEVICE9 pD3DDevice,LPDIRECT3DTEXTURE9 pTexture,wiz::OBJID id = OBJID_3D_WALL);
+	//// 用途       ：WallObject(	LPDIRECT3DDEVICE9 pD3DDevice,LPTATRATEXTURE pTexture,wiz::OBJID id = OBJID_3D_WALL);
 	//// カテゴリ   ：コンストラクタ
 	//// 用途       ：
 	//// 引数       ：LPDIRECT3DDEVICE9 pD3DDevice //デバイス
-	////			  : LPDIRECT3DTEXTURE9 pTexture  //テクスチャ
+	////			  : LPTATRATEXTURE pTexture  //テクスチャ
 	////			  : pTexture,wiz::OBJID id = OBJID_3D_WALL //ID
 	//// 戻値       ：無し
 	//// 担当者     ：本多寛之
 	//// 備考       ：
 	WallObject(	LPDIRECT3DDEVICE9 pD3DDevice,
-				LPDIRECT3DTEXTURE9 pTexture,
+				LPTATRATEXTURE pTexture,
 				wiz::OBJID id = OBJID_3D_WALL
 				);
 	/////////////////// ////////////////////
@@ -267,7 +268,7 @@ public:
 	//// 引数       ：  DrawPacket& i_DrawPacket             // 画面描画時に必要なデータ群 ↓内容下記
 	////            ：  ├ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 インターフェイスへのポインタ
 	////            ：  ├ vector<Object*>&    Vec                     // オブジェクトの配列
-	////            ：  ├ Tempus2*            i_DrawPacket.pTime	   // 時間を管理するクラスへのポインター
+	////            ：  ├ Tempus2*            i_DrawPacket.GetTime()	   // 時間を管理するクラスへのポインター
 	////            ：  └ Command             i_DrawPacket.pCommand   // コマンド
 	//// 戻値       ：無し
 	//// 担当者     ：本多寛之

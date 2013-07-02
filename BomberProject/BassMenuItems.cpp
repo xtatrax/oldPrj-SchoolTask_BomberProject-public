@@ -19,11 +19,11 @@ namespace menuobject{
 
 ButtonSprite::ButtonSprite(
 		const LPDIRECT3DDEVICE9		pD3DDevice			,
-		const LPDIRECT3DTEXTURE9	pTexture			,
+		const LPTATRATEXTURE		pTexture			,
 		const D3DXVECTOR3			vScalse				,
 		const D3DXVECTOR3			vRot				,
 		const D3DXVECTOR3			vPos				,
-		const RECT*					pRect				,
+		const Rect*					pRect				,
 		const D3DXVECTOR3			vCenter				,
 		const D3DXVECTOR3			vOffset				,
 		const Color					dwSelectColor		,
@@ -59,7 +59,7 @@ ButtonSprite::ButtonSprite(
 }
 ButtonSprite::~ButtonSprite(){};
 /////////////////// ////////////////////
-//// 関数名     ：void ButtonSprite::Update(LPDIRECT3DDEVICE9 pD3DDevice,Tempus2* i_DrawPacket.pTime,
+//// 関数名     ：void ButtonSprite::Update(LPDIRECT3DDEVICE9 pD3DDevice,Tempus2* i_DrawPacket.GetTime(),
 ////            ：      vector<Object*>& Vec,const CONTROLER_STATE* pCntlState,Command& i_DrawPacket.pCommand)
 //// カテゴリ   ：仮想関数
 //// 用途       ：オブジェクトを更新
@@ -93,8 +93,8 @@ void ButtonSprite::Update(UpdatePacket& i_UpdatePacket){
 	}else{
 		m_Color = m_UnSelectColor;
 	}
-	if( m_bIsSelectWait && (m_fTimeAccumulator += (float)i_UpdatePacket.pTime->getElapsedTime()) >= m_fWaitTime ){
-			*i_UpdatePacket.pCommand = m_ButtonState.CommandIssue();
+	if( m_bIsSelectWait && (m_fTimeAccumulator += (float)i_UpdatePacket.GetTime()->getElapsedTime()) >= m_fWaitTime ){
+			i_UpdatePacket.PushCommand( m_ButtonState.CommandIssue() );
 			m_bIsSelectWait = false ;
 			m_fTimeAccumulator = 0 ;
 			m_ButtonState.setPressed(false);
@@ -106,7 +106,7 @@ void ButtonSprite::Update(UpdatePacket& i_UpdatePacket){
 
 
 /////////////////// ////////////////////
-//// 関数名     ：void ButtonSprite::Draw(LPDIRECT3DDEVICE9 pD3DDevice,Tempus2* i_DrawPacket.pTime,
+//// 関数名     ：void ButtonSprite::Draw(LPDIRECT3DDEVICE9 pD3DDevice,Tempus2* i_DrawPacket.GetTime(),
 ////            ：      vector<Object*>& Vec,Command& i_DrawPacket.pCommand)
 //// カテゴリ   ：純粋仮想関数
 //// 用途       ：オブジェクトを描画
@@ -123,7 +123,7 @@ void ButtonSprite::Draw(DrawPacket& i_DrawPacket){
 		if(m_ButtonState.getPressed()){
 			i_DrawPacket.SearchSoundAndPlay(m_sDecisionSound);
 			m_bIsSelectWait = true ;
-			*i_DrawPacket.pCommand = m_ButtonState.CommandIssue();
+			i_DrawPacket.PushCommand( m_ButtonState.CommandIssue() );
 			if( m_bKillAfterIssuing ){
 				Object::setDead(); 
 			}
