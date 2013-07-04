@@ -80,7 +80,7 @@ DeadEffect::~DeadEffect(){
 ’Ç‰Á
 *********************************/
 void	DeadEffect::addEffect( D3DXVECTOR3 vPos, float fDir){
-	EffectItem*	pItem	= new EffectItem;
+	EffectItem*	pItem	= new EffectItem();
 
 	pItem->m_vPos	= vPos;
 	pItem->m_fDir	= fDir;
@@ -201,18 +201,18 @@ Factory_DeadEffect::Factory_DeadEffect(FactoryPacket* fpac)
 {
 	try{
 
-		float	wide	= BASE_CLIENT_WIDTH/2;
-		float	height	= BASE_CLIENT_HEIGHT/2;
+		//float	wide	= BASE_CLIENT_WIDTH/2;
+		//float	height	= BASE_CLIENT_HEIGHT/2;
 
-		D3DXVECTOR3	vScale	= D3DXVECTOR3( 0.5f, 0.5f, 0.0f );
-		D3DXVECTOR3	vPos	= D3DXVECTOR3( (wide-512.0f*vScale.x), (height-256.0f*vScale.y-100), 0.0f );
-		LPTATRATEXTURE pTex;
-		pTex = fpac->AddTexture(L"DeadPerticul.png");
-		DeadEffect* dEffect	=	new DeadEffect( fpac->pD3DDevice, pTex, g_vZero );
-		//for( int i = 0; i < PARTICLS_NUM; i++ ){
-		//	dEffect->addEffect( i*(360.0f/PARTICLS_NUM) );
-		//}
-		fpac->m_pVec->push_back(dEffect);
+		//D3DXVECTOR3	vScale	= D3DXVECTOR3( 0.5f, 0.5f, 0.0f );
+		//D3DXVECTOR3	vPos	= D3DXVECTOR3( (wide-512.0f*vScale.x), (height-256.0f*vScale.y-100), 0.0f );
+		//LPTATRATEXTURE pTex;
+		//pTex = fpac->AddTexture(L"DeadPerticul.png");
+		//DeadEffect* dEffect	=	new DeadEffect( fpac->GetDevice(), pTex, g_vZero );
+		////for( int i = 0; i < PARTICLS_NUM; i++ ){
+		////	dEffect->addEffect( i*(360.0f/PARTICLS_NUM) );
+		////}
+		//fpac->AddObject(dEffect);
 
 
 	}

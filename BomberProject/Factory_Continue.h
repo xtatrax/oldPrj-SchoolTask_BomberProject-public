@@ -22,11 +22,11 @@
 
 namespace wiz{
 namespace bomberobject{
-enum CONTINUEBEHAVIORFAZE{
-	CONTINUEBEHAVIORFAZE_WAIT				,
-	CONTINUEBEHAVIORFAZE_DRAWDEADMESSAGE	,
-	CONTINUEBEHAVIORFAZE_CONTINUESELECTION	,
-	CONTINUEBEHAVIORFAZE_CHECKSELECTION		,
+enum CONTINUEBEHAVIORPHASE{
+	CONTINUEBEHAVIORPHASE_WAIT				,
+	CONTINUEBEHAVIORPHASE_DRAWDEADMESSAGE	,
+	CONTINUEBEHAVIORPHASE_CONTINUESELECTION	,
+	CONTINUEBEHAVIORPHASE_CHECKSELECTION		,
 
 };
 
@@ -89,8 +89,8 @@ public:
 };
 
 class ContinueBehavior : public Behavior{
-	LPTATRATEXTURE		m_pPTContinue		;
-	LPTATRATEXTURE		m_pPTReally			;
+	LPTATRATEXTURE			m_pPTContinue		;
+	LPTATRATEXTURE			m_pPTReally			;
 	SpriteObject*			m_pPageTitle		;
 	SpriteObject*			m_pDeadMessage		;
 	ContinueButton*			m_pYesButton		;
@@ -104,7 +104,7 @@ class ContinueBehavior : public Behavior{
 	const float				m_fMessageTime		;
 	const float				m_fFadeOutTime		;
 	float					m_fDeadMessageAlpha	;
-	CONTINUEBEHAVIORFAZE	m_NowBehaviorFaze	;
+	CONTINUEBEHAVIORPHASE	m_NowBehaviorFaze	;
 public:
 	ContinueBehavior( FactoryPacket& i_BassPacket);
 	~ContinueBehavior();
@@ -142,7 +142,7 @@ public:
 	virtual void Draw( DrawPacket& i_DrawPacket );
 
 	void OperationStart(){
-		m_NowBehaviorFaze = CONTINUEBEHAVIORFAZE_DRAWDEADMESSAGE;
+		m_NowBehaviorFaze = CONTINUEBEHAVIORPHASE_DRAWDEADMESSAGE;
 		m_fDeadMessageAlpha = 255.0f ;
 		m_pDeadMessage->setAlpha(0xFF);
 		m_fDeadMessageTimeAccumulator = 0.0f ;
@@ -153,7 +153,7 @@ public:
 
 	}
 	void OperationStop(){
-		m_NowBehaviorFaze = CONTINUEBEHAVIORFAZE_WAIT;
+		m_NowBehaviorFaze = CONTINUEBEHAVIORPHASE_WAIT;
 	}
 };
 

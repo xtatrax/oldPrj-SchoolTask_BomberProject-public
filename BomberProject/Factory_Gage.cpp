@@ -753,10 +753,10 @@ Factory_Gage::Factory_Gage(FactoryPacket* fpac){
 	try{
 
 		//ゲージの種類
-		fpac->m_pVec->push_back(
+		fpac->AddObject(
 			new Relationship_Gage(
-				fpac->pD3DDevice,
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"GAGE1.png" ),
+				fpac->GetDevice(),
+				fpac->AddTexture( L"GAGE1.png" ),
 				D3DXVECTOR3( 0.25f, 0.25f, 0.0f ),
 				g_vZero,
 				D3DXVECTOR3( 0.0f, 0.0f, 0.0f ),
@@ -765,10 +765,10 @@ Factory_Gage::Factory_Gage(FactoryPacket* fpac){
 		);
 
 		//スーパーモード用ゲージ
-		fpac->m_pVec->push_back(
+		fpac->AddObject(
 			new SuperGage(
-				fpac->pD3DDevice,
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"GAGE2.png" ),
+				fpac->GetDevice(),
+				fpac->AddTexture( L"GAGE2.png" ),
 				D3DXVECTOR3(0.4f,0.25f,0.0f),
 				D3DXVECTOR3(0.0f,0.0f,0.0f),
 				D3DXVECTOR3(43.0f,-35.0f,0.0f),
@@ -778,10 +778,10 @@ Factory_Gage::Factory_Gage(FactoryPacket* fpac){
 		);
 
 		//磁界N用ゲージ
-		fpac->m_pVec->push_back(
+		fpac->AddObject(
 			new MagneticGage_N(
-				fpac->pD3DDevice,
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"GAGE3.png" ),
+				fpac->GetDevice(),
+				fpac->AddTexture( L"GAGE3.png" ),
 				D3DXVECTOR3( 105.0f,-410.0f,0.0f),
 				D3DXVECTOR3( 0.4f, 0.4f, 0.0f ),
 				Rect(0,32,256,64),
@@ -789,10 +789,10 @@ Factory_Gage::Factory_Gage(FactoryPacket* fpac){
 			)
 		);
 		//磁界用Sゲージ
-		fpac->m_pVec->push_back(
+		fpac->AddObject(
 			new MagneticGage_S(
-				fpac->pD3DDevice,
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"GAGE4.png" ),
+				fpac->GetDevice(),
+				fpac->AddTexture( L"GAGE4.png" ),
 				D3DXVECTOR3( 105.0f,-410.0f,0.0f),
 				D3DXVECTOR3( 0.4f, 0.4f, 0.0f ),
 				Rect(0,64,256,96),
@@ -801,9 +801,9 @@ Factory_Gage::Factory_Gage(FactoryPacket* fpac){
 		);
 
 		//Ready
-		fpac->m_pVec->push_back(
+		fpac->AddObject(
 			new SuperNotice(
-				fpac->pD3DDevice,
+				fpac->GetDevice(),
 				fpac->AddTexture( L"GAGE5.png" ),
 				D3DXVECTOR3( 0.5f, 0.25f, 0.0f ),
 				D3DXVECTOR3( 35.0f, 25.0f, 0.0f ),

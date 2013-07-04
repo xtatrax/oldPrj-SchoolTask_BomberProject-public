@@ -33,11 +33,7 @@ TitleStage::TitleStage(LPDIRECT3DDEVICE9 pD3DDevice,Stage* pStage)
 {
 	try{
 
-		FactoryPacket FPac(this);
-		FPac.m_IsDialog =  this->m_IsDialog ;
- 		FPac.m_pTexMgr  = &this->m_TexMgr   ;
-		FPac.m_pVec     = &this->m_Vec      ;
-		FPac.pD3DDevice =  pD3DDevice       ;
+		FactoryPacket FPac(pD3DDevice,this->m_IsDialog,&Command(),this);
 
 		Factory_Title	Tfac( &FPac );
 

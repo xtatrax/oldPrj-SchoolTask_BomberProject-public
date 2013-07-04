@@ -41,7 +41,7 @@ namespace bomberobject{
 ////
 
 //CPPでのコンストラクタの書き方。
-EnemyModel::EnemyModel(const LPDIRECT3DDEVICE9 pD3DDevice,const char *pFileName, TextureManager* pTexMgr,const wiz::OBJID id)
+EnemyModel::EnemyModel(  BassPacket& Packet,const char *pFileName ,const wiz::OBJID id)
 //継承元をこんな感じで書く。型は変数だけ。
 //:SimpleCommonMesh(g_vZero,g_vZero,COLOR2D3DCOLORVALUE(-1),COLOR2D3DCOLORVALUE(-1),COLOR2D3DCOLORVALUE(-1),id )
 :Object(id)
@@ -50,16 +50,15 @@ EnemyModel::EnemyModel(const LPDIRECT3DDEVICE9 pD3DDevice,const char *pFileName,
 ,m_pCoil( NULL )
 ,m_pMesh( NULL )
 ,m_bReset( false )
-,m_pD3DDevice( pD3DDevice )
-,m_pTex( NULL )
 {
 	try{
 		// Xファイルからメッシュをロードする 
 		//LPD3DXBUFFER pD3DXMtrlBuffer = NULL;
 		//DWORD dwMQty;
+		LPDIRECT3DDEVICE9 pDevice = Packet.GetDevice();
 		if(FAILED(D3DXLoadMeshFromXA(pFileName,
 								D3DXMESH_MANAGED,
-								pD3DDevice,
+								pDevice,
 								NULL,
 								NULL,
 								NULL,
@@ -90,7 +89,9 @@ EnemyModel::EnemyModel(const LPDIRECT3DDEVICE9 pD3DDevice,const char *pFileName,
 
 		//TLIB::widen(sFileDir,wsFileDir);
 
-		m_pTex = pTexMgr->addTexture( pD3DDevice ,L"DeadPerticul.png");
+		//m_pTex = Packet.AddTexture( L"DeadPerticul.png");
+		m_pDeadEffect	= new DeadEffect( Packet.GetDevice(), Packet.AddTexture( L"DeadPerticul.png"), g_vZero ); 
+
 		//D3DXMATERIAL d3dxMaterials = *(D3DXMATERIAL*)pD3DXMtrlBuffer->GetBufferPointer();
 		//m_MaterialItems.init(pD3DDevice,pD3DXMtrlBuffer,dwMQty,TexMgr,g_sDefaultTexturePath.c_str(),wpTexName);
 		//m_BassMesh.m_AABB = AABB(m_BassMesh.m_pMesh);
@@ -126,6 +127,8 @@ EnemyModel::~EnemyModel(){
 
 	Debugger::DBGWRITINGLOGTEXT::addStr(L"EnemyModel::~EnemyModel  >                                m_ItemMap_All.size(%d)\n",m_ItemMap_All.size());
 	
+	SafeDelete( m_pDeadEffect );
+
 	SafeDeletePointerMap( m_ItemMap_All );
 	m_ItemMap_All.clear();
 	
@@ -256,7 +259,8 @@ void EnemyModel::Update( UpdatePacket& i_UpdatePacket){
 		
 
 		if( !((*it)->m_bIsAlive) ){
-			(*it)->m_pDeadEffect->Update( i_UpdatePacket );
+			m_pDeadEffect->setPos( (*it)->m_vPos );
+			m_pDeadEffect->Update( i_UpdatePacket );
 		}
 
 		//拡大縮小
@@ -354,7 +358,7 @@ void EnemyModel::Draw(DrawPacket& i_DrawPacket)
 		}
 
 		if( !((*it)->m_bIsAlive) )
-			(*it)->m_pDeadEffect->Draw( i_DrawPacket );
+			m_pDeadEffect->Draw( i_DrawPacket );
 		//爆散
 		//if( (*it)->m_pDeadEffect[0] != NULL ){
 		//	for( int i = 0; i < PARTICLS_NUM_ENEMY; i++ ){
@@ -402,7 +406,6 @@ void EnemyModel::AddEnemy(
 	pItem->m_bIsAlive = true;
 	//爆散エフェクトのポインタ
 	//0(m_pD3DDevice,L"DeadPerticul.png",&m_pTex);
-	pItem->m_pDeadEffect	= new DeadEffect( m_pD3DDevice, m_pTex, vPos ); 
 	//for( int i = 0; i < PARTICLS_NUM_ENEMY; i++ )pItem->m_pDeadEffect[i] = NULL;
 	::ZeroMemory(&pItem->m_Material,sizeof(D3DMATERIAL9));
 	//回転の初期化
@@ -492,7 +495,7 @@ Factory_Enemy::Factory_Enemy(FactoryPacket* fpac){
 		//D3DCOLORVALUE EnemyAmbient = {1.0f,1.0f,1.0f,1.0f};
 		//
 		//EnemyModel* Enemy = new EnemyModel(
-		//	fpac->pD3DDevice,
+		//	fpac->GetDevice(),
 		//	RCTEXT_MODEL_ENEMY,
 		//	fpac->m_pTexMgr
 		//);
@@ -508,7 +511,7 @@ Factory_Enemy::Factory_Enemy(FactoryPacket* fpac){
 		//		);
 		//	}
 		//}
-		//fpac->m_pVec->push_back(Enemy);
+		//fpac->AddObject(Enemy);
 
 	}
 	catch(...){

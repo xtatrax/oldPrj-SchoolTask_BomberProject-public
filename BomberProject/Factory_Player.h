@@ -82,7 +82,7 @@ class ProvisionalPlayer3D : public MagnetField{
 
 public:
 	//	: 
-	ProvisionalPlayer3D( FactoryPacket* fpac, LPTATRATEXTURE pTexture, LPTATRATEXTURE pTexture2,
+	ProvisionalPlayer3D( LPDIRECT3DDEVICE9 pD3DDevice, LPTATRATEXTURE pTexture, LPTATRATEXTURE pTexture2,
 		D3DXVECTOR3 &vScale, D3DXQUATERNION &vRot, D3DXVECTOR3 &vPos,
 		wiz::OBJID id = OBJID_3D_USERMAGNET );
 	/////////////////// ////////////////////

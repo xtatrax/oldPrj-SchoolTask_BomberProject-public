@@ -39,17 +39,36 @@ PlayStage::PlayStage( LPDIRECT3DDEVICE9 pD3DDevice, DWORD dwStageNum, DWORD dwRe
 	:Stage(pStage)
 {
 	try{
-		FactoryPacket FPac(this);
-		FPac.m_IsDialog =  this->m_IsDialog ;
-		FPac.m_pTexMgr  = &this->m_TexMgr   ;
-		FPac.m_pVec     = &this->m_Vec      ;
-		FPac.pD3DDevice =  pD3DDevice       ;
+		Debugger::DBGWRITINGLOGTEXT::addStr(L"//-----------------------------------------------------------------------------------------------------//\n");
+		Debugger::DBGWRITINGLOGTEXT::addStr(L"//-----------------------------------------------------------------------------------------------------//\n");
+		Debugger::DBGWRITINGLOGTEXT::addStr(L"//-----------------------------------------------------------------------------------------------------//\n");
+		Debugger::DBGWRITINGLOGTEXT::addStr(L"//-----------------------------------------------------------------------------------------------------//\n");
+		Debugger::DBGWRITINGLOGTEXT::addStr(L"//-----------------------------------------------------------------------------------------------------//\n");
+		Debugger::DBGWRITINGLOGTEXT::addStr(L"//-----------------------------------------------------------------------------------------------------//\n");
+		Debugger::DBGWRITINGLOGTEXT::addStr(L"//-----------------------------------------------------------------------------------------------------//\n");
+		Debugger::DBGWRITINGLOGTEXT::addStr(L"// PlayStage ç\ízäJén\n");
+		Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
+		Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
+		Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
+		FactoryPacket FPac(pD3DDevice,this->m_IsDialog,&Command(),this);
+
 		D3DXVECTOR3* vp = NULL ;
 		if( vStartPos != g_vMax )
 			vp = &vStartPos;
 	
 		Factory_Main mainF( &FPac, dwStageNum, dwResumptionCheckPoint, vp );
 		m_dwNowStage = dwStageNum ;
+		Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
+		Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
+		Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
+		Debugger::DBGWRITINGLOGTEXT::addStr(L"// PlayStage ç\ízäÆóπ\n");
+		Debugger::DBGWRITINGLOGTEXT::addStr(L"//-----------------------------------------------------------------------------------------------------//\n");
+		Debugger::DBGWRITINGLOGTEXT::addStr(L"//-----------------------------------------------------------------------------------------------------//\n");
+		Debugger::DBGWRITINGLOGTEXT::addStr(L"//-----------------------------------------------------------------------------------------------------//\n");
+		Debugger::DBGWRITINGLOGTEXT::addStr(L"//-----------------------------------------------------------------------------------------------------//\n");
+		Debugger::DBGWRITINGLOGTEXT::addStr(L"//-----------------------------------------------------------------------------------------------------//\n");
+		Debugger::DBGWRITINGLOGTEXT::addStr(L"//-----------------------------------------------------------------------------------------------------//\n");
+		Debugger::DBGWRITINGLOGTEXT::addStr(L"//-----------------------------------------------------------------------------------------------------//\n");
 	}
 	catch(LoaderException& e){
 		throw LoaderException(

@@ -29,6 +29,7 @@ namespace wiz{
 class  Object ; 
 class  Stage ;
 class  TextureManager ;
+class  StageLoader;
 struct CONTROLER_STATE;
 class  DxDevice;
 namespace system{
@@ -250,27 +251,29 @@ public:
 		,m_pCommand( NULL )
 	
 	{}
-	TLIB::Tempus2*				GetTime();
-	LPDIRECT3DDEVICE9	GetDevice();
-	LPTATRATEXTURE		AddTexture(	const wchar_t*		sTextureName	);
-	void AddButton(					Object*				pButton			);
-	void AddObject(					Object*				pObje			);
-	void SearchSoundAndPlay(		const char*			sSoundName		);
-	void SearchSoundAndStop(		const char*			sSoundName		);
-	void SearchWaveAndPlay(			const char*			sWaveName		);
-	void SearchWaveAndStop(			const char*			sWaveName		);
-	void SoundStop(					const char*			sSoundName		);
-	void PushCommand(				const Command		Com				);	//	: 現状実質SetCommand 
-	void ClearCommand();
-	Command PopCommand();
+	TLIB::Tempus2*		GetTime()   const;
+	LPDIRECT3DDEVICE9	GetDevice() const;
+	LPTATRATEXTURE		AddTexture(					const wchar_t*		sTextureName	);
+	void				AddButton(					       Object*		pButton			);
+	void				AddObject(					       Object*		pObje			);
+	void				SearchSoundAndPlay(			const    char*		sSoundName		);
+	void				SearchSoundAndStop(			const    char*		sSoundName		);
+	void				SearchWaveAndPlay(			const    char*		sWaveName		);
+	void				SearchWaveAndStop(			const    char*		sWaveName		);
+	void				SoundStop(					const    char*		sSoundName		);
+	void				PushCommand(				const  Command		Com				);	//	: 現状実質SetCommand 
+	void				ClearCommand()const;
+	Command				PopCommand()const;
 
-	Object* SearchObjectFromID( 	DWORD				i_dwID,
+	Object*				SearchObjectFromID( 
+									DWORD									i_dwID,
 									vector<Object*>::size_type*				o_Point		= NULL,
 									vector<Object*>*						o_pVec		= NULL,
 									vector<vector<Object*>::size_type>*		o_PointList = NULL
 								);
 
-	Object* SearchObjectFromTypeID(	const type_info&						i_typeinfo,
+	Object*				SearchObjectFromTypeID(
+									const type_info&						i_typeinfo,
 									vector<Object*>*						o_pVec		= NULL
 								);
 };
@@ -327,35 +330,24 @@ inline UpdatePacket::UpdatePacket( BassPacket i_BassPacket )
 // 担当者  : 鴫原 徹
 // 用途    : ファクトリーに渡すパケットデータ
 //**************************************************************************//
-struct FactoryPacket{
-private:
-	wiz::Stage*	m_pStage;
+struct FactoryPacket : public BassPacket{
 public:
-	//Device
-	LPDIRECT3DDEVICE9 pD3DDevice ;
 	//ダイアログステージかどうか
 	bool m_IsDialog;
-	//配置オブジェクトのポインタのベクトル
-	vector<Object*>* m_pVec;
-	//テクスチャのポインタのベクトル
-	TextureManager* m_pTexMgr;
 public:
-	FactoryPacket(Stage* i_pStage):m_pStage(i_pStage){};
-	FactoryPacket(		LPDIRECT3DDEVICE9 i_pD3DDevice, bool i_IsDialog, vector<Object*>* i_pVec, TextureManager* i_pTexMgr,Stage* i_pStage = NULL)
-		:pD3DDevice(	i_pD3DDevice	)
-		,m_IsDialog(	i_IsDialog		)
-		,m_pVec(		i_pVec			)
-		,m_pTexMgr(		i_pTexMgr		)
-		,m_pStage(		i_pStage		)
-	{}
-	LPTATRATEXTURE	 AddTexture( const wchar_t* sTextureName );
-	void AddButton(Object* pButton );
-	void AddObject(Object* pObje   );
+	FactoryPacket(		LPDIRECT3DDEVICE9 i_pD3DDevice, bool i_IsDialog, Command* i_pCommand, Stage* i_pStage )
+		:m_IsDialog(	i_IsDialog		)
+	{
+
+		this->m_IsDialog	= i_IsDialog	;
+		this->m_pD3DDevice	= i_pD3DDevice	;
+		this->m_pCommand	= i_pCommand	;
+		this->m_pStage		= i_pStage		;
+		this->m_pTime		= NULL			;
+
+	}
+	vector<Object*>* GetObjectVector();
 	void SetSound( system::Sound*  pSound  );
-	void SearchSoundAndPlay( const char* SoundName );
-	void SearchSoundAndStop( const char* SoundName );
-	void SearchWaveAndPlay(  const char* WaveName  );
-	void SearchWaveAndStop(  const char* WaveName  );
 };
 /*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 

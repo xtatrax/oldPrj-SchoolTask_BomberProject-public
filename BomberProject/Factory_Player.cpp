@@ -43,7 +43,7 @@ const	float	GAUGE_VANISHRATE	= 0.0f;
 ////            ：
 ////
 ProvisionalPlayer3D::ProvisionalPlayer3D(
-	FactoryPacket*	fpac,								//	: デバイス
+	LPDIRECT3DDEVICE9 pD3DDevice,								//	: デバイス
 	LPTATRATEXTURE pTexture,						//	: テクスチャー
 	LPTATRATEXTURE pTexture2,						//	: テクスチャー２
 	D3DXVECTOR3		   &vScale,							//	: 伸縮
@@ -51,7 +51,7 @@ ProvisionalPlayer3D::ProvisionalPlayer3D(
 	D3DXVECTOR3	       &vPos,							//	: 位置
 	wiz::OBJID id 										//	: ID
 )
-:MagnetField( fpac->pD3DDevice, id )
+:MagnetField( pD3DDevice, id )
 ,m_Camera(NULL)
 ,m_pCursor(NULL)
 ,m_pPlayerCoil(NULL)
@@ -265,10 +265,10 @@ Factory_Player::Factory_Player( FactoryPacket* fpac ){
 	try{
 
 		D3DXVECTOR3 vScale( 1.0f, 1.0f, 1.0f );
-		//fpac->m_pVec->push_back(
+		//fpac->AddObject(
 		//	new ProvisionalPlayer(
-		//		fpac->pD3DDevice,
-		//		fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"CircleP.png" ),
+		//		fpac->GetDevice(),
+		//		fpac->AddTexture( L"CircleP.png" ),
 		//		vScale,
 		//		g_vZero,
 		//		D3DXVECTOR3(0.0f,0.0f,0.0f),
@@ -279,11 +279,11 @@ Factory_Player::Factory_Player( FactoryPacket* fpac ){
 
 		// 3D用
 		D3DXVECTOR3 vScale2( 10.0f, 10.0f, 10.0f );
-		fpac->m_pVec->push_back(
+		fpac->AddObject(
 			new ProvisionalPlayer3D(
-				fpac,
+				fpac->GetDevice(),
 				NULL,
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Field.png" ),
+				fpac->AddTexture(  L"Field.png" ),
 				vScale,
 				D3DXQUATERNION( 0.0f, 0.0f, 0.0f, 0.0f ),
 				D3DXVECTOR3(0.0f,0.0f,0.0f))

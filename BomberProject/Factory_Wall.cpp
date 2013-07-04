@@ -409,14 +409,6 @@ void WallObject::Draw(DrawPacket& i_DrawPacket)
 			//ƒRƒ‚ƒ“ƒƒbƒVƒ…‚ÌDraw()‚ðŒÄ‚Ô
 			CommonMesh::Draw(i_DrawPacket);
 		}
-#if defined(ON_DEBUGGINGPROCESS) | defined( PRESENTATION )
-		if( (*it)->m_pDOB ){
-			(*it)->m_pDOB->Draw(i_DrawPacket);
-		}else{
-			(*it)->m_pDOB = new DrawOBB(i_DrawPacket.GetDevice(),(*it)->m_Obb);
-		}
-#endif
-
 		++it;
 	}
 
@@ -583,13 +575,13 @@ Factory_Wall::Factory_Wall(FactoryPacket* fpac){
 		D3DCOLORVALUE WallSpecular = {0.0f,0.0f,0.0f,0.0f};
 		D3DCOLORVALUE WallAmbient = {0.5f,0.5f,0.5f,1.0f};
 
-		fpac->m_pVec->push_back(
+		fpac->AddObject(
 			new Warning(
-				fpac->pD3DDevice,
+				fpac->GetDevice(),
 				WallDiffuse,
 				WallSpecular,
 				WallAmbient,
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Warning.png" ),
+				fpac->AddTexture( L"Warning.png" ),
 				OBJID_3D_WARNING
 			)
 		);

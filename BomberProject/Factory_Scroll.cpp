@@ -117,18 +117,18 @@ Factory_Scroll::Factory_Scroll(FactoryPacket* fpac)
 	try{
 		//LPTATRATEXTURE pTex = NULL;
 		//LPTATRATEXTURE pTex2 = NULL ;
-		//0(fpac->pD3DDevice,L"BGP_TITLE01.png",&pTex);
-		//0(fpac->pD3DDevice,L"BGP_TITLE02.png",&pTex2);
-		//fpac->m_pVec->push_back(
+		//0(fpac->GetDevice(),L"BGP_TITLE01.png",&pTex);
+		//0(fpac->GetDevice(),L"BGP_TITLE02.png",&pTex2);
+		//fpac->AddObject(
 		//	new ScrollObject(
-		//		fpac->pD3DDevice,
-		//		pTex/*fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"BGP_TITLE01.png" )*/,
-		//		pTex2/*fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"BGP_TITLE02.png" )*/,
+		//		fpac->GetDevice(),
+		//		pTex/*fpac->AddTexture( L"BGP_TITLE01.png" )*/,
+		//		pTex2/*fpac->AddTexture( L"BGP_TITLE02.png" )*/,
 		//		D3DXVECTOR3( 1.0f, 1.0f, 0.2f )
 		//	)
 		//);
 		LPTATRATEXTURE pTex = NULL ;
-		fpac->m_pVec->push_back( new ScrollObject(fpac->pD3DDevice,fpac->AddTexture(L"Title_Back2.png"),D3DXVECTOR3( 1.0f, 1.0f, 0.0f),g_vZero,Rect(0,0,(int)BASE_CLIENT_WIDTH,(int)BASE_CLIENT_HEIGHT)));
+		fpac->AddObject( new ScrollObject(fpac->GetDevice(),fpac->AddTexture(L"Title_Back2.png"),D3DXVECTOR3( 1.0f, 1.0f, 0.0f),g_vZero,Rect(0,0,(int)BASE_CLIENT_WIDTH,(int)BASE_CLIENT_HEIGHT)));
 	}
 		catch(...){
 		//çƒthrow

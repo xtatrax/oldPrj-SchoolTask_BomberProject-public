@@ -835,9 +835,9 @@ void	ResultScore::Update(UpdatePacket& i_UpdatePacket){
 Factory_Score::Factory_Score(FactoryPacket *fpac){
 	try{
 		//Time
-		fpac->m_pVec->push_back(
-			new SpriteObject( fpac->pD3DDevice,
-					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"GAGE6.png" ),
+		fpac->AddObject(
+			new SpriteObject( fpac->GetDevice(),
+					fpac->AddTexture( L"GAGE6.png" ),
 					D3DXVECTOR3( 1.0f, 1.0f, 0.0f ),
 					g_vZero,
 					D3DXVECTOR3( 10.0f, 10.0f, 0.0f ),		
@@ -848,9 +848,9 @@ Factory_Score::Factory_Score(FactoryPacket *fpac){
 		);
 
 		//DeadCount
-		fpac->m_pVec->push_back(
-			new SpriteObject( fpac->pD3DDevice,
-					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"TEST.png" ),
+		fpac->AddObject(
+			new SpriteObject( fpac->GetDevice(),
+					fpac->AddTexture( L"TEST.png" ),
 					D3DXVECTOR3( 0.5f, 0.5f, 0.0f ),
 					g_vZero,
 					D3DXVECTOR3( 760.0f, 13.0f, 0.0f ),					
@@ -861,9 +861,9 @@ Factory_Score::Factory_Score(FactoryPacket *fpac){
 		);
 
 		//NowPos
-		fpac->m_pVec->push_back(
-			new SpriteObject( fpac->pD3DDevice,
-					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"NOW_RANGE1.png" ),
+		fpac->AddObject(
+			new SpriteObject( fpac->GetDevice(),
+					fpac->AddTexture( L"NOW_RANGE1.png" ),
 					D3DXVECTOR3( 0.5f, 0.5f, 0.0f ),
 					g_vZero,
 					D3DXVECTOR3( 750.0f, 520.0f, 0.0f ),					
@@ -874,9 +874,9 @@ Factory_Score::Factory_Score(FactoryPacket *fpac){
 		);
 
 		//ScratchPoint
-		fpac->m_pVec->push_back(
-			new SpriteObject( fpac->pD3DDevice,
-					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"SCRATCH_TIME2.png" ),
+		fpac->AddObject(
+			new SpriteObject( fpac->GetDevice(),
+					fpac->AddTexture( L"SCRATCH_TIME2.png" ),
 					D3DXVECTOR3( 0.5f, 0.65f, 0.0f ),
 					g_vZero,
 					D3DXVECTOR3( 15.0f, 516.0f, 0.0f ),				
@@ -887,9 +887,9 @@ Factory_Score::Factory_Score(FactoryPacket *fpac){
 		);
 
 		//Slash
-		fpac->m_pVec->push_back(
-			new SpriteObject( fpac->pD3DDevice,
-					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"GAGE7.png" ),
+		fpac->AddObject(
+			new SpriteObject( fpac->GetDevice(),
+					fpac->AddTexture( L"GAGE7.png" ),
 					D3DXVECTOR3( 0.5f, 0.5f, 0.0f ),
 					g_vZero,
 					D3DXVECTOR3( 870.0f, 550.0f, 0.0f ),					
@@ -900,9 +900,9 @@ Factory_Score::Factory_Score(FactoryPacket *fpac){
 		);
 
 		//死亡回数
-		fpac->m_pVec->push_back(
-			new DeadScore( fpac->pD3DDevice,
-					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Number_Base1.png" ),
+		fpac->AddObject(
+			new DeadScore( fpac->GetDevice(),
+					fpac->AddTexture( L"Number_Base1.png" ),
 					D3DXVECTOR3( 0.4f, 0.4f, 0.0f ),
 					D3DXVECTOR3( 850.0f, 40.0f, 0.0f ),					
 					//D3DXVECTOR3( 880.0f, 50.0f, 0.0f ),					
@@ -911,9 +911,9 @@ Factory_Score::Factory_Score(FactoryPacket *fpac){
 		);
 
 		//到達地点
-		fpac->m_pVec->push_back(
-			new ArrivalPos( fpac->pD3DDevice,
-					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Number_Base2.png" ),
+		fpac->AddObject(
+			new ArrivalPos( fpac->GetDevice(),
+					fpac->AddTexture( L"Number_Base2.png" ),
 					D3DXVECTOR3( 0.4f, 0.4f, 0.0f ),
 					D3DXVECTOR3( 730.0f, 550.0f, 0.0f ),					
 					//D3DXVECTOR3( 880.0f, 90.0f, 0.0f ),					
@@ -921,9 +921,9 @@ Factory_Score::Factory_Score(FactoryPacket *fpac){
 			)
 		);
 		//ゴール地点
-		fpac->m_pVec->push_back(
-			new GoalPos( fpac->pD3DDevice,
-					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Number_Base2.png" ),
+		fpac->AddObject(
+			new GoalPos( fpac->GetDevice(),
+					fpac->AddTexture( L"Number_Base2.png" ),
 					D3DXVECTOR3( 0.4f, 0.4f, 0.0f ),
 					D3DXVECTOR3( 850.0f, 550.0f, 0.0f ),					
 					//D3DXVECTOR3( 880.0f, 90.0f, 0.0f ),					
@@ -931,18 +931,18 @@ Factory_Score::Factory_Score(FactoryPacket *fpac){
 			)
 		);
 		//ScratchPoint
-		fpac->m_pVec->push_back(
-			new ScratchPoint( fpac->pD3DDevice,
-					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Number_Base2.png" ),
+		fpac->AddObject(
+			new ScratchPoint( fpac->GetDevice(),
+					fpac->AddTexture( L"Number_Base2.png" ),
 					D3DXVECTOR3( 0.4f, 0.4f, 0.0f ),
 					D3DXVECTOR3( 100.0f, 550.0f, 0.0f ),					
 					&Rect( 0, 0, 512, 64 )
 			)
 		);
 		//Time
-		fpac->m_pVec->push_back(
-			new TimeScore( fpac->pD3DDevice,
-					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Number_Base1.png" ),
+		fpac->AddObject(
+			new TimeScore( fpac->GetDevice(),
+					fpac->AddTexture( L"Number_Base1.png" ),
 					D3DXVECTOR3( 0.4f, 0.4f, 0.0f ),
 					D3DXVECTOR3( 10.0f, 50.0f, 0.0f ),
 					LIMIT_TIME,

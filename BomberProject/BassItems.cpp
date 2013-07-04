@@ -1180,7 +1180,7 @@ void CommonMesh::Draw(DrawPacket& i_DrawPacket,RENDERSTATE_PARAM* pParam) {
  戻り値: なし。
 ***************************************************************************/
  void CommonMesh::DrawCommonMesh(LPDIRECT3DDEVICE9 pD3DDevice,D3DXMATRIX& Matrix,
-	 D3DMATERIAL9& Material,LPTATRATEXTURE pTexture){
+	 D3DMATERIAL9& Material,LPTATRATEXTURE pTexture,RENDERSTATE_PARAM* pParam){
     //無効チェック
     if((!m_pMesh) || (!pD3DDevice)){
 		return;
@@ -1243,8 +1243,12 @@ void CommonMesh::Draw(DrawPacket& i_DrawPacket,RENDERSTATE_PARAM* pParam) {
 		pD3DDevice->SetRenderState(D3DRS_SHADEMODE,D3DSHADE_GOURAUD );
 	}
 
+	if( pParam ) ChangeRenderStateArray(pD3DDevice,pParam);
+
 	//描画
 	m_pMesh->DrawSubset(0);
+
+	if( pParam ) ChangeRenderStateArray(pD3DDevice,pParam);
 
 	if(Material.Specular.r > 0.0f
 		|| Material.Specular.g > 0.0f
@@ -3813,7 +3817,7 @@ void SimpleCommonMesh::Transform(vector<Object*>& Vec,
  用途: オブジェクトを描画（純粋仮想関数）
  戻り値: なし。
 ***************************************************************************/
-void SimpleCommonMesh::Draw(DrawPacket& i_DrawPacket){
+void SimpleCommonMesh::Draw(DrawPacket& i_DrawPacket ){
 	LPDIRECT3DDEVICE9 pD3DDevice = i_DrawPacket.GetDevice() ;
 	if(!m_IsActive){
 		//アクティブでなければ表示しない

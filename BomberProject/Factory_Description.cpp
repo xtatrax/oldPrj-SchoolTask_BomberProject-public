@@ -443,8 +443,8 @@ Factory_Description::Factory_Description(FactoryPacket* fpac){
 		D3DCOLORVALUE DescSpecular = {0.0f,0.0f,0.0f,0.0f};
 		D3DCOLORVALUE DescAmbient = {1.0f,1.0f,1.0f,0.0f};
 
-		//Description* Desc = new Description(fpac->pD3DDevice,
-		//	fpac->m_pTexMgr->addTexture(fpac->pD3DDevice,L"setumei_Start.png"));
+		//Description* Desc = new Description(fpac->GetDevice(),
+		//	fpac->m_pTexMgr->addTexture(fpac->GetDevice(),L"setumei_Start.png"));
 
 		//Desc->AddDesc(D3DXVECTOR3(10.0f,4.0f,0.0f),
 		//			  D3DXVECTOR3(0.0f,0.0f,0.0f),
@@ -454,17 +454,17 @@ Factory_Description::Factory_Description(FactoryPacket* fpac){
 		//			  DescSpecular,
 		//			  DescAmbient);
 
-		//fpac->m_pVec->push_back(Desc);
+		//fpac->AddObject(Desc);
 
 		float	wide	= BASE_CLIENT_WIDTH/2;
 		float	height	= BASE_CLIENT_HEIGHT/2;
 
 
 		//スタートロゴ
-		fpac->m_pVec->push_back(
+		fpac->AddObject(
 			new StartSprite(
-					fpac->pD3DDevice,
-					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"START2.png" ),
+					fpac->GetDevice(),
+					fpac->AddTexture( L"START2.png" ),
 					D3DXVECTOR3( 1.0f, 1.0f, 0.0f ),
 					D3DXVECTOR3( wide-256.0f, height-100.0f, 0.0f ),
 					&Rect( 0, 0, 512, 128 )

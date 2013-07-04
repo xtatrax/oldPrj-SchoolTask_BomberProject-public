@@ -332,7 +332,7 @@ protected:
 	用途: コモンオブジェクトを描画（派生クラスから呼ばれる）
 	戻り値: なし。
 	***************************************************************************/
-	void DrawCommonMesh(LPDIRECT3DDEVICE9 pD3DDevice,D3DXMATRIX& Matrix,D3DMATERIAL9& Material,LPTATRATEXTURE pTexture = 0);
+	void DrawCommonMesh(LPDIRECT3DDEVICE9 pD3DDevice,D3DXMATRIX& Matrix,D3DMATERIAL9& Material,LPTATRATEXTURE pTexture = 0,RENDERSTATE_PARAM* pParam = NULL);
 	/**************************************************************************
 	void DrawCommonShadowVolume(
 	LPDIRECT3DDEVICE9 pD3DDevice,    //IDirect3DDevice9 インターフェイスへのポインタ

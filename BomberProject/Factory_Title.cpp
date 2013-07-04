@@ -524,9 +524,9 @@ Factory_Title::Factory_Title(FactoryPacket* fpac){
         D3DCOLORVALUE Diffuse = {1.0f,1.0f,1.0f,0.0f};
         D3DCOLORVALUE Specular = {1.0f,1.0f,1.0f,0.0f};
         D3DCOLORVALUE Ambient = {0.5f,0.5f,0.5f,0.0f};
-        fpac->m_pVec->push_back(
+        fpac->AddObject(
 			new DirectionalLight(
-				fpac->pD3DDevice,
+				fpac->GetDevice(),
 				Diffuse,
 				Specular,
 				Ambient,
@@ -540,9 +540,9 @@ Factory_Title::Factory_Title(FactoryPacket* fpac){
 		//	: カメラの設定
 		float ECXPos = 25.1f;
 		float ECYPos = 10.666f;		
-        fpac->m_pVec->push_back(
+        fpac->AddObject(
 			new Camera(
-				fpac->pD3DDevice,
+				fpac->GetDevice(),
 				D3DXVECTOR3( ECXPos, ECYPos, -55.7f),
 				D3DXVECTOR3( ECXPos, ECYPos,   0.0f),
 				1 ,
@@ -554,11 +554,11 @@ Factory_Title::Factory_Title(FactoryPacket* fpac){
 		//	: カメラの設定
 		//////////
 		Factory_Scroll		Ffac( fpac );
-		//fpac->m_pVec->push_back( new TestBehavior2());
+		//fpac->AddObject( new TestBehavior2());
 
-		fpac->m_pVec->push_back(
+		fpac->AddObject(
 			new SpriteObject(
-				fpac->pD3DDevice,
+				fpac->GetDevice(),
 				fpac->AddTexture(L"BGP_TITLE01.png"),
 				D3DXVECTOR3( 1.0f, 1.0f, 0.0f ),
 				g_vZero,
@@ -571,10 +571,10 @@ Factory_Title::Factory_Title(FactoryPacket* fpac){
 		) ;
 
 
-		fpac->m_pVec->push_back(
+		fpac->AddObject(
 			new SpriteObject(
-				fpac->pD3DDevice,
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"BGP_TITLE03.png" ),
+				fpac->GetDevice(),
+				fpac->AddTexture( L"BGP_TITLE03.png" ),
 				D3DXVECTOR3(SCALE_RATE,SCALE_RATE,0.0f),
 				g_vZero,
 				D3DXVECTOR3( 0.0f, 0.0f, 0.0f ),
@@ -588,10 +588,10 @@ Factory_Title::Factory_Title(FactoryPacket* fpac){
 //////////////////////////////////////////////////////////////////////////////////////
 //		NAME																		//
 //////////////////////////////////////////////////////////////////////////////////////
-		fpac->m_pVec->push_back(
+		fpac->AddObject(
 			new SpriteObject(
-					fpac->pD3DDevice,
-					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Title_Name02.png" ),
+					fpac->GetDevice(),
+					fpac->AddTexture( L"Title_Name02.png" ),
 					D3DXVECTOR3(SCALE_RATE,SCALE_RATE,0.0f),
 					g_vZero,
 					D3DXVECTOR3( 165.0f, 40.0f, 0.0f ),
@@ -603,10 +603,10 @@ Factory_Title::Factory_Title(FactoryPacket* fpac){
 					)
 		);
 
-		fpac->m_pVec->push_back(
+		fpac->AddObject(
 			new SpriteObject(
-				fpac->pD3DDevice,
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Title_Name01.png" ),
+				fpac->GetDevice(),
+				fpac->AddTexture( L"Title_Name01.png" ),
 				D3DXVECTOR3(SCALE_RATE,SCALE_RATE,0.0f),
 				g_vZero,
 				D3DXVECTOR3( 165.0f, 40.0f, 0.0f ),
@@ -622,7 +622,7 @@ Factory_Title::Factory_Title(FactoryPacket* fpac){
 //////////////////////////////////////////////////////////////////////////////////////
 		fpac->AddButton(
 			new CustomButtonA(
-				fpac->pD3DDevice,
+				fpac->GetDevice(),
 				fpac->AddTexture(L"Title_Start02.png"),
 				fpac->AddTexture(L"Title_Start01.png"),
 				D3DXVECTOR3(SCALE_RATE,SCALE_RATE,0.0f),
@@ -643,10 +643,10 @@ Factory_Title::Factory_Title(FactoryPacket* fpac){
 				OBJID_UI_BUTTON_NORMAL
 			)
 		);
-		//fpac->m_pVec->push_back(
+		//fpac->AddObject(
 		//	new Title_Select(
-		//			fpac->pD3DDevice,
-		//			pTex/*fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Title_Start02.png" )*/,
+		//			fpac->GetDevice(),
+		//			pTex/*fpac->AddTexture( L"Title_Start02.png" )*/,
 		//			GM_CHANGE_CHILDSTAGE,
 		//			//GM_OPENSTAGE_PLAY,
 		//			//GM_OPENSTAGE_LOAD,
@@ -659,10 +659,10 @@ Factory_Title::Factory_Title(FactoryPacket* fpac){
 		//			0xFFFF8800
 		//		)
 		//);
-		//fpac->m_pVec->push_back(
+		//fpac->AddObject(
 		//	new SpriteObject(
-		//		fpac->pD3DDevice,
-		//		pTex/*fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Title_Start01.png" )*/,
+		//		fpac->GetDevice(),
+		//		pTex/*fpac->AddTexture( L"Title_Start01.png" )*/,
 		//		D3DXVECTOR3(SCALE_RATE,SCALE_RATE,0.0f),
 		//		g_vZero,
 		//		D3DXVECTOR3( 630.0f, 280.0f, 0.0f ),
@@ -677,7 +677,7 @@ Factory_Title::Factory_Title(FactoryPacket* fpac){
 //////////////////////////////////////////////////////////////////////////////////////
 		fpac->AddButton(
 			new CustomButtonA(
-				fpac->pD3DDevice,
+				fpac->GetDevice(),
 				fpac->AddTexture(L"Title_Exit02.png"),
 				fpac->AddTexture(L"Title_Exit01.png"),
 				D3DXVECTOR3(SCALE_RATE,SCALE_RATE,0.0f),
@@ -698,10 +698,10 @@ Factory_Title::Factory_Title(FactoryPacket* fpac){
 				OBJID_UI_BUTTON_NORMAL
 			)
 		);
-		//fpac->m_pVec->push_back(
+		//fpac->AddObject(
 		//	new Title_Select(
-		//			fpac->pD3DDevice,
-		//			pTex/*fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Title_Exit02.png" )*/,
+		//			fpac->GetDevice(),
+		//			pTex/*fpac->AddTexture( L"Title_Exit02.png" )*/,
 		//			GM_EXIT,
 		//			D3DXVECTOR3(SCALE_RATE,SCALE_RATE,0.0f),
 		//			g_vZero,
@@ -712,10 +712,10 @@ Factory_Title::Factory_Title(FactoryPacket* fpac){
 		//			0xFFFF8800
 		//		)
 		//);
-		//fpac->m_pVec->push_back(
+		//fpac->AddObject(
 		//	new SpriteObject(
-		//		fpac->pD3DDevice,
-		//		pTex/*fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Title_EXIT01.png" )*/,
+		//		fpac->GetDevice(),
+		//		pTex/*fpac->AddTexture( L"Title_EXIT01.png" )*/,
 		//		D3DXVECTOR3(SCALE_RATE,SCALE_RATE,0.0f),
 		//		g_vZero,
 		//		D3DXVECTOR3( 660.0f, 420.0f, 0.0f ),
@@ -727,11 +727,11 @@ Factory_Title::Factory_Title(FactoryPacket* fpac){
 		//);
 			
 		//磁界
-		fpac->m_pVec->push_back(
+		fpac->AddObject(
 			new MagnetFieldMini(
-				fpac->pD3DDevice,
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"MagnetField_N.png" ),
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"MagnetField_S.png" ),
+				fpac->GetDevice(),
+				fpac->AddTexture( L"MagnetField_N.png" ),
+				fpac->AddTexture( L"MagnetField_S.png" ),
 				D3DXVECTOR3(1.0f,1.0f,0.0f),
 				g_vZero,
 				MAGNET_FIELD_POS_1,
@@ -740,11 +740,11 @@ Factory_Title::Factory_Title(FactoryPacket* fpac){
 				)
 		);
 		//コイル
-		fpac->m_pVec->push_back(
+		fpac->AddObject(
 			new Coil(
-				fpac->pD3DDevice,
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Coil_N.png" ),
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Coil_S.png" ),
+				fpac->GetDevice(),
+				fpac->AddTexture( L"Coil_N.png" ),
+				fpac->AddTexture( L"Coil_S.png" ),
 				D3DXVECTOR3(0.35f,0.35f,0.0f),
 				D3DXVECTOR3( 0.0f, 0.0f, 90.0f ),
 				D3DXVECTOR3( 170.0f, 370.0f, 0.0f ),
@@ -754,10 +754,10 @@ Factory_Title::Factory_Title(FactoryPacket* fpac){
 		);
 
 		//Click_Please
-		fpac->m_pVec->push_back(
+		fpac->AddObject(
 			new ClickChar(
-					fpac->pD3DDevice,
-					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Click_Please1.png"),
+					fpac->GetDevice(),
+					fpac->AddTexture( L"Click_Please1.png"),
 					D3DXVECTOR3( 0.5f, 0.5f, 0.0f ),
 					g_vZero,
 					g_vZero,

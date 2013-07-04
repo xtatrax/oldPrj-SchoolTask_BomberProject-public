@@ -21,8 +21,13 @@ namespace bomberobject{
 
 
 ///**************************************************************************
-// PlaneCircle 定義部
+// MagnetFieldCircle 定義部
 //****************************************************************************/
+DWORD						MagnetFieldCircle::m_dwMyInstance	= 0		;
+LPDIRECT3DVERTEXBUFFER9		MagnetFieldCircle::m_pVertexBuffer	= NULL	;	//バッファ
+DWORD						MagnetFieldCircle::m_dwVertexQty	;
+
+
 /////////////////// ////////////////////
 //// 関数名     ：
 //// 用途       ：
@@ -32,31 +37,53 @@ namespace bomberobject{
 //// 備考       ：
 ////            ：
 ////
-MagnetFieldCircle::MagnetFieldCircle(LPDIRECT3DDEVICE9 pD3DDevice,DWORD dwVertexQty){
+MagnetFieldCircle::MagnetFieldCircle( LPDIRECT3DDEVICE9 pD3DDevice ){
 
-	m_dwVertexQty	= dwVertexQty +1 ;	//	: 角数　+　中心頂点
-	float iRotSize	= 360.0f / ( dwVertexQty -1 ) ;
-	Vertex* m_pVertex;
 
-	pD3DDevice->CreateVertexBuffer( Vertex::getSize() * m_dwVertexQty , D3DUSAGE_WRITEONLY, Vertex::getFVF(), D3DPOOL_MANAGED, &m_pVertexBuffer, NULL );
-	m_pVertexBuffer->Lock( 0, 0, (void**)&m_pVertex ,0 );	//	: 頂点データのアドレスを取得するとともに、データへのアクセスを開始する	
+	if( !m_pVertexBuffer ){
+		//	: 緊急回避用 あとで引数にもどしたい｡
+		DWORD dwVertexQty = 64 ;
 
-	m_pVertex[ 0 ]	= Vertex( D3DXVECTOR3( 0.0f, 0.0f, 0.0f ) , 0x3FFFFFFF );
+		m_dwVertexQty	= dwVertexQty +1 ;	//	: 角数　+　中心頂点
+		float iRotSize	= 360.0f / ( dwVertexQty -1 ) ;
+		Vertex* m_pVertex;
 
-	for ( DWORD i = 0 ; i < dwVertexQty  ; i++ ){
-		m_pVertex[ i+1 ]	= Vertex(
-			D3DXVECTOR3(  cosf( D3DXToRadian( iRotSize * i ) ) ,
-			sinf(D3DXToRadian( iRotSize * i ) ) , 0.0f )	,
-			0x3FFFFFFF
-		);
+		pD3DDevice->CreateVertexBuffer( Vertex::getSize() * m_dwVertexQty , D3DUSAGE_WRITEONLY, Vertex::getFVF(), D3DPOOL_MANAGED, &m_pVertexBuffer, NULL );
+		m_pVertexBuffer->Lock( 0, 0, (void**)&m_pVertex ,0 );	//	: 頂点データのアドレスを取得するとともに、データへのアクセスを開始する
+
+		m_pVertex[ 0 ]	= Vertex( D3DXVECTOR3( 0.0f, 0.0f, 0.0f ) , 0x3FFFFFFF );
+
+		for ( DWORD i = 0 ; i < dwVertexQty  ; i++ ){
+			m_pVertex[ i+1 ]	= Vertex(
+				D3DXVECTOR3(  cosf( D3DXToRadian( iRotSize * i ) ) ,
+				sinf(D3DXToRadian( iRotSize * i ) ) , 0.0f )	,
+				0x3FFFFFFF
+			);
+		}
+		m_pVertexBuffer->Unlock();
 	}
-	m_pVertexBuffer->Unlock();
-	//D3DXMatrixScaling( &m_mMatrix, 10.0f, 10.0f, 1.0f );
 
+	//D3DXMatrixScaling( &m_mMatrix, 10.0f, 10.0f, 1.0f );
+	m_dwMyInstance++;
 	m_dwColor_S	= 0x3F0000FF;
 	m_dwColor_N	= 0x3FFF0000;
 }
-
+/////////////////// ////////////////////
+//// 関数名     ：
+//// 用途       ：
+//// 引数       ：
+//// 戻値       ：なし
+//// 担当       ：鴫原 徹
+//// 備考       ：
+////            ：
+////
+MagnetFieldCircle::~MagnetFieldCircle(){
+	Debugger::DBGWRITINGLOGTEXT::addStr(L"MagnetFieldCircle::~MagnetFieldCircle 開始\n");
+	if( --m_dwMyInstance <= 0){
+		//SafeRelease( m_pVertexBuffer );
+	};
+	Debugger::DBGWRITINGLOGTEXT::addStr(L"MagnetFieldCircle::~MagnetFieldCircle 完了\n");
+}
 /////////////////// ////////////////////
 //// 関数名     ：
 //// カテゴリ   ：
@@ -118,7 +145,7 @@ MagnetField::MagnetField(
 	wiz::OBJID id 								//	: ID
 )
 :Object(id)
-,m_MagneticField( pD3DDevice, 64 )
+,m_MagneticField( pD3DDevice )
 ,m_pCoil(	NULL )
 ,m_pCamera(	NULL )
 ,m_pPole_N(NULL)
@@ -138,10 +165,12 @@ MagnetField::MagnetField(
 //// 備考       ：
 ////	
 MagnetField::~MagnetField(){
+	Debugger::DBGWRITINGLOGTEXT::addStr(L"MagnetField::~MagnetField 開始\n");
 	m_pCamera = NULL;
 	m_pCoil	  = NULL;
 	m_pPole_N = NULL;
 	m_pPole_S = NULL;
+	Debugger::DBGWRITINGLOGTEXT::addStr(L"MagnetField::~MagnetField 完了\n");
 }
 
 /////////////////// ////////////////////
@@ -306,10 +335,12 @@ StaticMagnetField::StaticMagnetField(LPDIRECT3DDEVICE9 pD3DDevice, wiz::OBJID id
 //// 備考       ：
 ////	
 StaticMagnetField::~StaticMagnetField(){
+	Debugger::DBGWRITINGLOGTEXT::addStr(L"StaticMagnetField::~StaticMagnetField 開始\n");
 	//磁界　外側
 	SafeDeletePointerMap( m_ItemMap_All );
 	m_ItemMap_All.clear();
 	m_ItemMap_Target.clear();
+	Debugger::DBGWRITINGLOGTEXT::addStr(L"StaticMagnetField::~StaticMagnetField 完了\n");
 
 }
 

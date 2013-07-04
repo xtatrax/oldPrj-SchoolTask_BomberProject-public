@@ -592,18 +592,6 @@
 						</File>
 					</Filter>
 					<Filter
-						Name="Factory_Continue"
-						>
-						<File
-							RelativePath=".\Factory_Continue.cpp"
-							>
-						</File>
-						<File
-							RelativePath=".\Factory_Continue.h"
-							>
-						</File>
-					</Filter>
-					<Filter
 						Name="Factory_Cursor"
 						>
 						<File
@@ -830,6 +818,18 @@
 					<Filter
 						Name="00.“®ì‚ðì‚é‰º¿‚¯Hê"
 						>
+					</Filter>
+					<Filter
+						Name="Factory_Continue"
+						>
+						<File
+							RelativePath=".\Factory_Continue.cpp"
+							>
+						</File>
+						<File
+							RelativePath=".\Factory_Continue.h"
+							>
+						</File>
 					</Filter>
 				</Filter>
 			</Filter>

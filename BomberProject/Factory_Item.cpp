@@ -40,7 +40,7 @@ namespace bomberobject{
 備考　　　　：
 ****************************************************************************/
 Item::Item(FactoryPacket* fpac,LPTATRATEXTURE pTexture, wiz::OBJID id)
-	:PrimitiveSphere(fpac->pD3DDevice,
+	:PrimitiveSphere(fpac->GetDevice(),
 						D3DCOLORVALUE(),
 						D3DCOLORVALUE(),
 						D3DCOLORVALUE(),
@@ -362,7 +362,7 @@ Factory_Item::Factory_Item(FactoryPacket* fpac){
 					BallDiffuse,BallSpecular,BallAmbient,
 					RECOVERY_POINT_L);
 
-		fpac->m_pVec->push_back(it);
+		fpac->AddObject(it);
 
 	}
 	catch(...){

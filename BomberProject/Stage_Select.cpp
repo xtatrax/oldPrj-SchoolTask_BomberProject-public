@@ -35,11 +35,8 @@ StageSelect::StageSelect(LPDIRECT3DDEVICE9 pD3DDevice,Stage* pStage)
 
 {
 	try{
-		FactoryPacket FPac(pD3DDevice,m_IsDialog,&m_Vec,/*&m_TexMgr*/NULL,this);
-		FPac.m_IsDialog =  this->m_IsDialog ;
-		FPac.m_pTexMgr  = &this->m_TexMgr   ;
-		FPac.m_pVec     = &this->m_Vec      ;
-		FPac.pD3DDevice =  pD3DDevice       ;
+		FactoryPacket FPac(pD3DDevice,this->m_IsDialog,&Command(),this);
+
 
 		Factory_Select	Sfac( &FPac )  ; 
 

@@ -71,7 +71,7 @@ void CheckPointSave::Update( UpdatePacket& i_UpdatePacket ){
 ////            F
 ////
 Factory_CheckPointSave::Factory_CheckPointSave(FactoryPacket* fpac,DWORD dwStageNum){
-	fpac->m_pVec->push_back(
+	fpac->AddObject(
 		CheckPointSave::getInstance(dwStageNum)
 	);
 	

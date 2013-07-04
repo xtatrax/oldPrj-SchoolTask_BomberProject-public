@@ -70,12 +70,21 @@ extern class WallObject ;
 ////            ：
 ////
 PlayerCoil::PlayerCoil(
-		LPDIRECT3DDEVICE9 pD3DDevice,TextureManager* m_pTexMgr,
-		float Radius1,float Radius2,float Radius3,float Lenght,
-		D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos,
-		D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,
-		LPTATRATEXTURE pTex,
-		wiz::OBJID id
+		LPDIRECT3DDEVICE9	pD3DDevice		,
+		float				Radius1			,
+		float				Radius2			,
+		float				Radius3			,
+		float				Lenght			,
+		D3DXVECTOR3&		vScale			,
+		D3DXVECTOR3&		vRot			,
+		D3DXVECTOR3&		vPos			,
+		D3DCOLORVALUE&		Diffuse			,
+		D3DCOLORVALUE&		Specular		,
+		D3DCOLORVALUE&		Ambient			,
+		LPTATRATEXTURE		pSuperFieldTex	,
+		LPTATRATEXTURE		pModeChangeTex	,
+		LPTATRATEXTURE		pDeadTex		,
+		wiz::OBJID			id
 	)
 :Cylinder(pD3DDevice,Radius1,Radius2,Lenght,vPos,vRot,Diffuse,Specular,Ambient, id )
 ,MagneticObject()
@@ -124,7 +133,6 @@ PlayerCoil::PlayerCoil(
 ,m_pPlayer(	NULL )
 ,m_pMagneticumObject( NULL )
 ,m_pTime( NULL )
-,m_pDeadTex( pTex )
 ,m_pContinueBehavior( NULL )
 
 ,m_enumCoilState( COIL_STATE_STOP )
@@ -141,12 +149,11 @@ PlayerCoil::PlayerCoil(
 	D3DXVECTOR3	v = COIL_SUPER_MODE_FIELD_SCALE;
 		//LPTATRATEXTURE pTex2;
 		//0(pD3DDevice,L"SuperField.png",&pTex2);
-	m_pSuperField = new Box(pD3DDevice,v,vPos,vRot,Diffuse,Specular,Ambient,OBJID_3D_BOX,false,
-									/*pTex2*/m_pTexMgr->addTexture( pD3DDevice, L"SuperField.png" ) );
+	m_pSuperField = new Box(pD3DDevice,v,vPos,vRot,Diffuse,Specular,Ambient,OBJID_3D_BOX,false,pSuperFieldTex);
 	setPoleN();
 	SetBaseRot(vRot);
 		//0(pD3DDevice,L"CHANGE.png",&pTex2);
-	m_pModeChangeChar	= new ModeChangeChar( pD3DDevice, /*pTex2*/m_pTexMgr->addTexture( pD3DDevice, L"CHANGE.png" ),
+	m_pModeChangeChar	= new ModeChangeChar( pD3DDevice, pModeChangeTex,
 														D3DXVECTOR3( 0.25f, 0.25f, 0.0f ), &Rect( 0, 0, 512, 128 ) );
 	//m_pSphere->ShaderChange( new CookTrance(pD3DDevice) );
 
@@ -162,7 +169,7 @@ PlayerCoil::PlayerCoil(
 	m_pLine4		= new Line3D( m_pLine3->getEndPos(), vDir4, fRangeH, 0xFF00FFFF );
 
 //	m_pDeadEffect	= NULL;
-	m_pDeadEffect	= new DeadEffect( pD3DDevice, m_pDeadTex, m_vPos );
+	m_pDeadEffect	= new DeadEffect( pD3DDevice, pDeadTex, m_vPos );
 
 
 	//爆散エフェクトのポインタ
@@ -1053,26 +1060,21 @@ Factory_Coil::Factory_Coil( FactoryPacket* fpac, DWORD dwResumptionCheckPoint, D
 		D3DCOLORVALUE CoilAmbient = {1.0f,1.0f,1.0f,0.0f};
 
 
-		CheckPoint*									pc		= (CheckPoint*)SearchObjectFromID( fpac->m_pVec, OBJID_SYS_CHECKPOINT );
+		CheckPoint*									pc		= (CheckPoint*)fpac->SearchObjectFromID( OBJID_SYS_CHECKPOINT );
 		if( vStartPos )								vPos	= *vStartPos;
 		else if( dwResumptionCheckPoint && pc )		vPos	= pc->getThisPosition(dwResumptionCheckPoint);
 		//LPTATRATEXTURE pTex;
-		//0(fpac->pD3DDevice,L"DeadPerticul.png",&pTex);
-		fpac->m_pVec->push_back(
+		//0(fpac->GetDevice(),L"DeadPerticul.png",&pTex);
+/*pTex2*/
+		fpac->AddObject(
 			new PlayerCoil(
-				fpac->pD3DDevice,
-				fpac->m_pTexMgr,
-				//fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"SuperField.png" ),
-				//fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"DeadPerticul.png" ),
-				//fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"CONTINUE4.png" ),
-				//fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"GAME_END3.png" ),
-				//fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"dead6.png" ),
-				//fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"REALLY4.png" ),
-				//fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"YESorNO5.png" ),
+				fpac->GetDevice(),
 				0.0f,0.7f,1.0f,1.0f,vScale,D3DXVECTOR3(90.0f,0.0f,0.0f),vPos,
-				CoilDiffuse,CoilSpecular,CoilAmbient,
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"DeadPerticul.png" )
-				)
+				CoilDiffuse,CoilSpecular,CoilAmbient	,
+				fpac->AddTexture( L"SuperField.png" )	,
+				fpac->AddTexture( L"CHANGE.png" )		,
+				fpac->AddTexture( L"DeadPerticul.png" )
+			)
 		);
 
 	}

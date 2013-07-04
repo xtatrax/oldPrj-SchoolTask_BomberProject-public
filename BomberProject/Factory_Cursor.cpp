@@ -35,10 +35,10 @@ namespace bomberobject{
  –ß‚è’l: ‚È‚µ
  ’S“–F–{‘½Š°”V
 ***************************************************************************/
-MouseCursor::MouseCursor( LPDIRECT3DDEVICE9 pD3DDevice, TextureManager* m_pTexMgr, float fLineLength, float fPointSize,LPTATRATEXTURE pTex)
-:Box( pD3DDevice, D3DXVECTOR3( 1.0f, 1.0f, 1.0f), g_vZero, g_vZero, COLOR2D3DCOLORVALUE(0x0FFFFF0F), COLOR2D3DCOLORVALUE(0x0FFFFF0F), COLOR2D3DCOLORVALUE(0x0FFFFF0F),  OBJID_SYS_CURSOR, false,  pTex )
+MouseCursor::MouseCursor( LPDIRECT3DDEVICE9 pD3DDevice,  float fLineLength, float fPointSize,LPTATRATEXTURE pCenterPointTex)
+:Box( pD3DDevice, g_vOne, g_vZero, g_vZero, D3DCOLORVALUE(), D3DCOLORVALUE(), D3DCOLORVALUE(),  OBJID_SYS_CURSOR, false,  NULL )
 ,PrimitiveSprite(pD3DDevice, NULL, NULL, D3DXVECTOR3( 92.0f, 67.0f, 0.0f ), g_vZero)
-,m_SelectPos( pD3DDevice, m_pTexMgr->addTexture( pD3DDevice, L"GAGE0.png" ),&Rect(128-8,96,128,106), D3DXVECTOR3( 4.0f, 4.0f, 0.0f ), g_vZero, -1 ,false)
+,m_SelectPos( pD3DDevice, pCenterPointTex,&Rect(128-8,96,128,106), D3DXVECTOR3( 4.0f, 4.0f, 0.0f ), g_vZero, -1 ,false)
 ,m_Line( g_vZero, D3DXVECTOR3( cosf( D3DXToRadian(-55.0f) ), sinf( D3DXToRadian(-55.0f) ), 0.0f ), 100.0f, g_YellowColor.dwColor )
 ,m_Line2( m_Line.getEndPos(), D3DXVECTOR3( cosf( D3DXToRadian(0.0f) ), sinf( D3DXToRadian(0.0f) ), 0.0f ), fLineLength, g_YellowColor.dwColor )
 ,m_Ptn(0)
@@ -287,13 +287,12 @@ Factory_Cursor::Factory_Cursor(FactoryPacket* fpac, float fLineLength, float fPo
  		D3DCOLORVALUE MouseDiffuse = {0.7f,0.7f,0.7f,0.0f};
 		D3DCOLORVALUE MouseSpecular = {0.0f,0.0f,0.0f,0.0f};
 		D3DCOLORVALUE MouseAmbient = {0.5f,0.5f,0.5f,0.0f};
-		fpac->m_pVec->push_back(
+		fpac->AddObject(
 			new MouseCursor( 
-						fpac->pD3DDevice,
-						fpac->m_pTexMgr,
+						fpac->GetDevice(),
 						fLineLength,
 						fPointSize,
-						fpac->AddTexture(L"Field.png")
+						fpac->AddTexture(L"GAGE0.png")
 			)
 		);
 

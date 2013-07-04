@@ -96,8 +96,8 @@ void BackGround::Draw( DrawPacket& i_DrawPacket ){
 }
 Factory_BG::Factory_BG(FactoryPacket *fpac){
 		//LPTATRATEXTURE pTex;
-		//0(fpac->pD3DDevice,L"BackStage.png",&pTex);
-	fpac->AddObject( new BackGround(fpac->pD3DDevice,D3DXVECTOR3(50.0f,90.0f,0.0f), /*pTex*/fpac->AddTexture(L"BackStage.png")) );
+		//0(fpac->GetDevice(),L"BackStage.png",&pTex);
+	fpac->AddObject( new BackGround(fpac->GetDevice(),D3DXVECTOR3(50.0f,90.0f,0.0f), /*pTex*/fpac->AddTexture(L"BackStage.png")) );
 }
 }
 }

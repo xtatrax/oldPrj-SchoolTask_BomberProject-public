@@ -67,7 +67,7 @@ public:
 	//// 戻値       ：無し
 	//// 担当者     ：本多寛之
 	//// 備考       ：
-	MouseCursor(LPDIRECT3DDEVICE9  pD3DDevice,TextureManager* m_TexMgr, float fLineLength, float fPointSize,LPTATRATEXTURE pTex);
+	MouseCursor(LPDIRECT3DDEVICE9  pD3DDevice,float fLineLength, float fPointSize,LPTATRATEXTURE pTex);
 
 	/////////////////// ////////////////////
 	//// 用途       ：~MouseCursor();

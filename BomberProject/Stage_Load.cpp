@@ -33,11 +33,7 @@ LoadStage::LoadStage(LPDIRECT3DDEVICE9 pD3DDevice,Command* Com,Stage* pStage)
 	:Stage(pStage)
 {
 	try{
-		FactoryPacket FPac(this);
-		FPac.m_IsDialog =  this->m_IsDialog ;
-		FPac.m_pTexMgr  = &this->m_TexMgr   ;
-		FPac.m_pVec     = &this->m_Vec      ;
-		FPac.pD3DDevice =  pD3DDevice       ;
+		FactoryPacket FPac(pD3DDevice,this->m_IsDialog,&Command(),this);
 		Factory_Load	loadF( &FPac, Com );
 		Debugger::DBGWRITINGLOGTEXT::addStr(L"LoadStage::LoadStage()\n");
 

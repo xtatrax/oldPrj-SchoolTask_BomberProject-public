@@ -32,14 +32,16 @@ class MagnetFieldCircle{
 		static size_t getSize()	{	return sizeof( Vertex );	}
 		static DWORD getFVF(){return D3DFVF_XYZ | D3DFVF_DIFFUSE ;}
 	};
-	DWORD						m_dwVertexQty	;
-	LPDIRECT3DVERTEXBUFFER9		m_pVertexBuffer	;	//バッファ
+	static DWORD						m_dwMyInstance	;
+	static LPDIRECT3DVERTEXBUFFER9		m_pVertexBuffer	;	//バッファ
+	static DWORD						m_dwVertexQty	;
 	D3DXMATRIX					m_mMatrix		;
 	DWORD						m_dwColor_N		;
 	DWORD						m_dwColor_S		;
 
 public:
-	MagnetFieldCircle(LPDIRECT3DDEVICE9 pD3DDevice,DWORD pVertexQty);
+	MagnetFieldCircle(LPDIRECT3DDEVICE9 pD3DDevice );
+	~MagnetFieldCircle();
 	void Draw(DrawPacket& i_DrawPacket);
 	void setMatrix(D3DXMATRIX& i_mMatrix){
 		m_mMatrix = i_mMatrix;

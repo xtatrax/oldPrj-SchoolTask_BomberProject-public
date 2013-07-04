@@ -98,10 +98,10 @@ Factory_Result::Factory_Result(FactoryPacket* fpac, int iDeadCount, int iMaxPosY
 		float	wide	= BASE_CLIENT_WIDTH/2;
 		float	height	= BASE_CLIENT_HEIGHT/2;
 		//Frame
-		fpac->m_pVec->push_back(
+		fpac->AddObject(
 			new SpriteObject(
-				fpac->pD3DDevice,
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Frame_Clear3.png" ),
+				fpac->GetDevice(),
+				fpac->AddTexture( L"Frame_Clear3.png" ),
 				D3DXVECTOR3( 1.8f, 1.5f, 0.0f ),
 				g_vZero,
 				D3DXVECTOR3( 53.0f, 150.0f, 0.0f ),
@@ -113,10 +113,10 @@ Factory_Result::Factory_Result(FactoryPacket* fpac, int iDeadCount, int iMaxPosY
 		);
 
 		//RESULT
-		fpac->m_pVec->push_back(
+		fpac->AddObject(
 			new SpriteObject(
-				fpac->pD3DDevice,
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Clear4.png" ),
+				fpac->GetDevice(),
+				fpac->AddTexture( L"Clear4.png" ),
 				D3DXVECTOR3( 1.0f, 1.0f, 0.0f ),
 				g_vZero,
 				D3DXVECTOR3( wide-256, 20.0f, 0.0f ),
@@ -127,10 +127,10 @@ Factory_Result::Factory_Result(FactoryPacket* fpac, int iDeadCount, int iMaxPosY
 				)
 		);
 		//最高到達点**************************************************************
-		fpac->m_pVec->push_back(
+		fpac->AddObject(
 			new SpriteObject(
-				fpac->pD3DDevice,
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"TEST.png" ),
+				fpac->GetDevice(),
+				fpac->AddTexture( L"TEST.png" ),
 				D3DXVECTOR3( 0.8f, 1.5f, 0.0f ),
 				g_vZero,
 				D3DXVECTOR3( 80.0f, 135.0f, 0.0f ),
@@ -141,10 +141,10 @@ Factory_Result::Factory_Result(FactoryPacket* fpac, int iDeadCount, int iMaxPosY
 				)
 		);
 		//掠めた回数*****************************************************************
-		fpac->m_pVec->push_back(
+		fpac->AddObject(
 			new SpriteObject(
-				fpac->pD3DDevice,
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"SCRATCH_TIME2.png" ),
+				fpac->GetDevice(),
+				fpac->AddTexture( L"SCRATCH_TIME2.png" ),
 				D3DXVECTOR3( 0.8f, 1.5f, 0.0f ),
 				g_vZero,
 				D3DXVECTOR3( 80.0f, height-90.0f, 0.0f ),
@@ -155,10 +155,10 @@ Factory_Result::Factory_Result(FactoryPacket* fpac, int iDeadCount, int iMaxPosY
 				)
 		);
 		//死亡回数*****************************************************************
-		fpac->m_pVec->push_back(
+		fpac->AddObject(
 			new SpriteObject(
-				fpac->pD3DDevice,
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"TEST.png" ),
+				fpac->GetDevice(),
+				fpac->AddTexture( L"TEST.png" ),
 				D3DXVECTOR3( 0.8f, 1.5f, 0.0f ),
 				g_vZero,
 				D3DXVECTOR3( 80.0f, height-15.0f, 0.0f ),
@@ -169,10 +169,10 @@ Factory_Result::Factory_Result(FactoryPacket* fpac, int iDeadCount, int iMaxPosY
 				)
 		);
 		//トータルポイント*****************************************************************
-		fpac->m_pVec->push_back(
+		fpac->AddObject(
 			new SpriteObject(
-				fpac->pD3DDevice,
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"TEST.png" ),
+				fpac->GetDevice(),
+				fpac->AddTexture( L"TEST.png" ),
 				D3DXVECTOR3( 1.0f, 1.5f, 0.0f ),
 				g_vZero,
 				D3DXVECTOR3( wide-430.0f, height+86.0f, 0.0f ),
@@ -188,7 +188,7 @@ Factory_Result::Factory_Result(FactoryPacket* fpac, int iDeadCount, int iMaxPosY
 /////////////////////////////////////////////////////////////////////////////////
 		fpac->AddButton(
 			new CustomButtonA(
-				fpac->pD3DDevice,	
+				fpac->GetDevice(),	
 				fpac->AddTexture(L"BACK002.png"),
 				fpac->AddTexture(L"BACK001.png"),
 				g_vOne,
@@ -210,9 +210,9 @@ Factory_Result::Factory_Result(FactoryPacket* fpac, int iDeadCount, int iMaxPosY
 			)
 		);
 		//Score*****************************************************
-		fpac->m_pVec->push_back(
+		fpac->AddObject(
 			new ResultScore(
-				fpac->pD3DDevice,
+				fpac->GetDevice(),
 				fpac->AddTexture(L"Number_Base1.png"),
 				fpac->AddTexture(L"Number_Base2.png"),
 				fpac->AddTexture(L"Rate_Number.png"),
@@ -228,9 +228,9 @@ Factory_Result::Factory_Result(FactoryPacket* fpac, int iDeadCount, int iMaxPosY
 		);
 		//***********************************************************
 		// RANK ( S~C )
-		fpac->m_pVec->push_back(
+		fpac->AddObject(
 			new Rank(
-				fpac->pD3DDevice,
+				fpac->GetDevice(),
 				fpac->AddTexture( L"RANK_ver1.png" ),
 				fpac->AddTexture( L"RANK_Base2.png" ),
 				D3DXVECTOR3( 1.0f, 1.0f, 1.0f ),
@@ -241,10 +241,10 @@ Factory_Result::Factory_Result(FactoryPacket* fpac, int iDeadCount, int iMaxPosY
 		);
 
 		//Click_Please
-		fpac->m_pVec->push_back(
+		fpac->AddObject(
 			new ClickChar(
-					fpac->pD3DDevice,
-					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"user_txt.png"),
+					fpac->GetDevice(),
+					fpac->AddTexture( L"user_txt.png"),
 					D3DXVECTOR3( 0.5f, 0.5f, 0.0f ),
 					g_vZero,
 					g_vZero,

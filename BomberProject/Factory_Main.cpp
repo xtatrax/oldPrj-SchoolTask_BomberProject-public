@@ -54,7 +54,7 @@ Factory_Main::Factory_Main(FactoryPacket* fpac, DWORD dwStageNum, DWORD dwResump
 #if defined( ON_GUIDELINE ) 
 
 		//	: ガイドライン
-		fpac->m_pVec->push_back(new Guide( fpac->pD3DDevice ) );
+		fpac->AddObject(new Guide( fpac->GetDevice() ) );
 #endif
 		Debugger::DBGWRITINGLOGTEXT::addStrToFile(L"Score.txt",L"\n\n//////////\n");
 		Debugger::DBGWRITINGLOGTEXT::addStrToFile(L"Score.txt",L"//  : \n");
@@ -65,9 +65,9 @@ Factory_Main::Factory_Main(FactoryPacket* fpac, DWORD dwStageNum, DWORD dwResump
         D3DCOLORVALUE Diffuse = {1.0f,1.0f,1.0f,0.0f};
         D3DCOLORVALUE Specular = {1.0f,1.0f,1.0f,0.0f};
         D3DCOLORVALUE Ambient = {0.5f,0.5f,0.5f,0.0f};
-        fpac->m_pVec->push_back(
+        fpac->AddObject(
 			new DirectionalLight(
-				fpac->pD3DDevice,
+				fpac->GetDevice(),
 				Diffuse,
 				Specular,
 				Ambient,
@@ -83,9 +83,9 @@ Factory_Main::Factory_Main(FactoryPacket* fpac, DWORD dwStageNum, DWORD dwResump
 		float ECXPos = 25.1f;
 		float ECYPos = 10.666f;
 		float ECZPos = -55.7f;
-        fpac->m_pVec->push_back(
+        fpac->AddObject(
 			new Camera(
-				fpac->pD3DDevice,
+				fpac->GetDevice(),
 				D3DXVECTOR3( ECXPos, ECYPos, ECZPos),
 				D3DXVECTOR3( ECXPos, ECYPos,   0.0f),
 				1 ,
@@ -108,11 +108,12 @@ Factory_Main::Factory_Main(FactoryPacket* fpac, DWORD dwStageNum, DWORD dwResump
 		Factory_Cursor		Mfac( fpac, fLineLength, fPointSize )  ;
 		Factory_Player		Pfac( fpac );
 		if( dwStageNum != 5 )
-			Factory_Item	Ifac( fpac ) ;
+			//Factory_Item	Ifac( fpac ) ;
 		Factory_Wall		Wfac( fpac ) ;
 		if( dwStageNum == 0 )	dwStageNum = 5 ;
-		StageLoader			loader(fpac->pD3DDevice,L"media/Map/Stages.csv", dwStageNum,*fpac->m_pVec,*fpac->m_pTexMgr);
+		StageLoader			loader( *fpac ,L"media/Map/Stages.csv", dwStageNum );
 		Factory_Coil		Cfac( fpac , dwResumptionCheckPoint, vStartPos );
+		Factory_CheckPoint	cfac( fpac ) ;
 		Factory_Description	Dfac( fpac ) ;
 		Factory_Gage		Gfac( fpac ) ;
 		Factory_Score		Sfac( fpac ) ;
@@ -144,10 +145,11 @@ Factory_Main::Factory_Main(FactoryPacket* fpac, DWORD dwStageNum, DWORD dwResump
 
 		//////////
 		//	: オブジェクトのソート( 透過処理の問題対策 )
-		vector<Object*>::size_type pos = fpac->m_pVec->max_size();
-		WallObject* wp = (WallObject*)SearchObjectFromID( fpac->m_pVec,OBJID_3D_WALL, &pos );
-		fpac->m_pVec->erase( fpac->m_pVec->begin() + pos );
-		fpac->m_pVec->push_back( wp );
+		vector<Object*>* pObj			= fpac->GetObjectVector();
+		vector<Object*>::size_type pos	= pObj->max_size();
+		WallObject* wp = (WallObject*)SearchObjectFromID( pObj,OBJID_3D_WALL, &pos );
+		pObj->erase( pObj->begin() + pos );
+		fpac->AddObject( wp );
 		//	: オブジェクトのソート( 透過処理の問題対策 )
 		//////////
 		Debugger::DBGWRITINGLOGTEXT::addStr(L"ゲーム開始");

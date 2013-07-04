@@ -25,8 +25,12 @@
 //**************************************************************************//
 // class TMemoryManager ;
 // 担当  : 鴫原 徹
-// 用途  : メモリ管理システム
-// 備考  : プロジェクト内で確保されたメモリを管理します
+// 用途  : プロジェクト内で確保されたメモリを管理します｡
+// 備考  : 非常に遅いです 現状ほぼDEBUG用です｡
+//       : 終了時等に m_ItemInfo の中身を覗けばリリーズ漏れが起きている
+//       : 実体が生成されている場所が把握出来ます｡
+//       : DEBUG_STRINGS_ON と CF_MEMORYOUTPUTPROCESS_ENABLE を有効にすれば
+//       : newされた実体の総数と総確保Byteをリアルタイムで見ることができます｡
 //**************************************************************************//
 class TMemoryManager{
 public:
@@ -188,13 +192,13 @@ public:
 			DWORD i = 0 ;
 			for(  ; it != end ; it++ ){
 				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "めもり.txt" , "////////////\n"                           );
-				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "めもり.txt" , "データ %d \n"         , i                 );
-				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "めもり.txt" , "ポインタ   : 0x%X \n" , it->pPointer      );
-				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "めもり.txt" , "サイズ     : %d \n"   , it->iSize         );
-				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "めもり.txt" , "ファイル名 : %s \n"   , it->sFile.c_str() );
-				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "めもり.txt" , "関数       : %s \n"   , it->sFunc.c_str() );
-				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "めもり.txt" , "行         : %d \n"   , it->iLine         );
-				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "めもり.txt" , "時間       : %d \n\n" , it->iGenerateTime );
+				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "めもり.txt" , "// データ %d \n"         , i                 );
+				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "めもり.txt" , "// ポインタ   : 0x%X \n" , it->pPointer      );
+				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "めもり.txt" , "// サイズ     : %d \n"   , it->iSize         );
+				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "めもり.txt" , "// ファイル名 : %s \n"   , it->sFile.c_str() );
+				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "めもり.txt" , "// 関数       : %s \n"   , it->sFunc.c_str() );
+				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "めもり.txt" , "// 行         : %d \n"   , it->iLine         );
+				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "めもり.txt" , "// 時間       : %d \n\n" , it->iGenerateTime );
 				i ++ ;
 			}
 		}
@@ -214,10 +218,38 @@ public:
 	////            ：プログラム終了時の最後の最後でのみこの関数を呼び出してください
 	////
 	static void Clear(){
+		#if defined( CF_MEMORYLEEKOUTPUT_ENABLE )
+			time_t timer;
+			struct tm local;
+
+			/* 現在時刻を取得 */
+			timer = time(NULL);
+
+			localtime_s(&local, &timer); /* 地方時に変換 */
+			//#define pFileName "LeekMemoryList.txt" 
+			Debugger::DBGWRITINGLOGTEXT::addStrToFile( L"LeekMemoryList.txt" , L"ローカル時間 %4d/%2d/%2d %2d:%2d:%2d %d \n",
+				local.tm_year + 1900, local.tm_mon + 1, local.tm_mday, local.tm_hour,
+				local.tm_min, local.tm_sec, local.tm_isdst );
+			Debugger::DBGWRITINGLOGTEXT::addStrToFile( L"LeekMemoryList.txt"  , L"総インスタンス数 : %d\n"		, m_ItemInfo.size()  );
+			Debugger::DBGWRITINGLOGTEXT::addStrToFile( L"LeekMemoryList.txt"  , L"確保領域容量     : %d Byte\n"	, m_dwAreaSize       );
+			
+			DWORD i = 0 ;
+		#endif
 		std::list<itemInfo>::iterator it ;
 		for( it = m_ItemInfo.begin() ; it != m_ItemInfo.end() ; it++ ){
-			free((*it).pPointer);
-			(*it).pPointer = NULL ;
+		#if defined( CF_MEMORYLEEKOUTPUT_ENABLE )
+				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "LeekMemoryList.txt"  , "////////////\n"                              );
+				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "LeekMemoryList.txt"  , "// データ %d \n"         , i                 );
+				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "LeekMemoryList.txt"  , "// ポインタ   : 0x%X \n" , it->pPointer      );
+				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "LeekMemoryList.txt"  , "// サイズ     : %d \n"   , it->iSize         );
+				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "LeekMemoryList.txt"  , "// ファイル名 : %s \n"   , it->sFile.c_str() );
+				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "LeekMemoryList.txt"  , "// 関数       : %s \n"   , it->sFunc.c_str() );
+				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "LeekMemoryList.txt"  , "// 行         : %d \n"   , it->iLine         );
+				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "LeekMemoryList.txt"  , "// 時間       : %d \n\n" , it->iGenerateTime );
+				i++;
+		#endif
+			free( it->pPointer );
+			it->pPointer = NULL ;
 		}
 		m_ItemInfo.clear();
 	}
@@ -258,10 +290,10 @@ inline void operator delete(void* pv){
 
 	//	: 強制new置き換え
 	#if defined( CF_OVERLORDNEW_ENABLE )
-		#define new new(__FILE__, __FUNCTION__, __LINE__)
+		#define new new(strrchr(__FILE__,'\\' ) + 1, __FUNCTION__, __LINE__)
 	#endif
 
-	#define NEW new(__FILE__, __FUNCTION__, __LINE__)
+	#define NEW new(strrchr(__FILE__,'\\' ) + 1, __FUNCTION__, __LINE__)
 
 #else /* CF_MEMORYMANAGER_ENABLE */
 	#define NEW new
@@ -338,20 +370,21 @@ template<typename T>
 inline void SafeDeletePointerMap(T& c){
 	T::iterator	it  = c.begin()	;
 	while(it != c.end()){
-		delete it->second ;
-		it->second = NULL ;
+		SafeDelete( it->second );
+		//it->second = NULL ;
 		it++;
 	}
 	c.clear();
 }
-/**************************************************************************
-template<class C>
-void SefeDeletePointerVector(
-vector<C*>& vec	//C型の配列の参照
-);
-用途: ポインタの配列（vector）を安全にクリアする
-戻り値: なし
-***************************************************************************/
+/////////////////// ////////////////////
+//// 関数名     ：template<typename T> inline void SefeDeletePointerVector(vector<C*>& Vec)
+//// カテゴリ   ：テンプレート関数
+//// 用途       ：ポインタの配列（vector）を安全にクリアする
+//// 引数       ：  vector<C*>& Vec               //  : C型の配列の参照
+//// 戻値       ：なし
+//// 担当       ：なし(山ノ井先生のひな形より)
+//// 備考       ：
+////
 template<class C>
 void SefeDeletePointerVector(vector<C*>& Vec){
 	size_t maxsz = Vec.size();
@@ -361,30 +394,46 @@ void SefeDeletePointerVector(vector<C*>& Vec){
 	Vec.clear();
 }
 
+namespace Avoid{
+inline void widen(const std::string &src, std::wstring &dest) {
+	//wchar_t *wcs = new wchar_t[src.length() + 1];
+	//size_t ret;
+	//mbstowcs_s(&ret, wcs, src.length() + 1, src.c_str(), src.length() + 1);
+	//dest = wcs;
+	//delete [] wcs;
+}
+}
 /////////////////// ////////////////////
 //// 関数名     ：template<typename T> inline void SafeDeletePointerContainer(T& c)
 //// カテゴリ   ：テンプレート関数
-//// 用途       ：ポインターを格納したstdコンテナを安全にdeleteする
+//// 用途       ：コンテナに格納されたポインターを安全にすべてDeleteします
 //// 引数       ：  T*& c               // T型のstdコンテナの参照
 //// 戻値       ：なし
 //// 担当       ：鴫原 徹
-//// 備考       ：==以下の型以外のコンテナに有効です==
+//// 備考       ：安全にとは言ってももちろん二重削除や
+////            ：new以外で生成された実体へのポインターには
+////            ：対応できないので注意してください
+////            ：==以下の型 "以外" のstdコンテナに有効です==
 ////            ：std::map
 ////            ：std::multimap
 ////
-namespace Avoid{
-inline void widen(const std::string &src, std::wstring &dest) {
-	wchar_t *wcs = new wchar_t[src.length() + 1];
-	size_t ret;
-	mbstowcs_s(&ret, wcs, src.length() + 1, src.c_str(), src.length() + 1);
-	dest = wcs;
-	delete [] wcs;
-}
-}
 template<typename T>
 inline void SafeDeletePointerContainer(T& c){
 	try{
+/*
+		//	: ↓中身実質これ↓
+
+		if( c.empty() )		return;
+
+		T::iterator	it  = c.begin()	;
+		while(it != c.end()){
+			SafeDelete( *it );
+			it++;
+		}
+		c.clear();
+*/
 		if( c.empty() ){
+			//	: コンテナーが空ならそのまま処理を終了
 			#if defined(CF_DEBUG_DEBUGLOG_OUTPUTTEXT)
 				Debugger::DBGWRITINGLOGTEXT::addStr(L"SafeDeletePointerContainer(T& c) > %d個  \n" , c.size()  );
 			#endif
@@ -399,8 +448,11 @@ inline void SafeDeletePointerContainer(T& c){
 			DWORD num = 0;
 		#endif
 
-		T::iterator	it  = c.begin()	;
-		while(it != c.end()){
+		//////////
+		//	: イテレータがENDになるまで削除
+		T::iterator	it  = c.begin()	,
+					end = c.end()	;
+		while( it != end ){
 			#if defined(CF_DEBUG_DEBUGLOG_OUTPUTTEXT)
 				num++;
 				const type_info& yp = typeid(*(*it));
@@ -409,7 +461,7 @@ inline void SafeDeletePointerContainer(T& c){
 				Debugger::DBGWRITINGLOGTEXT::addStr(L"SafeDeletePointerContainer(T& c) > [%d / %d]個 削除開始 ( %s )\n" , num   , c.size() , buf.c_str() );
 			#endif
 
-
+			//	: ポインターの削除
 			SafeDelete( *it );
 			//*it = NULL ;
 			#if defined(CF_DEBUG_DEBUGLOG_OUTPUTTEXT)
@@ -420,7 +472,10 @@ inline void SafeDeletePointerContainer(T& c){
 				Debugger::DBGWRITINGLOGTEXT::addStr(L"SafeDeletePointerContainer(T& c) > [%d / %d]個 削除完了 ( %s )\n" , num , c.size() , buf.c_str() );
 			#endif
 		}
+		//	: 最後にコンテナを空に
 		c.clear();
+		//
+		//////////
 		#if defined(CF_DEBUG_DEBUGLOG_OUTPUTTEXT)
 			Debugger::DBGWRITINGLOGTEXT::addStr(L"SafeDeletePointerContainer(T& c) > %d個 削除完了\n" , num  );
 			Debugger::DBGWRITINGLOGTEXT::addStr(L"// \n"  );
@@ -432,7 +487,18 @@ inline void SafeDeletePointerContainer(T& c){
 	}
 }
 
-
+/////////////////// ////////////////////
+//// 関数名     ：template<typename T> inline void SafeReleasePointerContainer(T& c)
+//// カテゴリ   ：テンプレート関数
+//// 用途       ：ポインターを格納したstdコンテナを安全にReleaseする
+//// 引数       ：  T*& c               // T型のstdコンテナの参照
+//// 戻値       ：なし
+//// 担当       ：鴫原 徹
+//// 備考       ：安全にとは言ってももちろん
+////            ：==以下の型 "以外" のstdコンテナに有効です==
+////            ：std::map
+////            ：std::multimap
+////
 template<typename T>
 inline void SafeReleasePointerContainer(T& c){
 	try{

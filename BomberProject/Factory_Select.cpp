@@ -60,10 +60,10 @@ namespace bomberobject{
 ***************************************************************************/
 Factory_Select::Factory_Select(FactoryPacket* fpac ){
 	try{
-		fpac->m_pVec->push_back(
+		fpac->AddObject(
 			new SpriteObject(
-				fpac->pD3DDevice,
-				fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"LEVEL.png" ),
+				fpac->GetDevice(),
+				fpac->AddTexture( L"LEVEL.png" ),
 				D3DXVECTOR3( 1.2f, 1.2f, 0.0f ),
 				g_vZero,
 				D3DXVECTOR3(670.0f, 20.0f, 0.0f),
@@ -76,9 +76,9 @@ Factory_Select::Factory_Select(FactoryPacket* fpac ){
 /////////////////////////////////////////////////////////////////////////////////
 //                           説明用のテクスチャ                                //
 /////////////////////////////////////////////////////////////////////////////////
-		fpac->m_pVec->push_back(
+		fpac->AddObject(
 			new SelectInformation(
-					fpac->pD3DDevice								,	
+					fpac->GetDevice()								,	
 					fpac->AddTexture(L"Select_Frame_ver5px.png")	,	//↓マウスがここの上にあるとき表示する画像
 					fpac->AddTexture(L"Select_Manual.png")			,	//枠外
 					fpac->AddTexture(L"Select_Normal.png")		,	//NORMAL
@@ -101,7 +101,7 @@ Factory_Select::Factory_Select(FactoryPacket* fpac ){
 /////////////////////////////////////////////////////////////////////////////////
 		fpac->AddButton(
 			new CustomButtonA(
-				fpac->pD3DDevice,
+				fpac->GetDevice(),
 				fpac->AddTexture(L"Select_NORMAL002.png"),
 				fpac->AddTexture(L"Select_NORMAL001.png"),
 				D3DXVECTOR3( 1.8f,1.8f,0.0f ),
@@ -128,7 +128,7 @@ Factory_Select::Factory_Select(FactoryPacket* fpac ){
 /////////////////////////////////////////////////////////////////////////////////
 		fpac->AddButton(
 			new CustomButtonA(
-				fpac->pD3DDevice,	
+				fpac->GetDevice(),	
 				fpac->AddTexture(L"Select_HARD002.png"),
 				fpac->AddTexture(L"Select_HARD001.png"),
 				D3DXVECTOR3( 1.8f,1.8f,0.0f ),
@@ -154,7 +154,7 @@ Factory_Select::Factory_Select(FactoryPacket* fpac ){
 /////////////////////////////////////////////////////////////////////////////////
 		fpac->AddButton(
 			new CustomButtonA(
-				fpac->pD3DDevice,	
+				fpac->GetDevice(),	
 				fpac->AddTexture(L"Select_EXTRA002.png"),
 				fpac->AddTexture(L"Select_EXTRA001.png"),
 				D3DXVECTOR3( 1.8f,1.8f,0.0f ),
@@ -180,7 +180,7 @@ Factory_Select::Factory_Select(FactoryPacket* fpac ){
 /////////////////////////////////////////////////////////////////////////////////
 		fpac->AddButton(
 			new CustomButtonA(
-				fpac->pD3DDevice,	
+				fpac->GetDevice(),	
 				fpac->AddTexture(L"BACK002.png"),
 				fpac->AddTexture(L"BACK001.png"),
 				g_vOne,
@@ -204,10 +204,10 @@ Factory_Select::Factory_Select(FactoryPacket* fpac ){
 		);
 
 		//Click_Please
-		fpac->m_pVec->push_back(
+		fpac->AddObject(
 			new ClickChar(
-					fpac->pD3DDevice,
-					fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"Click_Please1.png"),
+					fpac->GetDevice(),
+					fpac->AddTexture( L"Click_Please1.png"),
 					D3DXVECTOR3( 0.5f, 0.5f, 0.0f ),
 					g_vZero,
 					g_vZero,

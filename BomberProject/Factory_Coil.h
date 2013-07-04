@@ -180,14 +180,14 @@ class PlayerCoil : public Cylinder ,public MagneticObject{
 	COIL_STATE				m_enumCoilState				;	//	: 自分の状態
 	COIL_STATE_SUPER		m_enumCoilStateSuper		;	//	: 無敵状態
 
-	LPTATRATEXTURE	m_pDeadTex		;	//爆散エフェクトの画像
-	LPTATRATEXTURE	m_pContinueTex	;	//Continue
-	LPTATRATEXTURE	m_pTitleTex		;	//Title
-	LPTATRATEXTURE	m_pDeadCharTex	;	//You'er Dead
-	LPTATRATEXTURE	m_pDeadCountTex	;	//死んだ回数
-	LPTATRATEXTURE	m_pRethinkingTex;	//Really?
-	LPTATRATEXTURE	m_pAnswerTex	;	//Yes : No
-	LPTATRATEXTURE	m_pCountCharTex	;
+	//LPTATRATEXTURE	m_pDeadTex		;	//爆散エフェクトの画像
+	//LPTATRATEXTURE	m_pContinueTex	;	//Continue
+	//LPTATRATEXTURE	m_pTitleTex		;	//Title
+	//LPTATRATEXTURE	m_pDeadCharTex	;	//You'er Dead
+	//LPTATRATEXTURE	m_pDeadCountTex	;	//死んだ回数
+	//LPTATRATEXTURE	m_pRethinkingTex;	//Really?
+	//LPTATRATEXTURE	m_pAnswerTex	;	//Yes : No
+	//LPTATRATEXTURE	m_pCountCharTex	;
 public:
 	/////////////////// ////////////////////
 	//// 関数名     ：PlayerCoil::PlayerCoil(
@@ -218,20 +218,21 @@ public:
 	////            ：
 	////
 	PlayerCoil(
-		LPDIRECT3DDEVICE9	pD3DDevice			,
-		TextureManager*		m_pTexMgr			,
-		float				Radius1				,
-		float				Radius2				,
-		float				Radius3				,
-		float				Lenght				,
-		D3DXVECTOR3&		vScale				,	
-		D3DXVECTOR3&		vRot				,
-		D3DXVECTOR3&		vPos				,
-		D3DCOLORVALUE&		Diffuse				,
-		D3DCOLORVALUE&		Specular			,
-		D3DCOLORVALUE&		Ambient				,
-		LPTATRATEXTURE pTex					,
-		wiz::OBJID			id					= OBJID_3D_COIL
+		LPDIRECT3DDEVICE9	pD3DDevice		,
+		float				Radius1			,
+		float				Radius2			,
+		float				Radius3			,
+		float				Lenght			,
+		D3DXVECTOR3&		vScale			,
+		D3DXVECTOR3&		vRot			,
+		D3DXVECTOR3&		vPos			,
+		D3DCOLORVALUE&		Diffuse			,
+		D3DCOLORVALUE&		Specular		,
+		D3DCOLORVALUE&		Ambient			,
+		LPTATRATEXTURE		pSuperFieldTex	,
+		LPTATRATEXTURE		pModeChangeTex	,
+		LPTATRATEXTURE		pDeadTex		,
+		wiz::OBJID id						= OBJID_3D_COIL
 	);
 
 	/////////////////// ////////////////////
@@ -652,9 +653,9 @@ public:
 	//// 担当       ：本多寛之
 	//// 備考       ：
 	////            ：
-	LPTATRATEXTURE getDeadText() const{
-		return m_pDeadTex;
-	}
+	//LPTATRATEXTURE getDeadText() const{
+	//	return m_pDeadTex;
+	//}
 
 	/////////////////// ////////////////////
 	//// 関数名     ：void PlayerCoil::getDeadCount()

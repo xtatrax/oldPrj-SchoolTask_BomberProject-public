@@ -30,10 +30,9 @@ namespace bomberobject{
 ///************************************************************************
 //ContinueButton 定義部
 //************************************************************************/
-
 ContinueButton::ContinueButton(
 		const LPDIRECT3DDEVICE9		pD3DDevice			,
-		const LPTATRATEXTURE	pTexture			,
+		const LPTATRATEXTURE		pTexture			,
 		const D3DXVECTOR3			vScalse				,
 		const D3DXVECTOR3			vPos				,
 		const Rect*					pRect				,
@@ -74,11 +73,11 @@ ContinueBehavior::ContinueBehavior(
 ,m_fMessageTime( 1.0f )
 ,m_fFadeOutTime( 1.0f )
 ,m_fDeadMessageAlpha(255.0f)
-,m_NowBehaviorFaze(CONTINUEBEHAVIORFAZE_WAIT)
+,m_NowBehaviorFaze(CONTINUEBEHAVIORPHASE_WAIT)
 {
 	float	wide	= BASE_CLIENT_WIDTH/2;
 	float	height	= BASE_CLIENT_HEIGHT/2;
-	LPDIRECT3DDEVICE9 pD3DDevice = i_BassPacket.pD3DDevice;
+	LPDIRECT3DDEVICE9 pD3DDevice = i_BassPacket.GetDevice();
 	m_pPTContinue	= i_BassPacket.AddTexture(L"CONTINUE4.png");
 	m_pPTReally		= i_BassPacket.AddTexture(L"REALLY4.png");
 	D3DXVECTOR3	vScale	= D3DXVECTOR3( 0.5f, 0.5f, 0.0f );
@@ -175,6 +174,8 @@ ContinueBehavior::~ContinueBehavior(){
 	//SafeRelease(m_pPTReally);
 	SafeDelete(m_pPageTitle);
 	SafeDelete(m_pDeadMessage);
+	SafeDelete(m_pDeadScore);
+	SafeDelete(m_pDeadCountChar);
 	//m_pYesButton->Kill();
 	//m_pYesButton = NULL ;
 	//m_pNoButton->Kill() ;
@@ -204,16 +205,16 @@ ContinueBehavior::~ContinueBehavior(){
 void ContinueBehavior::Update( UpdatePacket& i_UpdatePacket ){
 	if( !m_pCoil )  m_pCoil = (PlayerCoil*)i_UpdatePacket.SearchObjectFromID( OBJID_3D_COIL );
 	if( !m_pTime )	m_pTime	= ( TimeScore*)i_UpdatePacket.SearchObjectFromID( OBJID_UI_TIME );
-	if( m_NowBehaviorFaze == CONTINUEBEHAVIORFAZE_WAIT ) return;
+	if( m_NowBehaviorFaze == CONTINUEBEHAVIORPHASE_WAIT ) return;
 
 
-	if( m_NowBehaviorFaze == CONTINUEBEHAVIORFAZE_DRAWDEADMESSAGE ){
+	if( m_NowBehaviorFaze == CONTINUEBEHAVIORPHASE_DRAWDEADMESSAGE ){
 		//	: デッドメッセージ描画フェイズ
 		m_pDeadScore->Update(i_UpdatePacket);
 		if( ( m_fDeadMessageTimeAccumulator += (float)i_UpdatePacket.GetTime()->getElapsedTime()) > m_fMessageTime){
 			//	: フェードアウトフェイズ
 			if( (m_fDeadMessageAlpha -= ( ( 255.0f / m_fFadeOutTime ) * (float)i_UpdatePacket.GetTime()->getElapsedTime())) <= 0.0f){
-				m_NowBehaviorFaze = CONTINUEBEHAVIORFAZE_CONTINUESELECTION;
+				m_NowBehaviorFaze = CONTINUEBEHAVIORPHASE_CONTINUESELECTION;
 				m_pYesButton->OperationStart();
 				m_pNoButton->OperationStart();
 			}
@@ -228,7 +229,7 @@ void ContinueBehavior::Update( UpdatePacket& i_UpdatePacket ){
 		m_pYesButton->getIssueCommand(cmd);
 		m_pNoButton->getIssueCommand(cmd);
 		if( cmd.m_Command == GM_CONTINUEBUTTON_YES ){
-			if( m_NowBehaviorFaze == CONTINUEBEHAVIORFAZE_CONTINUESELECTION ){
+			if( m_NowBehaviorFaze == CONTINUEBEHAVIORPHASE_CONTINUESELECTION ){
 				//	: コイルへ復帰命令
 				m_pCoil->setReadyContinue(true);
 				m_pYesButton->OperationEnd();
@@ -236,7 +237,7 @@ void ContinueBehavior::Update( UpdatePacket& i_UpdatePacket ){
 				m_pTime->setTime();
 				OperationStop();
 
-			}else if( m_NowBehaviorFaze == CONTINUEBEHAVIORFAZE_CHECKSELECTION ){
+			}else if( m_NowBehaviorFaze == CONTINUEBEHAVIORPHASE_CHECKSELECTION ){
 				//	: リザルト画面へ遷移命令
 				i_UpdatePacket.PushCommand( 
 					Command(
@@ -249,14 +250,14 @@ void ContinueBehavior::Update( UpdatePacket& i_UpdatePacket ){
 			}
 		}
 		if( cmd.m_Command == GM_CONTINUEBUTTON_NO ){
-			if( m_NowBehaviorFaze == CONTINUEBEHAVIORFAZE_CONTINUESELECTION ){
+			if( m_NowBehaviorFaze == CONTINUEBEHAVIORPHASE_CONTINUESELECTION ){
 				//	: 確認が目へ
-				m_NowBehaviorFaze = CONTINUEBEHAVIORFAZE_CHECKSELECTION ;
+				m_NowBehaviorFaze = CONTINUEBEHAVIORPHASE_CHECKSELECTION ;
 				m_pPageTitle->setTexture(m_pPTReally);
 				m_pYesButton->setWaitTime(0.7f);
-			}else if( m_NowBehaviorFaze == CONTINUEBEHAVIORFAZE_CHECKSELECTION ){
+			}else if( m_NowBehaviorFaze == CONTINUEBEHAVIORPHASE_CHECKSELECTION ){
 				//	: 復帰選択へ
-				m_NowBehaviorFaze = CONTINUEBEHAVIORFAZE_CONTINUESELECTION ;
+				m_NowBehaviorFaze = CONTINUEBEHAVIORPHASE_CONTINUESELECTION ;
 				m_pPageTitle->setTexture(m_pPTContinue);
 				m_pYesButton->setWaitTime(0.0f);
 			}
@@ -279,8 +280,8 @@ void ContinueBehavior::Update( UpdatePacket& i_UpdatePacket ){
 ////            ：
 ////
 void ContinueBehavior::Draw( DrawPacket& i_DrawPacket ){
-	if( m_NowBehaviorFaze == CONTINUEBEHAVIORFAZE_WAIT ) return;
-	if( m_NowBehaviorFaze == CONTINUEBEHAVIORFAZE_DRAWDEADMESSAGE ){
+	if( m_NowBehaviorFaze == CONTINUEBEHAVIORPHASE_WAIT ) return;
+	if( m_NowBehaviorFaze == CONTINUEBEHAVIORPHASE_DRAWDEADMESSAGE ){
 
 		m_pDeadMessage->Draw(i_DrawPacket);
 		m_pDeadScore->Draw(i_DrawPacket);
@@ -779,11 +780,11 @@ Factory_Continue::Factory_Continue(FactoryPacket* fpac)
 		//LPTATRATEXTURE pTex;
 		//LPTATRATEXTURE pTex2;
 		//LPTATRATEXTURE pTex3;
-		//0(fpac->pD3DDevice,L"dead6.png",&pTex);
-		//0(fpac->pD3DDevice,L"Number_Base1.png",&pTex2);
-		//0(fpac->pD3DDevice,L"TEST.png",&pTex3);
-		//fpac->m_pVec->push_back(
-		//	new Dead( fpac->pD3DDevice,
+		//0(fpac->GetDevice(),L"dead6.png",&pTex);
+		//0(fpac->GetDevice(),L"Number_Base1.png",&pTex2);
+		//0(fpac->GetDevice(),L"TEST.png",&pTex3);
+		//fpac->AddObject(
+		//	new Dead( fpac->GetDevice(),
 		//				pTex/*fpac->AddTexture( L"dead6.png" )*/,
 		//				pTex2/*fpac->AddTexture( L"Number_Base1.png" )*/,
 		//				pTex3/*fpac->AddTexture( L"TEST.png" )*/,
@@ -793,12 +794,12 @@ Factory_Continue::Factory_Continue(FactoryPacket* fpac)
 		//				NULL
 		//	)
 		//);
-		//0(fpac->pD3DDevice,L"TEST.png",&pTex);
+		//0(fpac->GetDevice(),L"TEST.png",&pTex);
 		////***************************************************
 		////YES
-		//fpac->m_pVec->push_back(
+		//fpac->AddObject(
 		//	new Continue(
-		//			fpac->pD3DDevice,
+		//			fpac->GetDevice(),
 		//			pTex/*fpac->AddTexture( L"TEST.png" )*/,
 		//			NULL,
 		//			NULL,
@@ -811,12 +812,12 @@ Factory_Continue::Factory_Continue(FactoryPacket* fpac)
 		//);
 		////**********************************::
 		////NO
-		//0(fpac->pD3DDevice,L"TEST.png",&pTex);
-		//0(fpac->pD3DDevice,L"REALLY4.png",&pTex2);
-		//0(fpac->pD3DDevice,L"CONTINUE4.png",&pTex3);
-		//fpac->m_pVec->push_back(
+		//0(fpac->GetDevice(),L"TEST.png",&pTex);
+		//0(fpac->GetDevice(),L"REALLY4.png",&pTex2);
+		//0(fpac->GetDevice(),L"CONTINUE4.png",&pTex3);
+		//fpac->AddObject(
 		//	new Continue(
-		//			fpac->pD3DDevice,
+		//			fpac->GetDevice(),
 		//			pTex/*fpac->AddTexture( L"TEST.png" )*/,
 		//			pTex2/*fpac->AddTexture( L"REALLY4.png" )*/,
 		//			pTex3/*fpac->AddTexture( L"CONTINUE4.png" )*/,

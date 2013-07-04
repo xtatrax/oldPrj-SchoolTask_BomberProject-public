@@ -43,8 +43,8 @@ class EnemyModel : public Object {
 	PlayerCoil*				m_pCoil			;
 	bool					m_bReset		;
 	D3DXMATRIX				m_WorldMatrix	;
-	LPDIRECT3DDEVICE9		m_pD3DDevice	;
-	LPTATRATEXTURE		m_pTex			;
+	//LPTATRATEXTURE			m_pTex			;
+	DeadEffect*				m_pDeadEffect	;
 
 	struct EnemyItem{
 		D3DMATERIAL9	m_Material		;
@@ -56,7 +56,6 @@ class EnemyModel : public Object {
 		float			m_fMapKey		;
 		bool			m_bHidden		;
 		bool			m_bIsAlive		;
-		DeadEffect*		m_pDeadEffect	;
 
 		//DeadEffect*		m_pDeadEffect[PARTICLS_NUM_ENEMY]	;
 		EnemyItem():m_bHidden(true){}
@@ -105,9 +104,8 @@ public:
 	////           ÅF
 	////
 	EnemyModel(
-		const LPDIRECT3DDEVICE9 pD3DDevice,
+		      BassPacket& Packet,
 		const char *pFileName,
-		      TextureManager* pTexMgr ,
 		const wiz::OBJID id = OBJID_3D_ENEMY);
 
 	/////////////////// ////////////////////

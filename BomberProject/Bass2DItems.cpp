@@ -232,6 +232,7 @@ PrimitiveSprite::PrimitiveSprite(
 	,m_Color(color)
 {
 	try{
+		Debugger::DBGWRITINGLOGTEXT::addStr(L"PrimitiveSprite::PrimitiveSprite  >>>>  スプライトの実態作成完了これより初期化を行います\n");
 		if(rect){
 			m_pRect = new Rect(*rect);
 		}
@@ -289,6 +290,7 @@ PrimitiveSprite::PrimitiveSprite(
 	,m_Color(color)
 {
 	try{
+		Debugger::DBGWRITINGLOGTEXT::addStr(L"PrimitiveSprite::PrimitiveSprite  >>>>  スプライトの実態作成完了これより初期化を行います\n");
 		D3DXMATRIX mScale,mRot,mPos;
 		D3DXMatrixScaling(&mScale,vScale.x,vScale.y,vScale.z);
 		D3DXMatrixRotationYawPitchRoll(&mRot,vRot.y,vRot.x,vRot.z);

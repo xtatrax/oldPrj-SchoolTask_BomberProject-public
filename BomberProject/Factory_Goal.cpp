@@ -408,10 +408,11 @@ GoalObject::GoalObject( LPDIRECT3DDEVICE9 pD3DDevice, D3DXVECTOR3 vPos , LPTATRA
 }
 GoalObject::~GoalObject(){
 	
+	SafeDelete(m_pGoalChar);
+	//SafeDeletePointerMap( m_ItemMap_All ) ;
 	m_pCoil		= NULL ;
 	m_pGoalChar	= NULL;
 	m_pCamera	= NULL;
-	//SafeDeletePointerMap( m_ItemMap_All ) ;
 
 
 }

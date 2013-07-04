@@ -89,12 +89,12 @@ class StageLoader{
 			}
 		}Column;
 	};
-	map<UINT,MapPartsStatus>		m_ObjeMap;
-	multimap<wiz::OBJID,DWORD>		m_ObjeTypeMap;
+	//	: CSVから読み取ったDataをとりあえず保存しておく
+	map<UINT,MapPartsStatus>			m_ObjeMap;
+	//	: 
+	multimap<wiz::OBJID,Object*>		m_ObjeTypeMap;
 
-	TextureManager*		m_pTexMgr;
-	vector<Object*>*	m_pVec;
-	LPDIRECT3DDEVICE9	m_pD3DDevice;
+	FactoryPacket*		m_pFpac;
 	/////////////////// ////////////////////
 	//// 関数名     ：
 	//// カテゴリ   ：
@@ -185,8 +185,8 @@ public:
 	//// 備考       ：
 	////            ：
 	////
-	StageLoader(LPDIRECT3DDEVICE9 pD3DDevice, wstring i_sFileName,
-		DWORD i_dwStageNum, vector<Object*>& Vec, TextureManager& TexMgr);
+	StageLoader(FactoryPacket& i_Fpac, wstring i_sFileName,
+		DWORD i_dwStageNum);
 
 	/////////////////// ////////////////////
 	//// 関数名     ：
@@ -198,7 +198,7 @@ public:
 	//// 備考       ：
 	////            ：
 	////
-	StageLoader(LPDIRECT3DDEVICE9 pD3DDevice, vector<Object*>& Vec, TextureManager& TexMgr, MapPartsStatus[]);
+	StageLoader(FactoryPacket& i_Fpac, MapPartsStatus[]);
 }; // StageLoader
 /*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 
