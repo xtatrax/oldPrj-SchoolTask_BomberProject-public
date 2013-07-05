@@ -348,8 +348,8 @@ Factory_Item::Factory_Item(FactoryPacket* fpac){
 
 		//ÉAÉCÉeÉÄ(è¨)
 		for(int i = 0; i < 9; i++){
-			for(int j = 0; j < 347*ItemDiffusionRate; j++){
-				it->addItem(D3DXVECTOR3((float(i)*(ItemDiffusionRate/3.0f)+float(rand()%100*0.05f))+1.5f,
+			for(int j = 0; j < 80*ItemDiffusionRate; j++){
+				it->addItem(D3DXVECTOR3((float(i)*6.0f+float(rand()%100*0.05f))+1.5f,
 										(float(j)*(ItemDiffusionRate)+float(rand()%100*0.05f))+1.5f,0.0f),
 							ITEM_SCALE,
 							BallDiffuse,BallSpecular,BallAmbient);

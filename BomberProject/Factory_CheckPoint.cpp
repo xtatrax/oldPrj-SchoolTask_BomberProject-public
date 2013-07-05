@@ -172,7 +172,7 @@ CheckPoint::CheckPoint(
 {
 	Box::m_BaseScale.x	= fLength ;
 	Box::m_BasePos.x	= 25 ;
-	add(D3DXVECTOR3(25.0f,10.0f,0.0f));
+	//add(D3DXVECTOR3(25.0f,10.0f,0.0f));
 	Debugger::DBGWRITINGLOGTEXT::addStr(L"CheckPoint::CheckPoint OK\n");
 }
 /////////////////// ////////////////////
@@ -360,7 +360,7 @@ void CheckPoint::DrawLine( DrawPacket& i_DrawPacket ){
 ***************************************************************************/
 	Factory_CheckPoint::Factory_CheckPoint(FactoryPacket* fpac){
 		try{
-			fpac->AddObject( new RestartPoint( fpac->GetDevice(), fpac->AddTexture(L"particle.png") ) );
+			//fpac->AddObject( new RestartPoint( fpac->GetDevice(), fpac->AddTexture(L"particle.png") ) );
 			//D3DCOLORVALUE Diffuse = {1.0f,0.0f,0.0f,1.0f};
 			//D3DCOLORVALUE Specular = {1.0f,0.0f,0.0f,1.0f};
 			//D3DCOLORVALUE Ambient = {1.0f,0.0f,0.0f,1.0f};

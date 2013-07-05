@@ -90,7 +90,7 @@ EnemyModel::EnemyModel(  BassPacket& Packet,const char *pFileName ,const wiz::OB
 		//TLIB::widen(sFileDir,wsFileDir);
 
 		//m_pTex = Packet.AddTexture( L"DeadPerticul.png");
-		m_pDeadEffect	= new DeadEffect( Packet.GetDevice(), Packet.AddTexture( L"DeadPerticul.png"), g_vZero ); 
+		m_pDeadEffect	= new DeadEffect( Packet.GetDevice(), Packet.AddTexture( L"DeadPerticul.png"), g_vOne ); 
 
 		//D3DXMATERIAL d3dxMaterials = *(D3DXMATERIAL*)pD3DXMtrlBuffer->GetBufferPointer();
 		//m_MaterialItems.init(pD3DDevice,pD3DXMtrlBuffer,dwMQty,TexMgr,g_sDefaultTexturePath.c_str(),wpTexName);
@@ -256,11 +256,10 @@ void EnemyModel::Update( UpdatePacket& i_UpdatePacket){
 			if((*it)->m_bIsAlive)i_UpdatePacket.SearchWaveAndPlay( RCTEXT_SOUND_SE_PLAYERBLOKEN );
 			(*it)->m_bIsAlive = false;
 		}
-		
+
 
 		if( !((*it)->m_bIsAlive) ){
-			m_pDeadEffect->setPos( (*it)->m_vPos );
-			m_pDeadEffect->Update( i_UpdatePacket );
+	        m_pDeadEffect->Update( i_UpdatePacket );
 		}
 
 		//Šg‘åk¬
@@ -357,8 +356,7 @@ void EnemyModel::Draw(DrawPacket& i_DrawPacket)
 			}
 		}
 
-		if( !((*it)->m_bIsAlive) )
-			m_pDeadEffect->Draw( i_DrawPacket );
+		if( !((*it)->m_bIsAlive) )m_pDeadEffect->Draw( i_DrawPacket );
 		//”šŽU
 		//if( (*it)->m_pDeadEffect[0] != NULL ){
 		//	for( int i = 0; i < PARTICLS_NUM_ENEMY; i++ ){
@@ -368,6 +366,7 @@ void EnemyModel::Draw(DrawPacket& i_DrawPacket)
 
 		++it;
 	}
+			
 }
 
 /////////////////// ////////////////////
@@ -468,7 +467,11 @@ void EnemyModel::HitTestWall( OBB Obb, UpdatePacket& i_UpdatePacket ){
 		D3DXVECTOR3 Vec ;
 		if(HitTest::SPHERE_OBB(sp,Obb,Vec)){
 			//MessageBox( NULL, L"“–‚½‚Á‚½II", L"“–‚½‚è”»’è", NULL) ;
-			if( (*it)->m_bIsAlive)i_UpdatePacket.SearchWaveAndPlay( RCTEXT_SOUND_SE_PLAYERBLOKEN );
+			if( (*it)->m_bIsAlive){
+    			m_pDeadEffect->setPos( (*it)->m_vPos );
+			    i_UpdatePacket.SearchWaveAndPlay( RCTEXT_SOUND_SE_PLAYERBLOKEN );
+			}
+			    
 			(*it)->m_bIsAlive = false;
 		}
 		it++;

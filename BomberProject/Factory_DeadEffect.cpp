@@ -31,7 +31,7 @@ namespace bomberobject{
  ’S“–F²“¡—Á
 ***************************************************************************/
 DeadEffect::DeadEffect(LPDIRECT3DDEVICE9	pD3DDevice,
-						LPTATRATEXTURE	pTexture,
+						LPTATRATEXTURE	    pTexture,
 						D3DXVECTOR3			vPos,
 						wiz::OBJID			id	)
 	:PrimitiveBox(pD3DDevice,
@@ -140,9 +140,12 @@ void DeadEffect::Update( UpdatePacket& i_UpdatePacket ){
 		if( fDirZ >= 180.0f ){
 			fDirZ	-= 180.0f;
 		}
-		it->second->m_vPos.x	+= cosf( it->second->m_fDir )*2;
-		it->second->m_vPos.y	+= sinf( it->second->m_fDir )*2;
-		it->second->m_vPos.z	+= cosf( fDirZ )*5;
+		D3DXVECTOR3 vDir = D3DXVECTOR3(
+            cosf( it->second->m_fDir )*2,
+            sinf( it->second->m_fDir )*2,
+            cosf( fDirZ )*5
+		);
+		it->second->m_vPos += vDir ;
 
 		it++;
 	}

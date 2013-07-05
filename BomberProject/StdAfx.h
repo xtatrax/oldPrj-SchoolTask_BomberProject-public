@@ -40,7 +40,7 @@
 #pragma comment( lib, "winmm.lib" )
 #pragma comment( lib, "comctl32.lib" )
 
-#pragma comment(lib,"dinput8.lib")
+//#pragma comment(lib,"dinput8.lib")
 //
 //////////
 
@@ -80,7 +80,7 @@ using namespace std;
 
 // XInput
 #include <XInput.h>
-#include <dinput.h>
+//#include <dinput.h>
 
 // HRESULT Žg—p 
 #include <dxerr.h>

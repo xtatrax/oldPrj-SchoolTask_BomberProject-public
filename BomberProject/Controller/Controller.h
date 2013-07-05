@@ -17,37 +17,37 @@
 
 
 #pragma once
-#include "Input.h"
+// #include "Input.h"
 
-namespace Controller__{
+//namespace Controller__{
 //**************************************************************************//
 // class GAMEPAD;
 // ópìr: èEÇ¢ï®#ñ¢ím
 //**************************************************************************//
-class GAMEPAD
-{
-public:
-
-	HWND m_hWnd;
-	HDC m_hdc;
-	//DirectInput
-	DIJOYSTATE2		m_State;
-	LPDIRECTINPUT8	g_lpDI;
-	LPDIRECTINPUTDEVICE8 g_lpDIDevice;
-	DIDEVCAPS            g_diDevCaps;
-	HRESULT GAMEPAD::InitDinput(HWND hWnd);
-	void GAMEPAD::GetState();
-	GAMEPAD()
-	{
-		ZeroMemory(this,sizeof(GAMEPAD));
-	}
-	~GAMEPAD()
-	{
-		SAFE_RELEASE(g_lpDIDevice);
-		SAFE_RELEASE(g_lpDI);
-	}
-};
-};
+//class GAMEPAD
+//{
+//public:
+//
+//	HWND m_hWnd;
+//	HDC m_hdc;
+//	//DirectInput
+//	DIJOYSTATE2		m_State;
+//	LPDIRECTINPUT8	g_lpDI;
+//	LPDIRECTINPUTDEVICE8 g_lpDIDevice;
+//	DIDEVCAPS            g_diDevCaps;
+//	HRESULT GAMEPAD::InitDinput(HWND hWnd);
+//	void GAMEPAD::GetState();
+//	GAMEPAD()
+//	{
+//		ZeroMemory(this,sizeof(GAMEPAD));
+//	}
+//	~GAMEPAD()
+//	{
+//		SAFE_RELEASE(g_lpDIDevice);
+//		SAFE_RELEASE(g_lpDI);
+//	}
+//};
+//};
 namespace wiz {
 //**************************************************************************//
 // struct;
@@ -199,7 +199,7 @@ struct CONTROLER_STATE
     bool					bConnected;
 };
 struct MouseState{
-	Point Position;
+	POINT Position;
 
 };
 //**************************************************************************

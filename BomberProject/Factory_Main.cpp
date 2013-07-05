@@ -108,7 +108,7 @@ Factory_Main::Factory_Main(FactoryPacket* fpac, DWORD dwStageNum, DWORD dwResump
 		Factory_Cursor		Mfac( fpac, fLineLength, fPointSize )  ;
 		Factory_Player		Pfac( fpac );
 		if( dwStageNum != 5 )
-			//Factory_Item	Ifac( fpac ) ;
+			Factory_Item	Ifac( fpac ) ;
 		Factory_Wall		Wfac( fpac ) ;
 		if( dwStageNum == 0 )	dwStageNum = 5 ;
 		StageLoader			loader( *fpac ,L"media/Map/Stages.csv", dwStageNum );

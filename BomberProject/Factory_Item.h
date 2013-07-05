@@ -27,7 +27,7 @@ const	float		RECOVERY_POINT_L	= 0.10f;
 
 const	float		ITEM_TYPE_NULL		= 0.0f;
 const	D3DXVECTOR3 ITEM_SCALE			= D3DXVECTOR3(0.5f,0.5f,0.5f);		
-const   float		ItemDiffusionRate	= 1.0f;
+const   float		ItemDiffusionRate	= 12.0f;
 //enum ITEM_TYPE{
 //	ITEM_TYPE_NULL,
 //	ITEM_TYPE_RECOVETY,

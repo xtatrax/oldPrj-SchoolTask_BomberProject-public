@@ -19,6 +19,7 @@
 #include "Controller/Controller.h"
 #include "Structs.h"
 
+
 namespace wiz{
 
 	extern class Object ;
