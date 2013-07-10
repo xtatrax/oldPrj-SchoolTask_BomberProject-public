@@ -78,11 +78,11 @@ MagnetFieldCircle::MagnetFieldCircle( LPDIRECT3DDEVICE9 pD3DDevice ){
 ////            ：
 ////
 MagnetFieldCircle::~MagnetFieldCircle(){
-	Debugger::DBGWRITINGLOGTEXT::addStr(L"MagnetFieldCircle::~MagnetFieldCircle 開始\n");
+	//Debugger::DBGWRITINGLOGTEXT::addStr(L"MagnetFieldCircle::~MagnetFieldCircle 開始\n");
 	if( --m_dwMyInstance <= 0){
 		//SafeRelease( m_pVertexBuffer );
 	};
-	Debugger::DBGWRITINGLOGTEXT::addStr(L"MagnetFieldCircle::~MagnetFieldCircle 完了\n");
+	//Debugger::DBGWRITINGLOGTEXT::addStr(L"MagnetFieldCircle::~MagnetFieldCircle 完了\n");
 }
 /////////////////// ////////////////////
 //// 関数名     ：
@@ -96,7 +96,7 @@ MagnetFieldCircle::~MagnetFieldCircle(){
 ////
 void MagnetFieldCircle::Draw(DrawPacket& i_DrawPacket){
 	if( !this ){
-		Debugger::DBGWRITINGLOGTEXT::addStr(L"MagnetFieldCircle::Draw で this が NULL なのです・・・");
+		//Debugger::DBGWRITINGLOGTEXT::addStr(L"MagnetFieldCircle::Draw で this が NULL なのです・・・");
 		return;
 	}
 	 //ワールド変換行列を設定
@@ -165,12 +165,12 @@ MagnetField::MagnetField(
 //// 備考       ：
 ////	
 MagnetField::~MagnetField(){
-	Debugger::DBGWRITINGLOGTEXT::addStr(L"MagnetField::~MagnetField 開始\n");
+	//Debugger::DBGWRITINGLOGTEXT::addStr(L"MagnetField::~MagnetField 開始\n");
 	m_pCamera = NULL;
 	m_pCoil	  = NULL;
 	m_pPole_N = NULL;
 	m_pPole_S = NULL;
-	Debugger::DBGWRITINGLOGTEXT::addStr(L"MagnetField::~MagnetField 完了\n");
+	//Debugger::DBGWRITINGLOGTEXT::addStr(L"MagnetField::~MagnetField 完了\n");
 }
 
 /////////////////// ////////////////////
@@ -335,12 +335,12 @@ StaticMagnetField::StaticMagnetField(LPDIRECT3DDEVICE9 pD3DDevice, wiz::OBJID id
 //// 備考       ：
 ////	
 StaticMagnetField::~StaticMagnetField(){
-	Debugger::DBGWRITINGLOGTEXT::addStr(L"StaticMagnetField::~StaticMagnetField 開始\n");
+	//Debugger::DBGWRITINGLOGTEXT::addStr(L"StaticMagnetField::~StaticMagnetField 開始\n");
 	//磁界　外側
 	SafeDeletePointerMap( m_ItemMap_All );
 	m_ItemMap_All.clear();
 	m_ItemMap_Target.clear();
-	Debugger::DBGWRITINGLOGTEXT::addStr(L"StaticMagnetField::~StaticMagnetField 完了\n");
+	//Debugger::DBGWRITINGLOGTEXT::addStr(L"StaticMagnetField::~StaticMagnetField 完了\n");
 
 }
 

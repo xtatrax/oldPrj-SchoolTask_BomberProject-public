@@ -247,16 +247,16 @@ int DxDevice::MainThreadRun(){
 	while(true){
 
 		if( !this ){
-			Debugger::DBGWRITINGLOGTEXT::addStr(L"DxDevice::MainThreadRun メインゲームループで this が ぬるぽじょうほうををキャッチしちゃいました><、");
+			//Debugger::DBGWRITINGLOGTEXT::addStr(L"DxDevice::MainThreadRun メインゲームループで this が ぬるぽじょうほうををキャッチしちゃいました><、");
 			return 1;
 		}
 		if( m_bDestroy ){
 			#ifndef CF_SINGLETHREAD
 				CloseHandle(m_hUpdateThread);
 			#endif
-			Debugger::DBGWRITINGLOGTEXT::addStr(L"デバイスの破棄の開始");
+			//Debugger::DBGWRITINGLOGTEXT::addStr(L"デバイスの破棄の開始");
 			this->Clear();
-			Debugger::DBGWRITINGLOGTEXT::addStr(L"デバイスの破棄の完了");
+			//Debugger::DBGWRITINGLOGTEXT::addStr(L"デバイスの破棄の完了");
 			DestroyWindow(m_hWnd);
 			return 0;
 		}

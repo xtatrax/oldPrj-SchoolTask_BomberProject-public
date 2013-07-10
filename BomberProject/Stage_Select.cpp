@@ -53,7 +53,7 @@ StageSelect();
  –ß‚è’l: ‚È‚µ
 ***************************************************************************/
 StageSelect::~StageSelect(){
-	Debugger::DBGWRITINGLOGTEXT::addStr(L"StageSelect::~StageSelect()\n");
+	//Debugger::DBGWRITINGLOGTEXT::addStr(L"StageSelect::~StageSelect()\n");
 }
 
 }

@@ -232,12 +232,12 @@ PrimitiveSprite::PrimitiveSprite(
 	,m_Color(color)
 {
 	try{
-		Debugger::DBGWRITINGLOGTEXT::addStr(L"PrimitiveSprite::PrimitiveSprite  >>>>  スプライトの実態作成完了これより初期化を行います\n");
+		//Debugger::DBGWRITINGLOGTEXT::addStr(L"PrimitiveSprite::PrimitiveSprite  >>>>  スプライトの実態作成完了これより初期化を行います\n");
 		if(rect){
 			m_pRect = new Rect(*rect);
 		}
 		if( !m_pSprite ){
-			Debugger::DBGWRITINGLOGTEXT::addStr(L"PrimitiveSprite::PrimitiveSprite  >>>>  スプライトの新規作成をします\n");
+			//Debugger::DBGWRITINGLOGTEXT::addStr(L"PrimitiveSprite::PrimitiveSprite  >>>>  スプライトの新規作成をします\n");
 			if( FAILED( D3DXCreateSprite( pD3DDevice, &m_pSprite ) ) ){
 				// 初期化失敗
 				throw BaseException(
@@ -290,7 +290,7 @@ PrimitiveSprite::PrimitiveSprite(
 	,m_Color(color)
 {
 	try{
-		Debugger::DBGWRITINGLOGTEXT::addStr(L"PrimitiveSprite::PrimitiveSprite  >>>>  スプライトの実態作成完了これより初期化を行います\n");
+		//Debugger::DBGWRITINGLOGTEXT::addStr(L"PrimitiveSprite::PrimitiveSprite  >>>>  スプライトの実態作成完了これより初期化を行います\n");
 		D3DXMATRIX mScale,mRot,mPos;
 		D3DXMatrixScaling(&mScale,vScale.x,vScale.y,vScale.z);
 		D3DXMatrixRotationYawPitchRoll(&mRot,vRot.y,vRot.x,vRot.z);
@@ -302,7 +302,7 @@ PrimitiveSprite::PrimitiveSprite(
 			m_pRect = new Rect(*pRect);
 		}
 		if( !m_pSprite ){
-			Debugger::DBGWRITINGLOGTEXT::addStr(L"PrimitiveSprite::PrimitiveSprite  >>>>  スプライトの新規作成をします\n");
+			//Debugger::DBGWRITINGLOGTEXT::addStr(L"PrimitiveSprite::PrimitiveSprite  >>>>  スプライトの新規作成をします\n");
 			if( FAILED( D3DXCreateSprite( pD3DDevice, &m_pSprite ) ) ){
 				// 初期化失敗
 				throw BaseException(
@@ -335,7 +335,7 @@ PrimitiveSprite::~PrimitiveSprite(){
 	//SafeRelease(m_pTexture);
 	m_dwMyInstanceQty--;
 	if( m_dwMyInstanceQty <= 0 ){
-		Debugger::DBGWRITINGLOGTEXT::addStr(L"PrimitiveSprite::~PrimitiveSprite  >>>>  スプライトが不要になりました 削除します\n");
+		//Debugger::DBGWRITINGLOGTEXT::addStr(L"PrimitiveSprite::~PrimitiveSprite  >>>>  スプライトが不要になりました 削除します\n");
 		SafeRelease(m_pSprite);
 	}
 

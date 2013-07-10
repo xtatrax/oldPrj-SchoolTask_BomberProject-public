@@ -118,7 +118,7 @@ void Load::Update(UpdatePacket& i_UpdatePacket)
 	m_iTime++;
 	if( m_iTime > 240 ){
 		i_UpdatePacket.PushCommand( m_Com );
-		Debugger::DBGWRITINGLOGTEXT::addStr(L"i_UpdatePacket.pCommand = m_Com\n");
+		//Debugger::DBGWRITINGLOGTEXT::addStr(L"i_UpdatePacket.pCommand = m_Com\n");
 	}
 };
 

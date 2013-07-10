@@ -39,17 +39,17 @@ PlayStage::PlayStage( LPDIRECT3DDEVICE9 pD3DDevice, DWORD dwStageNum, DWORD dwRe
 	:Stage(pStage)
 {
 	try{
-		Debugger::DBGWRITINGLOGTEXT::addStr(L"//-----------------------------------------------------------------------------------------------------//\n");
-		Debugger::DBGWRITINGLOGTEXT::addStr(L"//-----------------------------------------------------------------------------------------------------//\n");
-		Debugger::DBGWRITINGLOGTEXT::addStr(L"//-----------------------------------------------------------------------------------------------------//\n");
-		Debugger::DBGWRITINGLOGTEXT::addStr(L"//-----------------------------------------------------------------------------------------------------//\n");
-		Debugger::DBGWRITINGLOGTEXT::addStr(L"//-----------------------------------------------------------------------------------------------------//\n");
-		Debugger::DBGWRITINGLOGTEXT::addStr(L"//-----------------------------------------------------------------------------------------------------//\n");
-		Debugger::DBGWRITINGLOGTEXT::addStr(L"//-----------------------------------------------------------------------------------------------------//\n");
-		Debugger::DBGWRITINGLOGTEXT::addStr(L"// PlayStage 構築開始\n");
-		Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
-		Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
-		Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
+		//Debugger::DBGWRITINGLOGTEXT::addStr(L"//-----------------------------------------------------------------------------------------------------//\n");
+		//Debugger::DBGWRITINGLOGTEXT::addStr(L"//-----------------------------------------------------------------------------------------------------//\n");
+		//Debugger::DBGWRITINGLOGTEXT::addStr(L"//-----------------------------------------------------------------------------------------------------//\n");
+		//Debugger::DBGWRITINGLOGTEXT::addStr(L"//-----------------------------------------------------------------------------------------------------//\n");
+		//Debugger::DBGWRITINGLOGTEXT::addStr(L"//-----------------------------------------------------------------------------------------------------//\n");
+		//Debugger::DBGWRITINGLOGTEXT::addStr(L"//-----------------------------------------------------------------------------------------------------//\n");
+		//Debugger::DBGWRITINGLOGTEXT::addStr(L"//-----------------------------------------------------------------------------------------------------//\n");
+		//Debugger::DBGWRITINGLOGTEXT::addStr(L"// PlayStage 構築開始\n");
+		//Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
+		//Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
+		//Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
 		FactoryPacket FPac(pD3DDevice,this->m_IsDialog,&Command(),this);
 
 		D3DXVECTOR3* vp = NULL ;
@@ -58,17 +58,17 @@ PlayStage::PlayStage( LPDIRECT3DDEVICE9 pD3DDevice, DWORD dwStageNum, DWORD dwRe
 	
 		Factory_Main mainF( &FPac, dwStageNum, dwResumptionCheckPoint, vp );
 		m_dwNowStage = dwStageNum ;
-		Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
-		Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
-		Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
-		Debugger::DBGWRITINGLOGTEXT::addStr(L"// PlayStage 構築完了\n");
-		Debugger::DBGWRITINGLOGTEXT::addStr(L"//-----------------------------------------------------------------------------------------------------//\n");
-		Debugger::DBGWRITINGLOGTEXT::addStr(L"//-----------------------------------------------------------------------------------------------------//\n");
-		Debugger::DBGWRITINGLOGTEXT::addStr(L"//-----------------------------------------------------------------------------------------------------//\n");
-		Debugger::DBGWRITINGLOGTEXT::addStr(L"//-----------------------------------------------------------------------------------------------------//\n");
-		Debugger::DBGWRITINGLOGTEXT::addStr(L"//-----------------------------------------------------------------------------------------------------//\n");
-		Debugger::DBGWRITINGLOGTEXT::addStr(L"//-----------------------------------------------------------------------------------------------------//\n");
-		Debugger::DBGWRITINGLOGTEXT::addStr(L"//-----------------------------------------------------------------------------------------------------//\n");
+		//Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
+		//Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
+		//Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
+		//Debugger::DBGWRITINGLOGTEXT::addStr(L"// PlayStage 構築完了\n");
+		//Debugger::DBGWRITINGLOGTEXT::addStr(L"//-----------------------------------------------------------------------------------------------------//\n");
+		//Debugger::DBGWRITINGLOGTEXT::addStr(L"//-----------------------------------------------------------------------------------------------------//\n");
+		//Debugger::DBGWRITINGLOGTEXT::addStr(L"//-----------------------------------------------------------------------------------------------------//\n");
+		//Debugger::DBGWRITINGLOGTEXT::addStr(L"//-----------------------------------------------------------------------------------------------------//\n");
+		//Debugger::DBGWRITINGLOGTEXT::addStr(L"//-----------------------------------------------------------------------------------------------------//\n");
+		//Debugger::DBGWRITINGLOGTEXT::addStr(L"//-----------------------------------------------------------------------------------------------------//\n");
+		//Debugger::DBGWRITINGLOGTEXT::addStr(L"//-----------------------------------------------------------------------------------------------------//\n");
 	}
 	catch(LoaderException& e){
 		throw LoaderException(
@@ -93,33 +93,33 @@ PlayStage();
  戻り値: なし
 ***************************************************************************/
 PlayStage::~PlayStage(){
-	Debugger::DBGWRITINGLOGTEXT::addStr(L"////////////////////////////////////////////////////////\n");
-	Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
-	Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
-	Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
-	Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
-	Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
-	Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
-	Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
-	Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
-	Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
-	Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
-	Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
-	Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
-	Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
-	Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
-	Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
-	Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
-	Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
-	Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
-	Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
-	Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
-	Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
-	Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
-	Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
-	Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
-	Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
-	Debugger::DBGWRITINGLOGTEXT::addStr(L"PlayStage::~PlayStage %X\n",this);
+	//Debugger::DBGWRITINGLOGTEXT::addStr(L"////////////////////////////////////////////////////////\n");
+	//Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
+	//Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
+	//Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
+	//Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
+	//Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
+	//Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
+	//Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
+	//Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
+	//Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
+	//Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
+	//Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
+	//Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
+	//Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
+	//Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
+	//Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
+	//Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
+	//Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
+	//Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
+	//Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
+	//Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
+	//Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
+	//Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
+	//Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
+	//Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
+	//Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
+	//Debugger::DBGWRITINGLOGTEXT::addStr(L"PlayStage::~PlayStage %X\n",this);
 }
 /////////////////// ////////////////////
 //// 用途       ：virtual void Update( UpdatePacket& i_UpdatePacket )

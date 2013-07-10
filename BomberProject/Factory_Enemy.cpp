@@ -125,21 +125,21 @@ EnemyModel::~EnemyModel(){
 	m_pPlayer	= NULL ;
 	m_pCoil		= NULL ;
 
-	Debugger::DBGWRITINGLOGTEXT::addStr(L"EnemyModel::~EnemyModel  >                                m_ItemMap_All.size(%d)\n",m_ItemMap_All.size());
+	//Debugger::DBGWRITINGLOGTEXT::addStr(L"EnemyModel::~EnemyModel  >                                m_ItemMap_All.size(%d)\n",m_ItemMap_All.size());
 	
 	SafeDelete( m_pDeadEffect );
 
 	SafeDeletePointerMap( m_ItemMap_All );
 	m_ItemMap_All.clear();
 	
-	Debugger::DBGWRITINGLOGTEXT::addStr(L"EnemyModel::~EnemyModel  > SafeDeletePointerMap     >>>>  m_ItemMap_All.size(%d)\n",m_ItemMap_All.size());
+	//Debugger::DBGWRITINGLOGTEXT::addStr(L"EnemyModel::~EnemyModel  > SafeDeletePointerMap     >>>>  m_ItemMap_All.size(%d)\n",m_ItemMap_All.size());
 	
 	m_ItemMap_Target.clear();
 	
-	Debugger::DBGWRITINGLOGTEXT::addStr(L"EnemyModel::~EnemyModel  > m_ItemMap_Target.clear() >>>>  m_ItemMap_All.size(%d)\n",m_ItemMap_All.size());
+	//Debugger::DBGWRITINGLOGTEXT::addStr(L"EnemyModel::~EnemyModel  > m_ItemMap_Target.clear() >>>>  m_ItemMap_All.size(%d)\n",m_ItemMap_All.size());
 	SAFE_RELEASE( m_pMesh );
 	//if( m_pMesh ) m_pMesh->Release();
-	Debugger::DBGWRITINGLOGTEXT::addStr(L"EnemyModel::~EnemyModel  > m_pMesh->Release() >>>> Š®—¹\n",m_ItemMap_All.size());
+	//Debugger::DBGWRITINGLOGTEXT::addStr(L"EnemyModel::~EnemyModel  > m_pMesh->Release() >>>> Š®—¹\n",m_ItemMap_All.size());
 }
 
 /////////////////// ////////////////////

@@ -173,7 +173,7 @@ CheckPoint::CheckPoint(
 	Box::m_BaseScale.x	= fLength ;
 	Box::m_BasePos.x	= 25 ;
 	//add(D3DXVECTOR3(25.0f,10.0f,0.0f));
-	Debugger::DBGWRITINGLOGTEXT::addStr(L"CheckPoint::CheckPoint OK\n");
+	//Debugger::DBGWRITINGLOGTEXT::addStr(L"CheckPoint::CheckPoint OK\n");
 }
 /////////////////// ////////////////////
 //// ópìr       ÅF

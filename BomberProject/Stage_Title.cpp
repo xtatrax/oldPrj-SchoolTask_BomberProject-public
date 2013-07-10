@@ -51,7 +51,7 @@ TitleStage();
  –ß‚è’l: ‚È‚µ
 ***************************************************************************/
 TitleStage::~TitleStage(){
-	Debugger::DBGWRITINGLOGTEXT::addStr(L"TitleStage::~TitleStage()\n");
+	//Debugger::DBGWRITINGLOGTEXT::addStr(L"TitleStage::~TitleStage()\n");
 }
 
 }

@@ -81,17 +81,17 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 					i_Data.Ambient
 				);
 			}else{
-																Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_WALLを確保します\n",this);
+																//Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_WALLを確保します\n",this);
 
 				//	: 登録がなかった場合
 				WallObject* cp ;
 
 				if( cp = (TARGET_CLASS*)m_pFpac->SearchObjectFromID(ObjectID) ){
-																Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_WALL  >>>> Object一覧より発見しました\n",this);
+																//Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_WALL  >>>> Object一覧より発見しました\n",this);
 					//	: オブジェクトの場所を覚えておく
 					m_ObjeTypeMap.insert( make_pair( ObjectID , cp ));
 				}else{
-																Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_WALL  >>>> Object一覧より発見できませんでした 新規に作成します\n",this);
+																//Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_WALL  >>>> Object一覧より発見できませんでした 新規に作成します\n",this);
 					//	: インスタンスを生成
 					cp = new TARGET_CLASS(
 						m_pFpac->GetDevice(),
@@ -104,7 +104,7 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 					//	: オブジェクトの場所を覚えておく
 					m_ObjeTypeMap.insert( make_pair( ObjectID , cp));
 				}
-																Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_WALL  >>>> 初回登録完了\n",this);
+																//Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_WALL  >>>> 初回登録完了\n",this);
 				//	: アイテムの追加
 				cp->AddWall(
 					i_Data.vScale	,
@@ -114,7 +114,7 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 					i_Data.Specular	,
 					i_Data.Ambient
 				);
-																Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_WALL  >>>> 初回の追加行動を完了します\n",this);
+																//Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_WALL  >>>> 初回の追加行動を完了します\n",this);
 			}
 			//	: 壁
 			//////////
@@ -148,16 +148,16 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 					i_Data.vScale.x
 				);
 			}else{
-																	Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_ITEMを確保します\n",this);
+																	//Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_ITEMを確保します\n",this);
 				//	: 登録がなかった場合
 				TARGET_CLASS* cp;
 				if( cp = (TARGET_CLASS*)m_pFpac->SearchObjectFromID( ObjectID ) ){
-																	Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_ITEM  >>>> Object一覧より発見しました\n",this);
+																	//Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_ITEM  >>>> Object一覧より発見しました\n",this);
 					//	: オブジェクトの場所を覚えておく
 					m_ObjeTypeMap.insert( make_pair( ObjectID , cp ));
 
 				}else{
-																	Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_ITEM  >>>> Object一覧より発見できませんでした 新規に作成します\n",this);
+																	//Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_ITEM  >>>> Object一覧より発見できませんでした 新規に作成します\n",this);
 					//	: 登録がなかった場合
 					//	: インスタンスを生成
 					cp  = new Item( m_pFpac, NULL, ObjectID);
@@ -168,7 +168,7 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 					//	: オブジェクトの場所を覚えておく
 					m_ObjeTypeMap.insert( make_pair( ObjectID , cp ));
 				}
-																	Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_ITEM  >>>> 初回登録完了\n",this);
+																	//Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_ITEM  >>>> 初回登録完了\n",this);
 
 				//	: アイテムの追加
 				cp->addItem(
@@ -179,7 +179,7 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 					BallAmbient		,
 					i_Data.vScale.x
 				);
-																	Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_ITEM  >>>> 初回の追加行動を完了します\n",this);
+																	//Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_ITEM  >>>> 初回の追加行動を完了します\n",this);
 			}
 			//	: アイテム
 			//////////
@@ -207,16 +207,16 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 					i_Data.Ambient
 				);
 			}else{
-																			Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_MAGNETを確保します\n",this);
+																			//Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_MAGNETを確保します\n",this);
 				//	: 登録がなかった場合
 				TARGET_CLASS* cp;
 				if( cp = (TARGET_CLASS*)m_pFpac->SearchObjectFromID( ObjectID  ) ){
-																			Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_MAGNET  >>>> Object一覧より発見しました\n",this);
+																			//Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_MAGNET  >>>> Object一覧より発見しました\n",this);
 					//	: オブジェクトの場所を覚えておく
 					m_ObjeTypeMap.insert( make_pair( ObjectID , cp ));
 
 				}else{
-																			Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_MAGNET  >>>> Object一覧より発見でいませんでした 新規に作成します\n",this);
+																			//Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_MAGNET  >>>> Object一覧より発見でいませんでした 新規に作成します\n",this);
 					//	: 登録がなかった場合
 					//	: インスタンスを生成
 					cp = new TARGET_CLASS(
@@ -230,7 +230,7 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 					//	: オブジェクトの場所を覚えておく
 					m_ObjeTypeMap.insert( make_pair( ObjectID , cp ));
 				}
-																			Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_MAGNET  >>>> 初回登録完了\n",this);
+																			//Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_MAGNET  >>>> 初回登録完了\n",this);
 				//	: 登録がなかった場合
 				cp->AddMagnetic(
 					i_Data.vPos		,
@@ -239,7 +239,7 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 					i_Data.Specular	,
 					i_Data.Ambient
 				);
-																			Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_MAGNET  >>>> 初回の追加行動を完了します\n",this);
+																			//Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_MAGNET  >>>> 初回の追加行動を完了します\n",this);
 			}
 			//	: 磁界
 			//////////
@@ -269,16 +269,16 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 					i_Data.bPool
 				);
 			}else{
-																			Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_ENEMYを確保します\n",this);
+																			//Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_ENEMYを確保します\n",this);
 				//	: 登録がなかった場合
 				TARGET_CLASS* cp;
 				if( cp = (TARGET_CLASS*)m_pFpac->SearchObjectFromID( ObjectID ) ){
-																			Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_ENEMY  >>>> Object一覧より発見しました\n",this);
+																			//Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_ENEMY  >>>> Object一覧より発見しました\n",this);
 					//	: オブジェクトの場所を覚えておく
 					m_ObjeTypeMap.insert( make_pair( ObjectID , cp ));
 
 				}else{
-																			Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_ENEMY  >>>> Object一覧より発見でいませんでした 新規に作成します\n",this);
+																			//Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_ENEMY  >>>> Object一覧より発見でいませんでした 新規に作成します\n",this);
 					//	: 登録がなかった場合
 					D3DCOLORVALUE EnemyDiffuse	= {1.0f,1.0f,1.0f,1.0f};
 					D3DCOLORVALUE EnemySpecular	= {1.0f,1.0f,1.0f,1.0f};
@@ -296,7 +296,7 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 					//	: オブジェクトの場所を覚えておく
 					m_ObjeTypeMap.insert( make_pair( ObjectID , cp ));
 				}
-																			Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_ENEMY  >>>> 初回登録完了\n",this);
+																			//Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_ENEMY  >>>> 初回登録完了\n",this);
 				//	: 登録がなかった場合
 				cp->AddEnemy(
 					g_vOne		,
@@ -307,7 +307,7 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 					i_Data.Ambient		,
 					i_Data.bPool
 				);
-																			Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_ENEMY  >>>> 初回の追加行動を完了します\n",this);
+																			//Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_ENEMY  >>>> 初回の追加行動を完了します\n",this);
 			}
 			//	: 敵(ウイルス?)
 			//////////
@@ -331,17 +331,17 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 					i_Data.vPos
 				);
 			}else{
-																Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_CHECKPOINTを確保します\n",this);
+																//Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_CHECKPOINTを確保します\n",this);
 				//	: 登録がなかった場合
 				TARGET_CLASS* cp;
 
 				if( cp = (TARGET_CLASS*)m_pFpac->SearchObjectFromID( ObjectID ) ){
-																Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_CHECKPOINT  >>>> Object一覧より発見しました\n",this);
+																//Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_CHECKPOINT  >>>> Object一覧より発見しました\n",this);
 					//	: オブジェクトの場所を覚えておく
 					m_ObjeTypeMap.insert( make_pair( ObjectID , cp ));
 
 				}else{
-																Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_CHECKPOINT  >>>> Object一覧より発見でいませんでした 新規に作成します\n",this);
+																//Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_CHECKPOINT  >>>> Object一覧より発見でいませんでした 新規に作成します\n",this);
 					//	: 登録がなかった場合
 					//	: インスタンスを生成
 					cp = new TARGET_CLASS(
@@ -359,12 +359,12 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 					//	: オブジェクトの場所を覚えておく
 					m_ObjeTypeMap.insert( make_pair( ObjectID , cp ));
 				}
-																	Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_CHECKPOINT  >>>> 初回登録完了\n",this);
+																	//Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_CHECKPOINT  >>>> 初回登録完了\n",this);
 				//	: 登録がなかった場合
 				cp->add(
 					i_Data.vPos
 				);
-																	Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_CHECKPOINT  >>>> 初回の追加行動を完了します\n",this);
+																	//Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_CHECKPOINT  >>>> 初回の追加行動を完了します\n",this);
 			}
 			//	: 磁界
 			//////////
@@ -766,7 +766,7 @@ void StageLoader::StageListLoader(wstring i_sFileName, BYTE i_byStageNum){
 		//	: Objectリストと読み込むファイルパスを獲得
 		PointSearch( vvCsvData , NumberPoint , PathPoint ) ;
 		DWORD dwETime = TLIB::Tempus::TimeGetTime();
-		Debugger::DBGWRITINGLOGTEXT::addStr( L"StageLoader::StageListLoader >> PointSearch : %f\n", TLIB::Tempus::TwoDwTime2ElapsedTime(dwSTime,dwETime));
+		////Debugger::DBGWRITINGLOGTEXT::addStr( L"StageLoader::StageListLoader >> PointSearch : %f\n", TLIB::Tempus::TwoDwTime2ElapsedTime(dwSTime,dwETime));
 		}
 		BYTE size = vvCsvData.size();
 		DWORD dwETime = TLIB::Tempus::TimeGetTime();
@@ -779,7 +779,7 @@ void StageLoader::StageListLoader(wstring i_sFileName, BYTE i_byStageNum){
 				//	: 
 				StageGenerator(vvCsvData[NumberPoint.y][NumberPoint.x +1]);
 				DWORD dwETime = TLIB::Tempus::TimeGetTime();
-				Debugger::DBGWRITINGLOGTEXT::addStr( L"StageLoader::StageListLoader >> StageGenerator : %f\n", TLIB::Tempus::TwoDwTime2ElapsedTime(dwSTime,dwETime));
+				//Debugger::DBGWRITINGLOGTEXT::addStr( L"StageLoader::StageListLoader >> StageGenerator : %f\n", TLIB::Tempus::TwoDwTime2ElapsedTime(dwSTime,dwETime));
 				return;
 			}
 		}while(size > ++NumberPoint.y);
@@ -820,7 +820,7 @@ StageLoader::StageLoader(FactoryPacket& i_Fpac, wstring i_sFileName,DWORD i_dwSt
 		StageListLoader(i_sFileName, (BYTE)i_dwStageNum);
 
 		//DWORD dwETime = TLIB::Tempus::TimeGetTime();
-		//Debugger::DBGWRITINGLOGTEXT::addStr( L"StageLoader::StageLoader(ロード全体) : %f\n", TLIB::Tempus::TwoDwTime2ElapsedTime(dwSTime,dwETime));
+		////Debugger::DBGWRITINGLOGTEXT::addStr( L"StageLoader::StageLoader(ロード全体) : %f\n", TLIB::Tempus::TwoDwTime2ElapsedTime(dwSTime,dwETime));
 	}
 	catch(wiz::LoaderException& e){
 		//再スロー

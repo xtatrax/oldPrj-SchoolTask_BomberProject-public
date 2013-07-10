@@ -35,7 +35,7 @@ LoadStage::LoadStage(LPDIRECT3DDEVICE9 pD3DDevice,Command* Com,Stage* pStage)
 	try{
 		FactoryPacket FPac(pD3DDevice,this->m_IsDialog,&Command(),this);
 		Factory_Load	loadF( &FPac, Com );
-		Debugger::DBGWRITINGLOGTEXT::addStr(L"LoadStage::LoadStage()\n");
+		//Debugger::DBGWRITINGLOGTEXT::addStr(L"LoadStage::LoadStage()\n");
 
 	}
 	catch(...){
@@ -50,7 +50,7 @@ LoadStage();
  –ß‚è’l: ‚È‚µ
 ***************************************************************************/
 LoadStage::~LoadStage(){
-	Debugger::DBGWRITINGLOGTEXT::addStr(L"LoadStage::~LoadStage()\n");
+	//Debugger::DBGWRITINGLOGTEXT::addStr(L"LoadStage::~LoadStage()\n");
 }
 
 }

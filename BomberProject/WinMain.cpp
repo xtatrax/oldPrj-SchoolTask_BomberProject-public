@@ -72,7 +72,7 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 			// 構造体のハンドルで使ったメモリを解放する
 			DragFinish((HDROP)wParam);
 			return 0;
-		case WM_LBUTTONDOWN		:	MouseUtilityCushion::setMouseLB( true )			;	break ; 
+		case WM_LBUTTONDOWN		:	MouseUtilityCushion::setMouseLB( true )			;	break ;
 		case WM_RBUTTONDOWN		:	MouseUtilityCushion::setMouseRB( true )			;	break ;
 		case WM_MBUTTONDOWN		:	MouseUtilityCushion::setMouseMB( true )			;	break ;
 		case WM_LBUTTONUP		:	MouseUtilityCushion::setMouseLB( false )		;	break ;
@@ -258,7 +258,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE
 		int ret =  (int) device->MainThreadRun();
 		ReleaseCapture();
 
-		Debugger::DBGWRITINGLOGTEXT::addStr(L"ゲームシステム終了処理開始");
+		//Debugger::DBGWRITINGLOGTEXT::addStr(L"ゲームシステム終了処理開始");
 		SafeDelete( device );
 		::PostQuitMessage(0);
 		ShowCursor(true);

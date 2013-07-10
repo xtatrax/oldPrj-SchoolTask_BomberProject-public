@@ -214,7 +214,7 @@ PlayerCoil::~PlayerCoil(){
 	//for( i = 0; i < PARTICLS_NUM; i++ ){
 	//	SafeDelete(m_pDeadEffect[i]);
 	//}
-	//Debugger::DBGWRITINGLOGTEXT::addStr(L"PlayerCoil::~PlayerCoil >>>> for  >>>> SAFE_DELETE(m_pDeadEffect[i]); [%d / %d]ŒÂ íœŠ®—¹ \n" , i, PARTICLS_NUM  );
+	////Debugger::DBGWRITINGLOGTEXT::addStr(L"PlayerCoil::~PlayerCoil >>>> for  >>>> SAFE_DELETE(m_pDeadEffect[i]); [%d / %d]ŒÂ íœŠ®—¹ \n" , i, PARTICLS_NUM  );
 
 };
 

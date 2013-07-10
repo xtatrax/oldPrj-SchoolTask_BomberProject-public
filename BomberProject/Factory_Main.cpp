@@ -56,9 +56,9 @@ Factory_Main::Factory_Main(FactoryPacket* fpac, DWORD dwStageNum, DWORD dwResump
 		//	: ガイドライン
 		fpac->AddObject(new Guide( fpac->GetDevice() ) );
 #endif
-		Debugger::DBGWRITINGLOGTEXT::addStrToFile(L"Score.txt",L"\n\n//////////\n");
-		Debugger::DBGWRITINGLOGTEXT::addStrToFile(L"Score.txt",L"//  : \n");
-		Debugger::DBGWRITINGLOGTEXT::addStrToFile(L"Score.txt",L"StageNum   = %d\n",dwStageNum);
+		//Debugger::DBGWRITINGLOGTEXT::addStrToFile(L"Score.txt",L"\n\n//////////\n");
+		//Debugger::DBGWRITINGLOGTEXT::addStrToFile(L"Score.txt",L"//  : \n");
+		//Debugger::DBGWRITINGLOGTEXT::addStrToFile(L"Score.txt",L"StageNum   = %d\n",dwStageNum);
 
 		//////////
 		//	: ライトの設定
@@ -74,7 +74,7 @@ Factory_Main::Factory_Main(FactoryPacket* fpac, DWORD dwStageNum, DWORD dwResump
 				D3DXVECTOR3( -0.0f, -1.0f, 0.0f)
 			)
 		);
-		Debugger::DBGWRITINGLOGTEXT::addStr(L"Factory_Main::Factory_Main  >>>>  ライト作成OK  ");
+		//Debugger::DBGWRITINGLOGTEXT::addStr(L"Factory_Main::Factory_Main  >>>>  ライト作成OK  ");
 		//	: ライトの設定
 		//////////
 
@@ -93,7 +93,7 @@ Factory_Main::Factory_Main(FactoryPacket* fpac, DWORD dwStageNum, DWORD dwResump
 				30.0f
 			)
 		);
-		Debugger::DBGWRITINGLOGTEXT::addStr(L"Factory_Main::Factory_Main  >>>>  カメラ作成OK  ");
+		//Debugger::DBGWRITINGLOGTEXT::addStr(L"Factory_Main::Factory_Main  >>>>  カメラ作成OK  ");
 		//	: カメラの設定
 		//////////
 
@@ -152,7 +152,7 @@ Factory_Main::Factory_Main(FactoryPacket* fpac, DWORD dwStageNum, DWORD dwResump
 		fpac->AddObject( wp );
 		//	: オブジェクトのソート( 透過処理の問題対策 )
 		//////////
-		Debugger::DBGWRITINGLOGTEXT::addStr(L"ゲーム開始");
+		//Debugger::DBGWRITINGLOGTEXT::addStr(L"ゲーム開始");
 
 	}
 	catch(LoaderException& e){

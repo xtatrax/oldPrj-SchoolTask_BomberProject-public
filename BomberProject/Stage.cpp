@@ -40,32 +40,32 @@ namespace wiz{
 ////
 void Stage::Clear(){
 	//SafeDelete(m_pChildStage);
-    Debugger::DBGWRITINGLOGTEXT::addStr(L"Stage::Clear  >  %X 削除開始\n",this);
+    ////Debugger::DBGWRITINGLOGTEXT::addStr(L"Stage::Clear  >  %X 削除開始\n",this);
     
     //  : 親ステージを削除(あとで子ステージに修正する)
 	SafeDelete(m_pParStage);
-    Debugger::DBGWRITINGLOGTEXT::addStr(L"SafeDelete(m_pParStage) 完了\n");
+    ////Debugger::DBGWRITINGLOGTEXT::addStr(L"SafeDelete(m_pParStage) 完了\n");
     
 
 	//  : 他で作られたものが入っていただけなのでぬるぽ!
 	m_pSound = NULL ;
     //  : 自分用のサウンドを削除
 	SafeDelete(m_pMySound);
-    Debugger::DBGWRITINGLOGTEXT::addStr(L"SafeDelete(m_pMySound)  完了\n");
+    ////Debugger::DBGWRITINGLOGTEXT::addStr(L"SafeDelete(m_pMySound)  完了\n");
 
 
 	//	: ボタンの実体はm_Vecの中にあるためClearのみ
 	m_ButtonVec.clear();
-	Debugger::DBGWRITINGLOGTEXT::addStr(L"m_ButtonVec.clear(); 完了\n");
+	////Debugger::DBGWRITINGLOGTEXT::addStr(L"m_ButtonVec.clear(); 完了\n");
     
 	//  : ステージに配置されたオブジェクトをすべて削除
 	SafeDeletePointerContainer(m_Vec);
-    Debugger::DBGWRITINGLOGTEXT::addStr(L"SafeDeletePointerContainer(m_Vec);  完了\n");
+    ////Debugger::DBGWRITINGLOGTEXT::addStr(L"SafeDeletePointerContainer(m_Vec);  完了\n");
 	//SefeDeletePointerVector(m_Vec);
 
 
 	//m_TexMgr.Release();
-	//Debugger::DBGWRITINGLOGTEXT::addStr(L"m_TexMgr.Release(); 完了\n",this);
+	////Debugger::DBGWRITINGLOGTEXT::addStr(L"m_TexMgr.Release(); 完了\n",this);
 }
 
 /////////////////// ////////////////////

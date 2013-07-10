@@ -453,7 +453,7 @@ public:
 				addStrTop(L"============================================================================================================\n");
 				addStrTop(L"=====                                      デバッグ文字列出力                                          =====\n");
 				addStrTop(L"============================================================================================================\n");
-				Debugger::DBGWRITINGLOGTEXT::addStrToFile( wstring(L"DebugStr.LOG"), str.c_str() );
+				//Debugger::DBGWRITINGLOGTEXT::addStrToFile( wstring(L"DebugStr.LOG"), str.c_str() );
 			}
 			if(m_bDrawFlag){
 				m_lpDebagFont->DrawText(NULL,str.c_str(), -1, NULL

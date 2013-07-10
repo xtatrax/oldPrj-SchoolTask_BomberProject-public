@@ -236,20 +236,20 @@ void Scene::CommandTranslator(BassPacket& i_BassPacket){
 			//	: ロード画面
 			PRGOTO_GM_OPENSTAGE_LOAD:
 			SafeDeleteStage(m_pRootStage);
-			Debugger::DBGWRITINGLOGTEXT::addStr(L"Scene::CommandTranslator  >>>>  PRGOTO_GM_OPENSTAGE_LOAD  ステージ作成開始  ");
+			////Debugger::DBGWRITINGLOGTEXT::addStr(L"Scene::CommandTranslator  >>>>  PRGOTO_GM_OPENSTAGE_LOAD  ステージ作成開始  ");
 			m_pRootStage = new LoadStage(i_BassPacket.GetDevice(),&comBuf);
-			Debugger::DBGWRITINGLOGTEXT::addStr(L"Scene::CommandTranslator  >>>>  PRGOTO_GM_OPENSTAGE_LOAD  ステージ作成OK  ");
+			////Debugger::DBGWRITINGLOGTEXT::addStr(L"Scene::CommandTranslator  >>>>  PRGOTO_GM_OPENSTAGE_LOAD  ステージ作成OK  ");
 			break;
 		case GM_OPENSTAGE_PLAY:
 			try{
 				//	: ゲームステージ
-				Debugger::DBGWRITINGLOGTEXT::addStr(L"Scene::CommandTranslator  >>>>  GM_OPENSTAGE_PLAY  ステージ作成開始  ");
+				////Debugger::DBGWRITINGLOGTEXT::addStr(L"Scene::CommandTranslator  >>>>  GM_OPENSTAGE_PLAY  ステージ作成開始  ");
 				this->m_pStgBuf = new PlayStage(i_BassPacket.GetDevice(), comBuf.m_Param1, comBuf.m_Param2);
-				Debugger::DBGWRITINGLOGTEXT::addStr(L"Scene::CommandTranslator  >>>>  GM_OPENSTAGE_PLAY  ステージ作成完了  ");
+				////Debugger::DBGWRITINGLOGTEXT::addStr(L"Scene::CommandTranslator  >>>>  GM_OPENSTAGE_PLAY  ステージ作成完了  ");
 				//	: 
-				Debugger::DBGWRITINGLOGTEXT::addStr(L"Scene::CommandTranslator  >>>>  GM_OPENSTAGE_PLAY  前ステージ削除開始  ");
+				////Debugger::DBGWRITINGLOGTEXT::addStr(L"Scene::CommandTranslator  >>>>  GM_OPENSTAGE_PLAY  前ステージ削除開始  ");
 				SafeDeleteStage(m_pRootStage);
-				Debugger::DBGWRITINGLOGTEXT::addStr(L"Scene::CommandTranslator  >>>>  GM_OPENSTAGE_PLAY  前ステージ削除終了  ");
+				////Debugger::DBGWRITINGLOGTEXT::addStr(L"Scene::CommandTranslator  >>>>  GM_OPENSTAGE_PLAY  前ステージ削除終了  ");
 				m_pRootStage = this->m_pStgBuf;
 				this->m_pStgBuf = NULL ;
 			}
@@ -271,12 +271,12 @@ void Scene::CommandTranslator(BassPacket& i_BassPacket){
 
 		case GM_OPENSTAGE_CLEAR:
 			//	: ゲームクリア画面
-			Debugger::DBGWRITINGLOGTEXT::addStr(L"Scene::CommandTranslator  >>>>  GM_OPENSTAGE_CLEAR  ステージ削除開始  ");
+			////Debugger::DBGWRITINGLOGTEXT::addStr(L"Scene::CommandTranslator  >>>>  GM_OPENSTAGE_CLEAR  ステージ削除開始  ");
 			SafeDeleteStage(m_pRootStage);
-			Debugger::DBGWRITINGLOGTEXT::addStr(L"Scene::CommandTranslator  >>>>  GM_OPENSTAGE_CLEAR  ステージ削除OK  ");
+			////Debugger::DBGWRITINGLOGTEXT::addStr(L"Scene::CommandTranslator  >>>>  GM_OPENSTAGE_CLEAR  ステージ削除OK  ");
 			m_pRootStage = new ClearStage(i_BassPacket.GetDevice(), comBuf.m_Param1,
 														comBuf.m_Param2, comBuf.m_Param3 );
-			Debugger::DBGWRITINGLOGTEXT::addStr(L"Scene::CommandTranslator  >>>>  GM_OPENSTAGE_CLEAR  ステージ作成OK  ");
+			////Debugger::DBGWRITINGLOGTEXT::addStr(L"Scene::CommandTranslator  >>>>  GM_OPENSTAGE_CLEAR  ステージ作成OK  ");
 			break;
 
 		case GM_OPENSTAGE_RESULT:

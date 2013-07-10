@@ -590,10 +590,10 @@ ResultScore::ResultScore(LPDIRECT3DDEVICE9	pD3DDevice,
 	int TotalScore	= (iMaxPos*10)+iScratch-(iDead*30);
 	if( TotalScore >= MAX_DIGHT_SCORE )
 		TotalScore	= MAX_DIGHT_SCORE-1;
-	Debugger::DBGWRITINGLOGTEXT::addStrToFile(L"Score.txt",L"MaxPos     = %d\n",iMaxPosScore);
-	Debugger::DBGWRITINGLOGTEXT::addStrToFile(L"Score.txt",L"Scratch    = %d\n",iScratchScore);
-	Debugger::DBGWRITINGLOGTEXT::addStrToFile(L"Score.txt",L"DeadCount  = %d\n",iDeadScore);
-	Debugger::DBGWRITINGLOGTEXT::addStrToFile(L"Score.txt",L"TotalScore = %d\n",TotalScore);
+	//Debugger::DBGWRITINGLOGTEXT::addStrToFile(L"Score.txt",L"MaxPos     = %d\n",iMaxPosScore);
+	//Debugger::DBGWRITINGLOGTEXT::addStrToFile(L"Score.txt",L"Scratch    = %d\n",iScratchScore);
+	//Debugger::DBGWRITINGLOGTEXT::addStrToFile(L"Score.txt",L"DeadCount  = %d\n",iDeadScore);
+	//Debugger::DBGWRITINGLOGTEXT::addStrToFile(L"Score.txt",L"TotalScore = %d\n",TotalScore);
 
 	//“_”‚É‰‚¶‚½ƒ‰ƒ“ƒN‚Ìİ’è************************************
 	if( TotalScore >= 10000 )		m_ResultRank	= Rank_S;

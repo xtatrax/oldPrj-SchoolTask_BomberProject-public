@@ -585,12 +585,12 @@ void CommonMesh::TorusVec2UV(float x,float y,float z,float inr,float outr,float&
  ＊デバイスが喪失したときに呼ばれる。すべてのObjectの派生クラスは、個別に対応をとる
 ***************************************************************************/
 void CommonMesh::ReleaseObj(){
-	Debugger::DBGWRITINGLOGTEXT::addStr(L"CommonMesh::ReleaseObj()  >>>  m_pMesh = %X\n",m_pMesh);
+	//Debugger::DBGWRITINGLOGTEXT::addStr(L"CommonMesh::ReleaseObj()  >>>  m_pMesh = %X\n",m_pMesh);
     //後始末
     //SafeDelete(m_pShadowVolume);
     SafeRelease(m_pMesh);
 
-	Debugger::DBGWRITINGLOGTEXT::addStr(L"SafeRelease(m_pMesh); OK \n");
+	//Debugger::DBGWRITINGLOGTEXT::addStr(L"SafeRelease(m_pMesh); OK \n");
 	//SafeDelete(m_pShader);
 }
 
@@ -617,10 +617,10 @@ CommonMesh::CommonMesh( wiz::OBJID id , CustomShader* pShader)
 ***************************************************************************/
 CommonMesh::~CommonMesh(){
 
-	Debugger::DBGWRITINGLOGTEXT::addStr(L"CommonMesh::~CommonMesh()\n");
+	//Debugger::DBGWRITINGLOGTEXT::addStr(L"CommonMesh::~CommonMesh()\n");
 
 	ReleaseObj();
-	Debugger::DBGWRITINGLOGTEXT::addStr(L"ReleaseObj() OK\n");
+	//Debugger::DBGWRITINGLOGTEXT::addStr(L"ReleaseObj() OK\n");
 }
 /**************************************************************************
 void CommonMesh::CreateBox(
@@ -3148,7 +3148,7 @@ m_pTexture(pTexture)
  戻り値: なし
 ***************************************************************************/
  SimpleCommonMesh::~SimpleCommonMesh(){
-	Debugger::DBGWRITINGLOGTEXT::addStr(L"SimpleCommonMesh::~SimpleCommonMesh()\n");
+	//Debugger::DBGWRITINGLOGTEXT::addStr(L"SimpleCommonMesh::~SimpleCommonMesh()\n");
 
 	//マルチコモンメッシュ配列のクリア
 	 SafeDeletePointerContainer(m_MultiVec);
@@ -4284,7 +4284,7 @@ m_Stacks(Stacks)
 Cylinder::~Cylinder(){
 	//何もしない
 	//オブジェクトの開放は親クラスで行なう
-	Debugger::DBGWRITINGLOGTEXT::addStr(L"Cylinder::~Cylinder()\n");
+	//Debugger::DBGWRITINGLOGTEXT::addStr(L"Cylinder::~Cylinder()\n");
 
 }
 /**************************************************************************

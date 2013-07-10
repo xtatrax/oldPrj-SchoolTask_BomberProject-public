@@ -183,22 +183,22 @@ public:
 
 			localtime_s(&local, &timer); /* 地方時に変換 */
 
-			Debugger::DBGWRITINGLOGTEXT::addStrToFile( L"めもり.txt" , L"ローカル時間 %4d/%2d/%2d %2d:%2d:%2d %d \n",
+			//Debugger::DBGWRITINGLOGTEXT::addStrToFile( L"めもり.txt" , L"ローカル時間 %4d/%2d/%2d %2d:%2d:%2d %d \n",
 				local.tm_year + 1900, local.tm_mon + 1, local.tm_mday, local.tm_hour,
 				local.tm_min, local.tm_sec, local.tm_isdst );
-			Debugger::DBGWRITINGLOGTEXT::addStrToFile( L"めもり.txt" , L"総インスタンス数 : %d\n"		, m_ItemInfo.size()  );
-			Debugger::DBGWRITINGLOGTEXT::addStrToFile( L"めもり.txt" , L"確保領域容量     : %d Byte\n"	, m_dwAreaSize       );
+			//Debugger::DBGWRITINGLOGTEXT::addStrToFile( L"めもり.txt" , L"総インスタンス数 : %d\n"		, m_ItemInfo.size()  );
+			//Debugger::DBGWRITINGLOGTEXT::addStrToFile( L"めもり.txt" , L"確保領域容量     : %d Byte\n"	, m_dwAreaSize       );
 			
 			DWORD i = 0 ;
 			for(  ; it != end ; it++ ){
-				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "めもり.txt" , "////////////\n"                           );
-				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "めもり.txt" , "// データ %d \n"         , i                 );
-				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "めもり.txt" , "// ポインタ   : 0x%X \n" , it->pPointer      );
-				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "めもり.txt" , "// サイズ     : %d \n"   , it->iSize         );
-				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "めもり.txt" , "// ファイル名 : %s \n"   , it->sFile.c_str() );
-				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "めもり.txt" , "// 関数       : %s \n"   , it->sFunc.c_str() );
-				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "めもり.txt" , "// 行         : %d \n"   , it->iLine         );
-				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "めもり.txt" , "// 時間       : %d \n\n" , it->iGenerateTime );
+				//Debugger::DBGWRITINGLOGTEXT::addStrToFile( "めもり.txt" , "////////////\n"                           );
+				//Debugger::DBGWRITINGLOGTEXT::addStrToFile( "めもり.txt" , "// データ %d \n"         , i                 );
+				//Debugger::DBGWRITINGLOGTEXT::addStrToFile( "めもり.txt" , "// ポインタ   : 0x%X \n" , it->pPointer      );
+				//Debugger::DBGWRITINGLOGTEXT::addStrToFile( "めもり.txt" , "// サイズ     : %d \n"   , it->iSize         );
+				//Debugger::DBGWRITINGLOGTEXT::addStrToFile( "めもり.txt" , "// ファイル名 : %s \n"   , it->sFile.c_str() );
+				//Debugger::DBGWRITINGLOGTEXT::addStrToFile( "めもり.txt" , "// 関数       : %s \n"   , it->sFunc.c_str() );
+				//Debugger::DBGWRITINGLOGTEXT::addStrToFile( "めもり.txt" , "// 行         : %d \n"   , it->iLine         );
+				//Debugger::DBGWRITINGLOGTEXT::addStrToFile( "めもり.txt" , "// 時間       : %d \n\n" , it->iGenerateTime );
 				i ++ ;
 			}
 		}
@@ -227,25 +227,25 @@ public:
 
 			localtime_s(&local, &timer); /* 地方時に変換 */
 			//#define pFileName "LeekMemoryList.txt" 
-			Debugger::DBGWRITINGLOGTEXT::addStrToFile( L"LeekMemoryList.txt" , L"ローカル時間 %4d/%2d/%2d %2d:%2d:%2d %d \n",
+			//Debugger::DBGWRITINGLOGTEXT::addStrToFile( L"LeekMemoryList.txt" , L"ローカル時間 %4d/%2d/%2d %2d:%2d:%2d %d \n",
 				local.tm_year + 1900, local.tm_mon + 1, local.tm_mday, local.tm_hour,
 				local.tm_min, local.tm_sec, local.tm_isdst );
-			Debugger::DBGWRITINGLOGTEXT::addStrToFile( L"LeekMemoryList.txt"  , L"総インスタンス数 : %d\n"		, m_ItemInfo.size()  );
-			Debugger::DBGWRITINGLOGTEXT::addStrToFile( L"LeekMemoryList.txt"  , L"確保領域容量     : %d Byte\n"	, m_dwAreaSize       );
+			//Debugger::DBGWRITINGLOGTEXT::addStrToFile( L"LeekMemoryList.txt"  , L"総インスタンス数 : %d\n"		, m_ItemInfo.size()  );
+			//Debugger::DBGWRITINGLOGTEXT::addStrToFile( L"LeekMemoryList.txt"  , L"確保領域容量     : %d Byte\n"	, m_dwAreaSize       );
 			
 			DWORD i = 0 ;
 		#endif
 		std::list<itemInfo>::iterator it ;
 		for( it = m_ItemInfo.begin() ; it != m_ItemInfo.end() ; it++ ){
 		#if defined( CF_MEMORYLEEKOUTPUT_ENABLE )
-				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "LeekMemoryList.txt"  , "////////////\n"                              );
-				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "LeekMemoryList.txt"  , "// データ %d \n"         , i                 );
-				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "LeekMemoryList.txt"  , "// ポインタ   : 0x%X \n" , it->pPointer      );
-				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "LeekMemoryList.txt"  , "// サイズ     : %d \n"   , it->iSize         );
-				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "LeekMemoryList.txt"  , "// ファイル名 : %s \n"   , it->sFile.c_str() );
-				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "LeekMemoryList.txt"  , "// 関数       : %s \n"   , it->sFunc.c_str() );
-				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "LeekMemoryList.txt"  , "// 行         : %d \n"   , it->iLine         );
-				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "LeekMemoryList.txt"  , "// 時間       : %d \n\n" , it->iGenerateTime );
+				//Debugger::DBGWRITINGLOGTEXT::addStrToFile( "LeekMemoryList.txt"  , "////////////\n"                              );
+				//Debugger::DBGWRITINGLOGTEXT::addStrToFile( "LeekMemoryList.txt"  , "// データ %d \n"         , i                 );
+				//Debugger::DBGWRITINGLOGTEXT::addStrToFile( "LeekMemoryList.txt"  , "// ポインタ   : 0x%X \n" , it->pPointer      );
+				//Debugger::DBGWRITINGLOGTEXT::addStrToFile( "LeekMemoryList.txt"  , "// サイズ     : %d \n"   , it->iSize         );
+				//Debugger::DBGWRITINGLOGTEXT::addStrToFile( "LeekMemoryList.txt"  , "// ファイル名 : %s \n"   , it->sFile.c_str() );
+				//Debugger::DBGWRITINGLOGTEXT::addStrToFile( "LeekMemoryList.txt"  , "// 関数       : %s \n"   , it->sFunc.c_str() );
+				//Debugger::DBGWRITINGLOGTEXT::addStrToFile( "LeekMemoryList.txt"  , "// 行         : %d \n"   , it->iLine         );
+				//Debugger::DBGWRITINGLOGTEXT::addStrToFile( "LeekMemoryList.txt"  , "// 時間       : %d \n\n" , it->iGenerateTime );
 				i++;
 		#endif
 			free( it->pPointer );
@@ -421,7 +421,8 @@ template<typename T>
 inline void SafeDeletePointerContainer(T& c){
 	try{
 /*
-		//	: ↓中身実質これ↓
+		//	: ↓デバッグ用の処理で見難くなっていますが↓
+		//	:   ↓中身でやっていることはこんなんです↓
 
 		if( c.empty() )		return;
 
@@ -435,16 +436,16 @@ inline void SafeDeletePointerContainer(T& c){
 		if( c.empty() ){
 			//	: コンテナーが空ならそのまま処理を終了
 			#if defined(CF_DEBUGLOGTEXT_OUTPUT_ENABLE)
-				Debugger::DBGWRITINGLOGTEXT::addStr(L"SafeDeletePointerContainer(T& c) > %d個  \n" , c.size()  );
+				//Debugger::DBGWRITINGLOGTEXT::addStr(L"SafeDeletePointerContainer(T& c) > %d個  \n" , c.size()  );
 			#endif
 
 			return;
 		}
 		#if defined(CF_DEBUGLOGTEXT_OUTPUT_ENABLE)
-			Debugger::DBGWRITINGLOGTEXT::addStr(L"\n////////// \n"   );
-			Debugger::DBGWRITINGLOGTEXT::addStr(L"// \n"  );
-			Debugger::DBGWRITINGLOGTEXT::addStr(L"// \n"  );
-			Debugger::DBGWRITINGLOGTEXT::addStr(L"SafeDeletePointerContainer(T& c) > %d個 削除開始 \n" , c.size()  );
+			//Debugger::DBGWRITINGLOGTEXT::addStr(L"\n////////// \n"   );
+			//Debugger::DBGWRITINGLOGTEXT::addStr(L"// \n"  );
+			//Debugger::DBGWRITINGLOGTEXT::addStr(L"// \n"  );
+			//Debugger::DBGWRITINGLOGTEXT::addStr(L"SafeDeletePointerContainer(T& c) > %d個 削除開始 \n" , c.size()  );
 			DWORD num = 0;
 		#endif
 
@@ -458,18 +459,18 @@ inline void SafeDeletePointerContainer(T& c){
 				const type_info& yp = typeid(*(*it));
 				wstring buf ;
 				Avoid::widen( string( yp.name() ), buf);
-				Debugger::DBGWRITINGLOGTEXT::addStr(L"SafeDeletePointerContainer(T& c) > [%d / %d]個 削除開始 ( %s )\n" , num   , c.size() , buf.c_str() );
+				//Debugger::DBGWRITINGLOGTEXT::addStr(L"SafeDeletePointerContainer(T& c) > [%d / %d]個 削除開始 ( %s )\n" , num   , c.size() , buf.c_str() );
 			#endif
 
 			//	: ポインターの削除
 			SafeDelete( *it );
 			//*it = NULL ;
 			#if defined(CF_DEBUGLOGTEXT_OUTPUT_ENABLE)
-				Debugger::DBGWRITINGLOGTEXT::addStr(L"SafeDeletePointerContainer(T& c) > it++\n" );
+				//Debugger::DBGWRITINGLOGTEXT::addStr(L"SafeDeletePointerContainer(T& c) > it++\n" );
 			#endif
 			it++;
 			#if defined(CF_DEBUGLOGTEXT_OUTPUT_ENABLE)
-				Debugger::DBGWRITINGLOGTEXT::addStr(L"SafeDeletePointerContainer(T& c) > [%d / %d]個 削除完了 ( %s )\n" , num , c.size() , buf.c_str() );
+				//Debugger::DBGWRITINGLOGTEXT::addStr(L"SafeDeletePointerContainer(T& c) > [%d / %d]個 削除完了 ( %s )\n" , num , c.size() , buf.c_str() );
 			#endif
 		}
 		//	: 最後にコンテナを空に
@@ -477,10 +478,10 @@ inline void SafeDeletePointerContainer(T& c){
 		//
 		//////////
 		#if defined(CF_DEBUGLOGTEXT_OUTPUT_ENABLE)
-			Debugger::DBGWRITINGLOGTEXT::addStr(L"SafeDeletePointerContainer(T& c) > %d個 削除完了\n" , num  );
-			Debugger::DBGWRITINGLOGTEXT::addStr(L"// \n"  );
-			Debugger::DBGWRITINGLOGTEXT::addStr(L"// \n"  );
-			Debugger::DBGWRITINGLOGTEXT::addStr(L"////////// \n"   );
+			//Debugger::DBGWRITINGLOGTEXT::addStr(L"SafeDeletePointerContainer(T& c) > %d個 削除完了\n" , num  );
+			//Debugger::DBGWRITINGLOGTEXT::addStr(L"// \n"  );
+			//Debugger::DBGWRITINGLOGTEXT::addStr(L"// \n"  );
+			//Debugger::DBGWRITINGLOGTEXT::addStr(L"////////// \n"   );
 		#endif
 	}catch(...){
 		throw ;
@@ -502,17 +503,31 @@ inline void SafeDeletePointerContainer(T& c){
 template<typename T>
 inline void SafeReleasePointerContainer(T& c){
 	try{
+/*
+		//	: ↓デバッグ用の処理で見難くなっていますが↓
+		//	:   ↓中身でやっていることはこんなんです↓
+
+		if( c.empty() ){
+			return;
+		}
+		T::iterator	it  = c.begin()	;
+		while(it != c.end()){
+			SafeRelease( *it );
+			it++;
+		}
+		c.clear();
+*/
 		if( c.empty() ){
 			#if defined(CF_DEBUGLOGTEXT_OUTPUT_ENABLE)
-						Debugger::DBGWRITINGLOGTEXT::addStr(L"SafeDeletePointerContainer(T& c) > %d個  \n" , c.size()  );
+						//Debugger::DBGWRITINGLOGTEXT::addStr(L"SafeDeletePointerContainer(T& c) > %d個  \n" , c.size()  );
 			#endif
 			return;
 		}
 		#if defined(CF_DEBUGLOGTEXT_OUTPUT_ENABLE)
-				Debugger::DBGWRITINGLOGTEXT::addStr(L"\n////////// \n"   );
-				Debugger::DBGWRITINGLOGTEXT::addStr(L"// \n"  );
-				Debugger::DBGWRITINGLOGTEXT::addStr(L"// \n"  );
-				Debugger::DBGWRITINGLOGTEXT::addStr(L"SafeDeletePointerContainer(T& c) > %d個 削除開始 \n" , c.size()  );
+				//Debugger::DBGWRITINGLOGTEXT::addStr(L"\n////////// \n"   );
+				//Debugger::DBGWRITINGLOGTEXT::addStr(L"// \n"  );
+				//Debugger::DBGWRITINGLOGTEXT::addStr(L"// \n"  );
+				//Debugger::DBGWRITINGLOGTEXT::addStr(L"SafeDeletePointerContainer(T& c) > %d個 削除開始 \n" , c.size()  );
 				DWORD num = 0;
 		#endif
 		T::iterator	it  = c.begin()	;
@@ -522,24 +537,24 @@ inline void SafeReleasePointerContainer(T& c){
 						const type_info& yp = typeid(*(*it));
 						wstring buf ;
 						Avoid::widen( string( yp.name() ), buf);
-						Debugger::DBGWRITINGLOGTEXT::addStr(L"SafeDeletePointerContainer(T& c) > [%d / %d]個 削除開始 ( %s )\n" , num   , c.size() , buf.c_str() );
+						//Debugger::DBGWRITINGLOGTEXT::addStr(L"SafeDeletePointerContainer(T& c) > [%d / %d]個 削除開始 ( %s )\n" , num   , c.size() , buf.c_str() );
 			#endif
 			SafeRelease( *it );
 			//*it = NULL ;
 			#if defined(CF_DEBUGLOGTEXT_OUTPUT_ENABLE)
-						Debugger::DBGWRITINGLOGTEXT::addStr(L"SafeDeletePointerContainer(T& c) > it++\n" );
+						//Debugger::DBGWRITINGLOGTEXT::addStr(L"SafeDeletePointerContainer(T& c) > it++\n" );
 			#endif
 			it++;
 			#if defined(CF_DEBUGLOGTEXT_OUTPUT_ENABLE)
-						Debugger::DBGWRITINGLOGTEXT::addStr(L"SafeDeletePointerContainer(T& c) > [%d / %d]個 削除完了 ( %s )\n" , num , c.size() , buf.c_str() );
+						//Debugger::DBGWRITINGLOGTEXT::addStr(L"SafeDeletePointerContainer(T& c) > [%d / %d]個 削除完了 ( %s )\n" , num , c.size() , buf.c_str() );
 			#endif
 		}
 		c.clear();
 		#if defined(CF_DEBUGLOGTEXT_OUTPUT_ENABLE)
-				Debugger::DBGWRITINGLOGTEXT::addStr(L"SafeDeletePointerContainer(T& c) > %d個 削除完了\n" , num  );
-				Debugger::DBGWRITINGLOGTEXT::addStr(L"// \n"  );
-				Debugger::DBGWRITINGLOGTEXT::addStr(L"// \n"  );
-				Debugger::DBGWRITINGLOGTEXT::addStr(L"////////// \n"   );
+				//Debugger::DBGWRITINGLOGTEXT::addStr(L"SafeDeletePointerContainer(T& c) > %d個 削除完了\n" , num  );
+				//Debugger::DBGWRITINGLOGTEXT::addStr(L"// \n"  );
+				//Debugger::DBGWRITINGLOGTEXT::addStr(L"// \n"  );
+				//Debugger::DBGWRITINGLOGTEXT::addStr(L"////////// \n"   );
 		#endif
 	}catch(...){
 		throw ;
