@@ -123,7 +123,7 @@ public:
 	//// 引数       ：  LPDIRECT3DDEVICE9 pD3DDevice,	//デバイス
 	////			  :   LPDIRECT3DTEXTURE9 pTexture,  //テクスチャ	
 	////              :   wiz::OBJID id = OBJID_3D_MAGNET //ID
-	//// 戻値       ：無し
+	//// 戻値       ：なし
 	//// 担当者     ：曳地 大洋
 	//// 備考       ：
 	////	
@@ -154,7 +154,7 @@ public:
 	////             ：  ├ vector<Object*>&    Vec                     // オブジェクトの配列
 	////             ：  ├ Tempus2*            i_DrawPacket.GetTime()	   // 時間を管理するクラスへのポインター
 	////             ：  └ Command             i_DrawPacket.pCommand   // コマンド
-	//// 戻値       ：無し
+	//// 戻値       ：なし
 	//// 担当者     ：曳地 大洋
 	//// 備考       ：
 	////
@@ -170,7 +170,7 @@ public:
 	////              ：  ├       vector<Object*>&   Vec,            // オブジェクトの配列
 	////              ：  ├ const CONTROLER_STATE*   pCntlState      // コントローラのステータス
 	////              ：  └       Command            pCommand        // コマンド
-	//// 戻値       ：無し
+	//// 戻値       ：なし
 	//// 担当者     ：曳地 大洋
 	//// 備考       ：
 	void Update( UpdatePacket& i_UpdatePacket );
@@ -244,7 +244,7 @@ public:
 	////              ：  ├       vector<Object*>&   Vec,            // オブジェクトの配列
 	////              ：  ├ const CONTROLER_STATE*   pCntlState      // コントローラのステータス
 	////              ：  └       Command            pCommand        // コマンド
-	//// 戻値       ：無し
+	//// 戻値       ：なし
 	//// 担当者     ：曳地 大洋
 	//// 備考       ：
 	void Update( UpdatePacket& i_UpdatePacket );
@@ -258,7 +258,7 @@ public:
 	////             ：  ├ vector<Object*>&    Vec                     // オブジェクトの配列
 	////             ：  ├ Tempus2*            i_DrawPacket.GetTime()	   // 時間を管理するクラスへのポインター
 	////             ：  └ Command             i_DrawPacket.pCommand   // コマンド
-	//// 戻値       ：無し
+	//// 戻値       ：なし
 	//// 担当者     ：曳地 大洋
 	//// 備考       ：
 	////
@@ -274,7 +274,7 @@ public:
 	////            ：  D3DCOLORVALUE& Diffuse,			//ディフューズ色
 	////            ：  D3DCOLORVALUE& Specular,		//スペキュラ色
 	////            ：  D3DCOLORVALUE& Ambient,			//アンビエント色
-	//// 戻値       ：無し
+	//// 戻値       ：なし
 	//// 担当者     ：曳地 大洋
 	//// 備考       ：
 	////

@@ -12,7 +12,7 @@
 //
 #pragma once
 #include "BassItems.h"
-namespace wiz{
+namespace Avoid{
 //extern class Player;
 
 class Effect : public Object{

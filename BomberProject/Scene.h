@@ -29,17 +29,17 @@ class Scene
 {
 	//////////
 	//	: ロード画面専用
-	//LPDIRECT3DDEVICE9 m_pD3DDevice		;
-	Command	m_LoadCommand				;
-	static HANDLE	m_hLoadingThread	;	// ロード画面用スレッドのハンドル
-	bool	m_bLoadingComplete			;
-	Stage*	m_pStgBuf					;
+	LPDIRECT3DDEVICE9	m_pLoadDevice		;	//	: ロードスレッド用デバイス
+	Command				m_LoadCommand		;	//	: ロード用のコマンド
+	static HANDLE		m_hLoadingThread	;	//	: ロード画面用スレッドのハンドル
+	bool				m_bLoadingComplete	;	//	: ロード完了フラグ
 	//
 	//////////
 
-	float	m_fStageNotFoundMessageTime		;
+	float	m_fStageNotFoundMessageTime		;	//	: 
 
-	Stage*	m_pRootStage					;
+	Stage*	m_pStgBuf						;	//	: 一時的にポインターを格納しておく*!必ず使い終わったらNULLにすること!*
+	Stage*	m_pRootStage					;	//	: ルートステージ
 	bool	m_bUpdateThreadSuspendRequest	;	//	: スレッド停止要求フラグ(メインスレッド発行->アップデートスレッド解釈)
 	bool	m_bUpdateThreadSuspend			;	//	: スレッド停止完了フラグ(アップデートスレッド発行->メインスレッド解釈)
 	bool	m_bUpdateThreadResumeRequest	;	//	: スレッド再開要求フラグ(シーン発行->デバイス解釈)
@@ -52,8 +52,8 @@ private:
 	//// 関数名     ：void Clear()
 	//// カテゴリ   ：関数
 	//// 用途       ：オブジェクトのクリア
-	//// 引数       ：無し
-	//// 戻値       ：無し
+	//// 引数       ：なし
+	//// 戻値       ：なし
 	//// 担当者     ：鴫原 徹
 	//// 備考       ：
 	////            ：
@@ -64,8 +64,8 @@ private:
 	//// 関数名     ：void setStages()
 	//// カテゴリ   ：関数
 	//// 用途       ：ステージリストを構築
-	//// 引数       ：無し
-	//// 戻値       ：無し
+	//// 引数       ：なし
+	//// 戻値       ：なし
 	//// 担当者     ：鴫原 徹
 	//// 備考       ：
 	////            ：
@@ -77,7 +77,7 @@ public:
 	//// カテゴリ   ：コンストラクタ
 	//// 用途       ：シーンを生成
 	//// 引数       ：LPDIRECT3DDEVICE9 pD3DDevice    //IDirect3DDevice9 インターフェイスへのポインタ
-	//// 戻値       ：無し
+	//// 戻値       ：なし
 	//// 担当者     ：鴫原 徹
 	//// 備考       ：失敗したら例外をthrow
 	////            ：
@@ -87,8 +87,8 @@ public:
 	//// 関数名     ：~Scene()
 	//// カテゴリ   ：デストラクタ
 	//// 用途       ：シーンを破棄
-	//// 引数       ：無し
-	//// 戻値       ：無し
+	//// 引数       ：なし
+	//// 戻値       ：なし
 	//// 担当者     ：鴫原 徹
 	//// 備考       ：
 	////            ：
@@ -96,10 +96,10 @@ public:
     virtual ~Scene();
 	/////////////////// ////////////////////
 	//// 関数名     ：void Update(UpdatePacket& i_UpdatePacket)
-	//// カテゴリ   ：関数
+	//// カテゴリ   ：メンバ関数
 	//// 用途       ：シーンを更新
 	//// 引数       ：  UpdatePacket& i_UpdatePacket        // アップデート処理に流すデータの集合体
-	//// 戻値       ：無し
+	//// 戻値       ：なし
 	//// 担当者     ：鴫原 徹
 	//// 備考       ：
 	////            ：
@@ -107,10 +107,10 @@ public:
     void Update(UpdatePacket& i_UpdatePacket);
 	/////////////////// ////////////////////
 	//// 関数名     ：void Render(RenderPacket& i_RenderPacket);
-	//// カテゴリ   ：関数
+	//// カテゴリ   ：メンバ関数
 	//// 用途       ：ターゲットレンダリング
 	//// 引数       ：  RenderPacket& i_RenderPacket        // レンダー処理に流すデータの集合体
-	//// 戻値       ：無し
+	//// 戻値       ：なし
 	//// 担当者     ：鴫原 徹
 	//// 備考       ：画面以外のバッファーに描画する
 	////            ：
@@ -118,12 +118,12 @@ public:
     void Render(RenderPacket& i_RenderPacket);
 	/////////////////// ////////////////////
 	//// 関数名     ：void Draw(DrawPacket& i_DrawPacket);
-	//// カテゴリ   ：関数
+	//// カテゴリ   ：メンバ関数
 	//// 用途       ：シーンを描画
 	//// 引数       ：  DrawPacket& i_DrawPacket            // ドロー処理に流すデータの集合体
-	//// 戻値       ：無し
+	//// 戻値       ：なし
 	//// 担当者     ：鴫原 徹
-	//// 備考       ：画面以外のバッファーに描画する
+	//// 備考       ：画面に描画する
 	////            ：
 	////
 	void Draw(DrawPacket& i_DrawPacket);
@@ -133,12 +133,12 @@ public:
 	//// 用途       ：コマンドを解釈してステージの切り替えなどを行う
 	//// 引数       ：  LPDIRECT3DDEVICE9 pD3DDevice,       // IDirect3DDevice9 インターフェイスへのポインタ
 	////            ：  Command& i_DrawPacket.pCommand      // コマンド
-	//// 戻値       ：無し
+	//// 戻値       ：なし
 	//// 担当者     ：鴫原 徹
 	//// 備考       ：
 	////            ：
 	////
-	void CommandTranslator(DrawPacket& i_DrawPacket);
+	void CommandTranslator(BassPacket& i_BassPacket);
 	/////////////////// ////////////////////
 	//// 関数名     ：unsigned __stdcall LoadingThreadLauncher(void *args)
 	//// カテゴリ   ：関数
@@ -157,7 +157,7 @@ public:
 	//// 用途       ：コマンドを解釈してステージの切り替えなどを行う
 	//// 引数       ：  LPDIRECT3DDEVICE9 pD3DDevice,       // IDirect3DDevice9 インターフェイスへのポインタ
 	////            ：  Command& i_DrawPacket.pCommand						// コマンド
-	//// 戻値       ：無し
+	//// 戻値       ：なし
 	//// 担当者     ：鴫原 徹
 	//// 備考       ：
 	////            ：
@@ -167,8 +167,8 @@ public:
 	//// 関数名     ：void SafeDeleteStage()
 	//// カテゴリ   ：関数
 	//// 用途       ：ステージを安全に削除する
-	//// 引数       ：無し
-	//// 戻値       ：無し
+	//// 引数       ：なし
+	//// 戻値       ：なし
 	//// 担当者     ：鴫原 徹
 	//// 備考       ：
 	////            ：
@@ -182,8 +182,8 @@ public:
 	//// 関数名     ：bool getUpdateThreadSuspendRequest()
 	//// カテゴリ   ：ゲッター
 	//// 用途       ：アップデートスレッドの一時停止要求の確認
-	//// 引数       ：無し
-	//// 戻値       ：無し
+	//// 引数       ：なし
+	//// 戻値       ：なし
 	//// 担当者     ：鴫原 徹
 	//// 備考       ：メインスレッド->アップデートスレッド
 	////            ：
@@ -195,8 +195,8 @@ public:
 	//// 関数名     ：bool getUpdateThreadSuspend()
 	//// カテゴリ   ：ゲッター
 	//// 用途       ：アップデートスレッドの一時停止完了の確認
-	//// 引数       ：無し
-	//// 戻値       ：無し
+	//// 引数       ：なし
+	//// 戻値       ：なし
 	//// 担当者     ：鴫原 徹
 	//// 備考       ：アップデートスレッド->メインスレッド
 	////            ：
@@ -208,8 +208,8 @@ public:
 	//// 関数名     ：bool getUpdateThreadSuspend()
 	//// カテゴリ   ：ゲッター
 	//// 用途       ：アップデートスレッドの再開要求の確認
-	//// 引数       ：無し
-	//// 戻値       ：無し
+	//// 引数       ：なし
+	//// 戻値       ：なし
 	//// 担当者     ：鴫原 徹
 	//// 備考       ：シーン->デバイス
 	////            ：
@@ -226,8 +226,8 @@ public:
 	//// 関数名     ：void setUpdateThreadSuspendRequest()
 	//// カテゴリ   ：ゲッター
 	//// 用途       ：アップデートスレッドの一時停止要求
-	//// 引数       ：無し
-	//// 戻値       ：無し
+	//// 引数       ：なし
+	//// 戻値       ：なし
 	//// 担当者     ：鴫原 徹
 	//// 備考       ：メインスレッド->アップデートスレッド
 	////            ：
@@ -239,8 +239,8 @@ public:
 	//// 関数名     ：void setUpdateThreadSuspend()
 	//// カテゴリ   ：ゲッター
 	//// 用途       ：アップデートスレッドの一時停止完了確認
-	//// 引数       ：無し
-	//// 戻値       ：無し
+	//// 引数       ：なし
+	//// 戻値       ：なし
 	//// 担当者     ：鴫原 徹
 	//// 備考       ：アップデートスレッド->メインスレッド
 	////            ：
@@ -252,8 +252,8 @@ public:
 	//// 関数名     ：void setUpdateThreadSuspend()
 	//// カテゴリ   ：ゲッター
 	//// 用途       ：アップデートスレッドの再開要求
-	//// 引数       ：無し
-	//// 戻値       ：無し
+	//// 引数       ：なし
+	//// 戻値       ：なし
 	//// 担当者     ：鴫原 徹
 	//// 備考       ：アップデートスレッド->全体
 	////            ：
@@ -266,8 +266,8 @@ public:
 	//// 関数名     ：void setUpdateThreadSuspend()
 	//// カテゴリ   ：ゲッター
 	//// 用途       ：アップデートスレッドの再開通知
-	//// 引数       ：無し
-	//// 戻値       ：無し
+	//// 引数       ：なし
+	//// 戻値       ：なし
 	//// 担当者     ：鴫原 徹
 	//// 備考       ：アップデートスレッド->全体
 	////            ：

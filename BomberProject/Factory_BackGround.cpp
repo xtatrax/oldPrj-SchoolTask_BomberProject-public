@@ -52,7 +52,7 @@ BackGround::~BackGround(){
 //// カテゴリ   ：関数
 //// 用途       ：オブジェクトを更新
 //// 引数       ：
-//// 戻値       ：無し
+//// 戻値       ：なし
 //// 担当者     ：鴫原 徹
 //// 備考       ：
 ////            ：
@@ -77,7 +77,7 @@ void BackGround::Update( UpdatePacket& i_UpdatePacket ){
 ////            ：  ├ vector<Object*>&    Vec                     // オブジェクトの配列
 ////            ：  ├ Tempus2*            i_DrawPacket.GetTime()	   // 時間を管理するクラスへのポインター
 ////            ：  └ Command             i_DrawPacket.pCommand   // コマンド
-//// 戻値       ：無し
+//// 戻値       ：なし
 //// 担当者     ：鴫原 徹
 //// 備考       ：
 void BackGround::Draw( DrawPacket& i_DrawPacket ){

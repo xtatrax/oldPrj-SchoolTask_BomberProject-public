@@ -29,7 +29,7 @@
 // 備考  : 非常に遅いです 現状ほぼDEBUG用です｡
 //       : 終了時等に m_ItemInfo の中身を覗けばリリーズ漏れが起きている
 //       : 実体が生成されている場所が把握出来ます｡
-//       : DEBUG_STRINGS_ON と CF_MEMORYOUTPUTPROCESS_ENABLE を有効にすれば
+//       : CF_DRAW_DEBUGSTRING と CF_MEMORYOUTPUTPROCESS_ENABLE を有効にすれば
 //       : newされた実体の総数と総確保Byteをリアルタイムで見ることができます｡
 //**************************************************************************//
 class TMemoryManager{
@@ -434,13 +434,13 @@ inline void SafeDeletePointerContainer(T& c){
 */
 		if( c.empty() ){
 			//	: コンテナーが空ならそのまま処理を終了
-			#if defined(CF_DEBUG_DEBUGLOG_OUTPUTTEXT)
+			#if defined(CF_DEBUGLOGTEXT_OUTPUT_ENABLE)
 				Debugger::DBGWRITINGLOGTEXT::addStr(L"SafeDeletePointerContainer(T& c) > %d個  \n" , c.size()  );
 			#endif
 
 			return;
 		}
-		#if defined(CF_DEBUG_DEBUGLOG_OUTPUTTEXT)
+		#if defined(CF_DEBUGLOGTEXT_OUTPUT_ENABLE)
 			Debugger::DBGWRITINGLOGTEXT::addStr(L"\n////////// \n"   );
 			Debugger::DBGWRITINGLOGTEXT::addStr(L"// \n"  );
 			Debugger::DBGWRITINGLOGTEXT::addStr(L"// \n"  );
@@ -453,7 +453,7 @@ inline void SafeDeletePointerContainer(T& c){
 		T::iterator	it  = c.begin()	,
 					end = c.end()	;
 		while( it != end ){
-			#if defined(CF_DEBUG_DEBUGLOG_OUTPUTTEXT)
+			#if defined(CF_DEBUGLOGTEXT_OUTPUT_ENABLE)
 				num++;
 				const type_info& yp = typeid(*(*it));
 				wstring buf ;
@@ -464,11 +464,11 @@ inline void SafeDeletePointerContainer(T& c){
 			//	: ポインターの削除
 			SafeDelete( *it );
 			//*it = NULL ;
-			#if defined(CF_DEBUG_DEBUGLOG_OUTPUTTEXT)
+			#if defined(CF_DEBUGLOGTEXT_OUTPUT_ENABLE)
 				Debugger::DBGWRITINGLOGTEXT::addStr(L"SafeDeletePointerContainer(T& c) > it++\n" );
 			#endif
 			it++;
-			#if defined(CF_DEBUG_DEBUGLOG_OUTPUTTEXT)
+			#if defined(CF_DEBUGLOGTEXT_OUTPUT_ENABLE)
 				Debugger::DBGWRITINGLOGTEXT::addStr(L"SafeDeletePointerContainer(T& c) > [%d / %d]個 削除完了 ( %s )\n" , num , c.size() , buf.c_str() );
 			#endif
 		}
@@ -476,7 +476,7 @@ inline void SafeDeletePointerContainer(T& c){
 		c.clear();
 		//
 		//////////
-		#if defined(CF_DEBUG_DEBUGLOG_OUTPUTTEXT)
+		#if defined(CF_DEBUGLOGTEXT_OUTPUT_ENABLE)
 			Debugger::DBGWRITINGLOGTEXT::addStr(L"SafeDeletePointerContainer(T& c) > %d個 削除完了\n" , num  );
 			Debugger::DBGWRITINGLOGTEXT::addStr(L"// \n"  );
 			Debugger::DBGWRITINGLOGTEXT::addStr(L"// \n"  );
@@ -503,12 +503,12 @@ template<typename T>
 inline void SafeReleasePointerContainer(T& c){
 	try{
 		if( c.empty() ){
-			#if defined(CF_DEBUG_DEBUGLOG_OUTPUTTEXT)
+			#if defined(CF_DEBUGLOGTEXT_OUTPUT_ENABLE)
 						Debugger::DBGWRITINGLOGTEXT::addStr(L"SafeDeletePointerContainer(T& c) > %d個  \n" , c.size()  );
 			#endif
 			return;
 		}
-		#if defined(CF_DEBUG_DEBUGLOG_OUTPUTTEXT)
+		#if defined(CF_DEBUGLOGTEXT_OUTPUT_ENABLE)
 				Debugger::DBGWRITINGLOGTEXT::addStr(L"\n////////// \n"   );
 				Debugger::DBGWRITINGLOGTEXT::addStr(L"// \n"  );
 				Debugger::DBGWRITINGLOGTEXT::addStr(L"// \n"  );
@@ -517,7 +517,7 @@ inline void SafeReleasePointerContainer(T& c){
 		#endif
 		T::iterator	it  = c.begin()	;
 		while(it != c.end()){
-			#if defined(CF_DEBUG_DEBUGLOG_OUTPUTTEXT)
+			#if defined(CF_DEBUGLOGTEXT_OUTPUT_ENABLE)
 						num++;
 						const type_info& yp = typeid(*(*it));
 						wstring buf ;
@@ -526,16 +526,16 @@ inline void SafeReleasePointerContainer(T& c){
 			#endif
 			SafeRelease( *it );
 			//*it = NULL ;
-			#if defined(CF_DEBUG_DEBUGLOG_OUTPUTTEXT)
+			#if defined(CF_DEBUGLOGTEXT_OUTPUT_ENABLE)
 						Debugger::DBGWRITINGLOGTEXT::addStr(L"SafeDeletePointerContainer(T& c) > it++\n" );
 			#endif
 			it++;
-			#if defined(CF_DEBUG_DEBUGLOG_OUTPUTTEXT)
+			#if defined(CF_DEBUGLOGTEXT_OUTPUT_ENABLE)
 						Debugger::DBGWRITINGLOGTEXT::addStr(L"SafeDeletePointerContainer(T& c) > [%d / %d]個 削除完了 ( %s )\n" , num , c.size() , buf.c_str() );
 			#endif
 		}
 		c.clear();
-		#if defined(CF_DEBUG_DEBUGLOG_OUTPUTTEXT)
+		#if defined(CF_DEBUGLOGTEXT_OUTPUT_ENABLE)
 				Debugger::DBGWRITINGLOGTEXT::addStr(L"SafeDeletePointerContainer(T& c) > %d個 削除完了\n" , num  );
 				Debugger::DBGWRITINGLOGTEXT::addStr(L"// \n"  );
 				Debugger::DBGWRITINGLOGTEXT::addStr(L"// \n"  );

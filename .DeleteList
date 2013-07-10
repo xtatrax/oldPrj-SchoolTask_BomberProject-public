@@ -1,0 +1,9 @@
+*.ncb
+*.sdf
+*.user
+*.suo
+Debug
+Release
+Thumbs.db
+.*
+!.git

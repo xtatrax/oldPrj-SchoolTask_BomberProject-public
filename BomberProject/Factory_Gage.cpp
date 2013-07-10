@@ -241,7 +241,7 @@ void Gage::Consume( float fSubValue ){
 ////            ：  ├       vector<Object*>&   Vec,            // オブジェクトの配列
 ////            ：  ├ const CONTROLER_STATE*   pCntlState      // コントローラのステータス
 ////            ：  └       Command            pCommand        // コマンド
-//// 戻値       ：無し
+//// 戻値       ：なし
 //// 担当者     ：鴫原 徹
 //// 備考       ：
 ////            ：
@@ -390,7 +390,7 @@ void SuperGage::Draw(DrawPacket& i_DrawPacket){
 ////            ：  ├       vector<Object*>&   Vec,            // オブジェクトの配列
 ////            ：  ├ const CONTROLER_STATE*   pCntlState      // コントローラのステータス
 ////            ：  └       Command            pCommand        // コマンド
-//// 戻値       ：無し
+//// 戻値       ：なし
 //// 担当者     ：鴫原 徹
 //// 備考       ：
 ////            ：
@@ -579,7 +579,7 @@ MagneticGage_N::~MagneticGage_N(){
 ////            ：  ├       vector<Object*>&   Vec,            // オブジェクトの配列
 ////            ：  ├ const CONTROLER_STATE*   pCntlState      // コントローラのステータス
 ////            ：  └       Command            pCommand        // コマンド
-//// 戻値       ：無し
+//// 戻値       ：なし
 //// 担当者     ：鴫原 徹
 //// 備考       ：
 ////            ：
@@ -692,7 +692,7 @@ MagneticGage_S::~MagneticGage_S(){
 ////            ：  ├       vector<Object*>&   Vec,            // オブジェクトの配列
 ////            ：  ├ const CONTROLER_STATE*   pCntlState      // コントローラのステータス
 ////            ：  └       Command            pCommand        // コマンド
-//// 戻値       ：無し
+//// 戻値       ：なし
 //// 担当者     ：鴫原 徹
 //// 備考       ：
 ////            ：

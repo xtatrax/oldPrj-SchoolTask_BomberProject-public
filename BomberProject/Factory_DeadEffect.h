@@ -49,7 +49,7 @@ public:
 	//// 引数       ：LPDIRECT3DDEVICE9 pD3DDevice //デバイス
 	////			  : LPTATRATEXTURE pTexture  //テクスチャ
 	////			  : pTexture,wiz::OBJID id = OBJID_3D_WALL //ID
-	//// 戻値       ：無し
+	//// 戻値       ：なし
 	//// 担当者     ：佐藤涼
 	//// 備考       ：
 	DeadEffect(LPDIRECT3DDEVICE9	pD3DDevice,
@@ -70,7 +70,7 @@ public:
 	////            ：  ├ vector<Object*>&    Vec                     // オブジェクトの配列
 	////            ：  ├ Tempus2*            i_DrawPacket.GetTime()	   // 時間を管理するクラスへのポインター
 	////            ：  └ Command             i_DrawPacket.pCommand   // コマンド
-	//// 戻値       ：無し
+	//// 戻値       ：なし
 	//// 担当者     ：佐藤涼
 	//// 備考       ：
 	void Draw( DrawPacket& i_DrawPacket );
@@ -80,7 +80,7 @@ public:
 	//// カテゴリ   ：関数
 	//// 用途       ：オブジェクトを更新
 	//// 引数       ：
-	//// 戻値       ：無し
+	//// 戻値       ：なし
 	//// 担当者     ：佐藤涼
 	//// 備考       ：
 	////            ：

@@ -83,7 +83,7 @@ public:
 	//// 引数       ：  LPDIRECT3DDEVICE9 pD3DDevice,	//デバイス
 	////			  :   LPDIRECT3DTEXTURE9 pTexture,  //テクスチャ	
 	////              :   wiz::OBJID id = OBJID_3D_MAGNET //ID
-	//// 戻値       ：無し
+	//// 戻値       ：なし
 	//// 担当者     ：曳地 大洋
 	//// 備考       ：
 	////	

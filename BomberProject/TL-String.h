@@ -39,8 +39,8 @@ inline int numlen(int i){
 //// 関数名     ：void StartUpdateThread()
 //// カテゴリ   ：メンバ関数
 //// 用途       ：シーンのアップデート用スレッドを開始する
-//// 引数       ：無し
-//// 戻値       ：無し
+//// 引数       ：なし
+//// 戻値       ：なし
 //// 備考       ：
 ////            ：
 ////
@@ -62,7 +62,7 @@ inline bool FileExtentionChecker( std::string sFileName, std::string sFileExtent
 //// 用途       ：outSirの後ろにinStrを追加する
 //// 引数       ：  char **outSir：変更を加えたい文字列へのダブルポインタ
 ////            ：  char **inStr ：追加したい文字列へのダブルポインタ
-//// 戻値       ：無し
+//// 戻値       ：なし
 //// 備考       ：メモリ領域も調整される（領域が足りなければ追加、多ければ切り詰めされる）
 ////            ：newで生成されたchar*のみ有効です
 ////

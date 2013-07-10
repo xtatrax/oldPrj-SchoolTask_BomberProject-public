@@ -35,7 +35,7 @@ namespace bomberobject{
 //	////            ：  ├       vector<Object*>&   Vec,            // オブジェクトの配列
 //	////            ：  ├ const CONTROLER_STATE*   pCntlState      // コントローラのステータス
 //	////            ：  └       Command            pCommand        // コマンド
-//	//// 戻値       ：無し
+//	//// 戻値       ：なし
 //	//// 担当者     ：鴫原 徹
 //	//// 備考       ：継承したものでも必ずとも定義をしなくても良い
 //	////            ：

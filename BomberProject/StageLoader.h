@@ -25,20 +25,31 @@ namespace wiz{
 class StageLoader ;
 using namespace menuobject ;
 //class Button2;
-//**************************************************************************
-// class StageFactory;
-//
-// 担当者  : 鴫原 徹
-// 用途    : ファクトリーの根底クラス
-//**************************************************************************/
-class StageFactory{
-protected:
-	bool m_ONNowLoading ;
-public:
-	StageFactory():m_ONNowLoading(false){}
-	virtual StageLoader* StageCreate( const FactoryPacket fPack ) = 0;
+/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
+/**************************************************************************
+ struct MapPartsStatus;
+ 用途: 
+****************************************************************************/
+struct MapPartsStatus{
+	DWORD			enClassid ;	//	wiz::CLASSIDで指定してください
+	D3DXVECTOR3		vScale    ;
+	D3DXVECTOR3		vRot      ;
+	D3DXVECTOR3		vPos      ;
+	D3DXVECTOR3		vOffset   ;
+	D3DCOLORVALUE   Diffuse   ;
+	D3DCOLORVALUE   Specular  ;
+	D3DCOLORVALUE   Ambient   ;
+	POLE			bPool     ;
+
+	//	: オプション
+	wstring			sTexturePath	;
+
+	wstring			sFilePath		;
+	DWORD			dwMotionNum		;
+	float			fTracSpeed		;
 
 };
+/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 
 /*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 //**************************************************************************
@@ -96,47 +107,25 @@ class StageLoader{
 
 	FactoryPacket*		m_pFpac;
 	/////////////////// ////////////////////
-	//// 関数名     ：
-	//// カテゴリ   ：
-	//// 用途       ：
-	//// 引数       ：
-	//// 戻値       ：
+	//// 関数名     ：void StageLoader::PartsGenerator(MapPartsStatus i_Data)
+	//// カテゴリ   ：ジェネレータ
+	//// 用途       ：ファイルから読み取っったデータを元にオブジェクト情報を構築します
+	//// 引数       ：  MapPartsStatus   i_Data    //  : ファイルから読みとたパーツの情報
+	//// 戻値       ：なし
 	//// 担当者     ：鴫原 徹
-	//// 備考       ：
-	////            ：
+	//// 備考       ：StageGeneratorから
+	////            ：⑦
 	////
 	void PartsGenerator(MapPartsStatus i_Data);
 	/////////////////// ////////////////////
-	//// 関数名     ：
-	//// カテゴリ   ：
-	//// 用途       ：
-	//// 引数       ：
-	//// 戻値       ：
-	//// 担当者		：鴫原 徹
-	//// 備考       ：
-	////            ：
-	////
-	void D2(MapPartsStatus i_Data);
-	/////////////////// ////////////////////
-	//// 関数名     ：void ObjectsLoader(wstring i_sFilePath)
-	//// カテゴリ   ：メンバ関数
-	//// 用途       ：オブジェクト情報を構築します
-	//// 引数       ：  wstring i_sFilePath         //
-	//// 戻値       ：なし
-	//// 担当者     ：鴫原 徹
-	//// 備考       ：PointSearch関数から呼ばれます
-	////            ：
-	////
-	void ObjectsLoader(wstring i_sFilePath);
-	/////////////////// ////////////////////
-	//// 関数名     ：void StageGenerator(wstring i_sStageFilePath)
+	//// 関数名     ：void StageLoader::StageGenerator(wstring i_sStageFilePath)
 	//// カテゴリ   ：メンバ関数
 	//// 用途       ：ステージを構築すします
 	//// 引数       ：  wstring i_sStageFilePath         //  ステージの構成ファイルへのパス
 	//// 戻値       ：なし
 	//// 担当者     ：鴫原 徹
 	//// 備考       ：StageListLoader関数から呼ばれます
-	////            ：
+	////            ：⑥
 	////
 	void StageGenerator(wstring i_sStageFilePath);
 	/////////////////// ////////////////////
@@ -148,54 +137,67 @@ class StageLoader{
 	//// 戻値       ：なし
 	//// 担当者     ：鴫原 徹
 	//// 備考       ：StageListLoader関数から呼ばれます
-	////            ：
+	////            ：⑤
 	////
 	void PointSearch( vector<vector<wstring>>& i_vvCsvData, CSVMATRIX& o_CsvMatrix);
 	/////////////////// ////////////////////
-	//// 関数名     ：void PointSearch( vector<vector<wstring>>& i_vvCsvData ,
-	////            ：    POINT& o_NumberPoint , POINT& o_PathPoint)
+	//// 関数名     ：void StageLoader::ObjectsLoader(wstring i_sFilePath)
+	//// カテゴリ   ：メンバ関数
+	//// 用途       ：オブジェクト情報を構築します
+	//// 引数       ：  wstring i_sFilePath         //
+	//// 戻値       ：なし
+	//// 担当者     ：鴫原 徹
+	//// 備考       ：CSVから読み取った情報を解析&インスタンス化します
+	////            ：PointSearch関数から呼ばれます
+	////            ：④
+	////
+	void ObjectsLoader(wstring i_sFilePath);
+	/////////////////// ////////////////////
+	//// 関数名     ：void StageLoader::PointSearch( vector<vector<wstring>>& i_vvCsvData , POINT& o_NumberPoint , POINT& o_PathPoint)
 	//// カテゴリ   ：メンバ関数
 	//// 用途       ：ステージを構築すします
-	//// 引数       ：  wstring i_sStageFilePath         //  ステージの構成ファイルへのパス
+	//// 引数       ：  vector<vector<wstring>>&  i_vvCsvData    //  :  [IN]CSVから読み取ったナマのデータ
+	////            ：  POINT&                    o_NumberPoint  //  : [OUT]
+	////            ：  POINT&                    o_PathPoint    //  : [OUT]
 	//// 戻値       ：なし
 	//// 担当者     ：鴫原 徹
 	//// 備考       ：StageListLoader関数から呼ばれます
-	////            ：
+	////            ：③
 	////
 	void PointSearch( vector<vector<wstring>>& i_vvCsvData, POINT& o_NumberPoint, POINT& o_PathPoint);
 	/////////////////// ////////////////////
-	//// 関数名     ：
-	//// カテゴリ   ：
-	//// 用途       ：
+	//// 関数名     ：void StageLoader::StageListLoader(wstring i_sFileName, BYTE i_byStageNum)
+	//// カテゴリ   ：ローダー
+	//// 用途       ：ステージリストを読み込む
 	//// 引数       ：
 	//// 戻値       ：
-	//// 担当者     ：
-	//// 備考       ：
+	//// 担当者     ：鴫原 徹
+	//// 備考       ：②
 	////            ：
 	////
 	void StageListLoader(wstring i_sFileName, BYTE i_byStageNum);
 public:
 	/////////////////// ////////////////////
-	//// 関数名     ：
+	//// 関数名     ：StageLoader::StageLoader(FactoryPacket& i_Fpac, wstring i_sFileName,DWORD i_dwStageNum)
 	//// カテゴリ   ：コンストラクタ
-	//// 用途       ：
+	//// 用途       ：FILEからStageLoaderを構築します
 	//// 引数       ：
-	//// 戻値       ：
-	//// 担当者     ：
-	//// 備考       ：
+	//// 戻値       ：なし(失敗時は例外をthrow)
+	//// 担当者     ：鴫原 徹
+	//// 備考       ：①
 	////            ：
 	////
 	StageLoader(FactoryPacket& i_Fpac, wstring i_sFileName,
 		DWORD i_dwStageNum);
 
 	/////////////////// ////////////////////
-	//// 関数名     ：
+	//// 関数名     ：StageLoader::StageLoader(FactoryPacket& i_Fpac, MapPartsStatus* i_Parts)
 	//// カテゴリ   ：コンストラクタ
 	//// 用途       ：
 	//// 引数       ：
 	//// 戻値       ：
-	//// 担当者     ：
-	//// 備考       ：
+	//// 担当者     ：鴫原 徹
+	//// 備考       ：①'
 	////            ：
 	////
 	StageLoader(FactoryPacket& i_Fpac, MapPartsStatus[]);

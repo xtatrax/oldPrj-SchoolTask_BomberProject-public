@@ -76,7 +76,7 @@ Warning::Warning(
 //// カテゴリ   ：デストラクタ
 //// 用途       ：
 //// 引数       ：
-//// 戻値       ：無し
+//// 戻値       ：なし
 //// 担当者     ：鴫原 徹
 //// 備考       ：
 Warning::~Warning(){
@@ -91,7 +91,7 @@ Warning::~Warning(){
 ////            ：  ├ vector<Object*>&    Vec                     // オブジェクトの配列
 ////            ：  ├ Tempus2*            i_DrawPacket.GetTime()	   // 時間を管理するクラスへのポインター
 ////            ：  └ Command             i_DrawPacket.pCommand   // コマンド
-//// 戻値       ：無し
+//// 戻値       ：なし
 //// 担当者     ：本多寛之
 //// 備考       ：
 void Warning::Draw(DrawPacket& i_DrawPacket)
@@ -166,7 +166,7 @@ void Warning::Draw(DrawPacket& i_DrawPacket)
 ////            ：  ├       vector<Object*>&   Vec,            // オブジェクトの配列
 ////            ：  ├ const CONTROLER_STATE*   pCntlState      // コントローラのステータス
 ////            ：  └       Command            pCommand        // コマンド
-//// 戻値       ：無し
+//// 戻値       ：なし
 //// 担当者     ：本多寛之
 //// 備考       ：
 ////            ：
@@ -250,7 +250,7 @@ WallObject::WallObject( LPDIRECT3DDEVICE9 pD3DDevice, LPTATRATEXTURE pTexture,wi
 //// カテゴリ   ：デストラクタ
 //// 用途       ：
 //// 引数       ：
-//// 戻値       ：無し
+//// 戻値       ：なし
 //// 担当者     ：鴫原 徹
 //// 備考       ：
 WallObject::~WallObject(){
@@ -350,7 +350,7 @@ void WallObject::GetOBBList( float Index, list<OBB>& ObbList ){
 ////            ：  ├ vector<Object*>&    Vec                     // オブジェクトの配列
 ////            ：  ├ Tempus2*            i_DrawPacket.GetTime()	   // 時間を管理するクラスへのポインター
 ////            ：  └ Command             i_DrawPacket.pCommand   // コマンド
-//// 戻値       ：無し
+//// 戻値       ：なし
 //// 担当者     ：本多寛之
 //// 備考       ：
 void WallObject::Draw(DrawPacket& i_DrawPacket)
@@ -424,7 +424,7 @@ void WallObject::Draw(DrawPacket& i_DrawPacket)
 ////            ：  ├       vector<Object*>&   Vec,            // オブジェクトの配列
 ////            ：  ├ const CONTROLER_STATE*   pCntlState      // コントローラのステータス
 ////            ：  └       Command            pCommand        // コマンド
-//// 戻値       ：無し
+//// 戻値       ：なし
 //// 担当者     ：本多寛之
 //// 備考       ：
 ////            ：
@@ -542,7 +542,7 @@ void WallObject::Update( UpdatePacket& i_UpdatePacket ){
 ////            ：  D3DCOLORVALUE& Diffuse,			//ディフューズ色
 ////            ：  D3DCOLORVALUE& Specular,		//スペキュラ色
 ////            ：  D3DCOLORVALUE& Ambient,			//アンビエント色
-//// 戻値       ：無し
+//// 戻値       ：なし
 //// 担当者     ：本多寛之
 ////				曳地 大洋
 //// 備考       ：

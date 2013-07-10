@@ -53,7 +53,7 @@ public:
 	//// 引数       ：LPDIRECT3DDEVICE9 pD3DDevice //デバイス
 	////			  : LPTATRATEXTURE pTexture  //テクスチャ
 	////			  : pTexture,wiz::OBJID id = OBJID_3D_WALL //ID
-	//// 戻値       ：無し
+	//// 戻値       ：なし
 	//// 担当者     ：佐藤涼
 	//// 備考       ：
 	FMemoryTex(LPDIRECT3DDEVICE9 pD3DDevice,
@@ -80,7 +80,7 @@ public:
 	////            ：  ├ vector<Object*>&    Vec                     // オブジェクトの配列
 	////            ：  ├ Tempus2*            i_DrawPacket.GetTime()	   // 時間を管理するクラスへのポインター
 	////            ：  └ Command             i_DrawPacket.pCommand   // コマンド
-	//// 戻値       ：無し
+	//// 戻値       ：なし
 	//// 担当者     ：佐藤涼
 	//// 備考       ：
 	void Draw( DrawPacket& i_DrawPacket );
@@ -95,7 +95,7 @@ public:
 	////            ：  ├       vector<Object*>&   Vec,            // オブジェクトの配列
 	////            ：  ├ const CONTROLER_STATE*   pCntlState      // コントローラのステータス
 	////            ：  └       Command            pCommand        // コマンド
-	//// 戻値       ：無し
+	//// 戻値       ：なし
 	//// 担当者     ：佐藤涼
 	//// 備考       ：
 	////            ：
@@ -113,7 +113,7 @@ public:
 	////            ：  D3DCOLORVALUE& Diffuse,			//ディフューズ色
 	////            ：  D3DCOLORVALUE& Specular,		//スペキュラ色
 	////            ：  D3DCOLORVALUE& Ambient,			//アンビエント色
-	//// 戻値       ：無し
+	//// 戻値       ：なし
 	//// 担当者     ：佐藤涼
 	//// 備考       ：
 	void AddMemory(

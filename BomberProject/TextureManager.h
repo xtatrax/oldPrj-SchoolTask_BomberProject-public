@@ -22,7 +22,7 @@ class TextureManager;
 class Texture{
 	friend class TextureManager ;
 	LPDIRECT3DTEXTURE9	m_pTexture     ;
-	wstring				m_strTexName   ;
+	//wstring				m_strTexName   ;
 	wstring				m_strFilePath  ;
 	DWORD				m_dwAccessCount;
 
@@ -92,8 +92,8 @@ class Texture{
 	//// 用途       ：Texture::~Texture()
 	//// カテゴリ   ：デストラクタ
 	//// 用途       ：インスタンス破棄時処理
-	//// 引数       ：無し
-	//// 戻値       ：無し
+	//// 引数       ：なし
+	//// 戻値       ：なし
 	//// 備考       ：
 	////            ：
 	////
@@ -105,15 +105,15 @@ public:
 	//// 用途       ：const LPDIRECT3DTEXTURE9 Texture::getTexture()
 	//// カテゴリ   ：ゲッター
 	//// 用途       ：テクスチャー自体のポインターを獲得する
-	//// 引数       ：無し
-	//// 戻値       ：無し
+	//// 引数       ：なし
+	//// 戻値       ：なし
 	//// 備考       ：
 	////            ：
 	////
 	const LPDIRECT3DTEXTURE9 getTexture() const{
 		return m_pTexture;
 	}
-	bool	checkTextureName( wstring name ) const;
+	//bool	checkTextureName( wstring name ) const;
 	bool	checkFilePath(    wstring path ) const;
 };//【END】Texture
 
@@ -142,8 +142,8 @@ public:
 	//// 用途       ：TextureManager()
 	//// カテゴリ   ：コンストラクタ
 	//// 用途       ：インスタンス生成時処理
-	//// 引数       ：無し
-	//// 戻値       ：無し
+	//// 引数       ：なし
+	//// 戻値       ：なし
 	//// 担当者     ：鴫原 徹
 	//// 備考       ：
 	////            ：
@@ -153,8 +153,8 @@ public:
 	//// 用途       ：~TextureManager()
 	//// カテゴリ   ：デストラクタ
 	//// 用途       ：インスタンス破棄時処理
-	//// 引数       ：無し
-	//// 戻値       ：無し
+	//// 引数       ：なし
+	//// 戻値       ：なし
 	//// 担当者     ：鴫原 徹
 	//// 備考       ：
 	////            ：
@@ -164,8 +164,8 @@ public:
 	//// 用途       ：Release()
 	//// カテゴリ   ：関数
 	//// 用途       ：全テクスチャーの破棄
-	//// 引数       ：無し
-	//// 戻値       ：無し
+	//// 引数       ：なし
+	//// 戻値       ：なし
 	//// 担当者     ：鴫原 徹
 	//// 備考       ：
 	////            ：
@@ -267,7 +267,7 @@ public:
 	//// 備考       ：
 	////            ：
 	////
-	LPTATRATEXTURE TextureSearchFromName(const wchar_t* filename) ;
+	//LPTATRATEXTURE TextureSearchFromName(const wchar_t* filename) ;
 	/////////////////// ////////////////////
 	//// 用途       ：LPDIRECT3DTEXTURE9 TextureSearchFromFilePath(const wchar_t* path)
 	//// カテゴリ   ：関数

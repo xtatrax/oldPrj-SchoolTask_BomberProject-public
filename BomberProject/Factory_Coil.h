@@ -168,7 +168,6 @@ class PlayerCoil : public Cylinder ,public MagneticObject{
 	StaticMagnetField*		m_pMagneticumObject			;	//	: 初期配置磁界へのポインタ
 	DeadEffect*				m_pDeadEffect				;	//	: 死亡時の爆散エフェクトのポインタ
 	ModeChangeChar*			m_pModeChangeChar			;	//	: 
-	//DeadEffect*				m_pDeadEffect[PARTICLS_NUM]	;	//	: 死亡時の爆散エフェクトのポインタ
 	TimeScore*				m_pTime;
 	ContinueBehavior*		m_pContinueBehavior			;
 	
@@ -180,14 +179,6 @@ class PlayerCoil : public Cylinder ,public MagneticObject{
 	COIL_STATE				m_enumCoilState				;	//	: 自分の状態
 	COIL_STATE_SUPER		m_enumCoilStateSuper		;	//	: 無敵状態
 
-	//LPTATRATEXTURE	m_pDeadTex		;	//爆散エフェクトの画像
-	//LPTATRATEXTURE	m_pContinueTex	;	//Continue
-	//LPTATRATEXTURE	m_pTitleTex		;	//Title
-	//LPTATRATEXTURE	m_pDeadCharTex	;	//You'er Dead
-	//LPTATRATEXTURE	m_pDeadCountTex	;	//死んだ回数
-	//LPTATRATEXTURE	m_pRethinkingTex;	//Really?
-	//LPTATRATEXTURE	m_pAnswerTex	;	//Yes : No
-	//LPTATRATEXTURE	m_pCountCharTex	;
 public:
 	/////////////////// ////////////////////
 	//// 関数名     ：PlayerCoil::PlayerCoil(

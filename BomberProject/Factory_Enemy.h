@@ -113,7 +113,7 @@ public:
 	//// カテゴリ   ：デストラクタ
 	//// 用途       ：
 	//// 引数       ：
-	//// 戻値       ：無し
+	//// 戻値       ：なし
 	//// 担当者     ：鴫原 徹
 	//// 備考       ：
 	~EnemyModel();
@@ -127,7 +127,7 @@ public:
 	////            ：  ├ vector<Object*>&    Vec                     // オブジェクトの配列
 	////            ：  ├ Tempus2*            i_DrawPacket.GetTime()	   // 時間を管理するクラスへのポインター
 	////            ：  └ Command             i_DrawPacket.pCommand   // コマンド
-	//// 戻値       ：無し
+	//// 戻値       ：なし
 	//// 担当者     ：斎藤謙吾
 	//// 引継ぎ     ： 本多寛之
 	//// 備考       ：
@@ -143,7 +143,7 @@ public:
 	////            ：  ├       vector<Object*>&   Vec,            // オブジェクトの配列
 	////            ：  ├ const CONTROLER_STATE*   pCntlState      // コントローラのステータス
 	////            ：  └       Command            pCommand        // コマンド
-	//// 戻値       ：無し
+	//// 戻値       ：なし
 	//// 担当者     ：斎藤謙吾
 	//// 引継ぎ     ： 本多寛之
 	//// 備考       ：
@@ -162,7 +162,7 @@ public:
 	////            ：  D3DCOLORVALUE& Diffuse,			//ディフューズ色
 	////            ：  D3DCOLORVALUE& Specular,		//スペキュラ色
 	////            ：  D3DCOLORVALUE& Ambient,			//アンビエント色
-	//// 戻値       ：無し
+	//// 戻値       ：なし
 	//// 担当者     ：斎藤謙吾
 	//// 引継ぎ     ： 本多寛之
 	//// 備考       ：

@@ -33,7 +33,7 @@ namespace wiz {
 Texture::Texture(LPDIRECT3DDEVICE9 pD3DDevice,const wchar_t* filepath,const wchar_t* texturename )
 :m_pTexture( 0 )
 ,m_strFilePath( filepath )
-,m_strTexName( texturename )
+//,m_strTexName( texturename )
 ,m_dwAccessCount(1)
 {
 	try{
@@ -107,7 +107,7 @@ Texture::Texture(LPDIRECT3DDEVICE9 pD3DDevice,const wchar_t* filepath,
     DWORD MipFilter, D3DCOLOR ColorKey, D3DXIMAGE_INFO *pSrcInfo, PALETTEENTRY *pPalette, const wchar_t* texturename )
 :m_pTexture(0)
 ,m_strFilePath(filepath)
-,m_strTexName(texturename)
+//,m_strTexName(texturename)
 ,m_dwAccessCount(1)
 {
 	try{
@@ -153,8 +153,8 @@ Texture::Texture(LPDIRECT3DDEVICE9 pD3DDevice,const wchar_t* filepath,
 //// 用途       ：Texture::~Texture()
 //// カテゴリ   ：デストラクタ
 //// 用途       ：インスタンス破棄時処理
-//// 引数       ：無し
-//// 戻値       ：無し
+//// 引数       ：なし
+//// 戻値       ：なし
 //// 備考       ：
 ////            ：
 ////
@@ -168,9 +168,9 @@ Texture::~Texture(){
 		Debugger::DBGWRITINGLOGTEXT::OutputSystemLog(L"TextureManager::Texture::~Texture で this がぬるぽっ!てます｡");
 	}
 }
-bool Texture::checkTextureName( wstring name ) const{
-	return  (m_strTexName != L"" ) && (m_strTexName == name);
-}
+//bool Texture::checkTextureName( wstring name ) const{
+//	return  (m_strTexName != L"" ) && (m_strTexName == name);
+//}
 
 bool Texture::checkFilePath( wstring filepath ) const{
 	return ( _wcsicmp(m_strFilePath.c_str(),filepath.c_str()) == 0 );
@@ -183,8 +183,8 @@ bool Texture::checkFilePath( wstring filepath ) const{
 //// 用途       ：TextureManager::TextureManager()
 //// カテゴリ   ：コンストラクタ
 //// 用途       ：インスタンス生成時処理
-//// 引数       ：無し
-//// 戻値       ：無し
+//// 引数       ：なし
+//// 戻値       ：なし
 //// 担当者     ：鴫原 徹
 //// 備考       ：
 ////            ：
@@ -196,8 +196,8 @@ TextureManager::TextureManager(){
 //// 用途       ：TextureManager::~TextureManager()
 //// カテゴリ   ：デストラクタ
 //// 用途       ：インスタンス破棄時処理
-//// 引数       ：無し
-//// 戻値       ：無し
+//// 引数       ：なし
+//// 戻値       ：なし
 //// 備考       ：
 ////            ：
 ////
@@ -208,8 +208,8 @@ TextureManager::~TextureManager(){
 //// 用途       ：TextureManager::Release()
 //// カテゴリ   ：関数
 //// 用途       ：全テクスチャーの破棄
-//// 引数       ：無し
-//// 戻値       ：無し
+//// 引数       ：なし
+//// 戻値       ：なし
 //// 備考       ：
 ////            ：
 ////
@@ -247,12 +247,12 @@ LPTATRATEXTURE TextureManager::addTexture(
 		if( (tex = TextureSearchFromFilePath(filepath)) != NULL)
 			return tex;
 		else
-		if( texturename && TextureSearchFromName(texturename) ){
-			// 初期化失敗
-			::MessageBox(NULL,L"テクスチャ名が競合しました\nTextureManager::addTexture()",L"エラー",MB_OK);
-			
-		}
-		else
+		//if( texturename && TextureSearchFromName(texturename) ){
+		//	// 初期化失敗
+		//	::MessageBox(NULL,L"テクスチャ名が競合しました\nTextureManager::addTexture()",L"エラー",MB_OK);
+		//	
+		//}
+		//else
 		{
 			Texture* tx = new Texture(pD3DDevice , filepath , texturename);
 			m_vecTextures.push_back( tx );
@@ -297,7 +297,7 @@ LPTATRATEXTURE TextureManager::addTexture(
 ////            ：  D3DXIMAGE_INFO *pSrcInfo		// 【D3DXIMAGE_INFO構造体】画像データの構造【ピクセルサイズとか】
 ////            ：  PALETTEENTRY *pPalette			// パレット
 ////            ：  const wchar_t *texturename		// テクスチャ名(オプション)
-//// 戻値       ：無し
+//// 戻値       ：なし
 //// 備考       ：
 ////            ：
 ////
@@ -322,12 +322,12 @@ LPTATRATEXTURE TextureManager::addTextureEx(
 		if( (tex = TextureSearchFromFilePath(filepath)) != NULL)
 			return tex;
 		else
-		if( texturename && TextureSearchFromName(texturename) ){
+		//if( texturename && TextureSearchFromName(texturename) ){
 
-			// 初期化失敗
-			::MessageBox(NULL,L"テクスチャ名が競合しました\nTextureManager::addTextureEx()",L"エラー",MB_OK);
-		}
-		else
+		//	// 初期化失敗
+		//	::MessageBox(NULL,L"テクスチャ名が競合しました\nTextureManager::addTextureEx()",L"エラー",MB_OK);
+		//}
+		//else
 		{
 			Texture* tx = new Texture(
 					pD3DDevice ,
@@ -385,7 +385,7 @@ LPTATRATEXTURE TextureManager::addTextureEx(
 ////            ：  D3DXIMAGE_INFO *pSrcInfo		// 【D3DXIMAGE_INFO構造体】画像データの構造【ピクセルサイズとか】
 ////            ：  PALETTEENTRY *pPalette			// パレット
 ////            ：  const wchar_t *texturename		// テクスチャ名(オプション)
-//// 戻値       ：無し
+//// 戻値       ：なし
 //// 備考       ：
 ////            ：
 ////
@@ -402,11 +402,11 @@ LPTATRATEXTURE TextureManager::addTextureExLight(
 		if( (tex = TextureSearchFromFilePath(filepath)) != NULL)
 			return tex;
 		else
-		if( texturename && TextureSearchFromName(texturename) ){
-			// 初期化失敗
-			::MessageBox(NULL,L"テクスチャ名が競合しました\nTextureManager::addTextureExLight()",L"エラー",MB_OK);
-		}
-		else
+		//if( texturename && TextureSearchFromName(texturename) ){
+		//	// 初期化失敗
+		//	::MessageBox(NULL,L"テクスチャ名が競合しました\nTextureManager::addTextureExLight()",L"エラー",MB_OK);
+		//}
+		//else
 		{
 			Texture* tx = new Texture(
 					pD3DDevice ,
@@ -453,14 +453,14 @@ LPTATRATEXTURE TextureManager::addTextureExLight(
 //// 備考       ：
 ////            ：
 ////
-LPTATRATEXTURE TextureManager::TextureSearchFromName(const wchar_t* filename) {
-	vector< LPTATRATEXTURE >::iterator it;
-	for(it = m_vecTextures.begin();it != m_vecTextures.end();it++){
-		if((*it)->checkTextureName(filename))
-			return (*it);
-	}
-	return NULL;
-}
+//LPTATRATEXTURE TextureManager::TextureSearchFromName(const wchar_t* filename) {
+//	vector< LPTATRATEXTURE >::iterator it;
+//	for(it = m_vecTextures.begin();it != m_vecTextures.end();it++){
+//		if((*it)->checkTextureName(filename))
+//			return (*it);
+//	}
+//	return NULL;
+//}
 /////////////////// ////////////////////
 //// 用途       ：LPDIRECT3DTEXTURE9 TextureManager::TextureSearchFromFilePath(const wchar_t* path)
 //// カテゴリ   ：関数

@@ -111,7 +111,7 @@ void CookTrance::Draw(DrawPacket& i_DrawPacket,SimpleCommonMesh* i_pComMesh){
 //// カテゴリ   ：仮想関数
 //// 用途       ：メッシュを描画
 //// 引数       ：  
-//// 戻値       ：無し
+//// 戻値       ：なし
 //// 担当者     ： (山ノ井先生のひな形より)
 //// 備考       ：なるべくこの関数は使わず DrawCommonMesh 関数を使うようにしてください
 ////            ：
@@ -1055,7 +1055,7 @@ void CommonMesh::CreatePolygon(LPDIRECT3DDEVICE9 pD3DDevice,
 //// 引数       ：  LPDIRECT3DDEVICE9	pD3DDevice
 ////            ：  char*				pFileName
 ////            ：  TextureManager&		TexMgr
-//// 戻値       ：無し
+//// 戻値       ：なし
 //// 担当者     ：鴫原 徹
 //// 備考       ：
 ////            ：
@@ -1120,7 +1120,7 @@ void CommonMesh::CreateMeshFormX(
 //// カテゴリ   ：仮想関数
 //// 用途       ：メッシュを描画
 //// 引数       ：  
-//// 戻値       ：無し
+//// 戻値       ：なし
 //// 担当者     ： (山ノ井先生のひな形より)
 //// 備考       ：なるべくこの関数は使わず DrawCommonMesh 関数を使うようにしてください
 ////            ：
@@ -4815,7 +4815,7 @@ void PrimitivePlate::Draw(DrawPacket &i_DrawPacket){
 		pD3DDevice->SetFVF( Vertex::getFVF() );						//	: 頂点データの形式を設定
 		pD3DDevice->SetSamplerState(0,D3DSAMP_ADDRESSU,D3DTADDRESS_CLAMP);
 		pD3DDevice->SetSamplerState(0,D3DSAMP_ADDRESSV,D3DTADDRESS_CLAMP);
-		pD3DDevice->SetTexture( 0, m_pTexture->getTexture() );										//	: テクスチャを設定（NULL の場合はテクスチャ無し）
+		pD3DDevice->SetTexture( 0, m_pTexture->getTexture() );										//	: テクスチャを設定（NULL の場合はテクスチャなし）
 	}else{
 		pD3DDevice->SetFVF( Vertex::getFVF() );										//	: 頂点データの形式を設定	
 		pD3DDevice->SetSamplerState(0,D3DSAMP_ADDRESSU,D3DTADDRESS_CLAMP);
@@ -4869,7 +4869,7 @@ D3DXVECTOR3 Cursor3D::getPos(Camera* i_pCamera){
 //// カテゴリ   ：コンストラクタ
 //// 用途       ：ガイドライン生成時処理
 //// 引数       ：  LPDIRECT3DDEVICE9 pD3DDevice    //IDirect3DDevice9インターフェイスへのポインタ
-//// 戻値       ：無し（失敗時は例外をthrow）
+//// 戻値       ：なし（失敗時は例外をthrow）
 //// 担当者     ：(山ノ井先生のひな形より)
 //// 備考       ：
 ////            ：
@@ -4899,8 +4899,8 @@ DrawSphere::DrawSphere(LPDIRECT3DDEVICE9 pD3DDevice, SPHERE i_Sphere, Color i_Co
 //// 関数名     ：Guide::~Guide()
 //// カテゴリ   ：デストラクタ
 //// 用途       ：ガイドライン破棄時処理
-//// 引数       ：無し
-//// 戻値       ：無し
+//// 引数       ：なし
+//// 戻値       ：なし
 //// 担当者     ：(山ノ井先生のひな形より)
 //// 備考       ：
 ////            ：
@@ -4914,7 +4914,7 @@ DrawSphere::~DrawSphere(){
 //// 用途       ：ガイドラインを描画
 //// 引数       ：  LPDIRECT3DDEVICE9 pD3DDevice		//IDirect3DDevice9 インターフェイスへのポインタ
 ////            ：  vector<Object*>& Vec,				//オブジェクトの配列
-//// 戻値       ：無し
+//// 戻値       ：なし
 //// 担当者     ：(山ノ井先生のひな形より)
 //// 備考       ：Objectクラスの純粋仮想関数
 ////            ：
@@ -4943,7 +4943,7 @@ bool DrawSphere::isEnableDraw = true ;
 //// カテゴリ   ：コンストラクタ
 //// 用途       ：ガイドライン生成時処理
 //// 引数       ：  LPDIRECT3DDEVICE9 pD3DDevice    //IDirect3DDevice9インターフェイスへのポインタ
-//// 戻値       ：無し（失敗時は例外をthrow）
+//// 戻値       ：なし（失敗時は例外をthrow）
 //// 担当者     ：(山ノ井先生のひな形より)
 //// 備考       ：
 ////            ：
@@ -5030,8 +5030,8 @@ DrawOBB::DrawOBB(LPDIRECT3DDEVICE9 pD3DDevice, OBB i_OBB, Color i_Color, wiz::OB
 //// 関数名     ：Guide::~Guide()
 //// カテゴリ   ：デストラクタ
 //// 用途       ：ガイドライン破棄時処理
-//// 引数       ：無し
-//// 戻値       ：無し
+//// 引数       ：なし
+//// 戻値       ：なし
 //// 担当者     ：(山ノ井先生のひな形より)
 //// 備考       ：
 ////            ：
@@ -5045,7 +5045,7 @@ DrawOBB::~DrawOBB(){
 //// 用途       ：ガイドラインを描画
 //// 引数       ：  LPDIRECT3DDEVICE9 pD3DDevice		//IDirect3DDevice9 インターフェイスへのポインタ
 ////            ：  vector<Object*>& Vec,				//オブジェクトの配列
-//// 戻値       ：無し
+//// 戻値       ：なし
 //// 担当者     ：(山ノ井先生のひな形より)
 //// 備考       ：Objectクラスの純粋仮想関数
 ////            ：
@@ -5063,7 +5063,7 @@ void DrawOBB::Draw( DrawPacket& i_DrawPacket ) {
 
 		LPDIRECT3DDEVICE9 pD3DDevice = i_DrawPacket.GetDevice() ;
 		D3DXMATRIX  wm , mScale, mRot, mPos;
-		//座標変換無し
+		//座標変換なし
 		D3DXMatrixIdentity(&wm);
 		D3DXMatrixIdentity(&mScale);
 		D3DXMatrixIdentity(&mRot);
@@ -5114,7 +5114,7 @@ void DrawOBB::Draw( DrawPacket& i_DrawPacket ) {
 //// カテゴリ   ：コンストラクタ
 //// 用途       ：ガイドライン生成時処理
 //// 引数       ：  LPDIRECT3DDEVICE9 pD3DDevice    //IDirect3DDevice9インターフェイスへのポインタ
-//// 戻値       ：無し（失敗時は例外をthrow）
+//// 戻値       ：なし（失敗時は例外をthrow）
 //// 担当者     ：(山ノ井先生のひな形より)
 //// 備考       ：
 ////            ：
@@ -5198,12 +5198,14 @@ DrawOBBLite::DrawOBBLite(LPDIRECT3DDEVICE9 pD3DDevice, OBB i_OBB, Color i_Color,
         throw;
     }
 }
+
+
 /////////////////// ////////////////////
 //// 関数名     ：Guide::~Guide()
 //// カテゴリ   ：デストラクタ
 //// 用途       ：ガイドライン破棄時処理
-//// 引数       ：無し
-//// 戻値       ：無し
+//// 引数       ：なし
+//// 戻値       ：なし
 //// 担当者     ：(山ノ井先生のひな形より)
 //// 備考       ：
 ////            ：
@@ -5211,13 +5213,15 @@ DrawOBBLite::DrawOBBLite(LPDIRECT3DDEVICE9 pD3DDevice, OBB i_OBB, Color i_Color,
 DrawOBBLite::~DrawOBBLite(){
     SafeRelease(m_pVB);
 }
+
+
 /////////////////// ////////////////////
 //// 関数名     ：void Guide::Draw( LPDIRECT3DDEVICE9 pD3DDevice , vector<Object*>& Vec)
 //// カテゴリ   ：仮想関数
 //// 用途       ：ガイドラインを描画
 //// 引数       ：  LPDIRECT3DDEVICE9 pD3DDevice		//IDirect3DDevice9 インターフェイスへのポインタ
 ////            ：  vector<Object*>& Vec,				//オブジェクトの配列
-//// 戻値       ：無し
+//// 戻値       ：なし
 //// 担当者     ：(山ノ井先生のひな形より)
 //// 備考       ：Objectクラスの純粋仮想関数
 ////            ：
@@ -5236,7 +5240,7 @@ void DrawOBBLite::Draw( DrawPacket& i_DrawPacket ) {
 	}
 	LPDIRECT3DDEVICE9 pD3DDevice = i_DrawPacket.GetDevice() ;
 	D3DXMATRIX  wm , mScale, mRot, mPos;
-	//座標変換無し
+	//座標変換なし
 	D3DXMatrixIdentity(&wm);
 	D3DXMatrixIdentity(&mScale);
 	D3DXMatrixIdentity(&mRot);

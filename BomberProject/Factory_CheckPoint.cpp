@@ -71,7 +71,7 @@ RestartPoint::RestartPoint(
 ////            ：  ├       vector<Object*>&   Vec,            // オブジェクトの配列
 ////            ：  ├ const CONTROLER_STATE*   pCntlState      // コントローラのステータス
 ////            ：  └       Command            pCommand        // コマンド
-//// 戻値       ：無し
+//// 戻値       ：なし
 //// 担当者     ：鴫原 徹
 //// 備考       ：継承したものでも必ずとも定義をしなくても良い
 ////            ：
@@ -95,7 +95,7 @@ void RestartPoint::Update(UpdatePacket &i_UpdatePacket){
 ////            ：  ├ vector<Object*>&    Vec                     // オブジェクトの配列
 ////            ：  ├ Tempus2*            i_DrawPacket.GetTime()	   // 時間を管理するクラスへのポインター
 ////            ：  └ Command             i_DrawPacket.pCommand   // コマンド
-//// 戻値       ：無し
+//// 戻値       ：なし
 //// 担当者     ：鴫原 徹 本多寛之(編集)
 //// 備考       ：
 ////            ：
@@ -202,7 +202,7 @@ CheckPoint::~CheckPoint(){
 ////            ：  ├       vector<Object*>&   Vec,            // オブジェクトの配列
 ////            ：  ├ const CONTROLER_STATE*   pCntlState      // コントローラのステータス
 ////            ：  └       Command            pCommand        // コマンド
-//// 戻値       ：無し
+//// 戻値       ：なし
 //// 担当者     ：鴫原 徹
 //// 備考       ：継承したものでも必ずとも定義をしなくても良い
 ////            ：
@@ -271,7 +271,7 @@ CheckPoint::WORKSTATE CheckPoint::Reduction(UpdatePacket &i_UpdatePacket){
 		return WORKSTATE_UNFINSHED ;
 	}
 	else{
-		m_pRestartPoint->ChangePoint(m_ItemContainer[ m_ActiveItem ]->vStartPos);
+		if( m_pRestartPoint ) m_pRestartPoint->ChangePoint(m_ItemContainer[ m_ActiveItem ]->vStartPos);
 		m_ActiveItem++;
 		if( m_ActiveItem >= m_ItemContainer.size()){
 			m_enumNowState = BEHAVIORSTATE_LAST ;
@@ -292,7 +292,7 @@ CheckPoint::WORKSTATE CheckPoint::Reduction(UpdatePacket &i_UpdatePacket){
 ////            ：  ├ vector<Object*>&    Vec                     // オブジェクトの配列
 ////            ：  ├ Tempus2*            i_DrawPacket.GetTime()	   // 時間を管理するクラスへのポインター
 ////            ：  └ Command             i_DrawPacket.pCommand   // コマンド
-//// 戻値       ：無し
+//// 戻値       ：なし
 //// 担当者     ：鴫原 徹 本多寛之(編集)
 //// 備考       ：
 ////            ：
@@ -360,7 +360,7 @@ void CheckPoint::DrawLine( DrawPacket& i_DrawPacket ){
 ***************************************************************************/
 	Factory_CheckPoint::Factory_CheckPoint(FactoryPacket* fpac){
 		try{
-			//fpac->AddObject( new RestartPoint( fpac->GetDevice(), fpac->AddTexture(L"particle.png") ) );
+			fpac->AddObject( new RestartPoint( fpac->GetDevice(), fpac->AddTexture(L"particle.png") ) );
 			//D3DCOLORVALUE Diffuse = {1.0f,0.0f,0.0f,1.0f};
 			//D3DCOLORVALUE Specular = {1.0f,0.0f,0.0f,1.0f};
 			//D3DCOLORVALUE Ambient = {1.0f,0.0f,0.0f,1.0f};

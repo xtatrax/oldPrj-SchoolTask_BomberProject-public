@@ -316,18 +316,6 @@
 							<Filter
 								Name="0.Effects"
 								>
-								<Filter
-									Name="Effects"
-									>
-									<File
-										RelativePath=".\Effects.cpp"
-										>
-									</File>
-									<File
-										RelativePath=".\Effects.h"
-										>
-									</File>
-								</Filter>
 							</Filter>
 							<Filter
 								Name="TextureManager"
@@ -924,10 +912,6 @@
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
 			<File
-				RelativePath=".\CookTrance.fx"
-				>
-			</File>
-			<File
 				RelativePath=".\Effects.rc"
 				>
 			</File>
@@ -936,13 +920,25 @@
 				>
 			</File>
 			<File
-				RelativePath=".\Icon.ico"
-				>
-			</File>
-			<File
 				RelativePath=".\resource1.h"
 				>
 			</File>
+			<Filter
+				Name="Shader"
+				>
+				<File
+					RelativePath=".\CookTrance.fx"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="ICON"
+				>
+				<File
+					RelativePath=".\Icon.ico"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="StdAfx"
@@ -1070,6 +1066,10 @@
 		</Filter>
 		<File
 			RelativePath=".\ClassDiagram1.cd"
+			>
+		</File>
+		<File
+			RelativePath=".\ClassDiagram2.cd"
 			>
 		</File>
 		<File

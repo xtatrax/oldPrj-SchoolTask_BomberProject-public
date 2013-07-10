@@ -209,7 +209,7 @@ void EnemyModel::UpdateTargetItem(){
 ////            ：  ├       vector<Object*>&   Vec,            // オブジェクトの配列
 ////            ：  ├ const CONTROLER_STATE*   pCntlState      // コントローラのステータス
 ////            ：  └       Command            pCommand        // コマンド
-//// 戻値       ：無し
+//// 戻値       ：なし
 //// 担当者     ：斎藤謙吾
 //// 引き継ぎ   ：本多寛之
 //// 備考       
@@ -380,7 +380,7 @@ void EnemyModel::Draw(DrawPacket& i_DrawPacket)
 ////            ：  D3DCOLORVALUE& Diffuse,			//ディフューズ色
 ////            ：  D3DCOLORVALUE& Specular,		//スペキュラ色
 ////            ：  D3DCOLORVALUE& Ambient,			//アンビエント色
-//// 戻値       ：無し
+//// 戻値       ：なし
 //// 担当者     ：斎藤謙吾
 //// 引き継ぎ   ：本多寛之
 //// 備考       ：

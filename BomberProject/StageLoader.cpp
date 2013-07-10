@@ -28,12 +28,12 @@ namespace wiz{
 using namespace bomberobject;
 
 /////////////////// ////////////////////
-//// 関数名     ：
-//// カテゴリ   ：
-//// 用途       ：
-//// 引数       ：
-//// 戻値       ：
-//// 担当者     ：
+//// 関数名     ：void StageLoader::PartsGenerator(MapPartsStatus i_Data)
+//// カテゴリ   ：ジェネレータ
+//// 用途       ：ファイルから読み取っったデータを元にオブジェクト情報を構築します
+//// 引数       ：  MapPartsStatus   i_Data    //  : ファイルから読みとたパーツの情報
+//// 戻値       ：なし
+//// 担当者     ：鴫原 徹
 //// 備考       ：StageGeneratorから
 ////            ：⑦
 ////
@@ -666,7 +666,9 @@ void StageLoader::ObjectsLoader(wstring i_sFileName){
 //// 関数名     ：void StageLoader::PointSearch( vector<vector<wstring>>& i_vvCsvData , POINT& o_NumberPoint , POINT& o_PathPoint)
 //// カテゴリ   ：メンバ関数
 //// 用途       ：ステージを構築すします
-//// 引数       ：  wstring i_sStageFilePath         //  ステージの構成ファイルへのパス
+//// 引数       ：  vector<vector<wstring>>&  i_vvCsvData    //  :  [IN]CSVから読み取ったナマのデータ
+////            ：  POINT&                    o_NumberPoint  //  : [OUT]
+////            ：  POINT&                    o_PathPoint    //  : [OUT]
 //// 戻値       ：なし
 //// 担当者     ：鴫原 徹
 //// 備考       ：StageListLoader関数から呼ばれます
@@ -701,7 +703,7 @@ void StageLoader::PointSearch( vector<vector<wstring>>& i_vvCsvData , POINT& o_N
 //
 
 //	: デッバッグ用エラー
-#if defined(DEBUG) | defined(_DEBUG) | defined(ON_DEBUGGINGPROCESS)
+#if defined(ON_DEBUGGINGPROCESS)
 			//	: 
 			if( !(SearchFlag & ( FILE_PATH )) ) 
 					throw LoaderException(
@@ -734,12 +736,12 @@ void StageLoader::PointSearch( vector<vector<wstring>>& i_vvCsvData , POINT& o_N
 	}
 }
 /////////////////// ////////////////////
-//// 関数名     ：
-//// カテゴリ   ：
-//// 用途       ：
+//// 関数名     ：void StageLoader::StageListLoader(wstring i_sFileName, BYTE i_byStageNum)
+//// カテゴリ   ：ローダー
+//// 用途       ：ステージリストを読み込む
 //// 引数       ：
 //// 戻値       ：
-//// 担当者     ：
+//// 担当者     ：鴫原 徹
 //// 備考       ：②
 ////            ：
 ////
@@ -761,6 +763,7 @@ void StageLoader::StageListLoader(wstring i_sFileName, BYTE i_byStageNum){
 
 		{
 		DWORD dwSTime = TLIB::Tempus::TimeGetTime();
+		//	: Objectリストと読み込むファイルパスを獲得
 		PointSearch( vvCsvData , NumberPoint , PathPoint ) ;
 		DWORD dwETime = TLIB::Tempus::TimeGetTime();
 		Debugger::DBGWRITINGLOGTEXT::addStr( L"StageLoader::StageListLoader >> PointSearch : %f\n", TLIB::Tempus::TwoDwTime2ElapsedTime(dwSTime,dwETime));
@@ -773,6 +776,7 @@ void StageLoader::StageListLoader(wstring i_sFileName, BYTE i_byStageNum){
 				== i_byStageNum )
 			{
 				DWORD dwSTime = TLIB::Tempus::TimeGetTime();
+				//	: 
 				StageGenerator(vvCsvData[NumberPoint.y][NumberPoint.x +1]);
 				DWORD dwETime = TLIB::Tempus::TimeGetTime();
 				Debugger::DBGWRITINGLOGTEXT::addStr( L"StageLoader::StageListLoader >> StageGenerator : %f\n", TLIB::Tempus::TwoDwTime2ElapsedTime(dwSTime,dwETime));
@@ -797,12 +801,12 @@ void StageLoader::StageListLoader(wstring i_sFileName, BYTE i_byStageNum){
 	}
 }
 /////////////////// ////////////////////
-//// 関数名     ：
+//// 関数名     ：StageLoader::StageLoader(FactoryPacket& i_Fpac, wstring i_sFileName,DWORD i_dwStageNum)
 //// カテゴリ   ：コンストラクタ
 //// 用途       ：FILEからStageLoaderを構築します
 //// 引数       ：
 //// 戻値       ：なし(失敗時は例外をthrow)
-//// 担当者     ：
+//// 担当者     ：鴫原 徹
 //// 備考       ：①
 ////            ：
 ////
@@ -831,12 +835,12 @@ StageLoader::StageLoader(FactoryPacket& i_Fpac, wstring i_sFileName,DWORD i_dwSt
 	}
 }
 /////////////////// ////////////////////
-//// 関数名     ：
+//// 関数名     ：StageLoader::StageLoader(FactoryPacket& i_Fpac, MapPartsStatus* i_Parts)
 //// カテゴリ   ：コンストラクタ
 //// 用途       ：
 //// 引数       ：
 //// 戻値       ：
-//// 担当者     ：
+//// 担当者     ：鴫原 徹
 //// 備考       ：①'
 ////            ：
 ////

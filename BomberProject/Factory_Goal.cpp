@@ -92,7 +92,7 @@ FMemoryTex::~FMemoryTex(){
 ////            ：  ├ vector<Object*>&    Vec                     // オブジェクトの配列
 ////            ：  ├ Tempus2*            i_DrawPacket.GetTime()	   // 時間を管理するクラスへのポインター
 ////            ：  └ Command             i_DrawPacket.pCommand   // コマンド
-//// 戻値       ：無し
+//// 戻値       ：なし
 //// 担当者     ：佐藤涼
 //// 備考       ：
 void FMemoryTex::Draw(DrawPacket& i_DrawPacket)
@@ -141,7 +141,7 @@ void FMemoryTex::Draw(DrawPacket& i_DrawPacket)
 ////            ：  ├       vector<Object*>&   Vec,            // オブジェクトの配列
 ////            ：  ├ const CONTROLER_STATE*   pCntlState      // コントローラのステータス
 ////            ：  └       Command            pCommand        // コマンド
-//// 戻値       ：無し
+//// 戻値       ：なし
 //// 担当者     ：佐藤涼
 //// 備考       ：
 ////            ：
@@ -202,7 +202,7 @@ void FMemoryTex::Update( UpdatePacket& i_UpdatePacket ){
 ////            ：  D3DCOLORVALUE& Diffuse,			//ディフューズ色
 ////            ：  D3DCOLORVALUE& Specular,		//スペキュラ色
 ////            ：  D3DCOLORVALUE& Ambient,			//アンビエント色
-//// 戻値       ：無し
+//// 戻値       ：なし
 //// 担当者     ：佐藤涼
 //// 備考       ：
 void FMemoryTex::AddMemory(const D3DXVECTOR3 &vScale,const D3DXVECTOR3 &vRot,const D3DXVECTOR3 &vPos,

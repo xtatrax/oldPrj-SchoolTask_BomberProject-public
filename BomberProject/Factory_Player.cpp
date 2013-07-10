@@ -225,7 +225,7 @@ void ProvisionalPlayer3D::Update( UpdatePacket& i_UpdatePacket ){
 ////			   ：  ├ vector<Object*>&    Vec                     // オブジェクトの配列
 ////			   ：  ├ Tempus2*            i_DrawPacket.GetTime()	   // 時間を管理するクラスへのポインター
 ////               ：  └ Command             i_DrawPacket.pCommand   // コマンド
-//// 戻値       ：無し
+//// 戻値       ：なし
 //// 担当者     ：曳地 大洋
 //// 備考       ：
 void ProvisionalPlayer3D::Draw(DrawPacket& i_DrawPacket)

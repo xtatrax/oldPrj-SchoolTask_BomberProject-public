@@ -201,7 +201,7 @@ void MagnetField::Update( UpdatePacket& i_UpdatePacket ){
 ////            ：  ├ vector<Object*>&    Vec                     // オブジェクトの配列
 ////            ：  ├ Tempus2*            i_DrawPacket.GetTime()	   // 時間を管理するクラスへのポインター
 ////            ：  └ Command             i_DrawPacket.pCommand   // コマンド
-//// 戻値       ：無し
+//// 戻値       ：なし
 //// 担当者     ：曳地 大洋
 //// 編集者     ：鴫原 徹(大幅改良)
 //// 備考       ：
@@ -409,7 +409,7 @@ void StaticMagnetField::Update( UpdatePacket& i_UpdatePacket ){
 ////            ：  ├ vector<Object*>&    Vec                     // オブジェクトの配列
 ////            ：  ├ Tempus2*            i_DrawPacket.GetTime()	   // 時間を管理するクラスへのポインター
 ////            ：  └ Command             i_DrawPacket.pCommand   // コマンド
-//// 戻値       ：無し
+//// 戻値       ：なし
 //// 担当者     ：曳地 大洋
 //// 編集者     ：鴫原 徹(大幅改良)
 //// 備考       ：
@@ -439,7 +439,7 @@ void StaticMagnetField::Draw(DrawPacket& i_DrawPacket){
 ////            ：  D3DCOLORVALUE& Diffuse,			//ディフューズ色
 ////            ：  D3DCOLORVALUE& Specular,		//スペキュラ色
 ////            ：  D3DCOLORVALUE& Ambient,			//アンビエント色
-//// 戻値       ：無し
+//// 戻値       ：なし
 //// 担当者     ：曳地 大洋
 //// 備考       ：
 void StaticMagnetField::AddMagnetic(D3DXVECTOR3 &vPos,POLE vPole,

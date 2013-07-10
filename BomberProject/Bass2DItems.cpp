@@ -1,14 +1,14 @@
 ////////////////////////////// //////////////////////////////
 //	プロジェクト	：DirectX Program Bass Project
-//	ファイル名		：BassItems.cpp
+//	ファイル名		：BassI2Dtems.h
 //	開発環境		：MSVC++ 2008
 //	最適タブ数		：4
 //	担当者			：tatra
-//	内包ﾃﾞｰﾀと備考	：ゲームのベースになるアイテム群の宣言
+//	内包ﾃﾞｰﾀと備考	：主にUI周りの基本となる2D的クラス
 //					▼
-//	プリミティブ周辺を山ノ井先生のソースを参考に大改造する! 
-//
 //	namespace wiz;
+//
+//
 //
 #include "StdAfx.h"
 #include "Bass2DItems.h"
@@ -474,7 +474,7 @@ RenderTargetSprite::RenderTargetSprite(BassPacket* i_BassPacket, UINT i_Width, U
 //// 引数       ：  LPDIRECT3DDEVICE9 pD3DDevice        // IDirect3DDevice9 インターフェイスへのポインタ
 ////            ：  vector<Object*>& Vec,               // オブジェクトの配列
 ////            ：  Command i_DrawPacket.pCommand                         // コマンド
-//// 戻値       ：無し
+//// 戻値       ：なし
 //// 担当者     ：鴫原 徹
 //// 備考       ：継承したものでも必ずとも定義をしなくても良い
 ////            ：
@@ -531,7 +531,7 @@ void RenderTargetSprite::TargetRender( RenderPacket& i_RenderPacket ){
 ////            ：  ├ vector<Object*>&    Vec                     // オブジェクトの配列
 ////            ：  ├ Tempus2*            i_DrawPacket.GetTime()	   // 時間を管理するクラスへのポインター
 ////            ：  └ Command             i_DrawPacket.pCommand   // コマンド
-//// 戻値       ：無し
+//// 戻値       ：なし
 //// 担当者     ：鴫原 徹
 //// 備考       ：
 void RenderTargetSprite::Draw(DrawPacket& i_DrawPacket){

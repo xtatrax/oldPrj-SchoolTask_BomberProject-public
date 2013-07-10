@@ -281,7 +281,7 @@ public:
 	D3DXVECTOR3& retvec		//最近接点を返す参照
 　);
  用途: pointから見たOBBの最近接点を得る
- 戻り値: 無し（retvecに最近接点が代入される）
+ 戻り値: なし（retvecに最近接点が代入される）
 ***************************************************************************/
 	static void ClosestPtPointOBB(const D3DXVECTOR3& point,const OBB& obb, D3DXVECTOR3& retvec){
 		D3DXVECTOR3 d = point - obb.m_Center;

@@ -62,7 +62,7 @@ public:
 	//// 引数       ：LPDIRECT3DDEVICE9 pD3DDevice //デバイス
 	////			  : LPTATRATEXTURE pTexture  //テクスチャ
 	////			  : pTexture,wiz::OBJID id = OBJID_3D_WALL //ID
-	//// 戻値       ：無し
+	//// 戻値       ：なし
 	//// 担当者     ：本多寛之
 	//// 備考       ：
 	Warning(
@@ -78,7 +78,7 @@ public:
 	//// カテゴリ   ：デストラクタ
 	//// 用途       ：
 	//// 引数       ：
-	//// 戻値       ：無し
+	//// 戻値       ：なし
 	//// 担当者     ：鴫原 徹
 	//// 備考       ：
 	~Warning();
@@ -91,7 +91,7 @@ public:
 	////            ：  ├ vector<Object*>&    Vec                     // オブジェクトの配列
 	////            ：  ├ Tempus2*            i_DrawPacket.GetTime()	   // 時間を管理するクラスへのポインター
 	////            ：  └ Command             i_DrawPacket.pCommand   // コマンド
-	//// 戻値       ：無し
+	//// 戻値       ：なし
 	//// 担当者     ：本多寛之
 	//// 備考       ：
 	void Draw( DrawPacket& i_DrawPacket );
@@ -105,7 +105,7 @@ public:
 	////            ：  ├       vector<Object*>&   Vec,            // オブジェクトの配列
 	////            ：  ├ const CONTROLER_STATE*   pCntlState      // コントローラのステータス
 	////            ：  └       Command            pCommand        // コマンド
-	//// 戻値       ：無し
+	//// 戻値       ：なし
 	//// 担当者     ：本多寛之
 	//// 備考       ：
 	////            ：
@@ -220,7 +220,7 @@ public:
 	//// 引数       ：LPDIRECT3DDEVICE9 pD3DDevice //デバイス
 	////			  : LPTATRATEXTURE pTexture  //テクスチャ
 	////			  : pTexture,wiz::OBJID id = OBJID_3D_WALL //ID
-	//// 戻値       ：無し
+	//// 戻値       ：なし
 	//// 担当者     ：本多寛之
 	//// 備考       ：
 	WallObject(	LPDIRECT3DDEVICE9 pD3DDevice,
@@ -232,7 +232,7 @@ public:
 	//// カテゴリ   ：デストラクタ
 	//// 用途       ：
 	//// 引数       ：
-	//// 戻値       ：無し
+	//// 戻値       ：なし
 	//// 担当者     ：鴫原 徹
 	//// 備考       ：
 	~WallObject();
@@ -263,7 +263,7 @@ public:
 	////            ：  ├ vector<Object*>&    Vec                     // オブジェクトの配列
 	////            ：  ├ Tempus2*            i_DrawPacket.GetTime()	   // 時間を管理するクラスへのポインター
 	////            ：  └ Command             i_DrawPacket.pCommand   // コマンド
-	//// 戻値       ：無し
+	//// 戻値       ：なし
 	//// 担当者     ：本多寛之
 	//// 備考       ：
 	void Draw( DrawPacket& i_DrawPacket );
@@ -278,7 +278,7 @@ public:
 	////            ：  ├       vector<Object*>&   Vec,            // オブジェクトの配列
 	////            ：  ├ const CONTROLER_STATE*   pCntlState      // コントローラのステータス
 	////            ：  └       Command            pCommand        // コマンド
-	//// 戻値       ：無し
+	//// 戻値       ：なし
 	//// 担当者     ：本多寛之
 	//// 備考       ：
 	////            ：
@@ -296,7 +296,7 @@ public:
 	////            ：  D3DCOLORVALUE& Diffuse,			//ディフューズ色
 	////            ：  D3DCOLORVALUE& Specular,		//スペキュラ色
 	////            ：  D3DCOLORVALUE& Ambient,			//アンビエント色
-	//// 戻値       ：無し
+	//// 戻値       ：なし
 	//// 担当者     ：本多寛之
 	//// 備考       ：
 	void AddWall(D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos,

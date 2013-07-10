@@ -28,48 +28,62 @@ namespace wiz{
 /**************************************************************************
  Stage 定義部
 ****************************************************************************/
-/**************************************************************************
- void Stage::Clear();
- 用途:オブジェクトの破棄
- 戻り値: なし
-***************************************************************************/
+/////////////////// ////////////////////
+//// 用途       ：void Stage::Clear()
+//// カテゴリ   ：デストラクタ
+//// 用途       ：破棄
+//// 引数       ：なし
+//// 戻値       ：なし
+//// 担当者     ：鴫原 徹
+//// 備考       ：
+////            ：
+////
 void Stage::Clear(){
 	//SafeDelete(m_pChildStage);
-	Debugger::DBGWRITINGLOGTEXT::addStr(L"Stage::Clear  >  %X 削除開始\n",this);
-
-	Debugger::DBGWRITINGLOGTEXT::addStr(L"SafeDelete(m_pParStage) 開始\n");
+    Debugger::DBGWRITINGLOGTEXT::addStr(L"Stage::Clear  >  %X 削除開始\n",this);
+    
+    //  : 親ステージを削除(あとで子ステージに修正する)
 	SafeDelete(m_pParStage);
-	Debugger::DBGWRITINGLOGTEXT::addStr(L"SafeDelete(m_pParStage) 完了\n");
+    Debugger::DBGWRITINGLOGTEXT::addStr(L"SafeDelete(m_pParStage) 完了\n");
+    
 
-	Debugger::DBGWRITINGLOGTEXT::addStr(L"SafeDelete(m_pMySound)  開始\n");
+	//  : 他で作られたものが入っていただけなのでぬるぽ!
+	m_pSound = NULL ;
+    //  : 自分用のサウンドを削除
 	SafeDelete(m_pMySound);
-	Debugger::DBGWRITINGLOGTEXT::addStr(L"SafeDelete(m_pMySound)  完了\n");
+    Debugger::DBGWRITINGLOGTEXT::addStr(L"SafeDelete(m_pMySound)  完了\n");
 
-	Debugger::DBGWRITINGLOGTEXT::addStr(L"SafeDeletePointerContainer(m_Vec);  開始\n");
-	SafeDeletePointerContainer(m_Vec);
-	//SefeDeletePointerVector(m_Vec);
-	Debugger::DBGWRITINGLOGTEXT::addStr(L"SafeDeletePointerContainer(m_Vec);  完了\n");
 
+	//	: ボタンの実体はm_Vecの中にあるためClearのみ
 	m_ButtonVec.clear();
 	Debugger::DBGWRITINGLOGTEXT::addStr(L"m_ButtonVec.clear(); 完了\n");
+    
+	//  : ステージに配置されたオブジェクトをすべて削除
+	SafeDeletePointerContainer(m_Vec);
+    Debugger::DBGWRITINGLOGTEXT::addStr(L"SafeDeletePointerContainer(m_Vec);  完了\n");
+	//SefeDeletePointerVector(m_Vec);
+
 
 	//m_TexMgr.Release();
 	//Debugger::DBGWRITINGLOGTEXT::addStr(L"m_TexMgr.Release(); 完了\n",this);
 }
 
-/**************************************************************************
- Stage::Stage(
- Stage* Par	//親ステージ
- );
- 用途: コンストラクタ
- 戻り値: なし
-***************************************************************************/
+/////////////////// ////////////////////
+//// 用途       ：Stage::Stage(Stage* Par)
+//// カテゴリ   ：コンストラクタ
+//// 用途       ：生成処理
+//// 引数       ：Stage*		Par		//	: 親ステージへのポインタ
+//// 戻値       ：なし
+//// 担当者     ：鴫原 徹
+//// 備考       ：
+////            ：
+////
 Stage::Stage(Stage* Par)
 :m_pParStage(Par),m_pChildStage(0),m_IsDialog(true)
 ,m_bUpdate( true )
 ,m_SelectIndex(0),m_SelectLock(true),m_IsAnimetion(false)
 ,m_pMySound( NULL ),m_pSound( NULL )
-#if defined(DEBUG) | defined(_DEBUG) | defined(ON_DEBUGGINGPROCESS)
+#if defined(ON_DEBUGGINGPROCESS)
 ,m_bSlow(false)
 #endif
 /////////////////// ////////////////////
@@ -94,7 +108,7 @@ Stage::~Stage(){
 ////            ：  ├       vector<Object*>&   Vec,            // オブジェクトの配列
 ////            ：  ├ const CONTROLER_STATE*   pCntlState      // コントローラのステータス
 ////            ：  └       Command            pCommand        // コマンド
-//// 戻値       ：無し
+//// 戻値       ：なし
 //// 担当者     ：鴫原 徹
 //// 備考       ：
 ////            ：
@@ -194,7 +208,6 @@ void Stage::ButtonUpdate(UpdatePacket& i_UpdatePacket)
 ***************************************************************************/
 void Stage::Update(UpdatePacket& i_UpdatePacket)
 {
-	if( this == NULL ) Debugger::DBGWRITINGLOGTEXT::addStr(L"Stage Is NULL A");
 	//	: 自分にSoundが登録されているかを確認
 	//if( !m_pSound )	m_pSound = (Sound*)SearchObjectFromID( &this->m_Vec,OBJID_SYS_SOUND );
 	if( !m_pSound ){
@@ -211,9 +224,8 @@ void Stage::Update(UpdatePacket& i_UpdatePacket)
 			}
 		}
 	}
-	if( this == NULL ) Debugger::DBGWRITINGLOGTEXT::addStr(L"Stage Is NULL B");
+
 	i_UpdatePacket.SetStage( this );
-	if( this == NULL ) Debugger::DBGWRITINGLOGTEXT::addStr(L"Stage Is NULL C");
 
 #if 0
 	float fElapsedTime = (float)i_UpdatePacket.GetTime()->getElapsedTime();
@@ -256,14 +268,13 @@ void Stage::Update(UpdatePacket& i_UpdatePacket)
 
 	if(m_bUpdate){
 		ButtonUpdate(i_UpdatePacket);
-		clock_t sc = TLIB::Tempus::getClock();
+		//clock_t sc = TLIB::Tempus::getClock();
 		//配置オブジェクトの描画
 		vector<Object*>::iterator it = m_Vec.begin();
 		while( it != m_Vec.end() ){
 			if(!(*it)->getDead()){
 				(*it)->AccessBegin();
 				(*it)->Update(i_UpdatePacket) ;
-				if( this == NULL ) Debugger::DBGWRITINGLOGTEXT::addStr(L"Stage Is NULL D");
 				(*it)->AccessEnd();
 			} else {
 				//EraseButton( it );
@@ -273,9 +284,8 @@ void Stage::Update(UpdatePacket& i_UpdatePacket)
 			}
 			it++;
 		}
-		if( this == NULL ) Debugger::DBGWRITINGLOGTEXT::addStr(L"Stage Is NULL D");
-		clock_t nc = TLIB::Tempus::getClock();
-		if( this == NULL ) Debugger::DBGSTR::addStr( L" Update時間 : %f\n", TLIB::Tempus::TwoDwTime2ElapsedTime(sc,nc));
+		//clock_t nc = TLIB::Tempus::getClock();
+		//Debugger::DBGSTR::addStr( L" Update時間 : %f\n", TLIB::Tempus::TwoDwTime2ElapsedTime(sc,nc));
 	}
 }
 /**************************************************************************
@@ -318,7 +328,7 @@ void Stage::EraseButton(vector<Object*>::iterator ObjIt){
 //// カテゴリ   ：関数
 //// 用途       ：ターゲットレンダリング
 //// 引数       ：  RenderPacket& i_RenderPacket        // レンダー処理に流すデータの集合体
-//// 戻値       ：無し
+//// 戻値       ：なし
 //// 担当者     ：鴫原 徹
 //// 備考       ：画面以外のバッファーに描画する
 ////            ：
@@ -327,7 +337,7 @@ void Stage::Render(RenderPacket& i_RenderPacket){
 
 	i_RenderPacket.SetStage( this );
 
-	clock_t sc = TLIB::Tempus::getClock();
+	//clock_t sc = TLIB::Tempus::getClock();
 	//配置オブジェクトの描画
 	vector<Object*>::iterator it = m_Vec.begin();
 	while( it != m_Vec.end() ){
@@ -338,8 +348,8 @@ void Stage::Render(RenderPacket& i_RenderPacket){
 		}
 		it++;
 	}
-	clock_t nc = TLIB::Tempus::getClock();
-	Debugger::DBGSTR::addStr( L" Render時間 : %f\n", TLIB::Tempus::TwoDwTime2ElapsedTime(sc,nc));
+	//clock_t nc = TLIB::Tempus::getClock();
+	//Debugger::DBGSTR::addStr( L" Render時間 : %f\n", TLIB::Tempus::TwoDwTime2ElapsedTime(sc,nc));
 
 }
 
@@ -359,7 +369,7 @@ void Stage::Draw(DrawPacket& i_DrawPacket)
 
 		i_DrawPacket.SetStage( this );
 
-		clock_t sc = TLIB::Tempus::getClock();
+		//clock_t sc = TLIB::Tempus::getClock();
 		//配置オブジェクトの描画
 		vector<Object*>::size_type sz = m_Vec.size();
 		for(vector<Object*>::size_type i = 0;i < sz;i++){
@@ -368,8 +378,8 @@ void Stage::Draw(DrawPacket& i_DrawPacket)
 			m_Vec[i]->AccessEnd();
 		}
 		CommandTranslator(i_DrawPacket);
-		clock_t nc = TLIB::Tempus::getClock();
-		Debugger::DBGSTR::addStr( L"   Draw時間 : %f\n", TLIB::Tempus::TwoDwTime2ElapsedTime(sc,nc));
+		//clock_t nc = TLIB::Tempus::getClock();
+		//Debugger::DBGSTR::addStr( L"   Draw時間 : %f\n", TLIB::Tempus::TwoDwTime2ElapsedTime(sc,nc));
 	}
 	catch(exception& e){
         throw e;
@@ -383,7 +393,7 @@ void Stage::Draw(DrawPacket& i_DrawPacket)
 //// カテゴリ   ：関数
 //// 用途       ：オブジェクトをディスプレイに表示する
 //// 引数       ：
-//// 戻値       ：無し
+//// 戻値       ：なし
 //// 担当者     ：鴫原 徹
 //// 備考       ：
 void Stage::TargetRender(BassPacket& BassPacket, Object* DrawObject, Object* RenderTarget){
@@ -395,7 +405,7 @@ void Stage::TargetRender(BassPacket& BassPacket, Object* DrawObject, Object* Ren
 //// カテゴリ   ：関数
 //// 用途       ：オブジェクトをディスプレイに表示する
 //// 引数       ：
-//// 戻値       ：無し
+//// 戻値       ：なし
 //// 担当者     ：鴫原 徹
 //// 備考       ：
 void Stage::DefaultRender(){
@@ -410,7 +420,7 @@ void Stage::DefaultRender(){
 ////            ：  ├ vector<Object*>&    Vec                     // オブジェクトの配列
 ////            ：  ├ Tempus2*            i_DrawPacket.GetTime()	   // 時間を管理するクラスへのポインター
 ////            ：  └ Command             i_DrawPacket.pCommand   // コマンド
-//// 戻値       ：無し
+//// 戻値       ：なし
 //// 担当者     ：鴫原 徹
 //// 備考       ：
 ////            ：

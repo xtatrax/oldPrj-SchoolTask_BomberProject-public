@@ -98,7 +98,7 @@ void	DeadEffect::addEffect( D3DXVECTOR3 vPos, float fDir){
 ////            ：  ├ vector<Object*>&    Vec                     // オブジェクトの配列
 ////            ：  ├ Tempus2*            i_DrawPacket.GetTime()	   // 時間を管理するクラスへのポインター
 ////            ：  └ Command             i_DrawPacket.pCommand   // コマンド
-//// 戻値       ：無し
+//// 戻値       ：なし
 //// 担当者     ：佐藤涼
 //// 備考       ：
 void DeadEffect::Draw(DrawPacket& i_DrawPacket)
@@ -124,7 +124,7 @@ void DeadEffect::Draw(DrawPacket& i_DrawPacket)
 ////            ：  ├       vector<Object*>&   Vec,            // オブジェクトの配列
 ////            ：  ├ const CONTROLER_STATE*   pCntlState      // コントローラのステータス
 ////            ：  └       Command            pCommand        // コマンド
-//// 戻値       ：無し
+//// 戻値       ：なし
 //// 担当者     ：佐藤涼
 //// 備考       ：
 ////            ：

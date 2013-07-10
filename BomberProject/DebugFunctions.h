@@ -128,7 +128,7 @@ public:
 	//// }
 	////
 	static void addStr(const wchar_t* addStr,...){
-		#if defined(CF_DEBUG_DEBUGLOG_OUTPUTTEXT)
+		#if defined(CF_DEBUGLOGTEXT_OUTPUT_ENABLE)
 
 		if(!PathIsDirectory(DefaultLogFolder.c_str())){
 			if(!CreateDirectory(DefaultLogFolder.c_str(),NULL)){
@@ -201,7 +201,7 @@ public:
 	//// }
 	////
 	static void addStr(const char* addStr,...){
-		#if defined(CF_DEBUG_DEBUGLOG_OUTPUTTEXT)
+		#if defined(CF_DEBUGLOGTEXT_OUTPUT_ENABLE)
 
 		if(!PathIsDirectory(DefaultLogFolder.c_str())){
 			if(!CreateDirectory(DefaultLogFolder.c_str(),NULL)){
@@ -247,7 +247,7 @@ public:
 	//// }
 	////
 	static void addStrToFile(const wstring FileName,const wchar_t* addStr,...){
-		#if defined(CF_DEBUG_DEBUGLOG_OUTPUTTEXT)
+		#if defined(CF_DEBUGLOGTEXT_OUTPUT_ENABLE)
 		if(!PathIsDirectory(DefaultLogFolder.c_str())){
 			if(!CreateDirectory(DefaultLogFolder.c_str(),NULL)){
 			}
@@ -298,7 +298,7 @@ public:
 	//// }
 	////
 	static void addStrToFile(const string FileName,const char* addStr,...){
-		#if defined(CF_DEBUG_DEBUGLOG_OUTPUTTEXT)
+		#if defined(CF_DEBUGLOGTEXT_OUTPUT_ENABLE)
 
 		//	: 
 		if(!PathIsDirectory(DefaultLogFolder.c_str())){
@@ -359,7 +359,7 @@ public:
 	////            ：
 	////
 	static void addStr(const wchar_t* addStr,...){
-		#if defined( DIRECT3D_VERSION ) && defined(DEBUG_STRINGS_ON)
+		#if defined( DIRECT3D_VERSION ) && defined(CF_DRAW_DEBUGSTRING)
 		if(5120 > str.size()  ){
 			wchar_t strBuf[1024];
 			va_list	argp;
@@ -382,7 +382,7 @@ public:
 	////            ：
 	////
 	static void addStrTop(const wchar_t* addStr,...){
-		#if defined( DIRECT3D_VERSION ) && defined(DEBUG_STRINGS_ON)
+		#if defined( DIRECT3D_VERSION ) && defined(CF_DRAW_DEBUGSTRING)
 		if(5120 > str.size()  ){
 			wchar_t strBuf[1024];
 			va_list	argp;
@@ -406,7 +406,7 @@ public:
 	////
 #if defined( DIRECT3D_VERSION )
 	static void Init(LPDIRECT3DDEVICE9	i_pD3DDevice){
-		#if defined(DEBUG_STRINGS_ON)
+		#if defined(CF_DRAW_DEBUGSTRING)
 		try{
 			if (FAILED(D3DXCreateFont(i_pD3DDevice,				/* デバイス */
 							10,									/* 文字の高さ */
@@ -448,7 +448,7 @@ public:
 	////            ：
 	////
 	static void Draw(){
-		#if defined(DEBUG_STRINGS_ON)
+		#if defined(CF_DRAW_DEBUGSTRING)
 			if(GetAsyncKeyState( MYVK_DEBUG_OUTPUT_DBGSTR )){
 				addStrTop(L"============================================================================================================\n");
 				addStrTop(L"=====                                      デバッグ文字列出力                                          =====\n");

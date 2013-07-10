@@ -62,8 +62,8 @@ IDI_ICON1               ICON                    "Icon.ico"
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 0,8,0,1
- PRODUCTVERSION 0,8,0,1
+ FILEVERSION 0,9,7,5
+ PRODUCTVERSION 0,9,7,5
  FILEFLAGSMASK 0x17L
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -80,12 +80,12 @@ BEGIN
         BEGIN
             VALUE "CompanyName", "WiZ::TeamBokan"
             VALUE "FileDescription", "2013年  WiZ 専門学校 国際情報工科大学校  3年生前期チーム制作作品"
-            VALUE "FileVersion", "0, 8, 0, 1"
+            VALUE "FileVersion", "0, 9, 7, 5"
             VALUE "InternalName", " Magnetica"
             VALUE "LegalCopyright", "Copyright (C) 2013"
             VALUE "OriginalFilename", "Magnetica.exe"
             VALUE "ProductName", "BomberProject"
-            VALUE "ProductVersion", "0, 8, 0, 1"
+            VALUE "ProductVersion", "0, 9, 7, 5"
         END
     END
     BLOCK "VarFileInfo"

@@ -1,5 +1,5 @@
 ////////////////////////////// //////////////////////////////
-//	プロジェクト	：BomberProject
+//	プロジェクト	：DirectX Program Bass Project
 //	ファイル名		：BassMenuItems.h
 //	開発環境		：MSVC++ 2008
 //	最適タブ数		：4
@@ -67,7 +67,7 @@ ButtonSprite::~ButtonSprite(){};
 ////            ：  vector<Object*>& Vec,               // オブジェクトの配列
 ////            ：  const CONTROLER_STATE* pCntlState   // コントローラのステータス
 ////            ：  Command i_DrawPacket.pCommand       // コマンド
-//// 戻値       ：無し
+//// 戻値       ：なし
 //// 備考       ：
 ////            ：
 ////
@@ -113,7 +113,7 @@ void ButtonSprite::Update(UpdatePacket& i_UpdatePacket){
 //// 引数       ：  LPDIRECT3DDEVICE9 pD3DDevice        // IDirect3DDevice9 インターフェイスへのポインタ
 ////            ：  vector<Object*>& Vec,               // オブジェクトの配列
 ////            ：  Command i_DrawPacket.pCommand                         // コマンド
-//// 戻値       ：無し
+//// 戻値       ：なし
 //// 備考       ：
 ////            ：
 ////

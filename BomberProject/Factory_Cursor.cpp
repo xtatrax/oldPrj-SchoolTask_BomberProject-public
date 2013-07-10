@@ -83,7 +83,7 @@ MouseCursor::MouseCursor( LPDIRECT3DDEVICE9 pD3DDevice,  float fLineLength, floa
 //// カテゴリ   ：コンストラクタ
 //// 用途       ：
 //// 引数       ：
-//// 戻値       ：無し
+//// 戻値       ：なし
 //// 担当者     ：鴫原 徹
 //// 備考       ：
 MouseCursor::~MouseCursor(){
@@ -104,7 +104,7 @@ MouseCursor::~MouseCursor(){
 ////            ：  ├       vector<Object*>&   Vec,            // オブジェクトの配列
 ////            ：  ├ const CONTROLER_STATE*   pCntlState      // コントローラのステータス
 ////            ：  └       Command            pCommand        // コマンド
-//// 戻値       ：無し
+//// 戻値       ：なし
 //// 担当者     ：鴫原 徹
 //// 備考       ：
 ////            ：
@@ -170,7 +170,7 @@ void MouseCursor::Update( UpdatePacket& i_UpdatePacket ){
 ////            ：  ├ vector<Object*>&    Vec                     // オブジェクトの配列
 ////            ：  ├ Tempus2*            i_DrawPacket.GetTime()	   // 時間を管理するクラスへのポインター
 ////            ：  └ Command             i_DrawPacket.pCommand   // コマンド
-//// 戻値       ：無し
+//// 戻値       ：なし
 //// 担当者     ：本多寛之
 //// 備考       ：
 ////

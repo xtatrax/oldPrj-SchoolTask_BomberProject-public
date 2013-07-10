@@ -641,7 +641,7 @@ void Guide::Draw(DrawPacket& i_DrawPacket){
 		return;
 	}
     D3DXMATRIX  wm;
-    //座標変換無し
+    //座標変換なし
     D3DXMatrixIdentity(&wm);
     // マトリックスをレンダリングパイプラインに設定
     pD3DDevice->SetTransform(D3DTS_WORLD, &wm);

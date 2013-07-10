@@ -71,7 +71,7 @@ protected:
 	 戻り値: なし
 	***************************************************************************/
 	void EraseButton(vector<Object*>::iterator ObjIt);
-#if defined(DEBUG) | defined(_DEBUG) | defined(ON_DEBUGGINGPROCESS)
+#if defined(ON_DEBUGGINGPROCESS)
 	bool m_bSlow;
 #endif
 protected:
@@ -198,7 +198,7 @@ public:
 	////            ：  ├       vector<Object*>&   Vec,            // オブジェクトの配列
 	////            ：  ├ const CONTROLER_STATE*   pCntlState      // コントローラのステータス
 	////            ：  └       Command            pCommand        // コマンド
-	//// 戻値       ：無し
+	//// 戻値       ：なし
 	//// 担当者     ：鴫原 徹
 	//// 備考       ：
 	////            ：
@@ -215,7 +215,7 @@ public:
 	////            ：  ├       vector<Object*>&   Vec,            // オブジェクトの配列
 	////            ：  ├ const CONTROLER_STATE*   pCntlState      // コントローラのステータス
 	////            ：  └       Command            pCommand        // コマンド
-	//// 戻値       ：無し
+	//// 戻値       ：なし
 	//// 担当者     ：鴫原 徹
 	//// 備考       ：
 	////            ：
@@ -227,7 +227,7 @@ public:
 	//// カテゴリ   ：関数
 	//// 用途       ：ターゲットレンダリング
 	//// 引数       ：  RenderPacket& i_RenderPacket        // レンダー処理に流すデータの集合体
-	//// 戻値       ：無し
+	//// 戻値       ：なし
 	//// 担当者     ：鴫原 徹
 	//// 備考       ：画面以外のバッファーに描画する
 	////            ：
@@ -243,7 +243,7 @@ public:
 	////            ：  ├ vector<Object*>&    Vec                     // オブジェクトの配列
 	////            ：  ├ Tempus2*            i_DrawPacket.GetTime()	   // 時間を管理するクラスへのポインター
 	////            ：  └ Command             i_DrawPacket.pCommand   // コマンド
-	//// 戻値       ：無し
+	//// 戻値       ：なし
 	//// 担当者     ：鴫原 徹(山ノ井先生のひな形より)
 	//// 備考       ：
     virtual void Draw(DrawPacket& i_DrawPacket) ;
@@ -252,7 +252,7 @@ public:
 	//// カテゴリ   ：関数
 	//// 用途       ：オブジェクトをディスプレイに表示する
 	//// 引数       ：
-	//// 戻値       ：無し
+	//// 戻値       ：なし
 	//// 担当者     ：鴫原 徹
 	//// 備考       ：
 	void TargetRender(BassPacket& BassPacket, Object* DrawObject, Object* RenderTarget);
@@ -261,7 +261,7 @@ public:
 	//// カテゴリ   ：関数
 	//// 用途       ：オブジェクトをディスプレイに表示する
 	//// 引数       ：
-	//// 戻値       ：無し
+	//// 戻値       ：なし
 	//// 担当者     ：鴫原 徹
 	//// 備考       ：
 	void DefaultRender();
@@ -275,7 +275,7 @@ public:
 	////            ：  ├ vector<Object*>&    Vec                     // オブジェクトの配列
 	////            ：  ├ Tempus2*            i_DrawPacket.GetTime()	   // 時間を管理するクラスへのポインター
 	////            ：  └ Command             i_DrawPacket.pCommand   // コマンド
-	//// 戻値       ：無し
+	//// 戻値       ：なし
 	//// 担当者     ：鴫原 徹
 	//// 備考       ：
 	////            ：

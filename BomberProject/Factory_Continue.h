@@ -3,7 +3,8 @@
 //	ファイル名		：Factory_Continue.h
 //	開発環境		：MSVC++ 2008
 //	最適タブ数		：4
-//	担当者			：佐藤涼
+//	担当者			：佐藤 涼
+//	引き継ぎ		：鴫原 徹
 //	内包ﾃﾞｰﾀと備考	：コンテニュー
 //					▼
 //	namespace wiz;
@@ -29,7 +30,12 @@ enum CONTINUEBEHAVIORPHASE{
 	CONTINUEBEHAVIORPHASE_CHECKSELECTION		,
 
 };
-
+///*************************************************************************
+//class ContinueButton : public ButtonSprite
+//
+//担当者：鴫原 徹
+//用途　：コンテニュー時のボタン
+//*************************************************************************/
 class ContinueButton : public ButtonSprite{
 	Command			m_IssueCommand	;
 	bool			m_bIsOperating	;
@@ -54,7 +60,7 @@ public:
 	////            ：  ├       vector<Object*>&   Vec,            // オブジェクトの配列
 	////            ：  ├ const CONTROLER_STATE*   pCntlState      // コントローラのステータス
 	////            ：  └       Command            pCommand        // コマンド
-	//// 戻値       ：無し
+	//// 戻値       ：なし
 	//// 担当者     ：鴫原 徹
 	//// 備考       ：
 	////            ：
@@ -69,7 +75,7 @@ public:
 	////            ：  ├ vector<Object*>&    Vec                     // オブジェクトの配列
 	////            ：  ├ Tempus2*            i_DrawPacket.GetTime()	   // 時間を管理するクラスへのポインター
 	////            ：  └ Command             i_DrawPacket.pCommand   // コマンド
-	//// 戻値       ：無し
+	//// 戻値       ：なし
 	//// 担当者     ：鴫原 徹
 	//// 備考       ：
 	////            ：
@@ -87,7 +93,13 @@ public:
 		m_bIsOperating = false ;
 	}
 };
-
+///*************************************************************************
+//class ContinueButton : public ButtonSprite
+//
+//担当者：佐藤 涼
+//引継ぎ：鴫原 徹
+//用途　：コンティニュー画面の動作を定義しています
+//*************************************************************************/
 class ContinueBehavior : public Behavior{
 	LPTATRATEXTURE			m_pPTContinue		;
 	LPTATRATEXTURE			m_pPTReally			;
@@ -119,7 +131,7 @@ public:
 	////            ：  ├       vector<Object*>&   Vec,            // オブジェクトの配列
 	////            ：  ├ const CONTROLER_STATE*   pCntlState      // コントローラのステータス
 	////            ：  └       Command            pCommand        // コマンド
-	//// 戻値       ：無し
+	//// 戻値       ：なし
 	//// 担当者     ：鴫原 徹
 	//// 備考       ：
 	////            ：
@@ -134,7 +146,7 @@ public:
 	////            ：  ├ vector<Object*>&    Vec                     // オブジェクトの配列
 	////            ：  ├ Tempus2*            i_DrawPacket.GetTime()	   // 時間を管理するクラスへのポインター
 	////            ：  └ Command             i_DrawPacket.pCommand   // コマンド
-	//// 戻値       ：無し
+	//// 戻値       ：なし
 	//// 担当者     ：鴫原 徹
 	//// 備考       ：
 	////            ：
