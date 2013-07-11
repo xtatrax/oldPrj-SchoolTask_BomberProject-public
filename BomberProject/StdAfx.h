@@ -54,7 +54,7 @@
 #include <wchar.h>
 #include <time.h>
 #include <shlwapi.h>
-
+#include <string.h>
 //サウンド用
 #include <xact3.h>
 #include <shellapi.h>
@@ -71,7 +71,6 @@
 #include <fstream>
 #include <locale>
 #include <string>
-#include <new>
 using namespace std;
 
 // Direct3D9

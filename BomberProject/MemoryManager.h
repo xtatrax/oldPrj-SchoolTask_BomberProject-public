@@ -17,7 +17,8 @@
 
 #ifndef TLIB_MEMORYMANAGER
 #define TLIB_MEMORYMANAGER
-
+#include <new>
+#include <string.h>
 #include "DebugFunctions.h"
 #if defined( CF_MEMORYMANAGER_ENABLE )
 
@@ -28,7 +29,7 @@
 // 用途  : プロジェクト内で確保されたメモリを管理します｡
 // 備考  : 非常に遅いです 現状ほぼDEBUG用です｡
 //       : 終了時等に m_ItemInfo の中身を覗けばリリーズ漏れが起きている
-//       : 実体が生成されている場所が把握出来ます｡
+//       : 実体が生成されてた場所が把握出来ます｡
 //       : CF_DRAW_DEBUGSTRING と CF_MEMORYOUTPUTPROCESS_ENABLE を有効にすれば
 //       : newされた実体の総数と総確保Byteをリアルタイムで見ることができます｡
 //**************************************************************************//
@@ -41,13 +42,13 @@ public:
 	// 備考  : newを記憶する
 	//**************************************************************************//
 	struct itemInfo{
-		void*		pPointer;
-		size_t		iSize	;
-		std::string	sFile	;
-		std::string	sFunc	;
-		const type_info&  sType	;
-		UINT		iLine	;
-		DWORD		iGenerateTime ;
+		void*				pPointer;
+		size_t				iSize	;
+		std::string			sFile	;
+		std::string			sFunc	;
+		const type_info&	sType	;
+		UINT				iLine	;
+		DWORD				iGenerateTime ;
 
 		/////////////////// ////////////////////
 		//// 関数名     ：itemInfo( void* i_pPointer, size_t i_iSize, std::string i_sFile,
@@ -183,22 +184,22 @@ public:
 
 			localtime_s(&local, &timer); /* 地方時に変換 */
 
-			//Debugger::DBGWRITINGLOGTEXT::addStrToFile( L"めもり.txt" , L"ローカル時間 %4d/%2d/%2d %2d:%2d:%2d %d \n",
+			Debugger::DBGWRITINGLOGTEXT::addStrToFile( L"めもり.txt" , L"ローカル時間 %4d/%2d/%2d %2d:%2d:%2d %d \n",
 				local.tm_year + 1900, local.tm_mon + 1, local.tm_mday, local.tm_hour,
 				local.tm_min, local.tm_sec, local.tm_isdst );
-			//Debugger::DBGWRITINGLOGTEXT::addStrToFile( L"めもり.txt" , L"総インスタンス数 : %d\n"		, m_ItemInfo.size()  );
-			//Debugger::DBGWRITINGLOGTEXT::addStrToFile( L"めもり.txt" , L"確保領域容量     : %d Byte\n"	, m_dwAreaSize       );
+			Debugger::DBGWRITINGLOGTEXT::addStrToFile( L"めもり.txt" , L"総インスタンス数 : %d\n"		, m_ItemInfo.size()  );
+			Debugger::DBGWRITINGLOGTEXT::addStrToFile( L"めもり.txt" , L"確保領域容量     : %d Byte\n"	, m_dwAreaSize       );
 			
 			DWORD i = 0 ;
 			for(  ; it != end ; it++ ){
-				//Debugger::DBGWRITINGLOGTEXT::addStrToFile( "めもり.txt" , "////////////\n"                           );
-				//Debugger::DBGWRITINGLOGTEXT::addStrToFile( "めもり.txt" , "// データ %d \n"         , i                 );
-				//Debugger::DBGWRITINGLOGTEXT::addStrToFile( "めもり.txt" , "// ポインタ   : 0x%X \n" , it->pPointer      );
-				//Debugger::DBGWRITINGLOGTEXT::addStrToFile( "めもり.txt" , "// サイズ     : %d \n"   , it->iSize         );
-				//Debugger::DBGWRITINGLOGTEXT::addStrToFile( "めもり.txt" , "// ファイル名 : %s \n"   , it->sFile.c_str() );
-				//Debugger::DBGWRITINGLOGTEXT::addStrToFile( "めもり.txt" , "// 関数       : %s \n"   , it->sFunc.c_str() );
-				//Debugger::DBGWRITINGLOGTEXT::addStrToFile( "めもり.txt" , "// 行         : %d \n"   , it->iLine         );
-				//Debugger::DBGWRITINGLOGTEXT::addStrToFile( "めもり.txt" , "// 時間       : %d \n\n" , it->iGenerateTime );
+				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "めもり.txt" , "////////////\n"                           );
+				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "めもり.txt" , "// データ %d \n"         , i                 );
+				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "めもり.txt" , "// ポインタ   : 0x%X \n" , it->pPointer      );
+				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "めもり.txt" , "// サイズ     : %d \n"   , it->iSize         );
+				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "めもり.txt" , "// ファイル名 : %s \n"   , it->sFile.c_str() );
+				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "めもり.txt" , "// 関数       : %s \n"   , it->sFunc.c_str() );
+				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "めもり.txt" , "// 行         : %d \n"   , it->iLine         );
+				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "めもり.txt" , "// 時間       : %d \n\n" , it->iGenerateTime );
 				i ++ ;
 			}
 		}
@@ -218,7 +219,19 @@ public:
 	////            ：プログラム終了時の最後の最後でのみこの関数を呼び出してください
 	////
 	static void Clear(){
+		if( m_ItemInfo.size() != 0 ){
 		#if defined( CF_MEMORYLEEKOUTPUT_ENABLE )
+			wchar_t cbuf[255];
+			wsprintf( cbuf, L"%d", m_ItemInfo.size() );
+			wstring buf ;
+			buf += cbuf	 ;
+			buf += L"個のメモリリークを検出しました。\n";
+			buf += L"リーク一覧を";
+			buf += Debugger::DBGWRITINGLOGTEXT::GetDefaultLogFolder();
+			buf += Debugger::DBGWRITINGLOGTEXT::GetDefaultFileName();
+			buf += L"へ出力しました\n";
+
+			
 			time_t timer;
 			struct tm local;
 
@@ -227,29 +240,34 @@ public:
 
 			localtime_s(&local, &timer); /* 地方時に変換 */
 			//#define pFileName "LeekMemoryList.txt" 
-			//Debugger::DBGWRITINGLOGTEXT::addStrToFile( L"LeekMemoryList.txt" , L"ローカル時間 %4d/%2d/%2d %2d:%2d:%2d %d \n",
+			Debugger::DBGWRITINGLOGTEXT::addStrToFile( L"LeekMemoryList.txt" , L"ローカル時間 %4d/%2d/%2d %2d:%2d:%2d %d \n",
 				local.tm_year + 1900, local.tm_mon + 1, local.tm_mday, local.tm_hour,
 				local.tm_min, local.tm_sec, local.tm_isdst );
-			//Debugger::DBGWRITINGLOGTEXT::addStrToFile( L"LeekMemoryList.txt"  , L"総インスタンス数 : %d\n"		, m_ItemInfo.size()  );
-			//Debugger::DBGWRITINGLOGTEXT::addStrToFile( L"LeekMemoryList.txt"  , L"確保領域容量     : %d Byte\n"	, m_dwAreaSize       );
+			Debugger::DBGWRITINGLOGTEXT::addStrToFile( L"LeekMemoryList.txt"  , L"総インスタンス数 : %d\n"		, m_ItemInfo.size()  );
+			Debugger::DBGWRITINGLOGTEXT::addStrToFile( L"LeekMemoryList.txt"  , L"確保領域容量     : %d Byte\n"	, m_dwAreaSize       );
 			
 			DWORD i = 0 ;
 		#endif
-		std::list<itemInfo>::iterator it ;
-		for( it = m_ItemInfo.begin() ; it != m_ItemInfo.end() ; it++ ){
+			std::list<itemInfo>::iterator it ;
+			for( it = m_ItemInfo.begin() ; it != m_ItemInfo.end() ; it++ ){
 		#if defined( CF_MEMORYLEEKOUTPUT_ENABLE )
-				//Debugger::DBGWRITINGLOGTEXT::addStrToFile( "LeekMemoryList.txt"  , "////////////\n"                              );
-				//Debugger::DBGWRITINGLOGTEXT::addStrToFile( "LeekMemoryList.txt"  , "// データ %d \n"         , i                 );
-				//Debugger::DBGWRITINGLOGTEXT::addStrToFile( "LeekMemoryList.txt"  , "// ポインタ   : 0x%X \n" , it->pPointer      );
-				//Debugger::DBGWRITINGLOGTEXT::addStrToFile( "LeekMemoryList.txt"  , "// サイズ     : %d \n"   , it->iSize         );
-				//Debugger::DBGWRITINGLOGTEXT::addStrToFile( "LeekMemoryList.txt"  , "// ファイル名 : %s \n"   , it->sFile.c_str() );
-				//Debugger::DBGWRITINGLOGTEXT::addStrToFile( "LeekMemoryList.txt"  , "// 関数       : %s \n"   , it->sFunc.c_str() );
-				//Debugger::DBGWRITINGLOGTEXT::addStrToFile( "LeekMemoryList.txt"  , "// 行         : %d \n"   , it->iLine         );
-				//Debugger::DBGWRITINGLOGTEXT::addStrToFile( "LeekMemoryList.txt"  , "// 時間       : %d \n\n" , it->iGenerateTime );
+				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "LeekMemoryList.txt"  , "////////////\n"                              );
+				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "LeekMemoryList.txt"  , "// データ %d \n"         , i                 );
+				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "LeekMemoryList.txt"  , "// ポインタ   : 0x%X \n" , it->pPointer      );
+				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "LeekMemoryList.txt"  , "// サイズ     : %d \n"   , it->iSize         );
+				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "LeekMemoryList.txt"  , "// ファイル名 : %s \n"   , it->sFile.c_str() );
+				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "LeekMemoryList.txt"  , "// 関数       : %s \n"   , it->sFunc.c_str() );
+				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "LeekMemoryList.txt"  , "// 行         : %d \n"   , it->iLine         );
+				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "LeekMemoryList.txt"  , "// 時間       : %d \n\n" , it->iGenerateTime );
 				i++;
 		#endif
-			free( it->pPointer );
-			it->pPointer = NULL ;
+				free( it->pPointer );
+				it->pPointer = NULL ;
+			}
+		#if defined( CF_MEMORYLEEKOUTPUT_ENABLE )
+				::MessageBox( 0, buf.c_str(), L"警告", MB_OK | MB_ICONWARNING );
+				::MessageBox( 0, L"なお、このログは蓄積して、ハードディスクを\n圧迫する可能性があるのでご注意ください", L"警告", MB_OK | MB_ICONWARNING );
+		#endif
 		}
 		m_ItemInfo.clear();
 	}
@@ -277,7 +295,7 @@ public:
 
 inline void* operator new(size_t iSize,LPCSTR  sFile  , LPCSTR  sFunc  , UINT iLine )
 {
-	return TMemoryManager::add(iSize,sFile,sFunc,iLine);
+	return TMemoryManager::add(iSize,strrchr(sFile,'\\' ) + 1,sFunc,iLine);
 };
 
 inline void operator delete(void* pv,LPCSTR  sFile, LPCSTR  sFunc, UINT iLine){
@@ -290,10 +308,10 @@ inline void operator delete(void* pv){
 
 	//	: 強制new置き換え
 	#if defined( CF_OVERLORDNEW_ENABLE )
-		#define new new(strrchr(__FILE__,'\\' ) + 1, __FUNCTION__, __LINE__)
+		#define new new(__FILE__ , __FUNCTION__, __LINE__)
 	#endif
 
-	#define NEW new(strrchr(__FILE__,'\\' ) + 1, __FUNCTION__, __LINE__)
+	#define NEW new(__FILE__, __FUNCTION__, __LINE__)
 
 #else /* CF_MEMORYMANAGER_ENABLE */
 	#define NEW new

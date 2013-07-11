@@ -24,6 +24,42 @@ class DBGWRITINGLOGTEXT{
 	static wstring DefaultLogFolder ;
 	static wstring DefaultLogFileName; 
 public:
+	/////////////////// ////////////////////
+	//// 関数名     ：static wstring& DBGWRITINGLOGTEXT::GetDefaultLogFolder()
+	//// カテゴリ   ：ゲッター
+	//// 用途       ：フォルダへのパスを返す
+	//// 引数       ：なし
+	//// 戻値       ：デフォルトのログ出力フォルダへの相対パス
+	//// 担当者     ：鴫原 徹
+	//// 備考       ：
+	////            ：
+	////
+	static wstring& GetDefaultLogFolder(){
+		return DefaultLogFolder;
+	}
+	/////////////////// ////////////////////
+	//// 関数名     ：static wstring& DBGWRITINGLOGTEXT::GetDefaultFileName()
+	//// カテゴリ   ：ゲッター
+	//// 用途       ：ファイル名を返す
+	//// 引数       ：なし
+	//// 戻値       ：デフォルトのログ出力ファイルのファイル名
+	//// 担当者     ：鴫原 徹
+	//// 備考       ：
+	////            ：
+	////
+	static wstring& GetDefaultFileName(){
+		return DefaultLogFileName;
+	}
+	/////////////////// ////////////////////
+	//// 関数名     ：static void DBGWRITINGLOGTEXT::OutputSystemLog(LPCWSTR i_sOutPutString)
+	//// カテゴリ   ：メンバ関数
+	//// 用途       ：Visual Studioの出力ウインドウ等へ文字列を表示させる
+	//// 引数       ：  LPCWSTR    i_sOutPutString     //  : 表示させたい文字列
+	//// 戻値       ：なし
+	//// 担当者     ：鴫原 徹
+	//// 備考       ：OutputDebugStringWと全く同等の操作をします
+	////            ：
+	////
 	static void OutputSystemLog(LPCWSTR i_sOutPutString){
 		OutputDebugStringW(i_sOutPutString);
 	}
@@ -34,27 +70,8 @@ public:
 	//// 引数       ：なし
 	//// 戻値       ：なし
 	//// 担当者     ：鴫原 徹
-	//// 備考       ：必ずこの関数か､同名の別の関数を最初に一回だけ呼んでください
+	//// 備考       ：必ずこの関数か､同名の別の関数をWinMain等で最初に一回だけ呼んでください
 	////            ：
-	////･････････････
-	////======== サンプル ========
-	//// void main(){
-	////
-	////     // ※本関数
-	////     DBGWRITINGLOGTEXT::Init();   // クラスの初期化
-	////
-	////     while( boolean ){
-	////
-	//// ～～～～～～～～～～～～
-	//// ～～～～～～～～～～～～
-	////
-	////         if( foo ){
-	////
-	////             DBGWRITINGLOGTEXT::addStr( "追記したい文字列\n %s" , "付随のパラメータ" );
-	////
-	////         }
-	////     }
-	//// }
 	////
 	static void Init(){
 		if(PathFileExists(DefaultLogFileName.c_str())){
@@ -69,27 +86,8 @@ public:
 	//// 引数       ：    wstring FileName    // ログファイルの名前を指定
 	//// 戻値       ： なし
 	//// 担当者     ： 鴫原 徹
-	//// 備考       ： 必ずこの関数か､同名の別の関数を最初に一回だけ呼んでください
+	//// 備考       ： 必ずこの関数か､同名の別のWinMain等で関数を最初に一回だけ呼んでください
 	////            ：
-	////･････････････
-	////======== サンプル ========
-	//// void main( void ){
-	////
-	////     // ※本関数
-	////     DBGWRITINGLOGTEXT::Init( L"保存するファイル名" );   // クラスの初期化
-	////
-	////     while( boolean ){
-	////
-	//// ～～～～～～～～～～～～
-	//// ～～～～～～～～～～～～
-	////
-	////         if( foo ){
-	////
-	////             DBGWRITINGLOGTEXT::addStr( "追記したい文字列\n %s" , "付随のパラメータ" );
-	////
-	////         }
-	////     }
-	//// }
 	////
 	static void Init(wstring FileName){
 		DefaultLogFileName = FileName;
@@ -149,26 +147,6 @@ public:
 		}
 		#endif
 	}
-	/////////////////// ////////////////////
-	//// 関数名     ： static void addStr(wchar_t* addStr,...)
-	//// カテゴリ   ： メンバ関数
-	//// 用途       ： ファイルへ文字列を追加
-	//// 引数       ： なし
-	//// 戻値       ： なし
-	//// 担当者     ： 鴫原 徹
-	//// 備考       ：
-	////            ：
-	////
-	//static void addStr(wchar_t* addStr){
-	//	FILE* fp ;
-	//	_wfopen_s(&fp,DefaultLogFileName.c_str(),L"a");
-	//	if(fp){
-	//		fwprintf_s(fp,L"%s",addStr);
-	//		fclose(fp);
-	//	}
-	//}
-
-/* 上のComment表示避け */
 
 	/////////////////// ////////////////////
 	//// 関数名     ： static void addStr(const addStr* addStr,...)
@@ -342,11 +320,9 @@ public:
 //*************************************************//
 class DBGSTR{
 public:
-	#if defined( DIRECT3D_VERSION )
 	static bool				m_bDrawFlag;
 	static wstring			str;
 	static LPD3DXFONT		m_lpDebagFont;        // フォントオブジェク
-	#endif
 	/////////////////// ////////////////////
 	//// 関数名     ： static void addStr(wchar_t* addStr,...)
 	//// カテゴリ   ： メンバ関数
@@ -359,7 +335,7 @@ public:
 	////            ：
 	////
 	static void addStr(const wchar_t* addStr,...){
-		#if defined( DIRECT3D_VERSION ) && defined(CF_DRAW_DEBUGSTRING)
+		#if defined(CF_DRAW_DEBUGSTRING)
 		if(5120 > str.size()  ){
 			wchar_t strBuf[1024];
 			va_list	argp;
@@ -382,7 +358,7 @@ public:
 	////            ：
 	////
 	static void addStrTop(const wchar_t* addStr,...){
-		#if defined( DIRECT3D_VERSION ) && defined(CF_DRAW_DEBUGSTRING)
+		#if defined(CF_DRAW_DEBUGSTRING)
 		if(5120 > str.size()  ){
 			wchar_t strBuf[1024];
 			va_list	argp;
@@ -404,7 +380,6 @@ public:
 	//// 備考       ：フォントなどを構築
 	////            ：必ず最初に一度だけ呼んでください
 	////
-#if defined( DIRECT3D_VERSION )
 	static void Init(LPDIRECT3DDEVICE9	i_pD3DDevice){
 		#if defined(CF_DRAW_DEBUGSTRING)
 		try{
@@ -436,7 +411,6 @@ public:
 		}
 		#endif
 	}
-#endif
 	/////////////////// ////////////////////
 	//// 関数名     ： static void Draw()
 	//// カテゴリ   ： メンバ関数
@@ -453,7 +427,7 @@ public:
 				addStrTop(L"============================================================================================================\n");
 				addStrTop(L"=====                                      デバッグ文字列出力                                          =====\n");
 				addStrTop(L"============================================================================================================\n");
-				//Debugger::DBGWRITINGLOGTEXT::addStrToFile( wstring(L"DebugStr.LOG"), str.c_str() );
+				Debugger::DBGWRITINGLOGTEXT::addStrToFile( wstring(L"DebugStr.LOG"), str.c_str() );
 			}
 			if(m_bDrawFlag){
 				m_lpDebagFont->DrawText(NULL,str.c_str(), -1, NULL

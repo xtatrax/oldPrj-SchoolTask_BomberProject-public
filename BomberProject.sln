@@ -7,15 +7,21 @@ Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
 		Presen|Win32 = Presen|Win32
-		Release|Win32 = Release|Win32
+		Release_FullScreen|Win32 = Release_FullScreen|Win32
+		Release_Window|Win32 = Release_Window|Win32
+		SemiRelease|Win32 = SemiRelease|Win32
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{528006D9-2266-4A26-A786-507305749D7E}.Debug|Win32.ActiveCfg = Debug|Win32
 		{528006D9-2266-4A26-A786-507305749D7E}.Debug|Win32.Build.0 = Debug|Win32
 		{528006D9-2266-4A26-A786-507305749D7E}.Presen|Win32.ActiveCfg = Presen|Win32
 		{528006D9-2266-4A26-A786-507305749D7E}.Presen|Win32.Build.0 = Presen|Win32
-		{528006D9-2266-4A26-A786-507305749D7E}.Release|Win32.ActiveCfg = Release|Win32
-		{528006D9-2266-4A26-A786-507305749D7E}.Release|Win32.Build.0 = Release|Win32
+		{528006D9-2266-4A26-A786-507305749D7E}.Release_FullScreen|Win32.ActiveCfg = Release_FullScreen|Win32
+		{528006D9-2266-4A26-A786-507305749D7E}.Release_FullScreen|Win32.Build.0 = Release_FullScreen|Win32
+		{528006D9-2266-4A26-A786-507305749D7E}.Release_Window|Win32.ActiveCfg = Release_Window|Win32
+		{528006D9-2266-4A26-A786-507305749D7E}.Release_Window|Win32.Build.0 = Release_Window|Win32
+		{528006D9-2266-4A26-A786-507305749D7E}.SemiRelease|Win32.ActiveCfg = SemiRelease|Win32
+		{528006D9-2266-4A26-A786-507305749D7E}.SemiRelease|Win32.Build.0 = SemiRelease|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

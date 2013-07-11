@@ -23,7 +23,7 @@
 #include "Stage_Test.h"
 #include <process.h>
 #include "Factory_Player.h"
-
+#include <string.h>
 
 namespace wiz{
 using namespace bomberobject;
@@ -32,8 +32,7 @@ using namespace bomberobject;
  Scene 定義部
 ***************************************************************************/
 HANDLE	Scene::m_hLoadingThread				;
-//Stage*	Scene::m_pStgBuf			= NULL	;
-//bool	Scene::m_bLoadingComplete	= false	;
+
 /////////////////// ////////////////////
 //// 関数名     ：void Clear()
 //// カテゴリ   ：関数
@@ -88,13 +87,13 @@ Scene::Scene(LPDIRECT3DDEVICE9 pD3DDevice,Command* pCommand)
 		//	: デバッグ用設定
 		#if defined(ON_DEBUGGINGPROCESS)
 			//ルートのステージにデバッグメニューを設定
-		pCommand->m_Command = GM_OPENSTAGE_TITLE ;
-		//*pCommand = Command(GM_OPENSTAGE_PLAY,3,0) ;
-		//*pCommand = Command(GM_OPENSTAGE_PLAY,100,0) ;
+			pCommand->m_Command = GM_OPENSTAGE_TITLE ;
+			//*pCommand = Command(GM_OPENSTAGE_PLAY,3,0) ;
+			//*pCommand = Command(GM_OPENSTAGE_PLAY,100,0) ;
 		#else 
 		//	: リリース用設定
 		//ルートのステージにタイトルメニューを設定
-		pCommand->m_Command = GM_OPENSTAGE_TITLE ;
+			pCommand->m_Command = GM_OPENSTAGE_TITLE ;
 
 		#endif
 		//
@@ -226,8 +225,10 @@ void Scene::CommandTranslator(BassPacket& i_BassPacket){
 		case GM_OPENSTAGE_TITLE:
 			//	: タイトル画面
 			SafeDeleteStage(m_pRootStage);
-			m_pRootStage = new StageSelect( i_BassPacket.GetDevice() , new TitleStage(i_BassPacket.GetDevice()));
-			
+			m_pRootStage =
+				new
+				StageSelect( i_BassPacket.GetDevice() , new TitleStage(i_BassPacket.GetDevice()));
+			//strrchr(__FILE__,'\\' );
 			break;
 		case GM_OPENSTAGE_LOAD_PLAY:
 			comBuf.m_Command = GM_OPENSTAGE_PLAY;
@@ -363,7 +364,7 @@ unsigned __stdcall Scene::LoadingThread(void *args)
 	
 	//	: サスペンド実験用ループ
 	while(true){
-		switch(This->m_LoadCommand.m_Command){
+		//switch(This->m_LoadCommand.m_Command){
 			//	: ゲームステージ
 			//case GM_OPENSTAGE_PLAY:
 			//	This->m_pStgBuf = new PlayOpeningStage(This->m_pLoadDevice);
@@ -375,7 +376,7 @@ unsigned __stdcall Scene::LoadingThread(void *args)
 			//	SafeDeleteStage();
 			//	m_pRootStage = new DevelopStage(i_DrawPacket.GetDevice());
 			//	break;
-		}
+		//}
 		This->m_bLoadingComplete = true;
 		This->m_pLoadDevice = NULL ;
 		This->m_LoadCommand.Clear();

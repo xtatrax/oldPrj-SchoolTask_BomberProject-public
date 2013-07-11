@@ -346,15 +346,26 @@ Factory_Item::Factory_Item(FactoryPacket* fpac){
         D3DCOLORVALUE BallAmbient = {0.0f,0.7f,0.7f,1.0f};
 		Item*	it	=	new	Item(fpac,NULL,OBJID_3D_ITEM);
 
-		//アイテム(小)
-		for(int i = 0; i < 9; i++){
-			for(int j = 0; j < 80*ItemDiffusionRate; j++){
-				it->addItem(D3DXVECTOR3((float(i)*6.0f+float(rand()%100*0.05f))+1.5f,
-										(float(j)*(ItemDiffusionRate)+float(rand()%100*0.05f))+1.5f,0.0f),
-							ITEM_SCALE,
-							BallDiffuse,BallSpecular,BallAmbient);
-			}
+		int ItemQty = 800;
+		for(int i = 0; i < ItemQty ; i++){
+			it->addItem(
+				D3DXVECTOR3( (float)(rand() *i % 50),
+							 (float)(rand() *i % 700),
+							 0.0f
+				),
+				ITEM_SCALE,
+				BallDiffuse,BallSpecular,BallAmbient);
 		}
+
+		//アイテム(小)
+		//for(int i = 0; i < 9; i++){
+		//	for(int j = 0; j < 80*ItemDiffusionRate; j++){
+		//		it->addItem(D3DXVECTOR3((float(i)*6.0f+float(rand()%100*0.05f))+1.5f,
+		//								(float(j)*(ItemDiffusionRate)+float(rand()%100*0.05f))+1.5f,0.0f),
+		//					ITEM_SCALE,
+		//					BallDiffuse,BallSpecular,BallAmbient);
+		//	}
+		//}
 
 		//アイテム(大)
 		it->addItem(D3DXVECTOR3(10.0f,10.0f,0.0f),

@@ -260,12 +260,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE
 
 		//Debugger::DBGWRITINGLOGTEXT::addStr(L"ゲームシステム終了処理開始");
 		SafeDelete( device );
-		::PostQuitMessage(0);
 		ShowCursor(true);
 		//wiz::TextureManager::Release();
 #if defined( CF_MEMORYMANAGER_ENABLE )
 		TMemoryManager::Clear();
 #endif
+		::PostQuitMessage(0);
 		return ret ;
 		/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 	}

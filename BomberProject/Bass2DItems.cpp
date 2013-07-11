@@ -29,11 +29,31 @@ bool		Cursor2D::m_bMouseRBLock = false ;
 DWORD		Cursor2D::m_tLastTime	= timeGetTime() ;
 const float	Cursor2D::m_fLockTime	= 0.3f ;
 
+/////////////////// ////////////////////
+//// 関数名     ：
+//// カテゴリ   ：
+//// 用途       ：
+//// 引数       ：なし
+//// 戻値       ：なし
+//// 担当者     ：鴫原 徹
+//// 備考       ：
+////            ：
+////
 Point Cursor2D::getPos(){
 	GetCursorPos( &m_vMousePoint ) ;
 	ScreenToClient( wiz::DxDevice::m_hWnd , &m_vMousePoint) ;
 	return m_vMousePoint ;
 }
+/////////////////// ////////////////////
+//// 関数名     ：
+//// カテゴリ   ：
+//// 用途       ：
+//// 引数       ：なし
+//// 戻値       ：なし
+//// 担当者     ：鴫原 徹
+//// 備考       ：
+////            ：
+////
 bool Cursor2D::clickLButtonWithLock()
 {
 
@@ -60,6 +80,16 @@ bool Cursor2D::clickLButtonWithLock()
 
 	return ret;
 };
+/////////////////// ////////////////////
+//// 関数名     ：
+//// カテゴリ   ：
+//// 用途       ：
+//// 引数       ：なし
+//// 戻値       ：なし
+//// 担当者     ：鴫原 徹
+//// 備考       ：
+////            ：
+////
 bool Cursor2D::clickMButtonWithLock()
 {
 	bool ret = false ;
@@ -85,6 +115,16 @@ bool Cursor2D::clickMButtonWithLock()
 
 	return ret;
 };
+/////////////////// ////////////////////
+//// 関数名     ：
+//// カテゴリ   ：
+//// 用途       ：
+//// 引数       ：なし
+//// 戻値       ：なし
+//// 担当者     ：鴫原 徹
+//// 備考       ：
+////            ：
+////
 bool Cursor2D::clickRButtonWithLock()
 {
 	bool ret = false ;
