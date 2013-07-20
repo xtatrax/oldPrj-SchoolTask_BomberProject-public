@@ -33,10 +33,10 @@
 
 	//	: システム系
 	//#define CF_LOADINGANIMATION				/* ロード画面でマルチスレッドアニメーション */
-	#define CF_MEMORYMANAGER_ENABLE			/* 自作メモリ管理システムを有効化 */
-	#define CF_OVERLORDNEW_ENABLE			/* 自作のnewを強制化 */
-	#define CF_MEMORYOUTPUTPROCESS_ENABLE	/* 自作メモリ管理システムにより管理されているアイテムのファイルへの書き出しを可能にする(Manager有効時) */
-	#define CF_DEBUG_JUMPTOOTHGOAL			/* ゴール手前へJUMP可能 */
+	#define CF_MEMORYMANAGER_ENABLE				/* 自作のメモリ管理システムを有効化 */
+	#define CF_OVERLORDNEW_ENABLE				/* 自作のnewを強制化( 内部でnewをオーバーライドしているクラスがある場合エラーを起こす可能性があります ) */
+	#define CF_MEMORYOUTPUTPROCESS_ENABLE		/* 自作のメモリ管理システムにより管理されているアイテムのファイルへの書き出しを可能にする(Manager有効時) */
+	#define CF_DEBUG_JUMPTOOTHGOAL				/* ゴール手前へJUMP可能 */
 
 
 
@@ -121,7 +121,8 @@
 
 //#define STANDARD_WINDOW_HEIGHT  (  768.0f)	/* ウインドウモードの高さ   */
 //#define STANDARD_WINDOW_WIDTH   ( 1366.0f)	/* ウインドウモードの幅     */
-
+//#define STANDARD_WINDOW_HEIGHT  (  600.0f)	/* ウインドウモードの高さ   */
+//#define STANDARD_WINDOW_WIDTH   ( 1024.0f)	/* ウインドウモードの幅     */
 #else
 #define STANDARD_WINDOW_HEIGHT  (  600.0f)	/* ウインドウモードの高さ   */
 #define STANDARD_WINDOW_WIDTH   ( 1024.0f)	/* ウインドウモードの幅     */
@@ -153,7 +154,6 @@
 #define MYVK_GAMEPAD_STICK_RIGHT	( 'L' )
 #define MYVK_GAMEPAD_STICK_LEFT		( 'J' )
 
-
 #define MYVK_DEBUG_STOP_UPDATE				( VK_F12     )
 #define MYVK_DEBUG_SLOW_UPDATE				( VK_F11     )
 #define MYVK_DEBUG_OUTPUT_DBGSTR			( VK_F9      )
@@ -164,8 +164,9 @@
 #define MYVK_DEBUG_STAGE_RESTART			( VK_RETURN  )
 #define MYVK_DEBUG_STAGE_RESTART_SUBKEY		( VK_SHIFT   )
 #define MYVK_DEBUG_STAGE_RELOAD_SUBKEY		( VK_MENU    )
-#define MYVK_DEBUG_INVISIBLEGAUGE_MAX		( 'X'     )
+#define MYVK_DEBUG_INVISIBLEGAUGE_MAX		( 'X'        )
 #define MYVK_DEBUG_STAGE_RULER				( 'L'        )
+#define MYVK_DEBUG_STAGE_RULER_SUBKEY		( VK_SHIFT   )
 #define MYVK_DEBUG_SWITCH_ALPHABLEND		( 'A'        )
 
 #define UI_HEIGHT							( 88.0f )	//	: UIの高さ
@@ -234,7 +235,9 @@ static const bool			g_bIsCookTranceEnable_Coil		= false ;
 namespace wiz{
 	//	: ゲーム内メセージ
 	enum{
+
 		GM_WITHOUT					,	//	: 何もしない
+
 		GM_OPENSTAGE_TITLE			,	//	: タイトル画面を開く
 		GM_OPENSTAGE_SELECT			,	//	: セレクト画面を開く
 		GM_OPENSTAGE_LOAD			,	//	: ロード画面を開く
@@ -248,22 +251,25 @@ namespace wiz{
 		GM_OPENSTAGE_OPTION			,	//	: オプション画面を開く
 		GM_EXIT						,	//	: ゲームを終了する
 
-		GM_OPENDEBUGSTAGE_DEBUGMENU			,
+		//////////
+		//	: デバッグ用ステージを開く
+		GM_OPENDEBUGSTAGE_DEBUGMENU			,	
 		GM_OPENDEBUGSTAGE_PLAY_RELOAD		,
 		GM_OPENDEBUGSTAGE_STAGELOADERTEST	,
 		GM_OPENDEBUGSTAGE_TATEAWORKSPACE	,
 		GM_OPENDEBUGSTAGE_STAGECREATE		,
+		//	: デバッグ用ステージを開く
+		//////////
 
+		GM_CHANGE_PARENTSTAGE	,	//	: 親ステージへ移行
+		GM_CHANGE_CHILDSTAGE	,	//	: 子ステージへ移行
 
-		GM_CHANGE_PARENTSTAGE	,
-		GM_CHANGE_CHILDSTAGE	,
-
-		GM_CONTINUEBUTTON_YES	,
-		GM_CONTINUEBUTTON_NO	,
+		GM_CONTINUEBUTTON_YES	,	//	: YESボタンが押された
+		GM_CONTINUEBUTTON_NO	,	//	: NOボタンが押された
 
 		//////////
 		//	: 
-		GM_PLAYOPENING_END	,
+		//GM_PLAYOPENING_END	,
 
 	};
 	//	: 
@@ -291,7 +297,7 @@ namespace wiz{
 	//////////////////////////////////////////////////
 	//                                              //
 	//                                              //
-	//   オブジェクト識別するために利用知るのID     //
+	//	     オブジェクトを識別するためのID         //
 	//                                              //
 	//   追加の際はすべて大文字で記述してください   //
 	//                                              //

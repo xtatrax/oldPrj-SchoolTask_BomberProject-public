@@ -415,10 +415,10 @@ void Stage::DefaultRender(){
 //// 関数名     ：void CommandTranslator(DrawPacket& i_DrawPacket);
 //// カテゴリ   ：関数
 //// 用途       ：コマンドを解釈してステージの切り替えなどを行う
-//// 引数       ：  DrawPacket& i_DrawPacket             // 画面描画時に必要なデータ群 ↓内容下記
+//// 引数       ：  DrawPacket& i_DrawPacket                       // 画面描画時に必要なデータ群 ↓内容下記
 ////            ：  ├ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 インターフェイスへのポインタ
 ////            ：  ├ vector<Object*>&    Vec                     // オブジェクトの配列
-////            ：  ├ Tempus2*            i_DrawPacket.GetTime()	   // 時間を管理するクラスへのポインター
+////            ：  ├ Tempus2*            i_DrawPacket.GetTime()  // 時間を管理するクラスへのポインター
 ////            ：  └ Command             i_DrawPacket.pCommand   // コマンド
 //// 戻値       ：なし
 //// 担当者     ：鴫原 徹

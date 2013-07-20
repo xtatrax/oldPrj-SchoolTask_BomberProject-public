@@ -188,7 +188,7 @@ void MagnetField::Update( UpdatePacket& i_UpdatePacket ){
 	if( !m_pCoil )		m_pCoil		= (PlayerCoil*)i_UpdatePacket.SearchObjectFromID(OBJID_3D_COIL		) ;
 
 	m_fEffectSizeRate += (float)i_UpdatePacket.GetTime()->getElapsedTime() / MGPRM_EFFECTINTERVAL ;
-	Debugger::DBGSTR::addStr(L"m_fEffectSizeRate = %f\n",m_fEffectSizeRate);
+	//Debugger::DBGSTR::addStr(L"m_fEffectSizeRate = %f\n",m_fEffectSizeRate);
 	m_fEffectSizeRate >= 1.0f && ( m_fEffectSizeRate = 0 ) ;
 
 }

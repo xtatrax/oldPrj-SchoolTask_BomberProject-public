@@ -73,7 +73,7 @@ protected:
 	//‰¼
 	PrimitiveSprite(){};
 public:
-	D3DXMATRIX getAspectMatrix() const{
+	D3DXMATRIX getMatrix() const{
 		D3DXMATRIX mAll;
 		D3DXMATRIX mAspectRate;
 		D3DXVECTOR2 AspectRate = DxDevice::getAspectRate();

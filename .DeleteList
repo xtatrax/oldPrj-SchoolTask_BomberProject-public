@@ -3,7 +3,10 @@
 *.user
 *.suo
 Debug
+Presen
 Release
+Release_Window
+Release_FullScreen
 Thumbs.db
 .*
 !.git

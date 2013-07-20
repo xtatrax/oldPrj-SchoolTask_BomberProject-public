@@ -77,6 +77,7 @@ public:
 
 	void ChangePoint( D3DXVECTOR3& i_vNewPos ){
 		m_BasePos	= i_vNewPos	;
+		m_BasePos.z = 0.01f		;
 		m_fSize		= 0.0f		;
 	}
 };
@@ -111,12 +112,17 @@ protected:
 			:fPosY( i_vPos.y ),vStartPos(i_vPos)
 		{}
 	};
+	D3DXVECTOR3				m_vLineScale		;
+	D3DXVECTOR3				m_vStringScale		;
 	typedef vector< ITEM* > ITEMCONTAINER		;
+	LPTATRATEXTURE			m_pTxLine			;
+	LPTATRATEXTURE			m_pTxCheckString	;
+	LPTATRATEXTURE			m_pTxLastString		;
 	ITEMCONTAINER			m_ItemContainer		;	//	: チェックポイントを格納している配列
 	size_t					m_ActiveItem		;	//	: 次のチェックポイント
 	BEHAVIORSTATE			m_enumNowState		;	//	: 現在の状態
 	float					m_fBassLength		;	//	: チェックポイントバーの元の長さ
-	float					m_fReductionScale	;	//	: 縮小する速さ
+	float					m_fReductionTime	;	//	: 縮小する速さ
 	Camera*					m_pCamera			;	//	: 
 	PlayerCoil*				m_pCoil				;	//	: 通過を確認するためにポインターを保持
 	TimeScore*				m_pTime				;	//	: 時間をリセットするためポインターを保持
@@ -161,11 +167,11 @@ public:
 	////            ：
 	////
 	CheckPoint( LPDIRECT3DDEVICE9 pD3DDevice,
-				float fLength,
-				LPTATRATEXTURE pTexture,
-				LPTATRATEXTURE pTexture2, 
-				LPTATRATEXTURE pTexture3, 
-				wiz::OBJID id = OBJID_SYS_CHECKPOINT );
+				float			fLength,
+				LPTATRATEXTURE	pLineTex				,
+				LPTATRATEXTURE	pCheckPointStringTex	,
+				LPTATRATEXTURE	pLastStingTex			,
+				wiz::OBJID		id = OBJID_SYS_CHECKPOINT );
 	/////////////////// ////////////////////
 	//// 関数名     ：
 	//// カテゴリ   ：デストラクタ
@@ -314,6 +320,20 @@ public:
 	////
 	size_t getActiveItem(){
 		return m_ActiveItem ;
+	}
+	/////////////////// ////////////////////
+	//// 関数名     ：
+	//// 用途       ：メンバ関数
+	//// カテゴリ   ：
+	//// 用途       ：
+	//// 引数       ：
+	//// 戻値       ：
+	//// 担当者     ：
+	//// 備考       ：
+	////            ：
+	////
+	bool ActiveIsLast(){
+		return m_ActiveItem >= m_ItemContainer.size()-1;
 	}
 
 	void	EffectCreate(LPDIRECT3DDEVICE9 pD3DDevice);
