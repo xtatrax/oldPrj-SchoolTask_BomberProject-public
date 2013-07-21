@@ -153,27 +153,23 @@ CheckPoint::CheckPoint(
 		wiz::OBJID			id
 )
 :Box( pD3DDevice, D3DXVECTOR3(1.0f,1.0f,0.0f),g_vZero, g_vZero, CHECKPOINTCOLOR, CHECKPOINTCOLOR, CHECKPOINTCOLOR, id, false, pLineTex )
-//,m_Effect(pD3DDevice, g_vZero, fLength, pTexture)
-//,m_PintMark(pD3DDevice, pTexture2, CHECK_POINT_CHAR_SIZE, g_vZero, g_vZero,&Rect( 0, 0, 512, 64 ), D3DXVECTOR3( 256.0f, 32.0f, 0.0f ), D3DXVECTOR3( 0.0f, -87.0f, 0.0f ))
+,m_pTxLine( pLineTex )
+,m_pTxCheckString( pCheckPointStringTex )
+,m_pTxLastString(  pLastStingTex )
 ,m_enumNowState( BEHAVIORSTATE_WAIT )
 ,m_fBassLength( fLength )
-,m_fReductionScale(4.0f)
+,m_fReductionTime(0.7f)
 ,m_pCoil( NULL )
 ,m_pCamera( NULL )
 ,m_pRestartPoint( NULL )
 ,m_ActiveItem( NULL )
 ,m_pTime( NULL )
-//,m_Color( CHECKPOINTCOLOR )
-//,m_Thicken( 1.0f )
-//,m_Length( fLength )
-//,m_pTextureLast( pTexture3 )
-//,m_bPlayerPass( false )
-//,m_bFirstRead( true )
+,m_vLineScale(1.0f,2.0f,0.0f)
+,m_vStringScale(1.0f,2.0f,0.0f)
 {
-	Box::m_BaseScale.x	= fLength ;
+	m_vLineScale.x		= fLength ;
+	m_vStringScale.x	= fLength / 4;
 	Box::m_BasePos.x	= 25 ;
-	//add(D3DXVECTOR3(25.0f,10.0f,0.0f));
-	//Debugger::DBGWRITINGLOGTEXT::addStr(L"CheckPoint::CheckPoint OK\n");
 }
 /////////////////// ////////////////////
 //// 用途       ：
@@ -266,17 +262,28 @@ void	CheckPoint::PlayerPass(UpdatePacket &i_UpdatePacket){
 ////            ：
 ////
 CheckPoint::WORKSTATE CheckPoint::Reduction(UpdatePacket &i_UpdatePacket){
-	m_BaseScale.x -= m_fReductionScale ;
-	if( m_BaseScale.x >= 0.0f ){
+	m_vLineScale.x		-= m_fBassLength / m_fReductionTime * i_UpdatePacket.GetTime()->getElapsedTime() ;
+	if(!ActiveIsLast()){
+		m_vStringScale.x	-= m_fBassLength / 4 / m_fReductionTime * i_UpdatePacket.GetTime()->getElapsedTime() ;
+		m_vStringScale.y	-= 2 / m_fReductionTime * i_UpdatePacket.GetTime()->getElapsedTime() ;
+	}
+	if( m_vLineScale.x >= 0.0f ){
 		return WORKSTATE_UNFINSHED ;
 	}
 	else{
 		if( m_pRestartPoint ) m_pRestartPoint->ChangePoint(m_ItemContainer[ m_ActiveItem ]->vStartPos);
+		if( ActiveIsLast() ){
+			m_enumNowState = BEHAVIORSTATE_LAST ;
+			m_vLineScale = g_vZero ;
+			return WORKSTATE_COMPLETION ;
+		}
 		m_ActiveItem++;
 		if( m_ActiveItem >= m_ItemContainer.size()){
 			m_enumNowState = BEHAVIORSTATE_LAST ;
 		}else{
-			m_BaseScale.x = m_fBassLength ;
+			m_vLineScale.x = m_fBassLength ;
+			m_vStringScale.x = m_fBassLength /4 ;
+			m_vStringScale.y = 2;
 			m_BasePos.y = m_ItemContainer[ m_ActiveItem ]->fPosY ;
 			m_enumNowState = BEHAVIORSTATE_WAIT;
 		}
@@ -303,25 +310,44 @@ void CheckPoint::Draw( DrawPacket& i_DrawPacket ){
 		//	: 描画対象がいる
 		float DrawBeginLength = m_pCamera->getPosY() + DRAW_TOLERANCE ;
 		if( DrawBeginLength > m_ItemContainer[ m_ActiveItem ]->fPosY ){
-			Box::m_BasePos.y = m_ItemContainer[ m_ActiveItem ]->fPosY;
-			Box::CalcWorldMatrix();
 			//	: 画面の中にいる
-
+			//////////
+			//	: 
+			m_pTexture = m_pTxLine ;
+			Box::m_BasePos.y	= m_ItemContainer[ m_ActiveItem ]->fPosY;
+			Box::m_BaseScale	= m_vLineScale;
+			Box::CalcWorldMatrix();
 			DrawLine(i_DrawPacket);
+			//	: 
+			//////////
+
 		}
 	}
 		
 };
 
+/////////////////// ////////////////////
+//// 用途       ：
+//// カテゴリ   ：
+//// 用途       ：
+//// 引数       ：
+//// 戻値       ：
+//// 担当者     ：
+//// 備考       ：
+////            ：
+////
 void CheckPoint::DrawLine( DrawPacket& i_DrawPacket ){
 	if(m_pTexture){
 		DWORD wkdword;
 		//現在のテクスチャステータスを得る
 		i_DrawPacket.GetDevice()->GetTextureStageState(0,D3DTSS_COLOROP,&wkdword);
+
+		//////////
+		//
 		//ステージの設定
 		i_DrawPacket.GetDevice()->SetTexture(0,m_pTexture->getTexture());
 		//デフィーズ色とテクスチャを掛け合わせる設定
-		i_DrawPacket.GetDevice()->SetTextureStageState( 0, D3DTSS_COLOROP, D3DTOP_MODULATE4X );
+		i_DrawPacket.GetDevice()->SetTextureStageState( 0, D3DTSS_COLOROP, D3DTOP_ADD );
 		i_DrawPacket.GetDevice()->SetTextureStageState( 0, D3DTSS_COLORARG1, D3DTA_TEXTURE );
 		i_DrawPacket.GetDevice()->SetTextureStageState( 0, D3DTSS_COLORARG2, D3DTA_DIFFUSE );
 
@@ -330,6 +356,32 @@ void CheckPoint::DrawLine( DrawPacket& i_DrawPacket ){
 		i_DrawPacket.GetDevice()->SetTransform(D3DTS_WORLD, &m_WorldMatrix);
 		//コモンメッシュのDraw()を呼ぶ
 		CommonMesh::Draw(i_DrawPacket);
+		//
+		//////////
+		//////////
+		//	: テキストの描画
+		Box::m_BaseScale	= m_vStringScale;
+		//m_pTexture = m_pTxCheckString ;
+		Box::CalcWorldMatrix();
+
+		if(ActiveIsLast()){
+			i_DrawPacket.GetDevice()->SetTexture(0,m_pTxLastString->getTexture());
+		}else{
+			i_DrawPacket.GetDevice()->SetTexture(0,m_pTxCheckString->getTexture());
+		}
+		i_DrawPacket.GetDevice()->SetTextureStageState( 0, D3DTSS_COLOROP, D3DTOP_SELECTARG1 );
+		i_DrawPacket.GetDevice()->SetTextureStageState( 0, D3DTSS_COLORARG1, D3DTA_TEXTURE );
+		i_DrawPacket.GetDevice()->SetTextureStageState( 0, D3DTSS_COLORARG2, D3DTA_DIFFUSE );
+
+		//i_DrawPacket.GetDevice()->SetFVF(PlateFVF);
+		// マトリックスをレンダリングパイプラインに設定
+		i_DrawPacket.GetDevice()->SetTransform(D3DTS_WORLD, &m_WorldMatrix);
+		//コモンメッシュのDraw()を呼ぶ
+		CommonMesh::Draw(i_DrawPacket);
+
+		//	: テキストの描画
+		//////////
+
 		i_DrawPacket.GetDevice()->SetTexture(0,0);
 		//ステージを元に戻す
 		i_DrawPacket.GetDevice()->SetTextureStageState(0,D3DTSS_COLOROP,wkdword);
@@ -341,7 +393,6 @@ void CheckPoint::DrawLine( DrawPacket& i_DrawPacket ){
 		//コモンメッシュのDraw()を呼ぶ
 		CommonMesh::Draw(i_DrawPacket);
 	}
-
 }
 
 

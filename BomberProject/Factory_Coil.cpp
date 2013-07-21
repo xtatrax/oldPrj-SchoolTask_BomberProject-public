@@ -188,6 +188,7 @@ PlayerCoil::PlayerCoil(
 ////
 PlayerCoil::~PlayerCoil(){
 
+
 #if defined( ON_DEBUGGINGPROCESS ) | defined( PRESENTATION )
 	SafeDelete( m_pDSPH );
 #endif
@@ -281,9 +282,15 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 #endif
 #if defined(CF_DEBUG_JUMPTOOTHGOAL)
 	if( GetAsyncKeyState( MYVK_DEBUG_STAGE_RULER ) ){
-		GoalObject*		pc		= (GoalObject*)i_UpdatePacket.SearchObjectFromID( OBJID_SYS_CLEARAREA );
-		if( pc )		m_vPos	= pc->GetPos();
-		m_vPos.y -= 3.0f;
+		if( GetAsyncKeyState( MYVK_DEBUG_STAGE_RULER_SUBKEY ) ){
+			GoalObject*		pc		= (GoalObject*)i_UpdatePacket.SearchObjectFromID( OBJID_SYS_CLEARAREA );
+			if( pc )		m_vPos	= pc->GetPos();
+			m_vPos.y -= 3.0f;
+		}else{
+			CheckPoint*		pc		= (CheckPoint*)i_UpdatePacket.SearchObjectFromID( OBJID_SYS_CHECKPOINT );
+			if( pc )		m_vPos	= pc->getLastPosition();
+			m_vPos.y -= 3.0f;
+		}
 	}
 #endif
 

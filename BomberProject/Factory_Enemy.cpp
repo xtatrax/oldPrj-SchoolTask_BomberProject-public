@@ -124,22 +124,14 @@ EnemyModel::~EnemyModel(){
 	m_pCamera	= NULL ;
 	m_pPlayer	= NULL ;
 	m_pCoil		= NULL ;
-
-	//Debugger::DBGWRITINGLOGTEXT::addStr(L"EnemyModel::~EnemyModel  >                                m_ItemMap_All.size(%d)\n",m_ItemMap_All.size());
-	
 	SafeDelete( m_pDeadEffect );
 
 	SafeDeletePointerMap( m_ItemMap_All );
 	m_ItemMap_All.clear();
-	
-	//Debugger::DBGWRITINGLOGTEXT::addStr(L"EnemyModel::~EnemyModel  > SafeDeletePointerMap     >>>>  m_ItemMap_All.size(%d)\n",m_ItemMap_All.size());
-	
+		
 	m_ItemMap_Target.clear();
 	
-	//Debugger::DBGWRITINGLOGTEXT::addStr(L"EnemyModel::~EnemyModel  > m_ItemMap_Target.clear() >>>>  m_ItemMap_All.size(%d)\n",m_ItemMap_All.size());
 	SAFE_RELEASE( m_pMesh );
-	//if( m_pMesh ) m_pMesh->Release();
-	//Debugger::DBGWRITINGLOGTEXT::addStr(L"EnemyModel::~EnemyModel  > m_pMesh->Release() >>>> 完了\n",m_ItemMap_All.size());
 }
 
 /////////////////// ////////////////////
@@ -157,8 +149,8 @@ void EnemyModel::UpdateTargetItem(){
 	TARGETCONTAINER::iterator	TIMit  = m_ItemMap_Target.begin( ),
 								TIMend = m_ItemMap_Target.end( );
 	while( TIMit != TIMend ){
-		if( (*TIMit)->m_fMapKey <= m_pCamera->getPosY()  -DRAWING_RANGE ||
-			(*TIMit)->m_fMapKey >= m_pCamera->getPosY()  +DRAWING_RANGE ){
+		if( (*TIMit)->m_vPos.y <= m_pCamera->getPosY()  -DRAWING_RANGE ||
+			(*TIMit)->m_vPos.y >= m_pCamera->getPosY()  +DRAWING_RANGE ){
 			(*TIMit)->m_bHidden = true ;
 			TIMit = m_ItemMap_Target.erase( TIMit );
 			continue;
@@ -194,7 +186,6 @@ void EnemyModel::UpdateTargetItem(){
 	//
 	//
 	//////////
-	
 }
 
 
@@ -254,6 +245,8 @@ void EnemyModel::Update( UpdatePacket& i_UpdatePacket){
 				m_pCoil->setState(COIL_STATE_DEAD);
 			}
 			if((*it)->m_bIsAlive)i_UpdatePacket.SearchWaveAndPlay( RCTEXT_SOUND_SE_PLAYERBLOKEN );
+			m_pDeadEffect->setPos( (*it)->m_vPos );
+
 			(*it)->m_bIsAlive = false;
 		}
 
@@ -384,7 +377,7 @@ void EnemyModel::Draw(DrawPacket& i_DrawPacket)
 //// 担当者     ：斎藤謙吾
 //// 引き継ぎ   ：本多寛之
 //// 備考       ：
-//////////////////////////////////////////////////////////////////////////////////////////////////////
+////
 void EnemyModel::AddEnemy(
 		const D3DXVECTOR3&		vScale		,
 		const D3DXVECTOR3&		vRot		,

@@ -99,6 +99,7 @@ public:
  class Math;
  用途: 計算用のユーティリティ
  　　　static呼び出しをする
+       将来的に演算系の関数はこの中に収納する
 ****************************************************************************/
 
 class Math{
@@ -807,6 +808,39 @@ inline Object* SearchObjectFromTypeID(vector<Object*>* i_pVec,const type_info& i
 
 
 /////////////////// ////////////////////
+//// 関数名     ：inline D3DCOLORVALUE getD3DCOLORVALUE(float a, float r, float g, float b)
+//// カテゴリ   ：グローバル関数
+//// 用途       ：
+//// 引数       ：
+//// 担当       ：鴫原 徹
+//// 備考       ：いい名前が思いつかない(´・ω・｀)
+////            ：
+////
+inline D3DCOLORVALUE getD3DCOLORVALUE(float a, float r, float g, float b){
+	D3DCOLORVALUE c = { a, r, g, b } ;
+	return c ;
+}
+
+/////////////////// ////////////////////
+//// 関数名     ：inline D3DCOLORVALUE COLOR2D3DCOLORVALUE(Color i_Color, float i_fRate = 1.0f)
+//// カテゴリ   ：
+//// 用途       ：
+//// 引数       ：
+//// 担当       ：
+//// 備考       ：
+////            ：
+inline D3DCOLORVALUE COLOR2D3DCOLORVALUE(Color i_Color, float i_fRate = 1.0f){
+	
+	D3DCOLORVALUE c = {
+		(float)i_Color.byteColor.r / (float)UCHAR_MAX * i_fRate,
+		(float)i_Color.byteColor.g / (float)UCHAR_MAX * i_fRate,
+		(float)i_Color.byteColor.b / (float)UCHAR_MAX * i_fRate,
+		(float)i_Color.byteColor.a / (float)UCHAR_MAX * i_fRate
+	};
+	return c ;
+}
+
+/////////////////// ////////////////////
 //// 関数名     ：
 //// カテゴリ   ：
 //// 用途       ：
@@ -814,30 +848,30 @@ inline Object* SearchObjectFromTypeID(vector<Object*>* i_pVec,const type_info& i
 //// 担当       ：
 //// 備考       ：
 ////            ：
-inline D3DCOLORVALUE getD3DCOLORVALUE(float a, float r, float g, float b){
-	D3DCOLORVALUE c = { a, r, g, b } ;
-	return c ;
-}
-
-inline D3DCOLORVALUE COLOR2D3DCOLORVALUE(Color i_Color, float i_fRate = 1.0f){
-	
-	D3DCOLORVALUE c = {
-		(float)i_Color.byteColor.r / (float)UCHAR_MAX ,
-		(float)i_Color.byteColor.g / (float)UCHAR_MAX ,
-		(float)i_Color.byteColor.b / (float)UCHAR_MAX ,
-		(float)i_Color.byteColor.a / (float)UCHAR_MAX
-	};
-	return c ;
-}
-
 inline D3DCOLORVALUE COLOR2DIFFUSE(Color i_Color, float i_fRate = 0.7f){
 	return COLOR2D3DCOLORVALUE(i_Color,i_fRate) ;
 }
 
+/////////////////// ////////////////////
+//// 関数名     ：
+//// カテゴリ   ：
+//// 用途       ：
+//// 引数       ：
+//// 担当       ：
+//// 備考       ：
+////            ：
 inline D3DCOLORVALUE COLOR2AMBIENT(Color i_Color, float i_fRate = 0.3f){
 	return COLOR2D3DCOLORVALUE(i_Color,i_fRate) ;
 }
 // スクリーン座標をワールド座標に変換
+/////////////////// ////////////////////
+//// 関数名     ：
+//// カテゴリ   ：
+//// 用途       ：
+//// 引数       ：
+//// 担当       ：
+//// 備考       ：
+////            ：
 inline D3DXVECTOR3* CalcScreenToWorld(
    D3DXVECTOR3* pout,
    int Sx,  // スクリーンX座標
@@ -863,6 +897,14 @@ inline D3DXVECTOR3* CalcScreenToWorld(
 
    return pout;
 }
+/////////////////// ////////////////////
+//// 関数名     ：
+//// カテゴリ   ：
+//// 用途       ：
+//// 引数       ：
+//// 担当       ：
+//// 備考       ：
+////            ：
 //スクリーン座標とXZ平面のワールド座標交点算出（ CalcScreenToXZ関数 ）
 // XZ平面とスクリーン座標の交点算出関数
 inline D3DXVECTOR3* CalcScreenToXZ(

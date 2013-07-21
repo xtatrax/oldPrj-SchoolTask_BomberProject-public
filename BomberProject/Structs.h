@@ -26,25 +26,42 @@
 
 //#include "DxDevice.h"
 namespace wiz{
+/**************************************************************************
+ 仮宣言部 定義部
+***************************************************************************/
+
+//	: wiz内クラス
 class  Object ; 
 class  Stage ;
 class  TextureManager ;
 class  StageLoader;
 struct CONTROLER_STATE;
 class  DxDevice;
+
+//	: wiz::system内クラス
 namespace system{
 class  Sound ;
 }
+
+//	: wiz::function内クラス
 namespace functions {
 extern void EarnFromMeshOBB(const LPD3DXBASEMESH i_pMesh,D3DXVECTOR3& o_vPos ,D3DXVECTOR3& o_vSize);
 }
 using namespace functions ;
+
 namespace structs{
 /*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 /**************************************************************************
  struct SaveData : public TLIB::BassSaveaPacketDat;
  用途: セーブデータ
 ****************************************************************************/
+//**************************************************************************//
+// struct SaveData : public TLIB::BassSaveaPacketDat ;
+//
+// 担当  : 鴫原 徹
+// 用途  : セーブデータの保存、読み取りを行うための構造体
+// 備考  : 
+//**************************************************************************//
 struct SaveData : public TLIB::BassSaveaPacketDat{
 private:
 	float fDataStructVer ;
@@ -184,8 +201,10 @@ public:
 // 用途    : アップデート関数郡に流れるデータ
 //**************************************************************************//
 struct BassPacket{
+
 	friend class  DxDevice ;
 	friend class  wiz::Stage ;
+
 //////////
 //	: プロテクト変数
 protected:
@@ -193,10 +212,12 @@ protected:
 	LPDIRECT3DDEVICE9		m_pD3DDevice	;	// デバイス
 	TLIB::Tempus2*			m_pTime			;	// 時間
 	Command*				m_pCommand		;	// コマンド
+
 //////////
 //	: プロテクト関数
 private:
 	void SetStage( wiz::Stage* pStage ){ m_pStage = pStage ; }
+
 //////////
 //	: 公開関数
 public:
@@ -490,8 +511,15 @@ union Color {
 	struct {BYTE b , g , r , a ;}byteColor;
 	Color(){};
 	Color(DWORD Color):dwColor(Color){};
-	Color(BYTE A ,BYTE R ,BYTE G , BYTE B )
+	void ARGB(BYTE A ,BYTE R ,BYTE G , BYTE B )
 	{ byteColor.a = A;byteColor.r = R;byteColor.g = G;byteColor.b = B;};
+	void RGBA(BYTE R ,BYTE G ,BYTE B , BYTE A )
+	{ byteColor.a = A;byteColor.r = R;byteColor.g = G;byteColor.b = B;};
+	void BGRA(BYTE B ,BYTE G ,BYTE R , BYTE A )
+	{ byteColor.a = A;byteColor.r = R;byteColor.g = G;byteColor.b = B;};
+	void ABGR(BYTE A ,BYTE B ,BYTE G , BYTE R )
+	{ byteColor.a = A;byteColor.r = R;byteColor.g = G;byteColor.b = B;};
+
 	Color& operator = (DWORD other){ dwColor = other ; return *this; };
 	operator DWORD(){ return dwColor; }
 };

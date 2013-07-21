@@ -27,11 +27,15 @@
 // class TMemoryManager ;
 // 担当  : 鴫原 徹
 // 用途  : プロジェクト内で確保されたメモリを管理します｡
-// 備考  : 非常に遅いです 現状ほぼDEBUG用です｡
-//       : 終了時等に m_ItemInfo の中身を覗けばリリーズ漏れが起きている
-//       : 実体が生成されてた場所が把握出来ます｡
-//       : CF_DRAW_DEBUGSTRING と CF_MEMORYOUTPUTPROCESS_ENABLE を有効にすれば
+// 備考  : ・非常に遅いです 現状ほぼDEBUG用です｡
+//       : ・終了時等に m_ItemInfo の中身を覗けばリリーズ漏れが起きている
+//       : 実体が生成された場所を把握することが出来ます｡
+//       : ・CF_DRAW_DEBUGSTRING と CF_MEMORYOUTPUTPROCESS_ENABLE を有効にすれば
 //       : newされた実体の総数と総確保Byteをリアルタイムで見ることができます｡
+//       : ・プログラム終了時に確保したメモリが残ってしまっている場合には、
+//       : それらを自動的に開放します。メモリローク防止に役立ちます。
+//       : その際 CF_MEMORYLEEKOUTPUT_ENABLE が有効になっていた場合には、
+//       : 警告とともにログファイルへインスタンス一覧を出力します。
 //**************************************************************************//
 class TMemoryManager{
 public:
@@ -82,6 +86,7 @@ public:
 		,iGenerateTime(i_iGTime)
 		,sType(typeid( i_pPointer ))
 		{
+			/*特に何もしない*/
 		}
 		/////////////////// ////////////////////
 		//// 関数名     ：bool operator () ( const void* other ) const 
@@ -90,8 +95,8 @@ public:
 		//// 引数       ：  const void* other
 		//// 戻値       ：なし
 		//// 担当       ：鴫原 徹
-		//// 備考       ：じつわよくわかってなかったり／(・ × ・)＼
-		////            ：
+		//// 備考       ：検索アルゴリズム用のオーバーロード
+		////            ：じつわよくわかってなかったり／(・ × ・)＼
 		////
 		bool operator () ( const void* other ) const {
 			return this->pPointer == other ;
@@ -103,8 +108,8 @@ public:
 		//// 引数       ：  const void* other
 		//// 戻値       ：なし
 		//// 担当       ：鴫原 徹
-		//// 備考       ：じつわよくわかってなかったり／(・ × ・)＼
-		////            ：
+		//// 備考       ：検索アルゴリズム用のオーバーロード
+		////            ：じつわよくわかってなかったり／(・ × ・)＼
 		////
 		bool operator == ( const void* other ) const {
 			return this->pPointer == other ;
@@ -172,7 +177,7 @@ public:
 	static void Draw(){
 
 		#if defined( CF_MEMORYOUTPUTPROCESS_ENABLE )
-		Debugger::DBGSTR::addStr( L" Memory\n├ Area Size = %d Byte\n└ Instance  = %d Q'ty\n", m_dwAreaSize, m_ItemInfo.size() );
+		Debugger::DBGSTR::addStr( L"MemoryManagerが有効です。非常に重くなる可能性があります。\nMemory\n├ Area Size = %d Byte\n└ Instance  = %d Q'ty\n", m_dwAreaSize, m_ItemInfo.size() );
 		if( GetAsyncKeyState( MYVK_DEBUG_OUTPUT_MEMORY ) ){
 			std::list<itemInfo>::iterator it  = m_ItemInfo.begin();
 			std::list<itemInfo>::iterator end = m_ItemInfo.end();
@@ -217,10 +222,16 @@ public:
 	////            ：通常はこの関数を呼び出さないでください
 	////            ：確実にバグります
 	////            ：プログラム終了時の最後の最後でのみこの関数を呼び出してください
+	////            ：CF_MEMORYLEEKOUTPUT_ENABLE を定義すると、呼び出し時に
+	////            ：MessageBox と LogFile を出力します。
 	////
 	static void Clear(){
 		if( m_ItemInfo.size() != 0 ){
 		#if defined( CF_MEMORYLEEKOUTPUT_ENABLE )
+
+			const char*		pFileNameA = "LeekMemoryList.txt" ;
+			const wchar_t*	pFileNameW = L"LeekMemoryList.txt" ;
+
 			wchar_t cbuf[255];
 			wsprintf( cbuf, L"%d", m_ItemInfo.size() );
 			wstring buf ;
@@ -228,7 +239,7 @@ public:
 			buf += L"個のメモリリークを検出しました。\n";
 			buf += L"リーク一覧を";
 			buf += Debugger::DBGWRITINGLOGTEXT::GetDefaultLogFolder();
-			buf += Debugger::DBGWRITINGLOGTEXT::GetDefaultFileName();
+			buf += pFileNameW;
 			buf += L"へ出力しました\n";
 
 			
@@ -240,25 +251,25 @@ public:
 
 			localtime_s(&local, &timer); /* 地方時に変換 */
 			//#define pFileName "LeekMemoryList.txt" 
-			Debugger::DBGWRITINGLOGTEXT::addStrToFile( L"LeekMemoryList.txt" , L"ローカル時間 %4d/%2d/%2d %2d:%2d:%2d %d \n",
+			Debugger::DBGWRITINGLOGTEXT::addStrToFile( pFileNameW , L"ローカル時間 %4d/%2d/%2d %2d:%2d:%2d %d \n",
 				local.tm_year + 1900, local.tm_mon + 1, local.tm_mday, local.tm_hour,
 				local.tm_min, local.tm_sec, local.tm_isdst );
-			Debugger::DBGWRITINGLOGTEXT::addStrToFile( L"LeekMemoryList.txt"  , L"総インスタンス数 : %d\n"		, m_ItemInfo.size()  );
-			Debugger::DBGWRITINGLOGTEXT::addStrToFile( L"LeekMemoryList.txt"  , L"確保領域容量     : %d Byte\n"	, m_dwAreaSize       );
+			Debugger::DBGWRITINGLOGTEXT::addStrToFile( pFileNameW  , L"総インスタンス数 : %d\n"		, m_ItemInfo.size()  );
+			Debugger::DBGWRITINGLOGTEXT::addStrToFile( pFileNameW  , L"確保領域容量     : %d Byte\n"	, m_dwAreaSize       );
 			
 			DWORD i = 0 ;
 		#endif
 			std::list<itemInfo>::iterator it ;
 			for( it = m_ItemInfo.begin() ; it != m_ItemInfo.end() ; it++ ){
 		#if defined( CF_MEMORYLEEKOUTPUT_ENABLE )
-				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "LeekMemoryList.txt"  , "////////////\n"                              );
-				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "LeekMemoryList.txt"  , "// データ %d \n"         , i                 );
-				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "LeekMemoryList.txt"  , "// ポインタ   : 0x%X \n" , it->pPointer      );
-				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "LeekMemoryList.txt"  , "// サイズ     : %d \n"   , it->iSize         );
-				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "LeekMemoryList.txt"  , "// ファイル名 : %s \n"   , it->sFile.c_str() );
-				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "LeekMemoryList.txt"  , "// 関数       : %s \n"   , it->sFunc.c_str() );
-				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "LeekMemoryList.txt"  , "// 行         : %d \n"   , it->iLine         );
-				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "LeekMemoryList.txt"  , "// 時間       : %d \n\n" , it->iGenerateTime );
+				Debugger::DBGWRITINGLOGTEXT::addStrToFile( pFileNameA  , "////////////\n"                              );
+				Debugger::DBGWRITINGLOGTEXT::addStrToFile( pFileNameA  , "// データ %d \n"         , i                 );
+				Debugger::DBGWRITINGLOGTEXT::addStrToFile( pFileNameA  , "// ポインタ   : 0x%X \n" , it->pPointer      );
+				Debugger::DBGWRITINGLOGTEXT::addStrToFile( pFileNameA  , "// サイズ     : %d \n"   , it->iSize         );
+				Debugger::DBGWRITINGLOGTEXT::addStrToFile( pFileNameA  , "// ファイル名 : %s \n"   , it->sFile.c_str() );
+				Debugger::DBGWRITINGLOGTEXT::addStrToFile( pFileNameA  , "// 関数       : %s \n"   , it->sFunc.c_str() );
+				Debugger::DBGWRITINGLOGTEXT::addStrToFile( pFileNameA  , "// 行         : %d \n"   , it->iLine         );
+				Debugger::DBGWRITINGLOGTEXT::addStrToFile( pFileNameA  , "// 時間       : %d \n\n" , it->iGenerateTime );
 				i++;
 		#endif
 				free( it->pPointer );
@@ -266,7 +277,7 @@ public:
 			}
 		#if defined( CF_MEMORYLEEKOUTPUT_ENABLE )
 				::MessageBox( 0, buf.c_str(), L"警告", MB_OK | MB_ICONWARNING );
-				::MessageBox( 0, L"なお、このログは蓄積して、ハードディスクを\n圧迫する可能性があるのでご注意ください", L"警告", MB_OK | MB_ICONWARNING );
+				::MessageBox( 0, L"なお、このログは蓄積しされます。\nハードディスクを圧迫する可能性があるのでご注意ください", L"警告", MB_OK | MB_ICONWARNING );
 		#endif
 		}
 		m_ItemInfo.clear();
@@ -473,10 +484,10 @@ inline void SafeDeletePointerContainer(T& c){
 					end = c.end()	;
 		while( it != end ){
 			#if defined(CF_DEBUGLOGTEXT_OUTPUT_ENABLE)
-				num++;
-				const type_info& yp = typeid(*(*it));
-				wstring buf ;
-				Avoid::widen( string( yp.name() ), buf);
+				//num++;
+				//const type_info& yp = typeid(*(*it));
+				//wstring buf ;
+				//Avoid::widen( string( yp.name() ), buf);
 				//Debugger::DBGWRITINGLOGTEXT::addStr(L"SafeDeletePointerContainer(T& c) > [%d / %d]個 削除開始 ( %s )\n" , num   , c.size() , buf.c_str() );
 			#endif
 
@@ -551,10 +562,10 @@ inline void SafeReleasePointerContainer(T& c){
 		T::iterator	it  = c.begin()	;
 		while(it != c.end()){
 			#if defined(CF_DEBUGLOGTEXT_OUTPUT_ENABLE)
-						num++;
-						const type_info& yp = typeid(*(*it));
-						wstring buf ;
-						Avoid::widen( string( yp.name() ), buf);
+						//num++;
+						//const type_info& yp = typeid(*(*it));
+						//wstring buf ;
+						//Avoid::widen( string( yp.name() ), buf);
 						//Debugger::DBGWRITINGLOGTEXT::addStr(L"SafeDeletePointerContainer(T& c) > [%d / %d]個 削除開始 ( %s )\n" , num   , c.size() , buf.c_str() );
 			#endif
 			SafeRelease( *it );

@@ -194,7 +194,7 @@ bool Cursor2D::isHitSprite(const PrimitiveSprite* i_TargetSprite)
 
 		//////////
 		//	: Textureのサイズ獲得に失敗したら
-		//	: 計算しようがない!( false )
+		//	: 計算しようがないのでとりあえず false
 		if( FAILED( i_TargetSprite->m_pTexture->getTexture()->GetLevelDesc( 0, &desc ) )){ return false; }
 
 		//////////
@@ -209,21 +209,31 @@ bool Cursor2D::isHitSprite(const PrimitiveSprite* i_TargetSprite)
 	//	: 画像サイズの獲得処理
 	//////////
 	
+	//////////
+	//	: 中心補正
 	poTL.x -= (LONG)i_TargetSprite->m_vCenter.x;
 	poTL.y -= (LONG)i_TargetSprite->m_vCenter.y;
 	poBR.x -= (LONG)i_TargetSprite->m_vCenter.x;
 	poBR.y -= (LONG)i_TargetSprite->m_vCenter.y;
+	//	: 中心補正
+	//////////
 
+	//////////
+	//	: 座標補正
 	poTL.x += (LONG)i_TargetSprite->m_vOffsetPos.x;
 	poTL.y += (LONG)i_TargetSprite->m_vOffsetPos.y;
 	poBR.x += (LONG)i_TargetSprite->m_vOffsetPos.x;
 	poBR.y += (LONG)i_TargetSprite->m_vOffsetPos.y;
+	//	: 座標補正
+	///////////
 
-
+	///////////
+	//	: 
 	D3DXMATRIX mMatrix = i_TargetSprite->getAspectMatrix();
 	poTL = MatrixCalculator(mMatrix,poTL);
 	poBR = MatrixCalculator(mMatrix,poBR);
-
+	//	: 
+	///////////
 
 
 	Rect rc(poTL,poBR);
@@ -337,10 +347,12 @@ PrimitiveSprite::PrimitiveSprite(
 		D3DXMatrixTranslation(&mPos,vPos.x,vPos.y,vPos.z);
 		m_mMatrix = mScale * mRot * mPos ;
 
-		//	: 渡されたRectが自分が管理してもいいとは限らないためここで新しい実体にコピーする
+		//	: 渡されたRectが自分で管理しても良い物とは限らないためここで新しい実体にコピーする
 		if(pRect){
 			m_pRect = new Rect(*pRect);
 		}
+
+		//	: スプライトのインスタンスはゲーム内で一つのみ
 		if( !m_pSprite ){
 			//Debugger::DBGWRITINGLOGTEXT::addStr(L"PrimitiveSprite::PrimitiveSprite  >>>>  スプライトの新規作成をします\n");
 			if( FAILED( D3DXCreateSprite( pD3DDevice, &m_pSprite ) ) ){
@@ -351,6 +363,7 @@ PrimitiveSprite::PrimitiveSprite(
 				);
 			}
 		}
+		//	: このクラスのインスタンス数をカウント
 		m_dwMyInstanceQty++;
 	}
 	catch(...){
@@ -374,11 +387,12 @@ PrimitiveSprite::~PrimitiveSprite(){
 	SafeDelete(m_pRect);
 	//SafeRelease(m_pTexture);
 	m_dwMyInstanceQty--;
+
+	//	: 自分がこのクラスの最後のインスタンスだったらスプライトを削除
 	if( m_dwMyInstanceQty <= 0 ){
 		//Debugger::DBGWRITINGLOGTEXT::addStr(L"PrimitiveSprite::~PrimitiveSprite  >>>>  スプライトが不要になりました 削除します\n");
 		SafeRelease(m_pSprite);
 	}
-
 }
 
 
@@ -398,8 +412,9 @@ void PrimitiveSprite::Draw(DrawPacket& i_DrawPacket)
 {
 	if(m_pSprite && m_pTexture){
 		D3DXMATRIX mAll ;
-		if( m_bApplyAspect )	mAll = getAspectMatrix();
-		else					mAll = m_mMatrix ;
+		//if( m_bApplyAspect )	
+		mAll = this->getAspectMatrix();
+		//else					mAll = m_mMatrix ;
 		
 		m_pSprite->Begin( D3DXSPRITE_ALPHABLEND );
 		{

@@ -53,7 +53,6 @@ class EnemyModel : public Object {
 		D3DXVECTOR3		m_vStartPos		;
 		float			m_fRotY			;
 		POLE			m_bPole			;
-		float			m_fMapKey		;
 		bool			m_bHidden		;
 		bool			m_bIsAlive		;
 
@@ -203,7 +202,6 @@ public:
 	//// íSìñé“     ÅFâgín ëÂóm
 	//// îıçl       ÅF
 	void HitTestWall( OBB , UpdatePacket& i_UpdatePacket);
-
 
 };
 

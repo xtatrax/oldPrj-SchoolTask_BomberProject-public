@@ -591,19 +591,19 @@ void StageLoader::PointSearch( vector<vector<wstring>>& i_vvCsvData, CSVMATRIX& 
 ////            ÅFPointSearchä÷êîÇ©ÇÁåƒÇŒÇÍÇ‹Ç∑
 ////            ÅFáC
 ////
-float	getCsvFloat(	vector<vector<wstring>> vvCsvData, vector<vector<wstring>>::size_type Line, UINT Num, float		Default = 0.0f){
+float	getCsvFloat(	vector<vector<wstring>>& vvCsvData, vector<vector<wstring>>::size_type Line, UINT Num, float		Default = 0.0f){
 	if( Num == UINT_MAX ) return Default ;
 	return (float)wcstod( vvCsvData[ Line ][ Num ].c_str(), NULL);
 };
-LONG	getCsvLong(		vector<vector<wstring>> vvCsvData, vector<vector<wstring>>::size_type Line, UINT Num, LONG		Default = 0){
+LONG	getCsvLong(		vector<vector<wstring>>& vvCsvData, vector<vector<wstring>>::size_type Line, UINT Num, LONG		Default = 0){
 	if( Num == UINT_MAX ) return Default ;
 	return wcstol( vvCsvData[ Line ][ Num ].c_str(), NULL, 10);
 };
-wstring	getCsvString(		vector<vector<wstring>> vvCsvData, vector<vector<wstring>>::size_type Line, UINT Num, wstring	Default = L"" ){
+wstring	getCsvString(		vector<vector<wstring>>& vvCsvData, vector<vector<wstring>>::size_type Line, UINT Num, wstring	Default = L"" ){
 	if( Num == UINT_MAX ) return Default ;
 	return vvCsvData[ Line ][ Num ] ;
 };
-POLE getCsvPOLE(		vector<vector<wstring>> vvCsvData, vector<vector<wstring>>::size_type Line, UINT Num, POLE	Default = POLE_N ){
+POLE getCsvPOLE(		vector<vector<wstring>>& vvCsvData, vector<vector<wstring>>::size_type Line, UINT Num, POLE	Default = POLE_N ){
 	if( Num == UINT_MAX ) return Default ;
 	if( vvCsvData[ Line ][ Num ] == L"N" )	return POLE_N ;
 	else									return POLE_S ;

@@ -248,6 +248,7 @@ int DxDevice::MainThreadRun(){
 
 		if( !this ){
 			//Debugger::DBGWRITINGLOGTEXT::addStr(L"DxDevice::MainThreadRun メインゲームループで this が ぬるぽじょうほうををキャッチしちゃいました><、");
+			::MessageBox(0,L"システム的異常が発生しました。",L"エラー",MB_OK);
 			return 1;
 		}
 		if( m_bDestroy ){

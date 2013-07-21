@@ -309,12 +309,12 @@ void  Tempus2::TimeUpdate(){
 	//	: 今の時間を保持
 	m_dwOFOTime = dwNowFrameMiriSecond;// - (m_dwElapsedTime - m_dwFixFpsTime);
 	//	: FPSの計算
-    //m_dwFFA++;
-    //if(500 <= m_dwLFT) {// 0.5秒毎に更新
-    //    float dt = (double)(m_dwLFT) / 1000.0f;
-    //    m_fFps = (double)m_dwFFA / dt;
-    //    m_dwLFT = m_dwFFA = 0;
-    //}
+    m_dwFFA++;
+    if(500 <= m_dwLFT) {// 0.5秒毎に更新
+        float dt = (float)((double)(m_dwLFT) / 1000.0f);
+        m_fFps = (float)((double)m_dwFFA / dt);
+        m_dwLFT = m_dwFFA = 0;
+    }
 
 	m_fOneSecondCounter += (float)getElapsedTime();
 	if(m_fOneSecondCounter >= 1.0f){

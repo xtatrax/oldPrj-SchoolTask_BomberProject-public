@@ -107,7 +107,7 @@ void ProvisionalPlayer3D::Update( UpdatePacket& i_UpdatePacket ){
 
 	RECT rc;
 	::GetClientRect(wiz::DxDevice::m_hWnd, &rc);
-	
+
 	//Suction	: ‹zˆø
 	//Rebound	: ”½”­
 	bool	Suction	= Cursor2D::getRButtonState();

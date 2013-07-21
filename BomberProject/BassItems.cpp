@@ -31,19 +31,76 @@
 namespace wiz {
 
 namespace baseitems{
+/**************************************************************************
+ class CustomShader 定義部
+****************************************************************************/
+
+/////////////////// ////////////////////
+//// 関数名     ：
+//// カテゴリ   ：
+//// 用途       ：
+//// 引数       ：
+//// 戻値       ：
+//// 担当者     ：
+//// 備考       ：
+////            ：
+////
 LPD3DXMESH			CustomShader::pickoutMesh(wiz::baseitems::CommonMesh *pComMesh){
 	return pComMesh->m_pMesh;
 }
+/////////////////// ////////////////////
+//// 関数名     ：
+//// カテゴリ   ：
+//// 用途       ：
+//// 引数       ：
+//// 戻値       ：
+//// 担当者     ：
+//// 備考       ：
+////            ：
+////
 D3DMATERIAL9		CustomShader::pickoutMaterial(wiz::baseitems::CommonMesh *pComMesh){
 	return pComMesh->m_Material;
 }
+/////////////////// ////////////////////
+//// 関数名     ：
+//// カテゴリ   ：
+//// 用途       ：
+//// 引数       ：
+//// 戻値       ：
+//// 担当者     ：
+//// 備考       ：
+////            ：
+////
 D3DXMATRIX			CustomShader::pickoutMatrix(wiz::baseitems::SimpleCommonMesh *pComMesh){
 	return pComMesh->m_WorldMatrix ;
 }
+/////////////////// ////////////////////
+//// 関数名     ：
+//// カテゴリ   ：
+//// 用途       ：
+//// 引数       ：
+//// 戻値       ：
+//// 担当者     ：
+//// 備考       ：
+////            ：
+////
+
 LPTATRATEXTURE		CustomShader::pickoutTexture(wiz::baseitems::SimpleCommonMesh* pComMesh){
 	return pComMesh->m_pTexture ;
 }
-
+/**************************************************************************
+ class CustomShader 定義部
+****************************************************************************/
+/////////////////// ////////////////////
+//// 関数名     ：
+//// カテゴリ   ：
+//// 用途       ：
+//// 引数       ：
+//// 戻値       ：
+//// 担当者     ：
+//// 備考       ：
+////            ：
+////
 CookTrance::CookTrance(LPDIRECT3DDEVICE9 pD3DDevice)
 :m_pEffect(NULL)
 ,m_pCamera(NULL)
@@ -90,12 +147,42 @@ CookTrance::CookTrance(LPDIRECT3DDEVICE9 pD3DDevice)
 		throw;
 	}
 }
+/////////////////// ////////////////////
+//// 関数名     ：
+//// カテゴリ   ：
+//// 用途       ：
+//// 引数       ：
+//// 戻値       ：
+//// 担当者     ：
+//// 備考       ：
+////            ：
+////
 CookTrance::~CookTrance(){
 	SafeRelease(m_pEffect);
 }
+/////////////////// ////////////////////
+//// 関数名     ：void CookTrance::Draw(DrawPacket& i_DrawPacket,CommonMesh* i_pComMesh)
+//// カテゴリ   ：
+//// 用途       ：
+//// 引数       ：
+//// 戻値       ：
+//// 担当者     ：
+//// 備考       ：
+////            ：
+////
 void CookTrance::Draw(DrawPacket& i_DrawPacket,CommonMesh* i_pComMesh){
 
 }
+/////////////////// ////////////////////
+//// 関数名     ：void CommonMesh::Draw( DrawPacket& i_DrawPacket )
+//// カテゴリ   ：仮想関数
+//// 用途       ：メッシュを描画
+//// 引数       ：  
+//// 戻値       ：なし
+//// 担当者     ： (山ノ井先生のひな形より)
+//// 備考       ：なるべくこの関数は使わず DrawCommonMesh 関数を使うようにしてください
+////            ：
+////
 void CookTrance::Draw(DrawPacket& i_DrawPacket,SimpleCommonMesh* i_pComMesh){
 	if( !this ) { OutputDebugString(L"CookTrance::Drawぬるぽ＼(^o^)／\n");return;}
 	Draw(

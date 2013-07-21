@@ -65,7 +65,7 @@ void BackGround::Update( UpdatePacket& i_UpdatePacket ){
 	if( fEyePos > this->m_BasePos.y + this->m_Size.y ){
 		this->m_BasePos.y += this->m_Size.y ;
 	}
-	Debugger::DBGSTR::addStr(L"Y = %f\n",this->m_BasePos.y);
+	//Debugger::DBGSTR::addStr(L"Y = %f\n",this->m_BasePos.y);
 }
 
 /////////////////// ////////////////////

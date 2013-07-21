@@ -1025,7 +1025,7 @@
 						</File>
 					</Filter>
 					<Filter
-						Name="00.“®ì‚ðì‚é‰º¿‚¯Hê"
+						Name="00.“®ì‚ðì‚é‰º¿‚¯HêŒQ"
 						>
 					</Filter>
 					<Filter
@@ -1141,7 +1141,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\GameHinagata.rc"
+				RelativePath=".\MainResource.rc"
 				>
 			</File>
 			<File
