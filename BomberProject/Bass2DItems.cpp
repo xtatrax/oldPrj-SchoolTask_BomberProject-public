@@ -229,7 +229,7 @@ bool Cursor2D::isHitSprite(const PrimitiveSprite* i_TargetSprite)
 
 	///////////
 	//	: 
-	D3DXMATRIX mMatrix = i_TargetSprite->getMatrix();
+	D3DXMATRIX mMatrix = i_TargetSprite->getAspectMatrix();
 	poTL = MatrixCalculator(mMatrix,poTL);
 	poBR = MatrixCalculator(mMatrix,poBR);
 	//	: 
@@ -413,7 +413,7 @@ void PrimitiveSprite::Draw(DrawPacket& i_DrawPacket)
 	if(m_pSprite && m_pTexture){
 		D3DXMATRIX mAll ;
 		//if( m_bApplyAspect )	
-			mAll = getMatrix();
+		mAll = this->getAspectMatrix();
 		//else					mAll = m_mMatrix ;
 		
 		m_pSprite->Begin( D3DXSPRITE_ALPHABLEND );

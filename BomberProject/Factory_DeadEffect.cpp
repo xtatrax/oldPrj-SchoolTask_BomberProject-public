@@ -43,8 +43,8 @@ DeadEffect::DeadEffect(LPDIRECT3DDEVICE9	pD3DDevice,
 {
 	::ZeroMemory( &m_Material, sizeof(D3DMATERIAL9));
 
-	D3DCOLORVALUE Diffuse = {0.0f,0.0f,0.0f,0.0f};
-	D3DCOLORVALUE Specular = {0.0f,0.0f,0.0f,0.0f};
+	D3DCOLORVALUE Diffuse = {1.0f,1.0f,1.0f,1.0f};
+	D3DCOLORVALUE Specular = {1.0f,1.0f,1.0f,1.0f};
 	D3DCOLORVALUE Ambient = {1.0f,1.0f,1.0f,1.0f};
 
 	m_Material.Diffuse	= Diffuse;

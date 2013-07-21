@@ -311,8 +311,8 @@ void  Tempus2::TimeUpdate(){
 	//	: FPS‚ÌŒvŽZ
     m_dwFFA++;
     if(500 <= m_dwLFT) {// 0.5•b–ˆ‚ÉXV
-        float dt = (double)(m_dwLFT) / 1000.0f;
-        m_fFps = (double)m_dwFFA / dt;
+        float dt = (float)((double)(m_dwLFT) / 1000.0f);
+        m_fFps = (float)((double)m_dwFFA / dt);
         m_dwLFT = m_dwFFA = 0;
     }
 

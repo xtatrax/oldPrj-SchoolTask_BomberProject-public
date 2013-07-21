@@ -73,12 +73,16 @@ protected:
 	//‰¼
 	PrimitiveSprite(){};
 public:
-	D3DXMATRIX getMatrix() const{
+	D3DXMATRIX getAspectMatrix() const{
 		D3DXMATRIX mAll;
-		D3DXMATRIX mAspectRate;
-		D3DXVECTOR2 AspectRate = DxDevice::getAspectRate();
-		D3DXMatrixScaling(&mAspectRate,AspectRate.x,AspectRate.y,1.0f);
-		D3DXMatrixMultiply(&mAll,&m_mMatrix,&mAspectRate);
+		if( m_bApplyAspect ){
+			D3DXMATRIX mAspectRate;
+			D3DXVECTOR2 AspectRate = DxDevice::getAspectRate();
+			D3DXMatrixScaling(&mAspectRate,AspectRate.x,AspectRate.y,1.0f);
+			D3DXMatrixMultiply(&mAll,&m_mMatrix,&mAspectRate);
+		}else{
+			mAll = m_mMatrix;
+		}
 		return mAll ; 
 	}
 	void setMatrix( D3DXMATRIX i_mMatrix ){ m_mMatrix = i_mMatrix ; }

@@ -227,7 +227,7 @@ void Stage::Update(UpdatePacket& i_UpdatePacket)
 
 	i_UpdatePacket.SetStage( this );
 
-#if 0
+#if defined(ON_DEBUGGINGPROCESS)
 	float fElapsedTime = (float)i_UpdatePacket.GetTime()->getElapsedTime();
 	if(GetAsyncKeyState( MYVK_DEBUG_STOP_UPDATE )){
 		static float s_fTime = 0;
