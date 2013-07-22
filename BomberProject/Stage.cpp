@@ -116,7 +116,7 @@ Stage::~Stage(){
 void Stage::ButtonUpdate(UpdatePacket& i_UpdatePacket)
 {
 	CONTROLER_STATE	ControllerState1P = i_UpdatePacket.m_pCntlState[0];
-    if(!m_SelectLock){
+    //if(!m_SelectLock){
 
 		DWORD dwSM = 0;
 		if((dwSM = Button::getMouseSelectIndex()) != ULONG_MAX)
@@ -181,7 +181,7 @@ void Stage::ButtonUpdate(UpdatePacket& i_UpdatePacket)
 				}
 			}
 		}
-	}
+	//}
 	if( !(ControllerState1P.Gamepad.wButtons & XINPUT_GAMEPAD_DPAD_UP)
 		&&
 		!(ControllerState1P.Gamepad.wButtons & XINPUT_GAMEPAD_DPAD_DOWN)

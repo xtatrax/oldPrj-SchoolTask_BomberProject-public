@@ -41,7 +41,7 @@
 
 
 	//	: 操作系
-	//#define DEBUG_KEYBORD_ON					/* デバッグ用キーボード操作を有効化 */
+	#define DEBUG_KEYBORD_ON					/* デバッグ用キーボード操作を有効化 */
 	#define CF_MEMORYLEEKOUTPUT_ENABLE			/* メモリマネージャ有効時にリークしているメモリ一覧をファイルへ書き出します */
 
 	//	: 情報系
@@ -239,6 +239,7 @@ namespace wiz{
 		GM_WITHOUT					,	//	: 何もしない
 
 		GM_OPENSTAGE_TITLE			,	//	: タイトル画面を開く
+		GM_OPENSTAGE_DEMO			,	//	: デモ画面を開く
 		GM_OPENSTAGE_SELECT			,	//	: セレクト画面を開く
 		GM_OPENSTAGE_LOAD			,	//	: ロード画面を開く
 		GM_OPENSTAGE_LOAD_PLAY		,	//	: ロード画面を開いた後にプレイ画面を開く
