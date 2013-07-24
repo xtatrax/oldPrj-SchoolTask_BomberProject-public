@@ -251,9 +251,16 @@ public:
 
 			localtime_s(&local, &timer); /* 地方時に変換 */
 			//#define pFileName "LeekMemoryList.txt" 
-			Debugger::DBGWRITINGLOGTEXT::addStrToFile( pFileNameW , L"ローカル時間 %4d/%2d/%2d %2d:%2d:%2d %d \n",
+			Debugger::DBGWRITINGLOGTEXT::addStrToFile(pFileNameW,L"============================================================================================================\n");
+			Debugger::DBGWRITINGLOGTEXT::addStrToFile(pFileNameW,L"=====                                 ローカル時間 %4d/%2d/%2d %2d:%2d:%2d                                 =====\n",
 				local.tm_year + 1900, local.tm_mon + 1, local.tm_mday, local.tm_hour,
 				local.tm_min, local.tm_sec, local.tm_isdst );
+			//Debugger::DBGWRITINGLOGTEXT::addStrToFile(pFileNameW,L"=====                              ローカル時間 9999/99/99 99:99:%99                                   =====\n");
+			Debugger::DBGWRITINGLOGTEXT::addStrToFile(pFileNameW,L"============================================================================================================\n");
+
+			//Debugger::DBGWRITINGLOGTEXT::addStrToFile( pFileNameW , L"ローカル時間 %4d/%2d/%2d %2d:%2d:%2d %d \n",
+			//	local.tm_year + 1900, local.tm_mon + 1, local.tm_mday, local.tm_hour,
+			//	local.tm_min, local.tm_sec, local.tm_isdst );
 			Debugger::DBGWRITINGLOGTEXT::addStrToFile( pFileNameW  , L"総インスタンス数 : %d\n"		, m_ItemInfo.size()  );
 			Debugger::DBGWRITINGLOGTEXT::addStrToFile( pFileNameW  , L"確保領域容量     : %d Byte\n"	, m_dwAreaSize       );
 			

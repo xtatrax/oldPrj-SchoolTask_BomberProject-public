@@ -748,6 +748,18 @@
 							>
 						</File>
 					</Filter>
+					<Filter
+						Name="Factory_Demo"
+						>
+						<File
+							RelativePath=".\Factory_Demo.cpp"
+							>
+						</File>
+						<File
+							RelativePath=".\Factory_Demo.h"
+							>
+						</File>
+					</Filter>
 				</Filter>
 				<Filter
 					Name="PartsFactorys"
@@ -1040,6 +1052,42 @@
 							>
 						</File>
 					</Filter>
+					<Filter
+						Name="Factory_Demo2Title"
+						>
+						<File
+							RelativePath=".\Factory_Demo2Title.cpp"
+							>
+						</File>
+						<File
+							RelativePath=".\Factory_Demo2Title.h"
+							>
+						</File>
+					</Filter>
+					<Filter
+						Name="Factory_PlayRecorder"
+						>
+						<File
+							RelativePath=".\Factory_PlayRecorder.cpp"
+							>
+						</File>
+						<File
+							RelativePath=".\Factory_PlayRecorder.h"
+							>
+						</File>
+					</Filter>
+					<Filter
+						Name="Factory_Traser"
+						>
+						<File
+							RelativePath=".\Factory_Traser.cpp"
+							>
+						</File>
+						<File
+							RelativePath=".\Factory_Traser.h"
+							>
+						</File>
+					</Filter>
 				</Filter>
 			</Filter>
 			<Filter
@@ -1126,6 +1174,22 @@
 					</File>
 					<File
 						RelativePath=".\Stage_Result.h"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="Stage_Opening"
+					>
+				</Filter>
+				<Filter
+					Name="Stage_Demo"
+					>
+					<File
+						RelativePath=".\Stage_Demo.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Stage_Demo.h"
 						>
 					</File>
 				</Filter>

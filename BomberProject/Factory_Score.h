@@ -134,6 +134,7 @@ public:
 class TimeScore : public Score{
 	int		m_iTime;
 	float	m_fElapsedTime;
+	bool	m_bIsCoilKillConcrete;
 public:
 	TimeScore(LPDIRECT3DDEVICE9	pD3DDevice,
 				LPTATRATEXTURE	pTexture,

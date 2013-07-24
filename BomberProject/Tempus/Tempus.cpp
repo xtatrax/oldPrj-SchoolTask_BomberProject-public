@@ -267,6 +267,8 @@ Tempus2::Tempus2(void)
 	m_dwFFA					= 0;			//	: FPS計算用にフレーム数を蓄積する
 	m_dwLFT					= 0;			//	: FPS計算用にフレーム数を蓄積する
 
+	m_fStageActiveTime		= 0;
+
 }
 /////////////////// ////////////////////
 //// 関数名     ：Tempus2::~Tempus2();
@@ -298,10 +300,10 @@ void  Tempus2::TimeUpdate(){
 	DWORD dwNowFrameMiriSecond = 0 ;
 	m_dwElapsedTime = ( dwNowFrameMiriSecond = timeGetTime() ) - m_dwOFOTime;
 	bool b = false ;
-	//while( (m_dwElapsedTime = ( dwNowFrameMiriSecond = timeGetTime() ) - m_dwOFOTime) < m_dwFixFpsTime){
-	//	Sleep(1);
-	//	b = true;
-	//}
+	while( (m_dwElapsedTime = ( dwNowFrameMiriSecond = timeGetTime() ) - m_dwOFOTime) < m_dwFixFpsTime){
+		Sleep( m_dwFixFpsTime - m_dwElapsedTime );
+		b = true;
+	}
 	//if(b) Debugger::DBGSTR::addStrTop(L"規制");
 	//else  Debugger::DBGSTR::addStrTop(L"無法");
 	//	: 1フレームにかかった時間の計算
@@ -456,4 +458,11 @@ bool Tempus2::OneSecondSignal(){
 //	
 //}
 
+float Tempus2::getStageActiveTime(){
+	return m_fStageActiveTime ;
+};
+
+void Tempus2::setStageActiveTime(float i_fTime){
+	m_fStageActiveTime = i_fTime ;
+}
 }

@@ -21,6 +21,7 @@
 #include "Stage_Result.h"
 #include "Stage_Load.h"
 #include "Stage_Test.h"
+#include "Stage_Demo.h"
 #include <process.h>
 #include "Factory_Player.h"
 #include <string.h>
@@ -229,6 +230,11 @@ void Scene::CommandTranslator(BassPacket& i_BassPacket){
 				new
 				StageSelect( i_BassPacket.GetDevice() , new TitleStage(i_BassPacket.GetDevice()));
 			//strrchr(__FILE__,'\\' );
+			break;
+		case GM_OPENSTAGE_DEMO:
+			//	: ƒ^ƒCƒgƒ‹‰æ–Ê
+			SafeDeleteStage(m_pRootStage);
+			m_pRootStage = new DemoStage( i_BassPacket.GetDevice() );
 			break;
 		case GM_OPENSTAGE_LOAD_PLAY:
 			comBuf.m_Command = GM_OPENSTAGE_PLAY;

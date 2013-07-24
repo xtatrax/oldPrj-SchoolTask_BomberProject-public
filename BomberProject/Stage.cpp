@@ -83,6 +83,8 @@ Stage::Stage(Stage* Par)
 ,m_bUpdate( true )
 ,m_SelectIndex(0),m_SelectLock(true),m_IsAnimetion(false)
 ,m_pMySound( NULL ),m_pSound( NULL )
+,m_fActiveTime( 0 )
+,m_dwFirstClock( 0 )
 #if defined(ON_DEBUGGINGPROCESS)
 ,m_bSlow(false)
 #endif
@@ -208,6 +210,12 @@ void Stage::ButtonUpdate(UpdatePacket& i_UpdatePacket)
 ***************************************************************************/
 void Stage::Update(UpdatePacket& i_UpdatePacket)
 {
+
+	if( m_dwFirstClock == 0 ) m_dwFirstClock = Tempus::getClock() ;
+
+	m_fActiveTime = Tempus::TwoDwTime2ElapsedTime(m_dwFirstClock,Tempus::getClock()) ;
+
+	i_UpdatePacket.GetTime()->setStageActiveTime(m_fActiveTime);
 	//	: Ž©•ª‚ÉSound‚ª“o˜^‚³‚ê‚Ä‚¢‚é‚©‚ðŠm”F
 	//if( !m_pSound )	m_pSound = (Sound*)SearchObjectFromID( &this->m_Vec,OBJID_SYS_SOUND );
 	if( !m_pSound ){

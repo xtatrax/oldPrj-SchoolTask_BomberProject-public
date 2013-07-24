@@ -262,10 +262,10 @@ void	CheckPoint::PlayerPass(UpdatePacket &i_UpdatePacket){
 ////            F
 ////
 CheckPoint::WORKSTATE CheckPoint::Reduction(UpdatePacket &i_UpdatePacket){
-	m_vLineScale.x		-= m_fBassLength / m_fReductionTime * i_UpdatePacket.GetTime()->getElapsedTime() ;
+	m_vLineScale.x		-= m_fBassLength / m_fReductionTime * (float)i_UpdatePacket.GetTime()->getElapsedTime() ;
 	if(!ActiveIsLast()){
-		m_vStringScale.x	-= m_fBassLength / 4 / m_fReductionTime * i_UpdatePacket.GetTime()->getElapsedTime() ;
-		m_vStringScale.y	-= 2 / m_fReductionTime * i_UpdatePacket.GetTime()->getElapsedTime() ;
+		m_vStringScale.x	-= m_fBassLength / 4 / m_fReductionTime * (float)i_UpdatePacket.GetTime()->getElapsedTime() ;
+		m_vStringScale.y	-= 2 / m_fReductionTime * (float)i_UpdatePacket.GetTime()->getElapsedTime() ;
 	}
 	if( m_vLineScale.x >= 0.0f ){
 		return WORKSTATE_UNFINSHED ;

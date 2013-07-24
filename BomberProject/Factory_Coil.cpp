@@ -303,6 +303,8 @@ void PlayerCoil::Update( UpdatePacket& i_UpdatePacket ){
 
 	if( m_pPlayer ){
 
+		
+
 		if( m_enumCoilState != COIL_STATE_STICK ){
 			m_bModeChangeChar		= false;
 			m_bReDrawing_ChangeChar	= true;

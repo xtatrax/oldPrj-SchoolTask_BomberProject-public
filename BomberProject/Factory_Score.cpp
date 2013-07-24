@@ -375,6 +375,8 @@ TimeScore::TimeScore(LPDIRECT3DDEVICE9	pD3DDevice,
 :Score( pD3DDevice, pTexture, vScale, vPos, 0, Rect, OBJID_UI_TIME )
 ,m_iTime( iTime )
 ,m_fElapsedTime( 0 )
+,m_bIsCoilKillConcrete( false )
+
 {
 }
 
@@ -407,7 +409,10 @@ void	TimeScore::Update(UpdatePacket& i_UpdatePacket){
 
 	if( m_pCoil ){
 		if( m_iTime == 0 ){
-			m_pCoil->setState( COIL_STATE_DEAD );
+			if( !m_bIsCoilKillConcrete ){
+				m_bIsCoilKillConcrete = true ;
+				m_pCoil->setState( COIL_STATE_DEAD );
+			}
 		}
 		else if( m_pCoil->getState() == COIL_STATE_MOVE || m_pCoil->getState() == COIL_STATE_STICK ){
 			m_fElapsedTime	+= (float)i_UpdatePacket.GetTime()->getElapsedTime();
@@ -415,6 +420,9 @@ void	TimeScore::Update(UpdatePacket& i_UpdatePacket){
 				--m_iTime;
 				m_fElapsedTime	= 0;
 			}
+			m_bIsCoilKillConcrete = false ;
+		}else{
+			m_bIsCoilKillConcrete = false ;
 		}
 	}
 

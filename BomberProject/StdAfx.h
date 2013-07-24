@@ -43,7 +43,9 @@
 //#pragma comment(lib,"dinput8.lib")
 //
 //////////
-
+#define _CRTDBG_MAP_ALLOC
+#include <stdlib.h>
+#include <crtdbg.h>
 
 //////////
 //  基本的なインクルード
