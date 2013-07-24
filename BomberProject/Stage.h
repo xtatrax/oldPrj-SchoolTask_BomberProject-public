@@ -53,6 +53,8 @@ protected:
 	TextureManager				m_TexMgr		;	//	: テクスチャのポインタのベクトル
 	vector<Button*>				m_ButtonVec		;	//	: ボタンオブジェクトのみの配列（カメラなどは入れない）
 	vector<Button*>::size_type	m_SelectIndex	;
+	float						m_fActiveTime	;
+	DWORD						m_dwFirstClock	;
 	bool m_SelectLock;
 	bool m_IsAnimetion;
 	/**************************************************************************

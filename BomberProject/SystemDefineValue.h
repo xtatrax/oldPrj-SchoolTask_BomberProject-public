@@ -38,8 +38,6 @@
 	#define CF_MEMORYOUTPUTPROCESS_ENABLE		/* 自作のメモリ管理システムにより管理されているアイテムのファイルへの書き出しを可能にする(Manager有効時) */
 	#define CF_DEBUG_JUMPTOOTHGOAL				/* ゴール手前へJUMP可能 */
 
-
-
 	//	: 操作系
 	#define DEBUG_KEYBORD_ON					/* デバッグ用キーボード操作を有効化 */
 	#define CF_MEMORYLEEKOUTPUT_ENABLE			/* メモリマネージャ有効時にリークしているメモリ一覧をファイルへ書き出します */
@@ -47,6 +45,7 @@
 	//	: 情報系
 	#define CF_DRAW_DEBUGSTRING					/* デバッグ用文字列を有効化 */
 	#define CF_DEBUGLOGTEXT_OUTPUT_ENABLE		/* DEBUG用のログをテキストに吐き出し可能にする */
+
 	//#define CF_DEBUGINFORMATIONWINDOW_ENABLE	/* デバッグ情報表示用ウインドウを有効化 */
 	//#define CF_
 	#define CF_DEBUG_TIMEDRAW					/* 時間を描画 */
@@ -56,7 +55,7 @@
 //		プレゼンモード定義       //
 //-------------------------------//
 #if defined( CONS_PRESENTATION )
-	#define CF_DEBUG_JUMPTOOTHGOAL			/* ゴール手前へJUMP可能 */
+	#define CF_DEBUG_JUMPTOOTHGOAL			/* ゴール手前へJUMP可能       */
 	#define CF_FULLSCREEN					/* フルスクリーンモード       */
 #endif
 
@@ -64,6 +63,11 @@
 //    セミリリースモード定義     //
 //-------------------------------//
 #if defined( CONS_SEMIRELEASE )
+	//	: システム系
+	#define CF_FULLSCREEN						/* フルスクリーンモード       */
+	//#define CF_MEMORYMANAGER_ENABLE				/* 自作のメモリ管理システムを有効化 */
+	//#define CF_OVERLORDNEW_ENABLE				/* 自作のnewを強制化( 内部でnewをオーバーライドしているクラスがある場合エラーを起こす可能性があります ) */
+	//#define CF_MEMORYLEEKOUTPUT_ENABLE			/* メモリマネージャ有効時にリークしているメモリ一覧をファイルへ書き出します */
 	/////////////////////
 	/////////////////////
 	#define CF_DEBUG_JUMPTOOTHGOAL			/* ゴール手前へJUMP可能 */
@@ -325,6 +329,7 @@ namespace wiz{
 
 		OBJID_BEHAVIOR_TEST					,
 		OBJID_BEHAVIOR_CHECKPOINTSAVE		,
+		OBJID_BEHAVIOR_PLAYSAVE				,
 		OBJID_BEHAVIOR_CONTINUE				,
 
 		//	:サウンドまわり

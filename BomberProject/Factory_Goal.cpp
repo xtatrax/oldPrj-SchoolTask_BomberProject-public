@@ -342,7 +342,7 @@ void FMemoryTex::OrientGoal(UpdatePacket& i_UpdatePacket){
 
 			i_UpdatePacket.PushCommand( 
 				Command(
-					GM_OPENSTAGE_RESULT			,
+					GM_OPENSTAGE_CLEAR			,
 					m_pCoil->getDeadCount()		,
 					m_pCoil->getMaxPos()		,
 					m_pCoil->getScratchTime()

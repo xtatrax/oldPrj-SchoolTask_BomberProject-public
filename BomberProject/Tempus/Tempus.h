@@ -328,6 +328,15 @@ public:
 	////
 	bool OneSecondSignal();
 	//static void  FixedFPS(int i_iFPS);
+
+
+
+private :
+	float m_fStageActiveTime ;
+public :
+	float getStageActiveTime() ;
+
+	void setStageActiveTime(float i_fTime) ;
 };
 
 }

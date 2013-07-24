@@ -1076,6 +1076,18 @@
 							>
 						</File>
 					</Filter>
+					<Filter
+						Name="Factory_Traser"
+						>
+						<File
+							RelativePath=".\Factory_Traser.cpp"
+							>
+						</File>
+						<File
+							RelativePath=".\Factory_Traser.h"
+							>
+						</File>
+					</Filter>
 				</Filter>
 			</Filter>
 			<Filter

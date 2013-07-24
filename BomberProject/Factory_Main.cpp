@@ -29,6 +29,7 @@
 #include "Factory_CheckPointSave.h"
 #include "Factory_BackGround.h"
 #include "Factory_DeadEffect.h"
+#include "Factory_PLAYRecorder.h"
 //	: 追加のインクルード
 //////////
 
@@ -104,6 +105,11 @@ Factory_Main::Factory_Main(FactoryPacket* fpac, DWORD dwStageNum, DWORD dwResump
 		//	: 下請け工場へ発注
 		float	fLineLength	= 230.0f;
 		float	fPointSize	= 0.5f;
+
+
+		RecorderFactory		Rfac( fpac ) ;
+
+
 		Factory_BG			Bfac( fpac ) ;
 		Factory_Cursor		Mfac( fpac, fLineLength, fPointSize )  ;
 		Factory_Player		Pfac( fpac );

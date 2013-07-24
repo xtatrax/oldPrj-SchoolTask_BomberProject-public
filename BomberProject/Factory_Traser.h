@@ -1,6 +1,6 @@
 ////////////////////////////// //////////////////////////////
 //	プロジェクト	：BomberProject
-//	ファイル名		：Factory_PlayRecorder.h
+//	ファイル名		：Factory_Traser.h
 //	開発環境		：MSVC++ 2008
 //	最適タブ数		：4
 //	担当者			：鴫原 徹
@@ -17,40 +17,13 @@
 
 namespace wiz{
 namespace bomberbehavior{
-struct PlayData{
-	float		fBeginTime		;
-	enum {
-		CT_L,
-		CT_R,
-		CT_M,
-	}enumClickType				;
-	D3DXVECTOR3 vClickPoint		;
-	float		fEndTime		;
-};
-struct PDBHeader{
-	DWORD m_dwBodyQty;
-};
-struct PDBBody{
-	
-};
-struct PlayDataBIN : public BassSaveaPacketDat{
-	BassSaveaPacketDat stIdentifier ;
-	
-	
-};
 
-class PlayRecorder : public Behavior{
-	list<PlayData*> m_DataVec		;
-	PlayData*		m_pLButtonBuf	;
-	PlayData*		m_pMButtonBuf	;
-	PlayData*		m_pRButtonBuf	;
-
-	Camera*			m_pCamera		;
+class PlayTraser : public Behavior{
 public:
-	PlayRecorder(wiz::OBJID id);
-	~PlayRecorder();
+	PlayTraser(wiz::OBJID id);
+	~PlayTraser();
 	/////////////////// ////////////////////
-	//// 用途       ：virtual void Demo2Titre::Update( UpdatePacket& i_UpdatePacket )
+	//// 用途       ：virtual void PlayTraser::Update( UpdatePacket& i_UpdatePacket )
 	//// カテゴリ   ：仮想関数
 	//// 用途       ：オブジェクトを更新
 	//// 引数       ：  UpdatePacket& i_UpdatePacket     // アップデート時に必要なデータ群 ↓内容下記
@@ -67,9 +40,9 @@ public:
 	virtual void Update( UpdatePacket& i_UpdatePacket );
 };
 
-class RecorderFactory{
+class TraserFactory{
 public:
-	RecorderFactory(FactoryPacket* fpac);
+	TraserFactory(FactoryPacket* fpac);
 };
 }
 using namespace bomberbehavior ;

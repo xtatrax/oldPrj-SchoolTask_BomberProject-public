@@ -11,6 +11,7 @@
 //
 #include "StdAfx.h"
 #include "Stage_Demo.h"
+#include "Factory_Demo.h"
 
 namespace wiz{
 using namespace bomberobject;
@@ -31,7 +32,7 @@ DemoStage::DemoStage(LPDIRECT3DDEVICE9 pD3DDevice,Stage* pStage)
 {
 	try{
 		FactoryPacket FPac(pD3DDevice,this->m_IsDialog,&Command(),this);
-
+		Factory_Demo  Dfac(&FPac,&Command());
 	}
 	catch(...){
 		Clear();

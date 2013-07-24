@@ -72,9 +72,9 @@ Item::Item(FactoryPacket* fpac,LPTATRATEXTURE pTexture, wiz::OBJID id)
 ////            ÅF
 ////
 Item::~Item(){
+	m_ItemMap_Target.clear();
 	SafeDeletePointerMap( m_ItemMap_All );
 	m_ItemMap_All.clear();
-	m_ItemMap_Target.clear();
 }
 
 /**************************************************************

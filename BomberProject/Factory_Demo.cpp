@@ -14,6 +14,7 @@
 #include "Object.h"
 #include "Scene.h"
 #include "Factory_Demo.h"
+#include "Factory_PlayRecorder.h"
 #include "BassItems.h"
 
 namespace wiz{

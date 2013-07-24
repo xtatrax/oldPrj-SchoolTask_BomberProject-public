@@ -265,6 +265,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE
 #if defined( CF_MEMORYMANAGER_ENABLE )
 		TMemoryManager::Clear();
 #endif
+		_CrtDumpMemoryLeaks();
 		::PostQuitMessage(0);
 		return ret ;
 		/*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*/

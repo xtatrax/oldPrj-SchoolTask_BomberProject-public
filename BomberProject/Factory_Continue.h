@@ -162,6 +162,7 @@ public:
 		m_pDeadScore->setScore(m_pCoil->getDeadCount()+1);
 		m_pDeadScore->setAlpha(0xFF);
 		m_pDeadCountChar->setAlpha(0xFF);
+		
 
 	}
 	void OperationStop(){
