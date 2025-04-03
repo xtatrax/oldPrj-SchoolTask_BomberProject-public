@@ -3,7 +3,7 @@
 //	2009.12.29 TMO
 //-----------------------------------------------------
 #include "StdAfx.h"
-#include "Input.h"
+//#include "Input.h"
 
 /*
 CInput::CInput()

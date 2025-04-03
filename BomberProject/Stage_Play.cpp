@@ -35,21 +35,40 @@ using namespace bomberobject;
  用途: コンストラクタ
  戻り値: なし（失敗時は例外をthrow）
 ***************************************************************************/
-PlayStage::PlayStage( LPDIRECT3DDEVICE9 pD3DDevice, D3DXVECTOR3 vStartPos, Stage* pStage )
+PlayStage::PlayStage( LPDIRECT3DDEVICE9 pD3DDevice, DWORD dwStageNum, DWORD dwResumptionCheckPoint, D3DXVECTOR3 vStartPos, Stage* pStage )
 	:Stage(pStage)
 {
 	try{
-		FactoryPacket FPac;
-		FPac.m_IsDialog =  this->m_IsDialog ;
-		FPac.m_pTexMgr  = &this->m_TexMgr   ;
-		FPac.m_pVec     = &this->m_Vec      ;
-		FPac.pD3DDevice =  pD3DDevice       ;
+		//Debugger::DBGWRITINGLOGTEXT::addStr(L"//-----------------------------------------------------------------------------------------------------//\n");
+		//Debugger::DBGWRITINGLOGTEXT::addStr(L"//-----------------------------------------------------------------------------------------------------//\n");
+		//Debugger::DBGWRITINGLOGTEXT::addStr(L"//-----------------------------------------------------------------------------------------------------//\n");
+		//Debugger::DBGWRITINGLOGTEXT::addStr(L"//-----------------------------------------------------------------------------------------------------//\n");
+		//Debugger::DBGWRITINGLOGTEXT::addStr(L"//-----------------------------------------------------------------------------------------------------//\n");
+		//Debugger::DBGWRITINGLOGTEXT::addStr(L"//-----------------------------------------------------------------------------------------------------//\n");
+		//Debugger::DBGWRITINGLOGTEXT::addStr(L"//-----------------------------------------------------------------------------------------------------//\n");
+		//Debugger::DBGWRITINGLOGTEXT::addStr(L"// PlayStage 構築開始\n");
+		//Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
+		//Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
+		//Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
+		FactoryPacket FPac(pD3DDevice,this->m_IsDialog,&Command(),this);
+
 		D3DXVECTOR3* vp = NULL ;
 		if( vStartPos != g_vMax )
 			vp = &vStartPos;
-
-		Factory_Main mainF( &FPac , vp );
-
+	
+		Factory_Main mainF( &FPac, dwStageNum, dwResumptionCheckPoint, vp );
+		m_dwNowStage = dwStageNum ;
+		//Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
+		//Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
+		//Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
+		//Debugger::DBGWRITINGLOGTEXT::addStr(L"// PlayStage 構築完了\n");
+		//Debugger::DBGWRITINGLOGTEXT::addStr(L"//-----------------------------------------------------------------------------------------------------//\n");
+		//Debugger::DBGWRITINGLOGTEXT::addStr(L"//-----------------------------------------------------------------------------------------------------//\n");
+		//Debugger::DBGWRITINGLOGTEXT::addStr(L"//-----------------------------------------------------------------------------------------------------//\n");
+		//Debugger::DBGWRITINGLOGTEXT::addStr(L"//-----------------------------------------------------------------------------------------------------//\n");
+		//Debugger::DBGWRITINGLOGTEXT::addStr(L"//-----------------------------------------------------------------------------------------------------//\n");
+		//Debugger::DBGWRITINGLOGTEXT::addStr(L"//-----------------------------------------------------------------------------------------------------//\n");
+		//Debugger::DBGWRITINGLOGTEXT::addStr(L"//-----------------------------------------------------------------------------------------------------//\n");
 	}
 	catch(LoaderException& e){
 		throw LoaderException(
@@ -74,7 +93,33 @@ PlayStage();
  戻り値: なし
 ***************************************************************************/
 PlayStage::~PlayStage(){
-	
+	//Debugger::DBGWRITINGLOGTEXT::addStr(L"////////////////////////////////////////////////////////\n");
+	//Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
+	//Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
+	//Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
+	//Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
+	//Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
+	//Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
+	//Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
+	//Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
+	//Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
+	//Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
+	//Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
+	//Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
+	//Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
+	//Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
+	//Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
+	//Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
+	//Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
+	//Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
+	//Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
+	//Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
+	//Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
+	//Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
+	//Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
+	//Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
+	//Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
+	//Debugger::DBGWRITINGLOGTEXT::addStr(L"PlayStage::~PlayStage %X\n",this);
 }
 /////////////////// ////////////////////
 //// 用途       ：virtual void Update( UpdatePacket& i_UpdatePacket )
@@ -86,7 +131,7 @@ PlayStage::~PlayStage(){
 ////            ：  ├       vector<Object*>&   Vec,            // オブジェクトの配列
 ////            ：  ├ const CONTROLER_STATE*   pCntlState      // コントローラのステータス
 ////            ：  └       Command            pCommand        // コマンド
-//// 戻値       ：無し
+//// 戻値       ：なし
 //// 担当者     ：鴫原 徹
 //// 備考       ：
 ////            ：
@@ -95,15 +140,16 @@ void PlayStage::Update(UpdatePacket& i_UpdatePacket){
 #if defined( ON_DEBUGGINGPROCESS ) | defined( PRESENTATION )
 
 	//	:  エンターで再スタート
-	if( GetAsyncKeyState( MYVK_DEBUG_STAGE_RESTART ) ){
+	if( GetAsyncKeyState( MYVK_DEBUG_STAGE_RESTART )  ){
 		//	:  Alt+ENTERで再読み込み
-		if( GetAsyncKeyState( MYVK_DEBUG_STAGE_RELOAD ) ){
-			PlayerCoil* pc = (PlayerCoil*)SearchObjectFromID( i_UpdatePacket.pVec, OBJID_3D_COIL );
-			i_UpdatePacket.pCommand->m_Command = GM_OPENSTAGE_PLAY_RELOAD ;
-			i_UpdatePacket.pCommand->m_Param1 = (DWORD)pc ;
+		if( GetAsyncKeyState( MYVK_DEBUG_STAGE_RELOAD_SUBKEY ) ){
+			PlayerCoil* pc = (PlayerCoil*)i_UpdatePacket.SearchObjectFromID( OBJID_3D_COIL );
+			i_UpdatePacket.PushCommand(Command( GM_OPENDEBUGSTAGE_PLAY_RELOAD, (DWORD)pc ));
 
-		}else{
-			i_UpdatePacket.pCommand->m_Command = GM_OPENSTAGE_PLAY ;
+		}else
+		if( GetAsyncKeyState( MYVK_DEBUG_STAGE_RESTART_SUBKEY ) ){
+			i_UpdatePacket.PushCommand(Command( GM_OPENSTAGE_PLAY, getNowStage() ));
+
 		}
 	}
 #endif

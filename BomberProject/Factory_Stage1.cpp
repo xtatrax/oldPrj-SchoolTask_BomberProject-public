@@ -34,8 +34,7 @@ namespace bomberobject{
 ***************************************************************************/
 Factory_Stage1::Factory_Stage1(FactoryPacket *fpac){
 	try{
-		LPDIRECT3DDEVICE9 pD3DDevice	= fpac->pD3DDevice	;
-		vector<Object*>*  pVec			= fpac->m_pVec		;
+		LPDIRECT3DDEVICE9 pD3DDevice	= fpac->GetDevice()	;
 
 		//	: 基本壁  サイズ	
 		//	:		   枠壁
@@ -129,7 +128,7 @@ Factory_Stage1::Factory_Stage1(FactoryPacket *fpac){
 			{ OBJID_END }
 		
 		};
-		StageLoader loader(pD3DDevice,*pVec,*fpac->m_pTexMgr,MapData);
+		StageLoader loader( *fpac , MapData );
 	}
 	catch(...){
 		//再throw

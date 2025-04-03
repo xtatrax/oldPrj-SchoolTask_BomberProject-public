@@ -39,7 +39,7 @@ private:
 	LPDIRECT3D9				m_pD3D			;	// IDirect3D9インターフェイスへのポインタ
 	LPDIRECT3DDEVICE9		m_pD3DDevice	;	// IDirect3DDevice9インターフェイスへのポインタ
 	D3DPRESENT_PARAMETERS	m_D3DPP			;	// デバイスのプレゼンテーションパラメータ
-	CONTROLLERS*			m_pController	;	// コントローラのポインタ
+	CONTROLLERS				m_Controller	;	// コントローラのポインタ
 	Command					m_Com			;	// コマンド
 	UpdatePacket			m_UpdatePacket	;	// アップデートスレッドの処理に流すデータ群
 	RenderPacket			m_RenderPacket	;	// レンダースレッドの処理に流すデータ群
@@ -49,7 +49,6 @@ private:
 	static bool				m_bOnPlaySound	;	//
 	static Rect				m_WindowRect	;	// ゲームの描画範囲の大きさを表す矩形
 	static D3DXVECTOR2		m_v2AspectRate	;		// 基準解像度と現在の解像度の比率
-	static HWND				m_hWnd				;	// メインウインドウのハンドル
 	static HANDLE			m_hUpdateThread		;	// アップデート用スレッドのハンドル
 	static HANDLE			m_hLoadingThread	;	// ロード画面用スレッドのハンドル
 	enum ProgramState{
@@ -57,6 +56,12 @@ private:
 		PROGRAM_ENDTHREAD,
 		PROGRAM_END,
 	}m_PrgState;
+
+public:
+
+	static HWND				m_hWnd				;	// メインウインドウのハンドル
+
+private:
 /////////////////// ////////////////////
 //// 関数名     ：void initDevice(HWND hWnd,bool isFullScreen,int Width,int Height)
 //// カテゴリ   ：イニシャライザ
@@ -65,11 +70,11 @@ private:
 ////            ：  bool isFullScreen,  //フルスクリーンかどうか
 ////            ：  int Width,          //領域の幅
 ////            ：  int Height          //領域の高さ
-//// 戻値       ：無し
+//// 戻値       ：なし
 //// 備考       ：
 ////            ：
 ////
-    void initDevice(HWND hWnd,bool isFullScreen,int Width,int Height);
+    void initDevice(bool isFullScreen,int Width,int Height);
 
 
 
@@ -94,7 +99,7 @@ public:
  用途: コンストラクタ
  戻り値: なし
 ***************************************************************************/
-    DxDevice(HWND hWnd,bool isFullScreen,int Width,int Height);
+    DxDevice(bool isFullScreen,int Width,int Height);
 /**************************************************************************
  ~DxDevice();
  用途: デストラクタ
@@ -111,7 +116,7 @@ public:
 //// 関数名     ：void End()
 //// カテゴリ   ：メンバ関数
 //// 用途       ：ゲームの終了を宣言
-//// 引数       ：無し
+//// 引数       ：なし
 //// 戻値       ：int
 //// 備考       ：スレッドの終了準備とか
 ////            ：
@@ -121,7 +126,7 @@ public:
 //// 関数名     ：int MainThreadRun()
 //// カテゴリ   ：メンバ関数
 //// 用途       ：メインスレッドのープ
-//// 引数       ：無し
+//// 引数       ：なし
 //// 戻値       ：int
 //// 備考       ：
 ////            ：
@@ -137,7 +142,7 @@ public:
 //// 関数名     ：static HWND getGameWindowHandle()
 //// カテゴリ   ：静的メンバ関数
 //// 用途       ：ゲーム画面を描画してるウインドウのハンドルを返す
-//// 引数       ：無し
+//// 引数       ：なし
 //// 戻値       ：
 //// 備考       ：
 ////            ：
@@ -147,7 +152,7 @@ public:
 //// 関数名     ：static HANDLE getUpdateThreadHandle()
 //// カテゴリ   ：静的メンバ関数
 //// 用途       ：アップデート用スレッドのハンドルを返す
-//// 引数       ：無し
+//// 引数       ：なし
 //// 戻値       ：
 //// 備考       ：シングルスレッドモードの場合はNULLを返す
 ////            ：
@@ -157,7 +162,7 @@ public:
 //// 関数名     ：static HANDLE getLoadingThreadHandle()
 //// カテゴリ   ：静的メンバ関数
 //// 用途       ：ロード画面用スレッドのハンドルを返す
-//// 引数       ：無し
+//// 引数       ：なし
 //// 戻値       ：
 //// 備考       ：シングルスレッドモードの場合はNULLを返す
 ////            ：
@@ -191,8 +196,8 @@ public:
 //// 関数名     ：void Destroy()
 //// カテゴリ   ：
 //// 用途       ：
-//// 引数       ：無し
-//// 戻値       ：無し
+//// 引数       ：なし
+//// 戻値       ：なし
 //// 備考       ：
 ////            ：
 ////
@@ -202,8 +207,8 @@ public:
 //// 関数名     ：void EndUpdateThread()
 //// カテゴリ   ：メンバ関数
 //// 用途       ：シーンのアップデート用スレッドを終了する
-//// 引数       ：無し
-//// 戻値       ：無し
+//// 引数       ：なし
+//// 戻値       ：なし
 //// 備考       ：
 ////            ：
 ////
@@ -217,7 +222,7 @@ private:
 //// 関数名     ：void UpdateThreadRun()
 //// カテゴリ   ：メンバ関数
 //// 用途       ：シーンのアップデート用スレッドのループ
-//// 引数       ：無し
+//// 引数       ：なし
 //// 戻値       ：int
 //// 備考       ：
 ////            ：
@@ -228,8 +233,8 @@ private:
 //// 関数名     ：void UpdateScene()
 //// カテゴリ   ：メンバ関数
 //// 用途       ：オブジェクト関連の演算
-//// 引数       ：無し
-//// 戻値       ：無し
+//// 引数       ：なし
+//// 戻値       ：なし
 //// 備考       ：
 ////            ：
 ////
@@ -239,8 +244,8 @@ private:
 //// 関数名     ：static void __cdecl updateThreadLauncher(void* args)
 //// カテゴリ   ：メンバ関数
 //// 用途       ：シーンを描画する
-//// 引数       ：無し
-//// 戻値       ：無し
+//// 引数       ：なし
+//// 戻値       ：なし
 //// 備考       ：
 ////            ：
 ////
@@ -250,8 +255,8 @@ private:
 //// 関数名     ：void StartUpdateThread()
 //// カテゴリ   ：メンバ関数
 //// 用途       ：シーンのアップデート用スレッドを開始する
-//// 引数       ：無し
-//// 戻値       ：無し
+//// 引数       ：なし
+//// 戻値       ：なし
 //// 備考       ：
 ////            ：
 ////
@@ -262,7 +267,7 @@ private:
 //// カテゴリ   ：静的メンバ関数
 //// 用途       ：新しいスレッドを開始するための串
 //// 引数       ：void* args	//	: 引数リスト
-//// 戻値       ：無し
+//// 戻値       ：なし
 //// 備考       ：
 ////            ：
 ////
@@ -272,8 +277,8 @@ private:
 //// 関数名     ：void EndUpdateThread()
 //// カテゴリ   ：メンバ関数
 //// 用途       ：シーンのアップデート用スレッドを終了する
-//// 引数       ：無し
-//// 戻値       ：無し
+//// 引数       ：なし
+//// 戻値       ：なし
 //// 備考       ：
 ////            ：
 ////
@@ -282,8 +287,8 @@ private:
 //// 関数名     ：void EndUpdateThread()
 //// カテゴリ   ：メンバ関数
 //// 用途       ：シーンのアップデート用スレッドを終了する
-//// 引数       ：無し
-//// 戻値       ：無し
+//// 引数       ：なし
+//// 戻値       ：なし
 //// 備考       ：
 ////            ：
 ////

@@ -32,6 +32,7 @@ class FMemoryTex : public PrimitiveBox{
 	D3DXVECTOR3		m_vScale ;
 	D3DXVECTOR3		m_vPos ;
 	int				m_iPtn;
+	bool			m_bEnding;
 	struct mItem{
 		D3DMATERIAL9	mMaterial;
 		D3DXMATRIX		mMatrix;
@@ -46,20 +47,30 @@ class FMemoryTex : public PrimitiveBox{
 	multimap<float,mItem*> m_ItemMap_Target; //描画対象のDescItem
 public:
 	/////////////////// ////////////////////
-	//// 用途       ：Description(	LPDIRECT3DDEVICE9 pD3DDevice,LPDIRECT3DTEXTURE9 pTexture,wiz::OBJID id = OBJID_3D_WALL);
+	//// 用途       ：Description(	LPDIRECT3DDEVICE9 pD3DDevice,LPTATRATEXTURE pTexture,wiz::OBJID id = OBJID_3D_WALL);
 	//// カテゴリ   ：コンストラクタ
 	//// 用途       ：
 	//// 引数       ：LPDIRECT3DDEVICE9 pD3DDevice //デバイス
-	////			  : LPDIRECT3DTEXTURE9 pTexture  //テクスチャ
+	////			  : LPTATRATEXTURE pTexture  //テクスチャ
 	////			  : pTexture,wiz::OBJID id = OBJID_3D_WALL //ID
-	//// 戻値       ：無し
+	//// 戻値       ：なし
 	//// 担当者     ：佐藤涼
 	//// 備考       ：
 	FMemoryTex(LPDIRECT3DDEVICE9 pD3DDevice,
-				LPDIRECT3DTEXTURE9 pTexture,
+				LPTATRATEXTURE pTexture,
 				wiz::OBJID id = OBJID_3D_WALL
 				);
-
+	/////////////////// ////////////////////
+	//// 関数名     ：~FMemoryTex();
+	//// カテゴリ   ：デストラクタ
+	//// 用途       ：破棄
+	//// 引数       ：なし
+	//// 戻値       ：なし
+	//// 担当者     ：鴫原 徹
+	//// 備考       ：
+	////            ：
+	////
+	~FMemoryTex();
 	/////////////////// ////////////////////
 	//// 用途       ：void Draw( DrawPacket& i_DrawPacket )
 	//// カテゴリ   ：関数
@@ -67,9 +78,9 @@ public:
 	//// 引数       ：  DrawPacket& i_DrawPacket             // 画面描画時に必要なデータ群 ↓内容下記
 	////            ：  ├ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 インターフェイスへのポインタ
 	////            ：  ├ vector<Object*>&    Vec                     // オブジェクトの配列
-	////            ：  ├ Tempus2*            i_DrawPacket.pTime	   // 時間を管理するクラスへのポインター
+	////            ：  ├ Tempus2*            i_DrawPacket.GetTime()	   // 時間を管理するクラスへのポインター
 	////            ：  └ Command             i_DrawPacket.pCommand   // コマンド
-	//// 戻値       ：無し
+	//// 戻値       ：なし
 	//// 担当者     ：佐藤涼
 	//// 備考       ：
 	void Draw( DrawPacket& i_DrawPacket );
@@ -84,7 +95,7 @@ public:
 	////            ：  ├       vector<Object*>&   Vec,            // オブジェクトの配列
 	////            ：  ├ const CONTROLER_STATE*   pCntlState      // コントローラのステータス
 	////            ：  └       Command            pCommand        // コマンド
-	//// 戻値       ：無し
+	//// 戻値       ：なし
 	//// 担当者     ：佐藤涼
 	//// 備考       ：
 	////            ：
@@ -102,11 +113,17 @@ public:
 	////            ：  D3DCOLORVALUE& Diffuse,			//ディフューズ色
 	////            ：  D3DCOLORVALUE& Specular,		//スペキュラ色
 	////            ：  D3DCOLORVALUE& Ambient,			//アンビエント色
-	//// 戻値       ：無し
+	//// 戻値       ：なし
 	//// 担当者     ：佐藤涼
 	//// 備考       ：
-	void AddMemory(D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos,
-			D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient);
+	void AddMemory(
+		const D3DXVECTOR3&		vScale		,
+		const D3DXVECTOR3&		vRot		,
+		const D3DXVECTOR3&		vPos		,
+		const D3DCOLORVALUE&	Diffuse		,
+		const D3DCOLORVALUE&	Specular	,
+		const D3DCOLORVALUE&	Ambient
+	);
 
 /****************************************************
 関数名　：void	OrientGoal()
@@ -127,24 +144,18 @@ class Item : public PrimitiveSphere
 担当者：佐藤涼
 *******************************************************/
 class	GoalObject	:public PrimitiveBox{
-	PlayerCoil*	m_pCoil;
-	Sound*		m_pSound;
-	bool		m_bPlaySound;
-	struct GoalItem{
-		D3DMATERIAL9 m_Material;
-		D3DXMATRIX	m_Matrix;
-		D3DXVECTOR3 m_vScale ;
-		D3DXVECTOR3 m_vPos ;
-		D3DXQUATERNION m_vRot;
-		OBB			m_Obb;
-		virtual ~GoalItem(){}
-	};
-	//map<オブジェクトのポジション,GoalItem>
-	multimap<float,GoalItem*> m_ItemMap_All;	//全てのGoalItem
-
+	PlayerCoil*			m_pCoil;
+	Camera*				m_pCamera;
+	SpriteObject*		m_pGoalChar;
+	bool				m_bPlaySound;
+	OBB					m_Obb;
+	float				m_fInitPosY;
+	LPTATRATEXTURE	m_pGoalCharTex;
 public:
 	GoalObject(	LPDIRECT3DDEVICE9 pD3DDevice,
-				LPDIRECT3DTEXTURE9 pTexture,
+				D3DXVECTOR3 vPos,
+				LPTATRATEXTURE pTexture,
+				LPTATRATEXTURE pGoakCharTex,
 				wiz::OBJID id = OBJID_SYS_CLEARAREA
 				);
 	/////////////////// ////////////////////
@@ -160,8 +171,6 @@ public:
 	~GoalObject();
     void	Draw(DrawPacket& i_DrawPacket) ;
 	void	Update(UpdatePacket& i_UpdatePacket);
-	void	addGoal(D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos,
-				D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient);
 };
 
 /**************************************************************************
@@ -185,8 +194,6 @@ public:
 ***************************************************************************/
 	~Factory_Goal();
 //};
-
-	void GetOBBList( float Index, list<OBB>& ObbList );
 };
 
 

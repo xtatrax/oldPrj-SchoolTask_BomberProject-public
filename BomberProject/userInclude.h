@@ -12,6 +12,8 @@
 
 #include "TL-String.h"
 #include "MemoryManager.h"
+#include "SaveAndLoad.h"
+#include "DebugWindowMain.h"
 #include "Prm.h"
 #include "Prim2D.h"
 #include "DebugFunctions.h"
@@ -21,6 +23,10 @@
 #include "Object.h"
 #include "Function.h"
 #include "BassItems.h"
+#include "Bass2DItems.h"
+#include "BassMenuItems.h"
 #include "Factory_Sound.h"
+#include "Factory_Cursor.h"
+#include "TextureManager.h"
 
 #endif

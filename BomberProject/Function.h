@@ -99,6 +99,7 @@ public:
  class Math;
  用途: 計算用のユーティリティ
  　　　static呼び出しをする
+       将来的に演算系の関数はこの中に収納する
 ****************************************************************************/
 
 class Math{
@@ -150,6 +151,28 @@ inline D3DXVECTOR3 MatrixCalculator(const D3DXMATRIX& i_m4x4 ,const D3DXVECTOR3&
 	res.x		= (i_m4x4._11 * i_v1x3.x) + (i_m4x4._21 * i_v1x3.y) + (i_m4x4._31 * i_v1x3.z) + (i_m4x4._41 * 1);
 	res.y		= (i_m4x4._12 * i_v1x3.x) + (i_m4x4._22 * i_v1x3.y) + (i_m4x4._32 * i_v1x3.z) + (i_m4x4._42 * 1);
 	res.z		= (i_m4x4._13 * i_v1x3.x) + (i_m4x4._23 * i_v1x3.y) + (i_m4x4._33 * i_v1x3.z) + (i_m4x4._43 * 1);
+	//float alpha = (i_m4x4._14 * i_v1x3.x) + (i_m4x4._24 * i_v1x3.y) + (i_m4x4._34 * i_v1x3.z) + (i_m4x4._44 * 1);
+	
+	return res;
+};
+
+/////////////////// ////////////////////
+//// 関数名     ：inline D3DXVECTOR3 MatrixCalculator(D3DXMATRIX& i_m4x4 , D3DXVECTOR3& i_v1x3)
+//// カテゴリ   ：グリーバル関数
+//// 用途       ：三次元ベクトルに行列変換を行う
+//// 引数       ：  const D3DXMATRIX&  i_m4x4    //  : 計算に使う行列データ
+////            ：  const D3DXVECTOR3& i_v1x3    //  : 変換させたい座標データ
+//// 戻値       ：変換されたベクトル
+//// 担当       ：鴫原 徹
+//// 備考       ：
+////            ：
+////
+inline Point MatrixCalculator(const D3DXMATRIX& i_m4x4 ,const Point& i_v1x2){
+	Point res;
+
+	res.x		= (LONG)((i_m4x4._11 * i_v1x2.x) + (i_m4x4._21 * i_v1x2.y) + (i_m4x4._31 * 0) + (i_m4x4._41 * 1));
+	res.y		= (LONG)((i_m4x4._12 * i_v1x2.x) + (i_m4x4._22 * i_v1x2.y) + (i_m4x4._32 * 0) + (i_m4x4._42 * 1));
+	//res.z		= (i_m4x4._13 * i_v1x3.x) + (i_m4x4._23 * i_v1x3.y) + (i_m4x4._33 * 0) + (i_m4x4._43 * 1);
 	//float alpha = (i_m4x4._14 * i_v1x3.x) + (i_m4x4._24 * i_v1x3.y) + (i_m4x4._34 * i_v1x3.z) + (i_m4x4._44 * 1);
 	
 	return res;
@@ -259,7 +282,7 @@ public:
 	D3DXVECTOR3& retvec		//最近接点を返す参照
 　);
  用途: pointから見たOBBの最近接点を得る
- 戻り値: 無し（retvecに最近接点が代入される）
+ 戻り値: なし（retvecに最近接点が代入される）
 ***************************************************************************/
 	static void ClosestPtPointOBB(const D3DXVECTOR3& point,const OBB& obb, D3DXVECTOR3& retvec){
 		D3DXVECTOR3 d = point - obb.m_Center;
@@ -676,6 +699,7 @@ inline void ChangeRenderState(const LPDIRECT3DDEVICE9 i_pDevice, RENDERSTATE_PAR
 //// 備考       ：i_pParam の最後には必ず { D3DRS_FORCE_DWORD , NULL } を指定してください
 ////            ：
 inline void SetRenderStateArray(const LPDIRECT3DDEVICE9 i_pDevice,RENDERSTATE_PARAM* i_pParam){
+	if( !i_pParam ) return ;
 	for(WORD i = 0 ; i_pParam[i].renderType != D3DRS_FORCE_DWORD ; i++){
 		SetRenderState(i_pDevice , i_pParam[i]);
 	}
@@ -694,6 +718,7 @@ inline void SetRenderStateArray(const LPDIRECT3DDEVICE9 i_pDevice,RENDERSTATE_PA
 //// 備考       ：i_pParam の最後には必ず { D3DRS_FORCE_DWORD , NULL } を指定してください
 ////            ：
 inline void ChangeRenderStateArray(const LPDIRECT3DDEVICE9 i_pDevice,RENDERSTATE_PARAM* io_pParam){
+	if( !io_pParam ) return ;
 	for(WORD i = 0 ; io_pParam[i].renderType != D3DRS_FORCE_DWORD ; i++){
 		ChangeRenderState(i_pDevice , io_pParam[i]);
 	}
@@ -715,7 +740,7 @@ inline void ChangeRenderStateArray(const LPDIRECT3DDEVICE9 i_pDevice,RENDERSTATE
 ////            ：
 #define SOF_NOTFOUND ( UINT_MAX )
 inline Object* SearchObjectFromID(vector<Object*>* i_pVec, DWORD i_dwID, vector<Object*>::size_type* o_Point = NULL, vector<Object*>* o_pVec = NULL, vector<vector<Object*>::size_type>* o_PointList = NULL){
-
+	if( !i_pVec ) return NULL ;
 	vector<Object*>::size_type	sz = i_pVec->size(),
 								 i = 0 ;
 
@@ -782,30 +807,139 @@ inline Object* SearchObjectFromTypeID(vector<Object*>* i_pVec,const type_info& i
 };
 
 
-
+/////////////////// ////////////////////
+//// 関数名     ：inline D3DCOLORVALUE getD3DCOLORVALUE(float a, float r, float g, float b)
+//// カテゴリ   ：グローバル関数
+//// 用途       ：
+//// 引数       ：
+//// 担当       ：鴫原 徹
+//// 備考       ：いい名前が思いつかない(´・ω・｀)
+////            ：
+////
 inline D3DCOLORVALUE getD3DCOLORVALUE(float a, float r, float g, float b){
 	D3DCOLORVALUE c = { a, r, g, b } ;
 	return c ;
 }
 
+/////////////////// ////////////////////
+//// 関数名     ：inline D3DCOLORVALUE COLOR2D3DCOLORVALUE(Color i_Color, float i_fRate = 1.0f)
+//// カテゴリ   ：
+//// 用途       ：
+//// 引数       ：
+//// 担当       ：
+//// 備考       ：
+////            ：
 inline D3DCOLORVALUE COLOR2D3DCOLORVALUE(Color i_Color, float i_fRate = 1.0f){
 	
 	D3DCOLORVALUE c = {
-		(float)i_Color.byteColor.r / (float)UCHAR_MAX ,
-		(float)i_Color.byteColor.g / (float)UCHAR_MAX ,
-		(float)i_Color.byteColor.b / (float)UCHAR_MAX ,
-		(float)i_Color.byteColor.a / (float)UCHAR_MAX
+		(float)i_Color.byteColor.r / (float)UCHAR_MAX * i_fRate,
+		(float)i_Color.byteColor.g / (float)UCHAR_MAX * i_fRate,
+		(float)i_Color.byteColor.b / (float)UCHAR_MAX * i_fRate,
+		(float)i_Color.byteColor.a / (float)UCHAR_MAX * i_fRate
 	};
 	return c ;
 }
 
+/////////////////// ////////////////////
+//// 関数名     ：
+//// カテゴリ   ：
+//// 用途       ：
+//// 引数       ：
+//// 担当       ：
+//// 備考       ：
+////            ：
 inline D3DCOLORVALUE COLOR2DIFFUSE(Color i_Color, float i_fRate = 0.7f){
 	return COLOR2D3DCOLORVALUE(i_Color,i_fRate) ;
 }
 
+/////////////////// ////////////////////
+//// 関数名     ：
+//// カテゴリ   ：
+//// 用途       ：
+//// 引数       ：
+//// 担当       ：
+//// 備考       ：
+////            ：
 inline D3DCOLORVALUE COLOR2AMBIENT(Color i_Color, float i_fRate = 0.3f){
 	return COLOR2D3DCOLORVALUE(i_Color,i_fRate) ;
 }
+// スクリーン座標をワールド座標に変換
+/////////////////// ////////////////////
+//// 関数名     ：
+//// カテゴリ   ：
+//// 用途       ：
+//// 引数       ：
+//// 担当       ：
+//// 備考       ：
+////            ：
+inline D3DXVECTOR3* CalcScreenToWorld(
+   D3DXVECTOR3* pout,
+   int Sx,  // スクリーンX座標
+   int Sy,  // スクリーンY座標
+   float fZ,  // 射影空間でのZ値（0～1）
+   int Screen_w,
+   int Screen_h,
+   D3DXMATRIX* View,
+   D3DXMATRIX* Prj
+) {
+   // 各行列の逆行列を算出
+   D3DXMATRIX InvView, InvPrj, VP, InvViewport;
+   D3DXMatrixInverse( &InvView, NULL, View );
+   D3DXMatrixInverse( &InvPrj, NULL, Prj );
+   D3DXMatrixIdentity( &VP );
+   VP._11 = Screen_w/2.0f; VP._22 = -Screen_h/2.0f;
+   VP._41 = Screen_w/2.0f; VP._42 = Screen_h/2.0f;
+   D3DXMatrixInverse( &InvViewport, NULL, &VP );
+
+   // 逆変換
+   D3DXMATRIX tmp = InvViewport * InvPrj * InvView;
+   D3DXVec3TransformCoord( pout, &D3DXVECTOR3((float)Sx,(float)Sy,fZ), &tmp );
+
+   return pout;
+}
+/////////////////// ////////////////////
+//// 関数名     ：
+//// カテゴリ   ：
+//// 用途       ：
+//// 引数       ：
+//// 担当       ：
+//// 備考       ：
+////            ：
+//スクリーン座標とXZ平面のワールド座標交点算出（ CalcScreenToXZ関数 ）
+// XZ平面とスクリーン座標の交点算出関数
+inline D3DXVECTOR3* CalcScreenToXZ(
+   D3DXVECTOR3* pout,
+   int Sx,
+   int Sy,
+   int Screen_w,
+   int Screen_h,
+   D3DXMATRIX* View,
+   D3DXMATRIX* Prj
+) {
+   D3DXVECTOR3 nearpos;
+   D3DXVECTOR3 farpos;
+   D3DXVECTOR3 ray;
+   CalcScreenToWorld( &nearpos, Sx, Sy, 0.0f, Screen_w, Screen_h, View, Prj );
+   CalcScreenToWorld( &farpos, Sx, Sy, 1.0f, Screen_w, Screen_h, View, Prj );
+   ray = farpos - nearpos;
+   D3DXVec3Normalize( &ray, &ray );
+
+   // 床との交差が起きている場合は交点を
+   // 起きていない場合は遠くの壁との交点を出力
+   if( ray.y <= 0 ) {
+      // 床交点
+      float Lray = D3DXVec3Dot( &ray, &D3DXVECTOR3(0,1,0) );
+      float LP0 = D3DXVec3Dot( &(-nearpos), &D3DXVECTOR3(0,1,0) );
+      *pout = nearpos + (LP0/Lray)*ray;
+   }
+   else {
+      *pout = farpos;
+   }
+
+   return pout;
+}
+
+
 
 ////////////////////////////////////////
 ////// Non-environment-dependent ///////

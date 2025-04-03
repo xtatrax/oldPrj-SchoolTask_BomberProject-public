@@ -1,6 +1,6 @@
 ////////////////////////////// //////////////////////////////
 //	プロジェクト	：DirectX Program Bass Project
-//	ファイル名		：DxDevice.h
+//	ファイル名		：MemoryManager.h
 //	開発環境		：MSVC++ 2008
 //	最適タブ数		：4
 //	担当者			：鴫原 徹
@@ -10,6 +10,7 @@
 //
 #include "stdafx.h"
 #include "MemoryManager.h"
-
-std::list<TMemoryManager::itemInfo> TMemoryManager::m_ItemInfo ;
-
+#if defined( CF_MEMORYMANAGER_ENABLE )
+	std::list<TMemoryManager::itemInfo> TMemoryManager::m_ItemInfo ;
+	DWORD	TMemoryManager::m_dwAreaSize = 0 ; 
+#endif

@@ -14,7 +14,7 @@
 #include "BassMenuItems.h"
 #include "Debug_Stage.h"
 #include "Factory_Main.h"
-
+#include "Factory_Cursor.h"
 namespace wiz{
 
 
@@ -53,12 +53,15 @@ DebugMenu::DebugMenu(LPDIRECT3DDEVICE9 pD3DDevice,Stage* Par)
 :MenuStage(pD3DDevice){
 	m_pChildStage = 0;
 	try{
+		FactoryPacket FPac(pD3DDevice,this->m_IsDialog,&Command(),this);
+
 		ButtonSprite* pButton = NULL;
-		LPDIRECT3DTEXTURE9 pTex;
+		LPTATRATEXTURE pTex;
+		pTex = m_TexMgr.addTexture(pD3DDevice,L"DBG_DebugMenu.png");
 		m_Vec.push_back(
 			new SpriteObject(
 				pD3DDevice,
-				m_TexMgr.addTexture(pD3DDevice,L"DBG_DebugMenu.png"),
+				pTex,
 				D3DXVECTOR3(1.0f,1.0f,1.0f),
 				g_vZero,
 				D3DXVECTOR3(450.0f,0.0f,0.0f),
@@ -83,10 +86,12 @@ DebugMenu::DebugMenu(LPDIRECT3DDEVICE9 pD3DDevice,Stage* Par)
 			g_vZero,
 			0xFFFFFFFF,
 			0xFFAAAAAA,
-			GM_OPENSTAGE_TITLE,
-			0
+			RCTEXT_SOUND_SE_SELECT,
+			RCTEXT_SOUND_SE_ENTER,
+			0.5f,
+			GM_OPENSTAGE_TITLE
 			)));
-		m_ButtonVec.push_back(pButton->getButtonP());
+		this->AddButton(pButton);
 
 		//	: プレイ
 		pTex = m_TexMgr.addTexture(pD3DDevice,L"DBG_PLAY.png");
@@ -101,10 +106,12 @@ DebugMenu::DebugMenu(LPDIRECT3DDEVICE9 pD3DDevice,Stage* Par)
 			g_vZero,
 			0xFFFFFFFF,
 			0xFFAAAAAA,
-			GM_OPENSTAGE_PLAY,
-			1
+			RCTEXT_SOUND_SE_SELECT,
+			RCTEXT_SOUND_SE_ENTER,
+			0.5f,
+			GM_OPENSTAGE_PLAY
 			)));
-		m_ButtonVec.push_back(pButton->getButtonP());
+		this->AddButton(pButton);
 
 		//	: リザルト
 		pTex = m_TexMgr.addTexture(pD3DDevice,L"DBG_.png");
@@ -119,10 +126,12 @@ DebugMenu::DebugMenu(LPDIRECT3DDEVICE9 pD3DDevice,Stage* Par)
 			g_vZero,
 			0xFFFFFFFF,
 			0xFFAAAAAA,
-			GM_WITHOUT,
-			2
+			RCTEXT_SOUND_SE_SELECT,
+			RCTEXT_SOUND_SE_ENTER,
+			0.5f,
+			GM_WITHOUT
 			)));
-		m_ButtonVec.push_back(pButton->getButtonP());
+		this->AddButton(pButton);
 
 		//	: げーむおーばー
 		pTex = m_TexMgr.addTexture(pD3DDevice,L"DBG_.png");
@@ -137,10 +146,12 @@ DebugMenu::DebugMenu(LPDIRECT3DDEVICE9 pD3DDevice,Stage* Par)
 			g_vZero,
 			0xFFFFFFFF,
 			0xFFAAAAAA,
-			GM_WITHOUT,
-			3
+			RCTEXT_SOUND_SE_SELECT,
+			RCTEXT_SOUND_SE_ENTER,
+			0.5f,
+			GM_WITHOUT
 			)));
-		m_ButtonVec.push_back(pButton->getButtonP());
+		this->AddButton(pButton);
 
 		//	: てとわーく
 		pTex = m_TexMgr.addTexture(pD3DDevice,L"DBG_.png");
@@ -155,13 +166,15 @@ DebugMenu::DebugMenu(LPDIRECT3DDEVICE9 pD3DDevice,Stage* Par)
 			g_vZero,
 			0xFFFFFFFF,
 			0xFFAAAAAA,
-			GM_WITHOUT,
-			4
+			RCTEXT_SOUND_SE_SELECT,
+			RCTEXT_SOUND_SE_ENTER,
+			0.5f,
+			GM_WITHOUT
 			)));
-		m_ButtonVec.push_back(pButton->getButtonP());
+		this->AddButton(pButton);
 
-		//	: 
-		pTex = m_TexMgr.addTexture(pD3DDevice,L"DBG_.png");
+		//	: デモシーン
+		pTex = m_TexMgr.addTexture(pD3DDevice,L"DBG_DEMO.png");
 		m_Vec.push_back((pButton = new ButtonSprite(
 			pD3DDevice,
 			pTex,
@@ -173,10 +186,12 @@ DebugMenu::DebugMenu(LPDIRECT3DDEVICE9 pD3DDevice,Stage* Par)
 			g_vZero,
 			0xFFFFFFFF,
 			0xFFAAAAAA,
-			GM_WITHOUT,
-			5
+			RCTEXT_SOUND_SE_SELECT,
+			RCTEXT_SOUND_SE_ENTER,
+			0.5f,
+			GM_OPENSTAGE_DEMO
 			)));
-		m_ButtonVec.push_back(pButton->getButtonP());
+		this->AddButton(pButton);
 
 		//	: ステージローダー
 		pTex = m_TexMgr.addTexture(pD3DDevice,L"DBG_StageLoader.png");
@@ -191,10 +206,12 @@ DebugMenu::DebugMenu(LPDIRECT3DDEVICE9 pD3DDevice,Stage* Par)
 			g_vZero,
 			0xFFFFFFFF,
 			0xFFAAAAAA,
-			GM_OPENDEBUGSTAGE_STAGELOADERTEST,
-			6
+			RCTEXT_SOUND_SE_SELECT,
+			RCTEXT_SOUND_SE_ENTER,
+			0.5f,
+			GM_OPENDEBUGSTAGE_STAGELOADERTEST
 			)));
-		m_ButtonVec.push_back(pButton->getButtonP());
+		this->AddButton(pButton);
 
 		//	: てとらわーく
 		pTex = m_TexMgr.addTexture(pD3DDevice,L"DBG_TATRA.png");
@@ -209,10 +226,16 @@ DebugMenu::DebugMenu(LPDIRECT3DDEVICE9 pD3DDevice,Stage* Par)
 			g_vZero,
 			0xFFFFFFFF,
 			0xFFAAAAAA,
-			GM_OPENDEBUGSTAGE_TATEAWORKSPACE,
-			7
+			RCTEXT_SOUND_SE_SELECT,
+			RCTEXT_SOUND_SE_ENTER,
+			0.5f,
+			GM_OPENDEBUGSTAGE_TATEAWORKSPACE
 			)));
-		m_ButtonVec.push_back(pButton->getButtonP());
+		this->AddButton(pButton);
+
+		float	fLineLength	= 550.0f;
+		float	fPointSize	= 1.0f;
+		bomberobject::Factory_Cursor	MCfac( &FPac, fLineLength, fPointSize )  ; 
 
 		//pTex = m_TexMgr.addTexture(pD3DDevice,L"media/Textures/DBG_CREATE.png");
 		//m_Vec.push_back((pButton = new ButtonSprite(
@@ -226,8 +249,10 @@ DebugMenu::DebugMenu(LPDIRECT3DDEVICE9 pD3DDevice,Stage* Par)
 		//	g_vZero,
 		//	0xFFFFFFFF,
 		//	0xFFAAAAAA,
-		//	GM_OPENDEBUGSTAGE_STAGECREATE,
-		//	3
+		//	RCTEXT_SOUND_SE_SELECT,
+		//	RCTEXT_SOUND_SE_ENTER,
+		//	0.5f,
+		//	GM_OPENDEBUGSTAGE_STAGECREATE
 		//	)));
 		//m_ButtonVec.push_back(pButton->getButtonP());
 	}

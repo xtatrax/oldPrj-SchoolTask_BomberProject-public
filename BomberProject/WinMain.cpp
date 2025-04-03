@@ -5,7 +5,7 @@
 //	最適タブ数		：4
 //	担当者			：鴫原 徹
 //	内包ﾃﾞｰﾀと備考	：エントリーポイント
-//					▼
+//					▼中間
 //	LRESULT CALLBACK WindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 //	int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd);
 //
@@ -13,6 +13,15 @@
 #include "DxDevice.h"
 #include "Scene.h"
 
+int nDefaultShowCmd ;
+HINSTANCE _hInstance ;
+class MouseUtilityCushion{
+public:
+	static void setMouseLB( bool Bool ){ wiz::Cursor2D::m_bMouseLB = Bool ; }
+	static void setMouseRB( bool Bool ){ wiz::Cursor2D::m_bMouseRB = Bool ; }
+	static void setMouseMB( bool Bool ){ wiz::Cursor2D::m_bMouseMB = Bool ; }
+
+};
 /**************************************************************************
 LRESULT CALLBACK WindowProc(
 HWND hWnd,      //ウィンドウハンドル
@@ -28,6 +37,9 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	switch (msg) {
 		case WM_CREATE:
 			DragAcceptFiles(hWnd,TRUE); // D&D を許可する
+			#if defined( CF_DEBUGINFORMATIONWINDOW_ENABLE )
+				Debugger::DebugWindow::init(_hInstance,hWnd,nDefaultShowCmd);
+			#endif
 			return 0;
         case WM_CLOSE:                // ウインドウが破棄されようとしている
 			wiz::DxDevice::Destroy();
@@ -60,12 +72,23 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 			// 構造体のハンドルで使ったメモリを解放する
 			DragFinish((HDROP)wParam);
 			return 0;
+		case WM_LBUTTONDOWN		:	MouseUtilityCushion::setMouseLB( true )			;	break ;
+		case WM_RBUTTONDOWN		:	MouseUtilityCushion::setMouseRB( true )			;	break ;
+		case WM_MBUTTONDOWN		:	MouseUtilityCushion::setMouseMB( true )			;	break ;
+		case WM_LBUTTONUP		:	MouseUtilityCushion::setMouseLB( false )		;	break ;
+		case WM_RBUTTONUP		:	MouseUtilityCushion::setMouseRB( false )		;	break ;
+		case WM_MBUTTONUP		:	MouseUtilityCushion::setMouseMB( false )		;	break ;
+		case WM_LBUTTONDBLCLK	:	break;
+		case WM_RBUTTONDBLCLK	:	break;
+		case WM_MBUTTONDBLCLK	:	break;
+
         default:
         break;
     }
 
     return ::DefWindowProc(hWnd, msg, wParam, lParam);
 }
+
 /**************************************************************************
  関数名:int WINAPI WinMain(
         HINSTANCE hInstance,            //インスタンスのハンドル
@@ -78,6 +101,8 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 ****************************************************************************/
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE 
     hPrevInstance, LPSTR lpCmdLine, int nShowCmd){
+	nDefaultShowCmd = nShowCmd ;
+	_hInstance = hInstance ;
 	setlocale( LC_CTYPE, "jpn" );
 	time_t timer;
 	struct tm local ;
@@ -96,6 +121,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE
     printf("%2d:", local.tm_min);
     printf("%2d", local.tm_sec);
     printf(" %d\n", local.tm_isdst);
+
 
 	Debugger::DBGWRITINGLOGTEXT::Init();
 	Debugger::DBGWRITINGLOGTEXT::addStr(L" 最終起動 \n");
@@ -129,8 +155,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE
     wcex.cbClsExtra     = 0;                        //常に0
     wcex.cbWndExtra     = 0;                        //常に0
     wcex.hInstance      = hInstance;                //アプリケーションのインスタンスを指定
-    wcex.hIcon          = NULL;                     //アイコンの指定（ここではNULL）
-    wcex.hCursor        = ::LoadCursor(NULL, IDC_ARROW);    //通常の矢印カーソル
+    wcex.hIcon          = LoadIcon(hInstance,MAKEINTRESOURCE(IDI_ICON1));                     //アイコンの指定（ここではNULL）
+    wcex.hCursor        = NULL;    //通常の矢印カーソル
     wcex.hbrBackground  = NULL;                      //背景なし
     wcex.lpszMenuName   = NULL;                     //メニューなし
     wcex.lpszClassName  = pClassName;               //クラス名の指定
@@ -142,58 +168,54 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE
         ::MessageBox(NULL,L"ウインドウクラス登録に失敗しました",L"エラー",MB_OK);
         return 1;   //エラー終了
     }
-    HWND hWnd;
     // ウィンドウの作成
     if(isFullScreen) { // フルスクリーン
-		//DEVMODE    devMode;
-		ShowCursor(DRAW_MOUSE);
-        // 画面全体の幅と高さを取得
-        //iClientWidth = ::GetSystemMetrics(SM_CXSCREEN);
-        //iClientHeight = ::GetSystemMetrics(SM_CYSCREEN);
-        hWnd = ::CreateWindowEx( 
+		// DEVMODE    devMode;
+		wiz::DxDevice::m_hWnd = ::CreateWindowEx( 
             WS_EX_ACCEPTFILES,  //オプションのウィンドウスタイル
             pClassName,         // 登録されているクラス名
             pWndTitle,          // ウインドウ名
             WS_POPUP,           // ウインドウスタイル（ポップアップウインドウを作成）
             0,                  // ウインドウの横方向の位置
             0,                  // ウインドウの縦方向の位置
-            (int)BASE_CLIENT_WIDTH,       // フルスクリーンウインドウの幅
-            (int)BASE_CLIENT_HEIGHT,      // フルスクリーンウインドウの高さ
+			(int)STANDARD_WINDOW_WIDTH,       // フルスクリーンウインドウの幅
+            (int)STANDARD_WINDOW_HEIGHT,      // フルスクリーンウインドウの高さ
             NULL,               // 親ウインドウのハンドル（なし）
             NULL,               // メニューや子ウインドウのハンドル
             hInstance,          // アプリケーションインスタンスのハンドル
             NULL                // ウインドウの作成データ
         );
-        if (!hWnd){
+        if (!wiz::DxDevice::m_hWnd){
             //失敗した
             ::MessageBox(0,L"ウインドウ作成に失敗しました",L"エラー",MB_OK);
             return 1;   //エラー終了
         }
+
 		//devMode.dmSize       = sizeof(DEVMODE);
 		//devMode.dmFields     = DM_PELSWIDTH | DM_PELSHEIGHT;
-		//devMode.dmPelsWidth  = (DWORD)BASE_CLIENT_WIDTH;
-		//devMode.dmPelsHeight = (DWORD)BASE_CLIENT_HEIGHT;
+		//devMode.dmPelsWidth  = BASE_CLIENT_WIDTH;
+		//devMode.dmPelsHeight = BASE_CLIENT_HEIGHT;
 
 		//ChangeDisplaySettings(&devMode, CDS_FULLSCREEN);
-
 
     }
     else {
         //ウインドウの作成
-        hWnd = ::CreateWindowEx(
+		wiz::DxDevice::m_hWnd = ::CreateWindowEx(
             0,                              //オプションのウィンドウスタイル
             pClassName,                     //ウインドウクラス名
             pWndTitle,                      //ウインドウのタイトル
-            WS_OVERLAPPEDWINDOW,            //移動バーをもつ通常のウインドウ
-            CW_USEDEFAULT, CW_USEDEFAULT,   //位置はWindowsに任せる
-            iClientWidth,                    //ウインドウ幅（暫定）
-            iClientHeight,                   //ウインドウ高さ（暫定）
-            NULL,                            //親ウインドウ（トップレベルなので、なし）
+            WS_OVERLAPPED | WS_SYSMENU,            //移動バーをもつ通常のウインドウ
+            100,
+			100,							//
+            iClientWidth,					//ウインドウ幅（暫定）
+            iClientHeight,					//ウインドウ高さ（暫定）
+            NULL,							//親ウインドウ（トップレベルなので、なし）
             NULL,                           //メニューなし
             hInstance,                      //このインスタンス
             NULL                            //使用しない
         );
-        if (!hWnd){
+        if (!wiz::DxDevice::m_hWnd){
             //失敗した
             ::MessageBox(0,L"ウインドウ作成に失敗しました",L"エラー",MB_OK);
             return 1;   //エラー終了
@@ -202,61 +224,66 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE
         RECT rect;
         int w_width,w_height,c_width,c_height;
         // ウインドウ全体の大きさを計算
-        ::GetWindowRect(hWnd,&rect);       // ウインドウ全体のサイズ取得
+        ::GetWindowRect(wiz::DxDevice::m_hWnd,&rect);       // ウインドウ全体のサイズ取得
         w_width = rect.right - rect.left;   // ウインドウ全体の幅の横幅を計算
         w_height = rect.bottom - rect.top;  // ウインドウ全体の幅の縦幅を計算
         // クライアント領域の大きさを計算
-        ::GetClientRect(hWnd,&rect);       // クライアント部分のサイズの取得
+        ::GetClientRect(wiz::DxDevice::m_hWnd,&rect);       // クライアント部分のサイズの取得
         c_width = rect.right - rect.left;   // クライアント領域外の横幅を計算
         c_height = rect.bottom - rect.top;  // クライアント領域外の縦幅を計算
         // ウィンドウサイズの再計算
         w_width = iClientWidth + (w_width - c_width);     // 必要なウインドウの幅
         w_height = iClientHeight + (w_height - c_height); // 必要なウインドウの高さ
         // ウインドウサイズの再設定
-        ::SetWindowPos(hWnd,HWND_TOP,0,0,w_width,w_height,SWP_NOMOVE);
+        ::SetWindowPos(wiz::DxDevice::m_hWnd,HWND_TOP,0,0,w_width,w_height,SWP_NOMOVE);
     }
+	SetCapture(wiz::DxDevice::m_hWnd);
 	ShowCursor(DRAW_MOUSE);
 	wiz::__GetClientSize(wiz::Rect(0,0,iClientWidth,iClientHeight));
 	wiz::DxDevice::setClientRect(wiz::Rect(0,0,iClientWidth,iClientHeight));
-	g_hWnd = hWnd ;
-	ShowCursor(false);
 
     //ウインドウの表示
     ::ShowWindow(
-        hWnd,       //取得したウインドウのハンドル
+        wiz::DxDevice::m_hWnd,       //取得したウインドウのハンドル
         nShowCmd    //WinMainに渡されたパラメータ
     );
     // WM_PAINTが呼ばれないようにする
-    ::ValidateRect(hWnd, 0);
+    ::ValidateRect(wiz::DxDevice::m_hWnd, 0);
     //例外処理開始
     try{
 		/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 		// 
         // DirectXデバイスオブジェクトの初期化
-        wiz::DxDevice* device = new wiz::DxDevice(hWnd, isFullScreen,iClientWidth,iClientHeight);
+        wiz::DxDevice* device = new wiz::DxDevice(isFullScreen,iClientWidth,iClientHeight);
 		int ret =  (int) device->MainThreadRun();
+		ReleaseCapture();
+
+		//Debugger::DBGWRITINGLOGTEXT::addStr(L"ゲームシステム終了処理開始");
 		SafeDelete( device );
-		::PostQuitMessage(0);
 		ShowCursor(true);
 		//wiz::TextureManager::Release();
+#if defined( CF_MEMORYMANAGER_ENABLE )
 		TMemoryManager::Clear();
+#endif
+		_CrtDumpMemoryLeaks();
+		::PostQuitMessage(0);
 		return ret ;
 		/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 	}
     catch(wiz::BaseException& e){
         //初期化失敗した
-        ::MessageBox(hWnd,e.what_w(),L"エラー",MB_OK);
+        ::MessageBox(wiz::DxDevice::m_hWnd,e.what_w(),L"エラー",MB_OK);
         return 1;   //エラー終了
     }
     catch(exception& e){
         //STLエラー
         //マルチバイトバージョンのメッセージボックスを呼ぶ
-        ::MessageBoxA(hWnd,e.what(),"エラー",MB_OK);
+        ::MessageBoxA(wiz::DxDevice::m_hWnd,e.what(),"エラー",MB_OK);
         return 1;   //エラー終了
     }
     catch(...){
         //原因不明失敗した
-        ::MessageBox(hWnd,L"原因不明のエラーです",L"エラー",MB_OK);
+        ::MessageBox(wiz::DxDevice::m_hWnd,L"原因不明のエラーです",L"エラー",MB_OK);
         return 1;   //エラー終了
     }
     //例外処理終了
@@ -264,4 +291,3 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE
 	::CoUninitialize();
     return 1;   //エラー終了
 }
-

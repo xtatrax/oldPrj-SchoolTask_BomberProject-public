@@ -13,7 +13,7 @@
 #pragma once
 #ifndef TLIB_STRING
 #define TLIB_STRING
-
+#pragma warning(disable : 4996) 
 //標準
 //#include <stdio.h>
 //#include <stdarg.h>
@@ -35,20 +35,37 @@ inline int numlen(int i){
 	return len;
 }
 
-
-
-
-
-/////////// /////////
-////void addStr(char **outSir,char **inStr)
+/////////////////// ////////////////////
+//// 関数名     ：void StartUpdateThread()
+//// カテゴリ   ：メンバ関数
+//// 用途       ：シーンのアップデート用スレッドを開始する
+//// 引数       ：なし
+//// 戻値       ：なし
+//// 備考       ：
+////            ：
 ////
-////：：outSirの後ろにinStrを追加する
-////：：メモリ領域も調整される（領域が足りなければ追加、多ければ切り詰めされる）
+inline bool FileExtentionChecker( std::string sFileName, std::string sFileExtention ){
+	sFileExtention = std::string(".") + sFileExtention;
+	unsigned char cExLeng = sFileExtention.length();
+	char buf[255];
+	sFileName.copy( buf, 255 , sFileName.length() - cExLeng );
+	buf[cExLeng] = 0;
+	if(std::string(buf) == sFileExtention)
+		return true;
+	return false;
+}
+
+
+/////////////////// ////////////////////
+//// 関数名     ：inline void addStr(char **outSir,int addLen,char **inStr)
+//// カテゴリ   ：グローバル関数
+//// 用途       ：outSirの後ろにinStrを追加する
+//// 引数       ：  char **outSir：変更を加えたい文字列へのダブルポインタ
+////            ：  char **inStr ：追加したい文字列へのダブルポインタ
+//// 戻値       ：なし
+//// 備考       ：メモリ領域も調整される（領域が足りなければ追加、多ければ切り詰めされる）
+////            ：newで生成されたchar*のみ有効です
 ////
-////引数：
-////	char **outSir：変更を加えたい文字列へのダブルポインタ
-////	char **inStr ：追加したい文字列へのダブルポインタ
-////返値：なし
 inline void addStr(char **outSir,int addLen,char **inStr){
     //     ◇
 	//格納したい文字列数の確認

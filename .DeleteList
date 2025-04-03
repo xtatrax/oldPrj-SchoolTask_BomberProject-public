@@ -1,0 +1,14 @@
+*.ncb
+*.sdf
+*.user
+*.suo
+Debug
+Presen
+Release
+Release_Window
+Release_FullScreen
+SemiRelease
+LogDatas
+Thumbs.db
+.*
+!.git

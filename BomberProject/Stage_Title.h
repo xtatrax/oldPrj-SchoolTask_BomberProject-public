@@ -22,7 +22,7 @@ namespace wiz{
  class TitleStage : public Stage;
  用途: ゲームステージクラス
 ****************************************************************************/
-class TitleStage : public Stage{
+class TitleStage : public MenuStage{
 public:	
 /**************************************************************************
  TitleStage(
@@ -40,7 +40,6 @@ TitleStage();
  戻り値: なし
 ***************************************************************************/
 	virtual ~TitleStage();
-	//virtual void Update(UpdatePacket& i_UpdatePacket);
 };
 /*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 

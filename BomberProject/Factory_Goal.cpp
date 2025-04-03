@@ -17,6 +17,11 @@
 #include "Factory_Wall.h"
 #include "BassItems.h"
 
+const D3DXVECTOR3	GOAL_CHAR_SIZE			= D3DXVECTOR3(1.0f,1.0f,0.0f);
+const	float		GOAL_CHAR_RATE_Y		= (1.0f/GOAL_CHAR_SIZE.y);
+const	float		GOAL_CHAR_RATE_X		= (1.0f/GOAL_CHAR_SIZE.x);
+const	float		GOAL_CHAR_DOWNSPEED		= 20.0f;
+
 namespace wiz{
 namespace bomberobject{
 
@@ -26,14 +31,14 @@ namespace bomberobject{
 /**************************************************************************
  FMemoryTex::FMemoryTex(
 	LPDIRECT3DDEVICE9 pD3DDevice,	//デバイス
-	LPDIRECT3DTEXTURE9 pTexture,	//テクスチャ
+	LPTATRATEXTURE pTexture,	//テクスチャ
 	wiz::OBJID id					//オブジェクトの種類
 );
  用途: コンストラクタ
  戻り値: なし
  担当：佐藤涼
 ***************************************************************************/
-FMemoryTex::FMemoryTex( LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTexture, wiz::OBJID id)
+FMemoryTex::FMemoryTex( LPDIRECT3DDEVICE9 pD3DDevice, LPTATRATEXTURE pTexture, wiz::OBJID id)
 	:PrimitiveBox(pD3DDevice,
 					D3DCOLORVALUE(),
 					D3DCOLORVALUE(),
@@ -42,6 +47,7 @@ FMemoryTex::FMemoryTex( LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTextur
 					pTexture)
 	,m_pCamera( NULL )
 	,m_pCoil( NULL )
+	,m_bEnding( false )
 {
 	::ZeroMemory( &m_Material, sizeof(D3DMATERIAL9));
 	m_iPtn		= 1;
@@ -58,6 +64,24 @@ FMemoryTex::FMemoryTex( LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTextur
 	pVB->Unlock();
 
 }
+/////////////////// ////////////////////
+//// 関数名     ：FMemoryTex::~FMemoryTex()
+//// カテゴリ   ：デストラクタ
+//// 用途       ：破棄
+//// 引数       ：なし
+//// 戻値       ：なし
+//// 担当者     ：鴫原 徹
+//// 備考       ：
+////            ：
+////
+FMemoryTex::~FMemoryTex(){
+	m_pCamera = NULL;
+	m_pCoil	  = NULL;
+
+	SafeDeletePointerMap( m_ItemMap_Memory );
+	m_ItemMap_Memory.clear();
+	m_ItemMap_Target.clear();
+}
 
 /////////////////// ////////////////////
 //// 用途       ：void Draw( DrawPacket& i_DrawPacket )
@@ -66,9 +90,9 @@ FMemoryTex::FMemoryTex( LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTextur
 //// 引数       ：  DrawPacket& i_DrawPacket             // 画面描画時に必要なデータ群 ↓内容下記
 ////            ：  ├ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 インターフェイスへのポインタ
 ////            ：  ├ vector<Object*>&    Vec                     // オブジェクトの配列
-////            ：  ├ Tempus2*            i_DrawPacket.pTime	   // 時間を管理するクラスへのポインター
+////            ：  ├ Tempus2*            i_DrawPacket.GetTime()	   // 時間を管理するクラスへのポインター
 ////            ：  └ Command             i_DrawPacket.pCommand   // コマンド
-//// 戻値       ：無し
+//// 戻値       ：なし
 //// 担当者     ：佐藤涼
 //// 備考       ：
 void FMemoryTex::Draw(DrawPacket& i_DrawPacket)
@@ -79,27 +103,27 @@ void FMemoryTex::Draw(DrawPacket& i_DrawPacket)
 		if(m_pTexture){
 			DWORD wkdword;
 			//現在のテクスチャステータスを得る
-			i_DrawPacket.pD3DDevice->GetTextureStageState(0,D3DTSS_COLOROP,&wkdword);
+			i_DrawPacket.GetDevice()->GetTextureStageState(0,D3DTSS_COLOROP,&wkdword);
 			//ステージの設定
-			i_DrawPacket.pD3DDevice->SetTexture(0,m_pTexture);
+			i_DrawPacket.GetDevice()->SetTexture(0,m_pTexture->getTexture());
 			//デフィーズ色とテクスチャを掛け合わせる設定
-			i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLOROP, D3DTOP_MODULATE4X );
-			i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLORARG1, D3DTA_TEXTURE );
-			i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLORARG2, D3DTA_DIFFUSE );
+			i_DrawPacket.GetDevice()->SetTextureStageState( 0, D3DTSS_COLOROP, D3DTOP_MODULATE4X );
+			i_DrawPacket.GetDevice()->SetTextureStageState( 0, D3DTSS_COLORARG1, D3DTA_TEXTURE );
+			i_DrawPacket.GetDevice()->SetTextureStageState( 0, D3DTSS_COLORARG2, D3DTA_DIFFUSE );
 
-			//i_DrawPacket.pD3DDevice->SetFVF(PlateFVF);
+			//i_DrawPacket.GetDevice()->SetFVF(PlateFVF);
 			// マトリックスをレンダリングパイプラインに設定
-			i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &it->second->mMatrix);
+			i_DrawPacket.GetDevice()->SetTransform(D3DTS_WORLD, &it->second->mMatrix);
 			//コモンメッシュのDraw()を呼ぶ
 			CommonMesh::Draw(i_DrawPacket);
-			i_DrawPacket.pD3DDevice->SetTexture(0,0);
+			i_DrawPacket.GetDevice()->SetTexture(0,0);
 			//ステージを元に戻す
-			i_DrawPacket.pD3DDevice->SetTextureStageState(0,D3DTSS_COLOROP,wkdword);
+			i_DrawPacket.GetDevice()->SetTextureStageState(0,D3DTSS_COLOROP,wkdword);
 		}
 		else{
 		//テクスチャがない場合
 			// マトリックスをレンダリングパイプラインに設定
-			i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &it->second->mMatrix);
+			i_DrawPacket.GetDevice()->SetTransform(D3DTS_WORLD, &it->second->mMatrix);
 			//コモンメッシュのDraw()を呼ぶ
 			CommonMesh::Draw(i_DrawPacket);
 		}
@@ -117,15 +141,14 @@ void FMemoryTex::Draw(DrawPacket& i_DrawPacket)
 ////            ：  ├       vector<Object*>&   Vec,            // オブジェクトの配列
 ////            ：  ├ const CONTROLER_STATE*   pCntlState      // コントローラのステータス
 ////            ：  └       Command            pCommand        // コマンド
-//// 戻値       ：無し
+//// 戻値       ：なし
 //// 担当者     ：佐藤涼
 //// 備考       ：
 ////            ：
 ////
 void FMemoryTex::Update( UpdatePacket& i_UpdatePacket ){
-	if(m_pCamera == NULL){
-		m_pCamera = (Camera*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_SYS_CAMERA);
-	}
+	if( !m_pCamera	)	m_pCamera	=     (Camera*)i_UpdatePacket.SearchObjectFromID(OBJID_SYS_CAMERA	) ;
+	if( !m_pCoil	)	m_pCoil		= (PlayerCoil*)i_UpdatePacket.SearchObjectFromID(OBJID_3D_COIL		) ;
 
 	m_ItemMap_Target.clear();
 	multimap<float,mItem*>::iterator it = m_ItemMap_Memory.begin();
@@ -136,8 +159,6 @@ void FMemoryTex::Update( UpdatePacket& i_UpdatePacket ){
 		++it;
 	}
 
-	if( m_pCoil == NULL )
-		m_pCoil = (PlayerCoil*)SearchObjectFromTypeID(i_UpdatePacket.pVec, typeid(PlayerCoil) ) ;
 
 	multimap<float,mItem*>::iterator it2 = m_ItemMap_Target.begin();
 	while(it2 != m_ItemMap_Target.end()){
@@ -181,11 +202,11 @@ void FMemoryTex::Update( UpdatePacket& i_UpdatePacket ){
 ////            ：  D3DCOLORVALUE& Diffuse,			//ディフューズ色
 ////            ：  D3DCOLORVALUE& Specular,		//スペキュラ色
 ////            ：  D3DCOLORVALUE& Ambient,			//アンビエント色
-//// 戻値       ：無し
+//// 戻値       ：なし
 //// 担当者     ：佐藤涼
 //// 備考       ：
-void FMemoryTex::AddMemory(D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos,
-			D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient)
+void FMemoryTex::AddMemory(const D3DXVECTOR3 &vScale,const D3DXVECTOR3 &vRot,const D3DXVECTOR3 &vPos,
+			const D3DCOLORVALUE& Diffuse,const D3DCOLORVALUE& Specular,const D3DCOLORVALUE& Ambient)
 {
 	mItem* pItem = new mItem;
 	pItem->vScale = vScale;
@@ -222,29 +243,33 @@ void FMemoryTex::OrientGoal(UpdatePacket& i_UpdatePacket){
 	const float	rate		= 0.1f;			//移動する速さ
 	const float	ScaleRate	= rate*rate;	//大きさの変化率
 	const float DirRate		= rate*60;		//角度の変化率
-	const float	OrientPos	= m_vPos.x + (m_vScale.x / 2 - 4);	//向かうべき位置
+	const float	OrientPos	= m_vPos.x + ((m_vScale.x - 1.0f) * (-0.2f) ) ;	//向かうべき位置
 
 	int			dirPtn		= 1;		//向くべき角度を示す
 	const float	TopDir		= 90.0f;	//上を向いた時のの角度
 	const float	RightDir	= 0.0f;		//右を向いた時のの角度
 	const float	LeftDir		= 180.0f;	//左を向いた時のの角度
 
-	const float LeastScale	= 0.3f;	//最も縮小した時の大きさ
+	static float LeastScale	= 0.3f;	//最も縮小した時の大きさ
 
 	//****************************
 	//大きさの変更
 	if( scale.x > LeastScale ){
 		scale.x	-= ScaleRate;
+		scale.y	-= ScaleRate;
 		scale.z	-= ScaleRate;
 	}
 	else{
 		scale.x	= LeastScale;
 		scale.y	= LeastScale;
+		scale.z	= LeastScale;
+
+		if( scale.x == 0 )	m_bEnding	= true;
 	}
 	//****************************
 	//位置の変更
 	switch( m_iPtn ){
-		case 1:	if( m_vPos.y >= move.y )
+		case 1:	if( m_vPos.y-1.0f >= move.y )
 					move.y	+= rate;
 				else	m_iPtn	= 2;
 				break;
@@ -272,8 +297,11 @@ void FMemoryTex::OrientGoal(UpdatePacket& i_UpdatePacket){
 					dirPtn	 = 3;
 				}
 				else{
-					i_UpdatePacket.pCommand->m_Command	= GM_OPENSTAGE_RESULT;
+					m_iPtn		= 5;
+					LeastScale	= 0;
 				}
+				break;
+		default:
 				break;
 	}
 	//****************************
@@ -302,9 +330,28 @@ void FMemoryTex::OrientGoal(UpdatePacket& i_UpdatePacket){
 	}
 	//**************************************************
 
-	m_pCoil->setPos(move);
-	m_pCoil->setScale(scale);
-	m_pCoil->setDir(dir);
+	if( !m_bEnding ){
+		m_pCoil->setPos(move);
+		m_pCoil->setScale(scale);
+		m_pCoil->setDir(dir);
+	}
+	else{ 
+		static float s_fTimeCount = 0.0f;
+		s_fTimeCount += (float)i_UpdatePacket.GetTime()->getElapsedTime();
+		if(s_fTimeCount >= 0.5f){
+
+			i_UpdatePacket.PushCommand( 
+				Command(
+					GM_OPENSTAGE_CLEAR			,
+					m_pCoil->getDeadCount()		,
+					m_pCoil->getMaxPos()		,
+					m_pCoil->getScratchTime()
+				)
+			);
+			s_fTimeCount = 0.0f;
+			LeastScale	 = 0.3f;
+		}
+	}
 }
 
 /**************************************************************************
@@ -313,19 +360,19 @@ void FMemoryTex::OrientGoal(UpdatePacket& i_UpdatePacket){
 /***************************************************************************
 関数名　　：GoalObject(
                    FactoryPacket* fpac,
-                   LPDIRECT3DTEXTURE9 pTexture,
+                   LPTATRATEXTURE pTexture,
                    wiz::OBJID id
               )
 カテゴリ　：コンストラクタ
 用途　　　：
 引数　　　：FactoryPacket* fpac           //デバイスなど
-　　　　　：LPDIRECT3DTEXTURE9 pTexture   //テクスチャ―
+　　　　　：LPTATRATEXTURE pTexture   //テクスチャ―
 　　　　　：wiz::OBJID id                 //ID
 戻り値　　：
 担当者　　：佐藤涼
 備考　　　：
 ****************************************************************************/
-GoalObject::GoalObject( LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTexture,wiz::OBJID id)
+GoalObject::GoalObject( LPDIRECT3DDEVICE9 pD3DDevice, D3DXVECTOR3 vPos , LPTATRATEXTURE pTexture, LPTATRATEXTURE pGoakCharTex,wiz::OBJID id)
 	:PrimitiveBox(pD3DDevice,
 					D3DCOLORVALUE(),
 					D3DCOLORVALUE(),
@@ -333,12 +380,26 @@ GoalObject::GoalObject( LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTextur
 					id,
 					pTexture)
 ,m_pCoil( NULL )
-,m_pSound( NULL )
+,m_pCamera( NULL )
 ,m_bPlaySound( true )
+,m_pGoalCharTex( pGoakCharTex )
+,m_fInitPosY( 0 )
 {
 	try{
+		D3DXVECTOR3		vScale = D3DXVECTOR3( 100.0f, 1.0f, 0.0f) ;
+		SetBasePos(		vPos	);
+		SetBaseScale(	vScale	);
+
+		m_Obb = OBB( vScale, g_vZero, vPos );
+		this->CalcWorldMatrix();
         // D3DMATERIAL9構造体を0でクリア
-        ::ZeroMemory( &m_Material, sizeof(D3DMATERIAL9));
+		m_Material.Diffuse	= COLOR2D3DCOLORVALUE(0xFFFFFF00);
+		m_Material.Specular	= COLOR2D3DCOLORVALUE(0xFFFFFF00);
+		m_Material.Ambient	= COLOR2D3DCOLORVALUE(0xFFFFFF00);
+
+		m_pGoalChar	= 	new SpriteObject( pD3DDevice, m_pGoalCharTex, GOAL_CHAR_SIZE, g_vZero, g_vZero,
+									&Rect( 0, 0, 256, 64 ), D3DXVECTOR3( 128.0f, 32.0f, 0.0f ), D3DXVECTOR3( 100.0f, -87.0f, 0.0f ));
+
 	}
 	catch(...){
 		//再スロー
@@ -347,8 +408,11 @@ GoalObject::GoalObject( LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTextur
 }
 GoalObject::~GoalObject(){
 	
-	m_pCoil = NULL ;
-	SafeDeletePointerMap( m_ItemMap_All ) ;
+	SafeDelete(m_pGoalChar);
+	//SafeDeletePointerMap( m_ItemMap_All ) ;
+	m_pCoil		= NULL ;
+	m_pGoalChar	= NULL;
+	m_pCamera	= NULL;
 
 
 }
@@ -362,37 +426,8 @@ GoalObject::~GoalObject(){
 備考　　　：
 ***************************************************************/
 void	GoalObject::Draw(DrawPacket &i_DrawPacket){
-	multimap<float,GoalItem*>::iterator it = m_ItemMap_All.begin();
-	while(it != m_ItemMap_All.end()){
-		//テクスチャがある場合
-		if(m_pTexture){
-			DWORD wkdword;
-			//現在のテクスチャステータスを得る
-			i_DrawPacket.pD3DDevice->GetTextureStageState(0,D3DTSS_COLOROP,&wkdword);
-			//ステージの設定
-			i_DrawPacket.pD3DDevice->SetTexture(0,m_pTexture);
-			//デフィーズ色とテクスチャを掛け合わせる設定
-			i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLOROP, D3DTOP_MODULATE4X );
-			i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLORARG1, D3DTA_TEXTURE );
-			i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLORARG2, D3DTA_DIFFUSE );
-
-			// マトリックスをレンダリングパイプラインに設定
-			i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &it->second->m_Matrix);
-			//コモンメッシュのDraw()を呼ぶ
-			CommonMesh::Draw(i_DrawPacket);
-			i_DrawPacket.pD3DDevice->SetTexture(0,0);
-			//ステージを元に戻す
-			i_DrawPacket.pD3DDevice->SetTextureStageState(0,D3DTSS_COLOROP,wkdword);
-		}
-		else{
-		//テクスチャがない場合
-			// マトリックスをレンダリングパイプラインに設定
-			i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &it->second->m_Matrix);
-			//コモンメッシュのDraw()を呼ぶ
-			CommonMesh::Draw(i_DrawPacket);
-		}
-		++it;
-	}
+	PrimitiveBox::Draw( i_DrawPacket );
+	m_pGoalChar->Draw( i_DrawPacket );
 }
 
 /*******************************************************************
@@ -408,91 +443,47 @@ void	GoalObject::Draw(DrawPacket &i_DrawPacket){
 ********************************************************************/
 void	GoalObject::Update(UpdatePacket& i_UpdatePacket)
 {
-	if( m_pSound == NULL )
-		m_pSound = (Sound*)SearchObjectFromTypeID(i_UpdatePacket.pVec,typeid(Sound));
-
-	multimap<float,GoalItem*>::iterator it = m_ItemMap_All.begin();
-	while(it != m_ItemMap_All.end()){
-		//計算はUpdateで
-		//拡大縮小
-		D3DXMATRIX mScale;
-		D3DXMatrixIdentity(&mScale);
-		D3DXMatrixScaling(&mScale,
-			it->second->m_vScale.x,it->second->m_vScale.y,it->second->m_vScale.z);
-		//回転
-		D3DXMATRIX mRot;
-		D3DXMatrixIdentity(&mRot);
-		D3DXMatrixRotationQuaternion(&mRot,&it->second->m_vRot);
-		//移動用
-		D3DXMATRIX mMove;
-		D3DXMatrixIdentity(&mMove);
-		D3DXMatrixTranslation(&mMove,
-			it->second->m_vPos.x,it->second->m_vPos.y,it->second->m_vPos.z);
-		//ミックス行列
-		it->second->m_Matrix = mScale * mRot * mMove;
-		//マティリアル設定
-		m_Material = it->second->m_Material;
-
-		//衝突判定
-		m_pCoil = (PlayerCoil*)SearchObjectFromTypeID(i_UpdatePacket.pVec, typeid(PlayerCoil) ) ;
-		if( m_pCoil && m_pCoil->HitTestWall( it->second->m_Obb, 0) ){
-			m_pCoil->setState( COIL_STATE_CLEAR );
-			m_pCoil->setSuperMode(false);
-			if( m_bPlaySound ){
-				m_pSound->SearchSoundAndPlay( RCTEXT_SOUND_SE_GOAL );
-				m_bPlaySound	= false;
-			}
-			//i_UpdatePacket.pCommand->m_Command	= GM_OPENSTAGE_RESULT;
-		}
-
-		++it;
+	if( !m_pCoil  ) m_pCoil		= (PlayerCoil*)i_UpdatePacket.SearchObjectFromID(OBJID_3D_COIL		) ;
+	if( !m_pCamera ){
+		m_pCamera = (    Camera*)i_UpdatePacket.SearchObjectFromID( OBJID_SYS_CAMERA ) ;
+		m_fInitPosY	= 	m_pCamera->getPosY();
 	}
+
+
+	//衝突判定
+	if( m_pCoil && m_pCoil->HitTestWall( m_Obb ) ){
+		m_pCoil->setState( COIL_STATE_CLEAR );
+		m_pCoil->setSuperMode(COIL_STATE_SUPER_CHARGE);
+		if( m_bPlaySound ){
+			i_UpdatePacket.SearchSoundAndPlay( RCTEXT_SOUND_SE_GOAL );
+			m_bPlaySound	= false;
+		}
+	}
+
+	//*****************************************************************************************************
+	//ゴールの文字
+	float	fTexPosY	= 0.0f;
+	if( m_pCamera )
+		fTexPosY	= m_pCamera->getPosY() - m_fInitPosY;
+
+	D3DXVECTOR3	p;
+	GetWorldPos(p);
+	float	m_fGoalPosX = p.x;
+	float	m_fGoalPosY = p.y;
+
+	float	wide	= BASE_CLIENT_WIDTH / 50 * m_fGoalPosX * GOAL_CHAR_RATE_X;
+	float	height	= ( (m_fGoalPosY - fTexPosY)
+								* GOAL_CHAR_DOWNSPEED - BASE_CLIENT_HEIGHT ) * (-1.0f) * GOAL_CHAR_RATE_Y;
+
+	D3DXMATRIX mTexMatrix, mScale, mRot, mPos;
+	D3DXMatrixScaling(&mScale,GOAL_CHAR_SIZE.x,GOAL_CHAR_SIZE.y,GOAL_CHAR_SIZE.z);
+	D3DXMatrixRotationZ(&mRot,D3DXToRadian(0));
+	D3DXMatrixTranslation(&mPos, wide,height,0.0f);
+	mTexMatrix	= mPos*mScale*mRot;
+	m_pGoalChar->setMatrix( mTexMatrix );
+
 }
 
-/*******************************************************************
-関数名　　：void GoalObject::addGoal(
-                     D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos,
-                     D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient
-              )
-カテゴリ　：関数
-用途　　　：ゴールの追加
-引数　　　：D3DXVECTOR3 &vScale
-　　　　　：D3DXVECTOR3 &vRot
-　　　　　：D3DXVECTOR3 &vPos
-　　　　　：D3DCOLORVALUE& Diffuse
-　　　　　：D3DCOLORVALUE& Specular
-　　　　　：D3DCOLORVALUE& Ambient
-戻り値　　：
-担当者　　：佐藤涼
-備考　　　：
-********************************************************************/
-void GoalObject::addGoal(D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos,
-			D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient)
-{
-	GoalItem* pItem = new GoalItem;
-	pItem->m_vScale = vScale;
-	pItem->m_vPos	= vPos;
-    ::ZeroMemory(&pItem->m_Material,sizeof(D3DMATERIAL9));
-	pItem->m_Material.Diffuse = Diffuse;
-	pItem->m_Material.Specular = Specular;
-	pItem->m_Material.Ambient = Ambient;
-	//回転の初期化
-	D3DXQuaternionRotationYawPitchRoll(&pItem->m_vRot,
-			D3DXToRadian(vRot.y),D3DXToRadian(vRot.x),D3DXToRadian(vRot.z));
-
-	//衝突判定用のOBBの初期化
-	pItem->m_Obb.m_Center = vPos;
-	pItem->m_Obb.m_Size = vScale * 0.5f;
-	D3DXMATRIX mRot;
-	D3DXMatrixIdentity(&mRot);
-	D3DXMatrixRotationYawPitchRoll(&mRot,
-		D3DXToRadian(vRot.y),D3DXToRadian(vRot.x),D3DXToRadian(vRot.z));
-	pItem->m_Obb.m_Rot[0] = D3DXVECTOR3(mRot._11,mRot._12,mRot._13);
-    pItem->m_Obb.m_Rot[1] = D3DXVECTOR3(mRot._21,mRot._22,mRot._23);
-    pItem->m_Obb.m_Rot[2] = D3DXVECTOR3(mRot._31,mRot._32,mRot._33);
-
-	m_ItemMap_All.insert(multimap<float,GoalItem*>::value_type(pItem->m_vPos.y,pItem));	
-}
 
 /**************************************************************************
  Factory_Goal 定義部
@@ -508,42 +499,6 @@ void GoalObject::addGoal(D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos
 ***************************************************************************/
 Factory_Goal::Factory_Goal(FactoryPacket* fpac){
 	try{
-        D3DCOLORVALUE MemoryDiffuse = {1.0f,1.0f,1.0f,0.0f};
-        D3DCOLORVALUE MemorySpecular = {0.0f,0.0f,0.0f,0.0f};
-        D3DCOLORVALUE MemoryAmbient = {1.0f,1.0f,1.0f,0.0f};
-
-        D3DCOLORVALUE GoalDiffuse = {0.0f,1.0f,1.0f,0.3f};
-        D3DCOLORVALUE GoalSpecular = {0.0f,0.0f,0.0f,0.0f};
-        D3DCOLORVALUE GoalAmbient = {0.0f,1.0f,1.0f,0.3f};
-
-		FMemoryTex* mt = new FMemoryTex(fpac->pD3DDevice,fpac->m_pTexMgr->addTexture( fpac->pD3DDevice, L"memory.png" ));
-		// GoalObject* gl = new GoalObject(fpac->pD3DDevice,NULL);
-		////お試し
-		//gl->addGoal(	D3DXVECTOR3( 10.0f, 3.0f, 1.0f ),
-		//				D3DXVECTOR3( 0.0f, 0.0f, 90.0f ),
-		//				D3DXVECTOR3( 20.0f, 20.0f, 0.0f ),
-		//				GoalDiffuse,
-		//				GoalSpecular,
-		//				GoalAmbient);
-
-		mt->AddMemory(	D3DXVECTOR3(20.0f,5.0f,0.0f),
-						g_vZero,
-						D3DXVECTOR3(20.0f,20.0f * 8.0f-8.0f ,0.0f),
-						MemoryDiffuse,
-						MemorySpecular,
-						MemoryAmbient	);
-
-		fpac->m_pVec->push_back( mt );
-
-		//gl->addGoal(	D3DXVECTOR3( 50.0f, 2.0f, 0.0f ),
-		//				g_vZero,
-		//				//D3DXVECTOR3( 20.0f, 20.0f, 0.0f ),
-		//				D3DXVECTOR3( 25.0f, 20.0f * 8.0f-10.0f, 0.0f ),
-		//				GoalDiffuse,
-		//				GoalSpecular,
-		//				GoalAmbient);
-		//fpac->m_pVec->push_back(gl);
-
 	}
 	catch(...){
 		//再throw

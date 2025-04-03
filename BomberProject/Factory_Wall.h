@@ -4,9 +4,12 @@
 //	開発環境		：MSVC++ 2008
 //	最適タブ数		：4
 //	担当者			：鴫原 徹
+//	引継ぎ			：本多 寛之
+//	編集			：曳地 大洋
 //	内包ﾃﾞｰﾀと備考	：メインファクトリー
 //					▼
 //	namespace wiz;
+//		class WallObject : public PrimitiveBox 
 //		class Factory_Wall ;
 //
 #pragma once
@@ -15,17 +18,124 @@
 #include "Object.h"
 #include "BassItems.h"
 #include "Factory_Player.h"
+#include "Factory_Enemy.h"
 #include "Factory_Coil.h"
 #include "Factory_Sound.h"
 #include "Factory_CheckPoint.h"
+#include "Factory_DeadEffect.h"
+#include "Factory_Continue.h"
 
 namespace wiz{
 namespace bomberobject{
 
 extern class PlayerCoil ;
+extern class EnemyModel ;
 
-const int DRAWING_RANGE = 20;
-const int PARTICLS_NUM	= 50;
+/**************************************************************************
+ Warning 定義部
+****************************************************************************/
+//**************************************************************************//
+// class Warning
+//
+// 担当者  : 本多寛之
+//     
+// 用途    : エフェクト
+//**************************************************************************//
+class Warning : public Box{
+	PlayerCoil*			m_pCoil	;
+	PrimitivePlate		m_Plate;
+	D3DMATERIAL9		m_Material	;
+	D3DXMATRIX			m_Matrix	;
+	D3DXVECTOR3			m_vPos		;	//	: 座標
+	D3DXVECTOR3			m_vRot		;	//	: 回転
+	D3DXVECTOR3			m_vScale	;	//	: 伸縮
+	int					m_iPtn;
+	int					m_iPtnInterval;
+	float				m_fDrawTime ;
+	bool				m_bToDraw	;
+	bool				m_bIsPlaySound	;
+public:
+	/////////////////// ////////////////////
+	//// 用途       ：Warning(	LPDIRECT3DDEVICE9 pD3DDevice,LPTATRATEXTURE pTexture,wiz::OBJID id = OBJID_3D_WALL);
+	//// カテゴリ   ：コンストラクタ
+	//// 用途       ：
+	//// 引数       ：LPDIRECT3DDEVICE9 pD3DDevice //デバイス
+	////			  : LPTATRATEXTURE pTexture  //テクスチャ
+	////			  : pTexture,wiz::OBJID id = OBJID_3D_WALL //ID
+	//// 戻値       ：なし
+	//// 担当者     ：本多寛之
+	//// 備考       ：
+	Warning(
+		LPDIRECT3DDEVICE9 pD3DDevice	,
+		D3DCOLORVALUE&		Diffuse		,
+		D3DCOLORVALUE&		Specular	,
+		D3DCOLORVALUE&		Ambient		,
+		LPTATRATEXTURE		pTexture	,
+		wiz::OBJID id
+	);
+	/////////////////// ////////////////////
+	//// 用途       ：~Warning();
+	//// カテゴリ   ：デストラクタ
+	//// 用途       ：
+	//// 引数       ：
+	//// 戻値       ：なし
+	//// 担当者     ：鴫原 徹
+	//// 備考       ：
+	~Warning();
+	/////////////////// ////////////////////
+	//// 用途       ：void Draw( DrawPacket& i_DrawPacket )
+	//// カテゴリ   ：関数
+	//// 用途       ：オブジェクトをディスプレイに表示する
+	//// 引数       ：  DrawPacket& i_DrawPacket             // 画面描画時に必要なデータ群 ↓内容下記
+	////            ：  ├ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 インターフェイスへのポインタ
+	////            ：  ├ vector<Object*>&    Vec                     // オブジェクトの配列
+	////            ：  ├ Tempus2*            i_DrawPacket.GetTime()	   // 時間を管理するクラスへのポインター
+	////            ：  └ Command             i_DrawPacket.pCommand   // コマンド
+	//// 戻値       ：なし
+	//// 担当者     ：本多寛之
+	//// 備考       ：
+	void Draw( DrawPacket& i_DrawPacket );
+	/////////////////// ////////////////////
+	//// 用途       ：void Update( UpdatePacket& i_UpdatePacket )
+	//// カテゴリ   ：関数
+	//// 用途       ：オブジェクトを更新
+	//// 引数       ：  UpdatePacket& i_UpdatePacket     // アップデート時に必要なデータ群 ↓内容下記
+	////            ：  ├       LPDIRECT3DDEVICE9  pD3DDevice      // IDirect3DDevice9 インターフェイスへのポインタ
+	////            ：  ├       Tempus2*           pTime           // 時間を管理するクラスへのポインター
+	////            ：  ├       vector<Object*>&   Vec,            // オブジェクトの配列
+	////            ：  ├ const CONTROLER_STATE*   pCntlState      // コントローラのステータス
+	////            ：  └       Command            pCommand        // コマンド
+	//// 戻値       ：なし
+	//// 担当者     ：本多寛之
+	//// 備考       ：
+	////            ：
+	////
+	void Update( UpdatePacket& i_UpdatePacket );
+
+	void setMatrix(D3DXMATRIX& i_Matrix){
+		m_Matrix = i_Matrix;
+	}
+
+	void setPos(D3DXVECTOR3& i_Pos){
+		m_vPos = i_Pos;
+	}
+	void setRot(D3DXVECTOR3& i_Rot){
+		m_vRot = i_Rot;
+	}
+	void setScale(D3DXVECTOR3& i_Scale){
+		m_vScale = i_Scale;
+	}
+
+	void setToDraw(bool i_bFlg){
+		m_bToDraw = i_bFlg;
+	}
+	bool getToDraw(){
+		return m_bToDraw;
+	}
+
+};
+
+
 
 /**************************************************************************
  WallObject 定義部
@@ -38,76 +148,83 @@ const int PARTICLS_NUM	= 50;
 // 編集    : 鴫原 徹
 // 用途    : 壁
 //**************************************************************************//
-class WallObject : public PrimitiveBox{
-	int			m_Ptn;
-	PlayerCoil* m_pPlayerCoil ;
-	Sound*		m_pSound;
-	Camera*	    m_pCamera;
-	DeadEffect*	m_pDeadEffect[PARTICLS_NUM];
-	LPDIRECT3DTEXTURE9 m_pWallTex;
-	LPDIRECT3DTEXTURE9 m_pPolyTex;
-	LPDIRECT3DTEXTURE9 m_pDeadTex;
-
+class WallObject : public Box{
+	int					m_Ptn			;
+	PlayerCoil*			m_pPlayerCoil	;
+	EnemyModel*			m_pEnemy		;
+	Camera*				m_pCamera		;
+	PrimitivePlate		m_Plate			;
+	Warning*			m_pWarning		;
 	struct WallItem{
-		D3DMATERIAL9   m_Material;
-		D3DXMATRIX	   m_Matrix;
-		D3DXVECTOR3    m_vScale ;
-		D3DXVECTOR3	   m_vPos ;
-		D3DXQUATERNION m_vRot;
-		OBB			   m_Obb;
-#if defined(ON_DEBUGGINGPROCESS) | defined( PRESENTATION )
-		DrawOBB*       m_pDOB ;
-		~WallItem(){SafeDelete(m_pDOB);}
-		WallItem()
-		:m_pDOB()
-#else
-		WallItem()
-#endif
-		{}
+		D3DMATERIAL9	m_Material	;
+		D3DXMATRIX		m_Matrix	;
+		OBB				m_Obb		;
+		OBB				m_Obb_W		;
+		float			m_fMapKey	;
+		bool			m_bHidden	;
+		float			m_fRotZ		;
+		int				m_iPtn		;
+		WallItem(D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos, int iPtn,
+			D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient)
+		:m_bHidden(true)
+		,m_fMapKey(vPos.y)
+		,m_iPtn( iPtn )
+		{
+			::ZeroMemory(&m_Material,sizeof(D3DMATERIAL9));
+
+			//衝突判定用のOBBの初期化
+			D3DXVECTOR3 vOBBScale	= D3DXVECTOR3(vScale.x/4,vScale.y*0.97f,vScale.z),
+						vOBBScale_W	= D3DXVECTOR3(vScale.x,vScale.y,vScale.z),
+						vOBBRot		= D3DXVECTOR3(0.0f, 0.0f, D3DXToRadian( vRot.z ));
+			m_Obb = OBB( vOBBScale, vOBBRot, vPos ) ;
+			m_Obb_W = OBB( vOBBScale_W, vOBBRot, vPos ) ;
+			m_fRotZ = vRot.z;
+			D3DXMATRIX mScale, mRot, mPos;
+			D3DXMatrixIdentity(&mScale);
+			D3DXMatrixIdentity(&mRot);
+			D3DXMatrixIdentity(&mPos);
+			D3DXMatrixScaling(&mScale,vScale.x,vScale.y,0);
+			D3DXMatrixRotationZ(&mRot,vOBBRot.z);
+			D3DXMatrixTranslation(&mPos, vPos.x,vPos.y,vPos.z);
+			m_Matrix = mScale * mRot * mPos ;
+			m_Material.Ambient = Ambient ;
+			m_Material.Diffuse = Diffuse ;
+			m_Material.Specular = Specular ;
+
+		}
 
 	};
-
-	struct PolyItem{
-		D3DMATERIAL9   m_Material;
-		D3DXMATRIX	   m_Matrix;
-		D3DXVECTOR3    m_vScale ;
-		D3DXVECTOR3	   m_vPos ;
-		D3DXQUATERNION m_vRot;
-		virtual ~PolyItem(){}
-	};
-
 	//map<オブジェクトのポジション,WallItem>
-	multimap<float,WallItem*> m_ItemMap_All;	//全てのWallItem
-	multimap<float,WallItem*> m_ItemMap_Target; //描画対象のWallItem
-	multimap<float,PolyItem*> m_ItemMap_Poly;	//全てのPolyItem
+	typedef multimap<float,WallItem*>	ALLCONTAINER		;
+	typedef list<WallItem*>				TARGETCONTAINER		;
+	ALLCONTAINER				m_ItemMap_All		;	//全てのWallItem
+	TARGETCONTAINER				m_ItemMap_Target	;	//描画対象のWallItem
 
 protected:
 
-/////////////////// ////////////////////
-//// 用途       ：WallObject(	LPDIRECT3DDEVICE9 pD3DDevice,LPDIRECT3DTEXTURE9 pTexture,wiz::OBJID id = OBJID_3D_WALL);
-//// カテゴリ   ：コンストラクタ
-//// 用途       ：関数
-//// 引数       ：なし
-//// 戻値       ：なし
-//// 担当者     ：鴫原 徹
-//// 備考       ：
+	/////////////////// ////////////////////
+	//// 用途       ：WallObject(	LPDIRECT3DDEVICE9 pD3DDevice,LPTATRATEXTURE pTexture,wiz::OBJID id = OBJID_3D_WALL);
+	//// カテゴリ   ：コンストラクタ
+	//// 用途       ：関数
+	//// 引数       ：なし
+	//// 戻値       ：なし
+	//// 担当者     ：鴫原 徹
+	//// 備考       ：
 	void UpdateTargetItem();
 
 public:
 	/////////////////// ////////////////////
-	//// 用途       ：WallObject(	LPDIRECT3DDEVICE9 pD3DDevice,LPDIRECT3DTEXTURE9 pTexture,wiz::OBJID id = OBJID_3D_WALL);
+	//// 用途       ：WallObject(	LPDIRECT3DDEVICE9 pD3DDevice,LPTATRATEXTURE pTexture,wiz::OBJID id = OBJID_3D_WALL);
 	//// カテゴリ   ：コンストラクタ
 	//// 用途       ：
 	//// 引数       ：LPDIRECT3DDEVICE9 pD3DDevice //デバイス
-	////			  : LPDIRECT3DTEXTURE9 pTexture  //テクスチャ
+	////			  : LPTATRATEXTURE pTexture  //テクスチャ
 	////			  : pTexture,wiz::OBJID id = OBJID_3D_WALL //ID
-	//// 戻値       ：無し
+	//// 戻値       ：なし
 	//// 担当者     ：本多寛之
 	//// 備考       ：
 	WallObject(	LPDIRECT3DDEVICE9 pD3DDevice,
-				LPDIRECT3DTEXTURE9 pTexture,
-				LPDIRECT3DTEXTURE9 pTexture2,
-				LPDIRECT3DTEXTURE9 pTexture3,
+				LPTATRATEXTURE pTexture,
 				wiz::OBJID id = OBJID_3D_WALL
 				);
 	/////////////////// ////////////////////
@@ -115,7 +232,7 @@ public:
 	//// カテゴリ   ：デストラクタ
 	//// 用途       ：
 	//// 引数       ：
-	//// 戻値       ：無し
+	//// 戻値       ：なし
 	//// 担当者     ：鴫原 徹
 	//// 備考       ：
 	~WallObject();
@@ -144,9 +261,9 @@ public:
 	//// 引数       ：  DrawPacket& i_DrawPacket             // 画面描画時に必要なデータ群 ↓内容下記
 	////            ：  ├ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 インターフェイスへのポインタ
 	////            ：  ├ vector<Object*>&    Vec                     // オブジェクトの配列
-	////            ：  ├ Tempus2*            i_DrawPacket.pTime	   // 時間を管理するクラスへのポインター
+	////            ：  ├ Tempus2*            i_DrawPacket.GetTime()	   // 時間を管理するクラスへのポインター
 	////            ：  └ Command             i_DrawPacket.pCommand   // コマンド
-	//// 戻値       ：無し
+	//// 戻値       ：なし
 	//// 担当者     ：本多寛之
 	//// 備考       ：
 	void Draw( DrawPacket& i_DrawPacket );
@@ -161,7 +278,7 @@ public:
 	////            ：  ├       vector<Object*>&   Vec,            // オブジェクトの配列
 	////            ：  ├ const CONTROLER_STATE*   pCntlState      // コントローラのステータス
 	////            ：  └       Command            pCommand        // コマンド
-	//// 戻値       ：無し
+	//// 戻値       ：なし
 	//// 担当者     ：本多寛之
 	//// 備考       ：
 	////            ：
@@ -179,7 +296,7 @@ public:
 	////            ：  D3DCOLORVALUE& Diffuse,			//ディフューズ色
 	////            ：  D3DCOLORVALUE& Specular,		//スペキュラ色
 	////            ：  D3DCOLORVALUE& Ambient,			//アンビエント色
-	//// 戻値       ：無し
+	//// 戻値       ：なし
 	//// 担当者     ：本多寛之
 	//// 備考       ：
 	void AddWall(D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos,
@@ -187,6 +304,7 @@ public:
 
 
 	bool HitTest3DAddWall( MultiBox* pBox, size_t& Index, D3DXVECTOR3& Vec, D3DXVECTOR3& ElsePos );
+
 
 };
 

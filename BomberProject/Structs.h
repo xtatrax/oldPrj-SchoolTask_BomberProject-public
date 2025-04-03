@@ -22,57 +22,63 @@
 #pragma once
 
 #include "StdAfx.h"
+#include "TextureManager.h"
 
+//#include "DxDevice.h"
 namespace wiz{
+/**************************************************************************
+ 仮宣言部 定義部
+***************************************************************************/
+
+//	: wiz内クラス
 class  Object ; 
+class  Stage ;
 class  TextureManager ;
+class  StageLoader;
 struct CONTROLER_STATE;
+class  DxDevice;
+
+//	: wiz::system内クラス
+namespace system{
+class  Sound ;
+}
+
+//	: wiz::function内クラス
 namespace functions {
 extern void EarnFromMeshOBB(const LPD3DXBASEMESH i_pMesh,D3DXVECTOR3& o_vPos ,D3DXVECTOR3& o_vSize);
 }
 using namespace functions ;
+
 namespace structs{
 /*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 /**************************************************************************
- struct MapPartsStatus;
- 用途: 
+ struct SaveData : public TLIB::BassSaveaPacketDat;
+ 用途: セーブデータ
 ****************************************************************************/
-struct MapPartsStatus{
-	DWORD			enClassid ;	//	wiz::CLASSIDで指定してください
-	D3DXVECTOR3		vScale    ;
-	D3DXVECTOR3		vRot      ;
-	D3DXVECTOR3		vPos      ;
-	D3DXVECTOR3		vOffset   ;
-	D3DCOLORVALUE   Diffuse   ;
-	D3DCOLORVALUE   Specular  ;
-	D3DCOLORVALUE   Ambient   ;
-	POLE			bPool     ;
-
-	//	: オプション
-	wstring			sTexturePath	;
-
-	wstring			sFilePath		;
-	DWORD			dwMotionNum		;
-	float			fTracSpeed		;
-	//MapPartsStatus(){};
-	//MapPartsStatus(DWORD i_dwClassID, D3DXVECTOR3 i_vScale, D3DXVECTOR3 i_vRot, D3DXVECTOR3 i_vPos,
-	//	bool i_bPool = false, wstring i_wsTexPath = L"",wstring i_wsPath = L"", 
-	//	DWORD i_dwMotionNum = 0, float i_fTracSpeed = 1.0f)
-	//{
-	//	enClassid		= i_dwClassID	;
-	//	vScale			= i_vScale		;
-	//	vRot			= i_vRot		;
-	//	vPos			= i_vPos		;
-	//	sFilePath		= i_wsPath		;
-	//	bPool			= i_bPool		;
-
-	//	sTexturePath	= i_wsTexPath	;
-
-	//	vScale			= i_vScale		;
-	//	dwMotionNum		= i_dwMotionNum	;
-	//	fTracSpeed		= i_fTracSpeed	;
-	//}
-
+//**************************************************************************//
+// struct SaveData : public TLIB::BassSaveaPacketDat ;
+//
+// 担当  : 鴫原 徹
+// 用途  : セーブデータの保存、読み取りを行うための構造体
+// 備考  : 
+//**************************************************************************//
+struct SaveData : public TLIB::BassSaveaPacketDat{
+private:
+	float fDataStructVer ;
+public:
+	DWORD dwStageNum	;
+	DWORD dwCheckPoint	;
+	DWORD dwDeadNum		;
+	
+	SaveData()
+	:TLIB::BassSaveaPacketDat(RCVAL_SAVEDATA_IDENTIFIER_H,RCVAL_SAVEDATA_IDENTIFIER_L)
+	,fDataStructVer( 0.1f )
+	,dwStageNum(0)
+	,dwCheckPoint(0)
+	,dwDeadNum(0)
+	{
+		
+	}
 
 };
 /*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
@@ -87,11 +93,14 @@ struct Command{
 	DWORD m_Command;	
 	DWORD m_Param1;
 	DWORD m_Param2;
-	Command()
-		:m_Command(0),m_Param1(0),m_Param2(0)
+	DWORD m_Param3;
+
+	Command(DWORD Command = 0, DWORD m_Param1 = 0, DWORD m_Param2 = 0, DWORD m_Param3 = 0)
+		:m_Command(Command),m_Param1(m_Param1),m_Param2(m_Param2),m_Param3(m_Param3)
+
 	{}
 	void Clear(){
-		m_Command = m_Param1 = m_Param2 = 0;
+		m_Command = m_Param1 = m_Param2 = m_Param3 = 0;
 	}
 	~Command(){
 		Clear();
@@ -110,7 +119,7 @@ class Context{
 	DWORD m_Param1;
 	DWORD m_Param2;
 	//タイマー。経過秒を計る
-	Timer m_Timer;
+	Avoidance::Timer m_Timer;
 	//1回のタイムスパン
 	FLOAT m_TimeSpan;
 	//ゲームトータル時間
@@ -191,23 +200,239 @@ public:
 // 担当者  : 鴫原 徹
 // 用途    : アップデート関数郡に流れるデータ
 //**************************************************************************//
-extern struct DrawPacket	;
-extern struct RenderPacket	;
 struct BassPacket{
-	LPDIRECT3DDEVICE9		pD3DDevice	;	// デバイス
-	vector<Object*>*		pVec		;	// オブジェコンテナ
-	TextureManager*			pTxMgr		;	// テクスチャ管理クラス
-	TLIB::Tempus2*			pTime		;	// 時間
-	Command*				pCommand	;	// コマンド
+
+	friend class  DxDevice ;
+	friend class  wiz::Stage ;
+
+//////////
+//	: プロテクト変数
+protected:
+	wiz::Stage*				m_pStage		;
+	LPDIRECT3DDEVICE9		m_pD3DDevice	;	// デバイス
+	TLIB::Tempus2*			m_pTime			;	// 時間
+	Command*				m_pCommand		;	// コマンド
+
+//////////
+//	: プロテクト関数
+private:
+	void SetStage( wiz::Stage* pStage ){ m_pStage = pStage ; }
+
+//////////
+//	: 公開関数
+public:
+	/////////////////// ////////////////////
+	//// 関数名     ：BassPacket::BassPacket()
+	//// カテゴリ   ：デフォルトコンストラクタ
+	//// 用途       ：実体を生成
+	//// 引数       ：なし
+	//// 戻値       ：なし
+	//// 備考       ：
+	////            ：
+	////
 	BassPacket()
-		:pD3DDevice( NULL )
-		,pVec( NULL )
-		,pTxMgr( NULL )
-		,pTime( NULL )
-		,pCommand( NULL )
+		:m_pD3DDevice( NULL )
+		,m_pTime( NULL )
+		,m_pCommand( NULL )
 	
 	{}
+	/////////////////// ////////////////////
+	//// 関数名     ：BassPacket::BassPacket(BassPacket& i_OtherPacket)
+	//// カテゴリ   ：コピーコンストラクタ
+	//// 用途       ：実体を生成
+	//// 引数       ：  BassPacket& i_OtherPacket //  : 他のパケットデータ
+	//// 戻値       ：なし
+	//// 備考       ：
+	////            ：
+	////
+	BassPacket(BassPacket& i_OtherPacket)
+		:m_pStage(		i_OtherPacket.m_pStage		)
+		,m_pD3DDevice(	i_OtherPacket.m_pD3DDevice	)
+		,m_pTime(		i_OtherPacket.m_pTime		)
+		,m_pCommand(	i_OtherPacket.m_pCommand	)
+	
+	{}
+	/////////////////// ////////////////////
+	//// 関数名     ：TLIB::Tempus2* BassPacket::GetTime() const
+	//// カテゴリ   ：ゲッター
+	//// 用途       ：時間管理クラスへのポインターを獲得
+	//// 引数       ：なし
+	//// 戻値       ：時間管理クラスへのポインタ
+	//// 備考       ：
+	////            ：
+	////
+	TLIB::Tempus2* GetTime() const;
+	/////////////////// ////////////////////
+	//// 関数名     ：LPDIRECT3DDEVICE9 BassPacket::GetDevice() const
+	//// カテゴリ   ：ゲッター
+	//// 用途       ：現在のデバイスを獲得
+	//// 引数       ：なし
+	//// 戻値       ：デバイスのポインタ
+	//// 備考       ：
+	////            ：
+	////
+	LPDIRECT3DDEVICE9 GetDevice() const;
+	/////////////////// ////////////////////
+	//// 関数名     ：LPTATRATEXTURE AddTexture( const wchar_t* sTextureName )
+	//// カテゴリ   ：ゲッター
+	//// 用途       ：指定のテクスチャーへのポインターを返します
+	//// 引数       ：  const wchar_t* sTextureName      //  : 読み込みたい画像データのファイル名
+	//// 戻値       ：テクスチャーへのポインタ
+	//// 備考       ：初回の参照の際は新規で画像を読み込みます
+	////            ：次回以降同じ画像を要求された場合は前回と同じポインターを返します
+	////            ：またファイルの読み込みに失敗した際にはNULLが帰ります
+	////            ：ファイル名は"作業ディレクトリ/Media/Textures"からの相対パスで指定出来ます
+	////            ：
+	////
+	LPTATRATEXTURE AddTexture( const wchar_t* sTextureName );
+	/////////////////// ////////////////////
+	//// 関数名     ：void BassPacket::AddButton( Object* pButton )
+	//// カテゴリ   ：セッター
+	//// 用途       ：ステージにボタンオブジェクトセットします
+	//// 引数       ：  Object*      pButton         //  : ボタンオブジェクトへのポインタ
+	//// 戻値       ：なし
+	//// 備考       ：
+	////            ：
+	////
+	void AddButton( Object* pButton );
+	/////////////////// ////////////////////
+	//// 関数名     ：void BassPacket::AddObject( Object* pObje )
+	//// カテゴリ   ：セッター
+	//// 用途       ：ステージにオブジェクトをセットします
+	//// 引数       ：  Object*       pObje          //  : セットするオブジェクトへのポインタ
+	//// 戻値       ：なし
+	//// 備考       ：Objectクラスを継承しているものならばなんでも入ります
+	////            ：
+	////
+	void AddObject( Object* pObje );
+	/////////////////// ////////////////////
+	//// 関数名     ：void BassPacket::SearchSoundAndPlay( const char* sSoundName )
+	//// カテゴリ   ：サウンドプレイヤー
+	//// 用途       ：XACTに登録されているSOUNDデータを再生します
+	//// 引数       ：  const char*    sSoundName          //  : サウンド名
+	//// 戻値       ：なし
+	//// 備考       ：XACTに登録されているものしか再生出来ません
+	////            ：サウンドが再生されない場合は以下の項目を確認してください
+	////            ：XACTに登録されているか
+	////            ：sSoundName に渡した名前が正しいか
+	////            ：音量が小さ過ぎないか
+	////            ：
+	////
+	void SearchSoundAndPlay( const char* sSoundName );
+	/////////////////// ////////////////////
+	//// 関数名     ：void BassPacket::SearchSoundAndStop( const char* sSoundName )
+	//// カテゴリ   ：サウンドプレイヤー
+	//// 用途       ：XACTSOUNDで再生されている音を停止します
+	//// 引数       ：  const char*    sSoundName          //  : サウンド名
+	//// 戻値       ：なし
+	//// 備考       ：
+	////            ：
+	////
+	void SearchSoundAndStop( const char* sSoundName );
+	/////////////////// ////////////////////
+	//// 関数名     ：void BassPacket::SearchWaveAndPlay( const char* sSoundName )
+	//// カテゴリ   ：サウンドプレイヤー
+	//// 用途       ：XACTに登録されているWAVEデータを再生します
+	//// 引数       ：  const char*    sSoundName          //  : サウンド名
+	//// 戻値       ：なし
+	//// 備考       ：XACTに登録されているものしか再生出来ません
+	////            ：サウンドが再生されない場合は以下の項目を確認してください
+	////            ：XACTに登録されているか
+	////            ：sSoundName に渡した名前が正しいか
+	////            ：音量が小さ過ぎないか
+	////            ：
+	////
+	void SearchWaveAndPlay( const char* sWaveName );
+	/////////////////// ////////////////////
+	//// 関数名     ：void BassPacket::SearchWaveAndStop( const char* sSoundName )
+	//// カテゴリ   ：サウンドプレイヤー
+	//// 用途       ：XACTWAVEで再生されている音を停止します
+	//// 引数       ：  const char*    sSoundName          //  : サウンド名
+	//// 戻値       ：なし
+	//// 備考       ：
+	////            ：
+	////
+	void SearchWaveAndStop( const char* sWaveName );
+	/////////////////// ////////////////////
+	//// 関数名     ：void BassPacket::SoundStop( const char* sSoundName )
+	//// カテゴリ   ：サウンドプレイヤー
+	//// 用途       ：XACTで再生されている音をWAVE/SOUND問わずに停止します
+	//// 引数       ：  const char*    sSoundName          //  : サウンド名
+	//// 戻値       ：なし
+	//// 備考       ：
+	////            ：
+	////
+	void SoundStop( const char* sSoundName );
+	/////////////////// ////////////////////
+	//// 関数名     ：void BassPacket::PushCommand( const Command Com )
+	//// カテゴリ   ：セッター
+	//// 用途       ：コマンドをセットします(＊仕様改変予定)
+	//// 引数       ：  const Command Com          //  : 追加するコマンド
+	//// 戻値       ：なし
+	//// 備考       ：
+	////            ：
+	////
+	void PushCommand( const Command	Com );	//	: 現状実質SetCommand 
+	/////////////////// ////////////////////
+	//// 関数名     ：void BassPacket::ClearCommand( ) const
+	//// カテゴリ   ：セッター
+	//// 用途       ：コマンドをクリアします
+	//// 引数       ：なし
+	//// 戻値       ：なし
+	//// 備考       ：
+	////            ：
+	////
+	void ClearCommand( ) const;
+	/////////////////// ////////////////////
+	//// 関数名     ：Command BassPacket::PopCommand( ) const
+	//// カテゴリ   ：ゲッター
+	//// 用途       ：コマンドを獲得します
+	//// 引数       ：なし
+	//// 戻値       ：コマンド
+	//// 備考       ：
+	////            ：
+	////
+	Command PopCommand( ) const;
 
+	/////////////////// ////////////////////
+	//// 関数名     ：Object* SearchObjectFromID(
+	////            ：    DWORD                                i_dwID             ,
+	////            ：    vector<Object*>::size_type*          o_Point     = NULL ,
+	////            ：    vector<Object*>*                     o_pVec      = NULL ,
+	////            ：    vector<vector<Object*>::size_type>*  o_PointList = NULL );
+	//// カテゴリ   ：ゲッター
+	//// 用途       ：OBJIDを元にオブジェクトを探す
+	//// 引数       ：  DWORD                                i_dwID      //  :  [IN] 探したいオブジェクトのOBJID
+	////            ：  vector<Object*>::size_type*          o_Point     //  : [OUT] 見つけた場所
+	////            ：  vector<Object*>*                     o_pVec      //  : [OUT] 複数見つけた場合のオブジェクト一覧
+	////            ：  vector<vector<Object*>::size_type>*  o_PointList //  : [OUT] 複数見つけた場合のオブジェクトの場所一覧
+	//// 戻値       ：一番最初に発見したオブジェクトへのポインタ
+	//// 備考       ：
+	////            ：
+	////
+	Object* SearchObjectFromID( 
+				DWORD									i_dwID,
+				vector<Object*>::size_type*				o_Point		= NULL,
+				vector<Object*>*						o_pVec		= NULL,
+				vector<vector<Object*>::size_type>*		o_PointList = NULL
+	);
+
+	/////////////////// ////////////////////
+	//// 関数名     ：Object* SearchObjectFromID( 
+	////            ：    const type_info&         i_typeinfo           ,
+	////            ：    vector<Object*>*         o_pVec      = NULL   );
+	//// カテゴリ   ：ゲッター
+	//// 用途       ：OBJIDを元にオブジェクトを探す
+	//// 引数       ：  const type_info&           i_typeinfo      //  :  [IN] 探したいオブジェクトのtype_info
+	////            ：  vector<Object*>*           o_pVec          //  : [OUT] 複数見つけた場合のオブジェクト一覧
+	//// 戻値       ：一番最初に発見したオブジェクトへのポインタ
+	//// 備考       ：
+	////            ：
+	////
+	Object* SearchObjectFromTypeID(
+				const type_info&						i_typeinfo,
+				vector<Object*>*						o_pVec		= NULL
+	);
 };
 //**************************************************************************//
 // struct UpdatePacket;
@@ -216,9 +441,14 @@ struct BassPacket{
 // 用途    : アップデート関数郡に流れるデータ
 //**************************************************************************//
 struct UpdatePacket : public BassPacket{
-	const CONTROLER_STATE*	pCntlState	;
-	UpdatePacket::UpdatePacket();
-	UpdatePacket::UpdatePacket( DrawPacket i_DrawPacket )	;
+	const CONTROLER_STATE*	m_pCntlState	;
+	UpdatePacket::UpdatePacket()
+		:m_pCntlState( NULL ){
+	};
+	UpdatePacket::UpdatePacket( BassPacket& i_BassPacket )
+		:BassPacket(i_BassPacket)
+		,m_pCntlState( NULL ){}
+	;
 };
 //**************************************************************************//
 // struct RenderPacket;
@@ -237,19 +467,6 @@ struct RenderPacket : public BassPacket{
 struct DrawPacket : public BassPacket{
 };
 
-inline UpdatePacket::UpdatePacket()
-	:pCntlState( NULL )
-{
-}
-inline UpdatePacket::UpdatePacket( DrawPacket i_DrawPacket )
-	:pCntlState( NULL )
-{
-	this->pD3DDevice	= i_DrawPacket.pD3DDevice	;
-	this->pCommand		= i_DrawPacket.pCommand		;
-	this->pTxMgr		= i_DrawPacket.pTxMgr		;
-	this->pTime			= i_DrawPacket.pTime		;
-	this->pVec			= i_DrawPacket.pVec			;
-}
 
 
 /*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
@@ -262,22 +479,24 @@ inline UpdatePacket::UpdatePacket( DrawPacket i_DrawPacket )
 // 担当者  : 鴫原 徹
 // 用途    : ファクトリーに渡すパケットデータ
 //**************************************************************************//
-struct FactoryPacket{
-	//Device
-	LPDIRECT3DDEVICE9 pD3DDevice ;
+struct FactoryPacket : public BassPacket{
+public:
 	//ダイアログステージかどうか
 	bool m_IsDialog;
-	//配置オブジェクトのポインタのベクトル
-	vector<Object*>* m_pVec;
-	//テクスチャのポインタのベクトル
-	TextureManager* m_pTexMgr;
-	FactoryPacket(){};
-	FactoryPacket(		LPDIRECT3DDEVICE9 i_pD3DDevice, bool i_IsDialog, vector<Object*>* i_pVec, TextureManager* i_pTexMgr)
-		:pD3DDevice(	i_pD3DDevice	)
-		,m_IsDialog(	i_IsDialog		)
-		,m_pVec(		i_pVec			)
-		,m_pTexMgr(		i_pTexMgr		)
-	{}
+public:
+	FactoryPacket(		LPDIRECT3DDEVICE9 i_pD3DDevice, bool i_IsDialog, Command* i_pCommand, Stage* i_pStage )
+		:m_IsDialog(	i_IsDialog		)
+	{
+
+		this->m_IsDialog	= i_IsDialog	;
+		this->m_pD3DDevice	= i_pD3DDevice	;
+		this->m_pCommand	= i_pCommand	;
+		this->m_pStage		= i_pStage		;
+		this->m_pTime		= NULL			;
+
+	}
+	vector<Object*>* GetObjectVector();
+	void SetSound( system::Sound*  pSound  );
 };
 /*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 
@@ -292,9 +511,17 @@ union Color {
 	struct {BYTE b , g , r , a ;}byteColor;
 	Color(){};
 	Color(DWORD Color):dwColor(Color){};
-	Color(BYTE A ,BYTE R ,BYTE G , BYTE B )
+	void ARGB(BYTE A ,BYTE R ,BYTE G , BYTE B )
 	{ byteColor.a = A;byteColor.r = R;byteColor.g = G;byteColor.b = B;};
+	void RGBA(BYTE R ,BYTE G ,BYTE B , BYTE A )
+	{ byteColor.a = A;byteColor.r = R;byteColor.g = G;byteColor.b = B;};
+	void BGRA(BYTE B ,BYTE G ,BYTE R , BYTE A )
+	{ byteColor.a = A;byteColor.r = R;byteColor.g = G;byteColor.b = B;};
+	void ABGR(BYTE A ,BYTE B ,BYTE G , BYTE R )
+	{ byteColor.a = A;byteColor.r = R;byteColor.g = G;byteColor.b = B;};
+
 	Color& operator = (DWORD other){ dwColor = other ; return *this; };
+	operator DWORD(){ return dwColor; }
 };
 /*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 
@@ -304,6 +531,7 @@ union Color {
 //
 // 担当者  : 鴫原 徹
 // 用途    : フレキシブルな頂点を扱う
+// 備考    : かなり重くなることが予想されます
 //**************************************************************************//
 struct FlexibleVertex{
 	D3DXVECTOR3 *pos;

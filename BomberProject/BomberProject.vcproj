@@ -64,6 +64,8 @@
 				LinkIncremental="2"
 				GenerateDebugInformation="true"
 				SubSystem="2"
+				HeapReserveSize="0"
+				StackReserveSize="0"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -190,7 +192,232 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;PRESENTATION"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;CONS_PRESENTATION"
+				RuntimeLibrary="2"
+				EnableFunctionLevelLinking="true"
+				UsePrecompiledHeader="2"
+				WarningLevel="3"
+				DebugInformationFormat="3"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				OutputFile="$(OutDir)\Bomber.exe"
+				LinkIncremental="1"
+				GenerateDebugInformation="true"
+				SubSystem="2"
+				OptimizeReferences="2"
+				EnableCOMDATFolding="2"
+				TargetMachine="1"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Release_FullScreen|Win32"
+			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
+			IntermediateDirectory="$(ConfigurationName)"
+			ConfigurationType="1"
+			CharacterSet="1"
+			WholeProgramOptimization="1"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="2"
+				EnableIntrinsicFunctions="true"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;CONS_FULLSCREEN"
+				RuntimeLibrary="2"
+				EnableFunctionLevelLinking="true"
+				UsePrecompiledHeader="2"
+				WarningLevel="3"
+				DebugInformationFormat="3"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				OutputFile="$(OutDir)\Bomber.exe"
+				LinkIncremental="1"
+				GenerateDebugInformation="true"
+				SubSystem="2"
+				OptimizeReferences="2"
+				EnableCOMDATFolding="2"
+				TargetMachine="1"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Release_Window|Win32"
+			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
+			IntermediateDirectory="$(ConfigurationName)"
+			ConfigurationType="1"
+			CharacterSet="1"
+			WholeProgramOptimization="1"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="2"
+				EnableIntrinsicFunctions="true"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;CONS_WINDOW"
+				RuntimeLibrary="2"
+				EnableFunctionLevelLinking="true"
+				UsePrecompiledHeader="2"
+				WarningLevel="3"
+				DebugInformationFormat="3"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				OutputFile="$(OutDir)\Bomber.exe"
+				LinkIncremental="1"
+				GenerateDebugInformation="true"
+				SubSystem="2"
+				OptimizeReferences="2"
+				EnableCOMDATFolding="2"
+				TargetMachine="1"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
+			Name="SemiRelease|Win32"
+			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
+			IntermediateDirectory="$(ConfigurationName)"
+			ConfigurationType="1"
+			CharacterSet="1"
+			WholeProgramOptimization="1"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="2"
+				EnableIntrinsicFunctions="true"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;CONS_SEMIRELEASE"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
 				UsePrecompiledHeader="2"
@@ -264,6 +491,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Structs.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\Structs.h"
 				>
 			</File>
@@ -310,18 +541,6 @@
 							<Filter
 								Name="0.Effects"
 								>
-								<Filter
-									Name="Effects"
-									>
-									<File
-										RelativePath=".\Effects.cpp"
-										>
-									</File>
-									<File
-										RelativePath=".\Effects.h"
-										>
-									</File>
-								</Filter>
 							</Filter>
 							<Filter
 								Name="TextureManager"
@@ -402,242 +621,478 @@
 						</Filter>
 					</Filter>
 				</Filter>
+				<Filter
+					Name="Input"
+					>
+					<File
+						RelativePath=".\Controller\Controller.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Controller\Controller.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Controller\Input.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Controller\Input.h"
+						>
+					</File>
+					<File
+						RelativePath=".\Controller\Input_Gamepad.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Controller\Input_Keyboard.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Controller\Input_Mouse.cpp"
+						>
+					</File>
+				</Filter>
 			</Filter>
 			<Filter
 				Name="0.Factorys"
 				>
 				<Filter
-					Name="MainFactory"
+					Name="StageFactorys"
 					>
-					<File
-						RelativePath=".\Factory_Main.cpp"
+					<Filter
+						Name="Factory_Main"
 						>
-					</File>
-					<File
-						RelativePath=".\Factory_Main.h"
+						<File
+							RelativePath=".\Factory_Main.cpp"
+							>
+						</File>
+						<File
+							RelativePath=".\Factory_Main.h"
+							>
+						</File>
+					</Filter>
+					<Filter
+						Name="Factory_Load"
 						>
-					</File>
+						<File
+							RelativePath=".\Factory_Load.cpp"
+							>
+						</File>
+						<File
+							RelativePath=".\Factory_Load.h"
+							>
+						</File>
+					</Filter>
+					<Filter
+						Name="Factory_Clear"
+						>
+						<File
+							RelativePath=".\Factory_Clear.cpp"
+							>
+						</File>
+						<File
+							RelativePath=".\Factory_Clear.h"
+							>
+						</File>
+					</Filter>
+					<Filter
+						Name="Factory_Title"
+						>
+						<File
+							RelativePath=".\Factory_Title.cpp"
+							>
+						</File>
+						<File
+							RelativePath=".\Factory_Title.h"
+							>
+						</File>
+					</Filter>
+					<Filter
+						Name="DBG_Factory_Stage1"
+						>
+						<File
+							RelativePath=".\Factory_Stage1.cpp"
+							>
+						</File>
+						<File
+							RelativePath=".\Factory_Stage1.h"
+							>
+						</File>
+					</Filter>
+					<Filter
+						Name="Factory_Select"
+						>
+						<File
+							RelativePath=".\Factory_Select.cpp"
+							>
+						</File>
+						<File
+							RelativePath=".\Factory_Select.h"
+							>
+						</File>
+					</Filter>
+					<Filter
+						Name="00.‰æ–Ê‘S‘Ì‚ð\’z‚·‚éHêŒQ"
+						>
+					</Filter>
+					<Filter
+						Name="Factory_Result"
+						>
+						<File
+							RelativePath=".\Factory_Result.cpp"
+							>
+						</File>
+						<File
+							RelativePath=".\Factory_Result.h"
+							>
+						</File>
+					</Filter>
+					<Filter
+						Name="Factory_Demo"
+						>
+						<File
+							RelativePath=".\Factory_Demo.cpp"
+							>
+						</File>
+						<File
+							RelativePath=".\Factory_Demo.h"
+							>
+						</File>
+					</Filter>
 				</Filter>
 				<Filter
-					Name="PlayerFactory"
+					Name="PartsFactorys"
 					>
-					<File
-						RelativePath=".\Factory_Player.cpp"
+					<Filter
+						Name="Factory_BackGround"
 						>
-					</File>
-					<File
-						RelativePath=".\Factory_Player.h"
+						<File
+							RelativePath=".\Factory_BackGround.cpp"
+							>
+						</File>
+						<File
+							RelativePath=".\Factory_BackGround.h"
+							>
+						</File>
+					</Filter>
+					<Filter
+						Name="Factory_Item"
 						>
-					</File>
+						<File
+							RelativePath=".\Factory_Item.cpp"
+							>
+						</File>
+						<File
+							RelativePath=".\Factory_Item.h"
+							>
+						</File>
+					</Filter>
+					<Filter
+						Name="Factory_CheckPoint"
+						>
+						<File
+							RelativePath=".\Factory_CheckPoint.cpp"
+							>
+						</File>
+						<File
+							RelativePath=".\Factory_CheckPoint.h"
+							>
+						</File>
+					</Filter>
+					<Filter
+						Name="Factory_Coil"
+						>
+						<File
+							RelativePath=".\Factory_Coil.cpp"
+							>
+						</File>
+						<File
+							RelativePath=".\Factory_Coil.h"
+							>
+						</File>
+					</Filter>
+					<Filter
+						Name="Factory_Cursor"
+						>
+						<File
+							RelativePath=".\Factory_Cursor.cpp"
+							>
+						</File>
+						<File
+							RelativePath=".\Factory_Cursor.h"
+							>
+						</File>
+						<File
+							RelativePath=".\Line.cpp"
+							>
+						</File>
+						<File
+							RelativePath=".\Line.h"
+							>
+						</File>
+					</Filter>
+					<Filter
+						Name="Factory_DeadEffect"
+						>
+						<File
+							RelativePath=".\Factory_DeadEffect.cpp"
+							>
+						</File>
+						<File
+							RelativePath=".\Factory_DeadEffect.h"
+							>
+						</File>
+					</Filter>
+					<Filter
+						Name="Factory_Description"
+						>
+						<File
+							RelativePath=".\Factory_Description.cpp"
+							>
+						</File>
+						<File
+							RelativePath=".\Factory_Description.h"
+							>
+						</File>
+					</Filter>
+					<Filter
+						Name="Factory_Enemy"
+						>
+						<File
+							RelativePath=".\Factory_Enemy.cpp"
+							>
+						</File>
+						<File
+							RelativePath=".\Factory_Enemy.h"
+							>
+						</File>
+					</Filter>
+					<Filter
+						Name="Factory_Gage"
+						>
+						<File
+							RelativePath=".\Factory_Gage.cpp"
+							>
+						</File>
+						<File
+							RelativePath=".\Factory_Gage.h"
+							>
+						</File>
+					</Filter>
+					<Filter
+						Name="Factory_Goal"
+						>
+						<File
+							RelativePath=".\Factory_Goal.cpp"
+							>
+						</File>
+						<File
+							RelativePath=".\Factory_Goal.h"
+							>
+						</File>
+					</Filter>
+					<Filter
+						Name="Factory_Magnetic"
+						>
+						<File
+							RelativePath=".\Factory_Magnetic.cpp"
+							>
+						</File>
+						<File
+							RelativePath=".\Factory_Magnetic.h"
+							>
+						</File>
+					</Filter>
+					<Filter
+						Name="Factory_Minimap"
+						>
+						<File
+							RelativePath=".\Factory_Minimap.cpp"
+							>
+						</File>
+						<File
+							RelativePath=".\Factory_Minimap.h"
+							>
+						</File>
+					</Filter>
+					<Filter
+						Name="Factory_Player"
+						>
+						<File
+							RelativePath=".\Factory_Player.cpp"
+							>
+						</File>
+						<File
+							RelativePath=".\Factory_Player.h"
+							>
+						</File>
+					</Filter>
+					<Filter
+						Name="Factory_Sound"
+						>
+						<File
+							RelativePath=".\Factory_Sound.cpp"
+							>
+						</File>
+						<File
+							RelativePath=".\Factory_Sound.h"
+							>
+						</File>
+					</Filter>
+					<Filter
+						Name="Factory_Score"
+						>
+						<File
+							RelativePath=".\Factory_Score.cpp"
+							>
+						</File>
+						<File
+							RelativePath=".\Factory_Score.h"
+							>
+						</File>
+					</Filter>
+					<Filter
+						Name="Factory_Scroll"
+						>
+						<File
+							RelativePath=".\Factory_Scroll.cpp"
+							>
+						</File>
+						<File
+							RelativePath=".\Factory_Scroll.h"
+							>
+						</File>
+					</Filter>
+					<Filter
+						Name="Factory_Wall"
+						>
+						<File
+							RelativePath=".\Factory_Wall.cpp"
+							>
+						</File>
+						<File
+							RelativePath=".\Factory_Wall.h"
+							>
+						</File>
+					</Filter>
+					<Filter
+						Name="00.•”•i‚ðì‚é‰º¿‚¯HêŒQ"
+						>
+					</Filter>
+					<Filter
+						Name="Factory_CustomButtonA"
+						>
+						<File
+							RelativePath=".\Factory_CustomButtonA.cpp"
+							>
+						</File>
+						<File
+							RelativePath=".\Factory_CustomButtonA.h"
+							>
+						</File>
+					</Filter>
+					<Filter
+						Name="Factory_SelectInformation"
+						>
+						<File
+							RelativePath=".\Factory_SelectInformation.cpp"
+							>
+						</File>
+						<File
+							RelativePath=".\Factory_SelectInformation.h"
+							>
+						</File>
+					</Filter>
+					<Filter
+						Name="Factory_MagnetField"
+						>
+						<File
+							RelativePath=".\Factory_MagnetField.cpp"
+							>
+						</File>
+						<File
+							RelativePath=".\Factory_MagnetField.h"
+							>
+						</File>
+					</Filter>
 				</Filter>
 				<Filter
-					Name="MagneticFactory"
+					Name="00.1ƒtƒBƒ‹ƒ^[/1Factory/1Class‚ð“O’ê‚µ‚Ä‚­‚¾‚³‚¢"
 					>
-					<File
-						RelativePath=".\Factory_Magnetic.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\Factory_Magnetic.h"
-						>
-					</File>
 				</Filter>
 				<Filter
-					Name="WallFactory"
+					Name="BehaviorFactorys"
 					>
-					<File
-						RelativePath=".\Factory_Wall.cpp"
+					<Filter
+						Name="Factory_CheckPointSave"
 						>
-					</File>
-					<File
-						RelativePath=".\Factory_Wall.h"
+						<File
+							RelativePath=".\Factory_CheckPointSave.cpp"
+							>
+						</File>
+						<File
+							RelativePath=".\Factory_CheckPointSave.h"
+							>
+						</File>
+					</Filter>
+					<Filter
+						Name="00.“®ì‚ðì‚é‰º¿‚¯HêŒQ"
 						>
-					</File>
+					</Filter>
+					<Filter
+						Name="Factory_Continue"
+						>
+						<File
+							RelativePath=".\Factory_Continue.cpp"
+							>
+						</File>
+						<File
+							RelativePath=".\Factory_Continue.h"
+							>
+						</File>
+					</Filter>
+					<Filter
+						Name="Factory_Demo2Title"
+						>
+						<File
+							RelativePath=".\Factory_Demo2Title.cpp"
+							>
+						</File>
+						<File
+							RelativePath=".\Factory_Demo2Title.h"
+							>
+						</File>
+					</Filter>
+					<Filter
+						Name="Factory_PlayRecorder"
+						>
+						<File
+							RelativePath=".\Factory_PlayRecorder.cpp"
+							>
+						</File>
+						<File
+							RelativePath=".\Factory_PlayRecorder.h"
+							>
+						</File>
+					</Filter>
+					<Filter
+						Name="Factory_Traser"
+						>
+						<File
+							RelativePath=".\Factory_Traser.cpp"
+							>
+						</File>
+						<File
+							RelativePath=".\Factory_Traser.h"
+							>
+						</File>
+					</Filter>
 				</Filter>
-				<Filter
-					Name="EnemyFactory"
-					>
-					<File
-						RelativePath=".\Factory_Enemy.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\Factory_Enemy.h"
-						>
-					</File>
-				</Filter>
-				<Filter
-					Name="ItemFactory"
-					>
-					<File
-						RelativePath=".\Factory_Item.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\Factory_Item.h"
-						>
-					</File>
-				</Filter>
-				<Filter
-					Name="CheckPointFactory"
-					>
-					<File
-						RelativePath=".\Factory_CheckPoint.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\Factory_CheckPoint.h"
-						>
-					</File>
-				</Filter>
-				<Filter
-					Name="Stage1Factory"
-					>
-					<File
-						RelativePath=".\Factory_Stage1.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\Factory_Stage1.h"
-						>
-					</File>
-				</Filter>
-				<Filter
-					Name="GoalFactory"
-					>
-					<File
-						RelativePath=".\Factory_Goal.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\Factory_Goal.h"
-						>
-					</File>
-				</Filter>
-				<Filter
-					Name="ResultFactory"
-					>
-					<File
-						RelativePath=".\Factory_Result.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\Factory_Result.h"
-						>
-					</File>
-				</Filter>
-				<Filter
-					Name="TitleFactory"
-					>
-					<File
-						RelativePath=".\Factory_Title.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\Factory_Title.h"
-						>
-					</File>
-				</Filter>
-				<Filter
-					Name="MinimapFactory"
-					>
-					<File
-						RelativePath=".\Factory_Minimap.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\Factory_Minimap.h"
-						>
-					</File>
-				</Filter>
-				<Filter
-					Name="SoundFactory"
-					>
-					<File
-						RelativePath=".\Factory_Sound.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\Factory_Sound.h"
-						>
-					</File>
-				</Filter>
-				<Filter
-					Name="DescriptionFactory"
-					>
-					<File
-						RelativePath=".\Factory_Description.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\Factory_Description.h"
-						>
-					</File>
-				</Filter>
-				<Filter
-					Name="CursorFactory"
-					>
-					<File
-						RelativePath=".\Factory_Cursor.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\Factory_Cursor.h"
-						>
-					</File>
-				</Filter>
-				<Filter
-					Name="GageFactory"
-					>
-					<File
-						RelativePath=".\Factory_Gage.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\Factory_Gage.h"
-						>
-					</File>
-				</Filter>
-				<Filter
-					Name="CoilFactory"
-					>
-					<File
-						RelativePath=".\Factory_Coil.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\Factory_Coil.h"
-						>
-					</File>
-				</Filter>
-			</Filter>
-			<Filter
-				Name="Prim"
-				>
-				<File
-					RelativePath=".\Prm.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\Prm.h"
-					>
-				</File>
 			</Filter>
 			<Filter
 				Name="0.Stages"
 				>
-				<Filter
-					Name="Stage_Test"
-					>
-					<File
-						RelativePath=".\Stage_Test.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\Stage_Test.h"
-						>
-					</File>
-				</Filter>
 				<Filter
 					Name="Debug_Stages"
 					>
@@ -678,6 +1133,42 @@
 					Name="Stage_Clear"
 					>
 					<File
+						RelativePath=".\Stage_Clear.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Stage_Clear.h"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="Stage_Load"
+					>
+					<File
+						RelativePath=".\Stage_Load.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Stage_Load.h"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="Stage_Select"
+					>
+					<File
+						RelativePath=".\Stage_Select.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Stage_Select.h"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="Stage_Result"
+					>
+					<File
 						RelativePath=".\Stage_Result.cpp"
 						>
 					</File>
@@ -687,8 +1178,20 @@
 					</File>
 				</Filter>
 				<Filter
-					Name="Debug_Test_StageLoader2"
+					Name="Stage_Opening"
 					>
+				</Filter>
+				<Filter
+					Name="Stage_Demo"
+					>
+					<File
+						RelativePath=".\Stage_Demo.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Stage_Demo.h"
+						>
+					</File>
 				</Filter>
 			</Filter>
 		</Filter>
@@ -698,15 +1201,39 @@
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
 			<File
-				RelativePath=".\GameHinagata.rc"
+				RelativePath=".\Effects.rc"
 				>
 			</File>
+			<File
+				RelativePath=".\MainResource.rc"
+				>
+			</File>
+			<File
+				RelativePath=".\resource1.h"
+				>
+			</File>
+			<Filter
+				Name="Shader"
+				>
+				<File
+					RelativePath=".\CookTrance.fx"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="ICON"
+				>
+				<File
+					RelativePath=".\Icon.ico"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="StdAfx"
 			>
 			<File
-				RelativePath=".\defineValue.h"
+				RelativePath=".\BomberDefineValue.h"
 				>
 			</File>
 			<File
@@ -736,9 +1263,37 @@
 						UsePrecompiledHeader="1"
 					/>
 				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_FullScreen|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Window|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="SemiRelease|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\StdAfx.h"
+				>
+			</File>
+			<File
+				RelativePath=".\SystemDefineValue.h"
 				>
 			</File>
 			<File
@@ -750,11 +1305,7 @@
 			Name="‚æ‚»ŽÒ"
 			>
 			<File
-				RelativePath=".\MemoryManager.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\MemoryManager.h"
+				RelativePath=".\SaveAndLoad.h"
 				>
 			</File>
 			<File
@@ -762,28 +1313,16 @@
 				>
 			</File>
 			<Filter
-				Name="AnimationModelClass"
+				Name="Tempus"
 				>
 				<File
-					RelativePath=".\AnimationModelClass\AnimationModelClass.cpp"
+					RelativePath=".\Tempus\Tempus.cpp"
 					>
 				</File>
 				<File
-					RelativePath=".\AnimationModelClass\AnimationModelClass.h"
+					RelativePath=".\Tempus\Tempus.h"
 					>
 				</File>
-				<Filter
-					Name="CSV"
-					>
-					<File
-						RelativePath=".\CSV.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\CSV.h"
-						>
-					</File>
-				</Filter>
 			</Filter>
 			<Filter
 				Name="DebugFunctions"
@@ -798,64 +1337,48 @@
 				</File>
 			</Filter>
 			<Filter
-				Name="Input"
+				Name="CSV"
 				>
 				<File
-					RelativePath=".\Controller\Controller.cpp"
+					RelativePath=".\CSV.cpp"
 					>
 				</File>
 				<File
-					RelativePath=".\Controller\Controller.h"
-					>
-				</File>
-				<File
-					RelativePath=".\Controller\Input.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\Controller\Input.h"
-					>
-				</File>
-				<File
-					RelativePath=".\Controller\Input_Gamepad.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\Controller\Input_Keyboard.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\Controller\Input_Mouse.cpp"
+					RelativePath=".\CSV.h"
 					>
 				</File>
 			</Filter>
 			<Filter
-				Name="Tempus"
+				Name="MemoryManager"
 				>
 				<File
-					RelativePath=".\Tempus\Tempus.cpp"
+					RelativePath=".\MemoryManager.cpp"
 					>
 				</File>
 				<File
-					RelativePath=".\Tempus\Tempus.h"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="SCS"
-				>
-				<File
-					RelativePath=".\SeiyaEffect.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\SeiyaEffect.h"
+					RelativePath=".\MemoryManager.h"
 					>
 				</File>
 			</Filter>
 		</Filter>
+		<Filter
+			Name="TestWindow"
+			>
+			<File
+				RelativePath=".\DebugWindowMain.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\DebugWindowMain.h"
+				>
+			</File>
+		</Filter>
 		<File
 			RelativePath=".\ClassDiagram1.cd"
+			>
+		</File>
+		<File
+			RelativePath=".\ClassDiagram2.cd"
 			>
 		</File>
 		<File

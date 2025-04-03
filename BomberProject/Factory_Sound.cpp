@@ -16,7 +16,7 @@
 #include "BassItems.h"
 
 namespace wiz{
-namespace bomberobject{
+namespace system{
 
 /**************************************************************************
  _Sound 定義部
@@ -194,10 +194,23 @@ m_SoundBankFileName(L"")
 		}
 		CreateInctance();
 	}
+	catch(exception& e){
+		ReleaseObj();
+		::MessageBoxA(
+			wiz::DxDevice::m_hWnd,
+			e.what(),
+			"サウンドエラー",
+			MB_OK);
+	}
 	catch(...){
 		ReleaseObj();
+
+		::MessageBoxA(
+			NULL,
+			"_Soundで未知のエラー",
+			"サウンドエラー",
+			MB_OK);
 		//再throw
-		throw;
 	}
 }
 /**************************************************************************
@@ -256,7 +269,7 @@ void _Sound::ChangeDevice(LPDIRECT3DDEVICE9 pD3DDevice){
 ***************************************************************************/
 void _Sound::Draw( DrawPacket& i_DrawPacket ){
 	//サウンドエンジンに作業時間を与える
-	m_pEngine->DoWork();
+	m_pEngine && m_pEngine->DoWork();
 }
 
 namespace Avoidance{
@@ -473,11 +486,33 @@ bool Sound::SearchWaveAndPlay(PCSTR pWaveName, BYTE count){
 	return false ;
 }
 
-void	Sound::SoundPause(PCSTR pWaveName, BYTE count){
+void	Sound::SearchSoundAndStop(PCSTR pWaveName){
+	if( m_pEngine && m_pWaveBank && m_pSoundBank ){
+		XACTINDEX SoundNum ;
+		if(SearchSoundMap( pWaveName, SoundNum ) || SearchSoundBank( pWaveName, SoundNum ) ){
+			m_pSoundBank->Stop( SoundNum, true );
+		}
+	}
+}
+
+void	Sound::SearchWaveAndStop(PCSTR pWaveName){
 	if( m_pEngine && m_pWaveBank && m_pSoundBank ){
 		XACTINDEX WaveNum ;
 		if(SearchWaveMap( pWaveName, WaveNum ) || SearchWaveBank( pWaveName, WaveNum ) ){
 			m_pWaveBank->Stop( WaveNum, true );
+		}
+	}
+}
+
+void	Sound::SoundStop(PCSTR pWaveName){
+	if( m_pEngine && m_pWaveBank && m_pSoundBank ){
+		XACTINDEX WaveNum ;
+		if(SearchWaveMap( pWaveName, WaveNum ) || SearchWaveBank( pWaveName, WaveNum ) ){
+			m_pWaveBank->Stop( WaveNum, true );
+		}
+		XACTINDEX SoundNum ;
+		if(SearchSoundMap( pWaveName, SoundNum ) || SearchSoundBank( pWaveName, SoundNum ) ){
+			m_pSoundBank->Stop( SoundNum, true );
 		}
 	}
 }
@@ -515,6 +550,7 @@ Factory_Sound::~Factory_Sound(){
 }
 
 }
-//end of namespace bomberobject.
+//end of namespace system.
+//using namespace system;
 }
 //end of namespace wiz.

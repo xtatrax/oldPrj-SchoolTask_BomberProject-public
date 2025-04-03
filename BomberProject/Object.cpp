@@ -15,6 +15,7 @@
 #include "Object.h"
 
 namespace wiz{
+
 /**************************************************************************
  Light 定義部
 ****************************************************************************/
@@ -28,7 +29,9 @@ namespace wiz{
 //// 備考       ：直接構築できないように、プロテクトにする
 ////            ：
 ////
-Light::Light(){
+Light::Light(wiz::OBJID id)
+:Object(id)
+{
     // D3DLIGHT9構造体を0でクリアする
     ::ZeroMemory(&m_Light, sizeof(D3DLIGHT9));
 }
@@ -67,13 +70,12 @@ DirectionalLight::DirectionalLight(LPDIRECT3DDEVICE9 pD3DDevice,
     D3DCOLORVALUE Ambient,
     D3DXVECTOR3 Direction,
 	wiz::OBJID id)
-    :Light()
-	,Object(id)
+    :Light(id)
 {
-    m_Light.Type       = D3DLIGHT_DIRECTIONAL;
-    m_Light.Diffuse = Diffuse;
-    m_Light.Specular = Specular;
-    m_Light.Ambient = Ambient;
+    m_Light.Type		= D3DLIGHT_DIRECTIONAL;
+    m_Light.Diffuse		= Diffuse;
+    m_Light.Specular	= Specular;
+    m_Light.Ambient		= Ambient;
     D3DXVec3Normalize((D3DXVECTOR3*)&m_Light.Direction, &Direction);
     // ライトをレンダリングパイプラインに設定
     pD3DDevice->SetLight( 0, &m_Light );
@@ -160,7 +162,8 @@ Camera::Camera(LPDIRECT3DDEVICE9 pD3DDevice,D3DXVECTOR3& At,FLOAT AbsPosZFromAt,
 		aspect = (float)vp.Width / (float)vp.Height;
 		// 射影行列の初期化
 		D3DXMatrixIdentity(&m_Proj);
-		D3DXMatrixPerspectiveFovLH(&m_Proj, D3DXToRadian(m_FovY), aspect,m_Near,m_Far);
+		//D3DXMatrixPerspectiveFovLH(&m_Proj, D3DXToRadian(m_FovY), aspect,m_Near,m_Far);
+		D3DXMatrixOrthoLH(&m_Proj, D3DXToRadian(m_FovY), aspect,m_Near,m_Far);
 		// 射影行列の設定
 		pD3DDevice->SetTransform(D3DTS_PROJECTION,&m_Proj);
 		// カメラの設定
@@ -212,7 +215,8 @@ Camera::Camera(LPDIRECT3DDEVICE9 pD3DDevice,D3DXVECTOR3& Eye,D3DXVECTOR3& At,
 		aspect = (float)vp.Width / (float)vp.Height;
 		// 射影行列の初期化
 		D3DXMatrixIdentity(&m_Proj);
-		D3DXMatrixPerspectiveFovLH(&m_Proj, D3DXToRadian(m_FovY), aspect,m_Near,m_Far);
+		//D3DXMatrixPerspectiveFovLH(&m_Proj, D3DXToRadian(m_FovY), aspect,m_Near,m_Far);
+		D3DXMatrixOrthoLH(&m_Proj, D3DXToRadian(m_FovY), aspect,m_Near,m_Far);
 		// 射影行列の設定
 		pD3DDevice->SetTransform(D3DTS_PROJECTION,&m_Proj);
 		// カメラの設定
@@ -250,7 +254,7 @@ void Camera::Draw(DrawPacket& i_DrawPacket){
 
     // ビューポートの取得
     D3DVIEWPORT9 vp;
-    if(FAILED(i_DrawPacket.pD3DDevice->GetViewport(&vp))){
+    if(FAILED(i_DrawPacket.GetDevice()->GetViewport(&vp))){
         //実行失敗
 		//WinMainのCatchまで飛ぶ
         throw BaseException(
@@ -269,9 +273,9 @@ void Camera::Draw(DrawPacket& i_DrawPacket){
     D3DXMatrixIdentity(&m_Proj);
     D3DXMatrixPerspectiveFovLH(&m_Proj, D3DXToRadian(m_FovY), aspect,m_Near,m_Far);
     // 射影行列の設定
-    i_DrawPacket.pD3DDevice->SetTransform(D3DTS_PROJECTION,&m_Proj);
+    i_DrawPacket.GetDevice()->SetTransform(D3DTS_PROJECTION,&m_Proj);
     // カメラの設定
-    i_DrawPacket.pD3DDevice->SetTransform(D3DTS_VIEW,&m_View);
+    i_DrawPacket.GetDevice()->SetTransform(D3DTS_VIEW,&m_View);
 }
 
 
@@ -399,9 +403,11 @@ LookAtCamera::~LookAtCamera(){
 void LookAtCamera::Update( UpdatePacket& i_UpdatePacket ){
 
 
-    if(i_UpdatePacket.pCntlState[0].bConnected){
-		BoxCon wButtons = i_UpdatePacket.pCntlState[0].Gamepad.wButtons.XConState;
-		Point  sThumbR  = Point( i_UpdatePacket.pCntlState[0].Gamepad.sThumbRX, i_UpdatePacket.pCntlState[0].Gamepad.sThumbRY);
+
+	CONTROLER_STATE Controller1P = i_UpdatePacket.m_pCntlState[0];
+    if(Controller1P.bConnected){
+		BoxCon wButtons = Controller1P.Gamepad.wButtons.XConState;
+		Point  sThumbR  = Point( Controller1P.Gamepad.sThumbRX, Controller1P.Gamepad.sThumbRY);
 
 		D3DXVECTOR3 ObjPos(0,0,0);
 		if(m_pObject){
@@ -629,13 +635,13 @@ void Guide::ChangeDevice(LPDIRECT3DDEVICE9 pD3DDevice){
  戻り値: なし。
 ***************************************************************************/
 void Guide::Draw(DrawPacket& i_DrawPacket){
-	LPDIRECT3DDEVICE9 pD3DDevice = i_DrawPacket.pD3DDevice ;
+	LPDIRECT3DDEVICE9 pD3DDevice = i_DrawPacket.GetDevice() ;
 	if(!m_pVB){
 		//バッファが無効なら何もしない
 		return;
 	}
     D3DXMATRIX  wm;
-    //座標変換無し
+    //座標変換なし
     D3DXMatrixIdentity(&wm);
     // マトリックスをレンダリングパイプラインに設定
     pD3DDevice->SetTransform(D3DTS_WORLD, &wm);

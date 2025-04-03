@@ -30,16 +30,13 @@ using namespace bomberobject;
  用途: コンストラクタ
  戻り値: なし（失敗時は例外をthrow）
 ***************************************************************************/
-ResultStage::ResultStage(LPDIRECT3DDEVICE9 pD3DDevice,Stage* pStage)
+ResultStage::ResultStage(LPDIRECT3DDEVICE9 pD3DDevice, int iDeadCount, int iMaxPosY, int iScratchPoint, Stage* pStage)
 	:Stage(pStage)
 {
 	try{
-		FactoryPacket FPac;
-		FPac.m_IsDialog =  this->m_IsDialog ;
-		FPac.m_pTexMgr  = &this->m_TexMgr   ;
-		FPac.m_pVec     = &this->m_Vec      ;
-		FPac.pD3DDevice =  pD3DDevice       ;
-		Factory_Result	resultF( &FPac );
+		FactoryPacket FPac(pD3DDevice,this->m_IsDialog,&Command(),this);
+
+		Factory_Result	resultF( &FPac, iDeadCount, iMaxPosY, iScratchPoint);
 	}
 	catch(...){
 		Clear();
@@ -54,18 +51,6 @@ ResultStage();
 ***************************************************************************/
 ResultStage::~ResultStage(){
 	
-}
-
-void	ResultStage::Update(UpdatePacket &i_UpdatePacket){
-  //マウス用データ*************************
-	Point MousePos ;
-	GetCursorPos( &MousePos ) ;
-	ScreenToClient( g_hWnd , &MousePos) ;
-  //*****************************************
-	if( g_bMouseLB/* || g_bMouseRB*/ ){
-		//選ばれた画面へとぶ
-		i_UpdatePacket.pCommand->m_Command	= GM_OPENSTAGE_TITLE;
-	}
 }
 
 }

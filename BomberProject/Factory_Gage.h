@@ -18,12 +18,74 @@
 #include "StdAfx.h"
 #include "Object.h"
 #include "Factory_Cursor.h"
+#include "Factory_Coil.h"
+//#include "Factory_Magnetic.h"
+#include "Line.h"
 
 const	int		SUPER_GAGE_MAX		= 512;
 const	int		MAGNETIC_GAGE_MAX	= 256;
+const	float	GAUGE_POS_HIGH		= 23.0f;
+const	float	GAUGE_POS_LOW		= 31.0f;
 
 namespace wiz{
 namespace bomberobject{
+
+/************************************************
+class	GaugeKind	: public	SpriteObject
+
+用途　：ゲージの種類を描画
+担当者：佐藤涼
+************************************************/
+class	SuperNotice	: public SpriteObject{
+	float			m_fMovePos	;
+	D3DXVECTOR3		m_vPos		;
+	D3DXVECTOR3		m_vScale	;
+	MouseCursor*	m_pCursor	;
+	D3DXVECTOR3		m_vInitPos	;
+	bool			m_bDraw		;
+public:
+	SuperNotice(
+		const LPDIRECT3DDEVICE9		pD3DDevice	,				//	: デバイス
+		const LPTATRATEXTURE	pTex		,				//	: コア部分のTexture
+		const D3DXVECTOR3			&vScale		,				//	: 伸縮
+		const D3DXVECTOR3			&vPos		,				//	: 位置
+		const Rect					Rect		,				//	: 描画範囲
+		const wiz::OBJID			id	=	OBJID_UI_NOTICE		//	: ID
+	);
+	~SuperNotice();
+	void	Draw(DrawPacket& i_DrawPacket);
+	void	Update(UpdatePacket& i_UpdatePacket);
+
+	void	setDraw( bool i_bDraw ){
+		m_bDraw	= i_bDraw;
+	}
+};
+
+/************************************************
+class	GaugeKind	: public	SpriteObject
+
+用途　：ゲージの種類を描画
+担当者：佐藤涼
+************************************************/
+class	Relationship_Gage	: public SpriteObject{
+	float			m_fMovePos	;
+	D3DXVECTOR3		m_vPos		;
+	D3DXVECTOR3		m_vScale	;
+	MouseCursor*	m_pCursor	;
+public:
+	Relationship_Gage(
+		const LPDIRECT3DDEVICE9		pD3DDevice	,				//	: デバイス
+		const LPTATRATEXTURE	pTex		,				//	: コア部分のTexture
+		const D3DXVECTOR3			&vScale		,				//	: 伸縮
+		const D3DXVECTOR3			&vRot		,				//	: 回転
+		const D3DXVECTOR3			&vPos		,				//	: 位置
+		const Rect					Rect		,				//	: 描画範囲
+		const wiz::OBJID			id	=	OBJID_UI_SPRITE		//	: ID
+	);
+	~Relationship_Gage();
+	void	Draw(DrawPacket& i_DrawPacket);
+	void	Update(UpdatePacket& i_UpdatePacket);
+};
 
 /************************************************
 class Gage : public SpriteObject
@@ -38,18 +100,18 @@ protected:
 	Rect	m_GaugeRect;
 	Rect	m_FrameRect;
 	float	m_fRate;
-	
+	float	m_fMovePos;
 public:
 	Gage(
-		LPDIRECT3DDEVICE9	pD3DDevice	,		//	: デバイス
-		LPDIRECT3DTEXTURE9	pTex		,		//	: コア部分のTexture
-		D3DXVECTOR3			&vScale		,		//	: 伸縮
-		D3DXVECTOR3			&vRot		,		//	: 回転
-		D3DXVECTOR3			&vPos		,		//	: 位置
-		D3DXVECTOR3			&vDirOffset	,		//	: 描画オフセット
-		RECT				GaugeRect	,		//	: 描画範囲
-		RECT				FrameRect	,		//	: 描画範囲
-		wiz::OBJID			id=OBJID_UI_GAUGE	//	: ID
+		const LPDIRECT3DDEVICE9	pD3DDevice	,		//	: デバイス
+		const LPTATRATEXTURE	pTex		,		//	: コア部分のTexture
+		const D3DXVECTOR3			&vScale		,		//	: 伸縮
+		const D3DXVECTOR3			&vRot		,		//	: 回転
+		const D3DXVECTOR3			&vPos		,		//	: 位置
+		const D3DXVECTOR3			&vDirOffset	,		//	: 描画オフセット
+		const Rect				GaugeRect	,		//	: 描画範囲
+		const Rect				FrameRect	,		//	: 描画範囲
+		const wiz::OBJID			id	//	: ID
 	);
 	~Gage();
 	void	Recovery( float fAddValue );	//	: エネルギーの回復
@@ -64,14 +126,18 @@ public:
 	////            ：  ├       vector<Object*>&   Vec,            // オブジェクトの配列
 	////            ：  ├ const CONTROLER_STATE*   pCntlState      // コントローラのステータス
 	////            ：  └       Command            pCommand        // コマンド
-	//// 戻値       ：無し
+	//// 戻値       ：なし
 	//// 担当者     ：鴫原 徹
 	//// 備考       ：
 	////            ：
 	////
 	void Update( UpdatePacket& i_UpdatePacket );
     void	Draw(DrawPacket& i_DrawPacket) ;
-	
+
+	void	setRate( float i_fRate ){
+		m_fRate	= i_fRate;
+	}
+
 	float getRate()const{
 		return m_fRate;
 	}
@@ -80,6 +146,11 @@ public:
 		m_fRate = 1.0f ;
 	}
 
+	void ChangePos(){
+		if( m_fMovePos == GAUGE_POS_HIGH )
+				m_fMovePos	= GAUGE_POS_LOW;
+		else	m_fMovePos	= GAUGE_POS_HIGH;
+	}
 	//void getGaugeRot_Right(int i_iValue){
 	//	m_GaugeRect.right = i_iValue;
 	//}
@@ -92,20 +163,67 @@ class SuperGage : public SpriteObject
 担当者：佐藤涼 本多寛之(編集)
 *************************************************/
 class SuperGage : public Gage{
-	D3DXVECTOR3 m_vBassPos;
+	D3DXVECTOR3		m_vBassPos		;
+	MouseCursor*	m_pCursor		;
+	D3DXMATRIX		m_Matrix		;
+	D3DXVECTOR3		m_vScale		;	//	: 伸縮
+	D3DXVECTOR3		m_vRot			;	//	: 回転
+	float			m_fLineMoveDistance;
+	bool			m_bAcquired		;
+	Line*			m_pLineTop		;
+	Line*			m_pLineLeft		;
+	Line*			m_pLineBottom	;
+	Line*			m_pLineRight	;
+	SuperNotice*	m_pSuperNotice	;
 public:
 	SuperGage(
 		LPDIRECT3DDEVICE9	pD3DDevice	,		//	: デバイス
-		LPDIRECT3DTEXTURE9	pTex		,		//	: コア部分のTexture
+		LPTATRATEXTURE	pTex		,		//	: コア部分のTexture
 		D3DXVECTOR3			&vScale		,		//	: 伸縮
 		D3DXVECTOR3			&vRot		,		//	: 回転
 		D3DXVECTOR3			&vPos		,		//	: 位置
-		RECT				GaugeRect	,		//	: 描画範囲
-		RECT				FrameRect	,		//	: 描画範囲
-		wiz::OBJID			id=OBJID_UI_GAUGE	//	: ID
+		Rect				GaugeRect	,		//	: 描画範囲
+		Rect				FrameRect	,		//	: 描画範囲
+		wiz::OBJID			id=OBJID_UI_SUPERGAUGE	//	: ID
 	);
-
+	~SuperGage();
     void	Draw(DrawPacket& i_DrawPacket) ;
+	void	Update( UpdatePacket& i_UpdatePacket );
+	/////////////////// ////////////////////
+	//// 関数名     ：Update_Line()
+	//// カテゴリ   ：関数
+	//// 用途       ：Lineの更新
+	//// 引数       ：なし
+	//// 戻値       ：なし
+	//// 担当       ：本多寛之
+	//// 備考       ：
+	////            ：
+	void Update_Line();
+
+	/////////////////// ////////////////////
+	//// 関数名     ：setAcquired(bool i_bFlg)
+	//// カテゴリ   ：セッター
+	//// 用途       ：
+	//// 引数       ：なし
+	//// 戻値       ：なし
+	//// 担当       ：本多寛之
+	//// 備考       ：
+	////            ：
+	void setAcquired(bool i_bFlg){
+		m_bAcquired = i_bFlg;
+	}
+	/////////////////// ////////////////////
+	//// 関数名     ：bool getAcquired()
+	//// カテゴリ   ：ゲッター
+	//// 用途       ：m_bAcquiredを獲得
+	//// 引数       ：なし
+	//// 戻値       ：m_bAcquired
+	//// 担当       ：本多寛之
+	//// 備考       ：
+	////            ：
+	bool getAcquired() const{
+		return m_bAcquired;
+	}
 };
 
 /************************************************
@@ -115,16 +233,21 @@ class MagneticGage_N : public Gage
 担当者：本多寛之
 *************************************************/
 class MagneticGage_N : public Gage{
-	MouseCursor* m_pCursor ;
+	MouseCursor*	m_pCursor ;
+	PlayerCoil*		m_pCoil ;
+	D3DXVECTOR3		m_vScale;
 public:
 	MagneticGage_N(
 		LPDIRECT3DDEVICE9	pD3DDevice	,		//	: デバイス
-		LPDIRECT3DTEXTURE9	pTex		,		//	: コア部分のTexture
+		LPTATRATEXTURE	pTex		,		//	: コア部分のTexture
 		D3DXVECTOR3			&vPos		,		//	: 位置
-		RECT				GaugeRect	,		//	: 描画範囲
-		RECT				FrameRect	,		//	: 描画範囲
-		wiz::OBJID			id=OBJID_UI_GAUGE	//	: ID
+		D3DXVECTOR3			&vScale		,		//	: 大きさ
+		Rect				GaugeRect	,		//	: 描画範囲
+		Rect				FrameRect	,		//	: 描画範囲
+		wiz::OBJID			id=OBJID_UI_MAGNETGAUGE_N	//	: ID
 	);
+	
+	~MagneticGage_N();
 
 	/////////////////// ////////////////////
 	//// 用途       ：void Update( UpdatePacket& i_UpdatePacket )
@@ -136,7 +259,7 @@ public:
 	////            ：  ├       vector<Object*>&   Vec,            // オブジェクトの配列
 	////            ：  ├ const CONTROLER_STATE*   pCntlState      // コントローラのステータス
 	////            ：  └       Command            pCommand        // コマンド
-	//// 戻値       ：無し
+	//// 戻値       ：なし
 	//// 担当者     ：鴫原 徹
 	//// 備考       ：
 	////            ：
@@ -153,15 +276,20 @@ class MagneticGage_S : public Gage
 *************************************************/
 class MagneticGage_S : public Gage{
 	MouseCursor*	m_pCursor	;
+	PlayerCoil*		m_pCoil ;
+	D3DXVECTOR3		m_vScale;
 public:
 	MagneticGage_S(
 		LPDIRECT3DDEVICE9	pD3DDevice	,		//	: デバイス
-		LPDIRECT3DTEXTURE9	pTex		,		//	: コア部分のTexture
+		LPTATRATEXTURE	pTex		,		//	: コア部分のTexture
 		D3DXVECTOR3			&vPos		,		//	: 位置
-		RECT				GaugeRect	,		//	: 描画範囲
-		RECT				FrameRect	,		//	: 描画範囲
-		wiz::OBJID			id = OBJID_UI_GAUGE	//	: ID
+		D3DXVECTOR3			&vScale		,		//	: 大きさ
+		Rect				GaugeRect	,		//	: 描画範囲
+		Rect				FrameRect	,		//	: 描画範囲
+		wiz::OBJID			id = OBJID_UI_MAGNETGAUGE_S	//	: ID
 	);
+
+	~MagneticGage_S();
 
 	/////////////////// ////////////////////
 	//// 用途       ：void Update( UpdatePacket& i_UpdatePacket )
@@ -173,7 +301,7 @@ public:
 	////            ：  ├       vector<Object*>&   Vec,            // オブジェクトの配列
 	////            ：  ├ const CONTROLER_STATE*   pCntlState      // コントローラのステータス
 	////            ：  └       Command            pCommand        // コマンド
-	//// 戻値       ：無し
+	//// 戻値       ：なし
 	//// 担当者     ：鴫原 徹
 	//// 備考       ：
 	////            ：

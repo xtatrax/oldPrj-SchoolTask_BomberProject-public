@@ -5,7 +5,7 @@
 
 #pragma once
 //#define DIRECTINPUT_VERSION 0x0800
-#include <dinput.h>	//dinput8.lib dxguid.libのリンクも必要です。
+//#include <dinput.h>	//dinput8.lib dxguid.libのリンクも必要です。
 /*
 //キーボード
 class CInputKeyboard

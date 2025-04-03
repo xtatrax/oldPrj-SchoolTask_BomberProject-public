@@ -41,13 +41,11 @@ bool		DxDevice::m_bOnPlaySound	= true	;
  用途: コンストラクタ
  戻り値: なし。失敗したら例外をthrow
 ***************************************************************************/
-void DxDevice::initDevice(HWND hWnd,bool isFullScreen,int Width,int Height)
+void DxDevice::initDevice(bool isFullScreen,int Width,int Height)
 {
     try{
 		m_pD3D         = NULL;
 		m_pD3DDevice   = NULL;
-		m_pController  = NULL;
-		m_hWnd		   = hWnd;
         D3DDISPLAYMODE d3ddm;
         // Direct3D9オブジェクトの作成
         if((m_pD3D = ::Direct3DCreate9(D3D_SDK_VERSION)) == 0){
@@ -85,20 +83,20 @@ void DxDevice::initDevice(HWND hWnd,bool isFullScreen,int Width,int Height)
         // 描画と頂点処理をハードウェアで行なう
         if(FAILED(m_pD3D->CreateDevice(D3DADAPTER_DEFAULT, 
                                         D3DDEVTYPE_HAL, 
-                                        hWnd, 
+                                        m_hWnd, 
                                         D3DCREATE_HARDWARE_VERTEXPROCESSING, 
                                         &m_D3DPP, &m_pD3DDevice))) {
             // 上記の設定が失敗したら
             // 描画をハードウェアで行い、頂点処理はCPUで行なう
             if(FAILED(m_pD3D->CreateDevice(D3DADAPTER_DEFAULT, 
                                             D3DDEVTYPE_HAL, 
-                                            hWnd, 
+                                            m_hWnd, 
                                             D3DCREATE_SOFTWARE_VERTEXPROCESSING, 
                                             &m_D3DPP, &m_pD3DDevice))) {
                 // 上記の設定が失敗したら
                 // 描画と頂点処理をCPUで行なう
                 if(FAILED(m_pD3D->CreateDevice(D3DADAPTER_DEFAULT, 
-                                                D3DDEVTYPE_REF, hWnd, 
+                                                D3DDEVTYPE_REF, m_hWnd, 
                                                 D3DCREATE_SOFTWARE_VERTEXPROCESSING, 
                                                 &m_D3DPP, &m_pD3DDevice))) {
                     // 初期化失敗
@@ -109,7 +107,11 @@ void DxDevice::initDevice(HWND hWnd,bool isFullScreen,int Width,int Height)
                 }
             }
         }
-        m_pController = new CONTROLLERS(hWnd);
+		const static UINT n = m_pD3D->GetAdapterCount();
+		D3DCAPS9 cap ;
+		m_pD3D->GetDeviceCaps( n, D3DDEVTYPE_HAL, &cap);
+		//SafeDeleteArr( cap );
+        m_Controller = CONTROLLERS(m_hWnd);
 		Debugger::DBGSTR::Init(m_pD3DDevice);
     }
     catch(...){
@@ -125,9 +127,8 @@ void DxDevice::initDevice(HWND hWnd,bool isFullScreen,int Width,int Height)
  戻り値: なし
 ***************************************************************************/
 void DxDevice::Clear(){
-    //コントローラーの開放
-    SafeRelease(m_pController);
-    // デバイスオブジェクトの解放
+
+	// デバイスオブジェクトの解放
     SafeRelease(m_pD3DDevice);
 	// シーンの削除
 	SafeDelete(pScene);
@@ -144,15 +145,16 @@ void DxDevice::Clear(){
  用途: コンストラクタ
  戻り値: なし。失敗したら例外をthrow
 ***************************************************************************/
-DxDevice::DxDevice(HWND hWnd,bool isFullScreen,int Width,int Height)
- : m_pD3D(0), m_pD3DDevice(0),m_pController(0)
+DxDevice::DxDevice(bool isFullScreen,int Width,int Height)
+ : m_pD3D(0), m_pD3DDevice(0)
  , m_PrgState(PROGRAM_RUNNUNG),pScene(NULL)
+ , m_Controller(m_hWnd)
 {
     try{
-		m_hWnd = hWnd ;
-		initDevice(hWnd,isFullScreen,Width,Height);
+		m_Com.Clear();
+		initDevice(isFullScreen,Width,Height);
 		//シーンの初期化
-        pScene = new Scene(getDevice());
+        pScene = new Scene(getDevice(),&m_Com);
 
 	}
 	catch(wiz::BaseException& e){
@@ -192,7 +194,7 @@ LPDIRECT3DDEVICE9 DxDevice::getDevice(){
 //// 関数名     ：int MainThreadRun()
 //// カテゴリ   ：関数
 //// 用途       ：メPostQuitMessage()が呼ばれた時の処理を実行
-//// 引数       ：無し
+//// 引数       ：なし
 //// 戻値       ：なし
 //// 備考       ：
 ////            ：
@@ -220,14 +222,14 @@ void DxDevice::End(){
 //// 関数名     ：int MainThreadRun()
 //// カテゴリ   ：関数
 //// 用途       ：メインスレッドのープ
-//// 引数       ：無し
+//// 引数       ：なし
 //// 戻値       ：int
 //// 備考       ：
 ////            ：
 ////
 int DxDevice::MainThreadRun(){
  	Tempus2 mainFTime;
-	m_DrawPacket.pTime = &mainFTime;
+	m_DrawPacket.m_pTime = &mainFTime;
 
 	#ifndef CF_SINGLETHREAD
 	/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
@@ -236,7 +238,7 @@ int DxDevice::MainThreadRun(){
 		StartUpdateThread();
 	/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 	#else
-		m_UpdatePacket.pTime = &mainFTime;
+		m_UpdatePacket.m_pTime = &mainFTime;
 	#endif 
 
 
@@ -244,11 +246,19 @@ int DxDevice::MainThreadRun(){
 	//	: メインスレッドループ
 	while(true){
 
+		if( !this ){
+			//Debugger::DBGWRITINGLOGTEXT::addStr(L"DxDevice::MainThreadRun メインゲームループで this が ぬるぽじょうほうををキャッチしちゃいました><、");
+			::MessageBox(0,L"システム的異常が発生しました。",L"エラー",MB_OK);
+			return 1;
+		}
 		if( m_bDestroy ){
 			#ifndef CF_SINGLETHREAD
 				CloseHandle(m_hUpdateThread);
 			#endif
+			//Debugger::DBGWRITINGLOGTEXT::addStr(L"デバイスの破棄の開始");
 			this->Clear();
+			//Debugger::DBGWRITINGLOGTEXT::addStr(L"デバイスの破棄の完了");
+			DestroyWindow(m_hWnd);
 			return 0;
 		}
 
@@ -262,18 +272,16 @@ int DxDevice::MainThreadRun(){
 				/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 					//	: シングルスレッド宣言がされていたら
 					//	: ここでマウスの状態を獲得する
-				case WM_LBUTTONDOWN :
-					g_bMouseLB = true;
-					break ; 
-				case WM_LBUTTONUP:
-					g_bMouseLB = false;
-					break;
-				case WM_RBUTTONDOWN :
-					g_bMouseRB = true;
-					break ;
-				case WM_RBUTTONUP:
-					g_bMouseRB = false;
-					break;
+				case WM_LBUTTONDOWN		:	Cursor2D::m_bMouseLB = true		;	break ; 
+				case WM_RBUTTONDOWN		:	Cursor2D::m_bMouseRB = true		;	break ;
+				case WM_MBUTTONDOWN		:	Cursor2D::m_bMouseMB = true		;	break ;
+				case WM_LBUTTONUP		:	Cursor2D::m_bMouseLB = false	;	break ;
+				case WM_RBUTTONUP		:	Cursor2D::m_bMouseRB = false	;	break ;
+				case WM_MBUTTONUP		:	Cursor2D::m_bMouseMB = false	;	break ;
+				case WM_LBUTTONDBLCLK	:	break;
+				case WM_RBUTTONDBLCLK	:	break;
+				case WM_MBUTTONDBLCLK	:	break;
+
 				/*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*☆*★*/
 				#endif
 
@@ -307,14 +315,17 @@ int DxDevice::MainThreadRun(){
 
         }
     }
-
+	m_DrawPacket.m_pTime = NULL;
+	#ifdef CF_SINGLETHREAD
+		m_UpdatePacket.m_pTime = NULL;
+	#endif 
 	return (int) msg.wParam;
 }
 /////////////////// ////////////////////
 //// 関数名     ：void UpdateThreadRun()
 //// カテゴリ   ：関数
 //// 用途       ：シーンのアップデート用スレッドのループ
-//// 引数       ：無し
+//// 引数       ：なし
 //// 戻値       ：int
 //// 備考       ：シングルスレッド宣言がある場合はこの関数は実行されない
 ////            ：
@@ -322,7 +333,7 @@ int DxDevice::MainThreadRun(){
 int DxDevice::UpdateThreadRun(){
 	TLIB::Tempus::Tempus();
 	Tempus2 updateFTime;
-	m_UpdatePacket.pTime = &updateFTime ;
+	m_UpdatePacket.m_pTime = &updateFTime ;
 
 	MSG msg;    //メッセージ構造体の宣言定義
 	//メッセージループ
@@ -331,21 +342,12 @@ int DxDevice::UpdateThreadRun(){
 
 		if(::PeekMessage(&msg,NULL,0,0,PM_REMOVE)){
             switch(msg.message){ 
-				case WM_LBUTTONDOWN :
-					g_bMouseLB = true;
-					break ; 
-				//	: マウスLボタン離し
-				case WM_LBUTTONUP:
-					g_bMouseLB = false;
-					break;
-				//	: マウスRボタン押し
-				case WM_RBUTTONDOWN :
-					g_bMouseRB = true;
-					break ;
-				//	: マウスRボタン離し
-				case WM_RBUTTONUP:
-					g_bMouseRB = false;
-					break;
+				case WM_LBUTTONDOWN	:	Cursor2D::m_bMouseLB = true		;	break ; 
+				case WM_RBUTTONDOWN :	Cursor2D::m_bMouseRB = true		;	break ;
+				case WM_MBUTTONDOWN	:	Cursor2D::m_bMouseMB = true		;	break ;
+				case WM_LBUTTONUP	:	Cursor2D::m_bMouseLB = false	;	break ;
+				case WM_RBUTTONUP	:	Cursor2D::m_bMouseRB = false	;	break ;
+				case WM_MBUTTONUP	:	Cursor2D::m_bMouseMB = false	;	break ;
 
 				//	:  削除
 				default:
@@ -359,6 +361,7 @@ int DxDevice::UpdateThreadRun(){
 			UpdateScene();
 		}
     }
+	m_UpdatePacket.m_pTime = NULL ;
 	return 0;
 }
 
@@ -388,16 +391,15 @@ void DxDevice::UpdateScene()
 				L"DxDevice::RenderScene()"
 				);
 		}
-		if(m_pController){
-			m_UpdatePacket.pCntlState = m_pController->GetState();
-		}
-		m_UpdatePacket.pD3DDevice	= m_pD3DDevice	;
-		m_UpdatePacket.pCommand		= &m_Com		;
-		m_RenderPacket.pD3DDevice	= m_pD3DDevice	;
-		m_RenderPacket.pCommand		= &m_Com		;
+		m_UpdatePacket.m_pCntlState	= m_Controller.GetState();
+		m_UpdatePacket.m_pD3DDevice	= m_pD3DDevice	;
+		m_UpdatePacket.m_pCommand	= &m_Com		;
+
+		//m_RenderPacket.pD3DDevice	= m_pD3DDevice	;
+		//m_RenderPacket.pCommand		= &m_Com		;
 
 		pScene->Update(m_UpdatePacket);
-		pScene->Render(m_RenderPacket);
+		//pScene->Render(m_RenderPacket);
 
 		#ifndef CF_SINGLETHREAD 
 			//	: マルチスレッドモードの場合
@@ -451,24 +453,21 @@ void DxDevice::RenderScene()
 		// 描画開始宣言
 		if(SUCCEEDED(m_pD3DDevice->BeginScene())) {
 
-			m_DrawPacket.pD3DDevice	= m_pD3DDevice ;
-			m_DrawPacket.pCommand	= &m_Com ;
+			m_DrawPacket.m_pD3DDevice	= m_pD3DDevice ;
+			m_DrawPacket.m_pCommand		= &m_Com ;
 
 			pScene->Draw(m_DrawPacket);///**************************
 
 			Debugger::DBGSTR::Draw();
+#if defined( CF_MEMORYMANAGER_ENABLE )
 			TMemoryManager::Draw();
+#endif
 			// 描画終了宣言
 			m_pD3DDevice->EndScene();
 		}
 
 		// 描画結果の転送
 		if(FAILED(m_pD3DDevice->Present( 0, 0, 0, 0 ))) {
-			try{
-			//***********************************************************************************//
-			//***********************************************************************************//
-			//***********************************************************************************//
-			//***********************************************************************************//
 			// デバイス消失から復帰
 			if(m_pD3DDevice->Reset(&m_D3DPP)!= D3D_OK){
 				//デバイスの復帰に失敗したらスロー
@@ -477,19 +476,9 @@ void DxDevice::RenderScene()
 					L"DxDevice::RenderScene()"
 					);
 			}
-			//***********************************************************************************//
-			//***********************************************************************************//
-			//***********************************************************************************//
-			//***********************************************************************************//
-
-			}catch(exception& e){
-				
-				throw ;
-			}
-			catch(...){
-				throw;
-			}
 		}
+
+		pScene->CommandTranslator(m_DrawPacket);
 
 #ifndef CF_SINGLETHREAD 
 		if(pScene->getUpdateThreadResumeRequest()){

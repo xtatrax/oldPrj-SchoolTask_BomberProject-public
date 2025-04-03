@@ -14,6 +14,7 @@
 #include "Scene.h"
 #include "Factory_Wall.h"
 #include "BassItems.h"
+#include "TextureManager.h"
 
 
 namespace wiz{
@@ -23,62 +24,248 @@ namespace bomberobject{
 //Camera*		WallObject::m_pCamera = NULL;	
 
 /**************************************************************************
- WallObject 定義部
+ Warning 定義部
 ****************************************************************************/
 /**************************************************************************
  WallObject::WallObject(
 	LPDIRECT3DDEVICE9 pD3DDevice,	//デバイス
-	LPDIRECT3DTEXTURE9 pTexture,	//テクスチャ
+	LPTATRATEXTURE pTexture,	//テクスチャ
 	wiz::OBJID id					//オブジェクトの種類
 );
  用途: コンストラクタ
  戻り値: なし
  担当：本多寛之
 ***************************************************************************/
-WallObject::WallObject( LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTexture,LPDIRECT3DTEXTURE9 pTexture2,
-					   LPDIRECT3DTEXTURE9 pTexture3,wiz::OBJID id)
-	:PrimitiveBox(pD3DDevice,
-					D3DCOLORVALUE(),
-					D3DCOLORVALUE(),
-					D3DCOLORVALUE(),
-					id,
-					pTexture)
-,m_pWallTex( pTexture )
-,m_pPolyTex( pTexture2 )
-,m_pDeadTex( pTexture3 )
-,m_Ptn(0)
-,m_pSound( NULL )
+Warning::Warning(
+		LPDIRECT3DDEVICE9 pD3DDevice	,
+		D3DCOLORVALUE&		Diffuse		,
+		D3DCOLORVALUE&		Specular	,
+		D3DCOLORVALUE&		Ambient		,
+		LPTATRATEXTURE		pTexture	,
+		wiz::OBJID id
+)
+:Box(pD3DDevice,g_vOne,g_vZero,g_vZero,Diffuse,Specular,Ambient,id,false,pTexture)
+,m_pCoil( NULL )
+,m_Plate( pD3DDevice, pTexture, 0xFFFFFFFF )
+,m_vPos(D3DXVECTOR3(0.0f,0.0f,0.0f))
+,m_vRot(D3DXVECTOR3(0.0f,0.0f,0.0f))
+,m_vScale(D3DXVECTOR3(2.0f,2.0f,0.0f))
+,m_iPtn(0)
+,m_iPtnInterval( 0 )
+,m_fDrawTime( 0 )
+,m_bToDraw(false)
+,m_bIsPlaySound( false )
 {
 	::ZeroMemory( &m_Material, sizeof(D3DMATERIAL9));
-	m_pPlayerCoil	= NULL;
-	m_pCamera		= NULL;
-	for( int i = 0; i < PARTICLS_NUM; i++ )
-		m_pDeadEffect[i]	= NULL;
+	D3DXMATRIX mScalse, mRot, mPos;
+	D3DXMatrixIdentity(&mScalse);
+	D3DXMatrixIdentity(&mRot);
+	D3DXMatrixIdentity(&mPos);
+	D3DXMatrixScaling(&mScalse,m_vScale.x,m_vScale.y,m_vScale.z);
+	D3DXMatrixRotationZ(&mRot,m_vRot.z);
+	D3DXMatrixTranslation(&mPos, m_vScale.x,m_vScale.y,m_vScale.z);
+	m_Matrix = mScalse * mRot * mPos ;
+	m_Material.Ambient = Ambient ;
+	m_Material.Diffuse = Diffuse ;
+	m_Material.Specular = Specular ;
+
+
 }
 /////////////////// ////////////////////
 //// 用途       ：~WallObject();
 //// カテゴリ   ：デストラクタ
 //// 用途       ：
 //// 引数       ：
-//// 戻値       ：無し
+//// 戻値       ：なし
+//// 担当者     ：鴫原 徹
+//// 備考       ：
+Warning::~Warning(){
+	m_pCoil = NULL;
+}
+/////////////////// ////////////////////
+//// 用途       ：void Draw( DrawPacket& i_DrawPacket )
+//// カテゴリ   ：関数
+//// 用途       ：オブジェクトをディスプレイに表示する
+//// 引数       ：  DrawPacket& i_DrawPacket             // 画面描画時に必要なデータ群 ↓内容下記
+////            ：  ├ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 インターフェイスへのポインタ
+////            ：  ├ vector<Object*>&    Vec                     // オブジェクトの配列
+////            ：  ├ Tempus2*            i_DrawPacket.GetTime()	   // 時間を管理するクラスへのポインター
+////            ：  └ Command             i_DrawPacket.pCommand   // コマンド
+//// 戻値       ：なし
+//// 担当者     ：本多寛之
+//// 備考       ：
+void Warning::Draw(DrawPacket& i_DrawPacket)
+{
+	if(m_bToDraw){
+		if(!m_bIsPlaySound){
+			i_DrawPacket.SearchSoundAndPlay(RCTEXT_SOUND_SE_SPARK_WARNING);
+			m_bIsPlaySound = true;
+		}
+		if(m_pTexture){
+			DWORD wkdword;
+			//現在のテクスチャステータスを得る
+			i_DrawPacket.GetDevice()->GetTextureStageState(0,D3DTSS_COLOROP,&wkdword);
+			//ステージの設定
+			i_DrawPacket.GetDevice()->SetTexture(0,m_pTexture->getTexture());
+			//デフィーズ色とテクスチャを掛け合わせる設定
+			i_DrawPacket.GetDevice()->SetTextureStageState( 0, D3DTSS_COLOROP, D3DTOP_MODULATE4X );
+			i_DrawPacket.GetDevice()->SetTextureStageState( 0, D3DTSS_COLORARG1, D3DTA_TEXTURE );
+			i_DrawPacket.GetDevice()->SetTextureStageState( 0, D3DTSS_COLORARG2, D3DTA_DIFFUSE );
+
+			//i_DrawPacket.GetDevice()->SetFVF(PlateFVF);
+			// マトリックスをレンダリングパイプラインに設定
+			i_DrawPacket.GetDevice()->SetTransform(D3DTS_WORLD, &m_Matrix);
+
+			//田村T透過案
+			//i_DrawPacket.GetDevice()->SetRenderState(D3DRS_ALPHATESTENABLE,TRUE);
+			//i_DrawPacket.GetDevice()->SetRenderState(D3DRS_ALPHAFUNC,D3DCMP_GREATEREQUAL);
+			//float	f	= 0.5f ;
+			//i_DrawPacket.GetDevice()->SetRenderState(D3DRS_ALPHAREF,*(DWORD*)&f);
+			//コモンメッシュのDraw()を呼ぶ
+			RENDERSTATE_PARAM pParam[] = {
+				{ D3DRS_ALPHABLENDENABLE	, TRUE					},
+				{ D3DRS_BLENDOP				, D3DBLENDOP_ADD		},
+				{ D3DRS_SRCBLEND			, D3DBLEND_SRCALPHA		},
+				{ D3DRS_DESTBLEND			, D3DBLEND_ONE			},
+				{ D3DRS_FORCE_DWORD			, NULL					}
+			};
+			CommonMesh::Draw(i_DrawPacket,pParam);
+			i_DrawPacket.GetDevice()->SetTexture(0,0);
+			//ステージを元に戻す
+			i_DrawPacket.GetDevice()->SetTextureStageState(0,D3DTSS_COLOROP,wkdword);
+
+			D3DXMATRIX m ;
+			//D3DXMatrixScale( &m, );
+			//D3DXVECTOR3	v	= MatrixCalculator( (*it)->m_Matrix, m_Plate.getPos() );
+			//m_Plate.setMatrixPos( v );
+			//m_Plate.setMatrix((*it)->m_Matrix);
+			//m_Plate.Draw(i_DrawPacket);
+		}
+		else{
+		//テクスチャがない場合
+			// マトリックスをレンダリングパイプラインに設定
+			i_DrawPacket.GetDevice()->SetTransform(D3DTS_WORLD, &m_Matrix);
+			//コモンメッシュのDraw()を呼ぶ
+			CommonMesh::Draw(i_DrawPacket);
+		}
+	}else{
+		if(m_bIsPlaySound){
+			i_DrawPacket.SoundStop(RCTEXT_SOUND_SE_SPARK_WARNING);
+			m_bIsPlaySound = false ;
+		}
+	}
+}
+
+/////////////////// ////////////////////
+//// 用途       ：void Update( UpdatePacket& i_UpdatePacket )
+//// カテゴリ   ：関数
+//// 用途       ：オブジェクトを更新
+//// 引数       ：  UpdatePacket& i_UpdatePacket     // アップデート時に必要なデータ群 ↓内容下記
+////            ：  ├       LPDIRECT3DDEVICE9  pD3DDevice      // IDirect3DDevice9 インターフェイスへのポインタ
+////            ：  ├       Tempus2*           pTime           // 時間を管理するクラスへのポインター
+////            ：  ├       vector<Object*>&   Vec,            // オブジェクトの配列
+////            ：  ├ const CONTROLER_STATE*   pCntlState      // コントローラのステータス
+////            ：  └       Command            pCommand        // コマンド
+//// 戻値       ：なし
+//// 担当者     ：本多寛之
+//// 備考       ：
+////            ：
+////
+void Warning::Update( UpdatePacket& i_UpdatePacket ){
+	if( !m_pCoil )	m_pCoil	= (PlayerCoil*)i_UpdatePacket.SearchObjectFromID( OBJID_3D_COIL	) ;
+	if(m_bToDraw){
+		D3DXMATRIX mScalse, mRot, mPos;
+		D3DXMatrixScaling(&mScalse,m_vScale.x,m_vScale.y,m_vScale.z);
+		D3DXMatrixRotationZ(&mRot,D3DXToRadian(m_vRot.z));
+		D3DXMatrixTranslation(&mPos, m_vPos.x,m_vPos.y,m_vPos.z);
+		m_Matrix = mScalse * mRot * mPos ;
+
+		const int  WARNING_INTERVAL = 2;
+		if(m_iPtnInterval >= WARNING_INTERVAL){
+			//**************************************************************************************
+			LPDIRECT3DVERTEXBUFFER9 pVB = 0;
+			CommonMeshVertex* pVer = 0;
+			m_pMesh->GetVertexBuffer(&pVB);
+			pVB->Lock(0,0,(VOID**)&pVer,0);
+			DWORD vsize = m_pMesh->GetNumVertices();
+			for(DWORD n = 0;n < vsize;n++){ //頂点の数を取得する
+				//法線と頂点からuv値を得る
+				BoxVecNomal2UV_1_2(pVer[n].vec,pVer[n].normal,m_iPtn,pVer[n].tu,pVer[n].tv);
+			}
+			pVB->Unlock();
+			//***********************************************************************************
+			++m_iPtn;
+			m_Plate.Update( m_iPtn );
+		}
+		if(m_iPtnInterval >= WARNING_INTERVAL)m_iPtnInterval = 0;
+		m_iPtnInterval++;
+
+		m_fDrawTime	+= (float)i_UpdatePacket.GetTime()->getElapsedTime();
+		if( m_fDrawTime > 0.01f ){
+			m_pCoil->ScratchTime_Update();
+			m_fDrawTime	= 0;
+		}
+	}
+}
+
+/**************************************************************************
+ WallObject 定義部
+****************************************************************************/
+/**************************************************************************
+ WallObject::WallObject(
+	LPDIRECT3DDEVICE9 pD3DDevice,	//デバイス
+	LPTATRATEXTURE pTexture,	//テクスチャ
+	wiz::OBJID id					//オブジェクトの種類
+);
+ 用途: コンストラクタ
+ 戻り値: なし
+ 担当：本多寛之
+***************************************************************************/
+WallObject::WallObject( LPDIRECT3DDEVICE9 pD3DDevice, LPTATRATEXTURE pTexture,wiz::OBJID id)
+:Box(pD3DDevice,
+	g_vOne,
+	g_vZero,
+	g_vZero,
+	D3DCOLORVALUE(),
+	D3DCOLORVALUE(),
+	D3DCOLORVALUE(),
+	id,
+	false,
+	pTexture)
+,m_Ptn(0)
+,m_Plate( pD3DDevice, pTexture, 0xFFFFFFFF )
+,m_pWarning( NULL )
+,m_pPlayerCoil(NULL)
+,m_pCamera(NULL)
+,m_pEnemy(NULL)
+{
+	::ZeroMemory( &m_Material, sizeof(D3DMATERIAL9));
+	m_Material.Ambient	= getD3DCOLORVALUE(0.0f,0.5f,0.5f,0.5f);
+	m_Material.Diffuse	= getD3DCOLORVALUE(0.0f,0.7f,0.7f,0.7f);
+	m_Material.Specular	= getD3DCOLORVALUE(0.0f,0.0f,0.0f,0.0f);
+
+}
+/////////////////// ////////////////////
+//// 用途       ：~WallObject();
+//// カテゴリ   ：デストラクタ
+//// 用途       ：
+//// 引数       ：
+//// 戻値       ：なし
 //// 担当者     ：鴫原 徹
 //// 備考       ：
 WallObject::~WallObject(){
 	m_pCamera		= NULL ;
 	m_pPlayerCoil	= NULL ;
-	for( int i = 0; i < PARTICLS_NUM; i++ )
-		m_pDeadEffect[i]	= NULL;
-
+	m_pEnemy		= NULL;
+	m_pWarning		= NULL;
 	SafeDeletePointerMap( m_ItemMap_All );
-	SafeDeletePointerMap( m_ItemMap_Poly );
 
 	m_ItemMap_All.clear() ;
 	m_ItemMap_Target.clear() ;	//	: この子はClearのみ
-	m_ItemMap_Poly.clear() ;
 }
 
 /////////////////// ////////////////////
-//// 用途       ：WallObject(	LPDIRECT3DDEVICE9 pD3DDevice,LPDIRECT3DTEXTURE9 pTexture,wiz::OBJID id = OBJID_3D_WALL);
+//// 用途       ：WallObject(	LPDIRECT3DDEVICE9 pD3DDevice,LPTATRATEXTURE pTexture,wiz::OBJID id = OBJID_3D_WALL);
 //// カテゴリ   ：コンストラクタ
 //// 用途       ：関数
 //// 引数       ：なし
@@ -86,8 +273,38 @@ WallObject::~WallObject(){
 //// 担当者     ：鴫原 徹
 //// 備考       ：
 void WallObject::UpdateTargetItem(){
-	
-	
+	//////////
+	//	対象外の削除
+	//
+	TARGETCONTAINER::iterator	TIMit  = m_ItemMap_Target.begin( ),
+								TIMend = m_ItemMap_Target.end( );
+	while( TIMit != TIMend ){
+		if( (*TIMit)->m_fMapKey <= m_pCamera->getPosY()  -DRAWING_RANGE ||
+			(*TIMit)->m_fMapKey >= m_pCamera->getPosY()  +DRAWING_RANGE ){
+			(*TIMit)->m_bHidden = true ;
+			TIMit = m_ItemMap_Target.erase( TIMit );
+			continue;
+		}
+		TIMit++ ;
+	}
+	//
+	//
+	//////////
+	//////////
+	//	描画対象の追加
+	//
+	ALLCONTAINER::iterator	AIMit  = m_ItemMap_All.lower_bound( m_pCamera->getPosY()  -DRAWING_RANGE ),
+							AIMend = m_ItemMap_All.upper_bound( m_pCamera->getPosY()  +DRAWING_RANGE );
+	while( AIMit != AIMend ){
+		if( AIMit->second->m_bHidden == true ){
+			AIMit->second->m_bHidden = false ;
+			m_ItemMap_Target.push_back( AIMit->second );
+		}
+		AIMit++ ;
+	}
+	//
+	//
+	//////////
 }
 
 	
@@ -114,29 +331,12 @@ bool WallObject::HitTest2DRectAndCircle(D3DXVECTOR3& i_vPos, float i_fRadius)
 //// 備考       ：
 void WallObject::GetOBBList( float Index, list<OBB>& ObbList ){
     //指定の配置オブジェクトを検証
-	multimap<float,WallItem*>::iterator itBegin = m_ItemMap_Target.lower_bound( 20.0f ) ;
-	multimap<float,WallItem*>::iterator itEnd	= m_ItemMap_Target.upper_bound( 20.0f ) ;
+	TARGETCONTAINER::iterator itBegin	= m_ItemMap_Target.begin( ) ;
+	TARGETCONTAINER::iterator itEnd		= m_ItemMap_Target.end( ) ;
 	OBB obb ; 
-	for(multimap<float,WallItem*>::iterator iter = itBegin; iter != itEnd; ++iter){
-		obb.m_Center  = iter->second->m_vPos + iter->second->m_vPos;
-		obb.m_Size	  = m_Size;
-		obb.m_Size.x *= iter->second->m_vScale.x;
-		obb.m_Size.y *= iter->second->m_vScale.y;
-		obb.m_Size.z *= iter->second->m_vScale.z;
-		obb.m_Size *= 0.5f;
-		//トータルの回転を得る
-		D3DXQUATERNION Qt = iter->second->m_vRot;
-		Qt *= iter->second->m_vRot;
-		//クオータニオンを正規化
-		D3DXQuaternionNormalize(&Qt,&Qt);
-		//クオータニオンから回転行列を作成
-		D3DXMATRIX mRot;
-		D3DXMatrixIdentity(&mRot);
-		D3DXMatrixRotationQuaternion(&mRot,&Qt);
-		obb.m_Rot[0] = D3DXVECTOR3(mRot._11,mRot._12,mRot._13);
-	    obb.m_Rot[1] = D3DXVECTOR3(mRot._21,mRot._22,mRot._23);
-	    obb.m_Rot[2] = D3DXVECTOR3(mRot._31,mRot._32,mRot._33);
-		ObbList.push_back( obb ) ;
+	for(TARGETCONTAINER::iterator iter = itBegin; iter != itEnd; ++iter){
+		ObbList.push_back( (*iter)->m_Obb ) ;
+		ObbList.push_back( (*iter)->m_Obb_W ) ;
 	}
 }
 
@@ -148,93 +348,68 @@ void WallObject::GetOBBList( float Index, list<OBB>& ObbList ){
 //// 引数       ：  DrawPacket& i_DrawPacket             // 画面描画時に必要なデータ群 ↓内容下記
 ////            ：  ├ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 インターフェイスへのポインタ
 ////            ：  ├ vector<Object*>&    Vec                     // オブジェクトの配列
-////            ：  ├ Tempus2*            i_DrawPacket.pTime	   // 時間を管理するクラスへのポインター
+////            ：  ├ Tempus2*            i_DrawPacket.GetTime()	   // 時間を管理するクラスへのポインター
 ////            ：  └ Command             i_DrawPacket.pCommand   // コマンド
-//// 戻値       ：無し
+//// 戻値       ：なし
 //// 担当者     ：本多寛之
 //// 備考       ：
 void WallObject::Draw(DrawPacket& i_DrawPacket)
 {
-	multimap<float,WallItem*>::iterator it = m_ItemMap_Target.begin();
-	while(it != m_ItemMap_Target.end()){
+	// m_pTexture = m_pWallTex ;
+	TARGETCONTAINER::iterator it	= m_ItemMap_Target.begin();
+	TARGETCONTAINER::iterator end	= m_ItemMap_Target.end();
+	while(it != end){
 		//テクスチャがある場合
-		//if(m_pWallTex){
-		//	m_pTexture	= m_pWallTex;
-		//	DWORD wkdword;
-		//	//現在のテクスチャステータスを得る
-		//	i_DrawPacket.pD3DDevice->GetTextureStageState(0,D3DTSS_COLOROP,&wkdword);
-		//	//ステージの設定
-		//	i_DrawPacket.pD3DDevice->SetTexture(0,m_pTexture);
-		//	//デフィーズ色とテクスチャを掛け合わせる設定
-		//	i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLOROP, D3DTOP_MODULATE4X );
-		//	i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLORARG1, D3DTA_TEXTURE );
-		//	i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLORARG2, D3DTA_DIFFUSE );
+		if(m_pTexture){
 
-		//	//i_DrawPacket.pD3DDevice->SetFVF(PlateFVF);
-		//	// マトリックスをレンダリングパイプラインに設定
-		//	i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &it->second->m_Matrix);
-		//	//コモンメッシュのDraw()を呼ぶ
-		//	CommonMesh::Draw(i_DrawPacket);
-		//	i_DrawPacket.pD3DDevice->SetTexture(0,0);
-		//	//ステージを元に戻す
-		//	i_DrawPacket.pD3DDevice->SetTextureStageState(0,D3DTSS_COLOROP,wkdword);
-		//}
-		//else{
-		////テクスチャがない場合
-		//	// マトリックスをレンダリングパイプラインに設定
-		//	i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &it->second->m_Matrix);
-		//	//コモンメッシュのDraw()を呼ぶ
-		//	CommonMesh::Draw(i_DrawPacket);
-		//}
-#if defined(ON_DEBUGGINGPROCESS) | defined( PRESENTATION )
-		if( it->second->m_pDOB ){
-			it->second->m_pDOB->Draw(i_DrawPacket);
-		}else{
-			it->second->m_pDOB = new DrawOBB(i_DrawPacket.pD3DDevice,it->second->m_Obb);
-		}
-#endif
-
-		++it;
-	}
-	multimap<float,PolyItem*>::iterator it2 = m_ItemMap_Poly.begin();
-	while(it2 != m_ItemMap_Poly.end()){
-		//テクスチャがある場合
-		if(m_pPolyTex){
-			m_pTexture	= m_pPolyTex;
 			DWORD wkdword;
 			//現在のテクスチャステータスを得る
-			i_DrawPacket.pD3DDevice->GetTextureStageState(0,D3DTSS_COLOROP,&wkdword);
+			i_DrawPacket.GetDevice()->GetTextureStageState(0,D3DTSS_COLOROP,&wkdword);
 			//ステージの設定
-			i_DrawPacket.pD3DDevice->SetTexture(0,m_pTexture);
+			i_DrawPacket.GetDevice()->SetTexture(0,m_pTexture->getTexture());
 			//デフィーズ色とテクスチャを掛け合わせる設定
-			i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLOROP, D3DTOP_MODULATE4X );
-			i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLORARG1, D3DTA_TEXTURE );
-			i_DrawPacket.pD3DDevice->SetTextureStageState( 0, D3DTSS_COLORARG2, D3DTA_DIFFUSE );
+			i_DrawPacket.GetDevice()->SetTextureStageState( 0, D3DTSS_COLOROP, D3DTOP_MODULATE4X );
+			i_DrawPacket.GetDevice()->SetTextureStageState( 0, D3DTSS_COLORARG1, D3DTA_TEXTURE );
+			i_DrawPacket.GetDevice()->SetTextureStageState( 0, D3DTSS_COLORARG2, D3DTA_DIFFUSE );
 
-			//i_DrawPacket.pD3DDevice->SetFVF(PlateFVF);
+			//i_DrawPacket.GetDevice()->SetFVF(PlateFVF);
 			// マトリックスをレンダリングパイプラインに設定
-			i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &it2->second->m_Matrix);
+			i_DrawPacket.GetDevice()->SetTransform(D3DTS_WORLD, &(*it)->m_Matrix);
+
+			//田村T透過案
+			//i_DrawPacket.GetDevice()->SetRenderState(D3DRS_ALPHATESTENABLE,TRUE);
+			//i_DrawPacket.GetDevice()->SetRenderState(D3DRS_ALPHAFUNC,D3DCMP_GREATEREQUAL);
+			//float	f	= 0.5f ;
+			//i_DrawPacket.GetDevice()->SetRenderState(D3DRS_ALPHAREF,*(DWORD*)&f);
 			//コモンメッシュのDraw()を呼ぶ
-			CommonMesh::Draw(i_DrawPacket);
-			i_DrawPacket.pD3DDevice->SetTexture(0,0);
+			RENDERSTATE_PARAM pParam[] = {
+				{ D3DRS_ALPHABLENDENABLE	, TRUE					},
+				{ D3DRS_BLENDOP				, D3DBLENDOP_ADD		},
+				{ D3DRS_SRCBLEND			, D3DBLEND_SRCALPHA		},
+				{ D3DRS_DESTBLEND			, D3DBLEND_ONE			},
+				{ D3DRS_FORCE_DWORD			, NULL					}
+			};
+			CommonMesh::Draw(i_DrawPacket,pParam);
+			i_DrawPacket.GetDevice()->SetTexture(0,0);
 			//ステージを元に戻す
-			i_DrawPacket.pD3DDevice->SetTextureStageState(0,D3DTSS_COLOROP,wkdword);
+			i_DrawPacket.GetDevice()->SetTextureStageState(0,D3DTSS_COLOROP,wkdword);
+
+			//D3DXMATRIX m ;
+			//D3DXMatrixScale( &m, );
+			//D3DXVECTOR3	v	= MatrixCalculator( (*it)->m_Matrix, m_Plate.getPos() );
+			//m_Plate.setMatrixPos( v );
+			//m_Plate.setMatrix((*it)->m_Matrix);
+			//m_Plate.Update( m_Ptn );
+			//m_Plate.Draw(i_DrawPacket);
 		}
 		else{
 		//テクスチャがない場合
 			// マトリックスをレンダリングパイプラインに設定
-			i_DrawPacket.pD3DDevice->SetTransform(D3DTS_WORLD, &it2->second->m_Matrix);
+			i_DrawPacket.GetDevice()->SetTransform(D3DTS_WORLD, &(*it)->m_Matrix);
 			//コモンメッシュのDraw()を呼ぶ
 			CommonMesh::Draw(i_DrawPacket);
 		}
-
-		++it2;
-	}
-
-	if( m_pDeadEffect[0] != NULL ){
-		for( int i = 0; i < PARTICLS_NUM; i++ ){
-			m_pDeadEffect[i]->Draw( i_DrawPacket );
-		}
+		++it;
 	}
 
 }
@@ -249,68 +424,81 @@ void WallObject::Draw(DrawPacket& i_DrawPacket)
 ////            ：  ├       vector<Object*>&   Vec,            // オブジェクトの配列
 ////            ：  ├ const CONTROLER_STATE*   pCntlState      // コントローラのステータス
 ////            ：  └       Command            pCommand        // コマンド
-//// 戻値       ：無し
+//// 戻値       ：なし
 //// 担当者     ：本多寛之
 //// 備考       ：
 ////            ：
 ////
 void WallObject::Update( UpdatePacket& i_UpdatePacket ){
-	if(m_pCamera == NULL){
-		m_pCamera = (Camera*)SearchObjectFromID(i_UpdatePacket.pVec,OBJID_SYS_CAMERA);
-	}
-	if(m_pSound == NULL){
-		m_pSound = (Sound*)SearchObjectFromTypeID(i_UpdatePacket.pVec,typeid(Sound));
-	}
-	if(m_pPlayerCoil == NULL){
-		m_pPlayerCoil = (PlayerCoil*)SearchObjectFromTypeID(i_UpdatePacket.pVec,typeid(PlayerCoil));
-	}
+	if( !m_pCamera     )	m_pCamera		=     (Camera*)i_UpdatePacket.SearchObjectFromID( OBJID_SYS_CAMERA	) ;
+	if( !m_pPlayerCoil )	m_pPlayerCoil	= (PlayerCoil*)i_UpdatePacket.SearchObjectFromID( OBJID_3D_COIL		) ;
+	if( !m_pEnemy      )	m_pEnemy		= (EnemyModel*)i_UpdatePacket.SearchObjectFromID( OBJID_3D_ENEMY		) ;
+	if( !m_pWarning    )	m_pWarning		=    (Warning*)i_UpdatePacket.SearchObjectFromID(OBJID_3D_WARNING		) ;
 
-	m_ItemMap_Target.clear();
-	multimap<float,WallItem*>::iterator it = m_ItemMap_All.begin();
-	while(it != m_ItemMap_All.end()){
-		if( ( +(it->first - m_pCamera->getEye().y) <= DRAWING_RANGE) && ( +(it->first - m_pCamera->getEye().y) >= -DRAWING_RANGE ) ){
-			m_ItemMap_Target.insert(multimap<float,WallItem*>::value_type(it->second->m_vPos.y,it->second));
-		}
-		++it;
-	}
-
-	multimap<float,WallItem*>::iterator it2 = m_ItemMap_Target.begin();
-	while(it2 != m_ItemMap_Target.end()){
-		//拡大縮小
-		D3DXMATRIX mScale;
-		D3DXMatrixIdentity(&mScale);
-		D3DXMatrixScaling(&mScale,
-			it2->second->m_vScale.x,it2->second->m_vScale.y,it2->second->m_vScale.z);
-		//回転
-		D3DXMATRIX mRot;
-		D3DXMatrixIdentity(&mRot);
-		D3DXMatrixRotationQuaternion(&mRot,&it2->second->m_vRot);
-		//移動用
-		D3DXMATRIX mMove;
-		D3DXMatrixIdentity(&mMove);
-		D3DXMatrixTranslation(&mMove,
-			it2->second->m_vPos.x,it2->second->m_vPos.y,it2->second->m_vPos.z);
-		//ミックス行列
-		it2->second->m_Matrix = mScale * mRot * mMove;
-		//マティリアル設定
-		m_Material = it2->second->m_Material;
-
-		//衝突判定
-		//OBB obb	= OBB( it2->second->m_vScale, it2->second->m_vRot, it2->second->m_vPos ) ;
-		//if( m_pPlayerCoil ){
-		//	m_pPlayerCoil->HitTestWall( obb, 0 ) ;
-		//}
-
-		if( m_pPlayerCoil && m_pPlayerCoil->HitTestWall( it2->second->m_Obb, 0 ) ){
+	UpdateTargetItem();
+	TARGETCONTAINER::iterator it	= m_ItemMap_Target.begin();
+	TARGETCONTAINER::iterator end	= m_ItemMap_Target.end();
+	m_pWarning->setToDraw(false);
+	while(it != end){
+		if( m_pPlayerCoil && m_pPlayerCoil->HitTestWall( (*it)->m_Obb_W ) ){
 			switch(m_pPlayerCoil->getState()){
 				case COIL_STATE_MOVE:
-					if(!m_pPlayerCoil->getSuperMode()){
-						for( int i = 0; i < PARTICLS_NUM; i++ ){
-							SafeDelete( m_pDeadEffect[i] );
-							m_pDeadEffect[i]	= new DeadEffect( i_UpdatePacket.pD3DDevice, m_pPlayerCoil->getPos(),
-										float((360/PARTICLS_NUM) * i), m_pDeadTex/*i_UpdatePacket.pTxMgr->addTexture(i_UpdatePacket.pD3DDevice, L"DeadPerticul.png")*/);
+					if(m_pPlayerCoil->getSuperMode() == COIL_STATE_SUPER_CHARGE || m_pPlayerCoil->getSuperMode() == COIL_STATE_SUPER_READY){
+						m_pWarning->setToDraw(true);
+						D3DXVECTOR3 vColiPos = m_pPlayerCoil->getPos(),
+									vWallPos = (*it)->m_Obb_W.m_Center,
+									vWallSiz = (*it)->m_Obb_W.m_Size,
+									vWarning = vColiPos;
+						float		fRotZ	 = (*it)->m_fRotZ;
+						if(fRotZ < 90.0f){
+							if(vWallPos.y - vWallSiz.y > vColiPos.y){
+								vWarning.x = vWallPos.x;
+								m_pWarning->setRot(D3DXVECTOR3(0.0f,0.0f,180.0f));
+							}else if(vWallPos.y + vWallSiz.y < vColiPos.y){
+								vWarning.x = vWallPos.x;
+								m_pWarning->setRot(D3DXVECTOR3(0.0f,0.0f,0.0f));								
+							}else{
+								if(vWallPos.x <= vColiPos.x){
+									vWarning.x = vWallPos.x + 1.0f;
+									m_pWarning->setRot(D3DXVECTOR3(0.0f,0.0f,-90.0f));
+								}
+								else{
+									vWarning.x = vWallPos.x - 1.0f;
+									m_pWarning->setRot(D3DXVECTOR3(0.0f,0.0f,90.0f));
+								}
+							}
+						}else{
+							if(vWallPos.x - vWallSiz.y > vColiPos.x){
+								vWarning.y = vWallPos.y;
+								m_pWarning->setRot(D3DXVECTOR3(0.0f,0.0f,90.0f));
+								
+							}else if(vWallPos.x + vWallSiz.y < vColiPos.x){
+								vWarning.y = vWallPos.y;
+								m_pWarning->setRot(D3DXVECTOR3(0.0f,0.0f,-90.0f));								
+							}else{
+								if(vWallPos.y <= vColiPos.y){
+									vWarning.y = vWallPos.y + 1.0f;
+									m_pWarning->setRot(D3DXVECTOR3(0.0f,0.0f,0.0f));
+								}
+								else{
+									vWarning.y = vWallPos.y - 1.0f;
+									m_pWarning->setRot(D3DXVECTOR3(0.0f,0.0f,180.0f));
+								}
+							}
 						}
-						m_pSound->SearchWaveAndPlay( RCTEXT_SOUND_SE_PLAYERBLOKEN );
+						vWarning.z = -1.0f;
+						m_pWarning->setPos(vWarning);					
+					}
+					break;
+				default:
+					break;
+			}
+		}
+		if( m_pPlayerCoil && m_pPlayerCoil->HitTestWall( (*it)->m_Obb ) ){
+			switch(m_pPlayerCoil->getState()){
+				case COIL_STATE_MOVE:
+					if(m_pPlayerCoil->getSuperMode() == COIL_STATE_SUPER_CHARGE || m_pPlayerCoil->getSuperMode() == COIL_STATE_SUPER_READY){
+						i_UpdatePacket.SearchWaveAndPlay( RCTEXT_SOUND_SE_PLAYERBLOKEN );
 						m_pPlayerCoil->setState(COIL_STATE_DEAD);
 					}
 					break;
@@ -318,69 +506,29 @@ void WallObject::Update( UpdatePacket& i_UpdatePacket ){
 					break;
 			}
 		}
-
-		if( m_pDeadEffect[0] != NULL ){
-			for( int i = 0; i < PARTICLS_NUM; i++ ){
-				m_pDeadEffect[i]->Update( i_UpdatePacket );
-				if(m_pDeadEffect[i]->getColor() <= 0.0f){
-					SafeDelete( m_pDeadEffect[i] );
-					m_pPlayerCoil->setReadyContinue(true);
-					break;
-				}
-			}
+		if(m_pEnemy){
+			m_pEnemy->HitTestWall( (*it)->m_Obb, i_UpdatePacket );
 		}
 
+		//**************************************************************************************
+		LPDIRECT3DVERTEXBUFFER9 pVB = 0;
+		CommonMeshVertex* pVer = 0;
+		m_pMesh->GetVertexBuffer(&pVB);
+		pVB->Lock(0,0,(VOID**)&pVer,0);
+		DWORD vsize = m_pMesh->GetNumVertices();
+		for(DWORD n = 0;n < vsize;n++){ //頂点の数を取得する
+			//法線と頂点からuv値を得る
+			BoxVecNomal2UV_1_4(pVer[n].vec,pVer[n].normal,(*it)->m_iPtn,pVer[n].tu,pVer[n].tv);
+		}
+		pVB->Unlock();
+		//***********************************************************************************
 
-		++it2;
+		(*it)->m_iPtn++;
+		(*it)->m_iPtn	%= 4;
+		//m_Plate.Update( (*it)->m_iPtn );
+
+		++it;
 	}
-
-	multimap<float,PolyItem*>::iterator it3 = m_ItemMap_Poly.begin();
-	while(it3 != m_ItemMap_Poly.end()){
-		//拡大縮小
-		D3DXMATRIX mScale;
-		D3DXMatrixIdentity(&mScale);
-		D3DXMatrixScaling(&mScale,
-			it3->second->m_vScale.x,it3->second->m_vScale.y,0.0f);
-		//回転
-		D3DXMATRIX mRot;
-		D3DXMatrixIdentity(&mRot);
-		D3DXMatrixRotationQuaternion(&mRot,&it3->second->m_vRot);
-		//移動用
-		D3DXMATRIX mMove;
-		D3DXMatrixIdentity(&mMove);
-		D3DXMatrixTranslation(&mMove,
-			it3->second->m_vPos.x,it3->second->m_vPos.y,it3->second->m_vPos.z);
-		//ミックス行列
-		it3->second->m_Matrix = mScale * mRot * mMove;
-		//マティリアル設定
-		m_Material = it3->second->m_Material;
-
-		++it3;
-	}
-
-	//**************************************************************************************
-	LPDIRECT3DVERTEXBUFFER9 pVB = 0;
-	CommonMeshVertex* pVer = 0;
-	m_pMesh->GetVertexBuffer(&pVB);
-	pVB->Lock(0,0,(VOID**)&pVer,0);
-	DWORD vsize = m_pMesh->GetNumVertices();
-	for(DWORD n = 0;n < vsize;n++){ //頂点の数を取得する
-		//法線と頂点からuv値を得る
-		BoxVecNomal2UV_1_4(pVer[n].vec,pVer[n].normal,m_Ptn,pVer[n].tu,pVer[n].tv);
-	}
-	pVB->Unlock();
-	//***********************************************************************************
-
-	++m_Ptn;
-	static	int	s_Time	= 0;
-	//++s_Time;
-
-	//if( s_Time == 2 ){
-	//	++m_Ptn;
-	//	if( m_Ptn > 3 )
-	//		m_Ptn	%= 4;
-	//	s_Time	= 0;
-	//}
 }
 
 /////////////////// ////////////////////
@@ -394,48 +542,20 @@ void WallObject::Update( UpdatePacket& i_UpdatePacket ){
 ////            ：  D3DCOLORVALUE& Diffuse,			//ディフューズ色
 ////            ：  D3DCOLORVALUE& Specular,		//スペキュラ色
 ////            ：  D3DCOLORVALUE& Ambient,			//アンビエント色
-//// 戻値       ：無し
+//// 戻値       ：なし
 //// 担当者     ：本多寛之
 ////				曳地 大洋
 //// 備考       ：
 void WallObject::AddWall(D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos,
 			D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient)
 {
-	WallItem* pItem = new WallItem;
-	pItem->m_vScale = vScale;
-	pItem->m_vPos	= vPos;
-    ::ZeroMemory(&pItem->m_Material,sizeof(D3DMATERIAL9));
-	pItem->m_Material.Diffuse = Diffuse;
-	pItem->m_Material.Specular = Specular;
-	pItem->m_Material.Ambient = Ambient;
-	//回転の初期化
-	D3DXQuaternionRotationYawPitchRoll(&pItem->m_vRot,
-			D3DXToRadian(vRot.y),D3DXToRadian(vRot.x),D3DXToRadian(vRot.z));
+	WallItem* pItem = new WallItem(vScale,vRot,vPos,m_Ptn,Diffuse,Specular,Ambient);
+	m_ItemMap_All.insert(ALLCONTAINER::value_type(vPos.y,pItem));
 
-	//衝突判定用のOBBの初期化
-	pItem->m_Obb = OBB( vScale, pItem->m_vRot, vPos ) ;
-	D3DXMATRIX mRot;
-	D3DXMatrixIdentity(&mRot);
-	D3DXMatrixRotationYawPitchRoll(&mRot,
-		D3DXToRadian(vRot.y),D3DXToRadian(vRot.x),D3DXToRadian(vRot.z));
-
-	m_ItemMap_All.insert(multimap<float,WallItem*>::value_type(pItem->m_vPos.y,pItem));
-//********************************************************************************************
-	PolyItem* pPoly = new PolyItem;
-	pPoly->m_vScale.x = vScale.x;
-	pPoly->m_vScale.y = vScale.y;
-	pPoly->m_vScale.z = 0.0f;
-	pPoly->m_vPos	= vPos;
-    ::ZeroMemory(&pPoly->m_Material,sizeof(D3DMATERIAL9));
-	pPoly->m_Material.Diffuse = Diffuse;
-	pPoly->m_Material.Specular = Specular;
-	pPoly->m_Material.Ambient = Ambient;
-	//回転の初期化
-	D3DXQuaternionRotationYawPitchRoll(&pPoly->m_vRot,
-			D3DXToRadian(vRot.y),D3DXToRadian(vRot.x),D3DXToRadian(vRot.z));
-
-	m_ItemMap_Poly.insert(multimap<float,PolyItem*>::value_type(pPoly->m_vPos.y,pPoly));
+	m_Ptn++;
+	m_Ptn	%= 4;
 }
+
 
 /**************************************************************************
  Factory_Wall 定義部
@@ -451,114 +571,20 @@ void WallObject::AddWall(D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos
 ***************************************************************************/
 Factory_Wall::Factory_Wall(FactoryPacket* fpac){
 	try{
- 		D3DCOLORVALUE WallDiffuse = {0.7f,0.7f,0.7f,0.0f};
+ 		D3DCOLORVALUE WallDiffuse = {0.7f,0.7f,0.7f,1.0f};
 		D3DCOLORVALUE WallSpecular = {0.0f,0.0f,0.0f,0.0f};
-		D3DCOLORVALUE WallAmbient = {0.5f,0.5f,0.5f,0.0f};
+		D3DCOLORVALUE WallAmbient = {0.5f,0.5f,0.5f,1.0f};
 
- 	//	D3DCOLORVALUE Wall2Diffuse = {1.0f,1.0f,1.0f,1.0f};
-		//D3DCOLORVALUE Wall2Specular = {0.0f,0.0f,0.0f,0.0f};
-		//D3DCOLORVALUE Wall2Ambient = {1.0f,1.0f,1.0f,1.0f};
-
-		//fpac->m_pVec->push_back(
-		//	new Polygon( fpac->pD3DDevice,
-		//					1.0f,
-		//					4,
-		//					D3DXVECTOR3(38.0f,12.0f,0.0f),
-		//					D3DXVECTOR3(0.0f,0.0f,0.0f),
-		//					Wall2Diffuse,
-		//					Wall2Specular,
-		//					Wall2Ambient,
-		//					OBJID_3D_POLYGON,
-		//					false,
-		//					fpac->m_pTexMgr->addTexture(fpac->pD3DDevice,L"biribiriWall.png")));
-
-		WallObject* Wall = new WallObject(fpac->pD3DDevice,
-			fpac->m_pTexMgr->addTexture(fpac->pD3DDevice,L"biribiriWall.png"),
-			fpac->m_pTexMgr->addTexture(fpac->pD3DDevice,L"Lightning.tga"),
-			fpac->m_pTexMgr->addTexture(fpac->pD3DDevice,L"DeadPerticul.png"));
-		//お試し
-		//Wall->AddWall(D3DXVECTOR3(10.0f,25.0f,0.5f),
-		//			  D3DXVECTOR3(0.0f,0.0f,0.0f),
-		//			  D3DXVECTOR3(20.0f,20.0f,0.0f),
-		//			  WallDiffuse,
-		//			  WallSpecular,
-		//			  WallAmbient);
-		//右横
-		Wall->AddWall(D3DXVECTOR3(2.0f,26.0f,0.5f),
-					  D3DXVECTOR3(0.0f,0.0f,0.0f),
-					  D3DXVECTOR3(38.5f,12.0f,0.0f),
-					  WallDiffuse,
-					  WallSpecular,
-					  WallAmbient);
-		//左横
-		//Wall->AddWall(D3DXVECTOR3(2.0f,26.0f,0.5f),
-		//			  D3DXVECTOR3(0.0f,0.0f,0.0f),
-		//			  D3DXVECTOR3(0.5f,12.0f,0.0f),
-		//			  WallDiffuse,
-		//			  WallSpecular,
-		//			  WallAmbient);
-		//お試し上
-		//Wall->AddWall(D3DXVECTOR3(40.0f,2.0f,0.5f),
-		//			  D3DXVECTOR3(0.0f,0.0f,0.0f),
-		//			  D3DXVECTOR3(20.0f,24.0f,0.0f),
-		//			  WallDiffuse,
-		//			  WallSpecular,
-		//			  WallAmbient);
-		//下
-		Wall->AddWall(D3DXVECTOR3(2.0f,40.0f,0.5f),
-					  D3DXVECTOR3(0.0f,0.0f,90.0f),
-					  D3DXVECTOR3(20.0f,0.5f,0.0f),
-					  WallDiffuse,
-					  WallSpecular,
-					  WallAmbient);
-		//真ん中縦
-		Wall->AddWall(D3DXVECTOR3(2.0f,10.0f,0.5f),
-					  D3DXVECTOR3(0.0f,0.0f,0.0f),
-					  D3DXVECTOR3(20.0f,6.0f,0.0f),
-					  WallDiffuse,
-					  WallSpecular,
-					  WallAmbient);
-		//お試し
-		Wall->AddWall(D3DXVECTOR3(2.0f,11.0f,0.5f),
-					  D3DXVECTOR3(0.0f,0.0f,90.0f),
-					  D3DXVECTOR3(20.0f,10.0f,0.0f),
-					  WallDiffuse,
-					  WallSpecular,
-					  WallAmbient);
-		//下
-		Wall->AddWall(D3DXVECTOR3(2.0f,11.0f,0.5f),
-					  D3DXVECTOR3(0.0f,0.0f,120.0f),
-					  D3DXVECTOR3(20.0f,20.0f,0.0f),
-					  WallDiffuse,
-					  WallSpecular,
-					  WallAmbient);
-		// 左横向き
-		Wall->AddWall(D3DXVECTOR3(2.0f,11.0f,0.5f),
-					  D3DXVECTOR3(0.0f,0.0f,90.0f),
-					  D3DXVECTOR3(7.0f,14.0f,0.0f),
-					  WallDiffuse,
-					  WallSpecular,
-					  WallAmbient);
-		//お試し
-		Wall->AddWall(D3DXVECTOR3(2.0f,20.0f,0.5f),
-					  D3DXVECTOR3(0.0f,0.0f,45.0f),
-					  D3DXVECTOR3(20.0f,20.0f,0.0f),
-					  WallDiffuse,
-					  WallSpecular,
-					  WallAmbient);
-		Wall->AddWall(D3DXVECTOR3(2.0f,5.0f,0.5f),
-					  D3DXVECTOR3(0.0f,0.0f,45.0f),
-					  D3DXVECTOR3(30.0f,15.0f,0.0f),
-					  WallDiffuse,
-					  WallSpecular,
-					  WallAmbient);
-		Wall->AddWall(D3DXVECTOR3(2.0f,4.0f,0.5f),
-					  D3DXVECTOR3(0.0f,0.0f,-45.0f),
-					  D3DXVECTOR3(20.0f,17.0f,0.0f),
-					  WallDiffuse,
-					  WallSpecular,
-					  WallAmbient);
-		fpac->m_pVec->push_back(Wall);
+		fpac->AddObject(
+			new Warning(
+				fpac->GetDevice(),
+				WallDiffuse,
+				WallSpecular,
+				WallAmbient,
+				fpac->AddTexture( L"Warning.png" ),
+				OBJID_3D_WARNING
+			)
+		);
 	}
 	catch(...){
 		//再throw

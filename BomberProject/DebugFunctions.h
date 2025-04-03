@@ -1,5 +1,5 @@
 ////////////////////////////// //////////////////////////////
-//	プロジェクト	：DirectX Program Bass Project
+//	プロジェクト	：TATRA-Library_DirectX
 //	ファイル名		：DebugFunctions.h
 //	開発環境		：MSVC++ 2008
 //	最適タブ数		：4
@@ -10,7 +10,8 @@
 //		class DBGSTR ;
 //		class DBGWRITINGLOGTEXT ;
 //
-#pragma once
+#ifndef TLIBDEBUGGER_STRINGS
+#define TLIBDEBUGGER_STRINGS
 #include "StdAfx.h"
 namespace Debugger{
 //************************************************//
@@ -23,106 +24,110 @@ class DBGWRITINGLOGTEXT{
 	static wstring DefaultLogFolder ;
 	static wstring DefaultLogFileName; 
 public:
-/////////////////// ////////////////////
-//// 関数名     ：static void Init()
-//// カテゴリ   ：イニシャライザ
-//// 用途       ：ファイルの初期化
-//// 引数       ：なし
-//// 戻値       ：なし
-//// 担当者     ：鴫原 徹
-//// 備考       ：必ずこの関数か､同名の別の関数を最初に一回だけ呼んでください
-////            ：
-////･････････････
-////======== サンプル ========
-//// void main(){
-////
-////     // ※本関数
-////     DBGWRITINGLOGTEXT::Init();   // クラスの初期化
-////
-////     while( boolean ){
-////
-//// ～～～～～～～～～～～～
-//// ～～～～～～～～～～～～
-////
-////         if( foo ){
-////
-////             DBGWRITINGLOGTEXT::addStr( "追記したい文字列\n %s" , "付随のパラメータ" );
-////
-////         }
-////     }
-//// }
-////
+	/////////////////// ////////////////////
+	//// 関数名     ：static wstring& DBGWRITINGLOGTEXT::GetDefaultLogFolder()
+	//// カテゴリ   ：ゲッター
+	//// 用途       ：フォルダへのパスを返す
+	//// 引数       ：なし
+	//// 戻値       ：デフォルトのログ出力フォルダへの相対パス
+	//// 担当者     ：鴫原 徹
+	//// 備考       ：
+	////            ：
+	////
+	static wstring& GetDefaultLogFolder(){
+		return DefaultLogFolder;
+	}
+	/////////////////// ////////////////////
+	//// 関数名     ：static wstring& DBGWRITINGLOGTEXT::GetDefaultFileName()
+	//// カテゴリ   ：ゲッター
+	//// 用途       ：ファイル名を返す
+	//// 引数       ：なし
+	//// 戻値       ：デフォルトのログ出力ファイルのファイル名
+	//// 担当者     ：鴫原 徹
+	//// 備考       ：
+	////            ：
+	////
+	static wstring& GetDefaultFileName(){
+		return DefaultLogFileName;
+	}
+	/////////////////// ////////////////////
+	//// 関数名     ：static void DBGWRITINGLOGTEXT::OutputSystemLog(LPCWSTR i_sOutPutString)
+	//// カテゴリ   ：メンバ関数
+	//// 用途       ：Visual Studioの出力ウインドウ等へ文字列を表示させる
+	//// 引数       ：  LPCWSTR    i_sOutPutString     //  : 表示させたい文字列
+	//// 戻値       ：なし
+	//// 担当者     ：鴫原 徹
+	//// 備考       ：OutputDebugStringWと全く同等の操作をします
+	////            ：
+	////
+	static void OutputSystemLog(LPCWSTR i_sOutPutString){
+		OutputDebugStringW(i_sOutPutString);
+	}
+	/////////////////// ////////////////////
+	//// 関数名     ：static void Init()
+	//// カテゴリ   ：イニシャライザ
+	//// 用途       ：ファイルの初期化
+	//// 引数       ：なし
+	//// 戻値       ：なし
+	//// 担当者     ：鴫原 徹
+	//// 備考       ：必ずこの関数か､同名の別の関数をWinMain等で最初に一回だけ呼んでください
+	////            ：
+	////
 	static void Init(){
 		if(PathFileExists(DefaultLogFileName.c_str())){
 			_wremove( DefaultLogFileName.c_str() );
 		}
 	}
-/////////////////// ////////////////////
-//// 関数名     ： static void Init(wstring FileName)
-//// カテゴリ   ： イニシャライザ
-//// 用途       ： 出力先ファイルの変更と初期化
-//// 引数       ：    wstring FileName    // ログファイルの名前を指定
-//// 戻値       ： なし
-//// 担当者     ： 鴫原 徹
-//// 備考       ： 必ずこの関数か､同名の別の関数を最初に一回だけ呼んでください
-////            ：
-////･････････････
-////======== サンプル ========
-//// void main( void ){
-////
-////     // ※本関数
-////     DBGWRITINGLOGTEXT::Init( L"保存するファイル名" );   // クラスの初期化
-////
-////     while( boolean ){
-////
-//// ～～～～～～～～～～～～
-//// ～～～～～～～～～～～～
-////
-////         if( foo ){
-////
-////             DBGWRITINGLOGTEXT::addStr( "追記したい文字列\n %s" , "付随のパラメータ" );
-////
-////         }
-////     }
-//// }
-////
+
+	/////////////////// ////////////////////
+	//// 関数名     ： static void Init(wstring FileName)
+	//// カテゴリ   ： イニシャライザ
+	//// 用途       ： 出力先ファイルの変更と初期化
+	//// 引数       ：    wstring FileName    // ログファイルの名前を指定
+	//// 戻値       ： なし
+	//// 担当者     ： 鴫原 徹
+	//// 備考       ： 必ずこの関数か､同名の別のWinMain等で関数を最初に一回だけ呼んでください
+	////            ：
+	////
 	static void Init(wstring FileName){
 		DefaultLogFileName = FileName;
 		if(PathFileExists(DefaultLogFileName.c_str())){
 			_wremove( DefaultLogFileName.c_str() );
 		}
 	}
-/////////////////// ////////////////////
-//// 関数名     ： static void addStr(const wchar_t* addStr,...)
-//// カテゴリ   ： メンバ関数
-//// 用途       ： ファイルへ文字列を追記 ( ワイド版 )
-//// 引数       ：    wchar_t* addStr      //  : 書式
-////            ：    ･･･                  //  : 
-//// 戻値       ： なし
-//// 担当者     ： 鴫原 徹
-//// 備考       ：
-////            ：
-////･････････････
-////======== サンプル ========
-//// void main( void ){
-////
-////     DBGWRITINGLOGTEXT::Init( );   // クラスの初期化
-////
-////     while( boolean ){
-////
-//// ～～～～～～～～～～～～
-//// ～～～～～～～～～～～～
-////
-////         if( foo ){
-////
-////             // ※本関数
-////             DBGWRITINGLOGTEXT::addStr( L"追記したい文字列\n %s" , L"付随のパラメータ" );  // データの追記
-////
-////         }
-////     }
-//// }
-////
+	/////////////////// ////////////////////
+	//// 関数名     ： static void addStr(const wchar_t* addStr,...)
+	//// カテゴリ   ： メンバ関数
+	//// 用途       ： ファイルへ文字列を追記 ( ワイド版 )
+	//// 引数       ：    wchar_t* addStr      //  : 書式
+	////            ：    ･･･                  //  : 
+	//// 戻値       ： なし
+	//// 担当者     ： 鴫原 徹
+	//// 備考       ：
+	////            ：
+	////･････････････
+	////======== サンプル ========
+	//// void main( void ){
+	////
+	////     DBGWRITINGLOGTEXT::Init( );   // クラスの初期化
+	////
+	////     while( boolean ){
+	////
+	//// ～～～～～～～～～～～～
+	//// ～～～～～～～～～～～～
+	////
+	////         if( foo ){
+	////
+	////             // ※本関数
+	////             DBGWRITINGLOGTEXT::addStr( L"追記したい文字列\n %s" , L"付随のパラメータ" );  // データの追記
+	////
+	////         }
+	////     }
+	//// }
+	////
 	static void addStr(const wchar_t* addStr,...){
+		#if defined(CF_DEBUGLOGTEXT_OUTPUT_ENABLE)
+
 		if(!PathIsDirectory(DefaultLogFolder.c_str())){
 			if(!CreateDirectory(DefaultLogFolder.c_str(),NULL)){
 				int d;
@@ -140,56 +145,42 @@ public:
 			fwprintf_s(fp,L"%s",strBuf);
 			fclose(fp);
 		}
+		#endif
 	}
-/////////////////// ////////////////////
-//// 関数名     ： static void addStr(wchar_t* addStr,...)
-//// カテゴリ   ： メンバ関数
-//// 用途       ： ファイルへ文字列を追加
-//// 引数       ： なし
-//// 戻値       ： なし
-//// 担当者     ： 鴫原 徹
-//// 備考       ：
-////            ：
-////
-	//static void addStr(wchar_t* addStr){
-	//	FILE* fp ;
-	//	_wfopen_s(&fp,DefaultLogFileName.c_str(),L"a");
-	//	if(fp){
-	//		fwprintf_s(fp,L"%s",addStr);
-	//		fclose(fp);
-	//	}
-	//}
-/////////////////// ////////////////////
-//// 関数名     ： static void addStr(const addStr* addStr,...)
-//// カテゴリ   ： メンバ関数
-//// 用途       ： ファイルへ文字列を追記 ( マルチバイト版 )
-//// 引数       ：    wchar_t* addStr      //  : 書式
-////            ：    ･･･                  //  : 
-//// 戻値       ： なし
-//// 担当者     ： 鴫原 徹
-//// 備考       ：
-////            ：
-////･････････････
-////======== サンプル ========
-//// void main( void ){
-////
-////     DBGWRITINGLOGTEXT::Init( );   // クラスの初期化
-////
-////     while( boolean ){
-////
-//// ～～～～～～～～～～～～
-//// ～～～～～～～～～～～～
-////
-////         if( foo ){
-////
-////             // ※本関数
-////             DBGWRITINGLOGTEXT::addStr( "追記したい文字列\n %s" , "付随のパラメータ" );  // データの追記
-////
-////         }
-////     }
-//// }
-////
+
+	/////////////////// ////////////////////
+	//// 関数名     ： static void addStr(const addStr* addStr,...)
+	//// カテゴリ   ： メンバ関数
+	//// 用途       ： ファイルへ文字列を追記 ( マルチバイト版 )
+	//// 引数       ：    wchar_t* addStr      //  : 書式
+	////            ：    ･･･                  //  : 
+	//// 戻値       ： なし
+	//// 担当者     ： 鴫原 徹
+	//// 備考       ：
+	////            ：
+	////･････････････
+	////======== サンプル ========
+	//// void main( void ){
+	////
+	////     DBGWRITINGLOGTEXT::Init( );   // クラスの初期化
+	////
+	////     while( boolean ){
+	////
+	//// ～～～～～～～～～～～～
+	//// ～～～～～～～～～～～～
+	////
+	////         if( foo ){
+	////
+	////             // ※本関数
+	////             DBGWRITINGLOGTEXT::addStr( "追記したい文字列\n %s" , "付随のパラメータ" );  // データの追記
+	////
+	////         }
+	////     }
+	//// }
+	////
 	static void addStr(const char* addStr,...){
+		#if defined(CF_DEBUGLOGTEXT_OUTPUT_ENABLE)
+
 		if(!PathIsDirectory(DefaultLogFolder.c_str())){
 			if(!CreateDirectory(DefaultLogFolder.c_str(),NULL)){
 				int d;
@@ -207,39 +198,34 @@ public:
 			fwprintf_s(fp,L"%s",strBuf);
 			fclose(fp);
 		}
+		#endif
 	}
-/////////////////// ////////////////////
-//// 関数名     ： static void addStr(wstring FileName,wchar_t* addStr,...)
-//// カテゴリ   ： メンバ関数
-//// 用途       ： ファイルを指定して文字列を追加
-//// 引数       ：    wstring     FileName    //  : 出力先のファイル名
-////            ：    wchar_t*    addStr      //  : 書式
-////            ：    ...                     //  : 
-//// 戻値       ： なし
-//// 担当者     ： 鴫原 徹
-//// 備考       ：★超キケン!!
-////            ：★使用して放置するとHDDパンクの恐れあり!
-////･････････････
-////======== サンプル ========
-//// void main( void ){
-////
-////     DBGWRITINGLOGTEXT::Init( );   // クラスの初期化
-////
-////     while( boolean ){
-////
-//// ～～～～～～～～～～～～
-//// ～～～～～～～～～～～～
-////
-////         if( foo ){
-////
-////             // ※本関数
-////             DBGWRITINGLOGTEXT::addStr( "追記したい文字列\n %s" , "付随のパラメータ" );  // データの追記
-////
-////         }
-////     }
-//// }
-////
+	/////////////////// ////////////////////
+	//// 関数名     ： static void addStr(wstring FileName,wchar_t* addStr,...)
+	//// カテゴリ   ： メンバ関数
+	//// 用途       ： ファイルを指定して文字列を追加
+	//// 引数       ：    wstring     FileName    //  : 出力先のファイル名
+	////            ：    wchar_t*    addStr      //  : 書式
+	////            ：    ...                     //  : 
+	//// 戻値       ： なし
+	//// 担当者     ： 鴫原 徹
+	//// 備考       ：★超キケン!!
+	////            ：★使用して放置するとHDDパンクの恐れあり!
+	////･････････････
+	////======== サンプル ========
+	//// void main( void ){
+	////
+	////     DBGWRITINGLOGTEXT::Init( );   // クラスの初期化
+	////
+	////     if( foo ){
+	////
+	////          // ※本関数
+	////          DBGWRITINGLOGTEXT::addStr( "追記したい文字列\n %s" , "付随のパラメータ" );  // データの追記
+	////      }
+	//// }
+	////
 	static void addStrToFile(const wstring FileName,const wchar_t* addStr,...){
+		#if defined(CF_DEBUGLOGTEXT_OUTPUT_ENABLE)
 		if(!PathIsDirectory(DefaultLogFolder.c_str())){
 			if(!CreateDirectory(DefaultLogFolder.c_str(),NULL)){
 			}
@@ -256,39 +242,42 @@ public:
 			fwprintf_s(fp,L"%s",strBuf);
 			fclose(fp);
 		}
+		#endif
 	}
-/////////////////// ////////////////////
-//// 関数名     ： static void addStr(wstring FileName,wchar_t* addStr,...)
-//// カテゴリ   ： メンバ関数
-//// 用途       ： ファイルを指定して文字列を追加
-//// 引数       ：    wstring     FileName    //  : 出力先のファイル名
-////            ：    wchar_t*    addStr      //  : 書式
-////            ：    ...                     //  : 
-//// 戻値       ： なし
-//// 担当者     ： 鴫原 徹
-//// 備考       ：★超キケン!!
-////            ：★使用して放置するとHDDパンクの恐れあり!
-////･････････････
-////======== サンプル ========
-//// void main( void ){
-////
-////     DBGWRITINGLOGTEXT::Init( );   // クラスの初期化
-////
-////     while( boolean ){
-////
-//// ～～～～～～～～～～～～
-//// ～～～～～～～～～～～～
-////
-////         if( foo ){
-////
-////             // ※本関数
-////             DBGWRITINGLOGTEXT::addStr( "追記したい文字列\n %s" , "付随のパラメータ" );  // データの追記
-////
-////         }
-////     }
-//// }
-////
+	/////////////////// ////////////////////
+	//// 関数名     ： static void addStr(wstring FileName,wchar_t* addStr,...)
+	//// カテゴリ   ： メンバ関数
+	//// 用途       ： ファイルを指定して文字列を追加
+	//// 引数       ：    wstring     FileName    //  : 出力先のファイル名
+	////            ：    wchar_t*    addStr      //  : 書式
+	////            ：    ...                     //  : 
+	//// 戻値       ： なし
+	//// 担当者     ： 鴫原 徹
+	//// 備考       ：★超キケン!!
+	////            ：★使用して放置するとHDDパンクの恐れあり!
+	////･････････････
+	////======== サンプル ========
+	//// void main( void ){
+	////
+	////     DBGWRITINGLOGTEXT::Init( );   // クラスの初期化
+	////
+	////     while( boolean ){
+	////
+	//// ～～～～～～～～～～～～
+	//// ～～～～～～～～～～～～
+	////
+	////         if( foo ){
+	////
+	////             // ※本関数
+	////             DBGWRITINGLOGTEXT::addStr( "追記したい文字列\n %s" , "付随のパラメータ" );  // データの追記
+	////
+	////         }
+	////     }
+	//// }
+	////
 	static void addStrToFile(const string FileName,const char* addStr,...){
+		#if defined(CF_DEBUGLOGTEXT_OUTPUT_ENABLE)
+
 		//	: 
 		if(!PathIsDirectory(DefaultLogFolder.c_str())){
 			if(!CreateDirectory(DefaultLogFolder.c_str(),NULL)){
@@ -312,8 +301,10 @@ public:
 			fprintf_s(fp,"%s",strBuf);
 			fclose(fp);
 		}
+		#endif
 	}
 };
+#if defined( DIRECT3D_VERSION )
 //************************************************//
 //class DBGSTR
 //
@@ -332,20 +323,19 @@ public:
 	static bool				m_bDrawFlag;
 	static wstring			str;
 	static LPD3DXFONT		m_lpDebagFont;        // フォントオブジェク
-/////////////////// ////////////////////
-//// 関数名     ： static void addStr(wchar_t* addStr,...)
-//// カテゴリ   ： メンバ関数
-//// 用途       ： 描画文字列の追加
-//// 引数       ：    wchar_t* addStr,    // 描画文字 フォーマット
-////            ：    ...,                // 可変長引数
-//// 戻値       ： なし
-//// 担当者     ： 鴫原 徹
-//// 備考       ： 末尾に追加
-////            ：
-////
+	/////////////////// ////////////////////
+	//// 関数名     ： static void addStr(wchar_t* addStr,...)
+	//// カテゴリ   ： メンバ関数
+	//// 用途       ： 描画文字列の追加
+	//// 引数       ：    wchar_t* addStr,    // 描画文字 フォーマット
+	////            ：    ...,                // 可変長引数
+	//// 戻値       ： なし
+	//// 担当者     ： 鴫原 徹
+	//// 備考       ： 末尾に追加
+	////            ：
+	////
 	static void addStr(const wchar_t* addStr,...){
-		#if defined(DEBUG) | defined(_DEBUG) | defined(ON_DEBUGGINGPROCESS) 
-		#ifdef DEBUG_STRINGS_ON
+		#if defined(CF_DRAW_DEBUGSTRING)
 		if(5120 > str.size()  ){
 			wchar_t strBuf[1024];
 			va_list	argp;
@@ -355,22 +345,20 @@ public:
 			str += strBuf;
 		}
 		#endif
-		#endif
 	}
-/////////////////// ////////////////////
-//// 関数名     ： static void addStrTop(wchar_t* addStr,...)
-//// カテゴリ   ： メンバ関数
-//// 用途       ： 描画文字列の追加
-//// 引数       ：    wchar_t* addStr,    // 描画文字 フォーマット
-////            ：    ...,                // 可変長引数
-//// 戻値       ： なし
-//// 担当者     ： 鴫原 徹
-//// 備考       ： 先頭に追加
-////            ：
-////
+	/////////////////// ////////////////////
+	//// 関数名     ： static void addStrTop(wchar_t* addStr,...)
+	//// カテゴリ   ： メンバ関数
+	//// 用途       ： 描画文字列の追加
+	//// 引数       ：    wchar_t* addStr,    // 描画文字 フォーマット
+	////            ：    ...,                // 可変長引数
+	//// 戻値       ： なし
+	//// 担当者     ： 鴫原 徹
+	//// 備考       ： 先頭に追加
+	////            ：
+	////
 	static void addStrTop(const wchar_t* addStr,...){
-		#if defined(DEBUG) | defined(_DEBUG) | defined(ON_DEBUGGINGPROCESS) 
-		#ifdef DEBUG_STRINGS_ON
+		#if defined(CF_DRAW_DEBUGSTRING)
 		if(5120 > str.size()  ){
 			wchar_t strBuf[1024];
 			va_list	argp;
@@ -380,21 +368,20 @@ public:
 			str = strBuf + str;
 		}
 		#endif
-		#endif
 	}
-/////////////////// ////////////////////
-//// 関数名     ： static void Init(LPDIRECT3DDEVICE9 i_pD3DDevice)
-//// カテゴリ   ： イニシャライザ
-//// 用途       ： 初期化
-//// 引数       ：    LPDIRECT3DDEVICE9 i_pD3DDevice,    // デバイス
-//// 戻値       ： なし
-//// 担当者     ： 鴫原 徹
-//// 備考       ：フォントなどを構築
-////            ：必ず最初に一度だけ呼んでください
-////
+
+	/////////////////// ////////////////////
+	//// 関数名     ： static void Init(LPDIRECT3DDEVICE9 i_pD3DDevice)
+	//// カテゴリ   ： イニシャライザ
+	//// 用途       ： 初期化
+	//// 引数       ：    LPDIRECT3DDEVICE9 i_pD3DDevice,    // デバイス
+	//// 戻値       ： なし
+	//// 担当者     ： 鴫原 徹
+	//// 備考       ：フォントなどを構築
+	////            ：必ず最初に一度だけ呼んでください
+	////
 	static void Init(LPDIRECT3DDEVICE9	i_pD3DDevice){
-		#if defined(DEBUG) | defined(_DEBUG) | defined(ON_DEBUGGINGPROCESS) 
-		#ifdef DEBUG_STRINGS_ON
+		#if defined(CF_DRAW_DEBUGSTRING)
 		try{
 			if (FAILED(D3DXCreateFont(i_pD3DDevice,				/* デバイス */
 							10,									/* 文字の高さ */
@@ -423,21 +410,19 @@ public:
 			throw;
 		}
 		#endif
-		#endif
 	}
-/////////////////// ////////////////////
-//// 関数名     ： static void Draw()
-//// カテゴリ   ： メンバ関数
-//// 用途       ： 文字列の描画
-//// 引数       ： なし
-//// 戻値       ： なし
-//// 担当者     ： 鴫原 徹
-//// 備考       ：
-////            ：
-////
+	/////////////////// ////////////////////
+	//// 関数名     ： static void Draw()
+	//// カテゴリ   ： メンバ関数
+	//// 用途       ： 文字列の描画
+	//// 引数       ： なし
+	//// 戻値       ： なし
+	//// 担当者     ： 鴫原 徹
+	//// 備考       ：
+	////            ：
+	////
 	static void Draw(){
-		#if defined(DEBUG) | defined(_DEBUG) | defined(ON_DEBUGGINGPROCESS) 
-		#ifdef DEBUG_STRINGS_ON 
+		#if defined(CF_DRAW_DEBUGSTRING)
 			if(GetAsyncKeyState( MYVK_DEBUG_OUTPUT_DBGSTR )){
 				addStrTop(L"============================================================================================================\n");
 				addStrTop(L"=====                                      デバッグ文字列出力                                          =====\n");
@@ -447,11 +432,13 @@ public:
 			if(m_bDrawFlag){
 				m_lpDebagFont->DrawText(NULL,str.c_str(), -1, NULL
 					, 0 , D3DCOLOR_ARGB(255, 255, 255, 0));
-				str  = L"\n\n\nデバッグ                                                                                                                                               F12:停止\n";
-				str += L"                                                                                                     コントローラー＝キーボード / A = X / B = C / X = S / Y = D /  \n";
+				str   = L"\n\n[ENTER]RESTART : [ALT+ENTER]CSVRELOAD : [CONTROL]INVISIBLE MODE : [F6]SOUND SWITCH : [F7]OBB DRAW : [F8]MEMORY OUTPUT : [F9]DBGSTR OUTPUT : [F11]1FPS MODE : [F12] UPDATE STOP\n";
+				str  += L"\nデバッグ\n";
+				//str += L"                                                                                                     コントローラー＝キーボード / A = X / B = C / X = S / Y = D /  \n";
 			}
-		#endif
 		#endif
 	}
 };
+#endif
 }
+#endif

@@ -3,8 +3,10 @@
 //	ファイル名		：Factory_Player.h
 //	開発環境		：MSVC++ 2008
 //	最適タブ数		：4
-//	担当者			：鴫原 徹 曳地大洋(編集) 本多寛之(編集)
-//	内包ﾃﾞｰﾀと備考	：メインファクトリー
+//	担当者			：鴫原 徹
+//	引継ぎ			：曳地 大洋
+//	└→			：本多 寛之
+//	内包ﾃﾞｰﾀと備考	：プレイヤーが誘導する物体
 //					▼
 //	namespace wiz;
 //		class Factory_Player ;
@@ -16,17 +18,21 @@
 #include "Factory_Magnetic.h"
 #include "Factory_Gage.h"
 #include "Factory_Sound.h"
+#include "Factory_MagnetField.h"
 
 const int	START_EFFECTIVE_RANGE		= 12;
 const int 	START_EFFECTIVE_RANGE_QUAD	= (START_EFFECTIVE_RANGE * START_EFFECTIVE_RANGE);
-const float	PLAYER_RECOVERY_POINT		= 0.01f;
+const float	PLAYER_RECOVERY_POINT		= 0.008f;
 const float	PLAYER_CONSUME_POIMT		= 0.006f;
-const float	PLAYER_INVOCATION_POINT		= 0.006f;
+const float	PLAYER_INVOCATION_POINT		= 0.100f;
+const float MAGNET_FIELD_ALPHA			= 0.2f;
 
 
 namespace wiz{
 namespace bomberobject{
 
+extern class	MagneticGage_N	;
+extern class	MagneticGage_S	;
 
 //**************************************************************************//
 // class ProvisionalPlayer : public MagneticumObject ;
@@ -37,7 +43,7 @@ namespace bomberobject{
 //class ProvisionalPlayer : public MagneticumObject{
 //public:
 //	//	: 
-//	ProvisionalPlayer( LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTexture,
+//	ProvisionalPlayer( LPDIRECT3DDEVICE9 pD3DDevice, LPTATRATEXTURE pTexture,
 //		D3DXVECTOR3 &vScale, D3DXVECTOR3 &vRot, D3DXVECTOR3 &vPos, RECT* pRect,
 //		Color color = 0xFFFFFFFF, wiz::OBJID id = OBJID_3D_MAGNET );
 //	//	: 
@@ -51,22 +57,20 @@ namespace bomberobject{
 // 担当者  : 曳地大洋
 // 用途    : 仮のユーザー設置磁界
 //**************************************************************************//
-class ProvisionalPlayer3D : public MagneticumObject3D{
-	Camera*			m_Camera;
-	PlayerCoil*		m_pPlayerCoil;
-	Sound*			m_pSound;
-	MagneticGage_N* m_pMGage_N;
-	MagneticGage_S* m_pMGage_S;
-	D3DXMATRIX		m_Matrix ;
-	D3DXVECTOR3		m_vPos ;
-	D3DXQUATERNION	m_vRot ;
-	D3DXVECTOR3		m_vScale ;
-	float			m_MovePosY;
-	bool			m_bLastMouseRB;
-	bool			m_bLastMouseLB;
-	bool			m_bDrawing;
+class ProvisionalPlayer3D : public MagnetField{
+	MouseCursor*	m_pCursor		;
+	Camera*			m_Camera		;
+	PlayerCoil*		m_pPlayerCoil	;
+	MagneticGage_N* m_pMGage_N		;
+	MagneticGage_S* m_pMGage_S		;
+	D3DXMATRIX		m_Matrix		;
+	bool			m_bLastMouseRB	;
+	bool			m_bLastMouseLB	;
+	bool			m_bDrawing		;
+	bool			m_bPlaySound	;
+	bool			m_bChangeFirst	;
 	//struct PolyItem{
-	//	LPDIRECT3DTEXTURE9 m_pTexture;
+	//	LPTATRATEXTURE m_pTexture;
 	//	D3DMATERIAL9   m_Material;
 	//	D3DXMATRIX	   m_Matrix;
 	//	D3DXVECTOR3    m_vScale ;
@@ -78,7 +82,7 @@ class ProvisionalPlayer3D : public MagneticumObject3D{
 
 public:
 	//	: 
-	ProvisionalPlayer3D( FactoryPacket* fpac, LPDIRECT3DTEXTURE9 pTexture, LPDIRECT3DTEXTURE9 pTexture2,
+	ProvisionalPlayer3D( LPDIRECT3DDEVICE9 pD3DDevice, LPTATRATEXTURE pTexture, LPTATRATEXTURE pTexture2,
 		D3DXVECTOR3 &vScale, D3DXQUATERNION &vRot, D3DXVECTOR3 &vPos,
 		wiz::OBJID id = OBJID_3D_USERMAGNET );
 	/////////////////// ////////////////////
@@ -107,23 +111,12 @@ public:
 	//// 備考       ：
 	////            ：
 	D3DXVECTOR3 getPos() const {
-		if( g_bMouseLB || g_bMouseRB ){ 
+		if( Cursor2D::pressLorRButton() ){ 
 			return m_vPos	;
 		}else{
 			return g_vMin	;
 		}
 	}	;
-
-	/////////////////// ////////////////////
-	//// 関数名     ：float getMoveY() const
-	//// カテゴリ   ：ゲッター
-	//// 用途       ：m_MovePosYを獲得
-	//// 引数       ：なし
-	//// 戻値       ：なし
-	//// 担当       ：本多寛之
-	//// 備考       ：
-	////            ：
-	float getMoveY() const { return m_MovePosY	;	}	;
 
 	/****************************************
 	関数名　：bool	getDrawing()
@@ -136,31 +129,6 @@ public:
 	****************************************/
 	bool	getDrawing(){
 		return	m_bDrawing;
-	}
-};
-
-/************************************************************************
-class MagneticField : public Cylinder
-
-担当者	: 佐藤涼
-用途	: 磁界の範囲
-************************************************************************/
-class	MagneticField : public Cylinder{
-	POLE		m_Pole;	//磁界の極：t=S極, f=N極
-	bool		m_bEffect;
-	D3DXVECTOR3	m_vNormalSize;
-	D3DXMATRIX	m_mMatrix;
-public:
-	MagneticField(LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTexture,
-		D3DXVECTOR3 &vScale, D3DXQUATERNION &vRot, D3DXVECTOR3 &vPos,bool bEffect);
-    void	Draw(DrawPacket& i_DrawPacket) ;
-	void	Update(UpdatePacket& i_UpdatePacket);
-
-	void	setPole( POLE pole ){
-		m_Pole	= pole;
-	}
-	POLE	getPole(){
-		return	m_Pole;
 	}
 };
 

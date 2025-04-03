@@ -17,44 +17,44 @@
 
 
 #pragma once
-#include "Input.h"
+// #include "Input.h"
 
-namespace Controller__{
+//namespace Controller__{
 //**************************************************************************//
 // class GAMEPAD;
 // 用途: 拾い物#未知
 //**************************************************************************//
-class GAMEPAD
-{
-public:
-
-	HWND m_hWnd;
-	HDC m_hdc;
-	//DirectInput
-	DIJOYSTATE2		m_State;
-	LPDIRECTINPUT8	g_lpDI;
-	LPDIRECTINPUTDEVICE8 g_lpDIDevice;
-	DIDEVCAPS            g_diDevCaps;
-	HRESULT GAMEPAD::InitDinput(HWND hWnd);
-	void GAMEPAD::GetState();
-	GAMEPAD()
-	{
-		ZeroMemory(this,sizeof(GAMEPAD));
-	}
-	~GAMEPAD()
-	{
-		SAFE_RELEASE(g_lpDIDevice);
-		SAFE_RELEASE(g_lpDI);
-	}
-};
-};
+//class GAMEPAD
+//{
+//public:
+//
+//	HWND m_hWnd;
+//	HDC m_hdc;
+//	//DirectInput
+//	DIJOYSTATE2		m_State;
+//	LPDIRECTINPUT8	g_lpDI;
+//	LPDIRECTINPUTDEVICE8 g_lpDIDevice;
+//	DIDEVCAPS            g_diDevCaps;
+//	HRESULT GAMEPAD::InitDinput(HWND hWnd);
+//	void GAMEPAD::GetState();
+//	GAMEPAD()
+//	{
+//		ZeroMemory(this,sizeof(GAMEPAD));
+//	}
+//	~GAMEPAD()
+//	{
+//		SAFE_RELEASE(g_lpDIDevice);
+//		SAFE_RELEASE(g_lpDI);
+//	}
+//};
+//};
 namespace wiz {
 //**************************************************************************//
 // struct;
 // 担当  : 鴫原 徹
 // 用途  : コントローラーのボタンの状態
-//         XBOXコントローラー対応ボタン名版
-//         XBOXコントローラーを前提に作らない限り使わないほうが良い (とおもう
+//       : XBOXコントローラー対応ボタン名版
+// 備考  : XBOXコントローラーを前提に作らない限り使わないほうが良い (とおもう
 //**************************************************************************//
 struct BoxCon{
 	bool  UP     :1 ;  //  : ハット↑ (01ボタン)
@@ -77,20 +77,20 @@ struct BoxCon{
 // struct State;
 // 担当  : 鴫原 徹
 // 用途  : コントローラーのボタンの状態
-//         #define XINPUT_GAMEPAD_DPAD_UP          0x0001
-//         #define XINPUT_GAMEPAD_DPAD_DOWN        0x0002
-//         #define XINPUT_GAMEPAD_DPAD_LEFT        0x0004
-//         #define XINPUT_GAMEPAD_DPAD_RIGHT       0x0008
-//         #define XINPUT_GAMEPAD_START            0x0010
-//         #define XINPUT_GAMEPAD_BACK             0x0020
-//         #define XINPUT_GAMEPAD_LEFT_THUMB       0x0040
-//         #define XINPUT_GAMEPAD_RIGHT_THUMB      0x0080
-//         #define XINPUT_GAMEPAD_LEFT_SHOULDER    0x0100
-//         #define XINPUT_GAMEPAD_RIGHT_SHOULDER   0x0200
-//         #define XINPUT_GAMEPAD_A                0x1000
-//         #define XINPUT_GAMEPAD_B                0x2000
-//         #define XINPUT_GAMEPAD_X                0x4000
-//         #define XINPUT_GAMEPAD_Y                0x8000
+// 備考  : #define XINPUT_GAMEPAD_DPAD_UP          0x0001
+//       : #define XINPUT_GAMEPAD_DPAD_DOWN        0x0002
+//       : #define XINPUT_GAMEPAD_DPAD_LEFT        0x0004
+//       : #define XINPUT_GAMEPAD_DPAD_RIGHT       0x0008
+//       : #define XINPUT_GAMEPAD_START            0x0010
+//       : #define XINPUT_GAMEPAD_BACK             0x0020
+//       : #define XINPUT_GAMEPAD_LEFT_THUMB       0x0040
+//       : #define XINPUT_GAMEPAD_RIGHT_THUMB      0x0080
+//       : #define XINPUT_GAMEPAD_LEFT_SHOULDER    0x0100
+//       : #define XINPUT_GAMEPAD_RIGHT_SHOULDER   0x0200
+//       : #define XINPUT_GAMEPAD_A                0x1000
+//       : #define XINPUT_GAMEPAD_B                0x2000
+//       : #define XINPUT_GAMEPAD_X                0x4000
+//       : #define XINPUT_GAMEPAD_Y                0x8000
 //**************************************************************************//
 union BState{
 	//union {
@@ -199,13 +199,13 @@ struct CONTROLER_STATE
     bool					bConnected;
 };
 struct MouseState{
-	Point Position;
+	POINT Position;
 
 };
 //**************************************************************************
 // class CONTROLLERS;
 // 担当  : 鴫原 徹
-// 用途  : コントローラー
+// 用途  : コントローラーの管理クラス
 //****************************************************************************/
 class CONTROLLERS{
     static const DWORD MAX_CONTROLLERS = 4;
@@ -216,50 +216,56 @@ class CONTROLLERS{
 public:
 	//static WPARAM KeyBoardState;
 	//static Point  MousePoint;
-/////////////////// ////////////////////
-//// 関数名     ：
-//// カテゴリ   ：
-//// 用途       ：
-//// 引数       ：
-//// 戻値       ：
-//// 担当       ：
-//// 備考       ：
-////            ：
-////
+	/////////////////// ////////////////////
+	//// 関数名     ：CONTROLLERS(HWND hWnd)
+	//// カテゴリ   ：コンストラクタ
+	//// 用途       ：クラスの初期化
+	//// 引数       ：  HWND hWnd      //  : 汎用コントローラーに対応する際に利用予定
+	//// 戻値       ：なし
+	//// 担当       ：鴫原 徹
+	//// 備考       ：
+	////            ：
+	////
     CONTROLLERS(HWND hWnd){
 		::ZeroMemory(m_State,sizeof(CONTROLER_STATE));
 		//CI.Create( hWnd );
 	}
-/**************************************************************************
- ~CONTROLLERS();
- 用途: デストラクタ
- 戻り値: なし
-***************************************************************************/
-    ~CONTROLLERS(){}	
-/**************************************************************************
- Release();
- 用途: 
- 戻り値: なし
-***************************************************************************/
+	/////////////////// ////////////////////
+	//// 関数名     ：CONTROLLERS()
+	//// カテゴリ   ：デストラクタ
+	//// 用途       ：クラスの破棄
+	//// 引数       ：なし
+	//// 戻値       ：なし
+	//// 担当       ：鴫原 徹
+	//// 備考       ：
+	////            ：
+	////
+    ~CONTROLLERS(){}
+
+	/////////////////// ////////////////////
+	//// 関数名     ：void Release()
+	//// カテゴリ   ：
+	//// 用途       ：データの破棄
+	//// 引数       ：なし
+	//// 戻値       ：なし
+	//// 担当       ：鴫原 徹
+	//// 備考       ：
+	////            ：
+	////
     void Release(){
 		//CI.Release();
 		//SAFE_RELEASE(CIGpBuf);
 	}
-/////////////////// ////////////////////
-//// 関数名     ：const CONTROLER_STATE* GetState()
-//// カテゴリ   ：ゲッター(?)
-//// 用途       ：コントローラーの状態を得る
-//// 引数       ：なし
-//// 戻値       ：コントローラーのステータス
-//// 担当       ：鴫原 徹
-//// 備考       ：
-////            ：
-////
-/**************************************************************************
- const CONTROLER_STATE* GetState();
- 用途: コントローラーの状態を得る
- 戻り値: コントローラーのステータス
-***************************************************************************/
+	/////////////////// ////////////////////
+	//// 関数名     ：const CONTROLER_STATE* GetState()
+	//// カテゴリ   ：ゲッター(?)
+	//// 用途       ：コントローラーの状態を得る
+	//// 引数       ：なし
+	//// 戻値       ：コントローラーのステータス
+	//// 担当       ：鴫原 徹
+	//// 備考       ：
+	////            ：
+	////
     const CONTROLER_STATE* GetState(){
         DWORD dwResult;
         for( DWORD i = 0; i < MAX_CONTROLLERS; i++ )
@@ -378,11 +384,16 @@ public:
         }
         return m_State;
     }
-/**************************************************************************
- const DWORD getMaxControllers() const;
- 用途: コントローラーの最大数を得る
- 戻り値: 現バージョンでは定数が返る（4）
-***************************************************************************/
+	/////////////////// ////////////////////
+	//// 関数名     ：const DWORD getMaxControllers() const;
+	//// カテゴリ   ：ゲッター
+	//// 用途       ：コントローラーの最大数を得る
+	//// 引数       ：なし
+	//// 戻値       ：現バージョンでは定数が返る（4）
+	//// 担当       ：鴫原 徹
+	//// 備考       ：
+	////            ：
+	////
     const DWORD getMaxControllers() const{
         return MAX_CONTROLLERS;
     }

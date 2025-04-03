@@ -12,7 +12,7 @@
 //
 #pragma once
 #include "BassItems.h"
-namespace wiz{
+namespace Avoid{
 //extern class Player;
 
 class Effect : public Object{
@@ -145,7 +145,7 @@ public:
 	Particles(IDirect3DDevice9* pd3dDevice)
 		:m_pParticle(NULL)
 	{
-		D3DXCreateTextureFromFile(pd3dDevice, TEXT("media/Textures/kira1_96x96.png"), &m_pParticle);
+		//0(pd3dDevice, TEXT("media/Textures/kira1_96x96.png"), &m_pParticle);
 		srand((long)time(NULL));
 		BYTE pQt = rand();
 		do{
@@ -158,6 +158,7 @@ public:
 		for( ;it != m_ParticleList.end(); it++ ){
 			SAFE_DELETE(*it);
 		}
+		m_ParticleList.clear();
 	};
 
 	void Draw(IDirect3DDevice9* pd3dDevice){
