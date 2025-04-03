@@ -1,13 +1,13 @@
 ////////////////////////////// //////////////////////////////
-//	ƒvƒƒWƒFƒNƒg	FTATRA-Library
-//	ƒtƒ@ƒCƒ‹–¼		FSaveAndLoad.h
-//	ŠJ”­ŠÂ‹«		FMSVC++ 2008
-//	Å“Kƒ^ƒu”		F4
-//	’S“–Ò			F°Œ´ “O
-//	“à•ïÃŞ°À‚Æ”õl	FƒZ[ƒu‚µ‚½‚èƒ[ƒh‚µ‚½‚è
-//					F‚à‚Á‚ÆƒtƒŒƒLƒVƒuƒ‹‚ÈŒ`‚É‚µ‚½‚¢
-//                  F¡‚Ì‚Æ‚±‚ë”ñ‰Â•Ï“I‚È\‘¢‘Ì‚µ‚©ˆµ‚¦‚Ü‚¹‚ñ
-//					¥
+//	ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆ	ï¼šTATRA-Library
+//	ãƒ•ã‚¡ã‚¤ãƒ«å		ï¼šSaveAndLoad.h
+//	é–‹ç™ºç’°å¢ƒ		ï¼šMSVC++ 2008
+//	æœ€é©ã‚¿ãƒ–æ•°		ï¼š4
+//	æ‹…å½“è€…			ï¼šé´«åŸ å¾¹
+//	å†…åŒ…ãƒ‡ãƒ¼ã‚¿ã¨å‚™è€ƒ	ï¼šã‚»ãƒ¼ãƒ–ã—ãŸã‚Šãƒ­ãƒ¼ãƒ‰ã—ãŸã‚Š
+//					ï¼šã‚‚ã£ã¨ãƒ•ãƒ¬ã‚­ã‚·ãƒ–ãƒ«ãªå½¢ã«ã—ãŸã„
+//                  ï¼šä»Šã®ã¨ã“ã‚éå¯å¤‰çš„ãªæ§‹é€ ä½“ã—ã‹æ‰±ãˆã¾ã›ã‚“
+//					â–¼
 //	namespace TLIB ;
 //		
 //
@@ -24,21 +24,21 @@ struct BassSaveaPacketDat{
 	,lidentifier(IL){};
 };
 /////////////////// ////////////////////
-//// ŠÖ”–¼     F
-//// ƒJƒeƒSƒŠ   F
-//// —p“r       F
-//// ˆø”       F
-//// –ß’l       F
-//// ’S“–Ò     F
-//// ”õl       F
-////            F
+//// é–¢æ•°å     ï¼š
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼š
+//// ç”¨é€”       ï¼š
+//// å¼•æ•°       ï¼š
+//// æˆ»å€¤       ï¼š
+//// æ‹…å½“è€…     ï¼š
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
 template<typename T>
 inline void BinarySave( const char* sDataPath, T& SavePacket )
 {
 	try{
 		//////////
-		//	: FolderƒpƒX‚Ì•ª—£ˆ—
+		//	: Folderãƒ‘ã‚¹ã®åˆ†é›¢å‡¦ç†
 		size_t	pathLength ;
 		char* pFilePath ;
 		for(  pathLength = strlen(sDataPath) ; pathLength >= 0 ; pathLength--  )
@@ -48,36 +48,36 @@ inline void BinarySave( const char* sDataPath, T& SavePacket )
 		for(  size_t i = 0 ; i < pathLength ; i++  )
 			pFilePath[ i ]	= sDataPath[ i ] ;
 		pFilePath[ pathLength ]	= '\0' ;
-		//	: FolderƒpƒX‚Ì•ª—£ˆ—
+		//	: Folderãƒ‘ã‚¹ã®åˆ†é›¢å‡¦ç†
 		//////////
 
 		//////////
-		//	: ƒtƒHƒ‹ƒ_‚Ì‘¶İŠm”F‚Æ¶¬ˆ—
+		//	: ãƒ•ã‚©ãƒ«ãƒ€ã®å­˜åœ¨ç¢ºèªã¨ç”Ÿæˆå‡¦ç†
 		wstring wstr ;
 		TLIB::widen(string(pFilePath),wstr);
 		if(!PathIsDirectory(wstr.c_str())){
 			if(!CreateDirectory(wstr.c_str(),NULL)){
-				::MessageBoxA(NULL,"ƒtƒHƒ‹ƒ_‚ğŠm•Ûo—ˆ‚Ü‚¹‚ñ‚Å‚µ‚½[><A\nTLIB::BinarySave()","‚¦‚ç[",MB_OK);
+				::MessageBoxA(NULL,"ãƒ•ã‚©ãƒ«ãƒ€ã‚’ç¢ºä¿å‡ºæ¥ã¾ã›ã‚“ã§ã—ãŸãƒ¼><ã€\nTLIB::BinarySave()","ãˆã‚‰ãƒ¼",MB_OK);
 			}
 		}
-		//	: ƒtƒHƒ‹ƒ_‚Ì‘¶İŠm”F‚Æ¶¬ˆ—
+		//	: ãƒ•ã‚©ãƒ«ãƒ€ã®å­˜åœ¨ç¢ºèªã¨ç”Ÿæˆå‡¦ç†
 		//////////
 
 
 		//////////
-		//	: ƒtƒ@ƒCƒ‹‚Ìì¬‚Æ‘‚«‚İˆ—
+		//	: ãƒ•ã‚¡ã‚¤ãƒ«ã®ä½œæˆã¨æ›¸ãè¾¼ã¿å‡¦ç†
 		FILE* fp;
 		if( fopen_s(&fp,sDataPath,"wb") != 0 ){
-			return;	//	: ‚ ‚Æ‚ÅTLIB—p—áŠOì‚Á‚Ä’u‚«Š·‚¦‚é
+			return;	//	: ã‚ã¨ã§TLIBç”¨ä¾‹å¤–ä½œã£ã¦ç½®ãæ›ãˆã‚‹
 		}
 		size_t	PacketSize = sizeof(T),
 				retSize = fwrite((void*)&SavePacket,PacketSize,1,fp);
 		if( retSize == 0 ){
 			fclose(fp);
-			return ;	//	: ‚ ‚Æ‚ÅTLIB—p—áŠOì‚Á‚Ä’u‚«Š·‚¦‚é
+			return ;	//	: ã‚ã¨ã§TLIBç”¨ä¾‹å¤–ä½œã£ã¦ç½®ãæ›ãˆã‚‹
 		}
 		fclose(fp);
-		//	: ƒtƒ@ƒCƒ‹‚Ìì¬‚Æ‘‚«‚İˆ—
+		//	: ãƒ•ã‚¡ã‚¤ãƒ«ã®ä½œæˆã¨æ›¸ãè¾¼ã¿å‡¦ç†
 		//////////
 
 	}
@@ -86,31 +86,31 @@ inline void BinarySave( const char* sDataPath, T& SavePacket )
 	}
 };
 /////////////////// ////////////////////
-//// ŠÖ”–¼     F
-//// ƒJƒeƒSƒŠ   F
-//// —p“r       F
-//// ˆø”       F
-//// –ß’l       F
-//// ’S“–Ò     F
-//// ”õl       F
-////            F
+//// é–¢æ•°å     ï¼š
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼š
+//// ç”¨é€”       ï¼š
+//// å¼•æ•°       ï¼š
+//// æˆ»å€¤       ï¼š
+//// æ‹…å½“è€…     ï¼š
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
 template<typename T>
 inline void BinaryLoad( const char* sDataPath, T& SavePacket, const char* sFileExtension = "tbs" )
 {
 	if( !FileExtentionChecker(sDataPath,sFileExtension) ){
 		::ZeroMemory( &SavePacket, sizeof(T) );
-		return;	//	: ‚ ‚Æ‚ÅTLIB—p—áŠOì‚Á‚Ä’u‚«Š·‚¦‚é
+		return;	//	: ã‚ã¨ã§TLIBç”¨ä¾‹å¤–ä½œã£ã¦ç½®ãæ›ãˆã‚‹
 	}
 
 	FILE* fp;
 	if( fopen_s(&fp,sDataPath,"rb") != 0 ){
-		return;	//	: ‚ ‚Æ‚ÅTLIB—p—áŠOì‚Á‚Ä’u‚«Š·‚¦‚é
+		return;	//	: ã‚ã¨ã§TLIBç”¨ä¾‹å¤–ä½œã£ã¦ç½®ãæ›ãˆã‚‹
 	}
 	size_t PacketSize = sizeof(T);
 	if( fread_s((void*)&SavePacket,PacketSize,PacketSize,1,fp) != PacketSize ){
 		fclose(fp);
-		return ;	//	: ‚ ‚Æ‚ÅTLIB—p—áŠOì‚Á‚Ä’u‚«Š·‚¦‚é
+		return ;	//	: ã‚ã¨ã§TLIBç”¨ä¾‹å¤–ä½œã£ã¦ç½®ãæ›ãˆã‚‹
 	}
 	fclose(fp);
 

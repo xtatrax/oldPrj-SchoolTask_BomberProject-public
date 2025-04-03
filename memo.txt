@@ -1,107 +1,107 @@
 
 
-�֗��ȃc�[��
-	�EOnePushDelete.exe
-		���[�g�t�H���_�ɓ����Ă��邱�̃t�@�C�������s����Ɨ]�v�ȃt�@�C���������I�ɍ폜���Ă���܂�
-		�]�v�Ȃ��̂܂ŏ���������Ă��ӔC�͕����Ȃ��̂Ŏ��ȐӔC�ł����Ă����
+便利なツール
+	・OnePushDelete.exe
+		ルートフォルダに入っているこのファイルを実行すると余計なファイルを自動的に削除してくれます
+		余計なものまで消えちゃっても責任は負えないので自己責任でつかってちょっ
 
 
 
 
-Debug�@�\
+Debug機能
 
-�E�v���O�������s���̋@�\
-	�E�v���O�����S�̂̋@�\
+・プログラム実行中の機能
+	・プログラム全体の機能
 
-		�v���O�����̎��s���Ɉȉ��̃L�[�������Ɗe��@�\�𗘗p�ł��܂�
+		プログラムの実行中に以下のキーを押すと各種機能を利用できます
 
-		��F12 �ꎞ��~
-		��F11 �X���[(1FPS��)
-		��F9  �f�o�b�O��������t�@�C���֏o��
-		��F8  new���ꂽ�̈���t�@�C���֏o�� �� ��ʏ�ɏ��ł���悤�ɉ��ǒ�
+		●F12 一時停止
+		●F11 スロー(1FPS化)
+		●F9  デバッグ文字列をファイルへ出力
+		●F8  newされた領域をファイルへ出力 ← 画面上に情報できるように改良中
 
-�E�֐�
-	�E��ʏ�ɊȈՓI�ɕ������`�悷��
+・関数
+	・画面上に簡易的に文字列を描画する
 
-		Debugger::DBGSTR::addStr( const wchar_t* addStr , ... )     �֐�
-		Debugger::DBGSTR::addStrTop( const wchar_t* addStr , ... )  �֐�
+		Debugger::DBGSTR::addStr( const wchar_t* addStr , ... )     関数
+		Debugger::DBGSTR::addStrTop( const wchar_t* addStr , ... )  関数
 		
-		addStr()�֐��͈�ԍŌ�ɕ������ǉ����܂�
-		addStrTop()�֐��͈�ԍŏ��ɕ������ǉ����܂�
-		�g������ printf()�֐��ƂقƂ�Ǔ����ɂȂ��Ă��܂�
+		addStr()関数は一番最後に文字列を追加します
+		addStrTop()関数は一番最初に文字列を追加します
+		使い方は printf()関数とほとんど同じになっています
 		
-		��)
-		DBGSTR::addStr( " �ǉ������������� %d" , foo );
+		例)
+		DBGSTR::addStr( " 追加したい文字列 %d" , foo );
 		
 	
-	�E���O�t�@�C�����o�͂���
+	・ログファイルを出力する
 	
-		Debugger::DBGWRITINGLOGTEXT::addStr( const char* addStr , ... )  �֐�
-		Debugger::DBGWRITINGLOGTEXT::addStrToFile( const wstring FileName , const wchar_t* addStr , ...)  �֐�
+		Debugger::DBGWRITINGLOGTEXT::addStr( const char* addStr , ... )  関数
+		Debugger::DBGWRITINGLOGTEXT::addStrToFile( const wstring FileName , const wchar_t* addStr , ...)  関数
 	  
 	  
-		addStr()�֐��̓f�t�H���g�̃��O�t�@�C��"./LogDatas/LogData.txt"�փ��O�̏����o�����ł��܂��
-		addStrToFile()�֐��͑������Ɏw�肵���t�@�C���ɏ����o�����s���܂�
-		�g������ printf()�֐��ƂقƂ�Ǔ����ɂȂ��Ă��܂�
+		addStr()関数はデフォルトのログファイル"./LogDatas/LogData.txt"へログの書き出しができます。
+		addStrToFile()関数は第一引数に指定したファイルに書き出しを行います
+		使い方は printf()関数とほとんど同じになっています
 	  
-		��)
+		例)
 		if(  PushKEY  ){
-			DBGWRITINGLOGTEXT::addStr( "�t�[ : %d" , foo );
+			DBGWRITINGLOGTEXT::addStr( "フー : %d" , foo );
 		}
 		
 
-�K�v�ȃN���X / �֐�
+必要なクラス / 関数
 
-	�E���΃N���X
-		�� ���E�͈͕`��()
+	・磁石クラス
+		└ 磁界範囲描画()
 
-	// �����悤����
-	�E�����z�u���E�p�̃N���X			( MagneticumObject�N���X����h�������Ă�������
-		�E�����z�u���E�̊Ǘ��N���X		( ��L�N���X�� �R���e�i�Ǘ�����N���X
-
-	// 
-	�E�v���C���[�z�u���E�N���X
-	
-	// 
-	�E�R�C���N���X
+	// たいようさん
+	・初期配置磁界用のクラス			( MagneticumObjectクラスから派生させてください
+		・初期配置磁界の管理クラス		( 上記クラスを コンテナ管理するクラス
 
 	// 
-	�E�X�^�[�g�͈̓N���X
-	
-
-	// ���ȂȂ�
-	�E�ǂ̊Ǘ��N���X
-		���󂹂�/�󂹂Ȃ��t���O
-	
-	// ���[����
-	�E�A�C�e���N���X
-		�E�Q�[�W�N���X
-	
-	// �΂���
-	�E�G�l�~�[�N���X
+	・プレイヤー配置磁界クラス
 	
 	// 
-	�E�`�F�b�N�|�C���g
-	
-	// 
-	�E�S�̃}�b�v�N���X
+	・コイルクラス
 
 	// 
-	�E�O����ǂ݃N���X
+	・スタート範囲クラス
+	
+
+	// たななん
+	・壁の管理クラス
+		└壊せる/壊せないフラグ
+	
+	// りょーくん
+	・アイテムクラス
+		・ゲージクラス
+	
+	// ばるるん
+	・エネミークラス
+	
+	// 
+	・チェックポイント
+	
+	// 
+	・全体マップクラス
+
+	// 
+	・軌道先読みクラス
 	
 	//
-	��UI����
+	＊UI周り
 	
 
-��邱��
+やること
 
 	
-	�E�ꎞ�I�O�W�F�N�g��3D��
+	・一時オグジェクトの3D化
 	
-	// �����Ƃ�
-	�E�X�e�[�W�̉��z�u
+	// さいとん
+	・ステージの仮配置
 	
-	�E�E�X�e�[�W�f�[�^�̊O���t�@�C����
+	・・ステージデータの外部ファイル化
 	
 	
 	

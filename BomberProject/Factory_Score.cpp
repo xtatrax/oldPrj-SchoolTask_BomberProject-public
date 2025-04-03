@@ -9,7 +9,7 @@ namespace wiz{
 namespace bomberobject{
 
 /**************************************************************************
- Score ’è‹`•”
+ Score å®šç¾©éƒ¨
 ***************************************************************************/
 /**************************************************************************
  Score(LPDIRECT3DDEVICE9	pD3DDevice,
@@ -18,9 +18,9 @@ namespace bomberobject{
 				D3DXVECTOR3	vPos,
 				Rect		rect,
 				D3DXVECTOR3	vCenter)
- —p“r@FƒRƒ“ƒXƒgƒ‰ƒNƒ^
- –ß‚è’lF‚È‚µ
- ’S“–ÒF²“¡—Á
+ ç”¨é€”ã€€ï¼šã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+ æˆ»ã‚Šå€¤ï¼šãªã—
+ æ‹…å½“è€…ï¼šä½è—¤æ¶¼
 ***************************************************************************/
 Score::Score(LPDIRECT3DDEVICE9	pD3DDevice,
 				LPTATRATEXTURE	pTexture,
@@ -43,8 +43,8 @@ Score::Score(LPDIRECT3DDEVICE9	pD3DDevice,
 
 /**************************************************************************
  Score::~Score();
- —p“r: ƒfƒXƒgƒ‰ƒNƒ^
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
 Score::~Score(){
 	m_pCoil	= NULL;
@@ -52,8 +52,8 @@ Score::~Score(){
 
 /**************************************************************************
  Score::Draw(DrawPacket& i_DrawPacket);
- —p“r: •`‰æ
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: æç”»
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
 void	Score::Draw(DrawPacket& i_DrawPacket){
 	for( int i = 0; i < MAX_DIGIT ; i++ ){
@@ -72,8 +72,8 @@ void	Score::Draw(DrawPacket& i_DrawPacket){
 
 /**************************************************************************
  Score::Update(UpdatePacket& i_UpdatePacket)
- —p“r: XV
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: æ›´æ–°
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
 void	Score::Update(UpdatePacket& i_UpdatePacket){
 
@@ -95,8 +95,8 @@ void	Score::Update(UpdatePacket& i_UpdatePacket){
 
 /**************************************************************************
  Score::setMatrix(int i)
- —p“r: ƒ}ƒgƒŠƒbƒNƒX‚ÌXV
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: ãƒãƒˆãƒªãƒƒã‚¯ã‚¹ã®æ›´æ–°
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
 void	Score::update_Matrix(int i){
 	m_pRect->left	= int( 51.2f*m_DigitArr[i] );
@@ -109,7 +109,7 @@ void	Score::update_Matrix(int i){
 }
 
 /**************************************************************************
- DeadScore ’è‹`•”
+ DeadScore å®šç¾©éƒ¨
 ***************************************************************************/
 /**************************************************************************
  DeadScore(LPDIRECT3DDEVICE9	pD3DDevice,
@@ -118,9 +118,9 @@ void	Score::update_Matrix(int i){
 				D3DXVECTOR3	vPos,
 				Rect		rect,
 				D3DXVECTOR3	vCenter)
- —p“r@FƒRƒ“ƒXƒgƒ‰ƒNƒ^
- –ß‚è’lF‚È‚µ
- ’S“–ÒF²“¡—Á
+ ç”¨é€”ã€€ï¼šã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+ æˆ»ã‚Šå€¤ï¼šãªã—
+ æ‹…å½“è€…ï¼šä½è—¤æ¶¼
 ***************************************************************************/
 DeadScore::DeadScore(LPDIRECT3DDEVICE9	pD3DDevice,
 				LPTATRATEXTURE	pTexture,
@@ -133,8 +133,8 @@ DeadScore::DeadScore(LPDIRECT3DDEVICE9	pD3DDevice,
 
 /**************************************************************************
  DeadScore::~DeadScore();
- —p“r: ƒfƒXƒgƒ‰ƒNƒ^
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
 DeadScore::~DeadScore(){
 	Score::~Score();
@@ -142,8 +142,8 @@ DeadScore::~DeadScore(){
 
 /**************************************************************************
  DeadScore::Draw(DrawPacket& i_DrawPacket);
- —p“r: •`‰æ
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: æç”»
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
 void	DeadScore::Draw(DrawPacket& i_DrawPacket){
 	Score::Draw( i_DrawPacket );
@@ -151,8 +151,8 @@ void	DeadScore::Draw(DrawPacket& i_DrawPacket){
 
 /**************************************************************************
  DeadScore::Update(UpdatePacket& i_UpdatePacket)
- —p“r: XV
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: æ›´æ–°
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
 void	DeadScore::Update(UpdatePacket& i_UpdatePacket){
 
@@ -164,7 +164,7 @@ void	DeadScore::Update(UpdatePacket& i_UpdatePacket){
 }
 
 /**************************************************************************
- ArrivalPos ’è‹`•”
+ ArrivalPos å®šç¾©éƒ¨
 ***************************************************************************/
 /**************************************************************************
  ArrivalPos(LPDIRECT3DDEVICE9	pD3DDevice,
@@ -173,9 +173,9 @@ void	DeadScore::Update(UpdatePacket& i_UpdatePacket){
 				D3DXVECTOR3	vPos,
 				Rect		rect,
 				D3DXVECTOR3	vCenter)
- —p“r@FƒRƒ“ƒXƒgƒ‰ƒNƒ^
- –ß‚è’lF‚È‚µ
- ’S“–ÒF²“¡—Á
+ ç”¨é€”ã€€ï¼šã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+ æˆ»ã‚Šå€¤ï¼šãªã—
+ æ‹…å½“è€…ï¼šä½è—¤æ¶¼
 ***************************************************************************/
 ArrivalPos::ArrivalPos(LPDIRECT3DDEVICE9	pD3DDevice,
 				LPTATRATEXTURE	pTexture,
@@ -189,8 +189,8 @@ ArrivalPos::ArrivalPos(LPDIRECT3DDEVICE9	pD3DDevice,
 
 /**************************************************************************
  ArrivalPos::~ArrivalPos();
- —p“r: ƒfƒXƒgƒ‰ƒNƒ^
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
 ArrivalPos::~ArrivalPos(){
 	Score::~Score();
@@ -198,8 +198,8 @@ ArrivalPos::~ArrivalPos(){
 
 /**************************************************************************
  ArrivalPos::Draw(DrawPacket& i_DrawPacket);
- —p“r: •`‰æ
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: æç”»
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
 void	ArrivalPos::Draw(DrawPacket& i_DrawPacket){
 	Score::Draw( i_DrawPacket );
@@ -207,17 +207,17 @@ void	ArrivalPos::Draw(DrawPacket& i_DrawPacket){
 
 /**************************************************************************
  ArrivalPos::Update(UpdatePacket& i_UpdatePacket)
- —p“r: XV
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: æ›´æ–°
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
 void	ArrivalPos::Update(UpdatePacket& i_UpdatePacket){
 
 	if( !m_pCoil ) m_pCoil = (PlayerCoil*)i_UpdatePacket.SearchObjectFromID(OBJID_3D_COIL);
 
 	if( m_pCoil ){
-		//ƒRƒCƒ‹‚ÌŒ»İˆÊ’u
+		//ã‚³ã‚¤ãƒ«ã®ç¾åœ¨ä½ç½®
 		m_iScore	= int(m_pCoil->getPos().y)-5;
-		//Max“’B“_
+		//Maxåˆ°é”ç‚¹
 		if( m_iMaxPosY < m_iScore )
 			m_iMaxPosY	= m_iScore;
 
@@ -230,7 +230,7 @@ void	ArrivalPos::Update(UpdatePacket& i_UpdatePacket){
 }
 
 /**************************************************************************
- ScratchPoint ’è‹`•”
+ ScratchPoint å®šç¾©éƒ¨
 ***************************************************************************/
 /**************************************************************************
  ScratchPoint(LPDIRECT3DDEVICE9	pD3DDevice,
@@ -239,9 +239,9 @@ void	ArrivalPos::Update(UpdatePacket& i_UpdatePacket){
 				D3DXVECTOR3	vPos,
 				Rect		rect,
 				D3DXVECTOR3	vCenter)
- —p“r@FƒRƒ“ƒXƒgƒ‰ƒNƒ^
- –ß‚è’lF‚È‚µ
- ’S“–ÒF²“¡—Á
+ ç”¨é€”ã€€ï¼šã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+ æˆ»ã‚Šå€¤ï¼šãªã—
+ æ‹…å½“è€…ï¼šä½è—¤æ¶¼
 ***************************************************************************/
 ScratchPoint::ScratchPoint(LPDIRECT3DDEVICE9	pD3DDevice,
 				LPTATRATEXTURE	pTexture,
@@ -254,8 +254,8 @@ ScratchPoint::ScratchPoint(LPDIRECT3DDEVICE9	pD3DDevice,
 
 /**************************************************************************
  ScratchPoint::~ScratchPoint();
- —p“r: ƒfƒXƒgƒ‰ƒNƒ^
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
 ScratchPoint::~ScratchPoint(){
 	Score::~Score();
@@ -263,8 +263,8 @@ ScratchPoint::~ScratchPoint(){
 
 /**************************************************************************
  ScratchPoint::Draw(DrawPacket& i_DrawPacket);
- —p“r: •`‰æ
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: æç”»
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
 void	ScratchPoint::Draw(DrawPacket& i_DrawPacket){
 	Score::Draw( i_DrawPacket );
@@ -272,8 +272,8 @@ void	ScratchPoint::Draw(DrawPacket& i_DrawPacket){
 
 /**************************************************************************
  ScratchPoint::Update(UpdatePacket& i_UpdatePacket)
- —p“r: XV
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: æ›´æ–°
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
 void	ScratchPoint::Update(UpdatePacket& i_UpdatePacket){
 
@@ -286,7 +286,7 @@ void	ScratchPoint::Update(UpdatePacket& i_UpdatePacket){
 }
 
 /**************************************************************************
- GoalPos ’è‹`•”
+ GoalPos å®šç¾©éƒ¨
 ***************************************************************************/
 /**************************************************************************
  GoalPos(LPDIRECT3DDEVICE9	pD3DDevice,
@@ -295,9 +295,9 @@ void	ScratchPoint::Update(UpdatePacket& i_UpdatePacket){
 				D3DXVECTOR3	vPos,
 				Rect		rect,
 				D3DXVECTOR3	vCenter)
- —p“r@FƒRƒ“ƒXƒgƒ‰ƒNƒ^
- –ß‚è’lF‚È‚µ
- ’S“–ÒF²“¡—Á
+ ç”¨é€”ã€€ï¼šã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+ æˆ»ã‚Šå€¤ï¼šãªã—
+ æ‹…å½“è€…ï¼šä½è—¤æ¶¼
 ***************************************************************************/
 GoalPos::GoalPos(LPDIRECT3DDEVICE9	pD3DDevice,
 				LPTATRATEXTURE	pTexture,
@@ -311,8 +311,8 @@ GoalPos::GoalPos(LPDIRECT3DDEVICE9	pD3DDevice,
 
 /**************************************************************************
  GoalPos::~GoalPos();
- —p“r: ƒfƒXƒgƒ‰ƒNƒ^
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
 GoalPos::~GoalPos(){
 	Score::~Score();
@@ -321,8 +321,8 @@ GoalPos::~GoalPos(){
 
 /**************************************************************************
  GoalPos::Draw(DrawPacket& i_DrawPacket);
- —p“r: •`‰æ
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: æç”»
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
 void	GoalPos::Draw(DrawPacket& i_DrawPacket){
 	Score::Draw( i_DrawPacket );
@@ -330,8 +330,8 @@ void	GoalPos::Draw(DrawPacket& i_DrawPacket){
 
 /**************************************************************************
  GoalPos::Update(UpdatePacket& i_UpdatePacket)
- —p“r: XV
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: æ›´æ–°
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
 void	GoalPos::Update(UpdatePacket& i_UpdatePacket){
 
@@ -353,7 +353,7 @@ void	GoalPos::Update(UpdatePacket& i_UpdatePacket){
 }
 
 /**************************************************************************
- TimeScore ’è‹`•”
+ TimeScore å®šç¾©éƒ¨
 ***************************************************************************/
 /**************************************************************************
  TimeScore(LPDIRECT3DDEVICE9	pD3DDevice,
@@ -362,9 +362,9 @@ void	GoalPos::Update(UpdatePacket& i_UpdatePacket){
 				D3DXVECTOR3	vPos,
 				Rect		rect,
 				D3DXVECTOR3	vCenter)
- —p“r@FƒRƒ“ƒXƒgƒ‰ƒNƒ^
- –ß‚è’lF‚È‚µ
- ’S“–ÒF²“¡—Á
+ ç”¨é€”ã€€ï¼šã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+ æˆ»ã‚Šå€¤ï¼šãªã—
+ æ‹…å½“è€…ï¼šä½è—¤æ¶¼
 ***************************************************************************/
 TimeScore::TimeScore(LPDIRECT3DDEVICE9	pD3DDevice,
 				LPTATRATEXTURE	pTexture,
@@ -382,8 +382,8 @@ TimeScore::TimeScore(LPDIRECT3DDEVICE9	pD3DDevice,
 
 /**************************************************************************
  TimeScore::~TimeScore();
- —p“r: ƒfƒXƒgƒ‰ƒNƒ^
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
 TimeScore::~TimeScore(){
 	Score::~Score();
@@ -391,8 +391,8 @@ TimeScore::~TimeScore(){
 
 /**************************************************************************
  TimeScore::Draw(DrawPacket& i_DrawPacket);
- —p“r: •`‰æ
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: æç”»
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
 void	TimeScore::Draw(DrawPacket& i_DrawPacket){
 	Score::Draw( i_DrawPacket );
@@ -400,8 +400,8 @@ void	TimeScore::Draw(DrawPacket& i_DrawPacket){
 
 /**************************************************************************
  TimeScore::Update(UpdatePacket& i_UpdatePacket)
- —p“r: XV
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: æ›´æ–°
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
 void	TimeScore::Update(UpdatePacket& i_UpdatePacket){
 
@@ -431,7 +431,7 @@ void	TimeScore::Update(UpdatePacket& i_UpdatePacket){
 }
 
 /**************************************************************************
- AnimationScore ’è‹`•”
+ AnimationScore å®šç¾©éƒ¨
 ***************************************************************************/
 /**************************************************************************
  AnimationScore(LPDIRECT3DDEVICE9	pD3DDevice,
@@ -440,9 +440,9 @@ void	TimeScore::Update(UpdatePacket& i_UpdatePacket){
 				D3DXVECTOR3	vPos,
 				Rect		rect,
 				D3DXVECTOR3	vCenter)
- —p“r@FƒRƒ“ƒXƒgƒ‰ƒNƒ^
- –ß‚è’lF‚È‚µ
- ’S“–ÒF²“¡—Á
+ ç”¨é€”ã€€ï¼šã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+ æˆ»ã‚Šå€¤ï¼šãªã—
+ æ‹…å½“è€…ï¼šä½è—¤æ¶¼
 ***************************************************************************/
 AnimationScore::AnimationScore(LPDIRECT3DDEVICE9	pD3DDevice,
 				LPTATRATEXTURE	pTexture,
@@ -466,8 +466,8 @@ AnimationScore::AnimationScore(LPDIRECT3DDEVICE9	pD3DDevice,
 
 /**************************************************************************
  AnimationScore::~AnimationScore();
- —p“r: ƒfƒXƒgƒ‰ƒNƒ^
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
 AnimationScore::~AnimationScore(){
 	Score::~Score();
@@ -475,8 +475,8 @@ AnimationScore::~AnimationScore(){
 
 /**************************************************************************
  AnimationScore::Draw(DrawPacket& i_DrawPacket);
- —p“r: •`‰æ
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: æç”»
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
 void	AnimationScore::Draw(DrawPacket& i_DrawPacket){
 	m_iScore	= m_iDrawScore;
@@ -486,8 +486,8 @@ void	AnimationScore::Draw(DrawPacket& i_DrawPacket){
 
 /**************************************************************************
  AnimationScore::Update(UpdatePacket& i_UpdatePacket)
- —p“r: XV
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: æ›´æ–°
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
 void	AnimationScore::Update(UpdatePacket& i_UpdatePacket){
 
@@ -547,7 +547,7 @@ void	AnimationScore::Update(UpdatePacket& i_UpdatePacket){
 }
 
 /**************************************************************************
- ResultScore ’è‹`•”
+ ResultScore å®šç¾©éƒ¨
 ***************************************************************************/
 /**************************************************************************
  ResultScore(LPDIRECT3DDEVICE9	pD3DDevice,
@@ -556,9 +556,9 @@ void	AnimationScore::Update(UpdatePacket& i_UpdatePacket){
 				D3DXVECTOR3	vPos,
 				Rect		rect,
 				D3DXVECTOR3	vCenter)
- —p“r@FƒRƒ“ƒXƒgƒ‰ƒNƒ^
- –ß‚è’lF‚È‚µ
- ’S“–ÒF²“¡—Á
+ ç”¨é€”ã€€ï¼šã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+ æˆ»ã‚Šå€¤ï¼šãªã—
+ æ‹…å½“è€…ï¼šä½è—¤æ¶¼
 ***************************************************************************/
 ResultScore::ResultScore(LPDIRECT3DDEVICE9	pD3DDevice,
 				LPTATRATEXTURE	pDeadTex,
@@ -603,7 +603,7 @@ ResultScore::ResultScore(LPDIRECT3DDEVICE9	pD3DDevice,
 	//Debugger::DBGWRITINGLOGTEXT::addStrToFile(L"Score.txt",L"DeadCount  = %d\n",iDeadScore);
 	//Debugger::DBGWRITINGLOGTEXT::addStrToFile(L"Score.txt",L"TotalScore = %d\n",TotalScore);
 
-	//“_”‚É‰‚¶‚½ƒ‰ƒ“ƒN‚Ìİ’è************************************
+	//ç‚¹æ•°ã«å¿œã˜ãŸãƒ©ãƒ³ã‚¯ã®è¨­å®š************************************
 	if( TotalScore >= 10000 )		m_ResultRank	= Rank_S;
 	else if( TotalScore >= 5000 )	m_ResultRank	= Rank_A;
 	else if( TotalScore >= 2500 )	m_ResultRank	= Rank_B;
@@ -616,7 +616,7 @@ ResultScore::ResultScore(LPDIRECT3DDEVICE9	pD3DDevice,
 	int iDightTotal		= 0;
 
 	//*******************************************
-	// MaxPos‚ÌŒ…”‚Ìæ“¾
+	// MaxPosã®æ¡æ•°ã®å–å¾—
 	int	i	= MAX_DIGHT_SCORE/10, dight	= MAX_DIGIT;
 	while(1){
 		iDightMaxPos	= iMaxPos / i;
@@ -631,7 +631,7 @@ ResultScore::ResultScore(LPDIRECT3DDEVICE9	pD3DDevice,
 	}
 
 	//*******************************************
-	// ƒXƒNƒ‰ƒbƒ`‚ÌŒ…”‚Ìæ“¾
+	// ã‚¹ã‚¯ãƒ©ãƒƒãƒã®æ¡æ•°ã®å–å¾—
 	i	= MAX_DIGHT_SCORE/10, dight	= MAX_DIGIT;
 	while(1){
 		iDightScratch	= iScratch / i;
@@ -646,7 +646,7 @@ ResultScore::ResultScore(LPDIRECT3DDEVICE9	pD3DDevice,
 	}
 
 	//*******************************************
-	// €–S‰ñ”‚ÌŒ…”‚Ìæ“¾
+	// æ­»äº¡å›æ•°ã®æ¡æ•°ã®å–å¾—
 	i	= MAX_DIGHT_SCORE/10, dight	= MAX_DIGIT;
 	while(1){
 		iDightDead	= iDead / i;
@@ -661,7 +661,7 @@ ResultScore::ResultScore(LPDIRECT3DDEVICE9	pD3DDevice,
 	}
 
 	//*******************************************
-	// ƒg[ƒ^ƒ‹ƒXƒRƒA‚ÌŒ…”‚Ìæ“¾
+	// ãƒˆãƒ¼ã‚¿ãƒ«ã‚¹ã‚³ã‚¢ã®æ¡æ•°ã®å–å¾—
 	i	= MAX_DIGHT_SCORE/10, dight	= MAX_DIGIT;
 	while(1){
 		iDightTotal	= TotalScore / i;
@@ -748,8 +748,8 @@ ResultScore::ResultScore(LPDIRECT3DDEVICE9	pD3DDevice,
 
 /**************************************************************************
  ResultScore::~ResultScore();
- —p“r: ƒfƒXƒgƒ‰ƒNƒ^
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
 ResultScore::~ResultScore(){
 	m_pRank		= NULL;
@@ -764,8 +764,8 @@ ResultScore::~ResultScore(){
 
 /**************************************************************************
  ResultScore::Draw(DrawPacket& i_DrawPacket);
- —p“r: •`‰æ
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: æç”»
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
 void	ResultScore::Draw(DrawPacket& i_DrawPacket){
 	m_pMaxPos->Draw( i_DrawPacket );
@@ -779,8 +779,8 @@ void	ResultScore::Draw(DrawPacket& i_DrawPacket){
 
 /**************************************************************************
  ResultScore::Update(UpdatePacket& i_UpdatePacket)
- —p“r: XV
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: æ›´æ–°
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
 void	ResultScore::Update(UpdatePacket& i_UpdatePacket){
 
@@ -828,17 +828,17 @@ void	ResultScore::Update(UpdatePacket& i_UpdatePacket){
 }
 
 /**************************************************************************
- Factory_Score ’è‹`•”
+ Factory_Score å®šç¾©éƒ¨
 ****************************************************************************/
 /**************************************************************************
  Factory_Score::Factory_Score(
 	Factory_Score *fpac
-	LPDIRECT3DDEVICE9 pD3DDevice,	//ƒfƒoƒCƒX
-	vector<Object*>& vec,			//ƒIƒuƒWƒFƒNƒg‚Ì”z—ñ
-	TextureManager& TexMgr		//ƒeƒNƒXƒ`ƒƒ‚Ì”z—ñ
+	LPDIRECT3DDEVICE9 pD3DDevice,	//ãƒ‡ãƒã‚¤ã‚¹
+	vector<Object*>& vec,			//ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®é…åˆ—
+	TextureManager& TexMgr		//ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®é…åˆ—
 );
- —p“r: ƒRƒ“ƒXƒgƒ‰ƒNƒ^iƒTƒ“ƒvƒ‹ƒIƒuƒWƒFƒNƒg‚ğ”z—ñ‚É’Ç‰Á‚·‚éj
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ï¼ˆã‚µãƒ³ãƒ—ãƒ«ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’é…åˆ—ã«è¿½åŠ ã™ã‚‹ï¼‰
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
 Factory_Score::Factory_Score(FactoryPacket *fpac){
 	try{
@@ -907,7 +907,7 @@ Factory_Score::Factory_Score(FactoryPacket *fpac){
 			)
 		);
 
-		//€–S‰ñ”
+		//æ­»äº¡å›æ•°
 		fpac->AddObject(
 			new DeadScore( fpac->GetDevice(),
 					fpac->AddTexture( L"Number_Base1.png" ),
@@ -918,7 +918,7 @@ Factory_Score::Factory_Score(FactoryPacket *fpac){
 			)
 		);
 
-		//“’B’n“_
+		//åˆ°é”åœ°ç‚¹
 		fpac->AddObject(
 			new ArrivalPos( fpac->GetDevice(),
 					fpac->AddTexture( L"Number_Base2.png" ),
@@ -928,7 +928,7 @@ Factory_Score::Factory_Score(FactoryPacket *fpac){
 					&Rect( 0, 0, 512, 64 )
 			)
 		);
-		//ƒS[ƒ‹’n“_
+		//ã‚´ãƒ¼ãƒ«åœ°ç‚¹
 		fpac->AddObject(
 			new GoalPos( fpac->GetDevice(),
 					fpac->AddTexture( L"Number_Base2.png" ),
@@ -959,18 +959,18 @@ Factory_Score::Factory_Score(FactoryPacket *fpac){
 		);
 	}
 	catch(...){
-		//Äthrow
+		//å†throw
 		throw;
 	}
 
 }
 /**************************************************************************
  Factory_Score::~Factory_Score();
- —p“r: ƒfƒXƒgƒ‰ƒNƒ^
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
 Factory_Score::~Factory_Score(){
-    //‚È‚É‚à‚µ‚È‚¢
+    //ãªã«ã‚‚ã—ãªã„
 }
 
 }

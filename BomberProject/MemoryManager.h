@@ -1,17 +1,17 @@
 ////////////////////////////// //////////////////////////////
-//	ƒvƒƒWƒFƒNƒg	FTATRA-Library
-//	ƒtƒ@ƒCƒ‹–¼		FMemoryManager.h
-//	ŠJ”­ŠÂ‹«		FMSVC++ 2008
-//	Å“Kƒ^ƒu”		F4
-//	’S“–Ò			F°Œ´ “O
-//	“à•ïÃŞ°À‚Æ”õl	Fƒƒ‚ƒŠ‚ğŠÇ—‚·‚éq‚½‚¿‚ÌW‚Ü‚è
-//					¥
+//	ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆ	ï¼šTATRA-Library
+//	ãƒ•ã‚¡ã‚¤ãƒ«å		ï¼šMemoryManager.h
+//	é–‹ç™ºç’°å¢ƒ		ï¼šMSVC++ 2008
+//	æœ€é©ã‚¿ãƒ–æ•°		ï¼š4
+//	æ‹…å½“è€…			ï¼šé´«åŸ å¾¹
+//	å†…åŒ…ãƒ‡ãƒ¼ã‚¿ã¨å‚™è€ƒ	ï¼šãƒ¡ãƒ¢ãƒªã‚’ç®¡ç†ã™ã‚‹å­ãŸã¡ã®é›†ã¾ã‚Š
+//					â–¼
 //	namespace TLIB ;
-//		class TMemoryManager ;		//	: ƒƒ‚ƒŠ‚ÌŠÇ—ƒNƒ‰ƒX
-//		inline void* operator new( size_t iSize,LPCSTR  sFile, LPCSTR  sFunc, UINT iLine)	;		//	:    new ‰‰Zq‚ÌƒI[ƒo[ƒ‰ƒCƒhŠÖ” ƒƒ‚ƒŠ‚ğ¶¬‚µ‚½ ƒ\[ƒXƒtƒ@ƒCƒ‹EŠÖ”Es”Ô†‚ğ“¯‚ÉŠl“¾‚·‚é
-//		inline void  operator delete(  void* pv,LPCSTR  sFile, LPCSTR  sFunc, UINT iLine)	;		//	: delete ‰‰Zq‚ÌƒI[ƒo[ƒ‰ƒCƒhŠÖ”
-//		template<typename T> inline void SafeDelete(T*& p)		;	//	: ˆÀ‘S‚Éƒ|ƒCƒ“ƒ^‚ğíœ‚·‚é
-//		template<typename T> inline void SafeDeleteArr(T*& p)	;	//	: ˆÀ‘S‚É”z—ñ‚ğíœ‚·‚é
+//		class TMemoryManager ;		//	: ãƒ¡ãƒ¢ãƒªã®ç®¡ç†ã‚¯ãƒ©ã‚¹
+//		inline void* operator new( size_t iSize,LPCSTR  sFile, LPCSTR  sFunc, UINT iLine)	;		//	:    new æ¼”ç®—å­ã®ã‚ªãƒ¼ãƒãƒ¼ãƒ©ã‚¤ãƒ‰é–¢æ•° ãƒ¡ãƒ¢ãƒªã‚’ç”Ÿæˆã—ãŸ ã‚½ãƒ¼ã‚¹ãƒ•ã‚¡ã‚¤ãƒ«ãƒ»é–¢æ•°ãƒ»è¡Œç•ªå·ã‚’åŒæ™‚ã«ç²å¾—ã™ã‚‹
+//		inline void  operator delete(  void* pv,LPCSTR  sFile, LPCSTR  sFunc, UINT iLine)	;		//	: delete æ¼”ç®—å­ã®ã‚ªãƒ¼ãƒãƒ¼ãƒ©ã‚¤ãƒ‰é–¢æ•°
+//		template<typename T> inline void SafeDelete(T*& p)		;	//	: å®‰å…¨ã«ãƒã‚¤ãƒ³ã‚¿ã‚’å‰Šé™¤ã™ã‚‹
+//		template<typename T> inline void SafeDeleteArr(T*& p)	;	//	: å®‰å…¨ã«é…åˆ—ã‚’å‰Šé™¤ã™ã‚‹
 //		
 //
 
@@ -25,25 +25,25 @@
 //namespace TLIB{
 //**************************************************************************//
 // class TMemoryManager ;
-// ’S“–  : °Œ´ “O
-// —p“r  : ƒvƒƒWƒFƒNƒg“à‚ÅŠm•Û‚³‚ê‚½ƒƒ‚ƒŠ‚ğŠÇ—‚µ‚Ü‚·¡
-// ”õl  : E”ñí‚É’x‚¢‚Å‚· Œ»ó‚Ù‚ÚDEBUG—p‚Å‚·¡
-//       : EI—¹“™‚É m_ItemInfo ‚Ì’†g‚ğ”`‚¯‚ÎƒŠƒŠ[ƒY˜R‚ê‚ª‹N‚«‚Ä‚¢‚é
-//       : À‘Ì‚ª¶¬‚³‚ê‚½êŠ‚ğ”cˆ¬‚·‚é‚±‚Æ‚ªo—ˆ‚Ü‚·¡
-//       : ECF_DRAW_DEBUGSTRING ‚Æ CF_MEMORYOUTPUTPROCESS_ENABLE ‚ğ—LŒø‚É‚·‚ê‚Î
-//       : new‚³‚ê‚½À‘Ì‚Ì‘”‚Æ‘Šm•ÛByte‚ğƒŠƒAƒ‹ƒ^ƒCƒ€‚ÅŒ©‚é‚±‚Æ‚ª‚Å‚«‚Ü‚·¡
-//       : EƒvƒƒOƒ‰ƒ€I—¹‚ÉŠm•Û‚µ‚½ƒƒ‚ƒŠ‚ªc‚Á‚Ä‚µ‚Ü‚Á‚Ä‚¢‚éê‡‚É‚ÍA
-//       : ‚»‚ê‚ç‚ğ©“®“I‚ÉŠJ•ú‚µ‚Ü‚·Bƒƒ‚ƒŠƒ[ƒN–h~‚É–ğ—§‚¿‚Ü‚·B
-//       : ‚»‚ÌÛ CF_MEMORYLEEKOUTPUT_ENABLE ‚ª—LŒø‚É‚È‚Á‚Ä‚¢‚½ê‡‚É‚ÍA
-//       : Œx‚Æ‚Æ‚à‚ÉƒƒOƒtƒ@ƒCƒ‹‚ÖƒCƒ“ƒXƒ^ƒ“ƒXˆê——‚ğo—Í‚µ‚Ü‚·B
+// æ‹…å½“  : é´«åŸ å¾¹
+// ç”¨é€”  : ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆå†…ã§ç¢ºä¿ã•ã‚ŒãŸãƒ¡ãƒ¢ãƒªã‚’ç®¡ç†ã—ã¾ã™ã€‚
+// å‚™è€ƒ  : ãƒ»éå¸¸ã«é…ã„ã§ã™ ç¾çŠ¶ã»ã¼DEBUGç”¨ã§ã™ã€‚
+//       : ãƒ»çµ‚äº†æ™‚ç­‰ã« m_ItemInfo ã®ä¸­èº«ã‚’è¦—ã‘ã°ãƒªãƒªãƒ¼ã‚ºæ¼ã‚ŒãŒèµ·ãã¦ã„ã‚‹
+//       : å®Ÿä½“ãŒç”Ÿæˆã•ã‚ŒãŸå ´æ‰€ã‚’æŠŠæ¡ã™ã‚‹ã“ã¨ãŒå‡ºæ¥ã¾ã™ã€‚
+//       : ãƒ»CF_DRAW_DEBUGSTRING ã¨ CF_MEMORYOUTPUTPROCESS_ENABLE ã‚’æœ‰åŠ¹ã«ã™ã‚Œã°
+//       : newã•ã‚ŒãŸå®Ÿä½“ã®ç·æ•°ã¨ç·ç¢ºä¿Byteã‚’ãƒªã‚¢ãƒ«ã‚¿ã‚¤ãƒ ã§è¦‹ã‚‹ã“ã¨ãŒã§ãã¾ã™ã€‚
+//       : ãƒ»ãƒ—ãƒ­ã‚°ãƒ©ãƒ çµ‚äº†æ™‚ã«ç¢ºä¿ã—ãŸãƒ¡ãƒ¢ãƒªãŒæ®‹ã£ã¦ã—ã¾ã£ã¦ã„ã‚‹å ´åˆã«ã¯ã€
+//       : ãã‚Œã‚‰ã‚’è‡ªå‹•çš„ã«é–‹æ”¾ã—ã¾ã™ã€‚ãƒ¡ãƒ¢ãƒªãƒ­ãƒ¼ã‚¯é˜²æ­¢ã«å½¹ç«‹ã¡ã¾ã™ã€‚
+//       : ãã®éš› CF_MEMORYLEEKOUTPUT_ENABLE ãŒæœ‰åŠ¹ã«ãªã£ã¦ã„ãŸå ´åˆã«ã¯ã€
+//       : è­¦å‘Šã¨ã¨ã‚‚ã«ãƒ­ã‚°ãƒ•ã‚¡ã‚¤ãƒ«ã¸ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ä¸€è¦§ã‚’å‡ºåŠ›ã—ã¾ã™ã€‚
 //**************************************************************************//
 class TMemoryManager{
 public:
 	//**************************************************************************//
 	// struct itemInfo ;
-	// ’S“–  : °Œ´ “O
-	// —p“r  : new ‚³‚ê‚½ƒf[ƒ^‚Ìî•ñ\‘¢
-	// ”õl  : new‚ğ‹L‰¯‚·‚é
+	// æ‹…å½“  : é´«åŸ å¾¹
+	// ç”¨é€”  : new ã•ã‚ŒãŸãƒ‡ãƒ¼ã‚¿ã®æƒ…å ±æ§‹é€ 
+	// å‚™è€ƒ  : newã‚’è¨˜æ†¶ã™ã‚‹
 	//**************************************************************************//
 	struct itemInfo{
 		void*				pPointer;
@@ -55,20 +55,20 @@ public:
 		DWORD				iGenerateTime ;
 
 		/////////////////// ////////////////////
-		//// ŠÖ”–¼     FitemInfo( void* i_pPointer, size_t i_iSize, std::string i_sFile,
-		////            F    std::string i_sFunc, UINT i_iLine, DWORD i_iGTime )
-		//// ƒJƒeƒSƒŠ   FƒRƒ“ƒXƒgƒ‰ƒNƒ^
-		//// —p“r       FƒCƒ“ƒXƒ^ƒ“ƒX‚Ì¶¬
-		//// ˆø”       F  void*          i_pPointer
-		////            F  size_t         i_iSize
-		////            F  std::string    i_sFile
-		////            F  std::string    i_sFunc
-		////            F  UINT           i_iLine
-		////            F  DWORD          i_iGTime
-		//// –ß’l       F‚È‚µ
-		//// ’S“–       F°Œ´ “O
-		//// ”õl       F
-		////            F
+		//// é–¢æ•°å     ï¼šitemInfo( void* i_pPointer, size_t i_iSize, std::string i_sFile,
+		////            ï¼š    std::string i_sFunc, UINT i_iLine, DWORD i_iGTime )
+		//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+		//// ç”¨é€”       ï¼šã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã®ç”Ÿæˆ
+		//// å¼•æ•°       ï¼š  void*          i_pPointer
+		////            ï¼š  size_t         i_iSize
+		////            ï¼š  std::string    i_sFile
+		////            ï¼š  std::string    i_sFunc
+		////            ï¼š  UINT           i_iLine
+		////            ï¼š  DWORD          i_iGTime
+		//// æˆ»å€¤       ï¼šãªã—
+		//// æ‹…å½“       ï¼šé´«åŸ å¾¹
+		//// å‚™è€ƒ       ï¼š
+		////            ï¼š
 		////
 		itemInfo(
 			void* i_pPointer,
@@ -86,53 +86,53 @@ public:
 		,iGenerateTime(i_iGTime)
 		,sType(typeid( i_pPointer ))
 		{
-			/*“Á‚É‰½‚à‚µ‚È‚¢*/
+			/*ç‰¹ã«ä½•ã‚‚ã—ãªã„*/
 		}
 		/////////////////// ////////////////////
-		//// ŠÖ”–¼     Fbool operator () ( const void* other ) const 
-		//// ƒJƒeƒSƒŠ   FƒIƒyƒŒ[ƒ^
-		//// —p“r       F()‚Ì‹@”\‚ÌƒI[ƒo[ƒ[ƒh
-		//// ˆø”       F  const void* other
-		//// –ß’l       F‚È‚µ
-		//// ’S“–       F°Œ´ “O
-		//// ”õl       FŒŸõƒAƒ‹ƒSƒŠƒYƒ€—p‚ÌƒI[ƒo[ƒ[ƒh
-		////            F‚¶‚Â‚í‚æ‚­‚í‚©‚Á‚Ä‚È‚©‚Á‚½‚è^(E ~ E)_
+		//// é–¢æ•°å     ï¼šbool operator () ( const void* other ) const 
+		//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚ªãƒšãƒ¬ãƒ¼ã‚¿
+		//// ç”¨é€”       ï¼š()ã®æ©Ÿèƒ½ã®ã‚ªãƒ¼ãƒãƒ¼ãƒ­ãƒ¼ãƒ‰
+		//// å¼•æ•°       ï¼š  const void* other
+		//// æˆ»å€¤       ï¼šãªã—
+		//// æ‹…å½“       ï¼šé´«åŸ å¾¹
+		//// å‚™è€ƒ       ï¼šæ¤œç´¢ã‚¢ãƒ«ã‚´ãƒªã‚ºãƒ ç”¨ã®ã‚ªãƒ¼ãƒãƒ¼ãƒ­ãƒ¼ãƒ‰
+		////            ï¼šã˜ã¤ã‚ã‚ˆãã‚ã‹ã£ã¦ãªã‹ã£ãŸã‚Šï¼(ãƒ» Ã— ãƒ»)ï¼¼
 		////
 		bool operator () ( const void* other ) const {
 			return this->pPointer == other ;
 		}
 		/////////////////// ////////////////////
-		//// ŠÖ”–¼     Fbool operator == ( const void* other ) const 
-		//// ƒJƒeƒSƒŠ   FƒIƒyƒŒ[ƒ^
-		//// —p“r       F==‚Ì‹@”\‚ÌƒI[ƒo[ƒ[ƒh
-		//// ˆø”       F  const void* other
-		//// –ß’l       F‚È‚µ
-		//// ’S“–       F°Œ´ “O
-		//// ”õl       FŒŸõƒAƒ‹ƒSƒŠƒYƒ€—p‚ÌƒI[ƒo[ƒ[ƒh
-		////            F‚¶‚Â‚í‚æ‚­‚í‚©‚Á‚Ä‚È‚©‚Á‚½‚è^(E ~ E)_
+		//// é–¢æ•°å     ï¼šbool operator == ( const void* other ) const 
+		//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚ªãƒšãƒ¬ãƒ¼ã‚¿
+		//// ç”¨é€”       ï¼š==ã®æ©Ÿèƒ½ã®ã‚ªãƒ¼ãƒãƒ¼ãƒ­ãƒ¼ãƒ‰
+		//// å¼•æ•°       ï¼š  const void* other
+		//// æˆ»å€¤       ï¼šãªã—
+		//// æ‹…å½“       ï¼šé´«åŸ å¾¹
+		//// å‚™è€ƒ       ï¼šæ¤œç´¢ã‚¢ãƒ«ã‚´ãƒªã‚ºãƒ ç”¨ã®ã‚ªãƒ¼ãƒãƒ¼ãƒ­ãƒ¼ãƒ‰
+		////            ï¼šã˜ã¤ã‚ã‚ˆãã‚ã‹ã£ã¦ãªã‹ã£ãŸã‚Šï¼(ãƒ» Ã— ãƒ»)ï¼¼
 		////
 		bool operator == ( const void* other ) const {
 			return this->pPointer == other ;
 		}
 	};
 private:
-	//	: Šm•Û‚µ‚½ƒƒ‚ƒŠ‘S‘Ì‚ÌƒTƒCƒY(Byte?)
+	//	: ç¢ºä¿ã—ãŸãƒ¡ãƒ¢ãƒªå…¨ä½“ã®ã‚µã‚¤ã‚º(Byte?)
 	static DWORD m_dwAreaSize ;
-	//	: new‚³‚ê‚½î•ñƒŠƒXƒg
+	//	: newã•ã‚ŒãŸæƒ…å ±ãƒªã‚¹ãƒˆ
 	static std::list<itemInfo> m_ItemInfo ;
 public:
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     Fstatic void* add(size_t i_iSize,std::string i_sFile, std::string i_sFunc, UINT i_iLine)
-	//// ƒJƒeƒSƒŠ   Fƒƒ“ƒoŠÖ”
-	//// —p“r       Fƒƒ‚ƒŠ‚Ì¶¬‚ÆƒŠƒXƒg‚Ö‚Ì’Ç‰Á
-	//// ˆø”       F  size_t          i_iSize     //  : Šm•Û‚·‚éƒƒ‚ƒŠ‚ÌƒTƒCƒY
-	////            F  std::string     i_sFile     //  : ¶¬ˆ—‚Ì‘‚©‚ê‚½ƒtƒ@ƒCƒ‹‚Ì–¼‘O
-	////            F  std::string     i_sFunc     //  : ¶¬ˆ—‚Ì‘‚©‚ê‚½ŠÖ”‚Ì–¼‘O
-	////            F  UINT            i_iLine     //  : ¶¬ˆ—‚Ì‘‚©‚ê‚Ä‚¢‚és”Ô†
-	//// –ß’l       FŠm•Û‚µ‚½ƒƒ‚ƒŠ‚Ö‚Ìƒ|ƒCƒ“ƒ^
-	//// ’S“–       F°Œ´ “O
-	//// ”õl       F
-	////            F
+	//// é–¢æ•°å     ï¼šstatic void* add(size_t i_iSize,std::string i_sFile, std::string i_sFunc, UINT i_iLine)
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šãƒ¡ãƒ³ãƒé–¢æ•°
+	//// ç”¨é€”       ï¼šãƒ¡ãƒ¢ãƒªã®ç”Ÿæˆã¨ãƒªã‚¹ãƒˆã¸ã®è¿½åŠ 
+	//// å¼•æ•°       ï¼š  size_t          i_iSize     //  : ç¢ºä¿ã™ã‚‹ãƒ¡ãƒ¢ãƒªã®ã‚µã‚¤ã‚º
+	////            ï¼š  std::string     i_sFile     //  : ç”Ÿæˆå‡¦ç†ã®æ›¸ã‹ã‚ŒãŸãƒ•ã‚¡ã‚¤ãƒ«ã®åå‰
+	////            ï¼š  std::string     i_sFunc     //  : ç”Ÿæˆå‡¦ç†ã®æ›¸ã‹ã‚ŒãŸé–¢æ•°ã®åå‰
+	////            ï¼š  UINT            i_iLine     //  : ç”Ÿæˆå‡¦ç†ã®æ›¸ã‹ã‚Œã¦ã„ã‚‹è¡Œç•ªå·
+	//// æˆ»å€¤       ï¼šç¢ºä¿ã—ãŸãƒ¡ãƒ¢ãƒªã¸ã®ãƒã‚¤ãƒ³ã‚¿
+	//// æ‹…å½“       ï¼šé´«åŸ å¾¹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
 	static void* add(size_t i_iSize,std::string i_sFile, std::string i_sFunc, UINT i_iLine){
 		void* pPointer = malloc(i_iSize);
@@ -142,14 +142,14 @@ public:
 	}
 
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     Fstatic void remove( void* i_pPointer )
-	//// ƒJƒeƒSƒŠ   Fƒƒ“ƒoŠÖ”
-	//// —p“r       Fƒƒ‚ƒŠ‚ÌŠJ•ú‚ÆƒŠƒXƒg‚©‚ç‚Ìíœ
-	//// ˆø”       F  void* i_pPointer    //  : íœ‘ÎÛ‚Ìƒ|ƒCƒ“ƒ^
-	//// –ß’l       F‚È‚µ
-	//// ’S“–       F°Œ´ “O
-	//// ”õl       F
-	////            F
+	//// é–¢æ•°å     ï¼šstatic void remove( void* i_pPointer )
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šãƒ¡ãƒ³ãƒé–¢æ•°
+	//// ç”¨é€”       ï¼šãƒ¡ãƒ¢ãƒªã®é–‹æ”¾ã¨ãƒªã‚¹ãƒˆã‹ã‚‰ã®å‰Šé™¤
+	//// å¼•æ•°       ï¼š  void* i_pPointer    //  : å‰Šé™¤å¯¾è±¡ã®ãƒã‚¤ãƒ³ã‚¿
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“       ï¼šé´«åŸ å¾¹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
 	static void remove( void* i_pPointer ){
 		std::list<itemInfo>::iterator it ;
@@ -165,46 +165,46 @@ public:
 	}
 	
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     Fstatic void Draw()
-	//// ƒJƒeƒSƒŠ   Fƒƒ“ƒoŠÖ”
-	//// —p“r       Fƒƒ‚ƒŠ‚Ìó‘Ô‚ğƒŠƒAƒ‹ƒ^ƒCƒ€‚É•`‰æ( ‚Æ‚©‚Å‚«‚½‚ç‚¢‚¢‚È`c )
-	//// ˆø”       F‚È‚µ
-	//// –ß’l       F‚È‚µ
-	//// ’S“–       F°Œ´ “O
-	//// ”õl       FŒ»ƒo[ƒWƒ‡ƒ“‚Å‚ÍƒfƒoƒbƒOˆÈŠO‚ÉˆÓ–¡‚ğ‚È‚µ‚Ü‚¹‚ñ
-	////            F
+	//// é–¢æ•°å     ï¼šstatic void Draw()
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šãƒ¡ãƒ³ãƒé–¢æ•°
+	//// ç”¨é€”       ï¼šãƒ¡ãƒ¢ãƒªã®çŠ¶æ…‹ã‚’ãƒªã‚¢ãƒ«ã‚¿ã‚¤ãƒ ã«æç”»( ã¨ã‹ã§ããŸã‚‰ã„ã„ãªã€œâ€¦ )
+	//// å¼•æ•°       ï¼šãªã—
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“       ï¼šé´«åŸ å¾¹
+	//// å‚™è€ƒ       ï¼šç¾ãƒãƒ¼ã‚¸ãƒ§ãƒ³ã§ã¯ãƒ‡ãƒãƒƒã‚°æ™‚ä»¥å¤–ã«æ„å‘³ã‚’ãªã—ã¾ã›ã‚“
+	////            ï¼š
 	////
 	static void Draw(){
 
 		#if defined( CF_MEMORYOUTPUTPROCESS_ENABLE )
-		Debugger::DBGSTR::addStr( L"MemoryManager‚ª—LŒø‚Å‚·B”ñí‚Éd‚­‚È‚é‰Â”\«‚ª‚ ‚è‚Ü‚·B\nMemory\n„¥ Area Size = %d Byte\n„¤ Instance  = %d Q'ty\n", m_dwAreaSize, m_ItemInfo.size() );
+		Debugger::DBGSTR::addStr( L"MemoryManagerãŒæœ‰åŠ¹ã§ã™ã€‚éå¸¸ã«é‡ããªã‚‹å¯èƒ½æ€§ãŒã‚ã‚Šã¾ã™ã€‚\nMemory\nâ”œ Area Size = %d Byte\nâ”” Instance  = %d Q'ty\n", m_dwAreaSize, m_ItemInfo.size() );
 		if( GetAsyncKeyState( MYVK_DEBUG_OUTPUT_MEMORY ) ){
 			std::list<itemInfo>::iterator it  = m_ItemInfo.begin();
 			std::list<itemInfo>::iterator end = m_ItemInfo.end();
 			time_t timer;
 			struct tm local;
 
-			/* Œ»İ‚ğæ“¾ */
+			/* ç¾åœ¨æ™‚åˆ»ã‚’å–å¾— */
 			timer = time(NULL);
 
-			localtime_s(&local, &timer); /* ’n•û‚É•ÏŠ· */
+			localtime_s(&local, &timer); /* åœ°æ–¹æ™‚ã«å¤‰æ› */
 
-			Debugger::DBGWRITINGLOGTEXT::addStrToFile( L"‚ß‚à‚è.txt" , L"ƒ[ƒJƒ‹ŠÔ %4d/%2d/%2d %2d:%2d:%2d %d \n",
+			Debugger::DBGWRITINGLOGTEXT::addStrToFile( L"ã‚ã‚‚ã‚Š.txt" , L"ãƒ­ãƒ¼ã‚«ãƒ«æ™‚é–“ %4d/%2d/%2d %2d:%2d:%2d %d \n",
 				local.tm_year + 1900, local.tm_mon + 1, local.tm_mday, local.tm_hour,
 				local.tm_min, local.tm_sec, local.tm_isdst );
-			Debugger::DBGWRITINGLOGTEXT::addStrToFile( L"‚ß‚à‚è.txt" , L"‘ƒCƒ“ƒXƒ^ƒ“ƒX” : %d\n"		, m_ItemInfo.size()  );
-			Debugger::DBGWRITINGLOGTEXT::addStrToFile( L"‚ß‚à‚è.txt" , L"Šm•Û—Ìˆæ—e—Ê     : %d Byte\n"	, m_dwAreaSize       );
+			Debugger::DBGWRITINGLOGTEXT::addStrToFile( L"ã‚ã‚‚ã‚Š.txt" , L"ç·ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹æ•° : %d\n"		, m_ItemInfo.size()  );
+			Debugger::DBGWRITINGLOGTEXT::addStrToFile( L"ã‚ã‚‚ã‚Š.txt" , L"ç¢ºä¿é ˜åŸŸå®¹é‡     : %d Byte\n"	, m_dwAreaSize       );
 			
 			DWORD i = 0 ;
 			for(  ; it != end ; it++ ){
-				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "‚ß‚à‚è.txt" , "////////////\n"                           );
-				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "‚ß‚à‚è.txt" , "// ƒf[ƒ^ %d \n"         , i                 );
-				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "‚ß‚à‚è.txt" , "// ƒ|ƒCƒ“ƒ^   : 0x%X \n" , it->pPointer      );
-				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "‚ß‚à‚è.txt" , "// ƒTƒCƒY     : %d \n"   , it->iSize         );
-				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "‚ß‚à‚è.txt" , "// ƒtƒ@ƒCƒ‹–¼ : %s \n"   , it->sFile.c_str() );
-				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "‚ß‚à‚è.txt" , "// ŠÖ”       : %s \n"   , it->sFunc.c_str() );
-				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "‚ß‚à‚è.txt" , "// s         : %d \n"   , it->iLine         );
-				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "‚ß‚à‚è.txt" , "// ŠÔ       : %d \n\n" , it->iGenerateTime );
+				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "ã‚ã‚‚ã‚Š.txt" , "////////////\n"                           );
+				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "ã‚ã‚‚ã‚Š.txt" , "// ãƒ‡ãƒ¼ã‚¿ %d \n"         , i                 );
+				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "ã‚ã‚‚ã‚Š.txt" , "// ãƒã‚¤ãƒ³ã‚¿   : 0x%X \n" , it->pPointer      );
+				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "ã‚ã‚‚ã‚Š.txt" , "// ã‚µã‚¤ã‚º     : %d \n"   , it->iSize         );
+				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "ã‚ã‚‚ã‚Š.txt" , "// ãƒ•ã‚¡ã‚¤ãƒ«å : %s \n"   , it->sFile.c_str() );
+				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "ã‚ã‚‚ã‚Š.txt" , "// é–¢æ•°       : %s \n"   , it->sFunc.c_str() );
+				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "ã‚ã‚‚ã‚Š.txt" , "// è¡Œ         : %d \n"   , it->iLine         );
+				Debugger::DBGWRITINGLOGTEXT::addStrToFile( "ã‚ã‚‚ã‚Š.txt" , "// æ™‚é–“       : %d \n\n" , it->iGenerateTime );
 				i ++ ;
 			}
 		}
@@ -212,18 +212,18 @@ public:
 	}
 
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     Fstatic void Clear()
-	//// ƒJƒeƒSƒŠ   Fƒƒ“ƒoŠÖ”
-	//// —p“r       F‚¢‚Ü‚Ü‚ÅŠm•Û‚µ‚Ä‚«‚½ƒƒ‚ƒŠ‚ğ‚·‚×‚Ä”jŠü‚·‚é
-	//// ˆø”       F‚È‚µ
-	//// –ß’l       F‚È‚µ
-	//// ’S“–       F°Œ´ “O
-	//// ”õl       F¦ŠëŒ¯
-	////            F’Êí‚Í‚±‚ÌŠÖ”‚ğŒÄ‚Ño‚³‚È‚¢‚Å‚­‚¾‚³‚¢
-	////            FŠmÀ‚ÉƒoƒO‚è‚Ü‚·
-	////            FƒvƒƒOƒ‰ƒ€I—¹‚ÌÅŒã‚ÌÅŒã‚Å‚Ì‚İ‚±‚ÌŠÖ”‚ğŒÄ‚Ño‚µ‚Ä‚­‚¾‚³‚¢
-	////            FCF_MEMORYLEEKOUTPUT_ENABLE ‚ğ’è‹`‚·‚é‚ÆAŒÄ‚Ño‚µ‚É
-	////            FMessageBox ‚Æ LogFile ‚ğo—Í‚µ‚Ü‚·B
+	//// é–¢æ•°å     ï¼šstatic void Clear()
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šãƒ¡ãƒ³ãƒé–¢æ•°
+	//// ç”¨é€”       ï¼šã„ã¾ã¾ã§ç¢ºä¿ã—ã¦ããŸãƒ¡ãƒ¢ãƒªã‚’ã™ã¹ã¦ç ´æ£„ã™ã‚‹
+	//// å¼•æ•°       ï¼šãªã—
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“       ï¼šé´«åŸ å¾¹
+	//// å‚™è€ƒ       ï¼šâ€»å±é™º
+	////            ï¼šé€šå¸¸ã¯ã“ã®é–¢æ•°ã‚’å‘¼ã³å‡ºã•ãªã„ã§ãã ã•ã„
+	////            ï¼šç¢ºå®Ÿã«ãƒã‚°ã‚Šã¾ã™
+	////            ï¼šãƒ—ãƒ­ã‚°ãƒ©ãƒ çµ‚äº†æ™‚ã®æœ€å¾Œã®æœ€å¾Œã§ã®ã¿ã“ã®é–¢æ•°ã‚’å‘¼ã³å‡ºã—ã¦ãã ã•ã„
+	////            ï¼šCF_MEMORYLEEKOUTPUT_ENABLE ã‚’å®šç¾©ã™ã‚‹ã¨ã€å‘¼ã³å‡ºã—æ™‚ã«
+	////            ï¼šMessageBox ã¨ LogFile ã‚’å‡ºåŠ›ã—ã¾ã™ã€‚
 	////
 	static void Clear(){
 		if( m_ItemInfo.size() != 0 ){
@@ -236,33 +236,33 @@ public:
 			wsprintf( cbuf, L"%d", m_ItemInfo.size() );
 			wstring buf ;
 			buf += cbuf	 ;
-			buf += L"ŒÂ‚Ìƒƒ‚ƒŠƒŠ[ƒN‚ğŒŸo‚µ‚Ü‚µ‚½B\n";
-			buf += L"ƒŠ[ƒNˆê——‚ğ";
+			buf += L"å€‹ã®ãƒ¡ãƒ¢ãƒªãƒªãƒ¼ã‚¯ã‚’æ¤œå‡ºã—ã¾ã—ãŸã€‚\n";
+			buf += L"ãƒªãƒ¼ã‚¯ä¸€è¦§ã‚’";
 			buf += Debugger::DBGWRITINGLOGTEXT::GetDefaultLogFolder();
 			buf += pFileNameW;
-			buf += L"‚Öo—Í‚µ‚Ü‚µ‚½\n";
+			buf += L"ã¸å‡ºåŠ›ã—ã¾ã—ãŸ\n";
 
 			
 			time_t timer;
 			struct tm local;
 
-			/* Œ»İ‚ğæ“¾ */
+			/* ç¾åœ¨æ™‚åˆ»ã‚’å–å¾— */
 			timer = time(NULL);
 
-			localtime_s(&local, &timer); /* ’n•û‚É•ÏŠ· */
+			localtime_s(&local, &timer); /* åœ°æ–¹æ™‚ã«å¤‰æ› */
 			//#define pFileName "LeekMemoryList.txt" 
 			Debugger::DBGWRITINGLOGTEXT::addStrToFile(pFileNameW,L"============================================================================================================\n");
-			Debugger::DBGWRITINGLOGTEXT::addStrToFile(pFileNameW,L"=====                                 ƒ[ƒJƒ‹ŠÔ %4d/%2d/%2d %2d:%2d:%2d                                 =====\n",
+			Debugger::DBGWRITINGLOGTEXT::addStrToFile(pFileNameW,L"=====                                 ãƒ­ãƒ¼ã‚«ãƒ«æ™‚é–“ %4d/%2d/%2d %2d:%2d:%2d                                 =====\n",
 				local.tm_year + 1900, local.tm_mon + 1, local.tm_mday, local.tm_hour,
 				local.tm_min, local.tm_sec, local.tm_isdst );
-			//Debugger::DBGWRITINGLOGTEXT::addStrToFile(pFileNameW,L"=====                              ƒ[ƒJƒ‹ŠÔ 9999/99/99 99:99:%99                                   =====\n");
+			//Debugger::DBGWRITINGLOGTEXT::addStrToFile(pFileNameW,L"=====                              ãƒ­ãƒ¼ã‚«ãƒ«æ™‚é–“ 9999/99/99 99:99:%99                                   =====\n");
 			Debugger::DBGWRITINGLOGTEXT::addStrToFile(pFileNameW,L"============================================================================================================\n");
 
-			//Debugger::DBGWRITINGLOGTEXT::addStrToFile( pFileNameW , L"ƒ[ƒJƒ‹ŠÔ %4d/%2d/%2d %2d:%2d:%2d %d \n",
+			//Debugger::DBGWRITINGLOGTEXT::addStrToFile( pFileNameW , L"ãƒ­ãƒ¼ã‚«ãƒ«æ™‚é–“ %4d/%2d/%2d %2d:%2d:%2d %d \n",
 			//	local.tm_year + 1900, local.tm_mon + 1, local.tm_mday, local.tm_hour,
 			//	local.tm_min, local.tm_sec, local.tm_isdst );
-			Debugger::DBGWRITINGLOGTEXT::addStrToFile( pFileNameW  , L"‘ƒCƒ“ƒXƒ^ƒ“ƒX” : %d\n"		, m_ItemInfo.size()  );
-			Debugger::DBGWRITINGLOGTEXT::addStrToFile( pFileNameW  , L"Šm•Û—Ìˆæ—e—Ê     : %d Byte\n"	, m_dwAreaSize       );
+			Debugger::DBGWRITINGLOGTEXT::addStrToFile( pFileNameW  , L"ç·ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹æ•° : %d\n"		, m_ItemInfo.size()  );
+			Debugger::DBGWRITINGLOGTEXT::addStrToFile( pFileNameW  , L"ç¢ºä¿é ˜åŸŸå®¹é‡     : %d Byte\n"	, m_dwAreaSize       );
 			
 			DWORD i = 0 ;
 		#endif
@@ -270,33 +270,33 @@ public:
 			for( it = m_ItemInfo.begin() ; it != m_ItemInfo.end() ; it++ ){
 		#if defined( CF_MEMORYLEEKOUTPUT_ENABLE )
 				Debugger::DBGWRITINGLOGTEXT::addStrToFile( pFileNameA  , "////////////\n"                              );
-				Debugger::DBGWRITINGLOGTEXT::addStrToFile( pFileNameA  , "// ƒf[ƒ^ %d \n"         , i                 );
-				Debugger::DBGWRITINGLOGTEXT::addStrToFile( pFileNameA  , "// ƒ|ƒCƒ“ƒ^   : 0x%X \n" , it->pPointer      );
-				Debugger::DBGWRITINGLOGTEXT::addStrToFile( pFileNameA  , "// ƒTƒCƒY     : %d \n"   , it->iSize         );
-				Debugger::DBGWRITINGLOGTEXT::addStrToFile( pFileNameA  , "// ƒtƒ@ƒCƒ‹–¼ : %s \n"   , it->sFile.c_str() );
-				Debugger::DBGWRITINGLOGTEXT::addStrToFile( pFileNameA  , "// ŠÖ”       : %s \n"   , it->sFunc.c_str() );
-				Debugger::DBGWRITINGLOGTEXT::addStrToFile( pFileNameA  , "// s         : %d \n"   , it->iLine         );
-				Debugger::DBGWRITINGLOGTEXT::addStrToFile( pFileNameA  , "// ŠÔ       : %d \n\n" , it->iGenerateTime );
+				Debugger::DBGWRITINGLOGTEXT::addStrToFile( pFileNameA  , "// ãƒ‡ãƒ¼ã‚¿ %d \n"         , i                 );
+				Debugger::DBGWRITINGLOGTEXT::addStrToFile( pFileNameA  , "// ãƒã‚¤ãƒ³ã‚¿   : 0x%X \n" , it->pPointer      );
+				Debugger::DBGWRITINGLOGTEXT::addStrToFile( pFileNameA  , "// ã‚µã‚¤ã‚º     : %d \n"   , it->iSize         );
+				Debugger::DBGWRITINGLOGTEXT::addStrToFile( pFileNameA  , "// ãƒ•ã‚¡ã‚¤ãƒ«å : %s \n"   , it->sFile.c_str() );
+				Debugger::DBGWRITINGLOGTEXT::addStrToFile( pFileNameA  , "// é–¢æ•°       : %s \n"   , it->sFunc.c_str() );
+				Debugger::DBGWRITINGLOGTEXT::addStrToFile( pFileNameA  , "// è¡Œ         : %d \n"   , it->iLine         );
+				Debugger::DBGWRITINGLOGTEXT::addStrToFile( pFileNameA  , "// æ™‚é–“       : %d \n\n" , it->iGenerateTime );
 				i++;
 		#endif
 				free( it->pPointer );
 				it->pPointer = NULL ;
 			}
 		#if defined( CF_MEMORYLEEKOUTPUT_ENABLE )
-				::MessageBox( 0, buf.c_str(), L"Œx", MB_OK | MB_ICONWARNING );
-				::MessageBox( 0, L"‚È‚¨A‚±‚ÌƒƒO‚Í’~Ï‚µ‚³‚ê‚Ü‚·B\nƒn[ƒhƒfƒBƒXƒN‚ğˆ³”—‚·‚é‰Â”\«‚ª‚ ‚é‚Ì‚Å‚²’ˆÓ‚­‚¾‚³‚¢", L"Œx", MB_OK | MB_ICONWARNING );
+				::MessageBox( 0, buf.c_str(), L"è­¦å‘Š", MB_OK | MB_ICONWARNING );
+				::MessageBox( 0, L"ãªãŠã€ã“ã®ãƒ­ã‚°ã¯è“„ç©ã—ã•ã‚Œã¾ã™ã€‚\nãƒãƒ¼ãƒ‰ãƒ‡ã‚£ã‚¹ã‚¯ã‚’åœ§è¿«ã™ã‚‹å¯èƒ½æ€§ãŒã‚ã‚‹ã®ã§ã”æ³¨æ„ãã ã•ã„", L"è­¦å‘Š", MB_OK | MB_ICONWARNING );
 		#endif
 		}
 		m_ItemInfo.clear();
 	}
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     F~TMemoryManager()
-	//// ƒJƒeƒSƒŠ   FƒfƒXƒgƒ‰ƒNƒ^
-	//// —p“r       FƒNƒ‰ƒX‚ğ”jŠü
-	//// ˆø”       F‚È‚µ
-	//// –ß’l       F‚È‚µ
-	//// ’S“–       F°Œ´ “O
-	//// ”õl       F
+	//// é–¢æ•°å     ï¼š~TMemoryManager()
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	//// ç”¨é€”       ï¼šã‚¯ãƒ©ã‚¹ã‚’ç ´æ£„
+	//// å¼•æ•°       ï¼šãªã—
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“       ï¼šé´«åŸ å¾¹
+	//// å‚™è€ƒ       ï¼š
 	////
 	~TMemoryManager(){
 		Clear();
@@ -308,7 +308,7 @@ public:
 //	return NULL;//TMemoryManager::add(iSize,sFile,sFunc,iLine);
 //};
 ////////
-//	: operator new ‚ÌƒI[ƒo[ƒ‰ƒCƒh
+//	: operator new ã®ã‚ªãƒ¼ãƒãƒ¼ãƒ©ã‚¤ãƒ‰
 //inline void* operator new(size_t iSize,LPCSTR  sFile =  "" , LPCSTR  sFunc = "" , UINT iLine = 0)
 
 inline void* operator new(size_t iSize,LPCSTR  sFile  , LPCSTR  sFunc  , UINT iLine )
@@ -324,7 +324,7 @@ inline void operator delete(void* pv){
 	return TMemoryManager::remove(pv);
 };
 
-	//	: ‹­§new’u‚«Š·‚¦
+	//	: å¼·åˆ¶newç½®ãæ›ãˆ
 	#if defined( CF_OVERLORDNEW_ENABLE )
 		#define new new(__FILE__ , __FUNCTION__, __LINE__)
 	#endif
@@ -336,7 +336,7 @@ inline void operator delete(void* pv){
 #endif
 
 //////////
-// DXUTŒİŠ·ƒ}ƒNƒ
+// DXUTäº’æ›ãƒã‚¯ãƒ­
 #ifndef SAFE_RELEASE
 #define SAFE_RELEASE(p)			{	if (p) { (p)->Release(); (p)=NULL; } }
 #endif
@@ -356,14 +356,14 @@ inline void operator delete(void* pv){
 
 
 /////////////////// ////////////////////
-//// ŠÖ”–¼     Ftemplate<typename T> inline void SafeDelete(T*& p)
-//// ƒJƒeƒSƒŠ   Fƒeƒ“ƒvƒŒ[ƒgŠÖ”
-//// —p“r       FˆÀ‘S‚Éƒ|ƒCƒ“ƒ^‚ğdelete‚·‚é
-//// ˆø”       F  T*& p               // TŒ^‚Ìƒ|ƒCƒ“ƒ^‚ÌQÆ
-//// –ß’l       F‚È‚µ
-//// ’S“–       F‚È‚µ(Rƒmˆäæ¶‚Ì‚Ğ‚ÈŒ`‚æ‚è)
-//// ”õl       F
-////            F
+//// é–¢æ•°å     ï¼štemplate<typename T> inline void SafeDelete(T*& p)
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆé–¢æ•°
+//// ç”¨é€”       ï¼šå®‰å…¨ã«ãƒã‚¤ãƒ³ã‚¿ã‚’deleteã™ã‚‹
+//// å¼•æ•°       ï¼š  T*& p               // Tå‹ã®ãƒã‚¤ãƒ³ã‚¿ã®å‚ç…§
+//// æˆ»å€¤       ï¼šãªã—
+//// æ‹…å½“       ï¼šãªã—(å±±ãƒäº•å…ˆç”Ÿã®ã²ãªå½¢ã‚ˆã‚Š)
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
 template<typename T>
 inline void SafeDelete(T*& p){
@@ -374,14 +374,14 @@ inline void SafeDelete(T*& p){
 }
 
 /////////////////// ////////////////////
-//// ŠÖ”–¼     Ftemplate<typename T> inline void SafeDeleteArr(T*& p)
-//// ƒJƒeƒSƒŠ   Fƒeƒ“ƒvƒŒ[ƒgŠÖ”
-//// —p“r       FˆÀ‘S‚É”z—ñ‚ğdelete‚·‚é
-//// ˆø”       F  T*& p               // TŒ^‚Ìƒ|ƒCƒ“ƒ^‚ÌQÆ
-//// –ß’l       F‚È‚µ
-//// ’S“–       F‚È‚µ(Rƒmˆäæ¶‚Ì‚Ğ‚ÈŒ`‚æ‚è)
-//// ”õl       F
-////            F
+//// é–¢æ•°å     ï¼štemplate<typename T> inline void SafeDeleteArr(T*& p)
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆé–¢æ•°
+//// ç”¨é€”       ï¼šå®‰å…¨ã«é…åˆ—ã‚’deleteã™ã‚‹
+//// å¼•æ•°       ï¼š  T*& p               // Tå‹ã®ãƒã‚¤ãƒ³ã‚¿ã®å‚ç…§
+//// æˆ»å€¤       ï¼šãªã—
+//// æ‹…å½“       ï¼šãªã—(å±±ãƒäº•å…ˆç”Ÿã®ã²ãªå½¢ã‚ˆã‚Š)
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
 template<typename T>
 inline void SafeDeleteArr(T*& p){
@@ -392,15 +392,15 @@ inline void SafeDeleteArr(T*& p){
 }
 
 /////////////////// ////////////////////
-//// ŠÖ”–¼     Ftemplate<typename T> inline void SafeDeletePointerMap(T& c)
-//// ƒJƒeƒSƒŠ   Fƒeƒ“ƒvƒŒ[ƒgŠÖ”
-//// —p“r       Fƒ|ƒCƒ“ƒ^[‚ğŠi”[‚µ‚½stdƒRƒ“ƒeƒi‚ğˆÀ‘S‚Édelete‚·‚é
-//// ˆø”       F  T*& c               // TŒ^‚ÌstdƒRƒ“ƒeƒi‚ÌQÆ
-//// –ß’l       F‚È‚µ
-//// ’S“–       F°Œ´ “O
-//// ”õl       F==—LŒø‚ÈŒ^==
-////            Fstd::map
-////            Fstd::multimap
+//// é–¢æ•°å     ï¼štemplate<typename T> inline void SafeDeletePointerMap(T& c)
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆé–¢æ•°
+//// ç”¨é€”       ï¼šãƒã‚¤ãƒ³ã‚¿ãƒ¼ã‚’æ ¼ç´ã—ãŸstdã‚³ãƒ³ãƒ†ãƒŠã‚’å®‰å…¨ã«deleteã™ã‚‹
+//// å¼•æ•°       ï¼š  T*& c               // Tå‹ã®stdã‚³ãƒ³ãƒ†ãƒŠã®å‚ç…§
+//// æˆ»å€¤       ï¼šãªã—
+//// æ‹…å½“       ï¼šé´«åŸ å¾¹
+//// å‚™è€ƒ       ï¼š==æœ‰åŠ¹ãªå‹==
+////            ï¼šstd::map
+////            ï¼šstd::multimap
 ////
 template<typename T>
 inline void SafeDeletePointerMap(T& c){
@@ -413,13 +413,13 @@ inline void SafeDeletePointerMap(T& c){
 	c.clear();
 }
 /////////////////// ////////////////////
-//// ŠÖ”–¼     Ftemplate<typename T> inline void SefeDeletePointerVector(vector<C*>& Vec)
-//// ƒJƒeƒSƒŠ   Fƒeƒ“ƒvƒŒ[ƒgŠÖ”
-//// —p“r       Fƒ|ƒCƒ“ƒ^‚Ì”z—ñivectorj‚ğˆÀ‘S‚ÉƒNƒŠƒA‚·‚é
-//// ˆø”       F  vector<C*>& Vec               //  : CŒ^‚Ì”z—ñ‚ÌQÆ
-//// –ß’l       F‚È‚µ
-//// ’S“–       F‚È‚µ(Rƒmˆäæ¶‚Ì‚Ğ‚ÈŒ`‚æ‚è)
-//// ”õl       F
+//// é–¢æ•°å     ï¼štemplate<typename T> inline void SefeDeletePointerVector(vector<C*>& Vec)
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆé–¢æ•°
+//// ç”¨é€”       ï¼šãƒã‚¤ãƒ³ã‚¿ã®é…åˆ—ï¼ˆvectorï¼‰ã‚’å®‰å…¨ã«ã‚¯ãƒªã‚¢ã™ã‚‹
+//// å¼•æ•°       ï¼š  vector<C*>& Vec               //  : Cå‹ã®é…åˆ—ã®å‚ç…§
+//// æˆ»å€¤       ï¼šãªã—
+//// æ‹…å½“       ï¼šãªã—(å±±ãƒäº•å…ˆç”Ÿã®ã²ãªå½¢ã‚ˆã‚Š)
+//// å‚™è€ƒ       ï¼š
 ////
 template<class C>
 void SefeDeletePointerVector(vector<C*>& Vec){
@@ -440,25 +440,25 @@ inline void widen(const std::string &src, std::wstring &dest) {
 }
 }
 /////////////////// ////////////////////
-//// ŠÖ”–¼     Ftemplate<typename T> inline void SafeDeletePointerContainer(T& c)
-//// ƒJƒeƒSƒŠ   Fƒeƒ“ƒvƒŒ[ƒgŠÖ”
-//// —p“r       FƒRƒ“ƒeƒi‚ÉŠi”[‚³‚ê‚½ƒ|ƒCƒ“ƒ^[‚ğˆÀ‘S‚É‚·‚×‚ÄDelete‚µ‚Ü‚·
-//// ˆø”       F  T*& c               // TŒ^‚ÌstdƒRƒ“ƒeƒi‚ÌQÆ
-//// –ß’l       F‚È‚µ
-//// ’S“–       F°Œ´ “O
-//// ”õl       FˆÀ‘S‚É‚Æ‚ÍŒ¾‚Á‚Ä‚à‚à‚¿‚ë‚ñ“ñdíœ‚â
-////            FnewˆÈŠO‚Å¶¬‚³‚ê‚½À‘Ì‚Ö‚Ìƒ|ƒCƒ“ƒ^[‚É‚Í
-////            F‘Î‰‚Å‚«‚È‚¢‚Ì‚Å’ˆÓ‚µ‚Ä‚­‚¾‚³‚¢
-////            F==ˆÈ‰º‚ÌŒ^ "ˆÈŠO" ‚ÌstdƒRƒ“ƒeƒi‚É—LŒø‚Å‚·==
-////            Fstd::map
-////            Fstd::multimap
+//// é–¢æ•°å     ï¼štemplate<typename T> inline void SafeDeletePointerContainer(T& c)
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆé–¢æ•°
+//// ç”¨é€”       ï¼šã‚³ãƒ³ãƒ†ãƒŠã«æ ¼ç´ã•ã‚ŒãŸãƒã‚¤ãƒ³ã‚¿ãƒ¼ã‚’å®‰å…¨ã«ã™ã¹ã¦Deleteã—ã¾ã™
+//// å¼•æ•°       ï¼š  T*& c               // Tå‹ã®stdã‚³ãƒ³ãƒ†ãƒŠã®å‚ç…§
+//// æˆ»å€¤       ï¼šãªã—
+//// æ‹…å½“       ï¼šé´«åŸ å¾¹
+//// å‚™è€ƒ       ï¼šå®‰å…¨ã«ã¨ã¯è¨€ã£ã¦ã‚‚ã‚‚ã¡ã‚ã‚“äºŒé‡å‰Šé™¤ã‚„
+////            ï¼šnewä»¥å¤–ã§ç”Ÿæˆã•ã‚ŒãŸå®Ÿä½“ã¸ã®ãƒã‚¤ãƒ³ã‚¿ãƒ¼ã«ã¯
+////            ï¼šå¯¾å¿œã§ããªã„ã®ã§æ³¨æ„ã—ã¦ãã ã•ã„
+////            ï¼š==ä»¥ä¸‹ã®å‹ "ä»¥å¤–" ã®stdã‚³ãƒ³ãƒ†ãƒŠã«æœ‰åŠ¹ã§ã™==
+////            ï¼šstd::map
+////            ï¼šstd::multimap
 ////
 template<typename T>
 inline void SafeDeletePointerContainer(T& c){
 	try{
 /*
-		//	: «ƒfƒoƒbƒO—p‚Ìˆ—‚ÅŒ©“ï‚­‚È‚Á‚Ä‚¢‚Ü‚·‚ª«
-		//	:   «’†g‚Å‚â‚Á‚Ä‚¢‚é‚±‚Æ‚Í‚±‚ñ‚È‚ñ‚Å‚·«
+		//	: â†“ãƒ‡ãƒãƒƒã‚°ç”¨ã®å‡¦ç†ã§è¦‹é›£ããªã£ã¦ã„ã¾ã™ãŒâ†“
+		//	:   â†“ä¸­èº«ã§ã‚„ã£ã¦ã„ã‚‹ã“ã¨ã¯ã“ã‚“ãªã‚“ã§ã™â†“
 
 		if( c.empty() )		return;
 
@@ -470,9 +470,9 @@ inline void SafeDeletePointerContainer(T& c){
 		c.clear();
 */
 		if( c.empty() ){
-			//	: ƒRƒ“ƒeƒi[‚ª‹ó‚È‚ç‚»‚Ì‚Ü‚Üˆ—‚ğI—¹
+			//	: ã‚³ãƒ³ãƒ†ãƒŠãƒ¼ãŒç©ºãªã‚‰ãã®ã¾ã¾å‡¦ç†ã‚’çµ‚äº†
 			#if defined(CF_DEBUGLOGTEXT_OUTPUT_ENABLE)
-				//Debugger::DBGWRITINGLOGTEXT::addStr(L"SafeDeletePointerContainer(T& c) > %dŒÂ  \n" , c.size()  );
+				//Debugger::DBGWRITINGLOGTEXT::addStr(L"SafeDeletePointerContainer(T& c) > %då€‹  \n" , c.size()  );
 			#endif
 
 			return;
@@ -481,12 +481,12 @@ inline void SafeDeletePointerContainer(T& c){
 			//Debugger::DBGWRITINGLOGTEXT::addStr(L"\n////////// \n"   );
 			//Debugger::DBGWRITINGLOGTEXT::addStr(L"// \n"  );
 			//Debugger::DBGWRITINGLOGTEXT::addStr(L"// \n"  );
-			//Debugger::DBGWRITINGLOGTEXT::addStr(L"SafeDeletePointerContainer(T& c) > %dŒÂ íœŠJn \n" , c.size()  );
+			//Debugger::DBGWRITINGLOGTEXT::addStr(L"SafeDeletePointerContainer(T& c) > %då€‹ å‰Šé™¤é–‹å§‹ \n" , c.size()  );
 			DWORD num = 0;
 		#endif
 
 		//////////
-		//	: ƒCƒeƒŒ[ƒ^‚ªEND‚É‚È‚é‚Ü‚Åíœ
+		//	: ã‚¤ãƒ†ãƒ¬ãƒ¼ã‚¿ãŒENDã«ãªã‚‹ã¾ã§å‰Šé™¤
 		T::iterator	it  = c.begin()	,
 					end = c.end()	;
 		while( it != end ){
@@ -495,10 +495,10 @@ inline void SafeDeletePointerContainer(T& c){
 				//const type_info& yp = typeid(*(*it));
 				//wstring buf ;
 				//Avoid::widen( string( yp.name() ), buf);
-				//Debugger::DBGWRITINGLOGTEXT::addStr(L"SafeDeletePointerContainer(T& c) > [%d / %d]ŒÂ íœŠJn ( %s )\n" , num   , c.size() , buf.c_str() );
+				//Debugger::DBGWRITINGLOGTEXT::addStr(L"SafeDeletePointerContainer(T& c) > [%d / %d]å€‹ å‰Šé™¤é–‹å§‹ ( %s )\n" , num   , c.size() , buf.c_str() );
 			#endif
 
-			//	: ƒ|ƒCƒ“ƒ^[‚Ìíœ
+			//	: ãƒã‚¤ãƒ³ã‚¿ãƒ¼ã®å‰Šé™¤
 			SafeDelete( *it );
 			//*it = NULL ;
 			#if defined(CF_DEBUGLOGTEXT_OUTPUT_ENABLE)
@@ -506,15 +506,15 @@ inline void SafeDeletePointerContainer(T& c){
 			#endif
 			it++;
 			#if defined(CF_DEBUGLOGTEXT_OUTPUT_ENABLE)
-				//Debugger::DBGWRITINGLOGTEXT::addStr(L"SafeDeletePointerContainer(T& c) > [%d / %d]ŒÂ íœŠ®—¹ ( %s )\n" , num , c.size() , buf.c_str() );
+				//Debugger::DBGWRITINGLOGTEXT::addStr(L"SafeDeletePointerContainer(T& c) > [%d / %d]å€‹ å‰Šé™¤å®Œäº† ( %s )\n" , num , c.size() , buf.c_str() );
 			#endif
 		}
-		//	: ÅŒã‚ÉƒRƒ“ƒeƒi‚ğ‹ó‚É
+		//	: æœ€å¾Œã«ã‚³ãƒ³ãƒ†ãƒŠã‚’ç©ºã«
 		c.clear();
 		//
 		//////////
 		#if defined(CF_DEBUGLOGTEXT_OUTPUT_ENABLE)
-			//Debugger::DBGWRITINGLOGTEXT::addStr(L"SafeDeletePointerContainer(T& c) > %dŒÂ íœŠ®—¹\n" , num  );
+			//Debugger::DBGWRITINGLOGTEXT::addStr(L"SafeDeletePointerContainer(T& c) > %då€‹ å‰Šé™¤å®Œäº†\n" , num  );
 			//Debugger::DBGWRITINGLOGTEXT::addStr(L"// \n"  );
 			//Debugger::DBGWRITINGLOGTEXT::addStr(L"// \n"  );
 			//Debugger::DBGWRITINGLOGTEXT::addStr(L"////////// \n"   );
@@ -525,23 +525,23 @@ inline void SafeDeletePointerContainer(T& c){
 }
 
 /////////////////// ////////////////////
-//// ŠÖ”–¼     Ftemplate<typename T> inline void SafeReleasePointerContainer(T& c)
-//// ƒJƒeƒSƒŠ   Fƒeƒ“ƒvƒŒ[ƒgŠÖ”
-//// —p“r       Fƒ|ƒCƒ“ƒ^[‚ğŠi”[‚µ‚½stdƒRƒ“ƒeƒi‚ğˆÀ‘S‚ÉRelease‚·‚é
-//// ˆø”       F  T*& c               // TŒ^‚ÌstdƒRƒ“ƒeƒi‚ÌQÆ
-//// –ß’l       F‚È‚µ
-//// ’S“–       F°Œ´ “O
-//// ”õl       FˆÀ‘S‚É‚Æ‚ÍŒ¾‚Á‚Ä‚à‚à‚¿‚ë‚ñ
-////            F==ˆÈ‰º‚ÌŒ^ "ˆÈŠO" ‚ÌstdƒRƒ“ƒeƒi‚É—LŒø‚Å‚·==
-////            Fstd::map
-////            Fstd::multimap
+//// é–¢æ•°å     ï¼štemplate<typename T> inline void SafeReleasePointerContainer(T& c)
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆé–¢æ•°
+//// ç”¨é€”       ï¼šãƒã‚¤ãƒ³ã‚¿ãƒ¼ã‚’æ ¼ç´ã—ãŸstdã‚³ãƒ³ãƒ†ãƒŠã‚’å®‰å…¨ã«Releaseã™ã‚‹
+//// å¼•æ•°       ï¼š  T*& c               // Tå‹ã®stdã‚³ãƒ³ãƒ†ãƒŠã®å‚ç…§
+//// æˆ»å€¤       ï¼šãªã—
+//// æ‹…å½“       ï¼šé´«åŸ å¾¹
+//// å‚™è€ƒ       ï¼šå®‰å…¨ã«ã¨ã¯è¨€ã£ã¦ã‚‚ã‚‚ã¡ã‚ã‚“
+////            ï¼š==ä»¥ä¸‹ã®å‹ "ä»¥å¤–" ã®stdã‚³ãƒ³ãƒ†ãƒŠã«æœ‰åŠ¹ã§ã™==
+////            ï¼šstd::map
+////            ï¼šstd::multimap
 ////
 template<typename T>
 inline void SafeReleasePointerContainer(T& c){
 	try{
 /*
-		//	: «ƒfƒoƒbƒO—p‚Ìˆ—‚ÅŒ©“ï‚­‚È‚Á‚Ä‚¢‚Ü‚·‚ª«
-		//	:   «’†g‚Å‚â‚Á‚Ä‚¢‚é‚±‚Æ‚Í‚±‚ñ‚È‚ñ‚Å‚·«
+		//	: â†“ãƒ‡ãƒãƒƒã‚°ç”¨ã®å‡¦ç†ã§è¦‹é›£ããªã£ã¦ã„ã¾ã™ãŒâ†“
+		//	:   â†“ä¸­èº«ã§ã‚„ã£ã¦ã„ã‚‹ã“ã¨ã¯ã“ã‚“ãªã‚“ã§ã™â†“
 
 		if( c.empty() ){
 			return;
@@ -555,7 +555,7 @@ inline void SafeReleasePointerContainer(T& c){
 */
 		if( c.empty() ){
 			#if defined(CF_DEBUGLOGTEXT_OUTPUT_ENABLE)
-						//Debugger::DBGWRITINGLOGTEXT::addStr(L"SafeDeletePointerContainer(T& c) > %dŒÂ  \n" , c.size()  );
+						//Debugger::DBGWRITINGLOGTEXT::addStr(L"SafeDeletePointerContainer(T& c) > %då€‹  \n" , c.size()  );
 			#endif
 			return;
 		}
@@ -563,7 +563,7 @@ inline void SafeReleasePointerContainer(T& c){
 				//Debugger::DBGWRITINGLOGTEXT::addStr(L"\n////////// \n"   );
 				//Debugger::DBGWRITINGLOGTEXT::addStr(L"// \n"  );
 				//Debugger::DBGWRITINGLOGTEXT::addStr(L"// \n"  );
-				//Debugger::DBGWRITINGLOGTEXT::addStr(L"SafeDeletePointerContainer(T& c) > %dŒÂ íœŠJn \n" , c.size()  );
+				//Debugger::DBGWRITINGLOGTEXT::addStr(L"SafeDeletePointerContainer(T& c) > %då€‹ å‰Šé™¤é–‹å§‹ \n" , c.size()  );
 				DWORD num = 0;
 		#endif
 		T::iterator	it  = c.begin()	;
@@ -573,7 +573,7 @@ inline void SafeReleasePointerContainer(T& c){
 						//const type_info& yp = typeid(*(*it));
 						//wstring buf ;
 						//Avoid::widen( string( yp.name() ), buf);
-						//Debugger::DBGWRITINGLOGTEXT::addStr(L"SafeDeletePointerContainer(T& c) > [%d / %d]ŒÂ íœŠJn ( %s )\n" , num   , c.size() , buf.c_str() );
+						//Debugger::DBGWRITINGLOGTEXT::addStr(L"SafeDeletePointerContainer(T& c) > [%d / %d]å€‹ å‰Šé™¤é–‹å§‹ ( %s )\n" , num   , c.size() , buf.c_str() );
 			#endif
 			SafeRelease( *it );
 			//*it = NULL ;
@@ -582,12 +582,12 @@ inline void SafeReleasePointerContainer(T& c){
 			#endif
 			it++;
 			#if defined(CF_DEBUGLOGTEXT_OUTPUT_ENABLE)
-						//Debugger::DBGWRITINGLOGTEXT::addStr(L"SafeDeletePointerContainer(T& c) > [%d / %d]ŒÂ íœŠ®—¹ ( %s )\n" , num , c.size() , buf.c_str() );
+						//Debugger::DBGWRITINGLOGTEXT::addStr(L"SafeDeletePointerContainer(T& c) > [%d / %d]å€‹ å‰Šé™¤å®Œäº† ( %s )\n" , num , c.size() , buf.c_str() );
 			#endif
 		}
 		c.clear();
 		#if defined(CF_DEBUGLOGTEXT_OUTPUT_ENABLE)
-				//Debugger::DBGWRITINGLOGTEXT::addStr(L"SafeDeletePointerContainer(T& c) > %dŒÂ íœŠ®—¹\n" , num  );
+				//Debugger::DBGWRITINGLOGTEXT::addStr(L"SafeDeletePointerContainer(T& c) > %då€‹ å‰Šé™¤å®Œäº†\n" , num  );
 				//Debugger::DBGWRITINGLOGTEXT::addStr(L"// \n"  );
 				//Debugger::DBGWRITINGLOGTEXT::addStr(L"// \n"  );
 				//Debugger::DBGWRITINGLOGTEXT::addStr(L"////////// \n"   );
@@ -598,14 +598,14 @@ inline void SafeReleasePointerContainer(T& c){
 }
 
 /////////////////// ////////////////////
-//// ŠÖ”–¼     Ftemplate<typename T> inline void SafeRelease(T*& p)
-//// ƒJƒeƒSƒŠ   Fƒeƒ“ƒvƒŒ[ƒgŠÖ”
-//// —p“r       FˆÀ‘S‚ÉƒCƒ“ƒ^[ƒtƒFƒCƒX‚ğrelease‚·‚é
-//// ˆø”       F  T*& p               // TŒ^‚ÌƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ìƒ|ƒCƒ“ƒ^‚ÌQÆ
-//// –ß’l       F‚È‚µ
-//// ’S“–       F‚È‚µ(Rƒmˆäæ¶‚Ì‚Ğ‚ÈŒ`‚æ‚è)
-//// ”õl       F
-////            F
+//// é–¢æ•°å     ï¼štemplate<typename T> inline void SafeRelease(T*& p)
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆé–¢æ•°
+//// ç”¨é€”       ï¼šå®‰å…¨ã«ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã‚’releaseã™ã‚‹
+//// å¼•æ•°       ï¼š  T*& p               // Tå‹ã®ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã®ãƒã‚¤ãƒ³ã‚¿ã®å‚ç…§
+//// æˆ»å€¤       ï¼šãªã—
+//// æ‹…å½“       ï¼šãªã—(å±±ãƒäº•å…ˆç”Ÿã®ã²ãªå½¢ã‚ˆã‚Š)
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
 template<typename T>
 inline int SafeRelease(T*& p){

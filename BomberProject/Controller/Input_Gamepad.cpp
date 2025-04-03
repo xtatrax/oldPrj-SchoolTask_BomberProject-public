@@ -1,5 +1,5 @@
 //-----------------------------------------------------
-//	DirectInput‚ğg‚Á‚½“ü—ÍƒTƒ“ƒvƒ‹(ƒQ[ƒ€ƒpƒbƒh)
+//	DirectInputã‚’ä½¿ã£ãŸå…¥åŠ›ã‚µãƒ³ãƒ—ãƒ«(ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰)
 //	2009.12.29 TMO
 //-----------------------------------------------------
 #include "StdAfx.h"
@@ -12,24 +12,24 @@ CInputGamepad::CInputGamepad()
 	ZeroMemory(gamepadAction, sizeof(gamepadAction));
 }
 
-//ƒQ[ƒ€ƒpƒbƒhƒfƒoƒCƒX‚Ìì¬-ƒfƒoƒCƒX—ñ‹“‚ÌŒ‹‰Ê‚ğó‚¯æ‚é\‘¢‘Ì
+//ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰ãƒ‡ãƒã‚¤ã‚¹ã®ä½œæˆ-ãƒ‡ãƒã‚¤ã‚¹åˆ—æŒ™ã®çµæœã‚’å—ã‘å–ã‚‹æ§‹é€ ä½“
 struct DIDeviceEnumPrm
 {
 	bool isFind;
 	GUID guid;
 };
 
-//ƒQ[ƒ€ƒpƒbƒhƒfƒoƒCƒX‚Ìì¬-ƒfƒoƒCƒX‚ğ—ñ‹“‚µ‚ÄƒQ[ƒ€ƒpƒbƒh‚ğ’T‚·
+//ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰ãƒ‡ãƒã‚¤ã‚¹ã®ä½œæˆ-ãƒ‡ãƒã‚¤ã‚¹ã‚’åˆ—æŒ™ã—ã¦ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰ã‚’æ¢ã™
 static BOOL CALLBACK DIEnumDeviceCallback( LPCDIDEVICEINSTANCE ipddi, LPVOID pvRef )
 {
 	DIDeviceEnumPrm* prm = (DIDeviceEnumPrm*)pvRef;
 	prm->guid   = ipddi->guidInstance;
 	prm->isFind = true;
 
-	return DIENUM_STOP;	//—ñ‹“‚ğ‘±‚¯‚é‚È‚çDIENUM_CONTINUE
+	return DIENUM_STOP;	//åˆ—æŒ™ã‚’ç¶šã‘ã‚‹ãªã‚‰DIENUM_CONTINUE
 }
 
-//ƒQ[ƒ€ƒpƒbƒhƒfƒoƒCƒX‚Ìì¬
+//ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰ãƒ‡ãƒã‚¤ã‚¹ã®ä½œæˆ
 bool CInputGamepad::Create( IDirectInput8* pDInput, HWND hWnd )
 {
 	HRESULT hr;
@@ -43,11 +43,11 @@ bool CInputGamepad::Create( IDirectInput8* pDInput, HWND hWnd )
 		DIDeviceEnumPrm prm;
 		prm.isFind = false;
 		
-		//ƒQ[ƒ€ƒpƒbƒhƒfƒoƒCƒX‚ğ—ñ‹“‚µ‚ÄŒ©‚Â‚©‚Á‚½‚çGUID‚ğæ“¾‚·‚é
+		//ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰ãƒ‡ãƒã‚¤ã‚¹ã‚’åˆ—æŒ™ã—ã¦è¦‹ã¤ã‹ã£ãŸã‚‰GUIDã‚’å–å¾—ã™ã‚‹
 		pDInput->EnumDevices( DI8DEVTYPE_JOYSTICK, DIEnumDeviceCallback, (LPVOID)&prm, DIEDFL_ATTACHEDONLY );
 		
 		if ( prm.isFind != true ) {
-			throw "ƒQ[ƒ€ƒpƒbƒh‚ÍŒ©‚Â‚©‚è‚Ü‚¹‚ñ‚Å‚µ‚½";
+			throw "ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰ã¯è¦‹ã¤ã‹ã‚Šã¾ã›ã‚“ã§ã—ãŸ";
 		}
 
 		hr = pDInput->CreateDevice( prm.guid, &m_pDIDevJS, NULL );
@@ -58,7 +58,7 @@ bool CInputGamepad::Create( IDirectInput8* pDInput, HWND hWnd )
 
 		m_pDIDevJS->SetDataFormat(&c_dfDIJoystick);
 
-		//²ƒ‚[ƒh‚ğâ‘Î’lƒ‚[ƒh‚É
+		//è»¸ãƒ¢ãƒ¼ãƒ‰ã‚’çµ¶å¯¾å€¤ãƒ¢ãƒ¼ãƒ‰ã«
 		DIPROPDWORD diprop;
 		ZeroMemory(&diprop, sizeof(diprop));
 		diprop.diph.dwSize		= sizeof(diprop);
@@ -68,8 +68,8 @@ bool CInputGamepad::Create( IDirectInput8* pDInput, HWND hWnd )
 		diprop.dwData			= DIPROPAXISMODE_ABS;
 		m_pDIDevJS->SetProperty( DIPROP_AXISMODE, &diprop.diph );
 		
-		//²‚Ì’l‚Ì”ÍˆÍİ’è
-		//\šƒL[‚ğ‰Ÿ‚µ‚Ä‚¢‚È‚¢‚Æ‚«‚ª0‚É‚È‚é‚æ‚¤‚É
+		//è»¸ã®å€¤ã®ç¯„å›²è¨­å®š
+		//åå­—ã‚­ãƒ¼ã‚’æŠ¼ã—ã¦ã„ãªã„ã¨ããŒ0ã«ãªã‚‹ã‚ˆã†ã«
 		DIPROPRANGE diprg;
 		ZeroMemory(&diprg, sizeof(diprg));
 		diprg.diph.dwSize		= sizeof(diprg);
@@ -83,7 +83,7 @@ bool CInputGamepad::Create( IDirectInput8* pDInput, HWND hWnd )
 		diprg.diph.dwObj		= DIJOFS_Y;
 		m_pDIDevJS->SetProperty( DIPROP_RANGE, &diprg.diph );
 		
-		//ƒoƒbƒtƒ@ƒTƒCƒY‚Ìİ’è
+		//ãƒãƒƒãƒ•ã‚¡ã‚µã‚¤ã‚ºã®è¨­å®š
 		ZeroMemory(&diprop, sizeof(diprop));
 		diprop.diph.dwSize = sizeof(diprop);
 		diprop.diph.dwHeaderSize = sizeof(diprop.diph);
@@ -95,14 +95,14 @@ bool CInputGamepad::Create( IDirectInput8* pDInput, HWND hWnd )
 			return false;
 		}
 
-		//‹¦’²ƒ‚[ƒh‚Ìİ’è
+		//å”èª¿ãƒ¢ãƒ¼ãƒ‰ã®è¨­å®š
 		hr = m_pDIDevJS->SetCooperativeLevel(hWnd, DISCL_NONEXCLUSIVE | DISCL_FOREGROUND);
 		if (FAILED(hr))
 		{
 			throw "err";
 		}
 
-		//“ü—Í‚ğ‹–‰Â‚·‚é
+		//å…¥åŠ›ã‚’è¨±å¯ã™ã‚‹
 		m_pDIDevJS->Acquire();
 
 	} catch(...) {
@@ -112,7 +112,7 @@ bool CInputGamepad::Create( IDirectInput8* pDInput, HWND hWnd )
 	return true;
 }
 
-//ƒQ[ƒ€ƒpƒbƒh‚Ì“ü—Íó‘Ô‚ğXVi\šƒL[‚Æ‚S‚Â‚Ìƒ{ƒ^ƒ“‚¾‚¯ƒ`ƒFƒbƒN‚µ‚Ä‚¢‚éj
+//ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰ã®å…¥åŠ›çŠ¶æ…‹ã‚’æ›´æ–°ï¼ˆåå­—ã‚­ãƒ¼ã¨ï¼”ã¤ã®ãƒœã‚¿ãƒ³ã ã‘ãƒã‚§ãƒƒã‚¯ã—ã¦ã„ã‚‹ï¼‰
 void CInputGamepad::Update()
 {
 	if ( !m_pDIDevJS ) { return; }
@@ -270,7 +270,7 @@ void CInputGamepad::Update()
 		}
 	}
 }
-//ƒQ[ƒ€ƒpƒbƒhƒfƒoƒCƒX‚Ì‰ğ•ú
+//ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰ãƒ‡ãƒã‚¤ã‚¹ã®è§£æ”¾
 void CInputGamepad::Release()
 {
 	if ( m_pDIDevJS != NULL ) {

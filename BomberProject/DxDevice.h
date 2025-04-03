@@ -1,16 +1,16 @@
 ////////////////////////////// //////////////////////////////
-//	ƒvƒƒWƒFƒNƒg	FDirectX Program Bass Project
-//	ƒtƒ@ƒCƒ‹–¼		FDxDevice.h
-//	ŠJ”­ŠÂ‹«		FMSVC++ 2008
-//	Å“Kƒ^ƒu”		F4
-//	’S“–ŽÒ			FŽ°Œ´ “O
-//	“à•ïÃÞ°À‚Æ”õl	FƒfƒoƒCƒX‚ðŠÇ—‚µ‚Ü‚·
-//					FƒQ[ƒ€ƒ‹[ƒv‚ÍŠeThreadRunŠÖ”‚Ì’†‚É’è‹`‚³‚ê‚Ä‚¢‚Ü‚·
-//					Fstdafx.h “à‚É ON_DEBUGGINGPROCESS ‚ðƒfƒtƒ@ƒCƒ“’è‹`‚·‚é‚±‚Æ‚Å
-//					Fƒ}ƒ‹ƒ`ƒXƒŒƒbƒh‚ðŽÀ‘•‚Å‚«‚Ü‚·( Œ»Ý—LŒø‚É‚·‚é‚ÆƒvƒŒƒCƒ„[‚Ì°
-//					F‚Æ‚ÌÕ“Ë”»’è‚ÅƒAƒNƒZƒXˆá”½‚ª”­¶‚µ‚Ü‚· )
-//					FšWinMainŠÖ”‚©‚çŒÄ‚Î‚ê‚Ü‚·
-//					¥
+//	ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆ	ï¼šDirectX Program Bass Project
+//	ãƒ•ã‚¡ã‚¤ãƒ«å		ï¼šDxDevice.h
+//	é–‹ç™ºç’°å¢ƒ		ï¼šMSVC++ 2008
+//	æœ€é©ã‚¿ãƒ–æ•°		ï¼š4
+//	æ‹…å½“è€…			ï¼šé´«åŽŸ å¾¹
+//	å†…åŒ…ãƒ‡ãƒ¼ã‚¿ã¨å‚™è€ƒ	ï¼šãƒ‡ãƒã‚¤ã‚¹ã‚’ç®¡ç†ã—ã¾ã™
+//					ï¼šã‚²ãƒ¼ãƒ ãƒ«ãƒ¼ãƒ—ã¯å„ThreadRuné–¢æ•°ã®ä¸­ã«å®šç¾©ã•ã‚Œã¦ã„ã¾ã™
+//					ï¼šstdafx.h å†…ã« ON_DEBUGGINGPROCESS ã‚’ãƒ‡ãƒ•ã‚¡ã‚¤ãƒ³å®šç¾©ã™ã‚‹ã“ã¨ã§
+//					ï¼šãƒžãƒ«ãƒã‚¹ãƒ¬ãƒƒãƒ‰ã‚’å®Ÿè£…ã§ãã¾ã™( ç¾åœ¨æœ‰åŠ¹ã«ã™ã‚‹ã¨ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®åºŠ
+//					ï¼šã¨ã®è¡çªåˆ¤å®šã§ã‚¢ã‚¯ã‚»ã‚¹é•åãŒç™ºç”Ÿã—ã¾ã™ )
+//					ï¼šâ˜…WinMainé–¢æ•°ã‹ã‚‰å‘¼ã°ã‚Œã¾ã™
+//					â–¼
 //	namespace wiz;
 //		class DxDevice;
 //
@@ -23,34 +23,34 @@ using namespace TLIB;
 namespace wiz{
 extern bool GameQuitFlag ;
 /**************************************************************************
- ˆË‘¶‚·‚éƒNƒ‰ƒX
+ ä¾å­˜ã™ã‚‹ã‚¯ãƒ©ã‚¹
 ****************************************************************************/
 class Scene;
 
 /**************************************************************************
  class DxDevice;
- —p“r: DirectXƒfƒoƒCƒXƒNƒ‰ƒX
+ ç”¨é€”: DirectXãƒ‡ãƒã‚¤ã‚¹ã‚¯ãƒ©ã‚¹
 ****************************************************************************/
 class DxDevice {
-/*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*/
-//	: ”ñŒöŠJ•Ï”+ƒ¿
-/*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*/
+/*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*/
+//	: éžå…¬é–‹å¤‰æ•°+Î±
+/*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*/
 private:
-	LPDIRECT3D9				m_pD3D			;	// IDirect3D9ƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-	LPDIRECT3DDEVICE9		m_pD3DDevice	;	// IDirect3DDevice9ƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-	D3DPRESENT_PARAMETERS	m_D3DPP			;	// ƒfƒoƒCƒX‚ÌƒvƒŒƒ[ƒ“ƒe[ƒVƒ‡ƒ“ƒpƒ‰ƒ[ƒ^
-	CONTROLLERS				m_Controller	;	// ƒRƒ“ƒgƒ[ƒ‰‚Ìƒ|ƒCƒ“ƒ^
-	Command					m_Com			;	// ƒRƒ}ƒ“ƒh
-	UpdatePacket			m_UpdatePacket	;	// ƒAƒbƒvƒf[ƒgƒXƒŒƒbƒh‚Ìˆ—‚É—¬‚·ƒf[ƒ^ŒQ
-	RenderPacket			m_RenderPacket	;	// ƒŒƒ“ƒ_[ƒXƒŒƒbƒh‚Ìˆ—‚É—¬‚·ƒf[ƒ^ŒQ
-	DrawPacket				m_DrawPacket	;	// ƒhƒ[ƒXƒŒƒbƒh‚Ìˆ—‚É—¬‚·ƒf[ƒ^ŒQ
+	LPDIRECT3D9				m_pD3D			;	// IDirect3D9ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+	LPDIRECT3DDEVICE9		m_pD3DDevice	;	// IDirect3DDevice9ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+	D3DPRESENT_PARAMETERS	m_D3DPP			;	// ãƒ‡ãƒã‚¤ã‚¹ã®ãƒ—ãƒ¬ã‚¼ãƒ³ãƒ†ãƒ¼ã‚·ãƒ§ãƒ³ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿
+	CONTROLLERS				m_Controller	;	// ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ã®ãƒã‚¤ãƒ³ã‚¿
+	Command					m_Com			;	// ã‚³ãƒžãƒ³ãƒ‰
+	UpdatePacket			m_UpdatePacket	;	// ã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆã‚¹ãƒ¬ãƒƒãƒ‰ã®å‡¦ç†ã«æµã™ãƒ‡ãƒ¼ã‚¿ç¾¤
+	RenderPacket			m_RenderPacket	;	// ãƒ¬ãƒ³ãƒ€ãƒ¼ã‚¹ãƒ¬ãƒƒãƒ‰ã®å‡¦ç†ã«æµã™ãƒ‡ãƒ¼ã‚¿ç¾¤
+	DrawPacket				m_DrawPacket	;	// ãƒ‰ãƒ­ãƒ¼ã‚¹ãƒ¬ãƒƒãƒ‰ã®å‡¦ç†ã«æµã™ãƒ‡ãƒ¼ã‚¿ç¾¤
 	Scene*					pScene			;	// 
 	static bool				m_bDestroy		;	//
 	static bool				m_bOnPlaySound	;	//
-	static Rect				m_WindowRect	;	// ƒQ[ƒ€‚Ì•`‰æ”ÍˆÍ‚Ì‘å‚«‚³‚ð•\‚·‹éŒ`
-	static D3DXVECTOR2		m_v2AspectRate	;		// Šî€‰ð‘œ“x‚ÆŒ»Ý‚Ì‰ð‘œ“x‚Ì”ä—¦
-	static HANDLE			m_hUpdateThread		;	// ƒAƒbƒvƒf[ƒg—pƒXƒŒƒbƒh‚Ìƒnƒ“ƒhƒ‹
-	static HANDLE			m_hLoadingThread	;	// ƒ[ƒh‰æ–Ê—pƒXƒŒƒbƒh‚Ìƒnƒ“ƒhƒ‹
+	static Rect				m_WindowRect	;	// ã‚²ãƒ¼ãƒ ã®æç”»ç¯„å›²ã®å¤§ãã•ã‚’è¡¨ã™çŸ©å½¢
+	static D3DXVECTOR2		m_v2AspectRate	;		// åŸºæº–è§£åƒåº¦ã¨ç¾åœ¨ã®è§£åƒåº¦ã®æ¯”çŽ‡
+	static HANDLE			m_hUpdateThread		;	// ã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆç”¨ã‚¹ãƒ¬ãƒƒãƒ‰ã®ãƒãƒ³ãƒ‰ãƒ«
+	static HANDLE			m_hLoadingThread	;	// ãƒ­ãƒ¼ãƒ‰ç”»é¢ç”¨ã‚¹ãƒ¬ãƒƒãƒ‰ã®ãƒãƒ³ãƒ‰ãƒ«
 	enum ProgramState{
 		PROGRAM_RUNNUNG,
 		PROGRAM_ENDTHREAD,
@@ -59,77 +59,77 @@ private:
 
 public:
 
-	static HWND				m_hWnd				;	// ƒƒCƒ“ƒEƒCƒ“ƒhƒE‚Ìƒnƒ“ƒhƒ‹
+	static HWND				m_hWnd				;	// ãƒ¡ã‚¤ãƒ³ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ã®ãƒãƒ³ãƒ‰ãƒ«
 
 private:
 /////////////////// ////////////////////
-//// ŠÖ”–¼     Fvoid initDevice(HWND hWnd,bool isFullScreen,int Width,int Height)
-//// ƒJƒeƒSƒŠ   FƒCƒjƒVƒƒƒ‰ƒCƒU
-//// —p“r       FƒvƒƒOƒ‰ƒ€‚ÅŽg‚¤ƒfƒoƒCƒX‚ð‰Šú‰»
-//// ˆø”       F  HWND hWnd,          //ƒEƒCƒ“ƒhƒE‚Ìƒnƒ“ƒhƒ‹
-////            F  bool isFullScreen,  //ƒtƒ‹ƒXƒNƒŠ[ƒ“‚©‚Ç‚¤‚©
-////            F  int Width,          //—Ìˆæ‚Ì•
-////            F  int Height          //—Ìˆæ‚Ì‚‚³
-//// –ß’l       F‚È‚µ
-//// ”õl       F
-////            F
+//// é–¢æ•°å     ï¼švoid initDevice(HWND hWnd,bool isFullScreen,int Width,int Height)
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚¤ãƒ‹ã‚·ãƒ£ãƒ©ã‚¤ã‚¶
+//// ç”¨é€”       ï¼šãƒ—ãƒ­ã‚°ãƒ©ãƒ ã§ä½¿ã†ãƒ‡ãƒã‚¤ã‚¹ã‚’åˆæœŸåŒ–
+//// å¼•æ•°       ï¼š  HWND hWnd,          //ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ã®ãƒãƒ³ãƒ‰ãƒ«
+////            ï¼š  bool isFullScreen,  //ãƒ•ãƒ«ã‚¹ã‚¯ãƒªãƒ¼ãƒ³ã‹ã©ã†ã‹
+////            ï¼š  int Width,          //é ˜åŸŸã®å¹…
+////            ï¼š  int Height          //é ˜åŸŸã®é«˜ã•
+//// æˆ»å€¤       ï¼šãªã—
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
     void initDevice(bool isFullScreen,int Width,int Height);
 
 
 
 
-/*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*/
-//	: ŒöŠJŠÖ”
-/*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*/
+/*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*/
+//	: å…¬é–‹é–¢æ•°
+/*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*/
 public:
 /**************************************************************************
  void Clear();
- —p“r: ƒIƒuƒWƒFƒNƒg‚ÌƒNƒŠƒA
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ã‚¯ãƒªã‚¢
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
     void Clear();
 /**************************************************************************
  DxDevice(
-    HWND hWnd,          //ƒEƒCƒ“ƒhƒE‚Ìƒnƒ“ƒhƒ‹
-    bool isFullScreen,  //ƒtƒ‹ƒXƒNƒŠ[ƒ“‚©‚Ç‚¤‚©
-    int Width,          //—Ìˆæ‚Ì•
-    int Height          //—Ìˆæ‚Ì‚‚³
+    HWND hWnd,          //ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ã®ãƒãƒ³ãƒ‰ãƒ«
+    bool isFullScreen,  //ãƒ•ãƒ«ã‚¹ã‚¯ãƒªãƒ¼ãƒ³ã‹ã©ã†ã‹
+    int Width,          //é ˜åŸŸã®å¹…
+    int Height          //é ˜åŸŸã®é«˜ã•
 );
- —p“r: ƒRƒ“ƒXƒgƒ‰ƒNƒ^
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
     DxDevice(bool isFullScreen,int Width,int Height);
 /**************************************************************************
  ~DxDevice();
- —p“r: ƒfƒXƒgƒ‰ƒNƒ^
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
     virtual ~DxDevice();
 /**************************************************************************
  LPDIRECT3DDEVICE9 getDevice();
- —p“r: ƒfƒoƒCƒX‚ÌŽæ“¾
- –ß‚è’l: IDirect3DDevice9ƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^BŽ¸”s‚µ‚½‚ç0
+ ç”¨é€”: ãƒ‡ãƒã‚¤ã‚¹ã®å–å¾—
+ æˆ»ã‚Šå€¤: IDirect3DDevice9ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿ã€‚å¤±æ•—ã—ãŸã‚‰0
 ***************************************************************************/
     LPDIRECT3DDEVICE9 getDevice();
 /////////////////// ////////////////////
-//// ŠÖ”–¼     Fvoid End()
-//// ƒJƒeƒSƒŠ   Fƒƒ“ƒoŠÖ”
-//// —p“r       FƒQ[ƒ€‚ÌI—¹‚ðéŒ¾
-//// ˆø”       F‚È‚µ
-//// –ß’l       Fint
-//// ”õl       FƒXƒŒƒbƒh‚ÌI—¹€”õ‚Æ‚©
-////            F
+//// é–¢æ•°å     ï¼švoid End()
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šãƒ¡ãƒ³ãƒé–¢æ•°
+//// ç”¨é€”       ï¼šã‚²ãƒ¼ãƒ ã®çµ‚äº†ã‚’å®£è¨€
+//// å¼•æ•°       ï¼šãªã—
+//// æˆ»å€¤       ï¼šint
+//// å‚™è€ƒ       ï¼šã‚¹ãƒ¬ãƒƒãƒ‰ã®çµ‚äº†æº–å‚™ã¨ã‹
+////            ï¼š
 ////
 	void End();
 /////////////////// ////////////////////
-//// ŠÖ”–¼     Fint MainThreadRun()
-//// ƒJƒeƒSƒŠ   Fƒƒ“ƒoŠÖ”
-//// —p“r       FƒƒCƒ“ƒXƒŒƒbƒh‚Ì[ƒv
-//// ˆø”       F‚È‚µ
-//// –ß’l       Fint
-//// ”õl       F
-////            F
+//// é–¢æ•°å     ï¼šint MainThreadRun()
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šãƒ¡ãƒ³ãƒé–¢æ•°
+//// ç”¨é€”       ï¼šãƒ¡ã‚¤ãƒ³ã‚¹ãƒ¬ãƒƒãƒ‰ã®ãƒ¼ãƒ—
+//// å¼•æ•°       ï¼šãªã—
+//// æˆ»å€¤       ï¼šint
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
 	int MainThreadRun();
 	static Rect getClientRect(){return m_WindowRect;}
@@ -139,158 +139,158 @@ public:
 	}
 	static D3DXVECTOR2 getAspectRate(){return m_v2AspectRate;}
 /////////////////// ////////////////////
-//// ŠÖ”–¼     Fstatic HWND getGameWindowHandle()
-//// ƒJƒeƒSƒŠ   FÃ“Iƒƒ“ƒoŠÖ”
-//// —p“r       FƒQ[ƒ€‰æ–Ê‚ð•`‰æ‚µ‚Ä‚éƒEƒCƒ“ƒhƒE‚Ìƒnƒ“ƒhƒ‹‚ð•Ô‚·
-//// ˆø”       F‚È‚µ
-//// –ß’l       F
-//// ”õl       F
-////            F
+//// é–¢æ•°å     ï¼šstatic HWND getGameWindowHandle()
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šé™çš„ãƒ¡ãƒ³ãƒé–¢æ•°
+//// ç”¨é€”       ï¼šã‚²ãƒ¼ãƒ ç”»é¢ã‚’æç”»ã—ã¦ã‚‹ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ã®ãƒãƒ³ãƒ‰ãƒ«ã‚’è¿”ã™
+//// å¼•æ•°       ï¼šãªã—
+//// æˆ»å€¤       ï¼š
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
 	static HWND getGameWindowHandle(){return m_hWnd;};
 /////////////////// ////////////////////
-//// ŠÖ”–¼     Fstatic HANDLE getUpdateThreadHandle()
-//// ƒJƒeƒSƒŠ   FÃ“Iƒƒ“ƒoŠÖ”
-//// —p“r       FƒAƒbƒvƒf[ƒg—pƒXƒŒƒbƒh‚Ìƒnƒ“ƒhƒ‹‚ð•Ô‚·
-//// ˆø”       F‚È‚µ
-//// –ß’l       F
-//// ”õl       FƒVƒ“ƒOƒ‹ƒXƒŒƒbƒhƒ‚[ƒh‚Ìê‡‚ÍNULL‚ð•Ô‚·
-////            F
+//// é–¢æ•°å     ï¼šstatic HANDLE getUpdateThreadHandle()
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šé™çš„ãƒ¡ãƒ³ãƒé–¢æ•°
+//// ç”¨é€”       ï¼šã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆç”¨ã‚¹ãƒ¬ãƒƒãƒ‰ã®ãƒãƒ³ãƒ‰ãƒ«ã‚’è¿”ã™
+//// å¼•æ•°       ï¼šãªã—
+//// æˆ»å€¤       ï¼š
+//// å‚™è€ƒ       ï¼šã‚·ãƒ³ã‚°ãƒ«ã‚¹ãƒ¬ãƒƒãƒ‰ãƒ¢ãƒ¼ãƒ‰ã®å ´åˆã¯NULLã‚’è¿”ã™
+////            ï¼š
 ////
 	static HANDLE getUpdateThreadHandle(){return m_hUpdateThread;};
 /////////////////// ////////////////////
-//// ŠÖ”–¼     Fstatic HANDLE getLoadingThreadHandle()
-//// ƒJƒeƒSƒŠ   FÃ“Iƒƒ“ƒoŠÖ”
-//// —p“r       Fƒ[ƒh‰æ–Ê—pƒXƒŒƒbƒh‚Ìƒnƒ“ƒhƒ‹‚ð•Ô‚·
-//// ˆø”       F‚È‚µ
-//// –ß’l       F
-//// ”õl       FƒVƒ“ƒOƒ‹ƒXƒŒƒbƒhƒ‚[ƒh‚Ìê‡‚ÍNULL‚ð•Ô‚·
-////            F
+//// é–¢æ•°å     ï¼šstatic HANDLE getLoadingThreadHandle()
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šé™çš„ãƒ¡ãƒ³ãƒé–¢æ•°
+//// ç”¨é€”       ï¼šãƒ­ãƒ¼ãƒ‰ç”»é¢ç”¨ã‚¹ãƒ¬ãƒƒãƒ‰ã®ãƒãƒ³ãƒ‰ãƒ«ã‚’è¿”ã™
+//// å¼•æ•°       ï¼šãªã—
+//// æˆ»å€¤       ï¼š
+//// å‚™è€ƒ       ï¼šã‚·ãƒ³ã‚°ãƒ«ã‚¹ãƒ¬ãƒƒãƒ‰ãƒ¢ãƒ¼ãƒ‰ã®å ´åˆã¯NULLã‚’è¿”ã™
+////            ï¼š
 ////
 	static HANDLE getLoadingThreadHandle(){return m_hLoadingThread;};
 
 /////////////////// ////////////////////
-//// ŠÖ”–¼     Fstatic bool getIsPlaySound() ;
-//// ƒJƒeƒSƒŠ   FÃ“Iƒƒ“ƒoŠÖ”
-//// —p“r       F‰¹º‚ðÄ¶‚³‚¹‚é‚©‚Ç‚¤‚©‚ð•Ô‚·
-//// ˆø”       F‚È‚µ‚µ
-//// –ß’l       F true  : Ä¶
-////            F false : ’âŽ~
-//// ”õl       F
-////            F
+//// é–¢æ•°å     ï¼šstatic bool getIsPlaySound() ;
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šé™çš„ãƒ¡ãƒ³ãƒé–¢æ•°
+//// ç”¨é€”       ï¼šéŸ³å£°ã‚’å†ç”Ÿã•ã›ã‚‹ã‹ã©ã†ã‹ã‚’è¿”ã™
+//// å¼•æ•°       ï¼šãªã—ã—
+//// æˆ»å€¤       ï¼š true  : å†ç”Ÿ
+////            ï¼š false : åœæ­¢
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
 	static bool getIsPlaySound(){return m_bOnPlaySound;};
 
 /////////////////// ////////////////////
-//// ŠÖ”–¼     Fstatic bool getSwitchingSoundOnOff()
-//// ƒJƒeƒSƒŠ   FÃ“Iƒƒ“ƒoŠÖ”
-//// —p“r       F‰¹º‚ÌON‚ÆOFF‚ðØ‚è‘Ö‚¦‚é
-//// ˆø”       F‚È‚µ
-//// –ß’l       F‚È‚µ
-//// ”õl       F
-////            F
+//// é–¢æ•°å     ï¼šstatic bool getSwitchingSoundOnOff()
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šé™çš„ãƒ¡ãƒ³ãƒé–¢æ•°
+//// ç”¨é€”       ï¼šéŸ³å£°ã®ONã¨OFFã‚’åˆ‡ã‚Šæ›¿ãˆã‚‹
+//// å¼•æ•°       ï¼šãªã—
+//// æˆ»å€¤       ï¼šãªã—
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
 	static void SwitchingSoundOnOff(){ m_bOnPlaySound ? m_bOnPlaySound = false : m_bOnPlaySound = true ; } ;
 
 /////////////////// ////////////////////
-//// ŠÖ”–¼     Fvoid Destroy()
-//// ƒJƒeƒSƒŠ   F
-//// —p“r       F
-//// ˆø”       F‚È‚µ
-//// –ß’l       F‚È‚µ
-//// ”õl       F
-////            F
+//// é–¢æ•°å     ï¼švoid Destroy()
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼š
+//// ç”¨é€”       ï¼š
+//// å¼•æ•°       ï¼šãªã—
+//// æˆ»å€¤       ï¼šãªã—
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
 	static void Destroy(){	m_bDestroy = true ; };
 
 /////////////////// ////////////////////
-//// ŠÖ”–¼     Fvoid EndUpdateThread()
-//// ƒJƒeƒSƒŠ   Fƒƒ“ƒoŠÖ”
-//// —p“r       FƒV[ƒ“‚ÌƒAƒbƒvƒf[ƒg—pƒXƒŒƒbƒh‚ðI—¹‚·‚é
-//// ˆø”       F‚È‚µ
-//// –ß’l       F‚È‚µ
-//// ”õl       F
-////            F
+//// é–¢æ•°å     ï¼švoid EndUpdateThread()
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šãƒ¡ãƒ³ãƒé–¢æ•°
+//// ç”¨é€”       ï¼šã‚·ãƒ¼ãƒ³ã®ã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆç”¨ã‚¹ãƒ¬ãƒƒãƒ‰ã‚’çµ‚äº†ã™ã‚‹
+//// å¼•æ•°       ï¼šãªã—
+//// æˆ»å€¤       ï¼šãªã—
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
 	// static void Destroy(){	m_bDestroy = true ; };
 
-/*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*/
-//	: ”ñŒöŠJŠÖ”
-/*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*/
+/*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*/
+//	: éžå…¬é–‹é–¢æ•°
+/*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*/
 private:
 /////////////////// ////////////////////
-//// ŠÖ”–¼     Fvoid UpdateThreadRun()
-//// ƒJƒeƒSƒŠ   Fƒƒ“ƒoŠÖ”
-//// —p“r       FƒV[ƒ“‚ÌƒAƒbƒvƒf[ƒg—pƒXƒŒƒbƒh‚Ìƒ‹[ƒv
-//// ˆø”       F‚È‚µ
-//// –ß’l       Fint
-//// ”õl       F
-////            F
+//// é–¢æ•°å     ï¼švoid UpdateThreadRun()
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šãƒ¡ãƒ³ãƒé–¢æ•°
+//// ç”¨é€”       ï¼šã‚·ãƒ¼ãƒ³ã®ã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆç”¨ã‚¹ãƒ¬ãƒƒãƒ‰ã®ãƒ«ãƒ¼ãƒ—
+//// å¼•æ•°       ï¼šãªã—
+//// æˆ»å€¤       ï¼šint
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
 	int UpdateThreadRun();
 
 /////////////////// ////////////////////
-//// ŠÖ”–¼     Fvoid UpdateScene()
-//// ƒJƒeƒSƒŠ   Fƒƒ“ƒoŠÖ”
-//// —p“r       FƒIƒuƒWƒFƒNƒgŠÖ˜A‚Ì‰‰ŽZ
-//// ˆø”       F‚È‚µ
-//// –ß’l       F‚È‚µ
-//// ”õl       F
-////            F
+//// é–¢æ•°å     ï¼švoid UpdateScene()
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šãƒ¡ãƒ³ãƒé–¢æ•°
+//// ç”¨é€”       ï¼šã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆé–¢é€£ã®æ¼”ç®—
+//// å¼•æ•°       ï¼šãªã—
+//// æˆ»å€¤       ï¼šãªã—
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
 	void UpdateScene();
 
 /////////////////// ////////////////////
-//// ŠÖ”–¼     Fstatic void __cdecl updateThreadLauncher(void* args)
-//// ƒJƒeƒSƒŠ   Fƒƒ“ƒoŠÖ”
-//// —p“r       FƒV[ƒ“‚ð•`‰æ‚·‚é
-//// ˆø”       F‚È‚µ
-//// –ß’l       F‚È‚µ
-//// ”õl       F
-////            F
+//// é–¢æ•°å     ï¼šstatic void __cdecl updateThreadLauncher(void* args)
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šãƒ¡ãƒ³ãƒé–¢æ•°
+//// ç”¨é€”       ï¼šã‚·ãƒ¼ãƒ³ã‚’æç”»ã™ã‚‹
+//// å¼•æ•°       ï¼šãªã—
+//// æˆ»å€¤       ï¼šãªã—
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
 	void RenderScene();
 
 /////////////////// ////////////////////
-//// ŠÖ”–¼     Fvoid StartUpdateThread()
-//// ƒJƒeƒSƒŠ   Fƒƒ“ƒoŠÖ”
-//// —p“r       FƒV[ƒ“‚ÌƒAƒbƒvƒf[ƒg—pƒXƒŒƒbƒh‚ðŠJŽn‚·‚é
-//// ˆø”       F‚È‚µ
-//// –ß’l       F‚È‚µ
-//// ”õl       F
-////            F
+//// é–¢æ•°å     ï¼švoid StartUpdateThread()
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šãƒ¡ãƒ³ãƒé–¢æ•°
+//// ç”¨é€”       ï¼šã‚·ãƒ¼ãƒ³ã®ã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆç”¨ã‚¹ãƒ¬ãƒƒãƒ‰ã‚’é–‹å§‹ã™ã‚‹
+//// å¼•æ•°       ï¼šãªã—
+//// æˆ»å€¤       ï¼šãªã—
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
 	void StartUpdateThread();
 
 /////////////////// ////////////////////
-//// ŠÖ”–¼     Fstatic void __cdecl updateThreadLauncher(void* args)
-//// ƒJƒeƒSƒŠ   FÃ“Iƒƒ“ƒoŠÖ”
-//// —p“r       FV‚µ‚¢ƒXƒŒƒbƒh‚ðŠJŽn‚·‚é‚½‚ß‚Ì‹ø
-//// ˆø”       Fvoid* args	//	: ˆø”ƒŠƒXƒg
-//// –ß’l       F‚È‚µ
-//// ”õl       F
-////            F
+//// é–¢æ•°å     ï¼šstatic void __cdecl updateThreadLauncher(void* args)
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šé™çš„ãƒ¡ãƒ³ãƒé–¢æ•°
+//// ç”¨é€”       ï¼šæ–°ã—ã„ã‚¹ãƒ¬ãƒƒãƒ‰ã‚’é–‹å§‹ã™ã‚‹ãŸã‚ã®ä¸²
+//// å¼•æ•°       ï¼švoid* args	//	: å¼•æ•°ãƒªã‚¹ãƒˆ
+//// æˆ»å€¤       ï¼šãªã—
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
 	static unsigned __stdcall updateThreadLauncher(void* args);
 
 /////////////////// ////////////////////
-//// ŠÖ”–¼     Fvoid EndUpdateThread()
-//// ƒJƒeƒSƒŠ   Fƒƒ“ƒoŠÖ”
-//// —p“r       FƒV[ƒ“‚ÌƒAƒbƒvƒf[ƒg—pƒXƒŒƒbƒh‚ðI—¹‚·‚é
-//// ˆø”       F‚È‚µ
-//// –ß’l       F‚È‚µ
-//// ”õl       F
-////            F
+//// é–¢æ•°å     ï¼švoid EndUpdateThread()
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šãƒ¡ãƒ³ãƒé–¢æ•°
+//// ç”¨é€”       ï¼šã‚·ãƒ¼ãƒ³ã®ã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆç”¨ã‚¹ãƒ¬ãƒƒãƒ‰ã‚’çµ‚äº†ã™ã‚‹
+//// å¼•æ•°       ï¼šãªã—
+//// æˆ»å€¤       ï¼šãªã—
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
 	void EndUpdateThread();
 /////////////////// ////////////////////
-//// ŠÖ”–¼     Fvoid EndUpdateThread()
-//// ƒJƒeƒSƒŠ   Fƒƒ“ƒoŠÖ”
-//// —p“r       FƒV[ƒ“‚ÌƒAƒbƒvƒf[ƒg—pƒXƒŒƒbƒh‚ðI—¹‚·‚é
-//// ˆø”       F‚È‚µ
-//// –ß’l       F‚È‚µ
-//// ”õl       F
-////            F
+//// é–¢æ•°å     ï¼švoid EndUpdateThread()
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šãƒ¡ãƒ³ãƒé–¢æ•°
+//// ç”¨é€”       ï¼šã‚·ãƒ¼ãƒ³ã®ã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆç”¨ã‚¹ãƒ¬ãƒƒãƒ‰ã‚’çµ‚äº†ã™ã‚‹
+//// å¼•æ•°       ï¼šãªã—
+//// æˆ»å€¤       ï¼šãªã—
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
 };
 }

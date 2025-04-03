@@ -1,7 +1,7 @@
-apdƒtƒ@ƒCƒ‹‚ÍAzPainter2‚Æ‚¢‚¤ƒ\ƒtƒg‚ÅŠJ‚«•ÒW‚·‚é‚±‚Æ‚ª‚Å‚«‚Ü‚·
+apdãƒ•ã‚¡ã‚¤ãƒ«ã¯AzPainter2ã¨ã„ã†ã‚½ãƒ•ãƒˆã§é–‹ãç·¨é›†ã™ã‚‹ã“ã¨ãŒã§ãã¾ã™
 
-Œö®ƒTƒCƒg
+å…¬å¼ã‚µã‚¤ãƒˆ
   http://hp.vector.co.jp/authors/VA033749/win/index.html
 
-ƒ_ƒEƒ“ƒ[ƒhƒy[ƒW
+ãƒ€ã‚¦ãƒ³ãƒ­ãƒ¼ãƒ‰ãƒšãƒ¼ã‚¸
   http://hp.vector.co.jp/authors/VA033749/win/azpainter2.html

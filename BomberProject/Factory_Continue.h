@@ -1,12 +1,12 @@
 ////////////////////////////// //////////////////////////////
-//	ƒvƒƒWƒFƒNƒg	FBomberProject
-//	ƒtƒ@ƒCƒ‹–¼		FFactory_Continue.h
-//	ŠJ”­ŠÂ‹«		FMSVC++ 2008
-//	Å“Kƒ^ƒu”		F4
-//	’S“–Ò			F²“¡ —Á
-//	ˆø‚«Œp‚¬		F°Œ´ “O
-//	“à•ïÃŞ°À‚Æ”õl	FƒRƒ“ƒeƒjƒ…[
-//					¥
+//	ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆ	ï¼šBomberProject
+//	ãƒ•ã‚¡ã‚¤ãƒ«å		ï¼šFactory_Continue.h
+//	é–‹ç™ºç’°å¢ƒ		ï¼šMSVC++ 2008
+//	æœ€é©ã‚¿ãƒ–æ•°		ï¼š4
+//	æ‹…å½“è€…			ï¼šä½è—¤ æ¶¼
+//	å¼•ãç¶™ã		ï¼šé´«åŸ å¾¹
+//	å†…åŒ…ãƒ‡ãƒ¼ã‚¿ã¨å‚™è€ƒ	ï¼šã‚³ãƒ³ãƒ†ãƒ‹ãƒ¥ãƒ¼
+//					â–¼
 //	namespace wiz;
 //		class Reply ;
 //		class Dead ;
@@ -15,10 +15,10 @@
 #pragma once
 
 //////////
-//	: ƒCƒ“ƒNƒ‹[ƒh
+//	: ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰
 #include "Factory_Coil.h"
 #include "Factory_Score.h"
-//	: ƒCƒ“ƒNƒ‹[ƒh
+//	: ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰
 //////////
 
 namespace wiz{
@@ -33,8 +33,8 @@ enum CONTINUEBEHAVIORPHASE{
 ///*************************************************************************
 //class ContinueButton : public ButtonSprite
 //
-//’S“–ÒF°Œ´ “O
-//—p“r@FƒRƒ“ƒeƒjƒ…[‚Ìƒ{ƒ^ƒ“
+//æ‹…å½“è€…ï¼šé´«åŸ å¾¹
+//ç”¨é€”ã€€ï¼šã‚³ãƒ³ãƒ†ãƒ‹ãƒ¥ãƒ¼æ™‚ã®ãƒœã‚¿ãƒ³
 //*************************************************************************/
 class ContinueButton : public ButtonSprite{
 	Command			m_IssueCommand	;
@@ -51,34 +51,34 @@ public:
 		const wiz::OBJID			id						
 	);
 	/////////////////// ////////////////////
-	//// —p“r       Fvirtual void Update( UpdatePacket& i_UpdatePacket )
-	//// ƒJƒeƒSƒŠ   F‰¼‘zŠÖ”
-	//// —p“r       FƒIƒuƒWƒFƒNƒg‚ğXV
-	//// ˆø”       F  UpdatePacket& i_UpdatePacket     // ƒAƒbƒvƒf[ƒg‚É•K—v‚Èƒf[ƒ^ŒQ «“à—e‰º‹L
-	////            F  „¥       LPDIRECT3DDEVICE9  pD3DDevice      // IDirect3DDevice9 ƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-	////            F  „¥       Tempus2*           pTime           // ŠÔ‚ğŠÇ—‚·‚éƒNƒ‰ƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^[
-	////            F  „¥       vector<Object*>&   Vec,            // ƒIƒuƒWƒFƒNƒg‚Ì”z—ñ
-	////            F  „¥ const CONTROLER_STATE*   pCntlState      // ƒRƒ“ƒgƒ[ƒ‰‚ÌƒXƒe[ƒ^ƒX
-	////            F  „¤       Command            pCommand        // ƒRƒ}ƒ“ƒh
-	//// –ß’l       F‚È‚µ
-	//// ’S“–Ò     F°Œ´ “O
-	//// ”õl       F
-	////            F
+	//// ç”¨é€”       ï¼švirtual void Update( UpdatePacket& i_UpdatePacket )
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šä»®æƒ³é–¢æ•°
+	//// ç”¨é€”       ï¼šã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’æ›´æ–°
+	//// å¼•æ•°       ï¼š  UpdatePacket& i_UpdatePacket     // ã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆæ™‚ã«å¿…è¦ãªãƒ‡ãƒ¼ã‚¿ç¾¤ â†“å†…å®¹ä¸‹è¨˜
+	////            ï¼š  â”œ       LPDIRECT3DDEVICE9  pD3DDevice      // IDirect3DDevice9 ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+	////            ï¼š  â”œ       Tempus2*           pTime           // æ™‚é–“ã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿ãƒ¼
+	////            ï¼š  â”œ       vector<Object*>&   Vec,            // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®é…åˆ—
+	////            ï¼š  â”œ const CONTROLER_STATE*   pCntlState      // ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹
+	////            ï¼š  â””       Command            pCommand        // ã‚³ãƒãƒ³ãƒ‰
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“è€…     ï¼šé´«åŸ å¾¹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
     virtual void Update( UpdatePacket& i_UpdatePacket ) ;
 	/////////////////// ////////////////////
-	//// —p“r       Fvirtual void Draw( DrawPacket& i_DrawPacket )
-	//// ƒJƒeƒSƒŠ   F‰¼‘zŠÖ”
-	//// —p“r       FƒIƒuƒWƒFƒNƒg‚ğƒfƒBƒXƒvƒŒƒC‚É•\¦‚·‚é
-	//// ˆø”       F  DrawPacket& i_DrawPacket             // ‰æ–Ê•`‰æ‚É•K—v‚Èƒf[ƒ^ŒQ «“à—e‰º‹L
-	////            F  „¥ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 ƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-	////            F  „¥ vector<Object*>&    Vec                     // ƒIƒuƒWƒFƒNƒg‚Ì”z—ñ
-	////            F  „¥ Tempus2*            i_DrawPacket.GetTime()	   // ŠÔ‚ğŠÇ—‚·‚éƒNƒ‰ƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^[
-	////            F  „¤ Command             i_DrawPacket.pCommand   // ƒRƒ}ƒ“ƒh
-	//// –ß’l       F‚È‚µ
-	//// ’S“–Ò     F°Œ´ “O
-	//// ”õl       F
-	////            F
+	//// ç”¨é€”       ï¼švirtual void Draw( DrawPacket& i_DrawPacket )
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šä»®æƒ³é–¢æ•°
+	//// ç”¨é€”       ï¼šã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ãƒ‡ã‚£ã‚¹ãƒ—ãƒ¬ã‚¤ã«è¡¨ç¤ºã™ã‚‹
+	//// å¼•æ•°       ï¼š  DrawPacket& i_DrawPacket             // ç”»é¢æç”»æ™‚ã«å¿…è¦ãªãƒ‡ãƒ¼ã‚¿ç¾¤ â†“å†…å®¹ä¸‹è¨˜
+	////            ï¼š  â”œ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+	////            ï¼š  â”œ vector<Object*>&    Vec                     // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®é…åˆ—
+	////            ï¼š  â”œ Tempus2*            i_DrawPacket.GetTime()	   // æ™‚é–“ã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿ãƒ¼
+	////            ï¼š  â”” Command             i_DrawPacket.pCommand   // ã‚³ãƒãƒ³ãƒ‰
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“è€…     ï¼šé´«åŸ å¾¹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
 	virtual void Draw( DrawPacket& i_DrawPacket );
 	void getIssueCommand(Command& ret){
@@ -96,9 +96,9 @@ public:
 ///*************************************************************************
 //class ContinueButton : public ButtonSprite
 //
-//’S“–ÒF²“¡ —Á
-//ˆøŒp‚¬F°Œ´ “O
-//—p“r@FƒRƒ“ƒeƒBƒjƒ…[‰æ–Ê‚Ì“®ì‚ğ’è‹`‚µ‚Ä‚¢‚Ü‚·
+//æ‹…å½“è€…ï¼šä½è—¤ æ¶¼
+//å¼•ç¶™ãï¼šé´«åŸ å¾¹
+//ç”¨é€”ã€€ï¼šã‚³ãƒ³ãƒ†ã‚£ãƒ‹ãƒ¥ãƒ¼ç”»é¢ã®å‹•ä½œã‚’å®šç¾©ã—ã¦ã„ã¾ã™
 //*************************************************************************/
 class ContinueBehavior : public Behavior{
 	LPTATRATEXTURE			m_pPTContinue		;
@@ -122,34 +122,34 @@ public:
 	~ContinueBehavior();
 
 	/////////////////// ////////////////////
-	//// —p“r       Fvirtual void Update( UpdatePacket& i_UpdatePacket )
-	//// ƒJƒeƒSƒŠ   F‰¼‘zŠÖ”
-	//// —p“r       FƒIƒuƒWƒFƒNƒg‚ğXV
-	//// ˆø”       F  UpdatePacket& i_UpdatePacket     // ƒAƒbƒvƒf[ƒg‚É•K—v‚Èƒf[ƒ^ŒQ «“à—e‰º‹L
-	////            F  „¥       LPDIRECT3DDEVICE9  pD3DDevice      // IDirect3DDevice9 ƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-	////            F  „¥       Tempus2*           pTime           // ŠÔ‚ğŠÇ—‚·‚éƒNƒ‰ƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^[
-	////            F  „¥       vector<Object*>&   Vec,            // ƒIƒuƒWƒFƒNƒg‚Ì”z—ñ
-	////            F  „¥ const CONTROLER_STATE*   pCntlState      // ƒRƒ“ƒgƒ[ƒ‰‚ÌƒXƒe[ƒ^ƒX
-	////            F  „¤       Command            pCommand        // ƒRƒ}ƒ“ƒh
-	//// –ß’l       F‚È‚µ
-	//// ’S“–Ò     F°Œ´ “O
-	//// ”õl       F
-	////            F
+	//// ç”¨é€”       ï¼švirtual void Update( UpdatePacket& i_UpdatePacket )
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šä»®æƒ³é–¢æ•°
+	//// ç”¨é€”       ï¼šã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’æ›´æ–°
+	//// å¼•æ•°       ï¼š  UpdatePacket& i_UpdatePacket     // ã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆæ™‚ã«å¿…è¦ãªãƒ‡ãƒ¼ã‚¿ç¾¤ â†“å†…å®¹ä¸‹è¨˜
+	////            ï¼š  â”œ       LPDIRECT3DDEVICE9  pD3DDevice      // IDirect3DDevice9 ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+	////            ï¼š  â”œ       Tempus2*           pTime           // æ™‚é–“ã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿ãƒ¼
+	////            ï¼š  â”œ       vector<Object*>&   Vec,            // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®é…åˆ—
+	////            ï¼š  â”œ const CONTROLER_STATE*   pCntlState      // ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹
+	////            ï¼š  â””       Command            pCommand        // ã‚³ãƒãƒ³ãƒ‰
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“è€…     ï¼šé´«åŸ å¾¹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
     virtual void Update( UpdatePacket& i_UpdatePacket ) ;
 	/////////////////// ////////////////////
-	//// —p“r       Fvirtual void Draw( DrawPacket& i_DrawPacket )
-	//// ƒJƒeƒSƒŠ   F‰¼‘zŠÖ”
-	//// —p“r       FƒIƒuƒWƒFƒNƒg‚ğƒfƒBƒXƒvƒŒƒC‚É•\¦‚·‚é
-	//// ˆø”       F  DrawPacket& i_DrawPacket             // ‰æ–Ê•`‰æ‚É•K—v‚Èƒf[ƒ^ŒQ «“à—e‰º‹L
-	////            F  „¥ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 ƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-	////            F  „¥ vector<Object*>&    Vec                     // ƒIƒuƒWƒFƒNƒg‚Ì”z—ñ
-	////            F  „¥ Tempus2*            i_DrawPacket.GetTime()	   // ŠÔ‚ğŠÇ—‚·‚éƒNƒ‰ƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^[
-	////            F  „¤ Command             i_DrawPacket.pCommand   // ƒRƒ}ƒ“ƒh
-	//// –ß’l       F‚È‚µ
-	//// ’S“–Ò     F°Œ´ “O
-	//// ”õl       F
-	////            F
+	//// ç”¨é€”       ï¼švirtual void Draw( DrawPacket& i_DrawPacket )
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šä»®æƒ³é–¢æ•°
+	//// ç”¨é€”       ï¼šã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ãƒ‡ã‚£ã‚¹ãƒ—ãƒ¬ã‚¤ã«è¡¨ç¤ºã™ã‚‹
+	//// å¼•æ•°       ï¼š  DrawPacket& i_DrawPacket             // ç”»é¢æç”»æ™‚ã«å¿…è¦ãªãƒ‡ãƒ¼ã‚¿ç¾¤ â†“å†…å®¹ä¸‹è¨˜
+	////            ï¼š  â”œ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+	////            ï¼š  â”œ vector<Object*>&    Vec                     // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®é…åˆ—
+	////            ï¼š  â”œ Tempus2*            i_DrawPacket.GetTime()	   // æ™‚é–“ã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿ãƒ¼
+	////            ï¼š  â”” Command             i_DrawPacket.pCommand   // ã‚³ãƒãƒ³ãƒ‰
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“è€…     ï¼šé´«åŸ å¾¹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
 	virtual void Draw( DrawPacket& i_DrawPacket );
 
@@ -174,8 +174,8 @@ public:
 ///*************************************************************************
 //class Reply  public SpriteObject
 //
-//’S“–ÒF²“¡—Á
-//—p“r@FƒRƒ“ƒeƒjƒ…[‚Ìƒ{ƒ^ƒ“
+//æ‹…å½“è€…ï¼šä½è—¤æ¶¼
+//ç”¨é€”ã€€ï¼šã‚³ãƒ³ãƒ†ãƒ‹ãƒ¥ãƒ¼æ™‚ã®ãƒœã‚¿ãƒ³
 //*************************************************************************/
 //class	Reply	: public SpriteObject{
 //	D3DXVECTOR3		m_vPos			;
@@ -216,8 +216,8 @@ public:
 ///*************************************************************************
 //class Continue  public SpriteObject
 //
-//’S“–ÒF²“¡—Á
-//—p“r@FƒRƒ“ƒeƒjƒ…[‚Ìƒ{ƒ^ƒ“
+//æ‹…å½“è€…ï¼šä½è—¤æ¶¼
+//ç”¨é€”ã€€ï¼šã‚³ãƒ³ãƒ†ãƒ‹ãƒ¥ãƒ¼æ™‚ã®ãƒœã‚¿ãƒ³
 //*************************************************************************/
 //class	Continue	: public SpriteObject{
 //	D3DXVECTOR3		m_vPos;
@@ -236,7 +236,7 @@ public:
 //	Reply*			m_pReply_Yes;
 //	Reply*			m_pReply_No;
 //	SpriteObject*	m_pRethinking;
-//	SpriteObject*	m_pContinueChar				;	//	: ƒRƒ“ƒeƒjƒ…[ƒƒS‚Ìƒ|ƒCƒ“ƒ^
+//	SpriteObject*	m_pContinueChar				;	//	: ã‚³ãƒ³ãƒ†ãƒ‹ãƒ¥ãƒ¼ãƒ­ã‚´ã®ãƒã‚¤ãƒ³ã‚¿
 //	TimeScore*		m_pTime;
 //
 //	LPTATRATEXTURE	m_pRethinkingTex;	//Really?
@@ -270,8 +270,8 @@ public:
 ///*************************************************************************
 //class Dead  public SpriteObject
 //
-//’S“–ÒF²“¡—Á
-//—p“r@F€–S‚Éo‚·•¶š
+//æ‹…å½“è€…ï¼šä½è—¤æ¶¼
+//ç”¨é€”ã€€ï¼šæ­»äº¡æ™‚ã«å‡ºã™æ–‡å­—
 //*************************************************************************/
 //class	Dead	: public SpriteObject{
 //	float			m_fTime;
@@ -313,21 +313,21 @@ public:
 /**************************************************************************
 class Factory_Continue;
 
-—p“r@FƒƒCƒ“HêƒNƒ‰ƒX
-’S“–ÒF²“¡—Á
+ç”¨é€”ã€€ï¼šãƒ¡ã‚¤ãƒ³å·¥å ´ã‚¯ãƒ©ã‚¹
+æ‹…å½“è€…ï¼šä½è—¤æ¶¼
 ****************************************************************************/
 class Factory_Continue{
 public:
 /**************************************************************************
  Factory_Continue(FactoryPacket* fpac);
- —p“r: ƒRƒ“ƒXƒgƒ‰ƒNƒ^iƒTƒ“ƒvƒ‹ƒIƒuƒWƒFƒNƒg‚ğ”z—ñ‚É’Ç‰Á‚·‚éj
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ï¼ˆã‚µãƒ³ãƒ—ãƒ«ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’é…åˆ—ã«è¿½åŠ ã™ã‚‹ï¼‰
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
 	Factory_Continue(FactoryPacket* fpac);
 /**************************************************************************
  ~MyFactory();
- —p“r: ƒfƒXƒgƒ‰ƒNƒ^
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
 	~Factory_Continue();
 };

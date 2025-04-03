@@ -1,13 +1,13 @@
 ////////////////////////////// //////////////////////////////
-//	ƒvƒƒWƒFƒNƒg	FBomberProject
-//	ƒtƒ@ƒCƒ‹–¼		FFactory_Player.cpp
-//	ŠJ”­ŠÂ‹«		FMSVC++ 2008
-//	Å“Kƒ^ƒu”		F4
-//	’S“–Ò			F°Œ´ “O
-//	ˆøŒp‚¬			F‰g’n ‘å—m
-//	„¤¨			F–{‘½ Š°”V
-//	“à•ïÃŞ°À‚Æ”õl	FƒvƒŒƒCƒ„[‚ª—U“±‚·‚é•¨‘Ì
-//					¥
+//	ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆ	ï¼šBomberProject
+//	ãƒ•ã‚¡ã‚¤ãƒ«å		ï¼šFactory_Player.cpp
+//	é–‹ç™ºç’°å¢ƒ		ï¼šMSVC++ 2008
+//	æœ€é©ã‚¿ãƒ–æ•°		ï¼š4
+//	æ‹…å½“è€…			ï¼šé´«åŸ å¾¹
+//	å¼•ç¶™ã			ï¼šæ›³åœ° å¤§æ´‹
+//	â””â†’			ï¼šæœ¬å¤š å¯›ä¹‹
+//	å†…åŒ…ãƒ‡ãƒ¼ã‚¿ã¨å‚™è€ƒ	ï¼šãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒèª˜å°ã™ã‚‹ç‰©ä½“
+//					â–¼
 //	namespace wiz;
 //		class Factory_Player ;
 //
@@ -26,29 +26,29 @@ namespace bomberobject{
 //Camera*	ProvisionalPlayer3D::m_Camera	= NULL;
 extern class WallObject ;
 const	float	GAUGE_VANISHRATE	= 0.0f;
-// 3D—p
+// 3Dç”¨
 /**************************************************************************
- ProvisionalPlayer3D ’è‹`•”
+ ProvisionalPlayer3D å®šç¾©éƒ¨
 ****************************************************************************/
 /////////////////// ////////////////////
-//// ŠÖ”–¼     FProvisionalPlayer3D( LPDIRECT3DDEVICE9 pD3DDevice, LPTATRATEXTURE pTexture,
-////            F    D3DXVECTOR3 &vScale, D3DXVECTOR3 &vRot, D3DXVECTOR3 &vPos, RECT* pRect,
-////            F    Color color = 0xFFFFFFFF, wiz::OBJID id = OBJID_3D_PLAYER )
-//// ƒJƒeƒSƒŠ   FƒRƒ“ƒXƒgƒ‰ƒNƒ^
-//// —p“r       F
-//// ˆø”       F
-//// –ß’l       F‚È‚µ
-//// ’S“–       F°Œ´ “O
-//// ”õl       F
-////            F
+//// é–¢æ•°å     ï¼šProvisionalPlayer3D( LPDIRECT3DDEVICE9 pD3DDevice, LPTATRATEXTURE pTexture,
+////            ï¼š    D3DXVECTOR3 &vScale, D3DXVECTOR3 &vRot, D3DXVECTOR3 &vPos, RECT* pRect,
+////            ï¼š    Color color = 0xFFFFFFFF, wiz::OBJID id = OBJID_3D_PLAYER )
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+//// ç”¨é€”       ï¼š
+//// å¼•æ•°       ï¼š
+//// æˆ»å€¤       ï¼šãªã—
+//// æ‹…å½“       ï¼šé´«åŸ å¾¹
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
 ProvisionalPlayer3D::ProvisionalPlayer3D(
-	LPDIRECT3DDEVICE9 pD3DDevice,								//	: ƒfƒoƒCƒX
-	LPTATRATEXTURE pTexture,						//	: ƒeƒNƒXƒ`ƒƒ[
-	LPTATRATEXTURE pTexture2,						//	: ƒeƒNƒXƒ`ƒƒ[‚Q
-	D3DXVECTOR3		   &vScale,							//	: Lk
-	D3DXQUATERNION	   &vRot,							//	: ‰ñ“]
-	D3DXVECTOR3	       &vPos,							//	: ˆÊ’u
+	LPDIRECT3DDEVICE9 pD3DDevice,								//	: ãƒ‡ãƒã‚¤ã‚¹
+	LPTATRATEXTURE pTexture,						//	: ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒ¼
+	LPTATRATEXTURE pTexture2,						//	: ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒ¼ï¼’
+	D3DXVECTOR3		   &vScale,							//	: ä¼¸ç¸®
+	D3DXQUATERNION	   &vRot,							//	: å›è»¢
+	D3DXVECTOR3	       &vPos,							//	: ä½ç½®
 	wiz::OBJID id 										//	: ID
 )
 :MagnetField( pD3DDevice, id )
@@ -69,14 +69,14 @@ ProvisionalPlayer3D::ProvisionalPlayer3D(
 
 }
 /////////////////// ////////////////////
-//// ŠÖ”–¼     F~ProvisionalPlayer3D();
-//// ƒJƒeƒSƒŠ   FƒfƒXƒgƒ‰ƒNƒ^
-//// —p“r       F”jŠü
-//// ˆø”       F‚È‚µ
-//// –ß’l       F‚È‚µ
-//// ’S“–Ò     F°Œ´ “O
-//// ”õl       F
-////            F
+//// é–¢æ•°å     ï¼š~ProvisionalPlayer3D();
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+//// ç”¨é€”       ï¼šç ´æ£„
+//// å¼•æ•°       ï¼šãªã—
+//// æˆ»å€¤       ï¼šãªã—
+//// æ‹…å½“è€…     ï¼šé´«åŸ å¾¹
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
 ProvisionalPlayer3D::~ProvisionalPlayer3D(){
 	m_Camera		= NULL ;
@@ -86,14 +86,14 @@ ProvisionalPlayer3D::~ProvisionalPlayer3D(){
 	m_pCursor		= NULL;
 }
 /////////////////// ////////////////////
-//// ŠÖ”–¼     Fvoid Update( UpdatePacket& i_UpdatePacket )
-//// ƒJƒeƒSƒŠ   F
-//// —p“r       F
-//// ˆø”       F
-//// –ß’l       F‚È‚µ
-//// ’S“–       F°Œ´ “O
-//// ”õl       F
-////            F
+//// é–¢æ•°å     ï¼švoid Update( UpdatePacket& i_UpdatePacket )
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼š
+//// ç”¨é€”       ï¼š
+//// å¼•æ•°       ï¼š
+//// æˆ»å€¤       ï¼šãªã—
+//// æ‹…å½“       ï¼šé´«åŸ å¾¹
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
 void ProvisionalPlayer3D::Update( UpdatePacket& i_UpdatePacket ){
 	if(m_Camera == NULL){
@@ -108,8 +108,8 @@ void ProvisionalPlayer3D::Update( UpdatePacket& i_UpdatePacket ){
 	RECT rc;
 	::GetClientRect(wiz::DxDevice::m_hWnd, &rc);
 
-	//Suction	: ‹zˆø
-	//Rebound	: ”½”­
+	//Suction	: å¸å¼•
+	//Rebound	: åç™º
 	bool	Suction	= Cursor2D::getRButtonState();
 	bool	Rebound	= Cursor2D::getLButtonState();
 	if( !m_pPlayerCoil->getMagnetPole() ){
@@ -136,7 +136,7 @@ void ProvisionalPlayer3D::Update( UpdatePacket& i_UpdatePacket ){
 							m_MagneticField.setPole(POLE_S);
 						}
 
-						//¥ŠE‚Ì‘®«‚ğİ’è
+						//ç£ç•Œã®å±æ€§ã‚’è¨­å®š
 						if( Suction )
 							setPoleN() ;
 						if( Rebound )
@@ -144,7 +144,7 @@ void ProvisionalPlayer3D::Update( UpdatePacket& i_UpdatePacket ){
 					}
 				}
 
-				//Œ»İÁ”ï’†‚ÌƒQ[ƒW‚ªc‚Á‚Ä‚¢‚é‚È‚ç‚Í‚¢‚é
+				//ç¾åœ¨æ¶ˆè²»ä¸­ã®ã‚²ãƒ¼ã‚¸ãŒæ®‹ã£ã¦ã„ã‚‹ãªã‚‰ã¯ã„ã‚‹
 				if( (Suction && m_pMGage_N->getRate() > GAUGE_VANISHRATE) || (Rebound && m_pMGage_S->getRate() > GAUGE_VANISHRATE) ){	
 	
 					if( Suction  && !Rebound && m_pPlayerCoil->getState() != COIL_STATE_STICK )m_pMGage_N->Consume(PLAYER_CONSUME_POIMT);
@@ -153,7 +153,7 @@ void ProvisionalPlayer3D::Update( UpdatePacket& i_UpdatePacket ){
 					if( !Suction && Rebound  )m_pMGage_N->Recovery(PLAYER_RECOVERY_POINT);
 					if( Suction  && !Rebound )m_pMGage_S->Recovery(PLAYER_RECOVERY_POINT);
 
-					//	: ƒ}ƒEƒX‚Ìƒtƒ‰ƒO
+					//	: ãƒã‚¦ã‚¹ã®ãƒ•ãƒ©ã‚°
 					//Cursor2D::getLButtonState() = false ;
 					//Cursor2D::getRButtonState() = false ;
 					m_bDrawing	= true;
@@ -171,16 +171,16 @@ void ProvisionalPlayer3D::Update( UpdatePacket& i_UpdatePacket ){
 		}
 		m_bChangeFirst	= true;
 	}else{
-		//COIL_STATE_STICK‚¾‚ªAƒAƒjƒ[ƒVƒ‡ƒ“‚ªI‚í‚Á‚Ä‚¢‚È‚¢
+		//COIL_STATE_STICKã ãŒã€ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãŒçµ‚ã‚ã£ã¦ã„ãªã„
 		if( m_pPlayerCoil->getState() == COIL_STATE_STICK ){
 			m_bDrawing	= true;
 			if( m_pMGage_N && m_pMGage_S && m_bChangeFirst){
-				//Rate‚ÌŒğŠ·************************************
+				//Rateã®äº¤æ›************************************
 				float	fRate	= 0.0f;
 				fRate	= m_pMGage_N->getRate();
 				m_pMGage_N->setRate( m_pMGage_S->getRate() );
 				m_pMGage_S->setRate( fRate );
-				//ˆÊ’u‚Ì“ü‚ê‘Ö‚¦*******************************
+				//ä½ç½®ã®å…¥ã‚Œæ›¿ãˆ*******************************
 				m_pMGage_N->ChangePos();
 				m_pMGage_S->ChangePos();
 				//***********************************************
@@ -192,14 +192,14 @@ void ProvisionalPlayer3D::Update( UpdatePacket& i_UpdatePacket ){
 	m_bLastMouseRB = Cursor2D::getRButtonState() ;
 
 
-	//€‚ñ‚ÅƒRƒ“ƒeƒjƒ…[‚ÉƒQ[ƒW‚ğ–ß‚·
+	//æ­»ã‚“ã§ã‚³ãƒ³ãƒ†ãƒ‹ãƒ¥ãƒ¼æ™‚ã«ã‚²ãƒ¼ã‚¸ã‚’æˆ»ã™
 	if(m_pPlayerCoil->getState() == COIL_STATE_CONTINUE){
 		if( m_pMGage_N ) m_pMGage_N->ResetGauge();
 		if( m_pMGage_S ) m_pMGage_S->ResetGauge();
 	}
 	MagnetField::Update(i_UpdatePacket);
 
-	//ƒQ[ƒW‚ª3Š„Ø‚Á‚½‚çA¥ŠE‚ğ“_–Å‚³‚¹‚é*******************
+	//ã‚²ãƒ¼ã‚¸ãŒ3å‰²åˆ‡ã£ãŸã‚‰ã€ç£ç•Œã‚’ç‚¹æ»…ã•ã›ã‚‹*******************
 	if(m_pPlayerCoil->getState() != COIL_STATE_STICK){
 		if( MagnetField::getMagnetPole() == POLE_S && m_bDrawing ){
 			if(m_pMGage_S->getRate() < 0.3f)
@@ -217,17 +217,17 @@ void ProvisionalPlayer3D::Update( UpdatePacket& i_UpdatePacket ){
 };
 
 /////////////////// ////////////////////
-//// —p“r       Fvoid Draw( DrawPacket& i_DrawPacket )
-//// ƒJƒeƒSƒŠ   FŠÖ”
-//// —p“r       FƒIƒuƒWƒFƒNƒg‚ğƒfƒBƒXƒvƒŒƒC‚É•\¦‚·‚é
-//// ˆø”       F  DrawPacket& i_DrawPacket             // ‰æ–Ê•`‰æ‚É•K—v‚Èƒf[ƒ^ŒQ «“à—e‰º‹L
-////			   F  „¥ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 ƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-////			   F  „¥ vector<Object*>&    Vec                     // ƒIƒuƒWƒFƒNƒg‚Ì”z—ñ
-////			   F  „¥ Tempus2*            i_DrawPacket.GetTime()	   // ŠÔ‚ğŠÇ—‚·‚éƒNƒ‰ƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^[
-////               F  „¤ Command             i_DrawPacket.pCommand   // ƒRƒ}ƒ“ƒh
-//// –ß’l       F‚È‚µ
-//// ’S“–Ò     F‰g’n ‘å—m
-//// ”õl       F
+//// ç”¨é€”       ï¼švoid Draw( DrawPacket& i_DrawPacket )
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šé–¢æ•°
+//// ç”¨é€”       ï¼šã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ãƒ‡ã‚£ã‚¹ãƒ—ãƒ¬ã‚¤ã«è¡¨ç¤ºã™ã‚‹
+//// å¼•æ•°       ï¼š  DrawPacket& i_DrawPacket             // ç”»é¢æç”»æ™‚ã«å¿…è¦ãªãƒ‡ãƒ¼ã‚¿ç¾¤ â†“å†…å®¹ä¸‹è¨˜
+////			   ï¼š  â”œ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+////			   ï¼š  â”œ vector<Object*>&    Vec                     // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®é…åˆ—
+////			   ï¼š  â”œ Tempus2*            i_DrawPacket.GetTime()	   // æ™‚é–“ã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿ãƒ¼
+////               ï¼š  â”” Command             i_DrawPacket.pCommand   // ã‚³ãƒãƒ³ãƒ‰
+//// æˆ»å€¤       ï¼šãªã—
+//// æ‹…å½“è€…     ï¼šæ›³åœ° å¤§æ´‹
+//// å‚™è€ƒ       ï¼š
 void ProvisionalPlayer3D::Draw(DrawPacket& i_DrawPacket)
 {
 
@@ -252,14 +252,14 @@ void ProvisionalPlayer3D::Draw(DrawPacket& i_DrawPacket)
 
 
 /**************************************************************************
- Factory_Player ’è‹`•”
+ Factory_Player å®šç¾©éƒ¨
 ****************************************************************************/
 /**************************************************************************
  Factory_Player::Factory_Player(
-	FactoryPacket* fpac		//ƒeƒNƒXƒ`ƒƒ‚Ì”z—ñ
+	FactoryPacket* fpac		//ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®é…åˆ—
 );
- —p“r: ƒRƒ“ƒXƒgƒ‰ƒNƒ^iƒTƒ“ƒvƒ‹ƒIƒuƒWƒFƒNƒg‚ğ”z—ñ‚É’Ç‰Á‚·‚éj
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ï¼ˆã‚µãƒ³ãƒ—ãƒ«ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’é…åˆ—ã«è¿½åŠ ã™ã‚‹ï¼‰
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
 Factory_Player::Factory_Player( FactoryPacket* fpac ){
 	try{
@@ -277,7 +277,7 @@ Factory_Player::Factory_Player( FactoryPacket* fpac ){
 		//	)
 		//);
 
-		// 3D—p
+		// 3Dç”¨
 		D3DXVECTOR3 vScale2( 10.0f, 10.0f, 10.0f );
 		fpac->AddObject(
 			new ProvisionalPlayer3D(
@@ -292,18 +292,18 @@ Factory_Player::Factory_Player( FactoryPacket* fpac ){
 
 	}
 	catch(...){
-		//Äthrow
+		//å†throw
 		throw;
 	}
 
 }
 /**************************************************************************
  Factory_Player::~Factory_Player();
- —p“r: ƒfƒXƒgƒ‰ƒNƒ^
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
 Factory_Player::~Factory_Player(){
-    //‚È‚É‚à‚µ‚È‚¢
+    //ãªã«ã‚‚ã—ãªã„
 }
 }
 //end of namespace bomberobject.

@@ -1,11 +1,11 @@
 ////////////////////////////// //////////////////////////////
-//	�v���W�F�N�g	�FDirectX Program Bass Project
-//	�t�@�C����		�FObject.h
-//	�J����		�FMSVC++ 2008
-//	�œK�^�u��		�F4
-//	�S����			�F���� �O
-//	�����ް��Ɣ��l	�F
-//					��
+//	プロジェクト	：DirectX Program Bass Project
+//	ファイル名		：Object.h
+//	開発環境		：MSVC++ 2008
+//	最適タブ数		：4
+//	担当者			：鴫原 徹
+//	内包データと備考	：
+//					▼
 //	namespace wiz;
 //		class Object ;
 //		class Light  ;
@@ -17,52 +17,52 @@
 namespace wiz{
 
 /**************************************************************************
- Light ��`��
+ Light 定義部
 ****************************************************************************/
 /////////////////// ////////////////////
-//// �p�r       �FLight()
-//// �J�e�S��   �F���񂷂Ƃ炭��
-//// �p�r       �F�v���e�N�g�R���X�g���N�^
-//// ����       �F�Ȃ�
-//// �ߒl       �F�Ȃ� 
-//// �S����     �F
-//// ���l       �F���ڍ\�z�ł��Ȃ��悤�ɁA�v���e�N�g�ɂ���
-////            �F
+//// 用途       ：Light()
+//// カテゴリ   ：こんすとらくた
+//// 用途       ：プロテクトコンストラクタ
+//// 引数       ：なし
+//// 戻値       ：なし 
+//// 担当者     ：
+//// 備考       ：直接構築できないように、プロテクトにする
+////            ：
 ////
 Light::Light(wiz::OBJID id)
 :Object(id)
 {
-    // D3DLIGHT9�\���̂�0�ŃN���A����
+    // D3DLIGHT9構造体を0でクリアする
     ::ZeroMemory(&m_Light, sizeof(D3DLIGHT9));
 }
 /////////////////// ////////////////////
-//// �p�r       �FLight()
-//// �J�e�S��   �F�ł��Ƃ炭��
-//// �p�r       �F�v���e�N�g�f�X�g���N�^�i���z�f�X�g���N�^�j
-//// ����       �F�Ȃ�
-//// �ߒl       �F�Ȃ� 
-//// �S����     �F
-//// ���l       �F���ڍ\�z�ł��Ȃ��悤�ɁA�v���e�N�g�ɂ���
-////            �F
+//// 用途       ：Light()
+//// カテゴリ   ：ですとらくた
+//// 用途       ：プロテクトデストラクタ（仮想デストラクタ）
+//// 引数       ：なし
+//// 戻値       ：なし 
+//// 担当者     ：
+//// 備考       ：直接構築できないように、プロテクトにする
+////            ：
 Light::~Light(){}
 /**************************************************************************
- DirectionalLight ��`��
+ DirectionalLight 定義部
 ****************************************************************************/
 /////////////////// ////////////////////
-//// �p�r       �FDirectionalLight(LPDIRECT3DDEVICE9 pD3DDevice,
-////            �F    D3DCOLORVALUE Diffuse,D3DCOLORVALUE Specular,
-////            �F    D3DCOLORVALUE Ambient,D3DXVECTOR3 Direction)
-//// �J�e�S��   �F�R���X�g���N�^
-//// �p�r       �F
-//// ����       �F�Ȃ�
-//// �ߒl       �F  LPDIRECT3DDEVICE9 pD3DDevice,   //�f�o�C�X
-////            �F  D3DCOLORVALUE Diffuse,          //�f�B�t���[�Y�F
-////            �F  D3DCOLORVALUE Specular,         //�X�y�L�����F
-////            �F  D3DCOLORVALUE Ambient,          //�A���r�G���g�F
-////            �F  D3DXVECTOR3 Direction           //���[���h��ԂŌ����w������
-//// �S����     �F
-//// ���l       �F�f�B���N�V���i�����C�g���\�z����
-////            �F
+//// 用途       ：DirectionalLight(LPDIRECT3DDEVICE9 pD3DDevice,
+////            ：    D3DCOLORVALUE Diffuse,D3DCOLORVALUE Specular,
+////            ：    D3DCOLORVALUE Ambient,D3DXVECTOR3 Direction)
+//// カテゴリ   ：コンストラクタ
+//// 用途       ：
+//// 引数       ：なし
+//// 戻値       ：  LPDIRECT3DDEVICE9 pD3DDevice,   //デバイス
+////            ：  D3DCOLORVALUE Diffuse,          //ディフューズ色
+////            ：  D3DCOLORVALUE Specular,         //スペキュラ色
+////            ：  D3DCOLORVALUE Ambient,          //アンビエント色
+////            ：  D3DXVECTOR3 Direction           //ワールド空間で光が指す方向
+//// 担当者     ：
+//// 備考       ：ディレクショナルライトを構築する
+////            ：
 ////
 DirectionalLight::DirectionalLight(LPDIRECT3DDEVICE9 pD3DDevice,
     D3DCOLORVALUE Diffuse,
@@ -77,63 +77,63 @@ DirectionalLight::DirectionalLight(LPDIRECT3DDEVICE9 pD3DDevice,
     m_Light.Specular	= Specular;
     m_Light.Ambient		= Ambient;
     D3DXVec3Normalize((D3DXVECTOR3*)&m_Light.Direction, &Direction);
-    // ���C�g�������_�����O�p�C�v���C���ɐݒ�
+    // ライトをレンダリングパイプラインに設定
     pD3DDevice->SetLight( 0, &m_Light );
-    // ���C�g��L���ɂ���
+    // ライトを有効にする
     pD3DDevice->LightEnable( 0, TRUE );
 }
 /////////////////// ////////////////////
-//// �p�r       �Fvirtual ~DirectionalLight()
-//// �J�e�S��   �F�Z�X�g���N�^
-//// �p�r       �F
-//// ����       �F�Ȃ�
-//// �ߒl       �F�Ȃ�
-//// �S����     �F
-//// ���l       �F
-////            �F
+//// 用途       ：virtual ~DirectionalLight()
+//// カテゴリ   ：セストラクタ
+//// 用途       ：
+//// 引数       ：なし
+//// 戻値       ：なし
+//// 担当者     ：
+//// 備考       ：
+////            ：
 ////
 DirectionalLight::~DirectionalLight(){}
 
 /**************************************************************************
- Camera ��`��
+ Camera 定義部
 ****************************************************************************/
 /**************************************************************************
  Camera::Camera(
-    LPDIRECT3DDEVICE9 pD3DDevice,    //IDirect3DDevice9 �C���^�[�t�F�C�X�ւ̃|�C���^
-    D3DXVECTOR3& At,    //�����_
-	FLOAT AbsPosZFromAt,//�����_���猩���A�J�����ʒu��Z�̈ʒu(��Βl�w��)
-	FLOAT PosYFromAt,	//�����_���猩���A�J�����ʒu��Y�̈ʒu
-    FLOAT Near,         //�ˉe�̎�O���̋���
-    FLOAT Far,          //�ˉe�̉����̋���
-    FLOAT FovY          //Y���ˉe�p�x
+    LPDIRECT3DDEVICE9 pD3DDevice,    //IDirect3DDevice9 インターフェイスへのポインタ
+    D3DXVECTOR3& At,    //直視点
+	FLOAT AbsPosZFromAt,//直視点から見た、カメラ位置のZの位置(絶対値指定)
+	FLOAT PosYFromAt,	//直視点から見た、カメラ位置のYの位置
+    FLOAT Near,         //射影の手前側の距離
+    FLOAT Far,          //射影の奥側の距離
+    FLOAT FovY          //Y軸射影角度
     );
- �p�r: �R���X�g���N�^
- ���J�����ʒu�̏����l�͒��ڂ͎w��ł��Ȃ��B
- �������_����݂āAZ�̎�O�Ɉ������Έʒu��Y�̑��Έʒu���w�肷��BX��0�ɌŒ�
- ��Z�̎�O�Ɉ������Έʒu�iAbsPosZFromAt�j�͐�Βl�������̂ŁA
-	�}�C�i�X���w�肵�Ă��Ӗ����Ȃ��B
- �߂�l: �Ȃ�
+ 用途: コンストラクタ
+ ＊カメラ位置の初期値は直接は指定できない。
+ ＊直視点からみて、Zの手前に引く相対位置とYの相対位置を指定する。Xは0に固定
+ ＊Zの手前に引く相対位置（AbsPosZFromAt）は絶対値化されるので、
+	マイナスを指定しても意味がない。
+ 戻り値: なし
 ***************************************************************************/
 Camera::Camera(LPDIRECT3DDEVICE9 pD3DDevice,D3DXVECTOR3& At,FLOAT AbsPosZFromAt,FLOAT PosYFromAt,
     FLOAT Near,FLOAT Far,FLOAT FovY)
 :Object(OBJID_SYS_CAMERA),m_Eye(),m_At(At),m_Near(Near),m_Far(Far),m_FovY(FovY)
 {
 	try{
-		//�J�����ʒu�̊m��
+		//カメラ位置の確定
 		m_Eye.x = m_At.x;
 		m_Eye.y = m_At.y + PosYFromAt;
 		m_Eye.z = m_At.z - fabs(AbsPosZFromAt);
-		//�J�����r���[�̍쐬
+		//カメラビューの作成
 		D3DXMatrixIdentity(&m_View);
 		D3DXMatrixLookAtLH(&m_View,&m_Eye,&m_At,
 				&D3DXVECTOR3( 0.0f, 1.0f, 0.0f));
-		//�J�����ƒ����_�Ƃ̊ԁiArm�j���O�쐬
+		//カメラと直視点との間（Arm）ｗ０作成
 		m_Arm = m_At - m_Eye;
 		D3DXVECTOR3 m;
-		//���K��
+		//正規化
 		D3DXVec3Normalize(&m,&m_Arm);
 		m_TotalAngleXZ = 0;
-		//���K�����ꂽY�̒l���獂���̃��W�A���𓾂�
+		//正規化されたYの値から高さのラジアンを得る
 		FLOAT a_c,a_s;
 		a_c = acos(m.z);
 		a_s = asin(m.y);
@@ -143,13 +143,13 @@ Camera::Camera(LPDIRECT3DDEVICE9 pD3DDevice,D3DXVECTOR3& At,FLOAT AbsPosZFromAt,
 		else{
 			m_TotalAngleY = D3DX_PI + D3DX_PI - a_c;
 		}
-		// �r���[�|�[�g�̎擾
+		// ビューポートの取得
 		D3DVIEWPORT9 vp;
 		if(FAILED(pD3DDevice->GetViewport(&vp))){
-			//���s���s
-			//WinMain��Catch�܂Ŕ��
+			//実行失敗
+			//WinMainのCatchまで飛ぶ
 			throw BaseException(
-				L"�r���[�|�[�g�̎擾�Ɏ��s���܂����B",
+				L"ビューポートの取得に失敗しました。",
 				L"Camera::Draw()"
 				);
 		}
@@ -157,16 +157,16 @@ Camera::Camera(LPDIRECT3DDEVICE9 pD3DDevice,D3DXVECTOR3& At,FLOAT AbsPosZFromAt,
 		D3DXMatrixIdentity(&m_View);
 		D3DXMatrixLookAtLH(&m_View,&m_Eye,&m_At,
 				&D3DXVECTOR3( 0.0f, 1.0f, 0.0f));
-		// �A�X�y�N�g��̌v�Z
+		// アスペクト比の計算
 		float aspect;
 		aspect = (float)vp.Width / (float)vp.Height;
-		// �ˉe�s��̏�����
+		// 射影行列の初期化
 		D3DXMatrixIdentity(&m_Proj);
 		//D3DXMatrixPerspectiveFovLH(&m_Proj, D3DXToRadian(m_FovY), aspect,m_Near,m_Far);
 		D3DXMatrixOrthoLH(&m_Proj, D3DXToRadian(m_FovY), aspect,m_Near,m_Far);
-		// �ˉe�s��̐ݒ�
+		// 射影行列の設定
 		pD3DDevice->SetTransform(D3DTS_PROJECTION,&m_Proj);
-		// �J�����̐ݒ�
+		// カメラの設定
 		pD3DDevice->SetTransform(D3DTS_VIEW,&m_View);
 	}
 	catch(...){
@@ -176,15 +176,15 @@ Camera::Camera(LPDIRECT3DDEVICE9 pD3DDevice,D3DXVECTOR3& At,FLOAT AbsPosZFromAt,
 
 /**************************************************************************
 Camera::Camera(
-    LPDIRECT3DDEVICE9 pD3DDevice,    //IDirect3DDevice9 �C���^�[�t�F�C�X�ւ̃|�C���^
-    D3DXVECTOR3& Eye,	//�J�����̈ʒu
-    D3DXVECTOR3& At,    //�����_
-    FLOAT Near,         //�ˉe�̎�O���̋���
-    FLOAT Far,          //�ˉe�̉����̋���
-    FLOAT FovY          //Y���ˉe�p�x
+    LPDIRECT3DDEVICE9 pD3DDevice,    //IDirect3DDevice9 インターフェイスへのポインタ
+    D3DXVECTOR3& Eye,	//カメラの位置
+    D3DXVECTOR3& At,    //直視点
+    FLOAT Near,         //射影の手前側の距離
+    FLOAT Far,          //射影の奥側の距離
+    FLOAT FovY          //Y軸射影角度
     );
- �p�r: Fix�J�����̎��Ɏg�p����R���X�g���N�^
- �߂�l: �Ȃ�
+ 用途: Fixカメラの時に使用するコンストラクタ
+ 戻り値: なし
 ***************************************************************************/
 Camera::Camera(LPDIRECT3DDEVICE9 pD3DDevice,D3DXVECTOR3& Eye,D3DXVECTOR3& At,
 	 FLOAT Near,FLOAT Far,FLOAT FovY)
@@ -192,17 +192,17 @@ Camera::Camera(LPDIRECT3DDEVICE9 pD3DDevice,D3DXVECTOR3& Eye,D3DXVECTOR3& At,
 {
 	try{
 		m_Arm = m_At - m_Eye;
-		//Fix�J�����̎��Ɏg�p����R���X�g���N�^�Ȃ̂�
-		//�J�����ω��͂Ȃ��Ă��ǂ�
+		//Fixカメラの時に使用するコンストラクタなので
+		//カメラ変化はなくても良い
 		m_TotalAngleXZ = 0;
 		m_TotalAngleY = 0;
-		// �r���[�|�[�g�̎擾
+		// ビューポートの取得
 		D3DVIEWPORT9 vp;
 		if(FAILED(pD3DDevice->GetViewport(&vp))){
-			//���s���s
-			//WinMain��Catch�܂Ŕ��
+			//実行失敗
+			//WinMainのCatchまで飛ぶ
 			throw BaseException(
-				L"�r���[�|�[�g�̎擾�Ɏ��s���܂����B",
+				L"ビューポートの取得に失敗しました。",
 				L"Camera::Draw()"
 				);
 		}
@@ -210,16 +210,16 @@ Camera::Camera(LPDIRECT3DDEVICE9 pD3DDevice,D3DXVECTOR3& Eye,D3DXVECTOR3& At,
 		D3DXMatrixIdentity(&m_View);
 		D3DXMatrixLookAtLH(&m_View,&m_Eye,&m_At,
 				&D3DXVECTOR3( 0.0f, 1.0f, 0.0f));
-		// �A�X�y�N�g��̌v�Z
+		// アスペクト比の計算
 		float aspect;
 		aspect = (float)vp.Width / (float)vp.Height;
-		// �ˉe�s��̏�����
+		// 射影行列の初期化
 		D3DXMatrixIdentity(&m_Proj);
 		//D3DXMatrixPerspectiveFovLH(&m_Proj, D3DXToRadian(m_FovY), aspect,m_Near,m_Far);
 		D3DXMatrixOrthoLH(&m_Proj, D3DXToRadian(m_FovY), aspect,m_Near,m_Far);
-		// �ˉe�s��̐ݒ�
+		// 射影行列の設定
 		pD3DDevice->SetTransform(D3DTS_PROJECTION,&m_Proj);
-		// �J�����̐ݒ�
+		// カメラの設定
 		pD3DDevice->SetTransform(D3DTS_VIEW,&m_View);
 	}
 	catch(...){
@@ -230,35 +230,35 @@ Camera::Camera(LPDIRECT3DDEVICE9 pD3DDevice,D3DXVECTOR3& Eye,D3DXVECTOR3& At,
 
 /**************************************************************************
  Camera::~Camera();
- �p�r: �f�X�g���N�^
- �߂�l: �Ȃ�
+ 用途: デストラクタ
+ 戻り値: なし
 ***************************************************************************/
 Camera::~Camera(){
 }
 /**************************************************************************
  void Camera::Draw(
-    LPDIRECT3DDEVICE9 pD3DDevice,   //IDirect3DDevice9 �C���^�[�t�F�C�X�ւ̃|�C���^
-    const CONTROLER_STATE* pCntlState   //�R���g���[���[�̃X�e�[�^�X
+    LPDIRECT3DDEVICE9 pD3DDevice,   //IDirect3DDevice9 インターフェイスへのポインタ
+    const CONTROLER_STATE* pCntlState   //コントローラーのステータス
  );
- �p�r: �J������ݒu
- �߂�l: �Ȃ��B
+ 用途: カメラを設置
+ 戻り値: なし。
 ***************************************************************************/
 /**************************************************************************
  virtual void Camera::Draw(
 	DrawPacket& i_DrawPacket
 );
- �p�r: �I�u�W�F�N�g��`��i�������z�֐��j
- �߂�l: �Ȃ��B
+ 用途: オブジェクトを描画（純粋仮想関数）
+ 戻り値: なし。
 ***************************************************************************/
 void Camera::Draw(DrawPacket& i_DrawPacket){
 
-    // �r���[�|�[�g�̎擾
+    // ビューポートの取得
     D3DVIEWPORT9 vp;
     if(FAILED(i_DrawPacket.GetDevice()->GetViewport(&vp))){
-        //���s���s
-		//WinMain��Catch�܂Ŕ��
+        //実行失敗
+		//WinMainのCatchまで飛ぶ
         throw BaseException(
-            L"�r���[�|�[�g�̎擾�Ɏ��s���܂����B",
+            L"ビューポートの取得に失敗しました。",
             L"Camera::Draw()"
             );
     }
@@ -266,40 +266,40 @@ void Camera::Draw(DrawPacket& i_DrawPacket){
     D3DXMatrixIdentity(&m_View);
     D3DXMatrixLookAtLH(&m_View,&m_Eye,&m_At,
             &D3DXVECTOR3( 0.0f, 1.0f, 0.0f));
-    // �A�X�y�N�g��̌v�Z
+    // アスペクト比の計算
     float aspect;
     aspect = (float)vp.Width / (float)vp.Height;
-    // �ˉe�s��̏�����
+    // 射影行列の初期化
     D3DXMatrixIdentity(&m_Proj);
     D3DXMatrixPerspectiveFovLH(&m_Proj, D3DXToRadian(m_FovY), aspect,m_Near,m_Far);
-    // �ˉe�s��̐ݒ�
+    // 射影行列の設定
     i_DrawPacket.GetDevice()->SetTransform(D3DTS_PROJECTION,&m_Proj);
-    // �J�����̐ݒ�
+    // カメラの設定
     i_DrawPacket.GetDevice()->SetTransform(D3DTS_VIEW,&m_View);
 }
 
 
 /**************************************************************************
  class LookAtCamera : public Object;
- �p�r: �I�u�W�F�N�g�𒍖ڂ���J�����N���X
+ 用途: オブジェクトを注目するカメラクラス
 ****************************************************************************/
 /**************************************************************************
  LookAtCamera::LookAtCamera(
-    LPDIRECT3DDEVICE9 pD3DDevice,    //IDirect3DDevice9 �C���^�[�t�F�C�X�ւ̃|�C���^
-    Object*	pObj,		//�����_�𓾂邽�߂̃I�u�W�F�N�g
-	FLOAT LocalY,		//�����_���璲������Y�ʒu
-	FLOAT AbsPosZFromAt,//�����_���猩���A�J�����ʒu��Z�̈ʒu(��Βl�w��)
-	FLOAT PosYFromAt,	//�����_���猩���A�J�����ʒu��Y�̈ʒu
-    FLOAT Near,         //�ˉe�̎�O���̋���
-    FLOAT Far,          //�ˉe�̉����̋���
-    FLOAT FovY          //Y���ˉe�p�x
+    LPDIRECT3DDEVICE9 pD3DDevice,    //IDirect3DDevice9 インターフェイスへのポインタ
+    Object*	pObj,		//直視点を得るためのオブジェクト
+	FLOAT LocalY,		//直視点から調整するY位置
+	FLOAT AbsPosZFromAt,//直視点から見た、カメラ位置のZの位置(絶対値指定)
+	FLOAT PosYFromAt,	//直視点から見た、カメラ位置のYの位置
+    FLOAT Near,         //射影の手前側の距離
+    FLOAT Far,          //射影の奥側の距離
+    FLOAT FovY          //Y軸射影角度
     );
- �p�r: �R���X�g���N�^
- ���J�����ʒu�̏����l�͒��ڂ͎w��ł��Ȃ��B
- �������_����݂āAZ�̎�O�Ɉ������Έʒu��Y�̑��Έʒu���w�肷��BX��0�ɌŒ�
- ��Z�̎�O�Ɉ������Έʒu�iAbsPosZFromAt�j�͐�Βl�������̂ŁA
-	�}�C�i�X���w�肵�Ă��Ӗ����Ȃ��B
- �߂�l: �Ȃ�
+ 用途: コンストラクタ
+ ＊カメラ位置の初期値は直接は指定できない。
+ ＊直視点からみて、Zの手前に引く相対位置とYの相対位置を指定する。Xは0に固定
+ ＊Zの手前に引く相対位置（AbsPosZFromAt）は絶対値化されるので、
+	マイナスを指定しても意味がない。
+ 戻り値: なし
 ***************************************************************************/
 LookAtCamera::LookAtCamera(LPDIRECT3DDEVICE9 pD3DDevice,
 		Object* pObj,FLOAT LocalY,FLOAT AbsPosZFromAt,FLOAT PosYFromAt,
@@ -307,12 +307,12 @@ LookAtCamera::LookAtCamera(LPDIRECT3DDEVICE9 pD3DDevice,
 :
 
 Camera(
-	pD3DDevice,			//�f�o�C�X
-	D3DXVECTOR3(0,0,0),    //�J�����̈ʒu
-	D3DXVECTOR3(0,0,0),    //�����_
-	Near,         //�ˉe�̎�O���̋���
-	Far,          //�ˉe�̉����̋���
-	FovY          //Y���ˉe�p�x
+	pD3DDevice,			//デバイス
+	D3DXVECTOR3(0,0,0),    //カメラの位置
+	D3DXVECTOR3(0,0,0),    //直視点
+	Near,         //射影の手前側の距離
+	Far,          //射影の奥側の距離
+	FovY          //Y軸射影角度
 	),
 m_pObject(pObj),
 m_LocalY(LocalY)
@@ -322,25 +322,25 @@ m_LocalY(LocalY)
 		if(m_pObject){
 			ObjPos = m_pObject->getPos();
 		}
-		//�����_���擾
+		//直視点を取得
 		m_At = ObjPos;
 		m_At.y += m_LocalY;
 
-		//�J�����ʒu�̊m��
+		//カメラ位置の確定
 		m_Eye.x = m_At.x;
 		m_Eye.y = m_At.y + PosYFromAt;
 		m_Eye.z = m_At.z - fabs(AbsPosZFromAt);
-		//�J�����r���[�̍쐬
+		//カメラビューの作成
 		D3DXMatrixIdentity(&m_View);
 		D3DXMatrixLookAtLH(&m_View,&m_Eye,&m_At,
 				&D3DXVECTOR3( 0.0f, 1.0f, 0.0f));
-		//�J�����ƒ����_�Ƃ̊ԁiArm�j���O�쐬
+		//カメラと直視点との間（Arm）ｗ０作成
 		m_Arm = m_At - m_Eye;
 		D3DXVECTOR3 m;
-		//���K��
+		//正規化
 		D3DXVec3Normalize(&m,&m_Arm);
 		m_TotalAngleXZ = 0;
-		//���K�����ꂽY�̒l���獂���̃��W�A���𓾂�
+		//正規化されたYの値から高さのラジアンを得る
 		FLOAT a_c,a_s;
 		a_c = acos(m.z);
 		a_s = asin(m.y);
@@ -350,33 +350,33 @@ m_LocalY(LocalY)
 		else{
 			m_TotalAngleY = D3DX_PI + D3DX_PI - a_c;
 		}
-		// �r���[�|�[�g�̎擾
+		// ビューポートの取得
 		D3DVIEWPORT9 vp;
 		if(FAILED(pD3DDevice->GetViewport(&vp))){
-			//���s���s
-			//WinMain��Catch�܂Ŕ��
+			//実行失敗
+			//WinMainのCatchまで飛ぶ
 			throw BaseException(
-				L"�r���[�|�[�g�̎擾�Ɏ��s���܂����B",
+				L"ビューポートの取得に失敗しました。",
 				L"Camera::Draw()"
 				);
 		}
 		D3DXMatrixIdentity(&m_View);
 		D3DXMatrixLookAtLH(&m_View,&m_Eye,&m_At,
 				&D3DXVECTOR3( 0.0f, 1.0f, 0.0f));
-		// �A�X�y�N�g��̌v�Z
+		// アスペクト比の計算
 		float aspect;
 		aspect = (float)vp.Width / (float)vp.Height;
-		// �ˉe�s��̏�����
+		// 射影行列の初期化
 		D3DXMatrixIdentity(&m_Proj);
 		D3DXMatrixPerspectiveFovLH(&m_Proj, D3DXToRadian(m_FovY), aspect,m_Near,m_Far);
-		// �ˉe�s��̐ݒ�
+		// 射影行列の設定
 		pD3DDevice->SetTransform(D3DTS_PROJECTION,&m_Proj);
-		// �J�����̐ݒ�
+		// カメラの設定
 		pD3DDevice->SetTransform(D3DTS_VIEW,&m_View);
 
 	}
 	catch(...){
-		//�ăX���[
+		//再スロー
 		throw;
 	}
 
@@ -385,20 +385,20 @@ m_LocalY(LocalY)
 
 /**************************************************************************
  LookAtCamera::~LookAtCamera();
- �p�r: �f�X�g���N�^
- �߂�l: �Ȃ�
+ 用途: デストラクタ
+ 戻り値: なし
 ***************************************************************************/
 LookAtCamera::~LookAtCamera(){
 }
 
 /**************************************************************************
  virtual void LookAtCamera::Transform(
- vector<Object*>& Vec,            //�I�u�W�F�N�g�̔z��
- const CONTROLER_STATE* pCntlState,	//�R���g���[���̏��
- Context& Data					//���[�U�[�f�[�^
+ vector<Object*>& Vec,            //オブジェクトの配列
+ const CONTROLER_STATE* pCntlState,	//コントローラの状態
+ Context& Data					//ユーザーデータ
  );
- �p�r: �I�u�W�F�N�g��ω�������i�������z�֐��j
- �߂�l: �Ȃ��B
+ 用途: オブジェクトを変化させる（純粋仮想関数）
+ 戻り値: なし。
 ***************************************************************************/
 void LookAtCamera::Update( UpdatePacket& i_UpdatePacket ){
 
@@ -413,26 +413,26 @@ void LookAtCamera::Update( UpdatePacket& i_UpdatePacket ){
 		if(m_pObject){
 			ObjPos = m_pObject->getPos();
 		}
-		//���݂̒����_�𓾂�
+		//現在の直視点を得る
 		m_At.x = ObjPos.x;
 		m_At.z = ObjPos.z;
-		//m_Eye�ʒu�̕ύX�P
+		//m_Eye位置の変更１
 		if(wButtons.RIGHT_SHOULDER){
-			//���S����
+			//完全注目
 			m_At.y = ObjPos.y;
 			m_At.y += m_LocalY;
 		}
 
-		//�J�����ʒu�ƒ����_�̊Ԃ̃x�N�g�����Z�o
+		//カメラ位置と注視点の間のベクトルを算出
 		D3DXVECTOR3 span = m_Eye - m_At;
-		//���K��
+		//正規化
 		D3DXVec3Normalize(&span,&span);
-		//����
+		//分割
 		span = span * 0.2f;
-		//D�p�b�h��
-		//�J����������
+		//Dパッド下
+		//カメラを引く
         if(wButtons.DOWN){
-			//�J�����ʒu������
+			//カメラ位置を引く
 			m_Eye = m_Eye + span;
 		    m_Arm = m_At - m_Eye;
 			if(D3DXVec3Length(&m_Arm) > (m_Far * 0.5f)){
@@ -440,10 +440,10 @@ void LookAtCamera::Update( UpdatePacket& i_UpdatePacket ){
 			    m_Arm = m_At - m_Eye;
 			}
         }
-		//D�p�b�h��
-		//�J���������
+		//Dパッド上
+		//カメラを寄る
         if(wButtons.UP){
-			//�J�����ʒu�����
+			//カメラ位置を寄る
 			m_Eye = m_Eye - span;
 		    m_Arm = m_At - m_Eye;
 			if(D3DXVec3Length(&m_Arm) < 2.0f){
@@ -451,13 +451,13 @@ void LookAtCamera::Update( UpdatePacket& i_UpdatePacket ){
 			    m_Arm = m_At - m_Eye;
 			}
         }
-		//m_Eye�ʒu�̕ύX�Q
+		//m_Eye位置の変更２
 		FLOAT AngleX = 0;
-		//�E�X�e�B�b�NX����
+		//右スティックX方向
         if(sThumbR.x != 0){
             AngleX = sThumbR.x / 1000000.0f;
         }
-		//�E�X�e�B�b�NY����
+		//右スティックY方向
 		FLOAT AngleY = 0;
         if(sThumbR.y != 0){
             AngleY = sThumbR.y / 1000000.0f;
@@ -489,51 +489,51 @@ void LookAtCamera::Update( UpdatePacket& i_UpdatePacket ){
 
 /**************************************************************************
  virtual void LookAtCamera::Draw(
-    LPDIRECT3DDEVICE9 pD3DDevice    //IDirect3DDevice9 �C���^�[�t�F�C�X�ւ̃|�C���^
-    vector<Object*>& Vec,            //�I�u�W�F�N�g�̔z��
-    const CONTROLER_STATE* pCntlState,   //�R���g���[���̃X�e�[�^�X
-	Context& Data					//���[�U�[�f�[�^
+    LPDIRECT3DDEVICE9 pD3DDevice    //IDirect3DDevice9 インターフェイスへのポインタ
+    vector<Object*>& Vec,            //オブジェクトの配列
+    const CONTROLER_STATE* pCntlState,   //コントローラのステータス
+	Context& Data					//ユーザーデータ
  );
- �p�r: �I�u�W�F�N�g��`��i�������z�֐��j
- �߂�l: �Ȃ��B
+ 用途: オブジェクトを描画（純粋仮想関数）
+ 戻り値: なし。
 ***************************************************************************/
 void LookAtCamera::Draw(LPDIRECT3DDEVICE9 pD3DDevice,vector<Object*>& Vec,
 	const CONTROLER_STATE* pCntlState,Context& Data){
-    // �r���[�|�[�g�̎擾
+    // ビューポートの取得
     D3DVIEWPORT9 vp;
     if(FAILED(pD3DDevice->GetViewport(&vp))){
-        //���s���s
-		//WinMain��Catch�܂Ŕ��
+        //実行失敗
+		//WinMainのCatchまで飛ぶ
         throw BaseException(
-            L"�r���[�|�[�g�̎擾�Ɏ��s���܂����B",
+            L"ビューポートの取得に失敗しました。",
             L"Camera::Draw()"
             );
     }
     D3DXMatrixIdentity(&m_View);
     D3DXMatrixLookAtLH(&m_View,&m_Eye,&m_At,
             &D3DXVECTOR3( 0.0f, 1.0f, 0.0f));
-    // �A�X�y�N�g��̌v�Z
+    // アスペクト比の計算
     float aspect;
     aspect = (float)vp.Width / (float)vp.Height;
-    // �ˉe�s��̏�����
+    // 射影行列の初期化
     D3DXMatrixIdentity(&m_Proj);
     D3DXMatrixPerspectiveFovLH(&m_Proj, D3DXToRadian(m_FovY), aspect,m_Near,m_Far);
-    // �ˉe�s��̐ݒ�
+    // 射影行列の設定
     pD3DDevice->SetTransform(D3DTS_PROJECTION,&m_Proj);
-    // �J�����̐ݒ�
+    // カメラの設定
     pD3DDevice->SetTransform(D3DTS_VIEW,&m_View);
 }
 
 
 /**************************************************************************
- class Guide ��`��
+ class Guide 定義部
 ****************************************************************************/
 /**************************************************************************
  void Guide::CreateInctance(
- LPDIRECT3DDEVICE9 pD3DDevice	//IDirect3DDevice9�C���^�[�t�F�C�X�ւ̃|�C���^
+ LPDIRECT3DDEVICE9 pD3DDevice	//IDirect3DDevice9インターフェイスへのポインタ
  );
- �p�r: �C���X�^���X�̍\�z
- �߂�l: �Ȃ��B�i��O��throw�����j
+ 用途: インスタンスの構築
+ 戻り値: なし。（例外がthrowされる）
 ***************************************************************************/
 void Guide::CreateInctance(LPDIRECT3DDEVICE9 pD3DDevice){
 	ReleaseObj();
@@ -551,41 +551,41 @@ void Guide::CreateInctance(LPDIRECT3DDEVICE9 pD3DDevice){
                                     0,D3DFVF_XYZ|D3DFVF_DIFFUSE,
                                     D3DPOOL_DEFAULT, &m_pVB, NULL)))
         {
-            // ���������s
+            // 初期化失敗
             throw BaseException(
-                L"���_�o�b�t�@�̍쐬�Ɏ��s���܂����B",
+                L"頂点バッファの作成に失敗しました。",
                 L"Guide::Guide()"
                 );
         }
-        //�o�b�t�@�����b�N
+        //バッファをロック
         VOID* pVertices;
         if(FAILED( m_pVB->Lock( 0, sizeof(Vertices),( void** )&pVertices, 0 ))){
-            // ���������s
+            // 初期化失敗
             throw BaseException(
-                L"���_�o�b�t�@�̃��b�N�Ɏ��s���܂����B",
+                L"頂点バッファのロックに失敗しました。",
                 L"Guide::Guide()"
                 );
         }
-        //���_�f�[�^���璸�_�o�b�t�@�ɓ]��
+        //頂点データから頂点バッファに転送
         memcpy( pVertices,Vertices, sizeof(Vertices) );
-        //���_�o�b�t�@���A�����b�N
+        //頂点バッファをアンロック
         m_pVB->Unlock();
     }
     catch(...){
-        //�R���X�g���N�^��O����
-        //��n��
+        //コンストラクタ例外発生
+        //後始末
 		ReleaseObj();
-        //�ăX���[
+        //再スロー
         throw;
     }
 }
 
 /**************************************************************************
  Guide::Guide(
-    LPDIRECT3DDEVICE9 pD3DDevice    //IDirect3DDevice9�C���^�[�t�F�C�X�ւ̃|�C���^
+    LPDIRECT3DDEVICE9 pD3DDevice    //IDirect3DDevice9インターフェイスへのポインタ
     );
- �p�r: �R���X�g���N�^
- �߂�l: �Ȃ��i���s���͗�O��throw�j
+ 用途: コンストラクタ
+ 戻り値: なし（失敗時は例外をthrow）
 ***************************************************************************/
 Guide::Guide(LPDIRECT3DDEVICE9 pD3DDevice)
 :Object(OBJID_SYS_GUIDELINE),m_pVB(0)
@@ -594,17 +594,17 @@ Guide::Guide(LPDIRECT3DDEVICE9 pD3DDevice)
 }
 /**************************************************************************
  Guide::~Guide();
- �p�r: �f�X�g���N�^
- �߂�l: �Ȃ�
+ 用途: デストラクタ
+ 戻り値: なし
 ***************************************************************************/
 Guide::~Guide(){
 	ReleaseObj();
 }
 /**************************************************************************
 	virtual void Guide::ReleaseObj();
- �p�r: �f�o�C�X�r���ɂ�郊�\�[�X�̊J���i���z�֐��j
- �߂�l: �Ȃ��B
- ���f�o�C�X���r�������Ƃ��ɌĂ΂��B���ׂĂ�Object�̔h���N���X�́A�ʂɑΉ����Ƃ�
+ 用途: デバイス喪失によるリソースの開放（仮想関数）
+ 戻り値: なし。
+ ＊デバイスが喪失したときに呼ばれる。すべてのObjectの派生クラスは、個別に対応をとる
 ***************************************************************************/
 void Guide::ReleaseObj(){
     SafeRelease(m_pVB);
@@ -612,38 +612,38 @@ void Guide::ReleaseObj(){
 
 /**************************************************************************
 	virtual void Guide::ChangeDevice(
-    LPDIRECT3DDEVICE9 pD3DDevice    //IDirect3DDevice9 �C���^�[�t�F�C�X�ւ̃|�C���^
+    LPDIRECT3DDEVICE9 pD3DDevice    //IDirect3DDevice9 インターフェイスへのポインタ
 	);
- �p�r: �f�o�C�X�r���ɂ��č\�z�i���z�֐��j
- �߂�l: �Ȃ��B
- ���f�o�C�X���r�������Ƃ��ɍō\�z���ɌĂ΂��B���ׂĂ�Object�̔h���N���X�́A�ʂɑΉ����Ƃ�
+ 用途: デバイス喪失による再構築（仮想関数）
+ 戻り値: なし。
+ ＊デバイスが喪失したときに最構築時に呼ばれる。すべてのObjectの派生クラスは、個別に対応をとる
 ***************************************************************************/
 void Guide::ChangeDevice(LPDIRECT3DDEVICE9 pD3DDevice){
-	//���N���X�ł͉������Ȃ�
+	//基底クラスでは何もしない
 	CreateInctance(pD3DDevice);
 }
 
 
 /**************************************************************************
  virtual void Guide::Draw(
-    LPDIRECT3DDEVICE9 pD3DDevice    //IDirect3DDevice9 �C���^�[�t�F�C�X�ւ̃|�C���^
-    vector<Object*>& Vec,            //�I�u�W�F�N�g�̔z��
-    const CONTROLER_STATE* pCntlState,   //�R���g���[���̃X�e�[�^�X
-	Context& Data					//���[�U�[�f�[�^
+    LPDIRECT3DDEVICE9 pD3DDevice    //IDirect3DDevice9 インターフェイスへのポインタ
+    vector<Object*>& Vec,            //オブジェクトの配列
+    const CONTROLER_STATE* pCntlState,   //コントローラのステータス
+	Context& Data					//ユーザーデータ
  );
- �p�r: �I�u�W�F�N�g��`��i�������z�֐��j
- �߂�l: �Ȃ��B
+ 用途: オブジェクトを描画（純粋仮想関数）
+ 戻り値: なし。
 ***************************************************************************/
 void Guide::Draw(DrawPacket& i_DrawPacket){
 	LPDIRECT3DDEVICE9 pD3DDevice = i_DrawPacket.GetDevice() ;
 	if(!m_pVB){
-		//�o�b�t�@�������Ȃ牽�����Ȃ�
+		//バッファが無効なら何もしない
 		return;
 	}
     D3DXMATRIX  wm;
-    //���W�ϊ��Ȃ�
+    //座標変換なし
     D3DXMatrixIdentity(&wm);
-    // �}�g���b�N�X�������_�����O�p�C�v���C���ɐݒ�
+    // マトリックスをレンダリングパイプラインに設定
     pD3DDevice->SetTransform(D3DTS_WORLD, &wm);
     pD3DDevice->SetStreamSource( 0, m_pVB, 0, sizeof( CUSTOMVERTEX ) );
     pD3DDevice->SetFVF(D3DFVF_XYZ|D3DFVF_DIFFUSE);

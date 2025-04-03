@@ -1,14 +1,14 @@
 ////////////////////////////// //////////////////////////////
-//	ƒvƒƒWƒFƒNƒg	FBomberProject
-//	ƒtƒ@ƒCƒ‹–¼		FFactory_Coil.h
-//	ŠJ”­ŠÂ‹«		FMSVC++ 2008
-//	Å“Kƒ^ƒu”		F4
-//	’S“–Ò			F°Œ´ “O
-//	ˆøŒp‚¬			F–{‘½Š°”V
-//	•ÒW			F‰g’n‘å—m
-//					F²“¡—Á
-//	“à•ïÃŞ°À‚Æ”õl	FƒvƒŒƒCƒ„[ƒRƒCƒ‹ŠÖ˜A
-//					¥
+//	ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆ	ï¼šBomberProject
+//	ãƒ•ã‚¡ã‚¤ãƒ«å		ï¼šFactory_Coil.h
+//	é–‹ç™ºç’°å¢ƒ		ï¼šMSVC++ 2008
+//	æœ€é©ã‚¿ãƒ–æ•°		ï¼š4
+//	æ‹…å½“è€…			ï¼šé´«åŸ å¾¹
+//	å¼•ç¶™ã			ï¼šæœ¬å¤šå¯›ä¹‹
+//	ç·¨é›†			ï¼šæ›³åœ°å¤§æ´‹
+//					ï¼šä½è—¤æ¶¼
+//	å†…åŒ…ãƒ‡ãƒ¼ã‚¿ã¨å‚™è€ƒ	ï¼šãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚³ã‚¤ãƒ«é–¢é€£
+//					â–¼
 //	namespace wiz;
 //		namespace bomberobject;
 //			class PlayerCoil : public MagnetField ;
@@ -28,21 +28,21 @@
 //	const	D3DXVECTOR3		COIL_SCALE_ADD_VALUE_START		= D3DXVECTOR3(0.03f,0.03f,0.03f);
 //	const	D3DXVECTOR3		COIL_SCALE_ADD_VALUE_STOP		= D3DXVECTOR3(0.03f,0.03f,0.03f);
 //	const	D3DXVECTOR3		COIL_SCALE_ADD_VALUE_STICK		= D3DXVECTOR3(0.045f,0.045f,0.045f);
-//	enum	COIL_STATE{			//©‹@‚Ìó‘Ô
-//		COIL_STATE_START,		//ƒXƒ^[ƒg
-//		COIL_STATE_MOVE,		//ˆÚ“®
-//		COIL_STATE_STICK,		//‹z’…
-//		//COIL_STATE_SUPER,		//–³“G
-//		COIL_STATE_DEAD,		//€–S
-//		COIL_STATE_CONTINUE,	//ƒRƒ“ƒeƒBƒjƒ…[
-//		COIL_STATE_CLEAR,		//ƒNƒŠƒA
-//		COIL_STATE_STOP			//’â~ó‘Ô
+//	enum	COIL_STATE{			//è‡ªæ©Ÿã®çŠ¶æ…‹
+//		COIL_STATE_START,		//ã‚¹ã‚¿ãƒ¼ãƒˆ
+//		COIL_STATE_MOVE,		//ç§»å‹•
+//		COIL_STATE_STICK,		//å¸ç€
+//		//COIL_STATE_SUPER,		//ç„¡æ•µ
+//		COIL_STATE_DEAD,		//æ­»äº¡
+//		COIL_STATE_CONTINUE,	//ã‚³ãƒ³ãƒ†ã‚£ãƒ‹ãƒ¥ãƒ¼
+//		COIL_STATE_CLEAR,		//ã‚¯ãƒªã‚¢
+//		COIL_STATE_STOP			//åœæ­¢çŠ¶æ…‹
 //	};
 //
 #pragma once
 
 //////////
-//	: ƒCƒ“ƒNƒ‹[ƒh
+//	: ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰
 #include "Factory_Magnetic.h"
 #include "Factory_DeadEffect.h"
 #include "Factory_Cursor.h"
@@ -51,12 +51,12 @@
 #include "Factory_MagnetField.h"
 
 //#include "Factory_Description.h"
-//	: ƒCƒ“ƒNƒ‹[ƒh
+//	: ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰
 //////////
 
 
 //////////
-//	: ƒOƒ[ƒoƒ‹’è”
+//	: ã‚°ãƒ­ãƒ¼ãƒãƒ«å®šæ•°
 const float			COIL_SPEED						= 0.08f;
 const float			COIL_SPEED_SUPER				= 0.15f;
 //const float			COIL_ACCELERATION_VALUE			= 0.0f;
@@ -79,14 +79,14 @@ const D3DXVECTOR3	COIL_SCALE_ADD_VALUE_STICK		= D3DXVECTOR3(0.045f,0.045f,0.045f
 const int			MAX_DIGHT_SCORE					= 1000000;
 const int			LIMIT_TIME						= 60;
 
-enum COIL_STATE{			//©‹@‚Ìó‘Ô
-	COIL_STATE_START,		//ƒXƒ^[ƒg
-	COIL_STATE_MOVE,		//ˆÚ“®
-	COIL_STATE_STICK,		//‹z’…
-	COIL_STATE_DEAD,		//€–S
-	COIL_STATE_CONTINUE,	//ƒRƒ“ƒeƒBƒjƒ…[
-	COIL_STATE_CLEAR,		//ƒNƒŠƒA
-	COIL_STATE_STOP			//’â~ó‘Ô
+enum COIL_STATE{			//è‡ªæ©Ÿã®çŠ¶æ…‹
+	COIL_STATE_START,		//ã‚¹ã‚¿ãƒ¼ãƒˆ
+	COIL_STATE_MOVE,		//ç§»å‹•
+	COIL_STATE_STICK,		//å¸ç€
+	COIL_STATE_DEAD,		//æ­»äº¡
+	COIL_STATE_CONTINUE,	//ã‚³ãƒ³ãƒ†ã‚£ãƒ‹ãƒ¥ãƒ¼
+	COIL_STATE_CLEAR,		//ã‚¯ãƒªã‚¢
+	COIL_STATE_STOP			//åœæ­¢çŠ¶æ…‹
 };
 
 enum COIL_STATE_SUPER{
@@ -95,7 +95,7 @@ enum COIL_STATE_SUPER{
 	COIL_STATE_SUPER_CHANGING,
 	COIL_STATE_SUPER_MOVE
 };
-//	: ƒOƒ[ƒoƒ‹’è”
+//	: ã‚°ãƒ­ãƒ¼ãƒãƒ«å®šæ•°
 //////////
 
 namespace wiz{
@@ -109,44 +109,44 @@ extern class ContinueBehavior;
 //**************************************************************************//
 // class PlayerCoil : public MagneticumObject ;
 //
-// ’S“–Ò  : °Œ´ “O
-// ˆøŒp‚¬  : –{‘½Š°”V
-// •ÒW    : ‰g’n ‘å—m
-//         : ²“¡—Á
-// —p“r    : ƒ†[ƒU[‚ª—U“±‚·‚é‘ÎÛ‚É‚È‚é•¨
+// æ‹…å½“è€…  : é´«åŸ å¾¹
+// å¼•ç¶™ã  : æœ¬å¤šå¯›ä¹‹
+// ç·¨é›†    : æ›³åœ° å¤§æ´‹
+//         : ä½è—¤æ¶¼
+// ç”¨é€”    : ãƒ¦ãƒ¼ã‚¶ãƒ¼ãŒèª˜å°ã™ã‚‹å¯¾è±¡ã«ãªã‚‹ç‰©
 //**************************************************************************//
 class PlayerCoil : public Cylinder ,public MagneticObject{
 #if defined( ON_DEBUGGINGPROCESS ) | defined( PRESENTATION )
-	//	: ƒfƒoƒbƒO—p‚Ìƒf[ƒ^
-	DrawSphere*		m_pDSPH		;				//	: ‹…—ÌŠE•`‰æƒNƒ‰ƒX‚Ìƒ|ƒCƒ“ƒ^
-	bool			m_bDebugInvincibleMode;		//	: ƒfƒoƒbƒO—p–³“Gƒtƒ‰ƒO
+	//	: ãƒ‡ãƒãƒƒã‚°ç”¨ã®ãƒ‡ãƒ¼ã‚¿
+	DrawSphere*		m_pDSPH		;				//	: çƒé ˜ç•Œæç”»ã‚¯ãƒ©ã‚¹ã®ãƒã‚¤ãƒ³ã‚¿
+	bool			m_bDebugInvincibleMode;		//	: ãƒ‡ãƒãƒƒã‚°ç”¨ç„¡æ•µãƒ•ãƒ©ã‚°
 #endif
-	Sphere*			m_pSphere			;	//	: ƒRƒA
-	D3DXMATRIX		m_Matrix			;	//	: s—ñ
-	D3DXVECTOR3		m_vPos				;	//	: À•W
-	D3DXQUATERNION	m_vRot				;	//	: ‰ñ“]
-	D3DXVECTOR3		m_vScale			;	//	: Lk
-	D3DXVECTOR3		m_vOriginScale		;	//	: Œ³‚Ì‘å‚«‚³
-	D3DXVECTOR3		m_vMove				;	//	: ˆÚ“®‹——£
-	D3DXVECTOR3		m_vStartPos			;	//	: ÄƒXƒ^[ƒgˆÊ’u
-	int				m_iDeadCount		;	//	: €–S‰ñ”
+	Sphere*			m_pSphere			;	//	: ã‚³ã‚¢
+	D3DXMATRIX		m_Matrix			;	//	: è¡Œåˆ—
+	D3DXVECTOR3		m_vPos				;	//	: åº§æ¨™
+	D3DXQUATERNION	m_vRot				;	//	: å›è»¢
+	D3DXVECTOR3		m_vScale			;	//	: ä¼¸ç¸®
+	D3DXVECTOR3		m_vOriginScale		;	//	: å…ƒã®å¤§ãã•
+	D3DXVECTOR3		m_vMove				;	//	: ç§»å‹•è·é›¢
+	D3DXVECTOR3		m_vStartPos			;	//	: å†ã‚¹ã‚¿ãƒ¼ãƒˆä½ç½®
+	int				m_iDeadCount		;	//	: æ­»äº¡å›æ•°
 	int				m_iMaxPosY			;
 	int				m_iScratchTime		;
 	int				m_fRecordTime		;
 	int				m_iChangeColorInterval;
-	float			m_OBBRadius			;	//	: ‘½•ªSphereRadius
-	float			m_fMoveDir			;	//	: ˆÚ“®Šp“x
-	float			m_fMovdSpeed		;	//	: ˆÚ“®‘¬“x
-	float			m_fAcceleration		;	//	: ‰Á‘¬
-	float			m_fTurnAngle		;	//	: ‰ñ“]Šp“x
+	float			m_OBBRadius			;	//	: å¤šåˆ†SphereRadius
+	float			m_fMoveDir			;	//	: ç§»å‹•è§’åº¦
+	float			m_fMovdSpeed		;	//	: ç§»å‹•é€Ÿåº¦
+	float			m_fAcceleration		;	//	: åŠ é€Ÿ
+	float			m_fTurnAngle		;	//	: å›è»¢è§’åº¦
 	float			m_fSuperTimeCount	;
 	float			m_fSuperFieldRotZ	;
 	float			m_fSuperTimeAccumulator;
 	float			m_fLineMovingDistance;
-	bool			m_bLastMouseRB		;	//	: ƒ}ƒEƒX‚ÌRƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚Ä‚¢‚é‚©
-	bool			m_bLastMouseLB		;	//	: ƒ}ƒEƒX‚ÌLƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚Ä‚¢‚é‚©
-	bool			m_bReadyToStart		;	//	: ”­Ë‚·‚é€”õ‚ªo—ˆ‚½‚©
-	bool			m_bReadyContinue	;	//	: ƒRƒ“ƒeƒBƒjƒ…[‚·‚é€”õ‚ªo—ˆ‚½‚©
+	bool			m_bLastMouseRB		;	//	: ãƒã‚¦ã‚¹ã®Rãƒœã‚¿ãƒ³ãŒæŠ¼ã•ã‚Œã¦ã„ã‚‹ã‹
+	bool			m_bLastMouseLB		;	//	: ãƒã‚¦ã‚¹ã®Lãƒœã‚¿ãƒ³ãŒæŠ¼ã•ã‚Œã¦ã„ã‚‹ã‹
+	bool			m_bReadyToStart		;	//	: ç™ºå°„ã™ã‚‹æº–å‚™ãŒå‡ºæ¥ãŸã‹
+	bool			m_bReadyContinue	;	//	: ã‚³ãƒ³ãƒ†ã‚£ãƒ‹ãƒ¥ãƒ¼ã™ã‚‹æº–å‚™ãŒå‡ºæ¥ãŸã‹
 	bool			m_bRestart			;
 	bool			m_bModeChangeChar	;
 	bool			m_bReDrawing_ChangeChar	;
@@ -159,14 +159,14 @@ class PlayerCoil : public Cylinder ,public MagneticObject{
 
 
 
-	MouseCursor*			m_pCursor					;	//	: ƒJ[ƒ\ƒ‹ƒIƒuƒWƒFƒNƒg‚Ö‚Ìƒ|ƒCƒ“ƒ^
-	Camera*					m_pCamera					;	//	: Camera‚Ö‚Ìƒ|ƒCƒ“ƒ^
+	MouseCursor*			m_pCursor					;	//	: ã‚«ãƒ¼ã‚½ãƒ«ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã¸ã®ãƒã‚¤ãƒ³ã‚¿
+	Camera*					m_pCamera					;	//	: Cameraã¸ã®ãƒã‚¤ãƒ³ã‚¿
 	SuperGage*				m_pSuperGage				;
-	Box*					m_pSuperField				;	//	: –³“G‚ÌƒtƒB[ƒ‹ƒh
+	Box*					m_pSuperField				;	//	: ç„¡æ•µæ™‚ã®ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰
 	StartSprite*			m_pReStart					;	//	: 
-	ProvisionalPlayer3D*	m_pPlayer					;	//	: ƒ†[ƒUİ’u¥ŠE‚Ö‚Ìƒ|ƒCƒ“ƒ^
-	StaticMagnetField*		m_pMagneticumObject			;	//	: ‰Šú”z’u¥ŠE‚Ö‚Ìƒ|ƒCƒ“ƒ^
-	DeadEffect*				m_pDeadEffect				;	//	: €–S‚Ì”šUƒGƒtƒFƒNƒg‚Ìƒ|ƒCƒ“ƒ^
+	ProvisionalPlayer3D*	m_pPlayer					;	//	: ãƒ¦ãƒ¼ã‚¶è¨­ç½®ç£ç•Œã¸ã®ãƒã‚¤ãƒ³ã‚¿
+	StaticMagnetField*		m_pMagneticumObject			;	//	: åˆæœŸé…ç½®ç£ç•Œã¸ã®ãƒã‚¤ãƒ³ã‚¿
+	DeadEffect*				m_pDeadEffect				;	//	: æ­»äº¡æ™‚ã®çˆ†æ•£ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã®ãƒã‚¤ãƒ³ã‚¿
 	ModeChangeChar*			m_pModeChangeChar			;	//	: 
 	TimeScore*				m_pTime;
 	ContinueBehavior*		m_pContinueBehavior			;
@@ -176,37 +176,37 @@ class PlayerCoil : public Cylinder ,public MagneticObject{
 	Line3D*					m_pLine3					;
 	Line3D*					m_pLine4					;
 	
-	COIL_STATE				m_enumCoilState				;	//	: ©•ª‚Ìó‘Ô
-	COIL_STATE_SUPER		m_enumCoilStateSuper		;	//	: –³“Gó‘Ô
+	COIL_STATE				m_enumCoilState				;	//	: è‡ªåˆ†ã®çŠ¶æ…‹
+	COIL_STATE_SUPER		m_enumCoilStateSuper		;	//	: ç„¡æ•µçŠ¶æ…‹
 
 public:
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     FPlayerCoil::PlayerCoil(
-	////            F    LPDIRECT3DDEVICE9 pD3DDevice,LPTATRATEXTURE pTexture,
-	////            F    float Radius1,float Radius2,float Lenght,
-	////            F    D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos,
-	////            F    D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,
-	////            F    wiz::OBJID id = OBJID_3D_PLAYER)
-	//// ƒJƒeƒSƒŠ   FƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	//// —p“r       F
-	//// ˆø”       F  LPDIRECT3DDEVICE9   pD3DDevice   // ƒfƒoƒCƒX
-	////            F  LPTATRATEXTURE  pTexture     // ƒeƒNƒXƒ`ƒƒ	
-	////            F  float               Radius1      // ‚Ì’¼Œa1
-	////            F  float               Radius2      // ‚Ì’¼Œa2
-	////            F  float               Radius3      // ‹…‚Ì’¼Œa
-	////            F  flaot               Lenght       // ‚‚³
-	////            F  D3DXVECTOR3&        vScale       // Lk
-	////            F  D3DXVECTOR3&        vRot         // ‰ñ“]Šp
-	////            F  D3DXVECTOR3&        vPos         // ˆÊ’u
-	////            F  D3DCOLORVALUE&      Diffuse      // ƒfƒBƒtƒ…[ƒYF
-	////            F  D3DCOLORVALUE&      Specular     // ƒXƒyƒLƒ…ƒ‰F
-	////            F  D3DCOLORVALUE&      Ambient      // ƒAƒ“ƒrƒGƒ“ƒgF
-	////            F  wiz::OBJID          id = OBJID_3D_COIL //ID
-	//// –ß’l       F‚È‚µ
-	//// ’S“–       F°Œ´ “O
-	//// ˆøŒp‚¬     F–{‘½Š°”V
-	//// ”õl       F
-	////            F
+	//// é–¢æ•°å     ï¼šPlayerCoil::PlayerCoil(
+	////            ï¼š    LPDIRECT3DDEVICE9 pD3DDevice,LPTATRATEXTURE pTexture,
+	////            ï¼š    float Radius1,float Radius2,float Lenght,
+	////            ï¼š    D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos,
+	////            ï¼š    D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,
+	////            ï¼š    wiz::OBJID id = OBJID_3D_PLAYER)
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	//// ç”¨é€”       ï¼š
+	//// å¼•æ•°       ï¼š  LPDIRECT3DDEVICE9   pD3DDevice   // ãƒ‡ãƒã‚¤ã‚¹
+	////            ï¼š  LPTATRATEXTURE  pTexture     // ãƒ†ã‚¯ã‚¹ãƒãƒ£	
+	////            ï¼š  float               Radius1      // éŒã®ç›´å¾„1
+	////            ï¼š  float               Radius2      // éŒã®ç›´å¾„2
+	////            ï¼š  float               Radius3      // çƒã®ç›´å¾„
+	////            ï¼š  flaot               Lenght       // é«˜ã•
+	////            ï¼š  D3DXVECTOR3&        vScale       // ä¼¸ç¸®
+	////            ï¼š  D3DXVECTOR3&        vRot         // å›è»¢è§’
+	////            ï¼š  D3DXVECTOR3&        vPos         // ä½ç½®
+	////            ï¼š  D3DCOLORVALUE&      Diffuse      // ãƒ‡ã‚£ãƒ•ãƒ¥ãƒ¼ã‚ºè‰²
+	////            ï¼š  D3DCOLORVALUE&      Specular     // ã‚¹ãƒšã‚­ãƒ¥ãƒ©è‰²
+	////            ï¼š  D3DCOLORVALUE&      Ambient      // ã‚¢ãƒ³ãƒ“ã‚¨ãƒ³ãƒˆè‰²
+	////            ï¼š  wiz::OBJID          id = OBJID_3D_COIL //ID
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“       ï¼šé´«åŸ å¾¹
+	//// å¼•ç¶™ã     ï¼šæœ¬å¤šå¯›ä¹‹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
 	PlayerCoil(
 		LPDIRECT3DDEVICE9	pD3DDevice		,
@@ -227,263 +227,263 @@ public:
 	);
 
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     FPlayerCoil::~PlayerCoil()
-	//// ƒJƒeƒSƒŠ   FƒfƒXƒgƒ‰ƒNƒ^
-	//// —p“r       F
-	//// ˆø”       F‚È‚µ
-	//// –ß’l       F‚È‚µ
-	//// ’S“–       F °Œ´ “O
-	//// ”õl       F
-	////            F
+	//// é–¢æ•°å     ï¼šPlayerCoil::~PlayerCoil()
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	//// ç”¨é€”       ï¼š
+	//// å¼•æ•°       ï¼šãªã—
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“       ï¼š é´«åŸ å¾¹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
 	~PlayerCoil();
 
 	/////////////////// ////////////////////
-	//// —p“r       Fbool PlayerCoil::HitTestWall( OBB Obb )
-	//// ƒJƒeƒSƒŠ   Fƒƒ“ƒoŠÖ”
-	//// —p“r       F•Ç‚Æ‚ÌÕ“Ë”»’è
-	//// ˆø”       F  OBB Obb           //  : ŒŸ¸‘ÎÛ‚ÌOBB
-	//// –ß’l       FÕ“Ë‚µ‚Ä‚¢‚ê‚Îtrue
-	//// ’S“–Ò     F‰g’n ‘å—m
-	//// ”õl       F
+	//// ç”¨é€”       ï¼šbool PlayerCoil::HitTestWall( OBB Obb )
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šãƒ¡ãƒ³ãƒé–¢æ•°
+	//// ç”¨é€”       ï¼šå£ã¨ã®è¡çªåˆ¤å®š
+	//// å¼•æ•°       ï¼š  OBB Obb           //  : æ¤œæŸ»å¯¾è±¡ã®OBB
+	//// æˆ»å€¤       ï¼šè¡çªã—ã¦ã„ã‚Œã°true
+	//// æ‹…å½“è€…     ï¼šæ›³åœ° å¤§æ´‹
+	//// å‚™è€ƒ       ï¼š
 	bool HitTestWall( OBB );
 
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     Fvoid PlayerCoil::Update( UpdatePacket& i_UpdatePacket )
-	//// ƒJƒeƒSƒŠ   F
-	//// —p“r       F
-	//// ˆø”       F  UpdatePacket& i_UpdatePacket             // ‰æ–Ê•`‰æ‚É•K—v‚Èƒf[ƒ^ŒQ «“à—e‰º‹L
-	////            F  „¥       LPDIRECT3DDEVICE9  pD3DDevice      // IDirect3DDevice9 ƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-	////            F  „¥       Tempus2*           pTime           // ŠÔ‚ğŠÇ—‚·‚éƒNƒ‰ƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^[
-	////            F  „¥       vector<Object*>&   Vec,            // ƒIƒuƒWƒFƒNƒg‚Ì”z—ñ
-	////            F  „¥ const CONTROLER_STATE*   pCntlState      // ƒRƒ“ƒgƒ[ƒ‰‚ÌƒXƒe[ƒ^ƒX
-	////            F  „¤       Command            pCommand        // ƒRƒ}ƒ“ƒh
-	//// –ß’l       F‚È‚µ
-	//// ’S“–       F°Œ´ “O
-	//// ˆøŒp‚¬     F–{‘½Š°”V
-	//// ”õl       F
-	////            F
+	//// é–¢æ•°å     ï¼švoid PlayerCoil::Update( UpdatePacket& i_UpdatePacket )
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼š
+	//// ç”¨é€”       ï¼š
+	//// å¼•æ•°       ï¼š  UpdatePacket& i_UpdatePacket             // ç”»é¢æç”»æ™‚ã«å¿…è¦ãªãƒ‡ãƒ¼ã‚¿ç¾¤ â†“å†…å®¹ä¸‹è¨˜
+	////            ï¼š  â”œ       LPDIRECT3DDEVICE9  pD3DDevice      // IDirect3DDevice9 ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+	////            ï¼š  â”œ       Tempus2*           pTime           // æ™‚é–“ã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿ãƒ¼
+	////            ï¼š  â”œ       vector<Object*>&   Vec,            // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®é…åˆ—
+	////            ï¼š  â”œ const CONTROLER_STATE*   pCntlState      // ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹
+	////            ï¼š  â””       Command            pCommand        // ã‚³ãƒãƒ³ãƒ‰
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“       ï¼šé´«åŸ å¾¹
+	//// å¼•ç¶™ã     ï¼šæœ¬å¤šå¯›ä¹‹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
 	void Update( UpdatePacket& i_UpdatePacket );
 
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     Fvoid	PlayerCoil::CreateEffect( UpdatePacket& i_UpdatePacket );
-	//// ƒJƒeƒSƒŠ   F
-	//// —p“r       F
-	//// ˆø”       F  DrawPacket& i_DrawPacket             // ‰æ–Ê•`‰æ‚É•K—v‚Èƒf[ƒ^ŒQ «“à—e‰º‹L
-	////            F  „¥       LPDIRECT3DDEVICE9  pD3DDevice      // IDirect3DDevice9 ƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-	////            F  „¥       Tempus2*           pTime           // ŠÔ‚ğŠÇ—‚·‚éƒNƒ‰ƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^[
-	////            F  „¥       vector<Object*>&   Vec,            // ƒIƒuƒWƒFƒNƒg‚Ì”z—ñ
-	////            F  „¥ const CONTROLER_STATE*   pCntlState      // ƒRƒ“ƒgƒ[ƒ‰‚ÌƒXƒe[ƒ^ƒX
-	////            F  „¤       Command            pCommand        // ƒRƒ}ƒ“ƒh
-	//// –ß’l       F‚È‚µ
-	//// ’S“–       F²“¡—Á
-	//// ”õl       F
-	////            F
+	//// é–¢æ•°å     ï¼švoid	PlayerCoil::CreateEffect( UpdatePacket& i_UpdatePacket );
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼š
+	//// ç”¨é€”       ï¼š
+	//// å¼•æ•°       ï¼š  DrawPacket& i_DrawPacket             // ç”»é¢æç”»æ™‚ã«å¿…è¦ãªãƒ‡ãƒ¼ã‚¿ç¾¤ â†“å†…å®¹ä¸‹è¨˜
+	////            ï¼š  â”œ       LPDIRECT3DDEVICE9  pD3DDevice      // IDirect3DDevice9 ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+	////            ï¼š  â”œ       Tempus2*           pTime           // æ™‚é–“ã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿ãƒ¼
+	////            ï¼š  â”œ       vector<Object*>&   Vec,            // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®é…åˆ—
+	////            ï¼š  â”œ const CONTROLER_STATE*   pCntlState      // ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹
+	////            ï¼š  â””       Command            pCommand        // ã‚³ãƒãƒ³ãƒ‰
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“       ï¼šä½è—¤æ¶¼
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
 	void	CreateEffect( UpdatePacket& i_UpdatePacket );
 
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     Fvoid PlayerCoil::Update_StateStart()
-	//// ƒJƒeƒSƒŠ   F
-	//// —p“r       FSTATE_START‚Ì“®‚«
-	//// ˆø”       F
-	//// –ß’l       F‚È‚µ
-	//// ’S“–       F–{‘½Š°”V
-	//// ”õl       F
-	////            F
+	//// é–¢æ•°å     ï¼švoid PlayerCoil::Update_StateStart()
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼š
+	//// ç”¨é€”       ï¼šSTATE_STARTæ™‚ã®å‹•ã
+	//// å¼•æ•°       ï¼š
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“       ï¼šæœ¬å¤šå¯›ä¹‹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
 	void Update_StateStart(UpdatePacket& i_UpdatePacket);
 
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     Fvoid PlayerCoil::Update_StateMove()
-	//// ƒJƒeƒSƒŠ   F
-	//// —p“r       FSTATE_MOVE‚Ì“®‚«
-	//// ˆø”       F
-	//// –ß’l       F‚È‚µ
-	//// ’S“–       F–{‘½Š°”V
-	//// ”õl       F
-	////            F
+	//// é–¢æ•°å     ï¼švoid PlayerCoil::Update_StateMove()
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼š
+	//// ç”¨é€”       ï¼šSTATE_MOVEæ™‚ã®å‹•ã
+	//// å¼•æ•°       ï¼š
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“       ï¼šæœ¬å¤šå¯›ä¹‹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
 	void Update_StateMove(UpdatePacket& i_UpdatePacket);
 
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     Fvoid PlayerCoil::Update_StateStick()
-	//// ƒJƒeƒSƒŠ   F
-	//// —p“r       FSTATE_STICK‚Ì“®‚«
-	//// ˆø”       F
-	//// –ß’l       F‚È‚µ
-	//// ’S“–       F–{‘½Š°”V
-	//// ”õl       F
-	////            F
+	//// é–¢æ•°å     ï¼švoid PlayerCoil::Update_StateStick()
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼š
+	//// ç”¨é€”       ï¼šSTATE_STICKæ™‚ã®å‹•ã
+	//// å¼•æ•°       ï¼š
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“       ï¼šæœ¬å¤šå¯›ä¹‹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
 	void Update_StateStick(UpdatePacket& i_UpdatePacket);
 
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     Fvoid SPlayerCoil::uperMode()
-	//// ƒJƒeƒSƒŠ   F
-	//// —p“r       FSTATE_SUPER‚Ì“®‚«
-	//// ˆø”       F  DrawPacket& i_DrawPacket             // ‰æ–Ê•`‰æ‚É•K—v‚Èƒf[ƒ^ŒQ «“à—e‰º‹L
-	////			  F  „¥ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 ƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-	////			  F  „¥ vector<Object*>&    Vec                     // ƒIƒuƒWƒFƒNƒg‚Ì”z—ñ
-	////			  F  „¥ Tempus2*            i_DrawPacket.GetTime()	   // ŠÔ‚ğŠÇ—‚·‚éƒNƒ‰ƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^[
-	////              F  „¤ Command             i_DrawPacket.pCommand   // ƒRƒ}ƒ“ƒh
-	//// –ß’l       F‚È‚µ
-	//// ’S“–       F–{‘½Š°”V
-	//// ”õl       F
-	////            F
+	//// é–¢æ•°å     ï¼švoid SPlayerCoil::uperMode()
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼š
+	//// ç”¨é€”       ï¼šSTATE_SUPERæ™‚ã®å‹•ã
+	//// å¼•æ•°       ï¼š  DrawPacket& i_DrawPacket             // ç”»é¢æç”»æ™‚ã«å¿…è¦ãªãƒ‡ãƒ¼ã‚¿ç¾¤ â†“å†…å®¹ä¸‹è¨˜
+	////			  ï¼š  â”œ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+	////			  ï¼š  â”œ vector<Object*>&    Vec                     // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®é…åˆ—
+	////			  ï¼š  â”œ Tempus2*            i_DrawPacket.GetTime()	   // æ™‚é–“ã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿ãƒ¼
+	////              ï¼š  â”” Command             i_DrawPacket.pCommand   // ã‚³ãƒãƒ³ãƒ‰
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“       ï¼šæœ¬å¤šå¯›ä¹‹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
 	void SuperMode( UpdatePacket& i_UpdatePacket );
 
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     Fvoid PlayerCoil::Update_StateDead()
-	//// ƒJƒeƒSƒŠ   F
-	//// —p“r       FSTATE_DEAD‚Ì“®‚«
-	//// ˆø”       F
-	//// –ß’l       F‚È‚µ
-	//// ’S“–       F–{‘½Š°”V
-	//// ”õl       F
-	////            F
+	//// é–¢æ•°å     ï¼švoid PlayerCoil::Update_StateDead()
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼š
+	//// ç”¨é€”       ï¼šSTATE_DEADæ™‚ã®å‹•ã
+	//// å¼•æ•°       ï¼š
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“       ï¼šæœ¬å¤šå¯›ä¹‹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
 	void Update_StateDead(UpdatePacket& i_UpdatePacket);
 
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     Fvoid PlayerCoil::Update_StateContinue()
-	//// ƒJƒeƒSƒŠ   F
-	//// —p“r       FSTATE_CONTINUE‚Ì“®‚«
-	//// ˆø”       F
-	//// –ß’l       F‚È‚µ
-	//// ’S“–       F–{‘½Š°”V
-	//// ”õl       F
-	////            F
+	//// é–¢æ•°å     ï¼švoid PlayerCoil::Update_StateContinue()
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼š
+	//// ç”¨é€”       ï¼šSTATE_CONTINUEæ™‚ã®å‹•ã
+	//// å¼•æ•°       ï¼š
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“       ï¼šæœ¬å¤šå¯›ä¹‹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
 	void Update_StateContinue(UpdatePacket& i_UpdatePacket);
 
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     Fvoid PlayerCoil::Update_StateStop()
-	//// ƒJƒeƒSƒŠ   F
-	//// —p“r       FSTATE_STOP‚Ì“®‚«
-	//// ˆø”       F
-	//// –ß’l       F‚È‚µ
-	//// ’S“–       F²“¡—Á
-	//// ”õl       F
-	////            F
+	//// é–¢æ•°å     ï¼švoid PlayerCoil::Update_StateStop()
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼š
+	//// ç”¨é€”       ï¼šSTATE_STOPæ™‚ã®å‹•ã
+	//// å¼•æ•°       ï¼š
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“       ï¼šä½è—¤æ¶¼
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
 	void Update_StateStop(UpdatePacket& i_UpdatePacket);
 
 	/////////////////// ////////////////////
-	//// —p“r       Fvirtual void PlayerCoil::Draw( DrawPacket& i_DrawPacket )
-	//// ƒJƒeƒSƒŠ   F
-	//// —p“r       F
-	//// ˆø”       F
-	//// –ß’l       F‚È‚µ
-	//// ’S“–Ò     F°Œ´ “O
-	//// ”õl       F
-	////            F
+	//// ç”¨é€”       ï¼švirtual void PlayerCoil::Draw( DrawPacket& i_DrawPacket )
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼š
+	//// ç”¨é€”       ï¼š
+	//// å¼•æ•°       ï¼š
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“è€…     ï¼šé´«åŸ å¾¹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
     void Draw(DrawPacket& i_DrawPacket) ;
 
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     Ffloat PlayerCoil::MagneticDecision( float i_fCoilDir, D3DXVECTOR3& i_vMagnetPos, bool i_bMagnetPole_Field )
-	//// ƒJƒeƒSƒŠ   FŠÖ”
-	//// —p“r       F©‹@‚É‘Î‚·‚é‹z‚¢Šñ‚¹A”½”­‚Ìˆ—
-	//// ˆø”       Ffloat i_fCoilDir            //©‹@‚ÌŠp“x
-	////@@@@@@FD3DXVECTOR3& i_vMagnetPos   //¥ŠE‚ÌˆÊ’u
-	////@@@@@@Fbool i_bMagnetPole_Field	// ¥ŠE‚Ì‹É
-	//// –ß’l       F
-	//// ’S“–       F–{‘½Š°”V
-	//// ”õl       F
-	////@@@@@@F
+	//// é–¢æ•°å     ï¼šfloat PlayerCoil::MagneticDecision( float i_fCoilDir, D3DXVECTOR3& i_vMagnetPos, bool i_bMagnetPole_Field )
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šé–¢æ•°
+	//// ç”¨é€”       ï¼šè‡ªæ©Ÿã«å¯¾ã™ã‚‹å¸ã„å¯„ã›ã€åç™ºã®å‡¦ç†
+	//// å¼•æ•°       ï¼šfloat i_fCoilDir            //è‡ªæ©Ÿã®è§’åº¦
+	////ã€€ã€€ã€€ã€€ã€€ã€€ï¼šD3DXVECTOR3& i_vMagnetPos   //ç£ç•Œã®ä½ç½®
+	////ã€€ã€€ã€€ã€€ã€€ã€€ï¼šbool i_bMagnetPole_Field	// ç£ç•Œã®æ¥µ
+	//// æˆ»å€¤       ï¼š
+	//// æ‹…å½“       ï¼šæœ¬å¤šå¯›ä¹‹
+	//// å‚™è€ƒ       ï¼š
+	////ã€€ã€€ã€€ã€€ã€€ã€€ï¼š
 	void MagneticDecision( D3DXVECTOR3& i_vMagnetPos, POLE i_bMagnetPole_Field ) ;
 
 	/////////////////// ////////////////////
-	//// —p“r       Fbool PlayerCoil::CheckDistance( D3DXVECTOR3& i_vMagneticFieldPos, D3DXVECTOR3& i_vCoilPos, float i_iBorder, bool IsPlayer )
-	//// ƒJƒeƒSƒŠ   FŠÖ”
-	//// —p“r       F‹——£‚ğ”»’è
-	//// ˆø”       FD3DXVECTOR3& i_vMagneticFieldPos //¥ŠE‚ÌˆÊ’u 
-	////@@@@@@FD3DXVECTOR3& i_vCoilPos          //ƒRƒCƒ‹‚ÌˆÊ’u
-	////@@@@@@Ffloat        i_iBorder           //”»’è‚·‚é’l
-	////@@@@@@Fbool@@@@IsPlayer@@@@@//‘Šè‚ªƒvƒŒƒCƒ„[‚©‚Ç‚¤‚©
-	//// –ß’l       Ftrue , false
-	//// ’S“–Ò     F–{‘½Š°”V
-	//// ”õl       F
+	//// ç”¨é€”       ï¼šbool PlayerCoil::CheckDistance( D3DXVECTOR3& i_vMagneticFieldPos, D3DXVECTOR3& i_vCoilPos, float i_iBorder, bool IsPlayer )
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šé–¢æ•°
+	//// ç”¨é€”       ï¼šè·é›¢ã‚’åˆ¤å®š
+	//// å¼•æ•°       ï¼šD3DXVECTOR3& i_vMagneticFieldPos //ç£ç•Œã®ä½ç½® 
+	////ã€€ã€€ã€€ã€€ã€€ã€€ï¼šD3DXVECTOR3& i_vCoilPos          //ã‚³ã‚¤ãƒ«ã®ä½ç½®
+	////ã€€ã€€ã€€ã€€ã€€ã€€ï¼šfloat        i_iBorder           //åˆ¤å®šã™ã‚‹å€¤
+	////ã€€ã€€ã€€ã€€ã€€ã€€ï¼šboolã€€ã€€ã€€ã€€IsPlayerã€€ã€€ã€€ã€€ã€€//ç›¸æ‰‹ãŒãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‹ã©ã†ã‹
+	//// æˆ»å€¤       ï¼štrue , false
+	//// æ‹…å½“è€…     ï¼šæœ¬å¤šå¯›ä¹‹
+	//// å‚™è€ƒ       ï¼š
 	bool CheckDistance( D3DXVECTOR3& i_vMagneticFieldPos, float i_iBorder, bool IsPlayer );
 
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     FUpdate_Line()
-	//// ƒJƒeƒSƒŠ   FŠÖ”
-	//// —p“r       FLine‚ÌXV
-	//// ˆø”       F‚È‚µ
-	//// –ß’l       F‚È‚µ
-	//// ’S“–       F–{‘½Š°”V
-	//// ”õl       F
-	////            F
+	//// é–¢æ•°å     ï¼šUpdate_Line()
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šé–¢æ•°
+	//// ç”¨é€”       ï¼šLineã®æ›´æ–°
+	//// å¼•æ•°       ï¼šãªã—
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“       ï¼šæœ¬å¤šå¯›ä¹‹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	void Update_Line();
 
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     FD3DXVECTOR3 gPlayerCoil::etPos() const
-	//// ƒJƒeƒSƒŠ   FƒQƒbƒ^[
-	//// —p“r       F’†SÀ•W‚ğŠl“¾
-	//// ˆø”       F‚È‚µ
-	//// –ß’l       F‚È‚µ
-	//// ’S“–       F°Œ´ “O
-	//// ”õl       F
-	////            F
+	//// é–¢æ•°å     ï¼šD3DXVECTOR3 gPlayerCoil::etPos() const
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚²ãƒƒã‚¿ãƒ¼
+	//// ç”¨é€”       ï¼šä¸­å¿ƒåº§æ¨™ã‚’ç²å¾—
+	//// å¼•æ•°       ï¼šãªã—
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“       ï¼šé´«åŸ å¾¹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	D3DXVECTOR3 getPos() const { return m_vPos;	}	;
 
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     FD3DXVECTOR3 PlayerCoil::getScale() const
-	//// ƒJƒeƒSƒŠ   FƒQƒbƒ^[
-	//// —p“r       F‘å‚«‚³‚ğŠl“¾
-	//// ˆø”       F‚È‚µ
-	//// –ß’l       F‚È‚µ
-	//// ’S“–       F²“¡—Á
-	//// ”õl       F
-	////            F
+	//// é–¢æ•°å     ï¼šD3DXVECTOR3 PlayerCoil::getScale() const
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚²ãƒƒã‚¿ãƒ¼
+	//// ç”¨é€”       ï¼šå¤§ãã•ã‚’ç²å¾—
+	//// å¼•æ•°       ï¼šãªã—
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“       ï¼šä½è—¤æ¶¼
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	D3DXVECTOR3 getScale() const { return m_vScale;	}	;
 
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     FD3DXVECTOR3 PlayerCoil::getDir() const
-	//// ƒJƒeƒSƒŠ   FƒQƒbƒ^[
-	//// —p“r       FŒü‚«‚ğŠl“¾
-	//// ˆø”       F‚È‚µ
-	//// –ß’l       F‚È‚µ
-	//// ’S“–       F²“¡—Á
-	//// ”õl       F
-	////            F
+	//// é–¢æ•°å     ï¼šD3DXVECTOR3 PlayerCoil::getDir() const
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚²ãƒƒã‚¿ãƒ¼
+	//// ç”¨é€”       ï¼šå‘ãã‚’ç²å¾—
+	//// å¼•æ•°       ï¼šãªã—
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“       ï¼šä½è—¤æ¶¼
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	float getDir() const { return m_fMoveDir;	}	;
 
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     FD3DXVECTOR3 gPlayerCoil::etSpeed() const
-	//// ƒJƒeƒSƒŠ   FƒQƒbƒ^[
-	//// —p“r       F‘¬“x‚ğŠl“¾
-	//// ˆø”       F‚È‚µ
-	//// –ß’l       F‚È‚µ
-	//// ’S“–       F–{‘½Š°”V
-	//// ”õl       F
-	////            F
+	//// é–¢æ•°å     ï¼šD3DXVECTOR3 gPlayerCoil::etSpeed() const
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚²ãƒƒã‚¿ãƒ¼
+	//// ç”¨é€”       ï¼šé€Ÿåº¦ã‚’ç²å¾—
+	//// å¼•æ•°       ï¼šãªã—
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“       ï¼šæœ¬å¤šå¯›ä¹‹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	float getSpeed() const { return m_fMovdSpeed;	}	;
 
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     FCOIL_STATE PlayerCoil::getState() const 
-	//// ƒJƒeƒSƒŠ   FƒQƒbƒ^[
-	//// —p“r       Fó‘Ô‚ğŠl“¾
-	//// ˆø”       F‚È‚µ
-	//// –ß’l       F‚È‚µ
-	//// ’S“–       F–{‘½Š°”V
-	//// ”õl       F
-	////            F
+	//// é–¢æ•°å     ï¼šCOIL_STATE PlayerCoil::getState() const 
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚²ãƒƒã‚¿ãƒ¼
+	//// ç”¨é€”       ï¼šçŠ¶æ…‹ã‚’ç²å¾—
+	//// å¼•æ•°       ï¼šãªã—
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“       ï¼šæœ¬å¤šå¯›ä¹‹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	COIL_STATE getState() const { return m_enumCoilState;	}	;
 
 	///////////////////////////////////////
-	//// ŠÖ”–¼     FD3DXVECTOR3 PlayerCoil::getStartPos()
-	//// ƒJƒeƒSƒŠ   FƒQƒbƒ^[
-	//// —p“r       F
-	//// ˆø”       F‚È‚µ
-	//// –ß’l       FÀ•Wƒf[ƒ^
-	//// ’S“–       F²“¡—Á
-	//// ”õl       F
-	////            F
+	//// é–¢æ•°å     ï¼šD3DXVECTOR3 PlayerCoil::getStartPos()
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚²ãƒƒã‚¿ãƒ¼
+	//// ç”¨é€”       ï¼š
+	//// å¼•æ•°       ï¼šãªã—
+	//// æˆ»å€¤       ï¼šåº§æ¨™ãƒ‡ãƒ¼ã‚¿
+	//// æ‹…å½“       ï¼šä½è—¤æ¶¼
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	D3DXVECTOR3 getStartPos(){
 		return	m_vStartPos;
 	}
@@ -493,8 +493,8 @@ public:
 	}
 
 	//****************************************
-	//ƒXƒNƒ‰ƒbƒ`ƒ|ƒCƒ“ƒg‚ÌƒQƒbƒ^[AƒZƒbƒ^[
-	//•`‰æ—pƒXƒNƒ‰ƒbƒ`
+	//ã‚¹ã‚¯ãƒ©ãƒƒãƒãƒã‚¤ãƒ³ãƒˆã®ã‚²ãƒƒã‚¿ãƒ¼ã€ã‚»ãƒƒã‚¿ãƒ¼
+	//æç”»ç”¨ã‚¹ã‚¯ãƒ©ãƒƒãƒ
 	int	getScratchTime(){
 		return	m_iScratchTime;
 	}
@@ -504,7 +504,7 @@ public:
 			++m_iScratchTime;
 	}
 
-	//Œ‹‰Ê—pƒXƒNƒ‰ƒbƒ`
+	//çµæœç”¨ã‚¹ã‚¯ãƒ©ãƒƒãƒ
 	void	setRecordTime(){
 		m_fRecordTime	= m_iScratchTime;
 	}
@@ -518,67 +518,67 @@ public:
 		m_iMaxPosY	= iMaxPosY;
 	}
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     Fvoid PlayerCoil::setState( COIL_STATE i_State )
-	//// ƒJƒeƒSƒŠ   FƒZƒbƒ^[
-	//// —p“r       Fó‘Ô‚ğ•ÏX
-	//// ˆø”       FCOIL_STATE i_State
-	//// –ß’l       F‚È‚µ
-	//// ’S“–       F–{‘½Š°”V
-	//// ”õl       F
-	////            F
+	//// é–¢æ•°å     ï¼švoid PlayerCoil::setState( COIL_STATE i_State )
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚»ãƒƒã‚¿ãƒ¼
+	//// ç”¨é€”       ï¼šçŠ¶æ…‹ã‚’å¤‰æ›´
+	//// å¼•æ•°       ï¼šCOIL_STATE i_State
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“       ï¼šæœ¬å¤šå¯›ä¹‹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	void setState( COIL_STATE i_State ){
 		m_enumCoilState = i_State; 
 		if( m_enumCoilState == COIL_STATE_DEAD ) m_bIsFirstDeadLoop = true;
 	};
 
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     Fvoid PlayerCoil::setPos(D3DXVECTOR3 i_vPos)
-	//// ƒJƒeƒSƒŠ   FƒZƒbƒ^[
-	//// —p“r       F
-	//// ˆø”       F‚È‚µ
-	//// –ß’l       F‚È‚µ
-	//// ’S“–       F²“¡—Á
-	//// ”õl       F
-	////            F
+	//// é–¢æ•°å     ï¼švoid PlayerCoil::setPos(D3DXVECTOR3 i_vPos)
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚»ãƒƒã‚¿ãƒ¼
+	//// ç”¨é€”       ï¼š
+	//// å¼•æ•°       ï¼šãªã—
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“       ï¼šä½è—¤æ¶¼
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	void setPos(D3DXVECTOR3 i_vPos){
 		m_vPos = i_vPos;
 	}
 
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     Fvoid PlayerCoil::setScale(D3DXVECTOR3 i_vScale)
-	//// ƒJƒeƒSƒŠ   FƒZƒbƒ^[
-	//// —p“r       F
-	//// ˆø”       F‚È‚µ
-	//// –ß’l       F‚È‚µ
-	//// ’S“–       F²“¡—Á
-	//// ”õl       F
-	////            F
+	//// é–¢æ•°å     ï¼švoid PlayerCoil::setScale(D3DXVECTOR3 i_vScale)
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚»ãƒƒã‚¿ãƒ¼
+	//// ç”¨é€”       ï¼š
+	//// å¼•æ•°       ï¼šãªã—
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“       ï¼šä½è—¤æ¶¼
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	void setScale(D3DXVECTOR3 i_vScale){
 		m_vScale = i_vScale;
 	}
 
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     Fvoid PlayerCoil::setDir(float i_vDir)
-	//// ƒJƒeƒSƒŠ   FƒZƒbƒ^[
-	//// —p“r       F
-	//// ˆø”       F‚È‚µ
-	//// –ß’l       F‚È‚µ
-	//// ’S“–       F²“¡—Á
-	//// ”õl       F
-	////            F
+	//// é–¢æ•°å     ï¼švoid PlayerCoil::setDir(float i_vDir)
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚»ãƒƒã‚¿ãƒ¼
+	//// ç”¨é€”       ï¼š
+	//// å¼•æ•°       ï¼šãªã—
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“       ï¼šä½è—¤æ¶¼
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	void setDir(float i_vDir){
 		m_fMoveDir = i_vDir;
 	}
 
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     Fvoid PlayerCoil::setStartPos(float i_fPosY)
-	//// ƒJƒeƒSƒŠ   FƒZƒbƒ^[
-	//// —p“r       F
-	//// ˆø”       F‚È‚µ
-	//// –ß’l       F‚È‚µ
-	//// ’S“–       F–{‘½Š°”V
-	//// ”õl       F
-	////            F
+	//// é–¢æ•°å     ï¼švoid PlayerCoil::setStartPos(float i_fPosY)
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚»ãƒƒã‚¿ãƒ¼
+	//// ç”¨é€”       ï¼š
+	//// å¼•æ•°       ï¼šãªã—
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“       ï¼šæœ¬å¤šå¯›ä¹‹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	void setStartPos(D3DXVECTOR3 i_vPos){
 		m_vStartPos = i_vPos;
 	}
@@ -591,14 +591,14 @@ public:
 		m_bReadyToStart		= b;
 	}
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     FCOIL_STATE_SUPER getSuperMode() const
-	//// ƒJƒeƒSƒŠ   FƒQƒbƒ^[
-	//// —p“r       F–³“Gó‘Ô‚ğŠl“¾
-	//// ˆø”       F‚È‚µ
-	//// –ß’l       F‚È‚µ
-	//// ’S“–       F–{‘½Š°”V
-	//// ”õl       F
-	////            F
+	//// é–¢æ•°å     ï¼šCOIL_STATE_SUPER getSuperMode() const
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚²ãƒƒã‚¿ãƒ¼
+	//// ç”¨é€”       ï¼šç„¡æ•µçŠ¶æ…‹ã‚’ç²å¾—
+	//// å¼•æ•°       ï¼šãªã—
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“       ï¼šæœ¬å¤šå¯›ä¹‹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	COIL_STATE_SUPER getSuperMode() const{
 #if defined( ON_DEBUGGINGPROCESS ) | defined( PRESENTATION ) 
 		if(m_bDebugInvincibleMode) return COIL_STATE_SUPER_MOVE ;
@@ -607,27 +607,27 @@ public:
 	}
 
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     Fvoid setSuperMode(bool i_vFlg)
-	//// ƒJƒeƒSƒŠ   FƒZƒbƒ^[
-	//// —p“r       F
-	//// ˆø”       F‚È‚µ
-	//// –ß’l       F‚È‚µ
-	//// ’S“–       F–{‘½Š°”V
-	//// ”õl       F
-	////            F
+	//// é–¢æ•°å     ï¼švoid setSuperMode(bool i_vFlg)
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚»ãƒƒã‚¿ãƒ¼
+	//// ç”¨é€”       ï¼š
+	//// å¼•æ•°       ï¼šãªã—
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“       ï¼šæœ¬å¤šå¯›ä¹‹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	void setSuperMode(COIL_STATE_SUPER i_State){
 		m_enumCoilStateSuper = i_State;
 	}
 
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     Fbool getReadyToSuper()
-	//// ƒJƒeƒSƒŠ   FƒQƒbƒ^[
-	//// —p“r       Fm_bReadyToSuper‚ğŠl“¾
-	//// ˆø”       F‚È‚µ
-	//// –ß’l       F‚È‚µ
-	//// ’S“–       F–{‘½Š°”V
-	//// ”õl       F
-	////            F
+	//// é–¢æ•°å     ï¼šbool getReadyToSuper()
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚²ãƒƒã‚¿ãƒ¼
+	//// ç”¨é€”       ï¼šm_bReadyToSuperã‚’ç²å¾—
+	//// å¼•æ•°       ï¼šãªã—
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“       ï¼šæœ¬å¤šå¯›ä¹‹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	bool getReadyToStart() const{
 		return m_bReadyToStart;
 	}
@@ -636,27 +636,27 @@ public:
 		return	m_bStandby;
 	}
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     FLPTATRATEXTURE getDeadText()
-	//// ƒJƒeƒSƒŠ   FƒQƒbƒ^[
-	//// —p“r       Fm_pDeadTex‚ğŠl“¾
-	//// ˆø”       F‚È‚µ
-	//// –ß’l       F‚È‚µ
-	//// ’S“–       F–{‘½Š°”V
-	//// ”õl       F
-	////            F
+	//// é–¢æ•°å     ï¼šLPTATRATEXTURE getDeadText()
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚²ãƒƒã‚¿ãƒ¼
+	//// ç”¨é€”       ï¼šm_pDeadTexã‚’ç²å¾—
+	//// å¼•æ•°       ï¼šãªã—
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“       ï¼šæœ¬å¤šå¯›ä¹‹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	//LPTATRATEXTURE getDeadText() const{
 	//	return m_pDeadTex;
 	//}
 
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     Fvoid PlayerCoil::getDeadCount()
-	//// ƒJƒeƒSƒŠ   FƒQƒbƒ^[
-	//// —p“r       F€–S‰ñ”‚ÌŠl“¾
-	//// ˆø”       F‚È‚µ
-	//// –ß’l       F€–S‰ñ”
-	//// ’S“–       F²“¡—Á
-	//// ”õl       F
-	////            F
+	//// é–¢æ•°å     ï¼švoid PlayerCoil::getDeadCount()
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚²ãƒƒã‚¿ãƒ¼
+	//// ç”¨é€”       ï¼šæ­»äº¡å›æ•°ã®ç²å¾—
+	//// å¼•æ•°       ï¼šãªã—
+	//// æˆ»å€¤       ï¼šæ­»äº¡å›æ•°
+	//// æ‹…å½“       ï¼šä½è—¤æ¶¼
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	int	getDeadCount(){
 		return	m_iDeadCount;
 	}
@@ -664,22 +664,22 @@ public:
 
 /**************************************************************************
  class Factory_Coil;
- —p“r: ƒƒCƒ“HêƒNƒ‰ƒX
+ ç”¨é€”: ãƒ¡ã‚¤ãƒ³å·¥å ´ã‚¯ãƒ©ã‚¹
 ****************************************************************************/
 class Factory_Coil{
 public:
 /**************************************************************************
  Factory_Coil(
-	FactoryPacket* fpac //ƒpƒPƒbƒgƒf[ƒ^
+	FactoryPacket* fpac //ãƒ‘ã‚±ãƒƒãƒˆãƒ‡ãƒ¼ã‚¿
 );
- —p“r: ƒRƒ“ƒXƒgƒ‰ƒNƒ^iƒTƒ“ƒvƒ‹ƒIƒuƒWƒFƒNƒg‚ğ”z—ñ‚É’Ç‰Á‚·‚éj
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ï¼ˆã‚µãƒ³ãƒ—ãƒ«ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’é…åˆ—ã«è¿½åŠ ã™ã‚‹ï¼‰
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
 	Factory_Coil( FactoryPacket* fpac, DWORD dwResumptionCheckPoint , D3DXVECTOR3* vStartPos = NULL );
 /**************************************************************************
  ~MyFactory();
- —p“r: ƒfƒXƒgƒ‰ƒNƒ^
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
 	~Factory_Coil();
 };

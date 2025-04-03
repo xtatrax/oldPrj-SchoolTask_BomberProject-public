@@ -1,19 +1,19 @@
 ////////////////////////////// //////////////////////////////
-//	ƒvƒƒWƒFƒNƒg	FBomberProject
-//	ƒtƒ@ƒCƒ‹–¼		FFactory_CheckPointSave.h
-//	ŠJ”­ŠÂ‹«		FMSVC++ 2008
-//	Å“Kƒ^ƒu”		F4
-//	’S“–Ò			F°Œ´ “O
-//	“à•ïÃŞ°À‚Æ”õl	Fƒ`ƒFƒbƒNƒ|ƒCƒ“ƒg’Ê‰İ‚ÅƒZ[ƒu‚·‚é‹@”\
-//					¥
+//	ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆ	ï¼šBomberProject
+//	ãƒ•ã‚¡ã‚¤ãƒ«å		ï¼šFactory_CheckPointSave.h
+//	é–‹ç™ºç’°å¢ƒ		ï¼šMSVC++ 2008
+//	æœ€é©ã‚¿ãƒ–æ•°		ï¼š4
+//	æ‹…å½“è€…			ï¼šé´«åŸ å¾¹
+//	å†…åŒ…ãƒ‡ãƒ¼ã‚¿ã¨å‚™è€ƒ	ï¼šãƒã‚§ãƒƒã‚¯ãƒã‚¤ãƒ³ãƒˆé€šè²¨ã§ã‚»ãƒ¼ãƒ–ã™ã‚‹æ©Ÿèƒ½
+//					â–¼
 //	namespace wiz;
 //
 #pragma once
 
 //////////
-//	: ƒCƒ“ƒNƒ‹[ƒh
+//	: ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰
 #include "Factory_CheckPoint.h"
-//	: ƒCƒ“ƒNƒ‹[ƒh
+//	: ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰
 //////////
 
 namespace wiz{
@@ -22,8 +22,8 @@ namespace bomberbehavior{
 //**************************************************************************//
 // class CheckPointSave : public Behavior ;
 //
-// ’S“–  : °Œ´ “O
-// —p“r  : ƒ`ƒFƒbƒNƒ|ƒCƒ“ƒg‚ÅƒZ[ƒu‚ğs‚¤‹@”\
+// æ‹…å½“  : é´«åŸ å¾¹
+// ç”¨é€”  : ãƒã‚§ãƒƒã‚¯ãƒã‚¤ãƒ³ãƒˆã§ã‚»ãƒ¼ãƒ–ã‚’è¡Œã†æ©Ÿèƒ½
 //**************************************************************************//
 class CheckPointSave : public Behavior{
 	static CheckPointSave*	m_pMyInstance	;
@@ -31,14 +31,14 @@ class CheckPointSave : public Behavior{
 		   PlayerCoil*		m_pCoil			;
 		   SaveData			m_Data			;
 	/////////////////// ////////////////////
-	//// —p“r       FCheckPointSave::CheckPointSave();
-	//// ƒJƒeƒSƒŠ   FƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	//// —p“r       F
-	//// ˆø”       F
-	//// –ß’l       F‚È‚µ
-	//// ’S“–Ò     F°Œ´ “O
-	//// ”õl       F
-	////            F
+	//// ç”¨é€”       ï¼šCheckPointSave::CheckPointSave();
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	//// ç”¨é€”       ï¼š
+	//// å¼•æ•°       ï¼š
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“è€…     ï¼šé´«åŸ å¾¹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
 	CheckPointSave(DWORD dwStageNum);
 public:
@@ -47,19 +47,19 @@ public:
 		return new CheckPointSave(dwStageNum);
 	}
 	/////////////////// ////////////////////
-	//// —p“r       Fvoid CheckPointSave::Update( UpdatePacket& i_UpdatePacket )
-	//// ƒJƒeƒSƒŠ   FŠÖ”
-	//// —p“r       FƒIƒuƒWƒFƒNƒg‚ğXV
-	//// ˆø”       F  UpdatePacket& i_UpdatePacket     // ƒAƒbƒvƒf[ƒg‚É•K—v‚Èƒf[ƒ^ŒQ «“à—e‰º‹L
-	////            F  „¥       LPDIRECT3DDEVICE9  pD3DDevice      // IDirect3DDevice9 ƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-	////            F  „¥       Tempus2*           pTime           // ŠÔ‚ğŠÇ—‚·‚éƒNƒ‰ƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^[
-	////            F  „¥       vector<Object*>&   Vec,            // ƒIƒuƒWƒFƒNƒg‚Ì”z—ñ
-	////            F  „¥ const CONTROLER_STATE*   pCntlState      // ƒRƒ“ƒgƒ[ƒ‰‚ÌƒXƒe[ƒ^ƒX
-	////            F  „¤       Command            pCommand        // ƒRƒ}ƒ“ƒh
-	//// –ß’l       F‚È‚µ
-	//// ’S“–Ò     F°Œ´ “O
-	//// ”õl       F
-	////            F
+	//// ç”¨é€”       ï¼švoid CheckPointSave::Update( UpdatePacket& i_UpdatePacket )
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šé–¢æ•°
+	//// ç”¨é€”       ï¼šã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’æ›´æ–°
+	//// å¼•æ•°       ï¼š  UpdatePacket& i_UpdatePacket     // ã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆæ™‚ã«å¿…è¦ãªãƒ‡ãƒ¼ã‚¿ç¾¤ â†“å†…å®¹ä¸‹è¨˜
+	////            ï¼š  â”œ       LPDIRECT3DDEVICE9  pD3DDevice      // IDirect3DDevice9 ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+	////            ï¼š  â”œ       Tempus2*           pTime           // æ™‚é–“ã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿ãƒ¼
+	////            ï¼š  â”œ       vector<Object*>&   Vec,            // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®é…åˆ—
+	////            ï¼š  â”œ const CONTROLER_STATE*   pCntlState      // ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹
+	////            ï¼š  â””       Command            pCommand        // ã‚³ãƒãƒ³ãƒ‰
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“è€…     ï¼šé´«åŸ å¾¹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
 	void Update( UpdatePacket& i_UpdatePacket );
 
@@ -68,20 +68,20 @@ public:
 //**************************************************************************//
 // class Factory_CheckPointSave ;
 //
-// ’S“–  : °Œ´ “O
-// —p“r  : ƒ`ƒFƒbƒNƒ|ƒCƒ“ƒg‚ÅƒZ[ƒu‚ğs‚¤‹@”\‚ğì¬‚µ‚Ü‚·
+// æ‹…å½“  : é´«åŸ å¾¹
+// ç”¨é€”  : ãƒã‚§ãƒƒã‚¯ãƒã‚¤ãƒ³ãƒˆã§ã‚»ãƒ¼ãƒ–ã‚’è¡Œã†æ©Ÿèƒ½ã‚’ä½œæˆã—ã¾ã™
 //**************************************************************************//
 class Factory_CheckPointSave{
 public:
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     FFactory_CheckPointSave(FactoryPacket* fpac)
-	//// ƒJƒeƒSƒŠ   FƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	//// —p“r       Fƒ`ƒFƒbƒNƒ|ƒCƒ“ƒg‚ÅƒZ[ƒu‚·‚é‹@”\‚ğì¬‚µ‚Ü‚·
-	//// ˆø”       F  FactoryPacket* fpac
-	//// –ß’l       F‚È‚µ
-	//// ’S“–       F°Œ´ “O
-	//// ”õl       F
-	////            F
+	//// é–¢æ•°å     ï¼šFactory_CheckPointSave(FactoryPacket* fpac)
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	//// ç”¨é€”       ï¼šãƒã‚§ãƒƒã‚¯ãƒã‚¤ãƒ³ãƒˆã§ã‚»ãƒ¼ãƒ–ã™ã‚‹æ©Ÿèƒ½ã‚’ä½œæˆã—ã¾ã™
+	//// å¼•æ•°       ï¼š  FactoryPacket* fpac
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“       ï¼šé´«åŸ å¾¹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
 	Factory_CheckPointSave(FactoryPacket* fpac,DWORD dwStageNum);
 	~Factory_CheckPointSave(){};

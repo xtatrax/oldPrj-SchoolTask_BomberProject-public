@@ -1,23 +1,23 @@
 //-----------------------------------------------------
-//	DirectInput‚ğg‚Á‚½“ü—ÍƒTƒ“ƒvƒ‹
+//	DirectInputã‚’ä½¿ã£ãŸå…¥åŠ›ã‚µãƒ³ãƒ—ãƒ«
 //	2009.12.29 TMO
 //-----------------------------------------------------
 
 #pragma once
 //#define DIRECTINPUT_VERSION 0x0800
-//#include <dinput.h>	//dinput8.lib dxguid.lib‚ÌƒŠƒ“ƒN‚à•K—v‚Å‚·B
+//#include <dinput.h>	//dinput8.lib dxguid.libã®ãƒªãƒ³ã‚¯ã‚‚å¿…è¦ã§ã™ã€‚
 /*
-//ƒL[ƒ{[ƒh
+//ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰
 class CInputKeyboard
 {
 	friend class CInput;
 
-	IDirectInputDevice8*	m_pDIDevKB;			//ƒfƒoƒCƒX
-	bool					m_Keystate[256];	//XV‚É‰Ÿ‚µ‚Ä‚½‚çON(‰Ÿ‚µ‚Á‚Ï‚È‚µ‚ğE‚¤)
-	bool					m_KeyAction[256];	//‰Ÿ‚µ‚½’¼Œã‚¾‚¯ON(‰Ÿ‚µ‚Á‚Ï‚È‚µ‚ÍOFF‚É‚È‚é)
-												//”z—ñƒCƒ“ƒfƒbƒNƒX‚ÍDIK_SPACE‚È‚Ç
+	IDirectInputDevice8*	m_pDIDevKB;			//ãƒ‡ãƒã‚¤ã‚¹
+	bool					m_Keystate[256];	//æ›´æ–°æ™‚ã«æŠ¼ã—ã¦ãŸã‚‰ON(æŠ¼ã—ã£ã±ãªã—ã‚’æ‹¾ã†)
+	bool					m_KeyAction[256];	//æŠ¼ã—ãŸç›´å¾Œã ã‘ON(æŠ¼ã—ã£ã±ãªã—ã¯OFFã«ãªã‚‹)
+												//é…åˆ—ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã¯DIK_SPACEãªã©
 
-	CInputKeyboard();//private‚É‚µ‚Ä‚éBƒNƒ‰ƒX‚ğì‚ê‚é‚ÍCInput‚©‚ç‚¾‚¯B
+	CInputKeyboard();//privateã«ã—ã¦ã‚‹ã€‚ã‚¯ãƒ©ã‚¹ã‚’ä½œã‚Œã‚‹ã¯CInputã‹ã‚‰ã ã‘ã€‚
 	bool Create( IDirectInput8* pDInput, HWND hWnd );
 	void Release();
 	void Update();
@@ -27,12 +27,12 @@ public:
 	bool ChkKeyAction( int key ) { return m_KeyAction[key]; }
 };
 
-//ƒ}ƒEƒX
+//ãƒã‚¦ã‚¹
 class CInputMouse
 {
 	friend class CInput;
 
-	IDirectInputDevice8*	m_pDIMouse;		//ƒfƒoƒCƒX
+	IDirectInputDevice8*	m_pDIMouse;		//ãƒ‡ãƒã‚¤ã‚¹
 	bool CreateMouse();
 	void UpdateInput_Mouse();
 	void ReleaseMouse();
@@ -42,14 +42,14 @@ class CInputMouse
 	int						m_wndHgt;
 	bool					m_windowMode;
 
-	long					m_posX;	//ƒ}ƒEƒXÀ•W
+	long					m_posX;	//ãƒã‚¦ã‚¹åº§æ¨™
 	long					m_posY;
 	
-	bool					m_LDown;	//Update“_‚Ìƒ{ƒ^ƒ“ó‘Ô
+	bool					m_LDown;	//Updateæ™‚ç‚¹ã®ãƒœã‚¿ãƒ³çŠ¶æ…‹
 	bool					m_RDown;
 	bool					m_MDown;
 	
-	bool					m_LAction;	//ƒ{ƒ^ƒ“‰Ÿ‚µ‚½’¼Œã‚¾‚¯ON‚É‚È‚é(ƒNƒŠƒbƒN‚ğE‚¤‚Æ‚«‚É)
+	bool					m_LAction;	//ãƒœã‚¿ãƒ³æŠ¼ã—ãŸç›´å¾Œã ã‘ONã«ãªã‚‹(ã‚¯ãƒªãƒƒã‚¯ã‚’æ‹¾ã†ã¨ãã«)
 	bool					m_RAction;
 	bool					m_MAction;
 
@@ -68,9 +68,9 @@ public:
 	bool IsRAction(){return m_RAction;}
 	bool IsMAction(){return m_MAction;}
 	
-	//ƒEƒBƒ“ƒhƒEƒ‚[ƒh‚Ìw’è
-	//ƒJ[ƒ\ƒ‹ˆÊ’u‚ğAPI‚©‚çæ‚é‚©ADirectInput‚©‚çæ‚é‚©‚Ìˆá‚¢
-	void SetWindowMode( bool isWindowmode )	{ m_windowMode = isWindowmode; }//true:ƒEƒBƒ“ƒhƒEƒ‚[ƒh false:ƒtƒ‹ƒXƒNƒŠ[ƒ“
+	//ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ãƒ¢ãƒ¼ãƒ‰ã®æŒ‡å®š
+	//ã‚«ãƒ¼ã‚½ãƒ«ä½ç½®ã‚’APIã‹ã‚‰å–ã‚‹ã‹ã€DirectInputã‹ã‚‰å–ã‚‹ã‹ã®é•ã„
+	void SetWindowMode( bool isWindowmode )	{ m_windowMode = isWindowmode; }//true:ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ãƒ¢ãƒ¼ãƒ‰ false:ãƒ•ãƒ«ã‚¹ã‚¯ãƒªãƒ¼ãƒ³
 
 	void SetCursorPos( int x, int y )
 	{
@@ -80,17 +80,17 @@ public:
 
 };
 
-//ƒQ[ƒ€ƒpƒbƒh---------------------------------
-//(\šƒL[‚Æ‚S‚Â‚Ìƒ{ƒ^ƒ“‚ğˆµ‚¤)
+//ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰---------------------------------
+//(åå­—ã‚­ãƒ¼ã¨ï¼”ã¤ã®ãƒœã‚¿ãƒ³ã‚’æ‰±ã†)
 class CInputGamepad
 {
 	friend class CInput;
 
-	IDirectInputDevice8*	m_pDIDevJS;			//ƒfƒoƒCƒX
+	IDirectInputDevice8*	m_pDIDevJS;			//ãƒ‡ãƒã‚¤ã‚¹
 	int						JoyStickLX;
 	int						JoyStickLY;
-	bool					gamepadState[8];	//XV‚É‰Ÿ‚µ‚Ä‚½‚çON
-	bool					gamepadAction[8];	//‰Ÿ‚µ‚ÄŸ‰ñXV‚·‚é‚Ü‚ÅON
+	bool					gamepadState[8];	//æ›´æ–°æ™‚ã«æŠ¼ã—ã¦ãŸã‚‰ON
+	bool					gamepadAction[8];	//æŠ¼ã—ã¦æ¬¡å›æ›´æ–°ã™ã‚‹ã¾ã§ON
 	#define GamePadBtn_UP		( 0)
 	#define GamePadBtn_DOWN		( 1)
 	#define GamePadBtn_LEFT		( 2)
@@ -116,22 +116,22 @@ public:
 
 };
 
-//ƒL[ƒ{[ƒhAƒ}ƒEƒXAƒQ[ƒ€ƒpƒbƒh“ü—Í‚ğŠÇ—‚·‚éƒNƒ‰ƒX
+//ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰ã€ãƒã‚¦ã‚¹ã€ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰å…¥åŠ›ã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹
 class CInput
 {
 	HWND					m_hWnd;
 
-	//DirectInputƒIƒuƒWƒFƒNƒg
+	//DirectInputã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
 	IDirectInput8*			m_pDInput;
 	
-	//CInput‚Åg‚¤ƒfƒoƒCƒXi‰Šú‰»‘ÎÛ‚É‚·‚éj
+	//CInputã§ä½¿ã†ãƒ‡ãƒã‚¤ã‚¹ï¼ˆåˆæœŸåŒ–å¯¾è±¡ã«ã™ã‚‹ï¼‰
 	int						m_useDevice;
 		#define UseInputDevice_KEYBOARD	0x01
 		#define UseInputDevice_MOUSE	0x02
 		#define UseInputDevice_GAMEPAD	0x04
 		#define UseInputDevice_ALL		(UseInputDevice_KEYBOARD | UseInputDevice_MOUSE | UseInputDevice_GAMEPAD)
 
-	//ŠeƒfƒoƒCƒX
+	//å„ãƒ‡ãƒã‚¤ã‚¹
 	CInputKeyboard		m_keyboard;
 	CInputMouse			m_mouse;
 	CInputGamepad		m_gamepad;
@@ -145,14 +145,14 @@ public:
 	void Release();
 
 public:
-	//“ü—Íó‘Ô‚ğXV‚·‚é
+	//å…¥åŠ›çŠ¶æ…‹ã‚’æ›´æ–°ã™ã‚‹
 	void InputUpdate() {
 		m_keyboard.Update();
 		m_mouse.Update();
 		m_gamepad.Update();
 	}
 	
-	//ŠeƒfƒoƒCƒX‚ğQÆ‚·‚é(‚±‚±‚©‚ç“ü—Íó‘Ô‚ğæ“¾‚·‚é)
+	//å„ãƒ‡ãƒã‚¤ã‚¹ã‚’å‚ç…§ã™ã‚‹(ã“ã“ã‹ã‚‰å…¥åŠ›çŠ¶æ…‹ã‚’å–å¾—ã™ã‚‹)
 	CInputKeyboard* Keyboard() { return &m_keyboard; }
 	CInputMouse* Mouse() { return &m_mouse; }
 	CInputGamepad* Gamepad() { return &m_gamepad; }

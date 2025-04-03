@@ -1,11 +1,11 @@
 ////////////////////////////// //////////////////////////////
-//	ƒvƒƒWƒFƒNƒg	FBomberProject
-//	ƒtƒ@ƒCƒ‹–¼		FFactory_Clear.cpp
-//	ŠJ”­ŠÂ‹«		FMSVC++ 2008
-//	Å“Kƒ^ƒu”		F4
-//	’S“–Ò			F²“¡@—Á
-//	“à•ïÃŞ°À‚Æ”õl	FƒAƒCƒeƒ€ƒtƒ@ƒNƒgƒŠ[
-//					¥
+//	ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆ	ï¼šBomberProject
+//	ãƒ•ã‚¡ã‚¤ãƒ«å		ï¼šFactory_Clear.cpp
+//	é–‹ç™ºç’°å¢ƒ		ï¼šMSVC++ 2008
+//	æœ€é©ã‚¿ãƒ–æ•°		ï¼š4
+//	æ‹…å½“è€…			ï¼šä½è—¤ã€€æ¶¼
+//	å†…åŒ…ãƒ‡ãƒ¼ã‚¿ã¨å‚™è€ƒ	ï¼šã‚¢ã‚¤ãƒ†ãƒ ãƒ•ã‚¡ã‚¯ãƒˆãƒªãƒ¼
+//					â–¼
 //	namespace wiz;
 //		class Factory_Clear ;
 //
@@ -24,16 +24,16 @@ namespace wiz{
 namespace bomberobject{
 
 /**************************************************************************
- Factory_Clear ’è‹`•”
+ Factory_Clear å®šç¾©éƒ¨
 ****************************************************************************/
 /**************************************************************************
  Factory_Clear::Factory_Clear(
-	LPDIRECT3DDEVICE9 pD3DDevice,	//ƒfƒoƒCƒX
-	vector<Object*>& vec,			//ƒIƒuƒWƒFƒNƒg‚Ì”z—ñ
-	TextureManager& TexMgr		//ƒeƒNƒXƒ`ƒƒ‚Ì”z—ñ
+	LPDIRECT3DDEVICE9 pD3DDevice,	//ãƒ‡ãƒã‚¤ã‚¹
+	vector<Object*>& vec,			//ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®é…åˆ—
+	TextureManager& TexMgr		//ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®é…åˆ—
 );
- —p“r: ƒRƒ“ƒXƒgƒ‰ƒNƒ^iƒTƒ“ƒvƒ‹ƒIƒuƒWƒFƒNƒg‚ğ”z—ñ‚É’Ç‰Á‚·‚éj
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ï¼ˆã‚µãƒ³ãƒ—ãƒ«ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’é…åˆ—ã«è¿½åŠ ã™ã‚‹ï¼‰
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
 Factory_Clear::Factory_Clear(FactoryPacket* fpac, int iDeadCount, int iMaxPosY, int iScratchPoint)
 {
@@ -68,7 +68,7 @@ Factory_Clear::Factory_Clear(FactoryPacket* fpac, int iDeadCount, int iMaxPosY, 
 				0xFFFFFFFF
 				)
 		);
-		//Å‚“’B“_**************************************************************
+		//æœ€é«˜åˆ°é”ç‚¹**************************************************************
 		fpac->AddObject(
 			new SpriteObject(
 				fpac->GetDevice(),
@@ -82,7 +82,7 @@ Factory_Clear::Factory_Clear(FactoryPacket* fpac, int iDeadCount, int iMaxPosY, 
 				0xFFFFFFFF
 				)
 		);
-		//—©‚ß‚½‰ñ”*****************************************************************
+		//æ ã‚ãŸå›æ•°*****************************************************************
 		fpac->AddObject(
 			new SpriteObject(
 				fpac->GetDevice(),
@@ -96,7 +96,7 @@ Factory_Clear::Factory_Clear(FactoryPacket* fpac, int iDeadCount, int iMaxPosY, 
 				0xFFFFFFFF
 				)
 		);
-		//€–S‰ñ”*****************************************************************
+		//æ­»äº¡å›æ•°*****************************************************************
 		fpac->AddObject(
 			new SpriteObject(
 				fpac->GetDevice(),
@@ -110,7 +110,7 @@ Factory_Clear::Factory_Clear(FactoryPacket* fpac, int iDeadCount, int iMaxPosY, 
 				0xFFFFFFFF
 				)
 		);
-		//ƒg[ƒ^ƒ‹ƒ|ƒCƒ“ƒg*****************************************************************
+		//ãƒˆãƒ¼ã‚¿ãƒ«ãƒã‚¤ãƒ³ãƒˆ*****************************************************************
 		fpac->AddObject(
 			new SpriteObject(
 				fpac->GetDevice(),
@@ -195,7 +195,7 @@ Factory_Clear::Factory_Clear(FactoryPacket* fpac, int iDeadCount, int iMaxPosY, 
 					D3DXVECTOR3( 40.0f, -70.0f, 0.0f )
 			)
 		);						
-		//ƒJ[ƒ\ƒ‹*************************************************
+		//ã‚«ãƒ¼ã‚½ãƒ«*************************************************
 		float	fLineLength	= 550.0f;
 		float	fPointSize	= 1.0f;
 		Factory_Cursor	MCfac( fpac, fLineLength, fPointSize )  ; 
@@ -215,18 +215,18 @@ Factory_Clear::Factory_Clear(FactoryPacket* fpac, int iDeadCount, int iMaxPosY, 
 
 	}
 	catch(...){
-		//Äthrow
+		//å†throw
 		throw;
 	}
 
 }
 /**************************************************************************
  Factory_Clear::~Factory_Clear();
- —p“r: ƒfƒXƒgƒ‰ƒNƒ^
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
 Factory_Clear::~Factory_Clear(){
-    //‚È‚É‚à‚µ‚È‚¢
+    //ãªã«ã‚‚ã—ãªã„
 }
 }
 //end of namespace bomberobject.

@@ -1,11 +1,11 @@
 ////////////////////////////// //////////////////////////////
-//	ƒvƒƒWƒFƒNƒg	FBomberProject
-//	ƒtƒ@ƒCƒ‹–¼		FFactory_DeadEffect.cpp
-//	ŠJ”­ŠÂ‹«		FMSVC++ 2008
-//	Å“Kƒ^ƒu”		F4
-//	’S“–Ò			F²“¡—Á
-//	“à•ïÃŞ°À‚Æ”õl	F”šUƒGƒtƒFƒNƒg
-//					¥
+//	ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆ	ï¼šBomberProject
+//	ãƒ•ã‚¡ã‚¤ãƒ«å		ï¼šFactory_DeadEffect.cpp
+//	é–‹ç™ºç’°å¢ƒ		ï¼šMSVC++ 2008
+//	æœ€é©ã‚¿ãƒ–æ•°		ï¼š4
+//	æ‹…å½“è€…			ï¼šä½è—¤æ¶¼
+//	å†…åŒ…ãƒ‡ãƒ¼ã‚¿ã¨å‚™è€ƒ	ï¼šçˆ†æ•£ã‚¨ãƒ•ã‚§ã‚¯ãƒˆ
+//					â–¼
 //	namespace wiz;
 //		class DeadEffect ;
 //
@@ -18,17 +18,17 @@ namespace wiz{
 namespace bomberobject{
 
 /**************************************************************************
- DeadEffect ’è‹`•”
+ DeadEffect å®šç¾©éƒ¨
 ****************************************************************************/
 /**************************************************************************
  DeadEffect::DeadEffect(
-	LPDIRECT3DDEVICE9 pD3DDevice,	//ƒfƒoƒCƒX
-	LPTATRATEXTURE pTexture,	//ƒeƒNƒXƒ`ƒƒ
-	wiz::OBJID id					//ƒIƒuƒWƒFƒNƒg‚Ìí—Ş
+	LPDIRECT3DDEVICE9 pD3DDevice,	//ãƒ‡ãƒã‚¤ã‚¹
+	LPTATRATEXTURE pTexture,	//ãƒ†ã‚¯ã‚¹ãƒãƒ£
+	wiz::OBJID id					//ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ç¨®é¡
 );
- —p“r: ƒRƒ“ƒXƒgƒ‰ƒNƒ^
- –ß‚è’l: ‚È‚µ
- ’S“–F²“¡—Á
+ ç”¨é€”: ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+ æˆ»ã‚Šå€¤: ãªã—
+ æ‹…å½“ï¼šä½è—¤æ¶¼
 ***************************************************************************/
 DeadEffect::DeadEffect(LPDIRECT3DDEVICE9	pD3DDevice,
 						LPTATRATEXTURE	    pTexture,
@@ -56,8 +56,8 @@ DeadEffect::DeadEffect(LPDIRECT3DDEVICE9	pD3DDevice,
 	m_pMesh->GetVertexBuffer(&pVB);
 	pVB->Lock(0,0,(VOID**)&pVer,0);
 	DWORD vsize = m_pMesh->GetNumVertices();
-	for(DWORD n = 0;n < vsize;n++){ //’¸“_‚Ì”‚ğæ“¾‚·‚é
-		//–@ü‚Æ’¸“_‚©‚çuv’l‚ğ“¾‚é
+	for(DWORD n = 0;n < vsize;n++){ //é ‚ç‚¹ã®æ•°ã‚’å–å¾—ã™ã‚‹
+		//æ³•ç·šã¨é ‚ç‚¹ã‹ã‚‰uvå€¤ã‚’å¾—ã‚‹
 		BoxVecNomalUV(pVer[n].vec,pVer[n].normal,pVer[n].tu,pVer[n].tv);
 	}
 	pVB->Unlock();
@@ -69,7 +69,7 @@ DeadEffect::DeadEffect(LPDIRECT3DDEVICE9	pD3DDevice,
 }
 
 /*********************************
-ƒfƒXƒgƒ‰ƒNƒ^
+ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 *********************************/
 DeadEffect::~DeadEffect(){
 	SafeDeletePointerMap( m_ItemMap_Target );
@@ -77,7 +77,7 @@ DeadEffect::~DeadEffect(){
 }
 
 /*********************************
-’Ç‰Á
+è¿½åŠ 
 *********************************/
 void	DeadEffect::addEffect( D3DXVECTOR3 vPos, float fDir){
 	EffectItem*	pItem	= new EffectItem();
@@ -90,17 +90,17 @@ void	DeadEffect::addEffect( D3DXVECTOR3 vPos, float fDir){
 }
 
 /////////////////// ////////////////////
-//// —p“r       Fvoid Draw( DrawPacket& i_DrawPacket )
-//// ƒJƒeƒSƒŠ   FŠÖ”
-//// —p“r       FƒIƒuƒWƒFƒNƒg‚ğƒfƒBƒXƒvƒŒƒC‚É•\¦‚·‚é
-//// ˆø”       F  DrawPacket& i_DrawPacket             // ‰æ–Ê•`‰æ‚É•K—v‚Èƒf[ƒ^ŒQ «“à—e‰º‹L
-////            F  „¥ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 ƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-////            F  „¥ vector<Object*>&    Vec                     // ƒIƒuƒWƒFƒNƒg‚Ì”z—ñ
-////            F  „¥ Tempus2*            i_DrawPacket.GetTime()	   // ŠÔ‚ğŠÇ—‚·‚éƒNƒ‰ƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^[
-////            F  „¤ Command             i_DrawPacket.pCommand   // ƒRƒ}ƒ“ƒh
-//// –ß’l       F‚È‚µ
-//// ’S“–Ò     F²“¡—Á
-//// ”õl       F
+//// ç”¨é€”       ï¼švoid Draw( DrawPacket& i_DrawPacket )
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šé–¢æ•°
+//// ç”¨é€”       ï¼šã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ãƒ‡ã‚£ã‚¹ãƒ—ãƒ¬ã‚¤ã«è¡¨ç¤ºã™ã‚‹
+//// å¼•æ•°       ï¼š  DrawPacket& i_DrawPacket             // ç”»é¢æç”»æ™‚ã«å¿…è¦ãªãƒ‡ãƒ¼ã‚¿ç¾¤ â†“å†…å®¹ä¸‹è¨˜
+////            ï¼š  â”œ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+////            ï¼š  â”œ vector<Object*>&    Vec                     // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®é…åˆ—
+////            ï¼š  â”œ Tempus2*            i_DrawPacket.GetTime()	   // æ™‚é–“ã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿ãƒ¼
+////            ï¼š  â”” Command             i_DrawPacket.pCommand   // ã‚³ãƒãƒ³ãƒ‰
+//// æˆ»å€¤       ï¼šãªã—
+//// æ‹…å½“è€…     ï¼šä½è—¤æ¶¼
+//// å‚™è€ƒ       ï¼š
 void DeadEffect::Draw(DrawPacket& i_DrawPacket)
 {
 	multimap<float,EffectItem*>::iterator it = m_ItemMap_Target.begin();
@@ -115,19 +115,19 @@ void DeadEffect::Draw(DrawPacket& i_DrawPacket)
 }
 
 /////////////////// ////////////////////
-//// —p“r       Fvoid Update( UpdatePacket& i_UpdatePacket )
-//// ƒJƒeƒSƒŠ   FŠÖ”
-//// —p“r       FƒIƒuƒWƒFƒNƒg‚ğXV
-//// ˆø”       F  UpdatePacket& i_UpdatePacket     // ƒAƒbƒvƒf[ƒg‚É•K—v‚Èƒf[ƒ^ŒQ «“à—e‰º‹L
-////            F  „¥       LPDIRECT3DDEVICE9  pD3DDevice      // IDirect3DDevice9 ƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-////            F  „¥       Tempus2*           pTime           // ŠÔ‚ğŠÇ—‚·‚éƒNƒ‰ƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^[
-////            F  „¥       vector<Object*>&   Vec,            // ƒIƒuƒWƒFƒNƒg‚Ì”z—ñ
-////            F  „¥ const CONTROLER_STATE*   pCntlState      // ƒRƒ“ƒgƒ[ƒ‰‚ÌƒXƒe[ƒ^ƒX
-////            F  „¤       Command            pCommand        // ƒRƒ}ƒ“ƒh
-//// –ß’l       F‚È‚µ
-//// ’S“–Ò     F²“¡—Á
-//// ”õl       F
-////            F
+//// ç”¨é€”       ï¼švoid Update( UpdatePacket& i_UpdatePacket )
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šé–¢æ•°
+//// ç”¨é€”       ï¼šã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’æ›´æ–°
+//// å¼•æ•°       ï¼š  UpdatePacket& i_UpdatePacket     // ã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆæ™‚ã«å¿…è¦ãªãƒ‡ãƒ¼ã‚¿ç¾¤ â†“å†…å®¹ä¸‹è¨˜
+////            ï¼š  â”œ       LPDIRECT3DDEVICE9  pD3DDevice      // IDirect3DDevice9 ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+////            ï¼š  â”œ       Tempus2*           pTime           // æ™‚é–“ã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿ãƒ¼
+////            ï¼š  â”œ       vector<Object*>&   Vec,            // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®é…åˆ—
+////            ï¼š  â”œ const CONTROLER_STATE*   pCntlState      // ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹
+////            ï¼š  â””       Command            pCommand        // ã‚³ãƒãƒ³ãƒ‰
+//// æˆ»å€¤       ï¼šãªã—
+//// æ‹…å½“è€…     ï¼šä½è—¤æ¶¼
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
 void DeadEffect::Update( UpdatePacket& i_UpdatePacket ){
 
@@ -163,7 +163,7 @@ void DeadEffect::Update( UpdatePacket& i_UpdatePacket ){
 }
 
 /****************************************************
-ƒ}ƒgƒŠƒbƒNƒX‚Ìİ’è
+ãƒãƒˆãƒªãƒƒã‚¯ã‚¹ã®è¨­å®š
 ****************************************************/
 void	DeadEffect::setMatrix( D3DXVECTOR3 vPos ){
 
@@ -173,7 +173,7 @@ void	DeadEffect::setMatrix( D3DXVECTOR3 vPos ){
 }
 
 /****************************************************
-À•W‚Ìİ’è
+åº§æ¨™ã®è¨­å®š
 ****************************************************/
 void	DeadEffect::setPos( D3DXVECTOR3 i_vPos ){
 	multimap<float,EffectItem*>::iterator it = m_ItemMap_Target.begin();
@@ -189,16 +189,16 @@ void	DeadEffect::setPos( D3DXVECTOR3 i_vPos ){
 }
 
 /**************************************************************************
- Factory_DeadEffct ’è‹`•”
+ Factory_DeadEffct å®šç¾©éƒ¨
 ****************************************************************************/
 /**************************************************************************
  Factory_DeadEffct::Factory_DeadEffct(
-	LPDIRECT3DDEVICE9 pD3DDevice,	//ƒfƒoƒCƒX
-	vector<Object*>& vec,			//ƒIƒuƒWƒFƒNƒg‚Ì”z—ñ
-	TextureManager& TexMgr		//ƒeƒNƒXƒ`ƒƒ‚Ì”z—ñ
+	LPDIRECT3DDEVICE9 pD3DDevice,	//ãƒ‡ãƒã‚¤ã‚¹
+	vector<Object*>& vec,			//ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®é…åˆ—
+	TextureManager& TexMgr		//ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®é…åˆ—
 );
- —p“r: ƒRƒ“ƒXƒgƒ‰ƒNƒ^iƒTƒ“ƒvƒ‹ƒIƒuƒWƒFƒNƒg‚ğ”z—ñ‚É’Ç‰Á‚·‚éj
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ï¼ˆã‚µãƒ³ãƒ—ãƒ«ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’é…åˆ—ã«è¿½åŠ ã™ã‚‹ï¼‰
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
 Factory_DeadEffect::Factory_DeadEffect(FactoryPacket* fpac)
 {
@@ -220,18 +220,18 @@ Factory_DeadEffect::Factory_DeadEffect(FactoryPacket* fpac)
 
 	}
 	catch(...){
-		//Äthrow
+		//å†throw
 		throw;
 	}
 
 }
 /**************************************************************************
  Factory_DeadEffct::~Factory_DeadEffct();
- —p“r: ƒfƒXƒgƒ‰ƒNƒ^
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
 Factory_DeadEffect::~Factory_DeadEffect(){
-    //‚È‚É‚à‚µ‚È‚¢
+    //ãªã«ã‚‚ã—ãªã„
 }
 
 }

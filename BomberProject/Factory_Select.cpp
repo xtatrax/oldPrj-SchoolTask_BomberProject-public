@@ -1,11 +1,11 @@
 ////////////////////////////// //////////////////////////////
-//	ƒvƒƒWƒFƒNƒg	FBomberProject
-//	ƒtƒ@ƒCƒ‹–¼		FFactory_Select.cpp
-//	ŠJ”­ŠÂ‹«		FMSVC++ 2008
-//	Å“Kƒ^ƒu”		F4
-//	’S“–Ò			F°Œ´ “O
-//	“à•ïÃŞ°À‚Æ”õl	FƒƒCƒ“ƒtƒ@ƒNƒgƒŠ[
-//					¥
+//	ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆ	ï¼šBomberProject
+//	ãƒ•ã‚¡ã‚¤ãƒ«å		ï¼šFactory_Select.cpp
+//	é–‹ç™ºç’°å¢ƒ		ï¼šMSVC++ 2008
+//	æœ€é©ã‚¿ãƒ–æ•°		ï¼š4
+//	æ‹…å½“è€…			ï¼šé´«åŸ å¾¹
+//	å†…åŒ…ãƒ‡ãƒ¼ã‚¿ã¨å‚™è€ƒ	ï¼šãƒ¡ã‚¤ãƒ³ãƒ•ã‚¡ã‚¯ãƒˆãƒªãƒ¼
+//					â–¼
 //	namespace wiz;
 //		class Factory_Select ;
 //
@@ -26,19 +26,19 @@ namespace bomberobject{
 //		:Behavior(OBJID_BEHAVIOR_TEST)
 //	{}
 //	/////////////////// ////////////////////
-//	//// —p“r       Fvirtual void Update( UpdatePacket& i_UpdatePacket )
-//	//// ƒJƒeƒSƒŠ   F‰¼‘zŠÖ”
-//	//// —p“r       FƒIƒuƒWƒFƒNƒg‚ğXV
-//	//// ˆø”       F  UpdatePacket& i_UpdatePacket     // ƒAƒbƒvƒf[ƒg‚É•K—v‚Èƒf[ƒ^ŒQ «“à—e‰º‹L
-//	////            F  „¥       LPDIRECT3DDEVICE9  pD3DDevice      // IDirect3DDevice9 ƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-//	////            F  „¥       Tempus2*           pTime           // ŠÔ‚ğŠÇ—‚·‚éƒNƒ‰ƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^[
-//	////            F  „¥       vector<Object*>&   Vec,            // ƒIƒuƒWƒFƒNƒg‚Ì”z—ñ
-//	////            F  „¥ const CONTROLER_STATE*   pCntlState      // ƒRƒ“ƒgƒ[ƒ‰‚ÌƒXƒe[ƒ^ƒX
-//	////            F  „¤       Command            pCommand        // ƒRƒ}ƒ“ƒh
-//	//// –ß’l       F‚È‚µ
-//	//// ’S“–Ò     F°Œ´ “O
-//	//// ”õl       FŒp³‚µ‚½‚à‚Ì‚Å‚à•K‚¸‚Æ‚à’è‹`‚ğ‚µ‚È‚­‚Ä‚à—Ç‚¢
-//	////            F
+//	//// ç”¨é€”       ï¼švirtual void Update( UpdatePacket& i_UpdatePacket )
+//	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šä»®æƒ³é–¢æ•°
+//	//// ç”¨é€”       ï¼šã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’æ›´æ–°
+//	//// å¼•æ•°       ï¼š  UpdatePacket& i_UpdatePacket     // ã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆæ™‚ã«å¿…è¦ãªãƒ‡ãƒ¼ã‚¿ç¾¤ â†“å†…å®¹ä¸‹è¨˜
+//	////            ï¼š  â”œ       LPDIRECT3DDEVICE9  pD3DDevice      // IDirect3DDevice9 ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+//	////            ï¼š  â”œ       Tempus2*           pTime           // æ™‚é–“ã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿ãƒ¼
+//	////            ï¼š  â”œ       vector<Object*>&   Vec,            // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®é…åˆ—
+//	////            ï¼š  â”œ const CONTROLER_STATE*   pCntlState      // ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹
+//	////            ï¼š  â””       Command            pCommand        // ã‚³ãƒãƒ³ãƒ‰
+//	//// æˆ»å€¤       ï¼šãªã—
+//	//// æ‹…å½“è€…     ï¼šé´«åŸ å¾¹
+//	//// å‚™è€ƒ       ï¼šç¶™æ‰¿ã—ãŸã‚‚ã®ã§ã‚‚å¿…ãšã¨ã‚‚å®šç¾©ã‚’ã—ãªãã¦ã‚‚è‰¯ã„
+//	////            ï¼š
 //	////
 //    void Update( UpdatePacket& i_UpdatePacket ){
 //		if( Cursor2D::clickLorRButtonWithLock() )
@@ -47,16 +47,16 @@ namespace bomberobject{
 //};
 	
 /**************************************************************************
- Factory_Select ’è‹`•”
+ Factory_Select å®šç¾©éƒ¨
 ****************************************************************************/
 /**************************************************************************
  Factory_Select::Factory_Select(
-	LPDIRECT3DDEVICE9 pD3DDevice,	//ƒfƒoƒCƒX
-	vector<Object*>& vec,			//ƒIƒuƒWƒFƒNƒg‚Ì”z—ñ
-	TextureManager& TexMgr		//ƒeƒNƒXƒ`ƒƒ‚Ì”z—ñ
+	LPDIRECT3DDEVICE9 pD3DDevice,	//ãƒ‡ãƒã‚¤ã‚¹
+	vector<Object*>& vec,			//ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®é…åˆ—
+	TextureManager& TexMgr		//ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®é…åˆ—
 );
- —p“r: ƒRƒ“ƒXƒgƒ‰ƒNƒ^iƒTƒ“ƒvƒ‹ƒIƒuƒWƒFƒNƒg‚ğ”z—ñ‚É’Ç‰Á‚·‚éj
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ï¼ˆã‚µãƒ³ãƒ—ãƒ«ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’é…åˆ—ã«è¿½åŠ ã™ã‚‹ï¼‰
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
 Factory_Select::Factory_Select(FactoryPacket* fpac ){
 	try{
@@ -74,13 +74,13 @@ Factory_Select::Factory_Select(FactoryPacket* fpac ){
 				)
 			) ;
 /////////////////////////////////////////////////////////////////////////////////
-//                           à–¾—p‚ÌƒeƒNƒXƒ`ƒƒ                                //
+//                           èª¬æ˜ç”¨ã®ãƒ†ã‚¯ã‚¹ãƒãƒ£                                //
 /////////////////////////////////////////////////////////////////////////////////
 		fpac->AddObject(
 			new SelectInformation(
 					fpac->GetDevice()								,	
-					fpac->AddTexture(L"Select_Frame_ver5px.png")	,	//«ƒ}ƒEƒX‚ª‚±‚±‚Ìã‚É‚ ‚é‚Æ‚«•\¦‚·‚é‰æ‘œ
-					fpac->AddTexture(L"Select_Manual.png")			,	//˜gŠO
+					fpac->AddTexture(L"Select_Frame_ver5px.png")	,	//â†“ãƒã‚¦ã‚¹ãŒã“ã“ã®ä¸Šã«ã‚ã‚‹ã¨ãè¡¨ç¤ºã™ã‚‹ç”»åƒ
+					fpac->AddTexture(L"Select_Manual.png")			,	//æ å¤–
 					fpac->AddTexture(L"Select_Normal.png")		,	//NORMAL
 					fpac->AddTexture(L"Select_Hard.png")		,	//HARD
 					fpac->AddTexture(L"Select_Extra.png")		,	//EXTRA
@@ -223,21 +223,21 @@ Factory_Select::Factory_Select(FactoryPacket* fpac ){
 	catch(LoaderException& e){
 		throw LoaderException(
 				e.what_w(),
-				L"ªFactory_Select::Factory_Select()"
+				L"â†‘Factory_Select::Factory_Select()"
 				);
 	}
 	catch(...){
-		//Äthrow
+		//å†throw
 		throw;
 	}
 }
 /**************************************************************************
  Factory_Select::~Factory_Select();
- —p“r: ƒfƒXƒgƒ‰ƒNƒ^
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
 Factory_Select::~Factory_Select(){
-	//‚È‚É‚à‚µ‚È‚¢
+	//ãªã«ã‚‚ã—ãªã„
 }
 
 

@@ -1,11 +1,11 @@
 ////////////////////////////// //////////////////////////////
-//	ƒvƒƒWƒFƒNƒg	FBomberProject
-//	ƒtƒ@ƒCƒ‹–¼		FFactory_Load.cpp
-//	ŠJ”­ŠÂ‹«		FMSVC++ 2008
-//	Å“Kƒ^ƒu”		F4
-//	’S“–ŽÒ			F²“¡@—Á
-//	“à•ïÃÞ°À‚Æ”õl	Fƒ[ƒhƒtƒ@ƒNƒgƒŠ[
-//					¥
+//	ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆ	ï¼šBomberProject
+//	ãƒ•ã‚¡ã‚¤ãƒ«å		ï¼šFactory_Load.cpp
+//	é–‹ç™ºç’°å¢ƒ		ï¼šMSVC++ 2008
+//	æœ€é©ã‚¿ãƒ–æ•°		ï¼š4
+//	æ‹…å½“è€…			ï¼šä½è—¤ã€€æ¶¼
+//	å†…åŒ…ãƒ‡ãƒ¼ã‚¿ã¨å‚™è€ƒ	ï¼šãƒ­ãƒ¼ãƒ‰ãƒ•ã‚¡ã‚¯ãƒˆãƒªãƒ¼
+//					â–¼
 //	namespace wiz;
 //		class Load ;
 //		class Factory_Load ;
@@ -20,28 +20,28 @@ namespace wiz{
 	namespace bomberobject{
 
 /************************************************************************
-Load ’è‹`•”
+Load å®šç¾©éƒ¨
 ************************************************************************/
 /////////////////// ////////////////////
-//// ŠÖ”–¼     FLoad(LPDIRECT3DDEVICE9 pD3DDevice,LPTATRATEXTURE pTexture,DWORD next,
-////            F    D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos, Rect* pRect,
-////            F    D3DXVECTOR3& vCenter,D3DXVECTOR3& vOffsetPos,Color color = 0xFFFFFFFF);
-//// ƒJƒeƒSƒŠ   FƒRƒ“ƒXƒgƒ‰ƒNƒ^
-//// —p“r       FƒXƒvƒ‰ƒCƒg‚ð•`‰æ
-//// ˆø”       F  LPDIRECT3DDEVICE9 pD3DDevice    // IDirect3DDevice9 ƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-////            F  LPTATRATEXTURE pTexture     // “\‚è•t‚¯‚½‚¢ƒeƒNƒXƒ`ƒƒ
-////            F  DWORD next                      // ŽŸ‚Ì‰æ–Ê
-////            F  D3DXVECTOR3 &vScale             // ‘å‚«‚³
-////            F  D3DXVECTOR3 &vRot               // ŽOŽ²‰ñ“]
-////            F  D3DXVECTOR3 &vPos               // Ý’uÀ•W
-////            F  Rect* pRect                     // •`‰æ‚µ‚½‚¢”ÍˆÍ(NULL‚Å‘S‘Ì‚ð•`‰æ)
-////            F  D3DXVECTOR3& vCenter            // ’†S
-////            F  D3DXVECTOR3& vOffsetPos         // ƒIƒtƒZƒbƒgÀ•W
-////            F  Color color = 0xFFFFFFFF        // F
-//// –ß’l       F‚È‚µ
-//// ’S“–ŽÒ     F²“¡—Á
-//// ”õl       F
-////            F
+//// é–¢æ•°å     ï¼šLoad(LPDIRECT3DDEVICE9 pD3DDevice,LPTATRATEXTURE pTexture,DWORD next,
+////            ï¼š    D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos, Rect* pRect,
+////            ï¼š    D3DXVECTOR3& vCenter,D3DXVECTOR3& vOffsetPos,Color color = 0xFFFFFFFF);
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+//// ç”¨é€”       ï¼šã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã‚’æç”»
+//// å¼•æ•°       ï¼š  LPDIRECT3DDEVICE9 pD3DDevice    // IDirect3DDevice9 ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+////            ï¼š  LPTATRATEXTURE pTexture     // è²¼ã‚Šä»˜ã‘ãŸã„ãƒ†ã‚¯ã‚¹ãƒãƒ£
+////            ï¼š  DWORD next                      // æ¬¡ã®ç”»é¢
+////            ï¼š  D3DXVECTOR3 &vScale             // å¤§ãã•
+////            ï¼š  D3DXVECTOR3 &vRot               // ä¸‰è»¸å›žè»¢
+////            ï¼š  D3DXVECTOR3 &vPos               // è¨­ç½®åº§æ¨™
+////            ï¼š  Rect* pRect                     // æç”»ã—ãŸã„ç¯„å›²(NULLã§å…¨ä½“ã‚’æç”»)
+////            ï¼š  D3DXVECTOR3& vCenter            // ä¸­å¿ƒ
+////            ï¼š  D3DXVECTOR3& vOffsetPos         // ã‚ªãƒ•ã‚»ãƒƒãƒˆåº§æ¨™
+////            ï¼š  Color color = 0xFFFFFFFF        // è‰²
+//// æˆ»å€¤       ï¼šãªã—
+//// æ‹…å½“è€…     ï¼šä½è—¤æ¶¼
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
 Load::Load(
 		const LPDIRECT3DDEVICE9		pD3DDevice	,
@@ -63,7 +63,7 @@ Load::Load(
 ,m_iPtn( 0 )
 {
 	try{
-		//	: ‰Šúƒ}ƒgƒŠƒbƒNƒX‚ðŒvŽZ
+		//	: åˆæœŸãƒžãƒˆãƒªãƒƒã‚¯ã‚¹ã‚’è¨ˆç®—
 		D3DXMATRIX mScale,mRot,mPos;
 		D3DXMatrixScaling(&mScale,vScale.x,vScale.y,vScale.z);
 		D3DXMatrixRotationYawPitchRoll(&mRot,vRot.y,vRot.x,vRot.z);
@@ -72,7 +72,7 @@ Load::Load(
 	}
 	catch(...){
 		SafeRelease(m_pSprite);
-		//ÄƒXƒ[
+		//å†ã‚¹ãƒ­ãƒ¼
 		throw;
 	}
 };
@@ -81,30 +81,30 @@ Load::~Load(){
 }
 
 /////////////////// ////////////////////
-//// ŠÖ”–¼     Fvoid Load::Draw( DrawPacket& i_DrawPacket)
-//// ƒJƒeƒSƒŠ   FŠÖ”
-//// —p“r       FƒXƒvƒ‰ƒCƒg‚ð•`‰æ
-//// ˆø”       FDrawPacket& i_DrawPacket    //‚à‚ë‚à‚ë‚Ìƒf[ƒ^
-//// –ß’l       F‚È‚µ
-//// ’S“–ŽÒ     F²“¡—Á
-//// ”õl       F
-////            F
+//// é–¢æ•°å     ï¼švoid Load::Draw( DrawPacket& i_DrawPacket)
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šé–¢æ•°
+//// ç”¨é€”       ï¼šã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã‚’æç”»
+//// å¼•æ•°       ï¼šDrawPacket& i_DrawPacket    //ã‚‚ã‚ã‚‚ã‚ã®ãƒ‡ãƒ¼ã‚¿
+//// æˆ»å€¤       ï¼šãªã—
+//// æ‹…å½“è€…     ï¼šä½è—¤æ¶¼
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
 void Load::Draw(DrawPacket& i_DrawPacket)
 {
-	//	: •`‰æ‚ÍeƒNƒ‰ƒX‚É”C‚¹‚é
+	//	: æç”»ã¯è¦ªã‚¯ãƒ©ã‚¹ã«ä»»ã›ã‚‹
 	SpriteObject::Draw(i_DrawPacket);
 };
 
 /////////////////// ////////////////////
-//// ŠÖ”–¼     Fvoid Load::Update( UpdatePacket& i_UpdatePacket)
-//// ƒJƒeƒSƒŠ   FŠÖ”
-//// —p“r       Fƒf[ƒ^‚ÌXV
-//// ˆø”       FUpdatePacket& i_UpdatePacket    //‚à‚ë‚à‚ë‚Ìƒf[ƒ^
-//// –ß’l       F‚È‚µ
-//// ’S“–ŽÒ     F²“¡—Á
-//// ”õl       F
-////            F
+//// é–¢æ•°å     ï¼švoid Load::Update( UpdatePacket& i_UpdatePacket)
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šé–¢æ•°
+//// ç”¨é€”       ï¼šãƒ‡ãƒ¼ã‚¿ã®æ›´æ–°
+//// å¼•æ•°       ï¼šUpdatePacket& i_UpdatePacket    //ã‚‚ã‚ã‚‚ã‚ã®ãƒ‡ãƒ¼ã‚¿
+//// æˆ»å€¤       ï¼šãªã—
+//// æ‹…å½“è€…     ï¼šä½è—¤æ¶¼
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
 void Load::Update(UpdatePacket& i_UpdatePacket)
 {
@@ -123,16 +123,16 @@ void Load::Update(UpdatePacket& i_UpdatePacket)
 };
 
 /**************************************************************************
- Factory_Load ’è‹`•”
+ Factory_Load å®šç¾©éƒ¨
 ****************************************************************************/
 /**************************************************************************
  Factory_Load::Factory_Load(
-	LPDIRECT3DDEVICE9 pD3DDevice,	//ƒfƒoƒCƒX
-	vector<Object*>& vec,			//ƒIƒuƒWƒFƒNƒg‚Ì”z—ñ
-	TextureManager& TexMgr		//ƒeƒNƒXƒ`ƒƒ‚Ì”z—ñ
+	LPDIRECT3DDEVICE9 pD3DDevice,	//ãƒ‡ãƒã‚¤ã‚¹
+	vector<Object*>& vec,			//ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®é…åˆ—
+	TextureManager& TexMgr		//ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®é…åˆ—
 );
- —p“r: ƒRƒ“ƒXƒgƒ‰ƒNƒ^iƒTƒ“ƒvƒ‹ƒIƒuƒWƒFƒNƒg‚ð”z—ñ‚É’Ç‰Á‚·‚éj
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ï¼ˆã‚µãƒ³ãƒ—ãƒ«ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’é…åˆ—ã«è¿½åŠ ã™ã‚‹ï¼‰
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
 Factory_Load::Factory_Load(FactoryPacket* fpac,Command* Com){
 	try{
@@ -166,18 +166,18 @@ Factory_Load::Factory_Load(FactoryPacket* fpac,Command* Com){
 
 	}
 	catch(...){
-		//Äthrow
+		//å†throw
 		throw;
 	}
 
 }
 /**************************************************************************
  Factory_Load::~Factory_Load();
- —p“r: ƒfƒXƒgƒ‰ƒNƒ^
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
 Factory_Load::~Factory_Load(){
-    //‚È‚É‚à‚µ‚È‚¢
+    //ãªã«ã‚‚ã—ãªã„
 }
 
 }

@@ -1,23 +1,23 @@
 ////////////////////////////// //////////////////////////////
-//	ƒvƒƒWƒFƒNƒg	FBomberProject
-//	ƒtƒ@ƒCƒ‹–¼		FFactory_Main.cpp
-//	ŠJ”­ŠÂ‹«		FMSVC++ 2008
-//	Å“Kƒ^ƒu”		F4
-//	’S“–Ò			F°Œ´ “O
-//	“à•ïÃŞ°À‚Æ”õl	FƒƒCƒ“ƒtƒ@ƒNƒgƒŠ[
-//					¥
+//	ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆ	ï¼šBomberProject
+//	ãƒ•ã‚¡ã‚¤ãƒ«å		ï¼šFactory_Main.cpp
+//	é–‹ç™ºç’°å¢ƒ		ï¼šMSVC++ 2008
+//	æœ€é©ã‚¿ãƒ–æ•°		ï¼š4
+//	æ‹…å½“è€…			ï¼šé´«åŸ å¾¹
+//	å†…åŒ…ãƒ‡ãƒ¼ã‚¿ã¨å‚™è€ƒ	ï¼šãƒ¡ã‚¤ãƒ³ãƒ•ã‚¡ã‚¯ãƒˆãƒªãƒ¼
+//					â–¼
 //	namespace wiz;
 //		class Factory_Main ;
 //
 
 //////////
-//	: Šî–{‚ÌƒCƒ“ƒNƒ‹[ƒh
+//	: åŸºæœ¬ã®ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰
 #include "StdAfx.h"
 #include "Factory_Main.h"
-//	: Šî–{‚ÌƒCƒ“ƒNƒ‹[ƒh
+//	: åŸºæœ¬ã®ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰
 //////////
 //////////
-//	: ’Ç‰Á‚ÌƒCƒ“ƒNƒ‹[ƒh
+//	: è¿½åŠ ã®ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰
 #include "StageLoader.h"
 #include "Factory_Description.h"
 #include "Factory_Continue.h"
@@ -30,7 +30,7 @@
 #include "Factory_BackGround.h"
 #include "Factory_DeadEffect.h"
 #include "Factory_PLAYRecorder.h"
-//	: ’Ç‰Á‚ÌƒCƒ“ƒNƒ‹[ƒh
+//	: è¿½åŠ ã®ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰
 //////////
 
 namespace wiz{
@@ -39,22 +39,22 @@ namespace bomberobject{
 
 	
 /**************************************************************************
- Factory_Main ’è‹`•”
+ Factory_Main å®šç¾©éƒ¨
 ****************************************************************************/
 /**************************************************************************
  Factory_Main::Factory_Main(
-	LPDIRECT3DDEVICE9 pD3DDevice,	//ƒfƒoƒCƒX
-	vector<Object*>& vec,			//ƒIƒuƒWƒFƒNƒg‚Ì”z—ñ
-	TextureManager& TexMgr		//ƒeƒNƒXƒ`ƒƒ‚Ì”z—ñ
+	LPDIRECT3DDEVICE9 pD3DDevice,	//ãƒ‡ãƒã‚¤ã‚¹
+	vector<Object*>& vec,			//ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®é…åˆ—
+	TextureManager& TexMgr		//ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®é…åˆ—
 );
- —p“r: ƒRƒ“ƒXƒgƒ‰ƒNƒ^iƒTƒ“ƒvƒ‹ƒIƒuƒWƒFƒNƒg‚ğ”z—ñ‚É’Ç‰Á‚·‚éj
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ï¼ˆã‚µãƒ³ãƒ—ãƒ«ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’é…åˆ—ã«è¿½åŠ ã™ã‚‹ï¼‰
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
 Factory_Main::Factory_Main(FactoryPacket* fpac, DWORD dwStageNum, DWORD dwResumptionCheckPoint, D3DXVECTOR3* vStartPos ){
 	try{
 #if defined( ON_GUIDELINE ) 
 
-		//	: ƒKƒCƒhƒ‰ƒCƒ“
+		//	: ã‚¬ã‚¤ãƒ‰ãƒ©ã‚¤ãƒ³
 		fpac->AddObject(new Guide( fpac->GetDevice() ) );
 #endif
 		//Debugger::DBGWRITINGLOGTEXT::addStrToFile(L"Score.txt",L"\n\n//////////\n");
@@ -62,7 +62,7 @@ Factory_Main::Factory_Main(FactoryPacket* fpac, DWORD dwStageNum, DWORD dwResump
 		//Debugger::DBGWRITINGLOGTEXT::addStrToFile(L"Score.txt",L"StageNum   = %d\n",dwStageNum);
 
 		//////////
-		//	: ƒ‰ƒCƒg‚Ìİ’è
+		//	: ãƒ©ã‚¤ãƒˆã®è¨­å®š
         D3DCOLORVALUE Diffuse = {1.0f,1.0f,1.0f,0.0f};
         D3DCOLORVALUE Specular = {1.0f,1.0f,1.0f,0.0f};
         D3DCOLORVALUE Ambient = {0.5f,0.5f,0.5f,0.0f};
@@ -75,12 +75,12 @@ Factory_Main::Factory_Main(FactoryPacket* fpac, DWORD dwStageNum, DWORD dwResump
 				D3DXVECTOR3( -0.0f, -1.0f, 0.0f)
 			)
 		);
-		//Debugger::DBGWRITINGLOGTEXT::addStr(L"Factory_Main::Factory_Main  >>>>  ƒ‰ƒCƒgì¬OK  ");
-		//	: ƒ‰ƒCƒg‚Ìİ’è
+		//Debugger::DBGWRITINGLOGTEXT::addStr(L"Factory_Main::Factory_Main  >>>>  ãƒ©ã‚¤ãƒˆä½œæˆOK  ");
+		//	: ãƒ©ã‚¤ãƒˆã®è¨­å®š
 		//////////
 
 		//////////
-		//	: ƒJƒƒ‰‚Ìİ’è
+		//	: ã‚«ãƒ¡ãƒ©ã®è¨­å®š
 		float ECXPos = 25.1f;
 		float ECYPos = 10.666f;
 		float ECZPos = -55.7f;
@@ -94,15 +94,15 @@ Factory_Main::Factory_Main(FactoryPacket* fpac, DWORD dwStageNum, DWORD dwResump
 				30.0f
 			)
 		);
-		//Debugger::DBGWRITINGLOGTEXT::addStr(L"Factory_Main::Factory_Main  >>>>  ƒJƒƒ‰ì¬OK  ");
-		//	: ƒJƒƒ‰‚Ìİ’è
+		//Debugger::DBGWRITINGLOGTEXT::addStr(L"Factory_Main::Factory_Main  >>>>  ã‚«ãƒ¡ãƒ©ä½œæˆOK  ");
+		//	: ã‚«ãƒ¡ãƒ©ã®è¨­å®š
 		//////////
 
 
-//©„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ¨//	
+//â†â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â†’//	
 
 		//////////
-		//	: ‰º¿‚¯Hê‚Ö”­’
+		//	: ä¸‹è«‹ã‘å·¥å ´ã¸ç™ºæ³¨
 		float	fLineLength	= 230.0f;
 		float	fPointSize	= 0.5f;
 
@@ -127,14 +127,14 @@ Factory_Main::Factory_Main(FactoryPacket* fpac, DWORD dwStageNum, DWORD dwResump
 		//Factory_DeadEffect	DEfac( fpac ) ;
 		//Factory_Enemy		Efac( fpac ) ;
 		//Factory_CheckPointSave	CPSfac( fpac , dwStageNum);
-		//	: ‰º¿‚¯Hê‚Ö”­’
+		//	: ä¸‹è«‹ã‘å·¥å ´ã¸ç™ºæ³¨
 		//////////
 
-//©„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ¨//	
+//â†â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â†’//	
 
 
 		//////////
-		//	: ‰¹º‚Ì\’z‚ÆBGM‚ÌÄ¶ŠJn
+		//	: éŸ³å£°ã®æ§‹ç¯‰ã¨BGMã®å†ç”Ÿé–‹å§‹
 		system::Sound* pSound = NULL;
 		fpac->SetSound(
 			pSound = new system::Sound( 
@@ -145,40 +145,40 @@ Factory_Main::Factory_Main(FactoryPacket* fpac, DWORD dwStageNum, DWORD dwResump
 		);
 		pSound->SearchSoundAndPlay( RCTEXT_SOUND_BGM_PLAY );
 		//pSound->SearchSoundAndPlay( RCTEXT_SOUND_SE_SPARK );
-		//	: ‰¹º‚Ì\’z‚ÆBGM‚ÌÄ¶ŠJn
+		//	: éŸ³å£°ã®æ§‹ç¯‰ã¨BGMã®å†ç”Ÿé–‹å§‹
 		//////////
 
 
 		//////////
-		//	: ƒIƒuƒWƒFƒNƒg‚Ìƒ\[ƒg( “§‰ßˆ—‚Ì–â‘è‘Îô )
+		//	: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ã‚½ãƒ¼ãƒˆ( é€éå‡¦ç†ã®å•é¡Œå¯¾ç­– )
 		vector<Object*>* pObj			= fpac->GetObjectVector();
 		vector<Object*>::size_type pos	= pObj->max_size();
 		WallObject* wp = (WallObject*)SearchObjectFromID( pObj,OBJID_3D_WALL, &pos );
 		pObj->erase( pObj->begin() + pos );
 		fpac->AddObject( wp );
-		//	: ƒIƒuƒWƒFƒNƒg‚Ìƒ\[ƒg( “§‰ßˆ—‚Ì–â‘è‘Îô )
+		//	: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ã‚½ãƒ¼ãƒˆ( é€éå‡¦ç†ã®å•é¡Œå¯¾ç­– )
 		//////////
-		//Debugger::DBGWRITINGLOGTEXT::addStr(L"ƒQ[ƒ€ŠJn");
+		//Debugger::DBGWRITINGLOGTEXT::addStr(L"ã‚²ãƒ¼ãƒ é–‹å§‹");
 
 	}
 	catch(LoaderException& e){
 		throw LoaderException(
 				e.what_w(),
-				L"ªFactory_Main::Factory_Main()"
+				L"â†‘Factory_Main::Factory_Main()"
 				);
 	}
 	catch(...){
-		//Äthrow
+		//å†throw
 		throw;
 	}
 }
 /**************************************************************************
  Factory_Main::~Factory_Main();
- —p“r: ƒfƒXƒgƒ‰ƒNƒ^
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
 Factory_Main::~Factory_Main(){
-	//‚È‚É‚à‚µ‚È‚¢
+	//ãªã«ã‚‚ã—ãªã„
 }
 
 

@@ -1,23 +1,23 @@
 //////////////////////////////// //////////////////////////////
-//	ƒvƒƒWƒFƒNƒg	FBomberProject
-//	ƒtƒ@ƒCƒ‹–¼		FFactory_CheckPointSave.cpp
-//	ŠJ”­ŠÂ‹«		FMSVC++ 2008
-//	Å“Kƒ^ƒu”		F4
-//	’S“–ŽÒ			FŽ°Œ´ “O
-//	“à•ïÃÞ°À‚Æ”õl	Fƒ`ƒFƒbƒNƒ|ƒCƒ“ƒg’Ê‰Ý‚ÅƒZ[ƒu‚·‚é‹@”\
-//					¥
+//	ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆ	ï¼šBomberProject
+//	ãƒ•ã‚¡ã‚¤ãƒ«å		ï¼šFactory_CheckPointSave.cpp
+//	é–‹ç™ºç’°å¢ƒ		ï¼šMSVC++ 2008
+//	æœ€é©ã‚¿ãƒ–æ•°		ï¼š4
+//	æ‹…å½“è€…			ï¼šé´«åŽŸ å¾¹
+//	å†…åŒ…ãƒ‡ãƒ¼ã‚¿ã¨å‚™è€ƒ	ï¼šãƒã‚§ãƒƒã‚¯ãƒã‚¤ãƒ³ãƒˆé€šè²¨ã§ã‚»ãƒ¼ãƒ–ã™ã‚‹æ©Ÿèƒ½
+//					â–¼
 //	namespace wiz;
 //
 
 //////////
-//	: Šî–{‚ÌƒCƒ“ƒNƒ‹[ƒh
+//	: åŸºæœ¬ã®ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰
 #include "StdAfx.h"
 #include "Factory_CheckPointSave.h"
-//	: Šî–{‚ÌƒCƒ“ƒNƒ‹[ƒh
+//	: åŸºæœ¬ã®ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰
 //////////
 //////////
-//	: ’Ç‰Á‚ÌƒCƒ“ƒNƒ‹[ƒh
-//	: ’Ç‰Á‚ÌƒCƒ“ƒNƒ‹[ƒh
+//	: è¿½åŠ ã®ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰
+//	: è¿½åŠ ã®ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰
 //////////
 
 
@@ -34,19 +34,19 @@ CheckPointSave::CheckPointSave(DWORD dwStageNum)
 }
 
 /////////////////// ////////////////////
-//// —p“r       Fvoid CheckPointSave::Update( UpdatePacket& i_UpdatePacket )
-//// ƒJƒeƒSƒŠ   FŠÖ”
-//// —p“r       FƒIƒuƒWƒFƒNƒg‚ðXV
-//// ˆø”       F  UpdatePacket& i_UpdatePacket     // ƒAƒbƒvƒf[ƒgŽž‚É•K—v‚Èƒf[ƒ^ŒQ «“à—e‰º‹L
-////            F  „¥       LPDIRECT3DDEVICE9  pD3DDevice      // IDirect3DDevice9 ƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-////            F  „¥       Tempus2*           pTime           // ŽžŠÔ‚ðŠÇ—‚·‚éƒNƒ‰ƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^[
-////            F  „¥       vector<Object*>&   Vec,            // ƒIƒuƒWƒFƒNƒg‚Ì”z—ñ
-////            F  „¥ const CONTROLER_STATE*   pCntlState      // ƒRƒ“ƒgƒ[ƒ‰‚ÌƒXƒe[ƒ^ƒX
-////            F  „¤       Command            pCommand        // ƒRƒ}ƒ“ƒh
-//// –ß’l       F‚È‚µ
-//// ’S“–ŽÒ     FŽ°Œ´ “O
-//// ”õl       F
-////            F
+//// ç”¨é€”       ï¼švoid CheckPointSave::Update( UpdatePacket& i_UpdatePacket )
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šé–¢æ•°
+//// ç”¨é€”       ï¼šã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’æ›´æ–°
+//// å¼•æ•°       ï¼š  UpdatePacket& i_UpdatePacket     // ã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆæ™‚ã«å¿…è¦ãªãƒ‡ãƒ¼ã‚¿ç¾¤ â†“å†…å®¹ä¸‹è¨˜
+////            ï¼š  â”œ       LPDIRECT3DDEVICE9  pD3DDevice      // IDirect3DDevice9 ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+////            ï¼š  â”œ       Tempus2*           pTime           // æ™‚é–“ã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿ãƒ¼
+////            ï¼š  â”œ       vector<Object*>&   Vec,            // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®é…åˆ—
+////            ï¼š  â”œ const CONTROLER_STATE*   pCntlState      // ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹
+////            ï¼š  â””       Command            pCommand        // ã‚³ãƒžãƒ³ãƒ‰
+//// æˆ»å€¤       ï¼šãªã—
+//// æ‹…å½“è€…     ï¼šé´«åŽŸ å¾¹
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
 void CheckPointSave::Update( UpdatePacket& i_UpdatePacket ){
 	!m_pCoil		&& (       m_pCoil = (PlayerCoil*)i_UpdatePacket.SearchObjectFromID(OBJID_3D_COIL			) ) ;
@@ -61,14 +61,14 @@ void CheckPointSave::Update( UpdatePacket& i_UpdatePacket ){
 
 
 /////////////////// ////////////////////
-//// ŠÖ”–¼     FFactory_CheckPointSave(FactoryPacket* fpac)
-//// ƒJƒeƒSƒŠ   FƒRƒ“ƒXƒgƒ‰ƒNƒ^
-//// —p“r       Fƒ`ƒFƒbƒNƒ|ƒCƒ“ƒg‚ÅƒZ[ƒu‚·‚é‹@”\‚ðì¬‚µ‚Ü‚·
-//// ˆø”       F  FactoryPacket* fpac
-//// –ß’l       F‚È‚µ
-//// ’S“–       FŽ°Œ´ “O
-//// ”õl       F
-////            F
+//// é–¢æ•°å     ï¼šFactory_CheckPointSave(FactoryPacket* fpac)
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+//// ç”¨é€”       ï¼šãƒã‚§ãƒƒã‚¯ãƒã‚¤ãƒ³ãƒˆã§ã‚»ãƒ¼ãƒ–ã™ã‚‹æ©Ÿèƒ½ã‚’ä½œæˆã—ã¾ã™
+//// å¼•æ•°       ï¼š  FactoryPacket* fpac
+//// æˆ»å€¤       ï¼šãªã—
+//// æ‹…å½“       ï¼šé´«åŽŸ å¾¹
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
 Factory_CheckPointSave::Factory_CheckPointSave(FactoryPacket* fpac,DWORD dwStageNum){
 	fpac->AddObject(

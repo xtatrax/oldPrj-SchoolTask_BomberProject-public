@@ -1,11 +1,11 @@
 ////////////////////////////// //////////////////////////////
-//	ƒvƒƒWƒFƒNƒg	FBomberProject
-//	ƒtƒ@ƒCƒ‹–¼		FFactory_Description.cpp
-//	ŠJ”­ŠÂ‹«		FMSVC++ 2008
-//	Å“Kƒ^ƒu”		F4
-//	’S“–Ò			F²“¡@—Á
-//	“à•ïÃŞ°À‚Æ”õl	Fà–¾ƒtƒ@ƒNƒgƒŠ[
-//					¥
+//	ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆ	ï¼šBomberProject
+//	ãƒ•ã‚¡ã‚¤ãƒ«å		ï¼šFactory_Description.cpp
+//	é–‹ç™ºç’°å¢ƒ		ï¼šMSVC++ 2008
+//	æœ€é©ã‚¿ãƒ–æ•°		ï¼š4
+//	æ‹…å½“è€…			ï¼šä½è—¤ã€€æ¶¼
+//	å†…åŒ…ãƒ‡ãƒ¼ã‚¿ã¨å‚™è€ƒ	ï¼šèª¬æ˜ãƒ•ã‚¡ã‚¯ãƒˆãƒªãƒ¼
+//					â–¼
 //	namespace wiz;
 //		class Factory_Description ;
 //
@@ -19,7 +19,7 @@ namespace wiz{
 namespace bomberobject{
 
 /**************************************************************************
- ModeChangeChar ’è‹`•”
+ ModeChangeChar å®šç¾©éƒ¨
 **************************************************************************/
 /**************************************************************************
  ModeChangeChar(LPDIRECT3DDEVICE9	pD3DDevice,
@@ -28,9 +28,9 @@ namespace bomberobject{
 				D3DXVECTOR3	vPos,
 				Rect		rect,
 				D3DXVECTOR3	vCenter)
- —p“r@FƒRƒ“ƒXƒgƒ‰ƒNƒ^
- –ß‚è’lF‚È‚µ
- ’S“–ÒF²“¡—Á
+ ç”¨é€”ã€€ï¼šã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+ æˆ»ã‚Šå€¤ï¼šãªã—
+ æ‹…å½“è€…ï¼šä½è—¤æ¶¼
 ***************************************************************************/
 ModeChangeChar::ModeChangeChar(LPDIRECT3DDEVICE9	pD3DDevice,
 				LPTATRATEXTURE	pTexture,
@@ -46,20 +46,20 @@ ModeChangeChar::ModeChangeChar(LPDIRECT3DDEVICE9	pD3DDevice,
 
 /**************************************************************************
  ~ModeChangeChar()
- —p“r@FƒfƒXƒgƒ‰ƒNƒ^
- –ß‚è’lF‚È‚µ
- ’S“–ÒF²“¡—Á
+ ç”¨é€”ã€€ï¼šãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+ æˆ»ã‚Šå€¤ï¼šãªã—
+ æ‹…å½“è€…ï¼šä½è—¤æ¶¼
 ***************************************************************************/
 ModeChangeChar::~ModeChangeChar()
 {
 }
 
 /**************************************************************************
- ŠÖ”–¼FDraw( DrawPacket& i_DrawPacket )
- —p“r@F•`‰æ
- ˆø”@FDrawPacket& i_DrawPacket
- –ß‚è’lF‚È‚µ
- ’S“–ÒF²“¡—Á
+ é–¢æ•°åï¼šDraw( DrawPacket& i_DrawPacket )
+ ç”¨é€”ã€€ï¼šæç”»
+ å¼•æ•°ã€€ï¼šDrawPacket& i_DrawPacket
+ æˆ»ã‚Šå€¤ï¼šãªã—
+ æ‹…å½“è€…ï¼šä½è—¤æ¶¼
 ***************************************************************************/
 void	ModeChangeChar::Draw( DrawPacket& i_DrawPacket )
 {
@@ -67,17 +67,17 @@ void	ModeChangeChar::Draw( DrawPacket& i_DrawPacket )
 }
 
 /**************************************************************************
- ŠÖ”–¼FUpdate( UpdatePacket& i_UpdatePacket )
- —p“r@FXV
- ˆø”@FUpdatePacket& i_UpdatePacket
- –ß‚è’lF‚È‚µ
- ’S“–ÒF²“¡—Á
+ é–¢æ•°åï¼šUpdate( UpdatePacket& i_UpdatePacket )
+ ç”¨é€”ã€€ï¼šæ›´æ–°
+ å¼•æ•°ã€€ï¼šUpdatePacket& i_UpdatePacket
+ æˆ»ã‚Šå€¤ï¼šãªã—
+ æ‹…å½“è€…ï¼šä½è—¤æ¶¼
 ***************************************************************************/
 void	ModeChangeChar::Update( UpdatePacket& i_UpdatePacket )
 {
-	const	int		iTransRect	= 30;		//ˆê“x‚É•Ï‰»‚³‚¹‚éRECT‚Ì’l
-	const	float	fMovePos	= 15.0f;	//RECT‚Ì•`‰æ‚É‡‚í‚¹‚½•Ï‰»‚³‚¹‚éÀ•W‚Ì’l
-	const	float	fStopTime	= 0.5f;		//‰æ‘œ‚ª‘S•`‰æ‚É‚È‚Á‚½A~‚ß‚Ä‚¨‚­ŠÔi•bj
+	const	int		iTransRect	= 30;		//ä¸€åº¦ã«å¤‰åŒ–ã•ã›ã‚‹RECTã®å€¤
+	const	float	fMovePos	= 15.0f;	//RECTã®æç”»ã«åˆã‚ã›ãŸå¤‰åŒ–ã•ã›ã‚‹åº§æ¨™ã®å€¤
+	const	float	fStopTime	= 0.5f;		//ç”»åƒãŒå…¨æç”»ã«ãªã£ãŸæ™‚ã€æ­¢ã‚ã¦ãŠãæ™‚é–“ï¼ˆç§’ï¼‰
 
 	if( !m_bAllDraw ){
 		if( m_bAnimeDir ){
@@ -106,7 +106,7 @@ void	ModeChangeChar::Update( UpdatePacket& i_UpdatePacket )
 }
 
 /**************************************************************************
- StartSprite ’è‹`•”
+ StartSprite å®šç¾©éƒ¨
 **************************************************************************/
 /**************************************************************************
  StartSprite(LPDIRECT3DDEVICE9	pD3DDevice,
@@ -115,9 +115,9 @@ void	ModeChangeChar::Update( UpdatePacket& i_UpdatePacket )
 				D3DXVECTOR3	vPos,
 				Rect		rect,
 				D3DXVECTOR3	vCenter)
- —p“r@FƒRƒ“ƒXƒgƒ‰ƒNƒ^
- –ß‚è’lF‚È‚µ
- ’S“–ÒF²“¡—Á
+ ç”¨é€”ã€€ï¼šã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+ æˆ»ã‚Šå€¤ï¼šãªã—
+ æ‹…å½“è€…ï¼šä½è—¤æ¶¼
 ***************************************************************************/
 StartSprite::StartSprite(LPDIRECT3DDEVICE9	pD3DDevice,
 				LPTATRATEXTURE	pTexture,
@@ -139,9 +139,9 @@ StartSprite::StartSprite(LPDIRECT3DDEVICE9	pD3DDevice,
 
 /**************************************************************************
  ~StartSprite()
- —p“r@FƒfƒXƒgƒ‰ƒNƒ^
- –ß‚è’lF‚È‚µ
- ’S“–ÒF²“¡—Á
+ ç”¨é€”ã€€ï¼šãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+ æˆ»ã‚Šå€¤ï¼šãªã—
+ æ‹…å½“è€…ï¼šä½è—¤æ¶¼
 ***************************************************************************/
 StartSprite::~StartSprite()
 {
@@ -149,11 +149,11 @@ StartSprite::~StartSprite()
 }
 
 /**************************************************************************
- ŠÖ”–¼FDraw( DrawPacket& i_DrawPacket )
- —p“r@F•`‰æ
- ˆø”@FDrawPacket& i_DrawPacket
- –ß‚è’lF‚È‚µ
- ’S“–ÒF²“¡—Á
+ é–¢æ•°åï¼šDraw( DrawPacket& i_DrawPacket )
+ ç”¨é€”ã€€ï¼šæç”»
+ å¼•æ•°ã€€ï¼šDrawPacket& i_DrawPacket
+ æˆ»ã‚Šå€¤ï¼šãªã—
+ æ‹…å½“è€…ï¼šä½è—¤æ¶¼
 ***************************************************************************/
 void	StartSprite::Draw( DrawPacket& i_DrawPacket )
 {
@@ -161,11 +161,11 @@ void	StartSprite::Draw( DrawPacket& i_DrawPacket )
 }
 
 /**************************************************************************
- ŠÖ”–¼FUpdate( UpdatePacket& i_UpdatePacket )
- —p“r@FXV
- ˆø”@FUpdatePacket& i_UpdatePacket
- –ß‚è’lF‚È‚µ
- ’S“–ÒF²“¡—Á
+ é–¢æ•°åï¼šUpdate( UpdatePacket& i_UpdatePacket )
+ ç”¨é€”ã€€ï¼šæ›´æ–°
+ å¼•æ•°ã€€ï¼šUpdatePacket& i_UpdatePacket
+ æˆ»ã‚Šå€¤ï¼šãªã—
+ æ‹…å½“è€…ï¼šä½è—¤æ¶¼
 ***************************************************************************/
 void	StartSprite::Update( UpdatePacket& i_UpdatePacket )
 {
@@ -221,17 +221,17 @@ void	StartSprite::Update( UpdatePacket& i_UpdatePacket )
 }
 
 /**************************************************************************
- Description ’è‹`•”
+ Description å®šç¾©éƒ¨
 ****************************************************************************/
 /**************************************************************************
  Description::Description(
-	LPDIRECT3DDEVICE9 pD3DDevice,	//ƒfƒoƒCƒX
-	LPTATRATEXTURE pTexture,	//ƒeƒNƒXƒ`ƒƒ
-	wiz::OBJID id					//ƒIƒuƒWƒFƒNƒg‚Ìí—Ş
+	LPDIRECT3DDEVICE9 pD3DDevice,	//ãƒ‡ãƒã‚¤ã‚¹
+	LPTATRATEXTURE pTexture,	//ãƒ†ã‚¯ã‚¹ãƒãƒ£
+	wiz::OBJID id					//ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ç¨®é¡
 );
- —p“r: ƒRƒ“ƒXƒgƒ‰ƒNƒ^
- –ß‚è’l: ‚È‚µ
- ’S“–F²“¡—Á
+ ç”¨é€”: ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+ æˆ»ã‚Šå€¤: ãªã—
+ æ‹…å½“ï¼šä½è—¤æ¶¼
 ***************************************************************************/
 Description::Description( LPDIRECT3DDEVICE9 pD3DDevice, LPTATRATEXTURE pTexture, wiz::OBJID id)
 	:PrimitiveBox(pD3DDevice,
@@ -250,21 +250,21 @@ Description::Description( LPDIRECT3DDEVICE9 pD3DDevice, LPTATRATEXTURE pTexture,
 	m_pMesh->GetVertexBuffer(&pVB);
 	pVB->Lock(0,0,(VOID**)&pVer,0);
 	DWORD vsize = m_pMesh->GetNumVertices();
-	for(DWORD n = 0;n < vsize;n++){ //’¸“_‚Ì”‚ğæ“¾‚·‚é
-		//–@ü‚Æ’¸“_‚©‚çuv’l‚ğ“¾‚é
+	for(DWORD n = 0;n < vsize;n++){ //é ‚ç‚¹ã®æ•°ã‚’å–å¾—ã™ã‚‹
+		//æ³•ç·šã¨é ‚ç‚¹ã‹ã‚‰uvå€¤ã‚’å¾—ã‚‹
 		BoxVecNomalUV(pVer[n].vec,pVer[n].normal,pVer[n].tu,pVer[n].tv);
 	}
 	pVB->Unlock();
 
 }
 /////////////////// ////////////////////
-//// —p“r       F~Description;
-//// ƒJƒeƒSƒŠ   FƒRƒ“ƒXƒgƒ‰ƒNƒ^
-//// —p“r       F
-//// ˆø”       F
-//// –ß’l       F‚È‚µ
-//// ’S“–Ò     F°Œ´ ƒgƒIƒ‹
-//// ”õl       F
+//// ç”¨é€”       ï¼š~Description;
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+//// ç”¨é€”       ï¼š
+//// å¼•æ•°       ï¼š
+//// æˆ»å€¤       ï¼šãªã—
+//// æ‹…å½“è€…     ï¼šé´«åŸ ãƒˆã‚ªãƒ«
+//// å‚™è€ƒ       ï¼š
 Description::~Description(){
 	m_pCamera  = NULL ;
 	m_pCoil    = NULL ;
@@ -274,48 +274,48 @@ Description::~Description(){
 }
 
 /////////////////// ////////////////////
-//// —p“r       Fvoid Draw( DrawPacket& i_DrawPacket )
-//// ƒJƒeƒSƒŠ   FŠÖ”
-//// —p“r       FƒIƒuƒWƒFƒNƒg‚ğƒfƒBƒXƒvƒŒƒC‚É•\¦‚·‚é
-//// ˆø”       F  DrawPacket& i_DrawPacket             // ‰æ–Ê•`‰æ‚É•K—v‚Èƒf[ƒ^ŒQ «“à—e‰º‹L
-////            F  „¥ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 ƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-////            F  „¥ vector<Object*>&    Vec                     // ƒIƒuƒWƒFƒNƒg‚Ì”z—ñ
-////            F  „¥ Tempus2*            i_DrawPacket.GetTime()	   // ŠÔ‚ğŠÇ—‚·‚éƒNƒ‰ƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^[
-////            F  „¤ Command             i_DrawPacket.pCommand   // ƒRƒ}ƒ“ƒh
-//// –ß’l       F‚È‚µ
-//// ’S“–Ò     F²“¡—Á
-//// ”õl       F
+//// ç”¨é€”       ï¼švoid Draw( DrawPacket& i_DrawPacket )
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šé–¢æ•°
+//// ç”¨é€”       ï¼šã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ãƒ‡ã‚£ã‚¹ãƒ—ãƒ¬ã‚¤ã«è¡¨ç¤ºã™ã‚‹
+//// å¼•æ•°       ï¼š  DrawPacket& i_DrawPacket             // ç”»é¢æç”»æ™‚ã«å¿…è¦ãªãƒ‡ãƒ¼ã‚¿ç¾¤ â†“å†…å®¹ä¸‹è¨˜
+////            ï¼š  â”œ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+////            ï¼š  â”œ vector<Object*>&    Vec                     // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®é…åˆ—
+////            ï¼š  â”œ Tempus2*            i_DrawPacket.GetTime()	   // æ™‚é–“ã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿ãƒ¼
+////            ï¼š  â”” Command             i_DrawPacket.pCommand   // ã‚³ãƒãƒ³ãƒ‰
+//// æˆ»å€¤       ï¼šãªã—
+//// æ‹…å½“è€…     ï¼šä½è—¤æ¶¼
+//// å‚™è€ƒ       ï¼š
 void Description::Draw(DrawPacket& i_DrawPacket)
 {
 	multimap<float,DescItem*>::iterator it = m_ItemMap_Target.begin();
 	while(it != m_ItemMap_Target.end()){
 		if(it->second->m_bDisplay){
-			//ƒeƒNƒXƒ`ƒƒ‚ª‚ ‚éê‡
+			//ãƒ†ã‚¯ã‚¹ãƒãƒ£ãŒã‚ã‚‹å ´åˆ
 			if(m_pTexture){
 				DWORD wkdword;
-				//Œ»İ‚ÌƒeƒNƒXƒ`ƒƒƒXƒe[ƒ^ƒX‚ğ“¾‚é
+				//ç¾åœ¨ã®ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã‚’å¾—ã‚‹
 				i_DrawPacket.GetDevice()->GetTextureStageState(0,D3DTSS_COLOROP,&wkdword);
-				//ƒXƒe[ƒW‚Ìİ’è
+				//ã‚¹ãƒ†ãƒ¼ã‚¸ã®è¨­å®š
 				i_DrawPacket.GetDevice()->SetTexture(0,m_pTexture->getTexture());
-				//ƒfƒtƒB[ƒYF‚ÆƒeƒNƒXƒ`ƒƒ‚ğŠ|‚¯‡‚í‚¹‚éİ’è
+				//ãƒ‡ãƒ•ã‚£ãƒ¼ã‚ºè‰²ã¨ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’æ›ã‘åˆã‚ã›ã‚‹è¨­å®š
 				i_DrawPacket.GetDevice()->SetTextureStageState( 0, D3DTSS_COLOROP, D3DTOP_MODULATE4X );
 				i_DrawPacket.GetDevice()->SetTextureStageState( 0, D3DTSS_COLORARG1, D3DTA_TEXTURE );
 				i_DrawPacket.GetDevice()->SetTextureStageState( 0, D3DTSS_COLORARG2, D3DTA_DIFFUSE );
 
 				//i_DrawPacket.GetDevice()->SetFVF(PlateFVF);
-				// ƒ}ƒgƒŠƒbƒNƒX‚ğƒŒƒ“ƒ_ƒŠƒ“ƒOƒpƒCƒvƒ‰ƒCƒ“‚Éİ’è
+				// ãƒãƒˆãƒªãƒƒã‚¯ã‚¹ã‚’ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³ã«è¨­å®š
 				i_DrawPacket.GetDevice()->SetTransform(D3DTS_WORLD, &it->second->m_Matrix);
-				//ƒRƒ‚ƒ“ƒƒbƒVƒ…‚ÌDraw()‚ğŒÄ‚Ô
+				//ã‚³ãƒ¢ãƒ³ãƒ¡ãƒƒã‚·ãƒ¥ã®Draw()ã‚’å‘¼ã¶
 				CommonMesh::Draw(i_DrawPacket);
 				i_DrawPacket.GetDevice()->SetTexture(0,0);
-				//ƒXƒe[ƒW‚ğŒ³‚É–ß‚·
+				//ã‚¹ãƒ†ãƒ¼ã‚¸ã‚’å…ƒã«æˆ»ã™
 				i_DrawPacket.GetDevice()->SetTextureStageState(0,D3DTSS_COLOROP,wkdword);
 			}
 			else{
-			//ƒeƒNƒXƒ`ƒƒ‚ª‚È‚¢ê‡
-				// ƒ}ƒgƒŠƒbƒNƒX‚ğƒŒƒ“ƒ_ƒŠƒ“ƒOƒpƒCƒvƒ‰ƒCƒ“‚Éİ’è
+			//ãƒ†ã‚¯ã‚¹ãƒãƒ£ãŒãªã„å ´åˆ
+				// ãƒãƒˆãƒªãƒƒã‚¯ã‚¹ã‚’ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³ã«è¨­å®š
 				i_DrawPacket.GetDevice()->SetTransform(D3DTS_WORLD, &it->second->m_Matrix);
-				//ƒRƒ‚ƒ“ƒƒbƒVƒ…‚ÌDraw()‚ğŒÄ‚Ô
+				//ã‚³ãƒ¢ãƒ³ãƒ¡ãƒƒã‚·ãƒ¥ã®Draw()ã‚’å‘¼ã¶
 				CommonMesh::Draw(i_DrawPacket);
 			}
 		}
@@ -324,19 +324,19 @@ void Description::Draw(DrawPacket& i_DrawPacket)
 }
 
 /////////////////// ////////////////////
-//// —p“r       Fvoid Update( UpdatePacket& i_UpdatePacket )
-//// ƒJƒeƒSƒŠ   FŠÖ”
-//// —p“r       FƒIƒuƒWƒFƒNƒg‚ğXV
-//// ˆø”       F  UpdatePacket& i_UpdatePacket     // ƒAƒbƒvƒf[ƒg‚É•K—v‚Èƒf[ƒ^ŒQ «“à—e‰º‹L
-////            F  „¥       LPDIRECT3DDEVICE9  pD3DDevice      // IDirect3DDevice9 ƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-////            F  „¥       Tempus2*           pTime           // ŠÔ‚ğŠÇ—‚·‚éƒNƒ‰ƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^[
-////            F  „¥       vector<Object*>&   Vec,            // ƒIƒuƒWƒFƒNƒg‚Ì”z—ñ
-////            F  „¥ const CONTROLER_STATE*   pCntlState      // ƒRƒ“ƒgƒ[ƒ‰‚ÌƒXƒe[ƒ^ƒX
-////            F  „¤       Command            pCommand        // ƒRƒ}ƒ“ƒh
-//// –ß’l       F‚È‚µ
-//// ’S“–Ò     F²“¡—Á
-//// ”õl       F
-////            F
+//// ç”¨é€”       ï¼švoid Update( UpdatePacket& i_UpdatePacket )
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šé–¢æ•°
+//// ç”¨é€”       ï¼šã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’æ›´æ–°
+//// å¼•æ•°       ï¼š  UpdatePacket& i_UpdatePacket     // ã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆæ™‚ã«å¿…è¦ãªãƒ‡ãƒ¼ã‚¿ç¾¤ â†“å†…å®¹ä¸‹è¨˜
+////            ï¼š  â”œ       LPDIRECT3DDEVICE9  pD3DDevice      // IDirect3DDevice9 ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+////            ï¼š  â”œ       Tempus2*           pTime           // æ™‚é–“ã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿ãƒ¼
+////            ï¼š  â”œ       vector<Object*>&   Vec,            // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®é…åˆ—
+////            ï¼š  â”œ const CONTROLER_STATE*   pCntlState      // ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹
+////            ï¼š  â””       Command            pCommand        // ã‚³ãƒãƒ³ãƒ‰
+//// æˆ»å€¤       ï¼šãªã—
+//// æ‹…å½“è€…     ï¼šä½è—¤æ¶¼
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
 void Description::Update( UpdatePacket& i_UpdatePacket ){
 	if( !m_pCamera )	m_pCamera	=     (Camera*)i_UpdatePacket.SearchObjectFromID(OBJID_SYS_CAMERA);
@@ -355,7 +355,7 @@ void Description::Update( UpdatePacket& i_UpdatePacket ){
 	while(it2 != m_ItemMap_Target.end()){
 
 		//*******************************************************
-		//•`‰æ‚·‚é‚©”Û‚©
+		//æç”»ã™ã‚‹ã‹å¦ã‹
 		COIL_STATE Buf = m_pCoil->getState() ;
 		if( ( Buf == it2->second->m_State )
 							&& it2->second->m_bCanDisplay ){
@@ -367,24 +367,24 @@ void Description::Update( UpdatePacket& i_UpdatePacket ){
 		}
 		//********************************************************
 
-		//ŒvZ‚ÍUpdate‚Å
-		//Šg‘åk¬
+		//è¨ˆç®—ã¯Updateã§
+		//æ‹¡å¤§ç¸®å°
 		D3DXMATRIX mScale;
 		D3DXMatrixIdentity(&mScale);
 		D3DXMatrixScaling(&mScale,
 			it2->second->m_vScale.x,it2->second->m_vScale.y,it2->second->m_vScale.z);
-		//‰ñ“]
+		//å›è»¢
 		D3DXMATRIX mRot;
 		D3DXMatrixIdentity(&mRot);
 		D3DXMatrixRotationQuaternion(&mRot,&it2->second->m_vRot);
-		//ˆÚ“®—p
+		//ç§»å‹•ç”¨
 		D3DXMATRIX mMove;
 		D3DXMatrixIdentity(&mMove);
 		D3DXMatrixTranslation(&mMove,
 			it2->second->m_vPos.x,it2->second->m_vPos.y,it2->second->m_vPos.z);
-		//ƒ~ƒbƒNƒXs—ñ
+		//ãƒŸãƒƒã‚¯ã‚¹è¡Œåˆ—
 		it2->second->m_Matrix = mScale * mRot * mMove;
-		//ƒ}ƒeƒBƒŠƒAƒ‹İ’è
+		//ãƒãƒ†ã‚£ãƒªã‚¢ãƒ«è¨­å®š
 		m_Material = it2->second->m_Material;
 
 		++it2;
@@ -392,19 +392,19 @@ void Description::Update( UpdatePacket& i_UpdatePacket ){
 }
 
 /////////////////// ////////////////////
-//// —p“r       Fvoid AddDesc( DrawPacket& i_DrawPacket )
-//// ƒJƒeƒSƒŠ   FŠÖ”
-//// —p“r       FDesc‚Ì’Ç‰Á
-//// ˆø”       F  LPDIRECT3DDEVICE9 pD3DDevice,	////IDirect3DDevice9ƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-////		    F  D3DXVECTOR3 &vScale				//Šg‘åk¬
-////		    F  D3DXVECTOR3 &vRot				//‰ñ“]Šp
-////		    F  D3DXVECTOR3 &vPos				//ˆÊ’u
-////            F  D3DCOLORVALUE& Diffuse,			//ƒfƒBƒtƒ…[ƒYF
-////            F  D3DCOLORVALUE& Specular,		//ƒXƒyƒLƒ…ƒ‰F
-////            F  D3DCOLORVALUE& Ambient,			//ƒAƒ“ƒrƒGƒ“ƒgF
-//// –ß’l       F‚È‚µ
-//// ’S“–Ò     F²“¡—Á
-//// ”õl       F
+//// ç”¨é€”       ï¼švoid AddDesc( DrawPacket& i_DrawPacket )
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šé–¢æ•°
+//// ç”¨é€”       ï¼šDescã®è¿½åŠ 
+//// å¼•æ•°       ï¼š  LPDIRECT3DDEVICE9 pD3DDevice,	////IDirect3DDevice9ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+////		    ï¼š  D3DXVECTOR3 &vScale				//æ‹¡å¤§ç¸®å°
+////		    ï¼š  D3DXVECTOR3 &vRot				//å›è»¢è§’
+////		    ï¼š  D3DXVECTOR3 &vPos				//ä½ç½®
+////            ï¼š  D3DCOLORVALUE& Diffuse,			//ãƒ‡ã‚£ãƒ•ãƒ¥ãƒ¼ã‚ºè‰²
+////            ï¼š  D3DCOLORVALUE& Specular,		//ã‚¹ãƒšã‚­ãƒ¥ãƒ©è‰²
+////            ï¼š  D3DCOLORVALUE& Ambient,			//ã‚¢ãƒ³ãƒ“ã‚¨ãƒ³ãƒˆè‰²
+//// æˆ»å€¤       ï¼šãªã—
+//// æ‹…å½“è€…     ï¼šä½è—¤æ¶¼
+//// å‚™è€ƒ       ï¼š
 void Description::AddDesc(D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos,COIL_STATE state,
 			D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient)
 {
@@ -418,7 +418,7 @@ void Description::AddDesc(D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPo
 	pItem->m_Material.Diffuse = Diffuse;
 	pItem->m_Material.Specular = Specular;
 	pItem->m_Material.Ambient = Ambient;
-	//‰ñ“]‚Ì‰Šú‰»
+	//å›è»¢ã®åˆæœŸåŒ–
 	D3DXQuaternionRotationYawPitchRoll(&pItem->m_vRot,
 			D3DXToRadian(vRot.y),D3DXToRadian(vRot.x),D3DXToRadian(vRot.z));
 
@@ -426,16 +426,16 @@ void Description::AddDesc(D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPo
 }
 
 /**************************************************************************
- Factory_Result ’è‹`•”
+ Factory_Result å®šç¾©éƒ¨
 ****************************************************************************/
 /**************************************************************************
  Factory_Result::Factory_Description(
-	LPDIRECT3DDEVICE9 pD3DDevice,	//ƒfƒoƒCƒX
-	vector<Object*>& vec,			//ƒIƒuƒWƒFƒNƒg‚Ì”z—ñ
-	TextureManager& TexMgr		//ƒeƒNƒXƒ`ƒƒ‚Ì”z—ñ
+	LPDIRECT3DDEVICE9 pD3DDevice,	//ãƒ‡ãƒã‚¤ã‚¹
+	vector<Object*>& vec,			//ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®é…åˆ—
+	TextureManager& TexMgr		//ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®é…åˆ—
 );
- —p“r: ƒRƒ“ƒXƒgƒ‰ƒNƒ^iƒTƒ“ƒvƒ‹ƒIƒuƒWƒFƒNƒg‚ğ”z—ñ‚É’Ç‰Á‚·‚éj
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ï¼ˆã‚µãƒ³ãƒ—ãƒ«ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’é…åˆ—ã«è¿½åŠ ã™ã‚‹ï¼‰
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
 Factory_Description::Factory_Description(FactoryPacket* fpac){
 	try{
@@ -460,7 +460,7 @@ Factory_Description::Factory_Description(FactoryPacket* fpac){
 		float	height	= BASE_CLIENT_HEIGHT/2;
 
 
-		//ƒXƒ^[ƒgƒƒS
+		//ã‚¹ã‚¿ãƒ¼ãƒˆãƒ­ã‚´
 		fpac->AddObject(
 			new StartSprite(
 					fpac->GetDevice(),
@@ -473,18 +473,18 @@ Factory_Description::Factory_Description(FactoryPacket* fpac){
 
 	}
 	catch(...){
-		//Äthrow
+		//å†throw
 		throw;
 	}
 
 }
 /**************************************************************************
  Factory_Result::~Factory_Description();
- —p“r: ƒfƒXƒgƒ‰ƒNƒ^
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
 Factory_Description::~Factory_Description(){
-    //‚È‚É‚à‚µ‚È‚¢
+    //ãªã«ã‚‚ã—ãªã„
 }
 
 }

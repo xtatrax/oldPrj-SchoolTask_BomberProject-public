@@ -1,12 +1,12 @@
 ////////////////////////////// //////////////////////////////
-//	ƒvƒƒWƒFƒNƒg	FDirectX Program Bass Project
-//	ƒtƒ@ƒCƒ‹–¼		FDebugWindowMain.h
-//	ŠJ”­ŠÂ‹«		FMSVC++ 2008
-//	Å“Kƒ^ƒu”		F4
-//	’S“–ŽÒ			FŽ°Œ´ “O
-//	“à•ïÃÞ°À‚Æ”õl	FƒfƒoƒbƒOî•ñ•\Ž¦—pƒEƒCƒ“ƒhƒE
-//					F‰É‚ÈŽž‚É‚ ‚»‚Ô‚æ‚¤‚Ì‚Ó‚Ÿ‚¢‚éEwE
-//					¥
+//	ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆ	ï¼šDirectX Program Bass Project
+//	ãƒ•ã‚¡ã‚¤ãƒ«å		ï¼šDebugWindowMain.h
+//	é–‹ç™ºç’°å¢ƒ		ï¼šMSVC++ 2008
+//	æœ€é©ã‚¿ãƒ–æ•°		ï¼š4
+//	æ‹…å½“è€…			ï¼šé´«åŽŸ å¾¹
+//	å†…åŒ…ãƒ‡ãƒ¼ã‚¿ã¨å‚™è€ƒ	ï¼šãƒ‡ãƒãƒƒã‚°æƒ…å ±è¡¨ç¤ºç”¨ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦
+//					ï¼šæš‡ãªæ™‚ã«ã‚ãã¶ã‚ˆã†ã®ãµãã„ã‚‹ãƒ»wãƒ»
+//					â–¼
 //	namespace TLIB;
 //
 
@@ -31,9 +31,9 @@ class DebugWindow{
 	const wchar_t*		m_pClassName	;
 	const wchar_t*		m_pWndTitle		;
 	HWND				m_hWnd			;
-	LPDIRECT3D9				m_pD3D			;	// IDirect3D9ƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-	LPDIRECT3DDEVICE9		m_pD3DDevice	;	// IDirect3DDevice9ƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-	D3DPRESENT_PARAMETERS	m_D3DPP			;	// ƒfƒoƒCƒX‚ÌƒvƒŒƒ[ƒ“ƒe[ƒVƒ‡ƒ“ƒpƒ‰ƒ[ƒ^
+	LPDIRECT3D9				m_pD3D			;	// IDirect3D9ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+	LPDIRECT3DDEVICE9		m_pD3DDevice	;	// IDirect3DDevice9ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+	D3DPRESENT_PARAMETERS	m_D3DPP			;	// ãƒ‡ãƒã‚¤ã‚¹ã®ãƒ—ãƒ¬ã‚¼ãƒ³ãƒ†ãƒ¼ã‚·ãƒ§ãƒ³ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿
 	DebugWindow(START_PACKET pac);
 
 public:
@@ -55,24 +55,24 @@ public:
 		return NULL ;
 	}
 /////////////////// ////////////////////
-//// ŠÖ”–¼     Fvoid StartUpdateThread()
-//// ƒJƒeƒSƒŠ   Fƒƒ“ƒoŠÖ”
-//// —p“r       FƒV[ƒ“‚ÌƒAƒbƒvƒf[ƒg—pƒXƒŒƒbƒh‚ðŠJŽn‚·‚é
-//// ˆø”       F‚È‚µ
-//// –ß’l       F‚È‚µ
-//// ”õl       F
-////            F
+//// é–¢æ•°å     ï¼švoid StartUpdateThread()
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šãƒ¡ãƒ³ãƒé–¢æ•°
+//// ç”¨é€”       ï¼šã‚·ãƒ¼ãƒ³ã®ã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆç”¨ã‚¹ãƒ¬ãƒƒãƒ‰ã‚’é–‹å§‹ã™ã‚‹
+//// å¼•æ•°       ï¼šãªã—
+//// æˆ»å€¤       ï¼šãªã—
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
 	static void StartThread(START_PACKET pac);
 
 /////////////////// ////////////////////
-//// ŠÖ”–¼     Fstatic void __cdecl updateThreadLauncher(void* args)
-//// ƒJƒeƒSƒŠ   FÃ“Iƒƒ“ƒoŠÖ”
-//// —p“r       FV‚µ‚¢ƒXƒŒƒbƒh‚ðŠJŽn‚·‚é‚½‚ß‚Ì‹ø
-//// ˆø”       Fvoid* args	//	: ˆø”ƒŠƒXƒg
-//// –ß’l       F‚È‚µ
-//// ”õl       F
-////            F
+//// é–¢æ•°å     ï¼šstatic void __cdecl updateThreadLauncher(void* args)
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šé™çš„ãƒ¡ãƒ³ãƒé–¢æ•°
+//// ç”¨é€”       ï¼šæ–°ã—ã„ã‚¹ãƒ¬ãƒƒãƒ‰ã‚’é–‹å§‹ã™ã‚‹ãŸã‚ã®ä¸²
+//// å¼•æ•°       ï¼švoid* args	//	: å¼•æ•°ãƒªã‚¹ãƒˆ
+//// æˆ»å€¤       ï¼šãªã—
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
 	static unsigned __stdcall ThreadLauncher(void* args);
 

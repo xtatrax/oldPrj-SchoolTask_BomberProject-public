@@ -1,31 +1,31 @@
 ////////////////////////////// //////////////////////////////
-//	ƒvƒƒWƒFƒNƒg	FBomberProject
-//	ƒtƒ@ƒCƒ‹–¼		FFactory_SelectInformation.cpp
-//	ŠJ”­ŠÂ‹«		FMSVC++ 2008
-//	Å“Kƒ^ƒu”		F4
-//	’S“–Ò			F°Œ´ “O
-//	“à•ïÃŞ°À‚Æ”õl	FƒZƒŒƒNƒg‰æ–Ê‚Ìà–¾ƒEƒCƒ“ƒhƒE
-//					¥
+//	ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆ	ï¼šBomberProject
+//	ãƒ•ã‚¡ã‚¤ãƒ«å		ï¼šFactory_SelectInformation.cpp
+//	é–‹ç™ºç’°å¢ƒ		ï¼šMSVC++ 2008
+//	æœ€é©ã‚¿ãƒ–æ•°		ï¼š4
+//	æ‹…å½“è€…			ï¼šé´«åŸ å¾¹
+//	å†…åŒ…ãƒ‡ãƒ¼ã‚¿ã¨å‚™è€ƒ	ï¼šã‚»ãƒ¬ã‚¯ãƒˆç”»é¢ã®èª¬æ˜ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦
+//					â–¼
 //	namespace wiz;
 //
 
 //////////
-//	: Šî–{‚ÌƒCƒ“ƒNƒ‹[ƒh
+//	: åŸºæœ¬ã®ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰
 #include "StdAfx.h"
 #include "Factory_SelectInformation.h"
-//	: Šî–{‚ÌƒCƒ“ƒNƒ‹[ƒh
+//	: åŸºæœ¬ã®ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰
 //////////
 //////////
-//	: ’Ç‰Á‚ÌƒCƒ“ƒNƒ‹[ƒh
+//	: è¿½åŠ ã®ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰
 #include "Factory_CustomButtonA.h"
-//	: ’Ç‰Á‚ÌƒCƒ“ƒNƒ‹[ƒh
+//	: è¿½åŠ ã®ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰
 //////////
 
 
 namespace wiz{
 namespace bomberobject{
 /**************************************************************************
- SelectInformation ’è‹`•”
+ SelectInformation å®šç¾©éƒ¨
 ***************************************************************************/
 SelectInformation::SelectInformation(
 	const LPDIRECT3DDEVICE9		pD3DDevice			,
@@ -66,7 +66,7 @@ SelectInformation::SelectInformation(
 }
 
 /**********************************************************
-ƒfƒXƒgƒ‰ƒNƒ^
+ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 **********************************************************/
 SelectInformation::~SelectInformation()
 {
@@ -84,7 +84,7 @@ SelectInformation::~SelectInformation()
 }
 
 /**********************************************************
-•`‰æ
+æç”»
 **********************************************************/
 void	SelectInformation::Draw(DrawPacket &i_DrawPacket)
 {
@@ -94,7 +94,7 @@ void	SelectInformation::Draw(DrawPacket &i_DrawPacket)
 }
 
 /**********************************************************
-XV
+æ›´æ–°
 **********************************************************/
 void	SelectInformation::Update(UpdatePacket &i_UpdatePacket)
 {
@@ -119,27 +119,27 @@ void	SelectInformation::Update(UpdatePacket &i_UpdatePacket)
 			//Debugger::DBGSTR::addStr(L" R = %d\n",m_ExtraFrameColor.byteColor.r);
 			//Debugger::DBGSTR::addStr(L" G = %d\n",m_ExtraFrameColor.byteColor.g);
 			//Debugger::DBGSTR::addStr(L" B = %d\n",m_ExtraFrameColor.byteColor.b);
-			//	: —Î‰ÁZ
+			//	: ç·‘åŠ ç®—
 			if( m_ExtraFrameColor.byteColor.r >= 0xFF && m_ExtraFrameColor.byteColor.b == 0 ){
 				m_ExtraFrameColor.byteColor.g += 17;
 			}
-			//	: ÔŒ¸Z
+			//	: èµ¤æ¸›ç®—
 			if( m_ExtraFrameColor.byteColor.r > 0 && m_ExtraFrameColor.byteColor.g == 0xFF && m_ExtraFrameColor.byteColor.b == 0){
 				m_ExtraFrameColor.byteColor.r -= 17;
 			}
-			//	: Â‰ÁZ
+			//	: é’åŠ ç®—
 			if( m_ExtraFrameColor.byteColor.r <= 1 && m_ExtraFrameColor.byteColor.g >= 0xFE ){
 				m_ExtraFrameColor.byteColor.b += 17;
 			}
-			//	: —ÎŒ¸Z
+			//	: ç·‘æ¸›ç®—
 			if( m_ExtraFrameColor.byteColor.r == 0 && m_ExtraFrameColor.byteColor.g > 0 && m_ExtraFrameColor.byteColor.b == 0xFF){
 				m_ExtraFrameColor.byteColor.g -= 17;
 			}
-			//	: Ô‰ÁZ
+			//	: èµ¤åŠ ç®—
 			if( m_ExtraFrameColor.byteColor.g == 0 && m_ExtraFrameColor.byteColor.b >= 0xFF ){
 				m_ExtraFrameColor.byteColor.r += 17;
 			}
-			//	: ÂŒ¸Z
+			//	: é’æ¸›ç®—
 			if( m_ExtraFrameColor.byteColor.r == 0xFF && m_ExtraFrameColor.byteColor.g == 0 && m_ExtraFrameColor.byteColor.b > 0){
 				m_ExtraFrameColor.byteColor.b -= 17;
 			}
@@ -150,23 +150,23 @@ void	SelectInformation::Update(UpdatePacket &i_UpdatePacket)
 			m_pTexture	= m_pDescTex;	
 	}
 	else{
-		//	: ’Êí
+		//	: é€šå¸¸æ™‚
 			m_pTexture	= m_pDescTex;	
 			m_SpriteObject.setColor( m_DefaultFrameColor );
 	}
 }
 /**************************************************************************
- Factory_SelectInformation ’è‹`•”
+ Factory_SelectInformation å®šç¾©éƒ¨
 ***************************************************************************/
 /////////////////// ////////////////////
-//// ŠÖ”–¼     FFactory_SelectInformation(FactoryPacket* fpac)
-//// ƒJƒeƒSƒŠ   FƒRƒ“ƒXƒgƒ‰ƒNƒ^
-//// —p“r       Fƒ`ƒFƒbƒNƒ|ƒCƒ“ƒg‚ÅƒZ[ƒu‚·‚é‹@”\‚ğì¬‚µ‚Ü‚·
-//// ˆø”       F  FactoryPacket* fpac
-//// –ß’l       F‚È‚µ
-//// ’S“–       F°Œ´ “O
-//// ”õl       F
-////            F
+//// é–¢æ•°å     ï¼šFactory_SelectInformation(FactoryPacket* fpac)
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+//// ç”¨é€”       ï¼šãƒã‚§ãƒƒã‚¯ãƒã‚¤ãƒ³ãƒˆã§ã‚»ãƒ¼ãƒ–ã™ã‚‹æ©Ÿèƒ½ã‚’ä½œæˆã—ã¾ã™
+//// å¼•æ•°       ï¼š  FactoryPacket* fpac
+//// æˆ»å€¤       ï¼šãªã—
+//// æ‹…å½“       ï¼šé´«åŸ å¾¹
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
 Factory_SelectInformation::Factory_SelectInformation(FactoryPacket* fpac){
 	

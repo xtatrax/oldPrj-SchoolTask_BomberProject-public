@@ -1,59 +1,59 @@
 ////////////////////////////// //////////////////////////////
-//	ƒvƒƒWƒFƒNƒg	FDirectX Program Bass Project
-//	ƒtƒ@ƒCƒ‹–¼		FComparingFlags.h
-//	ŠJ”­ŠÂ‹«		FMSVC++ 2008
-//	Å“Kƒ^ƒu”		F4
-//	’S“–ŽÒ			FŽ°Œ´ “O
-//	“à•ïÃÞ°À‚Æ”õl	FƒRƒ“ƒpƒCƒ‹‚Ó‚ç‚® ƒfƒoƒbƒO—pŠÖ”‚ðØ‚Á‚½‚è‚Â‚¯‚½‚è‚»‚ñ‚ÈŠ´‚¶
-//					¥
+//	ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆ	ï¼šDirectX Program Bass Project
+//	ãƒ•ã‚¡ã‚¤ãƒ«å		ï¼šComparingFlags.h
+//	é–‹ç™ºç’°å¢ƒ		ï¼šMSVC++ 2008
+//	æœ€é©ã‚¿ãƒ–æ•°		ï¼š4
+//	æ‹…å½“è€…			ï¼šé´«åŽŸ å¾¹
+//	å†…åŒ…ãƒ‡ãƒ¼ã‚¿ã¨å‚™è€ƒ	ï¼šã‚³ãƒ³ãƒ‘ã‚¤ãƒ«ãµã‚‰ã ãƒ‡ãƒãƒƒã‚°ç”¨é–¢æ•°ã‚’åˆ‡ã£ãŸã‚Šã¤ã‘ãŸã‚Šãã‚“ãªæ„Ÿã˜
+//					â–¼
 //
 #ifndef	__Comparing_Flags__
 #define	__Comparing_Flags__
 
 
 //////////
-//	: ƒRƒ“ƒpƒCƒŠƒ“ƒOƒtƒ‰ƒO
-#define CF_SINGLETHREAD					/* ƒVƒ“ƒOƒ‹ƒXƒŒƒbƒhƒ‚[ƒh  ( –³Œø‚É‚·‚é‚Æƒ}ƒ‹ƒ`ƒXƒŒƒbƒh“I‚É‚È‚è‚Ü‚·‚ªƒoƒO‚è‚Ü‚· )   */
-#define DRAW_MOUSE	(false)				/* ƒ}ƒEƒX‚ð•`‰æ‚·‚é‚©‚Ç‚¤‚© */
+//	: ã‚³ãƒ³ãƒ‘ã‚¤ãƒªãƒ³ã‚°ãƒ•ãƒ©ã‚°
+#define CF_SINGLETHREAD					/* ã‚·ãƒ³ã‚°ãƒ«ã‚¹ãƒ¬ãƒƒãƒ‰ãƒ¢ãƒ¼ãƒ‰  ( ç„¡åŠ¹ã«ã™ã‚‹ã¨ãƒžãƒ«ãƒã‚¹ãƒ¬ãƒƒãƒ‰çš„ã«ãªã‚Šã¾ã™ãŒãƒã‚°ã‚Šã¾ã™ )   */
+#define DRAW_MOUSE	(false)				/* ãƒžã‚¦ã‚¹ã‚’æç”»ã™ã‚‹ã‹ã©ã†ã‹ */
 
-#define DEBUG_KEYBORD_ON				/* ƒfƒoƒbƒO—pƒL[ƒ{[ƒh‘€ì‚ð—LŒø‰» */
-#define CF_OVERLORDNEW_ENABLE			/* Ž©ì‚Ìnew‚ð‹­§‰»(Manager—LŒøŽž) */
-#define CF_MEMORYOUTPUTPROCESS_ENABLE	/* Ž©ìƒƒ‚ƒŠŠÇ—ƒVƒXƒeƒ€‚É‚æ‚èŠÇ—‚³‚ê‚Ä‚¢‚éƒAƒCƒeƒ€‚Ìƒtƒ@ƒCƒ‹‚Ö‚Ì‘‚«o‚µ‚ð‰Â”\‚É‚·‚é(Manager—LŒøŽž) */
-///#define CF_LOADINGANIMATION			/* ƒ[ƒh‰æ–Ê‚ÅƒAƒjƒ[ƒVƒ‡ƒ“ */
-//#define CF_OVERLORDNEW_ENABLE			/* Ž©ì‚Ìnew‚ð‹­§‰» */
+#define DEBUG_KEYBORD_ON				/* ãƒ‡ãƒãƒƒã‚°ç”¨ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰æ“ä½œã‚’æœ‰åŠ¹åŒ– */
+#define CF_OVERLORDNEW_ENABLE			/* è‡ªä½œã®newã‚’å¼·åˆ¶åŒ–(Manageræœ‰åŠ¹æ™‚) */
+#define CF_MEMORYOUTPUTPROCESS_ENABLE	/* è‡ªä½œãƒ¡ãƒ¢ãƒªç®¡ç†ã‚·ã‚¹ãƒ†ãƒ ã«ã‚ˆã‚Šç®¡ç†ã•ã‚Œã¦ã„ã‚‹ã‚¢ã‚¤ãƒ†ãƒ ã®ãƒ•ã‚¡ã‚¤ãƒ«ã¸ã®æ›¸ãå‡ºã—ã‚’å¯èƒ½ã«ã™ã‚‹(Manageræœ‰åŠ¹æ™‚) */
+///#define CF_LOADINGANIMATION			/* ãƒ­ãƒ¼ãƒ‰ç”»é¢ã§ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ */
+//#define CF_OVERLORDNEW_ENABLE			/* è‡ªä½œã®newã‚’å¼·åˆ¶åŒ– */
 
-#define CF_DEBUG_TIMEDRAW				/* ŽžŠÔ‚ð•`‰æ */
-//#define CF_LOADINGANIMATION			/* ƒ[ƒh‰æ–Ê‚ÅƒAƒjƒ[ƒVƒ‡ƒ“ */
+#define CF_DEBUG_TIMEDRAW				/* æ™‚é–“ã‚’æç”» */
+//#define CF_LOADINGANIMATION			/* ãƒ­ãƒ¼ãƒ‰ç”»é¢ã§ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ */
 
 
 #if defined(DEBUG) || defined(_DEBUG)
 	//-------------------------------//
-	//		ƒfƒoƒbƒOƒ‚[ƒh’è‹`       //
+	//		ãƒ‡ãƒãƒƒã‚°ãƒ¢ãƒ¼ãƒ‰å®šç¾©       //
 	//-------------------------------//
-	#define ON_DEBUGGINGPROCESS					/* ƒfƒoƒbƒNƒ‚[ƒh             */
-	//#define DEBUG_STRINGS_ON					/* ƒfƒoƒbƒO—p•¶Žš—ñ‚ð—LŒø‰» */
-	//#define CF_DEBUGINFORMATIONWINDOW_ENABLE	/* ƒfƒoƒbƒOî•ñ•\Ž¦—pƒEƒCƒ“ƒhƒE‚ð—LŒø‰» */
-	//#define CF_MEMORYMANAGER_ENABLE			/* Ž©ìƒƒ‚ƒŠŠÇ—ƒVƒXƒeƒ€‚ð—LŒø‰» */
-	//#define CF_FULLSCREEN				/* ƒtƒ‹ƒXƒNƒŠ[ƒ“ƒ‚[ƒh       */
+	#define ON_DEBUGGINGPROCESS					/* ãƒ‡ãƒãƒƒã‚¯ãƒ¢ãƒ¼ãƒ‰             */
+	//#define DEBUG_STRINGS_ON					/* ãƒ‡ãƒãƒƒã‚°ç”¨æ–‡å­—åˆ—ã‚’æœ‰åŠ¹åŒ– */
+	//#define CF_DEBUGINFORMATIONWINDOW_ENABLE	/* ãƒ‡ãƒãƒƒã‚°æƒ…å ±è¡¨ç¤ºç”¨ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ã‚’æœ‰åŠ¹åŒ– */
+	//#define CF_MEMORYMANAGER_ENABLE			/* è‡ªä½œãƒ¡ãƒ¢ãƒªç®¡ç†ã‚·ã‚¹ãƒ†ãƒ ã‚’æœ‰åŠ¹åŒ– */
+	//#define CF_FULLSCREEN				/* ãƒ•ãƒ«ã‚¹ã‚¯ãƒªãƒ¼ãƒ³ãƒ¢ãƒ¼ãƒ‰       */
 
 	//#define ___MLP_DEBUG_TIMEDRAW_ 
 	//#define ON_GUIDELINE
 #else
 	#if defined( PRESENTATION )
 	//-------------------------------//
-	//		ƒvƒŒƒ[ƒ“ƒ‚[ƒh’è‹`       //
+	//		ãƒ—ãƒ¬ã‚¼ãƒ³ãƒ¢ãƒ¼ãƒ‰å®šç¾©       //
 	//-------------------------------//
-		//#define DEBUG_STRINGS_ON					/* ƒfƒoƒbƒO—p•¶Žš—ñ‚ð—LŒø‰» */
-		//#define CF_MEMORYMANAGER_ENABLE			/* Ž©ìƒƒ‚ƒŠŠÇ—ƒVƒXƒeƒ€‚ð—LŒø‰» */
-//		#define CF_FULLSCREEN				/* ƒtƒ‹ƒXƒNƒŠ[ƒ“ƒ‚[ƒh       */
-		//#define DEBUG_STRINGS_ON			/* ƒfƒoƒbƒO—p•¶Žš—ñ‚ð—LŒø‰» */
+		//#define DEBUG_STRINGS_ON					/* ãƒ‡ãƒãƒƒã‚°ç”¨æ–‡å­—åˆ—ã‚’æœ‰åŠ¹åŒ– */
+		//#define CF_MEMORYMANAGER_ENABLE			/* è‡ªä½œãƒ¡ãƒ¢ãƒªç®¡ç†ã‚·ã‚¹ãƒ†ãƒ ã‚’æœ‰åŠ¹åŒ– */
+//		#define CF_FULLSCREEN				/* ãƒ•ãƒ«ã‚¹ã‚¯ãƒªãƒ¼ãƒ³ãƒ¢ãƒ¼ãƒ‰       */
+		//#define DEBUG_STRINGS_ON			/* ãƒ‡ãƒãƒƒã‚°ç”¨æ–‡å­—åˆ—ã‚’æœ‰åŠ¹åŒ– */
 
 	#else
 	//-------------------------------//
-	//		ƒŠƒŠ[ƒXƒ‚[ƒh’è‹`       //
+	//		ãƒªãƒªãƒ¼ã‚¹ãƒ¢ãƒ¼ãƒ‰å®šç¾©       //
 	//-------------------------------//
 
-		#define CF_FULLSCREEN				/* ƒtƒ‹ƒXƒNƒŠ[ƒ“ƒ‚[ƒh       */
+		#define CF_FULLSCREEN				/* ãƒ•ãƒ«ã‚¹ã‚¯ãƒªãƒ¼ãƒ³ãƒ¢ãƒ¼ãƒ‰       */
 	#endif
 
 #endif

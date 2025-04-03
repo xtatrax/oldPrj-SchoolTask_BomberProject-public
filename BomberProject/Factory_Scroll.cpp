@@ -1,11 +1,11 @@
 ////////////////////////////// //////////////////////////////
-//	�v���W�F�N�g	�FBomberProject
-//	�t�@�C����		�FFactory_Scroll.cpp
-//	�J����		�FMSVC++ 2008
-//	�œK�^�u��		�F4
-//	�S����			�F�֓�����
-//	�����ް��Ɣ��l	�F�X�N���[���t�@�N�g���[
-//					��
+//	プロジェクト	：BomberProject
+//	ファイル名		：Factory_Scroll.cpp
+//	開発環境		：MSVC++ 2008
+//	最適タブ数		：4
+//	担当者			：斎藤謙吾
+//	内包データと備考	：スクロールファクトリー
+//					▼
 //	namespace wiz;
 //		class Factory_Scroll ;
 //
@@ -16,7 +16,7 @@
 namespace wiz{
 namespace bomberobject{
 /************************************************************************
-ScrollObject ��`��
+ScrollObject 定義部
 ************************************************************************/
 ScrollObject::ScrollObject(const LPDIRECT3DDEVICE9 pD3DDevice, const LPTATRATEXTURE pTexture,
 							const D3DXVECTOR3& vScale, const D3DXVECTOR3& vPos, Rect pRect)
@@ -26,7 +26,7 @@ ScrollObject::ScrollObject(const LPDIRECT3DDEVICE9 pD3DDevice, const LPTATRATEXT
 ,m_vScale(vScale)
 {
 
-	//�O���f�[�V����
+	//グラデーション
 	//LPTATRATEXTURE pTex = NULL;
 	//for( BYTE i = 0 ; i < g_csbySpriteQty ; i++ ){
 	//	0(pD3DDevice,L"BGP_TITLE02.png",&pTex2);
@@ -35,14 +35,14 @@ ScrollObject::ScrollObject(const LPDIRECT3DDEVICE9 pD3DDevice, const LPTATRATEXT
 	//		pTex2,
 	//		vScale,
 	//		g_vZero,
-	//		D3DXVECTOR3( 0.0f, i*(-600.0f) , 0.0f ),// i�̂Ƃ���͂��Ƃłւ񂱂�����I
+	//		D3DXVECTOR3( 0.0f, i*(-600.0f) , 0.0f ),// iのところはあとでへんこうしる！
 	//		NULL,
 	//		g_vZero,
 	//		g_vZero
 	//	);
 	//	g_vPos[i]	= D3DXVECTOR3( 0.0f, i*(-600.0f) , 0.0f );
 	//}
-	////�w�i
+	////背景
 	//g_pFrontSprite = new SpriteObject(
 	//	pD3DDevice,
 	//	pFrontTexture,
@@ -99,8 +99,8 @@ void ScrollObject::Draw( DrawPacket& i_DrawPacket )
 };
 /**************************************************************************
  ScrollObject::~ScrollObject();
- �p�r: �f�X�g���N�^
- �߂�l: �Ȃ�
+ 用途: デストラクタ
+ 戻り値: なし
 ***************************************************************************/
 ScrollObject::~ScrollObject()
 {
@@ -110,7 +110,7 @@ ScrollObject::~ScrollObject()
 	//}
 }
 /**************************************************************************
- Factory_Scroll ��`��
+ Factory_Scroll 定義部
 ****************************************************************************/
 Factory_Scroll::Factory_Scroll(FactoryPacket* fpac)
 {
@@ -131,19 +131,19 @@ Factory_Scroll::Factory_Scroll(FactoryPacket* fpac)
 		fpac->AddObject( new ScrollObject(fpac->GetDevice(),fpac->AddTexture(L"Title_Back2.png"),D3DXVECTOR3( 1.0f, 1.0f, 0.0f),g_vZero,Rect(0,0,(int)BASE_CLIENT_WIDTH,(int)BASE_CLIENT_HEIGHT)));
 	}
 		catch(...){
-		//��throw
+		//再throw
 		throw;
 	}
 }
 
 /**************************************************************************
  Factory_Title::~Factory_Title();
- �p�r: �f�X�g���N�^
- �߂�l: �Ȃ�
+ 用途: デストラクタ
+ 戻り値: なし
 ***************************************************************************/
 Factory_Scroll::~Factory_Scroll()
 {
-//�Ȃɂ����Ȃ�
+//なにもしない
 }
 
 }

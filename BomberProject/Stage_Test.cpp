@@ -1,13 +1,13 @@
 ////////////////////////////// //////////////////////////////
-//	ƒvƒƒWƒFƒNƒg	FDirectX Program Bass Project
-//	ƒtƒ@ƒCƒ‹–¼		FStage_Test.h
-//	ŠJ”­ŠÂ‹«		FMSVC++ 2008
-//	Å“Kƒ^ƒu”		F4
-//	’S“–Ò			F°Œ´ “O
-//	“à•ïÃŞ°À‚Æ”õl	FƒeƒXƒg—p‚ÌƒXƒe[ƒW
-//					FšScene.cpp Scene::CommandTranslator ŠÖ”‚ÅÀ‘Ì‰»‚³‚ê‚Ü‚·
-//					FšScene.cpp Scene::Update / AnotherTargetRender / Draw ŠÖ”‚©‚çŒÄ‚Î‚ê‚Ü‚·
-//					¥
+//	ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆ	ï¼šDirectX Program Bass Project
+//	ãƒ•ã‚¡ã‚¤ãƒ«å		ï¼šStage_Test.h
+//	é–‹ç™ºç’°å¢ƒ		ï¼šMSVC++ 2008
+//	æœ€é©ã‚¿ãƒ–æ•°		ï¼š4
+//	æ‹…å½“è€…			ï¼šé´«åŸ å¾¹
+//	å†…åŒ…ãƒ‡ãƒ¼ã‚¿ã¨å‚™è€ƒ	ï¼šãƒ†ã‚¹ãƒˆç”¨ã®ã‚¹ãƒ†ãƒ¼ã‚¸
+//					ï¼šâ˜…Scene.cpp Scene::CommandTranslator é–¢æ•°ã§å®Ÿä½“åŒ–ã•ã‚Œã¾ã™
+//					ï¼šâ˜…Scene.cpp Scene::Update / AnotherTargetRender / Draw é–¢æ•°ã‹ã‚‰å‘¼ã°ã‚Œã¾ã™
+//					â–¼
 //	namespace wiz;
 //	;
 //
@@ -36,16 +36,16 @@ namespace wiz{
 using namespace bomberobject;
 
 /**************************************************************************
- PlayStage ’è‹`•”
+ PlayStage å®šç¾©éƒ¨
 ****************************************************************************/
 /**************************************************************************
  PlayStage(
-	LPDIRECT3DDEVICE9 pD3DDevice,		//ƒfƒoƒCƒX
-	const Script::MLPHeader& Header,	//	: ƒvƒŒƒC‚·‚éŠy‹È‚Ìƒwƒbƒ_[ƒf[ƒ^
-	const Script::SCORELEVEL Level		//	: ƒvƒŒƒC‚·‚éƒŒƒxƒ‹í•Ê
+	LPDIRECT3DDEVICE9 pD3DDevice,		//ãƒ‡ãƒã‚¤ã‚¹
+	const Script::MLPHeader& Header,	//	: ãƒ—ãƒ¬ã‚¤ã™ã‚‹æ¥½æ›²ã®ãƒ˜ãƒƒãƒ€ãƒ¼ãƒ‡ãƒ¼ã‚¿
+	const Script::SCORELEVEL Level		//	: ãƒ—ãƒ¬ã‚¤ã™ã‚‹ãƒ¬ãƒ™ãƒ«ç¨®åˆ¥
  );
- —p“r: ƒRƒ“ƒXƒgƒ‰ƒNƒ^
- –ß‚è’l: ‚È‚µi¸”s‚Í—áŠO‚ğthrowj
+ ç”¨é€”: ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+ æˆ»ã‚Šå€¤: ãªã—ï¼ˆå¤±æ•—æ™‚ã¯ä¾‹å¤–ã‚’throwï¼‰
 ***************************************************************************/
 DebugStage_TATRA::DebugStage_TATRA(LPDIRECT3DDEVICE9 pD3DDevice,Stage* pStage)
 	:Stage(pStage)
@@ -58,14 +58,14 @@ DebugStage_TATRA::DebugStage_TATRA(LPDIRECT3DDEVICE9 pD3DDevice,Stage* pStage)
 		FPac.m_pVec     = &this->m_Vec      ;
 		FPac.pD3DDevice =  pD3DDevice       ;
 		fpac = &FPac;
-		//ƒ‰ƒCƒg‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‰Šú‰»
+		//ãƒ©ã‚¤ãƒˆã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹åˆæœŸåŒ–
         D3DCOLORVALUE Diffuse = {1.0f,1.0f,1.0f,0.0f};
         D3DCOLORVALUE Specular = {1.0f,1.0f,1.0f,0.0f};
         D3DCOLORVALUE Ambient = {0.5f,0.5f,0.5f,0.0f};
         fpac->m_pVec->push_back(new DirectionalLight(fpac->pD3DDevice,Diffuse,Specular,Ambient,
                     D3DXVECTOR3( -0.0f, -1.0f, 0.0f)));
 
-		//ƒJƒƒ‰‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‰Šú‰»
+		//ã‚«ãƒ¡ãƒ©ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹åˆæœŸåŒ–
 		float ECXPos = 25.1f;
 		float ECYPos = 10.1f;		
         fpac->m_pVec->push_back(
@@ -105,27 +105,27 @@ DebugStage_TATRA::DebugStage_TATRA(LPDIRECT3DDEVICE9 pD3DDevice,Stage* pStage)
 
 		throw LoaderException(
 			e.what_w(),
-			L"ªDebugStage_TATRA::DebugStage_TATRA()");
+			L"â†‘DebugStage_TATRA::DebugStage_TATRA()");
 	}
 	catch(...){
 		Clear();
-		//ÄƒXƒ[
+		//å†ã‚¹ãƒ­ãƒ¼
 		throw;
 	}
 }
 
 
 /**************************************************************************
- PlayStage ’è‹`•”
+ PlayStage å®šç¾©éƒ¨
 ****************************************************************************/
 /**************************************************************************
  PlayStage(
-	LPDIRECT3DDEVICE9 pD3DDevice,		//ƒfƒoƒCƒX
-	const Script::MLPHeader& Header,	//	: ƒvƒŒƒC‚·‚éŠy‹È‚Ìƒwƒbƒ_[ƒf[ƒ^
-	const Script::SCORELEVEL Level		//	: ƒvƒŒƒC‚·‚éƒŒƒxƒ‹í•Ê
+	LPDIRECT3DDEVICE9 pD3DDevice,		//ãƒ‡ãƒã‚¤ã‚¹
+	const Script::MLPHeader& Header,	//	: ãƒ—ãƒ¬ã‚¤ã™ã‚‹æ¥½æ›²ã®ãƒ˜ãƒƒãƒ€ãƒ¼ãƒ‡ãƒ¼ã‚¿
+	const Script::SCORELEVEL Level		//	: ãƒ—ãƒ¬ã‚¤ã™ã‚‹ãƒ¬ãƒ™ãƒ«ç¨®åˆ¥
  );
- —p“r: ƒRƒ“ƒXƒgƒ‰ƒNƒ^
- –ß‚è’l: ‚È‚µi¸”s‚Í—áŠO‚ğthrowj
+ ç”¨é€”: ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+ æˆ»ã‚Šå€¤: ãªã—ï¼ˆå¤±æ•—æ™‚ã¯ä¾‹å¤–ã‚’throwï¼‰
 ***************************************************************************/
 DebugStage_Loader::DebugStage_Loader(LPDIRECT3DDEVICE9 pD3DDevice,Stage* pStage)
 	:MenuStage(pD3DDevice,pStage)
@@ -142,7 +142,7 @@ DebugStage_Loader::DebugStage_Loader(LPDIRECT3DDEVICE9 pD3DDevice,Stage* pStage)
 	}
 	catch(...){
 		Clear();
-		//ÄƒXƒ[
+		//å†ã‚¹ãƒ­ãƒ¼
 		throw;
 	}
 }

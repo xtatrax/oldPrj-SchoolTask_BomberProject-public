@@ -1,11 +1,11 @@
 ////////////////////////////// //////////////////////////////
-//	ƒvƒƒWƒFƒNƒg	FBomberProject
-//	ƒtƒ@ƒCƒ‹–¼		FFactory_Item.cpp
-//	ŠJ”­ŠÂ‹«		FMSVC++ 2008
-//	Å“Kƒ^ƒu”		F4
-//	’S“–ŽÒ			F²“¡@—Á –{‘½Š°”V
-//	“à•ïÃÞ°À‚Æ”õl	FƒAƒCƒeƒ€ƒtƒ@ƒNƒgƒŠ[
-//					¥
+//	ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆ	ï¼šBomberProject
+//	ãƒ•ã‚¡ã‚¤ãƒ«å		ï¼šFactory_Item.cpp
+//	é–‹ç™ºç’°å¢ƒ		ï¼šMSVC++ 2008
+//	æœ€é©ã‚¿ãƒ–æ•°		ï¼š4
+//	æ‹…å½“è€…			ï¼šä½è—¤ã€€æ¶¼ æœ¬å¤šå¯›ä¹‹
+//	å†…åŒ…ãƒ‡ãƒ¼ã‚¿ã¨å‚™è€ƒ	ï¼šã‚¢ã‚¤ãƒ†ãƒ ãƒ•ã‚¡ã‚¯ãƒˆãƒªãƒ¼
+//					â–¼
 //	namespace wiz;
 //		class Item ;
 //		class Factory_Item ;
@@ -24,20 +24,20 @@ namespace bomberobject{
 
 
 /**************************************************************************
- Item ’è‹`•”
+ Item å®šç¾©éƒ¨
 ****************************************************************************/
 /***************************************************************************
-ŠÖ”–¼@@@FItem( FactoryPacket* fpac,
+é–¢æ•°åã€€ã€€ã€€ï¼šItem( FactoryPacket* fpac,
                       LPTATRATEXTURE pTexture,
                       wiz::OBJID id )
-ƒJƒeƒSƒŠ@@FƒRƒ“ƒXƒgƒ‰ƒNƒ^
-—p“r@@@@F
-ˆø”@@@@FFactoryPacket* fpac           // : ƒfƒoƒCƒX‚È‚Ç
-@@@@@@FLPTATRATEXTURE pTexture   // : ƒeƒNƒXƒ`ƒƒ\
-@@@@@@Fwiz::OBJID id                 // : ID
-–ß‚è’l@@@F
-’S“–ŽÒ@@@F²“¡—Á
-”õl@@@@F
+ã‚«ãƒ†ã‚´ãƒªã€€ã€€ï¼šã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+ç”¨é€”ã€€ã€€ã€€ã€€ï¼š
+å¼•æ•°ã€€ã€€ã€€ã€€ï¼šFactoryPacket* fpac           // : ãƒ‡ãƒã‚¤ã‚¹ãªã©
+ã€€ã€€ã€€ã€€ã€€ã€€ï¼šLPTATRATEXTURE pTexture   // : ãƒ†ã‚¯ã‚¹ãƒãƒ£â€”
+ã€€ã€€ã€€ã€€ã€€ã€€ï¼šwiz::OBJID id                 // : ID
+æˆ»ã‚Šå€¤ã€€ã€€ã€€ï¼š
+æ‹…å½“è€…ã€€ã€€ã€€ï¼šä½è—¤æ¶¼
+å‚™è€ƒã€€ã€€ã€€ã€€ï¼š
 ****************************************************************************/
 Item::Item(FactoryPacket* fpac,LPTATRATEXTURE pTexture, wiz::OBJID id)
 	:PrimitiveSphere(fpac->GetDevice(),
@@ -53,23 +53,23 @@ Item::Item(FactoryPacket* fpac,LPTATRATEXTURE pTexture, wiz::OBJID id)
 {
 	try{
 		//D3DXMatrixIdentity(&m_mMatrix);
-        // D3DMATERIAL9\‘¢‘Ì‚ð0‚ÅƒNƒŠƒA
+        // D3DMATERIAL9æ§‹é€ ä½“ã‚’0ã§ã‚¯ãƒªã‚¢
         ::ZeroMemory( &m_Material, sizeof(D3DMATERIAL9));
 	}
 	catch(...){
-		//ÄƒXƒ[
+		//å†ã‚¹ãƒ­ãƒ¼
 		throw;
 	}
 }
 /////////////////// ////////////////////
-//// ŠÖ”–¼     F~Item();
-//// ƒJƒeƒSƒŠ   FƒfƒXƒgƒ‰ƒNƒ^
-//// —p“r       F”jŠü
-//// ˆø”       F‚È‚µ
-//// –ß’l       F‚È‚µ
-//// ’S“–ŽÒ     FŽ°Œ´ “O
-//// ”õl       F
-////            F
+//// é–¢æ•°å     ï¼š~Item();
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+//// ç”¨é€”       ï¼šç ´æ£„
+//// å¼•æ•°       ï¼šãªã—
+//// æˆ»å€¤       ï¼šãªã—
+//// æ‹…å½“è€…     ï¼šé´«åŽŸ å¾¹
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
 Item::~Item(){
 	m_ItemMap_Target.clear();
@@ -78,13 +78,13 @@ Item::~Item(){
 }
 
 /**************************************************************
-ŠÖ”–¼@@Fvoid Item::Draw(DrawPacket &i_DrawPacket)
-ƒJƒeƒSƒŠ@FŠÖ”
-—p“r@@@FƒIƒuƒWƒFƒNƒg‚Ì•`‰æ
-ˆø”@@@FDrawPacket &i_DrawPacket          // •`‰æ—p‚Ì‚à‚ë‚à‚ë
-–ß‚è’l@@F
-’S“–ŽÒ@@F²“¡—Á
-”õl@@@F
+é–¢æ•°åã€€ã€€ï¼švoid Item::Draw(DrawPacket &i_DrawPacket)
+ã‚«ãƒ†ã‚´ãƒªã€€ï¼šé–¢æ•°
+ç”¨é€”ã€€ã€€ã€€ï¼šã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®æç”»
+å¼•æ•°ã€€ã€€ã€€ï¼šDrawPacket &i_DrawPacket          // æç”»ç”¨ã®ã‚‚ã‚ã‚‚ã‚
+æˆ»ã‚Šå€¤ã€€ã€€ï¼š
+æ‹…å½“è€…ã€€ã€€ï¼šä½è—¤æ¶¼
+å‚™è€ƒã€€ã€€ã€€ï¼š
 ***************************************************************/
 void	Item::Draw(DrawPacket &i_DrawPacket){
 	TARGETCONTAINER::iterator it = m_ItemMap_Target.begin();
@@ -92,32 +92,32 @@ void	Item::Draw(DrawPacket &i_DrawPacket){
 		
 		//PrimitiveSphere::m_WorldMatrix = (*it)->m_mMatrix ;
 
-		//ƒeƒNƒXƒ`ƒƒ‚ª‚ ‚éê‡
+		//ãƒ†ã‚¯ã‚¹ãƒãƒ£ãŒã‚ã‚‹å ´åˆ
 		if(m_pTexture){
 			DWORD wkdword;
-			//Œ»Ý‚ÌƒeƒNƒXƒ`ƒƒƒXƒe[ƒ^ƒX‚ð“¾‚é
+			//ç¾åœ¨ã®ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã‚’å¾—ã‚‹
 			i_DrawPacket.GetDevice()->GetTextureStageState(0,D3DTSS_COLOROP,&wkdword);
-			//ƒXƒe[ƒW‚ÌÝ’è
+			//ã‚¹ãƒ†ãƒ¼ã‚¸ã®è¨­å®š
 			i_DrawPacket.GetDevice()->SetTexture(0,m_pTexture->getTexture());
-			//ƒfƒtƒB[ƒYF‚ÆƒeƒNƒXƒ`ƒƒ‚ðŠ|‚¯‡‚í‚¹‚éÝ’è
+			//ãƒ‡ãƒ•ã‚£ãƒ¼ã‚ºè‰²ã¨ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’æŽ›ã‘åˆã‚ã›ã‚‹è¨­å®š
 			i_DrawPacket.GetDevice()->SetTextureStageState( 0, D3DTSS_COLOROP, D3DTOP_MODULATE4X );
 			i_DrawPacket.GetDevice()->SetTextureStageState( 0, D3DTSS_COLORARG1, D3DTA_TEXTURE );
 			i_DrawPacket.GetDevice()->SetTextureStageState( 0, D3DTSS_COLORARG2, D3DTA_DIFFUSE );
 
 			//i_DrawPacket.GetDevice()->SetFVF(PlateFVF);
-			// ƒ}ƒgƒŠƒbƒNƒX‚ðƒŒƒ“ƒ_ƒŠƒ“ƒOƒpƒCƒvƒ‰ƒCƒ“‚ÉÝ’è
+			// ãƒžãƒˆãƒªãƒƒã‚¯ã‚¹ã‚’ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³ã«è¨­å®š
 			i_DrawPacket.GetDevice()->SetTransform(D3DTS_WORLD,&(*it)->m_mMatrix );
-			//ƒRƒ‚ƒ“ƒƒbƒVƒ…‚ÌDraw()‚ðŒÄ‚Ô
+			//ã‚³ãƒ¢ãƒ³ãƒ¡ãƒƒã‚·ãƒ¥ã®Draw()ã‚’å‘¼ã¶
 			CommonMesh::Draw(i_DrawPacket);
 			i_DrawPacket.GetDevice()->SetTexture(0,0);
-			//ƒXƒe[ƒW‚ðŒ³‚É–ß‚·
+			//ã‚¹ãƒ†ãƒ¼ã‚¸ã‚’å…ƒã«æˆ»ã™
 			i_DrawPacket.GetDevice()->SetTextureStageState(0,D3DTSS_COLOROP,wkdword);
 		}
 		else{
-		//ƒeƒNƒXƒ`ƒƒ‚ª‚È‚¢ê‡
-			// ƒ}ƒgƒŠƒbƒNƒX‚ðƒŒƒ“ƒ_ƒŠƒ“ƒOƒpƒCƒvƒ‰ƒCƒ“‚ÉÝ’è
+		//ãƒ†ã‚¯ã‚¹ãƒãƒ£ãŒãªã„å ´åˆ
+			// ãƒžãƒˆãƒªãƒƒã‚¯ã‚¹ã‚’ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³ã«è¨­å®š
 			i_DrawPacket.GetDevice()->SetTransform(D3DTS_WORLD, &(*it)->m_mMatrix);
-			//ƒRƒ‚ƒ“ƒƒbƒVƒ…‚ÌDraw()‚ðŒÄ‚Ô
+			//ã‚³ãƒ¢ãƒ³ãƒ¡ãƒƒã‚·ãƒ¥ã®Draw()ã‚’å‘¼ã¶
 			CommonMesh::Draw(i_DrawPacket);
 		}
 		++it;
@@ -128,7 +128,7 @@ void	Item::Draw(DrawPacket &i_DrawPacket){
 void Item::setDrawTarget(){
 
 	//////////
-	//	•`‰æ‘ÎÛŠO‚Ìíœ
+	//	æç”»å¯¾è±¡å¤–ã®å‰Šé™¤
 	//
 	TARGETCONTAINER::iterator	TIMit  = m_ItemMap_Target.begin(),
 								TIMend = m_ItemMap_Target.end(  );
@@ -146,7 +146,7 @@ void Item::setDrawTarget(){
 	//////////
 
 	//////////
-	//	•`‰æ‘ÎÛ‚Ì’Ç‰Á
+	//	æç”»å¯¾è±¡ã®è¿½åŠ 
 	//
 	ALLCONTAINER::iterator	AIMit  = m_ItemMap_All.lower_bound( m_pCamera->getPosY()  -DRAWING_RANGE ),
 							AIMend = m_ItemMap_All.upper_bound( m_pCamera->getPosY()  +DRAWING_RANGE );
@@ -164,14 +164,14 @@ void Item::setDrawTarget(){
 }
 
 /*******************************************************************
-ŠÖ”–¼@@Fvoid Item::Update(UpdatePacket& i_UpdatePacket)
-ƒJƒeƒSƒŠ@FŠÖ”
-—p“r@@@Fƒf[ƒ^XV
-ˆø”@@@FUpdatePacket& i_UpdatePacket  // XV—pƒf[ƒ^‚à‚ë‚à‚ë
-–ß‚è’l@@F
-’S“–ŽÒ@@F²“¡—Á
-•ÒW      FŽ°Œ´ “O
-”õl@@@F
+é–¢æ•°åã€€ã€€ï¼švoid Item::Update(UpdatePacket& i_UpdatePacket)
+ã‚«ãƒ†ã‚´ãƒªã€€ï¼šé–¢æ•°
+ç”¨é€”ã€€ã€€ã€€ï¼šãƒ‡ãƒ¼ã‚¿æ›´æ–°
+å¼•æ•°ã€€ã€€ã€€ï¼šUpdatePacket& i_UpdatePacket  // æ›´æ–°ç”¨ãƒ‡ãƒ¼ã‚¿ã‚‚ã‚ã‚‚ã‚
+æˆ»ã‚Šå€¤ã€€ã€€ï¼š
+æ‹…å½“è€…ã€€ã€€ï¼šä½è—¤æ¶¼
+ç·¨é›†      ï¼šé´«åŽŸ å¾¹
+å‚™è€ƒã€€ã€€ã€€ï¼š
 ********************************************************************/
 void	Item::Update(UpdatePacket& i_UpdatePacket)
 {
@@ -181,7 +181,7 @@ void	Item::Update(UpdatePacket& i_UpdatePacket)
 	if( !m_pSuperGage )		m_pSuperGage	=  (SuperGage*)i_UpdatePacket.SearchObjectFromID( OBJID_UI_SUPERGAUGE );
 	if( !m_pCamera )		m_pCamera		=     (Camera*)i_UpdatePacket.SearchObjectFromID( OBJID_SYS_CAMERA    );
 
-	//ƒRƒCƒ‹‚ÌˆÊ’uŽæ“¾
+	//ã‚³ã‚¤ãƒ«ã®ä½ç½®å–å¾—
 	D3DXVECTOR3	cPos	= m_pPlayerCoil->getPos();
 
 	setDrawTarget();
@@ -190,30 +190,30 @@ void	Item::Update(UpdatePacket& i_UpdatePacket)
 
 	while(it != m_ItemMap_Target.end()){
 
-		if( (m_pPlayerCoil->getState() == COIL_STATE_MOVE		//	: ƒRƒCƒ‹‚ªˆÚ“®’†
-			|| m_pPlayerCoil->getState() == COIL_STATE_STICK )	//	: ‚à‚µ‚­Ž¥ŠE‚É‹zŽû’†
-			&& m_pPlayerCoil->getSuperMode() == COIL_STATE_SUPER_CHARGE)					//	: ‚È‚¨‚©‚Â	ƒX[ƒp[ƒ‚[ƒh‚¶‚á‚È‚©‚Á‚½‚ç
+		if( (m_pPlayerCoil->getState() == COIL_STATE_MOVE		//	: ã‚³ã‚¤ãƒ«ãŒç§»å‹•ä¸­
+			|| m_pPlayerCoil->getState() == COIL_STATE_STICK )	//	: ã‚‚ã—ãç£ç•Œã«å¸åŽä¸­
+			&& m_pPlayerCoil->getSuperMode() == COIL_STATE_SUPER_CHARGE)					//	: ãªãŠã‹ã¤	ã‚¹ãƒ¼ãƒ‘ãƒ¼ãƒ¢ãƒ¼ãƒ‰ã˜ã‚ƒãªã‹ã£ãŸã‚‰
 		{
-			//	: Ž©•ª‚©‚ç‘ÎÛ‚Ü‚Å‚ÌƒxƒNƒgƒ‹‚ðŽZo
+			//	: è‡ªåˆ†ã‹ã‚‰å¯¾è±¡ã¾ã§ã®ãƒ™ã‚¯ãƒˆãƒ«ã‚’ç®—å‡º
 			D3DXVECTOR3	vTargetDir	= cPos - ((*it)->m_Pos) ;
 
-			//	: Ž©•ª‚Æ‘ÎÛ‚Ü‚Å‚Ì‹——£‚ð‹‚ß‚é
+			//	: è‡ªåˆ†ã¨å¯¾è±¡ã¾ã§ã®è·é›¢ã‚’æ±‚ã‚ã‚‹
 			double dirX = vTargetDir.x * vTargetDir.x;
 			double dirY = vTargetDir.y * vTargetDir.y;
 			(*it)->m_fDistance	 = (float)sqrt(dirX + dirY);
 
-			//‹——£‚ª5ˆÈ“à‚È‚ç‚æ‚Á‚Ä‚¢‚­
+			//è·é›¢ãŒ5ä»¥å†…ãªã‚‰ã‚ˆã£ã¦ã„ã
 			if( (*it)->m_fDistance < SuctionArea ){
 				(*it)->m_Pos	+= vTargetDir/**SpeedRate*/ * m_pPlayerCoil->getSpeed();
 
-				//ƒvƒŒƒCƒ„[‚ÆŒÀ‚è‚È‚­‹ß‚­‚È‚Á‚½‚çAÁ–Å
+				//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã¨é™ã‚Šãªãè¿‘ããªã£ãŸã‚‰ã€æ¶ˆæ»…
 				if( (*it)->m_fDistance < VanishArea ){
 					i_UpdatePacket.SearchWaveAndPlay( RCTEXT_SOUND_SE_ITEMS );
 					//m_ItemMap_All.value_comp();
 					ALLCONTAINER::size_type		count	= m_ItemMap_All.count((*it)->m_fMapKey) , 
 												i		;
 					ALLCONTAINER::iterator		ait		= m_ItemMap_All.find((*it)->m_fMapKey);
-					//ƒGƒlƒ‹ƒM[‰ñ•œ
+					//ã‚¨ãƒãƒ«ã‚®ãƒ¼å›žå¾©
 					m_pSuperGage->Recovery(-(*it)->m_fRecoveryPoint);
 					if(!m_pSuperGage->getAcquired())m_pSuperGage->setAcquired(true);
 					(*it)->m_bHidden = true ;
@@ -230,7 +230,7 @@ void	Item::Update(UpdatePacket& i_UpdatePacket)
 					continue;
 				}
 			}
-			////ƒQ[ƒW‚ªÅ‘å‚É‚È‚Á‚½‚çƒRƒCƒ‹‚ð–³“Gó‘Ô‚É
+			////ã‚²ãƒ¼ã‚¸ãŒæœ€å¤§ã«ãªã£ãŸã‚‰ã‚³ã‚¤ãƒ«ã‚’ç„¡æ•µçŠ¶æ…‹ã«
 			//if(m_pSuperGage->getRate() <= 0.0f){
 			//	m_pPlayerCoil->setSuperMode(COIL_STATE_SUPER_READY);
 			//}
@@ -238,7 +238,7 @@ void	Item::Update(UpdatePacket& i_UpdatePacket)
 		if(m_pPlayerCoil->getSuperMode() == COIL_STATE_SUPER_READY && !m_pSuperGage->getAcquired()){
 				m_pSuperGage->setAcquired(true);
 		}
-		//ˆÚ“®—p
+		//ç§»å‹•ç”¨
 		D3DXMATRIX mMove, mScale;
 		D3DXMatrixIdentity(&mMove);
 		D3DXMatrixTranslation(&mMove,
@@ -246,7 +246,7 @@ void	Item::Update(UpdatePacket& i_UpdatePacket)
 		D3DXMatrixScaling(&mScale,
 			(*it)->m_Size.x,(*it)->m_Size.y,(*it)->m_Size.z);
 
-		//ƒ}ƒeƒBƒŠƒAƒ‹Ý’è
+		//ãƒžãƒ†ã‚£ãƒªã‚¢ãƒ«è¨­å®š
 		m_Material = (*it)->m_Material;
 		(*it)->m_mMatrix	= mScale * mMove;
 
@@ -259,7 +259,7 @@ void	Item::Update(UpdatePacket& i_UpdatePacket)
 //#endif
 //	static float s_fTimeAccumulator = 0 ;
 //	if(m_pPlayerCoil->getState() == COIL_STATE_MOVE && m_pPlayerCoil->getSuperMode() == COIL_STATE_SUPER_MOVE){
-//		//	: ‚·[‚Ïƒ‚[ƒh‚ÌŽž
+//		//	: ã™ãƒ¼ã±ãƒ¢ãƒ¼ãƒ‰ã®æ™‚
 //		//static float s_fTimeTotal = 0.0f;
 //		//s_fTimeTotal += (float)SUPER_GAGE_MAX / (float)COIL_SUPER_MODE_TIME * (float)i_UpdatePacket.GetTime()->getElapsedTime();
 //		//if(s_fTimeTotal >= 1.0f){
@@ -280,22 +280,22 @@ void	Item::Update(UpdatePacket& i_UpdatePacket)
 }
 
 /***********************************************
-ŠÖ”–¼@Fvoid Item::addItem(
+é–¢æ•°åã€€ï¼švoid Item::addItem(
                       D3DXVECTOR3 pos,
                       D3DXVECTOR3 size,
                       D3DCOLORVALUE Diffuse,
                       D3DCOLORVALUE Specular, 
                       D3DCOLORVALUE Ambient)
-ƒJƒeƒSƒŠFŠÖ”
-—p“r@@FƒAƒCƒeƒ€‚Ì’Ç‰Á
-ˆø”@@FD3DXVECTOR3 pos          //•`‰æˆÊ’u
-@@@@FD3DXVECTOR3 size         //‘å‚«‚³
-@@@@FD3DCOLORVALUE Diffuse    //
-@@@@FD3DCOLORVALUE Specular   //
-@@@@FD3DCOLORVALUE Ambient    //
-–ß‚è’l@F
-’S“–ŽÒ@F²“¡—Á
-”õl@@F
+ã‚«ãƒ†ã‚´ãƒªï¼šé–¢æ•°
+ç”¨é€”ã€€ã€€ï¼šã‚¢ã‚¤ãƒ†ãƒ ã®è¿½åŠ 
+å¼•æ•°ã€€ã€€ï¼šD3DXVECTOR3 pos          //æç”»ä½ç½®
+ã€€ã€€ã€€ã€€ï¼šD3DXVECTOR3 size         //å¤§ãã•
+ã€€ã€€ã€€ã€€ï¼šD3DCOLORVALUE Diffuse    //
+ã€€ã€€ã€€ã€€ï¼šD3DCOLORVALUE Specular   //
+ã€€ã€€ã€€ã€€ï¼šD3DCOLORVALUE Ambient    //
+æˆ»ã‚Šå€¤ã€€ï¼š
+æ‹…å½“è€…ã€€ï¼šä½è—¤æ¶¼
+å‚™è€ƒã€€ã€€ï¼š
 ***********************************************/
 void	Item::addItem(D3DXVECTOR3 pos, D3DXVECTOR3 size,
 					  D3DCOLORVALUE Diffuse,D3DCOLORVALUE Specular,D3DCOLORVALUE Ambient, float fRecoveryPoint)
@@ -314,7 +314,7 @@ void	Item::addItem(D3DXVECTOR3 pos, D3DXVECTOR3 size,
 		//if(itemType == ITEM_TYPE_RECOVETY)				bItem->m_fRecoveryPoint =
 		RECOVERY_POINT;
 		//if(itemType == ITEM_TYPE_RECOVETY_BIG)bItem->	m_fRecoveryPoint		= RECOVERY_POINT_L;
-        // D3DMATERIAL9\‘¢‘Ì‚ð0‚ÅƒNƒŠƒA
+        // D3DMATERIAL9æ§‹é€ ä½“ã‚’0ã§ã‚¯ãƒªã‚¢
         ::ZeroMemory(&bItem->m_Material,sizeof(D3DMATERIAL9));
 		bItem->m_Material.Diffuse = Diffuse;
 		bItem->m_Material.Specular = Specular;
@@ -328,16 +328,16 @@ void	Item::addItem(D3DXVECTOR3 pos, D3DXVECTOR3 size,
 }
 
 /**************************************************************************
- Factory_Item ’è‹`•”
+ Factory_Item å®šç¾©éƒ¨
 ****************************************************************************/
 /**************************************************************************
-ŠÖ”–¼@@FFactory_Item::Factory_Item( FactoryPacket* fpac );
-ƒJƒeƒSƒŠ@FƒRƒ“ƒXƒgƒ‰ƒNƒ^
-—p“r@@@F
-ˆø”@@@FFactoryPacket* fpac     // ‚à‚ë‚à‚ë‚Ìƒf[ƒ^
-–ß‚è’l@@F
-’S“–ŽÒ@@F²“¡—Á
-”õl@@@F
+é–¢æ•°åã€€ã€€ï¼šFactory_Item::Factory_Item( FactoryPacket* fpac );
+ã‚«ãƒ†ã‚´ãƒªã€€ï¼šã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+ç”¨é€”ã€€ã€€ã€€ï¼š
+å¼•æ•°ã€€ã€€ã€€ï¼šFactoryPacket* fpac     // ã‚‚ã‚ã‚‚ã‚ã®ãƒ‡ãƒ¼ã‚¿
+æˆ»ã‚Šå€¤ã€€ã€€ï¼š
+æ‹…å½“è€…ã€€ã€€ï¼šä½è—¤æ¶¼
+å‚™è€ƒã€€ã€€ã€€ï¼š
 ***************************************************************************/
 Factory_Item::Factory_Item(FactoryPacket* fpac){
 	try{
@@ -357,7 +357,7 @@ Factory_Item::Factory_Item(FactoryPacket* fpac){
 				BallDiffuse,BallSpecular,BallAmbient);
 		}
 
-		//ƒAƒCƒeƒ€(¬)
+		//ã‚¢ã‚¤ãƒ†ãƒ (å°)
 		//for(int i = 0; i < 9; i++){
 		//	for(int j = 0; j < 80*ItemDiffusionRate; j++){
 		//		it->addItem(D3DXVECTOR3((float(i)*6.0f+float(rand()%100*0.05f))+1.5f,
@@ -367,7 +367,7 @@ Factory_Item::Factory_Item(FactoryPacket* fpac){
 		//	}
 		//}
 
-		//ƒAƒCƒeƒ€(‘å)
+		//ã‚¢ã‚¤ãƒ†ãƒ (å¤§)
 		it->addItem(D3DXVECTOR3(10.0f,10.0f,0.0f),
 					ITEM_SCALE,
 					BallDiffuse,BallSpecular,BallAmbient,
@@ -377,22 +377,22 @@ Factory_Item::Factory_Item(FactoryPacket* fpac){
 
 	}
 	catch(...){
-		//Äthrow
+		//å†throw
 		throw;
 	}
 
 }
 /**************************************************************************
- ŠÖ”–¼@@FFactory_Item::~Factory_Item();
- ƒJƒeƒSƒŠ@FƒfƒXƒgƒ‰ƒNƒ^
- —p“r@@@F
- ˆø”@@@F
- –ß‚è’l@@F
- ’S“–ŽÒ@@F²“¡—Á
- ”õl@@@F
+ é–¢æ•°åã€€ã€€ï¼šFactory_Item::~Factory_Item();
+ ã‚«ãƒ†ã‚´ãƒªã€€ï¼šãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+ ç”¨é€”ã€€ã€€ã€€ï¼š
+ å¼•æ•°ã€€ã€€ã€€ï¼š
+ æˆ»ã‚Šå€¤ã€€ã€€ï¼š
+ æ‹…å½“è€…ã€€ã€€ï¼šä½è—¤æ¶¼
+ å‚™è€ƒã€€ã€€ã€€ï¼š
 ***************************************************************************/
 Factory_Item::~Factory_Item(){
-    //‚È‚É‚à‚µ‚È‚¢
+    //ãªã«ã‚‚ã—ãªã„
 }
 }
 //end of namespace bomberobject.

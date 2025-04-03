@@ -1,11 +1,11 @@
 ////////////////////////////// //////////////////////////////
-//	ƒvƒƒWƒFƒNƒg	FDirectX Program Bass Project
-//	ƒtƒ@ƒCƒ‹–¼		FTextureManager.h
-//	ŠJ”­ŠÂ‹«		FMSVC++ 2008
-//	Å“Kƒ^ƒu”		F4
-//	’S“–ŽÒ			Ftatra
-//	“à•ïÃÞ°À‚Æ”õl	FƒeƒNƒXƒ`ƒƒ[‚ÌŠÇ—
-//					¥
+//	ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆ	ï¼šDirectX Program Bass Project
+//	ãƒ•ã‚¡ã‚¤ãƒ«å		ï¼šTextureManager.h
+//	é–‹ç™ºç’°å¢ƒ		ï¼šMSVC++ 2008
+//	æœ€é©ã‚¿ãƒ–æ•°		ï¼š4
+//	æ‹…å½“è€…			ï¼štatra
+//	å†…åŒ…ãƒ‡ãƒ¼ã‚¿ã¨å‚™è€ƒ	ï¼šãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒ¼ã®ç®¡ç†
+//					â–¼
 //	namespace wiz;
 //		class TextureManager;
 //		class TextureManager::Texture;
@@ -16,8 +16,8 @@ class TextureManager;
 //**************************************************************************
 // class Texture;
 //
-// ’S“–ŽÒ  : Ž°Œ´ “O
-// —p“r    : ƒeƒNƒXƒ`ƒƒ‚ðŠÇ—‚µ‚Ü‚·
+// æ‹…å½“è€…  : é´«åŽŸ å¾¹
+// ç”¨é€”    : ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’ç®¡ç†ã—ã¾ã™
 //**************************************************************************
 class Texture{
 	friend class TextureManager ;
@@ -27,17 +27,17 @@ class Texture{
 	DWORD				m_dwAccessCount;
 
 	/////////////////// ////////////////////
-	//// —p“r       FTexture::Texture(LPDIRECT3DDEVICE9 pD3DDevice,const wchar_t* filepath,
-	////            F    const wchar_t* texturename = L"")
-	//// ƒJƒeƒSƒŠ   FƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	//// —p“r       FNormalLoad
-	//// ˆø”       F  LPDIRECT3DDEVICE9 pD3DDevice		// ŒŸõ‚·‚éƒtƒ@ƒCƒ‹–¼
-	////            F  const wchar_t* filepath             // 
-	////            F  const wchar_t* texturename = L""    // 
-	//// –ß’l       F‚È‚µ
-	//// ’S“–ŽÒ     FŽ°Œ´ “O
-	//// ”õl       F
-	////            F
+	//// ç”¨é€”       ï¼šTexture::Texture(LPDIRECT3DDEVICE9 pD3DDevice,const wchar_t* filepath,
+	////            ï¼š    const wchar_t* texturename = L"")
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	//// ç”¨é€”       ï¼šNormalLoad
+	//// å¼•æ•°       ï¼š  LPDIRECT3DDEVICE9 pD3DDevice		// æ¤œç´¢ã™ã‚‹ãƒ•ã‚¡ã‚¤ãƒ«å
+	////            ï¼š  const wchar_t* filepath             // 
+	////            ï¼š  const wchar_t* texturename = L""    // 
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“è€…     ï¼šé´«åŽŸ å¾¹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
 	Texture(
 		LPDIRECT3DDEVICE9	pD3DDevice	,
@@ -46,30 +46,30 @@ class Texture{
 	);
 
 	/////////////////// ////////////////////
-	//// —p“r       FTexture::Texture(LPDIRECT3DDEVICE9 pD3DDevice,const wchar_t* filepath,
-	////            F    UINT Width, UINT Height, UINT MipLevels, DWORD Usage, D3DFORMAT Format,
-	////            F    D3DPOOL Pool, DWORD Filter,DWORD MipFilter, D3DCOLOR ColorKey,
-	////            F    D3DXIMAGE_INFO *pSrcInfo, PALETTEENTRY *pPalette, const wchar_t* texturename = L"" );
-	//// ƒJƒeƒSƒŠ   FƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	//// —p“r       FExLoad
-	//// ˆø”       F  LPDIRECT3DDEVICE9 pD3DDevice	 // ƒfƒoƒCƒX
-	////            F  const wchar_t *filepath			 // ƒtƒ@ƒCƒ‹ƒpƒX
-	////            F  UINT Width						 // ‰æ‘œ‚Ì•(0‚ÅƒIƒŠƒWƒiƒ‹)
-	////            F  UINT Height						 // ‰æ‘œ‚Ì‚‚³(0‚ÅƒIƒŠƒWƒiƒ‹)
-	////            F  UINT MipLevels					 // ƒ~ƒbƒvƒŒƒxƒ‹(’Êí0)
-	////            F  DWORD Usage						 // ƒŒƒ“ƒ_ƒŠƒ“ƒOƒ^[ƒQƒbƒg‚ÉŽw’è‚·‚é‚Æ‚«‚Æ‚©‚ÉŽw’è(’Êí0)
-	////            F  D3DFORMAT Format				 // F‚ÌƒtƒH[ƒ}ƒbƒg
-	////            F  D3DPOOL Pool					 // ƒf[ƒ^‚Ì“Ç‚Ýž‚Ýæ(‚¢‚¶‚ç‚È‚­‚Ä‚¨k)
-	////            F  DWORD Filter					 // ƒtƒBƒ‹ƒ^[(‚¢‚¶‚ç‚È‚­‚Ä‚¨k)
-	////            F  DWORD MipFilter					 // ƒ~ƒbƒvƒtƒBƒ‹ƒ^[(‚¢‚¶‚ç‚È‚­‚Ä‚¨k)
-	////            F  D3DCOLOR ColorKey				 // yƒ¿‚ ‚èzÂF‚ð“§‰ßF‚Æ‚·‚éy0‚Å–³Œøz
-	////            F  D3DXIMAGE_INFO *pSrcInfo		 // yD3DXIMAGE_INFO\‘¢‘Ìz‰æ‘œƒf[ƒ^‚Ì\‘¢yƒsƒNƒZƒ‹ƒTƒCƒY‚Æ‚©z
-	////            F  PALETTEENTRY *pPalette			 // ƒpƒŒƒbƒg
-	////            F  const wchar_t *texturename = L"" // ƒeƒNƒXƒ`ƒƒ–¼(ƒIƒvƒVƒ‡ƒ“)
-	//// –ß’l       F‚È‚µ
-	//// ’S“–ŽÒ     FŽ°Œ´ “O
-	//// ”õl       F
-	////            F
+	//// ç”¨é€”       ï¼šTexture::Texture(LPDIRECT3DDEVICE9 pD3DDevice,const wchar_t* filepath,
+	////            ï¼š    UINT Width, UINT Height, UINT MipLevels, DWORD Usage, D3DFORMAT Format,
+	////            ï¼š    D3DPOOL Pool, DWORD Filter,DWORD MipFilter, D3DCOLOR ColorKey,
+	////            ï¼š    D3DXIMAGE_INFO *pSrcInfo, PALETTEENTRY *pPalette, const wchar_t* texturename = L"" );
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	//// ç”¨é€”       ï¼šExLoad
+	//// å¼•æ•°       ï¼š  LPDIRECT3DDEVICE9 pD3DDevice	 // ãƒ‡ãƒã‚¤ã‚¹
+	////            ï¼š  const wchar_t *filepath			 // ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹
+	////            ï¼š  UINT Width						 // ç”»åƒã®å¹…(0ã§ã‚ªãƒªã‚¸ãƒŠãƒ«)
+	////            ï¼š  UINT Height						 // ç”»åƒã®é«˜ã•(0ã§ã‚ªãƒªã‚¸ãƒŠãƒ«)
+	////            ï¼š  UINT MipLevels					 // ãƒŸãƒƒãƒ—ãƒ¬ãƒ™ãƒ«(é€šå¸¸0)
+	////            ï¼š  DWORD Usage						 // ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã«æŒ‡å®šã™ã‚‹ã¨ãã¨ã‹ã«æŒ‡å®š(é€šå¸¸0)
+	////            ï¼š  D3DFORMAT Format				 // è‰²ã®ãƒ•ã‚©ãƒ¼ãƒžãƒƒãƒˆ
+	////            ï¼š  D3DPOOL Pool					 // ãƒ‡ãƒ¼ã‚¿ã®èª­ã¿è¾¼ã¿å…ˆ(ã„ã˜ã‚‰ãªãã¦ãŠk)
+	////            ï¼š  DWORD Filter					 // ãƒ•ã‚£ãƒ«ã‚¿ãƒ¼(ã„ã˜ã‚‰ãªãã¦ãŠk)
+	////            ï¼š  DWORD MipFilter					 // ãƒŸãƒƒãƒ—ãƒ•ã‚£ãƒ«ã‚¿ãƒ¼(ã„ã˜ã‚‰ãªãã¦ãŠk)
+	////            ï¼š  D3DCOLOR ColorKey				 // ã€Î±ã‚ã‚Šã€‘é’è‰²ã‚’é€éŽè‰²ã¨ã™ã‚‹ã€0ã§ç„¡åŠ¹ã€‘
+	////            ï¼š  D3DXIMAGE_INFO *pSrcInfo		 // ã€D3DXIMAGE_INFOæ§‹é€ ä½“ã€‘ç”»åƒãƒ‡ãƒ¼ã‚¿ã®æ§‹é€ ã€ãƒ”ã‚¯ã‚»ãƒ«ã‚µã‚¤ã‚ºã¨ã‹ã€‘
+	////            ï¼š  PALETTEENTRY *pPalette			 // ãƒ‘ãƒ¬ãƒƒãƒˆ
+	////            ï¼š  const wchar_t *texturename = L"" // ãƒ†ã‚¯ã‚¹ãƒãƒ£å(ã‚ªãƒ—ã‚·ãƒ§ãƒ³)
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“è€…     ï¼šé´«åŽŸ å¾¹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
 	Texture(
 		LPDIRECT3DDEVICE9	pD3DDevice	,
@@ -89,33 +89,33 @@ class Texture{
 	);
 
 	/////////////////// ////////////////////
-	//// —p“r       FTexture::~Texture()
-	//// ƒJƒeƒSƒŠ   FƒfƒXƒgƒ‰ƒNƒ^
-	//// —p“r       FƒCƒ“ƒXƒ^ƒ“ƒX”jŠüŽžˆ—
-	//// ˆø”       F‚È‚µ
-	//// –ß’l       F‚È‚µ
-	//// ”õl       F
-	////            F
+	//// ç”¨é€”       ï¼šTexture::~Texture()
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	//// ç”¨é€”       ï¼šã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ç ´æ£„æ™‚å‡¦ç†
+	//// å¼•æ•°       ï¼šãªã—
+	//// æˆ»å€¤       ï¼šãªã—
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
 	virtual ~Texture();
 
 public:
 
 	/////////////////// ////////////////////
-	//// —p“r       Fconst LPDIRECT3DTEXTURE9 Texture::getTexture()
-	//// ƒJƒeƒSƒŠ   FƒQƒbƒ^[
-	//// —p“r       FƒeƒNƒXƒ`ƒƒ[Ž©‘Ì‚Ìƒ|ƒCƒ“ƒ^[‚ðŠl“¾‚·‚é
-	//// ˆø”       F‚È‚µ
-	//// –ß’l       F‚È‚µ
-	//// ”õl       F
-	////            F
+	//// ç”¨é€”       ï¼šconst LPDIRECT3DTEXTURE9 Texture::getTexture()
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚²ãƒƒã‚¿ãƒ¼
+	//// ç”¨é€”       ï¼šãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒ¼è‡ªä½“ã®ãƒã‚¤ãƒ³ã‚¿ãƒ¼ã‚’ç²å¾—ã™ã‚‹
+	//// å¼•æ•°       ï¼šãªã—
+	//// æˆ»å€¤       ï¼šãªã—
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
 	const LPDIRECT3DTEXTURE9 getTexture() const{
 		return m_pTexture;
 	}
 	//bool	checkTextureName( wstring name ) const;
 	bool	checkFilePath(    wstring path ) const;
-};//yENDzTexture
+};//ã€ENDã€‘Texture
 
 typedef Texture* LPTATRATEXTURE ;
 
@@ -129,60 +129,60 @@ typedef Texture* LPTATRATEXTURE ;
 //**************************************************************************
 // class TextureManager;
 //
-// ’S“–ŽÒ  : Ž°Œ´ “O
-// —p“r    : ƒeƒNƒXƒ`ƒƒŠÇ—ƒNƒ‰ƒX
-//         : “¯ˆêƒf[ƒ^‚Ì‘½d¶¬‹y‚ÑƒŠƒŠ[ƒX˜R‚ê‚Ì–³‚¢‚æ‚¤‚É
-//         : ƒeƒNƒXƒ`ƒƒ[‚ðŠÇ—‚Å‚«‚Ü‚·
+// æ‹…å½“è€…  : é´«åŽŸ å¾¹
+// ç”¨é€”    : ãƒ†ã‚¯ã‚¹ãƒãƒ£ç®¡ç†ã‚¯ãƒ©ã‚¹
+//         : åŒä¸€ãƒ‡ãƒ¼ã‚¿ã®å¤šé‡ç”ŸæˆåŠã³ãƒªãƒªãƒ¼ã‚¹æ¼ã‚Œã®ç„¡ã„ã‚ˆã†ã«
+//         : ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒ¼ã‚’ç®¡ç†ã§ãã¾ã™
 //**************************************************************************
 class TextureManager{
 private:
 	vector< LPTATRATEXTURE > m_vecTextures;
 public:
 	/////////////////// ////////////////////
-	//// —p“r       FTextureManager()
-	//// ƒJƒeƒSƒŠ   FƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	//// —p“r       FƒCƒ“ƒXƒ^ƒ“ƒX¶¬Žžˆ—
-	//// ˆø”       F‚È‚µ
-	//// –ß’l       F‚È‚µ
-	//// ’S“–ŽÒ     FŽ°Œ´ “O
-	//// ”õl       F
-	////            F
+	//// ç”¨é€”       ï¼šTextureManager()
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	//// ç”¨é€”       ï¼šã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ç”Ÿæˆæ™‚å‡¦ç†
+	//// å¼•æ•°       ï¼šãªã—
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“è€…     ï¼šé´«åŽŸ å¾¹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
 	TextureManager();
 	/////////////////// ////////////////////
-	//// —p“r       F~TextureManager()
-	//// ƒJƒeƒSƒŠ   FƒfƒXƒgƒ‰ƒNƒ^
-	//// —p“r       FƒCƒ“ƒXƒ^ƒ“ƒX”jŠüŽžˆ—
-	//// ˆø”       F‚È‚µ
-	//// –ß’l       F‚È‚µ
-	//// ’S“–ŽÒ     FŽ°Œ´ “O
-	//// ”õl       F
-	////            F
+	//// ç”¨é€”       ï¼š~TextureManager()
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	//// ç”¨é€”       ï¼šã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ç ´æ£„æ™‚å‡¦ç†
+	//// å¼•æ•°       ï¼šãªã—
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“è€…     ï¼šé´«åŽŸ å¾¹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
 	virtual ~TextureManager();
 	/////////////////// ////////////////////
-	//// —p“r       FRelease()
-	//// ƒJƒeƒSƒŠ   FŠÖ”
-	//// —p“r       F‘SƒeƒNƒXƒ`ƒƒ[‚Ì”jŠü
-	//// ˆø”       F‚È‚µ
-	//// –ß’l       F‚È‚µ
-	//// ’S“–ŽÒ     FŽ°Œ´ “O
-	//// ”õl       F
-	////            F
+	//// ç”¨é€”       ï¼šRelease()
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šé–¢æ•°
+	//// ç”¨é€”       ï¼šå…¨ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒ¼ã®ç ´æ£„
+	//// å¼•æ•°       ï¼šãªã—
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“è€…     ï¼šé´«åŽŸ å¾¹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
 	void Release();
 	/////////////////// ////////////////////
-	//// —p“r       FLPTATRATEXTURE addTexture(LPDIRECT3DDEVICE9 pD3DDevice,
-	////            F  	const wchar_t *filepath, const wchar_t *texturename )
-	//// ƒJƒeƒSƒŠ   FŠÖ”
-	//// —p“r       FƒeƒNƒXƒ`ƒƒ[‚Ì“Ç‚Ýž‚Ý
-	//// ˆø”       F  LPDIRECT3DDEVICE9 pD3DDevice	// ƒfƒoƒCƒX
-	////            F  const wchar_t *filepath			// ƒtƒ@ƒCƒ‹ƒpƒX
-	////            F  const wchar_t *texturename		// ƒeƒNƒXƒ`ƒƒ–¼ ( ƒIƒvƒVƒ‡ƒ“ )
-	//// –ß’l       F¶¬‚³‚ê‚½ƒeƒNƒXƒ`ƒƒ‚Ü‚½‚Í“¯ˆêƒf[ƒ^‚Ìƒ|ƒCƒ“ƒ^‚ð•Ô‚· ( LPDIRECT3DTEXTURE9Œ^ )
-	//// ’S“–ŽÒ     FŽ°Œ´ “O
-	//// ”õl       F
-	////            F
+	//// ç”¨é€”       ï¼šLPTATRATEXTURE addTexture(LPDIRECT3DDEVICE9 pD3DDevice,
+	////            ï¼š  	const wchar_t *filepath, const wchar_t *texturename )
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šé–¢æ•°
+	//// ç”¨é€”       ï¼šãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒ¼ã®èª­ã¿è¾¼ã¿
+	//// å¼•æ•°       ï¼š  LPDIRECT3DDEVICE9 pD3DDevice	// ãƒ‡ãƒã‚¤ã‚¹
+	////            ï¼š  const wchar_t *filepath			// ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹
+	////            ï¼š  const wchar_t *texturename		// ãƒ†ã‚¯ã‚¹ãƒãƒ£å ( ã‚ªãƒ—ã‚·ãƒ§ãƒ³ )
+	//// æˆ»å€¤       ï¼šç”Ÿæˆã•ã‚ŒãŸãƒ†ã‚¯ã‚¹ãƒãƒ£ã¾ãŸã¯åŒä¸€ãƒ‡ãƒ¼ã‚¿ã®ãƒã‚¤ãƒ³ã‚¿ã‚’è¿”ã™ ( LPDIRECT3DTEXTURE9åž‹ )
+	//// æ‹…å½“è€…     ï¼šé´«åŽŸ å¾¹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
 	LPTATRATEXTURE addTexture(
 		LPDIRECT3DDEVICE9 pD3DDevice,
@@ -191,29 +191,29 @@ public:
 	);
 
 	/////////////////// ////////////////////
-	//// —p“r       FLPDIRECT3DTEXTURE9 addTextureEx(LPDIRECT3DDEVICE9 pD3DDevice,const wchar_t* filepath,
-	////            F  	UINT Width, UINT Height, UINT MipLevels, DWORD Usage, D3DFORMAT Format, D3DPOOL Pool, DWORD Filter,
-	////            F  	DWORD MipFilter, D3DCOLOR ColorKey, D3DXIMAGE_INFO *pSrcInfo, PALETTEENTRY *pPalette, const wchar_t* texturename )
-	//// ƒJƒeƒSƒŠ   FŠÖ”
-	//// —p“r       FƒeƒNƒXƒ`ƒƒ[‚Ì“Ç‚Ýž‚Ý
-	//// ˆø”       F  LPDIRECT3DDEVICE9 pD3DDevice	// ƒfƒoƒCƒX
-	////            F  const wchar_t *filepath			// ƒtƒ@ƒCƒ‹ƒpƒX
-	////            F  UINT Width						// ‰æ‘œ‚Ì•(0‚ÅƒIƒŠƒWƒiƒ‹)
-	////            F  UINT Height						// ‰æ‘œ‚Ì‚‚³(0‚ÅƒIƒŠƒWƒiƒ‹)
-	////            F  UINT MipLevels					// ƒ~ƒbƒvƒŒƒxƒ‹(’Êí0)
-	////            F  DWORD Usage						// ƒŒƒ“ƒ_ƒŠƒ“ƒOƒ^[ƒQƒbƒg‚ÉŽw’è‚·‚é‚Æ‚«‚Æ‚©‚ÉŽw’è(’Êí0)
-	////            F  D3DFORMAT Format				// F‚ÌƒtƒH[ƒ}ƒbƒg
-	////            F  D3DPOOL Pool					// ƒf[ƒ^‚Ì“Ç‚Ýž‚Ýæ(‚¢‚¶‚ç‚È‚­‚Ä‚¨k)
-	////            F  DWORD Filter					// ƒtƒBƒ‹ƒ^[(‚¢‚¶‚ç‚È‚­‚Ä‚¨k)
-	////            F  DWORD MipFilter					// ƒ~ƒbƒvƒtƒBƒ‹ƒ^[(‚¢‚¶‚ç‚È‚­‚Ä‚¨k)
-	////            F  D3DCOLOR ColorKey				// yƒ¿‚ ‚èzÂF‚ð“§‰ßF‚Æ‚·‚éy0‚Å–³Œøz
-	////            F  D3DXIMAGE_INFO *pSrcInfo		// yD3DXIMAGE_INFO\‘¢‘Ìz‰æ‘œƒf[ƒ^‚Ì\‘¢yƒsƒNƒZƒ‹ƒTƒCƒY‚Æ‚©z
-	////            F  PALETTEENTRY *pPalette			// ƒpƒŒƒbƒg
-	////            F  const wchar_t *texturename		// ƒeƒNƒXƒ`ƒƒ–¼(ƒIƒvƒVƒ‡ƒ“)
-	//// –ß’l       F¶¬‚³‚ê‚½ƒeƒNƒXƒ`ƒƒ‚Ü‚½‚Í“¯ˆêƒf[ƒ^‚Ìƒ|ƒCƒ“ƒ^‚ð•Ô‚· ( LPDIRECT3DTEXTURE9Œ^ )
-	//// ’S“–ŽÒ     FŽ°Œ´ “O
-	//// ”õl       F
-	////            F
+	//// ç”¨é€”       ï¼šLPDIRECT3DTEXTURE9 addTextureEx(LPDIRECT3DDEVICE9 pD3DDevice,const wchar_t* filepath,
+	////            ï¼š  	UINT Width, UINT Height, UINT MipLevels, DWORD Usage, D3DFORMAT Format, D3DPOOL Pool, DWORD Filter,
+	////            ï¼š  	DWORD MipFilter, D3DCOLOR ColorKey, D3DXIMAGE_INFO *pSrcInfo, PALETTEENTRY *pPalette, const wchar_t* texturename )
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šé–¢æ•°
+	//// ç”¨é€”       ï¼šãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒ¼ã®èª­ã¿è¾¼ã¿
+	//// å¼•æ•°       ï¼š  LPDIRECT3DDEVICE9 pD3DDevice	// ãƒ‡ãƒã‚¤ã‚¹
+	////            ï¼š  const wchar_t *filepath			// ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹
+	////            ï¼š  UINT Width						// ç”»åƒã®å¹…(0ã§ã‚ªãƒªã‚¸ãƒŠãƒ«)
+	////            ï¼š  UINT Height						// ç”»åƒã®é«˜ã•(0ã§ã‚ªãƒªã‚¸ãƒŠãƒ«)
+	////            ï¼š  UINT MipLevels					// ãƒŸãƒƒãƒ—ãƒ¬ãƒ™ãƒ«(é€šå¸¸0)
+	////            ï¼š  DWORD Usage						// ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã«æŒ‡å®šã™ã‚‹ã¨ãã¨ã‹ã«æŒ‡å®š(é€šå¸¸0)
+	////            ï¼š  D3DFORMAT Format				// è‰²ã®ãƒ•ã‚©ãƒ¼ãƒžãƒƒãƒˆ
+	////            ï¼š  D3DPOOL Pool					// ãƒ‡ãƒ¼ã‚¿ã®èª­ã¿è¾¼ã¿å…ˆ(ã„ã˜ã‚‰ãªãã¦ãŠk)
+	////            ï¼š  DWORD Filter					// ãƒ•ã‚£ãƒ«ã‚¿ãƒ¼(ã„ã˜ã‚‰ãªãã¦ãŠk)
+	////            ï¼š  DWORD MipFilter					// ãƒŸãƒƒãƒ—ãƒ•ã‚£ãƒ«ã‚¿ãƒ¼(ã„ã˜ã‚‰ãªãã¦ãŠk)
+	////            ï¼š  D3DCOLOR ColorKey				// ã€Î±ã‚ã‚Šã€‘é’è‰²ã‚’é€éŽè‰²ã¨ã™ã‚‹ã€0ã§ç„¡åŠ¹ã€‘
+	////            ï¼š  D3DXIMAGE_INFO *pSrcInfo		// ã€D3DXIMAGE_INFOæ§‹é€ ä½“ã€‘ç”»åƒãƒ‡ãƒ¼ã‚¿ã®æ§‹é€ ã€ãƒ”ã‚¯ã‚»ãƒ«ã‚µã‚¤ã‚ºã¨ã‹ã€‘
+	////            ï¼š  PALETTEENTRY *pPalette			// ãƒ‘ãƒ¬ãƒƒãƒˆ
+	////            ï¼š  const wchar_t *texturename		// ãƒ†ã‚¯ã‚¹ãƒãƒ£å(ã‚ªãƒ—ã‚·ãƒ§ãƒ³)
+	//// æˆ»å€¤       ï¼šç”Ÿæˆã•ã‚ŒãŸãƒ†ã‚¯ã‚¹ãƒãƒ£ã¾ãŸã¯åŒä¸€ãƒ‡ãƒ¼ã‚¿ã®ãƒã‚¤ãƒ³ã‚¿ã‚’è¿”ã™ ( LPDIRECT3DTEXTURE9åž‹ )
+	//// æ‹…å½“è€…     ï¼šé´«åŽŸ å¾¹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
 	LPTATRATEXTURE addTextureEx(
 		LPDIRECT3DDEVICE9	pD3DDevice			,
@@ -233,20 +233,20 @@ public:
 	);
 
 	/////////////////// ////////////////////
-	//// —p“r       FLPDIRECT3DTEXTURE9 addTextureExLight(LPDIRECT3DDEVICE9 pD3DDevice,const wchar_t* filepath,
-	////            F  	DWORD Usage, D3DFORMAT Format, D3DCOLOR ColorKey,  const wchar_t* texturename )
-	//// ƒJƒeƒSƒŠ   FŠÖ”
-	//// —p“r       FƒeƒNƒXƒ`ƒƒ[‚Ì“Ç‚Ýž‚Ý
-	//// ˆø”       F  LPDIRECT3DDEVICE9 pD3DDevice	// ƒfƒoƒCƒX
-	////            F  const wchar_t *filepath			// ƒtƒ@ƒCƒ‹ƒpƒX
-	////            F  DWORD Usage						// ƒŒƒ“ƒ_ƒŠƒ“ƒOƒ^[ƒQƒbƒg‚ÉŽw’è‚·‚é‚Æ‚«‚Æ‚©‚ÉŽw’è(’Êí0)
-	////            F  D3DFORMAT Format				// F‚ÌƒtƒH[ƒ}ƒbƒg
-	////            F  D3DCOLOR ColorKey				// yƒ¿‚ ‚èzÂF‚ð“§‰ßF‚Æ‚·‚éy0‚Å–³Œøz
-	////            F  const wchar_t *texturename		// ƒeƒNƒXƒ`ƒƒ–¼(ƒIƒvƒVƒ‡ƒ“)
-	//// –ß’l       F¶¬‚³‚ê‚½ƒeƒNƒXƒ`ƒƒ‚Ü‚½‚Í“¯ˆêƒf[ƒ^‚Ìƒ|ƒCƒ“ƒ^‚ð•Ô‚· ( LPDIRECT3DTEXTURE9Œ^ )
-	//// ’S“–ŽÒ     FŽ°Œ´ “O
-	//// ”õl       F
-	////            F
+	//// ç”¨é€”       ï¼šLPDIRECT3DTEXTURE9 addTextureExLight(LPDIRECT3DDEVICE9 pD3DDevice,const wchar_t* filepath,
+	////            ï¼š  	DWORD Usage, D3DFORMAT Format, D3DCOLOR ColorKey,  const wchar_t* texturename )
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šé–¢æ•°
+	//// ç”¨é€”       ï¼šãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒ¼ã®èª­ã¿è¾¼ã¿
+	//// å¼•æ•°       ï¼š  LPDIRECT3DDEVICE9 pD3DDevice	// ãƒ‡ãƒã‚¤ã‚¹
+	////            ï¼š  const wchar_t *filepath			// ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹
+	////            ï¼š  DWORD Usage						// ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã«æŒ‡å®šã™ã‚‹ã¨ãã¨ã‹ã«æŒ‡å®š(é€šå¸¸0)
+	////            ï¼š  D3DFORMAT Format				// è‰²ã®ãƒ•ã‚©ãƒ¼ãƒžãƒƒãƒˆ
+	////            ï¼š  D3DCOLOR ColorKey				// ã€Î±ã‚ã‚Šã€‘é’è‰²ã‚’é€éŽè‰²ã¨ã™ã‚‹ã€0ã§ç„¡åŠ¹ã€‘
+	////            ï¼š  const wchar_t *texturename		// ãƒ†ã‚¯ã‚¹ãƒãƒ£å(ã‚ªãƒ—ã‚·ãƒ§ãƒ³)
+	//// æˆ»å€¤       ï¼šç”Ÿæˆã•ã‚ŒãŸãƒ†ã‚¯ã‚¹ãƒãƒ£ã¾ãŸã¯åŒä¸€ãƒ‡ãƒ¼ã‚¿ã®ãƒã‚¤ãƒ³ã‚¿ã‚’è¿”ã™ ( LPDIRECT3DTEXTURE9åž‹ )
+	//// æ‹…å½“è€…     ï¼šé´«åŽŸ å¾¹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
 	LPTATRATEXTURE addTextureExLight(
 		LPDIRECT3DDEVICE9	pD3DDevice	,
@@ -258,30 +258,30 @@ public:
 	);
 
 	/////////////////// ////////////////////
-	//// —p“r       FLPDIRECT3DTEXTURE9 TextureSearchFromName(const wchar_t* filename)
-	//// ƒJƒeƒSƒŠ   FŠÖ”
-	//// —p“r       FƒeƒNƒXƒ`ƒƒ–¼‚©‚ç“Ç‚Ýž‚ÝÏ‚Ý‚ÌƒeƒNƒXƒ`ƒƒ[‚ðŒŸõ
-	//// ˆø”       F  const wchar_t* filename		// ŒŸõ‚·‚éƒtƒ@ƒCƒ‹–¼
-	//// –ß’l       F”­Œ©‚µ‚½ƒeƒNƒXƒ`ƒƒ‚Ìƒ|ƒCƒ“ƒ^‚ð•Ô‚· ( LPDIRECT3DTEXTURE9Œ^ )
-	//// ’S“–ŽÒ     FŽ°Œ´ “O
-	//// ”õl       F
-	////            F
+	//// ç”¨é€”       ï¼šLPDIRECT3DTEXTURE9 TextureSearchFromName(const wchar_t* filename)
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šé–¢æ•°
+	//// ç”¨é€”       ï¼šãƒ†ã‚¯ã‚¹ãƒãƒ£åã‹ã‚‰èª­ã¿è¾¼ã¿æ¸ˆã¿ã®ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒ¼ã‚’æ¤œç´¢
+	//// å¼•æ•°       ï¼š  const wchar_t* filename		// æ¤œç´¢ã™ã‚‹ãƒ•ã‚¡ã‚¤ãƒ«å
+	//// æˆ»å€¤       ï¼šç™ºè¦‹ã—ãŸãƒ†ã‚¯ã‚¹ãƒãƒ£ã®ãƒã‚¤ãƒ³ã‚¿ã‚’è¿”ã™ ( LPDIRECT3DTEXTURE9åž‹ )
+	//// æ‹…å½“è€…     ï¼šé´«åŽŸ å¾¹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
 	//LPTATRATEXTURE TextureSearchFromName(const wchar_t* filename) ;
 	/////////////////// ////////////////////
-	//// —p“r       FLPDIRECT3DTEXTURE9 TextureSearchFromFilePath(const wchar_t* path)
-	//// ƒJƒeƒSƒŠ   FŠÖ”
-	//// —p“r       Fƒtƒ@ƒCƒ‹ƒpƒX‚©‚ç“Ç‚Ýž‚ÝÏ‚Ý‚ÌƒeƒNƒXƒ`ƒƒ[‚ðŒŸõ
-	//// ˆø”       F  const wchar_t* path		// ŒŸõ‚·‚éƒtƒ@ƒCƒ‹–¼
-	//// –ß’l       F”­Œ©‚µ‚½ƒeƒNƒXƒ`ƒƒ‚Ìƒ|ƒCƒ“ƒ^‚ð•Ô‚· ( LPDIRECT3DTEXTURE9Œ^ )
-	//// ’S“–ŽÒ     FŽ°Œ´ “O
-	//// ”õl       F
-	////            F
+	//// ç”¨é€”       ï¼šLPDIRECT3DTEXTURE9 TextureSearchFromFilePath(const wchar_t* path)
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šé–¢æ•°
+	//// ç”¨é€”       ï¼šãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹ã‹ã‚‰èª­ã¿è¾¼ã¿æ¸ˆã¿ã®ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒ¼ã‚’æ¤œç´¢
+	//// å¼•æ•°       ï¼š  const wchar_t* path		// æ¤œç´¢ã™ã‚‹ãƒ•ã‚¡ã‚¤ãƒ«å
+	//// æˆ»å€¤       ï¼šç™ºè¦‹ã—ãŸãƒ†ã‚¯ã‚¹ãƒãƒ£ã®ãƒã‚¤ãƒ³ã‚¿ã‚’è¿”ã™ ( LPDIRECT3DTEXTURE9åž‹ )
+	//// æ‹…å½“è€…     ï¼šé´«åŽŸ å¾¹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
 	LPTATRATEXTURE TextureSearchFromFilePath(const wchar_t* path) ;
 
 
-};//yENDzTextureManager
+};//ã€ENDã€‘TextureManager
 
 
 }

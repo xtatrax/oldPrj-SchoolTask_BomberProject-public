@@ -1,11 +1,11 @@
 ////////////////////////////// //////////////////////////////
-//	ƒvƒƒWƒFƒNƒg	FStick Figures
-//	ƒtƒ@ƒCƒ‹–¼		FScript.cpp
-//	ŠJ”­ŠÂ‹«		FMSVC++ 2008
-//	Å“Kƒ^ƒu”		F4
-//	’S“–Ò			Ftatra
-//	“à•ïÃŞ°À‚Æ”õl	F
-//					¥
+//	ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆ	ï¼šStick Figures
+//	ãƒ•ã‚¡ã‚¤ãƒ«å		ï¼šScript.cpp
+//	é–‹ç™ºç’°å¢ƒ		ï¼šMSVC++ 2008
+//	æœ€é©ã‚¿ãƒ–æ•°		ï¼š4
+//	æ‹…å½“è€…			ï¼štatra
+//	å†…åŒ…ãƒ‡ãƒ¼ã‚¿ã¨å‚™è€ƒ	ï¼š
+//					â–¼
 //	namespace wiz;
 //		class MapLoader
 //
@@ -19,17 +19,17 @@
 namespace wiz{
 class MapLoader
 {
-	//	: –½—ß‚Ìí—Ş
+	//	: å‘½ä»¤ã®ç¨®é¡
 	enum InsType{
 		INSTTYPE_END,
-		INSTTYPE_SETVARIABLE,	//	: •Ï”éŒ¾
-		INSTTYPE_VARIABLE,		//	: •Ï”
+		INSTTYPE_SETVARIABLE,	//	: å¤‰æ•°å®£è¨€
+		INSTTYPE_VARIABLE,		//	: å¤‰æ•°
 	};
-	//	: •Ï”‚Ìí—Ş
+	//	: å¤‰æ•°ã®ç¨®é¡
 	enum VariableType{
 		VARIABLETYPE_GROUNDMODEL ,
 	};
-	//	: ”z’uƒf[ƒ^
+	//	: é…ç½®ãƒ‡ãƒ¼ã‚¿
 	struct ObjState{
 		D3DXVECTOR3 Scale;
 		D3DXVECTOR3	Pos;
@@ -37,10 +37,10 @@ class MapLoader
 			Scale = g_vZero;
 		}
 	};
-	//	: •Ï”‚ÌƒXƒe[ƒ^ƒX
+	//	: å¤‰æ•°ã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹
 	struct VarState{
-		VariableType		Type;		//	: •Ï”‚ÌŒ^
-		string				VarName;	//	: •Ï”‚Ì’l
+		VariableType		Type;		//	: å¤‰æ•°ã®å‹
+		string				VarName;	//	: å¤‰æ•°ã®å€¤
 		VarState(VariableType type,string var)
 		:Type(type),VarName(var){};
 		~VarState(){}
@@ -48,9 +48,9 @@ class MapLoader
 	};
 
 
-	map<string , InsType> InstructionList;	//	: –½—ßƒŠƒXƒg
-	map<string , VarState*> VariableList;	//	: •Ï”ƒŠƒXƒg
-	vector<char*>		m_ErrorStringList;	//	: ƒGƒ‰[‚Ì•\‹L•¶šƒŠƒXƒg
+	map<string , InsType> InstructionList;	//	: å‘½ä»¤ãƒªã‚¹ãƒˆ
+	map<string , VarState*> VariableList;	//	: å¤‰æ•°ãƒªã‚¹ãƒˆ
+	vector<char*>		m_ErrorStringList;	//	: ã‚¨ãƒ©ãƒ¼æ™‚ã®è¡¨è¨˜æ–‡å­—ãƒªã‚¹ãƒˆ
 
 	enum ERRORenum{
 		ERROR_READ_UNKNOWN_EOF    ,

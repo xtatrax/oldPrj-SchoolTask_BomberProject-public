@@ -1,11 +1,11 @@
 ////////////////////////////// //////////////////////////////
-//	ƒvƒƒWƒFƒNƒg	FBomberProject
-//	ƒtƒ@ƒCƒ‹–¼		FStage_Pray.h
-//	ŠJ”­ŠÂ‹«		FMSVC++ 2008
-//	Å“Kƒ^ƒu”		F4
-//	’S“–Ò			F°Œ´ “O
-//	“à•ïÃŞ°À‚Æ”õl	FƒvƒŒƒCƒXƒe[ƒW
-//					¥
+//	ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆ	ï¼šBomberProject
+//	ãƒ•ã‚¡ã‚¤ãƒ«å		ï¼šStage_Pray.h
+//	é–‹ç™ºç’°å¢ƒ		ï¼šMSVC++ 2008
+//	æœ€é©ã‚¿ãƒ–æ•°		ï¼š4
+//	æ‹…å½“è€…			ï¼šé´«åŸ å¾¹
+//	å†…åŒ…ãƒ‡ãƒ¼ã‚¿ã¨å‚™è€ƒ	ï¼šãƒ—ãƒ¬ã‚¤ã‚¹ãƒ†ãƒ¼ã‚¸
+//					â–¼
 //	namespace wiz;
 //		class PlayStage : public Stage ;
 //
@@ -24,16 +24,16 @@ using namespace bomberobject;
 
 
 /**************************************************************************
- PlayStage ’è‹`•”
+ PlayStage å®šç¾©éƒ¨
 ****************************************************************************/
 /**************************************************************************
  PlayStage(
-	LPDIRECT3DDEVICE9 pD3DDevice,		//ƒfƒoƒCƒX
-	const Script::MLPHeader& Header,	//	: ƒvƒŒƒC‚·‚éŠy‹È‚Ìƒwƒbƒ_[ƒf[ƒ^
-	const Script::SCORELEVEL Level		//	: ƒvƒŒƒC‚·‚éƒŒƒxƒ‹í•Ê
+	LPDIRECT3DDEVICE9 pD3DDevice,		//ãƒ‡ãƒã‚¤ã‚¹
+	const Script::MLPHeader& Header,	//	: ãƒ—ãƒ¬ã‚¤ã™ã‚‹æ¥½æ›²ã®ãƒ˜ãƒƒãƒ€ãƒ¼ãƒ‡ãƒ¼ã‚¿
+	const Script::SCORELEVEL Level		//	: ãƒ—ãƒ¬ã‚¤ã™ã‚‹ãƒ¬ãƒ™ãƒ«ç¨®åˆ¥
  );
- —p“r: ƒRƒ“ƒXƒgƒ‰ƒNƒ^
- –ß‚è’l: ‚È‚µi¸”s‚Í—áŠO‚ğthrowj
+ ç”¨é€”: ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+ æˆ»ã‚Šå€¤: ãªã—ï¼ˆå¤±æ•—æ™‚ã¯ä¾‹å¤–ã‚’throwï¼‰
 ***************************************************************************/
 PlayStage::PlayStage( LPDIRECT3DDEVICE9 pD3DDevice, DWORD dwStageNum, DWORD dwResumptionCheckPoint, D3DXVECTOR3 vStartPos, Stage* pStage )
 	:Stage(pStage)
@@ -46,7 +46,7 @@ PlayStage::PlayStage( LPDIRECT3DDEVICE9 pD3DDevice, DWORD dwStageNum, DWORD dwRe
 		//Debugger::DBGWRITINGLOGTEXT::addStr(L"//-----------------------------------------------------------------------------------------------------//\n");
 		//Debugger::DBGWRITINGLOGTEXT::addStr(L"//-----------------------------------------------------------------------------------------------------//\n");
 		//Debugger::DBGWRITINGLOGTEXT::addStr(L"//-----------------------------------------------------------------------------------------------------//\n");
-		//Debugger::DBGWRITINGLOGTEXT::addStr(L"// PlayStage \’zŠJn\n");
+		//Debugger::DBGWRITINGLOGTEXT::addStr(L"// PlayStage æ§‹ç¯‰é–‹å§‹\n");
 		//Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
 		//Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
 		//Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
@@ -61,7 +61,7 @@ PlayStage::PlayStage( LPDIRECT3DDEVICE9 pD3DDevice, DWORD dwStageNum, DWORD dwRe
 		//Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
 		//Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
 		//Debugger::DBGWRITINGLOGTEXT::addStr(L"//\n");
-		//Debugger::DBGWRITINGLOGTEXT::addStr(L"// PlayStage \’zŠ®—¹\n");
+		//Debugger::DBGWRITINGLOGTEXT::addStr(L"// PlayStage æ§‹ç¯‰å®Œäº†\n");
 		//Debugger::DBGWRITINGLOGTEXT::addStr(L"//-----------------------------------------------------------------------------------------------------//\n");
 		//Debugger::DBGWRITINGLOGTEXT::addStr(L"//-----------------------------------------------------------------------------------------------------//\n");
 		//Debugger::DBGWRITINGLOGTEXT::addStr(L"//-----------------------------------------------------------------------------------------------------//\n");
@@ -73,24 +73,24 @@ PlayStage::PlayStage( LPDIRECT3DDEVICE9 pD3DDevice, DWORD dwStageNum, DWORD dwRe
 	catch(LoaderException& e){
 		throw LoaderException(
 				e.what_w(),
-				L"ªPlayStage::PlayStage()"
+				L"â†‘PlayStage::PlayStage()"
 				);
 	}
 	catch(exception& e){
 		Clear();
-		//ÄƒXƒ[
+		//å†ã‚¹ãƒ­ãƒ¼
 		throw e;
 	}
 	catch(...){
 		Clear();
-		//ÄƒXƒ[
+		//å†ã‚¹ãƒ­ãƒ¼
 		throw;
 	}
 }
 /**************************************************************************
 PlayStage();
- —p“r: ƒfƒXƒgƒ‰ƒNƒ^
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
 PlayStage::~PlayStage(){
 	//Debugger::DBGWRITINGLOGTEXT::addStr(L"////////////////////////////////////////////////////////\n");
@@ -122,26 +122,26 @@ PlayStage::~PlayStage(){
 	//Debugger::DBGWRITINGLOGTEXT::addStr(L"PlayStage::~PlayStage %X\n",this);
 }
 /////////////////// ////////////////////
-//// —p“r       Fvirtual void Update( UpdatePacket& i_UpdatePacket )
-//// ƒJƒeƒSƒŠ   FŠÖ”
-//// —p“r       FƒXƒe[ƒW‚ğXV
-//// ˆø”       F  UpdatePacket& i_UpdatePacket     // ƒAƒbƒvƒf[ƒg‚É•K—v‚Èƒf[ƒ^ŒQ «“à—e‰º‹L
-////            F  „¥       LPDIRECT3DDEVICE9  pD3DDevice      // IDirect3DDevice9 ƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-////            F  „¥       Tempus2*           pTime           // ŠÔ‚ğŠÇ—‚·‚éƒNƒ‰ƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^[
-////            F  „¥       vector<Object*>&   Vec,            // ƒIƒuƒWƒFƒNƒg‚Ì”z—ñ
-////            F  „¥ const CONTROLER_STATE*   pCntlState      // ƒRƒ“ƒgƒ[ƒ‰‚ÌƒXƒe[ƒ^ƒX
-////            F  „¤       Command            pCommand        // ƒRƒ}ƒ“ƒh
-//// –ß’l       F‚È‚µ
-//// ’S“–Ò     F°Œ´ “O
-//// ”õl       F
-////            F
+//// ç”¨é€”       ï¼švirtual void Update( UpdatePacket& i_UpdatePacket )
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šé–¢æ•°
+//// ç”¨é€”       ï¼šã‚¹ãƒ†ãƒ¼ã‚¸ã‚’æ›´æ–°
+//// å¼•æ•°       ï¼š  UpdatePacket& i_UpdatePacket     // ã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆæ™‚ã«å¿…è¦ãªãƒ‡ãƒ¼ã‚¿ç¾¤ â†“å†…å®¹ä¸‹è¨˜
+////            ï¼š  â”œ       LPDIRECT3DDEVICE9  pD3DDevice      // IDirect3DDevice9 ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+////            ï¼š  â”œ       Tempus2*           pTime           // æ™‚é–“ã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿ãƒ¼
+////            ï¼š  â”œ       vector<Object*>&   Vec,            // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®é…åˆ—
+////            ï¼š  â”œ const CONTROLER_STATE*   pCntlState      // ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹
+////            ï¼š  â””       Command            pCommand        // ã‚³ãƒãƒ³ãƒ‰
+//// æˆ»å€¤       ï¼šãªã—
+//// æ‹…å½“è€…     ï¼šé´«åŸ å¾¹
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
 void PlayStage::Update(UpdatePacket& i_UpdatePacket){
 #if defined( ON_DEBUGGINGPROCESS ) | defined( PRESENTATION )
 
-	//	:  ƒGƒ“ƒ^[‚ÅÄƒXƒ^[ƒg
+	//	:  ã‚¨ãƒ³ã‚¿ãƒ¼ã§å†ã‚¹ã‚¿ãƒ¼ãƒˆ
 	if( GetAsyncKeyState( MYVK_DEBUG_STAGE_RESTART )  ){
-		//	:  Alt+ENTER‚ÅÄ“Ç‚İ‚İ
+		//	:  Alt+ENTERã§å†èª­ã¿è¾¼ã¿
 		if( GetAsyncKeyState( MYVK_DEBUG_STAGE_RELOAD_SUBKEY ) ){
 			PlayerCoil* pc = (PlayerCoil*)i_UpdatePacket.SearchObjectFromID( OBJID_3D_COIL );
 			i_UpdatePacket.PushCommand(Command( GM_OPENDEBUGSTAGE_PLAY_RELOAD, (DWORD)pc ));

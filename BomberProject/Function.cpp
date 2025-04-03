@@ -1,11 +1,11 @@
 ////////////////////////////// //////////////////////////////
-//	ƒvƒƒWƒFƒNƒg	FDirectX Program Bass Project
-//	ƒtƒ@ƒCƒ‹–¼		FDxDevice.cpp
-//	ŠJ”­ŠÂ‹«		FMSVC++ 2008
-//	Å“Kƒ^ƒu”		F4
-//	’S“–ŽÒ			FŽ°Œ´ “O
-//	“à•ïÃÞ°À‚Æ”õl	FFunction.h“à’è‹`‚Ìˆê•”ƒf[ƒ^‚ÌŽÀ‘Ì‚ð’è‹`
-//					¥
+//	ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆ	ï¼šDirectX Program Bass Project
+//	ãƒ•ã‚¡ã‚¤ãƒ«å		ï¼šDxDevice.cpp
+//	é–‹ç™ºç’°å¢ƒ		ï¼šMSVC++ 2008
+//	æœ€é©ã‚¿ãƒ–æ•°		ï¼š4
+//	æ‹…å½“è€…			ï¼šé´«åŽŸ å¾¹
+//	å†…åŒ…ãƒ‡ãƒ¼ã‚¿ã¨å‚™è€ƒ	ï¼šFunction.hå†…å®šç¾©ã®ä¸€éƒ¨ãƒ‡ãƒ¼ã‚¿ã®å®Ÿä½“ã‚’å®šç¾©
+//					â–¼
 //	namespace wiz;
 //		class BaseException : public exception ;
 //		template<typename T> inline void SafeDelete(T*& p)    ;

@@ -1,12 +1,12 @@
 ////////////////////////////// //////////////////////////////
-//	ƒvƒƒWƒFƒNƒg	FBomberProject
-//	ƒtƒ@ƒCƒ‹–¼		FFactory_Enemy.cpp
-//	ŠJ”­ŠÂ‹«		FMSVC++ 2008
-//	Å“Kƒ^ƒu”		F4
-//	’S“–Ò			FÖ“¡@ŒªŒá
-//	ˆø‚«Œp‚¬		F–{‘½Š°”V
-//	“à•ïÃŞ°À‚Æ”õl	FƒƒCƒ“ƒtƒ@ƒNƒgƒŠ[
-//					¥
+//	ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆ	ï¼šBomberProject
+//	ãƒ•ã‚¡ã‚¤ãƒ«å		ï¼šFactory_Enemy.cpp
+//	é–‹ç™ºç’°å¢ƒ		ï¼šMSVC++ 2008
+//	æœ€é©ã‚¿ãƒ–æ•°		ï¼š4
+//	æ‹…å½“è€…			ï¼šæ–è—¤ã€€è¬™å¾
+//	å¼•ãç¶™ã		ï¼šæœ¬å¤šå¯›ä¹‹
+//	å†…åŒ…ãƒ‡ãƒ¼ã‚¿ã¨å‚™è€ƒ	ï¼šãƒ¡ã‚¤ãƒ³ãƒ•ã‚¡ã‚¯ãƒˆãƒªãƒ¼
+//					â–¼
 //	namespace wiz;
 //		class Factory_Enemy ;
 //
@@ -22,27 +22,27 @@ namespace bomberobject{
 
 
 /**************************************************************************
- EnemyModel ’è‹`•”
+ EnemyModel å®šç¾©éƒ¨
 ***************************************************************************/
 /////////////////// ////////////////////
-//// ŠÖ”–¼     FEnemyModel::EnemyModel(LPDIRECT3DDEVICE9 pD3DDevice,D3DCOLORVALUE& Diffuse,
-////            F  D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,LPTATRATEXTURE pTexture = 0);
-//// ƒJƒeƒSƒŠ   FƒRƒ“ƒXƒgƒ‰ƒNƒ^
-//// —p“r       F‹…‘Ì‚ğì¬
-//// ˆø”       F  LPDIRECT3DDEVICE9 pD3DDevice,   ////IDirect3DDevice9ƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-////            F  D3DCOLORVALUE& Diffuse,         //ƒfƒBƒtƒ…[ƒYF
-////            F  D3DCOLORVALUE& Specular,            //ƒXƒyƒLƒ…ƒ‰F
-////            F  D3DCOLORVALUE& Ambient,          //ƒAƒ“ƒrƒGƒ“ƒgF
-////            F  LPTATRATEXTURE pTexture = 0	//ƒeƒNƒXƒ`ƒƒ‚ğ’£‚é‚Æ‚«‚Íw’è
-//// –ß’l       F‚È‚µi¸”s‚Í—áŠO‚ğthrowj
-//// ’S“–Ò     F (Rƒmˆäæ¶‚Ì‚Ğ‚ÈŒ`‚æ‚è)
-//// ”õl       F
-////            F
+//// é–¢æ•°å     ï¼šEnemyModel::EnemyModel(LPDIRECT3DDEVICE9 pD3DDevice,D3DCOLORVALUE& Diffuse,
+////            ï¼š  D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient,LPTATRATEXTURE pTexture = 0);
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+//// ç”¨é€”       ï¼šçƒä½“ã‚’ä½œæˆ
+//// å¼•æ•°       ï¼š  LPDIRECT3DDEVICE9 pD3DDevice,   ////IDirect3DDevice9ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+////            ï¼š  D3DCOLORVALUE& Diffuse,         //ãƒ‡ã‚£ãƒ•ãƒ¥ãƒ¼ã‚ºè‰²
+////            ï¼š  D3DCOLORVALUE& Specular,            //ã‚¹ãƒšã‚­ãƒ¥ãƒ©è‰²
+////            ï¼š  D3DCOLORVALUE& Ambient,          //ã‚¢ãƒ³ãƒ“ã‚¨ãƒ³ãƒˆè‰²
+////            ï¼š  LPTATRATEXTURE pTexture = 0	//ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’å¼µã‚‹ã¨ãã¯æŒ‡å®š
+//// æˆ»å€¤       ï¼šãªã—ï¼ˆå¤±æ•—æ™‚ã¯ä¾‹å¤–ã‚’throwï¼‰
+//// æ‹…å½“è€…     ï¼š (å±±ãƒäº•å…ˆç”Ÿã®ã²ãªå½¢ã‚ˆã‚Š)
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
 
-//CPP‚Å‚ÌƒRƒ“ƒXƒgƒ‰ƒNƒ^‚Ì‘‚«•ûB
+//CPPã§ã®ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ã®æ›¸ãæ–¹ã€‚
 EnemyModel::EnemyModel(  BassPacket& Packet,const char *pFileName ,const wiz::OBJID id)
-//Œp³Œ³‚ğ‚±‚ñ‚ÈŠ´‚¶‚Å‘‚­BŒ^‚Í•Ï”‚¾‚¯B
+//ç¶™æ‰¿å…ƒã‚’ã“ã‚“ãªæ„Ÿã˜ã§æ›¸ãã€‚å‹ã¯å¤‰æ•°ã ã‘ã€‚
 //:SimpleCommonMesh(g_vZero,g_vZero,COLOR2D3DCOLORVALUE(-1),COLOR2D3DCOLORVALUE(-1),COLOR2D3DCOLORVALUE(-1),id )
 :Object(id)
 ,m_pCamera( NULL )
@@ -52,7 +52,7 @@ EnemyModel::EnemyModel(  BassPacket& Packet,const char *pFileName ,const wiz::OB
 ,m_bReset( false )
 {
 	try{
-		// Xƒtƒ@ƒCƒ‹‚©‚çƒƒbƒVƒ…‚ğƒ[ƒh‚·‚é 
+		// Xãƒ•ã‚¡ã‚¤ãƒ«ã‹ã‚‰ãƒ¡ãƒƒã‚·ãƒ¥ã‚’ãƒ­ãƒ¼ãƒ‰ã™ã‚‹ 
 		//LPD3DXBUFFER pD3DXMtrlBuffer = NULL;
 		//DWORD dwMQty;
 		LPDIRECT3DDEVICE9 pDevice = Packet.GetDevice();
@@ -67,8 +67,8 @@ EnemyModel::EnemyModel(  BassPacket& Packet,const char *pFileName ,const wiz::OB
 			string	 buf1 = pFileName ;
 			wstring  buf2 ;
 			TLIB::widen(buf1,buf2);
-			wstring msg  = wstring(L"ƒ‚ƒfƒ‹ƒf[ƒ^\"") + buf2 + wstring(L"\"‚ğ“Ç‚İ‚ß‚Ü‚¹‚ñ‚Å‚µ‚½");
-			// ‰Šú‰»¸”s
+			wstring msg  = wstring(L"ãƒ¢ãƒ‡ãƒ«ãƒ‡ãƒ¼ã‚¿\"") + buf2 + wstring(L"\"ã‚’èª­ã¿è¾¼ã‚ã¾ã›ã‚“ã§ã—ãŸ");
+			// åˆæœŸåŒ–å¤±æ•—
             throw BaseException(
 				msg.c_str(),
                 L"LoadMeshFromX::LoadMeshFromX()"
@@ -76,7 +76,7 @@ EnemyModel::EnemyModel(  BassPacket& Packet,const char *pFileName ,const wiz::OB
         }
 		//
 		//////////
-		//	: ƒeƒNƒXƒ`ƒƒ–¼‚ğƒƒCƒh‰»
+		//	: ãƒ†ã‚¯ã‚¹ãƒãƒ£åã‚’ãƒ¯ã‚¤ãƒ‰åŒ–
 		//wstring wsTexName  ;
 		//wchar_t* wpTexName = NULL;
 		//if(pTexName){
@@ -101,24 +101,24 @@ EnemyModel::EnemyModel(  BassPacket& Packet,const char *pFileName ,const wiz::OB
 		//ShaderChange( new CookTrance(pD3DDevice) );
 	}
     catch(...){
-        //ƒRƒ“ƒXƒgƒ‰ƒNƒ^—áŠO”­¶
-        //Œãn––
+        //ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ä¾‹å¤–ç™ºç”Ÿ
+        //å¾Œå§‹æœ«
         SafeRelease(m_pMesh);
-        //ÄƒXƒ[
+        //å†ã‚¹ãƒ­ãƒ¼
         throw;
     }
 
 }
 
 /////////////////// ////////////////////
-//// ŠÖ”–¼     FEnemyModel::~EnemyModel();
-//// ƒJƒeƒSƒŠ   FƒfƒXƒgƒ‰ƒNƒ^
-//// —p“r       F‹…‘Ì‚ğ”jŠü
-//// ˆø”       F‚È‚µ
-//// –ß’l       F‚È‚µ
-//// ’S“–Ò     F (Rƒmˆäæ¶‚Ì‚Ğ‚ÈŒ`‚æ‚è)
-//// ”õl       F
-////            F
+//// é–¢æ•°å     ï¼šEnemyModel::~EnemyModel();
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+//// ç”¨é€”       ï¼šçƒä½“ã‚’ç ´æ£„
+//// å¼•æ•°       ï¼šãªã—
+//// æˆ»å€¤       ï¼šãªã—
+//// æ‹…å½“è€…     ï¼š (å±±ãƒäº•å…ˆç”Ÿã®ã²ãªå½¢ã‚ˆã‚Š)
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
 EnemyModel::~EnemyModel(){
 	m_pCamera	= NULL ;
@@ -135,16 +135,16 @@ EnemyModel::~EnemyModel(){
 }
 
 /////////////////// ////////////////////
-//// —p“r       FWallObject(	LPDIRECT3DDEVICE9 pD3DDevice,LPTATRATEXTURE pTexture,wiz::OBJID id = OBJID_3D_WALL);
-//// ƒJƒeƒSƒŠ   FƒRƒ“ƒXƒgƒ‰ƒNƒ^
-//// —p“r       FŠÖ”
-//// ˆø”       F‚È‚µ
-//// –ß’l       F‚È‚µ
-//// ’S“–Ò     F°Œ´ “O
-//// ”õl       F
+//// ç”¨é€”       ï¼šWallObject(	LPDIRECT3DDEVICE9 pD3DDevice,LPTATRATEXTURE pTexture,wiz::OBJID id = OBJID_3D_WALL);
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+//// ç”¨é€”       ï¼šé–¢æ•°
+//// å¼•æ•°       ï¼šãªã—
+//// æˆ»å€¤       ï¼šãªã—
+//// æ‹…å½“è€…     ï¼šé´«åŸ å¾¹
+//// å‚™è€ƒ       ï¼š
 void EnemyModel::UpdateTargetItem(){
 	//////////
-	//	‘ÎÛŠO‚Ìíœ
+	//	å¯¾è±¡å¤–ã®å‰Šé™¤
 	//
 	TARGETCONTAINER::iterator	TIMit  = m_ItemMap_Target.begin( ),
 								TIMend = m_ItemMap_Target.end( );
@@ -172,7 +172,7 @@ void EnemyModel::UpdateTargetItem(){
 	m_bReset = false;
 	
 	//////////
-	//	•`‰æ‘ÎÛ‚Ì’Ç‰Á
+	//	æç”»å¯¾è±¡ã®è¿½åŠ 
 	//
 	ALLCONTAINER::iterator	AIMit  = m_ItemMap_All.lower_bound( m_pCamera->getPosY()  -DRAWING_RANGE ),
 							AIMend = m_ItemMap_All.upper_bound( m_pCamera->getPosY()  +DRAWING_RANGE );
@@ -191,20 +191,20 @@ void EnemyModel::UpdateTargetItem(){
 
 
 /////////////////// ////////////////////
-//// —p“r       Fvoid Update( UpdatePacket& i_UpdatePacket )
-//// ƒJƒeƒSƒŠ   FŠÖ”
-//// —p“r       FƒIƒuƒWƒFƒNƒg‚ğXV
-//// ˆø”       F  UpdatePacket& i_UpdatePacket     // ƒAƒbƒvƒf[ƒg‚É•K—v‚Èƒf[ƒ^ŒQ «“à—e‰º‹L
-////            F  „¥       LPDIRECT3DDEVICE9  pD3DDevice      // IDirect3DDevice9 ƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-////            F  „¥       Tempus2*           pTime           // ŠÔ‚ğŠÇ—‚·‚éƒNƒ‰ƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^[
-////            F  „¥       vector<Object*>&   Vec,            // ƒIƒuƒWƒFƒNƒg‚Ì”z—ñ
-////            F  „¥ const CONTROLER_STATE*   pCntlState      // ƒRƒ“ƒgƒ[ƒ‰‚ÌƒXƒe[ƒ^ƒX
-////            F  „¤       Command            pCommand        // ƒRƒ}ƒ“ƒh
-//// –ß’l       F‚È‚µ
-//// ’S“–Ò     FÖ“¡ŒªŒá
-//// ˆø‚«Œp‚¬   F–{‘½Š°”V
-//// ”õl       
-////            F
+//// ç”¨é€”       ï¼švoid Update( UpdatePacket& i_UpdatePacket )
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šé–¢æ•°
+//// ç”¨é€”       ï¼šã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’æ›´æ–°
+//// å¼•æ•°       ï¼š  UpdatePacket& i_UpdatePacket     // ã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆæ™‚ã«å¿…è¦ãªãƒ‡ãƒ¼ã‚¿ç¾¤ â†“å†…å®¹ä¸‹è¨˜
+////            ï¼š  â”œ       LPDIRECT3DDEVICE9  pD3DDevice      // IDirect3DDevice9 ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+////            ï¼š  â”œ       Tempus2*           pTime           // æ™‚é–“ã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿ãƒ¼
+////            ï¼š  â”œ       vector<Object*>&   Vec,            // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®é…åˆ—
+////            ï¼š  â”œ const CONTROLER_STATE*   pCntlState      // ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹
+////            ï¼š  â””       Command            pCommand        // ã‚³ãƒãƒ³ãƒ‰
+//// æˆ»å€¤       ï¼šãªã—
+//// æ‹…å½“è€…     ï¼šæ–è—¤è¬™å¾
+//// å¼•ãç¶™ã   ï¼šæœ¬å¤šå¯›ä¹‹
+//// å‚™è€ƒ       
+////            ï¼š
 ////
 
 void EnemyModel::Update( UpdatePacket& i_UpdatePacket){
@@ -219,9 +219,9 @@ void EnemyModel::Update( UpdatePacket& i_UpdatePacket){
 	TARGETCONTAINER::iterator end	= m_ItemMap_Target.end();
 	while(it != end){
 		if(m_pPlayer->getDrawing() && m_pCoil->getState() == COIL_STATE_MOVE){
-			//	: ©•ª‚©‚ç‘ÎÛ‚Ü‚Å‚ÌƒxƒNƒgƒ‹‚ğZo
+			//	: è‡ªåˆ†ã‹ã‚‰å¯¾è±¡ã¾ã§ã®ãƒ™ã‚¯ãƒˆãƒ«ã‚’ç®—å‡º
 			D3DXVECTOR3	vTargetDir	= m_pPlayer->getPos() - ((*it)->m_vPos) ;
-			//	: ©•ª‚Æ‘ÎÛ‚Ü‚Å‚Ì‹——£‚ğ‹‚ß‚é
+			//	: è‡ªåˆ†ã¨å¯¾è±¡ã¾ã§ã®è·é›¢ã‚’æ±‚ã‚ã‚‹
 			double dirX = vTargetDir.x * vTargetDir.x;
 			double dirY = vTargetDir.y * vTargetDir.y;
 			float  fLng	= (float)sqrt(dirX + dirY);
@@ -255,25 +255,25 @@ void EnemyModel::Update( UpdatePacket& i_UpdatePacket){
 	        m_pDeadEffect->Update( i_UpdatePacket );
 		}
 
-		//Šg‘åk¬
+		//æ‹¡å¤§ç¸®å°
 		//D3DXMATRIX mScale;
 		//D3DXMatrixIdentity(&mScale);
 		//D3DXMatrixScaling(&mScale,(*it)->m_vScale.x,(*it)->m_vScale.y,(*it)->m_vScale.z);
 
 		//(*it)->m_vRot. += D3DXToRadian( 1.0f );
 		
-		//‰ñ“]
+		//å›è»¢
 		(*it)->m_fRotY += D3DXToRadian( 31.0f );
 		D3DXMATRIX mRot;
 		D3DXMatrixIdentity(&mRot);
 		D3DXMatrixRotationY(&mRot,(*it)->m_fRotY);
 
-		//ˆÚ“®—p
+		//ç§»å‹•ç”¨
 		D3DXMATRIX mMove;
 		D3DXMatrixIdentity(&mMove);
 		D3DXMatrixTranslation(&mMove,(*it)->m_vPos.x,(*it)->m_vPos.y,(*it)->m_vPos.z);
 
-		//ƒ~ƒbƒNƒXs—ñ
+		//ãƒŸãƒƒã‚¯ã‚¹è¡Œåˆ—
 		(*it)->m_Matrix = /*mScale * */mRot * mMove;
 
 		++it;
@@ -281,16 +281,16 @@ void EnemyModel::Update( UpdatePacket& i_UpdatePacket){
 }
 
 /////////////////// ////////////////////
-//// ŠÖ”–¼     FvoidEnemyModel::Draw( LPDIRECT3DDEVICE9 pD3DDevice , vector<Object*>& Vec)
-//// ƒJƒeƒSƒŠ   F‰¼‘zŠÖ”
-//// —p“r       F‹…‘Ì‚ğ•`‰æ
-//// ˆø”       F  LPDIRECT3DDEVICE9 pD3DDevice		//IDirect3DDevice9 ƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-////            F  vector<Object*>& Vec,				//ƒIƒuƒWƒFƒNƒg‚Ì”z—ñ
-//// –ß’l       F‚È‚µ
-//// ’S“–Ò     FÖ“¡ŒªŒá
-//// ˆø‚«Œp‚¬   F–{‘½Š°”V
-//// ”õl       F
-////            F
+//// é–¢æ•°å     ï¼švoidEnemyModel::Draw( LPDIRECT3DDEVICE9 pD3DDevice , vector<Object*>& Vec)
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šä»®æƒ³é–¢æ•°
+//// ç”¨é€”       ï¼šçƒä½“ã‚’æç”»
+//// å¼•æ•°       ï¼š  LPDIRECT3DDEVICE9 pD3DDevice		//IDirect3DDevice9 ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+////            ï¼š  vector<Object*>& Vec,				//ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®é…åˆ—
+//// æˆ»å€¤       ï¼šãªã—
+//// æ‹…å½“è€…     ï¼šæ–è—¤è¬™å¾
+//// å¼•ãç¶™ã   ï¼šæœ¬å¤šå¯›ä¹‹
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
 void EnemyModel::Draw(DrawPacket& i_DrawPacket)
 {
@@ -298,23 +298,23 @@ void EnemyModel::Draw(DrawPacket& i_DrawPacket)
 	TARGETCONTAINER::iterator end	= m_ItemMap_Target.end();
 	while(it != end){
 		if((*it)->m_bIsAlive){
-			//ƒ}ƒeƒBƒŠƒAƒ‹İ’è
+			//ãƒãƒ†ã‚£ãƒªã‚¢ãƒ«è¨­å®š
 			this->m_WorldMatrix = (*it)->m_Matrix   ;	
 			this->m_Material = ((*it)->m_Material)	;
 			//((CookTrance*)this->m_pShader)->Draw(i_DrawPacket,this);
 
-			// ƒ}ƒgƒŠƒbƒNƒX‚ğƒŒƒ“ƒ_ƒŠƒ“ƒOƒpƒCƒvƒ‰ƒCƒ“‚Éİ’è
+			// ãƒãƒˆãƒªãƒƒã‚¯ã‚¹ã‚’ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³ã«è¨­å®š
 			i_DrawPacket.GetDevice()->SetTransform(D3DTS_WORLD, &m_WorldMatrix);
 
 
-			//–³Œøƒ`ƒFƒbƒN
+			//ç„¡åŠ¹ãƒã‚§ãƒƒã‚¯
 			if((!m_pMesh) || (!i_DrawPacket.GetDevice())){
-				throw BaseException(L"ƒfƒoƒCƒX‚©ƒƒbƒVƒ…‚ª–³Œø‚Å‚·B",
+				throw BaseException(L"ãƒ‡ãƒã‚¤ã‚¹ã‹ãƒ¡ãƒƒã‚·ãƒ¥ãŒç„¡åŠ¹ã§ã™ã€‚",
 				L"CommonMesh::Draw()");
 			}
 			if(m_Material.Diffuse.a < 1.0f){
-				//‚à‚µA“§–¾“x‚ª1.0–¢–‚È‚ç
-				// ƒAƒ‹ƒtƒ@‡¬‚Ìİ’è
+				//ã‚‚ã—ã€é€æ˜åº¦ãŒ1.0æœªæº€ãªã‚‰
+				// ã‚¢ãƒ«ãƒ•ã‚¡åˆæˆã®è¨­å®š
 				i_DrawPacket.GetDevice()->SetRenderState(D3DRS_ALPHABLENDENABLE, 1);
 				i_DrawPacket.GetDevice()->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
 				i_DrawPacket.GetDevice()->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
@@ -323,34 +323,34 @@ void EnemyModel::Draw(DrawPacket& i_DrawPacket)
 				|| m_Material.Specular.g > 0.0f
 				|| m_Material.Specular.b > 0.0f)
 			{
-				//‚à‚µAƒXƒyƒLƒ…ƒ‰[‚ªİ’è‚µ‚Ä‚¢‚½‚ç
-				// ƒXƒyƒLƒ…ƒ‰[—LŒø‚Ìİ’è
+				//ã‚‚ã—ã€ã‚¹ãƒšã‚­ãƒ¥ãƒ©ãƒ¼ãŒè¨­å®šã—ã¦ã„ãŸã‚‰
+				// ã‚¹ãƒšã‚­ãƒ¥ãƒ©ãƒ¼æœ‰åŠ¹ã®è¨­å®š
 				i_DrawPacket.GetDevice()->SetRenderState(D3DRS_SPECULARENABLE, 1);
 			}
 
 			//ChangeRenderStateArray(i_DrawPacket.GetDevice(),pParam);
-			// ƒ}ƒeƒŠƒAƒ‹‚ğƒŒƒ“ƒ_ƒŠƒ“ƒOƒpƒCƒvƒ‰ƒCƒ“‚Éİ’è
+			// ãƒãƒ†ãƒªã‚¢ãƒ«ã‚’ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³ã«è¨­å®š
 			i_DrawPacket.GetDevice()->SetMaterial( &m_Material);
-			//•`‰æ
+			//æç”»
 			m_pMesh->DrawSubset(0);
 			//ChangeRenderStateArray(i_DrawPacket.GetDevice(),pParam);
 			if(m_Material.Specular.r > 0.0f
 				|| m_Material.Specular.g > 0.0f
 				|| m_Material.Specular.b > 0.0f)
 			{
-				//‚à‚µAƒXƒyƒLƒ…ƒ‰[‚ªİ’è‚µ‚Ä‚¢‚½‚ç
-				// ƒXƒyƒLƒ…ƒ‰[‚ğŒ³‚É–ß‚·
+				//ã‚‚ã—ã€ã‚¹ãƒšã‚­ãƒ¥ãƒ©ãƒ¼ãŒè¨­å®šã—ã¦ã„ãŸã‚‰
+				// ã‚¹ãƒšã‚­ãƒ¥ãƒ©ãƒ¼ã‚’å…ƒã«æˆ»ã™
 				i_DrawPacket.GetDevice()->SetRenderState(D3DRS_SPECULARENABLE, 0);
 			}
 			if(m_Material.Diffuse.a < 1.0f){
-				//‚à‚µA“§–¾“x‚ª1.0–¢–‚È‚ç
-				// ƒAƒ‹ƒtƒ@‡¬‚ğŒ³‚É–ß‚·
+				//ã‚‚ã—ã€é€æ˜åº¦ãŒ1.0æœªæº€ãªã‚‰
+				// ã‚¢ãƒ«ãƒ•ã‚¡åˆæˆã‚’å…ƒã«æˆ»ã™
 				i_DrawPacket.GetDevice()->SetRenderState(D3DRS_ALPHABLENDENABLE, 0);
 			}
 		}
 
 		if( !((*it)->m_bIsAlive) )m_pDeadEffect->Draw( i_DrawPacket );
-		//”šU
+		//çˆ†æ•£
 		//if( (*it)->m_pDeadEffect[0] != NULL ){
 		//	for( int i = 0; i < PARTICLS_NUM_ENEMY; i++ ){
 		//		(*it)->m_pDeadEffect[i]->Draw( i_DrawPacket );
@@ -363,20 +363,20 @@ void EnemyModel::Draw(DrawPacket& i_DrawPacket)
 }
 
 /////////////////// ////////////////////
-//// —p“r       Fvoid AddEnemy( DrawPacket& i_DrawPacket )
-//// ƒJƒeƒSƒŠ   FŠÖ”
-//// —p“r       FEnemy‚Ì’Ç‰Á
-//// ˆø”       F  LPDIRECT3DDEVICE9 pD3DDevice,	////IDirect3DDevice9ƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-////		    F  D3DXVECTOR3 &vScale				//Šg‘åk¬
-////		    F  D3DXVECTOR3 &vRot				//‰ñ“]Šp
-////		    F  D3DXVECTOR3 &vPos				//ˆÊ’u
-////            F  D3DCOLORVALUE& Diffuse,			//ƒfƒBƒtƒ…[ƒYF
-////            F  D3DCOLORVALUE& Specular,		//ƒXƒyƒLƒ…ƒ‰F
-////            F  D3DCOLORVALUE& Ambient,			//ƒAƒ“ƒrƒGƒ“ƒgF
-//// –ß’l       F‚È‚µ
-//// ’S“–Ò     FÖ“¡ŒªŒá
-//// ˆø‚«Œp‚¬   F–{‘½Š°”V
-//// ”õl       F
+//// ç”¨é€”       ï¼švoid AddEnemy( DrawPacket& i_DrawPacket )
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šé–¢æ•°
+//// ç”¨é€”       ï¼šEnemyã®è¿½åŠ 
+//// å¼•æ•°       ï¼š  LPDIRECT3DDEVICE9 pD3DDevice,	////IDirect3DDevice9ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+////		    ï¼š  D3DXVECTOR3 &vScale				//æ‹¡å¤§ç¸®å°
+////		    ï¼š  D3DXVECTOR3 &vRot				//å›è»¢è§’
+////		    ï¼š  D3DXVECTOR3 &vPos				//ä½ç½®
+////            ï¼š  D3DCOLORVALUE& Diffuse,			//ãƒ‡ã‚£ãƒ•ãƒ¥ãƒ¼ã‚ºè‰²
+////            ï¼š  D3DCOLORVALUE& Specular,		//ã‚¹ãƒšã‚­ãƒ¥ãƒ©è‰²
+////            ï¼š  D3DCOLORVALUE& Ambient,			//ã‚¢ãƒ³ãƒ“ã‚¨ãƒ³ãƒˆè‰²
+//// æˆ»å€¤       ï¼šãªã—
+//// æ‹…å½“è€…     ï¼šæ–è—¤è¬™å¾
+//// å¼•ãç¶™ã   ï¼šæœ¬å¤šå¯›ä¹‹
+//// å‚™è€ƒ       ï¼š
 ////
 void EnemyModel::AddEnemy(
 		const D3DXVECTOR3&		vScale		,
@@ -396,11 +396,11 @@ void EnemyModel::AddEnemy(
 	pItem->m_vPos = vPos;
 	pItem->m_vStartPos = vPos;
 	pItem->m_bIsAlive = true;
-	//”šUƒGƒtƒFƒNƒg‚Ìƒ|ƒCƒ“ƒ^
+	//çˆ†æ•£ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã®ãƒã‚¤ãƒ³ã‚¿
 	//0(m_pD3DDevice,L"DeadPerticul.png",&m_pTex);
 	//for( int i = 0; i < PARTICLS_NUM_ENEMY; i++ )pItem->m_pDeadEffect[i] = NULL;
 	::ZeroMemory(&pItem->m_Material,sizeof(D3DMATERIAL9));
-	//‰ñ“]‚Ì‰Šú‰»
+	//å›è»¢ã®åˆæœŸåŒ–
 	//D3DXQuaternionRotationYawPitchRoll(&pItem->m_vRot,D3DXToRadian(vRot.y),D3DXToRadian(vRot.x),D3DXToRadian(vRot.z));
 	int	i	= rand()%10;
 	if( Pole == POLE_N ){
@@ -419,22 +419,22 @@ void EnemyModel::AddEnemy(
 }
 
 /////////////////// ////////////////////
-//// ŠÖ”–¼     Fvoid	PlayerCoil::CreateEffect( UpdatePacket& i_UpdatePacket );
-//// ƒJƒeƒSƒŠ   F
-//// —p“r       F
-//// ˆø”       F  DrawPacket& i_DrawPacket             // ‰æ–Ê•`‰æ‚É•K—v‚Èƒf[ƒ^ŒQ «“à—e‰º‹L
-////            F  „¥       LPDIRECT3DDEVICE9  pD3DDevice      // IDirect3DDevice9 ƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-////            F  „¥       Tempus2*           pTime           // ŠÔ‚ğŠÇ—‚·‚éƒNƒ‰ƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^[
-////            F  „¥       vector<Object*>&   Vec,            // ƒIƒuƒWƒFƒNƒg‚Ì”z—ñ
-////            F  „¥ const CONTROLER_STATE*   pCntlState      // ƒRƒ“ƒgƒ[ƒ‰‚ÌƒXƒe[ƒ^ƒX
-////            F  „¤       Command            pCommand        // ƒRƒ}ƒ“ƒh
-//// –ß’l       F‚È‚µ
-//// ’S“–       F²“¡—Á
-//// ”õl       F
-////            F
+//// é–¢æ•°å     ï¼švoid	PlayerCoil::CreateEffect( UpdatePacket& i_UpdatePacket );
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼š
+//// ç”¨é€”       ï¼š
+//// å¼•æ•°       ï¼š  DrawPacket& i_DrawPacket             // ç”»é¢æç”»æ™‚ã«å¿…è¦ãªãƒ‡ãƒ¼ã‚¿ç¾¤ â†“å†…å®¹ä¸‹è¨˜
+////            ï¼š  â”œ       LPDIRECT3DDEVICE9  pD3DDevice      // IDirect3DDevice9 ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+////            ï¼š  â”œ       Tempus2*           pTime           // æ™‚é–“ã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿ãƒ¼
+////            ï¼š  â”œ       vector<Object*>&   Vec,            // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®é…åˆ—
+////            ï¼š  â”œ const CONTROLER_STATE*   pCntlState      // ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹
+////            ï¼š  â””       Command            pCommand        // ã‚³ãƒãƒ³ãƒ‰
+//// æˆ»å€¤       ï¼šãªã—
+//// æ‹…å½“       ï¼šä½è—¤æ¶¼
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
 void	EnemyModel::CreateEffect( UpdatePacket& i_UpdatePacket, TARGETCONTAINER::iterator it ){
-	//”šUƒGƒtƒFƒNƒg‚Ìì¬
+	//çˆ†æ•£ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã®ä½œæˆ
 	//for( int i = 0; i < PARTICLS_NUM_ENEMY; i++ ){
 	//	(*it)->m_pDeadEffect[i]	= new DeadEffect( i_UpdatePacket.GetDevice(), (*it)->m_vPos,
 	//		float((360/PARTICLS_NUM_ENEMY) * i), m_pCoil->getDeadText() );
@@ -442,13 +442,13 @@ void	EnemyModel::CreateEffect( UpdatePacket& i_UpdatePacket, TARGETCONTAINER::it
 };
 
 /////////////////// ////////////////////
-//// —p“r       Fbool PlayerCoil::HitTestWall( OBB Obb )
-//// ƒJƒeƒSƒŠ   Fƒƒ“ƒoŠÖ”
-//// —p“r       F•Ç‚Æ‚ÌÕ“Ë”»’è
-//// ˆø”       F  OBB Obb           //  : ŒŸ¸‘ÎÛ‚ÌOBB
-//// –ß’l       FÕ“Ë‚µ‚Ä‚¢‚ê‚Îtrue
-//// ’S“–Ò     F‰g’n ‘å—m
-//// ”õl       F
+//// ç”¨é€”       ï¼šbool PlayerCoil::HitTestWall( OBB Obb )
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šãƒ¡ãƒ³ãƒé–¢æ•°
+//// ç”¨é€”       ï¼šå£ã¨ã®è¡çªåˆ¤å®š
+//// å¼•æ•°       ï¼š  OBB Obb           //  : æ¤œæŸ»å¯¾è±¡ã®OBB
+//// æˆ»å€¤       ï¼šè¡çªã—ã¦ã„ã‚Œã°true
+//// æ‹…å½“è€…     ï¼šæ›³åœ° å¤§æ´‹
+//// å‚™è€ƒ       ï¼š
 void EnemyModel::HitTestWall( OBB Obb, UpdatePacket& i_UpdatePacket ){
 	SPHERE sp;
 	TARGETCONTAINER::iterator it	= m_ItemMap_Target.begin();
@@ -456,10 +456,10 @@ void EnemyModel::HitTestWall( OBB Obb, UpdatePacket& i_UpdatePacket ){
 	while(it != end){
 		sp.m_Center = (*it)->m_vPos;
 		sp.m_Radius = ENEMY_RADIUS/2;
-		//’Êí‚ÌÕ“Ë”»’è
+		//é€šå¸¸ã®è¡çªåˆ¤å®š
 		D3DXVECTOR3 Vec ;
 		if(HitTest::SPHERE_OBB(sp,Obb,Vec)){
-			//MessageBox( NULL, L"“–‚½‚Á‚½II", L"“–‚½‚è”»’è", NULL) ;
+			//MessageBox( NULL, L"å½“ãŸã£ãŸï¼ï¼", L"å½“ãŸã‚Šåˆ¤å®š", NULL) ;
 			if( (*it)->m_bIsAlive){
     			m_pDeadEffect->setPos( (*it)->m_vPos );
 			    i_UpdatePacket.SearchWaveAndPlay( RCTEXT_SOUND_SE_PLAYERBLOKEN );
@@ -472,16 +472,16 @@ void EnemyModel::HitTestWall( OBB Obb, UpdatePacket& i_UpdatePacket ){
 }
 
 /**************************************************************************
- Factory_Enemy ’è‹`•”
+ Factory_Enemy å®šç¾©éƒ¨
 ****************************************************************************/
 /**************************************************************************
  Factory_Enemy::Factory_Enemy(
-	LPDIRECT3DDEVICE9 pD3DDevice,	//ƒfƒoƒCƒX
-	vector<Object*>& vec,			//ƒIƒuƒWƒFƒNƒg‚Ì”z—ñ
-	TextureManager& TexMgr		//ƒeƒNƒXƒ`ƒƒ‚Ì”z—ñ
+	LPDIRECT3DDEVICE9 pD3DDevice,	//ãƒ‡ãƒã‚¤ã‚¹
+	vector<Object*>& vec,			//ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®é…åˆ—
+	TextureManager& TexMgr		//ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®é…åˆ—
 );
- —p“r: ƒRƒ“ƒXƒgƒ‰ƒNƒ^iƒTƒ“ƒvƒ‹ƒIƒuƒWƒFƒNƒg‚ğ”z—ñ‚É’Ç‰Á‚·‚éj
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ï¼ˆã‚µãƒ³ãƒ—ãƒ«ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’é…åˆ—ã«è¿½åŠ ã™ã‚‹ï¼‰
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
 Factory_Enemy::Factory_Enemy(FactoryPacket* fpac){
 	try{
@@ -497,10 +497,10 @@ Factory_Enemy::Factory_Enemy(FactoryPacket* fpac){
 		//);
 		//for(int i = 0; i < 3; i++){
 		//	for(int j = 0; j < 3; j++){
-		//		Enemy->AddEnemy(D3DXVECTOR3( 1.0f, 1.0f, 1.0f ),     //ƒXƒP[ƒ‹
-		//						D3DXVECTOR3( 0.0f, 0.0f, 0.0f ),     //Šp“x
+		//		Enemy->AddEnemy(D3DXVECTOR3( 1.0f, 1.0f, 1.0f ),     //ã‚¹ã‚±ãƒ¼ãƒ«
+		//						D3DXVECTOR3( 0.0f, 0.0f, 0.0f ),     //è§’åº¦
 		//						D3DXVECTOR3((float(i)*5.0f+float(rand()%100*0.3f))+1.5f,
-		//									(float(j)*2.75f+float(rand()%100*0.2f))+1.5f,0.0f),   //ƒ|ƒWƒVƒ‡ƒ“
+		//									(float(j)*2.75f+float(rand()%100*0.2f))+1.5f,0.0f),   //ãƒã‚¸ã‚·ãƒ§ãƒ³
 		//						EnemyDiffuse,
 		//						EnemySpecular,
 		//						EnemyAmbient
@@ -511,18 +511,18 @@ Factory_Enemy::Factory_Enemy(FactoryPacket* fpac){
 
 	}
 	catch(...){
-		//Äthrow
+		//å†throw
 		throw;
 	}
 }
 
 /**************************************************************************
  Factory_Enemy::~Factory_Enemy();
- —p“r: ƒfƒXƒgƒ‰ƒNƒ^
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
 	Factory_Enemy::~Factory_Enemy(){
-//‚È‚É‚à‚µ‚È‚¢
+//ãªã«ã‚‚ã—ãªã„
 	}
 }//end of namespace bomberobject.
 }//end of namespace wiz.

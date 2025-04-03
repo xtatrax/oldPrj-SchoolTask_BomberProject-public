@@ -1,13 +1,13 @@
 ////////////////////////////// //////////////////////////////
-//	ƒvƒƒWƒFƒNƒg	FBomberProject
-//	ƒtƒ@ƒCƒ‹–¼		FFactory_CheckPoint.h
-//	ŠJ”­ŠÂ‹«		FMSVC++ 2008
-//	Å“Kƒ^ƒu”		F4
-//	’S“–Ò			F°Œ´ “O
-//	ˆøŒp‚¬			F–{‘½ Š°”V
-//	•ÒW			F²“¡ —Á
-//	“à•ïÃŞ°À‚Æ”õl	Fƒ`ƒFƒbƒNƒ|ƒCƒ“ƒg
-//					¥
+//	ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆ	ï¼šBomberProject
+//	ãƒ•ã‚¡ã‚¤ãƒ«å		ï¼šFactory_CheckPoint.h
+//	é–‹ç™ºç’°å¢ƒ		ï¼šMSVC++ 2008
+//	æœ€é©ã‚¿ãƒ–æ•°		ï¼š4
+//	æ‹…å½“è€…			ï¼šé´«åŸ å¾¹
+//	å¼•ç¶™ã			ï¼šæœ¬å¤š å¯›ä¹‹
+//	ç·¨é›†			ï¼šä½è—¤ æ¶¼
+//	å†…åŒ…ãƒ‡ãƒ¼ã‚¿ã¨å‚™è€ƒ	ï¼šãƒã‚§ãƒƒã‚¯ãƒã‚¤ãƒ³ãƒˆ
+//					â–¼
 //	namespace wiz;
 //		namespace bomberobject;
 //			class CheckEffect         : public PrimitiveBox	;
@@ -16,15 +16,15 @@
 //
 
 //////////
-//	: Šî–{‚ÌƒCƒ“ƒNƒ‹[ƒh
+//	: åŸºæœ¬ã®ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰
 #include "StdAfx.h"
 #include "Factory_CheckPoint.h"
-//	: Šî–{‚ÌƒCƒ“ƒNƒ‹[ƒh
+//	: åŸºæœ¬ã®ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰
 //////////
 
 //////////
-//	: ’Ç‰Á‚ÌƒCƒ“ƒNƒ‹[ƒh
-//	: ’Ç‰Á‚ÌƒCƒ“ƒNƒ‹[ƒh
+//	: è¿½åŠ ã®ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰
+//	: è¿½åŠ ã®ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰
 //////////
 
 
@@ -41,17 +41,17 @@ const	float	CHECKPOINT_CHAR_RATE_X		= (1.0f/CHECK_POINT_CHAR_SIZE.x);
 namespace wiz{
 namespace bomberobject{
 /****************************************************************************
-RestartPoint ’è‹`•”
+RestartPoint å®šç¾©éƒ¨
 ****************************************************************************/
 /////////////////// ////////////////////
-//// —p“r       F
-//// ƒJƒeƒSƒŠ   FƒRƒ“ƒXƒgƒ‰ƒNƒ^
-//// —p“r       F
-//// ˆø”       F
-//// –ß’l       F
-//// ’S“–Ò     F
-//// ”õl       F
-////            F
+//// ç”¨é€”       ï¼š
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+//// ç”¨é€”       ï¼š
+//// å¼•æ•°       ï¼š
+//// æˆ»å€¤       ï¼š
+//// æ‹…å½“è€…     ï¼š
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
 RestartPoint::RestartPoint(
 	const LPDIRECT3DDEVICE9	pD3DDevice	,
@@ -62,19 +62,19 @@ RestartPoint::RestartPoint(
 {
 }
 /////////////////// ////////////////////
-//// —p“r       Fvirtual void Update( UpdatePacket& i_UpdatePacket )
-//// ƒJƒeƒSƒŠ   F‰¼‘zŠÖ”
-//// —p“r       FƒIƒuƒWƒFƒNƒg‚ğXV
-//// ˆø”       F  UpdatePacket& i_UpdatePacket     // ƒAƒbƒvƒf[ƒg‚É•K—v‚Èƒf[ƒ^ŒQ «“à—e‰º‹L
-////            F  „¥       LPDIRECT3DDEVICE9  pD3DDevice      // IDirect3DDevice9 ƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-////            F  „¥       Tempus2*           pTime           // ŠÔ‚ğŠÇ—‚·‚éƒNƒ‰ƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^[
-////            F  „¥       vector<Object*>&   Vec,            // ƒIƒuƒWƒFƒNƒg‚Ì”z—ñ
-////            F  „¥ const CONTROLER_STATE*   pCntlState      // ƒRƒ“ƒgƒ[ƒ‰‚ÌƒXƒe[ƒ^ƒX
-////            F  „¤       Command            pCommand        // ƒRƒ}ƒ“ƒh
-//// –ß’l       F‚È‚µ
-//// ’S“–Ò     F°Œ´ “O
-//// ”õl       FŒp³‚µ‚½‚à‚Ì‚Å‚à•K‚¸‚Æ‚à’è‹`‚ğ‚µ‚È‚­‚Ä‚à—Ç‚¢
-////            F
+//// ç”¨é€”       ï¼švirtual void Update( UpdatePacket& i_UpdatePacket )
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šä»®æƒ³é–¢æ•°
+//// ç”¨é€”       ï¼šã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’æ›´æ–°
+//// å¼•æ•°       ï¼š  UpdatePacket& i_UpdatePacket     // ã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆæ™‚ã«å¿…è¦ãªãƒ‡ãƒ¼ã‚¿ç¾¤ â†“å†…å®¹ä¸‹è¨˜
+////            ï¼š  â”œ       LPDIRECT3DDEVICE9  pD3DDevice      // IDirect3DDevice9 ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+////            ï¼š  â”œ       Tempus2*           pTime           // æ™‚é–“ã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿ãƒ¼
+////            ï¼š  â”œ       vector<Object*>&   Vec,            // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®é…åˆ—
+////            ï¼š  â”œ const CONTROLER_STATE*   pCntlState      // ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹
+////            ï¼š  â””       Command            pCommand        // ã‚³ãƒãƒ³ãƒ‰
+//// æˆ»å€¤       ï¼šãªã—
+//// æ‹…å½“è€…     ï¼šé´«åŸ å¾¹
+//// å‚™è€ƒ       ï¼šç¶™æ‰¿ã—ãŸã‚‚ã®ã§ã‚‚å¿…ãšã¨ã‚‚å®šç¾©ã‚’ã—ãªãã¦ã‚‚è‰¯ã„
+////            ï¼š
 ////
 void RestartPoint::Update(UpdatePacket &i_UpdatePacket){
 	if( m_fSize < EFFECT_SIZE ){
@@ -87,62 +87,62 @@ void RestartPoint::Update(UpdatePacket &i_UpdatePacket){
 	CalcWorldMatrix();
 }
 /////////////////// ////////////////////
-//// —p“r       Fvirtual void Draw( DrawPacket& i_DrawPacket )
-//// ƒJƒeƒSƒŠ   Fƒˆ‰¼‘zŠÖ”
-//// —p“r       FƒIƒuƒWƒFƒNƒg‚ğƒfƒBƒXƒvƒŒƒC‚É•\¦‚·‚é
-//// ˆø”       F  DrawPacket& i_DrawPacket             // ‰æ–Ê•`‰æ‚É•K—v‚Èƒf[ƒ^ŒQ «“à—e‰º‹L
-////            F  „¥ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 ƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-////            F  „¥ vector<Object*>&    Vec                     // ƒIƒuƒWƒFƒNƒg‚Ì”z—ñ
-////            F  „¥ Tempus2*            i_DrawPacket.GetTime()	   // ŠÔ‚ğŠÇ—‚·‚éƒNƒ‰ƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^[
-////            F  „¤ Command             i_DrawPacket.pCommand   // ƒRƒ}ƒ“ƒh
-//// –ß’l       F‚È‚µ
-//// ’S“–Ò     F°Œ´ “O –{‘½Š°”V(•ÒW)
-//// ”õl       F
-////            F
+//// ç”¨é€”       ï¼švirtual void Draw( DrawPacket& i_DrawPacket )
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šç´”ç²‹ä»®æƒ³é–¢æ•°
+//// ç”¨é€”       ï¼šã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ãƒ‡ã‚£ã‚¹ãƒ—ãƒ¬ã‚¤ã«è¡¨ç¤ºã™ã‚‹
+//// å¼•æ•°       ï¼š  DrawPacket& i_DrawPacket             // ç”»é¢æç”»æ™‚ã«å¿…è¦ãªãƒ‡ãƒ¼ã‚¿ç¾¤ â†“å†…å®¹ä¸‹è¨˜
+////            ï¼š  â”œ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+////            ï¼š  â”œ vector<Object*>&    Vec                     // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®é…åˆ—
+////            ï¼š  â”œ Tempus2*            i_DrawPacket.GetTime()	   // æ™‚é–“ã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿ãƒ¼
+////            ï¼š  â”” Command             i_DrawPacket.pCommand   // ã‚³ãƒãƒ³ãƒ‰
+//// æˆ»å€¤       ï¼šãªã—
+//// æ‹…å½“è€…     ï¼šé´«åŸ å¾¹ æœ¬å¤šå¯›ä¹‹(ç·¨é›†)
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
 void RestartPoint::Draw( DrawPacket& i_DrawPacket ){
 	if(m_pTexture){
 		DWORD wkdword;
-		//Œ»İ‚ÌƒeƒNƒXƒ`ƒƒƒXƒe[ƒ^ƒX‚ğ“¾‚é
+		//ç¾åœ¨ã®ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã‚’å¾—ã‚‹
 		i_DrawPacket.GetDevice()->GetTextureStageState(0,D3DTSS_COLOROP,&wkdword);
-		//ƒXƒe[ƒW‚Ìİ’è
+		//ã‚¹ãƒ†ãƒ¼ã‚¸ã®è¨­å®š
 		i_DrawPacket.GetDevice()->SetTexture(0,m_pTexture->getTexture());
-		//ƒfƒtƒB[ƒYF‚ÆƒeƒNƒXƒ`ƒƒ‚ğŠ|‚¯‡‚í‚¹‚éİ’è
+		//ãƒ‡ãƒ•ã‚£ãƒ¼ã‚ºè‰²ã¨ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’æ›ã‘åˆã‚ã›ã‚‹è¨­å®š
 		i_DrawPacket.GetDevice()->SetTextureStageState( 0, D3DTSS_COLOROP, D3DTOP_MODULATE4X );
 		i_DrawPacket.GetDevice()->SetTextureStageState( 0, D3DTSS_COLORARG1, D3DTA_TEXTURE );
 		i_DrawPacket.GetDevice()->SetTextureStageState( 0, D3DTSS_COLORARG2, D3DTA_DIFFUSE );
 
 		//i_DrawPacket.GetDevice()->SetFVF(PlateFVF);
-		// ƒ}ƒgƒŠƒbƒNƒX‚ğƒŒƒ“ƒ_ƒŠƒ“ƒOƒpƒCƒvƒ‰ƒCƒ“‚Éİ’è
+		// ãƒãƒˆãƒªãƒƒã‚¯ã‚¹ã‚’ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³ã«è¨­å®š
 		i_DrawPacket.GetDevice()->SetTransform(D3DTS_WORLD, &m_WorldMatrix);
-		//ƒRƒ‚ƒ“ƒƒbƒVƒ…‚ÌDraw()‚ğŒÄ‚Ô
+		//ã‚³ãƒ¢ãƒ³ãƒ¡ãƒƒã‚·ãƒ¥ã®Draw()ã‚’å‘¼ã¶
 		CommonMesh::Draw(i_DrawPacket);
 		i_DrawPacket.GetDevice()->SetTexture(0,0);
-		//ƒXƒe[ƒW‚ğŒ³‚É–ß‚·
+		//ã‚¹ãƒ†ãƒ¼ã‚¸ã‚’å…ƒã«æˆ»ã™
 		i_DrawPacket.GetDevice()->SetTextureStageState(0,D3DTSS_COLOROP,wkdword);
 	}
 	else{
-	//ƒeƒNƒXƒ`ƒƒ‚ª‚È‚¢ê‡
-		// ƒ}ƒgƒŠƒbƒNƒX‚ğƒŒƒ“ƒ_ƒŠƒ“ƒOƒpƒCƒvƒ‰ƒCƒ“‚Éİ’è
+	//ãƒ†ã‚¯ã‚¹ãƒãƒ£ãŒãªã„å ´åˆ
+		// ãƒãƒˆãƒªãƒƒã‚¯ã‚¹ã‚’ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³ã«è¨­å®š
 		i_DrawPacket.GetDevice()->SetTransform(D3DTS_WORLD, &m_WorldMatrix);
-		//ƒRƒ‚ƒ“ƒƒbƒVƒ…‚ÌDraw()‚ğŒÄ‚Ô
+		//ã‚³ãƒ¢ãƒ³ãƒ¡ãƒƒã‚·ãƒ¥ã®Draw()ã‚’å‘¼ã¶
 		CommonMesh::Draw(i_DrawPacket);
 	}
 		
 };
 
 /****************************************************************************
-CheckPoint ’è‹`•”
+CheckPoint å®šç¾©éƒ¨
 ****************************************************************************/
 /////////////////// ////////////////////
-//// —p“r       F
-//// ƒJƒeƒSƒŠ   FƒRƒ“ƒXƒgƒ‰ƒNƒ^
-//// —p“r       F
-//// ˆø”       F
-//// –ß’l       F
-//// ’S“–Ò     F
-//// ”õl       F
-////            F
+//// ç”¨é€”       ï¼š
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+//// ç”¨é€”       ï¼š
+//// å¼•æ•°       ï¼š
+//// æˆ»å€¤       ï¼š
+//// æ‹…å½“è€…     ï¼š
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
 CheckPoint::CheckPoint(
 		LPDIRECT3DDEVICE9	pD3DDevice				,
@@ -172,14 +172,14 @@ CheckPoint::CheckPoint(
 	Box::m_BasePos.x	= 25 ;
 }
 /////////////////// ////////////////////
-//// —p“r       F
-//// ƒJƒeƒSƒŠ   FƒfƒXƒgƒ‰ƒNƒ^
-//// —p“r       F
-//// ˆø”       F
-//// –ß’l       F
-//// ’S“–Ò     F
-//// ”õl       F
-////            F
+//// ç”¨é€”       ï¼š
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+//// ç”¨é€”       ï¼š
+//// å¼•æ•°       ï¼š
+//// æˆ»å€¤       ï¼š
+//// æ‹…å½“è€…     ï¼š
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
 CheckPoint::~CheckPoint(){
 	m_pCoil		= NULL ;
@@ -189,19 +189,19 @@ CheckPoint::~CheckPoint(){
 	m_ItemContainer.clear();
 }
 /////////////////// ////////////////////
-//// —p“r       Fvirtual void Update( UpdatePacket& i_UpdatePacket )
-//// ƒJƒeƒSƒŠ   F‰¼‘zŠÖ”
-//// —p“r       FƒIƒuƒWƒFƒNƒg‚ğXV
-//// ˆø”       F  UpdatePacket& i_UpdatePacket     // ƒAƒbƒvƒf[ƒg‚É•K—v‚Èƒf[ƒ^ŒQ «“à—e‰º‹L
-////            F  „¥       LPDIRECT3DDEVICE9  pD3DDevice      // IDirect3DDevice9 ƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-////            F  „¥       Tempus2*           pTime           // ŠÔ‚ğŠÇ—‚·‚éƒNƒ‰ƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^[
-////            F  „¥       vector<Object*>&   Vec,            // ƒIƒuƒWƒFƒNƒg‚Ì”z—ñ
-////            F  „¥ const CONTROLER_STATE*   pCntlState      // ƒRƒ“ƒgƒ[ƒ‰‚ÌƒXƒe[ƒ^ƒX
-////            F  „¤       Command            pCommand        // ƒRƒ}ƒ“ƒh
-//// –ß’l       F‚È‚µ
-//// ’S“–Ò     F°Œ´ “O
-//// ”õl       FŒp³‚µ‚½‚à‚Ì‚Å‚à•K‚¸‚Æ‚à’è‹`‚ğ‚µ‚È‚­‚Ä‚à—Ç‚¢
-////            F
+//// ç”¨é€”       ï¼švirtual void Update( UpdatePacket& i_UpdatePacket )
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šä»®æƒ³é–¢æ•°
+//// ç”¨é€”       ï¼šã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’æ›´æ–°
+//// å¼•æ•°       ï¼š  UpdatePacket& i_UpdatePacket     // ã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆæ™‚ã«å¿…è¦ãªãƒ‡ãƒ¼ã‚¿ç¾¤ â†“å†…å®¹ä¸‹è¨˜
+////            ï¼š  â”œ       LPDIRECT3DDEVICE9  pD3DDevice      // IDirect3DDevice9 ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+////            ï¼š  â”œ       Tempus2*           pTime           // æ™‚é–“ã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿ãƒ¼
+////            ï¼š  â”œ       vector<Object*>&   Vec,            // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®é…åˆ—
+////            ï¼š  â”œ const CONTROLER_STATE*   pCntlState      // ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹
+////            ï¼š  â””       Command            pCommand        // ã‚³ãƒãƒ³ãƒ‰
+//// æˆ»å€¤       ï¼šãªã—
+//// æ‹…å½“è€…     ï¼šé´«åŸ å¾¹
+//// å‚™è€ƒ       ï¼šç¶™æ‰¿ã—ãŸã‚‚ã®ã§ã‚‚å¿…ãšã¨ã‚‚å®šç¾©ã‚’ã—ãªãã¦ã‚‚è‰¯ã„
+////            ï¼š
 ////
 void CheckPoint::Update( UpdatePacket& i_UpdatePacket ){
 	if( !m_pTime         )	m_pTime			= (   TimeScore*)i_UpdatePacket.SearchObjectFromID( OBJID_UI_TIME			) ;
@@ -210,16 +210,16 @@ void CheckPoint::Update( UpdatePacket& i_UpdatePacket ){
 	if( !m_pRestartPoint )	m_pRestartPoint	= (RestartPoint*)i_UpdatePacket.SearchObjectFromID( OBJID_SYS_RESTARTPOINT	) ;
 
 
-	//‘S‚Ä‚Ìƒ`ƒFƒbƒNƒ|ƒCƒ“ƒg‚ğ’Ê‚Á‚Ä‚¢‚È‚©‚Á‚½‚ç“ü‚é
+	//å…¨ã¦ã®ãƒã‚§ãƒƒã‚¯ãƒã‚¤ãƒ³ãƒˆã‚’é€šã£ã¦ã„ãªã‹ã£ãŸã‚‰å…¥ã‚‹
 	if( m_pCoil && m_ActiveItem < m_ItemContainer.size()){
-		//	: ‚à‚µ‘Ò‹@ó‘Ô‚¾‚Á‚½‚ç ƒvƒŒƒCƒ„[‚ª’Ê‰ß‚µ‚½‚©Šm”F‚·‚é
+		//	: ã‚‚ã—å¾…æ©ŸçŠ¶æ…‹ã ã£ãŸã‚‰ ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒé€šéã—ãŸã‹ç¢ºèªã™ã‚‹
 		switch( m_enumNowState ){
 			case BEHAVIORSTATE_WAIT :
-				//	: ƒRƒCƒ‹‚Ì’Ê‰ß‚ğ‘Ò‹@
+				//	: ã‚³ã‚¤ãƒ«ã®é€šéã‚’å¾…æ©Ÿ
 				PlayerPass(i_UpdatePacket);
 				break ;
 			case BEHAVIORSTATE_REDUCTION :
-				//	: k¬ƒGƒtƒFƒNƒg
+				//	: ç¸®å°ã‚¨ãƒ•ã‚§ã‚¯ãƒˆ
 				Reduction(i_UpdatePacket);
 				break;
 		}
@@ -227,14 +227,14 @@ void CheckPoint::Update( UpdatePacket& i_UpdatePacket ){
 	
 };
 /////////////////// ////////////////////
-//// —p“r       F
-//// ƒJƒeƒSƒŠ   FŠÖ”
-//// —p“r       FƒvƒŒƒCƒ„[’Ê‰ß‚Ì“®ì
-//// ˆø”       F
-//// –ß’l       F
-//// ’S“–Ò     F
-//// ”õl       F
-////            F
+//// ç”¨é€”       ï¼š
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šé–¢æ•°
+//// ç”¨é€”       ï¼šãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼é€šéæ™‚ã®å‹•ä½œ
+//// å¼•æ•°       ï¼š
+//// æˆ»å€¤       ï¼š
+//// æ‹…å½“è€…     ï¼š
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
 void	CheckPoint::PlayerPass(UpdatePacket &i_UpdatePacket){
 
@@ -252,14 +252,14 @@ void	CheckPoint::PlayerPass(UpdatePacket &i_UpdatePacket){
 	}
 }
 /////////////////// ////////////////////
-//// —p“r       F
-//// ƒJƒeƒSƒŠ   FŠÖ”
-//// —p“r       FƒvƒŒƒCƒ„[’Ê‰ß‚Ì“®ì
-//// ˆø”       F
-//// –ß’l       F
-//// ’S“–Ò     F
-//// ”õl       F
-////            F
+//// ç”¨é€”       ï¼š
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šé–¢æ•°
+//// ç”¨é€”       ï¼šãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼é€šéæ™‚ã®å‹•ä½œ
+//// å¼•æ•°       ï¼š
+//// æˆ»å€¤       ï¼š
+//// æ‹…å½“è€…     ï¼š
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
 CheckPoint::WORKSTATE CheckPoint::Reduction(UpdatePacket &i_UpdatePacket){
 	m_vLineScale.x		-= m_fBassLength / m_fReductionTime * (float)i_UpdatePacket.GetTime()->getElapsedTime() ;
@@ -291,26 +291,26 @@ CheckPoint::WORKSTATE CheckPoint::Reduction(UpdatePacket &i_UpdatePacket){
 	}
 }
 /////////////////// ////////////////////
-//// —p“r       Fvirtual void Draw( DrawPacket& i_DrawPacket )
-//// ƒJƒeƒSƒŠ   Fƒˆ‰¼‘zŠÖ”
-//// —p“r       FƒIƒuƒWƒFƒNƒg‚ğƒfƒBƒXƒvƒŒƒC‚É•\¦‚·‚é
-//// ˆø”       F  DrawPacket& i_DrawPacket             // ‰æ–Ê•`‰æ‚É•K—v‚Èƒf[ƒ^ŒQ «“à—e‰º‹L
-////            F  „¥ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 ƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-////            F  „¥ vector<Object*>&    Vec                     // ƒIƒuƒWƒFƒNƒg‚Ì”z—ñ
-////            F  „¥ Tempus2*            i_DrawPacket.GetTime()	   // ŠÔ‚ğŠÇ—‚·‚éƒNƒ‰ƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^[
-////            F  „¤ Command             i_DrawPacket.pCommand   // ƒRƒ}ƒ“ƒh
-//// –ß’l       F‚È‚µ
-//// ’S“–Ò     F°Œ´ “O –{‘½Š°”V(•ÒW)
-//// ”õl       F
-////            F
+//// ç”¨é€”       ï¼švirtual void Draw( DrawPacket& i_DrawPacket )
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šç´”ç²‹ä»®æƒ³é–¢æ•°
+//// ç”¨é€”       ï¼šã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ãƒ‡ã‚£ã‚¹ãƒ—ãƒ¬ã‚¤ã«è¡¨ç¤ºã™ã‚‹
+//// å¼•æ•°       ï¼š  DrawPacket& i_DrawPacket             // ç”»é¢æç”»æ™‚ã«å¿…è¦ãªãƒ‡ãƒ¼ã‚¿ç¾¤ â†“å†…å®¹ä¸‹è¨˜
+////            ï¼š  â”œ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+////            ï¼š  â”œ vector<Object*>&    Vec                     // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®é…åˆ—
+////            ï¼š  â”œ Tempus2*            i_DrawPacket.GetTime()	   // æ™‚é–“ã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿ãƒ¼
+////            ï¼š  â”” Command             i_DrawPacket.pCommand   // ã‚³ãƒãƒ³ãƒ‰
+//// æˆ»å€¤       ï¼šãªã—
+//// æ‹…å½“è€…     ï¼šé´«åŸ å¾¹ æœ¬å¤šå¯›ä¹‹(ç·¨é›†)
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
 void CheckPoint::Draw( DrawPacket& i_DrawPacket ){
 	if( m_pCamera && m_ActiveItem < m_ItemContainer.size()){
-		//	: ƒJƒƒ‰‚ª‚ ‚é
-		//	: •`‰æ‘ÎÛ‚ª‚¢‚é
+		//	: ã‚«ãƒ¡ãƒ©ãŒã‚ã‚‹
+		//	: æç”»å¯¾è±¡ãŒã„ã‚‹
 		float DrawBeginLength = m_pCamera->getPosY() + DRAW_TOLERANCE ;
 		if( DrawBeginLength > m_ItemContainer[ m_ActiveItem ]->fPosY ){
-			//	: ‰æ–Ê‚Ì’†‚É‚¢‚é
+			//	: ç”»é¢ã®ä¸­ã«ã„ã‚‹
 			//////////
 			//	: 
 			m_pTexture = m_pTxLine ;
@@ -327,39 +327,39 @@ void CheckPoint::Draw( DrawPacket& i_DrawPacket ){
 };
 
 /////////////////// ////////////////////
-//// —p“r       F
-//// ƒJƒeƒSƒŠ   F
-//// —p“r       F
-//// ˆø”       F
-//// –ß’l       F
-//// ’S“–Ò     F
-//// ”õl       F
-////            F
+//// ç”¨é€”       ï¼š
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼š
+//// ç”¨é€”       ï¼š
+//// å¼•æ•°       ï¼š
+//// æˆ»å€¤       ï¼š
+//// æ‹…å½“è€…     ï¼š
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
 void CheckPoint::DrawLine( DrawPacket& i_DrawPacket ){
 	if(m_pTexture){
 		DWORD wkdword;
-		//Œ»İ‚ÌƒeƒNƒXƒ`ƒƒƒXƒe[ƒ^ƒX‚ğ“¾‚é
+		//ç¾åœ¨ã®ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã‚’å¾—ã‚‹
 		i_DrawPacket.GetDevice()->GetTextureStageState(0,D3DTSS_COLOROP,&wkdword);
 
 		//////////
 		//
-		//ƒXƒe[ƒW‚Ìİ’è
+		//ã‚¹ãƒ†ãƒ¼ã‚¸ã®è¨­å®š
 		i_DrawPacket.GetDevice()->SetTexture(0,m_pTexture->getTexture());
-		//ƒfƒtƒB[ƒYF‚ÆƒeƒNƒXƒ`ƒƒ‚ğŠ|‚¯‡‚í‚¹‚éİ’è
+		//ãƒ‡ãƒ•ã‚£ãƒ¼ã‚ºè‰²ã¨ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’æ›ã‘åˆã‚ã›ã‚‹è¨­å®š
 		i_DrawPacket.GetDevice()->SetTextureStageState( 0, D3DTSS_COLOROP, D3DTOP_ADD );
 		i_DrawPacket.GetDevice()->SetTextureStageState( 0, D3DTSS_COLORARG1, D3DTA_TEXTURE );
 		i_DrawPacket.GetDevice()->SetTextureStageState( 0, D3DTSS_COLORARG2, D3DTA_DIFFUSE );
 
 		//i_DrawPacket.GetDevice()->SetFVF(PlateFVF);
-		// ƒ}ƒgƒŠƒbƒNƒX‚ğƒŒƒ“ƒ_ƒŠƒ“ƒOƒpƒCƒvƒ‰ƒCƒ“‚Éİ’è
+		// ãƒãƒˆãƒªãƒƒã‚¯ã‚¹ã‚’ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³ã«è¨­å®š
 		i_DrawPacket.GetDevice()->SetTransform(D3DTS_WORLD, &m_WorldMatrix);
-		//ƒRƒ‚ƒ“ƒƒbƒVƒ…‚ÌDraw()‚ğŒÄ‚Ô
+		//ã‚³ãƒ¢ãƒ³ãƒ¡ãƒƒã‚·ãƒ¥ã®Draw()ã‚’å‘¼ã¶
 		CommonMesh::Draw(i_DrawPacket);
 		//
 		//////////
 		//////////
-		//	: ƒeƒLƒXƒg‚Ì•`‰æ
+		//	: ãƒ†ã‚­ã‚¹ãƒˆã®æç”»
 		Box::m_BaseScale	= m_vStringScale;
 		//m_pTexture = m_pTxCheckString ;
 		Box::CalcWorldMatrix();
@@ -374,23 +374,23 @@ void CheckPoint::DrawLine( DrawPacket& i_DrawPacket ){
 		i_DrawPacket.GetDevice()->SetTextureStageState( 0, D3DTSS_COLORARG2, D3DTA_DIFFUSE );
 
 		//i_DrawPacket.GetDevice()->SetFVF(PlateFVF);
-		// ƒ}ƒgƒŠƒbƒNƒX‚ğƒŒƒ“ƒ_ƒŠƒ“ƒOƒpƒCƒvƒ‰ƒCƒ“‚Éİ’è
+		// ãƒãƒˆãƒªãƒƒã‚¯ã‚¹ã‚’ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³ã«è¨­å®š
 		i_DrawPacket.GetDevice()->SetTransform(D3DTS_WORLD, &m_WorldMatrix);
-		//ƒRƒ‚ƒ“ƒƒbƒVƒ…‚ÌDraw()‚ğŒÄ‚Ô
+		//ã‚³ãƒ¢ãƒ³ãƒ¡ãƒƒã‚·ãƒ¥ã®Draw()ã‚’å‘¼ã¶
 		CommonMesh::Draw(i_DrawPacket);
 
-		//	: ƒeƒLƒXƒg‚Ì•`‰æ
+		//	: ãƒ†ã‚­ã‚¹ãƒˆã®æç”»
 		//////////
 
 		i_DrawPacket.GetDevice()->SetTexture(0,0);
-		//ƒXƒe[ƒW‚ğŒ³‚É–ß‚·
+		//ã‚¹ãƒ†ãƒ¼ã‚¸ã‚’å…ƒã«æˆ»ã™
 		i_DrawPacket.GetDevice()->SetTextureStageState(0,D3DTSS_COLOROP,wkdword);
 	}
 	else{
-	//ƒeƒNƒXƒ`ƒƒ‚ª‚È‚¢ê‡
-		// ƒ}ƒgƒŠƒbƒNƒX‚ğƒŒƒ“ƒ_ƒŠƒ“ƒOƒpƒCƒvƒ‰ƒCƒ“‚Éİ’è
+	//ãƒ†ã‚¯ã‚¹ãƒãƒ£ãŒãªã„å ´åˆ
+		// ãƒãƒˆãƒªãƒƒã‚¯ã‚¹ã‚’ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³ã«è¨­å®š
 		i_DrawPacket.GetDevice()->SetTransform(D3DTS_WORLD, &m_WorldMatrix);
-		//ƒRƒ‚ƒ“ƒƒbƒVƒ…‚ÌDraw()‚ğŒÄ‚Ô
+		//ã‚³ãƒ¢ãƒ³ãƒ¡ãƒƒã‚·ãƒ¥ã®Draw()ã‚’å‘¼ã¶
 		CommonMesh::Draw(i_DrawPacket);
 	}
 }
@@ -398,16 +398,16 @@ void CheckPoint::DrawLine( DrawPacket& i_DrawPacket ){
 
 
 /**************************************************************************
- Factory_CheckPoint ’è‹`•”
+ Factory_CheckPoint å®šç¾©éƒ¨
 ****************************************************************************/
 /**************************************************************************
  Factory_CheckPoint::Factory_CheckPoint(
-	LPDIRECT3DDEVICE9 pD3DDevice,	//ƒfƒoƒCƒX
-	vector<Object*>& vec,			//ƒIƒuƒWƒFƒNƒg‚Ì”z—ñ
-	TextureManager& TexMgr		//ƒeƒNƒXƒ`ƒƒ‚Ì”z—ñ
+	LPDIRECT3DDEVICE9 pD3DDevice,	//ãƒ‡ãƒã‚¤ã‚¹
+	vector<Object*>& vec,			//ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®é…åˆ—
+	TextureManager& TexMgr		//ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®é…åˆ—
 );
- —p“r: ƒRƒ“ƒXƒgƒ‰ƒNƒ^iƒTƒ“ƒvƒ‹ƒIƒuƒWƒFƒNƒg‚ğ”z—ñ‚É’Ç‰Á‚·‚éj
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ï¼ˆã‚µãƒ³ãƒ—ãƒ«ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’é…åˆ—ã«è¿½åŠ ã™ã‚‹ï¼‰
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
 	Factory_CheckPoint::Factory_CheckPoint(FactoryPacket* fpac){
 		try{
@@ -426,18 +426,18 @@ void CheckPoint::DrawLine( DrawPacket& i_DrawPacket ){
 		}
 		
 		catch(...){
-			//Äthrow
+			//å†throw
 			throw;
 		}
 	}
 
 /**************************************************************************
  Factory_CheckPoint::~Factory_CheckPoint();
- —p“r: ƒfƒXƒgƒ‰ƒNƒ^
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
 	Factory_CheckPoint::~Factory_CheckPoint(){
-//‚È‚É‚à‚µ‚È‚¢
+//ãªã«ã‚‚ã—ãªã„
 	}
 }//end of namespace bomberobject.
 }//end of namespace wiz.

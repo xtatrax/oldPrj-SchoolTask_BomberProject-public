@@ -3,7 +3,7 @@
 
 #if defined( ON_DEBUGGINGPROCESS )
 	//////////
-	//	: ƒfƒoƒbƒOƒ‚[ƒh
+	//	: ãƒ‡ãƒãƒƒã‚°ãƒ¢ãƒ¼ãƒ‰
 
 	bool DrawOBB::isEnableDraw = true ;
 	//	: 
@@ -11,13 +11,13 @@
 #else
 #if defined( PRESENTATION )
 	//////////
-	//	: ƒvƒŒƒ[ƒ“ƒ‚[ƒh
+	//	: ãƒ—ãƒ¬ã‚¼ãƒ³ãƒ¢ãƒ¼ãƒ‰
 
 	//	: 
 	//////////
 #else
 	//////////
-	//	: ƒŠƒŠ[ƒXƒ‚[ƒh
+	//	: ãƒªãƒªãƒ¼ã‚¹ãƒ¢ãƒ¼ãƒ‰
 
 	//	: 
 	//////////
@@ -26,4 +26,4 @@
 
 
 
-EƒvƒŠƒ~ƒeƒBƒu
+ãƒ»ãƒ—ãƒªãƒŸãƒ†ã‚£ãƒ–

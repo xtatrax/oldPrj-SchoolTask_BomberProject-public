@@ -1,12 +1,12 @@
 ////////////////////////////// //////////////////////////////
-//	ƒvƒƒWƒFƒNƒg	FDirectX Program Bass Project
-//	ƒtƒ@ƒCƒ‹–¼		FScene.h
-//	ŠJ”­ŠÂ‹«		FMSVC++ 2008
-//	Å“Kƒ^ƒu”		F4
-//	’S“–ŽÒ			FŽ°Œ´ “O
-//	“à•ïÃÞ°À‚Æ”õl	FƒV[ƒ“
-//					FƒV[ƒ“‚ÍƒfƒoƒCƒX‚©‚çŒÄ‚Î‚ê‚Ü‚·
-//					¥
+//	ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆ	ï¼šDirectX Program Bass Project
+//	ãƒ•ã‚¡ã‚¤ãƒ«å		ï¼šScene.h
+//	é–‹ç™ºç’°å¢ƒ		ï¼šMSVC++ 2008
+//	æœ€é©ã‚¿ãƒ–æ•°		ï¼š4
+//	æ‹…å½“è€…			ï¼šé´«åŽŸ å¾¹
+//	å†…åŒ…ãƒ‡ãƒ¼ã‚¿ã¨å‚™è€ƒ	ï¼šã‚·ãƒ¼ãƒ³
+//					ï¼šã‚·ãƒ¼ãƒ³ã¯ãƒ‡ãƒã‚¤ã‚¹ã‹ã‚‰å‘¼ã°ã‚Œã¾ã™
+//					â–¼
 //	namespace wiz;
 //		class Scene ;
 //
@@ -21,198 +21,198 @@ namespace wiz{
 //**************************************************************************
 // class Scene;
 //
-// ’S“–ŽÒ  : Ž°Œ´ “O(ŽRƒmˆäæ¶‚Ì‚Ð‚ÈŒ`‚æ‚è)
-// —p“r    : ƒV[ƒ“‚ðŠÇ—‚·‚éƒNƒ‰ƒX
+// æ‹…å½“è€…  : é´«åŽŸ å¾¹(å±±ãƒŽäº•å…ˆç”Ÿã®ã²ãªå½¢ã‚ˆã‚Š)
+// ç”¨é€”    : ã‚·ãƒ¼ãƒ³ã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹
 //         : 
 //**************************************************************************/
 class Scene
 {
 	//////////
-	//	: ƒ[ƒh‰æ–Êê—p
-	LPDIRECT3DDEVICE9	m_pLoadDevice		;	//	: ƒ[ƒhƒXƒŒƒbƒh—pƒfƒoƒCƒX
-	Command				m_LoadCommand		;	//	: ƒ[ƒh—p‚ÌƒRƒ}ƒ“ƒh
-	static HANDLE		m_hLoadingThread	;	//	: ƒ[ƒh‰æ–Ê—pƒXƒŒƒbƒh‚Ìƒnƒ“ƒhƒ‹
-	bool				m_bLoadingComplete	;	//	: ƒ[ƒhŠ®—¹ƒtƒ‰ƒO
+	//	: ãƒ­ãƒ¼ãƒ‰ç”»é¢å°‚ç”¨
+	LPDIRECT3DDEVICE9	m_pLoadDevice		;	//	: ãƒ­ãƒ¼ãƒ‰ã‚¹ãƒ¬ãƒƒãƒ‰ç”¨ãƒ‡ãƒã‚¤ã‚¹
+	Command				m_LoadCommand		;	//	: ãƒ­ãƒ¼ãƒ‰ç”¨ã®ã‚³ãƒžãƒ³ãƒ‰
+	static HANDLE		m_hLoadingThread	;	//	: ãƒ­ãƒ¼ãƒ‰ç”»é¢ç”¨ã‚¹ãƒ¬ãƒƒãƒ‰ã®ãƒãƒ³ãƒ‰ãƒ«
+	bool				m_bLoadingComplete	;	//	: ãƒ­ãƒ¼ãƒ‰å®Œäº†ãƒ•ãƒ©ã‚°
 	//
 	//////////
 
 	float	m_fStageNotFoundMessageTime		;	//	: 
 
-	Stage*	m_pStgBuf						;	//	: ˆêŽž“I‚Éƒ|ƒCƒ“ƒ^[‚ðŠi”[‚µ‚Ä‚¨‚­*!•K‚¸Žg‚¢I‚í‚Á‚½‚çNULL‚É‚·‚é‚±‚Æ!*
-	Stage*	m_pRootStage					;	//	: ƒ‹[ƒgƒXƒe[ƒW
-	bool	m_bUpdateThreadSuspendRequest	;	//	: ƒXƒŒƒbƒh’âŽ~—v‹ƒtƒ‰ƒO(ƒƒCƒ“ƒXƒŒƒbƒh”­s->ƒAƒbƒvƒf[ƒgƒXƒŒƒbƒh‰ðŽß)
-	bool	m_bUpdateThreadSuspend			;	//	: ƒXƒŒƒbƒh’âŽ~Š®—¹ƒtƒ‰ƒO(ƒAƒbƒvƒf[ƒgƒXƒŒƒbƒh”­s->ƒƒCƒ“ƒXƒŒƒbƒh‰ðŽß)
-	bool	m_bUpdateThreadResumeRequest	;	//	: ƒXƒŒƒbƒhÄŠJ—v‹ƒtƒ‰ƒO(ƒV[ƒ“”­s->ƒfƒoƒCƒX‰ðŽß)
+	Stage*	m_pStgBuf						;	//	: ä¸€æ™‚çš„ã«ãƒã‚¤ãƒ³ã‚¿ãƒ¼ã‚’æ ¼ç´ã—ã¦ãŠã*!å¿…ãšä½¿ã„çµ‚ã‚ã£ãŸã‚‰NULLã«ã™ã‚‹ã“ã¨!*
+	Stage*	m_pRootStage					;	//	: ãƒ«ãƒ¼ãƒˆã‚¹ãƒ†ãƒ¼ã‚¸
+	bool	m_bUpdateThreadSuspendRequest	;	//	: ã‚¹ãƒ¬ãƒƒãƒ‰åœæ­¢è¦æ±‚ãƒ•ãƒ©ã‚°(ãƒ¡ã‚¤ãƒ³ã‚¹ãƒ¬ãƒƒãƒ‰ç™ºè¡Œ->ã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆã‚¹ãƒ¬ãƒƒãƒ‰è§£é‡ˆ)
+	bool	m_bUpdateThreadSuspend			;	//	: ã‚¹ãƒ¬ãƒƒãƒ‰åœæ­¢å®Œäº†ãƒ•ãƒ©ã‚°(ã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆã‚¹ãƒ¬ãƒƒãƒ‰ç™ºè¡Œ->ãƒ¡ã‚¤ãƒ³ã‚¹ãƒ¬ãƒƒãƒ‰è§£é‡ˆ)
+	bool	m_bUpdateThreadResumeRequest	;	//	: ã‚¹ãƒ¬ãƒƒãƒ‰å†é–‹è¦æ±‚ãƒ•ãƒ©ã‚°(ã‚·ãƒ¼ãƒ³ç™ºè¡Œ->ãƒ‡ãƒã‚¤ã‚¹è§£é‡ˆ)
 
 
-//	: ”ñŒöŠJŠÖ”
+//	: éžå…¬é–‹é–¢æ•°
 private:
 
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     Fvoid Clear()
-	//// ƒJƒeƒSƒŠ   FŠÖ”
-	//// —p“r       FƒIƒuƒWƒFƒNƒg‚ÌƒNƒŠƒA
-	//// ˆø”       F‚È‚µ
-	//// –ß’l       F‚È‚µ
-	//// ’S“–ŽÒ     FŽ°Œ´ “O
-	//// ”õl       F
-	////            F
+	//// é–¢æ•°å     ï¼švoid Clear()
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šé–¢æ•°
+	//// ç”¨é€”       ï¼šã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ã‚¯ãƒªã‚¢
+	//// å¼•æ•°       ï¼šãªã—
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“è€…     ï¼šé´«åŽŸ å¾¹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
     void Clear();
 	
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     Fvoid setStages()
-	//// ƒJƒeƒSƒŠ   FŠÖ”
-	//// —p“r       FƒXƒe[ƒWƒŠƒXƒg‚ð\’z
-	//// ˆø”       F‚È‚µ
-	//// –ß’l       F‚È‚µ
-	//// ’S“–ŽÒ     FŽ°Œ´ “O
-	//// ”õl       F
-	////            F
+	//// é–¢æ•°å     ï¼švoid setStages()
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šé–¢æ•°
+	//// ç”¨é€”       ï¼šã‚¹ãƒ†ãƒ¼ã‚¸ãƒªã‚¹ãƒˆã‚’æ§‹ç¯‰
+	//// å¼•æ•°       ï¼šãªã—
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“è€…     ï¼šé´«åŽŸ å¾¹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
     void setStages();
 public:
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     FScene(LPDIRECT3DDEVICE9 pD3DDevice)
-	//// ƒJƒeƒSƒŠ   FƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	//// —p“r       FƒV[ƒ“‚ð¶¬
-	//// ˆø”       FLPDIRECT3DDEVICE9 pD3DDevice    //IDirect3DDevice9 ƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-	//// –ß’l       F‚È‚µ
-	//// ’S“–ŽÒ     FŽ°Œ´ “O
-	//// ”õl       FŽ¸”s‚µ‚½‚ç—áŠO‚ðthrow
-	////            F
+	//// é–¢æ•°å     ï¼šScene(LPDIRECT3DDEVICE9 pD3DDevice)
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	//// ç”¨é€”       ï¼šã‚·ãƒ¼ãƒ³ã‚’ç”Ÿæˆ
+	//// å¼•æ•°       ï¼šLPDIRECT3DDEVICE9 pD3DDevice    //IDirect3DDevice9 ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“è€…     ï¼šé´«åŽŸ å¾¹
+	//// å‚™è€ƒ       ï¼šå¤±æ•—ã—ãŸã‚‰ä¾‹å¤–ã‚’throw
+	////            ï¼š
 	////
 	Scene(LPDIRECT3DDEVICE9 pD3DDevice,Command* pCommand );
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     F~Scene()
-	//// ƒJƒeƒSƒŠ   FƒfƒXƒgƒ‰ƒNƒ^
-	//// —p“r       FƒV[ƒ“‚ð”jŠü
-	//// ˆø”       F‚È‚µ
-	//// –ß’l       F‚È‚µ
-	//// ’S“–ŽÒ     FŽ°Œ´ “O
-	//// ”õl       F
-	////            F
+	//// é–¢æ•°å     ï¼š~Scene()
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	//// ç”¨é€”       ï¼šã‚·ãƒ¼ãƒ³ã‚’ç ´æ£„
+	//// å¼•æ•°       ï¼šãªã—
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“è€…     ï¼šé´«åŽŸ å¾¹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
     virtual ~Scene();
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     Fvoid Update(UpdatePacket& i_UpdatePacket)
-	//// ƒJƒeƒSƒŠ   Fƒƒ“ƒoŠÖ”
-	//// —p“r       FƒV[ƒ“‚ðXV
-	//// ˆø”       F  UpdatePacket& i_UpdatePacket        // ƒAƒbƒvƒf[ƒgˆ—‚É—¬‚·ƒf[ƒ^‚ÌW‡‘Ì
-	//// –ß’l       F‚È‚µ
-	//// ’S“–ŽÒ     FŽ°Œ´ “O
-	//// ”õl       F
-	////            F
+	//// é–¢æ•°å     ï¼švoid Update(UpdatePacket& i_UpdatePacket)
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šãƒ¡ãƒ³ãƒé–¢æ•°
+	//// ç”¨é€”       ï¼šã‚·ãƒ¼ãƒ³ã‚’æ›´æ–°
+	//// å¼•æ•°       ï¼š  UpdatePacket& i_UpdatePacket        // ã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆå‡¦ç†ã«æµã™ãƒ‡ãƒ¼ã‚¿ã®é›†åˆä½“
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“è€…     ï¼šé´«åŽŸ å¾¹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
     void Update(UpdatePacket& i_UpdatePacket);
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     Fvoid Render(RenderPacket& i_RenderPacket);
-	//// ƒJƒeƒSƒŠ   Fƒƒ“ƒoŠÖ”
-	//// —p“r       Fƒ^[ƒQƒbƒgƒŒƒ“ƒ_ƒŠƒ“ƒO
-	//// ˆø”       F  RenderPacket& i_RenderPacket        // ƒŒƒ“ƒ_[ˆ—‚É—¬‚·ƒf[ƒ^‚ÌW‡‘Ì
-	//// –ß’l       F‚È‚µ
-	//// ’S“–ŽÒ     FŽ°Œ´ “O
-	//// ”õl       F‰æ–ÊˆÈŠO‚Ìƒoƒbƒtƒ@[‚É•`‰æ‚·‚é
-	////            F
+	//// é–¢æ•°å     ï¼švoid Render(RenderPacket& i_RenderPacket);
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šãƒ¡ãƒ³ãƒé–¢æ•°
+	//// ç”¨é€”       ï¼šã‚¿ãƒ¼ã‚²ãƒƒãƒˆãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°
+	//// å¼•æ•°       ï¼š  RenderPacket& i_RenderPacket        // ãƒ¬ãƒ³ãƒ€ãƒ¼å‡¦ç†ã«æµã™ãƒ‡ãƒ¼ã‚¿ã®é›†åˆä½“
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“è€…     ï¼šé´«åŽŸ å¾¹
+	//// å‚™è€ƒ       ï¼šç”»é¢ä»¥å¤–ã®ãƒãƒƒãƒ•ã‚¡ãƒ¼ã«æç”»ã™ã‚‹
+	////            ï¼š
 	////
     void Render(RenderPacket& i_RenderPacket);
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     Fvoid Draw(DrawPacket& i_DrawPacket);
-	//// ƒJƒeƒSƒŠ   Fƒƒ“ƒoŠÖ”
-	//// —p“r       FƒV[ƒ“‚ð•`‰æ
-	//// ˆø”       F  DrawPacket& i_DrawPacket            // ƒhƒ[ˆ—‚É—¬‚·ƒf[ƒ^‚ÌW‡‘Ì
-	//// –ß’l       F‚È‚µ
-	//// ’S“–ŽÒ     FŽ°Œ´ “O
-	//// ”õl       F‰æ–Ê‚É•`‰æ‚·‚é
-	////            F
+	//// é–¢æ•°å     ï¼švoid Draw(DrawPacket& i_DrawPacket);
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šãƒ¡ãƒ³ãƒé–¢æ•°
+	//// ç”¨é€”       ï¼šã‚·ãƒ¼ãƒ³ã‚’æç”»
+	//// å¼•æ•°       ï¼š  DrawPacket& i_DrawPacket            // ãƒ‰ãƒ­ãƒ¼å‡¦ç†ã«æµã™ãƒ‡ãƒ¼ã‚¿ã®é›†åˆä½“
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“è€…     ï¼šé´«åŽŸ å¾¹
+	//// å‚™è€ƒ       ï¼šç”»é¢ã«æç”»ã™ã‚‹
+	////            ï¼š
 	////
 	void Draw(DrawPacket& i_DrawPacket);
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     Fvoid CommandTranslator(LPDIRECT3DDEVICE9 pD3DDevice,Command& i_DrawPacket.pCommand);
-	//// ƒJƒeƒSƒŠ   FŠÖ”
-	//// —p“r       FƒRƒ}ƒ“ƒh‚ð‰ðŽß‚µ‚ÄƒXƒe[ƒW‚ÌØ‚è‘Ö‚¦‚È‚Ç‚ðs‚¤
-	//// ˆø”       F  LPDIRECT3DDEVICE9 pD3DDevice,       // IDirect3DDevice9 ƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-	////            F  Command& i_DrawPacket.pCommand      // ƒRƒ}ƒ“ƒh
-	//// –ß’l       F‚È‚µ
-	//// ’S“–ŽÒ     FŽ°Œ´ “O
-	//// ”õl       F
-	////            F
+	//// é–¢æ•°å     ï¼švoid CommandTranslator(LPDIRECT3DDEVICE9 pD3DDevice,Command& i_DrawPacket.pCommand);
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šé–¢æ•°
+	//// ç”¨é€”       ï¼šã‚³ãƒžãƒ³ãƒ‰ã‚’è§£é‡ˆã—ã¦ã‚¹ãƒ†ãƒ¼ã‚¸ã®åˆ‡ã‚Šæ›¿ãˆãªã©ã‚’è¡Œã†
+	//// å¼•æ•°       ï¼š  LPDIRECT3DDEVICE9 pD3DDevice,       // IDirect3DDevice9 ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+	////            ï¼š  Command& i_DrawPacket.pCommand      // ã‚³ãƒžãƒ³ãƒ‰
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“è€…     ï¼šé´«åŽŸ å¾¹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
 	void CommandTranslator(BassPacket& i_BassPacket);
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     Funsigned __stdcall LoadingThreadLauncher(void *args)
-	//// ƒJƒeƒSƒŠ   FŠÖ”
-	//// —p“r       Fƒ[ƒhê—p‚ÌƒXƒŒƒbƒh‚ð‹N“®‚µ‚Ü‚·
-	//// ˆø”       Fvoid *args //
-	//// –ß’l       F0
-	//// ’S“–ŽÒ     FŽ°Œ´ “O
-	//// ”õl       F
-	////            F
+	//// é–¢æ•°å     ï¼šunsigned __stdcall LoadingThreadLauncher(void *args)
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šé–¢æ•°
+	//// ç”¨é€”       ï¼šãƒ­ãƒ¼ãƒ‰å°‚ç”¨ã®ã‚¹ãƒ¬ãƒƒãƒ‰ã‚’èµ·å‹•ã—ã¾ã™
+	//// å¼•æ•°       ï¼švoid *args //
+	//// æˆ»å€¤       ï¼š0
+	//// æ‹…å½“è€…     ï¼šé´«åŽŸ å¾¹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
 	static unsigned __stdcall LoadingThread(void* args);
 	//static void LoadingThread(void* args);
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     Fvoid CommandTranslator(LPDIRECT3DDEVICE9 pD3DDevice,Command& i_DrawPacket.pCommand);
-	//// ƒJƒeƒSƒŠ   FŠÖ”
-	//// —p“r       FƒRƒ}ƒ“ƒh‚ð‰ðŽß‚µ‚ÄƒXƒe[ƒW‚ÌØ‚è‘Ö‚¦‚È‚Ç‚ðs‚¤
-	//// ˆø”       F  LPDIRECT3DDEVICE9 pD3DDevice,       // IDirect3DDevice9 ƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-	////            F  Command& i_DrawPacket.pCommand						// ƒRƒ}ƒ“ƒh
-	//// –ß’l       F‚È‚µ
-	//// ’S“–ŽÒ     FŽ°Œ´ “O
-	//// ”õl       F
-	////            F
+	//// é–¢æ•°å     ï¼švoid CommandTranslator(LPDIRECT3DDEVICE9 pD3DDevice,Command& i_DrawPacket.pCommand);
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šé–¢æ•°
+	//// ç”¨é€”       ï¼šã‚³ãƒžãƒ³ãƒ‰ã‚’è§£é‡ˆã—ã¦ã‚¹ãƒ†ãƒ¼ã‚¸ã®åˆ‡ã‚Šæ›¿ãˆãªã©ã‚’è¡Œã†
+	//// å¼•æ•°       ï¼š  LPDIRECT3DDEVICE9 pD3DDevice,       // IDirect3DDevice9 ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+	////            ï¼š  Command& i_DrawPacket.pCommand						// ã‚³ãƒžãƒ³ãƒ‰
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“è€…     ï¼šé´«åŽŸ å¾¹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
 	void LoadingThreadStarter(LPDIRECT3DDEVICE9 pD3DDevice,const Command* pCommand);
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     Fvoid SafeDeleteStage()
-	//// ƒJƒeƒSƒŠ   FŠÖ”
-	//// —p“r       FƒXƒe[ƒW‚ðˆÀ‘S‚Éíœ‚·‚é
-	//// ˆø”       F‚È‚µ
-	//// –ß’l       F‚È‚µ
-	//// ’S“–ŽÒ     FŽ°Œ´ “O
-	//// ”õl       F
-	////            F
+	//// é–¢æ•°å     ï¼švoid SafeDeleteStage()
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šé–¢æ•°
+	//// ç”¨é€”       ï¼šã‚¹ãƒ†ãƒ¼ã‚¸ã‚’å®‰å…¨ã«å‰Šé™¤ã™ã‚‹
+	//// å¼•æ•°       ï¼šãªã—
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“è€…     ï¼šé´«åŽŸ å¾¹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
 	void SafeDeleteStage(Stage* &pStage);
 
 //////////
-//  : ƒQƒbƒ^[
+//  : ã‚²ãƒƒã‚¿ãƒ¼
 public:
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     Fbool getUpdateThreadSuspendRequest()
-	//// ƒJƒeƒSƒŠ   FƒQƒbƒ^[
-	//// —p“r       FƒAƒbƒvƒf[ƒgƒXƒŒƒbƒh‚ÌˆêŽž’âŽ~—v‹‚ÌŠm”F
-	//// ˆø”       F‚È‚µ
-	//// –ß’l       F‚È‚µ
-	//// ’S“–ŽÒ     FŽ°Œ´ “O
-	//// ”õl       FƒƒCƒ“ƒXƒŒƒbƒh->ƒAƒbƒvƒf[ƒgƒXƒŒƒbƒh
-	////            F
+	//// é–¢æ•°å     ï¼šbool getUpdateThreadSuspendRequest()
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚²ãƒƒã‚¿ãƒ¼
+	//// ç”¨é€”       ï¼šã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆã‚¹ãƒ¬ãƒƒãƒ‰ã®ä¸€æ™‚åœæ­¢è¦æ±‚ã®ç¢ºèª
+	//// å¼•æ•°       ï¼šãªã—
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“è€…     ï¼šé´«åŽŸ å¾¹
+	//// å‚™è€ƒ       ï¼šãƒ¡ã‚¤ãƒ³ã‚¹ãƒ¬ãƒƒãƒ‰->ã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆã‚¹ãƒ¬ãƒƒãƒ‰
+	////            ï¼š
 	////
 	bool getUpdateThreadSuspendRequest(){
 		return m_bUpdateThreadSuspendRequest;
 	};
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     Fbool getUpdateThreadSuspend()
-	//// ƒJƒeƒSƒŠ   FƒQƒbƒ^[
-	//// —p“r       FƒAƒbƒvƒf[ƒgƒXƒŒƒbƒh‚ÌˆêŽž’âŽ~Š®—¹‚ÌŠm”F
-	//// ˆø”       F‚È‚µ
-	//// –ß’l       F‚È‚µ
-	//// ’S“–ŽÒ     FŽ°Œ´ “O
-	//// ”õl       FƒAƒbƒvƒf[ƒgƒXƒŒƒbƒh->ƒƒCƒ“ƒXƒŒƒbƒh
-	////            F
+	//// é–¢æ•°å     ï¼šbool getUpdateThreadSuspend()
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚²ãƒƒã‚¿ãƒ¼
+	//// ç”¨é€”       ï¼šã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆã‚¹ãƒ¬ãƒƒãƒ‰ã®ä¸€æ™‚åœæ­¢å®Œäº†ã®ç¢ºèª
+	//// å¼•æ•°       ï¼šãªã—
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“è€…     ï¼šé´«åŽŸ å¾¹
+	//// å‚™è€ƒ       ï¼šã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆã‚¹ãƒ¬ãƒƒãƒ‰->ãƒ¡ã‚¤ãƒ³ã‚¹ãƒ¬ãƒƒãƒ‰
+	////            ï¼š
 	////
 	bool getUpdateThreadSuspend(){
 		return m_bUpdateThreadSuspend;
 	};
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     Fbool getUpdateThreadSuspend()
-	//// ƒJƒeƒSƒŠ   FƒQƒbƒ^[
-	//// —p“r       FƒAƒbƒvƒf[ƒgƒXƒŒƒbƒh‚ÌÄŠJ—v‹‚ÌŠm”F
-	//// ˆø”       F‚È‚µ
-	//// –ß’l       F‚È‚µ
-	//// ’S“–ŽÒ     FŽ°Œ´ “O
-	//// ”õl       FƒV[ƒ“->ƒfƒoƒCƒX
-	////            F
+	//// é–¢æ•°å     ï¼šbool getUpdateThreadSuspend()
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚²ãƒƒã‚¿ãƒ¼
+	//// ç”¨é€”       ï¼šã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆã‚¹ãƒ¬ãƒƒãƒ‰ã®å†é–‹è¦æ±‚ã®ç¢ºèª
+	//// å¼•æ•°       ï¼šãªã—
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“è€…     ï¼šé´«åŽŸ å¾¹
+	//// å‚™è€ƒ       ï¼šã‚·ãƒ¼ãƒ³->ãƒ‡ãƒã‚¤ã‚¹
+	////            ï¼š
 	////
 	bool getUpdateThreadResumeRequest(){
 		return m_bUpdateThreadResumeRequest;
@@ -220,62 +220,62 @@ public:
 
 
 //////////
-//  : ƒZƒbƒ^[
+//  : ã‚»ãƒƒã‚¿ãƒ¼
 public:
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     Fvoid setUpdateThreadSuspendRequest()
-	//// ƒJƒeƒSƒŠ   FƒQƒbƒ^[
-	//// —p“r       FƒAƒbƒvƒf[ƒgƒXƒŒƒbƒh‚ÌˆêŽž’âŽ~—v‹
-	//// ˆø”       F‚È‚µ
-	//// –ß’l       F‚È‚µ
-	//// ’S“–ŽÒ     FŽ°Œ´ “O
-	//// ”õl       FƒƒCƒ“ƒXƒŒƒbƒh->ƒAƒbƒvƒf[ƒgƒXƒŒƒbƒh
-	////            F
+	//// é–¢æ•°å     ï¼švoid setUpdateThreadSuspendRequest()
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚²ãƒƒã‚¿ãƒ¼
+	//// ç”¨é€”       ï¼šã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆã‚¹ãƒ¬ãƒƒãƒ‰ã®ä¸€æ™‚åœæ­¢è¦æ±‚
+	//// å¼•æ•°       ï¼šãªã—
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“è€…     ï¼šé´«åŽŸ å¾¹
+	//// å‚™è€ƒ       ï¼šãƒ¡ã‚¤ãƒ³ã‚¹ãƒ¬ãƒƒãƒ‰->ã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆã‚¹ãƒ¬ãƒƒãƒ‰
+	////            ï¼š
 	////
 	void setUpdateThreadSuspendRequest(){
 		m_bUpdateThreadSuspendRequest = true ;
 	};
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     Fvoid setUpdateThreadSuspend()
-	//// ƒJƒeƒSƒŠ   FƒQƒbƒ^[
-	//// —p“r       FƒAƒbƒvƒf[ƒgƒXƒŒƒbƒh‚ÌˆêŽž’âŽ~Š®—¹Šm”F
-	//// ˆø”       F‚È‚µ
-	//// –ß’l       F‚È‚µ
-	//// ’S“–ŽÒ     FŽ°Œ´ “O
-	//// ”õl       FƒAƒbƒvƒf[ƒgƒXƒŒƒbƒh->ƒƒCƒ“ƒXƒŒƒbƒh
-	////            F
+	//// é–¢æ•°å     ï¼švoid setUpdateThreadSuspend()
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚²ãƒƒã‚¿ãƒ¼
+	//// ç”¨é€”       ï¼šã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆã‚¹ãƒ¬ãƒƒãƒ‰ã®ä¸€æ™‚åœæ­¢å®Œäº†ç¢ºèª
+	//// å¼•æ•°       ï¼šãªã—
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“è€…     ï¼šé´«åŽŸ å¾¹
+	//// å‚™è€ƒ       ï¼šã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆã‚¹ãƒ¬ãƒƒãƒ‰->ãƒ¡ã‚¤ãƒ³ã‚¹ãƒ¬ãƒƒãƒ‰
+	////            ï¼š
 	////
 	void setUpdateThreadSuspend(){
 		m_bUpdateThreadSuspend        = true ;
 	};
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     Fvoid setUpdateThreadSuspend()
-	//// ƒJƒeƒSƒŠ   FƒQƒbƒ^[
-	//// —p“r       FƒAƒbƒvƒf[ƒgƒXƒŒƒbƒh‚ÌÄŠJ—v‹
-	//// ˆø”       F‚È‚µ
-	//// –ß’l       F‚È‚µ
-	//// ’S“–ŽÒ     FŽ°Œ´ “O
-	//// ”õl       FƒAƒbƒvƒf[ƒgƒXƒŒƒbƒh->‘S‘Ì
-	////            F
+	//// é–¢æ•°å     ï¼švoid setUpdateThreadSuspend()
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚²ãƒƒã‚¿ãƒ¼
+	//// ç”¨é€”       ï¼šã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆã‚¹ãƒ¬ãƒƒãƒ‰ã®å†é–‹è¦æ±‚
+	//// å¼•æ•°       ï¼šãªã—
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“è€…     ï¼šé´«åŽŸ å¾¹
+	//// å‚™è€ƒ       ï¼šã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆã‚¹ãƒ¬ãƒƒãƒ‰->å…¨ä½“
+	////            ï¼š
 	////
 	void setUpdateThreadResumeRequest(){
 		m_bUpdateThreadResumeRequest = true ;
 	};
 
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     Fvoid setUpdateThreadSuspend()
-	//// ƒJƒeƒSƒŠ   FƒQƒbƒ^[
-	//// —p“r       FƒAƒbƒvƒf[ƒgƒXƒŒƒbƒh‚ÌÄŠJ’Ê’m
-	//// ˆø”       F‚È‚µ
-	//// –ß’l       F‚È‚µ
-	//// ’S“–ŽÒ     FŽ°Œ´ “O
-	//// ”õl       FƒAƒbƒvƒf[ƒgƒXƒŒƒbƒh->‘S‘Ì
-	////            F
+	//// é–¢æ•°å     ï¼švoid setUpdateThreadSuspend()
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚²ãƒƒã‚¿ãƒ¼
+	//// ç”¨é€”       ï¼šã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆã‚¹ãƒ¬ãƒƒãƒ‰ã®å†é–‹é€šçŸ¥
+	//// å¼•æ•°       ï¼šãªã—
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“è€…     ï¼šé´«åŽŸ å¾¹
+	//// å‚™è€ƒ       ï¼šã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆã‚¹ãƒ¬ãƒƒãƒ‰->å…¨ä½“
+	////            ï¼š
 	////
 	void setUpdateThreadResume(){
-		m_bUpdateThreadSuspendRequest = false ;	//	: ƒXƒŒƒbƒh’âŽ~—v‹ƒtƒ‰ƒO(ƒƒCƒ“ƒXƒŒƒbƒh->ƒAƒbƒvƒf[ƒgƒXƒŒƒbƒh)
-		m_bUpdateThreadSuspend        = false ;	//	: ƒXƒŒƒbƒh’âŽ~Š®—¹ƒtƒ‰ƒO(ƒAƒbƒvƒf[ƒgƒXƒŒƒbƒh->ƒƒCƒ“ƒXƒŒƒbƒh)
-		m_bUpdateThreadResumeRequest  = false ;	//	: ƒXƒŒƒbƒhÄŠJ—v‹ƒtƒ‰ƒO(ƒV[ƒ“->ƒfƒoƒCƒX)
+		m_bUpdateThreadSuspendRequest = false ;	//	: ã‚¹ãƒ¬ãƒƒãƒ‰åœæ­¢è¦æ±‚ãƒ•ãƒ©ã‚°(ãƒ¡ã‚¤ãƒ³ã‚¹ãƒ¬ãƒƒãƒ‰->ã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆã‚¹ãƒ¬ãƒƒãƒ‰)
+		m_bUpdateThreadSuspend        = false ;	//	: ã‚¹ãƒ¬ãƒƒãƒ‰åœæ­¢å®Œäº†ãƒ•ãƒ©ã‚°(ã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆã‚¹ãƒ¬ãƒƒãƒ‰->ãƒ¡ã‚¤ãƒ³ã‚¹ãƒ¬ãƒƒãƒ‰)
+		m_bUpdateThreadResumeRequest  = false ;	//	: ã‚¹ãƒ¬ãƒƒãƒ‰å†é–‹è¦æ±‚ãƒ•ãƒ©ã‚°(ã‚·ãƒ¼ãƒ³->ãƒ‡ãƒã‚¤ã‚¹)
 	};
 
 };

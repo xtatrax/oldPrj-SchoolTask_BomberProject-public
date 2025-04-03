@@ -1,11 +1,11 @@
 ////////////////////////////// //////////////////////////////
-//	ƒvƒƒWƒFƒNƒg	FBomberProject
-//	ƒtƒ@ƒCƒ‹–¼		FStage_Load.h
-//	ŠJ”­ŠÂ‹«		FMSVC++ 2008
-//	Å“Kƒ^ƒu”		F4
-//	’S“–Ò			F²“¡—Á
-//	“à•ïÃŞ°À‚Æ”õl	Fƒ[ƒhƒXƒe[ƒW
-//					¥
+//	ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆ	ï¼šBomberProject
+//	ãƒ•ã‚¡ã‚¤ãƒ«å		ï¼šStage_Load.h
+//	é–‹ç™ºç’°å¢ƒ		ï¼šMSVC++ 2008
+//	æœ€é©ã‚¿ãƒ–æ•°		ï¼š4
+//	æ‹…å½“è€…			ï¼šä½è—¤æ¶¼
+//	å†…åŒ…ãƒ‡ãƒ¼ã‚¿ã¨å‚™è€ƒ	ï¼šãƒ­ãƒ¼ãƒ‰ã‚¹ãƒ†ãƒ¼ã‚¸
+//					â–¼
 //	namespace wiz;
 //		class LoadStage : public Stage ;
 //
@@ -18,16 +18,16 @@ namespace wiz{
 using namespace bomberobject;
 
 /**************************************************************************
- LoadStage ’è‹`•”
+ LoadStage å®šç¾©éƒ¨
 ****************************************************************************/
 /**************************************************************************
  LoadStage(
-	LPDIRECT3DDEVICE9 pD3DDevice,		//ƒfƒoƒCƒX
-	const Script::MLPHeader& Header,	//	: ƒvƒŒƒC‚·‚éŠy‹È‚Ìƒwƒbƒ_[ƒf[ƒ^
-	const Script::SCORELEVEL Level		//	: ƒvƒŒƒC‚·‚éƒŒƒxƒ‹í•Ê
+	LPDIRECT3DDEVICE9 pD3DDevice,		//ãƒ‡ãƒã‚¤ã‚¹
+	const Script::MLPHeader& Header,	//	: ãƒ—ãƒ¬ã‚¤ã™ã‚‹æ¥½æ›²ã®ãƒ˜ãƒƒãƒ€ãƒ¼ãƒ‡ãƒ¼ã‚¿
+	const Script::SCORELEVEL Level		//	: ãƒ—ãƒ¬ã‚¤ã™ã‚‹ãƒ¬ãƒ™ãƒ«ç¨®åˆ¥
  );
- —p“r: ƒRƒ“ƒXƒgƒ‰ƒNƒ^
- –ß‚è’l: ‚È‚µi¸”s‚Í—áŠO‚ğthrowj
+ ç”¨é€”: ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+ æˆ»ã‚Šå€¤: ãªã—ï¼ˆå¤±æ•—æ™‚ã¯ä¾‹å¤–ã‚’throwï¼‰
 ***************************************************************************/
 LoadStage::LoadStage(LPDIRECT3DDEVICE9 pD3DDevice,Command* Com,Stage* pStage)
 	:Stage(pStage)
@@ -40,14 +40,14 @@ LoadStage::LoadStage(LPDIRECT3DDEVICE9 pD3DDevice,Command* Com,Stage* pStage)
 	}
 	catch(...){
 		Clear();
-		//ÄƒXƒ[
+		//å†ã‚¹ãƒ­ãƒ¼
 		throw;
 	}
 }
 /**************************************************************************
 LoadStage();
- —p“r: ƒfƒXƒgƒ‰ƒNƒ^
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
 LoadStage::~LoadStage(){
 	//Debugger::DBGWRITINGLOGTEXT::addStr(L"LoadStage::~LoadStage()\n");

@@ -1,31 +1,31 @@
 ////////////////////////////// //////////////////////////////
-//	�v���W�F�N�g	�FDirectX Program Bass Project
-//	�t�@�C����		�FController.h
-//	�J����		�FMSVC++ 2008
-//	�œK�^�u��		�F4
-//	�S����			�Ftatra
-//	�����ް��Ɣ��l	�F�R���g���[���[�̓ǂݍ��ݓ����Ǘ�����
-//					��
+//	プロジェクト	：DirectX Program Bass Project
+//	ファイル名		：Controller.h
+//	開発環境		：MSVC++ 2008
+//	最適タブ数		：4
+//	担当者			：tatra
+//	内包データと備考	：コントローラーの読み込み等を管理する
+//					▼
 //	namespace wiz;
-//		class  GAMEPAD ;					//	: [ tatra ] �Q�l�p�ɏE�����\�[�X( ���g�p )
-//		struct BState  ;					//	: [ tatra ] XBOX�R���g���[���[�ɑΉ������{�^���̏�Ԃ��i�[����\����	
-//		struct CUSTOM_CONTROLER_STATE ;		//	: [ tatra ] XINPUT_STAT���g�������\����
-//		struct CONTROLER_STATE ;			//	: [ tatra ] ��̃R���g���[���[�̏����܂Ƃ߂Ă����\����
-//		class  CONTROLLERS ;				//	: [ tatra ] �R���g���[���[���Ǘ�����N���X
+//		class  GAMEPAD ;					//	: [ tatra ] 参考用に拾ったソース( 未使用 )
+//		struct BState  ;					//	: [ tatra ] XBOXコントローラーに対応したボタンの状態を格納する構造体	
+//		struct CUSTOM_CONTROLER_STATE ;		//	: [ tatra ] XINPUT_STATを拡張した構造体
+//		struct CONTROLER_STATE ;			//	: [ tatra ] 一つのコントローラーの情報をまとめておく構造体
+//		class  CONTROLLERS ;				//	: [ tatra ] コントローラーを管理するクラス
 //
 
-//�萔��`
+//定数定義
 
 
 #include "StdAfx.h"
 #include "Controller.h"
 //namespace Controller__{
 //#define MOVE_SPEED 6
-//////�֐��v���g�^�C�v�̐錾
+//////関数プロトタイプの宣言
 ////GAMEPAD* m_pMain = new GAMEPAD;
 // //
 ////
-////�A�v���P�[�V�����Ŏg�p����R���g���[���[�̃v���p�e�B��񋓂��Đݒ肷��
+////アプリケーションで使用するコントローラーのプロパティを列挙して設定する
 //BOOL CALLBACK EnumObjectsCallback( const DIDEVICEOBJECTINSTANCE* pdidoi,VOID* pContext )
 //{
 //	//if( pdidoi->dwType & DIDFT_AXIS )
@@ -47,10 +47,10 @@
 //}
 ////
 ////
-////���p�\�ȃW���C�X�e�B�b�N��񋓂���R�[���o�b�N�֐�
+////利用可能なジョイスティックを列挙するコールバック関数
 //BOOL CALLBACK EnumJoysticksCallback(const DIDEVICEINSTANCE* pdidInstance, VOID* pContext)
 //{
-//	//// �uDirectInput�f�o�C�X�v�I�u�W�F�N�g�̍쐬
+//	//// 「DirectInputデバイス」オブジェクトの作成
 // //   if(FAILED( m_pMain->g_lpDI->CreateDevice(pdidInstance->guidInstance,
 //	//	&m_pMain->g_lpDIDevice, NULL)))
 //	//{
@@ -60,7 +60,7 @@
 //}
 // //
 // //
-// //�_�C���N�g�C���v�b�g�̏������֐�
+// //ダイレクトインプットの初期化関数
 // HRESULT GAMEPAD::InitDinput(HWND hWnd)
 //{
 //	HINSTANCE hInst;
@@ -98,13 +98,13 @@
 //	
 //	return TRUE;
 //	/*
-//	// �uDirectInput�v�I�u�W�F�N�g�̍쐬
+//	// 「DirectInput」オブジェクトの作成
 //	if( FAILED(  DirectInput8Create( GetModuleHandle(NULL), 
 //		DIRECTINPUT_VERSION,IID_IDirectInput8, (VOID**)&m_pDinput, NULL ) ) )
 //	{
 //		return E_FAIL;
 //	}
-//	//���p�\�ȃQ�[���R���g���[���[�̗񋓊֐������s
+//	//利用可能なゲームコントローラーの列挙関数を実行
 //	if(FAILED(m_pDinput->EnumDevices(DI8DEVCLASS_GAMECTRL, EnumJoysticksCallback,
 //				  NULL, DIEDFL_ATTACHEDONLY)))
 //	{
@@ -114,29 +114,29 @@
 //	{
 //		return E_FAIL;
 //	}
-//	// �f�o�C�X���W���C�X�e�B�b�N�ɐݒ�
+//	// デバイスをジョイスティックに設定
 //	if( FAILED( m_pPadDevice->SetDataFormat( &c_dfDIJoystick2 ) ) )
 //	{
 //		return E_FAIL;
 //	}
-//	// �������x���̐ݒ�
+//	// 協調レベルの設定
 //    if( FAILED( m_pPadDevice->SetCooperativeLevel(m_hWnd,DISCL_NONEXCLUSIVE | DISCL_BACKGROUND )) )
 //	{
 //		return E_FAIL;
 //	}
-//	//�A�v���P�[�V�����Ŏg�p����R���g���[���[�̃v���p�e�B��񋓂��Đݒ肷��
+//	//アプリケーションで使用するコントローラーのプロパティを列挙して設定する
 //	if(FAILED(m_pPadDevice->EnumObjects( EnumObjectsCallback,NULL, DIDFT_ALL)))
 //	{
 //		return E_FAIL;
 //	}
-//	// �f�o�C�X���u�擾�v����
+//	// デバイスを「取得」する
 //    m_pPadDevice->Acquire();
 //	return S_OK;
 //	*/
 //}
 ////
 ////
-////�@�p�b�h�ŉ�����Ă���L�[�𒲂ׁA�Ή����鉹���o��
+////　パッドで押されているキーを調べ、対応する音を出す
 //void GAMEPAD::GetState()
 //{	
 //

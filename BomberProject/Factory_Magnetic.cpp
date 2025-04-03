@@ -1,11 +1,11 @@
 ////////////////////////////// //////////////////////////////
-//	ƒvƒƒWƒFƒNƒg	FBomberProject
-//	ƒtƒ@ƒCƒ‹–¼		FFactory_Magnetic.cpp
-//	ŠJ”­ŠÂ‹«		FMSVC++ 2008
-//	Å“Kƒ^ƒu”		F4
-//	’S“–Ò			F°Œ´ “O
-//	“à•ïÃŞ°À‚Æ”õl	F¥Î‘®«
-//					¥
+//	ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆ	ï¼šBomberProject
+//	ãƒ•ã‚¡ã‚¤ãƒ«å		ï¼šFactory_Magnetic.cpp
+//	é–‹ç™ºç’°å¢ƒ		ï¼šMSVC++ 2008
+//	æœ€é©ã‚¿ãƒ–æ•°		ï¼š4
+//	æ‹…å½“è€…			ï¼šé´«åŸ å¾¹
+//	å†…åŒ…ãƒ‡ãƒ¼ã‚¿ã¨å‚™è€ƒ	ï¼šç£çŸ³å±æ€§
+//					â–¼
 //	namespace wiz;
 //		class Factory_Magnetic ;
 //
@@ -17,19 +17,19 @@ namespace bomberobject{
 
 
 /**************************************************************************
- MagneticObject ’è‹`•”
+ MagneticObject å®šç¾©éƒ¨
 ****************************************************************************/
 /////////////////// ////////////////////
-//// ŠÖ”–¼     FMagneticObject( LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTexture,
-////            F    D3DXVECTOR3 &vScale, D3DXVECTOR3 &vRot, D3DXVECTOR3 &vPos, RECT* pRect,
-////            F    Color color = 0xFFFFFFFF, wiz::OBJID id = OBJID_3D_PLAYER )
-//// ƒJƒeƒSƒŠ   FƒRƒ“ƒXƒgƒ‰ƒNƒ^
-//// —p“r       F
-//// ˆø”       F
-//// –ß’l       F‚È‚µ
-//// ’S“–       F‰g’n ‘å—m
-//// ”õl       F
-////            F
+//// é–¢æ•°å     ï¼šMagneticObject( LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTexture,
+////            ï¼š    D3DXVECTOR3 &vScale, D3DXVECTOR3 &vRot, D3DXVECTOR3 &vPos, RECT* pRect,
+////            ï¼š    Color color = 0xFFFFFFFF, wiz::OBJID id = OBJID_3D_PLAYER )
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+//// ç”¨é€”       ï¼š
+//// å¼•æ•°       ï¼š
+//// æˆ»å€¤       ï¼šãªã—
+//// æ‹…å½“       ï¼šæ›³åœ° å¤§æ´‹
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
 MagneticObject::MagneticObject()
 :m_bMagnetPole( POLE_S )
@@ -38,13 +38,13 @@ MagneticObject::MagneticObject()
 	::ZeroMemory( &m_PoleMaterial, sizeof(D3DMATERIAL9) ) ;
 }
 /////////////////// ////////////////////
-//// —p“r       F  ~MagneticObject()
-//// ƒJƒeƒSƒŠ   FƒRƒ“ƒXƒgƒ‰ƒNƒ^
-//// —p“r       FPlayer—p‚ÌƒRƒ“ƒXƒgƒ‰ƒNƒ^
-//// ˆø”       F‚È‚µ
-//// –ß’l       F‚È‚µ
-//// ’S“–Ò     F°Œ´ “O
-//// ”õl       F
+//// ç”¨é€”       ï¼š  ~MagneticObject()
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+//// ç”¨é€”       ï¼šPlayerç”¨ã®ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+//// å¼•æ•°       ï¼šãªã—
+//// æˆ»å€¤       ï¼šãªã—
+//// æ‹…å½“è€…     ï¼šé´«åŸ å¾¹
+//// å‚™è€ƒ       ï¼š
 ////	
 MagneticObject::~MagneticObject(){
 	//Debugger::DBGWRITINGLOGTEXT::addStr(L"MagneticObject::~MagneticObject()\n");
@@ -52,34 +52,34 @@ MagneticObject::~MagneticObject(){
 
 
 /**************************************************************************
- Factory_Magnetic ’è‹`•”
+ Factory_Magnetic å®šç¾©éƒ¨
 ****************************************************************************/
 /**************************************************************************
  Factory_Magnetic::Factory_Magnetic(
 	Factory_Magnetic *fpac
-	LPDIRECT3DDEVICE9 pD3DDevice,	//ƒfƒoƒCƒX
-	vector<Object*>& vec,			//ƒIƒuƒWƒFƒNƒg‚Ì”z—ñ
-	TextureManager& TexMgr		//ƒeƒNƒXƒ`ƒƒ‚Ì”z—ñ
+	LPDIRECT3DDEVICE9 pD3DDevice,	//ãƒ‡ãƒã‚¤ã‚¹
+	vector<Object*>& vec,			//ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®é…åˆ—
+	TextureManager& TexMgr		//ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®é…åˆ—
 );
- —p“r: ƒRƒ“ƒXƒgƒ‰ƒNƒ^iƒTƒ“ƒvƒ‹ƒIƒuƒWƒFƒNƒg‚ğ”z—ñ‚É’Ç‰Á‚·‚éj
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ï¼ˆã‚µãƒ³ãƒ—ãƒ«ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’é…åˆ—ã«è¿½åŠ ã™ã‚‹ï¼‰
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
 Factory_Magnetic::Factory_Magnetic(FactoryPacket *fpac){
 	try{
 	}
 	catch(...){
-		//Äthrow
+		//å†throw
 		throw;
 	}
 
 }
 /**************************************************************************
  Factory_Magnetic::~Factory_Magnetic();
- —p“r: ƒfƒXƒgƒ‰ƒNƒ^
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
 Factory_Magnetic::~Factory_Magnetic(){
-    //‚È‚É‚à‚µ‚È‚¢
+    //ãªã«ã‚‚ã—ãªã„
 }
 
 }

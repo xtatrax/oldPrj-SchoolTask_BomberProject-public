@@ -1,11 +1,11 @@
 ////////////////////////////// //////////////////////////////
-//	ƒvƒƒWƒFƒNƒg	FBomberProject
-//	ƒtƒ@ƒCƒ‹–¼		FFactory_Sound.h
-//	ŠJ”­ŠÂ‹«		FMSVC++ 2008
-//	Å“Kƒ^ƒu”		F4
-//	’S“–ŽÒ			F²“¡@—Á
-//	“à•ïÃÞ°À‚Æ”õl	FƒAƒCƒeƒ€ƒtƒ@ƒNƒgƒŠ[
-//					¥
+//	ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆ	ï¼šBomberProject
+//	ãƒ•ã‚¡ã‚¤ãƒ«å		ï¼šFactory_Sound.h
+//	é–‹ç™ºç’°å¢ƒ		ï¼šMSVC++ 2008
+//	æœ€é©ã‚¿ãƒ–æ•°		ï¼š4
+//	æ‹…å½“è€…			ï¼šä½è—¤ã€€æ¶¼
+//	å†…åŒ…ãƒ‡ãƒ¼ã‚¿ã¨å‚™è€ƒ	ï¼šã‚¢ã‚¤ãƒ†ãƒ ãƒ•ã‚¡ã‚¯ãƒˆãƒªãƒ¼
+//					â–¼
 //	namespace wiz;
 //		class GoalObject;
 //		class Factory_Sound ;
@@ -20,7 +20,7 @@ namespace system{
 
 /**************************************************************************
  class Sound: public Object;
- —p“r: ƒTƒEƒ“ƒhƒNƒ‰ƒX
+ ç”¨é€”: ã‚µã‚¦ãƒ³ãƒ‰ã‚¯ãƒ©ã‚¹
 ****************************************************************************/
 class _Sound : public Object{
 protected:
@@ -32,7 +32,7 @@ protected:
 protected:
 	IXACT3Engine* m_pEngine;
 	XACT_NOTIFICATION_CALLBACK m_fnNotificationCallback;
-	//’Ê’m—p‚ÌƒR[ƒ‹ƒoƒbƒNŠÖ”
+	//é€šçŸ¥ç”¨ã®ã‚³ãƒ¼ãƒ«ãƒãƒƒã‚¯é–¢æ•°
 	IXACT3WaveBank* m_pWaveBank;
 	IXACT3SoundBank* m_pSoundBank;
 	VOID* m_pbWaveBank; // Handle to wave bank data.  Its memory mapped so call UnmapViewOfFile() upon cleanup to release file
@@ -45,53 +45,53 @@ protected:
 
 /**************************************************************************
  void CreateInctance();
- —p“r: ƒCƒ“ƒXƒ^ƒ“ƒX‚Ì\’z
- –ß‚è’l: ‚È‚µBi—áŠO‚ªthrow‚³‚ê‚éj
+ ç”¨é€”: ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã®æ§‹ç¯‰
+ æˆ»ã‚Šå€¤: ãªã—ã€‚ï¼ˆä¾‹å¤–ãŒthrowã•ã‚Œã‚‹ï¼‰
 ***************************************************************************/
 	void CreateInctance();
 public:
 /**************************************************************************
  Sound(
- const wchar_t* pWavBankFileName,		//Wavƒoƒ“ƒN‚Ìƒtƒ@ƒCƒ‹–¼
- const wchar_t* pSoundBankFileName = 0,	//Soundƒoƒ“ƒN‚Ìƒtƒ@ƒCƒ‹–¼iƒIƒvƒVƒ‡ƒ“j
- XACT_NOTIFICATION_CALLBACK fnNotificationCallback = 0	//’Ê’m—pƒR[ƒ‹ƒoƒbƒNŠÖ”‚Ìƒ|ƒCƒ“ƒ^
+ const wchar_t* pWavBankFileName,		//Wavãƒãƒ³ã‚¯ã®ãƒ•ã‚¡ã‚¤ãƒ«å
+ const wchar_t* pSoundBankFileName = 0,	//Soundãƒãƒ³ã‚¯ã®ãƒ•ã‚¡ã‚¤ãƒ«åï¼ˆã‚ªãƒ—ã‚·ãƒ§ãƒ³ï¼‰
+ XACT_NOTIFICATION_CALLBACK fnNotificationCallback = 0	//é€šçŸ¥ç”¨ã‚³ãƒ¼ãƒ«ãƒãƒƒã‚¯é–¢æ•°ã®ãƒã‚¤ãƒ³ã‚¿
  );
- —p“r: ƒRƒ“ƒXƒgƒ‰ƒNƒ^
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
 	_Sound(const wchar_t* pWavBankFileName,const wchar_t* pSoundBankFileName ,wiz::OBJID id,
 		XACT_NOTIFICATION_CALLBACK fnNotificationCallback = 0);
 /**************************************************************************
  virtual ~Sound();
- —p“r: ƒfƒXƒgƒ‰ƒNƒ^
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
 	virtual ~_Sound();
 /**************************************************************************
 	virtual void ReleaseObj();
- —p“r: ƒfƒoƒCƒX‘rŽ¸‚É‚æ‚éƒŠƒ\[ƒX‚ÌŠJ•úi‰¼‘zŠÖ”j
- –ß‚è’l: ‚È‚µB
- –ƒfƒoƒCƒX‚ª‘rŽ¸‚µ‚½‚Æ‚«‚ÉŒÄ‚Î‚ê‚éB‚·‚×‚Ä‚ÌObject‚Ì”h¶ƒNƒ‰ƒX‚ÍAŒÂ•Ê‚É‘Î‰ž‚ð‚Æ‚é
+ ç”¨é€”: ãƒ‡ãƒã‚¤ã‚¹å–ªå¤±ã«ã‚ˆã‚‹ãƒªã‚½ãƒ¼ã‚¹ã®é–‹æ”¾ï¼ˆä»®æƒ³é–¢æ•°ï¼‰
+ æˆ»ã‚Šå€¤: ãªã—ã€‚
+ ï¼Šãƒ‡ãƒã‚¤ã‚¹ãŒå–ªå¤±ã—ãŸã¨ãã«å‘¼ã°ã‚Œã‚‹ã€‚ã™ã¹ã¦ã®Objectã®æ´¾ç”Ÿã‚¯ãƒ©ã‚¹ã¯ã€å€‹åˆ¥ã«å¯¾å¿œã‚’ã¨ã‚‹
 ***************************************************************************/
 	virtual void ReleaseObj();
 /**************************************************************************
 	virtual void ChangeDevice(
-    LPDIRECT3DDEVICE9 pD3DDevice    //IDirect3DDevice9 ƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
+    LPDIRECT3DDEVICE9 pD3DDevice    //IDirect3DDevice9 ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
 	);
- —p“r: ƒfƒoƒCƒX‘rŽ¸‚É‚æ‚éÄ\’zi‰¼‘zŠÖ”j
- –ß‚è’l: ‚È‚µB
- –ƒfƒoƒCƒX‚ª‘rŽ¸‚µ‚½‚Æ‚«‚ÉŒÄ‚Î‚ê‚éB‚·‚×‚Ä‚ÌObject‚Ì”h¶ƒNƒ‰ƒX‚ÍAŒÂ•Ê‚É‘Î‰ž‚ð‚Æ‚é
+ ç”¨é€”: ãƒ‡ãƒã‚¤ã‚¹å–ªå¤±ã«ã‚ˆã‚‹å†æ§‹ç¯‰ï¼ˆä»®æƒ³é–¢æ•°ï¼‰
+ æˆ»ã‚Šå€¤: ãªã—ã€‚
+ ï¼Šãƒ‡ãƒã‚¤ã‚¹ãŒå–ªå¤±ã—ãŸã¨ãã«å‘¼ã°ã‚Œã‚‹ã€‚ã™ã¹ã¦ã®Objectã®æ´¾ç”Ÿã‚¯ãƒ©ã‚¹ã¯ã€å€‹åˆ¥ã«å¯¾å¿œã‚’ã¨ã‚‹
 ***************************************************************************/
 	virtual void ChangeDevice(LPDIRECT3DDEVICE9 pD3DDevice);
 /**************************************************************************
  virtual void Draw(
-    LPDIRECT3DDEVICE9 pD3DDevice    //IDirect3DDevice9 ƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-    vector<Object*>& Vec,            //ƒIƒuƒWƒFƒNƒg‚Ì”z—ñ
-    const CONTROLER_STATE* pCntlState,   //ƒRƒ“ƒgƒ[ƒ‰‚ÌƒXƒe[ƒ^ƒX
-	Context& Data					//ƒ†[ƒU[ƒf[ƒ^
+    LPDIRECT3DDEVICE9 pD3DDevice    //IDirect3DDevice9 ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+    vector<Object*>& Vec,            //ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®é…åˆ—
+    const CONTROLER_STATE* pCntlState,   //ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹
+	Context& Data					//ãƒ¦ãƒ¼ã‚¶ãƒ¼ãƒ‡ãƒ¼ã‚¿
  );
- —p“r: ƒIƒuƒWƒFƒNƒg‚ð•`‰æiƒˆ‰¼‘zŠÖ”j
- –ß‚è’l: ‚È‚µB
+ ç”¨é€”: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’æç”»ï¼ˆç´”ç²‹ä»®æƒ³é–¢æ•°ï¼‰
+ æˆ»ã‚Šå€¤: ãªã—ã€‚
 ***************************************************************************/
     virtual void Draw( DrawPacket& i_DrawPacket );
 };
@@ -112,50 +112,50 @@ class Sound : public _Sound{
 	SOUNDLISTMAP  m_SoundMap ;
 	SOUNDLISTMAP  m_WaveMap ;
 	/////////////////// ////////////////////
-	//// —p“r       F
-	//// ƒJƒeƒSƒŠ   F
-	//// —p“r       F
-	//// ˆø”       F
-	//// –ß’l       F
-	//// ’S“–ŽÒ     FŽ°Œ´ “O
-	//// ”õl       F
-	////            F
+	//// ç”¨é€”       ï¼š
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼š
+	//// ç”¨é€”       ï¼š
+	//// å¼•æ•°       ï¼š
+	//// æˆ»å€¤       ï¼š
+	//// æ‹…å½“è€…     ï¼šé´«åŽŸ å¾¹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
 	bool SearchSoundMap(PCSTR  pSoundName , XACTINDEX& o_SoundNum);
 
 	/////////////////// ////////////////////
-	//// —p“r       F
-	//// ƒJƒeƒSƒŠ   F
-	//// —p“r       F
-	//// ˆø”       F
-	//// –ß’l       F
-	//// ’S“–ŽÒ     FŽ°Œ´ “O
-	//// ”õl       F
-	////            F
+	//// ç”¨é€”       ï¼š
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼š
+	//// ç”¨é€”       ï¼š
+	//// å¼•æ•°       ï¼š
+	//// æˆ»å€¤       ï¼š
+	//// æ‹…å½“è€…     ï¼šé´«åŽŸ å¾¹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
 	bool SearchSoundBank(PCSTR  pSoundName , XACTINDEX& o_SoundNum);
 
 	/////////////////// ////////////////////
-	//// —p“r       F
-	//// ƒJƒeƒSƒŠ   F
-	//// —p“r       F
-	//// ˆø”       F
-	//// –ß’l       F
-	//// ’S“–ŽÒ     FŽ°Œ´ “O
-	//// ”õl       F
-	////            F
+	//// ç”¨é€”       ï¼š
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼š
+	//// ç”¨é€”       ï¼š
+	//// å¼•æ•°       ï¼š
+	//// æˆ»å€¤       ï¼š
+	//// æ‹…å½“è€…     ï¼šé´«åŽŸ å¾¹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
 	bool SearchWaveMap( PCSTR  pWaveName , XACTINDEX& o_WaveNum );
 
 	/////////////////// ////////////////////
-	//// —p“r       F
-	//// ƒJƒeƒSƒŠ   F
-	//// —p“r       F
-	//// ˆø”       F
-	//// –ß’l       F
-	//// ’S“–ŽÒ     FŽ°Œ´ “O
-	//// ”õl       F
-	////            F
+	//// ç”¨é€”       ï¼š
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼š
+	//// ç”¨é€”       ï¼š
+	//// å¼•æ•°       ï¼š
+	//// æˆ»å€¤       ï¼š
+	//// æ‹…å½“è€…     ï¼šé´«åŽŸ å¾¹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
 	bool SearchWaveBank(PCSTR  pWaveName , XACTINDEX& o_WaveNum);
 
@@ -163,50 +163,50 @@ class Sound : public _Sound{
 public:
 
 	/////////////////// ////////////////////
-	//// —p“r       F
-	//// ƒJƒeƒSƒŠ   F
-	//// —p“r       F
-	//// ˆø”       F
-	//// –ß’l       F
-	//// ’S“–ŽÒ     FŽ°Œ´ “O
-	//// ”õl       F
-	////            F
+	//// ç”¨é€”       ï¼š
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼š
+	//// ç”¨é€”       ï¼š
+	//// å¼•æ•°       ï¼š
+	//// æˆ»å€¤       ï¼š
+	//// æ‹…å½“è€…     ï¼šé´«åŽŸ å¾¹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
 	Sound(const wchar_t* pWavBankFileName,const wchar_t* pSoundBankFileName ,wiz::OBJID id);
 	
 	/////////////////// ////////////////////
-	//// —p“r       F
-	//// ƒJƒeƒSƒŠ   F
-	//// —p“r       F
-	//// ˆø”       F
-	//// –ß’l       F
-	//// ’S“–ŽÒ     FŽ°Œ´ “O
-	//// ”õl       F
-	////            F
+	//// ç”¨é€”       ï¼š
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼š
+	//// ç”¨é€”       ï¼š
+	//// å¼•æ•°       ï¼š
+	//// æˆ»å€¤       ï¼š
+	//// æ‹…å½“è€…     ï¼šé´«åŽŸ å¾¹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
 	void Update( UpdatePacket& i_UpdatePacket );
 
 	/////////////////// ////////////////////
-	//// —p“r       F
-	//// ƒJƒeƒSƒŠ   F
-	//// —p“r       F
-	//// ˆø”       F
-	//// –ß’l       F
-	//// ’S“–ŽÒ     FŽ°Œ´ “O
-	//// ”õl       FBGM‚ðÄ¶‚·‚é‚Æ‚«‚É‚Í‚±‚¿‚ç‚ð—˜—p‚µ‚Ä‚­‚¾‚³‚¢
-	////            F
+	//// ç”¨é€”       ï¼š
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼š
+	//// ç”¨é€”       ï¼š
+	//// å¼•æ•°       ï¼š
+	//// æˆ»å€¤       ï¼š
+	//// æ‹…å½“è€…     ï¼šé´«åŽŸ å¾¹
+	//// å‚™è€ƒ       ï¼šBGMã‚’å†ç”Ÿã™ã‚‹ã¨ãã«ã¯ã“ã¡ã‚‰ã‚’åˆ©ç”¨ã—ã¦ãã ã•ã„
+	////            ï¼š
 	////
 	bool SearchSoundAndPlay(PCSTR pSoundName);
 	
 	/////////////////// ////////////////////
-	//// —p“r       F
-	//// ƒJƒeƒSƒŠ   F
-	//// —p“r       F
-	//// ˆø”       F
-	//// –ß’l       F
-	//// ’S“–ŽÒ     FŽ°Œ´ “O
-	//// ”õl       F
-	////            F
+	//// ç”¨é€”       ï¼š
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼š
+	//// ç”¨é€”       ï¼š
+	//// å¼•æ•°       ï¼š
+	//// æˆ»å€¤       ï¼š
+	//// æ‹…å½“è€…     ï¼šé´«åŽŸ å¾¹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
 	bool SearchWaveAndPlay(PCSTR pSoundName, BYTE count = 0);
 
@@ -219,21 +219,21 @@ public:
 /**************************************************************************
 class Factory_Sound;
 
-—p“r@FƒƒCƒ“HêƒNƒ‰ƒX
-’S“–ŽÒF²“¡—Á
+ç”¨é€”ã€€ï¼šãƒ¡ã‚¤ãƒ³å·¥å ´ã‚¯ãƒ©ã‚¹
+æ‹…å½“è€…ï¼šä½è—¤æ¶¼
 ****************************************************************************/
 class Factory_Sound{
 public:
 /**************************************************************************
  Factory_Sound(FactoryPacket* fpac);
- —p“r: ƒRƒ“ƒXƒgƒ‰ƒNƒ^iƒTƒ“ƒvƒ‹ƒIƒuƒWƒFƒNƒg‚ð”z—ñ‚É’Ç‰Á‚·‚éj
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ï¼ˆã‚µãƒ³ãƒ—ãƒ«ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’é…åˆ—ã«è¿½åŠ ã™ã‚‹ï¼‰
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
 	Factory_Sound(FactoryPacket* fpac);
 /**************************************************************************
  ~MyFactory();
- —p“r: ƒfƒXƒgƒ‰ƒNƒ^
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
 	~Factory_Sound();
 };

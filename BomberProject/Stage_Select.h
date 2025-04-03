@@ -1,11 +1,11 @@
 ////////////////////////////// //////////////////////////////
-//	ƒvƒƒWƒFƒNƒg	FBomberProject
-//	ƒtƒ@ƒCƒ‹–¼		FStage_Select.h
-//	ŠJ”­ŠÂ‹«		FMSVC++ 2008
-//	Å“Kƒ^ƒu”		F4
-//	’S“–ŽÒ			F²“¡—Á
-//	“à•ïÃÞ°À‚Æ”õl	Fƒ^ƒCƒgƒ‹ƒXƒe[ƒW
-//					¥
+//	ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆ	ï¼šBomberProject
+//	ãƒ•ã‚¡ã‚¤ãƒ«å		ï¼šStage_Select.h
+//	é–‹ç™ºç’°å¢ƒ		ï¼šMSVC++ 2008
+//	æœ€é©ã‚¿ãƒ–æ•°		ï¼š4
+//	æ‹…å½“è€…			ï¼šä½è—¤æ¶¼
+//	å†…åŒ…ãƒ‡ãƒ¼ã‚¿ã¨å‚™è€ƒ	ï¼šã‚¿ã‚¤ãƒˆãƒ«ã‚¹ãƒ†ãƒ¼ã‚¸
+//					â–¼
 //	namespace wiz;
 //		class StageSelect : public Stage ;
 //
@@ -17,31 +17,31 @@
 #include "Factory_Title.h"
 
 namespace wiz{
-/*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*/
+/*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*/
 /**************************************************************************
  class StageSelect : public Stage;
- —p“r: ƒQ[ƒ€ƒXƒe[ƒWƒNƒ‰ƒX
+ ç”¨é€”: ã‚²ãƒ¼ãƒ ã‚¹ãƒ†ãƒ¼ã‚¸ã‚¯ãƒ©ã‚¹
 ****************************************************************************/
 class StageSelect : public Stage{
 public:	
 /**************************************************************************
  StageSelect(
-	LPDIRECT3DDEVICE9 pD3DDevice,		//ƒfƒoƒCƒX
-	const Script::MLPHeader& Header,	//	: ƒvƒŒƒC‚·‚éŠy‹È‚Ìƒwƒbƒ_[ƒf[ƒ^
-	const Script::SCORELEVEL Level		//	: ƒvƒŒƒC‚·‚éƒŒƒxƒ‹Ží•Ê
+	LPDIRECT3DDEVICE9 pD3DDevice,		//ãƒ‡ãƒã‚¤ã‚¹
+	const Script::MLPHeader& Header,	//	: ãƒ—ãƒ¬ã‚¤ã™ã‚‹æ¥½æ›²ã®ãƒ˜ãƒƒãƒ€ãƒ¼ãƒ‡ãƒ¼ã‚¿
+	const Script::SCORELEVEL Level		//	: ãƒ—ãƒ¬ã‚¤ã™ã‚‹ãƒ¬ãƒ™ãƒ«ç¨®åˆ¥
  );
- —p“r: ƒRƒ“ƒXƒgƒ‰ƒNƒ^
- –ß‚è’l: ‚È‚µiŽ¸”sŽž‚Í—áŠO‚ðthrowj
+ ç”¨é€”: ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+ æˆ»ã‚Šå€¤: ãªã—ï¼ˆå¤±æ•—æ™‚ã¯ä¾‹å¤–ã‚’throwï¼‰
 ***************************************************************************/
 	StageSelect(LPDIRECT3DDEVICE9 pD3DDevice,Stage* pStage = NULL);
 /**************************************************************************
 StageSelect();
- —p“r: ƒfƒXƒgƒ‰ƒNƒ^
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
 	virtual ~StageSelect();
 };
-/*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*/
+/*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*/
 
 }
 //end of namespace wiz.

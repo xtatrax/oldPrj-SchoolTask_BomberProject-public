@@ -1,11 +1,11 @@
 ////////////////////////////// //////////////////////////////
-//	ƒvƒƒWƒFƒNƒg	FDirectX Program Bass Project
-//	ƒtƒ@ƒCƒ‹–¼		FCSV.h
-//	ŠJ”­ŠÂ‹«		FMSVC++ 2008
-//	Å“Kƒ^ƒu”		F4
-//	’S“–Ò			F°Œ´ “O
-//	“à•ïÃŞ°À‚Æ”õl	F
-//					¥
+//	ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆ	ï¼šDirectX Program Bass Project
+//	ãƒ•ã‚¡ã‚¤ãƒ«å		ï¼šCSV.h
+//	é–‹ç™ºç’°å¢ƒ		ï¼šMSVC++ 2008
+//	æœ€é©ã‚¿ãƒ–æ•°		ï¼š4
+//	æ‹…å½“è€…			ï¼šé´«åŸ å¾¹
+//	å†…åŒ…ãƒ‡ãƒ¼ã‚¿ã¨å‚™è€ƒ	ï¼š
+//					â–¼
 //	namespace wiz;
 //		void WStrToWStrTokenList(wstring& line,list<wstring>&wstrvec,wchar_t delimiter) ;
 //		void readcsv(wstring FileName,list<list<wstring>>& vecvecData) ;
@@ -15,61 +15,61 @@
 
 namespace wiz{
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     Fvoid WStrToWStrTokenList(wstring& line,vector<wstring>& wstrvec,wchar_t delimiter)
-	//// ƒJƒeƒSƒŠ   FŠÖ”
-	//// —p“r       F
-	//// ˆø”       F  wstring& i_line              //  : ˆês‚Ìƒf[ƒ^
-	////            F  vector<wstring>& o_wstrvec   //  : ƒZƒ‹‚²‚Æ‚É•ª‰ğ‚³‚ê‚½ƒf[ƒ^
-	////            F  wchar_t delimiter            //  : ‹æØ‚è•¶š
-	//// –ß’l       F‚È‚µ
-	//// ’S“–       F°Œ´ “O
-	//// ”õl       F
-	////            F
+	//// é–¢æ•°å     ï¼švoid WStrToWStrTokenList(wstring& line,vector<wstring>& wstrvec,wchar_t delimiter)
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šé–¢æ•°
+	//// ç”¨é€”       ï¼š
+	//// å¼•æ•°       ï¼š  wstring& i_line              //  : ä¸€è¡Œã®ãƒ‡ãƒ¼ã‚¿
+	////            ï¼š  vector<wstring>& o_wstrvec   //  : ã‚»ãƒ«ã”ã¨ã«åˆ†è§£ã•ã‚ŒãŸãƒ‡ãƒ¼ã‚¿
+	////            ï¼š  wchar_t delimiter            //  : åŒºåˆ‡ã‚Šæ–‡å­—
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“       ï¼šé´«åŸ å¾¹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
 	void WStrToWStrTokenList(wstring& line,vector<wstring>& wstrvec,wchar_t delimiter){
 		wstring::size_type i = 0;
 		wstring wks(L"");
-		//	: ƒ‰ƒCƒ“‚ÌI‚í‚è‚Ü‚Åƒ‹[ƒv
+		//	: ãƒ©ã‚¤ãƒ³ã®çµ‚ã‚ã‚Šã¾ã§ãƒ«ãƒ¼ãƒ—
 		for(i = 0;i < line.size();i++){
 
 			if(line[i] == delimiter){
-				//	: ‹æØ‚è•¶š‚È‚ç‚»‚ê‚Ü‚Å‚Ì•¶š‚ğ“o˜^
+				//	: åŒºåˆ‡ã‚Šæ–‡å­—ãªã‚‰ãã‚Œã¾ã§ã®æ–‡å­—ã‚’ç™»éŒ²
 				wstrvec.push_back(wks);
-				//	: ‚»‚µ‚Äƒ[ƒN‚ğ‰Šú‰»
+				//	: ãã—ã¦ãƒ¯ãƒ¼ã‚¯ã‚’åˆæœŸåŒ–
 				wks = L"";
 			}
 			else{
-				//	: ‹æØ‚è•¶š‚¶‚á‚È‚¯‚ê‚Îƒ[ƒN‚Ö’Ç‰Á
+				//	: åŒºåˆ‡ã‚Šæ–‡å­—ã˜ã‚ƒãªã‘ã‚Œã°ãƒ¯ãƒ¼ã‚¯ã¸è¿½åŠ 
 				wks += line[i];
 			}
 		}
 		wstrvec.push_back(wks);
 	}
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     Fvoid StrToStrTokenList(string& line,vector<string>& strvec,wchar_t delimiter)
-	//// ƒJƒeƒSƒŠ   FŠÖ”
-	//// —p“r       F
-	//// ˆø”       F  wstring& i_line              //  : ˆês‚Ìƒf[ƒ^
-	////            F  vector<string>& o_wstrvec    //  : ƒZƒ‹‚²‚Æ‚É•ª‰ğ‚³‚ê‚½ƒf[ƒ^
-	////            F  wchar_t delimiter            //  : ‹æØ‚è•¶š
-	//// –ß’l       F‚È‚µ
-	//// ’S“–       F°Œ´ “O
-	//// ”õl       F
-	////            F
+	//// é–¢æ•°å     ï¼švoid StrToStrTokenList(string& line,vector<string>& strvec,wchar_t delimiter)
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šé–¢æ•°
+	//// ç”¨é€”       ï¼š
+	//// å¼•æ•°       ï¼š  wstring& i_line              //  : ä¸€è¡Œã®ãƒ‡ãƒ¼ã‚¿
+	////            ï¼š  vector<string>& o_wstrvec    //  : ã‚»ãƒ«ã”ã¨ã«åˆ†è§£ã•ã‚ŒãŸãƒ‡ãƒ¼ã‚¿
+	////            ï¼š  wchar_t delimiter            //  : åŒºåˆ‡ã‚Šæ–‡å­—
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“       ï¼šé´«åŸ å¾¹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
 	void StrToStrTokenList(string& line,vector<string>& strvec,wchar_t delimiter){
 		string::size_type i = 0;
 		string wks("");
-		//	: ƒ‰ƒCƒ“‚ÌI‚í‚è‚Ü‚Åƒ‹[ƒv
+		//	: ãƒ©ã‚¤ãƒ³ã®çµ‚ã‚ã‚Šã¾ã§ãƒ«ãƒ¼ãƒ—
 		for(i = 0;i < line.size();i++){
 			if(line[i] == delimiter){
-				//	: ‹æØ‚è•¶š‚È‚ç‚»‚ê‚Ü‚Å‚Ì•¶š‚ğ“o˜^
+				//	: åŒºåˆ‡ã‚Šæ–‡å­—ãªã‚‰ãã‚Œã¾ã§ã®æ–‡å­—ã‚’ç™»éŒ²
 				strvec.push_back(wks);
-				//	: ‚»‚µ‚Äƒ[ƒN‚ğ‰Šú‰»
+				//	: ãã—ã¦ãƒ¯ãƒ¼ã‚¯ã‚’åˆæœŸåŒ–
 				wks = "";
 			}
 			else{
-				//	: ‹æØ‚è•¶š‚¶‚á‚È‚¯‚ê‚Îƒ[ƒN‚Ö’Ç‰Á
+				//	: åŒºåˆ‡ã‚Šæ–‡å­—ã˜ã‚ƒãªã‘ã‚Œã°ãƒ¯ãƒ¼ã‚¯ã¸è¿½åŠ 
 				wks += line[i];
 			}
 		}
@@ -77,39 +77,39 @@ namespace wiz{
 	}
 
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     Fbool readcsv(wstring i_wsFileName,vector<vector<wstring>>& o_vecvecData);
-	//// ƒJƒeƒSƒŠ   FŠÖ”
-	//// —p“r       FCSVƒf[ƒ^‚ğvector<vector<wstring>>‚Æ‚µ‚Ä“Ç‚İ‚İ‚Ü‚·
-	//// ˆø”       F  wstring                   i_wsFileName    //  : “Ç‚İ‚İ‚½‚¢CSVƒtƒ@ƒCƒ‹
-	////            F  vector<vector<wstring>>&  o_vecvecData    //  : “Ç‚İ‚ñ‚¾ƒf[ƒ^
-	//// –ß’l       Ftrue   : “Ç‚İ‚İ‚É¬Œ÷
-	////            Ffalse  : “Ç‚İ‚İ‚É¸”s
-	//// ’S“–       F°Œ´ “O
-	//// ”õl       FŒ»ó—ñ”‚ª•s‘µ‚¢‚Ìƒf[ƒ^‚ğ“Ç‚İ‚à‚¤‚Æ‚·‚é‚ÆƒoƒO‚è‚Ü‚·‚Ì‚Å
-	////            Fƒf[ƒ^‚ğì¬‚·‚é‚Æ‚«‚É‚Í‚²’ˆÓ‚­‚¾‚³‚¢
+	//// é–¢æ•°å     ï¼šbool readcsv(wstring i_wsFileName,vector<vector<wstring>>& o_vecvecData);
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šé–¢æ•°
+	//// ç”¨é€”       ï¼šCSVãƒ‡ãƒ¼ã‚¿ã‚’vector<vector<wstring>>ã¨ã—ã¦èª­ã¿è¾¼ã¿ã¾ã™
+	//// å¼•æ•°       ï¼š  wstring                   i_wsFileName    //  : èª­ã¿è¾¼ã¿ãŸã„CSVãƒ•ã‚¡ã‚¤ãƒ«
+	////            ï¼š  vector<vector<wstring>>&  o_vecvecData    //  : èª­ã¿è¾¼ã‚“ã ãƒ‡ãƒ¼ã‚¿
+	//// æˆ»å€¤       ï¼štrue   : èª­ã¿è¾¼ã¿ã«æˆåŠŸ
+	////            ï¼šfalse  : èª­ã¿è¾¼ã¿ã«å¤±æ•—
+	//// æ‹…å½“       ï¼šé´«åŸ å¾¹
+	//// å‚™è€ƒ       ï¼šç¾çŠ¶åˆ—æ•°ãŒä¸æƒã„ã®ãƒ‡ãƒ¼ã‚¿ã‚’èª­ã¿è¾¼ã‚‚ã†ã¨ã™ã‚‹ã¨ãƒã‚°ã‚Šã¾ã™ã®ã§
+	////            ï¼šãƒ‡ãƒ¼ã‚¿ã‚’ä½œæˆã™ã‚‹ã¨ãã«ã¯ã”æ³¨æ„ãã ã•ã„
 	////
 	bool readcsv(wstring FileName,vector<vector<wstring>>& vecvecData)
 	{
 		
-		//CSV‚Ì“Ç‚İ‚İ
+		//CSVã®èª­ã¿è¾¼ã¿
 		std::wfstream ifs;
 		ifs.open(FileName.c_str());
 		if(!ifs){
-			::MessageBox(NULL,L"CSV“Ç‚İ‚İƒGƒ‰[\nƒtƒ@ƒCƒ‹ƒpƒX‚ğŠm”F‚µ‚Ä‚­‚¾‚³‚¢",L"ƒGƒ‰[",MB_OK);
+			::MessageBox(NULL,L"CSVèª­ã¿è¾¼ã¿ã‚¨ãƒ©ãƒ¼\nãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹ã‚’ç¢ºèªã—ã¦ãã ã•ã„",L"ã‚¨ãƒ©ãƒ¼",MB_OK);
 			return false;
 		}
 
-		//ˆÈ‰ºd—vIIII
-		//‚±‚ê‚É‚æ‚èSJISƒtƒ@ƒCƒ‹‚ªUNICODEŠÂ‹«‚ÅŠJ‚¯‚éB
-		//ƒGƒ‰[ƒ`ƒFƒbƒN‚Í‚·‚Å‚ÉÏ‚ñ‚Å‚¢‚é‚à‚Ì‚Æ‚·‚é
+		//ä»¥ä¸‹é‡è¦ï¼ï¼ï¼ï¼
+		//ã“ã‚Œã«ã‚ˆã‚ŠSJISãƒ•ã‚¡ã‚¤ãƒ«ãŒUNICODEç’°å¢ƒã§é–‹ã‘ã‚‹ã€‚
+		//ã‚¨ãƒ©ãƒ¼ãƒã‚§ãƒƒã‚¯ã¯ã™ã§ã«æ¸ˆã‚“ã§ã„ã‚‹ã‚‚ã®ã¨ã™ã‚‹
 		wstring line;
-		//ƒhƒLƒ…ƒƒ“ƒg‚É“n‚·1s‚Ì”z—ñ
+		//ãƒ‰ã‚­ãƒ¥ãƒ¡ãƒ³ãƒˆã«æ¸¡ã™1è¡Œã®é…åˆ—
 		vector<wstring> wstrvec;
 		while(getline(ifs,line)){
 			if( line.size() == 0 ){
 				break;
 			}
-			//ã‹L‚Ìƒ†[ƒeƒBƒŠƒeƒBŠÖ”g—p
+			//ä¸Šè¨˜ã®ãƒ¦ãƒ¼ãƒ†ã‚£ãƒªãƒ†ã‚£é–¢æ•°ä½¿ç”¨
 			WStrToWStrTokenList(line,wstrvec,L',');
 			vecvecData.push_back(wstrvec);
 
@@ -119,39 +119,39 @@ namespace wiz{
 	}
 
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     Fbool readcsv(wstring i_wsFileName,vector<vector<string>>& o_vecvecData);
-	//// ƒJƒeƒSƒŠ   FŠÖ”
-	//// —p“r       FCSVƒf[ƒ^‚ğvector<vector<string>>‚Æ‚µ‚Ä“Ç‚İ‚İ‚Ü‚·
-	//// ˆø”       F  wstring                   i_wsFileName    //  : “Ç‚İ‚İ‚½‚¢CSVƒtƒ@ƒCƒ‹
-	////            F  vector<vector<string>>&   o_vecvecData    //  : “Ç‚İ‚ñ‚¾ƒf[ƒ^
-	//// –ß’l       Ftrue   : “Ç‚İ‚İ‚É¬Œ÷
-	////            Ffalse  : “Ç‚İ‚İ‚É¸”s
-	//// ’S“–       F°Œ´ “O
-	//// ”õl       FŒ»ó—ñ”‚ª•s‘µ‚¢‚Ìƒf[ƒ^‚ğ“Ç‚İ‚à‚¤‚Æ‚·‚é‚ÆƒoƒO‚è‚Ü‚·‚Ì‚Å
-	////            Fƒf[ƒ^‚ğì¬‚·‚é‚Æ‚«‚É‚Í‚²’ˆÓ‚­‚¾‚³‚¢
+	//// é–¢æ•°å     ï¼šbool readcsv(wstring i_wsFileName,vector<vector<string>>& o_vecvecData);
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šé–¢æ•°
+	//// ç”¨é€”       ï¼šCSVãƒ‡ãƒ¼ã‚¿ã‚’vector<vector<string>>ã¨ã—ã¦èª­ã¿è¾¼ã¿ã¾ã™
+	//// å¼•æ•°       ï¼š  wstring                   i_wsFileName    //  : èª­ã¿è¾¼ã¿ãŸã„CSVãƒ•ã‚¡ã‚¤ãƒ«
+	////            ï¼š  vector<vector<string>>&   o_vecvecData    //  : èª­ã¿è¾¼ã‚“ã ãƒ‡ãƒ¼ã‚¿
+	//// æˆ»å€¤       ï¼štrue   : èª­ã¿è¾¼ã¿ã«æˆåŠŸ
+	////            ï¼šfalse  : èª­ã¿è¾¼ã¿ã«å¤±æ•—
+	//// æ‹…å½“       ï¼šé´«åŸ å¾¹
+	//// å‚™è€ƒ       ï¼šç¾çŠ¶åˆ—æ•°ãŒä¸æƒã„ã®ãƒ‡ãƒ¼ã‚¿ã‚’èª­ã¿è¾¼ã‚‚ã†ã¨ã™ã‚‹ã¨ãƒã‚°ã‚Šã¾ã™ã®ã§
+	////            ï¼šãƒ‡ãƒ¼ã‚¿ã‚’ä½œæˆã™ã‚‹ã¨ãã«ã¯ã”æ³¨æ„ãã ã•ã„
 	////
 	bool readcsv(wstring FileName,vector<vector<string>>& vecvecData)
 	{
 		
-		//CSV‚Ì“Ç‚İ‚İ
+		//CSVã®èª­ã¿è¾¼ã¿
 		std::fstream ifs;
 		ifs.open(FileName.c_str());
 		if(!ifs){
-			::MessageBox(NULL,L"CSV“Ç‚İ‚İƒGƒ‰[\nƒtƒ@ƒCƒ‹ƒpƒX‚ğŠm”F‚µ‚Ä‚­‚¾‚³‚¢",L"ƒGƒ‰[",MB_OK);
+			::MessageBox(NULL,L"CSVèª­ã¿è¾¼ã¿ã‚¨ãƒ©ãƒ¼\nãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹ã‚’ç¢ºèªã—ã¦ãã ã•ã„",L"ã‚¨ãƒ©ãƒ¼",MB_OK);
 			return false;
 		}
 
-		//ˆÈ‰ºd—vIIII
-		//‚±‚ê‚É‚æ‚èSJISƒtƒ@ƒCƒ‹‚ªUNICODEŠÂ‹«‚ÅŠJ‚¯‚éB
-		//ƒGƒ‰[ƒ`ƒFƒbƒN‚Í‚·‚Å‚ÉÏ‚ñ‚Å‚¢‚é‚à‚Ì‚Æ‚·‚é
+		//ä»¥ä¸‹é‡è¦ï¼ï¼ï¼ï¼
+		//ã“ã‚Œã«ã‚ˆã‚ŠSJISãƒ•ã‚¡ã‚¤ãƒ«ãŒUNICODEç’°å¢ƒã§é–‹ã‘ã‚‹ã€‚
+		//ã‚¨ãƒ©ãƒ¼ãƒã‚§ãƒƒã‚¯ã¯ã™ã§ã«æ¸ˆã‚“ã§ã„ã‚‹ã‚‚ã®ã¨ã™ã‚‹
 		string line;
-		//ƒhƒLƒ…ƒƒ“ƒg‚É“n‚·1s‚Ì”z—ñ
+		//ãƒ‰ã‚­ãƒ¥ãƒ¡ãƒ³ãƒˆã«æ¸¡ã™1è¡Œã®é…åˆ—
 		vector<string> strvec;
 		while(getline(ifs,line)){
 			if( line.size() == 0 ){
 				break;
 			}
-			//ã‹L‚Ìƒ†[ƒeƒBƒŠƒeƒBŠÖ”g—p
+			//ä¸Šè¨˜ã®ãƒ¦ãƒ¼ãƒ†ã‚£ãƒªãƒ†ã‚£é–¢æ•°ä½¿ç”¨
 			StrToStrTokenList(line,strvec,',');
 			vecvecData.push_back(strvec);
 			strvec.clear();

@@ -1,12 +1,12 @@
 ////////////////////////////// //////////////////////////////
-//	ƒvƒƒWƒFƒNƒg	FDirectX Program Bass Project
-//	ƒtƒ@ƒCƒ‹–¼		FStageLoader.h
-//	ŠJ”­ŠÂ‹«		FMSVC++ 2008
-//	Å“Kƒ^ƒu”		F4
-//	’S“–Ò			F°Œ´ “O
-//	“à•ïÃŞ°À‚Æ”õl	FƒXƒe[ƒW
-//					FƒXƒe[ƒW‚ÍƒV[ƒ“‚©‚çŒÄ‚Î‚ê‚Ü‚·
-//					¥
+//	ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆ	ï¼šDirectX Program Bass Project
+//	ãƒ•ã‚¡ã‚¤ãƒ«å		ï¼šStageLoader.h
+//	é–‹ç™ºç’°å¢ƒ		ï¼šMSVC++ 2008
+//	æœ€é©ã‚¿ãƒ–æ•°		ï¼š4
+//	æ‹…å½“è€…			ï¼šé´«åŸ å¾¹
+//	å†…åŒ…ãƒ‡ãƒ¼ã‚¿ã¨å‚™è€ƒ	ï¼šã‚¹ãƒ†ãƒ¼ã‚¸
+//					ï¼šã‚¹ãƒ†ãƒ¼ã‚¸ã¯ã‚·ãƒ¼ãƒ³ã‹ã‚‰å‘¼ã°ã‚Œã¾ã™
+//					â–¼
 //	namespace wiz;
 //		class StageLoader ;
 //		class StageLoader ;
@@ -21,17 +21,17 @@
 
 namespace wiz{
 
-// ‰¼éŒ¾	
+// ä»®å®£è¨€	
 class StageLoader ;
 using namespace menuobject ;
 //class Button2;
-/*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*/
+/*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*/
 /**************************************************************************
  struct MapPartsStatus;
- —p“r: 
+ ç”¨é€”: 
 ****************************************************************************/
 struct MapPartsStatus{
-	DWORD			enClassid ;	//	wiz::CLASSID‚Åw’è‚µ‚Ä‚­‚¾‚³‚¢
+	DWORD			enClassid ;	//	wiz::CLASSIDã§æŒ‡å®šã—ã¦ãã ã•ã„
 	D3DXVECTOR3		vScale    ;
 	D3DXVECTOR3		vRot      ;
 	D3DXVECTOR3		vPos      ;
@@ -41,7 +41,7 @@ struct MapPartsStatus{
 	D3DCOLORVALUE   Ambient   ;
 	POLE			bPool     ;
 
-	//	: ƒIƒvƒVƒ‡ƒ“
+	//	: ã‚ªãƒ—ã‚·ãƒ§ãƒ³
 	wstring			sTexturePath	;
 
 	wstring			sFilePath		;
@@ -49,37 +49,37 @@ struct MapPartsStatus{
 	float			fTracSpeed		;
 
 };
-/*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*/
+/*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*/
 
-/*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*/
+/*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*/
 //**************************************************************************
 // class StageLoader;
 //
-// ’S“–Ò  : °Œ´ “O
-// —p“r    : CSVƒf[ƒ^‚©‚çƒXƒe[ƒW‚ğ\’z‚µ‚Ü‚·
+// æ‹…å½“è€…  : é´«åŸ å¾¹
+// ç”¨é€”    : CSVãƒ‡ãƒ¼ã‚¿ã‹ã‚‰ã‚¹ãƒ†ãƒ¼ã‚¸ã‚’æ§‹ç¯‰ã—ã¾ã™
 //**************************************************************************
 class StageLoader{
 	struct CSVMATRIX {
-		//	: s
+		//	: è¡Œ
 		UINT Line ;
-		//	: —ñ
+		//	: åˆ—
 		struct ___ST{
-			UINT	uiNumber			;	//	”Ô†
-			UINT	uiType				;	//	í—Ş
+			UINT	uiNumber			;	//	ç•ªå·
+			UINT	uiType				;	//	ç¨®é¡
 			UINT	uiPath				;	//	FILE
-			UINT	uiTexPath			;	//	ƒeƒNƒXƒ`ƒƒ
-			UINT	uiMotionNum			;	//	ƒ‚[ƒVƒ‡ƒ“
-			UINT	uiTracSpeed			;	//	ƒ‚[ƒVƒ‡ƒ“‚Ì‘¬‚³
-			UINT	uiScaleX			;	//	XLk
-			UINT	uiScaleY			;	//	YLk
-			UINT	uiScaleZ			;	//	ZLk
-			UINT	uiRotX				;	//	X‰ñ“]
-			UINT	uiRotY				;	//	Y‰ñ“]
-			UINT	uiRotZ				;	//	Z‰ñ“]
-			UINT	uiPosX				;	//	XˆÚ“®
-			UINT	uiPosY				;	//	YˆÚ“®
-			UINT	uiPosZ				;	//	ZˆÚ“®
-			UINT	uiPool				;	//	ZˆÚ“®
+			UINT	uiTexPath			;	//	ãƒ†ã‚¯ã‚¹ãƒãƒ£
+			UINT	uiMotionNum			;	//	ãƒ¢ãƒ¼ã‚·ãƒ§ãƒ³
+			UINT	uiTracSpeed			;	//	ãƒ¢ãƒ¼ã‚·ãƒ§ãƒ³ã®é€Ÿã•
+			UINT	uiScaleX			;	//	Xä¼¸ç¸®
+			UINT	uiScaleY			;	//	Yä¼¸ç¸®
+			UINT	uiScaleZ			;	//	Zä¼¸ç¸®
+			UINT	uiRotX				;	//	Xå›è»¢
+			UINT	uiRotY				;	//	Yå›è»¢
+			UINT	uiRotZ				;	//	Zå›è»¢
+			UINT	uiPosX				;	//	Xç§»å‹•
+			UINT	uiPosY				;	//	Yç§»å‹•
+			UINT	uiPosZ				;	//	Zç§»å‹•
+			UINT	uiPool				;	//	Zç§»å‹•
 			___ST(){
 				uiNumber	=
 				uiType		=
@@ -100,109 +100,109 @@ class StageLoader{
 			}
 		}Column;
 	};
-	//	: CSV‚©‚ç“Ç‚İæ‚Á‚½Data‚ğ‚Æ‚è‚ ‚¦‚¸•Û‘¶‚µ‚Ä‚¨‚­
+	//	: CSVã‹ã‚‰èª­ã¿å–ã£ãŸDataã‚’ã¨ã‚Šã‚ãˆãšä¿å­˜ã—ã¦ãŠã
 	map<UINT,MapPartsStatus>			m_ObjeMap;
 	//	: 
 	multimap<wiz::OBJID,Object*>		m_ObjeTypeMap;
 
 	FactoryPacket*		m_pFpac;
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     Fvoid StageLoader::PartsGenerator(MapPartsStatus i_Data)
-	//// ƒJƒeƒSƒŠ   FƒWƒFƒlƒŒ[ƒ^
-	//// —p“r       Fƒtƒ@ƒCƒ‹‚©‚ç“Ç‚İæ‚Á‚Á‚½ƒf[ƒ^‚ğŒ³‚ÉƒIƒuƒWƒFƒNƒgî•ñ‚ğ\’z‚µ‚Ü‚·
-	//// ˆø”       F  MapPartsStatus   i_Data    //  : ƒtƒ@ƒCƒ‹‚©‚ç“Ç‚İ‚Æ‚½ƒp[ƒc‚Ìî•ñ
-	//// –ß’l       F‚È‚µ
-	//// ’S“–Ò     F°Œ´ “O
-	//// ”õl       FStageGenerator‚©‚ç
-	////            F‡F
+	//// é–¢æ•°å     ï¼švoid StageLoader::PartsGenerator(MapPartsStatus i_Data)
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚¸ã‚§ãƒãƒ¬ãƒ¼ã‚¿
+	//// ç”¨é€”       ï¼šãƒ•ã‚¡ã‚¤ãƒ«ã‹ã‚‰èª­ã¿å–ã£ã£ãŸãƒ‡ãƒ¼ã‚¿ã‚’å…ƒã«ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆæƒ…å ±ã‚’æ§‹ç¯‰ã—ã¾ã™
+	//// å¼•æ•°       ï¼š  MapPartsStatus   i_Data    //  : ãƒ•ã‚¡ã‚¤ãƒ«ã‹ã‚‰èª­ã¿ã¨ãŸãƒ‘ãƒ¼ãƒ„ã®æƒ…å ±
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“è€…     ï¼šé´«åŸ å¾¹
+	//// å‚™è€ƒ       ï¼šStageGeneratorã‹ã‚‰
+	////            ï¼šâ‘¦
 	////
 	void PartsGenerator(MapPartsStatus i_Data);
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     Fvoid StageLoader::StageGenerator(wstring i_sStageFilePath)
-	//// ƒJƒeƒSƒŠ   Fƒƒ“ƒoŠÖ”
-	//// —p“r       FƒXƒe[ƒW‚ğ\’z‚·‚µ‚Ü‚·
-	//// ˆø”       F  wstring i_sStageFilePath         //  ƒXƒe[ƒW‚Ì\¬ƒtƒ@ƒCƒ‹‚Ö‚ÌƒpƒX
-	//// –ß’l       F‚È‚µ
-	//// ’S“–Ò     F°Œ´ “O
-	//// ”õl       FStageListLoaderŠÖ”‚©‚çŒÄ‚Î‚ê‚Ü‚·
-	////            F‡E
+	//// é–¢æ•°å     ï¼švoid StageLoader::StageGenerator(wstring i_sStageFilePath)
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šãƒ¡ãƒ³ãƒé–¢æ•°
+	//// ç”¨é€”       ï¼šã‚¹ãƒ†ãƒ¼ã‚¸ã‚’æ§‹ç¯‰ã™ã—ã¾ã™
+	//// å¼•æ•°       ï¼š  wstring i_sStageFilePath         //  ã‚¹ãƒ†ãƒ¼ã‚¸ã®æ§‹æˆãƒ•ã‚¡ã‚¤ãƒ«ã¸ã®ãƒ‘ã‚¹
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“è€…     ï¼šé´«åŸ å¾¹
+	//// å‚™è€ƒ       ï¼šStageListLoaderé–¢æ•°ã‹ã‚‰å‘¼ã°ã‚Œã¾ã™
+	////            ï¼šâ‘¥
 	////
 	void StageGenerator(wstring i_sStageFilePath);
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     Fvoid PointSearch( vector<vector<wstring>>& i_vvCsvData, CSVMATRIX& o_CsvMatrix)
-	//// ƒJƒeƒSƒŠ   Fƒƒ“ƒoŠÖ”
-	//// —p“r       FƒXƒe[ƒW‚ğ\’z‚·‚µ‚Ü‚·
-	//// ˆø”       F  wstring    i_sStageFilePath         //  ƒXƒe[ƒW‚Ì\¬ƒtƒ@ƒCƒ‹‚Ö‚ÌƒpƒX
-	////            F CSVMATRIX&  o_CsvMatrix				//	“Ç‚İ‚Ş‚×‚«s‚Æ—ñ‚Ì‹l‚ß‡‚í‚¹
-	//// –ß’l       F‚È‚µ
-	//// ’S“–Ò     F°Œ´ “O
-	//// ”õl       FStageListLoaderŠÖ”‚©‚çŒÄ‚Î‚ê‚Ü‚·
-	////            F‡D
+	//// é–¢æ•°å     ï¼švoid PointSearch( vector<vector<wstring>>& i_vvCsvData, CSVMATRIX& o_CsvMatrix)
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šãƒ¡ãƒ³ãƒé–¢æ•°
+	//// ç”¨é€”       ï¼šã‚¹ãƒ†ãƒ¼ã‚¸ã‚’æ§‹ç¯‰ã™ã—ã¾ã™
+	//// å¼•æ•°       ï¼š  wstring    i_sStageFilePath         //  ã‚¹ãƒ†ãƒ¼ã‚¸ã®æ§‹æˆãƒ•ã‚¡ã‚¤ãƒ«ã¸ã®ãƒ‘ã‚¹
+	////            ï¼š CSVMATRIX&  o_CsvMatrix				//	èª­ã¿è¾¼ã‚€ã¹ãè¡Œã¨åˆ—ã®è©°ã‚åˆã‚ã›
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“è€…     ï¼šé´«åŸ å¾¹
+	//// å‚™è€ƒ       ï¼šStageListLoaderé–¢æ•°ã‹ã‚‰å‘¼ã°ã‚Œã¾ã™
+	////            ï¼šâ‘¤
 	////
 	void PointSearch( vector<vector<wstring>>& i_vvCsvData, CSVMATRIX& o_CsvMatrix);
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     Fvoid StageLoader::ObjectsLoader(wstring i_sFilePath)
-	//// ƒJƒeƒSƒŠ   Fƒƒ“ƒoŠÖ”
-	//// —p“r       FƒIƒuƒWƒFƒNƒgî•ñ‚ğ\’z‚µ‚Ü‚·
-	//// ˆø”       F  wstring i_sFilePath         //
-	//// –ß’l       F‚È‚µ
-	//// ’S“–Ò     F°Œ´ “O
-	//// ”õl       FCSV‚©‚ç“Ç‚İæ‚Á‚½î•ñ‚ğ‰ğÍ&ƒCƒ“ƒXƒ^ƒ“ƒX‰»‚µ‚Ü‚·
-	////            FPointSearchŠÖ”‚©‚çŒÄ‚Î‚ê‚Ü‚·
-	////            F‡C
+	//// é–¢æ•°å     ï¼švoid StageLoader::ObjectsLoader(wstring i_sFilePath)
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šãƒ¡ãƒ³ãƒé–¢æ•°
+	//// ç”¨é€”       ï¼šã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆæƒ…å ±ã‚’æ§‹ç¯‰ã—ã¾ã™
+	//// å¼•æ•°       ï¼š  wstring i_sFilePath         //
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“è€…     ï¼šé´«åŸ å¾¹
+	//// å‚™è€ƒ       ï¼šCSVã‹ã‚‰èª­ã¿å–ã£ãŸæƒ…å ±ã‚’è§£æ&ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹åŒ–ã—ã¾ã™
+	////            ï¼šPointSearché–¢æ•°ã‹ã‚‰å‘¼ã°ã‚Œã¾ã™
+	////            ï¼šâ‘£
 	////
 	void ObjectsLoader(wstring i_sFilePath);
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     Fvoid StageLoader::PointSearch( vector<vector<wstring>>& i_vvCsvData , POINT& o_NumberPoint , POINT& o_PathPoint)
-	//// ƒJƒeƒSƒŠ   Fƒƒ“ƒoŠÖ”
-	//// —p“r       FƒXƒe[ƒW‚ğ\’z‚·‚µ‚Ü‚·
-	//// ˆø”       F  vector<vector<wstring>>&  i_vvCsvData    //  :  [IN]CSV‚©‚ç“Ç‚İæ‚Á‚½ƒiƒ}‚Ìƒf[ƒ^
-	////            F  POINT&                    o_NumberPoint  //  : [OUT]
-	////            F  POINT&                    o_PathPoint    //  : [OUT]
-	//// –ß’l       F‚È‚µ
-	//// ’S“–Ò     F°Œ´ “O
-	//// ”õl       FStageListLoaderŠÖ”‚©‚çŒÄ‚Î‚ê‚Ü‚·
-	////            F‡B
+	//// é–¢æ•°å     ï¼švoid StageLoader::PointSearch( vector<vector<wstring>>& i_vvCsvData , POINT& o_NumberPoint , POINT& o_PathPoint)
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šãƒ¡ãƒ³ãƒé–¢æ•°
+	//// ç”¨é€”       ï¼šã‚¹ãƒ†ãƒ¼ã‚¸ã‚’æ§‹ç¯‰ã™ã—ã¾ã™
+	//// å¼•æ•°       ï¼š  vector<vector<wstring>>&  i_vvCsvData    //  :  [IN]CSVã‹ã‚‰èª­ã¿å–ã£ãŸãƒŠãƒã®ãƒ‡ãƒ¼ã‚¿
+	////            ï¼š  POINT&                    o_NumberPoint  //  : [OUT]
+	////            ï¼š  POINT&                    o_PathPoint    //  : [OUT]
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“è€…     ï¼šé´«åŸ å¾¹
+	//// å‚™è€ƒ       ï¼šStageListLoaderé–¢æ•°ã‹ã‚‰å‘¼ã°ã‚Œã¾ã™
+	////            ï¼šâ‘¢
 	////
 	void PointSearch( vector<vector<wstring>>& i_vvCsvData, POINT& o_NumberPoint, POINT& o_PathPoint);
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     Fvoid StageLoader::StageListLoader(wstring i_sFileName, BYTE i_byStageNum)
-	//// ƒJƒeƒSƒŠ   Fƒ[ƒ_[
-	//// —p“r       FƒXƒe[ƒWƒŠƒXƒg‚ğ“Ç‚İ‚Ş
-	//// ˆø”       F
-	//// –ß’l       F
-	//// ’S“–Ò     F°Œ´ “O
-	//// ”õl       F‡A
-	////            F
+	//// é–¢æ•°å     ï¼švoid StageLoader::StageListLoader(wstring i_sFileName, BYTE i_byStageNum)
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šãƒ­ãƒ¼ãƒ€ãƒ¼
+	//// ç”¨é€”       ï¼šã‚¹ãƒ†ãƒ¼ã‚¸ãƒªã‚¹ãƒˆã‚’èª­ã¿è¾¼ã‚€
+	//// å¼•æ•°       ï¼š
+	//// æˆ»å€¤       ï¼š
+	//// æ‹…å½“è€…     ï¼šé´«åŸ å¾¹
+	//// å‚™è€ƒ       ï¼šâ‘¡
+	////            ï¼š
 	////
 	void StageListLoader(wstring i_sFileName, BYTE i_byStageNum);
 public:
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     FStageLoader::StageLoader(FactoryPacket& i_Fpac, wstring i_sFileName,DWORD i_dwStageNum)
-	//// ƒJƒeƒSƒŠ   FƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	//// —p“r       FFILE‚©‚çStageLoader‚ğ\’z‚µ‚Ü‚·
-	//// ˆø”       F
-	//// –ß’l       F‚È‚µ(¸”s‚Í—áŠO‚ğthrow)
-	//// ’S“–Ò     F°Œ´ “O
-	//// ”õl       F‡@
-	////            F
+	//// é–¢æ•°å     ï¼šStageLoader::StageLoader(FactoryPacket& i_Fpac, wstring i_sFileName,DWORD i_dwStageNum)
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	//// ç”¨é€”       ï¼šFILEã‹ã‚‰StageLoaderã‚’æ§‹ç¯‰ã—ã¾ã™
+	//// å¼•æ•°       ï¼š
+	//// æˆ»å€¤       ï¼šãªã—(å¤±æ•—æ™‚ã¯ä¾‹å¤–ã‚’throw)
+	//// æ‹…å½“è€…     ï¼šé´«åŸ å¾¹
+	//// å‚™è€ƒ       ï¼šâ‘ 
+	////            ï¼š
 	////
 	StageLoader(FactoryPacket& i_Fpac, wstring i_sFileName,
 		DWORD i_dwStageNum);
 
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     FStageLoader::StageLoader(FactoryPacket& i_Fpac, MapPartsStatus* i_Parts)
-	//// ƒJƒeƒSƒŠ   FƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	//// —p“r       F
-	//// ˆø”       F
-	//// –ß’l       F
-	//// ’S“–Ò     F°Œ´ “O
-	//// ”õl       F‡@'
-	////            F
+	//// é–¢æ•°å     ï¼šStageLoader::StageLoader(FactoryPacket& i_Fpac, MapPartsStatus* i_Parts)
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	//// ç”¨é€”       ï¼š
+	//// å¼•æ•°       ï¼š
+	//// æˆ»å€¤       ï¼š
+	//// æ‹…å½“è€…     ï¼šé´«åŸ å¾¹
+	//// å‚™è€ƒ       ï¼šâ‘ '
+	////            ï¼š
 	////
 	StageLoader(FactoryPacket& i_Fpac, MapPartsStatus[]);
 }; // StageLoader
-/*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*/
+/*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*/
 
 
 

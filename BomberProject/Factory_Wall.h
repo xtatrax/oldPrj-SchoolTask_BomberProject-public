@@ -1,13 +1,13 @@
 ////////////////////////////// //////////////////////////////
-//	ƒvƒƒWƒFƒNƒg	FBomberProject
-//	ƒtƒ@ƒCƒ‹–¼		FFactory_Wall.h
-//	ŠJ”­ŠÂ‹«		FMSVC++ 2008
-//	Å“Kƒ^ƒu”		F4
-//	’S“–ŽÒ			FŽ°Œ´ “O
-//	ˆøŒp‚¬			F–{‘½ Š°”V
-//	•ÒW			F‰g’n ‘å—m
-//	“à•ïÃÞ°À‚Æ”õl	FƒƒCƒ“ƒtƒ@ƒNƒgƒŠ[
-//					¥
+//	ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆ	ï¼šBomberProject
+//	ãƒ•ã‚¡ã‚¤ãƒ«å		ï¼šFactory_Wall.h
+//	é–‹ç™ºç’°å¢ƒ		ï¼šMSVC++ 2008
+//	æœ€é©ã‚¿ãƒ–æ•°		ï¼š4
+//	æ‹…å½“è€…			ï¼šé´«åŽŸ å¾¹
+//	å¼•ç¶™ãŽ			ï¼šæœ¬å¤š å¯›ä¹‹
+//	ç·¨é›†			ï¼šæ›³åœ° å¤§æ´‹
+//	å†…åŒ…ãƒ‡ãƒ¼ã‚¿ã¨å‚™è€ƒ	ï¼šãƒ¡ã‚¤ãƒ³ãƒ•ã‚¡ã‚¯ãƒˆãƒªãƒ¼
+//					â–¼
 //	namespace wiz;
 //		class WallObject : public PrimitiveBox 
 //		class Factory_Wall ;
@@ -32,23 +32,23 @@ extern class PlayerCoil ;
 extern class EnemyModel ;
 
 /**************************************************************************
- Warning ’è‹`•”
+ Warning å®šç¾©éƒ¨
 ****************************************************************************/
 //**************************************************************************//
 // class Warning
 //
-// ’S“–ŽÒ  : –{‘½Š°”V
+// æ‹…å½“è€…  : æœ¬å¤šå¯›ä¹‹
 //     
-// —p“r    : ƒGƒtƒFƒNƒg
+// ç”¨é€”    : ã‚¨ãƒ•ã‚§ã‚¯ãƒˆ
 //**************************************************************************//
 class Warning : public Box{
 	PlayerCoil*			m_pCoil	;
 	PrimitivePlate		m_Plate;
 	D3DMATERIAL9		m_Material	;
 	D3DXMATRIX			m_Matrix	;
-	D3DXVECTOR3			m_vPos		;	//	: À•W
-	D3DXVECTOR3			m_vRot		;	//	: ‰ñ“]
-	D3DXVECTOR3			m_vScale	;	//	: Lk
+	D3DXVECTOR3			m_vPos		;	//	: åº§æ¨™
+	D3DXVECTOR3			m_vRot		;	//	: å›žè»¢
+	D3DXVECTOR3			m_vScale	;	//	: ä¼¸ç¸®
 	int					m_iPtn;
 	int					m_iPtnInterval;
 	float				m_fDrawTime ;
@@ -56,15 +56,15 @@ class Warning : public Box{
 	bool				m_bIsPlaySound	;
 public:
 	/////////////////// ////////////////////
-	//// —p“r       FWarning(	LPDIRECT3DDEVICE9 pD3DDevice,LPTATRATEXTURE pTexture,wiz::OBJID id = OBJID_3D_WALL);
-	//// ƒJƒeƒSƒŠ   FƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	//// —p“r       F
-	//// ˆø”       FLPDIRECT3DDEVICE9 pD3DDevice //ƒfƒoƒCƒX
-	////			  : LPTATRATEXTURE pTexture  //ƒeƒNƒXƒ`ƒƒ
+	//// ç”¨é€”       ï¼šWarning(	LPDIRECT3DDEVICE9 pD3DDevice,LPTATRATEXTURE pTexture,wiz::OBJID id = OBJID_3D_WALL);
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	//// ç”¨é€”       ï¼š
+	//// å¼•æ•°       ï¼šLPDIRECT3DDEVICE9 pD3DDevice //ãƒ‡ãƒã‚¤ã‚¹
+	////			  : LPTATRATEXTURE pTexture  //ãƒ†ã‚¯ã‚¹ãƒãƒ£
 	////			  : pTexture,wiz::OBJID id = OBJID_3D_WALL //ID
-	//// –ß’l       F‚È‚µ
-	//// ’S“–ŽÒ     F–{‘½Š°”V
-	//// ”õl       F
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“è€…     ï¼šæœ¬å¤šå¯›ä¹‹
+	//// å‚™è€ƒ       ï¼š
 	Warning(
 		LPDIRECT3DDEVICE9 pD3DDevice	,
 		D3DCOLORVALUE&		Diffuse		,
@@ -74,41 +74,41 @@ public:
 		wiz::OBJID id
 	);
 	/////////////////// ////////////////////
-	//// —p“r       F~Warning();
-	//// ƒJƒeƒSƒŠ   FƒfƒXƒgƒ‰ƒNƒ^
-	//// —p“r       F
-	//// ˆø”       F
-	//// –ß’l       F‚È‚µ
-	//// ’S“–ŽÒ     FŽ°Œ´ “O
-	//// ”õl       F
+	//// ç”¨é€”       ï¼š~Warning();
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	//// ç”¨é€”       ï¼š
+	//// å¼•æ•°       ï¼š
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“è€…     ï¼šé´«åŽŸ å¾¹
+	//// å‚™è€ƒ       ï¼š
 	~Warning();
 	/////////////////// ////////////////////
-	//// —p“r       Fvoid Draw( DrawPacket& i_DrawPacket )
-	//// ƒJƒeƒSƒŠ   FŠÖ”
-	//// —p“r       FƒIƒuƒWƒFƒNƒg‚ðƒfƒBƒXƒvƒŒƒC‚É•\Ž¦‚·‚é
-	//// ˆø”       F  DrawPacket& i_DrawPacket             // ‰æ–Ê•`‰æŽž‚É•K—v‚Èƒf[ƒ^ŒQ «“à—e‰º‹L
-	////            F  „¥ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 ƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-	////            F  „¥ vector<Object*>&    Vec                     // ƒIƒuƒWƒFƒNƒg‚Ì”z—ñ
-	////            F  „¥ Tempus2*            i_DrawPacket.GetTime()	   // ŽžŠÔ‚ðŠÇ—‚·‚éƒNƒ‰ƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^[
-	////            F  „¤ Command             i_DrawPacket.pCommand   // ƒRƒ}ƒ“ƒh
-	//// –ß’l       F‚È‚µ
-	//// ’S“–ŽÒ     F–{‘½Š°”V
-	//// ”õl       F
+	//// ç”¨é€”       ï¼švoid Draw( DrawPacket& i_DrawPacket )
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šé–¢æ•°
+	//// ç”¨é€”       ï¼šã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ãƒ‡ã‚£ã‚¹ãƒ—ãƒ¬ã‚¤ã«è¡¨ç¤ºã™ã‚‹
+	//// å¼•æ•°       ï¼š  DrawPacket& i_DrawPacket             // ç”»é¢æç”»æ™‚ã«å¿…è¦ãªãƒ‡ãƒ¼ã‚¿ç¾¤ â†“å†…å®¹ä¸‹è¨˜
+	////            ï¼š  â”œ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+	////            ï¼š  â”œ vector<Object*>&    Vec                     // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®é…åˆ—
+	////            ï¼š  â”œ Tempus2*            i_DrawPacket.GetTime()	   // æ™‚é–“ã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿ãƒ¼
+	////            ï¼š  â”” Command             i_DrawPacket.pCommand   // ã‚³ãƒžãƒ³ãƒ‰
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“è€…     ï¼šæœ¬å¤šå¯›ä¹‹
+	//// å‚™è€ƒ       ï¼š
 	void Draw( DrawPacket& i_DrawPacket );
 	/////////////////// ////////////////////
-	//// —p“r       Fvoid Update( UpdatePacket& i_UpdatePacket )
-	//// ƒJƒeƒSƒŠ   FŠÖ”
-	//// —p“r       FƒIƒuƒWƒFƒNƒg‚ðXV
-	//// ˆø”       F  UpdatePacket& i_UpdatePacket     // ƒAƒbƒvƒf[ƒgŽž‚É•K—v‚Èƒf[ƒ^ŒQ «“à—e‰º‹L
-	////            F  „¥       LPDIRECT3DDEVICE9  pD3DDevice      // IDirect3DDevice9 ƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-	////            F  „¥       Tempus2*           pTime           // ŽžŠÔ‚ðŠÇ—‚·‚éƒNƒ‰ƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^[
-	////            F  „¥       vector<Object*>&   Vec,            // ƒIƒuƒWƒFƒNƒg‚Ì”z—ñ
-	////            F  „¥ const CONTROLER_STATE*   pCntlState      // ƒRƒ“ƒgƒ[ƒ‰‚ÌƒXƒe[ƒ^ƒX
-	////            F  „¤       Command            pCommand        // ƒRƒ}ƒ“ƒh
-	//// –ß’l       F‚È‚µ
-	//// ’S“–ŽÒ     F–{‘½Š°”V
-	//// ”õl       F
-	////            F
+	//// ç”¨é€”       ï¼švoid Update( UpdatePacket& i_UpdatePacket )
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šé–¢æ•°
+	//// ç”¨é€”       ï¼šã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’æ›´æ–°
+	//// å¼•æ•°       ï¼š  UpdatePacket& i_UpdatePacket     // ã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆæ™‚ã«å¿…è¦ãªãƒ‡ãƒ¼ã‚¿ç¾¤ â†“å†…å®¹ä¸‹è¨˜
+	////            ï¼š  â”œ       LPDIRECT3DDEVICE9  pD3DDevice      // IDirect3DDevice9 ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+	////            ï¼š  â”œ       Tempus2*           pTime           // æ™‚é–“ã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿ãƒ¼
+	////            ï¼š  â”œ       vector<Object*>&   Vec,            // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®é…åˆ—
+	////            ï¼š  â”œ const CONTROLER_STATE*   pCntlState      // ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹
+	////            ï¼š  â””       Command            pCommand        // ã‚³ãƒžãƒ³ãƒ‰
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“è€…     ï¼šæœ¬å¤šå¯›ä¹‹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
 	void Update( UpdatePacket& i_UpdatePacket );
 
@@ -138,15 +138,15 @@ public:
 
 
 /**************************************************************************
- WallObject ’è‹`•”
+ WallObject å®šç¾©éƒ¨
 ****************************************************************************/
 //**************************************************************************//
 // cclass WallObject : public PrimitiveBox
 //
-// ’S“–ŽÒ  : –{‘½Š°”V
-//         : ‰g’n ‘å—m
-// •ÒW    : Ž°Œ´ “O
-// —p“r    : •Ç
+// æ‹…å½“è€…  : æœ¬å¤šå¯›ä¹‹
+//         : æ›³åœ° å¤§æ´‹
+// ç·¨é›†    : é´«åŽŸ å¾¹
+// ç”¨é€”    : å£
 //**************************************************************************//
 class WallObject : public Box{
 	int					m_Ptn			;
@@ -172,7 +172,7 @@ class WallObject : public Box{
 		{
 			::ZeroMemory(&m_Material,sizeof(D3DMATERIAL9));
 
-			//Õ“Ë”»’è—p‚ÌOBB‚Ì‰Šú‰»
+			//è¡çªåˆ¤å®šç”¨ã®OBBã®åˆæœŸåŒ–
 			D3DXVECTOR3 vOBBScale	= D3DXVECTOR3(vScale.x/4,vScale.y*0.97f,vScale.z),
 						vOBBScale_W	= D3DXVECTOR3(vScale.x,vScale.y,vScale.z),
 						vOBBRot		= D3DXVECTOR3(0.0f, 0.0f, D3DXToRadian( vRot.z ));
@@ -194,47 +194,47 @@ class WallObject : public Box{
 		}
 
 	};
-	//map<ƒIƒuƒWƒFƒNƒg‚Ìƒ|ƒWƒVƒ‡ƒ“,WallItem>
+	//map<ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ãƒã‚¸ã‚·ãƒ§ãƒ³,WallItem>
 	typedef multimap<float,WallItem*>	ALLCONTAINER		;
 	typedef list<WallItem*>				TARGETCONTAINER		;
-	ALLCONTAINER				m_ItemMap_All		;	//‘S‚Ä‚ÌWallItem
-	TARGETCONTAINER				m_ItemMap_Target	;	//•`‰æ‘ÎÛ‚ÌWallItem
+	ALLCONTAINER				m_ItemMap_All		;	//å…¨ã¦ã®WallItem
+	TARGETCONTAINER				m_ItemMap_Target	;	//æç”»å¯¾è±¡ã®WallItem
 
 protected:
 
 	/////////////////// ////////////////////
-	//// —p“r       FWallObject(	LPDIRECT3DDEVICE9 pD3DDevice,LPTATRATEXTURE pTexture,wiz::OBJID id = OBJID_3D_WALL);
-	//// ƒJƒeƒSƒŠ   FƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	//// —p“r       FŠÖ”
-	//// ˆø”       F‚È‚µ
-	//// –ß’l       F‚È‚µ
-	//// ’S“–ŽÒ     FŽ°Œ´ “O
-	//// ”õl       F
+	//// ç”¨é€”       ï¼šWallObject(	LPDIRECT3DDEVICE9 pD3DDevice,LPTATRATEXTURE pTexture,wiz::OBJID id = OBJID_3D_WALL);
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	//// ç”¨é€”       ï¼šé–¢æ•°
+	//// å¼•æ•°       ï¼šãªã—
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“è€…     ï¼šé´«åŽŸ å¾¹
+	//// å‚™è€ƒ       ï¼š
 	void UpdateTargetItem();
 
 public:
 	/////////////////// ////////////////////
-	//// —p“r       FWallObject(	LPDIRECT3DDEVICE9 pD3DDevice,LPTATRATEXTURE pTexture,wiz::OBJID id = OBJID_3D_WALL);
-	//// ƒJƒeƒSƒŠ   FƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	//// —p“r       F
-	//// ˆø”       FLPDIRECT3DDEVICE9 pD3DDevice //ƒfƒoƒCƒX
-	////			  : LPTATRATEXTURE pTexture  //ƒeƒNƒXƒ`ƒƒ
+	//// ç”¨é€”       ï¼šWallObject(	LPDIRECT3DDEVICE9 pD3DDevice,LPTATRATEXTURE pTexture,wiz::OBJID id = OBJID_3D_WALL);
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	//// ç”¨é€”       ï¼š
+	//// å¼•æ•°       ï¼šLPDIRECT3DDEVICE9 pD3DDevice //ãƒ‡ãƒã‚¤ã‚¹
+	////			  : LPTATRATEXTURE pTexture  //ãƒ†ã‚¯ã‚¹ãƒãƒ£
 	////			  : pTexture,wiz::OBJID id = OBJID_3D_WALL //ID
-	//// –ß’l       F‚È‚µ
-	//// ’S“–ŽÒ     F–{‘½Š°”V
-	//// ”õl       F
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“è€…     ï¼šæœ¬å¤šå¯›ä¹‹
+	//// å‚™è€ƒ       ï¼š
 	WallObject(	LPDIRECT3DDEVICE9 pD3DDevice,
 				LPTATRATEXTURE pTexture,
 				wiz::OBJID id = OBJID_3D_WALL
 				);
 	/////////////////// ////////////////////
-	//// —p“r       F~WallObject();
-	//// ƒJƒeƒSƒŠ   FƒfƒXƒgƒ‰ƒNƒ^
-	//// —p“r       F
-	//// ˆø”       F
-	//// –ß’l       F‚È‚µ
-	//// ’S“–ŽÒ     FŽ°Œ´ “O
-	//// ”õl       F
+	//// ç”¨é€”       ï¼š~WallObject();
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	//// ç”¨é€”       ï¼š
+	//// å¼•æ•°       ï¼š
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“è€…     ï¼šé´«åŽŸ å¾¹
+	//// å‚™è€ƒ       ï¼š
 	~WallObject();
 
 	bool HitTest2DRectAndCircle( D3DXVECTOR3& i_vPos, float i_fRadius );
@@ -242,63 +242,63 @@ public:
 	
 
 	///////////////////// ////////////////////
-	////// —p“r       Fvoid GetOBB( size_t Index, OBB& obb )
-	////// ƒJƒeƒSƒŠ   FŠÖ”
-	////// —p“r       FƒIƒuƒWƒFƒNƒg‚ðƒfƒBƒXƒvƒŒƒC‚É•\Ž¦‚·‚é
-	////// ˆø”       F float Index,
-	//////				 OBB& obb			//Žæ“¾‚·‚éOBB
-	////// –ß’l       F‚È‚µBƒCƒ“ƒfƒbƒNƒX‚ª”ÍˆÍŠO‚È‚ç—áŠO
-	//////				–Œ»Ý‚ÌOBB‚ð‘ã“ü‚·‚é
-	////// ’S“–ŽÒ     F‰g’n ‘å—m
-	////// ”õl       F
+	////// ç”¨é€”       ï¼švoid GetOBB( size_t Index, OBB& obb )
+	////// ã‚«ãƒ†ã‚´ãƒª   ï¼šé–¢æ•°
+	////// ç”¨é€”       ï¼šã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ãƒ‡ã‚£ã‚¹ãƒ—ãƒ¬ã‚¤ã«è¡¨ç¤ºã™ã‚‹
+	////// å¼•æ•°       ï¼š float Index,
+	//////				 OBB& obb			//å–å¾—ã™ã‚‹OBB
+	////// æˆ»å€¤       ï¼šãªã—ã€‚ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãŒç¯„å›²å¤–ãªã‚‰ä¾‹å¤–
+	//////				ï¼Šç¾åœ¨ã®OBBã‚’ä»£å…¥ã™ã‚‹
+	////// æ‹…å½“è€…     ï¼šæ›³åœ° å¤§æ´‹
+	////// å‚™è€ƒ       ï¼š
 	void GetOBBList( float Index, list<OBB>& ObbList );
 
 
 	/////////////////// ////////////////////
-	//// —p“r       Fvoid Draw( DrawPacket& i_DrawPacket )
-	//// ƒJƒeƒSƒŠ   FŠÖ”
-	//// —p“r       FƒIƒuƒWƒFƒNƒg‚ðƒfƒBƒXƒvƒŒƒC‚É•\Ž¦‚·‚é
-	//// ˆø”       F  DrawPacket& i_DrawPacket             // ‰æ–Ê•`‰æŽž‚É•K—v‚Èƒf[ƒ^ŒQ «“à—e‰º‹L
-	////            F  „¥ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 ƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-	////            F  „¥ vector<Object*>&    Vec                     // ƒIƒuƒWƒFƒNƒg‚Ì”z—ñ
-	////            F  „¥ Tempus2*            i_DrawPacket.GetTime()	   // ŽžŠÔ‚ðŠÇ—‚·‚éƒNƒ‰ƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^[
-	////            F  „¤ Command             i_DrawPacket.pCommand   // ƒRƒ}ƒ“ƒh
-	//// –ß’l       F‚È‚µ
-	//// ’S“–ŽÒ     F–{‘½Š°”V
-	//// ”õl       F
+	//// ç”¨é€”       ï¼švoid Draw( DrawPacket& i_DrawPacket )
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šé–¢æ•°
+	//// ç”¨é€”       ï¼šã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ãƒ‡ã‚£ã‚¹ãƒ—ãƒ¬ã‚¤ã«è¡¨ç¤ºã™ã‚‹
+	//// å¼•æ•°       ï¼š  DrawPacket& i_DrawPacket             // ç”»é¢æç”»æ™‚ã«å¿…è¦ãªãƒ‡ãƒ¼ã‚¿ç¾¤ â†“å†…å®¹ä¸‹è¨˜
+	////            ï¼š  â”œ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+	////            ï¼š  â”œ vector<Object*>&    Vec                     // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®é…åˆ—
+	////            ï¼š  â”œ Tempus2*            i_DrawPacket.GetTime()	   // æ™‚é–“ã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿ãƒ¼
+	////            ï¼š  â”” Command             i_DrawPacket.pCommand   // ã‚³ãƒžãƒ³ãƒ‰
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“è€…     ï¼šæœ¬å¤šå¯›ä¹‹
+	//// å‚™è€ƒ       ï¼š
 	void Draw( DrawPacket& i_DrawPacket );
 
 	/////////////////// ////////////////////
-	//// —p“r       Fvoid Update( UpdatePacket& i_UpdatePacket )
-	//// ƒJƒeƒSƒŠ   FŠÖ”
-	//// —p“r       FƒIƒuƒWƒFƒNƒg‚ðXV
-	//// ˆø”       F  UpdatePacket& i_UpdatePacket     // ƒAƒbƒvƒf[ƒgŽž‚É•K—v‚Èƒf[ƒ^ŒQ «“à—e‰º‹L
-	////            F  „¥       LPDIRECT3DDEVICE9  pD3DDevice      // IDirect3DDevice9 ƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-	////            F  „¥       Tempus2*           pTime           // ŽžŠÔ‚ðŠÇ—‚·‚éƒNƒ‰ƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^[
-	////            F  „¥       vector<Object*>&   Vec,            // ƒIƒuƒWƒFƒNƒg‚Ì”z—ñ
-	////            F  „¥ const CONTROLER_STATE*   pCntlState      // ƒRƒ“ƒgƒ[ƒ‰‚ÌƒXƒe[ƒ^ƒX
-	////            F  „¤       Command            pCommand        // ƒRƒ}ƒ“ƒh
-	//// –ß’l       F‚È‚µ
-	//// ’S“–ŽÒ     F–{‘½Š°”V
-	//// ”õl       F
-	////            F
+	//// ç”¨é€”       ï¼švoid Update( UpdatePacket& i_UpdatePacket )
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šé–¢æ•°
+	//// ç”¨é€”       ï¼šã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’æ›´æ–°
+	//// å¼•æ•°       ï¼š  UpdatePacket& i_UpdatePacket     // ã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆæ™‚ã«å¿…è¦ãªãƒ‡ãƒ¼ã‚¿ç¾¤ â†“å†…å®¹ä¸‹è¨˜
+	////            ï¼š  â”œ       LPDIRECT3DDEVICE9  pD3DDevice      // IDirect3DDevice9 ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+	////            ï¼š  â”œ       Tempus2*           pTime           // æ™‚é–“ã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿ãƒ¼
+	////            ï¼š  â”œ       vector<Object*>&   Vec,            // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®é…åˆ—
+	////            ï¼š  â”œ const CONTROLER_STATE*   pCntlState      // ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹
+	////            ï¼š  â””       Command            pCommand        // ã‚³ãƒžãƒ³ãƒ‰
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“è€…     ï¼šæœ¬å¤šå¯›ä¹‹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
 	void Update( UpdatePacket& i_UpdatePacket );
 
 	/////////////////// ////////////////////
-	//// —p“r       Fvoid AddWall( DrawPacket& i_DrawPacket )
-	//// ƒJƒeƒSƒŠ   FŠÖ”
-	//// —p“r       FWall‚Ì’Ç‰Á
-	//// ˆø”       F  LPDIRECT3DDEVICE9 pD3DDevice,	////IDirect3DDevice9ƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-	////		    F  D3DXVECTOR3 &vScale				//Šg‘åk¬
-	////		    F  D3DXVECTOR3 &vRot				//‰ñ“]Šp
-	////		    F  D3DXVECTOR3 &vPos				//ˆÊ’u
-	////            F  D3DCOLORVALUE& Diffuse,			//ƒfƒBƒtƒ…[ƒYF
-	////            F  D3DCOLORVALUE& Specular,		//ƒXƒyƒLƒ…ƒ‰F
-	////            F  D3DCOLORVALUE& Ambient,			//ƒAƒ“ƒrƒGƒ“ƒgF
-	//// –ß’l       F‚È‚µ
-	//// ’S“–ŽÒ     F–{‘½Š°”V
-	//// ”õl       F
+	//// ç”¨é€”       ï¼švoid AddWall( DrawPacket& i_DrawPacket )
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šé–¢æ•°
+	//// ç”¨é€”       ï¼šWallã®è¿½åŠ 
+	//// å¼•æ•°       ï¼š  LPDIRECT3DDEVICE9 pD3DDevice,	////IDirect3DDevice9ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+	////		    ï¼š  D3DXVECTOR3 &vScale				//æ‹¡å¤§ç¸®å°
+	////		    ï¼š  D3DXVECTOR3 &vRot				//å›žè»¢è§’
+	////		    ï¼š  D3DXVECTOR3 &vPos				//ä½ç½®
+	////            ï¼š  D3DCOLORVALUE& Diffuse,			//ãƒ‡ã‚£ãƒ•ãƒ¥ãƒ¼ã‚ºè‰²
+	////            ï¼š  D3DCOLORVALUE& Specular,		//ã‚¹ãƒšã‚­ãƒ¥ãƒ©è‰²
+	////            ï¼š  D3DCOLORVALUE& Ambient,			//ã‚¢ãƒ³ãƒ“ã‚¨ãƒ³ãƒˆè‰²
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“è€…     ï¼šæœ¬å¤šå¯›ä¹‹
+	//// å‚™è€ƒ       ï¼š
 	void AddWall(D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos,
 			D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient);
 
@@ -320,24 +320,24 @@ public:
 
 /**************************************************************************
  class Factory_Wall;
- —p“r: ƒƒCƒ“HêƒNƒ‰ƒX
+ ç”¨é€”: ãƒ¡ã‚¤ãƒ³å·¥å ´ã‚¯ãƒ©ã‚¹
 ****************************************************************************/
 class Factory_Wall{
 public:
 /**************************************************************************
  Factory_Wall(
-	LPDIRECT3DDEVICE9 pD3DDevice,	//ƒfƒoƒCƒX
-	vector<Object*>& vec,			//ƒIƒuƒWƒFƒNƒg‚Ì”z—ñ
-	TextureManager& TexMgr			//ƒeƒNƒXƒ`ƒƒ‚Ì”z—ñ
+	LPDIRECT3DDEVICE9 pD3DDevice,	//ãƒ‡ãƒã‚¤ã‚¹
+	vector<Object*>& vec,			//ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®é…åˆ—
+	TextureManager& TexMgr			//ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®é…åˆ—
 );
- —p“r: ƒRƒ“ƒXƒgƒ‰ƒNƒ^iƒTƒ“ƒvƒ‹ƒIƒuƒWƒFƒNƒg‚ð”z—ñ‚É’Ç‰Á‚·‚éj
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ï¼ˆã‚µãƒ³ãƒ—ãƒ«ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’é…åˆ—ã«è¿½åŠ ã™ã‚‹ï¼‰
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
 	Factory_Wall(FactoryPacket* fpac);
 /**************************************************************************
  ~MyFactory();
- —p“r: ƒfƒXƒgƒ‰ƒNƒ^
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
 	~Factory_Wall();
 };

@@ -11,7 +11,7 @@
 
 #pragma warning( disable : 4091 )
 
-//•K—v‚Èƒo[ƒWƒ‡ƒ“‚Í Windows XP ˆÈ~
+//å¿…è¦ãªãƒãƒ¼ã‚¸ãƒ§ãƒ³ã¯ Windows XP ä»¥é™
 #ifndef WINVER
 #define WINVER         0x0501
 #endif
@@ -23,7 +23,7 @@
 #endif
 
 //////////
-//  ƒŠƒ“ƒJ‚ÌİŒv
+//  ãƒªãƒ³ã‚«ã®è¨­è¨ˆ
 #pragma comment( lib, "dxerr.lib" )
 #pragma comment( lib, "dxguid.lib" )
 #pragma comment( lib, "d3d9.lib" )
@@ -48,7 +48,7 @@
 #include <crtdbg.h>
 
 //////////
-//  Šî–{“I‚ÈƒCƒ“ƒNƒ‹[ƒh
+//  åŸºæœ¬çš„ãªã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰
 #include "resource.h"
 #include <windows.h>
 #include <stdio.h>
@@ -57,7 +57,7 @@
 #include <time.h>
 #include <shlwapi.h>
 #include <string.h>
-//ƒTƒEƒ“ƒh—p
+//ã‚µã‚¦ãƒ³ãƒ‰ç”¨
 #include <xact3.h>
 #include <shellapi.h>
 
@@ -83,7 +83,7 @@ using namespace std;
 #include <XInput.h>
 //#include <dinput.h>
 
-// HRESULT g—p 
+// HRESULT ä½¿ç”¨ 
 #include <dxerr.h>
 
 //

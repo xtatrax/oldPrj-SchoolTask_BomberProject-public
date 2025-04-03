@@ -1,10 +1,10 @@
 ////////////////////////////// //////////////////////////////
-//	ƒvƒƒWƒFƒNƒg	FTATRA-Library
-//	ƒtƒ@ƒCƒ‹–¼		FTL-String.h
-//	ŠJ”­ŠÂ‹«		FMSVC++ 2008
-//	Å“Kƒ^ƒu”		F4
-//	’S“–Ò			Ftatra
-//	“à•ïƒf[ƒ^		¥
+//	ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆ	ï¼šTATRA-Library
+//	ãƒ•ã‚¡ã‚¤ãƒ«å		ï¼šTL-String.h
+//	é–‹ç™ºç’°å¢ƒ		ï¼šMSVC++ 2008
+//	æœ€é©ã‚¿ãƒ–æ•°		ï¼š4
+//	æ‹…å½“è€…			ï¼štatra
+//	å†…åŒ…ãƒ‡ãƒ¼ã‚¿		â–¼
 //
 //
 //
@@ -14,7 +14,7 @@
 #ifndef TLIB_STRING
 #define TLIB_STRING
 #pragma warning(disable : 4996) 
-//•W€
+//æ¨™æº–
 //#include <stdio.h>
 //#include <stdarg.h>
 //#include <string.h>
@@ -23,7 +23,7 @@
 //#include <string>
 
 namespace TLIB{
-	//”—ñ‚ÌŒ…·”
+	//æ•°åˆ—ã®æ¡å·®æ•°
 inline int numlen(int i){
 	int len = 0;
 	if(i < 0) len++;
@@ -36,13 +36,13 @@ inline int numlen(int i){
 }
 
 /////////////////// ////////////////////
-//// ŠÖ”–¼     Fvoid StartUpdateThread()
-//// ƒJƒeƒSƒŠ   Fƒƒ“ƒoŠÖ”
-//// —p“r       FƒV[ƒ“‚ÌƒAƒbƒvƒf[ƒg—pƒXƒŒƒbƒh‚ğŠJn‚·‚é
-//// ˆø”       F‚È‚µ
-//// –ß’l       F‚È‚µ
-//// ”õl       F
-////            F
+//// é–¢æ•°å     ï¼švoid StartUpdateThread()
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šãƒ¡ãƒ³ãƒé–¢æ•°
+//// ç”¨é€”       ï¼šã‚·ãƒ¼ãƒ³ã®ã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆç”¨ã‚¹ãƒ¬ãƒƒãƒ‰ã‚’é–‹å§‹ã™ã‚‹
+//// å¼•æ•°       ï¼šãªã—
+//// æˆ»å€¤       ï¼šãªã—
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
 inline bool FileExtentionChecker( std::string sFileName, std::string sFileExtention ){
 	sFileExtention = std::string(".") + sFileExtention;
@@ -57,67 +57,67 @@ inline bool FileExtentionChecker( std::string sFileName, std::string sFileExtent
 
 
 /////////////////// ////////////////////
-//// ŠÖ”–¼     Finline void addStr(char **outSir,int addLen,char **inStr)
-//// ƒJƒeƒSƒŠ   FƒOƒ[ƒoƒ‹ŠÖ”
-//// —p“r       FoutSir‚ÌŒã‚ë‚ÉinStr‚ğ’Ç‰Á‚·‚é
-//// ˆø”       F  char **outSirF•ÏX‚ğ‰Á‚¦‚½‚¢•¶š—ñ‚Ö‚Ìƒ_ƒuƒ‹ƒ|ƒCƒ“ƒ^
-////            F  char **inStr F’Ç‰Á‚µ‚½‚¢•¶š—ñ‚Ö‚Ìƒ_ƒuƒ‹ƒ|ƒCƒ“ƒ^
-//// –ß’l       F‚È‚µ
-//// ”õl       Fƒƒ‚ƒŠ—Ìˆæ‚à’²®‚³‚ê‚éi—Ìˆæ‚ª‘«‚è‚È‚¯‚ê‚Î’Ç‰ÁA‘½‚¯‚ê‚ÎØ‚è‹l‚ß‚³‚ê‚éj
-////            Fnew‚Å¶¬‚³‚ê‚½char*‚Ì‚İ—LŒø‚Å‚·
+//// é–¢æ•°å     ï¼šinline void addStr(char **outSir,int addLen,char **inStr)
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚°ãƒ­ãƒ¼ãƒãƒ«é–¢æ•°
+//// ç”¨é€”       ï¼šoutSirã®å¾Œã‚ã«inStrã‚’è¿½åŠ ã™ã‚‹
+//// å¼•æ•°       ï¼š  char **outSirï¼šå¤‰æ›´ã‚’åŠ ãˆãŸã„æ–‡å­—åˆ—ã¸ã®ãƒ€ãƒ–ãƒ«ãƒã‚¤ãƒ³ã‚¿
+////            ï¼š  char **inStr ï¼šè¿½åŠ ã—ãŸã„æ–‡å­—åˆ—ã¸ã®ãƒ€ãƒ–ãƒ«ãƒã‚¤ãƒ³ã‚¿
+//// æˆ»å€¤       ï¼šãªã—
+//// å‚™è€ƒ       ï¼šãƒ¡ãƒ¢ãƒªé ˜åŸŸã‚‚èª¿æ•´ã•ã‚Œã‚‹ï¼ˆé ˜åŸŸãŒè¶³ã‚Šãªã‘ã‚Œã°è¿½åŠ ã€å¤šã‘ã‚Œã°åˆ‡ã‚Šè©°ã‚ã•ã‚Œã‚‹ï¼‰
+////            ï¼šnewã§ç”Ÿæˆã•ã‚ŒãŸchar*ã®ã¿æœ‰åŠ¹ã§ã™
 ////
 inline void addStr(char **outSir,int addLen,char **inStr){
-    //     
-	//Ši”[‚µ‚½‚¢•¶š—ñ”‚ÌŠm”F
-	int outLine = strlen(*outSir);										//’Ç‰Áæ‚ÌŠi”[Ï‚İ•¶š—ñ”
-	if(addLen >=0 ){	outLine  += addLen         +2;}					//	inStrLen‚Éw’è‚ª‚ ‚ê‚Î(0ˆÈã)inStrLen•ª‚Ì•¶š—ñ‚ğƒRƒs[‚·‚é
-	else{           	outLine  += strlen(*inStr) +2;}					//	inStrLen‚Éw’è‚ª‚È‚¯‚ê‚Î(!-1)inStr‚ğÅŒã‚Ü‚ÅƒRƒs[‚·‚é
+    //     â—‡
+	//æ ¼ç´ã—ãŸã„æ–‡å­—åˆ—æ•°ã®ç¢ºèª
+	int outLine = strlen(*outSir);										//è¿½åŠ å…ˆã®æ ¼ç´æ¸ˆã¿æ–‡å­—åˆ—æ•°
+	if(addLen >=0 ){	outLine  += addLen         +2;}					//	inStrLenã«æŒ‡å®šãŒã‚ã‚Œã°(0ä»¥ä¸Š)inStrLenåˆ†ã®æ–‡å­—åˆ—ã‚’ã‚³ãƒ”ãƒ¼ã™ã‚‹
+	else{           	outLine  += strlen(*inStr) +2;}					//	inStrLenã«æŒ‡å®šãŒãªã‘ã‚Œã°(!-1)inStrã‚’æœ€å¾Œã¾ã§ã‚³ãƒ”ãƒ¼ã™ã‚‹
 
-	//ŒÃ‚¢ƒf[ƒ^‚ÌƒoƒbƒNƒAƒbƒviƒf[ƒ^‚Ö‚Ìƒ|ƒCƒ“ƒ^‚Ì•ÛŒì
-	char *strSwp;														//ì‹Æ—pƒLƒƒƒ‰ƒ|Œ^‚ÌéŒ¾
-	strSwp		= *outSir;												//Œ³‚Ì•¶š‚ğƒoƒbƒNƒAƒbƒv
+	//å¤ã„ãƒ‡ãƒ¼ã‚¿ã®ãƒãƒƒã‚¯ã‚¢ãƒƒãƒ—ï¼ˆãƒ‡ãƒ¼ã‚¿ã¸ã®ãƒã‚¤ãƒ³ã‚¿ã®ä¿è­·
+	char *strSwp;														//ä½œæ¥­ç”¨ã‚­ãƒ£ãƒ©ãƒå‹ã®å®£è¨€
+	strSwp		= *outSir;												//å…ƒã®æ–‡å­—ã‚’ãƒãƒƒã‚¯ã‚¢ãƒƒãƒ—
 
-	//Ä\¬iƒƒ‚ƒŠŠm•ÛAƒoƒbƒNƒAƒbƒv‚ÌƒŠƒXƒgƒAAƒf[ƒ^‚Ì’Ç‰ÁANULL•¶š‚Ì‘ã“ü
-	*outSir		= new char[outLine];									//ƒƒ‚ƒŠ—Ìˆæ‚ÌÄŠ„“–‚Ä
-	strcpy_s(*outSir, outLine, strSwp);									//ƒoƒbƒtƒ@‚ÖƒRƒs[
-	strncat_s(*outSir, outLine, *inStr, addLen);						//ƒoƒbƒtƒ@Œã•”‚Ö’Ç‰Á 
-	sprintf_s(*outSir, outLine, "%s\0", *outSir);						//ƒkƒ‹•¶š‚Ì‘ã“ü
+	//å†æ§‹æˆï¼ˆãƒ¡ãƒ¢ãƒªç¢ºä¿ã€ãƒãƒƒã‚¯ã‚¢ãƒƒãƒ—ã®ãƒªã‚¹ãƒˆã‚¢ã€ãƒ‡ãƒ¼ã‚¿ã®è¿½åŠ ã€NULLæ–‡å­—ã®ä»£å…¥
+	*outSir		= new char[outLine];									//ãƒ¡ãƒ¢ãƒªé ˜åŸŸã®å†å‰²å½“ã¦
+	strcpy_s(*outSir, outLine, strSwp);									//ãƒãƒƒãƒ•ã‚¡ã¸ã‚³ãƒ”ãƒ¼
+	strncat_s(*outSir, outLine, *inStr, addLen);						//ãƒãƒƒãƒ•ã‚¡å¾Œéƒ¨ã¸è¿½åŠ  
+	sprintf_s(*outSir, outLine, "%s\0", *outSir);						//ãƒŒãƒ«æ–‡å­—ã®ä»£å…¥
 
 
-	delete [] strSwp;													//ŒÃ‚¢—Ìˆæ‚Ì”jŠü
-	strSwp     = NULL;													//ƒ|ƒC(ƒmP[P)ƒm :E'.::E„¬„®Ä‹p˜F„¯„­
+	delete [] strSwp;													//å¤ã„é ˜åŸŸã®ç ´æ£„
+	strSwp     = NULL;													//ãƒã‚¤(ãƒâ€¾ãƒ¼â€¾)ãƒ :ãƒ»'.::ãƒ»â—‡â”â”›ç„¼å´ç‚‰â”—â”“
 }
 inline void copyStr(char **outSir,int cpyLen,char **inStr){
-    //     
-	//	: Ši”[‚µ‚½‚¢•¶š—ñ”‚ÌŠm”F
-	int outLine = strlen(*outSir);										//	: ’Ç‰Áæ‚ÌŠi”[Ï‚İ•¶š—ñ”
-	if(cpyLen >=0 ){	outLine  += cpyLen         +2;}					//	:	inStrLen‚Éw’è‚ª‚ ‚ê‚Î(0ˆÈã)inStrLen•ª‚Ì•¶š—ñ‚ğƒRƒs[‚·‚é
-	else{           	outLine  += strlen(*inStr) +2;}					//	:	inStrLen‚Éw’è‚ª‚È‚¯‚ê‚Î(!-1)inStr‚ğÅŒã‚Ü‚ÅƒRƒs[‚·‚é
+    //     â—‡
+	//	: æ ¼ç´ã—ãŸã„æ–‡å­—åˆ—æ•°ã®ç¢ºèª
+	int outLine = strlen(*outSir);										//	: è¿½åŠ å…ˆã®æ ¼ç´æ¸ˆã¿æ–‡å­—åˆ—æ•°
+	if(cpyLen >=0 ){	outLine  += cpyLen         +2;}					//	:	inStrLenã«æŒ‡å®šãŒã‚ã‚Œã°(0ä»¥ä¸Š)inStrLenåˆ†ã®æ–‡å­—åˆ—ã‚’ã‚³ãƒ”ãƒ¼ã™ã‚‹
+	else{           	outLine  += strlen(*inStr) +2;}					//	:	inStrLenã«æŒ‡å®šãŒãªã‘ã‚Œã°(!-1)inStrã‚’æœ€å¾Œã¾ã§ã‚³ãƒ”ãƒ¼ã™ã‚‹
 
-	//	: ŒÃ‚¢ƒf[ƒ^‚ÌƒoƒbƒNƒAƒbƒviƒf[ƒ^‚Ö‚Ìƒ|ƒCƒ“ƒ^‚Ì•ÛŒì
-	char *strSwp;														//	: ì‹Æ—pƒLƒƒƒ‰ƒ|Œ^‚ÌéŒ¾
-	strSwp		= *outSir;												//	: Œ³‚Ì•¶š‚ğƒoƒbƒNƒAƒbƒv
+	//	: å¤ã„ãƒ‡ãƒ¼ã‚¿ã®ãƒãƒƒã‚¯ã‚¢ãƒƒãƒ—ï¼ˆãƒ‡ãƒ¼ã‚¿ã¸ã®ãƒã‚¤ãƒ³ã‚¿ã®ä¿è­·
+	char *strSwp;														//	: ä½œæ¥­ç”¨ã‚­ãƒ£ãƒ©ãƒå‹ã®å®£è¨€
+	strSwp		= *outSir;												//	: å…ƒã®æ–‡å­—ã‚’ãƒãƒƒã‚¯ã‚¢ãƒƒãƒ—
 
-	//	: Ä\¬iƒƒ‚ƒŠŠm•ÛAƒoƒbƒNƒAƒbƒv‚ÌƒŠƒXƒgƒAAƒf[ƒ^‚Ì’Ç‰ÁANULL•¶š‚Ì‘ã“ü
-	*outSir		= new char[outLine];									//	: ƒƒ‚ƒŠ—Ìˆæ‚ÌÄŠ„“–‚Ä
-	strcpy_s(*outSir, outLine, strSwp);									//	: ƒoƒbƒtƒ@‚ÖƒRƒs[
-	strncat_s(*outSir, outLine, *inStr, cpyLen);						//	: ƒoƒbƒtƒ@Œã•”‚Ö’Ç‰Á 
-	sprintf_s(*outSir, outLine, "%s\0", *outSir);						//	: ƒkƒ‹•¶š‚Ì‘ã“ü
+	//	: å†æ§‹æˆï¼ˆãƒ¡ãƒ¢ãƒªç¢ºä¿ã€ãƒãƒƒã‚¯ã‚¢ãƒƒãƒ—ã®ãƒªã‚¹ãƒˆã‚¢ã€ãƒ‡ãƒ¼ã‚¿ã®è¿½åŠ ã€NULLæ–‡å­—ã®ä»£å…¥
+	*outSir		= new char[outLine];									//	: ãƒ¡ãƒ¢ãƒªé ˜åŸŸã®å†å‰²å½“ã¦
+	strcpy_s(*outSir, outLine, strSwp);									//	: ãƒãƒƒãƒ•ã‚¡ã¸ã‚³ãƒ”ãƒ¼
+	strncat_s(*outSir, outLine, *inStr, cpyLen);						//	: ãƒãƒƒãƒ•ã‚¡å¾Œéƒ¨ã¸è¿½åŠ  
+	sprintf_s(*outSir, outLine, "%s\0", *outSir);						//	: ãƒŒãƒ«æ–‡å­—ã®ä»£å…¥
 
 
-	delete [] strSwp;													//	: ŒÃ‚¢—Ìˆæ‚Ì”jŠü
-	strSwp     = NULL;													//	: ƒ|ƒC(ƒmP[P)ƒm :E'.::E„¬„®Ä‹p˜F„¯„­
+	delete [] strSwp;													//	: å¤ã„é ˜åŸŸã®ç ´æ£„
+	strSwp     = NULL;													//	: ãƒã‚¤(ãƒâ€¾ãƒ¼â€¾)ãƒ :ãƒ»'.::ãƒ»â—‡â”â”›ç„¼å´ç‚‰â”—â”“
 }
 ///////// /////////
 //void narrow(const std::wstring &src, std::string &dest) 
 //
-//FFƒƒCƒh•¶š—ñ‚©‚çƒ}ƒ‹ƒ`ƒoƒCƒg•¶š—ñ
-//FFƒƒP[ƒ‹ˆË‘¶
+//ï¼šï¼šãƒ¯ã‚¤ãƒ‰æ–‡å­—åˆ—ã‹ã‚‰ãƒãƒ«ãƒãƒã‚¤ãƒˆæ–‡å­—åˆ—
+//ï¼šï¼šãƒ­ã‚±ãƒ¼ãƒ«ä¾å­˜
 //
-//ˆø”F
-//	const std::wstring &src	F•ÏŠ·‚µ‚½‚¢•¶š—ñ
-//	std::string &dest		F•ÏŠ·‚³‚ê‚½•¶š—ñ
-//•Ô’lF‚È‚µ
+//å¼•æ•°ï¼š
+//	const std::wstring &src	ï¼šå¤‰æ›ã—ãŸã„æ–‡å­—åˆ—
+//	std::string &dest		ï¼šå¤‰æ›ã•ã‚ŒãŸæ–‡å­—åˆ—
+//è¿”å€¤ï¼šãªã—
 inline void narrow(const std::wstring &src, std::string &dest) {
 	char *mbs = new char[src.length() * MB_CUR_MAX + 1];
 	size_t ret;
@@ -128,13 +128,13 @@ inline void narrow(const std::wstring &src, std::string &dest) {
 ///////// /////////
 //void widen(const std::string &src, std::wstring &dest) 
 //
-//FFƒ}ƒ‹ƒ`ƒoƒCƒg•¶š—ñ‚©‚çƒƒCƒh•¶š—ñ
-//FFƒƒP[ƒ‹ˆË‘¶
+//ï¼šï¼šãƒãƒ«ãƒãƒã‚¤ãƒˆæ–‡å­—åˆ—ã‹ã‚‰ãƒ¯ã‚¤ãƒ‰æ–‡å­—åˆ—
+//ï¼šï¼šãƒ­ã‚±ãƒ¼ãƒ«ä¾å­˜
 //
-//ˆø”F
-//	const std::wstring &src	F•ÏŠ·‚µ‚½‚¢•¶š—ñ
-//	std::string &dest		F•ÏŠ·‚³‚ê‚½•¶š—ñ
-//•Ô’lF‚È‚µ
+//å¼•æ•°ï¼š
+//	const std::wstring &src	ï¼šå¤‰æ›ã—ãŸã„æ–‡å­—åˆ—
+//	std::string &dest		ï¼šå¤‰æ›ã•ã‚ŒãŸæ–‡å­—åˆ—
+//è¿”å€¤ï¼šãªã—
 inline void widen(const std::string &src, std::wstring &dest) {
 	wchar_t *wcs = new wchar_t[src.length() + 1];
 	size_t ret;

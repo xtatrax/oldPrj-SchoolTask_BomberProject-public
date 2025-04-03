@@ -1,11 +1,11 @@
 ////////////////////////////// //////////////////////////////
-//	ƒvƒƒWƒFƒNƒg	FBomberProject
-//	ƒtƒ@ƒCƒ‹–¼		FDebug_Stage.h
-//	ŠJ”­ŠÂ‹«		FMSVC++ 2008
-//	Å“Kƒ^ƒu”		F4
-//	’S“–Ò			F°Œ´ “O
-//	“à•ïÃŞ°À‚Æ”õl	FƒfƒoƒbƒN—pƒXƒe[ƒW
-//					¥
+//	ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆ	ï¼šBomberProject
+//	ãƒ•ã‚¡ã‚¤ãƒ«å		ï¼šDebug_Stage.h
+//	é–‹ç™ºç’°å¢ƒ		ï¼šMSVC++ 2008
+//	æœ€é©ã‚¿ãƒ–æ•°		ï¼š4
+//	æ‹…å½“è€…			ï¼šé´«åŸ å¾¹
+//	å†…åŒ…ãƒ‡ãƒ¼ã‚¿ã¨å‚™è€ƒ	ï¼šãƒ‡ãƒãƒƒã‚¯ç”¨ã‚¹ãƒ†ãƒ¼ã‚¸
+//					â–¼
 //	namespace wiz;
 //		class DebugStage : public MenuStage;
 //		class DebugMenu  : public MenuStage;
@@ -19,15 +19,15 @@ namespace wiz{
 
 
 /**************************************************************************
- DebugStage ’è‹`•”
+ DebugStage å®šç¾©éƒ¨
 ****************************************************************************/
 /**************************************************************************
  DebugStage::DebugStage(
- LPDIRECT3DDEVICE9 pD3DDevice,	//ƒfƒoƒCƒX
- Stage* Par = 0					//eƒXƒe[ƒW
+ LPDIRECT3DDEVICE9 pD3DDevice,	//ãƒ‡ãƒã‚¤ã‚¹
+ Stage* Par = 0					//è¦ªã‚¹ãƒ†ãƒ¼ã‚¸
  );
- —p“r: ƒRƒ“ƒXƒgƒ‰ƒNƒ^
- –ß‚è’l: ‚È‚µi¸”s‚Í—áŠO‚ğthrowj
+ ç”¨é€”: ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+ æˆ»ã‚Šå€¤: ãªã—ï¼ˆå¤±æ•—æ™‚ã¯ä¾‹å¤–ã‚’throwï¼‰
 ***************************************************************************/
 DebugStage::DebugStage(LPDIRECT3DDEVICE9 pD3DDevice,Stage* Par)
 :MenuStage(pD3DDevice){
@@ -39,15 +39,15 @@ DebugStage::DebugStage(LPDIRECT3DDEVICE9 pD3DDevice,Stage* Par)
 }
 
 /**************************************************************************
- DebugMenu ’è‹`•”
+ DebugMenu å®šç¾©éƒ¨
 ****************************************************************************/
 /**************************************************************************
  DebugMenu::DebugMenu(
- LPDIRECT3DDEVICE9 pD3DDevice,	//ƒfƒoƒCƒX
- Stage* Par = 0					//eƒXƒe[ƒW
+ LPDIRECT3DDEVICE9 pD3DDevice,	//ãƒ‡ãƒã‚¤ã‚¹
+ Stage* Par = 0					//è¦ªã‚¹ãƒ†ãƒ¼ã‚¸
  );
- —p“r: ƒRƒ“ƒXƒgƒ‰ƒNƒ^
- –ß‚è’l: ‚È‚µi¸”s‚Í—áŠO‚ğthrowj
+ ç”¨é€”: ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+ æˆ»ã‚Šå€¤: ãªã—ï¼ˆå¤±æ•—æ™‚ã¯ä¾‹å¤–ã‚’throwï¼‰
 ***************************************************************************/
 DebugMenu::DebugMenu(LPDIRECT3DDEVICE9 pD3DDevice,Stage* Par)
 :MenuStage(pD3DDevice){
@@ -73,7 +73,7 @@ DebugMenu::DebugMenu(LPDIRECT3DDEVICE9 pD3DDevice,Stage* Par)
 			)
 		);
 
-		//	: ƒ^ƒCƒgƒ‹
+		//	: ã‚¿ã‚¤ãƒˆãƒ«
 		pTex = m_TexMgr.addTexture(pD3DDevice,L"DBG_TITLE.png");
 		m_Vec.push_back((pButton = new ButtonSprite(
 			pD3DDevice,
@@ -93,7 +93,7 @@ DebugMenu::DebugMenu(LPDIRECT3DDEVICE9 pD3DDevice,Stage* Par)
 			)));
 		this->AddButton(pButton);
 
-		//	: ƒvƒŒƒC
+		//	: ãƒ—ãƒ¬ã‚¤
 		pTex = m_TexMgr.addTexture(pD3DDevice,L"DBG_PLAY.png");
 		m_Vec.push_back((pButton = new ButtonSprite(
 			pD3DDevice,
@@ -113,7 +113,7 @@ DebugMenu::DebugMenu(LPDIRECT3DDEVICE9 pD3DDevice,Stage* Par)
 			)));
 		this->AddButton(pButton);
 
-		//	: ƒŠƒUƒ‹ƒg
+		//	: ãƒªã‚¶ãƒ«ãƒˆ
 		pTex = m_TexMgr.addTexture(pD3DDevice,L"DBG_.png");
 		m_Vec.push_back((pButton = new ButtonSprite(
 			pD3DDevice,
@@ -133,7 +133,7 @@ DebugMenu::DebugMenu(LPDIRECT3DDEVICE9 pD3DDevice,Stage* Par)
 			)));
 		this->AddButton(pButton);
 
-		//	: ‚°[‚Ş‚¨[‚Î[
+		//	: ã’ãƒ¼ã‚€ãŠãƒ¼ã°ãƒ¼
 		pTex = m_TexMgr.addTexture(pD3DDevice,L"DBG_.png");
 		m_Vec.push_back((pButton = new ButtonSprite(
 			pD3DDevice,
@@ -153,7 +153,7 @@ DebugMenu::DebugMenu(LPDIRECT3DDEVICE9 pD3DDevice,Stage* Par)
 			)));
 		this->AddButton(pButton);
 
-		//	: ‚Ä‚Æ‚í[‚­
+		//	: ã¦ã¨ã‚ãƒ¼ã
 		pTex = m_TexMgr.addTexture(pD3DDevice,L"DBG_.png");
 		m_Vec.push_back((pButton = new ButtonSprite(
 			pD3DDevice,
@@ -173,7 +173,7 @@ DebugMenu::DebugMenu(LPDIRECT3DDEVICE9 pD3DDevice,Stage* Par)
 			)));
 		this->AddButton(pButton);
 
-		//	: ƒfƒ‚ƒV[ƒ“
+		//	: ãƒ‡ãƒ¢ã‚·ãƒ¼ãƒ³
 		pTex = m_TexMgr.addTexture(pD3DDevice,L"DBG_DEMO.png");
 		m_Vec.push_back((pButton = new ButtonSprite(
 			pD3DDevice,
@@ -193,7 +193,7 @@ DebugMenu::DebugMenu(LPDIRECT3DDEVICE9 pD3DDevice,Stage* Par)
 			)));
 		this->AddButton(pButton);
 
-		//	: ƒXƒe[ƒWƒ[ƒ_[
+		//	: ã‚¹ãƒ†ãƒ¼ã‚¸ãƒ­ãƒ¼ãƒ€ãƒ¼
 		pTex = m_TexMgr.addTexture(pD3DDevice,L"DBG_StageLoader.png");
 		m_Vec.push_back((pButton = new ButtonSprite(
 			pD3DDevice,
@@ -213,7 +213,7 @@ DebugMenu::DebugMenu(LPDIRECT3DDEVICE9 pD3DDevice,Stage* Par)
 			)));
 		this->AddButton(pButton);
 
-		//	: ‚Ä‚Æ‚ç‚í[‚­
+		//	: ã¦ã¨ã‚‰ã‚ãƒ¼ã
 		pTex = m_TexMgr.addTexture(pD3DDevice,L"DBG_TATRA.png");
 		m_Vec.push_back((pButton = new ButtonSprite(
 			pD3DDevice,
@@ -257,10 +257,10 @@ DebugMenu::DebugMenu(LPDIRECT3DDEVICE9 pD3DDevice,Stage* Par)
 		//m_ButtonVec.push_back(pButton->getButtonP());
 	}
 	catch(wiz::BaseException& e){
-        //ÄƒXƒ[
+        //å†ã‚¹ãƒ­ãƒ¼
         throw BaseException(
 				e.what_w(), 
-                L"ªDebugMenu::DebugMenu()"
+                L"â†‘DebugMenu::DebugMenu()"
                 );
 	}
 	catch(...){

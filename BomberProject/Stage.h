@@ -1,12 +1,12 @@
 ////////////////////////////// //////////////////////////////
-//	ƒvƒƒWƒFƒNƒg	FDirectX Program Bass Project
-//	ƒtƒ@ƒCƒ‹–¼		FStage.h
-//	ŠJ”­ŠÂ‹«		FMSVC++ 2008
-//	Å“Kƒ^ƒu”		F4
-//	’S“–ŽÒ			FŽ°Œ´ “O
-//	“à•ïÃÞ°À‚Æ”õl	FƒXƒe[ƒW
-//					FƒXƒe[ƒW‚ÍƒV[ƒ“‚©‚çŒÄ‚Î‚ê‚Ü‚·
-//					¥
+//	ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆ	ï¼šDirectX Program Bass Project
+//	ãƒ•ã‚¡ã‚¤ãƒ«å		ï¼šStage.h
+//	é–‹ç™ºç’°å¢ƒ		ï¼šMSVC++ 2008
+//	æœ€é©ã‚¿ãƒ–æ•°		ï¼š4
+//	æ‹…å½“è€…			ï¼šé´«åŽŸ å¾¹
+//	å†…åŒ…ãƒ‡ãƒ¼ã‚¿ã¨å‚™è€ƒ	ï¼šã‚¹ãƒ†ãƒ¼ã‚¸
+//					ï¼šã‚¹ãƒ†ãƒ¼ã‚¸ã¯ã‚·ãƒ¼ãƒ³ã‹ã‚‰å‘¼ã°ã‚Œã¾ã™
+//					â–¼
 //	namespace wiz;
 //		class StageLoader ;
 //		class Stage ;
@@ -21,18 +21,18 @@
 
 namespace wiz{
 
-// ‰¼éŒ¾	
+// ä»®å®£è¨€	
 //class wiz::menuobject::Button;
 using namespace menuobject ;
 //class Button2;
 
 
-/*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*/
+/*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*/
 //**************************************************************************//
 // class Stage;
 //
-// ’S“–  : Ž°Œ´ “O
-// —p“r  : ƒQ[ƒ€‚ðƒXƒe[ƒW’PˆÊ‚ÅŠÇ—‚·‚éƒNƒ‰ƒX
+// æ‹…å½“  : é´«åŽŸ å¾¹
+// ç”¨é€”  : ã‚²ãƒ¼ãƒ ã‚’ã‚¹ãƒ†ãƒ¼ã‚¸å˜ä½ã§ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹
 //**************************************************************************//
 class Stage{
 protected:
@@ -42,16 +42,16 @@ protected:
 	friend struct RenderPacket		;
 	friend struct DrawPacket		;
 	friend class  Button			;
-	//	: ƒƒjƒ…[“™‚Ì‰æ–Ê‚Ö‚Ìƒ|ƒCƒ“ƒ^‚ð‚Æ‚Á‚Ä‚¨‚­
-	Stage*						m_pParStage		;	//	: eƒXƒe[ƒW
-	Stage*						m_pChildStage	;	//	: ŽqƒXƒe[ƒW
+	//	: ãƒ¡ãƒ‹ãƒ¥ãƒ¼ç­‰ã®ç”»é¢ã¸ã®ãƒã‚¤ãƒ³ã‚¿ã‚’ã¨ã£ã¦ãŠã
+	Stage*						m_pParStage		;	//	: è¦ªã‚¹ãƒ†ãƒ¼ã‚¸
+	Stage*						m_pChildStage	;	//	: å­ã‚¹ãƒ†ãƒ¼ã‚¸
 	system::Sound*				m_pMySound		;
 	system::Sound*				m_pSound		;
-	bool						m_IsDialog		;	//	: ƒ_ƒCƒAƒƒOƒXƒe[ƒW‚©‚Ç‚¤‚©
-	bool						m_bUpdate		;	//	: ‚±‚Ìƒtƒ‰ƒO‚ðtrue‚É‚·‚é‚ÆƒXƒe[ƒW‚Ìupdate‚ªŽ~‚Ü‚è‚Ü‚·
-    vector<Object*>				m_Vec			;	//	: ”z’uƒIƒuƒWƒFƒNƒg‚Ìƒ|ƒCƒ“ƒ^‚ÌƒxƒNƒgƒ‹
-	TextureManager				m_TexMgr		;	//	: ƒeƒNƒXƒ`ƒƒ‚Ìƒ|ƒCƒ“ƒ^‚ÌƒxƒNƒgƒ‹
-	vector<Button*>				m_ButtonVec		;	//	: ƒ{ƒ^ƒ“ƒIƒuƒWƒFƒNƒg‚Ì‚Ý‚Ì”z—ñiƒJƒƒ‰‚È‚Ç‚Í“ü‚ê‚È‚¢j
+	bool						m_IsDialog		;	//	: ãƒ€ã‚¤ã‚¢ãƒ­ã‚°ã‚¹ãƒ†ãƒ¼ã‚¸ã‹ã©ã†ã‹
+	bool						m_bUpdate		;	//	: ã“ã®ãƒ•ãƒ©ã‚°ã‚’trueã«ã™ã‚‹ã¨ã‚¹ãƒ†ãƒ¼ã‚¸ã®updateãŒæ­¢ã¾ã‚Šã¾ã™
+    vector<Object*>				m_Vec			;	//	: é…ç½®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ãƒã‚¤ãƒ³ã‚¿ã®ãƒ™ã‚¯ãƒˆãƒ«
+	TextureManager				m_TexMgr		;	//	: ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®ãƒã‚¤ãƒ³ã‚¿ã®ãƒ™ã‚¯ãƒˆãƒ«
+	vector<Button*>				m_ButtonVec		;	//	: ãƒœã‚¿ãƒ³ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ã¿ã®é…åˆ—ï¼ˆã‚«ãƒ¡ãƒ©ãªã©ã¯å…¥ã‚Œãªã„ï¼‰
 	vector<Button*>::size_type	m_SelectIndex	;
 	float						m_fActiveTime	;
 	DWORD						m_dwFirstClock	;
@@ -59,18 +59,18 @@ protected:
 	bool m_IsAnimetion;
 	/**************************************************************************
 	 void AddButton(
-	 Button* pButton	//ƒ{ƒ^ƒ“‚Ìƒ|ƒCƒ“ƒ^
+	 Button* pButton	//ãƒœã‚¿ãƒ³ã®ãƒã‚¤ãƒ³ã‚¿
 	 );
-	 —p“r: ƒƒjƒ…[‚Éƒ{ƒ^ƒ“‚ð’Ç‰Á‚·‚éB‚±‚êˆÈŠO‚Ém_Vec‚É‚à•K‚¸“ü‚ê‚é
-	 –ß‚è’l: ‚È‚µ
+	 ç”¨é€”: ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã«ãƒœã‚¿ãƒ³ã‚’è¿½åŠ ã™ã‚‹ã€‚ã“ã‚Œä»¥å¤–ã«m_Vecã«ã‚‚å¿…ãšå…¥ã‚Œã‚‹
+	 æˆ»ã‚Šå€¤: ãªã—
 	***************************************************************************/
 	void AddButton(Object* pButton);
 	/**************************************************************************
 	 void AddButton(
-	 Button* pButton	//ƒ{ƒ^ƒ“‚Ìƒ|ƒCƒ“ƒ^
+	 Button* pButton	//ãƒœã‚¿ãƒ³ã®ãƒã‚¤ãƒ³ã‚¿
 	 );
-	 —p“r: ƒƒjƒ…[‚Éƒ{ƒ^ƒ“‚ð’Ç‰Á‚·‚éB‚±‚êˆÈŠO‚Ém_Vec‚É‚à•K‚¸“ü‚ê‚é
-	 –ß‚è’l: ‚È‚µ
+	 ç”¨é€”: ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã«ãƒœã‚¿ãƒ³ã‚’è¿½åŠ ã™ã‚‹ã€‚ã“ã‚Œä»¥å¤–ã«m_Vecã«ã‚‚å¿…ãšå…¥ã‚Œã‚‹
+	 æˆ»ã‚Šå€¤: ãªã—
 	***************************************************************************/
 	void EraseButton(vector<Object*>::iterator ObjIt);
 #if defined(ON_DEBUGGINGPROCESS)
@@ -78,89 +78,89 @@ protected:
 #endif
 protected:
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     Fvoid Stage::Clear()
-	//// ƒJƒeƒSƒŠ   FŠÖ”
-	//// —p“r       F“à•ïƒf[ƒ^‚ð”jŠü‚·‚é
-	//// ˆø”       F‚È‚µ
-	//// –ß’l       F‚È‚µ
-	//// ’S“–ŽÒ     FŽ°Œ´ “O
-	//// ”õl       FƒfƒXƒgƒ‰ƒNƒ^‚Åâ‘ÎŒÄ‚Î‚ê‚Ü‚·
-	////            F
+	//// é–¢æ•°å     ï¼švoid Stage::Clear()
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šé–¢æ•°
+	//// ç”¨é€”       ï¼šå†…åŒ…ãƒ‡ãƒ¼ã‚¿ã‚’ç ´æ£„ã™ã‚‹
+	//// å¼•æ•°       ï¼šãªã—
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“è€…     ï¼šé´«åŽŸ å¾¹
+	//// å‚™è€ƒ       ï¼šãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ã§çµ¶å¯¾å‘¼ã°ã‚Œã¾ã™
+	////            ï¼š
 	////
 	virtual void Clear();
 public:
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     FStage::Stage(Stage* Par = NULL)
-	//// ƒJƒeƒSƒŠ   FƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	//// —p“r       FƒfƒtƒHƒ‹ƒg‚Ì\’zˆ—
-	//// ˆø”       F‚È‚µ
-	//// –ß’l       F‚È‚µ
-	//// ’S“–ŽÒ     FŽ°Œ´ “O
-	//// ”õl       F
-	////            F
+	//// é–¢æ•°å     ï¼šStage::Stage(Stage* Par = NULL)
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	//// ç”¨é€”       ï¼šãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã®æ§‹ç¯‰å‡¦ç†
+	//// å¼•æ•°       ï¼šãªã—
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“è€…     ï¼šé´«åŽŸ å¾¹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
 	Stage(Stage* Par = NULL);
 
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     Fvirtual Stage::~Stage()
-	//// ƒJƒeƒSƒŠ   FƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	//// —p“r       FƒfƒtƒHƒ‹ƒg‚Ì\’zˆ—
-	//// ˆø”       F‚È‚µ
-	//// –ß’l       F‚È‚µ
-	//// ’S“–ŽÒ     F(ŽRƒmˆäæ¶‚Ì‚Ð‚ÈŒ`‚æ‚è)
-	//// ”õl       F
-	////            F
+	//// é–¢æ•°å     ï¼švirtual Stage::~Stage()
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	//// ç”¨é€”       ï¼šãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã®æ§‹ç¯‰å‡¦ç†
+	//// å¼•æ•°       ï¼šãªã—
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“è€…     ï¼š(å±±ãƒŽäº•å…ˆç”Ÿã®ã²ãªå½¢ã‚ˆã‚Š)
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
 	virtual ~Stage();
 
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     Fconst Stage* Stage::getNextStage() 
-	//// ƒJƒeƒSƒŠ   FƒQƒbƒ^[
-	//// —p“r       FŽŸ‚ÌƒXƒe[ƒW‚Ö‚Ìƒ|ƒCƒ“ƒ^‚ð•Ô‚·
-	//// ˆø”       F
-	//// –ß’l       F
-	//// ’S“–ŽÒ     F
-	//// ”õl       F
-	////            F
+	//// é–¢æ•°å     ï¼šconst Stage* Stage::getNextStage() 
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚²ãƒƒã‚¿ãƒ¼
+	//// ç”¨é€”       ï¼šæ¬¡ã®ã‚¹ãƒ†ãƒ¼ã‚¸ã¸ã®ãƒã‚¤ãƒ³ã‚¿ã‚’è¿”ã™
+	//// å¼•æ•°       ï¼š
+	//// æˆ»å€¤       ï¼š
+	//// æ‹…å½“è€…     ï¼š
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
 	const Stage* getNextStage() {
 		return m_pParStage;
 	}
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     Fconst Stage* Stage::getPar() const
-	//// ƒJƒeƒSƒŠ   FƒQƒbƒ^[
-	//// —p“r       FeƒXƒe[ƒW‚Ìƒ|ƒCƒ“ƒ^‚ð•Ô‚·
-	//// ˆø”       F‚È‚µ
-	//// –ß’l       FeƒXƒe[ƒW‚Ö‚Ìƒ|ƒCƒ“ƒ^
-	//// ’S“–ŽÒ     F(ŽRƒmˆäæ¶‚Ì‚Ð‚ÈŒ`‚æ‚è)
-	//// ”õl       F
-	////            F
+	//// é–¢æ•°å     ï¼šconst Stage* Stage::getPar() const
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚²ãƒƒã‚¿ãƒ¼
+	//// ç”¨é€”       ï¼šè¦ªã‚¹ãƒ†ãƒ¼ã‚¸ã®ãƒã‚¤ãƒ³ã‚¿ã‚’è¿”ã™
+	//// å¼•æ•°       ï¼šãªã—
+	//// æˆ»å€¤       ï¼šè¦ªã‚¹ãƒ†ãƒ¼ã‚¸ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+	//// æ‹…å½“è€…     ï¼š(å±±ãƒŽäº•å…ˆç”Ÿã®ã²ãªå½¢ã‚ˆã‚Š)
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
 	const Stage* getPar() const{
 		return m_pParStage;
 	}
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     Fconst Stage* Stage::geChild() const
-	//// ƒJƒeƒSƒŠ   FƒQƒbƒ^[
-	//// —p“r       FŽqƒXƒe[ƒW‚Ìƒ|ƒCƒ“ƒ^‚ð•Ô‚·
-	//// ˆø”       F‚È‚µ
-	//// –ß’l       FƒXƒe[ƒW‚Ö‚Ìƒ|ƒCƒ“ƒ^
-	//// ’S“–ŽÒ     F(ŽRƒmˆäæ¶‚Ì‚Ð‚ÈŒ`‚æ‚è)
-	//// ”õl       F
-	////            F
+	//// é–¢æ•°å     ï¼šconst Stage* Stage::geChild() const
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚²ãƒƒã‚¿ãƒ¼
+	//// ç”¨é€”       ï¼šå­ã‚¹ãƒ†ãƒ¼ã‚¸ã®ãƒã‚¤ãƒ³ã‚¿ã‚’è¿”ã™
+	//// å¼•æ•°       ï¼šãªã—
+	//// æˆ»å€¤       ï¼šã‚¹ãƒ†ãƒ¼ã‚¸ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+	//// æ‹…å½“è€…     ï¼š(å±±ãƒŽäº•å…ˆç”Ÿã®ã²ãªå½¢ã‚ˆã‚Š)
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
 	const Stage* geChild() const{
 		return m_pChildStage;
 	}
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     FStage* Stage::getLastStage()
-	//// ƒJƒeƒSƒŠ   FƒQƒbƒ^[
-	//// —p“r       Fˆê”ÔÅŒã”ö‚ÌŽqƒXƒe[ƒW‚ð“¾‚é
-	//// ˆø”       F‚È‚µ
-	//// –ß’l       Fˆê”ÔÅŒã”ö‚ÌŽqƒXƒe[ƒW‚Ìƒ|ƒCƒ“ƒ^
-	//// ’S“–ŽÒ     F(ŽRƒmˆäæ¶‚Ì‚Ð‚ÈŒ`‚æ‚è)
-	//// ”õl       F
-	////            F
+	//// é–¢æ•°å     ï¼šStage* Stage::getLastStage()
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚²ãƒƒã‚¿ãƒ¼
+	//// ç”¨é€”       ï¼šä¸€ç•ªæœ€å¾Œå°¾ã®å­ã‚¹ãƒ†ãƒ¼ã‚¸ã‚’å¾—ã‚‹
+	//// å¼•æ•°       ï¼šãªã—
+	//// æˆ»å€¤       ï¼šä¸€ç•ªæœ€å¾Œå°¾ã®å­ã‚¹ãƒ†ãƒ¼ã‚¸ã®ãƒã‚¤ãƒ³ã‚¿
+	//// æ‹…å½“è€…     ï¼š(å±±ãƒŽäº•å…ˆç”Ÿã®ã²ãªå½¢ã‚ˆã‚Š)
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
 	Stage* getLastStage(){
 		if(m_pChildStage){
@@ -171,14 +171,14 @@ public:
 		}
 	}
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     FStage* Stage::getActiveStage()
-	//// ƒJƒeƒSƒŠ   FƒQƒbƒ^[
-	//// —p“r       F¡AƒAƒNƒeƒBƒu‚ÈƒXƒe[ƒW‚ð“¾‚é
-	//// ˆø”       F‚È‚µ
-	//// –ß’l       FƒAƒNƒeƒBƒu‚ÈƒXƒe[ƒW‚Ìƒ|ƒCƒ“ƒ^
-	//// ’S“–ŽÒ     F(ŽRƒmˆäæ¶‚Ì‚Ð‚ÈŒ`‚æ‚è)
-	//// ”õl       F–ÅŒã”ö‚ÌŽq‚ªƒ_ƒCƒAƒƒOƒ^ƒCƒv‚¾‚Á‚½ê‡
-	////            F  ‚»‚Ìƒ_ƒCƒAƒƒO‚ð•ÛŽ‚·‚éƒXƒe[ƒW‚ð“¾‚é
+	//// é–¢æ•°å     ï¼šStage* Stage::getActiveStage()
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚²ãƒƒã‚¿ãƒ¼
+	//// ç”¨é€”       ï¼šä»Šã€ã‚¢ã‚¯ãƒ†ã‚£ãƒ–ãªã‚¹ãƒ†ãƒ¼ã‚¸ã‚’å¾—ã‚‹
+	//// å¼•æ•°       ï¼šãªã—
+	//// æˆ»å€¤       ï¼šã‚¢ã‚¯ãƒ†ã‚£ãƒ–ãªã‚¹ãƒ†ãƒ¼ã‚¸ã®ãƒã‚¤ãƒ³ã‚¿
+	//// æ‹…å½“è€…     ï¼š(å±±ãƒŽäº•å…ˆç”Ÿã®ã²ãªå½¢ã‚ˆã‚Š)
+	//// å‚™è€ƒ       ï¼šï¼Šæœ€å¾Œå°¾ã®å­ãŒãƒ€ã‚¤ã‚¢ãƒ­ã‚°ã‚¿ã‚¤ãƒ—ã ã£ãŸå ´åˆ
+	////            ï¼š  ãã®ãƒ€ã‚¤ã‚¢ãƒ­ã‚°ã‚’ä¿æŒã™ã‚‹ã‚¹ãƒ†ãƒ¼ã‚¸ã‚’å¾—ã‚‹
 	////
 	Stage* getActiveStage(){
 		Stage* ret = getLastStage();
@@ -191,215 +191,215 @@ public:
 		return ret;
 	}
 	/////////////////// ////////////////////
-	//// —p“r       Fvirtual void ButtonUpdateUpdate( UpdatePacket& i_UpdatePacket )
-	//// ƒJƒeƒSƒŠ   FŠÖ”
-	//// —p“r       Fƒ{ƒ^ƒ“‚ðXV
-	//// ˆø”       F  UpdatePacket& i_UpdatePacket     // ƒAƒbƒvƒf[ƒgŽž‚É•K—v‚Èƒf[ƒ^ŒQ «“à—e‰º‹L
-	////            F  „¥       LPDIRECT3DDEVICE9  pD3DDevice      // IDirect3DDevice9 ƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-	////            F  „¥       Tempus2*           pTime           // ŽžŠÔ‚ðŠÇ—‚·‚éƒNƒ‰ƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^[
-	////            F  „¥       vector<Object*>&   Vec,            // ƒIƒuƒWƒFƒNƒg‚Ì”z—ñ
-	////            F  „¥ const CONTROLER_STATE*   pCntlState      // ƒRƒ“ƒgƒ[ƒ‰‚ÌƒXƒe[ƒ^ƒX
-	////            F  „¤       Command            pCommand        // ƒRƒ}ƒ“ƒh
-	//// –ß’l       F‚È‚µ
-	//// ’S“–ŽÒ     FŽ°Œ´ “O
-	//// ”õl       F
-	////            F
+	//// ç”¨é€”       ï¼švirtual void ButtonUpdateUpdate( UpdatePacket& i_UpdatePacket )
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šé–¢æ•°
+	//// ç”¨é€”       ï¼šãƒœã‚¿ãƒ³ã‚’æ›´æ–°
+	//// å¼•æ•°       ï¼š  UpdatePacket& i_UpdatePacket     // ã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆæ™‚ã«å¿…è¦ãªãƒ‡ãƒ¼ã‚¿ç¾¤ â†“å†…å®¹ä¸‹è¨˜
+	////            ï¼š  â”œ       LPDIRECT3DDEVICE9  pD3DDevice      // IDirect3DDevice9 ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+	////            ï¼š  â”œ       Tempus2*           pTime           // æ™‚é–“ã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿ãƒ¼
+	////            ï¼š  â”œ       vector<Object*>&   Vec,            // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®é…åˆ—
+	////            ï¼š  â”œ const CONTROLER_STATE*   pCntlState      // ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹
+	////            ï¼š  â””       Command            pCommand        // ã‚³ãƒžãƒ³ãƒ‰
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“è€…     ï¼šé´«åŽŸ å¾¹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
 	virtual void ButtonUpdate(UpdatePacket& i_UpdatePacket);
 
 	/////////////////// ////////////////////
-	//// —p“r       Fvirtual void Update( UpdatePacket& i_UpdatePacket )
-	//// ƒJƒeƒSƒŠ   FŠÖ”
-	//// —p“r       FƒXƒe[ƒW‚ðXV
-	//// ˆø”       F  UpdatePacket& i_UpdatePacket     // ƒAƒbƒvƒf[ƒgŽž‚É•K—v‚Èƒf[ƒ^ŒQ «“à—e‰º‹L
-	////            F  „¥       LPDIRECT3DDEVICE9  pD3DDevice      // IDirect3DDevice9 ƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-	////            F  „¥       Tempus2*           pTime           // ŽžŠÔ‚ðŠÇ—‚·‚éƒNƒ‰ƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^[
-	////            F  „¥       vector<Object*>&   Vec,            // ƒIƒuƒWƒFƒNƒg‚Ì”z—ñ
-	////            F  „¥ const CONTROLER_STATE*   pCntlState      // ƒRƒ“ƒgƒ[ƒ‰‚ÌƒXƒe[ƒ^ƒX
-	////            F  „¤       Command            pCommand        // ƒRƒ}ƒ“ƒh
-	//// –ß’l       F‚È‚µ
-	//// ’S“–ŽÒ     FŽ°Œ´ “O
-	//// ”õl       F
-	////            F
+	//// ç”¨é€”       ï¼švirtual void Update( UpdatePacket& i_UpdatePacket )
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šé–¢æ•°
+	//// ç”¨é€”       ï¼šã‚¹ãƒ†ãƒ¼ã‚¸ã‚’æ›´æ–°
+	//// å¼•æ•°       ï¼š  UpdatePacket& i_UpdatePacket     // ã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆæ™‚ã«å¿…è¦ãªãƒ‡ãƒ¼ã‚¿ç¾¤ â†“å†…å®¹ä¸‹è¨˜
+	////            ï¼š  â”œ       LPDIRECT3DDEVICE9  pD3DDevice      // IDirect3DDevice9 ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+	////            ï¼š  â”œ       Tempus2*           pTime           // æ™‚é–“ã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿ãƒ¼
+	////            ï¼š  â”œ       vector<Object*>&   Vec,            // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®é…åˆ—
+	////            ï¼š  â”œ const CONTROLER_STATE*   pCntlState      // ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹
+	////            ï¼š  â””       Command            pCommand        // ã‚³ãƒžãƒ³ãƒ‰
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“è€…     ï¼šé´«åŽŸ å¾¹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
 	virtual void Update(UpdatePacket& i_UpdatePacket);
 
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     Fvoid Render(RenderPacket& i_RenderPacket);
-	//// ƒJƒeƒSƒŠ   FŠÖ”
-	//// —p“r       Fƒ^[ƒQƒbƒgƒŒƒ“ƒ_ƒŠƒ“ƒO
-	//// ˆø”       F  RenderPacket& i_RenderPacket        // ƒŒƒ“ƒ_[ˆ—‚É—¬‚·ƒf[ƒ^‚ÌW‡‘Ì
-	//// –ß’l       F‚È‚µ
-	//// ’S“–ŽÒ     FŽ°Œ´ “O
-	//// ”õl       F‰æ–ÊˆÈŠO‚Ìƒoƒbƒtƒ@[‚É•`‰æ‚·‚é
-	////            F
+	//// é–¢æ•°å     ï¼švoid Render(RenderPacket& i_RenderPacket);
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šé–¢æ•°
+	//// ç”¨é€”       ï¼šã‚¿ãƒ¼ã‚²ãƒƒãƒˆãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°
+	//// å¼•æ•°       ï¼š  RenderPacket& i_RenderPacket        // ãƒ¬ãƒ³ãƒ€ãƒ¼å‡¦ç†ã«æµã™ãƒ‡ãƒ¼ã‚¿ã®é›†åˆä½“
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“è€…     ï¼šé´«åŽŸ å¾¹
+	//// å‚™è€ƒ       ï¼šç”»é¢ä»¥å¤–ã®ãƒãƒƒãƒ•ã‚¡ãƒ¼ã«æç”»ã™ã‚‹
+	////            ï¼š
 	////
     virtual void Render(RenderPacket& i_RenderPacket);
 	
 	/////////////////// ////////////////////
-	//// —p“r       Fvoid Draw( DrawPacket& i_DrawPacket )
-	//// ƒJƒeƒSƒŠ   FŠÖ”
-	//// —p“r       FƒV[ƒ“‚ð•`‰æ
-	//// ˆø”       F  DrawPacket& i_DrawPacket             // ‰æ–Ê•`‰æŽž‚É•K—v‚Èƒf[ƒ^ŒQ «“à—e‰º‹L
-	////            F  „¥ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 ƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-	////            F  „¥ vector<Object*>&    Vec                     // ƒIƒuƒWƒFƒNƒg‚Ì”z—ñ
-	////            F  „¥ Tempus2*            i_DrawPacket.GetTime()	   // ŽžŠÔ‚ðŠÇ—‚·‚éƒNƒ‰ƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^[
-	////            F  „¤ Command             i_DrawPacket.pCommand   // ƒRƒ}ƒ“ƒh
-	//// –ß’l       F‚È‚µ
-	//// ’S“–ŽÒ     FŽ°Œ´ “O(ŽRƒmˆäæ¶‚Ì‚Ð‚ÈŒ`‚æ‚è)
-	//// ”õl       F
+	//// ç”¨é€”       ï¼švoid Draw( DrawPacket& i_DrawPacket )
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šé–¢æ•°
+	//// ç”¨é€”       ï¼šã‚·ãƒ¼ãƒ³ã‚’æç”»
+	//// å¼•æ•°       ï¼š  DrawPacket& i_DrawPacket             // ç”»é¢æç”»æ™‚ã«å¿…è¦ãªãƒ‡ãƒ¼ã‚¿ç¾¤ â†“å†…å®¹ä¸‹è¨˜
+	////            ï¼š  â”œ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+	////            ï¼š  â”œ vector<Object*>&    Vec                     // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®é…åˆ—
+	////            ï¼š  â”œ Tempus2*            i_DrawPacket.GetTime()	   // æ™‚é–“ã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿ãƒ¼
+	////            ï¼š  â”” Command             i_DrawPacket.pCommand   // ã‚³ãƒžãƒ³ãƒ‰
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“è€…     ï¼šé´«åŽŸ å¾¹(å±±ãƒŽäº•å…ˆç”Ÿã®ã²ãªå½¢ã‚ˆã‚Š)
+	//// å‚™è€ƒ       ï¼š
     virtual void Draw(DrawPacket& i_DrawPacket) ;
 	/////////////////// ////////////////////
-	//// —p“r       F
-	//// ƒJƒeƒSƒŠ   FŠÖ”
-	//// —p“r       FƒIƒuƒWƒFƒNƒg‚ðƒfƒBƒXƒvƒŒƒC‚É•\Ž¦‚·‚é
-	//// ˆø”       F
-	//// –ß’l       F‚È‚µ
-	//// ’S“–ŽÒ     FŽ°Œ´ “O
-	//// ”õl       F
+	//// ç”¨é€”       ï¼š
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šé–¢æ•°
+	//// ç”¨é€”       ï¼šã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ãƒ‡ã‚£ã‚¹ãƒ—ãƒ¬ã‚¤ã«è¡¨ç¤ºã™ã‚‹
+	//// å¼•æ•°       ï¼š
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“è€…     ï¼šé´«åŽŸ å¾¹
+	//// å‚™è€ƒ       ï¼š
 	void TargetRender(BassPacket& BassPacket, Object* DrawObject, Object* RenderTarget);
 	/////////////////// ////////////////////
-	//// —p“r       F
-	//// ƒJƒeƒSƒŠ   FŠÖ”
-	//// —p“r       FƒIƒuƒWƒFƒNƒg‚ðƒfƒBƒXƒvƒŒƒC‚É•\Ž¦‚·‚é
-	//// ˆø”       F
-	//// –ß’l       F‚È‚µ
-	//// ’S“–ŽÒ     FŽ°Œ´ “O
-	//// ”õl       F
+	//// ç”¨é€”       ï¼š
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šé–¢æ•°
+	//// ç”¨é€”       ï¼šã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ãƒ‡ã‚£ã‚¹ãƒ—ãƒ¬ã‚¤ã«è¡¨ç¤ºã™ã‚‹
+	//// å¼•æ•°       ï¼š
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“è€…     ï¼šé´«åŽŸ å¾¹
+	//// å‚™è€ƒ       ï¼š
 	void DefaultRender();
 
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     Fvoid CommandTranslator(DrawPacket& i_DrawPacket);
-	//// ƒJƒeƒSƒŠ   FŠÖ”
-	//// —p“r       FƒRƒ}ƒ“ƒh‚ð‰ðŽß‚µ‚ÄƒXƒe[ƒW‚ÌØ‚è‘Ö‚¦‚È‚Ç‚ðs‚¤
-	//// ˆø”       F  DrawPacket& i_DrawPacket             // ‰æ–Ê•`‰æŽž‚É•K—v‚Èƒf[ƒ^ŒQ «“à—e‰º‹L
-	////            F  „¥ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 ƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-	////            F  „¥ vector<Object*>&    Vec                     // ƒIƒuƒWƒFƒNƒg‚Ì”z—ñ
-	////            F  „¥ Tempus2*            i_DrawPacket.GetTime()	   // ŽžŠÔ‚ðŠÇ—‚·‚éƒNƒ‰ƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^[
-	////            F  „¤ Command             i_DrawPacket.pCommand   // ƒRƒ}ƒ“ƒh
-	//// –ß’l       F‚È‚µ
-	//// ’S“–ŽÒ     FŽ°Œ´ “O
-	//// ”õl       F
-	////            F
+	//// é–¢æ•°å     ï¼švoid CommandTranslator(DrawPacket& i_DrawPacket);
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šé–¢æ•°
+	//// ç”¨é€”       ï¼šã‚³ãƒžãƒ³ãƒ‰ã‚’è§£é‡ˆã—ã¦ã‚¹ãƒ†ãƒ¼ã‚¸ã®åˆ‡ã‚Šæ›¿ãˆãªã©ã‚’è¡Œã†
+	//// å¼•æ•°       ï¼š  DrawPacket& i_DrawPacket             // ç”»é¢æç”»æ™‚ã«å¿…è¦ãªãƒ‡ãƒ¼ã‚¿ç¾¤ â†“å†…å®¹ä¸‹è¨˜
+	////            ï¼š  â”œ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+	////            ï¼š  â”œ vector<Object*>&    Vec                     // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®é…åˆ—
+	////            ï¼š  â”œ Tempus2*            i_DrawPacket.GetTime()	   // æ™‚é–“ã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿ãƒ¼
+	////            ï¼š  â”” Command             i_DrawPacket.pCommand   // ã‚³ãƒžãƒ³ãƒ‰
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“è€…     ï¼šé´«åŽŸ å¾¹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
 	void CommandTranslator(DrawPacket& i_DrawPacket);
 
 };
-/*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*/
+/*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*/
 
-/*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*/
+/*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*/
 /**************************************************************************
  class MenuStage : public Stage;
- —p“r: ƒƒjƒ…[ƒ^ƒCƒv‚ÌƒXƒe[ƒWƒNƒ‰ƒX
- @@iƒƒjƒ…[ƒ^ƒCƒv‚Å‚ ‚ê‚ÎA‚±‚Ì”h¶ƒNƒ‰ƒX‚ðì‚Á‚Äƒƒjƒ…[‚É‚·‚é‚ÆŽg‚¢‚â‚·‚¢j
+ ç”¨é€”: ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã‚¿ã‚¤ãƒ—ã®ã‚¹ãƒ†ãƒ¼ã‚¸ã‚¯ãƒ©ã‚¹
+ ã€€ã€€ï¼ˆãƒ¡ãƒ‹ãƒ¥ãƒ¼ã‚¿ã‚¤ãƒ—ã§ã‚ã‚Œã°ã€ã“ã®æ´¾ç”Ÿã‚¯ãƒ©ã‚¹ã‚’ä½œã£ã¦ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã«ã™ã‚‹ã¨ä½¿ã„ã‚„ã™ã„ï¼‰
 ****************************************************************************/
 class MenuStage : public Stage{
 protected:
 public:
 /**************************************************************************
  MenuStage(
- LPDIRECT3DDEVICE9 pD3DDevice,	//ƒfƒoƒCƒX
- Stage* Par = 0					//eƒXƒe[ƒW
+ LPDIRECT3DDEVICE9 pD3DDevice,	//ãƒ‡ãƒã‚¤ã‚¹
+ Stage* Par = 0					//è¦ªã‚¹ãƒ†ãƒ¼ã‚¸
  );
- —p“r: ƒRƒ“ƒXƒgƒ‰ƒNƒ^
- –ß‚è’l: ‚È‚µiŽ¸”sŽž‚Í—áŠO‚ðthrowj
+ ç”¨é€”: ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+ æˆ»ã‚Šå€¤: ãªã—ï¼ˆå¤±æ•—æ™‚ã¯ä¾‹å¤–ã‚’throwï¼‰
 ***************************************************************************/
 	MenuStage(LPDIRECT3DDEVICE9 pD3DDevice,Stage* Par = 0);
 /**************************************************************************
  virtual ~MenuStage();
- —p“r: ƒfƒXƒgƒ‰ƒNƒ^
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
     virtual ~MenuStage();
 /**************************************************************************
  virtual void Stage::Draw(
-    LPDIRECT3DDEVICE9 pD3DDevice,		//IDirect3DDevice9 ƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-    const CONTROLER_STATE* pCntlState	//ƒRƒ“ƒgƒ[ƒ‰[‚ÌƒXƒe[ƒ^ƒX
-	Command& i_DrawPacket.pCommand		//ƒV[ƒ“‚©‚çƒXƒe[ƒWA‚à‚µ‚­‚ÍƒXƒe[ƒW‚©‚çƒIƒuƒWƒFƒNƒg‚É
-										//“n‚³‚ê‚éƒRƒ}ƒ“ƒh‚ÌŽQÆ
+    LPDIRECT3DDEVICE9 pD3DDevice,		//IDirect3DDevice9 ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+    const CONTROLER_STATE* pCntlState	//ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ãƒ¼ã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹
+	Command& i_DrawPacket.pCommand		//ã‚·ãƒ¼ãƒ³ã‹ã‚‰ã‚¹ãƒ†ãƒ¼ã‚¸ã€ã‚‚ã—ãã¯ã‚¹ãƒ†ãƒ¼ã‚¸ã‹ã‚‰ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã«
+										//æ¸¡ã•ã‚Œã‚‹ã‚³ãƒžãƒ³ãƒ‰ã®å‚ç…§
  );
- —p“r: ƒV[ƒ“‚ð•`‰æ
- –ß‚è’l: ‚È‚µB
+ ç”¨é€”: ã‚·ãƒ¼ãƒ³ã‚’æç”»
+ æˆ»ã‚Šå€¤: ãªã—ã€‚
 ***************************************************************************/
 	void Update(UpdatePacket& i_UpdatePacket);
 
 /**************************************************************************
  void Draw(
-    LPDIRECT3DDEVICE9 pD3DDevice,		//IDirect3DDevice9 ƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-    const CONTROLER_STATE* pCntlState,  //ƒRƒ“ƒgƒ[ƒ‰[‚ÌƒXƒe[ƒ^ƒX
-	Command& i_DrawPacket.pCommand		//ƒV[ƒ“‚©‚çƒXƒe[ƒWA‚à‚µ‚­‚ÍƒXƒe[ƒW‚©‚çƒIƒuƒWƒFƒNƒg‚É
-										//“n‚³‚ê‚éƒRƒ}ƒ“ƒh‚ÌŽQÆ
+    LPDIRECT3DDEVICE9 pD3DDevice,		//IDirect3DDevice9 ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+    const CONTROLER_STATE* pCntlState,  //ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ãƒ¼ã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹
+	Command& i_DrawPacket.pCommand		//ã‚·ãƒ¼ãƒ³ã‹ã‚‰ã‚¹ãƒ†ãƒ¼ã‚¸ã€ã‚‚ã—ãã¯ã‚¹ãƒ†ãƒ¼ã‚¸ã‹ã‚‰ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã«
+										//æ¸¡ã•ã‚Œã‚‹ã‚³ãƒžãƒ³ãƒ‰ã®å‚ç…§
  );
- —p“r: ƒXƒe[ƒW‚ð•`‰æ
- –ß‚è’l: ‚È‚µB
+ ç”¨é€”: ã‚¹ãƒ†ãƒ¼ã‚¸ã‚’æç”»
+ æˆ»ã‚Šå€¤: ãªã—ã€‚
 ***************************************************************************/
     virtual void Draw(DrawPacket& i_DrawPacket);
 };
-/*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*/
+/*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*/
 
 
-/*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*/
+/*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*/
 /**************************************************************************
  class MenuStage : public Stage;
- —p“r: ƒƒjƒ…[ƒ^ƒCƒv‚ÌƒXƒe[ƒWƒNƒ‰ƒX
- @@iƒƒjƒ…[ƒ^ƒCƒv‚Å‚ ‚ê‚ÎA‚±‚Ì”h¶ƒNƒ‰ƒX‚ðì‚Á‚Äƒƒjƒ…[‚É‚·‚é‚ÆŽg‚¢‚â‚·‚¢j
+ ç”¨é€”: ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã‚¿ã‚¤ãƒ—ã®ã‚¹ãƒ†ãƒ¼ã‚¸ã‚¯ãƒ©ã‚¹
+ ã€€ã€€ï¼ˆãƒ¡ãƒ‹ãƒ¥ãƒ¼ã‚¿ã‚¤ãƒ—ã§ã‚ã‚Œã°ã€ã“ã®æ´¾ç”Ÿã‚¯ãƒ©ã‚¹ã‚’ä½œã£ã¦ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã«ã™ã‚‹ã¨ä½¿ã„ã‚„ã™ã„ï¼‰
 ****************************************************************************/
 class MenuStage2 : public Stage{
 protected:
 	vector<Button*> m_Button2Vec;
-	//ƒ{ƒ^ƒ“ƒIƒuƒWƒFƒNƒg‚Ì‚Ý‚Ì”z—ñiƒJƒƒ‰‚È‚Ç‚Í“ü‚ê‚È‚¢j
+	//ãƒœã‚¿ãƒ³ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ã¿ã®é…åˆ—ï¼ˆã‚«ãƒ¡ãƒ©ãªã©ã¯å…¥ã‚Œãªã„ï¼‰
 	vector<Button*>::size_type m_SelectIndex;
 	bool m_SelectLock;
 	bool m_IsAnimetion;
 /**************************************************************************
  void AddButton2(
- Button2* pButton2	//ƒ{ƒ^ƒ“‚Ìƒ|ƒCƒ“ƒ^
+ Button2* pButton2	//ãƒœã‚¿ãƒ³ã®ãƒã‚¤ãƒ³ã‚¿
  );
- —p“r: ƒƒjƒ…[‚Éƒ{ƒ^ƒ“‚ð’Ç‰Á‚·‚éB‚±‚êˆÈŠO‚Ém_Vec‚É‚à•K‚¸“ü‚ê‚é
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã«ãƒœã‚¿ãƒ³ã‚’è¿½åŠ ã™ã‚‹ã€‚ã“ã‚Œä»¥å¤–ã«m_Vecã«ã‚‚å¿…ãšå…¥ã‚Œã‚‹
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
 	void AddButton2(Object* pButton2);
 public:
 /**************************************************************************
  MenuStage(
- LPDIRECT3DDEVICE9 pD3DDevice,	//ƒfƒoƒCƒX
- Stage* Par = 0					//eƒXƒe[ƒW
+ LPDIRECT3DDEVICE9 pD3DDevice,	//ãƒ‡ãƒã‚¤ã‚¹
+ Stage* Par = 0					//è¦ªã‚¹ãƒ†ãƒ¼ã‚¸
  );
- —p“r: ƒRƒ“ƒXƒgƒ‰ƒNƒ^
- –ß‚è’l: ‚È‚µiŽ¸”sŽž‚Í—áŠO‚ðthrowj
+ ç”¨é€”: ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+ æˆ»ã‚Šå€¤: ãªã—ï¼ˆå¤±æ•—æ™‚ã¯ä¾‹å¤–ã‚’throwï¼‰
 ***************************************************************************/
 	MenuStage2(LPDIRECT3DDEVICE9 pD3DDevice,Stage* Par = 0);
 /**************************************************************************
  virtual ~MenuStage();
- —p“r: ƒfƒXƒgƒ‰ƒNƒ^
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
     virtual ~MenuStage2();
 /**************************************************************************
  virtual void Stage::Draw(
-    LPDIRECT3DDEVICE9 pD3DDevice,		//IDirect3DDevice9 ƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-    const CONTROLER_STATE* pCntlState   //ƒRƒ“ƒgƒ[ƒ‰[‚ÌƒXƒe[ƒ^ƒX
-	Command& i_DrawPacket.pCommand		//ƒV[ƒ“‚©‚çƒXƒe[ƒWA‚à‚µ‚­‚ÍƒXƒe[ƒW‚©‚çƒIƒuƒWƒFƒNƒg‚É
-										//“n‚³‚ê‚éƒRƒ}ƒ“ƒh‚ÌŽQÆ
+    LPDIRECT3DDEVICE9 pD3DDevice,		//IDirect3DDevice9 ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+    const CONTROLER_STATE* pCntlState   //ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ãƒ¼ã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹
+	Command& i_DrawPacket.pCommand		//ã‚·ãƒ¼ãƒ³ã‹ã‚‰ã‚¹ãƒ†ãƒ¼ã‚¸ã€ã‚‚ã—ãã¯ã‚¹ãƒ†ãƒ¼ã‚¸ã‹ã‚‰ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã«
+										//æ¸¡ã•ã‚Œã‚‹ã‚³ãƒžãƒ³ãƒ‰ã®å‚ç…§
  );
- —p“r: ƒV[ƒ“‚ð•`‰æ
- –ß‚è’l: ‚È‚µB
+ ç”¨é€”: ã‚·ãƒ¼ãƒ³ã‚’æç”»
+ æˆ»ã‚Šå€¤: ãªã—ã€‚
 ***************************************************************************/
 	void Update(UpdatePacket& i_UpdatePacket);
 
 /**************************************************************************
  void Draw(
-    LPDIRECT3DDEVICE9 pD3DDevice,		//IDirect3DDevice9 ƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-    const CONTROLER_STATE* pCntlState,	//ƒRƒ“ƒgƒ[ƒ‰[‚ÌƒXƒe[ƒ^ƒX
-	Command& i_DrawPacket.pCommand		//ƒV[ƒ“‚©‚çƒXƒe[ƒWA‚à‚µ‚­‚ÍƒXƒe[ƒW‚©‚çƒIƒuƒWƒFƒNƒg‚É
-										//“n‚³‚ê‚éƒRƒ}ƒ“ƒh‚ÌŽQÆ
+    LPDIRECT3DDEVICE9 pD3DDevice,		//IDirect3DDevice9 ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+    const CONTROLER_STATE* pCntlState,	//ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ãƒ¼ã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹
+	Command& i_DrawPacket.pCommand		//ã‚·ãƒ¼ãƒ³ã‹ã‚‰ã‚¹ãƒ†ãƒ¼ã‚¸ã€ã‚‚ã—ãã¯ã‚¹ãƒ†ãƒ¼ã‚¸ã‹ã‚‰ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã«
+										//æ¸¡ã•ã‚Œã‚‹ã‚³ãƒžãƒ³ãƒ‰ã®å‚ç…§
  );
- —p“r: ƒXƒe[ƒW‚ð•`‰æ
- –ß‚è’l: ‚È‚µB
+ ç”¨é€”: ã‚¹ãƒ†ãƒ¼ã‚¸ã‚’æç”»
+ æˆ»ã‚Šå€¤: ãªã—ã€‚
 ***************************************************************************/
     virtual void Draw(DrawPacket& i_DrawPacket);
 };
-/*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*/
+/*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*/
 
 }
 //end of namespace wiz.

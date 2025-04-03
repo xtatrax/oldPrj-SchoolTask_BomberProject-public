@@ -1,12 +1,12 @@
 ////////////////////////////// //////////////////////////////
-//	ƒvƒƒWƒFƒNƒg	FDirectX Program Bass Project
-//	ƒtƒ@ƒCƒ‹–¼		FScene.cpp
-//	ŠJ”­ŠÂ‹«		FMSVC++ 2008
-//	Å“Kƒ^ƒu”		F4
-//	’S“–Ò			F°Œ´ “O
-//	“à•ïÃŞ°À‚Æ”õl	FƒV[ƒ“
-//					FƒV[ƒ“‚ÍƒfƒoƒCƒX‚©‚çŒÄ‚Î‚ê‚Ü‚·
-//					¥
+//	ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆ	ï¼šDirectX Program Bass Project
+//	ãƒ•ã‚¡ã‚¤ãƒ«å		ï¼šScene.cpp
+//	é–‹ç™ºç’°å¢ƒ		ï¼šMSVC++ 2008
+//	æœ€é©ã‚¿ãƒ–æ•°		ï¼š4
+//	æ‹…å½“è€…			ï¼šé´«åŸ å¾¹
+//	å†…åŒ…ãƒ‡ãƒ¼ã‚¿ã¨å‚™è€ƒ	ï¼šã‚·ãƒ¼ãƒ³
+//					ï¼šã‚·ãƒ¼ãƒ³ã¯ãƒ‡ãƒã‚¤ã‚¹ã‹ã‚‰å‘¼ã°ã‚Œã¾ã™
+//					â–¼
 //	namespace wiz;
 //		class Scene ;
 //
@@ -30,44 +30,44 @@ namespace wiz{
 using namespace bomberobject;
 
 /**************************************************************************
- Scene ’è‹`•”
+ Scene å®šç¾©éƒ¨
 ***************************************************************************/
 HANDLE	Scene::m_hLoadingThread				;
 
 /////////////////// ////////////////////
-//// ŠÖ”–¼     Fvoid Clear()
-//// ƒJƒeƒSƒŠ   FŠÖ”
-//// —p“r       FƒIƒuƒWƒFƒNƒg‚ÌƒNƒŠƒA
-//// ˆø”       F‚È‚µ
-//// –ß’l       F‚È‚µ
-//// ’S“–Ò     F
-//// ”õl       F
-////            F
+//// é–¢æ•°å     ï¼švoid Clear()
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šé–¢æ•°
+//// ç”¨é€”       ï¼šã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ã‚¯ãƒªã‚¢
+//// å¼•æ•°       ï¼šãªã—
+//// æˆ»å€¤       ï¼šãªã—
+//// æ‹…å½“è€…     ï¼š
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
 void Scene::setStages(){
 }
 /////////////////// ////////////////////
-//// ŠÖ”–¼     Fvoid Clear()
-//// ƒJƒeƒSƒŠ   FŠÖ”
-//// —p“r       FƒIƒuƒWƒFƒNƒg‚ÌƒNƒŠƒA
-//// ˆø”       F‚È‚µ
-//// –ß’l       F‚È‚µ
-//// ’S“–Ò     F
-//// ”õl       F
-////            F
+//// é–¢æ•°å     ï¼švoid Clear()
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šé–¢æ•°
+//// ç”¨é€”       ï¼šã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ã‚¯ãƒªã‚¢
+//// å¼•æ•°       ï¼šãªã—
+//// æˆ»å€¤       ï¼šãªã—
+//// æ‹…å½“è€…     ï¼š
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
 void Scene::Clear(){
 	SafeDeleteStage(m_pRootStage);
 }
 /////////////////// ////////////////////
-//// ŠÖ”–¼     FScene(LPDIRECT3DDEVICE9 pD3DDevice)
-//// ƒJƒeƒSƒŠ   FƒRƒ“ƒXƒgƒ‰ƒNƒ^
-//// —p“r       FƒV[ƒ“‚ğ¶¬
-//// ˆø”       FLPDIRECT3DDEVICE9 pD3DDevice    //IDirect3DDevice9 ƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-//// –ß’l       F‚È‚µ
-//// ’S“–Ò     F
-//// ”õl       F¸”s‚µ‚½‚ç—áŠO‚ğthrow
-////            F
+//// é–¢æ•°å     ï¼šScene(LPDIRECT3DDEVICE9 pD3DDevice)
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+//// ç”¨é€”       ï¼šã‚·ãƒ¼ãƒ³ã‚’ç”Ÿæˆ
+//// å¼•æ•°       ï¼šLPDIRECT3DDEVICE9 pD3DDevice    //IDirect3DDevice9 ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+//// æˆ»å€¤       ï¼šãªã—
+//// æ‹…å½“è€…     ï¼š
+//// å‚™è€ƒ       ï¼šå¤±æ•—ã—ãŸã‚‰ä¾‹å¤–ã‚’throw
+////            ï¼š
 ////
 Scene::Scene(LPDIRECT3DDEVICE9 pD3DDevice,Command* pCommand)
 :m_pRootStage(NULL)
@@ -79,21 +79,21 @@ Scene::Scene(LPDIRECT3DDEVICE9 pD3DDevice,Command* pCommand)
 ,m_fStageNotFoundMessageTime(0.0f)
 {
 	try{
-        //–³Œøƒ`ƒFƒbƒN
+        //ç„¡åŠ¹ãƒã‚§ãƒƒã‚¯
         if(!pD3DDevice){
-            throw BaseException(L"ƒV[ƒ“‚Ì‰Šú‰»‚É¸”s‚µ‚Ü‚µ‚½BƒfƒoƒCƒX‚ª–³Œø‚Å‚·B",
+            throw BaseException(L"ã‚·ãƒ¼ãƒ³ã®åˆæœŸåŒ–ã«å¤±æ•—ã—ã¾ã—ãŸã€‚ãƒ‡ãƒã‚¤ã‚¹ãŒç„¡åŠ¹ã§ã™ã€‚",
             L"Scene::Scene()");
 		}
 		//////////
-		//	: ƒfƒoƒbƒO—pİ’è
+		//	: ãƒ‡ãƒãƒƒã‚°ç”¨è¨­å®š
 		#if defined(ON_DEBUGGINGPROCESS)
-			//ƒ‹[ƒg‚ÌƒXƒe[ƒW‚ÉƒfƒoƒbƒOƒƒjƒ…[‚ğİ’è
+			//ãƒ«ãƒ¼ãƒˆã®ã‚¹ãƒ†ãƒ¼ã‚¸ã«ãƒ‡ãƒãƒƒã‚°ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã‚’è¨­å®š
 			pCommand->m_Command = GM_OPENSTAGE_TITLE ;
 			//*pCommand = Command(GM_OPENSTAGE_PLAY,3,0) ;
 			//*pCommand = Command(GM_OPENSTAGE_PLAY,100,0) ;
 		#else 
-		//	: ƒŠƒŠ[ƒX—pİ’è
-		//ƒ‹[ƒg‚ÌƒXƒe[ƒW‚Éƒ^ƒCƒgƒ‹ƒƒjƒ…[‚ğİ’è
+		//	: ãƒªãƒªãƒ¼ã‚¹ç”¨è¨­å®š
+		//ãƒ«ãƒ¼ãƒˆã®ã‚¹ãƒ†ãƒ¼ã‚¸ã«ã‚¿ã‚¤ãƒˆãƒ«ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã‚’è¨­å®š
 			pCommand->m_Command = GM_OPENSTAGE_TITLE ;
 
 		#endif
@@ -101,16 +101,16 @@ Scene::Scene(LPDIRECT3DDEVICE9 pD3DDevice,Command* pCommand)
 		//////////
 
 		//////////
-		//	: ƒ[ƒh—pƒXƒŒƒbƒhì¬
+		//	: ãƒ­ãƒ¼ãƒ‰ç”¨ã‚¹ãƒ¬ãƒƒãƒ‰ä½œæˆ
 		#ifdef CF_LOADINGANIMATION
 		//m_hLoadingThread = (HANDLE) _beginthread(
-		//	&Scene::LoadingThread,	// ƒ‰ƒ“ƒ`ƒƒ‚ğ‹N“®
+		//	&Scene::LoadingThread,	// ãƒ©ãƒ³ãƒãƒ£ã‚’èµ·å‹•
 		//	0,
 		//	this);
 		m_hLoadingThread = (HANDLE) _beginthreadex(
 			NULL,
 			0,
-			&Scene::LoadingThread,	// ƒ‰ƒ“ƒ`ƒƒ‚ğ‹N“®
+			&Scene::LoadingThread,	// ãƒ©ãƒ³ãƒãƒ£ã‚’èµ·å‹•
 			this,
 			CREATE_SUSPENDED,
 			NULL);
@@ -122,54 +122,54 @@ Scene::Scene(LPDIRECT3DDEVICE9 pD3DDevice,Command* pCommand)
 
     }
     catch(wiz::BaseException& e){
-        //”jŠüˆ—
+        //ç ´æ£„å‡¦ç†
         Clear();
         throw BaseException(
 			e.what_w(), 
-            L"ªScene::Scene()"
+            L"â†‘Scene::Scene()"
             );
 	}
     catch(...){
-        //”jŠüˆ—
+        //ç ´æ£„å‡¦ç†
         Clear();
-        //ÄƒXƒ[
+        //å†ã‚¹ãƒ­ãƒ¼
         throw;
     }
 }
 /////////////////// ////////////////////
-//// ŠÖ”–¼     F~Scene()
-//// ƒJƒeƒSƒŠ   FƒfƒXƒgƒ‰ƒNƒ^
-//// —p“r       FƒV[ƒ“‚ğ”jŠü
-//// ˆø”       F‚È‚µ
-//// –ß’l       F‚È‚µ
-//// ’S“–Ò     F
-//// ”õl       F
-////            F
+//// é–¢æ•°å     ï¼š~Scene()
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+//// ç”¨é€”       ï¼šã‚·ãƒ¼ãƒ³ã‚’ç ´æ£„
+//// å¼•æ•°       ï¼šãªã—
+//// æˆ»å€¤       ï¼šãªã—
+//// æ‹…å½“è€…     ï¼š
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
 Scene::~Scene()
 {
-    //”jŠüˆ—
+    //ç ´æ£„å‡¦ç†
     Clear();
 }
 /////////////////// ////////////////////
-//// ŠÖ”–¼     Fvoid Update(LPDIRECT3DDEVICE9 pD3DDevice,Tempus2* i_DrawPacket.GetTime(),
-////            F      const CONTROLER_STATE* pCntlState,Command& i_DrawPacket.pCommand)
-//// ƒJƒeƒSƒŠ   FŠÖ”
-//// —p“r       FƒV[ƒ“‚ğXV
-//// ˆø”       F  LPDIRECT3DDEVICE9 pD3DDevice,       // IDirect3DDevice9 ƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-////            F  const CONTROLER_STATE* pCntlState   // ƒRƒ“ƒgƒ[ƒ‰[‚ÌƒXƒe[ƒ^ƒX
-////            F  Command& i_DrawPacket.pCommand						// ƒRƒ}ƒ“ƒh
-//// –ß’l       F‚È‚µ
-//// ’S“–Ò     F
-//// ”õl       F
-////            F
+//// é–¢æ•°å     ï¼švoid Update(LPDIRECT3DDEVICE9 pD3DDevice,Tempus2* i_DrawPacket.GetTime(),
+////            ï¼š      const CONTROLER_STATE* pCntlState,Command& i_DrawPacket.pCommand)
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šé–¢æ•°
+//// ç”¨é€”       ï¼šã‚·ãƒ¼ãƒ³ã‚’æ›´æ–°
+//// å¼•æ•°       ï¼š  LPDIRECT3DDEVICE9 pD3DDevice,       // IDirect3DDevice9 ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+////            ï¼š  const CONTROLER_STATE* pCntlState   // ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ãƒ¼ã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹
+////            ï¼š  Command& i_DrawPacket.pCommand						// ã‚³ãƒãƒ³ãƒ‰
+//// æˆ»å€¤       ï¼šãªã—
+//// æ‹…å½“è€…     ï¼š
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
 void Scene::Update(UpdatePacket& i_UpdatePacket){
 
 	if(m_pRootStage){
 
 		#if defined(ON_DEBUGGINGPROCESS)
-		//	:  ƒoƒbƒNƒ{ƒ^ƒ“‚ÅƒfƒoƒbƒOƒƒjƒ…[‚Ö
+		//	:  ãƒãƒƒã‚¯ãƒœã‚¿ãƒ³ã§ãƒ‡ãƒãƒƒã‚°ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã¸
 		if(i_UpdatePacket.m_pCntlState->Gamepad.wPressedButtons.XConState.BACK)
 			i_UpdatePacket.PushCommand( GM_OPENDEBUGSTAGE_DEBUGMENU );
 		#endif
@@ -177,15 +177,15 @@ void Scene::Update(UpdatePacket& i_UpdatePacket){
 	}
 }
 /////////////////// ////////////////////
-//// ŠÖ”–¼     Fvoid AnotherTargetRender(LPDIRECT3DDEVICE9 pD3DDevice,Command& i_DrawPacket.pCommand);
-//// ƒJƒeƒSƒŠ   FŠÖ”
-//// —p“r       Fƒ^[ƒQƒbƒgƒŒƒ“ƒ_ƒŠƒ“ƒO
-//// ˆø”       F  LPDIRECT3DDEVICE9 pD3DDevice,       // IDirect3DDevice9 ƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-////            F  Command& i_DrawPacket.pCommand						// ƒRƒ}ƒ“ƒh
-//// –ß’l       F‚È‚µ
-//// ’S“–Ò     F
-//// ”õl       F‰æ–ÊˆÈŠO‚Ìƒoƒbƒtƒ@[‚É•`‰æ‚·‚é
-////            F
+//// é–¢æ•°å     ï¼švoid AnotherTargetRender(LPDIRECT3DDEVICE9 pD3DDevice,Command& i_DrawPacket.pCommand);
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šé–¢æ•°
+//// ç”¨é€”       ï¼šã‚¿ãƒ¼ã‚²ãƒƒãƒˆãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°
+//// å¼•æ•°       ï¼š  LPDIRECT3DDEVICE9 pD3DDevice,       // IDirect3DDevice9 ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+////            ï¼š  Command& i_DrawPacket.pCommand						// ã‚³ãƒãƒ³ãƒ‰
+//// æˆ»å€¤       ï¼šãªã—
+//// æ‹…å½“è€…     ï¼š
+//// å‚™è€ƒ       ï¼šç”»é¢ä»¥å¤–ã®ãƒãƒƒãƒ•ã‚¡ãƒ¼ã«æç”»ã™ã‚‹
+////            ï¼š
 ////
 void Scene::Render(RenderPacket& i_RenderPacket){
 	if(m_pRootStage){
@@ -193,14 +193,14 @@ void Scene::Render(RenderPacket& i_RenderPacket){
 	}
 }
 /////////////////// ////////////////////
-//// ŠÖ”–¼     Fvoid Draw(DrawPacket& i_DrawPacket);
-//// ƒJƒeƒSƒŠ   FŠÖ”
-//// —p“r       FƒV[ƒ“‚ğ•`‰æ
-//// ˆø”       F  DrawPacket& i_DrawPacket 
-//// –ß’l       F‚È‚µ
-//// ’S“–Ò     F°Œ´ “O(Rƒmˆäæ¶‚Ì‚Ğ‚ÈŒ`‚æ‚è)
-//// ”õl       F‰æ–ÊˆÈŠO‚Ìƒoƒbƒtƒ@[‚É•`‰æ‚·‚é
-////            F
+//// é–¢æ•°å     ï¼švoid Draw(DrawPacket& i_DrawPacket);
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šé–¢æ•°
+//// ç”¨é€”       ï¼šã‚·ãƒ¼ãƒ³ã‚’æç”»
+//// å¼•æ•°       ï¼š  DrawPacket& i_DrawPacket 
+//// æˆ»å€¤       ï¼šãªã—
+//// æ‹…å½“è€…     ï¼šé´«åŸ å¾¹(å±±ãƒäº•å…ˆç”Ÿã®ã²ãªå½¢ã‚ˆã‚Š)
+//// å‚™è€ƒ       ï¼šç”»é¢ä»¥å¤–ã®ãƒãƒƒãƒ•ã‚¡ãƒ¼ã«æç”»ã™ã‚‹
+////            ï¼š
 ////
 void Scene::Draw(DrawPacket& i_DrawPacket){
 	if(m_pRootStage){
@@ -210,21 +210,21 @@ void Scene::Draw(DrawPacket& i_DrawPacket){
 }
 
 /////////////////// ////////////////////
-//// ŠÖ”–¼     Fvoid CommandTranslator(BassPacket& i_BassPacket);
-//// ƒJƒeƒSƒŠ   FŠÖ”
-//// —p“r       FƒRƒ}ƒ“ƒh‚ğ‰ğß‚µ‚ÄƒXƒe[ƒW‚ÌØ‚è‘Ö‚¦‚È‚Ç‚ğs‚¤
-//// ˆø”       F
-//// –ß’l       F‚È‚µ
-//// ’S“–Ò     F°Œ´ “O
-//// ”õl       F
-////            F
+//// é–¢æ•°å     ï¼švoid CommandTranslator(BassPacket& i_BassPacket);
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šé–¢æ•°
+//// ç”¨é€”       ï¼šã‚³ãƒãƒ³ãƒ‰ã‚’è§£é‡ˆã—ã¦ã‚¹ãƒ†ãƒ¼ã‚¸ã®åˆ‡ã‚Šæ›¿ãˆãªã©ã‚’è¡Œã†
+//// å¼•æ•°       ï¼š
+//// æˆ»å€¤       ï¼šãªã—
+//// æ‹…å½“è€…     ï¼šé´«åŸ å¾¹
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
 void Scene::CommandTranslator(BassPacket& i_BassPacket){
 
 	Command comBuf = i_BassPacket.PopCommand();
 	switch(comBuf.m_Command){
 		case GM_OPENSTAGE_TITLE:
-			//	: ƒ^ƒCƒgƒ‹‰æ–Ê
+			//	: ã‚¿ã‚¤ãƒˆãƒ«ç”»é¢
 			SafeDeleteStage(m_pRootStage);
 			m_pRootStage =
 				new
@@ -232,7 +232,7 @@ void Scene::CommandTranslator(BassPacket& i_BassPacket){
 			//strrchr(__FILE__,'\\' );
 			break;
 		case GM_OPENSTAGE_DEMO:
-			//	: ƒ^ƒCƒgƒ‹‰æ–Ê
+			//	: ã‚¿ã‚¤ãƒˆãƒ«ç”»é¢
 			SafeDeleteStage(m_pRootStage);
 			m_pRootStage = new DemoStage( i_BassPacket.GetDevice() );
 			break;
@@ -240,29 +240,29 @@ void Scene::CommandTranslator(BassPacket& i_BassPacket){
 			comBuf.m_Command = GM_OPENSTAGE_PLAY;
 			goto PRGOTO_GM_OPENSTAGE_LOAD;
 		case GM_OPENSTAGE_LOAD:
-			//	: ƒ[ƒh‰æ–Ê
+			//	: ãƒ­ãƒ¼ãƒ‰ç”»é¢
 			PRGOTO_GM_OPENSTAGE_LOAD:
 			SafeDeleteStage(m_pRootStage);
-			////Debugger::DBGWRITINGLOGTEXT::addStr(L"Scene::CommandTranslator  >>>>  PRGOTO_GM_OPENSTAGE_LOAD  ƒXƒe[ƒWì¬ŠJn  ");
+			////Debugger::DBGWRITINGLOGTEXT::addStr(L"Scene::CommandTranslator  >>>>  PRGOTO_GM_OPENSTAGE_LOAD  ã‚¹ãƒ†ãƒ¼ã‚¸ä½œæˆé–‹å§‹  ");
 			m_pRootStage = new LoadStage(i_BassPacket.GetDevice(),&comBuf);
-			////Debugger::DBGWRITINGLOGTEXT::addStr(L"Scene::CommandTranslator  >>>>  PRGOTO_GM_OPENSTAGE_LOAD  ƒXƒe[ƒWì¬OK  ");
+			////Debugger::DBGWRITINGLOGTEXT::addStr(L"Scene::CommandTranslator  >>>>  PRGOTO_GM_OPENSTAGE_LOAD  ã‚¹ãƒ†ãƒ¼ã‚¸ä½œæˆOK  ");
 			break;
 		case GM_OPENSTAGE_PLAY:
 			try{
-				//	: ƒQ[ƒ€ƒXƒe[ƒW
-				////Debugger::DBGWRITINGLOGTEXT::addStr(L"Scene::CommandTranslator  >>>>  GM_OPENSTAGE_PLAY  ƒXƒe[ƒWì¬ŠJn  ");
+				//	: ã‚²ãƒ¼ãƒ ã‚¹ãƒ†ãƒ¼ã‚¸
+				////Debugger::DBGWRITINGLOGTEXT::addStr(L"Scene::CommandTranslator  >>>>  GM_OPENSTAGE_PLAY  ã‚¹ãƒ†ãƒ¼ã‚¸ä½œæˆé–‹å§‹  ");
 				this->m_pStgBuf = new PlayStage(i_BassPacket.GetDevice(), comBuf.m_Param1, comBuf.m_Param2);
-				////Debugger::DBGWRITINGLOGTEXT::addStr(L"Scene::CommandTranslator  >>>>  GM_OPENSTAGE_PLAY  ƒXƒe[ƒWì¬Š®—¹  ");
+				////Debugger::DBGWRITINGLOGTEXT::addStr(L"Scene::CommandTranslator  >>>>  GM_OPENSTAGE_PLAY  ã‚¹ãƒ†ãƒ¼ã‚¸ä½œæˆå®Œäº†  ");
 				//	: 
-				////Debugger::DBGWRITINGLOGTEXT::addStr(L"Scene::CommandTranslator  >>>>  GM_OPENSTAGE_PLAY  ‘OƒXƒe[ƒWíœŠJn  ");
+				////Debugger::DBGWRITINGLOGTEXT::addStr(L"Scene::CommandTranslator  >>>>  GM_OPENSTAGE_PLAY  å‰ã‚¹ãƒ†ãƒ¼ã‚¸å‰Šé™¤é–‹å§‹  ");
 				SafeDeleteStage(m_pRootStage);
-				////Debugger::DBGWRITINGLOGTEXT::addStr(L"Scene::CommandTranslator  >>>>  GM_OPENSTAGE_PLAY  ‘OƒXƒe[ƒWíœI—¹  ");
+				////Debugger::DBGWRITINGLOGTEXT::addStr(L"Scene::CommandTranslator  >>>>  GM_OPENSTAGE_PLAY  å‰ã‚¹ãƒ†ãƒ¼ã‚¸å‰Šé™¤çµ‚äº†  ");
 				m_pRootStage = this->m_pStgBuf;
 				this->m_pStgBuf = NULL ;
 			}
 			catch(LoaderException& e){
-				//	: ƒ[ƒh¸”s
-				::MessageBox(wiz::DxDevice::m_hWnd,e.what_w(),L"ƒGƒ‰[",MB_OK);
+				//	: ãƒ­ãƒ¼ãƒ‰å¤±æ•—
+				::MessageBox(wiz::DxDevice::m_hWnd,e.what_w(),L"ã‚¨ãƒ©ãƒ¼",MB_OK);
 				if( !m_pRootStage ) m_pRootStage = new TitleStage(i_BassPacket.GetDevice());
 				SafeDeleteStage(this->m_pStgBuf);
 			}
@@ -277,26 +277,26 @@ void Scene::CommandTranslator(BassPacket& i_BassPacket){
 			break;
 
 		case GM_OPENSTAGE_CLEAR:
-			//	: ƒQ[ƒ€ƒNƒŠƒA‰æ–Ê
-			////Debugger::DBGWRITINGLOGTEXT::addStr(L"Scene::CommandTranslator  >>>>  GM_OPENSTAGE_CLEAR  ƒXƒe[ƒWíœŠJn  ");
+			//	: ã‚²ãƒ¼ãƒ ã‚¯ãƒªã‚¢ç”»é¢
+			////Debugger::DBGWRITINGLOGTEXT::addStr(L"Scene::CommandTranslator  >>>>  GM_OPENSTAGE_CLEAR  ã‚¹ãƒ†ãƒ¼ã‚¸å‰Šé™¤é–‹å§‹  ");
 			SafeDeleteStage(m_pRootStage);
-			////Debugger::DBGWRITINGLOGTEXT::addStr(L"Scene::CommandTranslator  >>>>  GM_OPENSTAGE_CLEAR  ƒXƒe[ƒWíœOK  ");
+			////Debugger::DBGWRITINGLOGTEXT::addStr(L"Scene::CommandTranslator  >>>>  GM_OPENSTAGE_CLEAR  ã‚¹ãƒ†ãƒ¼ã‚¸å‰Šé™¤OK  ");
 			m_pRootStage = new ClearStage(i_BassPacket.GetDevice(), comBuf.m_Param1,
 														comBuf.m_Param2, comBuf.m_Param3 );
-			////Debugger::DBGWRITINGLOGTEXT::addStr(L"Scene::CommandTranslator  >>>>  GM_OPENSTAGE_CLEAR  ƒXƒe[ƒWì¬OK  ");
+			////Debugger::DBGWRITINGLOGTEXT::addStr(L"Scene::CommandTranslator  >>>>  GM_OPENSTAGE_CLEAR  ã‚¹ãƒ†ãƒ¼ã‚¸ä½œæˆOK  ");
 			break;
 
 		case GM_OPENSTAGE_RESULT:
-			//	: ƒŠƒUƒ‹ƒg‰æ–Ê
+			//	: ãƒªã‚¶ãƒ«ãƒˆç”»é¢
 			SafeDeleteStage(m_pRootStage);
 			m_pRootStage = new ResultStage(i_BassPacket.GetDevice(), comBuf.m_Param1,
 														comBuf.m_Param2, comBuf.m_Param3 );
 			break;
 
 		case GM_OPENDEBUGSTAGE_PLAY_RELOAD:
-			//	: ƒŠƒ[ƒh
+			//	: ãƒªãƒ­ãƒ¼ãƒ‰
 			try{
-				//	: ƒQ[ƒ€ƒXƒe[ƒW
+				//	: ã‚²ãƒ¼ãƒ ã‚¹ãƒ†ãƒ¼ã‚¸
 				PlayerCoil* pc = (PlayerCoil*)comBuf.m_Param1 ;
 				DWORD dwStageNum = m_pRootStage ? ((PlayStage*)m_pRootStage)->getNowStage() : 0 ;
 				this->m_pStgBuf = new PlayStage( i_BassPacket.GetDevice(), dwStageNum ,comBuf.m_Param2, pc->getPos() );
@@ -306,8 +306,8 @@ void Scene::CommandTranslator(BassPacket& i_BassPacket){
 				this->m_pStgBuf = NULL ;
 			}
 			catch(LoaderException& e){
-				//	: ƒ[ƒh¸”s
-				::MessageBox(wiz::DxDevice::m_hWnd,e.what_w(),L"ƒGƒ‰[",MB_OK);
+				//	: ãƒ­ãƒ¼ãƒ‰å¤±æ•—
+				::MessageBox(wiz::DxDevice::m_hWnd,e.what_w(),L"ã‚¨ãƒ©ãƒ¼",MB_OK);
 				if( !m_pRootStage ) m_pRootStage = new TitleStage(i_BassPacket.GetDevice());
 				SafeDeleteStage(this->m_pStgBuf);
 			}
@@ -317,12 +317,12 @@ void Scene::CommandTranslator(BassPacket& i_BassPacket){
 
 			break;
 
-//–¢‘Î‰‚ÌƒXƒe[ƒW
+//æœªå¯¾å¿œã®ã‚¹ãƒ†ãƒ¼ã‚¸
 
 		case GM_OPENSTAGE_RANKING:
-			//	: ƒ‰ƒ“ƒLƒ“ƒO‰æ–Ê
+			//	: ãƒ©ãƒ³ã‚­ãƒ³ã‚°ç”»é¢
 		case GM_OPENSTAGE_GAMEOVER:
-			//	: ƒQ[ƒ€ƒI[ƒo[‰æ–Ê
+			//	: ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼ç”»é¢
 		case GM_OPENDEBUGSTAGE_TATEAWORKSPACE:
 
 		case GM_OPENDEBUGSTAGE_STAGELOADERTEST:
@@ -349,35 +349,35 @@ void Scene::CommandTranslator(BassPacket& i_BassPacket){
 	if( m_fStageNotFoundMessageTime > 0.0f ){
 		float f = (float)i_BassPacket.GetTime()->getElapsedTime();
 		m_fStageNotFoundMessageTime -= f ;
-		Debugger::DBGSTR::addStrTop(L"–¢‘Î‰‚ÌƒV[ƒ“‚Å‚·");
+		Debugger::DBGSTR::addStrTop(L"æœªå¯¾å¿œã®ã‚·ãƒ¼ãƒ³ã§ã™");
 	}
 	i_BassPacket.ClearCommand();
 }
 /////////////////// ////////////////////
-//// ŠÖ”–¼     Funsigned __stdcall Scene::LoadingThread(void *args)
-//// ƒJƒeƒSƒŠ   FŠÖ”
-//// —p“r       Fƒ[ƒh—pƒXƒŒƒbƒhˆ—
-//// ˆø”       F  void*	args	//	: ƒV[ƒ“‚Ö‚Ìƒ|ƒCƒ“ƒ^‚ğ“n‚µ‚Ä‚­‚¾‚³‚¢
-//// –ß’l       F‚È‚µ
-//// ’S“–Ò     F°Œ´ “O
-//// ”õl       F
-////            F
+//// é–¢æ•°å     ï¼šunsigned __stdcall Scene::LoadingThread(void *args)
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šé–¢æ•°
+//// ç”¨é€”       ï¼šãƒ­ãƒ¼ãƒ‰ç”¨ã‚¹ãƒ¬ãƒƒãƒ‰å‡¦ç†
+//// å¼•æ•°       ï¼š  void*	args	//	: ã‚·ãƒ¼ãƒ³ã¸ã®ãƒã‚¤ãƒ³ã‚¿ã‚’æ¸¡ã—ã¦ãã ã•ã„
+//// æˆ»å€¤       ï¼šãªã—
+//// æ‹…å½“è€…     ï¼šé´«åŸ å¾¹
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
 unsigned __stdcall Scene::LoadingThread(void *args)
 //void Scene::LoadingThread(void* args)
 {
 	Scene* This = reinterpret_cast<Scene*>(args);
 	
-	//	: ƒTƒXƒyƒ“ƒhÀŒ±—pƒ‹[ƒv
+	//	: ã‚µã‚¹ãƒšãƒ³ãƒ‰å®Ÿé¨“ç”¨ãƒ«ãƒ¼ãƒ—
 	while(true){
 		//switch(This->m_LoadCommand.m_Command){
-			//	: ƒQ[ƒ€ƒXƒe[ƒW
+			//	: ã‚²ãƒ¼ãƒ ã‚¹ãƒ†ãƒ¼ã‚¸
 			//case GM_OPENSTAGE_PLAY:
 			//	This->m_pStgBuf = new PlayOpeningStage(This->m_pLoadDevice);
 			//	break;
 
 
-			//	: ƒfƒoƒbƒOƒXƒe[ƒW
+			//	: ãƒ‡ãƒãƒƒã‚°ã‚¹ãƒ†ãƒ¼ã‚¸
 			//case GM_OPENDEBUGSTAGE_STAGECREATE:
 			//	SafeDeleteStage();
 			//	m_pRootStage = new DevelopStage(i_DrawPacket.GetDevice());
@@ -397,14 +397,14 @@ unsigned __stdcall Scene::LoadingThread(void *args)
 	return 0;
 }
 /////////////////// ////////////////////
-//// ŠÖ”–¼     Fvoid Scene::LoadingThreadStarter(LPDIRECT3DDEVICE9 pD3DDevice,const Command* pCommand)
-//// ƒJƒeƒSƒŠ   FŠÖ”
-//// —p“r       Fƒ[ƒh—pƒXƒŒƒbƒh‚Ìƒ‰ƒ“ƒ`ƒƒ[
-//// ˆø”       F
-//// –ß’l       F‚È‚µ
-//// ’S“–Ò     F°Œ´ “O
-//// ”õl       F
-////            F
+//// é–¢æ•°å     ï¼švoid Scene::LoadingThreadStarter(LPDIRECT3DDEVICE9 pD3DDevice,const Command* pCommand)
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šé–¢æ•°
+//// ç”¨é€”       ï¼šãƒ­ãƒ¼ãƒ‰ç”¨ã‚¹ãƒ¬ãƒƒãƒ‰ã®ãƒ©ãƒ³ãƒãƒ£ãƒ¼
+//// å¼•æ•°       ï¼š
+//// æˆ»å€¤       ï¼šãªã—
+//// æ‹…å½“è€…     ï¼šé´«åŸ å¾¹
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
 void Scene::LoadingThreadStarter(LPDIRECT3DDEVICE9 pD3DDevice,const Command* pCommand){
 
@@ -417,31 +417,31 @@ void Scene::LoadingThreadStarter(LPDIRECT3DDEVICE9 pD3DDevice,const Command* pCo
 #endif
 }
 /////////////////// ////////////////////
-//// ŠÖ”–¼     Fvoid SafeDeleteStage()
-//// ƒJƒeƒSƒŠ   FŠÖ”
-//// —p“r       FƒXƒe[ƒW‚ğˆÀ‘S‚Éíœ‚·‚é
-//// ˆø”       F‚È‚µ
-//// –ß’l       F‚È‚µ
-//// ’S“–Ò     F
-//// ”õl       F
-////            F
+//// é–¢æ•°å     ï¼švoid SafeDeleteStage()
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šé–¢æ•°
+//// ç”¨é€”       ï¼šã‚¹ãƒ†ãƒ¼ã‚¸ã‚’å®‰å…¨ã«å‰Šé™¤ã™ã‚‹
+//// å¼•æ•°       ï¼šãªã—
+//// æˆ»å€¤       ï¼šãªã—
+//// æ‹…å½“è€…     ï¼š
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
 void Scene::SafeDeleteStage(Stage* &pStage){
 	#ifndef CF_SINGLETHREAD
-		//	: ƒ}ƒ‹ƒ`ƒXƒŒƒbƒhƒ‚[ƒh‚Ìê‡
-		//	: ƒf[ƒ^‚ÖƒAƒNƒZƒX’†‚É‚¢‚«‚È‚èíœ‚³‚ê‚é‚Ì‚ğ–h‚®‚½‚ß‚É
-		//	: ˆê’UƒAƒbƒvƒf[ƒgƒXƒŒƒbƒh‚ğ‹x~‚·‚é
+		//	: ãƒãƒ«ãƒã‚¹ãƒ¬ãƒƒãƒ‰ãƒ¢ãƒ¼ãƒ‰ã®å ´åˆ
+		//	: ãƒ‡ãƒ¼ã‚¿ã¸ã‚¢ã‚¯ã‚»ã‚¹ä¸­ã«ã„ããªã‚Šå‰Šé™¤ã•ã‚Œã‚‹ã®ã‚’é˜²ããŸã‚ã«
+		//	: ä¸€æ—¦ã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆã‚¹ãƒ¬ãƒƒãƒ‰ã‚’ä¼‘æ­¢ã™ã‚‹
 		setUpdateThreadSuspendRequest();
-		//	: ƒAƒbƒvƒf[ƒgƒXƒŒƒbƒh‚ª‹x~‚·‚é‚Ü‚Å‘Ò‚Â
+		//	: ã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆã‚¹ãƒ¬ãƒƒãƒ‰ãŒä¼‘æ­¢ã™ã‚‹ã¾ã§å¾…ã¤
 		while(!getUpdateThreadSuspend()){
 			Sleep(1);
 		}
 	#endif
-	//	: ƒV[ƒ“‚ğíœ
+	//	: ã‚·ãƒ¼ãƒ³ã‚’å‰Šé™¤
 	SafeDelete( pStage );
 	pStage = NULL;
 	#ifndef CF_SINGLETHREAD
-		//	: ‹x~‚µ‚½ƒXƒŒƒbƒh‚ğÄŠJ‚³‚¹‚é
+		//	: ä¼‘æ­¢ã—ãŸã‚¹ãƒ¬ãƒƒãƒ‰ã‚’å†é–‹ã•ã›ã‚‹
 		setUpdateThreadResumeRequest();
 	#endif
 }

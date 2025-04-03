@@ -1,13 +1,13 @@
 ////////////////////////////// //////////////////////////////
-//	ƒvƒƒWƒFƒNƒg	FBomberProject
-//	ƒtƒ@ƒCƒ‹–¼		FFactory_Player.h
-//	ŠJ”­ŠÂ‹«		FMSVC++ 2008
-//	Å“Kƒ^ƒu”		F4
-//	’S“–ŽÒ			FŽ°Œ´ “O
-//	ˆøŒp‚¬			F‰g’n ‘å—m
-//	„¤¨			F–{‘½ Š°”V
-//	“à•ïÃÞ°À‚Æ”õl	FƒvƒŒƒCƒ„[‚ª—U“±‚·‚é•¨‘Ì
-//					¥
+//	ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆ	ï¼šBomberProject
+//	ãƒ•ã‚¡ã‚¤ãƒ«å		ï¼šFactory_Player.h
+//	é–‹ç™ºç’°å¢ƒ		ï¼šMSVC++ 2008
+//	æœ€é©ã‚¿ãƒ–æ•°		ï¼š4
+//	æ‹…å½“è€…			ï¼šé´«åŽŸ å¾¹
+//	å¼•ç¶™ãŽ			ï¼šæ›³åœ° å¤§æ´‹
+//	â””â†’			ï¼šæœ¬å¤š å¯›ä¹‹
+//	å†…åŒ…ãƒ‡ãƒ¼ã‚¿ã¨å‚™è€ƒ	ï¼šãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒèª˜å°Žã™ã‚‹ç‰©ä½“
+//					â–¼
 //	namespace wiz;
 //		class Factory_Player ;
 //
@@ -37,8 +37,8 @@ extern class	MagneticGage_S	;
 //**************************************************************************//
 // class ProvisionalPlayer : public MagneticumObject ;
 //
-// ’S“–ŽÒ  : Ž°Œ´ “O
-// —p“r    : ‰¼‚Ìƒ†[ƒU[Ý’uŽ¥ŠE
+// æ‹…å½“è€…  : é´«åŽŸ å¾¹
+// ç”¨é€”    : ä»®ã®ãƒ¦ãƒ¼ã‚¶ãƒ¼è¨­ç½®ç£ç•Œ
 //**************************************************************************//
 //class ProvisionalPlayer : public MagneticumObject{
 //public:
@@ -50,12 +50,12 @@ extern class	MagneticGage_S	;
 //	void Update( UpdatePacket& i_UpdatePacket );
 //};
 
-// 3D—p
+// 3Dç”¨
 //**************************************************************************//
 // class ProvisionalPlayer3D : public MagneticumObject ;
 //
-// ’S“–ŽÒ  : ‰g’n‘å—m
-// —p“r    : ‰¼‚Ìƒ†[ƒU[Ý’uŽ¥ŠE
+// æ‹…å½“è€…  : æ›³åœ°å¤§æ´‹
+// ç”¨é€”    : ä»®ã®ãƒ¦ãƒ¼ã‚¶ãƒ¼è¨­ç½®ç£ç•Œ
 //**************************************************************************//
 class ProvisionalPlayer3D : public MagnetField{
 	MouseCursor*	m_pCursor		;
@@ -86,14 +86,14 @@ public:
 		D3DXVECTOR3 &vScale, D3DXQUATERNION &vRot, D3DXVECTOR3 &vPos,
 		wiz::OBJID id = OBJID_3D_USERMAGNET );
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     F~ProvisionalPlayer3D();
-	//// ƒJƒeƒSƒŠ   FƒfƒXƒgƒ‰ƒNƒ^
-	//// —p“r       F”jŠü
-	//// ˆø”       F‚È‚µ
-	//// –ß’l       F‚È‚µ
-	//// ’S“–ŽÒ     FŽ°Œ´ “O
-	//// ”õl       F
-	////            F
+	//// é–¢æ•°å     ï¼š~ProvisionalPlayer3D();
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	//// ç”¨é€”       ï¼šç ´æ£„
+	//// å¼•æ•°       ï¼šãªã—
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“è€…     ï¼šé´«åŽŸ å¾¹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
 	~ProvisionalPlayer3D();
 	//	:
@@ -102,14 +102,14 @@ public:
 	void Update( UpdatePacket& i_UpdatePacket );
 
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     FD3DXVECTOR3 getPos() const
-	//// ƒJƒeƒSƒŠ   FƒQƒbƒ^[
-	//// —p“r       F’†SÀ•W‚ðŠl“¾
-	//// ˆø”       F‚È‚µ
-	//// –ß’l       F‚È‚µ
-	//// ’S“–       FŽ°Œ´ “O
-	//// ”õl       F
-	////            F
+	//// é–¢æ•°å     ï¼šD3DXVECTOR3 getPos() const
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚²ãƒƒã‚¿ãƒ¼
+	//// ç”¨é€”       ï¼šä¸­å¿ƒåº§æ¨™ã‚’ç²å¾—
+	//// å¼•æ•°       ï¼šãªã—
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“       ï¼šé´«åŽŸ å¾¹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	D3DXVECTOR3 getPos() const {
 		if( Cursor2D::pressLorRButton() ){ 
 			return m_vPos	;
@@ -119,13 +119,13 @@ public:
 	}	;
 
 	/****************************************
-	ŠÖ”–¼@Fbool	getDrawing()
-	ƒJƒeƒSƒŠFŠÖ”
-	—p“r@@F•`‰æƒtƒ‰ƒO‚ÌŽæ“¾
-	ˆø”@@F‚È‚µ
-	–ß‚è’l@F•`‰æ‚µ‚Ä‚¢‚é‚©‚Ìƒtƒ‰ƒO
-	’S“–@@F²“¡—Á
-	”õl@@F
+	é–¢æ•°åã€€ï¼šbool	getDrawing()
+	ã‚«ãƒ†ã‚´ãƒªï¼šé–¢æ•°
+	ç”¨é€”ã€€ã€€ï¼šæç”»ãƒ•ãƒ©ã‚°ã®å–å¾—
+	å¼•æ•°ã€€ã€€ï¼šãªã—
+	æˆ»ã‚Šå€¤ã€€ï¼šæç”»ã—ã¦ã„ã‚‹ã‹ã®ãƒ•ãƒ©ã‚°
+	æ‹…å½“ã€€ã€€ï¼šä½è—¤æ¶¼
+	å‚™è€ƒã€€ã€€ï¼š
 	****************************************/
 	bool	getDrawing(){
 		return	m_bDrawing;
@@ -134,22 +134,22 @@ public:
 
 /**************************************************************************
  class Factory_Player;
- —p“r: ƒƒCƒ“HêƒNƒ‰ƒX
+ ç”¨é€”: ãƒ¡ã‚¤ãƒ³å·¥å ´ã‚¯ãƒ©ã‚¹
 ****************************************************************************/
 class Factory_Player{
 public:
 /**************************************************************************
  Factory_Player(
-	FactoryPacket* fpac //ƒpƒPƒbƒgƒf[ƒ^
+	FactoryPacket* fpac //ãƒ‘ã‚±ãƒƒãƒˆãƒ‡ãƒ¼ã‚¿
 );
- —p“r: ƒRƒ“ƒXƒgƒ‰ƒNƒ^iƒTƒ“ƒvƒ‹ƒIƒuƒWƒFƒNƒg‚ð”z—ñ‚É’Ç‰Á‚·‚éj
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ï¼ˆã‚µãƒ³ãƒ—ãƒ«ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’é…åˆ—ã«è¿½åŠ ã™ã‚‹ï¼‰
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
 	Factory_Player( FactoryPacket* fpac );
 /**************************************************************************
  ~MyFactory();
- —p“r: ƒfƒXƒgƒ‰ƒNƒ^
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
 	~Factory_Player();
 };

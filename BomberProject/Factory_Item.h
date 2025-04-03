@@ -1,11 +1,11 @@
 ////////////////////////////// //////////////////////////////
-//	ƒvƒƒWƒFƒNƒg	FBomberProject
-//	ƒtƒ@ƒCƒ‹–¼		FFactory_Item.h
-//	ŠJ”­ŠÂ‹«		FMSVC++ 2008
-//	Å“Kƒ^ƒu”		F4
-//	’S“–Ò			F²“¡@—Á –{‘½Š°”V
-//	“à•ïÃŞ°À‚Æ”õl	FƒAƒCƒeƒ€ƒtƒ@ƒNƒgƒŠ[
-//					¥
+//	ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆ	ï¼šBomberProject
+//	ãƒ•ã‚¡ã‚¤ãƒ«å		ï¼šFactory_Item.h
+//	é–‹ç™ºç’°å¢ƒ		ï¼šMSVC++ 2008
+//	æœ€é©ã‚¿ãƒ–æ•°		ï¼š4
+//	æ‹…å½“è€…			ï¼šä½è—¤ã€€æ¶¼ æœ¬å¤šå¯›ä¹‹
+//	å†…åŒ…ãƒ‡ãƒ¼ã‚¿ã¨å‚™è€ƒ	ï¼šã‚¢ã‚¤ãƒ†ãƒ ãƒ•ã‚¡ã‚¯ãƒˆãƒªãƒ¼
+//					â–¼
 //	namespace wiz;
 //		class Item;
 //		class Factory_Item ;
@@ -19,9 +19,9 @@
 #include "Factory_Gage.h"
 #include "Factory_Sound.h"
 
-const	float		VanishArea			= 1.5f;		//	: ƒAƒCƒeƒ€‚ğÁ‚·ƒGƒŠƒA
-const	float		SuctionArea			= 5.0f;		//	: ƒAƒCƒeƒ€‚ª‹z‚¢‚æ‚é”ÍˆÍ
-const	float		SpeedRate			= 0.05f;	//	: ƒAƒCƒeƒ€‚Ì‘¬‚³’²®”{—¦
+const	float		VanishArea			= 1.5f;		//	: ã‚¢ã‚¤ãƒ†ãƒ ã‚’æ¶ˆã™ã‚¨ãƒªã‚¢
+const	float		SuctionArea			= 5.0f;		//	: ã‚¢ã‚¤ãƒ†ãƒ ãŒå¸ã„ã‚ˆã‚‹ç¯„å›²
+const	float		SpeedRate			= 0.05f;	//	: ã‚¢ã‚¤ãƒ†ãƒ ã®é€Ÿã•èª¿æ•´å€ç‡
 const	float		RECOVERY_POINT		= 0.01f;
 const	float		RECOVERY_POINT_L	= 0.10f;
 
@@ -40,9 +40,9 @@ namespace bomberobject{
 /******************************************************
 class  Item : public PrimitiveSphere
 
-—p“r@FƒAƒCƒeƒ€
-’S“–ÒF²“¡—Á
-•ÒW  F°Œ´ “O
+ç”¨é€”ã€€ï¼šã‚¢ã‚¤ãƒ†ãƒ 
+æ‹…å½“è€…ï¼šä½è—¤æ¶¼
+ç·¨é›†  ï¼šé´«åŸ å¾¹
 *******************************************************/
 class	Item	: public PrimitiveSphere {
 protected:
@@ -50,35 +50,35 @@ protected:
 	SuperGage*	m_pSuperGage	;
 	Camera*		m_pCamera		;
 	struct BallItem{
-		D3DMATERIAL9	m_Material	;		//ƒ}ƒeƒŠƒAƒ‹
-		D3DXMATRIX		m_mMatrix	;		//ƒ}ƒgƒŠƒbƒNƒX
-		D3DXVECTOR3		m_Size		;		//ƒTƒCƒY
-		float			m_fDistance	;		//‘ÎÛ‚Æ‚Ì‹——£
-		D3DXVECTOR3		m_Pos		;		//ƒIƒuƒWƒFƒNƒg‚ÌˆÊ’u(’†S)
+		D3DMATERIAL9	m_Material	;		//ãƒãƒ†ãƒªã‚¢ãƒ«
+		D3DXMATRIX		m_mMatrix	;		//ãƒãƒˆãƒªãƒƒã‚¯ã‚¹
+		D3DXVECTOR3		m_Size		;		//ã‚µã‚¤ã‚º
+		float			m_fDistance	;		//å¯¾è±¡ã¨ã®è·é›¢
+		D3DXVECTOR3		m_Pos		;		//ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ä½ç½®(ä¸­å¿ƒ)
 		float			m_fMapKey	;
 		bool			m_bHidden	;
 		//float			m_fItemType ;
 		float			m_fRecoveryPoint;
-		//”h¶ƒNƒ‰ƒX‚ğì‚Á‚Ä‚àClear()ŠÖ”‚Å
-		//íœ‚Å‚«‚é‚æ‚¤‚É‰¼‘zƒfƒXƒgƒ‰ƒNƒ^‚É‚µ‚Ä‚¨‚­
+		//æ´¾ç”Ÿã‚¯ãƒ©ã‚¹ã‚’ä½œã£ã¦ã‚‚Clear()é–¢æ•°ã§
+		//å‰Šé™¤ã§ãã‚‹ã‚ˆã†ã«ä»®æƒ³ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ã«ã—ã¦ãŠã
 		virtual ~BallItem(){}
 	};
 	typedef multimap<float,BallItem*>	ALLCONTAINER	;
 	typedef list<BallItem*>				TARGETCONTAINER ;
-	ALLCONTAINER		m_ItemMap_All		;	//‘S‚Ä‚ÌBallItem
-	TARGETCONTAINER		m_ItemMap_Target	;	//•`‰æ‘ÎÛ‚ÌƒAƒCƒeƒ€
+	ALLCONTAINER		m_ItemMap_All		;	//å…¨ã¦ã®BallItem
+	TARGETCONTAINER		m_ItemMap_Target	;	//æç”»å¯¾è±¡ã®ã‚¢ã‚¤ãƒ†ãƒ 
 	void	setDrawTarget();
 public:
 	Item(FactoryPacket* fpac,LPTATRATEXTURE pTexture, wiz::OBJID id);
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     F~Item();
-	//// ƒJƒeƒSƒŠ   FƒfƒXƒgƒ‰ƒNƒ^
-	//// —p“r       F”jŠü
-	//// ˆø”       F‚È‚µ
-	//// –ß’l       F‚È‚µ
-	//// ’S“–Ò     F°Œ´ “O
-	//// ”õl       F
-	////            F
+	//// é–¢æ•°å     ï¼š~Item();
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	//// ç”¨é€”       ï¼šç ´æ£„
+	//// å¼•æ•°       ï¼šãªã—
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“è€…     ï¼šé´«åŸ å¾¹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
 	~Item();
 
@@ -92,21 +92,21 @@ public:
 /**************************************************************************
  class Factory_Item;
 
- —p“r@FƒƒCƒ“HêƒNƒ‰ƒX
- ’S“–ÒF²“¡—Á
+ ç”¨é€”ã€€ï¼šãƒ¡ã‚¤ãƒ³å·¥å ´ã‚¯ãƒ©ã‚¹
+ æ‹…å½“è€…ï¼šä½è—¤æ¶¼
 ****************************************************************************/
 class Factory_Item{
 public:
 /**************************************************************************
  Factory_Item(FactoryPacket* fpac);
- —p“r: ƒRƒ“ƒXƒgƒ‰ƒNƒ^iƒTƒ“ƒvƒ‹ƒIƒuƒWƒFƒNƒg‚ğ”z—ñ‚É’Ç‰Á‚·‚éj
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ï¼ˆã‚µãƒ³ãƒ—ãƒ«ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’é…åˆ—ã«è¿½åŠ ã™ã‚‹ï¼‰
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
 	Factory_Item(FactoryPacket* fpac);
 /**************************************************************************
  ~MyFactory();
- —p“r: ƒfƒXƒgƒ‰ƒNƒ^
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
 	~Factory_Item();
 };

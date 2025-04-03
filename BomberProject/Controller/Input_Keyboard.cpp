@@ -1,5 +1,5 @@
 //-----------------------------------------------------
-//	DirectInput‚ğg‚Á‚½“ü—ÍƒTƒ“ƒvƒ‹(ƒL[ƒ{[ƒh)
+//	DirectInputã‚’ä½¿ã£ãŸå…¥åŠ›ã‚µãƒ³ãƒ—ãƒ«(ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰)
 //	2009.12.29 TMO
 //-----------------------------------------------------
 #include "StdAfx.h"
@@ -12,7 +12,7 @@ CInputKeyboard::CInputKeyboard()
 	ZeroMemory(m_KeyAction, sizeof(m_KeyAction));
 }
 
-//ƒL[ƒ{[ƒhƒfƒoƒCƒX‚ğì¬
+//ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰ãƒ‡ãƒã‚¤ã‚¹ã‚’ä½œæˆ
 bool CInputKeyboard::Create(IDirectInput8* pDInput, HWND hWnd )
 {
 	HRESULT hr;
@@ -21,21 +21,21 @@ bool CInputKeyboard::Create(IDirectInput8* pDInput, HWND hWnd )
 		return false;
 	}
 	
-	// ƒL[ƒ{[ƒhƒfƒoƒCƒX‚ğì¬
+	// ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰ãƒ‡ãƒã‚¤ã‚¹ã‚’ä½œæˆ
 	hr = pDInput->CreateDevice(GUID_SysKeyboard, &m_pDIDevKB, NULL); 
 	if (FAILED(hr))
 	{
 		return false;
 	}
 
-	//ƒf[ƒ^ƒtƒH[ƒ}ƒbƒg‚Ìİ’è
+	//ãƒ‡ãƒ¼ã‚¿ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆã®è¨­å®š
 	hr = m_pDIDevKB->SetDataFormat(&c_dfDIKeyboard);
 	if (FAILED(hr))
 	{
 		return false;
 	}
 
-	//ƒoƒbƒtƒ@ƒTƒCƒY‚Ìİ’è
+	//ãƒãƒƒãƒ•ã‚¡ã‚µã‚¤ã‚ºã®è¨­å®š
 	DIPROPDWORD diprop;
 	diprop.diph.dwSize = sizeof(diprop);
 	diprop.diph.dwHeaderSize = sizeof(diprop.diph);
@@ -47,19 +47,19 @@ bool CInputKeyboard::Create(IDirectInput8* pDInput, HWND hWnd )
 		return false;
 	}
 
-	//‹¦’²ƒ‚[ƒh‚Ìİ’è
+	//å”èª¿ãƒ¢ãƒ¼ãƒ‰ã®è¨­å®š
 	hr = m_pDIDevKB->SetCooperativeLevel(hWnd, DISCL_NONEXCLUSIVE | DISCL_FOREGROUND);
 	if (FAILED(hr))
 	{
 		return false;
 	}
 	
-	//“ü—Í‚ğ‹–‰Â‚·‚é
+	//å…¥åŠ›ã‚’è¨±å¯ã™ã‚‹
 	m_pDIDevKB->Acquire();
 	return true;
 }
 
-//ƒL[ƒ{[ƒh‚Ì“ü—Íó‘Ô‚ğXV
+//ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰ã®å…¥åŠ›çŠ¶æ…‹ã‚’æ›´æ–°
 void CInputKeyboard::Update()
 {
 	ZeroMemory( m_KeyAction, sizeof( m_KeyAction ) );
@@ -93,7 +93,7 @@ void CInputKeyboard::Update()
 	}
 }
 
-//ƒL[ƒ{[ƒhƒfƒoƒCƒX‚Ì‰ğ•ú
+//ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰ãƒ‡ãƒã‚¤ã‚¹ã®è§£æ”¾
 void CInputKeyboard::Release()
 {
 	if ( m_pDIDevKB ) {

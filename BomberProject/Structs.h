@@ -1,11 +1,11 @@
 ////////////////////////////// //////////////////////////////
-//	ƒvƒƒWƒFƒNƒg	FDirectX Program Bass Project
-//	ƒtƒ@ƒCƒ‹–¼		FStructs.h
-//	ŠJ”­ŠÂ‹«		FMSVC++ 2008
-//	Å“Kƒ^ƒu”		F4
-//	’S“–ŽÒ			FŽ°Œ´ “O
-//	“à•ïÃÞ°À‚Æ”õl	F‘½Š‚Å—˜—p‚³‚ê‚é\‘¢‘ÌŒS
-//					¥
+//	ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆ	ï¼šDirectX Program Bass Project
+//	ãƒ•ã‚¡ã‚¤ãƒ«å		ï¼šStructs.h
+//	é–‹ç™ºç’°å¢ƒ		ï¼šMSVC++ 2008
+//	æœ€é©ã‚¿ãƒ–æ•°		ï¼š4
+//	æ‹…å½“è€…			ï¼šé´«åŽŸ å¾¹
+//	å†…åŒ…ãƒ‡ãƒ¼ã‚¿ã¨å‚™è€ƒ	ï¼šå¤šæ‰€ã§åˆ©ç”¨ã•ã‚Œã‚‹æ§‹é€ ä½“éƒ¡
+//					â–¼
 //	namespace wiz;
 //		struct Command			;
 //		struct UpdatePacket		;
@@ -27,10 +27,10 @@
 //#include "DxDevice.h"
 namespace wiz{
 /**************************************************************************
- ‰¼éŒ¾•” ’è‹`•”
+ ä»®å®£è¨€éƒ¨ å®šç¾©éƒ¨
 ***************************************************************************/
 
-//	: wiz“àƒNƒ‰ƒX
+//	: wizå†…ã‚¯ãƒ©ã‚¹
 class  Object ; 
 class  Stage ;
 class  TextureManager ;
@@ -38,29 +38,29 @@ class  StageLoader;
 struct CONTROLER_STATE;
 class  DxDevice;
 
-//	: wiz::system“àƒNƒ‰ƒX
+//	: wiz::systemå†…ã‚¯ãƒ©ã‚¹
 namespace system{
 class  Sound ;
 }
 
-//	: wiz::function“àƒNƒ‰ƒX
+//	: wiz::functionå†…ã‚¯ãƒ©ã‚¹
 namespace functions {
 extern void EarnFromMeshOBB(const LPD3DXBASEMESH i_pMesh,D3DXVECTOR3& o_vPos ,D3DXVECTOR3& o_vSize);
 }
 using namespace functions ;
 
 namespace structs{
-/*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*/
+/*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*/
 /**************************************************************************
  struct SaveData : public TLIB::BassSaveaPacketDat;
- —p“r: ƒZ[ƒuƒf[ƒ^
+ ç”¨é€”: ã‚»ãƒ¼ãƒ–ãƒ‡ãƒ¼ã‚¿
 ****************************************************************************/
 //**************************************************************************//
 // struct SaveData : public TLIB::BassSaveaPacketDat ;
 //
-// ’S“–  : Ž°Œ´ “O
-// —p“r  : ƒZ[ƒuƒf[ƒ^‚Ì•Û‘¶A“Ç‚ÝŽæ‚è‚ðs‚¤‚½‚ß‚Ì\‘¢‘Ì
-// ”õl  : 
+// æ‹…å½“  : é´«åŽŸ å¾¹
+// ç”¨é€”  : ã‚»ãƒ¼ãƒ–ãƒ‡ãƒ¼ã‚¿ã®ä¿å­˜ã€èª­ã¿å–ã‚Šã‚’è¡Œã†ãŸã‚ã®æ§‹é€ ä½“
+// å‚™è€ƒ  : 
 //**************************************************************************//
 struct SaveData : public TLIB::BassSaveaPacketDat{
 private:
@@ -81,13 +81,13 @@ public:
 	}
 
 };
-/*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*/
+/*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*/
 
-/*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*/
+/*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*/
 /**************************************************************************
  struct Command;
- —p“r: ƒV[ƒ““àAƒXƒe[ƒW“à‚Å‚â‚èŽæ‚è‚³‚ê‚éƒRƒ}ƒ“ƒh
- –ƒRƒ}ƒ“ƒh“à—e‚Ì’è‹`‚ÍAŠeƒRƒ“ƒeƒ“ƒc‚É‚Ü‚©‚¹‚é
+ ç”¨é€”: ã‚·ãƒ¼ãƒ³å†…ã€ã‚¹ãƒ†ãƒ¼ã‚¸å†…ã§ã‚„ã‚Šå–ã‚Šã•ã‚Œã‚‹ã‚³ãƒžãƒ³ãƒ‰
+ ï¼Šã‚³ãƒžãƒ³ãƒ‰å†…å®¹ã®å®šç¾©ã¯ã€å„ã‚³ãƒ³ãƒ†ãƒ³ãƒ„ã«ã¾ã‹ã›ã‚‹
 ****************************************************************************/
 struct Command{
 	DWORD m_Command;	
@@ -106,61 +106,61 @@ struct Command{
 		Clear();
 	}
 };
-/*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*/
+/*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*/
 
-/*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*/
+/*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*/
 /**************************************************************************
  class Context;
- —p“r: ƒV[ƒ“ƒf[ƒ^\‘¢‘Ì
- ƒ†[ƒU[ƒf[ƒ^‚Í”h¶ƒNƒ‰ƒX‚ðì¬‚µ‚ÄŽg—p‚·‚é
+ ç”¨é€”: ã‚·ãƒ¼ãƒ³ãƒ‡ãƒ¼ã‚¿æ§‹é€ ä½“
+ ãƒ¦ãƒ¼ã‚¶ãƒ¼ãƒ‡ãƒ¼ã‚¿ã¯æ´¾ç”Ÿã‚¯ãƒ©ã‚¹ã‚’ä½œæˆã—ã¦ä½¿ç”¨ã™ã‚‹
 ****************************************************************************/
 class Context{
 	DWORD m_Command;	
 	DWORD m_Param1;
 	DWORD m_Param2;
-	//ƒ^ƒCƒ}[BŒo‰ß•b‚ðŒv‚é
+	//ã‚¿ã‚¤ãƒžãƒ¼ã€‚çµŒéŽç§’ã‚’è¨ˆã‚‹
 	Avoidance::Timer m_Timer;
-	//1‰ñ‚Ìƒ^ƒCƒ€ƒXƒpƒ“
+	//1å›žã®ã‚¿ã‚¤ãƒ ã‚¹ãƒ‘ãƒ³
 	FLOAT m_TimeSpan;
-	//ƒQ[ƒ€ƒg[ƒ^ƒ‹ŽžŠÔ
+	//ã‚²ãƒ¼ãƒ ãƒˆãƒ¼ã‚¿ãƒ«æ™‚é–“
 	FLOAT m_TotalTime;
 public:
 /**************************************************************************
  void ElapsedTime();
- —p“r: ƒ^ƒCƒ}[‚ði‚ß‚é
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: ã‚¿ã‚¤ãƒžãƒ¼ã‚’é€²ã‚ã‚‹
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
 	void ElapsedTime(){
 		if(m_Timer.IsStopped()){
-			//ƒ^ƒCƒ}[‚ªŽ~‚Ü‚Á‚Ä‚¢‚½‚ç“®‚©‚·
+			//ã‚¿ã‚¤ãƒžãƒ¼ãŒæ­¢ã¾ã£ã¦ã„ãŸã‚‰å‹•ã‹ã™
 			m_Timer.Start();
 		}
 		else{
-			//ƒ^ƒCƒ}[‚ði‚ß‚é
+			//ã‚¿ã‚¤ãƒžãƒ¼ã‚’é€²ã‚ã‚‹
 			m_TimeSpan = m_Timer.GetElapsedTime();
 			m_TotalTime += m_TimeSpan;
 		}
 	}
 /**************************************************************************
  FLOAT GetTimeSpan();
- —p“r: ƒ^ƒCƒ€ƒXƒpƒ“‚ð“¾‚éB
- –ß‚è’l: ƒ^ƒCƒ€ƒXƒpƒ“
+ ç”¨é€”: ã‚¿ã‚¤ãƒ ã‚¹ãƒ‘ãƒ³ã‚’å¾—ã‚‹ã€‚
+ æˆ»ã‚Šå€¤: ã‚¿ã‚¤ãƒ ã‚¹ãƒ‘ãƒ³
 ***************************************************************************/
 	FLOAT GetTimeSpan(){
 		return m_TimeSpan;
 	}
 /**************************************************************************
  FLOAT GetTotalTime();
- —p“r: ƒg[ƒ^ƒ‹ŽžŠÔ‚ð“¾‚éB
- –ß‚è’l: ƒg[ƒ^ƒ‹ŽžŠÔ
+ ç”¨é€”: ãƒˆãƒ¼ã‚¿ãƒ«æ™‚é–“ã‚’å¾—ã‚‹ã€‚
+ æˆ»ã‚Šå€¤: ãƒˆãƒ¼ã‚¿ãƒ«æ™‚é–“
 ***************************************************************************/
 	FLOAT GetTotalTime(){
 		return m_TotalTime;
 	}
 /**************************************************************************
  void StopTimer();
- —p“r: ƒ^ƒCƒ}[‚ð‚Æ‚ß‚é
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: ã‚¿ã‚¤ãƒžãƒ¼ã‚’ã¨ã‚ã‚‹
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
 	void StopTimer(){
 		if(!m_Timer.IsStopped()){
@@ -169,8 +169,8 @@ public:
 	}
 /**************************************************************************
  Context();
- —p“r: ƒRƒ“ƒXƒgƒ‰ƒNƒ^
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
 	Context():m_Timer(),
 		m_TimeSpan(0.001f),m_TotalTime(0){
@@ -178,8 +178,8 @@ public:
 	}
 /**************************************************************************
  virtual ~Context();
- —p“r: ‰¼‘zƒfƒXƒgƒ‰ƒNƒ^
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: ä»®æƒ³ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
 	virtual~Context(){}
 
@@ -190,15 +190,15 @@ public:
 	};
 
 };
-/*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*/
+/*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*/
 
 
-/*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*/
+/*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*/
 //**************************************************************************//
 // struct UpdatePacket;
 //
-// ’S“–ŽÒ  : Ž°Œ´ “O
-// —p“r    : ƒAƒbƒvƒf[ƒgŠÖ”ŒS‚É—¬‚ê‚éƒf[ƒ^
+// æ‹…å½“è€…  : é´«åŽŸ å¾¹
+// ç”¨é€”    : ã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆé–¢æ•°éƒ¡ã«æµã‚Œã‚‹ãƒ‡ãƒ¼ã‚¿
 //**************************************************************************//
 struct BassPacket{
 
@@ -206,29 +206,29 @@ struct BassPacket{
 	friend class  wiz::Stage ;
 
 //////////
-//	: ƒvƒƒeƒNƒg•Ï”
+//	: ãƒ—ãƒ­ãƒ†ã‚¯ãƒˆå¤‰æ•°
 protected:
 	wiz::Stage*				m_pStage		;
-	LPDIRECT3DDEVICE9		m_pD3DDevice	;	// ƒfƒoƒCƒX
-	TLIB::Tempus2*			m_pTime			;	// ŽžŠÔ
-	Command*				m_pCommand		;	// ƒRƒ}ƒ“ƒh
+	LPDIRECT3DDEVICE9		m_pD3DDevice	;	// ãƒ‡ãƒã‚¤ã‚¹
+	TLIB::Tempus2*			m_pTime			;	// æ™‚é–“
+	Command*				m_pCommand		;	// ã‚³ãƒžãƒ³ãƒ‰
 
 //////////
-//	: ƒvƒƒeƒNƒgŠÖ”
+//	: ãƒ—ãƒ­ãƒ†ã‚¯ãƒˆé–¢æ•°
 private:
 	void SetStage( wiz::Stage* pStage ){ m_pStage = pStage ; }
 
 //////////
-//	: ŒöŠJŠÖ”
+//	: å…¬é–‹é–¢æ•°
 public:
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     FBassPacket::BassPacket()
-	//// ƒJƒeƒSƒŠ   FƒfƒtƒHƒ‹ƒgƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	//// —p“r       FŽÀ‘Ì‚ð¶¬
-	//// ˆø”       F‚È‚µ
-	//// –ß’l       F‚È‚µ
-	//// ”õl       F
-	////            F
+	//// é–¢æ•°å     ï¼šBassPacket::BassPacket()
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	//// ç”¨é€”       ï¼šå®Ÿä½“ã‚’ç”Ÿæˆ
+	//// å¼•æ•°       ï¼šãªã—
+	//// æˆ»å€¤       ï¼šãªã—
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
 	BassPacket()
 		:m_pD3DDevice( NULL )
@@ -237,13 +237,13 @@ public:
 	
 	{}
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     FBassPacket::BassPacket(BassPacket& i_OtherPacket)
-	//// ƒJƒeƒSƒŠ   FƒRƒs[ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	//// —p“r       FŽÀ‘Ì‚ð¶¬
-	//// ˆø”       F  BassPacket& i_OtherPacket //  : ‘¼‚ÌƒpƒPƒbƒgƒf[ƒ^
-	//// –ß’l       F‚È‚µ
-	//// ”õl       F
-	////            F
+	//// é–¢æ•°å     ï¼šBassPacket::BassPacket(BassPacket& i_OtherPacket)
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚³ãƒ”ãƒ¼ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	//// ç”¨é€”       ï¼šå®Ÿä½“ã‚’ç”Ÿæˆ
+	//// å¼•æ•°       ï¼š  BassPacket& i_OtherPacket //  : ä»–ã®ãƒ‘ã‚±ãƒƒãƒˆãƒ‡ãƒ¼ã‚¿
+	//// æˆ»å€¤       ï¼šãªã—
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
 	BassPacket(BassPacket& i_OtherPacket)
 		:m_pStage(		i_OtherPacket.m_pStage		)
@@ -253,162 +253,162 @@ public:
 	
 	{}
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     FTLIB::Tempus2* BassPacket::GetTime() const
-	//// ƒJƒeƒSƒŠ   FƒQƒbƒ^[
-	//// —p“r       FŽžŠÔŠÇ—ƒNƒ‰ƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^[‚ðŠl“¾
-	//// ˆø”       F‚È‚µ
-	//// –ß’l       FŽžŠÔŠÇ—ƒNƒ‰ƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-	//// ”õl       F
-	////            F
+	//// é–¢æ•°å     ï¼šTLIB::Tempus2* BassPacket::GetTime() const
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚²ãƒƒã‚¿ãƒ¼
+	//// ç”¨é€”       ï¼šæ™‚é–“ç®¡ç†ã‚¯ãƒ©ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿ãƒ¼ã‚’ç²å¾—
+	//// å¼•æ•°       ï¼šãªã—
+	//// æˆ»å€¤       ï¼šæ™‚é–“ç®¡ç†ã‚¯ãƒ©ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
 	TLIB::Tempus2* GetTime() const;
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     FLPDIRECT3DDEVICE9 BassPacket::GetDevice() const
-	//// ƒJƒeƒSƒŠ   FƒQƒbƒ^[
-	//// —p“r       FŒ»Ý‚ÌƒfƒoƒCƒX‚ðŠl“¾
-	//// ˆø”       F‚È‚µ
-	//// –ß’l       FƒfƒoƒCƒX‚Ìƒ|ƒCƒ“ƒ^
-	//// ”õl       F
-	////            F
+	//// é–¢æ•°å     ï¼šLPDIRECT3DDEVICE9 BassPacket::GetDevice() const
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚²ãƒƒã‚¿ãƒ¼
+	//// ç”¨é€”       ï¼šç¾åœ¨ã®ãƒ‡ãƒã‚¤ã‚¹ã‚’ç²å¾—
+	//// å¼•æ•°       ï¼šãªã—
+	//// æˆ»å€¤       ï¼šãƒ‡ãƒã‚¤ã‚¹ã®ãƒã‚¤ãƒ³ã‚¿
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
 	LPDIRECT3DDEVICE9 GetDevice() const;
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     FLPTATRATEXTURE AddTexture( const wchar_t* sTextureName )
-	//// ƒJƒeƒSƒŠ   FƒQƒbƒ^[
-	//// —p“r       FŽw’è‚ÌƒeƒNƒXƒ`ƒƒ[‚Ö‚Ìƒ|ƒCƒ“ƒ^[‚ð•Ô‚µ‚Ü‚·
-	//// ˆø”       F  const wchar_t* sTextureName      //  : “Ç‚Ýž‚Ý‚½‚¢‰æ‘œƒf[ƒ^‚Ìƒtƒ@ƒCƒ‹–¼
-	//// –ß’l       FƒeƒNƒXƒ`ƒƒ[‚Ö‚Ìƒ|ƒCƒ“ƒ^
-	//// ”õl       F‰‰ñ‚ÌŽQÆ‚ÌÛ‚ÍV‹K‚Å‰æ‘œ‚ð“Ç‚Ýž‚Ý‚Ü‚·
-	////            FŽŸ‰ñˆÈ~“¯‚¶‰æ‘œ‚ð—v‹‚³‚ê‚½ê‡‚Í‘O‰ñ‚Æ“¯‚¶ƒ|ƒCƒ“ƒ^[‚ð•Ô‚µ‚Ü‚·
-	////            F‚Ü‚½ƒtƒ@ƒCƒ‹‚Ì“Ç‚Ýž‚Ý‚ÉŽ¸”s‚µ‚½Û‚É‚ÍNULL‚ª‹A‚è‚Ü‚·
-	////            Fƒtƒ@ƒCƒ‹–¼‚Í"ì‹ÆƒfƒBƒŒƒNƒgƒŠ/Media/Textures"‚©‚ç‚Ì‘Š‘ÎƒpƒX‚ÅŽw’èo—ˆ‚Ü‚·
-	////            F
+	//// é–¢æ•°å     ï¼šLPTATRATEXTURE AddTexture( const wchar_t* sTextureName )
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚²ãƒƒã‚¿ãƒ¼
+	//// ç”¨é€”       ï¼šæŒ‡å®šã®ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒ¼ã¸ã®ãƒã‚¤ãƒ³ã‚¿ãƒ¼ã‚’è¿”ã—ã¾ã™
+	//// å¼•æ•°       ï¼š  const wchar_t* sTextureName      //  : èª­ã¿è¾¼ã¿ãŸã„ç”»åƒãƒ‡ãƒ¼ã‚¿ã®ãƒ•ã‚¡ã‚¤ãƒ«å
+	//// æˆ»å€¤       ï¼šãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒ¼ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+	//// å‚™è€ƒ       ï¼šåˆå›žã®å‚ç…§ã®éš›ã¯æ–°è¦ã§ç”»åƒã‚’èª­ã¿è¾¼ã¿ã¾ã™
+	////            ï¼šæ¬¡å›žä»¥é™åŒã˜ç”»åƒã‚’è¦æ±‚ã•ã‚ŒãŸå ´åˆã¯å‰å›žã¨åŒã˜ãƒã‚¤ãƒ³ã‚¿ãƒ¼ã‚’è¿”ã—ã¾ã™
+	////            ï¼šã¾ãŸãƒ•ã‚¡ã‚¤ãƒ«ã®èª­ã¿è¾¼ã¿ã«å¤±æ•—ã—ãŸéš›ã«ã¯NULLãŒå¸°ã‚Šã¾ã™
+	////            ï¼šãƒ•ã‚¡ã‚¤ãƒ«åã¯"ä½œæ¥­ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒª/Media/Textures"ã‹ã‚‰ã®ç›¸å¯¾ãƒ‘ã‚¹ã§æŒ‡å®šå‡ºæ¥ã¾ã™
+	////            ï¼š
 	////
 	LPTATRATEXTURE AddTexture( const wchar_t* sTextureName );
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     Fvoid BassPacket::AddButton( Object* pButton )
-	//// ƒJƒeƒSƒŠ   FƒZƒbƒ^[
-	//// —p“r       FƒXƒe[ƒW‚Éƒ{ƒ^ƒ“ƒIƒuƒWƒFƒNƒgƒZƒbƒg‚µ‚Ü‚·
-	//// ˆø”       F  Object*      pButton         //  : ƒ{ƒ^ƒ“ƒIƒuƒWƒFƒNƒg‚Ö‚Ìƒ|ƒCƒ“ƒ^
-	//// –ß’l       F‚È‚µ
-	//// ”õl       F
-	////            F
+	//// é–¢æ•°å     ï¼švoid BassPacket::AddButton( Object* pButton )
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚»ãƒƒã‚¿ãƒ¼
+	//// ç”¨é€”       ï¼šã‚¹ãƒ†ãƒ¼ã‚¸ã«ãƒœã‚¿ãƒ³ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚»ãƒƒãƒˆã—ã¾ã™
+	//// å¼•æ•°       ï¼š  Object*      pButton         //  : ãƒœã‚¿ãƒ³ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã¸ã®ãƒã‚¤ãƒ³ã‚¿
+	//// æˆ»å€¤       ï¼šãªã—
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
 	void AddButton( Object* pButton );
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     Fvoid BassPacket::AddObject( Object* pObje )
-	//// ƒJƒeƒSƒŠ   FƒZƒbƒ^[
-	//// —p“r       FƒXƒe[ƒW‚ÉƒIƒuƒWƒFƒNƒg‚ðƒZƒbƒg‚µ‚Ü‚·
-	//// ˆø”       F  Object*       pObje          //  : ƒZƒbƒg‚·‚éƒIƒuƒWƒFƒNƒg‚Ö‚Ìƒ|ƒCƒ“ƒ^
-	//// –ß’l       F‚È‚µ
-	//// ”õl       FObjectƒNƒ‰ƒX‚ðŒp³‚µ‚Ä‚¢‚é‚à‚Ì‚È‚ç‚Î‚È‚ñ‚Å‚à“ü‚è‚Ü‚·
-	////            F
+	//// é–¢æ•°å     ï¼švoid BassPacket::AddObject( Object* pObje )
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚»ãƒƒã‚¿ãƒ¼
+	//// ç”¨é€”       ï¼šã‚¹ãƒ†ãƒ¼ã‚¸ã«ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ã‚»ãƒƒãƒˆã—ã¾ã™
+	//// å¼•æ•°       ï¼š  Object*       pObje          //  : ã‚»ãƒƒãƒˆã™ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã¸ã®ãƒã‚¤ãƒ³ã‚¿
+	//// æˆ»å€¤       ï¼šãªã—
+	//// å‚™è€ƒ       ï¼šObjectã‚¯ãƒ©ã‚¹ã‚’ç¶™æ‰¿ã—ã¦ã„ã‚‹ã‚‚ã®ãªã‚‰ã°ãªã‚“ã§ã‚‚å…¥ã‚Šã¾ã™
+	////            ï¼š
 	////
 	void AddObject( Object* pObje );
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     Fvoid BassPacket::SearchSoundAndPlay( const char* sSoundName )
-	//// ƒJƒeƒSƒŠ   FƒTƒEƒ“ƒhƒvƒŒƒCƒ„[
-	//// —p“r       FXACT‚É“o˜^‚³‚ê‚Ä‚¢‚éSOUNDƒf[ƒ^‚ðÄ¶‚µ‚Ü‚·
-	//// ˆø”       F  const char*    sSoundName          //  : ƒTƒEƒ“ƒh–¼
-	//// –ß’l       F‚È‚µ
-	//// ”õl       FXACT‚É“o˜^‚³‚ê‚Ä‚¢‚é‚à‚Ì‚µ‚©Ä¶o—ˆ‚Ü‚¹‚ñ
-	////            FƒTƒEƒ“ƒh‚ªÄ¶‚³‚ê‚È‚¢ê‡‚ÍˆÈ‰º‚Ì€–Ú‚ðŠm”F‚µ‚Ä‚­‚¾‚³‚¢
-	////            FXACT‚É“o˜^‚³‚ê‚Ä‚¢‚é‚©
-	////            FsSoundName ‚É“n‚µ‚½–¼‘O‚ª³‚µ‚¢‚©
-	////            F‰¹—Ê‚ª¬‚³‰ß‚¬‚È‚¢‚©
-	////            F
+	//// é–¢æ•°å     ï¼švoid BassPacket::SearchSoundAndPlay( const char* sSoundName )
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚µã‚¦ãƒ³ãƒ‰ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼
+	//// ç”¨é€”       ï¼šXACTã«ç™»éŒ²ã•ã‚Œã¦ã„ã‚‹SOUNDãƒ‡ãƒ¼ã‚¿ã‚’å†ç”Ÿã—ã¾ã™
+	//// å¼•æ•°       ï¼š  const char*    sSoundName          //  : ã‚µã‚¦ãƒ³ãƒ‰å
+	//// æˆ»å€¤       ï¼šãªã—
+	//// å‚™è€ƒ       ï¼šXACTã«ç™»éŒ²ã•ã‚Œã¦ã„ã‚‹ã‚‚ã®ã—ã‹å†ç”Ÿå‡ºæ¥ã¾ã›ã‚“
+	////            ï¼šã‚µã‚¦ãƒ³ãƒ‰ãŒå†ç”Ÿã•ã‚Œãªã„å ´åˆã¯ä»¥ä¸‹ã®é …ç›®ã‚’ç¢ºèªã—ã¦ãã ã•ã„
+	////            ï¼šXACTã«ç™»éŒ²ã•ã‚Œã¦ã„ã‚‹ã‹
+	////            ï¼šsSoundName ã«æ¸¡ã—ãŸåå‰ãŒæ­£ã—ã„ã‹
+	////            ï¼šéŸ³é‡ãŒå°ã•éŽãŽãªã„ã‹
+	////            ï¼š
 	////
 	void SearchSoundAndPlay( const char* sSoundName );
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     Fvoid BassPacket::SearchSoundAndStop( const char* sSoundName )
-	//// ƒJƒeƒSƒŠ   FƒTƒEƒ“ƒhƒvƒŒƒCƒ„[
-	//// —p“r       FXACTSOUND‚ÅÄ¶‚³‚ê‚Ä‚¢‚é‰¹‚ð’âŽ~‚µ‚Ü‚·
-	//// ˆø”       F  const char*    sSoundName          //  : ƒTƒEƒ“ƒh–¼
-	//// –ß’l       F‚È‚µ
-	//// ”õl       F
-	////            F
+	//// é–¢æ•°å     ï¼švoid BassPacket::SearchSoundAndStop( const char* sSoundName )
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚µã‚¦ãƒ³ãƒ‰ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼
+	//// ç”¨é€”       ï¼šXACTSOUNDã§å†ç”Ÿã•ã‚Œã¦ã„ã‚‹éŸ³ã‚’åœæ­¢ã—ã¾ã™
+	//// å¼•æ•°       ï¼š  const char*    sSoundName          //  : ã‚µã‚¦ãƒ³ãƒ‰å
+	//// æˆ»å€¤       ï¼šãªã—
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
 	void SearchSoundAndStop( const char* sSoundName );
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     Fvoid BassPacket::SearchWaveAndPlay( const char* sSoundName )
-	//// ƒJƒeƒSƒŠ   FƒTƒEƒ“ƒhƒvƒŒƒCƒ„[
-	//// —p“r       FXACT‚É“o˜^‚³‚ê‚Ä‚¢‚éWAVEƒf[ƒ^‚ðÄ¶‚µ‚Ü‚·
-	//// ˆø”       F  const char*    sSoundName          //  : ƒTƒEƒ“ƒh–¼
-	//// –ß’l       F‚È‚µ
-	//// ”õl       FXACT‚É“o˜^‚³‚ê‚Ä‚¢‚é‚à‚Ì‚µ‚©Ä¶o—ˆ‚Ü‚¹‚ñ
-	////            FƒTƒEƒ“ƒh‚ªÄ¶‚³‚ê‚È‚¢ê‡‚ÍˆÈ‰º‚Ì€–Ú‚ðŠm”F‚µ‚Ä‚­‚¾‚³‚¢
-	////            FXACT‚É“o˜^‚³‚ê‚Ä‚¢‚é‚©
-	////            FsSoundName ‚É“n‚µ‚½–¼‘O‚ª³‚µ‚¢‚©
-	////            F‰¹—Ê‚ª¬‚³‰ß‚¬‚È‚¢‚©
-	////            F
+	//// é–¢æ•°å     ï¼švoid BassPacket::SearchWaveAndPlay( const char* sSoundName )
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚µã‚¦ãƒ³ãƒ‰ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼
+	//// ç”¨é€”       ï¼šXACTã«ç™»éŒ²ã•ã‚Œã¦ã„ã‚‹WAVEãƒ‡ãƒ¼ã‚¿ã‚’å†ç”Ÿã—ã¾ã™
+	//// å¼•æ•°       ï¼š  const char*    sSoundName          //  : ã‚µã‚¦ãƒ³ãƒ‰å
+	//// æˆ»å€¤       ï¼šãªã—
+	//// å‚™è€ƒ       ï¼šXACTã«ç™»éŒ²ã•ã‚Œã¦ã„ã‚‹ã‚‚ã®ã—ã‹å†ç”Ÿå‡ºæ¥ã¾ã›ã‚“
+	////            ï¼šã‚µã‚¦ãƒ³ãƒ‰ãŒå†ç”Ÿã•ã‚Œãªã„å ´åˆã¯ä»¥ä¸‹ã®é …ç›®ã‚’ç¢ºèªã—ã¦ãã ã•ã„
+	////            ï¼šXACTã«ç™»éŒ²ã•ã‚Œã¦ã„ã‚‹ã‹
+	////            ï¼šsSoundName ã«æ¸¡ã—ãŸåå‰ãŒæ­£ã—ã„ã‹
+	////            ï¼šéŸ³é‡ãŒå°ã•éŽãŽãªã„ã‹
+	////            ï¼š
 	////
 	void SearchWaveAndPlay( const char* sWaveName );
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     Fvoid BassPacket::SearchWaveAndStop( const char* sSoundName )
-	//// ƒJƒeƒSƒŠ   FƒTƒEƒ“ƒhƒvƒŒƒCƒ„[
-	//// —p“r       FXACTWAVE‚ÅÄ¶‚³‚ê‚Ä‚¢‚é‰¹‚ð’âŽ~‚µ‚Ü‚·
-	//// ˆø”       F  const char*    sSoundName          //  : ƒTƒEƒ“ƒh–¼
-	//// –ß’l       F‚È‚µ
-	//// ”õl       F
-	////            F
+	//// é–¢æ•°å     ï¼švoid BassPacket::SearchWaveAndStop( const char* sSoundName )
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚µã‚¦ãƒ³ãƒ‰ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼
+	//// ç”¨é€”       ï¼šXACTWAVEã§å†ç”Ÿã•ã‚Œã¦ã„ã‚‹éŸ³ã‚’åœæ­¢ã—ã¾ã™
+	//// å¼•æ•°       ï¼š  const char*    sSoundName          //  : ã‚µã‚¦ãƒ³ãƒ‰å
+	//// æˆ»å€¤       ï¼šãªã—
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
 	void SearchWaveAndStop( const char* sWaveName );
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     Fvoid BassPacket::SoundStop( const char* sSoundName )
-	//// ƒJƒeƒSƒŠ   FƒTƒEƒ“ƒhƒvƒŒƒCƒ„[
-	//// —p“r       FXACT‚ÅÄ¶‚³‚ê‚Ä‚¢‚é‰¹‚ðWAVE/SOUND–â‚í‚¸‚É’âŽ~‚µ‚Ü‚·
-	//// ˆø”       F  const char*    sSoundName          //  : ƒTƒEƒ“ƒh–¼
-	//// –ß’l       F‚È‚µ
-	//// ”õl       F
-	////            F
+	//// é–¢æ•°å     ï¼švoid BassPacket::SoundStop( const char* sSoundName )
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚µã‚¦ãƒ³ãƒ‰ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼
+	//// ç”¨é€”       ï¼šXACTã§å†ç”Ÿã•ã‚Œã¦ã„ã‚‹éŸ³ã‚’WAVE/SOUNDå•ã‚ãšã«åœæ­¢ã—ã¾ã™
+	//// å¼•æ•°       ï¼š  const char*    sSoundName          //  : ã‚µã‚¦ãƒ³ãƒ‰å
+	//// æˆ»å€¤       ï¼šãªã—
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
 	void SoundStop( const char* sSoundName );
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     Fvoid BassPacket::PushCommand( const Command Com )
-	//// ƒJƒeƒSƒŠ   FƒZƒbƒ^[
-	//// —p“r       FƒRƒ}ƒ“ƒh‚ðƒZƒbƒg‚µ‚Ü‚·(–Žd—l‰ü•Ï—\’è)
-	//// ˆø”       F  const Command Com          //  : ’Ç‰Á‚·‚éƒRƒ}ƒ“ƒh
-	//// –ß’l       F‚È‚µ
-	//// ”õl       F
-	////            F
+	//// é–¢æ•°å     ï¼švoid BassPacket::PushCommand( const Command Com )
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚»ãƒƒã‚¿ãƒ¼
+	//// ç”¨é€”       ï¼šã‚³ãƒžãƒ³ãƒ‰ã‚’ã‚»ãƒƒãƒˆã—ã¾ã™(ï¼Šä»•æ§˜æ”¹å¤‰äºˆå®š)
+	//// å¼•æ•°       ï¼š  const Command Com          //  : è¿½åŠ ã™ã‚‹ã‚³ãƒžãƒ³ãƒ‰
+	//// æˆ»å€¤       ï¼šãªã—
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
-	void PushCommand( const Command	Com );	//	: Œ»óŽÀŽ¿SetCommand 
+	void PushCommand( const Command	Com );	//	: ç¾çŠ¶å®Ÿè³ªSetCommand 
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     Fvoid BassPacket::ClearCommand( ) const
-	//// ƒJƒeƒSƒŠ   FƒZƒbƒ^[
-	//// —p“r       FƒRƒ}ƒ“ƒh‚ðƒNƒŠƒA‚µ‚Ü‚·
-	//// ˆø”       F‚È‚µ
-	//// –ß’l       F‚È‚µ
-	//// ”õl       F
-	////            F
+	//// é–¢æ•°å     ï¼švoid BassPacket::ClearCommand( ) const
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚»ãƒƒã‚¿ãƒ¼
+	//// ç”¨é€”       ï¼šã‚³ãƒžãƒ³ãƒ‰ã‚’ã‚¯ãƒªã‚¢ã—ã¾ã™
+	//// å¼•æ•°       ï¼šãªã—
+	//// æˆ»å€¤       ï¼šãªã—
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
 	void ClearCommand( ) const;
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     FCommand BassPacket::PopCommand( ) const
-	//// ƒJƒeƒSƒŠ   FƒQƒbƒ^[
-	//// —p“r       FƒRƒ}ƒ“ƒh‚ðŠl“¾‚µ‚Ü‚·
-	//// ˆø”       F‚È‚µ
-	//// –ß’l       FƒRƒ}ƒ“ƒh
-	//// ”õl       F
-	////            F
+	//// é–¢æ•°å     ï¼šCommand BassPacket::PopCommand( ) const
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚²ãƒƒã‚¿ãƒ¼
+	//// ç”¨é€”       ï¼šã‚³ãƒžãƒ³ãƒ‰ã‚’ç²å¾—ã—ã¾ã™
+	//// å¼•æ•°       ï¼šãªã—
+	//// æˆ»å€¤       ï¼šã‚³ãƒžãƒ³ãƒ‰
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
 	Command PopCommand( ) const;
 
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     FObject* SearchObjectFromID(
-	////            F    DWORD                                i_dwID             ,
-	////            F    vector<Object*>::size_type*          o_Point     = NULL ,
-	////            F    vector<Object*>*                     o_pVec      = NULL ,
-	////            F    vector<vector<Object*>::size_type>*  o_PointList = NULL );
-	//// ƒJƒeƒSƒŠ   FƒQƒbƒ^[
-	//// —p“r       FOBJID‚ðŒ³‚ÉƒIƒuƒWƒFƒNƒg‚ð’T‚·
-	//// ˆø”       F  DWORD                                i_dwID      //  :  [IN] ’T‚µ‚½‚¢ƒIƒuƒWƒFƒNƒg‚ÌOBJID
-	////            F  vector<Object*>::size_type*          o_Point     //  : [OUT] Œ©‚Â‚¯‚½êŠ
-	////            F  vector<Object*>*                     o_pVec      //  : [OUT] •¡”Œ©‚Â‚¯‚½ê‡‚ÌƒIƒuƒWƒFƒNƒgˆê——
-	////            F  vector<vector<Object*>::size_type>*  o_PointList //  : [OUT] •¡”Œ©‚Â‚¯‚½ê‡‚ÌƒIƒuƒWƒFƒNƒg‚ÌêŠˆê——
-	//// –ß’l       Fˆê”ÔÅ‰‚É”­Œ©‚µ‚½ƒIƒuƒWƒFƒNƒg‚Ö‚Ìƒ|ƒCƒ“ƒ^
-	//// ”õl       F
-	////            F
+	//// é–¢æ•°å     ï¼šObject* SearchObjectFromID(
+	////            ï¼š    DWORD                                i_dwID             ,
+	////            ï¼š    vector<Object*>::size_type*          o_Point     = NULL ,
+	////            ï¼š    vector<Object*>*                     o_pVec      = NULL ,
+	////            ï¼š    vector<vector<Object*>::size_type>*  o_PointList = NULL );
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚²ãƒƒã‚¿ãƒ¼
+	//// ç”¨é€”       ï¼šOBJIDã‚’å…ƒã«ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’æŽ¢ã™
+	//// å¼•æ•°       ï¼š  DWORD                                i_dwID      //  :  [IN] æŽ¢ã—ãŸã„ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®OBJID
+	////            ï¼š  vector<Object*>::size_type*          o_Point     //  : [OUT] è¦‹ã¤ã‘ãŸå ´æ‰€
+	////            ï¼š  vector<Object*>*                     o_pVec      //  : [OUT] è¤‡æ•°è¦‹ã¤ã‘ãŸå ´åˆã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆä¸€è¦§
+	////            ï¼š  vector<vector<Object*>::size_type>*  o_PointList //  : [OUT] è¤‡æ•°è¦‹ã¤ã‘ãŸå ´åˆã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®å ´æ‰€ä¸€è¦§
+	//// æˆ»å€¤       ï¼šä¸€ç•ªæœ€åˆã«ç™ºè¦‹ã—ãŸã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã¸ã®ãƒã‚¤ãƒ³ã‚¿
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
 	Object* SearchObjectFromID( 
 				DWORD									i_dwID,
@@ -418,16 +418,16 @@ public:
 	);
 
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     FObject* SearchObjectFromID( 
-	////            F    const type_info&         i_typeinfo           ,
-	////            F    vector<Object*>*         o_pVec      = NULL   );
-	//// ƒJƒeƒSƒŠ   FƒQƒbƒ^[
-	//// —p“r       FOBJID‚ðŒ³‚ÉƒIƒuƒWƒFƒNƒg‚ð’T‚·
-	//// ˆø”       F  const type_info&           i_typeinfo      //  :  [IN] ’T‚µ‚½‚¢ƒIƒuƒWƒFƒNƒg‚Ìtype_info
-	////            F  vector<Object*>*           o_pVec          //  : [OUT] •¡”Œ©‚Â‚¯‚½ê‡‚ÌƒIƒuƒWƒFƒNƒgˆê——
-	//// –ß’l       Fˆê”ÔÅ‰‚É”­Œ©‚µ‚½ƒIƒuƒWƒFƒNƒg‚Ö‚Ìƒ|ƒCƒ“ƒ^
-	//// ”õl       F
-	////            F
+	//// é–¢æ•°å     ï¼šObject* SearchObjectFromID( 
+	////            ï¼š    const type_info&         i_typeinfo           ,
+	////            ï¼š    vector<Object*>*         o_pVec      = NULL   );
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚²ãƒƒã‚¿ãƒ¼
+	//// ç”¨é€”       ï¼šOBJIDã‚’å…ƒã«ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’æŽ¢ã™
+	//// å¼•æ•°       ï¼š  const type_info&           i_typeinfo      //  :  [IN] æŽ¢ã—ãŸã„ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®type_info
+	////            ï¼š  vector<Object*>*           o_pVec          //  : [OUT] è¤‡æ•°è¦‹ã¤ã‘ãŸå ´åˆã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆä¸€è¦§
+	//// æˆ»å€¤       ï¼šä¸€ç•ªæœ€åˆã«ç™ºè¦‹ã—ãŸã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã¸ã®ãƒã‚¤ãƒ³ã‚¿
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
 	Object* SearchObjectFromTypeID(
 				const type_info&						i_typeinfo,
@@ -437,8 +437,8 @@ public:
 //**************************************************************************//
 // struct UpdatePacket;
 //
-// ’S“–ŽÒ  : Ž°Œ´ “O
-// —p“r    : ƒAƒbƒvƒf[ƒgŠÖ”ŒS‚É—¬‚ê‚éƒf[ƒ^
+// æ‹…å½“è€…  : é´«åŽŸ å¾¹
+// ç”¨é€”    : ã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆé–¢æ•°éƒ¡ã«æµã‚Œã‚‹ãƒ‡ãƒ¼ã‚¿
 //**************************************************************************//
 struct UpdatePacket : public BassPacket{
 	const CONTROLER_STATE*	m_pCntlState	;
@@ -453,35 +453,35 @@ struct UpdatePacket : public BassPacket{
 //**************************************************************************//
 // struct RenderPacket;
 //
-// ’S“–ŽÒ  : Ž°Œ´ “O
-// —p“r    : ƒŒƒ“ƒ_[ŠÖ”ŒQ‚É—¬‚ê‚éƒf[ƒ^
+// æ‹…å½“è€…  : é´«åŽŸ å¾¹
+// ç”¨é€”    : ãƒ¬ãƒ³ãƒ€ãƒ¼é–¢æ•°ç¾¤ã«æµã‚Œã‚‹ãƒ‡ãƒ¼ã‚¿
 //**************************************************************************//
 struct RenderPacket : public BassPacket{
 };
 //**************************************************************************//
 // struct DrawPacket;
 //
-// ’S“–ŽÒ  : Ž°Œ´ “O
-// —p“r    : ƒhƒ[ŠÖ”ŒQ‚É—¬‚ê‚éƒf[ƒ^
+// æ‹…å½“è€…  : é´«åŽŸ å¾¹
+// ç”¨é€”    : ãƒ‰ãƒ­ãƒ¼é–¢æ•°ç¾¤ã«æµã‚Œã‚‹ãƒ‡ãƒ¼ã‚¿
 //**************************************************************************//
 struct DrawPacket : public BassPacket{
 };
 
 
 
-/*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*/
+/*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*/
 
 
-/*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*/
+/*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*/
 //**************************************************************************//
 // struct FactoryPacket;
 //
-// ’S“–ŽÒ  : Ž°Œ´ “O
-// —p“r    : ƒtƒ@ƒNƒgƒŠ[‚É“n‚·ƒpƒPƒbƒgƒf[ƒ^
+// æ‹…å½“è€…  : é´«åŽŸ å¾¹
+// ç”¨é€”    : ãƒ•ã‚¡ã‚¯ãƒˆãƒªãƒ¼ã«æ¸¡ã™ãƒ‘ã‚±ãƒƒãƒˆãƒ‡ãƒ¼ã‚¿
 //**************************************************************************//
 struct FactoryPacket : public BassPacket{
 public:
-	//ƒ_ƒCƒAƒƒOƒXƒe[ƒW‚©‚Ç‚¤‚©
+	//ãƒ€ã‚¤ã‚¢ãƒ­ã‚°ã‚¹ãƒ†ãƒ¼ã‚¸ã‹ã©ã†ã‹
 	bool m_IsDialog;
 public:
 	FactoryPacket(		LPDIRECT3DDEVICE9 i_pD3DDevice, bool i_IsDialog, Command* i_pCommand, Stage* i_pStage )
@@ -498,13 +498,13 @@ public:
 	vector<Object*>* GetObjectVector();
 	void SetSound( system::Sound*  pSound  );
 };
-/*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*/
+/*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*/
 
 //**************************************************************************
 // union Color;
 //
-// ’S“–ŽÒ  : Ž°Œ´ “O
-// —p“r    : DWORDColor‚ðŠÇ—‚µ‚â‚·‚­‚·‚é
+// æ‹…å½“è€…  : é´«åŽŸ å¾¹
+// ç”¨é€”    : DWORDColorã‚’ç®¡ç†ã—ã‚„ã™ãã™ã‚‹
 //**************************************************************************
 union Color {
 	DWORD dwColor;
@@ -523,15 +523,15 @@ union Color {
 	Color& operator = (DWORD other){ dwColor = other ; return *this; };
 	operator DWORD(){ return dwColor; }
 };
-/*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*/
+/*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*/
 
-/*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*/
+/*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*/
 //**************************************************************************//
 // struct FlexibleVertex;
 //
-// ’S“–ŽÒ  : Ž°Œ´ “O
-// —p“r    : ƒtƒŒƒLƒVƒuƒ‹‚È’¸“_‚ðˆµ‚¤
-// ”õl    : ‚©‚È‚èd‚­‚È‚é‚±‚Æ‚ª—\‘z‚³‚ê‚Ü‚·
+// æ‹…å½“è€…  : é´«åŽŸ å¾¹
+// ç”¨é€”    : ãƒ•ãƒ¬ã‚­ã‚·ãƒ–ãƒ«ãªé ‚ç‚¹ã‚’æ‰±ã†
+// å‚™è€ƒ    : ã‹ãªã‚Šé‡ããªã‚‹ã“ã¨ãŒäºˆæƒ³ã•ã‚Œã¾ã™
 //**************************************************************************//
 struct FlexibleVertex{
 	D3DXVECTOR3 *pos;
@@ -561,26 +561,26 @@ struct FlexibleVertex{
 		BYTE Address = 0;
 
 		//////////
-		//	: ’¸“_ƒ|ƒCƒ“ƒ^
+		//	: é ‚ç‚¹ãƒã‚¤ãƒ³ã‚¿
 		pos = ( D3DXVECTOR3* )  vBuffer;
 		Address += VectorByteNum;
 
 		//////////
-		//	: RHWƒ|ƒCƒ“ƒ^
+		//	: RHWãƒã‚¤ãƒ³ã‚¿
 		if( FVF & D3DFVF_XYZRHW ){
 			rhw = ( float* )( vBuffer + Address );
 			Address += VectorByteNum + floatByteNum;
 		}
 
 		//////////
-		//	: ƒx[ƒ^1
+		//	: ãƒ™ãƒ¼ã‚¿1
 		if( FVF & D3DFVF_XYZB1  ){
 			blend1 = ( float* )( vBuffer + Address );
 			Address +=  floatByteNum;
 		}
 
 		//////////
-		//	: ƒx[ƒ^2
+		//	: ãƒ™ãƒ¼ã‚¿2
 		if( FVF & D3DFVF_XYZB2  ){
 			blend1 = ( float* )( vBuffer + Address );
 			Address +=  floatByteNum;
@@ -589,7 +589,7 @@ struct FlexibleVertex{
 		}
 
 		//////////
-		//	: ƒx[ƒ^3
+		//	: ãƒ™ãƒ¼ã‚¿3
 		if( FVF & D3DFVF_XYZB3  ){
 			blend1 = ( float* )( vBuffer + Address );
 			Address +=  floatByteNum;
@@ -600,55 +600,55 @@ struct FlexibleVertex{
 		}
 
 		//////////
-		//	: ƒm[ƒ}ƒ‹
+		//	: ãƒŽãƒ¼ãƒžãƒ«
 		if( FVF & D3DFVF_NORMAL ){
 			normal = ( D3DXVECTOR3* )( vBuffer + Address );
 			Address +=  VectorByteNum;
 		}
 
 		//////////
-		//	: ƒ|ƒCƒ“ƒgƒTƒCƒY
+		//	: ãƒã‚¤ãƒ³ãƒˆã‚µã‚¤ã‚º
 		if( FVF & D3DFVF_PSIZE ){
 			pointSize = ( float* )( vBuffer + Address );
 			Address +=  floatByteNum;
 		}
 
 		//////////
-		//	: ƒfƒBƒtƒ…[ƒY
+		//	: ãƒ‡ã‚£ãƒ•ãƒ¥ãƒ¼ã‚º
 		if( FVF & D3DFVF_DIFFUSE  ){
 			diffuse = ( DWORD* )( vBuffer + Address );
 			Address +=  DwordByteNum;
 		}
 
 		//////////
-		//	: ƒXƒyƒLƒ…ƒ‰[
+		//	: ã‚¹ãƒšã‚­ãƒ¥ãƒ©ãƒ¼
 		if( FVF & D3DFVF_SPECULAR  ){
 			specular = ( DWORD* )( vBuffer + Address ); 
 			Address +=  DwordByteNum;
 		}
 	}
 };
-/*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*/
+/*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*/
 
-/*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*/
+/*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*/
 //**************************************************************************//
 // struct OBB;
 //
-// ’S“–ŽÒ  : ‚È‚µ(ŽRƒmˆäæ¶‚Ì‚Ð‚ÈŒ`‚æ‚è)
-// —p“r    : OBBƒ{ƒŠƒ…[ƒ€‹«ŠE
+// æ‹…å½“è€…  : ãªã—(å±±ãƒŽäº•å…ˆç”Ÿã®ã²ãªå½¢ã‚ˆã‚Š)
+// ç”¨é€”    : OBBãƒœãƒªãƒ¥ãƒ¼ãƒ å¢ƒç•Œ
 //**************************************************************************//
 struct OBB{
-    D3DXVECTOR3 m_Center;   //’†S“_‚ÌÀ•W
+    D3DXVECTOR3 m_Center;   //ä¸­å¿ƒç‚¹ã®åº§æ¨™
 	D3DXMATRIX	m_mRot;
-    D3DXVECTOR3 m_Rot[3];   //XYZ ‚ÌŠeÀ•WŽ²‚ÌŒX‚«‚ð•\‚·•ûŒüƒxƒNƒgƒ‹
-    D3DXVECTOR3 m_Size;     //OBB ‚ÌŠeÀ•WŽ²‚É‰ˆ‚Á‚½’·‚³‚Ì”¼•ªi’†S“_‚©‚ç–Ê‚Ü‚Å‚Ì’·‚³j
+    D3DXVECTOR3 m_Rot[3];   //XYZ ã®å„åº§æ¨™è»¸ã®å‚¾ãã‚’è¡¨ã™æ–¹å‘ãƒ™ã‚¯ãƒˆãƒ«
+    D3DXVECTOR3 m_Size;     //OBB ã®å„åº§æ¨™è»¸ã«æ²¿ã£ãŸé•·ã•ã®åŠåˆ†ï¼ˆä¸­å¿ƒç‚¹ã‹ã‚‰é¢ã¾ã§ã®é•·ã•ï¼‰
 	OBB():m_Center(g_vZero),m_Size(g_vOne){
 		m_Rot[0] = g_vZero;
 		m_Rot[1] = g_vZero;
 		m_Rot[2] = g_vZero;
 	};
 	OBB(D3DXVECTOR3 vScale,D3DXVECTOR3 vRot,D3DXVECTOR3 vPos){
-		//Õ“Ë”»’è—p‚ÌOBB‚Ì‰Šú‰»
+		//è¡çªåˆ¤å®šç”¨ã®OBBã®åˆæœŸåŒ–
 		m_Center = vPos   ;
 		//m_Size   = vScale ;
 		m_Size   = vScale * 0.5f ;
@@ -661,7 +661,7 @@ struct OBB{
 	    m_Rot[2] = D3DXVECTOR3(mRot._31,mRot._32,mRot._33);
 	};
 	OBB(D3DXVECTOR3 vScale,D3DXQUATERNION vQt,D3DXVECTOR3 vPos){
-		//Õ“Ë”»’è—p‚ÌOBB‚Ì‰Šú‰»
+		//è¡çªåˆ¤å®šç”¨ã®OBBã®åˆæœŸåŒ–
 		m_Center = vPos   ;
 		//m_Size   = vScale ;
 		m_Size   = vScale * 0.5f ;
@@ -677,7 +677,7 @@ struct OBB{
 	    m_Rot[2] = D3DXVECTOR3(mRot._31,mRot._32,mRot._33);
 	};
 	OBB(LPD3DXMESH pMesh){
-		//Õ“Ë”»’è—p‚ÌOBB‚Ì‰Šú‰»
+		//è¡çªåˆ¤å®šç”¨ã®OBBã®åˆæœŸåŒ–
 		EarnFromMeshOBB(pMesh,m_Center,m_Size);
 		D3DXMATRIX mRot   ;
 		D3DXMatrixIdentity(&mRot);
@@ -695,16 +695,16 @@ struct OBB{
 	}
 
 };
-/*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*/
+/*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*/
 
-/*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*/
+/*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*/
 /**************************************************************************
  struct AABB;
- —p“r: AABBƒ{ƒŠƒ…[ƒ€‹«ŠE
+ ç”¨é€”: AABBãƒœãƒªãƒ¥ãƒ¼ãƒ å¢ƒç•Œ
 ****************************************************************************/
 struct AABB{
-    D3DXVECTOR3 m_Min;     //¬‚³‚¢‚Ù‚¤‚ÌÀ•W
-    D3DXVECTOR3 m_Max;     //‘å‚«‚¢‚Ù‚¤‚ÌÀ•W
+    D3DXVECTOR3 m_Min;     //å°ã•ã„ã»ã†ã®åº§æ¨™
+    D3DXVECTOR3 m_Max;     //å¤§ãã„ã»ã†ã®åº§æ¨™
 	AABB(){}
 	AABB(D3DXVECTOR3& Min,D3DXVECTOR3& Max)
 		:m_Min(Min),m_Max(Max){}
@@ -732,26 +732,26 @@ struct AABB{
 		m_Max += MoveVec;
 	}
 };
-/*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*/
+/*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*/
 
-/*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*/
+/*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*/
 /**************************************************************************
  struct SPHERE;
- —p“r: ‹…ƒf[ƒ^
+ ç”¨é€”: çƒãƒ‡ãƒ¼ã‚¿
 ****************************************************************************/
 struct SPHERE
 {
-    D3DXVECTOR3 m_Center;	//’†S“_‚ÌÀ•W
-    float m_Radius;			//”¼Œa
+    D3DXVECTOR3 m_Center;	//ä¸­å¿ƒç‚¹ã®åº§æ¨™
+    float m_Radius;			//åŠå¾„
 };
-/*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*/
+/*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*/
 
-/*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*/
+/*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*/
 //**************************************************************************//
 // struct RENDERSTATE_PARAM;
 //
-// ’S“–ŽÒ  : Ž°Œ´ “O
-// —p“r    : ƒŒƒ“ƒ_[ƒ^ƒCƒv‚Æƒf[ƒ^‚ÌƒZƒbƒg‚ð‹L‰¯‚µ‚Ä‚¨‚«‚½‚¢!
+// æ‹…å½“è€…  : é´«åŽŸ å¾¹
+// ç”¨é€”    : ãƒ¬ãƒ³ãƒ€ãƒ¼ã‚¿ã‚¤ãƒ—ã¨ãƒ‡ãƒ¼ã‚¿ã®ã‚»ãƒƒãƒˆã‚’è¨˜æ†¶ã—ã¦ãŠããŸã„!
 //
 //**************************************************************************//
 struct RENDERSTATE_PARAM{
@@ -761,7 +761,7 @@ struct RENDERSTATE_PARAM{
 	//RENDERSTATE_PARAM(D3DRENDERSTATETYPE i_RenderType, DWORD i_dwValue)
 	//	:renderType(i_RenderType), value(i_dwValue){};
 };
-/*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*/
+/*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*/
 
 
 

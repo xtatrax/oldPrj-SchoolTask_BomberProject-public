@@ -1,11 +1,11 @@
 ////////////////////////////// //////////////////////////////
-//	ƒvƒƒWƒFƒNƒg	FStick Figures
-//	ƒtƒ@ƒCƒ‹–¼		FScript.cpp
-//	ŠJ”­ŠÂ‹«		FMSVC++ 2008
-//	Å“Kƒ^ƒu”		F4
-//	’S“–Ò			Ftatra
-//	“à•ïÃŞ°À‚Æ”õl	F
-//					¥
+//	ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆ	ï¼šStick Figures
+//	ãƒ•ã‚¡ã‚¤ãƒ«å		ï¼šScript.cpp
+//	é–‹ç™ºç’°å¢ƒ		ï¼šMSVC++ 2008
+//	æœ€é©ã‚¿ãƒ–æ•°		ï¼š4
+//	æ‹…å½“è€…			ï¼štatra
+//	å†…åŒ…ãƒ‡ãƒ¼ã‚¿ã¨å‚™è€ƒ	ï¼š
+//					â–¼
 //	namespace wiz;
 //		class MapLoader
 //
@@ -60,12 +60,12 @@ string MapLoader::InstructionSearch(FILE *fp){
 		int    CharBuf = 0 ;
 
 		/////////
-		//	: @’T‚µ
+		//	: @æ¢ã—
 		if((StrBuf += SearchAt(fp)) == INSTRUCTION_EOF) return INSTRUCTION_EOF ;
 		//////////
 
 		//////////
-		//	: æ“ª•¶šŒŸ¸
+		//	: å…ˆé ­æ–‡å­—æ¤œæŸ»
 		if((StrBuf += ReadWord(fp)) == INSTRUCTION_EOF ) return INSTRUCTION_EOF ;
 		//////////
 
@@ -82,12 +82,12 @@ void MapLoader::readVariable(FILE* fp,string Ins){
 		int    CharBuf = 0 ;
 
 		//////////
-		//	: •Ï”–¼“Ç‚İo‚µ
+		//	: å¤‰æ•°åèª­ã¿å‡ºã—
 		VariableName += ReadWord(fp);
 		//////////
 
 		//////////
-		//	: •¶š—ñ“Ç‚İo‚µ
+		//	: æ–‡å­—åˆ—èª­ã¿å‡ºã—
 		Var += ReadString(fp);
 		//////////
 		VariableType vtype;
@@ -103,40 +103,40 @@ string MapLoader::ReadString(FILE *fp){
 		string StrBuf;
 		int    CharBuf = 0 ;
 		//////////
-		//	: =’T‚µ
+		//	: =æ¢ã—
 		do{
 			CharBuf = fgetc(fp);
 			if(CharBuf == EOF ){
-				throw ERROR_READ_UNKNOWN_EOF ;	//	: •s–¾‚ÈEOF
+				throw ERROR_READ_UNKNOWN_EOF ;	//	: ä¸æ˜ãªEOF
 			}
 		}while(CharBuf != '=');
 		//////////
 
 		//////////
-		//	: "’T‚µ
+		//	: "æ¢ã—
 		do{
 			CharBuf = fgetc(fp);
 			if(CharBuf == EOF ){
-				throw ERROR_READ_UNKNOWN_EOF ;	//	: •s–¾‚ÈEOF
+				throw ERROR_READ_UNKNOWN_EOF ;	//	: ä¸æ˜ãªEOF
 			}
 		}while(CharBuf != '\"');
 		//////////
 
 		CharBuf = fgetc(fp);
 		if(CharBuf == EOF ){
-			throw ERROR_READ_UNKNOWN_EOF ;	//	: •s–¾‚ÈEOF
+			throw ERROR_READ_UNKNOWN_EOF ;	//	: ä¸æ˜ãªEOF
 		}
 			
 		//////////
-		//	: –½—ß“Ç‚İo‚µ
+		//	: å‘½ä»¤èª­ã¿å‡ºã—
 		while(CharBuf != '\"'){
 
 			StrBuf += CharBuf ;
 			CharBuf = fgetc(fp);
 			
 			if(CharBuf == EOF ){
-				//ƒGƒ‰[
-				throw ERROR_READ_UNKNOWN_EOF ; //	: •s–¾‚ÈEOF
+				//ã‚¨ãƒ©ãƒ¼
+				throw ERROR_READ_UNKNOWN_EOF ; //	: ä¸æ˜ãªEOF
 			}
 		}
 		//////////
@@ -149,7 +149,7 @@ string MapLoader::SearchAt(FILE* fp){
 	string StrBuf;
 	int    CharBuf = 0 ;
 	/////////
-	//	: @’T‚µ
+	//	: @æ¢ã—
 	do{
 		CharBuf = fgetc(fp);
 		if(CharBuf == EOF ){
@@ -166,19 +166,19 @@ string MapLoader::SearchInitial(FILE* fp){
 		string StrBuf;
 		int    CharBuf = 0 ;
 		//////////
-		//	: æ“ª•¶šŒŸ¸
+		//	: å…ˆé ­æ–‡å­—æ¤œæŸ»
 		do{
 			CharBuf = fgetc(fp);
 			if(CharBuf == EOF ){
-				throw ERROR_READ_UNKNOWN_EOF ;	//	: •s–¾‚ÈEOF
+				throw ERROR_READ_UNKNOWN_EOF ;	//	: ä¸æ˜ãªEOF
 			}
 		}while(CharBuf == ' ' || CharBuf == '	' || CharBuf == '\n');
 		//////////
 
 		//////////
-		//	: ‰pš‚©‚Ç‚¤‚©
+		//	: è‹±å­—ã‹ã©ã†ã‹
 		if( !isalpha( CharBuf ) ){
-			throw ERROR_SYNTAX_INITIALCHARA ;	//	: \•¶ƒGƒ‰[ : æ“ª•¶š‚ª‰pš‚¶‚á‚È‚¢
+			throw ERROR_SYNTAX_INITIALCHARA ;	//	: æ§‹æ–‡ã‚¨ãƒ©ãƒ¼ : å…ˆé ­æ–‡å­—ãŒè‹±å­—ã˜ã‚ƒãªã„
 		}
 		//////////
 		StrBuf += CharBuf;
@@ -197,31 +197,31 @@ string MapLoader::ReadWord(FILE* fp){
 		int    CharBuf = 0 ;
 
 		//////////
-		//	: æ“ª•¶šŒŸ¸
+		//	: å…ˆé ­æ–‡å­—æ¤œæŸ»
 		if((StrBuf += SearchInitial(fp)) == INSTRUCTION_EOF ) return INSTRUCTION_EOF ;
 		//////////
 
 		CharBuf = fgetc(fp);	
 		if(CharBuf == EOF ){
-			//ƒGƒ‰[
-			throw ERROR_READ_UNKNOWN_EOF ; //	: •s–¾‚ÈEOF
+			//ã‚¨ãƒ©ãƒ¼
+			throw ERROR_READ_UNKNOWN_EOF ; //	: ä¸æ˜ãªEOF
 		}
 
 		//////////
-		//	: –½—ß“Ç‚İo‚µ
+		//	: å‘½ä»¤èª­ã¿å‡ºã—
 		while(CharBuf != ' ' && CharBuf != '	' && CharBuf != '\n'){
 			if( CharBuf == '{') break;
-			//	: ‰p”‚©‚Ç‚¤‚©
+			//	: è‹±æ•°ã‹ã©ã†ã‹
 			if( !isalnum( CharBuf ) && CharBuf != '_' ){
-				throw ERROR_SYNTAX_OTHERTHANALNUM ; //	: ‰p”ˆÈŠO‚Ì•¶š—ñ
+				throw ERROR_SYNTAX_OTHERTHANALNUM ; //	: è‹±æ•°ä»¥å¤–ã®æ–‡å­—åˆ—
 			}
 
 			StrBuf += CharBuf ;
 			CharBuf = fgetc(fp);
 			
 			if(CharBuf == EOF ){
-				//ƒGƒ‰[
-				throw ERROR_READ_UNKNOWN_EOF ; //	: •s–¾‚ÈEOF
+				//ã‚¨ãƒ©ãƒ¼
+				throw ERROR_READ_UNKNOWN_EOF ; //	: ä¸æ˜ãªEOF
 			}
 		}
 		return StrBuf;
@@ -239,18 +239,18 @@ void MapLoader::SetModel(FILE *fp,vector<Object*>& i_ObjectVec){
 			int    CharBuf = 0 ;
 
 			//////////
-			//	: •¶š’T‚µ
+			//	: æ–‡å­—æ¢ã—
 			do{
 				CharBuf = fgetc(fp);
 
 				if(CharBuf == EOF ){
-					//ƒGƒ‰[
-					throw ERROR_READ_UNKNOWN_EOF ; //	: •s–¾‚ÈEOF
+					//ã‚¨ãƒ©ãƒ¼
+					throw ERROR_READ_UNKNOWN_EOF ; //	: ä¸æ˜ãªEOF
 				}
 				if( CharBuf == '}' ) return;
 			}while(!isalpha( CharBuf ));
 			//////////
-			//	•Ï”‚ÌŒ^
+			//	å¤‰æ•°ã®å‹
 			VariableType += CharBuf;
 			VariableType += ReadWord(fp);
 
@@ -258,37 +258,37 @@ void MapLoader::SetModel(FILE *fp,vector<Object*>& i_ObjectVec){
 				CharBuf = fgetc(fp);
 
 				if(CharBuf == EOF ){
-					//ƒGƒ‰[
-					throw ERROR_READ_UNKNOWN_EOF ; //	: •s–¾‚ÈEOF
+					//ã‚¨ãƒ©ãƒ¼
+					throw ERROR_READ_UNKNOWN_EOF ; //	: ä¸æ˜ãªEOF
 				}
 			}while(CharBuf != '=');
 
 			//////////
-			//	: •¶š’T‚µ
+			//	: æ–‡å­—æ¢ã—
 			do{
 				CharBuf = fgetc(fp);
 
 				if(CharBuf == EOF ){
-					//ƒGƒ‰[
-					throw ERROR_READ_UNKNOWN_EOF ; //	: •s–¾‚ÈEOF
+					//ã‚¨ãƒ©ãƒ¼
+					throw ERROR_READ_UNKNOWN_EOF ; //	: ä¸æ˜ãªEOF
 				}
 			}while(CharBuf == ' ' || CharBuf == '	' || CharBuf == '\n');
 			//////////
 
 			//////////
-			//	: ’l
+			//	: å€¤
 			while(isdigit(CharBuf) || CharBuf == '.'){
 			
 				Var += CharBuf;
 				CharBuf = fgetc(fp);
 
 				if(CharBuf == EOF ){
-					//ƒGƒ‰[
-					throw ERROR_READ_UNKNOWN_EOF ; //	: •s–¾‚ÈEOF
+					//ã‚¨ãƒ©ãƒ¼
+					throw ERROR_READ_UNKNOWN_EOF ; //	: ä¸æ˜ãªEOF
 				}
 			}
 			//////////
-			//	: ’l‚ÌŠi”[
+			//	: å€¤ã®æ ¼ç´
 			if(VariableType == "SCALE_X" ) objeState->Scale.x = (float)atof(Var.c_str()) ;
 			if(VariableType == "SCALE_Y" ) objeState->Scale.y = (float)atof(Var.c_str()) ;
 			if(VariableType == "SCALE_Z" ) objeState->Scale.z = (float)atof(Var.c_str()) ;
@@ -312,7 +312,7 @@ void MapLoader::setErrorList(){
 	for(UINT i = 0 ; i < ERROR_UNKNOWN ; i++ ){
 		switch(i){
 			case ERROR_UNKNOWN:
-				m_ErrorStringList.push_back("•s–¾‚ÈƒGƒ‰[");
+				m_ErrorStringList.push_back("ä¸æ˜ãªã‚¨ãƒ©ãƒ¼");
 		}
 	}
 }

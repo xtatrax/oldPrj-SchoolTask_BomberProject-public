@@ -1,11 +1,11 @@
 ////////////////////////////// //////////////////////////////
-//	ƒvƒƒWƒFƒNƒg	FBomberProject
-//	ƒtƒ@ƒCƒ‹–¼		FFactory_Goal.h
-//	ŠJ”­ŠÂ‹«		FMSVC++ 2008
-//	Å“Kƒ^ƒu”		F4
-//	’S“–ŽÒ			F²“¡@—Á
-//	“à•ïÃÞ°À‚Æ”õl	FƒAƒCƒeƒ€ƒtƒ@ƒNƒgƒŠ[
-//					¥
+//	ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆ	ï¼šBomberProject
+//	ãƒ•ã‚¡ã‚¤ãƒ«å		ï¼šFactory_Goal.h
+//	é–‹ç™ºç’°å¢ƒ		ï¼šMSVC++ 2008
+//	æœ€é©ã‚¿ãƒ–æ•°		ï¼š4
+//	æ‹…å½“è€…			ï¼šä½è—¤ã€€æ¶¼
+//	å†…åŒ…ãƒ‡ãƒ¼ã‚¿ã¨å‚™è€ƒ	ï¼šã‚¢ã‚¤ãƒ†ãƒ ãƒ•ã‚¡ã‚¯ãƒˆãƒªãƒ¼
+//					â–¼
 //	namespace wiz;
 //		class GoalObject;
 //		class Factory_Goal ;
@@ -23,8 +23,8 @@ namespace bomberobject{
 /**************************************************************************
 class FMemoryTex;
 
-—p“r@Fà–¾•¶‚Ì‘}“ü
-’S“–ŽÒF²“¡—Á
+ç”¨é€”ã€€ï¼šèª¬æ˜Žæ–‡ã®æŒ¿å…¥
+æ‹…å½“è€…ï¼šä½è—¤æ¶¼
 **************************************************************************/
 class FMemoryTex : public PrimitiveBox{
 	Camera*			m_pCamera;
@@ -42,80 +42,80 @@ class FMemoryTex : public PrimitiveBox{
 		virtual ~mItem(){}
 	};
 
-	//map<ƒIƒuƒWƒFƒNƒg‚Ìƒ|ƒWƒVƒ‡ƒ“,WallItem>
-	multimap<float,mItem*> m_ItemMap_Memory;	//‘S‚Ä‚ÌDescItem
-	multimap<float,mItem*> m_ItemMap_Target; //•`‰æ‘ÎÛ‚ÌDescItem
+	//map<ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ãƒã‚¸ã‚·ãƒ§ãƒ³,WallItem>
+	multimap<float,mItem*> m_ItemMap_Memory;	//å…¨ã¦ã®DescItem
+	multimap<float,mItem*> m_ItemMap_Target; //æç”»å¯¾è±¡ã®DescItem
 public:
 	/////////////////// ////////////////////
-	//// —p“r       FDescription(	LPDIRECT3DDEVICE9 pD3DDevice,LPTATRATEXTURE pTexture,wiz::OBJID id = OBJID_3D_WALL);
-	//// ƒJƒeƒSƒŠ   FƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	//// —p“r       F
-	//// ˆø”       FLPDIRECT3DDEVICE9 pD3DDevice //ƒfƒoƒCƒX
-	////			  : LPTATRATEXTURE pTexture  //ƒeƒNƒXƒ`ƒƒ
+	//// ç”¨é€”       ï¼šDescription(	LPDIRECT3DDEVICE9 pD3DDevice,LPTATRATEXTURE pTexture,wiz::OBJID id = OBJID_3D_WALL);
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	//// ç”¨é€”       ï¼š
+	//// å¼•æ•°       ï¼šLPDIRECT3DDEVICE9 pD3DDevice //ãƒ‡ãƒã‚¤ã‚¹
+	////			  : LPTATRATEXTURE pTexture  //ãƒ†ã‚¯ã‚¹ãƒãƒ£
 	////			  : pTexture,wiz::OBJID id = OBJID_3D_WALL //ID
-	//// –ß’l       F‚È‚µ
-	//// ’S“–ŽÒ     F²“¡—Á
-	//// ”õl       F
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“è€…     ï¼šä½è—¤æ¶¼
+	//// å‚™è€ƒ       ï¼š
 	FMemoryTex(LPDIRECT3DDEVICE9 pD3DDevice,
 				LPTATRATEXTURE pTexture,
 				wiz::OBJID id = OBJID_3D_WALL
 				);
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     F~FMemoryTex();
-	//// ƒJƒeƒSƒŠ   FƒfƒXƒgƒ‰ƒNƒ^
-	//// —p“r       F”jŠü
-	//// ˆø”       F‚È‚µ
-	//// –ß’l       F‚È‚µ
-	//// ’S“–ŽÒ     FŽ°Œ´ “O
-	//// ”õl       F
-	////            F
+	//// é–¢æ•°å     ï¼š~FMemoryTex();
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	//// ç”¨é€”       ï¼šç ´æ£„
+	//// å¼•æ•°       ï¼šãªã—
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“è€…     ï¼šé´«åŽŸ å¾¹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
 	~FMemoryTex();
 	/////////////////// ////////////////////
-	//// —p“r       Fvoid Draw( DrawPacket& i_DrawPacket )
-	//// ƒJƒeƒSƒŠ   FŠÖ”
-	//// —p“r       FƒIƒuƒWƒFƒNƒg‚ðƒfƒBƒXƒvƒŒƒC‚É•\Ž¦‚·‚é
-	//// ˆø”       F  DrawPacket& i_DrawPacket             // ‰æ–Ê•`‰æŽž‚É•K—v‚Èƒf[ƒ^ŒQ «“à—e‰º‹L
-	////            F  „¥ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 ƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-	////            F  „¥ vector<Object*>&    Vec                     // ƒIƒuƒWƒFƒNƒg‚Ì”z—ñ
-	////            F  „¥ Tempus2*            i_DrawPacket.GetTime()	   // ŽžŠÔ‚ðŠÇ—‚·‚éƒNƒ‰ƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^[
-	////            F  „¤ Command             i_DrawPacket.pCommand   // ƒRƒ}ƒ“ƒh
-	//// –ß’l       F‚È‚µ
-	//// ’S“–ŽÒ     F²“¡—Á
-	//// ”õl       F
+	//// ç”¨é€”       ï¼švoid Draw( DrawPacket& i_DrawPacket )
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šé–¢æ•°
+	//// ç”¨é€”       ï¼šã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ãƒ‡ã‚£ã‚¹ãƒ—ãƒ¬ã‚¤ã«è¡¨ç¤ºã™ã‚‹
+	//// å¼•æ•°       ï¼š  DrawPacket& i_DrawPacket             // ç”»é¢æç”»æ™‚ã«å¿…è¦ãªãƒ‡ãƒ¼ã‚¿ç¾¤ â†“å†…å®¹ä¸‹è¨˜
+	////            ï¼š  â”œ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+	////            ï¼š  â”œ vector<Object*>&    Vec                     // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®é…åˆ—
+	////            ï¼š  â”œ Tempus2*            i_DrawPacket.GetTime()	   // æ™‚é–“ã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿ãƒ¼
+	////            ï¼š  â”” Command             i_DrawPacket.pCommand   // ã‚³ãƒžãƒ³ãƒ‰
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“è€…     ï¼šä½è—¤æ¶¼
+	//// å‚™è€ƒ       ï¼š
 	void Draw( DrawPacket& i_DrawPacket );
 
 	/////////////////// ////////////////////
-	//// —p“r       Fvoid Update( UpdatePacket& i_UpdatePacket )
-	//// ƒJƒeƒSƒŠ   FŠÖ”
-	//// —p“r       FƒIƒuƒWƒFƒNƒg‚ðXV
-	//// ˆø”       F  UpdatePacket& i_UpdatePacket     // ƒAƒbƒvƒf[ƒgŽž‚É•K—v‚Èƒf[ƒ^ŒQ «“à—e‰º‹L
-	////            F  „¥       LPDIRECT3DDEVICE9  pD3DDevice      // IDirect3DDevice9 ƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-	////            F  „¥       Tempus2*           pTime           // ŽžŠÔ‚ðŠÇ—‚·‚éƒNƒ‰ƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^[
-	////            F  „¥       vector<Object*>&   Vec,            // ƒIƒuƒWƒFƒNƒg‚Ì”z—ñ
-	////            F  „¥ const CONTROLER_STATE*   pCntlState      // ƒRƒ“ƒgƒ[ƒ‰‚ÌƒXƒe[ƒ^ƒX
-	////            F  „¤       Command            pCommand        // ƒRƒ}ƒ“ƒh
-	//// –ß’l       F‚È‚µ
-	//// ’S“–ŽÒ     F²“¡—Á
-	//// ”õl       F
-	////            F
+	//// ç”¨é€”       ï¼švoid Update( UpdatePacket& i_UpdatePacket )
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šé–¢æ•°
+	//// ç”¨é€”       ï¼šã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’æ›´æ–°
+	//// å¼•æ•°       ï¼š  UpdatePacket& i_UpdatePacket     // ã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆæ™‚ã«å¿…è¦ãªãƒ‡ãƒ¼ã‚¿ç¾¤ â†“å†…å®¹ä¸‹è¨˜
+	////            ï¼š  â”œ       LPDIRECT3DDEVICE9  pD3DDevice      // IDirect3DDevice9 ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+	////            ï¼š  â”œ       Tempus2*           pTime           // æ™‚é–“ã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿ãƒ¼
+	////            ï¼š  â”œ       vector<Object*>&   Vec,            // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®é…åˆ—
+	////            ï¼š  â”œ const CONTROLER_STATE*   pCntlState      // ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹
+	////            ï¼š  â””       Command            pCommand        // ã‚³ãƒžãƒ³ãƒ‰
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“è€…     ï¼šä½è—¤æ¶¼
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
 	void Update( UpdatePacket& i_UpdatePacket );
 
 	/////////////////// ////////////////////
-	//// —p“r       Fvoid AddDesc( DrawPacket& i_DrawPacket )
-	//// ƒJƒeƒSƒŠ   FŠÖ”
-	//// —p“r       FDesc‚Ì’Ç‰Á
-	//// ˆø”       F  LPDIRECT3DDEVICE9 pD3DDevice,	////IDirect3DDevice9ƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-	////		    F  D3DXVECTOR3 &vScale				//Šg‘åk¬
-	////		    F  D3DXVECTOR3 &vRot				//‰ñ“]Šp
-	////		    F  D3DXVECTOR3 &vPos				//ˆÊ’u
-	////            F  D3DCOLORVALUE& Diffuse,			//ƒfƒBƒtƒ…[ƒYF
-	////            F  D3DCOLORVALUE& Specular,		//ƒXƒyƒLƒ…ƒ‰F
-	////            F  D3DCOLORVALUE& Ambient,			//ƒAƒ“ƒrƒGƒ“ƒgF
-	//// –ß’l       F‚È‚µ
-	//// ’S“–ŽÒ     F²“¡—Á
-	//// ”õl       F
+	//// ç”¨é€”       ï¼švoid AddDesc( DrawPacket& i_DrawPacket )
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šé–¢æ•°
+	//// ç”¨é€”       ï¼šDescã®è¿½åŠ 
+	//// å¼•æ•°       ï¼š  LPDIRECT3DDEVICE9 pD3DDevice,	////IDirect3DDevice9ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+	////		    ï¼š  D3DXVECTOR3 &vScale				//æ‹¡å¤§ç¸®å°
+	////		    ï¼š  D3DXVECTOR3 &vRot				//å›žè»¢è§’
+	////		    ï¼š  D3DXVECTOR3 &vPos				//ä½ç½®
+	////            ï¼š  D3DCOLORVALUE& Diffuse,			//ãƒ‡ã‚£ãƒ•ãƒ¥ãƒ¼ã‚ºè‰²
+	////            ï¼š  D3DCOLORVALUE& Specular,		//ã‚¹ãƒšã‚­ãƒ¥ãƒ©è‰²
+	////            ï¼š  D3DCOLORVALUE& Ambient,			//ã‚¢ãƒ³ãƒ“ã‚¨ãƒ³ãƒˆè‰²
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“è€…     ï¼šä½è—¤æ¶¼
+	//// å‚™è€ƒ       ï¼š
 	void AddMemory(
 		const D3DXVECTOR3&		vScale		,
 		const D3DXVECTOR3&		vRot		,
@@ -126,13 +126,13 @@ public:
 	);
 
 /****************************************************
-ŠÖ”–¼@Fvoid	OrientGoal()
-ƒJƒeƒSƒŠFŠÖ”
-—p“r@@FƒNƒŠƒAŒãƒvƒŒ[ƒ„[‚ð“®‚©‚·
-ˆø”@@F‚È‚µ
-–ß‚è’l@F‚È‚µ
-’S“–ŽÒ@F²“¡—Á
-”õl@@F
+é–¢æ•°åã€€ï¼švoid	OrientGoal()
+ã‚«ãƒ†ã‚´ãƒªï¼šé–¢æ•°
+ç”¨é€”ã€€ã€€ï¼šã‚¯ãƒªã‚¢å¾Œãƒ—ãƒ¬ãƒ¼ãƒ¤ãƒ¼ã‚’å‹•ã‹ã™
+å¼•æ•°ã€€ã€€ï¼šãªã—
+æˆ»ã‚Šå€¤ã€€ï¼šãªã—
+æ‹…å½“è€…ã€€ï¼šä½è—¤æ¶¼
+å‚™è€ƒã€€ã€€ï¼š
 ****************************************************/
 	void	OrientGoal(UpdatePacket& i_UpdatePacket);
 };
@@ -140,8 +140,8 @@ public:
 /******************************************************
 class Item : public PrimitiveSphere
 
-—p“r@FƒAƒCƒeƒ€
-’S“–ŽÒF²“¡—Á
+ç”¨é€”ã€€ï¼šã‚¢ã‚¤ãƒ†ãƒ 
+æ‹…å½“è€…ï¼šä½è—¤æ¶¼
 *******************************************************/
 class	GoalObject	:public PrimitiveBox{
 	PlayerCoil*			m_pCoil;
@@ -159,14 +159,14 @@ public:
 				wiz::OBJID id = OBJID_SYS_CLEARAREA
 				);
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     F~GoalObject();
-	//// ƒJƒeƒSƒŠ   FƒfƒXƒgƒ‰ƒNƒ^
-	//// —p“r       F”jŠü
-	//// ˆø”       F‚È‚µ
-	//// –ß’l       F‚È‚µ
-	//// ’S“–ŽÒ     FŽ°Œ´ “O
-	//// ”õl       F
-	////            F
+	//// é–¢æ•°å     ï¼š~GoalObject();
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	//// ç”¨é€”       ï¼šç ´æ£„
+	//// å¼•æ•°       ï¼šãªã—
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“è€…     ï¼šé´«åŽŸ å¾¹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
 	~GoalObject();
     void	Draw(DrawPacket& i_DrawPacket) ;
@@ -176,21 +176,21 @@ public:
 /**************************************************************************
 class Factory_Goal;
 
-—p“r@FƒƒCƒ“HêƒNƒ‰ƒX
-’S“–ŽÒF²“¡—Á
+ç”¨é€”ã€€ï¼šãƒ¡ã‚¤ãƒ³å·¥å ´ã‚¯ãƒ©ã‚¹
+æ‹…å½“è€…ï¼šä½è—¤æ¶¼
 ****************************************************************************/
 class Factory_Goal{
 public:
 /**************************************************************************
  Factory_Goal(FactoryPacket* fpac);
- —p“r: ƒRƒ“ƒXƒgƒ‰ƒNƒ^iƒTƒ“ƒvƒ‹ƒIƒuƒWƒFƒNƒg‚ð”z—ñ‚É’Ç‰Á‚·‚éj
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ï¼ˆã‚µãƒ³ãƒ—ãƒ«ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’é…åˆ—ã«è¿½åŠ ã™ã‚‹ï¼‰
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
 	Factory_Goal(FactoryPacket* fpac);
 /**************************************************************************
  ~MyFactory();
- —p“r: ƒfƒXƒgƒ‰ƒNƒ^
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
 	~Factory_Goal();
 //};

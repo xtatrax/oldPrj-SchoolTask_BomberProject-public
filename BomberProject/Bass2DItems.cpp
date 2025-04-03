@@ -1,11 +1,11 @@
 ////////////////////////////// //////////////////////////////
-//	�v���W�F�N�g	�FDirectX Program Bass Project
-//	�t�@�C����		�FBassI2Dtems.h
-//	�J����		�FMSVC++ 2008
-//	�œK�^�u��		�F4
-//	�S����			�Ftatra
-//	�����ް��Ɣ��l	�F���UI����̊�{�ƂȂ�2D�I�N���X
-//					��
+//	プロジェクト	：DirectX Program Bass Project
+//	ファイル名		：BassI2Dtems.h
+//	開発環境		：MSVC++ 2008
+//	最適タブ数		：4
+//	担当者			：tatra
+//	内包データと備考	：主にUI周りの基本となる2D的クラス
+//					▼
 //	namespace wiz;
 //
 //
@@ -17,7 +17,7 @@ namespace wiz {
 namespace base2Dobject{
 
 /**************************************************************************
- class Cursor2D ��`��
+ class Cursor2D 定義部
 ****************************************************************************/
 Point		Cursor2D::m_vMousePoint      ;
 bool		Cursor2D::m_bMouseLB = false ;
@@ -30,14 +30,14 @@ DWORD		Cursor2D::m_tLastTime	= timeGetTime() ;
 const float	Cursor2D::m_fLockTime	= 0.3f ;
 
 /////////////////// ////////////////////
-//// �֐���     �F
-//// �J�e�S��   �F
-//// �p�r       �F
-//// ����       �F�Ȃ�
-//// �ߒl       �F�Ȃ�
-//// �S����     �F���� �O
-//// ���l       �F
-////            �F
+//// 関数名     ：
+//// カテゴリ   ：
+//// 用途       ：
+//// 引数       ：なし
+//// 戻値       ：なし
+//// 担当者     ：鴫原 徹
+//// 備考       ：
+////            ：
 ////
 Point Cursor2D::getPos(){
 	GetCursorPos( &m_vMousePoint ) ;
@@ -45,22 +45,22 @@ Point Cursor2D::getPos(){
 	return m_vMousePoint ;
 }
 /////////////////// ////////////////////
-//// �֐���     �F
-//// �J�e�S��   �F
-//// �p�r       �F
-//// ����       �F�Ȃ�
-//// �ߒl       �F�Ȃ�
-//// �S����     �F���� �O
-//// ���l       �F
-////            �F
+//// 関数名     ：
+//// カテゴリ   ：
+//// 用途       ：
+//// 引数       ：なし
+//// 戻値       ：なし
+//// 担当者     ：鴫原 徹
+//// 備考       ：
+////            ：
 ////
 bool Cursor2D::clickLButtonWithLock()
 {
 
 	bool ret = false ;
-	//	: �O�񉟂���Ă��� ����͂Ȃ��ꂽ
+	//	: 前回押されていた 今回はなされた
 	if( m_bMouseLBLock && !m_bMouseLB ){
-		//	: �O�񉟂��ꂽ�����0.3�b�o�߂��Ă��Ȃ������疳��
+		//	: 前回押された時より0.3秒経過していなかったら無効
 		DWORD now = timeGetTime();
 		float fTime = (float)TLIB::Tempus::TwoDwTime2ElapsedTime(m_tLastTime,now);
 		if( fTime > m_fLockTime ){
@@ -69,33 +69,33 @@ bool Cursor2D::clickLButtonWithLock()
 		}
 	}
 
-	//	: ������Ă���
+	//	: 押されている
 	if( m_bMouseLB ){
-		//	: ������Ă���
+		//	: 押されていた
 		m_bMouseLBLock = true ;
 	}else{
-		//	: ������Ă��Ȃ�����
+		//	: 押されていなかった
 		m_bMouseLBLock = false ;
 	}
 
 	return ret;
 };
 /////////////////// ////////////////////
-//// �֐���     �F
-//// �J�e�S��   �F
-//// �p�r       �F
-//// ����       �F�Ȃ�
-//// �ߒl       �F�Ȃ�
-//// �S����     �F���� �O
-//// ���l       �F
-////            �F
+//// 関数名     ：
+//// カテゴリ   ：
+//// 用途       ：
+//// 引数       ：なし
+//// 戻値       ：なし
+//// 担当者     ：鴫原 徹
+//// 備考       ：
+////            ：
 ////
 bool Cursor2D::clickMButtonWithLock()
 {
 	bool ret = false ;
-	//	: �O�񉟂���Ă��� ����͂Ȃ��ꂽ
+	//	: 前回押されていた 今回はなされた
 	if( m_bMouseMBLock && !m_bMouseMB ){
-		//	: �O�񉟂��ꂽ�����0.3�b�o�߂��Ă��Ȃ������疳��
+		//	: 前回押された時より0.3秒経過していなかったら無効
 		DWORD now = timeGetTime();
 		float fTime = (float)TLIB::Tempus::TwoDwTime2ElapsedTime(m_tLastTime,now);
 		if( fTime > m_fLockTime ){
@@ -104,33 +104,33 @@ bool Cursor2D::clickMButtonWithLock()
 		}
 	}
 
-	//	: ������Ă���
+	//	: 押されている
 	if( m_bMouseMB ){
-		//	: ������Ă���
+		//	: 押されていた
 		m_bMouseMBLock = true ;
 	}else{
-		//	: ������Ă��Ȃ�����
+		//	: 押されていなかった
 		m_bMouseMBLock = false ;
 	}
 
 	return ret;
 };
 /////////////////// ////////////////////
-//// �֐���     �F
-//// �J�e�S��   �F
-//// �p�r       �F
-//// ����       �F�Ȃ�
-//// �ߒl       �F�Ȃ�
-//// �S����     �F���� �O
-//// ���l       �F
-////            �F
+//// 関数名     ：
+//// カテゴリ   ：
+//// 用途       ：
+//// 引数       ：なし
+//// 戻値       ：なし
+//// 担当者     ：鴫原 徹
+//// 備考       ：
+////            ：
 ////
 bool Cursor2D::clickRButtonWithLock()
 {
 	bool ret = false ;
-	//	: �O�񉟂���Ă��� ����͂Ȃ��ꂽ
+	//	: 前回押されていた 今回はなされた
 	if( m_bMouseRBLock && !m_bMouseRB ){
-		//	: �O�񉟂��ꂽ�����0.3�b�o�߂��Ă��Ȃ������疳��
+		//	: 前回押された時より0.3秒経過していなかったら無効
 		DWORD now = timeGetTime();
 		float fTime = (float)TLIB::Tempus::TwoDwTime2ElapsedTime(m_tLastTime,now);
 		if( fTime > m_fLockTime ){
@@ -139,12 +139,12 @@ bool Cursor2D::clickRButtonWithLock()
 		}
 	}
 
-	//	: ������Ă���
+	//	: 押されている
 	if( m_bMouseRB ){
-		//	: ������Ă���
+		//	: 押されていた
 		m_bMouseRBLock = true ;
 	}else{
-		//	: ������Ă��Ȃ�����
+		//	: 押されていなかった
 		m_bMouseRBLock = false ;
 	}
 
@@ -152,49 +152,49 @@ bool Cursor2D::clickRButtonWithLock()
 };
 
 /////////////////// ////////////////////
-//// �֐���     �F
-//// �J�e�S��   �F���z�֐�
-//// �p�r       �F�J�[�\�����X�v���C�g�ɏd�Ȃ��Ă��邩�ǂ���
-//// ����       �F const D3DXMATRIX&            i_mMatrix       //  : 
-////            �F const D3DXVECTOR3&           i_vPos          //  :
-////            �F const D3DXVECTOR3&           i_vCenter       //  :
-////            �F const D3DXVECTOR3&           i_vOffsetPos    //  :
-////            �F const LPTATRATEXTURE     i_pTexture      //  :
-////            �F const Rect*                  i_pRect         //  :
-//// �ߒl       �F�Ȃ�
-//// �S����     �F���� �O
-//// ���l       �F
-////            �F
+//// 関数名     ：
+//// カテゴリ   ：仮想関数
+//// 用途       ：カーソルがスプライトに重なっているかどうか
+//// 引数       ： const D3DXMATRIX&            i_mMatrix       //  : 
+////            ： const D3DXVECTOR3&           i_vPos          //  :
+////            ： const D3DXVECTOR3&           i_vCenter       //  :
+////            ： const D3DXVECTOR3&           i_vOffsetPos    //  :
+////            ： const LPTATRATEXTURE     i_pTexture      //  :
+////            ： const Rect*                  i_pRect         //  :
+//// 戻値       ：なし
+//// 担当者     ：鴫原 徹
+//// 備考       ：
+////            ：
 ////
 bool Cursor2D::isHitSprite(const PrimitiveSprite* i_TargetSprite)
 {
 	getPos();
 
-	if( !i_TargetSprite )return false ;	//	: �^�[�Q�b�g��NULL��������v�Z���悤���Ȃ�!( false )
+	if( !i_TargetSprite )return false ;	//	: ターゲットがNULLだったら計算しようがない!( false )
 
 	Point	poTL	= Point(0,0),
-			poBR	;	//	: �v�Z�p�̉摜�̑傫��
+			poBR	;	//	: 計算用の画像の大きさ
 
 
 	//////////
-	//	: �摜�T�C�Y�̊l������
+	//	: 画像サイズの獲得処理
 	if( i_TargetSprite->m_pRect ){
 
 		//////////
-		//	: �X�v���C�g��Rect���w�肳��Ă���΂���𗘗p
+		//	: スプライトにRectが指定されていればそれを利用
 		poBR.x = i_TargetSprite->m_pRect->right  - i_TargetSprite->m_pRect->left ;
 		poBR.y = i_TargetSprite->m_pRect->bottom - i_TargetSprite->m_pRect->top  ;
 
-	}else if( i_TargetSprite->m_pTexture ){	//	: Texture�͂����Ǝw�肳��Ă��邩?
+	}else if( i_TargetSprite->m_pTexture ){	//	: Textureはちゃんと指定されているか?
 
 		//////////
-		//	: �X�v���C�g��Rect���w�肳��Ă��Ȃ����
-		//	: Texture���̂̑傫�����l��
+		//	: スプライトにRectが指定されていなければ
+		//	: Texture自体の大きさを獲得
 		D3DSURFACE_DESC desc;
 
 		//////////
-		//	: Texture�̃T�C�Y�l���Ɏ��s������
-		//	: �v�Z���悤���Ȃ��̂łƂ肠���� false
+		//	: Textureのサイズ獲得に失敗したら
+		//	: 計算しようがないのでとりあえず false
 		if( FAILED( i_TargetSprite->m_pTexture->getTexture()->GetLevelDesc( 0, &desc ) )){ return false; }
 
 		//////////
@@ -203,28 +203,28 @@ bool Cursor2D::isHitSprite(const PrimitiveSprite* i_TargetSprite)
 		poBR.y = desc.Height;
 	}else{
 		//////////
-		//	: Rect��Texture��������Όv�Z���悤���E�E�E
+		//	: RectもTextureも無ければ計算しようが・・・
 		return false;
 	}
-	//	: �摜�T�C�Y�̊l������
+	//	: 画像サイズの獲得処理
 	//////////
 	
 	//////////
-	//	: ���S�␳
+	//	: 中心補正
 	poTL.x -= (LONG)i_TargetSprite->m_vCenter.x;
 	poTL.y -= (LONG)i_TargetSprite->m_vCenter.y;
 	poBR.x -= (LONG)i_TargetSprite->m_vCenter.x;
 	poBR.y -= (LONG)i_TargetSprite->m_vCenter.y;
-	//	: ���S�␳
+	//	: 中心補正
 	//////////
 
 	//////////
-	//	: ���W�␳
+	//	: 座標補正
 	poTL.x += (LONG)i_TargetSprite->m_vOffsetPos.x;
 	poTL.y += (LONG)i_TargetSprite->m_vOffsetPos.y;
 	poBR.x += (LONG)i_TargetSprite->m_vOffsetPos.x;
 	poBR.y += (LONG)i_TargetSprite->m_vOffsetPos.y;
-	//	: ���W�␳
+	//	: 座標補正
 	///////////
 
 	///////////
@@ -244,26 +244,26 @@ bool Cursor2D::isHitSprite(const PrimitiveSprite* i_TargetSprite)
 	
 }
 /**************************************************************************
- PrimitiveSprite ��`��
+ PrimitiveSprite 定義部
 ***************************************************************************/
 LPD3DXSPRITE	PrimitiveSprite::m_pSprite			= NULL	;
 DWORD			PrimitiveSprite::m_dwMyInstanceQty	= 0		;
 
 /////////////////// ////////////////////
-//// �֐���     �FPrimitiveSprite::PrimitiveSprite(LPDIRECT3DDEVICE9 pD3DDevice,LPTATRATEXTURE pTexture,Rect* Rect,
-////            �F    D3DXVECTOR3& vCenter,D3DXVECTOR3& vOffsetPos,D3DCOLOR color = 0xFFFFFFFF);
-//// �J�e�S��   �F���z�֐�
-//// �p�r       �F�X�v���C�g��`��
-//// ����       �F  LPDIRECT3DDEVICE9 pD3DDevice,	//	: �f�o�C�X
-////            �F  LPTATRATEXTURE pTexture,	//	: �e�N�X�`���[�ւ̃|�C���^
-////            �F  Rect*			Rect,			//	: �e�N�X�`���̕`��͈�
-////            �F  D3DXVECTOR3&	vCenter,		//	: ���S�ʒu
-////            �F  D3DXVECTOR3&	vOffsetPos,		//	: ���[�J�����W
-////            �F  D3DCOLOR		color			//	: �F
-//// �ߒl       �F�Ȃ�
-//// �S����     �F���� �O
-//// ���l       �F
-////            �F
+//// 関数名     ：PrimitiveSprite::PrimitiveSprite(LPDIRECT3DDEVICE9 pD3DDevice,LPTATRATEXTURE pTexture,Rect* Rect,
+////            ：    D3DXVECTOR3& vCenter,D3DXVECTOR3& vOffsetPos,D3DCOLOR color = 0xFFFFFFFF);
+//// カテゴリ   ：仮想関数
+//// 用途       ：スプライトを描画
+//// 引数       ：  LPDIRECT3DDEVICE9 pD3DDevice,	//	: デバイス
+////            ：  LPTATRATEXTURE pTexture,	//	: テクスチャーへのポインタ
+////            ：  Rect*			Rect,			//	: テクスチャの描画範囲
+////            ：  D3DXVECTOR3&	vCenter,		//	: 中心位置
+////            ：  D3DXVECTOR3&	vOffsetPos,		//	: ローカル座標
+////            ：  D3DCOLOR		color			//	: 色
+//// 戻値       ：なし
+//// 担当者     ：鴫原 徹
+//// 備考       ：
+////            ：
 ////
 PrimitiveSprite::PrimitiveSprite(
 	const LPDIRECT3DDEVICE9		pD3DDevice		,
@@ -282,16 +282,16 @@ PrimitiveSprite::PrimitiveSprite(
 	,m_Color(color)
 {
 	try{
-		//Debugger::DBGWRITINGLOGTEXT::addStr(L"PrimitiveSprite::PrimitiveSprite  >>>>  �X�v���C�g�̎��ԍ쐬���������菉�������s���܂�\n");
+		//Debugger::DBGWRITINGLOGTEXT::addStr(L"PrimitiveSprite::PrimitiveSprite  >>>>  スプライトの実態作成完了これより初期化を行います\n");
 		if(rect){
 			m_pRect = new Rect(*rect);
 		}
 		if( !m_pSprite ){
-			//Debugger::DBGWRITINGLOGTEXT::addStr(L"PrimitiveSprite::PrimitiveSprite  >>>>  �X�v���C�g�̐V�K�쐬�����܂�\n");
+			//Debugger::DBGWRITINGLOGTEXT::addStr(L"PrimitiveSprite::PrimitiveSprite  >>>>  スプライトの新規作成をします\n");
 			if( FAILED( D3DXCreateSprite( pD3DDevice, &m_pSprite ) ) ){
-				// ���������s
+				// 初期化失敗
 				throw BaseException(
-					L"�X�v���C�g�̍쐬�Ɏ��s���܂����B",
+					L"スプライトの作成に失敗しました。",
 					L"PrimitiveSprite::PrimitiveSprite()"
 				);
 			}
@@ -300,25 +300,25 @@ PrimitiveSprite::PrimitiveSprite(
 	}
 	catch(...){
 		SafeRelease(m_pSprite);
-		//�ăX���[
+		//再スロー
 		throw;
 	}
 }
 /////////////////// ////////////////////
-//// �֐���     �FPrimitiveSprite::PrimitiveSprite(LPDIRECT3DDEVICE9 pD3DDevice,LPTATRATEXTURE pTexture,Rect* Rect,
-////            �F    D3DXVECTOR3& vCenter,D3DXVECTOR3& vOffsetPos,D3DCOLOR color = 0xFFFFFFFF);
-//// �J�e�S��   �F���z�֐�
-//// �p�r       �F�X�v���C�g��`��
-//// ����       �F  LPDIRECT3DDEVICE9 pD3DDevice,	//	: �f�o�C�X
-////            �F  LPTATRATEXTURE pTexture,	//	: �e�N�X�`���[�ւ̃|�C���^
-////            �F  Rect*			Rect,			//	: �e�N�X�`���̕`��͈�
-////            �F  D3DXVECTOR3&	vCenter,		//	: ���S�ʒu
-////            �F  D3DXVECTOR3&	vOffsetPos,		//	: ���[�J�����W
-////            �F  D3DCOLOR		color			//	: �F
-//// �ߒl       �F�Ȃ�
-//// �S����     �F���� �O
-//// ���l       �F
-////            �F
+//// 関数名     ：PrimitiveSprite::PrimitiveSprite(LPDIRECT3DDEVICE9 pD3DDevice,LPTATRATEXTURE pTexture,Rect* Rect,
+////            ：    D3DXVECTOR3& vCenter,D3DXVECTOR3& vOffsetPos,D3DCOLOR color = 0xFFFFFFFF);
+//// カテゴリ   ：仮想関数
+//// 用途       ：スプライトを描画
+//// 引数       ：  LPDIRECT3DDEVICE9 pD3DDevice,	//	: デバイス
+////            ：  LPTATRATEXTURE pTexture,	//	: テクスチャーへのポインタ
+////            ：  Rect*			Rect,			//	: テクスチャの描画範囲
+////            ：  D3DXVECTOR3&	vCenter,		//	: 中心位置
+////            ：  D3DXVECTOR3&	vOffsetPos,		//	: ローカル座標
+////            ：  D3DCOLOR		color			//	: 色
+//// 戻値       ：なし
+//// 担当者     ：鴫原 徹
+//// 備考       ：
+////            ：
 ////
 PrimitiveSprite::PrimitiveSprite(
 		const LPDIRECT3DDEVICE9		pD3DDevice	,
@@ -340,57 +340,57 @@ PrimitiveSprite::PrimitiveSprite(
 	,m_Color(color)
 {
 	try{
-		//Debugger::DBGWRITINGLOGTEXT::addStr(L"PrimitiveSprite::PrimitiveSprite  >>>>  �X�v���C�g�̎��ԍ쐬���������菉�������s���܂�\n");
+		//Debugger::DBGWRITINGLOGTEXT::addStr(L"PrimitiveSprite::PrimitiveSprite  >>>>  スプライトの実態作成完了これより初期化を行います\n");
 		D3DXMATRIX mScale,mRot,mPos;
 		D3DXMatrixScaling(&mScale,vScale.x,vScale.y,vScale.z);
 		D3DXMatrixRotationYawPitchRoll(&mRot,vRot.y,vRot.x,vRot.z);
 		D3DXMatrixTranslation(&mPos,vPos.x,vPos.y,vPos.z);
 		m_mMatrix = mScale * mRot * mPos ;
 
-		//	: �n���ꂽRect�������ŊǗ����Ă��ǂ����Ƃ͌���Ȃ����߂����ŐV�������̂ɃR�s�[����
+		//	: 渡されたRectが自分で管理しても良い物とは限らないためここで新しい実体にコピーする
 		if(pRect){
 			m_pRect = new Rect(*pRect);
 		}
 
-		//	: �X�v���C�g�̃C���X�^���X�̓Q�[�����ň�̂�
+		//	: スプライトのインスタンスはゲーム内で一つのみ
 		if( !m_pSprite ){
-			//Debugger::DBGWRITINGLOGTEXT::addStr(L"PrimitiveSprite::PrimitiveSprite  >>>>  �X�v���C�g�̐V�K�쐬�����܂�\n");
+			//Debugger::DBGWRITINGLOGTEXT::addStr(L"PrimitiveSprite::PrimitiveSprite  >>>>  スプライトの新規作成をします\n");
 			if( FAILED( D3DXCreateSprite( pD3DDevice, &m_pSprite ) ) ){
-				// ���������s
+				// 初期化失敗
 				throw BaseException(
-					L"�X�v���C�g�̍쐬�Ɏ��s���܂����B",
+					L"スプライトの作成に失敗しました。",
 					L"PrimitiveSprite::PrimitiveSprite()"
 				);
 			}
 		}
-		//	: ���̃N���X�̃C���X�^���X�����J�E���g
+		//	: このクラスのインスタンス数をカウント
 		m_dwMyInstanceQty++;
 	}
 	catch(...){
 		SafeRelease(m_pSprite);
-		//�ăX���[
+		//再スロー
 		throw;
 	}
 }
 
 /////////////////// ////////////////////
-//// �֐���     �Fvirtual PrimitiveSprite::~PrimitiveSprite()
-//// �J�e�S��   �F�f�X�g���N�^
-//// �p�r       �F
-//// ����       �F�Ȃ�
-//// �ߒl       �F�Ȃ�
-//// �S����     �F���� �O
-//// ���l       �F
-////            �F
+//// 関数名     ：virtual PrimitiveSprite::~PrimitiveSprite()
+//// カテゴリ   ：デストラクタ
+//// 用途       ：
+//// 引数       ：なし
+//// 戻値       ：なし
+//// 担当者     ：鴫原 徹
+//// 備考       ：
+////            ：
 ////
 PrimitiveSprite::~PrimitiveSprite(){
 	SafeDelete(m_pRect);
 	//SafeRelease(m_pTexture);
 	m_dwMyInstanceQty--;
 
-	//	: ���������̃N���X�̍Ō�̃C���X�^���X��������X�v���C�g���폜
+	//	: 自分がこのクラスの最後のインスタンスだったらスプライトを削除
 	if( m_dwMyInstanceQty <= 0 ){
-		//Debugger::DBGWRITINGLOGTEXT::addStr(L"PrimitiveSprite::~PrimitiveSprite  >>>>  �X�v���C�g���s�v�ɂȂ�܂��� �폜���܂�\n");
+		//Debugger::DBGWRITINGLOGTEXT::addStr(L"PrimitiveSprite::~PrimitiveSprite  >>>>  スプライトが不要になりました 削除します\n");
 		SafeRelease(m_pSprite);
 	}
 }
@@ -398,15 +398,15 @@ PrimitiveSprite::~PrimitiveSprite(){
 
 
 /////////////////// ////////////////////
-//// �֐���     �Fvoid PrimitiveSprite::Draw( LPDIRECT3DDEVICE9 pD3DDevice , vector<Object*>& Vec)
-//// �J�e�S��   �F���z�֐�
-//// �p�r       �F�X�v���C�g��`��
-//// ����       �F  LPDIRECT3DDEVICE9 pD3DDevice		//IDirect3DDevice9 �C���^�[�t�F�C�X�ւ̃|�C���^
-////            �F  vector<Object*>& Vec,				//�I�u�W�F�N�g�̔z��
-//// �ߒl       �F�Ȃ�
-//// �S����     �F���� �O
-//// ���l       �F
-////            �F
+//// 関数名     ：void PrimitiveSprite::Draw( LPDIRECT3DDEVICE9 pD3DDevice , vector<Object*>& Vec)
+//// カテゴリ   ：仮想関数
+//// 用途       ：スプライトを描画
+//// 引数       ：  LPDIRECT3DDEVICE9 pD3DDevice		//IDirect3DDevice9 インターフェイスへのポインタ
+////            ：  vector<Object*>& Vec,				//オブジェクトの配列
+//// 戻値       ：なし
+//// 担当者     ：鴫原 徹
+//// 備考       ：
+////            ：
 ////
 void PrimitiveSprite::Draw(DrawPacket& i_DrawPacket)
 {
@@ -426,27 +426,27 @@ void PrimitiveSprite::Draw(DrawPacket& i_DrawPacket)
 	}
 }
 /**************************************************************************
- SpriteObject ��`��
+ SpriteObject 定義部
 ***************************************************************************/
 /////////////////// ////////////////////
-//// �֐���     �FSpriteObject(LPDIRECT3DDEVICE9 pD3DDevice,LPTATRATEXTURE pTexture,
-////            �F    D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos, Rect* pRect,
-////            �F    D3DXVECTOR3& vCenter,D3DXVECTOR3& vOffsetPos,Color color = 0xFFFFFFFF);
-//// �J�e�S��   �F�R���X�g���N�^
-//// �p�r       �F�X�v���C�g��`��
-//// ����       �F  LPDIRECT3DDEVICE9 pD3DDevice    // IDirect3DDevice9 �C���^�[�t�F�C�X�ւ̃|�C���^
-////            �F  LPTATRATEXTURE pTexture     // �\��t�������e�N�X�`��
-////            �F  D3DXVECTOR3 &vScale             // �傫��
-////            �F  D3DXVECTOR3 &vRot               // �O����]
-////            �F  D3DXVECTOR3 &vPos               // �ݒu���W
-////            �F  Rect* pRect                     // �`�悵�����͈�(NULL�őS�̂�`��)
-////            �F  D3DXVECTOR3& vCenter            // ���S
-////            �F  D3DXVECTOR3& vOffsetPos         // �I�t�Z�b�g���W
-////            �F  Color color = 0xFFFFFFFF        // �F
-//// �ߒl       �F�Ȃ�
-//// �S����     �F���� �O
-//// ���l       �F
-////            �F
+//// 関数名     ：SpriteObject(LPDIRECT3DDEVICE9 pD3DDevice,LPTATRATEXTURE pTexture,
+////            ：    D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos, Rect* pRect,
+////            ：    D3DXVECTOR3& vCenter,D3DXVECTOR3& vOffsetPos,Color color = 0xFFFFFFFF);
+//// カテゴリ   ：コンストラクタ
+//// 用途       ：スプライトを描画
+//// 引数       ：  LPDIRECT3DDEVICE9 pD3DDevice    // IDirect3DDevice9 インターフェイスへのポインタ
+////            ：  LPTATRATEXTURE pTexture     // 貼り付けたいテクスチャ
+////            ：  D3DXVECTOR3 &vScale             // 大きさ
+////            ：  D3DXVECTOR3 &vRot               // 三軸回転
+////            ：  D3DXVECTOR3 &vPos               // 設置座標
+////            ：  Rect* pRect                     // 描画したい範囲(NULLで全体を描画)
+////            ：  D3DXVECTOR3& vCenter            // 中心
+////            ：  D3DXVECTOR3& vOffsetPos         // オフセット座標
+////            ：  Color color = 0xFFFFFFFF        // 色
+//// 戻値       ：なし
+//// 担当者     ：鴫原 徹
+//// 備考       ：
+////            ：
 ////
 SpriteObject::SpriteObject(
 	const LPDIRECT3DDEVICE9		pD3DDevice		,
@@ -465,45 +465,45 @@ SpriteObject::SpriteObject(
 	,PrimitiveSprite(pD3DDevice,pTexture,vScale,vRot,vPos,pRect,vCenter,vOffsetPos,color,bApplyAspect)
 {
 	try{
-		//	: �����}�g���b�N�X���v�Z
+		//	: 初期マトリックスを計算
 	}
 	catch(...){
 		SafeRelease(m_pSprite);
-		//�ăX���[
+		//再スロー
 		throw;
 	}
 
 };
 /////////////////// ////////////////////
-//// �֐���     �F~SpriteObject();
-//// �J�e�S��   �F�f�X�g���N�^
-//// �p�r       �F
-//// ����       �F�Ȃ�
-//// �ߒl       �F�Ȃ�
-//// �S����     �F���� �O
-//// ���l       �F
-////            �F
+//// 関数名     ：~SpriteObject();
+//// カテゴリ   ：デストラクタ
+//// 用途       ：
+//// 引数       ：なし
+//// 戻値       ：なし
+//// 担当者     ：鴫原 徹
+//// 備考       ：
+////            ：
 ////
 SpriteObject::~SpriteObject(){
 };
 /////////////////// ////////////////////
-//// �֐���     �Fvoid SpriteObject::Draw( LPDIRECT3DDEVICE9 pD3DDevice , vector<Object*>& Vec)
-//// �J�e�S��   �F���z�֐�
-//// �p�r       �F�X�v���C�g��`��
-//// ����       �F  LPDIRECT3DDEVICE9 pD3DDevice		//IDirect3DDevice9 �C���^�[�t�F�C�X�ւ̃|�C���^
-////            �F  vector<Object*>& Vec,				//�I�u�W�F�N�g�̔z��
-//// �ߒl       �F�Ȃ�
-//// �S����     �F���� �O
-//// ���l       �F
-////            �F
+//// 関数名     ：void SpriteObject::Draw( LPDIRECT3DDEVICE9 pD3DDevice , vector<Object*>& Vec)
+//// カテゴリ   ：仮想関数
+//// 用途       ：スプライトを描画
+//// 引数       ：  LPDIRECT3DDEVICE9 pD3DDevice		//IDirect3DDevice9 インターフェイスへのポインタ
+////            ：  vector<Object*>& Vec,				//オブジェクトの配列
+//// 戻値       ：なし
+//// 担当者     ：鴫原 徹
+//// 備考       ：
+////            ：
 ////
 void SpriteObject::Draw(DrawPacket& i_DrawPacket)
 {
-	//	: �`��͐e�N���X�ɔC����
+	//	: 描画は親クラスに任せる
 	PrimitiveSprite::Draw(i_DrawPacket);
 };
 /**************************************************************************
-  ��`��
+  定義部
 ***************************************************************************/
 namespace Avoidance{
 
@@ -514,40 +514,40 @@ RenderTargetSprite::RenderTargetSprite(BassPacket* i_BassPacket, UINT i_Width, U
 , Object(id)
 , PrimitiveSprite( i_BassPacket->GetDevice(),  NULL, NULL, g_vZero, g_vZero)
 {
-	//	: �e�N�X�`���𓮓I�ɐ�������i���U�S�O�s�N�Z���E�c�S�W�O�s�N�Z���A�R�Q�r�b�g�J���[�j
+	//	: テクスチャを動的に生成する（横６４０ピクセル・縦４８０ピクセル、３２ビットカラー）
 	//D3DXCreateTexture( i_BassPacket->pD3DDevice, i_Width, i_Height, 0, D3DUSAGE_RENDERTARGET, D3DFMT_A8R8G8B8, D3DPOOL_DEFAULT, &m_pTexture );
-	//i_BassPacket->pD3DDevice->CreateDepthStencilSurface( i_Width, i_Height, D3DFMT_D16, D3DMULTISAMPLE_NONE, 0, FALSE, &m_sfRenderTargetZ, NULL );	//	�[�x�o�b�t�@�𐶐�
-	//m_pTexture->GetSurfaceLevel( 0, &m_sfRenderTarget );																	//	�e�N�X�`������T�[�t�F�C�X���擾
+	//i_BassPacket->pD3DDevice->CreateDepthStencilSurface( i_Width, i_Height, D3DFMT_D16, D3DMULTISAMPLE_NONE, 0, FALSE, &m_sfRenderTargetZ, NULL );	//	深度バッファを生成
+	//m_pTexture->GetSurfaceLevel( 0, &m_sfRenderTarget );																	//	テクスチャからサーフェイスを取得
 
 
 }
 /////////////////// ////////////////////
-//// �p�r       �Fvirtual void TargetRender( LPDIRECT3DDEVICE9 pD3DDevice
-////            �F      vector<Object*>& Vec)
-//// �J�e�S��   �F���z�֐�
-//// �p�r       �F�I�u�W�F�N�g��`��
-//// ����       �F  LPDIRECT3DDEVICE9 pD3DDevice        // IDirect3DDevice9 �C���^�[�t�F�C�X�ւ̃|�C���^
-////            �F  vector<Object*>& Vec,               // �I�u�W�F�N�g�̔z��
-////            �F  Command i_DrawPacket.pCommand                         // �R�}���h
-//// �ߒl       �F�Ȃ�
-//// �S����     �F���� �O
-//// ���l       �F�p���������̂ł��K���Ƃ���`�����Ȃ��Ă��ǂ�
-////            �F
+//// 用途       ：virtual void TargetRender( LPDIRECT3DDEVICE9 pD3DDevice
+////            ：      vector<Object*>& Vec)
+//// カテゴリ   ：仮想関数
+//// 用途       ：オブジェクトを描画
+//// 引数       ：  LPDIRECT3DDEVICE9 pD3DDevice        // IDirect3DDevice9 インターフェイスへのポインタ
+////            ：  vector<Object*>& Vec,               // オブジェクトの配列
+////            ：  Command i_DrawPacket.pCommand                         // コマンド
+//// 戻値       ：なし
+//// 担当者     ：鴫原 徹
+//// 備考       ：継承したものでも必ずとも定義をしなくても良い
+////            ：
 ////
 void RenderTargetSprite::TargetRender( RenderPacket& i_RenderPacket ){
 
 	LPDIRECT3DDEVICE9 pd3dDevice = i_RenderPacket.GetDevice() ;
-    //	: ���݂̃����_�[�^�[�Q�b�g��ۑ�����
-    D3DVIEWPORT9		defaultViewport ;	//	��ʂ̕`��̈�Ɋւ���f�[�^
+    //	: 現在のレンダーターゲットを保存する
+    D3DVIEWPORT9		defaultViewport ;	//	画面の描画領域に関するデータ
     LPDIRECT3DSURFACE9	sfBackBuffer	= NULL,
     					sfBackBufferZ	= NULL ;
     pd3dDevice->GetViewport( &defaultViewport );
     pd3dDevice->GetRenderTarget( 0, &sfBackBuffer );
     pd3dDevice->GetDepthStencilSurface( &sfBackBufferZ );
     
-    //	: �V���������_�[�^�[�Q�b�g��ݒ肷��
-    //		�i�e�N�X�`���ɑ΂���`��ɐ؂�ւ���j
-	D3DVIEWPORT9	newViewport	= { 0, 0, m_ClientSize.cx, m_ClientSize.cy, 0.0f, 1.0f } ;	//	��ʂ̍���[���畝640����480��`��̈�ɂ���
+    //	: 新しいレンダーターゲットを設定する
+    //		（テクスチャに対する描画に切り替える）
+	D3DVIEWPORT9	newViewport	= { 0, 0, m_ClientSize.cx, m_ClientSize.cy, 0.0f, 1.0f } ;	//	画面の左上端から幅640高さ480を描画領域にする
     pd3dDevice->SetViewport( &newViewport );
     pd3dDevice->SetRenderTarget( 0, m_sfRenderTarget );
     pd3dDevice->SetDepthStencilSurface( m_sfRenderTargetZ );
@@ -558,7 +558,7 @@ void RenderTargetSprite::TargetRender( RenderPacket& i_RenderPacket ){
     // Render the scene
     if( SUCCEEDED( pd3dDevice->BeginScene() ) )
     {
-		//	: ���f���̕ϊ��s���ݒ�
+		//	: モデルの変換行列を設定
 		D3DXMATRIX	m ;
 		D3DXMatrixIdentity( &m );
 		pd3dDevice->SetTransform( D3DTS_WORLD, &m );
@@ -567,28 +567,28 @@ void RenderTargetSprite::TargetRender( RenderPacket& i_RenderPacket ){
         FAILED( pd3dDevice->EndScene() );
     }
     
-    //	: �����_�[�^�[�Q�b�g���o�b�N�o�b�t�@�ɖ߂�
+    //	: レンダーターゲットをバックバッファに戻す
     pd3dDevice->SetViewport( &defaultViewport );
     pd3dDevice->SetRenderTarget( 0, sfBackBuffer );
     pd3dDevice->SetDepthStencilSurface( sfBackBufferZ );
     
-    //	: �o�b�N�o�b�t�@��߂����̂ŁA�����͗p�ς�
+    //	: バックバッファを戻したので、これらは用済み
     SAFE_RELEASE( sfBackBuffer );
     SAFE_RELEASE( sfBackBufferZ );
 };
 
 /////////////////// ////////////////////
-//// �p�r       �Fvoid Draw( DrawPacket& i_DrawPacket )
-//// �J�e�S��   �F�֐�
-//// �p�r       �F�I�u�W�F�N�g���f�B�X�v���C�ɕ\������
-//// ����       �F  DrawPacket& i_DrawPacket             // ��ʕ`�掞�ɕK�v�ȃf�[�^�Q �����e���L
-////            �F  �� LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 �C���^�[�t�F�C�X�ւ̃|�C���^
-////            �F  �� vector<Object*>&    Vec                     // �I�u�W�F�N�g�̔z��
-////            �F  �� Tempus2*            i_DrawPacket.GetTime()	   // ���Ԃ��Ǘ�����N���X�ւ̃|�C���^�[
-////            �F  �� Command             i_DrawPacket.pCommand   // �R�}���h
-//// �ߒl       �F�Ȃ�
-//// �S����     �F���� �O
-//// ���l       �F
+//// 用途       ：void Draw( DrawPacket& i_DrawPacket )
+//// カテゴリ   ：関数
+//// 用途       ：オブジェクトをディスプレイに表示する
+//// 引数       ：  DrawPacket& i_DrawPacket             // 画面描画時に必要なデータ群 ↓内容下記
+////            ：  ├ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 インターフェイスへのポインタ
+////            ：  ├ vector<Object*>&    Vec                     // オブジェクトの配列
+////            ：  ├ Tempus2*            i_DrawPacket.GetTime()	   // 時間を管理するクラスへのポインター
+////            ：  └ Command             i_DrawPacket.pCommand   // コマンド
+//// 戻値       ：なし
+//// 担当者     ：鴫原 徹
+//// 備考       ：
 void RenderTargetSprite::Draw(DrawPacket& i_DrawPacket){
 	PrimitiveSprite::Draw(i_DrawPacket);
 }

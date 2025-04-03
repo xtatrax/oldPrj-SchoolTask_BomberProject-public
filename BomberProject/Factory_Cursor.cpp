@@ -1,13 +1,13 @@
 ////////////////////////////// //////////////////////////////
-//	ƒvƒƒWƒFƒNƒg	FBomberProject
-//	ƒtƒ@ƒCƒ‹–¼		FFactory_Mouse.cpp
-//	ŠJ”­ŠÂ‹«		FMSVC++ 2008
-//	Å“Kƒ^ƒu”		F4
-//	’S“–Ò			F‰g’n ‘å—m
-//  ˆøŒp‚¬			F°Œ´ “O
-//	•ÒW			F²“¡ —Á
-//	“à•ïÃŞ°À‚Æ”õl	FƒQ[ƒ€“àƒJ[ƒ\ƒ‹ŠÖ˜A
-//					¥
+//	ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆ	ï¼šBomberProject
+//	ãƒ•ã‚¡ã‚¤ãƒ«å		ï¼šFactory_Mouse.cpp
+//	é–‹ç™ºç’°å¢ƒ		ï¼šMSVC++ 2008
+//	æœ€é©ã‚¿ãƒ–æ•°		ï¼š4
+//	æ‹…å½“è€…			ï¼šæ›³åœ° å¤§æ´‹
+//  å¼•ç¶™ã			ï¼šé´«åŸ å¾¹
+//	ç·¨é›†			ï¼šä½è—¤ æ¶¼
+//	å†…åŒ…ãƒ‡ãƒ¼ã‚¿ã¨å‚™è€ƒ	ï¼šã‚²ãƒ¼ãƒ å†…ã‚«ãƒ¼ã‚½ãƒ«é–¢é€£
+//					â–¼
 //	namespace wiz;
 //		namespace bomberobject;
 //			class Factory_Mouse ;
@@ -23,17 +23,17 @@ namespace wiz{
 namespace bomberobject{
 
 /**************************************************************************
- MouseCursor ’è‹`•”
+ MouseCursor å®šç¾©éƒ¨
 ****************************************************************************/
 /**************************************************************************
  MouseCursor::MouseCursor(
-	LPDIRECT3DDEVICE9 pD3DDevice,	//ƒfƒoƒCƒX
-	LPTATRATEXTURE pTexture,	//ƒeƒNƒXƒ`ƒƒ
-	wiz::OBJID id					//ƒIƒuƒWƒFƒNƒg‚Ìí—Ş
+	LPDIRECT3DDEVICE9 pD3DDevice,	//ãƒ‡ãƒã‚¤ã‚¹
+	LPTATRATEXTURE pTexture,	//ãƒ†ã‚¯ã‚¹ãƒãƒ£
+	wiz::OBJID id					//ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ç¨®é¡
 );
- —p“r: ƒRƒ“ƒXƒgƒ‰ƒNƒ^
- –ß‚è’l: ‚È‚µ
- ’S“–F–{‘½Š°”V
+ ç”¨é€”: ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+ æˆ»ã‚Šå€¤: ãªã—
+ æ‹…å½“ï¼šæœ¬å¤šå¯›ä¹‹
 ***************************************************************************/
 MouseCursor::MouseCursor( LPDIRECT3DDEVICE9 pD3DDevice,  float fLineLength, float fPointSize,LPTATRATEXTURE pCenterPointTex)
 :Box( pD3DDevice, g_vOne, g_vZero, g_vZero, D3DCOLORVALUE(), D3DCOLORVALUE(), D3DCOLORVALUE(),  OBJID_SYS_CURSOR, false,  NULL )
@@ -79,13 +79,13 @@ MouseCursor::MouseCursor( LPDIRECT3DDEVICE9 pD3DDevice,  float fLineLength, floa
 }
 
 /////////////////// ////////////////////
-//// —p“r       F~MouseCursor();
-//// ƒJƒeƒSƒŠ   FƒRƒ“ƒXƒgƒ‰ƒNƒ^
-//// —p“r       F
-//// ˆø”       F
-//// –ß’l       F‚È‚µ
-//// ’S“–Ò     F°Œ´ “O
-//// ”õl       F
+//// ç”¨é€”       ï¼š~MouseCursor();
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+//// ç”¨é€”       ï¼š
+//// å¼•æ•°       ï¼š
+//// æˆ»å€¤       ï¼šãªã—
+//// æ‹…å½“è€…     ï¼šé´«åŸ å¾¹
+//// å‚™è€ƒ       ï¼š
 MouseCursor::~MouseCursor(){
 	m_MovePosY	= 0 ;
 	m_pCamera = ( NULL ) ;
@@ -95,19 +95,19 @@ MouseCursor::~MouseCursor(){
 
 
 /////////////////// ////////////////////
-//// —p“r       Fvoid Update( UpdatePacket& i_UpdatePacket )
-//// ƒJƒeƒSƒŠ   FŠÖ”
-//// —p“r       FƒIƒuƒWƒFƒNƒg‚ğXV
-//// ˆø”       F  UpdatePacket& i_UpdatePacket     // ƒAƒbƒvƒf[ƒg‚É•K—v‚Èƒf[ƒ^ŒQ «“à—e‰º‹L
-////            F  „¥       LPDIRECT3DDEVICE9  pD3DDevice      // IDirect3DDevice9 ƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-////            F  „¥       Tempus2*           pTime           // ŠÔ‚ğŠÇ—‚·‚éƒNƒ‰ƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^[
-////            F  „¥       vector<Object*>&   Vec,            // ƒIƒuƒWƒFƒNƒg‚Ì”z—ñ
-////            F  „¥ const CONTROLER_STATE*   pCntlState      // ƒRƒ“ƒgƒ[ƒ‰‚ÌƒXƒe[ƒ^ƒX
-////            F  „¤       Command            pCommand        // ƒRƒ}ƒ“ƒh
-//// –ß’l       F‚È‚µ
-//// ’S“–Ò     F°Œ´ “O
-//// ”õl       F
-////            F
+//// ç”¨é€”       ï¼švoid Update( UpdatePacket& i_UpdatePacket )
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šé–¢æ•°
+//// ç”¨é€”       ï¼šã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’æ›´æ–°
+//// å¼•æ•°       ï¼š  UpdatePacket& i_UpdatePacket     // ã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆæ™‚ã«å¿…è¦ãªãƒ‡ãƒ¼ã‚¿ç¾¤ â†“å†…å®¹ä¸‹è¨˜
+////            ï¼š  â”œ       LPDIRECT3DDEVICE9  pD3DDevice      // IDirect3DDevice9 ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+////            ï¼š  â”œ       Tempus2*           pTime           // æ™‚é–“ã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿ãƒ¼
+////            ï¼š  â”œ       vector<Object*>&   Vec,            // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®é…åˆ—
+////            ï¼š  â”œ const CONTROLER_STATE*   pCntlState      // ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹
+////            ï¼š  â””       Command            pCommand        // ã‚³ãƒãƒ³ãƒ‰
+//// æˆ»å€¤       ï¼šãªã—
+//// æ‹…å½“è€…     ï¼šé´«åŸ å¾¹
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
 void MouseCursor::Update( UpdatePacket& i_UpdatePacket ){
 	if( !m_pCoil   ) m_pCoil = (PlayerCoil*)i_UpdatePacket.SearchObjectFromID(OBJID_3D_COIL);
@@ -117,7 +117,7 @@ void MouseCursor::Update( UpdatePacket& i_UpdatePacket ){
 	}
 
 
-	//	: ƒ}ƒEƒX‚Ì2DÀ•W‚ğƒAƒbƒvƒf[ƒg
+	//	: ãƒã‚¦ã‚¹ã®2Dåº§æ¨™ã‚’ã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆ
 	Update2DPos();
 
 	Update3DPos();
@@ -129,7 +129,7 @@ void MouseCursor::Update( UpdatePacket& i_UpdatePacket ){
 	m_Line.setMatrix( m_mMatrix );
 	m_Line2.setMatrix( m_mMatrix );
 
-	//	: ƒ|ƒCƒ“ƒg‚ÌXV***********************************************
+	//	: ãƒã‚¤ãƒ³ãƒˆã®æ›´æ–°***********************************************
 	D3DXMATRIX mMatrix, mPos, mScale2 ;
 	D3DXMatrixScaling( &mScale2, m_vScale.x, m_vScale.y, 0.0f);
 	D3DXMatrixTranslation( &mPos, (float)m_v2DPos.x, (float)m_v2DPos.y, 0.0f);
@@ -162,17 +162,17 @@ void MouseCursor::Update( UpdatePacket& i_UpdatePacket ){
 }
 
 /////////////////// ////////////////////
-//// —p“r       Fvoid Draw( DrawPacket& i_DrawPacket )
-//// ƒJƒeƒSƒŠ   FŠÖ”
-//// —p“r       FƒIƒuƒWƒFƒNƒg‚ğƒfƒBƒXƒvƒŒƒC‚É•\¦‚·‚é
-//// ˆø”       F  DrawPacket& i_DrawPacket             // ‰æ–Ê•`‰æ‚É•K—v‚Èƒf[ƒ^ŒQ «“à—e‰º‹L
-////            F  „¥ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 ƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-////            F  „¥ vector<Object*>&    Vec                     // ƒIƒuƒWƒFƒNƒg‚Ì”z—ñ
-////            F  „¥ Tempus2*            i_DrawPacket.GetTime()	   // ŠÔ‚ğŠÇ—‚·‚éƒNƒ‰ƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^[
-////            F  „¤ Command             i_DrawPacket.pCommand   // ƒRƒ}ƒ“ƒh
-//// –ß’l       F‚È‚µ
-//// ’S“–Ò     F–{‘½Š°”V
-//// ”õl       F
+//// ç”¨é€”       ï¼švoid Draw( DrawPacket& i_DrawPacket )
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šé–¢æ•°
+//// ç”¨é€”       ï¼šã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ãƒ‡ã‚£ã‚¹ãƒ—ãƒ¬ã‚¤ã«è¡¨ç¤ºã™ã‚‹
+//// å¼•æ•°       ï¼š  DrawPacket& i_DrawPacket             // ç”»é¢æç”»æ™‚ã«å¿…è¦ãªãƒ‡ãƒ¼ã‚¿ç¾¤ â†“å†…å®¹ä¸‹è¨˜
+////            ï¼š  â”œ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+////            ï¼š  â”œ vector<Object*>&    Vec                     // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®é…åˆ—
+////            ï¼š  â”œ Tempus2*            i_DrawPacket.GetTime()	   // æ™‚é–“ã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿ãƒ¼
+////            ï¼š  â”” Command             i_DrawPacket.pCommand   // ã‚³ãƒãƒ³ãƒ‰
+//// æˆ»å€¤       ï¼šãªã—
+//// æ‹…å½“è€…     ï¼šæœ¬å¤šå¯›ä¹‹
+//// å‚™è€ƒ       ï¼š
 ////
 void MouseCursor::Draw(DrawPacket& i_DrawPacket)
 {
@@ -184,24 +184,24 @@ void MouseCursor::Draw(DrawPacket& i_DrawPacket)
 	if(m_pCamera)m_pTorus->Draw(i_DrawPacket);
 }
 /////////////////// ////////////////////
-//// —p“r       Fvoid MouseCursor::Update2DPos()
-//// ƒJƒeƒSƒŠ   FŠÖ”
-//// —p“r       FƒXƒNƒŠ[ƒ“À•Wã‚Ìƒ}ƒEƒX‚ÌˆÊ’u‚ğXV‚·‚é
-//// ˆø”       F‚È‚µ
-//// –ß’l       F‚È‚µ
-//// ’S“–Ò     F°Œ´ “O
-//// ”õl       F
+//// ç”¨é€”       ï¼švoid MouseCursor::Update2DPos()
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šé–¢æ•°
+//// ç”¨é€”       ï¼šã‚¹ã‚¯ãƒªãƒ¼ãƒ³åº§æ¨™ä¸Šã®ãƒã‚¦ã‚¹ã®ä½ç½®ã‚’æ›´æ–°ã™ã‚‹
+//// å¼•æ•°       ï¼šãªã—
+//// æˆ»å€¤       ï¼šãªã—
+//// æ‹…å½“è€…     ï¼šé´«åŸ å¾¹
+//// å‚™è€ƒ       ï¼š
 ////
 void MouseCursor::Update2DPos(){
-	//	: ƒJ[ƒ\ƒ‹‚Ìİ’è
-	//	: ƒ}ƒEƒX‚ÌƒNƒ‰ƒCƒAƒ“ƒgÀ•W‚ğŠl“¾
+	//	: ã‚«ãƒ¼ã‚½ãƒ«ã®è¨­å®š
+	//	: ãƒã‚¦ã‚¹ã®ã‚¯ãƒ©ã‚¤ã‚¢ãƒ³ãƒˆåº§æ¨™ã‚’ç²å¾—
 	m_v2DPos = Cursor2D::getPos();
 
-	//	: À•W‚ÌXV
+	//	: åº§æ¨™ã®æ›´æ–°
 	D3DXMATRIX mPos ;
 	D3DXMatrixTranslation( &mPos, (float)m_v2DPos.x, (float)m_v2DPos.y, 0.0f);
 	//////////
-	//	: ‚Í‚ñ‚Ä‚ñ
+	//	: ã¯ã‚“ã¦ã‚“
 	D3DXMATRIX mScale ;
 	if( m_bIsReverse ){
 		if(m_pCoil){
@@ -240,20 +240,20 @@ void MouseCursor::Update2DPos(){
 		D3DXMatrixScaling(&mScale, 1.0f,1.0f,1.0f);
 		D3DXMatrixMultiply(&mScale,&m_mScale,&mScale);
 	}
-	//	: ‚Í‚ñ‚Ä‚ñ
+	//	: ã¯ã‚“ã¦ã‚“
 	//////////
 
-	//	: s—ñ‚ÌZo
+	//	: è¡Œåˆ—ã®ç®—å‡º
 	m_mMatrix = mScale * mPos ;
 }
 /////////////////// ////////////////////
-//// —p“r       Fvoid MouseCursor::Update3DPos()
-//// ƒJƒeƒSƒŠ   FŠÖ”
-//// —p“r       F3DÀ•Wã‚Ìƒ}ƒEƒX‚ÌˆÊ’u‚ğXV‚·‚é
-//// ˆø”       F‚È‚µ
-//// –ß’l       F‚È‚µ
-//// ’S“–Ò     F°Œ´ “O
-//// ”õl       F
+//// ç”¨é€”       ï¼švoid MouseCursor::Update3DPos()
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šé–¢æ•°
+//// ç”¨é€”       ï¼š3Dåº§æ¨™ä¸Šã®ãƒã‚¦ã‚¹ã®ä½ç½®ã‚’æ›´æ–°ã™ã‚‹
+//// å¼•æ•°       ï¼šãªã—
+//// æˆ»å€¤       ï¼šãªã—
+//// æ‹…å½“è€…     ï¼šé´«åŸ å¾¹
+//// å‚™è€ƒ       ï¼š
 ////
 void MouseCursor::Update3DPos(){
 	if( !m_pCamera )return;
@@ -268,16 +268,16 @@ void MouseCursor::Update3DPos(){
 	//Box::CalcWorldMatrix();
 }
 /**************************************************************************
- Factory_Cursor ’è‹`•”
+ Factory_Cursor å®šç¾©éƒ¨
 ****************************************************************************/
 /**************************************************************************
  Factory_Cursor::Factory_Cursor(
-	LPDIRECT3DDEVICE9 pD3DDevice,	//ƒfƒoƒCƒX
-	vector<Object*>& vec,			//ƒIƒuƒWƒFƒNƒg‚Ì”z—ñ
-	TextureManager& TexMgr		//ƒeƒNƒXƒ`ƒƒ‚Ì”z—ñ
+	LPDIRECT3DDEVICE9 pD3DDevice,	//ãƒ‡ãƒã‚¤ã‚¹
+	vector<Object*>& vec,			//ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®é…åˆ—
+	TextureManager& TexMgr		//ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®é…åˆ—
 );
- —p“r: ƒRƒ“ƒXƒgƒ‰ƒNƒ^iƒTƒ“ƒvƒ‹ƒIƒuƒWƒFƒNƒg‚ğ”z—ñ‚É’Ç‰Á‚·‚éj
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ï¼ˆã‚µãƒ³ãƒ—ãƒ«ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’é…åˆ—ã«è¿½åŠ ã™ã‚‹ï¼‰
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
 Factory_Cursor::Factory_Cursor(FactoryPacket* fpac, float fLineLength, float fPointSize)
 {
@@ -298,18 +298,18 @@ Factory_Cursor::Factory_Cursor(FactoryPacket* fpac, float fLineLength, float fPo
 
 	}
 	catch(...){
-		//Äthrow
+		//å†throw
 		throw;
 	}
 
 }
 /**************************************************************************
  Factory_Cursor::~Factory_Cursor();
- —p“r: ƒfƒXƒgƒ‰ƒNƒ^
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
 Factory_Cursor::~Factory_Cursor(){
-    //‚È‚É‚à‚µ‚È‚¢
+    //ãªã«ã‚‚ã—ãªã„
 }
 
 }

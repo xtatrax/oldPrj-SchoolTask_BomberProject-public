@@ -1,11 +1,11 @@
 ////////////////////////////// //////////////////////////////
-//	ƒvƒƒWƒFƒNƒg	FBomberProject
-//	ƒtƒ@ƒCƒ‹–¼		FFactory_DeadEffect.cpp
-//	ŠJ”­ŠÂ‹«		FMSVC++ 2008
-//	Å“Kƒ^ƒu”		F4
-//	’S“–ŽÒ			F²“¡—Á
-//	“à•ïÃÞ°À‚Æ”õl	F”šŽUƒGƒtƒFƒNƒg
-//					¥
+//	ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆ	ï¼šBomberProject
+//	ãƒ•ã‚¡ã‚¤ãƒ«å		ï¼šFactory_DeadEffect.cpp
+//	é–‹ç™ºç’°å¢ƒ		ï¼šMSVC++ 2008
+//	æœ€é©ã‚¿ãƒ–æ•°		ï¼š4
+//	æ‹…å½“è€…			ï¼šä½è—¤æ¶¼
+//	å†…åŒ…ãƒ‡ãƒ¼ã‚¿ã¨å‚™è€ƒ	ï¼šçˆ†æ•£ã‚¨ãƒ•ã‚§ã‚¯ãƒˆ
+//					â–¼
 //	namespace wiz;
 //		class DeadEffect ;
 //
@@ -26,8 +26,8 @@ const int PARTICLS_NUM	= 50;
 /**************************************************************************
 class DeadEffect;
 
-—p“r@Fà–¾•¶‚Ì‘}“ü
-’S“–ŽÒF²“¡—Á
+ç”¨é€”ã€€ï¼šèª¬æ˜Žæ–‡ã®æŒ¿å…¥
+æ‹…å½“è€…ï¼šä½è—¤æ¶¼
 **************************************************************************/
 class DeadEffect : public PrimitiveBox{
 
@@ -39,19 +39,19 @@ class DeadEffect : public PrimitiveBox{
 		virtual ~EffectItem(){}
 	};
 
-	multimap<float,EffectItem*>		m_ItemMap_Target	;	//•`‰æ‘ÎÛ‚ÌWallItem
+	multimap<float,EffectItem*>		m_ItemMap_Target	;	//æç”»å¯¾è±¡ã®WallItem
 
 public:
 	/////////////////// ////////////////////
-	//// —p“r       FDescription(	LPDIRECT3DDEVICE9 pD3DDevice,LPTATRATEXTURE pTexture,wiz::OBJID id = OBJID_3D_WALL);
-	//// ƒJƒeƒSƒŠ   FƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	//// —p“r       F
-	//// ˆø”       FLPDIRECT3DDEVICE9 pD3DDevice //ƒfƒoƒCƒX
-	////			  : LPTATRATEXTURE pTexture  //ƒeƒNƒXƒ`ƒƒ
+	//// ç”¨é€”       ï¼šDescription(	LPDIRECT3DDEVICE9 pD3DDevice,LPTATRATEXTURE pTexture,wiz::OBJID id = OBJID_3D_WALL);
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	//// ç”¨é€”       ï¼š
+	//// å¼•æ•°       ï¼šLPDIRECT3DDEVICE9 pD3DDevice //ãƒ‡ãƒã‚¤ã‚¹
+	////			  : LPTATRATEXTURE pTexture  //ãƒ†ã‚¯ã‚¹ãƒãƒ£
 	////			  : pTexture,wiz::OBJID id = OBJID_3D_WALL //ID
-	//// –ß’l       F‚È‚µ
-	//// ’S“–ŽÒ     F²“¡—Á
-	//// ”õl       F
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“è€…     ï¼šä½è—¤æ¶¼
+	//// å‚™è€ƒ       ï¼š
 	DeadEffect(LPDIRECT3DDEVICE9	pD3DDevice,
 				LPTATRATEXTURE	pTexture,
 				D3DXVECTOR3			vPos,
@@ -62,28 +62,28 @@ public:
 
 	void	addEffect( D3DXVECTOR3 vPos,float fDir );
 	/////////////////// ////////////////////
-	//// —p“r       Fvoid Draw( DrawPacket& i_DrawPacket )
-	//// ƒJƒeƒSƒŠ   FŠÖ”
-	//// —p“r       FƒIƒuƒWƒFƒNƒg‚ðƒfƒBƒXƒvƒŒƒC‚É•\Ž¦‚·‚é
-	//// ˆø”       F  DrawPacket& i_DrawPacket             // ‰æ–Ê•`‰æŽž‚É•K—v‚Èƒf[ƒ^ŒQ «“à—e‰º‹L
-	////            F  „¥ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 ƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-	////            F  „¥ vector<Object*>&    Vec                     // ƒIƒuƒWƒFƒNƒg‚Ì”z—ñ
-	////            F  „¥ Tempus2*            i_DrawPacket.GetTime()	   // ŽžŠÔ‚ðŠÇ—‚·‚éƒNƒ‰ƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^[
-	////            F  „¤ Command             i_DrawPacket.pCommand   // ƒRƒ}ƒ“ƒh
-	//// –ß’l       F‚È‚µ
-	//// ’S“–ŽÒ     F²“¡—Á
-	//// ”õl       F
+	//// ç”¨é€”       ï¼švoid Draw( DrawPacket& i_DrawPacket )
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šé–¢æ•°
+	//// ç”¨é€”       ï¼šã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ãƒ‡ã‚£ã‚¹ãƒ—ãƒ¬ã‚¤ã«è¡¨ç¤ºã™ã‚‹
+	//// å¼•æ•°       ï¼š  DrawPacket& i_DrawPacket             // ç”»é¢æç”»æ™‚ã«å¿…è¦ãªãƒ‡ãƒ¼ã‚¿ç¾¤ â†“å†…å®¹ä¸‹è¨˜
+	////            ï¼š  â”œ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+	////            ï¼š  â”œ vector<Object*>&    Vec                     // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®é…åˆ—
+	////            ï¼š  â”œ Tempus2*            i_DrawPacket.GetTime()	   // æ™‚é–“ã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿ãƒ¼
+	////            ï¼š  â”” Command             i_DrawPacket.pCommand   // ã‚³ãƒžãƒ³ãƒ‰
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“è€…     ï¼šä½è—¤æ¶¼
+	//// å‚™è€ƒ       ï¼š
 	void Draw( DrawPacket& i_DrawPacket );
 
 	/////////////////// ////////////////////
-	//// —p“r       Fvoid update( int i )
-	//// ƒJƒeƒSƒŠ   FŠÖ”
-	//// —p“r       FƒIƒuƒWƒFƒNƒg‚ðXV
-	//// ˆø”       F
-	//// –ß’l       F‚È‚µ
-	//// ’S“–ŽÒ     F²“¡—Á
-	//// ”õl       F
-	////            F
+	//// ç”¨é€”       ï¼švoid update( int i )
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šé–¢æ•°
+	//// ç”¨é€”       ï¼šã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’æ›´æ–°
+	//// å¼•æ•°       ï¼š
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“è€…     ï¼šä½è—¤æ¶¼
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
 	void Update( UpdatePacket& i_UpdatePacket );
 
@@ -98,21 +98,21 @@ public:
 /**************************************************************************
 class Factory_DeadEffct;
 
-—p“r@FƒƒCƒ“HêƒNƒ‰ƒX
-’S“–ŽÒF²“¡—Á
+ç”¨é€”ã€€ï¼šãƒ¡ã‚¤ãƒ³å·¥å ´ã‚¯ãƒ©ã‚¹
+æ‹…å½“è€…ï¼šä½è—¤æ¶¼
 ****************************************************************************/
 class Factory_DeadEffect{
 public:
 /**************************************************************************
  Factory_DeadEffct(FactoryPacket* fpac);
- —p“r: ƒRƒ“ƒXƒgƒ‰ƒNƒ^iƒTƒ“ƒvƒ‹ƒIƒuƒWƒFƒNƒg‚ð”z—ñ‚É’Ç‰Á‚·‚éj
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ï¼ˆã‚µãƒ³ãƒ—ãƒ«ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’é…åˆ—ã«è¿½åŠ ã™ã‚‹ï¼‰
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
 	Factory_DeadEffect(FactoryPacket* fpac);
 /**************************************************************************
  ~MyFactory();
- —p“r: ƒfƒXƒgƒ‰ƒNƒ^
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
 	~Factory_DeadEffect();
 };

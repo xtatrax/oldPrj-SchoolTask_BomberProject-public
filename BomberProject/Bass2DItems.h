@@ -1,11 +1,11 @@
 ////////////////////////////// //////////////////////////////
-//	ƒvƒƒWƒFƒNƒg	FDirectX Program Bass Project
-//	ƒtƒ@ƒCƒ‹–¼		FBassI2Dtems.h
-//	ŠJ”­ŠÂ‹«		FMSVC++ 2008
-//	Å“Kƒ^ƒu”		F4
-//	’S“–ŽÒ			Ftatra
-//	“à•ïÃÞ°À‚Æ”õl	FŽå‚ÉUIŽü‚è‚ÌŠî–{‚Æ‚È‚é2D“IƒNƒ‰ƒX
-//					¥
+//	ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆ	ï¼šDirectX Program Bass Project
+//	ãƒ•ã‚¡ã‚¤ãƒ«å		ï¼šBassI2Dtems.h
+//	é–‹ç™ºç’°å¢ƒ		ï¼šMSVC++ 2008
+//	æœ€é©ã‚¿ãƒ–æ•°		ï¼š4
+//	æ‹…å½“è€…			ï¼štatra
+//	å†…åŒ…ãƒ‡ãƒ¼ã‚¿ã¨å‚™è€ƒ	ï¼šä¸»ã«UIå‘¨ã‚Šã®åŸºæœ¬ã¨ãªã‚‹2Dçš„ã‚¯ãƒ©ã‚¹
+//					â–¼
 //	namespace wiz;
 //
 //
@@ -18,7 +18,7 @@ namespace base2Dobject{
 class PrimitiveSprite;
 extern LRESULT CALLBACK WindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 extern class MouseUtilityCushion ;
-/*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*/
+/*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*/
 class Cursor2D{
 	
 	static Point		m_vMousePoint	;
@@ -49,28 +49,28 @@ public:
 
 
 
-/*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*/
+/*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*/
 
 
 //**************************************************************************
 // class PrimitiveSprite ;
 //
-// ’S“–ŽÒ  : Ž°Œ´ “O
-// —p“r    : ‚QDŠÂ‹«‚ÌƒXƒvƒ‰ƒCƒgƒNƒ‰ƒX
+// æ‹…å½“è€…  : é´«åŽŸ å¾¹
+// ç”¨é€”    : ï¼’Dç’°å¢ƒã®ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã‚¯ãƒ©ã‚¹
 //**************************************************************************
 class PrimitiveSprite {
 	friend class Cursor2D;
 protected:
-	static LPD3DXSPRITE	m_pSprite			;	//	: •`‰æ‚·‚é‚½‚ß‚ÌƒXƒvƒ‰ƒCƒg
-	static DWORD		m_dwMyInstanceQty	;	//	: ‚±‚ÌƒNƒ‰ƒX‚ÌƒCƒ“ƒXƒ^ƒ“ƒX”
-	LPTATRATEXTURE		m_pTexture			;	//	: •`‰æ‚·‚éƒeƒNƒXƒ`ƒƒ
-	D3DXMATRIX			m_mMatrix			;	//	: ƒ}ƒgƒŠƒbƒNƒX (”h¶ƒNƒ‰ƒX‚Í‚±‚±‚ÉÀ•Wƒf[ƒ^‚ð“ü‚ê‚é)
-	D3DXVECTOR3			m_vOffsetPos		;	//	: ƒeƒNƒXƒ`ƒƒ[‚Ì•`‰æƒIƒtƒZƒbƒg(Šî–{‚Í‚O’l“_);
-	D3DXVECTOR3			m_vCenter			;	//	: ƒeƒNƒXƒ`ƒƒ[‚Ì’†S
-	Rect*				m_pRect				;	//	: ƒeƒNƒXƒ`ƒƒ[‚Ì•`‰æ—Ìˆæ
+	static LPD3DXSPRITE	m_pSprite			;	//	: æç”»ã™ã‚‹ãŸã‚ã®ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆ
+	static DWORD		m_dwMyInstanceQty	;	//	: ã“ã®ã‚¯ãƒ©ã‚¹ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹æ•°
+	LPTATRATEXTURE		m_pTexture			;	//	: æç”»ã™ã‚‹ãƒ†ã‚¯ã‚¹ãƒãƒ£
+	D3DXMATRIX			m_mMatrix			;	//	: ãƒžãƒˆãƒªãƒƒã‚¯ã‚¹ (æ´¾ç”Ÿã‚¯ãƒ©ã‚¹ã¯ã“ã“ã«åº§æ¨™ãƒ‡ãƒ¼ã‚¿ã‚’å…¥ã‚Œã‚‹)
+	D3DXVECTOR3			m_vOffsetPos		;	//	: ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒ¼ã®æç”»ã‚ªãƒ•ã‚»ãƒƒãƒˆ(åŸºæœ¬ã¯ï¼å€¤ç‚¹);
+	D3DXVECTOR3			m_vCenter			;	//	: ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒ¼ã®ä¸­å¿ƒ
+	Rect*				m_pRect				;	//	: ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒ¼ã®æç”»é ˜åŸŸ
 	Color				m_Color				;
 	bool				m_bApplyAspect		;
-	//‰¼
+	//ä»®
 	PrimitiveSprite(){};
 public:
 	D3DXMATRIX getAspectMatrix() const{
@@ -88,22 +88,22 @@ public:
 	void setMatrix( D3DXMATRIX i_mMatrix ){ m_mMatrix = i_mMatrix ; }
 	D3DXMATRIX getMatrix(  ){ return m_mMatrix  ; }
 /////////////////// ////////////////////
-//// ŠÖ”–¼     FPrimitiveSprite(LPDIRECT3DDEVICE9 pD3DDevice,LPTATRATEXTURE pTexture,Rect* Rect,
-////            F    D3DXVECTOR3& vCenter,D3DXVECTOR3& vOffsetPos,D3DCOLOR color = 0xFFFFFFFF);
-//// ƒJƒeƒSƒŠ   FƒRƒ“ƒXƒgƒ‰ƒNƒ^
-//// —p“r       FƒXƒvƒ‰ƒCƒg‚ðì¬
-//// ˆø”       F  const LPDIRECT3DDEVICE9     pD3DDevice       //  : Device
-////            F  const LPTATRATEXTURE        pTexture         //  : ƒeƒNƒXƒ`ƒƒ[
-////            F  const Rect*                 pRect            //  : •`‰æ‚µ‚½‚¢”ÍˆÍ‚Ì‹éŒ`
-////            F  const D3DXVECTOR3&          vCenter          //  : ’†S‚É‚È‚é“_‚ÌÀ•W
-////            F  const D3DXVECTOR3&          vOffsetPos       //  : ƒIƒtƒZƒbƒg
-////            F  const Color                 color            //  : F
-////            F  const bool                  bApplyAspect     //  : [¦’Êí‚Í•K‚¸true‚É‚µ‚Ä‚­‚¾‚³‚¢!]Ž©“®‚Å‰ð‘œ“x•ÏX‚É“K‰ž‚·‚é‚©‚Ç‚¤‚©
-//// –ß’l       F‚È‚µ
-//// ’S“–ŽÒ     FŽ°Œ´ “O
-//// ”õl       Fx0 y0‚ÌˆÊ’u‚ÉŠÈ’P‚É‚à‚Ì‚ð•`‰æ‚µ‚½‚¢‚Æ‚«‚É‚×‚ñ‚è¡
-////            FbApplyAspect‚Í’ÊíŽž‚Í•K‚¸true‚É‚µ‚Ä‚¨‚¢‚Ä‚­‚¾‚³‚¢
-////            F
+//// é–¢æ•°å     ï¼šPrimitiveSprite(LPDIRECT3DDEVICE9 pD3DDevice,LPTATRATEXTURE pTexture,Rect* Rect,
+////            ï¼š    D3DXVECTOR3& vCenter,D3DXVECTOR3& vOffsetPos,D3DCOLOR color = 0xFFFFFFFF);
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+//// ç”¨é€”       ï¼šã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã‚’ä½œæˆ
+//// å¼•æ•°       ï¼š  const LPDIRECT3DDEVICE9     pD3DDevice       //  : Device
+////            ï¼š  const LPTATRATEXTURE        pTexture         //  : ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒ¼
+////            ï¼š  const Rect*                 pRect            //  : æç”»ã—ãŸã„ç¯„å›²ã®çŸ©å½¢
+////            ï¼š  const D3DXVECTOR3&          vCenter          //  : ä¸­å¿ƒã«ãªã‚‹ç‚¹ã®åº§æ¨™
+////            ï¼š  const D3DXVECTOR3&          vOffsetPos       //  : ã‚ªãƒ•ã‚»ãƒƒãƒˆ
+////            ï¼š  const Color                 color            //  : è‰²
+////            ï¼š  const bool                  bApplyAspect     //  : [â€»é€šå¸¸ã¯å¿…ãštrueã«ã—ã¦ãã ã•ã„!]è‡ªå‹•ã§è§£åƒåº¦å¤‰æ›´ã«é©å¿œã™ã‚‹ã‹ã©ã†ã‹
+//// æˆ»å€¤       ï¼šãªã—
+//// æ‹…å½“è€…     ï¼šé´«åŽŸ å¾¹
+//// å‚™è€ƒ       ï¼šx0 y0ã®ä½ç½®ã«ç°¡å˜ã«ã‚‚ã®ã‚’æç”»ã—ãŸã„ã¨ãã«ã¹ã‚“ã‚Šã€‚
+////            ï¼šbApplyAspectã¯é€šå¸¸æ™‚ã¯å¿…ãštrueã«ã—ã¦ãŠã„ã¦ãã ã•ã„
+////            ï¼š
 ////
 	PrimitiveSprite(
 		const LPDIRECT3DDEVICE9		pD3DDevice	,
@@ -115,21 +115,21 @@ public:
 		const bool					bApplyAspect= true
 	);
 /////////////////// ////////////////////
-//// ŠÖ”–¼     F
-//// ƒJƒeƒSƒŠ   FƒRƒ“ƒXƒgƒ‰ƒNƒ^
-//// —p“r       FƒXƒvƒ‰ƒCƒg‚ðì¬
-//// ˆø”       F  LPDIRECT3DDEVICE9 pD3DDevice,	//	: ƒfƒoƒCƒX
-////            F  LPTATRATEXTURE pTexture,	//	: ƒeƒNƒXƒ`ƒƒ[‚Ö‚Ìƒ|ƒCƒ“ƒ^
-////            F  Rect*			Rect,			//	: ƒeƒNƒXƒ`ƒƒ‚Ì•`‰æ”ÍˆÍ
-////            F  D3DXVECTOR3&	vCenter,		//	: ’†SˆÊ’u
-////            F  D3DXVECTOR3&	vOffsetPos,		//	: ƒ[ƒJƒ‹À•W
-////            F  D3DCOLOR		color			//	: F
-////            F  const bool      bApplyAspect    //  : [¦’Êí‚Í•K‚¸true‚É‚µ‚Ä‚­‚¾‚³‚¢!]Ž©“®‚Å‰ð‘œ“x•ÏX‚É“K‰ž‚·‚é‚©‚Ç‚¤‚©
-//// –ß’l       F‚È‚µ
-//// ’S“–ŽÒ     FŽ°Œ´ “O
-//// ”õl       F‚Æ‚è‚ ‚¦‚¸“K“–‚ÉUI‚ð•`‰æ‚µ‚½‚¢Žž‚Æ‚©‚É‚×‚ñ‚è¡
-////            FbApplyAspect‚Í’ÊíŽž‚Í•K‚¸true‚É‚µ‚Ä‚¨‚¢‚Ä‚­‚¾‚³‚¢
-////            F
+//// é–¢æ•°å     ï¼š
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+//// ç”¨é€”       ï¼šã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã‚’ä½œæˆ
+//// å¼•æ•°       ï¼š  LPDIRECT3DDEVICE9 pD3DDevice,	//	: ãƒ‡ãƒã‚¤ã‚¹
+////            ï¼š  LPTATRATEXTURE pTexture,	//	: ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒ¼ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+////            ï¼š  Rect*			Rect,			//	: ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®æç”»ç¯„å›²
+////            ï¼š  D3DXVECTOR3&	vCenter,		//	: ä¸­å¿ƒä½ç½®
+////            ï¼š  D3DXVECTOR3&	vOffsetPos,		//	: ãƒ­ãƒ¼ã‚«ãƒ«åº§æ¨™
+////            ï¼š  D3DCOLOR		color			//	: è‰²
+////            ï¼š  const bool      bApplyAspect    //  : [â€»é€šå¸¸ã¯å¿…ãštrueã«ã—ã¦ãã ã•ã„!]è‡ªå‹•ã§è§£åƒåº¦å¤‰æ›´ã«é©å¿œã™ã‚‹ã‹ã©ã†ã‹
+//// æˆ»å€¤       ï¼šãªã—
+//// æ‹…å½“è€…     ï¼šé´«åŽŸ å¾¹
+//// å‚™è€ƒ       ï¼šã¨ã‚Šã‚ãˆãšé©å½“ã«UIã‚’æç”»ã—ãŸã„æ™‚ã¨ã‹ã«ã¹ã‚“ã‚Šã€‚
+////            ï¼šbApplyAspectã¯é€šå¸¸æ™‚ã¯å¿…ãštrueã«ã—ã¦ãŠã„ã¦ãã ã•ã„
+////            ï¼š
 ////
 	PrimitiveSprite(
 		const LPDIRECT3DDEVICE9		pD3DDevice	,
@@ -145,26 +145,26 @@ public:
 	);
 
 /////////////////// ////////////////////
-//// ŠÖ”–¼     Fvirtual ~PrimitiveSprite()
-//// ƒJƒeƒSƒŠ   FƒfƒXƒgƒ‰ƒNƒ^
-//// —p“r       F
-//// ˆø”       F‚È‚µ
-//// –ß’l       F‚È‚µ
-//// ’S“–ŽÒ     FŽ°Œ´ “O
-//// ”õl       F
-////            F
+//// é–¢æ•°å     ï¼švirtual ~PrimitiveSprite()
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+//// ç”¨é€”       ï¼š
+//// å¼•æ•°       ï¼šãªã—
+//// æˆ»å€¤       ï¼šãªã—
+//// æ‹…å½“è€…     ï¼šé´«åŽŸ å¾¹
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
 	virtual ~PrimitiveSprite();
 /////////////////// ////////////////////
-//// ŠÖ”–¼     Fvoid Draw( LPDIRECT3DDEVICE9 pD3DDevice , vector<Object*>& Vec)
-//// ƒJƒeƒSƒŠ   F‰¼‘zŠÖ”
-//// —p“r       FƒXƒvƒ‰ƒCƒg‚ð•`‰æ
-//// ˆø”       F  LPDIRECT3DDEVICE9 pD3DDevice		//IDirect3DDevice9 ƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-////            F  vector<Object*>& Vec,				//ƒIƒuƒWƒFƒNƒg‚Ì”z—ñ
-//// –ß’l       F‚È‚µ
-//// ’S“–ŽÒ     FŽ°Œ´ “O
-//// ”õl       F
-////            F
+//// é–¢æ•°å     ï¼švoid Draw( LPDIRECT3DDEVICE9 pD3DDevice , vector<Object*>& Vec)
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šä»®æƒ³é–¢æ•°
+//// ç”¨é€”       ï¼šã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã‚’æç”»
+//// å¼•æ•°       ï¼š  LPDIRECT3DDEVICE9 pD3DDevice		//IDirect3DDevice9 ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+////            ï¼š  vector<Object*>& Vec,				//ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®é…åˆ—
+//// æˆ»å€¤       ï¼šãªã—
+//// æ‹…å½“è€…     ï¼šé´«åŽŸ å¾¹
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
 	virtual void Draw(DrawPacket& i_DrawPacket);
 
@@ -183,31 +183,31 @@ public:
 //**************************************************************************
 // class SpriteObject : public Object ,public PrimitiveSprite ;
 //
-// ’S“–ŽÒ  : Ž°Œ´ “O
-// —p“r    : ƒXƒvƒ‰ƒCƒg‚ð‚Æ‚è‚ ‚¦‚¸•`‰æ‚·‚é‚½‚ß‚ÌƒNƒ‰ƒX
-//           ‰½‚Ì“®ì‚à‚µ‚È‚¢‚Æ‚è‚ ‚¦‚¸ƒXƒvƒ‰ƒCƒg‚ð•`‰æ‚µ‚½‚¢Žž‚É‚¨‚·‚·‚ß
+// æ‹…å½“è€…  : é´«åŽŸ å¾¹
+// ç”¨é€”    : ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã‚’ã¨ã‚Šã‚ãˆãšæç”»ã™ã‚‹ãŸã‚ã®ã‚¯ãƒ©ã‚¹
+//           ä½•ã®å‹•ä½œã‚‚ã—ãªã„ã¨ã‚Šã‚ãˆãšã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã‚’æç”»ã—ãŸã„æ™‚ã«ãŠã™ã™ã‚
 //**************************************************************************
 class SpriteObject : public Object ,public PrimitiveSprite{
 public:
 /////////////////// ////////////////////
-//// ŠÖ”–¼     FSpriteObject(LPDIRECT3DDEVICE9 pD3DDevice,LPTATRATEXTURE pTexture,
-////            F    D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos, Rect* pRect,
-////            F    D3DXVECTOR3& vCenter,D3DXVECTOR3& vOffsetPos,Color color = 0xFFFFFFFF);
-//// ƒJƒeƒSƒŠ   FƒRƒ“ƒXƒgƒ‰ƒNƒ^
-//// —p“r       FƒXƒvƒ‰ƒCƒg‚ð•`‰æ
-//// ˆø”       F  LPDIRECT3DDEVICE9 pD3DDevice    // IDirect3DDevice9 ƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-////            F  LPTATRATEXTURE pTexture     // “\‚è•t‚¯‚½‚¢ƒeƒNƒXƒ`ƒƒ
-////            F  D3DXVECTOR3 &vScale             // ‘å‚«‚³
-////            F  D3DXVECTOR3 &vRot               // ŽOŽ²‰ñ“]
-////            F  D3DXVECTOR3 &vPos               // Ý’uÀ•W
-////            F  Rect* pRect                     // •`‰æ‚µ‚½‚¢”ÍˆÍ(NULL‚Å‘S‘Ì‚ð•`‰æ)
-////            F  D3DXVECTOR3& vCenter            // ’†S
-////            F  D3DXVECTOR3& vOffsetPos         // ƒIƒtƒZƒbƒgÀ•W
-////            F  Color color = 0xFFFFFFFF        // F
-//// –ß’l       F‚È‚µ
-//// ’S“–ŽÒ     FŽ°Œ´ “O
-//// ”õl       F
-////            F
+//// é–¢æ•°å     ï¼šSpriteObject(LPDIRECT3DDEVICE9 pD3DDevice,LPTATRATEXTURE pTexture,
+////            ï¼š    D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos, Rect* pRect,
+////            ï¼š    D3DXVECTOR3& vCenter,D3DXVECTOR3& vOffsetPos,Color color = 0xFFFFFFFF);
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+//// ç”¨é€”       ï¼šã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã‚’æç”»
+//// å¼•æ•°       ï¼š  LPDIRECT3DDEVICE9 pD3DDevice    // IDirect3DDevice9 ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+////            ï¼š  LPTATRATEXTURE pTexture     // è²¼ã‚Šä»˜ã‘ãŸã„ãƒ†ã‚¯ã‚¹ãƒãƒ£
+////            ï¼š  D3DXVECTOR3 &vScale             // å¤§ãã•
+////            ï¼š  D3DXVECTOR3 &vRot               // ä¸‰è»¸å›žè»¢
+////            ï¼š  D3DXVECTOR3 &vPos               // è¨­ç½®åº§æ¨™
+////            ï¼š  Rect* pRect                     // æç”»ã—ãŸã„ç¯„å›²(NULLã§å…¨ä½“ã‚’æç”»)
+////            ï¼š  D3DXVECTOR3& vCenter            // ä¸­å¿ƒ
+////            ï¼š  D3DXVECTOR3& vOffsetPos         // ã‚ªãƒ•ã‚»ãƒƒãƒˆåº§æ¨™
+////            ï¼š  Color color = 0xFFFFFFFF        // è‰²
+//// æˆ»å€¤       ï¼šãªã—
+//// æ‹…å½“è€…     ï¼šé´«åŽŸ å¾¹
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
 	SpriteObject(
 		const LPDIRECT3DDEVICE9		pD3DDevice	,
@@ -223,26 +223,26 @@ public:
 		      bool					bApplyAspect= true
 	);
 /////////////////// ////////////////////
-//// ŠÖ”–¼     F~SpriteObject();
-//// ƒJƒeƒSƒŠ   FƒfƒXƒgƒ‰ƒNƒ^
-//// —p“r       F
-//// ˆø”       F‚È‚µ
-//// –ß’l       F‚È‚µ
-//// ’S“–ŽÒ     FŽ°Œ´ “O
-//// ”õl       F
-////            F
+//// é–¢æ•°å     ï¼š~SpriteObject();
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+//// ç”¨é€”       ï¼š
+//// å¼•æ•°       ï¼šãªã—
+//// æˆ»å€¤       ï¼šãªã—
+//// æ‹…å½“è€…     ï¼šé´«åŽŸ å¾¹
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
 	virtual ~SpriteObject();
 /////////////////// ////////////////////
-//// ŠÖ”–¼     Fvoid Draw( LPDIRECT3DDEVICE9 pD3DDevice , vector<Object*>& Vec)
-//// ƒJƒeƒSƒŠ   F‰¼‘zŠÖ”
-//// —p“r       FƒXƒvƒ‰ƒCƒg‚ð•`‰æ
-//// ˆø”       F  LPDIRECT3DDEVICE9 pD3DDevice		//IDirect3DDevice9 ƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-////            F  vector<Object*>& Vec,				//ƒIƒuƒWƒFƒNƒg‚Ì”z—ñ
-//// –ß’l       F‚È‚µ
-//// ’S“–ŽÒ     FŽ°Œ´ “O
-//// ”õl       F
-////            F
+//// é–¢æ•°å     ï¼švoid Draw( LPDIRECT3DDEVICE9 pD3DDevice , vector<Object*>& Vec)
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šä»®æƒ³é–¢æ•°
+//// ç”¨é€”       ï¼šã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã‚’æç”»
+//// å¼•æ•°       ï¼š  LPDIRECT3DDEVICE9 pD3DDevice		//IDirect3DDevice9 ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+////            ï¼š  vector<Object*>& Vec,				//ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®é…åˆ—
+//// æˆ»å€¤       ï¼šãªã—
+//// æ‹…å½“è€…     ï¼šé´«åŽŸ å¾¹
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
 	virtual void Draw(DrawPacket& i_DrawPacket);
 
@@ -256,42 +256,42 @@ namespace Avoidance{
 //**************************************************************************
 // 
 //
-// ’S“–ŽÒ  : Ž°Œ´ “O
-// —p“r    : 
+// æ‹…å½“è€…  : é´«åŽŸ å¾¹
+// ç”¨é€”    : 
 //           
 //**************************************************************************
 class RenderTargetSprite : public PrimitiveSprite, public Object{
-	LPDIRECT3DSURFACE9	m_sfRenderTarget	,	//	Fƒf[ƒ^
-						m_sfRenderTargetZ	;	//	‚y’l
+	LPDIRECT3DSURFACE9	m_sfRenderTarget	,	//	è‰²ãƒ‡ãƒ¼ã‚¿
+						m_sfRenderTargetZ	;	//	ï¼ºå€¤
 	Size				m_ClientSize		;
 public:
 	RenderTargetSprite(BassPacket* i_BassPacket, UINT i_Width, UINT i_Height, wiz::OBJID id = OBJID_SYS_RENDERTARGET);
 /////////////////// ////////////////////
-//// —p“r       Fvirtual void TargetRender( LPDIRECT3DDEVICE9 pD3DDevice
-////            F      vector<Object*>& Vec)
-//// ƒJƒeƒSƒŠ   F‰¼‘zŠÖ”
-//// —p“r       FƒIƒuƒWƒFƒNƒg‚ð•`‰æ
-//// ˆø”       F  LPDIRECT3DDEVICE9 pD3DDevice        // IDirect3DDevice9 ƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-////            F  vector<Object*>& Vec,               // ƒIƒuƒWƒFƒNƒg‚Ì”z—ñ
-////            F  Command i_DrawPacket.pCommand                         // ƒRƒ}ƒ“ƒh
-//// –ß’l       F‚È‚µ
-//// ’S“–ŽÒ     FŽ°Œ´ “O
-//// ”õl       FŒp³‚µ‚½‚à‚Ì‚Å‚à•K‚¸‚Æ‚à’è‹`‚ð‚µ‚È‚­‚Ä‚à—Ç‚¢
-////            F
+//// ç”¨é€”       ï¼švirtual void TargetRender( LPDIRECT3DDEVICE9 pD3DDevice
+////            ï¼š      vector<Object*>& Vec)
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šä»®æƒ³é–¢æ•°
+//// ç”¨é€”       ï¼šã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’æç”»
+//// å¼•æ•°       ï¼š  LPDIRECT3DDEVICE9 pD3DDevice        // IDirect3DDevice9 ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+////            ï¼š  vector<Object*>& Vec,               // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®é…åˆ—
+////            ï¼š  Command i_DrawPacket.pCommand                         // ã‚³ãƒžãƒ³ãƒ‰
+//// æˆ»å€¤       ï¼šãªã—
+//// æ‹…å½“è€…     ï¼šé´«åŽŸ å¾¹
+//// å‚™è€ƒ       ï¼šç¶™æ‰¿ã—ãŸã‚‚ã®ã§ã‚‚å¿…ãšã¨ã‚‚å®šç¾©ã‚’ã—ãªãã¦ã‚‚è‰¯ã„
+////            ï¼š
 ////
 	virtual void TargetRender( RenderPacket& i_RenderPacket );
 /////////////////// ////////////////////
-//// —p“r       Fvoid Draw( DrawPacket& i_DrawPacket )
-//// ƒJƒeƒSƒŠ   FŠÖ”
-//// —p“r       FƒIƒuƒWƒFƒNƒg‚ðƒfƒBƒXƒvƒŒƒC‚É•\Ž¦‚·‚é
-//// ˆø”       F  DrawPacket& i_DrawPacket             // ‰æ–Ê•`‰æŽž‚É•K—v‚Èƒf[ƒ^ŒQ «“à—e‰º‹L
-////            F  „¥ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 ƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-////            F  „¥ vector<Object*>&    Vec                     // ƒIƒuƒWƒFƒNƒg‚Ì”z—ñ
-////            F  „¥ Tempus2*            i_DrawPacket.GetTime()	   // ŽžŠÔ‚ðŠÇ—‚·‚éƒNƒ‰ƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^[
-////            F  „¤ Command             i_DrawPacket.pCommand   // ƒRƒ}ƒ“ƒh
-//// –ß’l       F‚È‚µ
-//// ’S“–ŽÒ     FŽ°Œ´ “O
-//// ”õl       F
+//// ç”¨é€”       ï¼švoid Draw( DrawPacket& i_DrawPacket )
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šé–¢æ•°
+//// ç”¨é€”       ï¼šã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ãƒ‡ã‚£ã‚¹ãƒ—ãƒ¬ã‚¤ã«è¡¨ç¤ºã™ã‚‹
+//// å¼•æ•°       ï¼š  DrawPacket& i_DrawPacket             // ç”»é¢æç”»æ™‚ã«å¿…è¦ãªãƒ‡ãƒ¼ã‚¿ç¾¤ â†“å†…å®¹ä¸‹è¨˜
+////            ï¼š  â”œ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+////            ï¼š  â”œ vector<Object*>&    Vec                     // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®é…åˆ—
+////            ï¼š  â”œ Tempus2*            i_DrawPacket.GetTime()	   // æ™‚é–“ã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿ãƒ¼
+////            ï¼š  â”” Command             i_DrawPacket.pCommand   // ã‚³ãƒžãƒ³ãƒ‰
+//// æˆ»å€¤       ï¼šãªã—
+//// æ‹…å½“è€…     ï¼šé´«åŽŸ å¾¹
+//// å‚™è€ƒ       ï¼š
 	void Draw(DrawPacket& i_DrawPacket);
 };
 }

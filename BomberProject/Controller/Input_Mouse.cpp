@@ -1,5 +1,5 @@
 //-----------------------------------------------------
-//	DirectInput‚ğg‚Á‚½“ü—ÍƒTƒ“ƒvƒ‹(ƒ}ƒEƒX)
+//	DirectInputã‚’ä½¿ã£ãŸå…¥åŠ›ã‚µãƒ³ãƒ—ãƒ«(ãƒã‚¦ã‚¹)
 //	2009.12.29 TMO
 //-----------------------------------------------------
 #include "StdAfx.h"
@@ -21,7 +21,7 @@ CInputMouse::CInputMouse()
 	m_windowMode = true;
 }
 
-//ƒ}ƒEƒXƒfƒoƒCƒX‚Ìì¬
+//ãƒã‚¦ã‚¹ãƒ‡ãƒã‚¤ã‚¹ã®ä½œæˆ
 bool CInputMouse::Create( IDirectInput8* pDInput, HWND hWnd )
 {
 	HRESULT hr;
@@ -38,19 +38,19 @@ bool CInputMouse::Create( IDirectInput8* pDInput, HWND hWnd )
 	m_posX = m_wndWid / 2;
 	m_posY = m_wndHgt / 2;
 
-	//ƒ}ƒEƒXƒfƒoƒCƒX‚ğì¬
+	//ãƒã‚¦ã‚¹ãƒ‡ãƒã‚¤ã‚¹ã‚’ä½œæˆ
 	hr = pDInput->CreateDevice( GUID_SysMouse, &m_pDIMouse, NULL );
 	if ( FAILED( hr ) ) {
 		return false;
 	}
 
-	//ƒf[ƒ^ƒtƒH[ƒ}ƒbƒg‚Ìİ’è
+	//ãƒ‡ãƒ¼ã‚¿ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆã®è¨­å®š
 	hr = m_pDIMouse->SetDataFormat( &c_dfDIMouse2 );
 	if ( FAILED( hr ) ) {
 		return false;
 	}
 	
-	//ƒoƒbƒtƒ@ƒTƒCƒY‚Ìİ’è
+	//ãƒãƒƒãƒ•ã‚¡ã‚µã‚¤ã‚ºã®è¨­å®š
 	DIPROPDWORD diprop;
 	diprop.diph.dwSize = sizeof(diprop);
 	diprop.diph.dwHeaderSize = sizeof(diprop.diph);
@@ -62,22 +62,22 @@ bool CInputMouse::Create( IDirectInput8* pDInput, HWND hWnd )
 		return false;
 	}
 
-	//‹¦’²ƒ‚[ƒh‚Ìİ’è
+	//å”èª¿ãƒ¢ãƒ¼ãƒ‰ã®è¨­å®š
 	hr = m_pDIMouse->SetCooperativeLevel( m_hWnd, DISCL_NONEXCLUSIVE | DISCL_FOREGROUND );
 	if ( FAILED( hr ) ) {
 		return false;
 	}
 
-	//“ü—Í‚ğ‹–‰Â‚·‚é
+	//å…¥åŠ›ã‚’è¨±å¯ã™ã‚‹
 	m_pDIMouse->Acquire();
 	
 	return true;
 }
 
-//ƒ}ƒEƒX‚Ì“ü—Íó‘Ô‚ğXV
+//ãƒã‚¦ã‚¹ã®å…¥åŠ›çŠ¶æ…‹ã‚’æ›´æ–°
 void CInputMouse::Update()
 {
-	//ƒŠƒZƒbƒg‚·‚éB‚»‚Ì‚½‚ßƒNƒŠƒbƒN‚ÍUpdateMouse()‚ğŸ‰ñŒÄ‚Ô‘O‚Éˆ—‚µ‚È‚¯‚ê‚Î‚È‚ç‚È‚¢B
+	//ãƒªã‚»ãƒƒãƒˆã™ã‚‹ã€‚ãã®ãŸã‚ã‚¯ãƒªãƒƒã‚¯ã¯UpdateMouse()ã‚’æ¬¡å›å‘¼ã¶å‰ã«å‡¦ç†ã—ãªã‘ã‚Œã°ãªã‚‰ãªã„ã€‚
 	m_LAction = false;
 	m_RAction = false;
 	m_MAction = false;
@@ -105,7 +105,7 @@ void CInputMouse::Update()
 					case DIMOFS_X:
 						if ( !m_windowMode ) {
 							m_posX += (int)od.dwData;
-							m_posX = max( 0, min( m_posX, m_wndWid  ) );//ƒEƒBƒ“ƒhƒE‚©‚ç‚Í‚İo‚È‚¢‚æ‚¤’²®
+							m_posX = max( 0, min( m_posX, m_wndWid  ) );//ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‹ã‚‰ã¯ã¿å‡ºãªã„ã‚ˆã†èª¿æ•´
 						}
 						break;
 					case DIMOFS_Y:
@@ -114,15 +114,15 @@ void CInputMouse::Update()
 							m_posY = max( 0, min( m_posY, m_wndHgt ) );
 						}
 						break;
-					case DIMOFS_BUTTON0://¶ƒ{ƒ^ƒ“
+					case DIMOFS_BUTTON0://å·¦ãƒœã‚¿ãƒ³
 						m_LDown = ( od.dwData & 0x80 )? true : false;
 						if ( m_LDown ) { m_LAction = true; }
 						break;
-					case DIMOFS_BUTTON1://‰Eƒ{ƒ^ƒ“
+					case DIMOFS_BUTTON1://å³ãƒœã‚¿ãƒ³
 						m_RDown = ( od.dwData & 0x80 )? true : false;
 						if ( m_RDown ) { m_RAction = true; }
 						break;
-					case DIMOFS_BUTTON2://’†ƒ{ƒ^ƒ“
+					case DIMOFS_BUTTON2://ä¸­ãƒœã‚¿ãƒ³
 						m_MDown = ( od.dwData & 0x80 )? true : false;
 						if ( m_MDown ) { m_MAction = true; }
 						break;
@@ -133,7 +133,7 @@ void CInputMouse::Update()
 }
 
 
-//ƒ}ƒEƒXƒfƒoƒCƒX‚Ì‰ğ•ú
+//ãƒã‚¦ã‚¹ãƒ‡ãƒã‚¤ã‚¹ã®è§£æ”¾
 void CInputMouse::Release()
 {
 	if ( m_pDIMouse != NULL ) {

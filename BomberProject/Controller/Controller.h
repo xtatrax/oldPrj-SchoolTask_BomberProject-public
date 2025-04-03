@@ -1,17 +1,17 @@
 ////////////////////////////// //////////////////////////////
-//	ƒvƒƒWƒFƒNƒg	FDirectX Program Bass Project
-//	ƒtƒ@ƒCƒ‹–¼		FController.h
-//	ŠJ”­ŠÂ‹«		FMSVC++ 2008
-//	Å“Kƒ^ƒu”		F4
-//	’S“–ŽÒ			Ftatra
-//	“à•ïÃÞ°À‚Æ”õl	FƒRƒ“ƒgƒ[ƒ‰[‚Ì“Ç‚Ýž‚Ý“™‚ðŠÇ—‚·‚é
-//					¥
+//	ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆ	ï¼šDirectX Program Bass Project
+//	ãƒ•ã‚¡ã‚¤ãƒ«å		ï¼šController.h
+//	é–‹ç™ºç’°å¢ƒ		ï¼šMSVC++ 2008
+//	æœ€é©ã‚¿ãƒ–æ•°		ï¼š4
+//	æ‹…å½“è€…			ï¼štatra
+//	å†…åŒ…ãƒ‡ãƒ¼ã‚¿ã¨å‚™è€ƒ	ï¼šã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ãƒ¼ã®èª­ã¿è¾¼ã¿ç­‰ã‚’ç®¡ç†ã™ã‚‹
+//					â–¼
 //	namespace wiz;
-//		class  GAMEPAD ;					//	: [ tatra ] ŽQl—p‚ÉE‚Á‚½ƒ\[ƒX( –¢Žg—p )
-//		struct BState  ;					//	: [ tatra ] XBOXƒRƒ“ƒgƒ[ƒ‰[‚É‘Î‰ž‚µ‚½ƒ{ƒ^ƒ“‚Ìó‘Ô‚ðŠi”[‚·‚é\‘¢‘Ì	
-//		struct CUSTOM_CONTROLER_STATE ;		//	: [ tatra ] XINPUT_STAT‚ðŠg’£‚µ‚½\‘¢‘Ì
-//		struct CONTROLER_STATE ;			//	: [ tatra ] ˆê‚Â‚ÌƒRƒ“ƒgƒ[ƒ‰[‚Ìî•ñ‚ð‚Ü‚Æ‚ß‚Ä‚¨‚­\‘¢‘Ì
-//		class  CONTROLLERS ;				//	: [ tatra ] ƒRƒ“ƒgƒ[ƒ‰[‚ðŠÇ—‚·‚éƒNƒ‰ƒX
+//		class  GAMEPAD ;					//	: [ tatra ] å‚è€ƒç”¨ã«æ‹¾ã£ãŸã‚½ãƒ¼ã‚¹( æœªä½¿ç”¨ )
+//		struct BState  ;					//	: [ tatra ] XBOXã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ãƒ¼ã«å¯¾å¿œã—ãŸãƒœã‚¿ãƒ³ã®çŠ¶æ…‹ã‚’æ ¼ç´ã™ã‚‹æ§‹é€ ä½“	
+//		struct CUSTOM_CONTROLER_STATE ;		//	: [ tatra ] XINPUT_STATã‚’æ‹¡å¼µã—ãŸæ§‹é€ ä½“
+//		struct CONTROLER_STATE ;			//	: [ tatra ] ä¸€ã¤ã®ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ãƒ¼ã®æƒ…å ±ã‚’ã¾ã¨ã‚ã¦ãŠãæ§‹é€ ä½“
+//		class  CONTROLLERS ;				//	: [ tatra ] ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ãƒ¼ã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹
 //
 
 
@@ -22,7 +22,7 @@
 //namespace Controller__{
 //**************************************************************************//
 // class GAMEPAD;
-// —p“r: E‚¢•¨#–¢’m
+// ç”¨é€”: æ‹¾ã„ç‰©#æœªçŸ¥
 //**************************************************************************//
 //class GAMEPAD
 //{
@@ -51,33 +51,33 @@
 namespace wiz {
 //**************************************************************************//
 // struct;
-// ’S“–  : Ž°Œ´ “O
-// —p“r  : ƒRƒ“ƒgƒ[ƒ‰[‚Ìƒ{ƒ^ƒ“‚Ìó‘Ô
-//       : XBOXƒRƒ“ƒgƒ[ƒ‰[‘Î‰žƒ{ƒ^ƒ“–¼”Å
-// ”õl  : XBOXƒRƒ“ƒgƒ[ƒ‰[‚ð‘O’ñ‚Éì‚ç‚È‚¢ŒÀ‚èŽg‚í‚È‚¢‚Ù‚¤‚ª—Ç‚¢ (‚Æ‚¨‚à‚¤
+// æ‹…å½“  : é´«åŽŸ å¾¹
+// ç”¨é€”  : ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ãƒ¼ã®ãƒœã‚¿ãƒ³ã®çŠ¶æ…‹
+//       : XBOXã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ãƒ¼å¯¾å¿œãƒœã‚¿ãƒ³åç‰ˆ
+// å‚™è€ƒ  : XBOXã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ãƒ¼ã‚’å‰æã«ä½œã‚‰ãªã„é™ã‚Šä½¿ã‚ãªã„ã»ã†ãŒè‰¯ã„ (ã¨ãŠã‚‚ã†
 //**************************************************************************//
 struct BoxCon{
-	bool  UP     :1 ;  //  : ƒnƒbƒgª (01ƒ{ƒ^ƒ“)
-	bool  DOWN    :1 ;  //  : ƒnƒbƒg« (02ƒ{ƒ^ƒ“)
-	bool  LEFT     :1 ;  //  : ƒnƒbƒg© (03ƒ{ƒ^ƒ“)
-	bool  RIGHT	    :1 ;  //  : ƒnƒbƒg¨ (04ƒ{ƒ^ƒ“)
-	bool  START	     :1 ;  //  : ƒXƒ^[ƒgƒ{ƒ^ƒ“ (05ƒ{ƒ^ƒ“)
-	bool  BACK	      :1 ;  //  : ƒoƒbƒNƒ{ƒ^ƒ“ (06ƒ{ƒ^ƒ“)
-	bool  LEFT_THUMB   :1 ;  //  : ¶ƒgƒŠƒK[ (07ƒ{ƒ^ƒ“)
-	bool  RIGHT_THUNB   :1 ;  //  : ‰EƒgƒŠƒK[ (08ƒ{ƒ^ƒ“)
-	bool  LEFT_SHOULDER  :1 ;  //  : ¶ƒVƒ‡ƒ‹ƒ_[ (09ƒ{ƒ^ƒ“)
-	bool  RIGHT_SHOULDER :1 ;  //  : ‰EƒVƒ‡ƒ‹ƒ_[ (10ƒ{ƒ^ƒ“)
-	bool                 :2 ;  //  : ‹ó‚«ƒrƒbƒg(11¤12ƒ{ƒ^ƒ“)
-	bool  A             :1 ;  //  : A (13ƒ{ƒ^ƒ“)
-	bool  B          :1 ;  //  : B (14ƒ{ƒ^ƒ“)
-	bool  X       :1 ;  //  : X (15ƒ{ƒ^ƒ“)
-	bool  Y    :1 ;  //  : Y (16ƒ{ƒ^ƒ“)
+	bool  UP     :1 ;  //  : ãƒãƒƒãƒˆâ†‘ (01ãƒœã‚¿ãƒ³)
+	bool  DOWN    :1 ;  //  : ãƒãƒƒãƒˆâ†“ (02ãƒœã‚¿ãƒ³)
+	bool  LEFT     :1 ;  //  : ãƒãƒƒãƒˆâ† (03ãƒœã‚¿ãƒ³)
+	bool  RIGHT	    :1 ;  //  : ãƒãƒƒãƒˆâ†’ (04ãƒœã‚¿ãƒ³)
+	bool  START	     :1 ;  //  : ã‚¹ã‚¿ãƒ¼ãƒˆãƒœã‚¿ãƒ³ (05ãƒœã‚¿ãƒ³)
+	bool  BACK	      :1 ;  //  : ãƒãƒƒã‚¯ãƒœã‚¿ãƒ³ (06ãƒœã‚¿ãƒ³)
+	bool  LEFT_THUMB   :1 ;  //  : å·¦ãƒˆãƒªã‚¬ãƒ¼ (07ãƒœã‚¿ãƒ³)
+	bool  RIGHT_THUNB   :1 ;  //  : å³ãƒˆãƒªã‚¬ãƒ¼ (08ãƒœã‚¿ãƒ³)
+	bool  LEFT_SHOULDER  :1 ;  //  : å·¦ã‚·ãƒ§ãƒ«ãƒ€ãƒ¼ (09ãƒœã‚¿ãƒ³)
+	bool  RIGHT_SHOULDER :1 ;  //  : å³ã‚·ãƒ§ãƒ«ãƒ€ãƒ¼ (10ãƒœã‚¿ãƒ³)
+	bool                 :2 ;  //  : ç©ºããƒ“ãƒƒãƒˆ(11ã€12ãƒœã‚¿ãƒ³)
+	bool  A             :1 ;  //  : A (13ãƒœã‚¿ãƒ³)
+	bool  B          :1 ;  //  : B (14ãƒœã‚¿ãƒ³)
+	bool  X       :1 ;  //  : X (15ãƒœã‚¿ãƒ³)
+	bool  Y    :1 ;  //  : Y (16ãƒœã‚¿ãƒ³)
 };
 //**************************************************************************//
 // struct State;
-// ’S“–  : Ž°Œ´ “O
-// —p“r  : ƒRƒ“ƒgƒ[ƒ‰[‚Ìƒ{ƒ^ƒ“‚Ìó‘Ô
-// ”õl  : #define XINPUT_GAMEPAD_DPAD_UP          0x0001
+// æ‹…å½“  : é´«åŽŸ å¾¹
+// ç”¨é€”  : ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ãƒ¼ã®ãƒœã‚¿ãƒ³ã®çŠ¶æ…‹
+// å‚™è€ƒ  : #define XINPUT_GAMEPAD_DPAD_UP          0x0001
 //       : #define XINPUT_GAMEPAD_DPAD_DOWN        0x0002
 //       : #define XINPUT_GAMEPAD_DPAD_LEFT        0x0004
 //       : #define XINPUT_GAMEPAD_DPAD_RIGHT       0x0008
@@ -100,27 +100,27 @@ union BState{
 		//friend struct BState;
 		//**************************************************************************//
 		// struct;
-		// ’S“–  : Ž°Œ´ “O
-		// —p“r  : ƒRƒ“ƒgƒ[ƒ‰[‚Ìƒ{ƒ^ƒ“‚Ìó‘Ô
-		//         ”Ô†•Ê^‹U”Å
+		// æ‹…å½“  : é´«åŽŸ å¾¹
+		// ç”¨é€”  : ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ãƒ¼ã®ãƒœã‚¿ãƒ³ã®çŠ¶æ…‹
+		//         ç•ªå·åˆ¥çœŸå½ç‰ˆ
 		//**************************************************************************//
 		struct{
-			bool  b01 :1 ;	//	:  1ƒ{ƒ^ƒ“
-			bool  b02 :1 ;	//	:  2ƒ{ƒ^ƒ“
-			bool  b03 :1 ;	//	:  3ƒ{ƒ^ƒ“
-			bool  b04 :1 ;	//	:  4ƒ{ƒ^ƒ“
-			bool  b05 :1 ;	//	:  5ƒ{ƒ^ƒ“
-			bool  b06 :1 ;	//	:  6ƒ{ƒ^ƒ“
-			bool  b07 :1 ;	//	:  7ƒ{ƒ^ƒ“
-			bool  b08 :1 ;	//	:  8ƒ{ƒ^ƒ“
-			bool  b09 :1 ;	//	:  9ƒ{ƒ^ƒ“
-			bool  b10 :1 ;	//	: 10ƒ{ƒ^ƒ“
-			bool  b11 :1 ;	//	: 11ƒ{ƒ^ƒ“
-			bool  b12 :1 ;	//	: 12ƒ{ƒ^ƒ“
-			bool  b13 :1 ;	//	: 13ƒ{ƒ^ƒ“
-			bool  b14 :1 ;	//	: 14ƒ{ƒ^ƒ“
-			bool  b15 :1 ;	//	: 15ƒ{ƒ^ƒ“
-			bool  b16 :1 ;	//	: 16ƒ{ƒ^ƒ“
+			bool  b01 :1 ;	//	:  1ãƒœã‚¿ãƒ³
+			bool  b02 :1 ;	//	:  2ãƒœã‚¿ãƒ³
+			bool  b03 :1 ;	//	:  3ãƒœã‚¿ãƒ³
+			bool  b04 :1 ;	//	:  4ãƒœã‚¿ãƒ³
+			bool  b05 :1 ;	//	:  5ãƒœã‚¿ãƒ³
+			bool  b06 :1 ;	//	:  6ãƒœã‚¿ãƒ³
+			bool  b07 :1 ;	//	:  7ãƒœã‚¿ãƒ³
+			bool  b08 :1 ;	//	:  8ãƒœã‚¿ãƒ³
+			bool  b09 :1 ;	//	:  9ãƒœã‚¿ãƒ³
+			bool  b10 :1 ;	//	: 10ãƒœã‚¿ãƒ³
+			bool  b11 :1 ;	//	: 11ãƒœã‚¿ãƒ³
+			bool  b12 :1 ;	//	: 12ãƒœã‚¿ãƒ³
+			bool  b13 :1 ;	//	: 13ãƒœã‚¿ãƒ³
+			bool  b14 :1 ;	//	: 14ãƒœã‚¿ãƒ³
+			bool  b15 :1 ;	//	: 15ãƒœã‚¿ãƒ³
+			bool  b16 :1 ;	//	: 16ãƒœã‚¿ãƒ³
 		};
 		BoxCon XConState ;
 	//};
@@ -137,44 +137,44 @@ public:
 
 //**************************************************************************//
 // struct CUSTOM_CONTROLER_STATE;
-// ’S“–  : Ž°Œ´ “O
-// —p“r  : ƒRƒ“ƒgƒ[ƒ‰[‚ÌƒXƒe[ƒ^ƒX
+// æ‹…å½“  : é´«åŽŸ å¾¹
+// ç”¨é€”  : ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ãƒ¼ã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹
 //**************************************************************************//
 struct CUSTOM_CONTROLER_STATE
 {
-	////	: ƒXƒeƒBƒbƒN‚Ì“ü—Í’l 
+	////	: ã‚¹ãƒ†ã‚£ãƒƒã‚¯ã®å…¥åŠ›å€¤ 
 	public:
-    SHORT	sThumbLX;				////  : ¶ƒXƒeƒBƒbƒN‚ÌX’lySHORTŒ^z
-    SHORT	sThumbLY;				////  : ¶ƒXƒeƒBƒbƒN‚ÌY’lySHORTŒ^z
-    SHORT	sThumbRX;				////  : ‰EƒXƒeƒBƒbƒN‚ÌX’lySHORTŒ^z
-    SHORT	sThumbRY;				////  : ‰EƒXƒeƒBƒbƒN‚ÌY’lySHORTŒ^z
+    SHORT	sThumbLX;				////  : å·¦ã‚¹ãƒ†ã‚£ãƒƒã‚¯ã®Xå€¤ã€SHORTåž‹ã€‘
+    SHORT	sThumbLY;				////  : å·¦ã‚¹ãƒ†ã‚£ãƒƒã‚¯ã®Yå€¤ã€SHORTåž‹ã€‘
+    SHORT	sThumbRX;				////  : å³ã‚¹ãƒ†ã‚£ãƒƒã‚¯ã®Xå€¤ã€SHORTåž‹ã€‘
+    SHORT	sThumbRY;				////  : å³ã‚¹ãƒ†ã‚£ãƒƒã‚¯ã®Yå€¤ã€SHORTåž‹ã€‘
 
-    ////	: ”’l••ÏX”Å[-1,+1]
+    ////	: æ•°å€¤å¹…å¤‰æ›´ç‰ˆ[-1,+1]
 	public:
-    float	fThumbRX;				////  : ‰EƒXƒeƒBƒbƒN‚ÌX’lyfloatŒ^z
-    float	fThumbRY;				////  : ‰EƒXƒeƒBƒbƒN‚ÌY’lyfloatŒ^z
-    float	fThumbLX;				////  : ¶ƒXƒeƒBƒbƒN‚ÌX’lyfloatŒ^z
-    float	fThumbLY;				////  : ¶ƒXƒeƒBƒbƒN‚ÌY’lyfloatŒ^z
+    float	fThumbRX;				////  : å³ã‚¹ãƒ†ã‚£ãƒƒã‚¯ã®Xå€¤ã€floatåž‹ã€‘
+    float	fThumbRY;				////  : å³ã‚¹ãƒ†ã‚£ãƒƒã‚¯ã®Yå€¤ã€floatåž‹ã€‘
+    float	fThumbLX;				////  : å·¦ã‚¹ãƒ†ã‚£ãƒƒã‚¯ã®Xå€¤ã€floatåž‹ã€‘
+    float	fThumbLY;				////  : å·¦ã‚¹ãƒ†ã‚£ãƒƒã‚¯ã®Yå€¤ã€floatåž‹ã€‘
 
-	////	: ‰Ÿ‚³‚ê‚Ä‚éƒ{ƒ^ƒ“
+	////	: æŠ¼ã•ã‚Œã¦ã‚‹ãƒœã‚¿ãƒ³
 	public:
-    BState	wButtons;				////  : ¡‰Ÿ‚³‚ê‚Ä‚éƒ{ƒ^ƒ“
-    BYTE	bLeftTrigger;			////  : ¶ƒgƒŠƒK[
-    BYTE	bRightTrigger;			////  : ‰EƒgƒŠƒK[
+    BState	wButtons;				////  : ä»ŠæŠ¼ã•ã‚Œã¦ã‚‹ãƒœã‚¿ãƒ³
+    BYTE	bLeftTrigger;			////  : å·¦ãƒˆãƒªã‚¬ãƒ¼
+    BYTE	bRightTrigger;			////  : å³ãƒˆãƒªã‚¬ãƒ¼
 		
-	////	: ˆêƒtƒŒ[ƒ€‚Ì‚Ý—LŒø
+	////	: ä¸€ãƒ•ãƒ¬ãƒ¼ãƒ ã®ã¿æœ‰åŠ¹
 	public:
-	BState	wPressedButtons;		////  :     ƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‰‚ß‚Ä‚©‚ç1ƒtƒŒ[ƒ€‚ß‚Ìƒtƒ‰ƒO
-    bool	bPressedLeftTrigger;	////  : ¶ƒgƒŠƒK[‚ª‰Ÿ‚³‚ê‰‚ß‚Ä‚©‚ç1ƒtƒŒ[ƒ€‚ß‚Ìƒtƒ‰ƒO
-    bool	bPressedRightTrigger;	////  : ‰EƒgƒŠƒK[‚ª‰Ÿ‚³‚ê‰‚ß‚Ä‚©‚ç1ƒtƒŒ[ƒ€‚ß‚Ìƒtƒ‰ƒO
+	BState	wPressedButtons;		////  :     ãƒœã‚¿ãƒ³ãŒæŠ¼ã•ã‚Œåˆã‚ã¦ã‹ã‚‰1ãƒ•ãƒ¬ãƒ¼ãƒ ã‚ã®ãƒ•ãƒ©ã‚°
+    bool	bPressedLeftTrigger;	////  : å·¦ãƒˆãƒªã‚¬ãƒ¼ãŒæŠ¼ã•ã‚Œåˆã‚ã¦ã‹ã‚‰1ãƒ•ãƒ¬ãƒ¼ãƒ ã‚ã®ãƒ•ãƒ©ã‚°
+    bool	bPressedRightTrigger;	////  : å³ãƒˆãƒªã‚¬ãƒ¼ãŒæŠ¼ã•ã‚Œåˆã‚ã¦ã‹ã‚‰1ãƒ•ãƒ¬ãƒ¼ãƒ ã‚ã®ãƒ•ãƒ©ã‚°
 
-    ////	: ÅŒã‚É‰Ÿ‚³‚ê‚½ƒ{ƒ^ƒ“CONTROLER_STATE
+    ////	: æœ€å¾Œã«æŠ¼ã•ã‚ŒãŸãƒœã‚¿ãƒ³CONTROLER_STATE
 	public:
-    BState	wLastButtons;			////  : ‘O‰ñ‰Ÿ‚³‚ê‚½‚½ƒ{ƒ^ƒ“
-    bool	bLastLeftTrigger;		////  : ‘O‰ñ¶ƒgƒŠƒK[‚ª‰Ÿ‚³‚ê‚Ä‚½‚©
-    bool	bLastRightTrigger;		////  : ‘O‰ñ‰EƒgƒŠƒK[‚ª‰Ÿ‚³‚ê‚Ä‚½‚©
+    BState	wLastButtons;			////  : å‰å›žæŠ¼ã•ã‚ŒãŸãŸãƒœã‚¿ãƒ³
+    bool	bLastLeftTrigger;		////  : å‰å›žå·¦ãƒˆãƒªã‚¬ãƒ¼ãŒæŠ¼ã•ã‚Œã¦ãŸã‹
+    bool	bLastRightTrigger;		////  : å‰å›žå³ãƒˆãƒªã‚¬ãƒ¼ãŒæŠ¼ã•ã‚Œã¦ãŸã‹
 
-	//	: XINPUT_STATE ‚©‚ç‚ÌƒRƒs[
+	//	: XINPUT_STATE ã‹ã‚‰ã®ã‚³ãƒ”ãƒ¼
 	CUSTOM_CONTROLER_STATE& operator = (XINPUT_STATE& other){
 		sThumbLX      = other.Gamepad.sThumbLX ;
 		sThumbLY      = other.Gamepad.sThumbLY ;
@@ -189,8 +189,8 @@ struct CUSTOM_CONTROLER_STATE
 };
 //**************************************************************************//
 // struct CONTROLER_STATE;
-// ’S“–  : Ž°Œ´ “O
-// —p“r  : ƒRƒ“ƒgƒ[ƒ‰[‚ÌƒXƒe[ƒ^ƒX
+// æ‹…å½“  : é´«åŽŸ å¾¹
+// ç”¨é€”  : ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ãƒ¼ã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹
 //**************************************************************************//
 struct CONTROLER_STATE
 {
@@ -204,8 +204,8 @@ struct MouseState{
 };
 //**************************************************************************
 // class CONTROLLERS;
-// ’S“–  : Ž°Œ´ “O
-// —p“r  : ƒRƒ“ƒgƒ[ƒ‰[‚ÌŠÇ—ƒNƒ‰ƒX
+// æ‹…å½“  : é´«åŽŸ å¾¹
+// ç”¨é€”  : ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ãƒ¼ã®ç®¡ç†ã‚¯ãƒ©ã‚¹
 //****************************************************************************/
 class CONTROLLERS{
     static const DWORD MAX_CONTROLLERS = 4;
@@ -217,54 +217,54 @@ public:
 	//static WPARAM KeyBoardState;
 	//static Point  MousePoint;
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     FCONTROLLERS(HWND hWnd)
-	//// ƒJƒeƒSƒŠ   FƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	//// —p“r       FƒNƒ‰ƒX‚Ì‰Šú‰»
-	//// ˆø”       F  HWND hWnd      //  : ”Ä—pƒRƒ“ƒgƒ[ƒ‰[‚É‘Î‰ž‚·‚éÛ‚É—˜—p—\’è
-	//// –ß’l       F‚È‚µ
-	//// ’S“–       FŽ°Œ´ “O
-	//// ”õl       F
-	////            F
+	//// é–¢æ•°å     ï¼šCONTROLLERS(HWND hWnd)
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	//// ç”¨é€”       ï¼šã‚¯ãƒ©ã‚¹ã®åˆæœŸåŒ–
+	//// å¼•æ•°       ï¼š  HWND hWnd      //  : æ±Žç”¨ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ãƒ¼ã«å¯¾å¿œã™ã‚‹éš›ã«åˆ©ç”¨äºˆå®š
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“       ï¼šé´«åŽŸ å¾¹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
     CONTROLLERS(HWND hWnd){
 		::ZeroMemory(m_State,sizeof(CONTROLER_STATE));
 		//CI.Create( hWnd );
 	}
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     FCONTROLLERS()
-	//// ƒJƒeƒSƒŠ   FƒfƒXƒgƒ‰ƒNƒ^
-	//// —p“r       FƒNƒ‰ƒX‚Ì”jŠü
-	//// ˆø”       F‚È‚µ
-	//// –ß’l       F‚È‚µ
-	//// ’S“–       FŽ°Œ´ “O
-	//// ”õl       F
-	////            F
+	//// é–¢æ•°å     ï¼šCONTROLLERS()
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	//// ç”¨é€”       ï¼šã‚¯ãƒ©ã‚¹ã®ç ´æ£„
+	//// å¼•æ•°       ï¼šãªã—
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“       ï¼šé´«åŽŸ å¾¹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
     ~CONTROLLERS(){}
 
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     Fvoid Release()
-	//// ƒJƒeƒSƒŠ   F
-	//// —p“r       Fƒf[ƒ^‚Ì”jŠü
-	//// ˆø”       F‚È‚µ
-	//// –ß’l       F‚È‚µ
-	//// ’S“–       FŽ°Œ´ “O
-	//// ”õl       F
-	////            F
+	//// é–¢æ•°å     ï¼švoid Release()
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼š
+	//// ç”¨é€”       ï¼šãƒ‡ãƒ¼ã‚¿ã®ç ´æ£„
+	//// å¼•æ•°       ï¼šãªã—
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“       ï¼šé´«åŽŸ å¾¹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
     void Release(){
 		//CI.Release();
 		//SAFE_RELEASE(CIGpBuf);
 	}
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     Fconst CONTROLER_STATE* GetState()
-	//// ƒJƒeƒSƒŠ   FƒQƒbƒ^[(?)
-	//// —p“r       FƒRƒ“ƒgƒ[ƒ‰[‚Ìó‘Ô‚ð“¾‚é
-	//// ˆø”       F‚È‚µ
-	//// –ß’l       FƒRƒ“ƒgƒ[ƒ‰[‚ÌƒXƒe[ƒ^ƒX
-	//// ’S“–       FŽ°Œ´ “O
-	//// ”õl       F
-	////            F
+	//// é–¢æ•°å     ï¼šconst CONTROLER_STATE* GetState()
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚²ãƒƒã‚¿ãƒ¼(?)
+	//// ç”¨é€”       ï¼šã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ãƒ¼ã®çŠ¶æ…‹ã‚’å¾—ã‚‹
+	//// å¼•æ•°       ï¼šãªã—
+	//// æˆ»å€¤       ï¼šã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ãƒ¼ã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹
+	//// æ‹…å½“       ï¼šé´«åŽŸ å¾¹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
     const CONTROLER_STATE* GetState(){
         DWORD dwResult;
@@ -291,7 +291,7 @@ public:
 			m_State[i].Gamepad.bLastLeftTrigger  = m_State[i].Gamepad.bLeftTrigger  != 0;
 			m_State[i].Gamepad.bLastRightTrigger = m_State[i].Gamepad.bRightTrigger != 0;
 			m_State[i].Gamepad.wButtons = 0;
-            // XInput‚©‚çÝ‚ÌƒXƒe[ƒ^ƒX‚ð“¾‚é
+            // XInputã‹ã‚‰åœ¨ã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã‚’å¾—ã‚‹
             dwResult = XInputGetState( i, &XIStateBuf );
 
 			
@@ -307,7 +307,7 @@ public:
 				m_State[i].Gamepad			= XIStateBuf;
 
 				//////////
-				//	: ƒŒƒo[‚Ìƒfƒbƒhƒ][ƒ“‚ðÝ’è
+				//	: ãƒ¬ãƒãƒ¼ã®ãƒ‡ãƒƒãƒ‰ã‚¾ãƒ¼ãƒ³ã‚’è¨­å®š
 				if( abs( m_State[i].Gamepad.sThumbLX ) < XINPUT_GAMEPAD_LEFT_THUMB_DEADZONE		/3.5f )
 					m_State[i].Gamepad.sThumbLX = 0;
 				if( abs( m_State[i].Gamepad.sThumbLY ) < XINPUT_GAMEPAD_LEFT_THUMB_DEADZONE		/3.5f )
@@ -320,7 +320,7 @@ public:
 				//////////
 
 				//////////
-				//	: ƒfƒoƒbƒO—p‚ÉƒL[ƒ{[ƒh‚Å‘€ì‚Å‚«‚é‚æ‚¤‚É‚µ‚Ä‚Ý‚½
+				//	: ãƒ‡ãƒãƒƒã‚°ç”¨ã«ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰ã§æ“ä½œã§ãã‚‹ã‚ˆã†ã«ã—ã¦ã¿ãŸ
 				#ifdef DEBUG_KEYBORD_ON
 				if( i == 0 ){
 					m_State[i].bConnected		= true;
@@ -355,7 +355,7 @@ public:
 				//////////
 
 				//////////
-				//	: ”’l‚Ìfloat‰»
+				//	: æ•°å€¤ã®floatåŒ–
 				m_State[i].Gamepad.fThumbLX = (float)m_State[i].Gamepad.sThumbLX / (float)SHRT_MAX;
 				m_State[i].Gamepad.fThumbLY = (float)m_State[i].Gamepad.sThumbLY / (float)SHRT_MAX;
 				m_State[i].Gamepad.fThumbRX = (float)m_State[i].Gamepad.sThumbRX / (float)SHRT_MAX;
@@ -367,7 +367,7 @@ public:
 				//	: 
 				m_State[i].Gamepad.wPressedButtons = (m_State[i].Gamepad.wLastButtons ^ m_State[i].Gamepad.wButtons) & m_State[i].Gamepad.wButtons;
 
-				//Debugger::DBGSTR::addStr( L"\nƒRƒ“ƒgƒ[ƒ‰[\n" );
+				//Debugger::DBGSTR::addStr( L"\nã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ãƒ¼\n" );
 				//Debugger::DBGSTR::addStr( L"sThumbLX = %d\n"   , m_State[i].Gamepad.sThumbLX );
 				//Debugger::DBGSTR::addStr( L"sThumbLY = %d\n"   , m_State[i].Gamepad.sThumbLY );
 				//Debugger::DBGSTR::addStr( L"sThumbRX = %d\n"   , m_State[i].Gamepad.sThumbRX );
@@ -385,14 +385,14 @@ public:
         return m_State;
     }
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     Fconst DWORD getMaxControllers() const;
-	//// ƒJƒeƒSƒŠ   FƒQƒbƒ^[
-	//// —p“r       FƒRƒ“ƒgƒ[ƒ‰[‚ÌÅ‘å”‚ð“¾‚é
-	//// ˆø”       F‚È‚µ
-	//// –ß’l       FŒ»ƒo[ƒWƒ‡ƒ“‚Å‚Í’è”‚ª•Ô‚éi4j
-	//// ’S“–       FŽ°Œ´ “O
-	//// ”õl       F
-	////            F
+	//// é–¢æ•°å     ï¼šconst DWORD getMaxControllers() const;
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚²ãƒƒã‚¿ãƒ¼
+	//// ç”¨é€”       ï¼šã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ãƒ¼ã®æœ€å¤§æ•°ã‚’å¾—ã‚‹
+	//// å¼•æ•°       ï¼šãªã—
+	//// æˆ»å€¤       ï¼šç¾ãƒãƒ¼ã‚¸ãƒ§ãƒ³ã§ã¯å®šæ•°ãŒè¿”ã‚‹ï¼ˆ4ï¼‰
+	//// æ‹…å½“       ï¼šé´«åŽŸ å¾¹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
     const DWORD getMaxControllers() const{
         return MAX_CONTROLLERS;

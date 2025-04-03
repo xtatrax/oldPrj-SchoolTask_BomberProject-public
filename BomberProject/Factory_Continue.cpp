@@ -1,11 +1,11 @@
 ////////////////////////////// //////////////////////////////
-//	ƒvƒƒWƒFƒNƒg	FBomberProject
-//	ƒtƒ@ƒCƒ‹–¼		FFactory_Continue.cpp
-//	ŠJ”­ŠÂ‹«		FMSVC++ 2008
-//	Å“Kƒ^ƒu”		F4
-//	’S“–Ò			F²“¡—Á
-//	“à•ïÃŞ°À‚Æ”õl	FƒRƒ“ƒeƒjƒ…[
-//					¥
+//	ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆ	ï¼šBomberProject
+//	ãƒ•ã‚¡ã‚¤ãƒ«å		ï¼šFactory_Continue.cpp
+//	é–‹ç™ºç’°å¢ƒ		ï¼šMSVC++ 2008
+//	æœ€é©ã‚¿ãƒ–æ•°		ï¼š4
+//	æ‹…å½“è€…			ï¼šä½è—¤æ¶¼
+//	å†…åŒ…ãƒ‡ãƒ¼ã‚¿ã¨å‚™è€ƒ	ï¼šã‚³ãƒ³ãƒ†ãƒ‹ãƒ¥ãƒ¼
+//					â–¼
 //	namespace wiz;
 //		class Reply ;
 //		class Dead ;
@@ -13,22 +13,22 @@
 //
 
 //////////
-//	: Šî–{‚ÌƒCƒ“ƒNƒ‹[ƒh
+//	: åŸºæœ¬ã®ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰
 #include "StdAfx.h"
 #include "Factory_Continue.h"
 
-//	: Šî–{‚ÌƒCƒ“ƒNƒ‹[ƒh
+//	: åŸºæœ¬ã®ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰
 //////////
 //////////
-//	: ’Ç‰Á‚ÌƒCƒ“ƒNƒ‹[ƒh
-//	: ’Ç‰Á‚ÌƒCƒ“ƒNƒ‹[ƒh
+//	: è¿½åŠ ã®ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰
+//	: è¿½åŠ ã®ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰
 //////////
 
 
 namespace wiz{
 namespace bomberobject{
 ///************************************************************************
-//ContinueButton ’è‹`•”
+//ContinueButton å®šç¾©éƒ¨
 //************************************************************************/
 ContinueButton::ContinueButton(
 		const LPDIRECT3DDEVICE9		pD3DDevice			,
@@ -57,7 +57,7 @@ void ContinueButton::Draw(DrawPacket& i_DrawPacket){
 	ButtonSprite::Draw(i_DrawPacket);
 }
 ///************************************************************************
-//ContinueBehavior ’è‹`•”
+//ContinueBehavior å®šç¾©éƒ¨
 //************************************************************************/
 
 ContinueBehavior::ContinueBehavior(
@@ -82,7 +82,7 @@ ContinueBehavior::ContinueBehavior(
 	m_pPTReally		= i_BassPacket.AddTexture(L"REALLY4.png");
 	D3DXVECTOR3	vScale	= D3DXVECTOR3( 0.5f, 0.5f, 0.0f );
 	D3DXVECTOR3	vPos	= D3DXVECTOR3( (wide-512.0f*vScale.x), (height-256.0f*vScale.y-100), 0.0f );
-	//	: ƒy[ƒWƒ^ƒCƒgƒ‹
+	//	: ãƒšãƒ¼ã‚¸ã‚¿ã‚¤ãƒˆãƒ«
 	m_pPageTitle = new SpriteObject(
 		pD3DDevice				,
 		m_pPTContinue			,
@@ -94,7 +94,7 @@ ContinueBehavior::ContinueBehavior(
 		g_vZero					
 	);
 
-	//	: ƒfƒbƒhƒƒbƒZ[ƒW
+	//	: ãƒ‡ãƒƒãƒ‰ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸
 	m_pDeadMessage = new SpriteObject(
 		pD3DDevice				,
 		i_BassPacket.AddTexture(L"dead6.png")	,
@@ -106,7 +106,7 @@ ContinueBehavior::ContinueBehavior(
 		g_vZero					
 	);
 
-	//	: YESƒ{ƒ^ƒ“
+	//	: YESãƒœã‚¿ãƒ³
 	i_BassPacket.AddButton( m_pYesButton = new ContinueButton(
 		pD3DDevice				,
 		i_BassPacket.AddTexture(L"TEST.png")	,
@@ -118,7 +118,7 @@ ContinueBehavior::ContinueBehavior(
 		OBJID_UI_BUTTON_YES		
 		)
 	);
-	//	: NOƒ{ƒ^ƒ“
+	//	: NOãƒœã‚¿ãƒ³
 	i_BassPacket.AddButton( m_pNoButton = new ContinueButton(
 		pD3DDevice				,
 		i_BassPacket.AddTexture(L"TEST.png")	,
@@ -188,19 +188,19 @@ ContinueBehavior::~ContinueBehavior(){
 
 
 /////////////////// ////////////////////
-//// —p“r       Fvirtual void Update( UpdatePacket& i_UpdatePacket )
-//// ƒJƒeƒSƒŠ   F‰¼‘zŠÖ”
-//// —p“r       FƒIƒuƒWƒFƒNƒg‚ğXV
-//// ˆø”       F  UpdatePacket& i_UpdatePacket     // ƒAƒbƒvƒf[ƒg‚É•K—v‚Èƒf[ƒ^ŒQ «“à—e‰º‹L
-////            F  „¥       LPDIRECT3DDEVICE9  pD3DDevice      // IDirect3DDevice9 ƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-////            F  „¥       Tempus2*           pTime           // ŠÔ‚ğŠÇ—‚·‚éƒNƒ‰ƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^[
-////            F  „¥       vector<Object*>&   Vec,            // ƒIƒuƒWƒFƒNƒg‚Ì”z—ñ
-////            F  „¥ const CONTROLER_STATE*   pCntlState      // ƒRƒ“ƒgƒ[ƒ‰‚ÌƒXƒe[ƒ^ƒX
-////            F  „¤       Command            pCommand        // ƒRƒ}ƒ“ƒh
-//// –ß’l       F‚È‚µ
-//// ’S“–Ò     F°Œ´ “O
-//// ”õl       F
-////            F
+//// ç”¨é€”       ï¼švirtual void Update( UpdatePacket& i_UpdatePacket )
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šä»®æƒ³é–¢æ•°
+//// ç”¨é€”       ï¼šã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’æ›´æ–°
+//// å¼•æ•°       ï¼š  UpdatePacket& i_UpdatePacket     // ã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆæ™‚ã«å¿…è¦ãªãƒ‡ãƒ¼ã‚¿ç¾¤ â†“å†…å®¹ä¸‹è¨˜
+////            ï¼š  â”œ       LPDIRECT3DDEVICE9  pD3DDevice      // IDirect3DDevice9 ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+////            ï¼š  â”œ       Tempus2*           pTime           // æ™‚é–“ã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿ãƒ¼
+////            ï¼š  â”œ       vector<Object*>&   Vec,            // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®é…åˆ—
+////            ï¼š  â”œ const CONTROLER_STATE*   pCntlState      // ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹
+////            ï¼š  â””       Command            pCommand        // ã‚³ãƒãƒ³ãƒ‰
+//// æˆ»å€¤       ï¼šãªã—
+//// æ‹…å½“è€…     ï¼šé´«åŸ å¾¹
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
 void ContinueBehavior::Update( UpdatePacket& i_UpdatePacket ){
 	if( !m_pCoil )  m_pCoil = (PlayerCoil*)i_UpdatePacket.SearchObjectFromID( OBJID_3D_COIL );
@@ -209,10 +209,10 @@ void ContinueBehavior::Update( UpdatePacket& i_UpdatePacket ){
 
 
 	if( m_NowBehaviorFaze == CONTINUEBEHAVIORPHASE_DRAWDEADMESSAGE ){
-		//	: ƒfƒbƒhƒƒbƒZ[ƒW•`‰æƒtƒFƒCƒY
+		//	: ãƒ‡ãƒƒãƒ‰ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸æç”»ãƒ•ã‚§ã‚¤ã‚º
 		m_pDeadScore->Update(i_UpdatePacket);
 		if( ( m_fDeadMessageTimeAccumulator += (float)i_UpdatePacket.GetTime()->getElapsedTime()) > m_fMessageTime){
-			//	: ƒtƒF[ƒhƒAƒEƒgƒtƒFƒCƒY
+			//	: ãƒ•ã‚§ãƒ¼ãƒ‰ã‚¢ã‚¦ãƒˆãƒ•ã‚§ã‚¤ã‚º
 			if( (m_fDeadMessageAlpha -= ( ( 255.0f / m_fFadeOutTime ) * (float)i_UpdatePacket.GetTime()->getElapsedTime())) <= 0.0f){
 				m_NowBehaviorFaze = CONTINUEBEHAVIORPHASE_CONTINUESELECTION;
 				m_pYesButton->OperationStart();
@@ -230,7 +230,7 @@ void ContinueBehavior::Update( UpdatePacket& i_UpdatePacket ){
 		m_pNoButton->getIssueCommand(cmd);
 		if( cmd.m_Command == GM_CONTINUEBUTTON_YES ){
 			if( m_NowBehaviorFaze == CONTINUEBEHAVIORPHASE_CONTINUESELECTION ){
-				//	: ƒRƒCƒ‹‚Ö•œ‹A–½—ß
+				//	: ã‚³ã‚¤ãƒ«ã¸å¾©å¸°å‘½ä»¤
 				m_pCoil->setReadyContinue(true);
 				m_pYesButton->OperationEnd();
 				m_pNoButton->OperationEnd();
@@ -238,7 +238,7 @@ void ContinueBehavior::Update( UpdatePacket& i_UpdatePacket ){
 				OperationStop();
 
 			}else if( m_NowBehaviorFaze == CONTINUEBEHAVIORPHASE_CHECKSELECTION ){
-				//	: ƒŠƒUƒ‹ƒg‰æ–Ê‚Ö‘JˆÚ–½—ß
+				//	: ãƒªã‚¶ãƒ«ãƒˆç”»é¢ã¸é·ç§»å‘½ä»¤
 				i_UpdatePacket.PushCommand( 
 					Command(
 						GM_OPENSTAGE_RESULT			,
@@ -251,12 +251,12 @@ void ContinueBehavior::Update( UpdatePacket& i_UpdatePacket ){
 		}
 		if( cmd.m_Command == GM_CONTINUEBUTTON_NO ){
 			if( m_NowBehaviorFaze == CONTINUEBEHAVIORPHASE_CONTINUESELECTION ){
-				//	: Šm”F‚ª–Ú‚Ö
+				//	: ç¢ºèªãŒç›®ã¸
 				m_NowBehaviorFaze = CONTINUEBEHAVIORPHASE_CHECKSELECTION ;
 				m_pPageTitle->setTexture(m_pPTReally);
 				m_pYesButton->setWaitTime(0.7f);
 			}else if( m_NowBehaviorFaze == CONTINUEBEHAVIORPHASE_CHECKSELECTION ){
-				//	: •œ‹A‘I‘ğ‚Ö
+				//	: å¾©å¸°é¸æŠã¸
 				m_NowBehaviorFaze = CONTINUEBEHAVIORPHASE_CONTINUESELECTION ;
 				m_pPageTitle->setTexture(m_pPTContinue);
 				m_pYesButton->setWaitTime(0.0f);
@@ -266,18 +266,18 @@ void ContinueBehavior::Update( UpdatePacket& i_UpdatePacket ){
 
 };
 /////////////////// ////////////////////
-//// —p“r       Fvirtual void Draw( DrawPacket& i_DrawPacket )
-//// ƒJƒeƒSƒŠ   F‰¼‘zŠÖ”
-//// —p“r       FƒIƒuƒWƒFƒNƒg‚ğƒfƒBƒXƒvƒŒƒC‚É•\¦‚·‚é
-//// ˆø”       F  DrawPacket& i_DrawPacket             // ‰æ–Ê•`‰æ‚É•K—v‚Èƒf[ƒ^ŒQ «“à—e‰º‹L
-////            F  „¥ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 ƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-////            F  „¥ vector<Object*>&    Vec                     // ƒIƒuƒWƒFƒNƒg‚Ì”z—ñ
-////            F  „¥ Tempus2*            i_DrawPacket.GetTime()	   // ŠÔ‚ğŠÇ—‚·‚éƒNƒ‰ƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^[
-////            F  „¤ Command             i_DrawPacket.pCommand   // ƒRƒ}ƒ“ƒh
-//// –ß’l       F‚È‚µ
-//// ’S“–Ò     F°Œ´ “O
-//// ”õl       F
-////            F
+//// ç”¨é€”       ï¼švirtual void Draw( DrawPacket& i_DrawPacket )
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šä»®æƒ³é–¢æ•°
+//// ç”¨é€”       ï¼šã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ãƒ‡ã‚£ã‚¹ãƒ—ãƒ¬ã‚¤ã«è¡¨ç¤ºã™ã‚‹
+//// å¼•æ•°       ï¼š  DrawPacket& i_DrawPacket             // ç”»é¢æç”»æ™‚ã«å¿…è¦ãªãƒ‡ãƒ¼ã‚¿ç¾¤ â†“å†…å®¹ä¸‹è¨˜
+////            ï¼š  â”œ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+////            ï¼š  â”œ vector<Object*>&    Vec                     // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®é…åˆ—
+////            ï¼š  â”œ Tempus2*            i_DrawPacket.GetTime()	   // æ™‚é–“ã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿ãƒ¼
+////            ï¼š  â”” Command             i_DrawPacket.pCommand   // ã‚³ãƒãƒ³ãƒ‰
+//// æˆ»å€¤       ï¼šãªã—
+//// æ‹…å½“è€…     ï¼šé´«åŸ å¾¹
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
 void ContinueBehavior::Draw( DrawPacket& i_DrawPacket ){
 	if( m_NowBehaviorFaze == CONTINUEBEHAVIORPHASE_WAIT ) return;
@@ -294,28 +294,28 @@ void ContinueBehavior::Draw( DrawPacket& i_DrawPacket ){
 };
 
 ///************************************************************************
-//Reply ’è‹`•”
+//Reply å®šç¾©éƒ¨
 //************************************************************************/
 ///////////////////// ////////////////////
-////// ŠÖ”–¼     FReply(LPDIRECT3DDEVICE9 pD3DDevice,LPTATRATEXTURE pTexture,DWORD next,
-//////            F    D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos, Rect* pRect,
-//////            F    D3DXVECTOR3& vCenter,D3DXVECTOR3& vOffsetPos,Color color = 0xFFFFFFFF);
-////// ƒJƒeƒSƒŠ   FƒRƒ“ƒXƒgƒ‰ƒNƒ^
-////// —p“r       Fƒ^ƒCƒgƒ‹‚Ö–ß‚é‚ÌÄŠm”F
-////// ˆø”       F  LPDIRECT3DDEVICE9 pD3DDevice    // IDirect3DDevice9 ƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-//////            F  LPTATRATEXTURE pTexture     // “\‚è•t‚¯‚½‚¢ƒeƒNƒXƒ`ƒƒ
-//////            F  DWORD next                      // Ÿ‚Ì‰æ–Ê
-//////            F  D3DXVECTOR3 &vScale             // ‘å‚«‚³
-//////            F  D3DXVECTOR3 &vRot               // O²‰ñ“]
-//////            F  D3DXVECTOR3 &vPos               // İ’uÀ•W
-//////            F  Rect* pRect                     // •`‰æ‚µ‚½‚¢”ÍˆÍ(NULL‚Å‘S‘Ì‚ğ•`‰æ)
-//////            F  D3DXVECTOR3& vCenter            // ’†S
-//////            F  D3DXVECTOR3& vOffsetPos         // ƒIƒtƒZƒbƒgÀ•W
-//////            F  Color color = 0xFFFFFFFF        // F
-////// –ß’l       F‚È‚µ
-////// ’S“–Ò     F²“¡—Á
-////// ”õl       F
-//////            F
+////// é–¢æ•°å     ï¼šReply(LPDIRECT3DDEVICE9 pD3DDevice,LPTATRATEXTURE pTexture,DWORD next,
+//////            ï¼š    D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos, Rect* pRect,
+//////            ï¼š    D3DXVECTOR3& vCenter,D3DXVECTOR3& vOffsetPos,Color color = 0xFFFFFFFF);
+////// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+////// ç”¨é€”       ï¼šã‚¿ã‚¤ãƒˆãƒ«ã¸æˆ»ã‚‹ã®å†ç¢ºèª
+////// å¼•æ•°       ï¼š  LPDIRECT3DDEVICE9 pD3DDevice    // IDirect3DDevice9 ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+//////            ï¼š  LPTATRATEXTURE pTexture     // è²¼ã‚Šä»˜ã‘ãŸã„ãƒ†ã‚¯ã‚¹ãƒãƒ£
+//////            ï¼š  DWORD next                      // æ¬¡ã®ç”»é¢
+//////            ï¼š  D3DXVECTOR3 &vScale             // å¤§ãã•
+//////            ï¼š  D3DXVECTOR3 &vRot               // ä¸‰è»¸å›è»¢
+//////            ï¼š  D3DXVECTOR3 &vPos               // è¨­ç½®åº§æ¨™
+//////            ï¼š  Rect* pRect                     // æç”»ã—ãŸã„ç¯„å›²(NULLã§å…¨ä½“ã‚’æç”»)
+//////            ï¼š  D3DXVECTOR3& vCenter            // ä¸­å¿ƒ
+//////            ï¼š  D3DXVECTOR3& vOffsetPos         // ã‚ªãƒ•ã‚»ãƒƒãƒˆåº§æ¨™
+//////            ï¼š  Color color = 0xFFFFFFFF        // è‰²
+////// æˆ»å€¤       ï¼šãªã—
+////// æ‹…å½“è€…     ï¼šä½è—¤æ¶¼
+////// å‚™è€ƒ       ï¼š
+//////            ï¼š
 //////
 //Reply::Reply(const LPDIRECT3DDEVICE9 pD3DDevice,const  LPTATRATEXTURE pTexture,const bool mark,
 //		const D3DXVECTOR3 &vScale,const D3DXVECTOR3 &vRot,const D3DXVECTOR3 &vPos,
@@ -331,7 +331,7 @@ void ContinueBehavior::Draw( DrawPacket& i_DrawPacket ){
 //,m_pCoil(		NULL	)
 //{
 //	try{
-//		//	: ‰Šúƒ}ƒgƒŠƒbƒNƒX‚ğŒvZ
+//		//	: åˆæœŸãƒãƒˆãƒªãƒƒã‚¯ã‚¹ã‚’è¨ˆç®—
 //		D3DXMATRIX mScale,mRot,mPos;
 //		D3DXMatrixScaling(&mScale,vScale.x,vScale.y,vScale.z);
 //		D3DXMatrixRotationYawPitchRoll(&mRot,vRot.y,vRot.x,vRot.z);
@@ -341,7 +341,7 @@ void ContinueBehavior::Draw( DrawPacket& i_DrawPacket ){
 //	}
 //	catch(...){
 //		SafeRelease(m_pSprite);
-//		//ÄƒXƒ[
+//		//å†ã‚¹ãƒ­ãƒ¼
 //		throw;
 //	}
 //};
@@ -350,30 +350,30 @@ void ContinueBehavior::Draw( DrawPacket& i_DrawPacket ){
 //	m_pCoil		= NULL;
 //}
 ///////////////////// ////////////////////
-////// ŠÖ”–¼     Fvoid Reply::Draw( DrawPacket& i_DrawPacket)
-////// ƒJƒeƒSƒŠ   FŠÖ”
-////// —p“r       FƒXƒvƒ‰ƒCƒg‚ğ•`‰æ
-////// ˆø”       FDrawPacket& i_DrawPacket    //‚à‚ë‚à‚ë‚Ìƒf[ƒ^
-////// –ß’l       F‚È‚µ
-////// ’S“–Ò     F²“¡—Á
-////// ”õl       F
-//////            F
+////// é–¢æ•°å     ï¼švoid Reply::Draw( DrawPacket& i_DrawPacket)
+////// ã‚«ãƒ†ã‚´ãƒª   ï¼šé–¢æ•°
+////// ç”¨é€”       ï¼šã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã‚’æç”»
+////// å¼•æ•°       ï¼šDrawPacket& i_DrawPacket    //ã‚‚ã‚ã‚‚ã‚ã®ãƒ‡ãƒ¼ã‚¿
+////// æˆ»å€¤       ï¼šãªã—
+////// æ‹…å½“è€…     ï¼šä½è—¤æ¶¼
+////// å‚™è€ƒ       ï¼š
+//////            ï¼š
 //////
 //void Reply::Draw(DrawPacket& i_DrawPacket)
 //{
-//	//	: •`‰æ‚ÍeƒNƒ‰ƒX‚É”C‚¹‚é
+//	//	: æç”»ã¯è¦ªã‚¯ãƒ©ã‚¹ã«ä»»ã›ã‚‹
 //	SpriteObject::Draw(i_DrawPacket);
 //};
 //
 ///////////////////// ////////////////////
-////// ŠÖ”–¼     Fvoid Reply::Update( UpdatePacket& i_UpdatePacket)
-////// ƒJƒeƒSƒŠ   FŠÖ”
-////// —p“r       Fƒf[ƒ^‚ÌXV
-////// ˆø”       FUpdatePacket& i_UpdatePacket    //‚à‚ë‚à‚ë‚Ìƒf[ƒ^
-////// –ß’l       F‚È‚µ
-////// ’S“–Ò     F²“¡—Á
-////// ”õl       F
-//////            F
+////// é–¢æ•°å     ï¼švoid Reply::Update( UpdatePacket& i_UpdatePacket)
+////// ã‚«ãƒ†ã‚´ãƒª   ï¼šé–¢æ•°
+////// ç”¨é€”       ï¼šãƒ‡ãƒ¼ã‚¿ã®æ›´æ–°
+////// å¼•æ•°       ï¼šUpdatePacket& i_UpdatePacket    //ã‚‚ã‚ã‚‚ã‚ã®ãƒ‡ãƒ¼ã‚¿
+////// æˆ»å€¤       ï¼šãªã—
+////// æ‹…å½“è€…     ï¼šä½è—¤æ¶¼
+////// å‚™è€ƒ       ï¼š
+//////            ï¼š
 //////
 //void Reply::Update(UpdatePacket& i_UpdatePacket)
 //{
@@ -405,7 +405,7 @@ void ContinueBehavior::Draw( DrawPacket& i_DrawPacket ){
 //		}
 //	}
 //	else{
-//		//	: ƒ}ƒEƒX‚ª‰æ‘œ‚Ì”ÍˆÍŠO‚É‚¢‚é‚Æ‚«
+//		//	: ãƒã‚¦ã‚¹ãŒç”»åƒã®ç¯„å›²å¤–ã«ã„ã‚‹ã¨ã
 //		m_Color	= 0xA0FFFFFF;
 //		m_bSelect = false;
 //		if( Cursor2D::getLButtonState() )	m_bPushRock	= false;
@@ -414,7 +414,7 @@ void ContinueBehavior::Draw( DrawPacket& i_DrawPacket ){
 //	if( m_bPush ){
 //		m_iTime++;
 //		if( m_iTime > 30 ){
-//			//‘I‚Î‚ê‚½‰æ–Ê‚Ö‚Æ‚Ô
+//			//é¸ã°ã‚ŒãŸç”»é¢ã¸ã¨ã¶
 //			i_UpdatePacket.pCommand->m_Command	= m_dNext;
 //			m_bPush = false ;
 //		}
@@ -423,28 +423,28 @@ void ContinueBehavior::Draw( DrawPacket& i_DrawPacket ){
 //};
 //
 ///************************************************************************
-//Continue ’è‹`•”
+//Continue å®šç¾©éƒ¨
 //************************************************************************/
 ///////////////////// ////////////////////
-////// ŠÖ”–¼     FContinue(LPDIRECT3DDEVICE9 pD3DDevice,LPTATRATEXTURE pTexture,DWORD next,
-//////            F    D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos, Rect* pRect,
-//////            F    D3DXVECTOR3& vCenter,D3DXVECTOR3& vOffsetPos,Color color = 0xFFFFFFFF);
-////// ƒJƒeƒSƒŠ   FƒRƒ“ƒXƒgƒ‰ƒNƒ^
-////// —p“r       FƒRƒ“ƒeƒjƒ…[‚·‚é‚©Šm”F
-////// ˆø”       F  LPDIRECT3DDEVICE9 pD3DDevice    // IDirect3DDevice9 ƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-//////            F  LPTATRATEXTURE pTexture     // “\‚è•t‚¯‚½‚¢ƒeƒNƒXƒ`ƒƒ
-//////            F  DWORD next                      // Ÿ‚Ì‰æ–Ê
-//////            F  D3DXVECTOR3 &vScale             // ‘å‚«‚³
-//////            F  D3DXVECTOR3 &vRot               // O²‰ñ“]
-//////            F  D3DXVECTOR3 &vPos               // İ’uÀ•W
-//////            F  Rect* pRect                     // •`‰æ‚µ‚½‚¢”ÍˆÍ(NULL‚Å‘S‘Ì‚ğ•`‰æ)
-//////            F  D3DXVECTOR3& vCenter            // ’†S
-//////            F  D3DXVECTOR3& vOffsetPos         // ƒIƒtƒZƒbƒgÀ•W
-//////            F  Color color = 0xFFFFFFFF        // F
-////// –ß’l       F‚È‚µ
-////// ’S“–Ò     F²“¡—Á
-////// ”õl       F
-//////            F
+////// é–¢æ•°å     ï¼šContinue(LPDIRECT3DDEVICE9 pD3DDevice,LPTATRATEXTURE pTexture,DWORD next,
+//////            ï¼š    D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos, Rect* pRect,
+//////            ï¼š    D3DXVECTOR3& vCenter,D3DXVECTOR3& vOffsetPos,Color color = 0xFFFFFFFF);
+////// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+////// ç”¨é€”       ï¼šã‚³ãƒ³ãƒ†ãƒ‹ãƒ¥ãƒ¼ã™ã‚‹ã‹ç¢ºèª
+////// å¼•æ•°       ï¼š  LPDIRECT3DDEVICE9 pD3DDevice    // IDirect3DDevice9 ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+//////            ï¼š  LPTATRATEXTURE pTexture     // è²¼ã‚Šä»˜ã‘ãŸã„ãƒ†ã‚¯ã‚¹ãƒãƒ£
+//////            ï¼š  DWORD next                      // æ¬¡ã®ç”»é¢
+//////            ï¼š  D3DXVECTOR3 &vScale             // å¤§ãã•
+//////            ï¼š  D3DXVECTOR3 &vRot               // ä¸‰è»¸å›è»¢
+//////            ï¼š  D3DXVECTOR3 &vPos               // è¨­ç½®åº§æ¨™
+//////            ï¼š  Rect* pRect                     // æç”»ã—ãŸã„ç¯„å›²(NULLã§å…¨ä½“ã‚’æç”»)
+//////            ï¼š  D3DXVECTOR3& vCenter            // ä¸­å¿ƒ
+//////            ï¼š  D3DXVECTOR3& vOffsetPos         // ã‚ªãƒ•ã‚»ãƒƒãƒˆåº§æ¨™
+//////            ï¼š  Color color = 0xFFFFFFFF        // è‰²
+////// æˆ»å€¤       ï¼šãªã—
+////// æ‹…å½“è€…     ï¼šä½è—¤æ¶¼
+////// å‚™è€ƒ       ï¼š
+//////            ï¼š
 //////
 //Continue::Continue(const LPDIRECT3DDEVICE9 pD3DDevice,const  LPTATRATEXTURE pTexture_Answer,
 //		const LPTATRATEXTURE pTexture_Rethinking, const LPTATRATEXTURE pTexture_Continue,
@@ -470,7 +470,7 @@ void ContinueBehavior::Draw( DrawPacket& i_DrawPacket ){
 //,m_bDrawing( false )
 //{
 //	try{
-//		//	: ‰Šúƒ}ƒgƒŠƒbƒNƒX‚ğŒvZ
+//		//	: åˆæœŸãƒãƒˆãƒªãƒƒã‚¯ã‚¹ã‚’è¨ˆç®—
 //		D3DXMATRIX mScale,mPos;
 //		D3DXMatrixScaling(&mScale,vScale.x,vScale.y,vScale.z);
 //		D3DXMatrixTranslation(&mPos,vPos.x,vPos.y,vPos.z);
@@ -479,7 +479,7 @@ void ContinueBehavior::Draw( DrawPacket& i_DrawPacket ){
 //		float	wide	= BASE_CLIENT_WIDTH/2;
 //		float	height	= BASE_CLIENT_HEIGHT/2;
 //
-//		//ContinueƒƒS‚Ìì¬
+//		//Continueãƒ­ã‚´ã®ä½œæˆ
 //		m_pContinueChar	= new SpriteObject( pD3DDevice, m_pContinueTex, D3DXVECTOR3( 1.0f, 1.0f, 0.0f ),g_vZero,
 //									D3DXVECTOR3( wide-256.0f,height-200.0f,0.0f ), Rect( 0, 0, 512, 64 ), g_vZero, g_vZero );
 //
@@ -493,13 +493,13 @@ void ContinueBehavior::Draw( DrawPacket& i_DrawPacket ){
 //	}
 //	catch(...){
 //		SafeRelease(m_pSprite);
-//		//ÄƒXƒ[
+//		//å†ã‚¹ãƒ­ãƒ¼
 //		throw;
 //	}
 //};
 //
 ///**********************************************
-//ƒfƒXƒgƒ‰ƒNƒ^
+//ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 //**********************************************/
 //Continue::~Continue(){
 //	SafeDelete( m_pReply_Yes );
@@ -513,14 +513,14 @@ void ContinueBehavior::Draw( DrawPacket& i_DrawPacket ){
 //}
 //
 ///////////////////// ////////////////////
-////// ŠÖ”–¼     Fvoid Continue::Draw( DrawPacket& i_DrawPacket)
-////// ƒJƒeƒSƒŠ   FŠÖ”
-////// —p“r       FƒXƒvƒ‰ƒCƒg‚ğ•`‰æ
-////// ˆø”       FDrawPacket& i_DrawPacket    //‚à‚ë‚à‚ë‚Ìƒf[ƒ^
-////// –ß’l       F‚È‚µ
-////// ’S“–Ò     F²“¡—Á
-////// ”õl       F
-//////            F
+////// é–¢æ•°å     ï¼švoid Continue::Draw( DrawPacket& i_DrawPacket)
+////// ã‚«ãƒ†ã‚´ãƒª   ï¼šé–¢æ•°
+////// ç”¨é€”       ï¼šã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã‚’æç”»
+////// å¼•æ•°       ï¼šDrawPacket& i_DrawPacket    //ã‚‚ã‚ã‚‚ã‚ã®ãƒ‡ãƒ¼ã‚¿
+////// æˆ»å€¤       ï¼šãªã—
+////// æ‹…å½“è€…     ï¼šä½è—¤æ¶¼
+////// å‚™è€ƒ       ï¼š
+//////            ï¼š
 //////
 //void Continue::Draw(DrawPacket& i_DrawPacket)
 //{
@@ -528,7 +528,7 @@ void ContinueBehavior::Draw( DrawPacket& i_DrawPacket ){
 //		if( m_bWhichDraw ){
 //			if( m_pContinueChar != NULL )
 //				m_pContinueChar->Draw(i_DrawPacket);
-//			//	: •`‰æ‚ÍeƒNƒ‰ƒX‚É”C‚¹‚é
+//			//	: æç”»ã¯è¦ªã‚¯ãƒ©ã‚¹ã«ä»»ã›ã‚‹
 //			SpriteObject::Draw(i_DrawPacket);
 //		}else{
 //			if( m_pRethinking != NULL )
@@ -542,14 +542,14 @@ void ContinueBehavior::Draw( DrawPacket& i_DrawPacket ){
 //};
 //
 ///////////////////// ////////////////////
-////// ŠÖ”–¼     Fvoid Continue::Update( UpdatePacket& i_UpdatePacket)
-////// ƒJƒeƒSƒŠ   FŠÖ”
-////// —p“r       Fƒf[ƒ^‚ÌXV
-////// ˆø”       FUpdatePacket& i_UpdatePacket    //‚à‚ë‚à‚ë‚Ìƒf[ƒ^
-////// –ß’l       F‚È‚µ
-////// ’S“–Ò     F²“¡—Á
-////// ”õl       F
-//////            F
+////// é–¢æ•°å     ï¼švoid Continue::Update( UpdatePacket& i_UpdatePacket)
+////// ã‚«ãƒ†ã‚´ãƒª   ï¼šé–¢æ•°
+////// ç”¨é€”       ï¼šãƒ‡ãƒ¼ã‚¿ã®æ›´æ–°
+////// å¼•æ•°       ï¼šUpdatePacket& i_UpdatePacket    //ã‚‚ã‚ã‚‚ã‚ã®ãƒ‡ãƒ¼ã‚¿
+////// æˆ»å€¤       ï¼šãªã—
+////// æ‹…å½“è€…     ï¼šä½è—¤æ¶¼
+////// å‚™è€ƒ       ï¼š
+//////            ï¼š
 //////
 //void Continue::Update(UpdatePacket& i_UpdatePacket)
 //{
@@ -575,7 +575,7 @@ void ContinueBehavior::Draw( DrawPacket& i_DrawPacket ){
 //							}
 //							m_bWhichDraw	= false;
 //						}
-//						//	: ƒ}ƒEƒX‚Ì¶ƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚½
+//						//	: ãƒã‚¦ã‚¹ã®å·¦ãƒœã‚¿ãƒ³ãŒæŠ¼ã•ã‚ŒãŸ
 //						
 //						if( !m_bPush ){
 //							i_UpdatePacket.SearchSoundAndPlay( RCTEXT_SOUND_SE_ENTER );
@@ -592,7 +592,7 @@ void ContinueBehavior::Draw( DrawPacket& i_DrawPacket ){
 //				}
 //			}
 //			else{
-//				//	: ƒ}ƒEƒX‚ª‰æ‘œ‚Ì”ÍˆÍŠO‚É‚¢‚é‚Æ‚«
+//				//	: ãƒã‚¦ã‚¹ãŒç”»åƒã®ç¯„å›²å¤–ã«ã„ã‚‹ã¨ã
 //				m_Color	= 0xA0FFFFFF;
 //				m_bSelect = false;
 //				if( Cursor2D::getLButtonState() )	m_bPushRock	= false;
@@ -612,7 +612,7 @@ void ContinueBehavior::Draw( DrawPacket& i_DrawPacket ){
 //		if( m_bPush ){
 //			m_iTime++;
 //			if( m_iTime > 30 ){
-//				//‘I‚Î‚ê‚½‰æ–Ê‚Ö‚Æ‚Ô
+//				//é¸ã°ã‚ŒãŸç”»é¢ã¸ã¨ã¶
 //				i_UpdatePacket.pCommand->m_Command	= m_dNext;
 //				m_bPush = false ;
 //			}
@@ -621,28 +621,28 @@ void ContinueBehavior::Draw( DrawPacket& i_DrawPacket ){
 //};
 //
 ///************************************************************************
-//Dead ’è‹`•”
+//Dead å®šç¾©éƒ¨
 //************************************************************************/
 ///////////////////// ////////////////////
-////// ŠÖ”–¼     FDead(LPDIRECT3DDEVICE9 pD3DDevice,LPTATRATEXTURE pTexture,
-//////            F    D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos, Rect* pRect,
-//////            F    D3DXVECTOR3& vCenter,D3DXVECTOR3& vOffsetPos,Color color = 0xFFFFFFFF);
-////// ƒJƒeƒSƒŠ   FƒRƒ“ƒXƒgƒ‰ƒNƒ^
-////// —p“r       F€–S‚É•\¦‚·‚é•¶š
-////// ˆø”       F  LPDIRECT3DDEVICE9 pD3DDevice    // IDirect3DDevice9 ƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-//////            F  LPTATRATEXTURE pTexture     // “\‚è•t‚¯‚½‚¢ƒeƒNƒXƒ`ƒƒ
-//////            F  DWORD next                      // Ÿ‚Ì‰æ–Ê
-//////            F  D3DXVECTOR3 &vScale             // ‘å‚«‚³
-//////            F  D3DXVECTOR3 &vRot               // O²‰ñ“]
-//////            F  D3DXVECTOR3 &vPos               // İ’uÀ•W
-//////            F  Rect* pRect                     // •`‰æ‚µ‚½‚¢”ÍˆÍ(NULL‚Å‘S‘Ì‚ğ•`‰æ)
-//////            F  D3DXVECTOR3& vCenter            // ’†S
-//////            F  D3DXVECTOR3& vOffsetPos         // ƒIƒtƒZƒbƒgÀ•W
-//////            F  Color color = 0xFFFFFFFF        // F
-////// –ß’l       F‚È‚µ
-////// ’S“–Ò     F²“¡—Á
-////// ”õl       F
-//////            F
+////// é–¢æ•°å     ï¼šDead(LPDIRECT3DDEVICE9 pD3DDevice,LPTATRATEXTURE pTexture,
+//////            ï¼š    D3DXVECTOR3 &vScale,D3DXVECTOR3 &vRot,D3DXVECTOR3 &vPos, Rect* pRect,
+//////            ï¼š    D3DXVECTOR3& vCenter,D3DXVECTOR3& vOffsetPos,Color color = 0xFFFFFFFF);
+////// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+////// ç”¨é€”       ï¼šæ­»äº¡æ™‚ã«è¡¨ç¤ºã™ã‚‹æ–‡å­—
+////// å¼•æ•°       ï¼š  LPDIRECT3DDEVICE9 pD3DDevice    // IDirect3DDevice9 ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+//////            ï¼š  LPTATRATEXTURE pTexture     // è²¼ã‚Šä»˜ã‘ãŸã„ãƒ†ã‚¯ã‚¹ãƒãƒ£
+//////            ï¼š  DWORD next                      // æ¬¡ã®ç”»é¢
+//////            ï¼š  D3DXVECTOR3 &vScale             // å¤§ãã•
+//////            ï¼š  D3DXVECTOR3 &vRot               // ä¸‰è»¸å›è»¢
+//////            ï¼š  D3DXVECTOR3 &vPos               // è¨­ç½®åº§æ¨™
+//////            ï¼š  Rect* pRect                     // æç”»ã—ãŸã„ç¯„å›²(NULLã§å…¨ä½“ã‚’æç”»)
+//////            ï¼š  D3DXVECTOR3& vCenter            // ä¸­å¿ƒ
+//////            ï¼š  D3DXVECTOR3& vOffsetPos         // ã‚ªãƒ•ã‚»ãƒƒãƒˆåº§æ¨™
+//////            ï¼š  Color color = 0xFFFFFFFF        // è‰²
+////// æˆ»å€¤       ï¼šãªã—
+////// æ‹…å½“è€…     ï¼šä½è—¤æ¶¼
+////// å‚™è€ƒ       ï¼š
+//////            ï¼š
 //////
 //Dead::Dead(	const LPDIRECT3DDEVICE9 pD3DDevice,const  LPTATRATEXTURE pTexture,
 //			const LPTATRATEXTURE pDeadCountTex, const  LPTATRATEXTURE pCountCharTex,const int iDeadCount,
@@ -658,7 +658,7 @@ void ContinueBehavior::Draw( DrawPacket& i_DrawPacket ){
 //,m_pSelect_No( NULL )
 //{
 //	try{
-//		//	: ‰Šúƒ}ƒgƒŠƒbƒNƒX‚ğŒvZ
+//		//	: åˆæœŸãƒãƒˆãƒªãƒƒã‚¯ã‚¹ã‚’è¨ˆç®—
 //		D3DXMATRIX mScale,mPos;
 //		D3DXMatrixScaling(&mScale,vScale.x,vScale.y,vScale.z);
 //		D3DXMatrixTranslation(&mPos,vPos.x,vPos.y,vPos.z);
@@ -679,13 +679,13 @@ void ContinueBehavior::Draw( DrawPacket& i_DrawPacket ){
 //	}
 //	catch(...){
 //		SafeRelease(m_pSprite);
-//		//ÄƒXƒ[
+//		//å†ã‚¹ãƒ­ãƒ¼
 //		throw;
 //	}
 //};
 //
 ///************************************
-//ƒfƒXƒgƒ‰ƒNƒ^
+//ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 //************************************/
 //Dead::~Dead(){
 //	SafeDelete(m_pDeadScore);
@@ -695,19 +695,19 @@ void ContinueBehavior::Draw( DrawPacket& i_DrawPacket ){
 //
 //}
 ///////////////////// ////////////////////
-////// ŠÖ”–¼     Fvoid Dead::Draw( DrawPacket& i_DrawPacket)
-////// ƒJƒeƒSƒŠ   FŠÖ”
-////// —p“r       FƒXƒvƒ‰ƒCƒg‚ğ•`‰æ
-////// ˆø”       FDrawPacket& i_DrawPacket    //‚à‚ë‚à‚ë‚Ìƒf[ƒ^
-////// –ß’l       F‚È‚µ
-////// ’S“–Ò     F²“¡—Á
-////// ”õl       F
-//////            F
+////// é–¢æ•°å     ï¼švoid Dead::Draw( DrawPacket& i_DrawPacket)
+////// ã‚«ãƒ†ã‚´ãƒª   ï¼šé–¢æ•°
+////// ç”¨é€”       ï¼šã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã‚’æç”»
+////// å¼•æ•°       ï¼šDrawPacket& i_DrawPacket    //ã‚‚ã‚ã‚‚ã‚ã®ãƒ‡ãƒ¼ã‚¿
+////// æˆ»å€¤       ï¼šãªã—
+////// æ‹…å½“è€…     ï¼šä½è—¤æ¶¼
+////// å‚™è€ƒ       ï¼š
+//////            ï¼š
 //////
 //void Dead::Draw(DrawPacket& i_DrawPacket)
 //{
 //	if( m_bDrawing ){
-//		//	: •`‰æ‚ÍeƒNƒ‰ƒX‚É”C‚¹‚é
+//		//	: æç”»ã¯è¦ªã‚¯ãƒ©ã‚¹ã«ä»»ã›ã‚‹
 //		SpriteObject::Draw( i_DrawPacket );
 //
 //		if( m_pDeadScore )		m_pDeadScore->Draw( i_DrawPacket );
@@ -716,14 +716,14 @@ void ContinueBehavior::Draw( DrawPacket& i_DrawPacket ){
 //};
 //
 ///////////////////// ////////////////////
-////// ŠÖ”–¼     Fvoid Dead::Update( UpdatePacket& i_UpdatePacket)
-////// ƒJƒeƒSƒŠ   FŠÖ”
-////// —p“r       Fƒf[ƒ^‚ÌXV
-////// ˆø”       FUpdatePacket& i_UpdatePacket    //‚à‚ë‚à‚ë‚Ìƒf[ƒ^
-////// –ß’l       F‚È‚µ
-////// ’S“–Ò     F²“¡—Á
-////// ”õl       F
-//////            F
+////// é–¢æ•°å     ï¼švoid Dead::Update( UpdatePacket& i_UpdatePacket)
+////// ã‚«ãƒ†ã‚´ãƒª   ï¼šé–¢æ•°
+////// ç”¨é€”       ï¼šãƒ‡ãƒ¼ã‚¿ã®æ›´æ–°
+////// å¼•æ•°       ï¼šUpdatePacket& i_UpdatePacket    //ã‚‚ã‚ã‚‚ã‚ã®ãƒ‡ãƒ¼ã‚¿
+////// æˆ»å€¤       ï¼šãªã—
+////// æ‹…å½“è€…     ï¼šä½è—¤æ¶¼
+////// å‚™è€ƒ       ï¼š
+//////            ï¼š
 //////
 //void Dead::Update(UpdatePacket& i_UpdatePacket)
 //{
@@ -757,16 +757,16 @@ void ContinueBehavior::Draw( DrawPacket& i_DrawPacket ){
 //};
 
 /**************************************************************************
- Factory_Continue ’è‹`•”
+ Factory_Continue å®šç¾©éƒ¨
 ****************************************************************************/
 /**************************************************************************
  Factory_Continue::Factory_Continue(
-	LPDIRECT3DDEVICE9 pD3DDevice,	//ƒfƒoƒCƒX
-	vector<Object*>& vec,			//ƒIƒuƒWƒFƒNƒg‚Ì”z—ñ
-	TextureManager& TexMgr		//ƒeƒNƒXƒ`ƒƒ‚Ì”z—ñ
+	LPDIRECT3DDEVICE9 pD3DDevice,	//ãƒ‡ãƒã‚¤ã‚¹
+	vector<Object*>& vec,			//ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®é…åˆ—
+	TextureManager& TexMgr		//ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®é…åˆ—
 );
- —p“r: ƒRƒ“ƒXƒgƒ‰ƒNƒ^iƒTƒ“ƒvƒ‹ƒIƒuƒWƒFƒNƒg‚ğ”z—ñ‚É’Ç‰Á‚·‚éj
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ï¼ˆã‚µãƒ³ãƒ—ãƒ«ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’é…åˆ—ã«è¿½åŠ ã™ã‚‹ï¼‰
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
 Factory_Continue::Factory_Continue(FactoryPacket* fpac)
 {
@@ -831,18 +831,18 @@ Factory_Continue::Factory_Continue(FactoryPacket* fpac)
 
 	}
 	catch(...){
-		//Äthrow
+		//å†throw
 		throw;
 	}
 
 }
 /**************************************************************************
  Factory_Continue::~Factory_Continue();
- —p“r: ƒfƒXƒgƒ‰ƒNƒ^
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
 Factory_Continue::~Factory_Continue(){
-    //‚È‚É‚à‚µ‚È‚¢
+    //ãªã«ã‚‚ã—ãªã„
 }
 
 }

@@ -1,5 +1,5 @@
 //-----------------------------------------------------
-//	DirectInput���g�������̓T���v��
+//	DirectInputを使った入力サンプル
 //	2009.12.29 TMO
 //-----------------------------------------------------
 #include "StdAfx.h"
@@ -18,7 +18,7 @@ CInput::~CInput()
 	Release();
 }
 
-//�f�o�C�X�̍쐬
+//デバイスの作成
 bool CInput::Create( HWND hWnd, int useDevice )
 {
 	if ( m_pDInput ) {
@@ -26,7 +26,7 @@ bool CInput::Create( HWND hWnd, int useDevice )
 	}
 	m_hWnd = hWnd;
 
-	//DirectInput�I�u�W�F�N�g�̐���
+	//DirectInputオブジェクトの生成
 	HRESULT hr = DirectInput8Create(::GetModuleHandle(NULL), DIRECTINPUT_VERSION, IID_IDirectInput8, (void**)&m_pDInput, NULL);
 	if ( FAILED( hr ) ) {
 		return false;
@@ -40,15 +40,15 @@ bool CInput::Create( HWND hWnd, int useDevice )
 	return true;
 }
 
-//�f�o�C�X�̉��
+//デバイスの解放
 void CInput::Release()
 {
-	//�e�f�o�C�X���
+	//各デバイス解放
 	m_keyboard.Release();
 	m_mouse.Release();
 	m_gamepad.Release();
 
-	//DirectInput�I�u�W�F�N�g�̉��
+	//DirectInputオブジェクトの解放
 	if ( m_pDInput != NULL ) {
 		m_pDInput->Release();
 		m_pDInput = NULL;

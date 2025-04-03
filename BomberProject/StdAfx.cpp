@@ -1,11 +1,11 @@
 ////////////////////////////// //////////////////////////////
-//	ƒvƒƒWƒFƒNƒg	FDirectX Program Bass Project
-//	ƒtƒ@ƒCƒ‹–¼		FAtdAfx.cpp
-//	ŠJ”­ŠÂ‹«		FMSVC++ 2008
-//	Å“Kƒ^ƒu”		F4
-//	’S“–ŽÒ			FŽ°Œ´ “O
-//	“à•ïÃÞ°À‚Æ”õl	F‘Sƒ\[ƒX‹¤’Ê‚Ìƒf[ƒ^ŒQ
-//					¥
+//	ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆ	ï¼šDirectX Program Bass Project
+//	ãƒ•ã‚¡ã‚¤ãƒ«å		ï¼šAtdAfx.cpp
+//	é–‹ç™ºç’°å¢ƒ		ï¼šMSVC++ 2008
+//	æœ€é©ã‚¿ãƒ–æ•°		ï¼š4
+//	æ‹…å½“è€…			ï¼šé´«åŽŸ å¾¹
+//	å†…åŒ…ãƒ‡ãƒ¼ã‚¿ã¨å‚™è€ƒ	ï¼šå…¨ã‚½ãƒ¼ã‚¹å…±é€šã®ãƒ‡ãƒ¼ã‚¿ç¾¤
+//					â–¼
 //
 
 #include "StdAfx.h"
@@ -14,13 +14,13 @@
 float f = 0.5f ;
 
 wiz::RENDERSTATE_PARAM g_GlobalRenderStates[] = {
-	//{ D3DRS_CULLMODE     , D3DCULL_NONE },	// —¼–Ê•`‰æƒ‚[ƒh‚ÌŽw’è
-	{ D3DRS_ZENABLE      , TRUE         },  // ‚y”äŠr‚ðs‚È‚¤
-	{ D3DRS_DITHERENABLE , TRUE         },  // ƒfƒBƒUƒŠƒ“ƒO‚ðs‚È‚¤i‚•iŽ¿•`‰æj
-	{ D3DRS_LIGHTING     , TRUE         },  // ƒ‰ƒCƒeƒBƒ“ƒOƒ‚[ƒh
-	{ D3DRS_ALPHAREF     , 0x00000001	},  // ƒ‰ƒCƒeƒBƒ“ƒOƒ‚[ƒh
-	{ D3DRS_ALPHATESTENABLE, TRUE				},  // ƒ‰ƒCƒeƒBƒ“ƒOƒ‚[ƒh
-	{ D3DRS_ALPHAFUNC    , D3DCMP_GREATEREQUAL	},  // ƒ‰ƒCƒeƒBƒ“ƒOƒ‚[ƒh
-	{ D3DRS_FORCE_DWORD  , NULL			}	// I—¹éŒ¾
+	//{ D3DRS_CULLMODE     , D3DCULL_NONE },	// ä¸¡é¢æç”»ãƒ¢ãƒ¼ãƒ‰ã®æŒ‡å®š
+	{ D3DRS_ZENABLE      , TRUE         },  // ï¼ºæ¯”è¼ƒã‚’è¡Œãªã†
+	{ D3DRS_DITHERENABLE , TRUE         },  // ãƒ‡ã‚£ã‚¶ãƒªãƒ³ã‚°ã‚’è¡Œãªã†ï¼ˆé«˜å“è³ªæç”»ï¼‰
+	{ D3DRS_LIGHTING     , TRUE         },  // ãƒ©ã‚¤ãƒ†ã‚£ãƒ³ã‚°ãƒ¢ãƒ¼ãƒ‰
+	{ D3DRS_ALPHAREF     , 0x00000001	},  // ãƒ©ã‚¤ãƒ†ã‚£ãƒ³ã‚°ãƒ¢ãƒ¼ãƒ‰
+	{ D3DRS_ALPHATESTENABLE, TRUE				},  // ãƒ©ã‚¤ãƒ†ã‚£ãƒ³ã‚°ãƒ¢ãƒ¼ãƒ‰
+	{ D3DRS_ALPHAFUNC    , D3DCMP_GREATEREQUAL	},  // ãƒ©ã‚¤ãƒ†ã‚£ãƒ³ã‚°ãƒ¢ãƒ¼ãƒ‰
+	{ D3DRS_FORCE_DWORD  , NULL			}	// çµ‚äº†å®£è¨€
 };
 

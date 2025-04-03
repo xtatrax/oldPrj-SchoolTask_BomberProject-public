@@ -1,9 +1,9 @@
 /**************************************************************************
  Prim.cpp
 
- ƒAƒvƒŠƒP[ƒVƒ‡ƒ“ƒNƒ‰ƒX
- ƒ^ƒCƒ}[AƒRƒ“ƒgƒ[ƒ‰AƒeƒNƒXƒ`ƒƒ
- ƒVƒƒƒhƒEƒ{ƒŠƒ…[ƒ€@À‘Ì
+ ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ã‚¯ãƒ©ã‚¹
+ ã‚¿ã‚¤ãƒãƒ¼ã€ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ã€ãƒ†ã‚¯ã‚¹ãƒãƒ£
+ ã‚·ãƒ£ãƒ‰ã‚¦ãƒœãƒªãƒ¥ãƒ¼ãƒ ã€€å®Ÿä½“
 
 ****************************************************************************/
 #include "StdAfx.h"
@@ -14,26 +14,26 @@ namespace Avoidance{
 
 ///**************************************************************************
 // class App;
-// —p“r: ƒAƒvƒŠƒP[ƒVƒ‡ƒ“ƒNƒ‰ƒX
+// ç”¨é€”: ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ã‚¯ãƒ©ã‚¹
 //****************************************************************************/
 //
-////AppƒNƒ‰ƒX“à‚ÌƒXƒ^ƒeƒBƒbƒN•Ï”‚Ì‰Šú‰»
+////Appã‚¯ãƒ©ã‚¹å†…ã®ã‚¹ã‚¿ãƒ†ã‚£ãƒƒã‚¯å¤‰æ•°ã®åˆæœŸåŒ–
 //App* App::m_pApp(0);
 //
 //
 ///**************************************************************************
 // App::App(HINSTANCE hInstance,HWND hWnd);
-// —p“r: ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-// –ß‚è’l: ‚È‚µ
-// Singleton‚Åì¬‚·‚é‚½‚ßƒRƒ“ƒXƒgƒ‰ƒNƒ^AƒfƒXƒgƒ‰ƒNƒ^‚Íprivat
+// ç”¨é€”: ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+// æˆ»ã‚Šå€¤: ãªã—
+// Singletonã§ä½œæˆã™ã‚‹ãŸã‚ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ã€ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ã¯privat
 //***************************************************************************/
 //App::App(HINSTANCE hInstance,HWND hWnd)
 //:m_hInstance(hInstance),m_hWnd(hWnd)
 //{
 //	try{
-//		//Šî€ƒfƒBƒŒƒNƒgƒŠ‚Ìİ’è
-//		//‘Š‘ÎƒpƒX‚É‚·‚é‚ÆAƒtƒ@ƒCƒ‹ƒ_ƒCƒAƒƒO‚ÅƒJƒŒƒ“ƒgƒpƒX‚ª‹¶‚¤‚Ì‚Å
-//		//â‘ÎƒpƒXw’è
+//		//åŸºæº–ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã®è¨­å®š
+//		//ç›¸å¯¾ãƒ‘ã‚¹ã«ã™ã‚‹ã¨ã€ãƒ•ã‚¡ã‚¤ãƒ«ãƒ€ã‚¤ã‚¢ãƒ­ã‚°ã§ã‚«ãƒ¬ãƒ³ãƒˆãƒ‘ã‚¹ãŒç‹‚ã†ã®ã§
+//		//çµ¶å¯¾ãƒ‘ã‚¹æŒ‡å®š
 //		wchar_t Modulebuff[MAX_PATH];
 //		wchar_t Drivebuff[_MAX_DRIVE];
 //		wchar_t Dirbuff[_MAX_DIR];
@@ -46,37 +46,37 @@ namespace Avoidance{
 //		::ZeroMemory( FileNamebuff,sizeof(FileNamebuff) );
 //		::ZeroMemory( Extbuff, sizeof(Extbuff) );
 //
-//		//ƒ‚ƒWƒ…[ƒ‹–¼iƒvƒƒOƒ‰ƒ€ƒtƒ@ƒCƒ‹–¼j‚ğ“¾‚é
+//		//ãƒ¢ã‚¸ãƒ¥ãƒ¼ãƒ«åï¼ˆãƒ—ãƒ­ã‚°ãƒ©ãƒ ãƒ•ã‚¡ã‚¤ãƒ«åï¼‰ã‚’å¾—ã‚‹
 //		if(!::GetModuleFileName(NULL,Modulebuff,sizeof(Modulebuff))){
-//			throw BaseException(L"ƒ‚ƒWƒ…[ƒ‹‚ªæ“¾‚Å‚«‚Ü‚¹‚ñB",
+//			throw BaseException(L"ãƒ¢ã‚¸ãƒ¥ãƒ¼ãƒ«ãŒå–å¾—ã§ãã¾ã›ã‚“ã€‚",
 //			L"App::App()");
 //		}
 //		m_wstrModulePath = Modulebuff;
-//		//ƒ‚ƒWƒ…[ƒ‹–¼‚©‚çAŠeƒuƒƒbƒN‚É•ª‚¯‚é
+//		//ãƒ¢ã‚¸ãƒ¥ãƒ¼ãƒ«åã‹ã‚‰ã€å„ãƒ–ãƒ­ãƒƒã‚¯ã«åˆ†ã‘ã‚‹
 //		_wsplitpath_s(Modulebuff,
 //			Drivebuff,_MAX_DRIVE,
 //			Dirbuff,_MAX_DIR,
 //			FileNamebuff,_MAX_FNAME,
 //			Extbuff,_MAX_EXT);
 //
-//		//ƒhƒ‰ƒCƒu–¼‚Ìæ“¾
+//		//ãƒ‰ãƒ©ã‚¤ãƒ–åã®å–å¾—
 //		m_wstrDir = Drivebuff;
-//		//ƒfƒBƒŒƒNƒgƒŠ–¼‚Ìæ“¾
+//		//ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªåã®å–å¾—
 //		m_wstrDir += Dirbuff;
 //		m_wstrDataPath = m_wstrDir;
 //		m_wstrDataPath += L"..\\media\\";
 //	}
 //	catch(...){
-//		//ÄƒXƒ[
+//		//å†ã‚¹ãƒ­ãƒ¼
 //		throw;
 //	}
 //}
 
 /**************************************************************************
 Timer*  WINAPI GetGlobalTimer();
- —p“r: ƒOƒ[ƒoƒ‹ƒ^ƒCƒ}[‚ğ“¾‚é
- –ß‚è’l: ƒOƒ[ƒoƒ‹ƒ^ƒCƒ}[
- –ƒAƒvƒŠƒP[ƒVƒ‡ƒ“‹N“®‚ÉƒXƒ^[ƒg‚³‚¹‚é
+ ç”¨é€”: ã‚°ãƒ­ãƒ¼ãƒãƒ«ã‚¿ã‚¤ãƒãƒ¼ã‚’å¾—ã‚‹
+ æˆ»ã‚Šå€¤: ã‚°ãƒ­ãƒ¼ãƒãƒ«ã‚¿ã‚¤ãƒãƒ¼
+ ï¼Šã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³èµ·å‹•æ™‚ã«ã‚¹ã‚¿ãƒ¼ãƒˆã•ã›ã‚‹
 ***************************************************************************/
 Timer* WINAPI  GetGlobalTimer()
 {
@@ -88,8 +88,8 @@ Timer* WINAPI  GetGlobalTimer()
 
 /**************************************************************************
  Timer::Timer();
- —p“r: ƒRƒ“ƒXƒgƒ‰ƒNƒ^
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
 Timer::Timer(){
     m_bTimerStopped = true;
@@ -107,8 +107,8 @@ Timer::Timer(){
 
 /**************************************************************************
  void Timer::Reset();
- —p“r: ƒ^ƒCƒ}[‚ÌƒŠƒZƒbƒg
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: ã‚¿ã‚¤ãƒãƒ¼ã®ãƒªã‚»ãƒƒãƒˆ
+ æˆ»ã‚Šå€¤: ãªã—
  // resets the timer
 ***************************************************************************/
 void Timer::Reset(){
@@ -122,8 +122,8 @@ void Timer::Reset(){
 
 /**************************************************************************
  void Timer::Start();  
- —p“r: ƒ^ƒCƒ}[‚ÌƒXƒ^[ƒg
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: ã‚¿ã‚¤ãƒãƒ¼ã®ã‚¹ã‚¿ãƒ¼ãƒˆ
+ æˆ»ã‚Šå€¤: ãªã—
 // starts the timer
 ***************************************************************************/
 void Timer::Start()
@@ -141,8 +141,8 @@ void Timer::Start()
 
 /**************************************************************************
  void Timer::Stop();  
- —p“r: ƒ^ƒCƒ}[‚ÌƒXƒgƒbƒv
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: ã‚¿ã‚¤ãƒãƒ¼ã®ã‚¹ãƒˆãƒƒãƒ—
+ æˆ»ã‚Šå€¤: ãªã—
 // stop (or pause) the timer
 ***************************************************************************/
 void Timer::Stop(){
@@ -158,8 +158,8 @@ void Timer::Stop(){
 
 /**************************************************************************
  void Timer::Advance();
- —p“r: ƒ^ƒCƒ}[‚ğ0.1•bi‚ß‚é
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: ã‚¿ã‚¤ãƒãƒ¼ã‚’0.1ç§’é€²ã‚ã‚‹
+ æˆ»ã‚Šå€¤: ãªã—
 // advance the timer by 0.1 seconds
 ***************************************************************************/
 void Timer::Advance(){
@@ -168,8 +168,8 @@ void Timer::Advance(){
 
 /**************************************************************************
  double Timer::GetAbsoluteTime();
- —p“r: ƒVƒXƒeƒ€ƒ^ƒCƒ}[iƒpƒtƒH[ƒ}ƒ“ƒXƒJƒEƒ“ƒ^j‚ğ“¾‚é
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: ã‚·ã‚¹ãƒ†ãƒ ã‚¿ã‚¤ãƒãƒ¼ï¼ˆãƒ‘ãƒ•ã‚©ãƒ¼ãƒãƒ³ã‚¹ã‚«ã‚¦ãƒ³ã‚¿æ™‚åˆ»ï¼‰ã‚’å¾—ã‚‹
+ æˆ»ã‚Šå€¤: ãªã—
 // get the absolute system time
 ***************************************************************************/
 double Timer::GetAbsoluteTime(){
@@ -183,8 +183,8 @@ double Timer::GetAbsoluteTime(){
 
 /**************************************************************************
  double  Timer::GetTime(); 
- —p“r: ƒJƒŒƒ“ƒg‚ÌŒo‰ßŠÔ‚ğ“¾‚é
- –ß‚è’l:ƒJƒŒƒ“ƒg‚ÌŒo‰ßŠÔ
+ ç”¨é€”: ã‚«ãƒ¬ãƒ³ãƒˆã®çµŒéæ™‚é–“ã‚’å¾—ã‚‹
+ æˆ»ã‚Šå€¤:ã‚«ãƒ¬ãƒ³ãƒˆã®çµŒéæ™‚é–“
 // get the current time
 ***************************************************************************/
 double Timer::GetTime(){
@@ -198,13 +198,13 @@ double Timer::GetTime(){
 
 /**************************************************************************
  void Timer::GetTimeValues(
- double& rfTime,		//ƒJƒŒƒ“ƒgŠÔ
- double& rfAbsoluteTime,	//â‘ÎŠÔ
- float& rfElapsedTime		//‘O‰ñGetElapsedTime‚ªŒÄ‚Î‚ê‚Ä‚©‚ç‚ÌŒo‰ßŠÔ
+ double& rfTime,		//ã‚«ãƒ¬ãƒ³ãƒˆæ™‚é–“
+ double& rfAbsoluteTime,	//çµ¶å¯¾æ™‚é–“
+ float& rfElapsedTime		//å‰å›GetElapsedTimeãŒå‘¼ã°ã‚Œã¦ã‹ã‚‰ã®çµŒéæ™‚é–“
  ); 
- —p“r: ‚·‚×‚Ä‚Ìƒf[ƒ^‚ğ“¾‚éB
- –‘O‰ñGetElapsedTime‚ªŒÄ‚Î‚ê‚Ä‚©‚ç‚ÌŒo‰ßŠÔ‚à“¾‚é
- –ß‚è’l: ‚È‚µiw’è‚ÌQÆ‚ÉƒZƒbƒgj
+ ç”¨é€”: ã™ã¹ã¦ã®ãƒ‡ãƒ¼ã‚¿ã‚’å¾—ã‚‹ã€‚
+ ï¼Šå‰å›GetElapsedTimeãŒå‘¼ã°ã‚Œã¦ã‹ã‚‰ã®çµŒéæ™‚é–“ã‚‚å¾—ã‚‹
+ æˆ»ã‚Šå€¤: ãªã—ï¼ˆæŒ‡å®šã®å‚ç…§ã«ã‚»ãƒƒãƒˆï¼‰
 // get all time values at once
 ***************************************************************************/
 void Timer::GetTimeValues( double& rfTime, double& rfAbsoluteTime, float& rfElapsedTime ){
@@ -233,8 +233,8 @@ void Timer::GetTimeValues( double& rfTime, double& rfAbsoluteTime, float& rfElap
 
 /**************************************************************************
  float Timer::GetElapsedTime(); 
- —p“r: ‘O‰ñGetElapsedTime‚ªŒÄ‚Î‚ê‚Ä‚©‚ç‚ÌŒo‰ßŠÔ‚ğ“¾‚é
- –ß‚è’l: Œo‰ßŠÔ
+ ç”¨é€”: å‰å›GetElapsedTimeãŒå‘¼ã°ã‚Œã¦ã‹ã‚‰ã®çµŒéæ™‚é–“ã‚’å¾—ã‚‹
+ æˆ»ã‚Šå€¤: çµŒéæ™‚é–“
 // get the time that elapsed between GetElapsedTime() calls
 ***************************************************************************/
 float Timer::GetElapsedTime(){
@@ -252,9 +252,9 @@ float Timer::GetElapsedTime(){
 }
 /**************************************************************************
  LARGE_INTEGER   Timer::GetAdjustedCurrentTime();
- —p“r: Œ»İ‚ÌƒpƒtƒH[ƒ}ƒ“ƒXƒJƒEƒ“ƒ^‚ğ“¾‚é
- –ß‚è’l: LARGE_INTEGERB
- –‚à‚µƒXƒgƒbƒv’†‚È‚çƒXƒgƒbƒvƒ^ƒCƒ€‚ğ•Ô‚·
+ ç”¨é€”: ç¾åœ¨ã®ãƒ‘ãƒ•ã‚©ãƒ¼ãƒãƒ³ã‚¹ã‚«ã‚¦ãƒ³ã‚¿ã‚’å¾—ã‚‹
+ æˆ»ã‚Šå€¤: LARGE_INTEGERã€‚
+ ï¼Šã‚‚ã—ã‚¹ãƒˆãƒƒãƒ—ä¸­ãªã‚‰ã‚¹ãƒˆãƒƒãƒ—ã‚¿ã‚¤ãƒ ã‚’è¿”ã™
 //--------------------------------------------------------------------------------------
 // If stopped, returns time when stopped otherwise returns current time
 //--------------------------------------------------------------------------------------
@@ -270,8 +270,8 @@ LARGE_INTEGER Timer::GetAdjustedCurrentTime(){
 
 /**************************************************************************
  bool Timer::IsStopped(); 
- —p“r: ƒ^ƒCƒ}[‚ª~‚Ü‚Á‚Ä‚é‚©‚Ç‚¤‚©‚ğ’²‚×‚é
- –ß‚è’l: ƒ^ƒCƒ}[‚ª~‚Ü‚Á‚Ä‚ê‚Îtrue
+ ç”¨é€”: ã‚¿ã‚¤ãƒãƒ¼ãŒæ­¢ã¾ã£ã¦ã‚‹ã‹ã©ã†ã‹ã‚’èª¿ã¹ã‚‹
+ æˆ»ã‚Šå€¤: ã‚¿ã‚¤ãƒãƒ¼ãŒæ­¢ã¾ã£ã¦ã‚Œã°true
 // returns true if timer stopped
 ***************************************************************************/
 bool Timer::IsStopped(){
@@ -281,9 +281,9 @@ bool Timer::IsStopped(){
 
 
 /**************************************************************************
- ShadowVolumeŠÖ˜A
+ ShadowVolumeé–¢é€£
 ****************************************************************************/
-//‰eƒ{ƒŠƒ…[ƒ€‚ÌFVF’è‹`
+//å½±ãƒœãƒªãƒ¥ãƒ¼ãƒ ã®FVFå®šç¾©
 const D3DVERTEXELEMENT9 ShadowVolume::SHADOWVERT::Decl[3] =
 {
     { 0, 0,  D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_POSITION, 0 },
@@ -291,27 +291,27 @@ const D3DVERTEXELEMENT9 ShadowVolume::SHADOWVERT::Decl[3] =
     D3DDECL_END()
 };
 /**************************************************************************
- ShadowVolume ’è‹`•”
+ ShadowVolume å®šç¾©éƒ¨
 ****************************************************************************/
 
 /**************************************************************************
  void ShadowVolume::Clear();
- —p“r:ƒIƒuƒWƒFƒNƒg‚Ì”jŠü
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”:ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ç ´æ£„
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
 void ShadowVolume::Clear(){
-    //Œãn––
+    //å¾Œå§‹æœ«
     SafeRelease(m_pShadowVolumeMesh);
 	SafeRelease(m_pShadowDecl);
 }
 
 /**************************************************************************
  void ShadowVolume::Draw(
-    LPDIRECT3DDEVICE9 pD3DDevice,    //IDirect3DDevice9 ƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-	LPD3DXEFFECT	pEffect			//ƒGƒtƒFƒNƒg‚Ö‚Ìƒ|ƒCƒ“ƒ^
+    LPDIRECT3DDEVICE9 pD3DDevice,    //IDirect3DDevice9 ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+	LPD3DXEFFECT	pEffect			//ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã¸ã®ãƒã‚¤ãƒ³ã‚¿
  );
- —p“r: ‰eƒ{ƒŠƒ…[ƒ€‚ğ•`‰æ
- –ß‚è’l: ‚È‚µB
+ ç”¨é€”: å½±ãƒœãƒªãƒ¥ãƒ¼ãƒ ã‚’æç”»
+ æˆ»ã‚Šå€¤: ãªã—ã€‚
 ***************************************************************************/
 void ShadowVolume::Draw(LPDIRECT3DDEVICE9 pD3DDevice,LPD3DXEFFECT pEffect){
     if(m_pShadowVolumeMesh)
@@ -332,13 +332,13 @@ void ShadowVolume::Draw(LPDIRECT3DDEVICE9 pD3DDevice,LPD3DXEFFECT pEffect){
 
 /**************************************************************************
  ShadowVolume::ShadowVolume(
- LPDIRECT3DDEVICE9 pd3dDevice,	//ƒfƒoƒCƒX
- LPD3DXMESH pMesh,			//Œ³‚Æ‚È‚éƒƒbƒVƒ…
+ LPDIRECT3DDEVICE9 pd3dDevice,	//ãƒ‡ãƒã‚¤ã‚¹
+ LPD3DXMESH pMesh,			//å…ƒã¨ãªã‚‹ãƒ¡ãƒƒã‚·ãƒ¥
  );
- —p“r: ƒRƒ“ƒXƒgƒ‰ƒNƒ^iƒVƒƒƒhƒEƒ{ƒŠƒ…[ƒ€‚ğì¬‚·‚éj
- *DXUT‚ÌShadowVolumeƒTƒ“ƒvƒ‹‚©‚ç‰ü•Ï‚µ‚Äì¬
- *GenerateShadowMesh()ŠÖ”‚É—áŠOˆ—‚ğ‰Á‚¦À‘•
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ï¼ˆã‚·ãƒ£ãƒ‰ã‚¦ãƒœãƒªãƒ¥ãƒ¼ãƒ ã‚’ä½œæˆã™ã‚‹ï¼‰
+ *DXUTã®ShadowVolumeã‚µãƒ³ãƒ—ãƒ«ã‹ã‚‰æ”¹å¤‰ã—ã¦ä½œæˆ
+ *GenerateShadowMesh()é–¢æ•°ã«ä¾‹å¤–å‡¦ç†ã‚’åŠ ãˆå®Ÿè£…
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
 ShadowVolume::ShadowVolume(LPDIRECT3DDEVICE9 pd3dDevice, LPD3DXMESH pMesh)
 :m_pShadowVolumeMesh(0),
@@ -367,17 +367,17 @@ m_pShadowDecl(0)
 	WORD* pwFinalIBData = 0;
 	try{
 		if(!pd3dDevice || !pMesh){
-            // ‰Šú‰»¸”s
+            // åˆæœŸåŒ–å¤±æ•—
             throw BaseException(
-                L"ƒfƒoƒCƒX‚©Œ³‚Æ‚È‚éƒƒbƒVƒ…‚ª•s’è‚Å‚·",
+                L"ãƒ‡ãƒã‚¤ã‚¹ã‹å…ƒã¨ãªã‚‹ãƒ¡ãƒƒã‚·ãƒ¥ãŒä¸å®šã§ã™",
                 L"ShadowVolume::ShadowVolume()"
                 );
 		}
 		// Convert the input mesh to a format same as the output mesh using 32-bit index.
 		if(FAILED(pMesh->CloneMesh( D3DXMESH_32BIT, SHADOWVERT::Decl, pd3dDevice, &pInputMesh))){
-            // ‰Šú‰»¸”s
+            // åˆæœŸåŒ–å¤±æ•—
             throw BaseException(
-                L"ƒCƒ“ƒvƒbƒgƒNƒ[ƒ“ƒƒbƒVƒ…ì¬‚É¸”s‚µ‚Ü‚µ‚½B",
+                L"ã‚¤ãƒ³ãƒ—ãƒƒãƒˆã‚¯ãƒ­ãƒ¼ãƒ³ãƒ¡ãƒƒã‚·ãƒ¥ä½œæˆã«å¤±æ•—ã—ã¾ã—ãŸã€‚",
                 L"ShadowVolume::ShadowVolume()"
                 );
 		}
@@ -386,26 +386,26 @@ m_pShadowDecl(0)
 		pdwPtRep = new DWORD[pInputMesh->GetNumVertices()];
 		if( FAILED(pInputMesh->GenerateAdjacency(ADJACENCY_EPSILON, pdwAdj)))
 		{
-            // ‰Šú‰»¸”s
+            // åˆæœŸåŒ–å¤±æ•—
             throw BaseException(
-                L"ƒCƒ“ƒvƒbƒgƒƒbƒVƒ…ƒGƒbƒW‚Ìæ“¾‚É¸”s‚µ‚Ü‚µ‚½B",
+                L"ã‚¤ãƒ³ãƒ—ãƒƒãƒˆãƒ¡ãƒƒã‚·ãƒ¥ã‚¨ãƒƒã‚¸ã®å–å¾—ã«å¤±æ•—ã—ã¾ã—ãŸã€‚",
                 L"ShadowVolume::ShadowVolume()"
                 );
 		}
 		pInputMesh->ConvertAdjacencyToPointReps( pdwAdj, pdwPtRep );
-		//pdwAdj‚ÌŠJ•ú
+		//pdwAdjã®é–‹æ”¾
 		SafeDeleteArr(pdwAdj);
 		if(FAILED(pInputMesh->LockVertexBuffer( 0, ( LPVOID* )&pVBData ))){
-            // ‰Šú‰»¸”s
+            // åˆæœŸåŒ–å¤±æ•—
             throw BaseException(
-                L"ƒCƒ“ƒvƒbƒgƒƒbƒVƒ…’¸“_‚ÌƒƒbƒN‚É¸”s‚µ‚Ü‚µ‚½B",
+                L"ã‚¤ãƒ³ãƒ—ãƒƒãƒˆãƒ¡ãƒƒã‚·ãƒ¥é ‚ç‚¹ã®ãƒ­ãƒƒã‚¯ã«å¤±æ•—ã—ã¾ã—ãŸã€‚",
                 L"ShadowVolume::ShadowVolume()"
                 );
 		}
 		if(FAILED(pInputMesh->LockIndexBuffer( 0, ( LPVOID* )&pdwIBData ))){
-            // ‰Šú‰»¸”s
+            // åˆæœŸåŒ–å¤±æ•—
             throw BaseException(
-                L"ƒCƒ“ƒvƒbƒgƒƒbƒVƒ…ƒCƒ“ƒfƒbƒNƒX‚ÌƒƒbƒN‚É¸”s‚µ‚Ü‚µ‚½B",
+                L"ã‚¤ãƒ³ãƒ—ãƒƒãƒˆãƒ¡ãƒƒã‚·ãƒ¥ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã®ãƒ­ãƒƒã‚¯ã«å¤±æ•—ã—ã¾ã—ãŸã€‚",
                 L"ShadowVolume::ShadowVolume()"
                 );
 		}
@@ -420,24 +420,24 @@ m_pShadowDecl(0)
 							 SHADOWVERT::Decl,
 							 pd3dDevice,
 							 &pNewMesh ))){
-			// ‰Šú‰»¸”s
+			// åˆæœŸåŒ–å¤±æ•—
 			throw BaseException(
-				L"V‚µ‚¢ƒƒbƒVƒ…‚Ìƒ}ƒbƒsƒ“ƒO‚É¸”s‚µ‚Ü‚µ‚½B",
+				L"æ–°ã—ã„ãƒ¡ãƒƒã‚·ãƒ¥ã®ãƒãƒƒãƒ”ãƒ³ã‚°ã«å¤±æ•—ã—ã¾ã—ãŸã€‚",
 				L"ShadowVolume::ShadowVolume()"
 				);
 
 		}
 		if(FAILED(pNewMesh->LockVertexBuffer( 0, ( LPVOID* )&pNewVBData ))){
-			// ‰Šú‰»¸”s
+			// åˆæœŸåŒ–å¤±æ•—
 			throw BaseException(
-				L"V‚µ‚¢ƒƒbƒVƒ…’¸“_‚ÌƒƒbƒN‚É¸”s‚µ‚Ü‚µ‚½B",
+				L"æ–°ã—ã„ãƒ¡ãƒƒã‚·ãƒ¥é ‚ç‚¹ã®ãƒ­ãƒƒã‚¯ã«å¤±æ•—ã—ã¾ã—ãŸã€‚",
 				L"ShadowVolume::ShadowVolume()"
 				);
 		}
 		if(FAILED(pNewMesh->LockIndexBuffer( 0, ( LPVOID* )&pdwNewIBData ))){
-			// ‰Šú‰»¸”s
+			// åˆæœŸåŒ–å¤±æ•—
 			throw BaseException(
-				L"V‚µ‚¢ƒƒbƒVƒ…ƒCƒ“ƒfƒbƒNƒX‚ÌƒƒbƒN‚É¸”s‚µ‚Ü‚µ‚½B",
+				L"æ–°ã—ã„ãƒ¡ãƒƒã‚·ãƒ¥ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã®ãƒ­ãƒƒã‚¯ã«å¤±æ•—ã—ã¾ã—ãŸã€‚",
 				L"ShadowVolume::ShadowVolume()"
 				);
 		}
@@ -491,9 +491,9 @@ m_pShadowDecl(0)
 			nIndex = FindEdgeInMappingTable( nVertIndex[0], nVertIndex[1], pMapping, dwNumEdges );
 			// If error, we are not able to proceed, so abort.
 			if( -1 == nIndex ){
-				// ‰Šú‰»¸”s
+				// åˆæœŸåŒ–å¤±æ•—
 				throw BaseException(
-					L"ƒGƒbƒW‚P‚Ìƒ}ƒbƒsƒ“ƒO‚É¸”s‚µ‚Ü‚µ‚½B",
+					L"ã‚¨ãƒƒã‚¸ï¼‘ã®ãƒãƒƒãƒ”ãƒ³ã‚°ã«å¤±æ•—ã—ã¾ã—ãŸã€‚",
 					L"ShadowVolume::ShadowVolume()"
 					);
 			}
@@ -534,9 +534,9 @@ m_pShadowDecl(0)
 			nIndex = FindEdgeInMappingTable( nVertIndex[1], nVertIndex[2], pMapping, dwNumEdges );
 			// If error, we are not able to proceed, so abort.
 			if( -1 == nIndex ){
-				// ‰Šú‰»¸”s
+				// åˆæœŸåŒ–å¤±æ•—
 				throw BaseException(
-					L"ƒGƒbƒW‚Q‚Ìƒ}ƒbƒsƒ“ƒO‚É¸”s‚µ‚Ü‚µ‚½B",
+					L"ã‚¨ãƒƒã‚¸ï¼’ã®ãƒãƒƒãƒ”ãƒ³ã‚°ã«å¤±æ•—ã—ã¾ã—ãŸã€‚",
 					L"ShadowVolume::ShadowVolume()"
 					);
 			}
@@ -569,9 +569,9 @@ m_pShadowDecl(0)
 			nIndex = FindEdgeInMappingTable( nVertIndex[2], nVertIndex[0], pMapping, dwNumEdges );
 			// If error, we are not able to proceed, so abort.
 			if( -1 == nIndex ){
-				// ‰Šú‰»¸”s
+				// åˆæœŸåŒ–å¤±æ•—
 				throw BaseException(
-					L"ƒGƒbƒW‚R‚Ìƒ}ƒbƒsƒ“ƒO‚É¸”s‚µ‚Ü‚µ‚½B",
+					L"ã‚¨ãƒƒã‚¸ï¼“ã®ãƒãƒƒãƒ”ãƒ³ã‚°ã«å¤±æ•—ã—ã¾ã—ãŸã€‚",
 					L"ShadowVolume::ShadowVolume()"
 					);
 			}
@@ -621,23 +621,23 @@ m_pShadowDecl(0)
 							 SHADOWVERT::Decl,
 							 pd3dDevice,
 							 &pPatchMesh ))){
-			// ‰Šú‰»¸”s
+			// åˆæœŸåŒ–å¤±æ•—
 			throw BaseException(
-				L"ƒpƒbƒ`ƒƒbƒVƒ…‚Ìì¬‚É¸”s‚µ‚Ü‚µ‚½B",
+				L"ãƒ‘ãƒƒãƒãƒ¡ãƒƒã‚·ãƒ¥ã®ä½œæˆã«å¤±æ•—ã—ã¾ã—ãŸã€‚",
 				L"ShadowVolume::ShadowVolume()"
 				);
 		}
 		if(FAILED(pPatchMesh->LockVertexBuffer( 0, ( LPVOID* )&pPatchVBData ))){
-			// ‰Šú‰»¸”s
+			// åˆæœŸåŒ–å¤±æ•—
 			throw BaseException(
-				L"ƒpƒbƒ`ƒƒbƒVƒ…‚ÌƒƒbƒN‚É¸”s‚µ‚Ü‚µ‚½B",
+				L"ãƒ‘ãƒƒãƒãƒ¡ãƒƒã‚·ãƒ¥ã®ãƒ­ãƒƒã‚¯ã«å¤±æ•—ã—ã¾ã—ãŸã€‚",
 				L"ShadowVolume::ShadowVolume()"
 				);
 		}
 		if(FAILED(pPatchMesh->LockIndexBuffer( 0, ( LPVOID* )&pdwPatchIBData ))){
-			// ‰Šú‰»¸”s
+			// åˆæœŸåŒ–å¤±æ•—
 			throw BaseException(
-				L"ƒpƒbƒ`ƒƒbƒVƒ…‚ÌƒCƒ“ƒfƒbƒNƒXƒƒbƒN‚É¸”s‚µ‚Ü‚µ‚½B",
+				L"ãƒ‘ãƒƒãƒãƒ¡ãƒƒã‚·ãƒ¥ã®ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒ­ãƒƒã‚¯ã«å¤±æ•—ã—ã¾ã—ãŸã€‚",
 				L"ShadowVolume::ShadowVolume()"
 				);
 		}
@@ -654,7 +654,7 @@ m_pShadowDecl(0)
 		pdwNewIBData = pdwPatchIBData;
 		pNewMesh->Release();
 		pNewMesh = pPatchMesh;
-		//ƒpƒbƒ`‚Í‚à‚¤‚¢‚ç‚È‚¢
+		//ãƒ‘ãƒƒãƒã¯ã‚‚ã†ã„ã‚‰ãªã„
 		pPatchVBData = 0;
 		pdwPatchIBData = 0;
 		pPatchMesh = 0;
@@ -793,37 +793,37 @@ m_pShadowDecl(0)
 							 SHADOWVERT::Decl,
 							 pd3dDevice,
 							 &pFinalMesh ))){
-			// ‰Šú‰»¸”s
+			// åˆæœŸåŒ–å¤±æ•—
 			throw BaseException(
-				L"ƒ‰ƒXƒgƒƒbƒVƒ…‚Ìì¬‚É¸”s‚µ‚Ü‚µ‚½B",
+				L"ãƒ©ã‚¹ãƒˆãƒ¡ãƒƒã‚·ãƒ¥ã®ä½œæˆã«å¤±æ•—ã—ã¾ã—ãŸã€‚",
 				L"ShadowVolume::ShadowVolume()"
 				);
 		}
 		if(FAILED(pNewMesh->LockVertexBuffer( 0, ( LPVOID* )&pNewVBData ))){
-			// ‰Šú‰»¸”s
+			// åˆæœŸåŒ–å¤±æ•—
 			throw BaseException(
-				L"VƒƒbƒVƒ…‚ÌƒƒbƒN‚É¸”s‚µ‚Ü‚µ‚½B",
+				L"æ–°ãƒ¡ãƒƒã‚·ãƒ¥ã®ãƒ­ãƒƒã‚¯ã«å¤±æ•—ã—ã¾ã—ãŸã€‚",
 				L"ShadowVolume::ShadowVolume()"
 				);
 		}
 		if(FAILED(pNewMesh->LockIndexBuffer( 0, ( LPVOID* )&pdwNewIBData ))){
-			// ‰Šú‰»¸”s
+			// åˆæœŸåŒ–å¤±æ•—
 			throw BaseException(
-				L"VƒƒbƒVƒ…ƒCƒ“ƒfƒbƒNƒX‚ÌƒƒbƒN‚É¸”s‚µ‚Ü‚µ‚½B",
+				L"æ–°ãƒ¡ãƒƒã‚·ãƒ¥ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã®ãƒ­ãƒƒã‚¯ã«å¤±æ•—ã—ã¾ã—ãŸã€‚",
 				L"ShadowVolume::ShadowVolume()"
 				);
 		}
 		if(FAILED(pFinalMesh->LockVertexBuffer( 0, ( LPVOID* )&pFinalVBData ))){
-			// ‰Šú‰»¸”s
+			// åˆæœŸåŒ–å¤±æ•—
 			throw BaseException(
-				L"ƒ‰ƒXƒgƒƒbƒVƒ…‚ÌƒƒbƒN‚É¸”s‚µ‚Ü‚µ‚½B",
+				L"ãƒ©ã‚¹ãƒˆãƒ¡ãƒƒã‚·ãƒ¥ã®ãƒ­ãƒƒã‚¯ã«å¤±æ•—ã—ã¾ã—ãŸã€‚",
 				L"ShadowVolume::ShadowVolume()"
 				);
 		}
 		if(FAILED(pFinalMesh->LockIndexBuffer( 0, ( LPVOID* )&pwFinalIBData ))){
-			// ‰Šú‰»¸”s
+			// åˆæœŸåŒ–å¤±æ•—
 			throw BaseException(
-				L"ƒ‰ƒXƒgƒƒbƒVƒ…ƒCƒ“ƒfƒbƒNƒX‚ÌƒƒbƒN‚É¸”s‚µ‚Ü‚µ‚½B",
+				L"ãƒ©ã‚¹ãƒˆãƒ¡ãƒƒã‚·ãƒ¥ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã®ãƒ­ãƒƒã‚¯ã«å¤±æ•—ã—ã¾ã—ãŸã€‚",
 				L"ShadowVolume::ShadowVolume()"
 				);
 		}
@@ -855,9 +855,9 @@ m_pShadowDecl(0)
 		SafeRelease(pInputMesh);
 
 		if(FAILED(pd3dDevice->CreateVertexDeclaration( SHADOWVERT::Decl, &m_pShadowDecl  ))){
-			// ‰Šú‰»¸”s
+			// åˆæœŸåŒ–å¤±æ•—
 			throw BaseException(
-				L"’¸“_’è‹`‚É¸”s‚µ‚Ü‚µ‚½",
+				L"é ‚ç‚¹å®šç¾©ã«å¤±æ•—ã—ã¾ã—ãŸ",
 				L"ShadowVolume::ShadowVolume()"
 				);
 		}
@@ -906,7 +906,7 @@ m_pShadowDecl(0)
 		}
         SafeRelease(pInputMesh);
 		Clear();
-		//ÄƒXƒ[
+		//å†ã‚¹ãƒ­ãƒ¼
 		throw;
 	}
 	
@@ -914,8 +914,8 @@ m_pShadowDecl(0)
 
 /**************************************************************************
  ShadowVolume::~ShadowVolume();
- —p“r: ƒfƒXƒgƒ‰ƒNƒ^
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
 ShadowVolume::~ShadowVolume(){
 		Clear();

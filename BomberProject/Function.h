@@ -1,11 +1,11 @@
 ////////////////////////////// //////////////////////////////
-//	ƒvƒƒWƒFƒNƒg	FDirectX Program Bass Project
-//	ƒtƒ@ƒCƒ‹–¼		FFunction.h
-//	ŠJ”­ŠÂ‹«		FMSVC++ 2008
-//	Å“Kƒ^ƒu”		F4
-//	’S“–Ò			F°Œ´ “O
-//	“à•ïÃŞ°À‚Æ”õl	FƒOƒ[ƒoƒ‹‚ÈŠÖ”ŒQ‚ÌƒCƒ“ƒ‰ƒCƒ“’è‹`
-//					¥
+//	ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆ	ï¼šDirectX Program Bass Project
+//	ãƒ•ã‚¡ã‚¤ãƒ«å		ï¼šFunction.h
+//	é–‹ç™ºç’°å¢ƒ		ï¼šMSVC++ 2008
+//	æœ€é©ã‚¿ãƒ–æ•°		ï¼š4
+//	æ‹…å½“è€…			ï¼šé´«åŸ å¾¹
+//	å†…åŒ…ãƒ‡ãƒ¼ã‚¿ã¨å‚™è€ƒ	ï¼šã‚°ãƒ­ãƒ¼ãƒãƒ«ãªé–¢æ•°ç¾¤ã®ã‚¤ãƒ³ãƒ©ã‚¤ãƒ³å®šç¾©
+//					â–¼
 //	namespace wiz;
 //		class BaseException : public exception ;
 //		template<typename T> inline void SafeDelete(T*& p)    ;
@@ -43,23 +43,23 @@ namespace functions{
 //************************************************//
 //class BaseException : public exception
 //
-// ’S“–Ò  : ‚È‚µ(Rƒmˆäæ¶‚Ì‚Ğ‚ÈŒ`‚æ‚è)
-// –Ú“I    : STL—áŠO‚©‚ç”h¶‚µ‚½ƒNƒ‰ƒX
+// æ‹…å½“è€…  : ãªã—(å±±ãƒäº•å…ˆç”Ÿã®ã²ãªå½¢ã‚ˆã‚Š)
+// ç›®çš„    : STLä¾‹å¤–ã‹ã‚‰æ´¾ç”Ÿã—ãŸã‚¯ãƒ©ã‚¹
 //************************************************//
 class BaseException : public exception{
-    //ƒƒbƒZ[ƒW•Ï”
+    //ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸å¤‰æ•°
     wstring m_Message;
 public:
 /////////////////// ////////////////////
-//// ŠÖ”–¼     FBaseException(const wchar_t* m1,const wchar_t* m2)
-//// ƒJƒeƒSƒŠ   FƒRƒ“ƒXƒgƒ‰ƒNƒ^
-//// —p“r       FƒRƒ“ƒXƒgƒ‰ƒNƒ^
-//// ˆø”       F  const wchar_t* m1,  //‘æ1ƒƒbƒZ[ƒW
-////            F  const wchar_t* m2   //‘æ2ƒƒbƒZ[ƒW
-//// –ß’l       FƒƒbƒZ[ƒW•¶š—ñ‚Ìƒ|ƒCƒ“ƒ^
-//// ’S“–       F‚È‚µ(Rƒmˆäæ¶‚Ì‚Ğ‚ÈŒ`‚æ‚è)
-//// ”õl       F
-////            F
+//// é–¢æ•°å     ï¼šBaseException(const wchar_t* m1,const wchar_t* m2)
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+//// ç”¨é€”       ï¼šã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+//// å¼•æ•°       ï¼š  const wchar_t* m1,  //ç¬¬1ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸
+////            ï¼š  const wchar_t* m2   //ç¬¬2ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸
+//// æˆ»å€¤       ï¼šãƒ¡ãƒƒã‚»ãƒ¼ã‚¸æ–‡å­—åˆ—ã®ãƒã‚¤ãƒ³ã‚¿
+//// æ‹…å½“       ï¼šãªã—(å±±ãƒäº•å…ˆç”Ÿã®ã²ãªå½¢ã‚ˆã‚Š)
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
     BaseException(const wchar_t* m1,const wchar_t* m2){
         m_Message = m1;
@@ -67,14 +67,14 @@ public:
         m_Message += m2;
     }
 /////////////////// ////////////////////
-//// ŠÖ”–¼     Fconst wchar_t* what_w() const throw()
-//// ƒJƒeƒSƒŠ   FŒöŠJƒƒ“ƒoŠÖ”
-//// —p“r       FƒƒbƒZ[ƒW‚Ìæ“¾
-//// ˆø”       F‚È‚µ
-//// –ß’l       FƒƒbƒZ[ƒW•¶š—ñ‚Ìƒ|ƒCƒ“ƒ^
-//// ’S“–       F‚È‚µ(Rƒmˆäæ¶‚Ì‚Ğ‚ÈŒ`‚æ‚è)
-//// ”õl       F
-////            F
+//// é–¢æ•°å     ï¼šconst wchar_t* what_w() const throw()
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šå…¬é–‹ãƒ¡ãƒ³ãƒé–¢æ•°
+//// ç”¨é€”       ï¼šãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã®å–å¾—
+//// å¼•æ•°       ï¼šãªã—
+//// æˆ»å€¤       ï¼šãƒ¡ãƒƒã‚»ãƒ¼ã‚¸æ–‡å­—åˆ—ã®ãƒã‚¤ãƒ³ã‚¿
+//// æ‹…å½“       ï¼šãªã—(å±±ãƒäº•å…ˆç”Ÿã®ã²ãªå½¢ã‚ˆã‚Š)
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
     const wchar_t* what_w() const throw(){
         return m_Message.c_str();
@@ -97,18 +97,18 @@ public:
 
 /**************************************************************************
  class Math;
- —p“r: ŒvZ—p‚Ìƒ†[ƒeƒBƒŠƒeƒB
- @@@staticŒÄ‚Ño‚µ‚ğ‚·‚é
-       «—ˆ“I‚É‰‰ZŒn‚ÌŠÖ”‚Í‚±‚Ì’†‚Éû”[‚·‚é
+ ç”¨é€”: è¨ˆç®—ç”¨ã®ãƒ¦ãƒ¼ãƒ†ã‚£ãƒªãƒ†ã‚£
+ ã€€ã€€ã€€staticå‘¼ã³å‡ºã—ã‚’ã™ã‚‹
+       å°†æ¥çš„ã«æ¼”ç®—ç³»ã®é–¢æ•°ã¯ã“ã®ä¸­ã«åç´ã™ã‚‹
 ****************************************************************************/
 
 class Math{
 public:
 	static void QtToRot(const D3DXQUATERNION& Qt,D3DXVECTOR3& Rot){
 		D3DXQUATERNION tempQt = Qt;
-		//³‹K‰»
+		//æ­£è¦åŒ–
 		D3DXQuaternionNormalize(&tempQt,&tempQt);
-		//s—ñ‚Éæ‚èo‚·
+		//è¡Œåˆ—ã«å–ã‚Šå‡ºã™
 		D3DXMATRIX mt;
 		D3DXMatrixIdentity(&mt);
 		D3DXMatrixRotationQuaternion(&mt,&tempQt);
@@ -135,15 +135,15 @@ public:
 
 
 /////////////////// ////////////////////
-//// ŠÖ”–¼     Finline D3DXVECTOR3 MatrixCalculator(D3DXMATRIX& i_m4x4 , D3DXVECTOR3& i_v1x3)
-//// ƒJƒeƒSƒŠ   FƒOƒŠ[ƒoƒ‹ŠÖ”
-//// —p“r       FOŸŒ³ƒxƒNƒgƒ‹‚És—ñ•ÏŠ·‚ğs‚¤
-//// ˆø”       F  const D3DXMATRIX&  i_m4x4    //  : ŒvZ‚Ég‚¤s—ñƒf[ƒ^
-////            F  const D3DXVECTOR3& i_v1x3    //  : •ÏŠ·‚³‚¹‚½‚¢À•Wƒf[ƒ^
-//// –ß’l       F•ÏŠ·‚³‚ê‚½ƒxƒNƒgƒ‹
-//// ’S“–       F°Œ´ “O
-//// ”õl       F
-////            F
+//// é–¢æ•°å     ï¼šinline D3DXVECTOR3 MatrixCalculator(D3DXMATRIX& i_m4x4 , D3DXVECTOR3& i_v1x3)
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚°ãƒªãƒ¼ãƒãƒ«é–¢æ•°
+//// ç”¨é€”       ï¼šä¸‰æ¬¡å…ƒãƒ™ã‚¯ãƒˆãƒ«ã«è¡Œåˆ—å¤‰æ›ã‚’è¡Œã†
+//// å¼•æ•°       ï¼š  const D3DXMATRIX&  i_m4x4    //  : è¨ˆç®—ã«ä½¿ã†è¡Œåˆ—ãƒ‡ãƒ¼ã‚¿
+////            ï¼š  const D3DXVECTOR3& i_v1x3    //  : å¤‰æ›ã•ã›ãŸã„åº§æ¨™ãƒ‡ãƒ¼ã‚¿
+//// æˆ»å€¤       ï¼šå¤‰æ›ã•ã‚ŒãŸãƒ™ã‚¯ãƒˆãƒ«
+//// æ‹…å½“       ï¼šé´«åŸ å¾¹
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
 inline D3DXVECTOR3 MatrixCalculator(const D3DXMATRIX& i_m4x4 ,const D3DXVECTOR3& i_v1x3){
 	D3DXVECTOR3 res;
@@ -157,15 +157,15 @@ inline D3DXVECTOR3 MatrixCalculator(const D3DXMATRIX& i_m4x4 ,const D3DXVECTOR3&
 };
 
 /////////////////// ////////////////////
-//// ŠÖ”–¼     Finline D3DXVECTOR3 MatrixCalculator(D3DXMATRIX& i_m4x4 , D3DXVECTOR3& i_v1x3)
-//// ƒJƒeƒSƒŠ   FƒOƒŠ[ƒoƒ‹ŠÖ”
-//// —p“r       FOŸŒ³ƒxƒNƒgƒ‹‚És—ñ•ÏŠ·‚ğs‚¤
-//// ˆø”       F  const D3DXMATRIX&  i_m4x4    //  : ŒvZ‚Ég‚¤s—ñƒf[ƒ^
-////            F  const D3DXVECTOR3& i_v1x3    //  : •ÏŠ·‚³‚¹‚½‚¢À•Wƒf[ƒ^
-//// –ß’l       F•ÏŠ·‚³‚ê‚½ƒxƒNƒgƒ‹
-//// ’S“–       F°Œ´ “O
-//// ”õl       F
-////            F
+//// é–¢æ•°å     ï¼šinline D3DXVECTOR3 MatrixCalculator(D3DXMATRIX& i_m4x4 , D3DXVECTOR3& i_v1x3)
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚°ãƒªãƒ¼ãƒãƒ«é–¢æ•°
+//// ç”¨é€”       ï¼šä¸‰æ¬¡å…ƒãƒ™ã‚¯ãƒˆãƒ«ã«è¡Œåˆ—å¤‰æ›ã‚’è¡Œã†
+//// å¼•æ•°       ï¼š  const D3DXMATRIX&  i_m4x4    //  : è¨ˆç®—ã«ä½¿ã†è¡Œåˆ—ãƒ‡ãƒ¼ã‚¿
+////            ï¼š  const D3DXVECTOR3& i_v1x3    //  : å¤‰æ›ã•ã›ãŸã„åº§æ¨™ãƒ‡ãƒ¼ã‚¿
+//// æˆ»å€¤       ï¼šå¤‰æ›ã•ã‚ŒãŸãƒ™ã‚¯ãƒˆãƒ«
+//// æ‹…å½“       ï¼šé´«åŸ å¾¹
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
 inline Point MatrixCalculator(const D3DXMATRIX& i_m4x4 ,const Point& i_v1x2){
 	Point res;
@@ -179,16 +179,16 @@ inline Point MatrixCalculator(const D3DXMATRIX& i_m4x4 ,const Point& i_v1x2){
 };
 
 /////////////////// ////////////////////
-//// ŠÖ”–¼     Finline D3DXVECTOR3 MatrixCalculator(const D3DXVECTOR3& vScale, const D3DXVECTOR3& vRot, const D3DXVECTOR3& vPos)
-//// ƒJƒeƒSƒŠ   FƒOƒŠ[ƒoƒ‹ŠÖ”
-//// —p“r       FOŸŒ³ƒxƒNƒgƒ‹‚És—ñ•ÏŠ·‚ğs‚¤
-//// ˆø”       F  const D3DXVECTOR3& vScale
-////            F  const D3DXVECTOR3& vRot
-////            F  const D3DXVECTOR3& vPos
-//// –ß’l       F•ÏŠ·‚³‚ê‚½ƒxƒNƒgƒ‹
-//// ’S“–       F°Œ´ “O
-//// ”õl       F–¼‘O”í‚ç‚È‚¢‚æ‚¤‚É‚µ‚½‚¢c
-////            F‚¢‚¢–¼‘Ov‚¢‚Â‚©‚È‚¢><
+//// é–¢æ•°å     ï¼šinline D3DXVECTOR3 MatrixCalculator(const D3DXVECTOR3& vScale, const D3DXVECTOR3& vRot, const D3DXVECTOR3& vPos)
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚°ãƒªãƒ¼ãƒãƒ«é–¢æ•°
+//// ç”¨é€”       ï¼šä¸‰æ¬¡å…ƒãƒ™ã‚¯ãƒˆãƒ«ã«è¡Œåˆ—å¤‰æ›ã‚’è¡Œã†
+//// å¼•æ•°       ï¼š  const D3DXVECTOR3& vScale
+////            ï¼š  const D3DXVECTOR3& vRot
+////            ï¼š  const D3DXVECTOR3& vPos
+//// æˆ»å€¤       ï¼šå¤‰æ›ã•ã‚ŒãŸãƒ™ã‚¯ãƒˆãƒ«
+//// æ‹…å½“       ï¼šé´«åŸ å¾¹
+//// å‚™è€ƒ       ï¼šåå‰è¢«ã‚‰ãªã„ã‚ˆã†ã«ã—ãŸã„â€¦
+////            ï¼šã„ã„åå‰æ€ã„ã¤ã‹ãªã„><
 ////
 inline D3DXMATRIX MatrixCalculator(const D3DXVECTOR3& vScale, const D3DXVECTOR3& vRot, const D3DXVECTOR3& vPos){
 	D3DXMATRIX mScale, mRot, mPos;
@@ -201,16 +201,16 @@ inline D3DXMATRIX MatrixCalculator(const D3DXVECTOR3& vScale, const D3DXVECTOR3&
 };
 
 /////////////////// ////////////////////
-//// ŠÖ”–¼     Finline D3DXVECTOR3 MatrixCalculator(const D3DXVECTOR3& vScale, const D3DXVECTOR3& vRot, const D3DXVECTOR3& vPos)
-//// ƒJƒeƒSƒŠ   FƒOƒŠ[ƒoƒ‹ŠÖ”
-//// —p“r       FOŸŒ³ƒxƒNƒgƒ‹‚És—ñ•ÏŠ·‚ğs‚¤
-//// ˆø”       F  const D3DXVECTOR3& vScale
-////            F  const D3DXVECTOR3& vRot
-////            F  const D3DXVECTOR3& vPos
-//// –ß’l       F•ÏŠ·‚³‚ê‚½ƒxƒNƒgƒ‹
-//// ’S“–       F°Œ´ “O
-//// ”õl       F–¼‘O”í‚ç‚È‚¢‚æ‚¤‚É‚µ‚½‚¢c
-////            F‚¢‚¢–¼‘Ov‚¢‚Â‚©‚È‚¢><
+//// é–¢æ•°å     ï¼šinline D3DXVECTOR3 MatrixCalculator(const D3DXVECTOR3& vScale, const D3DXVECTOR3& vRot, const D3DXVECTOR3& vPos)
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚°ãƒªãƒ¼ãƒãƒ«é–¢æ•°
+//// ç”¨é€”       ï¼šä¸‰æ¬¡å…ƒãƒ™ã‚¯ãƒˆãƒ«ã«è¡Œåˆ—å¤‰æ›ã‚’è¡Œã†
+//// å¼•æ•°       ï¼š  const D3DXVECTOR3& vScale
+////            ï¼š  const D3DXVECTOR3& vRot
+////            ï¼š  const D3DXVECTOR3& vPos
+//// æˆ»å€¤       ï¼šå¤‰æ›ã•ã‚ŒãŸãƒ™ã‚¯ãƒˆãƒ«
+//// æ‹…å½“       ï¼šé´«åŸ å¾¹
+//// å‚™è€ƒ       ï¼šåå‰è¢«ã‚‰ãªã„ã‚ˆã†ã«ã—ãŸã„â€¦
+////            ï¼šã„ã„åå‰æ€ã„ã¤ã‹ãªã„><
 ////
 inline D3DXMATRIX MatrixCalculator(const D3DXVECTOR3& vScale, const D3DXQUATERNION& Qt, const D3DXVECTOR3& vPos){
 	D3DXMATRIX mScale, mRot, mPos;
@@ -223,34 +223,34 @@ inline D3DXMATRIX MatrixCalculator(const D3DXVECTOR3& vScale, const D3DXQUATERNI
 };
 
 /////////////////// ////////////////////
-//// ŠÖ”–¼     Finline void EarnFromMeshOBB(const LPD3DXBASEMESH i_pMesh,
-////            F      D3DXVECTOR3& o_vPos ,D3DXVECTOR3& o_vSize)
-//// ƒJƒeƒSƒŠ   FƒOƒŠ[ƒoƒ‹ŠÖ”
-//// —p“r       FƒƒbƒVƒ…ƒf[ƒ^‚Ì‘å‚«‚³‚Æ’†SÀ•W‚ğŠl“¾‚·‚é
-//// ˆø”       F  const LPD3DXBASEMESH i_pMesh    //  : Œ³‚É‚È‚éƒƒbƒVƒ…
-////            F  D3DXVECTOR3& o_vPos             //  : ƒƒbƒVƒ…‚Ì’†S“_‚ğ•Ô‚·‚½‚ß‚Ìƒ|ƒCƒ“ƒ^
-////            F  D3DXVECTOR3& o_vSize            //  : ƒƒbƒVƒ…‚Ì‘å‚«‚³‚ğ•Ô‚·‚½‚ß‚Ìƒ|ƒCƒ“ƒ^
-//// ’S“–       F°Œ´ “O
-//// –ß’l       F‚È‚µ(Œã‚ë“ñ‚Â‚Ìˆø”‚Ö•Ô‚·)
-//// ”õl       FPos  = MaxPos‚ÆMinPos‚ÌŠÔ‚Ì“_
-////            FSize = MaxPos‚©‚çMinPos‚Ì‹——£/2
+//// é–¢æ•°å     ï¼šinline void EarnFromMeshOBB(const LPD3DXBASEMESH i_pMesh,
+////            ï¼š      D3DXVECTOR3& o_vPos ,D3DXVECTOR3& o_vSize)
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚°ãƒªãƒ¼ãƒãƒ«é–¢æ•°
+//// ç”¨é€”       ï¼šãƒ¡ãƒƒã‚·ãƒ¥ãƒ‡ãƒ¼ã‚¿ã®å¤§ãã•ã¨ä¸­å¿ƒåº§æ¨™ã‚’ç²å¾—ã™ã‚‹
+//// å¼•æ•°       ï¼š  const LPD3DXBASEMESH i_pMesh    //  : å…ƒã«ãªã‚‹ãƒ¡ãƒƒã‚·ãƒ¥
+////            ï¼š  D3DXVECTOR3& o_vPos             //  : ãƒ¡ãƒƒã‚·ãƒ¥ã®ä¸­å¿ƒç‚¹ã‚’è¿”ã™ãŸã‚ã®ãƒã‚¤ãƒ³ã‚¿
+////            ï¼š  D3DXVECTOR3& o_vSize            //  : ãƒ¡ãƒƒã‚·ãƒ¥ã®å¤§ãã•ã‚’è¿”ã™ãŸã‚ã®ãƒã‚¤ãƒ³ã‚¿
+//// æ‹…å½“       ï¼šé´«åŸ å¾¹
+//// æˆ»å€¤       ï¼šãªã—(å¾Œã‚äºŒã¤ã®å¼•æ•°ã¸è¿”ã™)
+//// å‚™è€ƒ       ï¼šPos  = MaxPosã¨MinPosã®é–“ã®ç‚¹
+////            ï¼šSize = MaxPosã‹ã‚‰MinPosã®è·é›¢/2
 ////
 inline void EarnFromMeshOBB(const LPD3DXBASEMESH i_pMesh,D3DXVECTOR3& o_vPos ,D3DXVECTOR3& o_vSize){
-	//’¸“_æ‚èo‚µ
-	//LPDIRECT3DVERTEXBUFFER9 VertexBuffer;			// ’¸“_ƒoƒbƒtƒ@-
-	const DWORD vSize = i_pMesh->GetNumBytesPerVertex();	// ’¸“_‚ÌƒoƒCƒg”
-	const DWORD vNum  = i_pMesh->GetNumVertices();		// ’¸“_ŒÂ”
-	DWORD fvf   = i_pMesh->GetFVF();				// ’¸“_ƒtƒH[ƒ}ƒbƒg
-	//i_pMesh->GetVertexBuffer(&VertexBuffer);		// ƒoƒbƒtƒ@[‚ÌŠl“¾
+	//é ‚ç‚¹å–ã‚Šå‡ºã—
+	//LPDIRECT3DVERTEXBUFFER9 VertexBuffer;			// é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡-
+	const DWORD vSize = i_pMesh->GetNumBytesPerVertex();	// é ‚ç‚¹ã®ãƒã‚¤ãƒˆæ•°
+	const DWORD vNum  = i_pMesh->GetNumVertices();		// é ‚ç‚¹å€‹æ•°
+	DWORD fvf   = i_pMesh->GetFVF();				// é ‚ç‚¹ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆ
+	//i_pMesh->GetVertexBuffer(&VertexBuffer);		// ãƒãƒƒãƒ•ã‚¡ãƒ¼ã®ç²å¾—
 	PBYTE Vertex;
 	i_pMesh->LockVertexBuffer(D3DLOCK_READONLY, (LPVOID*)&Vertex);
-	//BYTE* Vertex = new BYTE[vSize*vNum];			// ŒvZ—p’¸“_ƒoƒbƒtƒ@-
-	//VertexBuffer->Lock(0,0,(void**)&Vertex,0);		// ’¸“_ƒƒbƒN
+	//BYTE* Vertex = new BYTE[vSize*vNum];			// è¨ˆç®—ç”¨é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡-
+	//VertexBuffer->Lock(0,0,(void**)&Vertex,0);		// é ‚ç‚¹ãƒ­ãƒƒã‚¯
 
-	D3DXVECTOR3 Min = g_vMax;		//	: Å‘å“_ƒoƒbƒtƒ@ 
-	D3DXVECTOR3 Max = g_vMin;		//	: Å¬“_ƒoƒbƒtƒ@
+	D3DXVECTOR3 Min = g_vMax;		//	: æœ€å¤§ç‚¹ãƒãƒƒãƒ•ã‚¡ 
+	D3DXVECTOR3 Max = g_vMin;		//	: æœ€å°ç‚¹ãƒãƒƒãƒ•ã‚¡
 	for(DWORD i = 0 ; i < vNum ; i++){
-		FlexibleVertex fvBuf(Vertex+(vSize*i),fvf);			//	: æ“ªƒAƒhƒŒƒX + ( 1’¸“_‚ÌƒTƒCƒY * ’¸“_”Ô )
+		FlexibleVertex fvBuf(Vertex+(vSize*i),fvf);			//	: å…ˆé ­ã‚¢ãƒ‰ãƒ¬ã‚¹ + ( 1é ‚ç‚¹ã®ã‚µã‚¤ã‚º * é ‚ç‚¹ç•ª )
 		if(fvBuf.pos->x > Max.x) Max.x = fvBuf.pos->x ;
 		if(fvBuf.pos->y > Max.y) Max.y = fvBuf.pos->y ;
 		if(fvBuf.pos->z > Max.z) Max.z = fvBuf.pos->z ;
@@ -268,8 +268,8 @@ inline void EarnFromMeshOBB(const LPD3DXBASEMESH i_pMesh,D3DXVECTOR3& o_vPos ,D3
 
 /**************************************************************************
  class HitTest;
- —p“r: Õ“Ë”»’è—p‚Ìƒ†[ƒeƒBƒŠƒeƒB
- @@@staticŒÄ‚Ño‚µ‚ğ‚·‚é
+ ç”¨é€”: è¡çªåˆ¤å®šç”¨ã®ãƒ¦ãƒ¼ãƒ†ã‚£ãƒªãƒ†ã‚£
+ ã€€ã€€ã€€staticå‘¼ã³å‡ºã—ã‚’ã™ã‚‹
 ****************************************************************************/
 class HitTest{
 public:
@@ -277,12 +277,12 @@ public:
 	~HitTest(){}
 /**************************************************************************
  static void ClosestPtPointOBB(
-	const D3DXVECTOR3& point,		//Šî€“_
+	const D3DXVECTOR3& point,		//åŸºæº–ç‚¹
 	const OBB& obb,				//OBB
-	D3DXVECTOR3& retvec		//Å‹ßÚ“_‚ğ•Ô‚·QÆ
-@);
- —p“r: point‚©‚çŒ©‚½OBB‚ÌÅ‹ßÚ“_‚ğ“¾‚é
- –ß‚è’l: ‚È‚µiretvec‚ÉÅ‹ßÚ“_‚ª‘ã“ü‚³‚ê‚éj
+	D3DXVECTOR3& retvec		//æœ€è¿‘æ¥ç‚¹ã‚’è¿”ã™å‚ç…§
+ã€€);
+ ç”¨é€”: pointã‹ã‚‰è¦‹ãŸOBBã®æœ€è¿‘æ¥ç‚¹ã‚’å¾—ã‚‹
+ æˆ»ã‚Šå€¤: ãªã—ï¼ˆretvecã«æœ€è¿‘æ¥ç‚¹ãŒä»£å…¥ã•ã‚Œã‚‹ï¼‰
 ***************************************************************************/
 	static void ClosestPtPointOBB(const D3DXVECTOR3& point,const OBB& obb, D3DXVECTOR3& retvec){
 		D3DXVECTOR3 d = point - obb.m_Center;
@@ -304,11 +304,11 @@ public:
 	}
 /**************************************************************************
  static bool SPHERE_SPHERE(
-	const SPHERE& sp1,		//‹…‚P
-	const SPHERE& sp2		//‹…‚Q
+	const SPHERE& sp1,		//çƒï¼‘
+	const SPHERE& sp2		//çƒï¼’
 );
- —p“r: ‹…‚Æ‹…‚Æ‚ÌÕ“Ë”»’è
- –ß‚è’l: Õ“Ë‚µ‚Ä‚¢‚ê‚Îtrue
+ ç”¨é€”: çƒã¨çƒã¨ã®è¡çªåˆ¤å®š
+ æˆ»ã‚Šå€¤: è¡çªã—ã¦ã„ã‚Œã°true
 ***************************************************************************/
 	static bool SPHERE_SPHERE(const SPHERE& sp1,const SPHERE& sp2){
 		D3DXVECTOR3 d = sp1.m_Center - sp2.m_Center;
@@ -318,12 +318,12 @@ public:
 	}
 /**************************************************************************
  static void ClosestPtPointAABB(
-	const D3DXVECTOR3& p,		//“_
+	const D3DXVECTOR3& p,		//ç‚¹
 	const AABB& b,		//AABB
-	D3DXVECTOR3& retvec	//Å‹ßÚ“_‚ª‘ã“ü‚³‚ê‚éQÆ
+	D3DXVECTOR3& retvec	//æœ€è¿‘æ¥ç‚¹ãŒä»£å…¥ã•ã‚Œã‚‹å‚ç…§
 );
- —p“r: “_‚ÆAABB‚Æ‚ÌÅ‹ßÚ“_‚ğ“¾‚é
- –ß‚è’l: ‚È‚µiretvec‚ÉÅ‹ßÚ“_‚ª‘ã“ü‚³‚ê‚éj
+ ç”¨é€”: ç‚¹ã¨AABBã¨ã®æœ€è¿‘æ¥ç‚¹ã‚’å¾—ã‚‹
+ æˆ»ã‚Šå€¤: ãªã—ï¼ˆretvecã«æœ€è¿‘æ¥ç‚¹ãŒä»£å…¥ã•ã‚Œã‚‹ï¼‰
 ***************************************************************************/
 	static void ClosestPtPointAABB(const D3DXVECTOR3& p,const AABB& b,
 		D3DXVECTOR3& retvec){
@@ -342,11 +342,11 @@ public:
 
 /**************************************************************************
  static float SqDistPointAABB(
-	const D3DXVECTOR3& p,		//“_
+	const D3DXVECTOR3& p,		//ç‚¹
 	const AABB& b		//AABB
 );
- —p“r: “_‚ÆAABB‚Æ‚Ì‹——£‚Ì•½•û‚ğ‘ª‚é
- –ß‚è’l: ‹——£
+ ç”¨é€”: ç‚¹ã¨AABBã¨ã®è·é›¢ã®å¹³æ–¹ã‚’æ¸¬ã‚‹
+ æˆ»ã‚Šå€¤: è·é›¢
 ***************************************************************************/
 	static float SqDistPointAABB(const D3DXVECTOR3& p,const AABB& b){
 		float sqDist = 0.0f;
@@ -363,18 +363,18 @@ public:
 	}
 /**************************************************************************
  static bool SPHERE_AABB(
-	const SPHERE& sp,		//‹…‚P
-	const AABB& b,		//AABB‚Q
-	D3DXVECTOR3& retvec	//Å‹ßÚ“_‚ª‘ã“ü‚³‚ê‚éQÆ
+	const SPHERE& sp,		//çƒï¼‘
+	const AABB& b,		//AABBï¼’
+	D3DXVECTOR3& retvec	//æœ€è¿‘æ¥ç‚¹ãŒä»£å…¥ã•ã‚Œã‚‹å‚ç…§
 );
- —p“r: ‹…‚ÆAABB‚Æ‚ÌÕ“Ë”»’è
- –ß‚è’l: Õ“Ë‚µ‚Ä‚¢‚ê‚Îtrueiretvec‚ÉÅ‹ßÚ“_‚ª‘ã“ü‚³‚ê‚éj
+ ç”¨é€”: çƒã¨AABBã¨ã®è¡çªåˆ¤å®š
+ æˆ»ã‚Šå€¤: è¡çªã—ã¦ã„ã‚Œã°trueï¼ˆretvecã«æœ€è¿‘æ¥ç‚¹ãŒä»£å…¥ã•ã‚Œã‚‹ï¼‰
 ***************************************************************************/
 	static bool SPHERE_AABB(const SPHERE& sp,const AABB& b,
 		D3DXVECTOR3& retvec){
-			//Å‹ßÚ“_‚ğ“¾‚é
+			//æœ€è¿‘æ¥ç‚¹ã‚’å¾—ã‚‹
 			ClosestPtPointAABB(sp.m_Center,b,retvec);
-			//‹——£‚Ì•½•û‚ª‹…‚Ì”¼Œa‚Ì•½•û“à‚È‚çtrue
+			//è·é›¢ã®å¹³æ–¹ãŒçƒã®åŠå¾„ã®å¹³æ–¹å†…ãªã‚‰true
 			if(SqDistPointAABB(sp.m_Center,b) <= (sp.m_Radius * sp.m_Radius)){
 				return true;
 			}
@@ -383,11 +383,11 @@ public:
 
 /**************************************************************************
  static bool AABB_AABB(
-	const AABB& a,		//AABB‚P
-	const AABB& b		//AABB‚Q
+	const AABB& a,		//AABBï¼‘
+	const AABB& b		//AABBï¼’
 );
- —p“r: AABB‚ÆAABB‚Æ‚ÌÕ“Ë”»’è
- –ß‚è’l: Õ“Ë‚µ‚Ä‚¢‚ê‚Îtrue
+ ç”¨é€”: AABBã¨AABBã¨ã®è¡çªåˆ¤å®š
+ æˆ»ã‚Šå€¤: è¡çªã—ã¦ã„ã‚Œã°true
 ***************************************************************************/
 	static bool AABB_AABB(const AABB& a,const AABB& b){
 		if(a.m_Max.x < b.m_Min.x || a.m_Min.x > b.m_Max.x)
@@ -400,11 +400,11 @@ public:
 	}
 /**************************************************************************
  static bool AABB_IN_AABB(
-	const AABB& a,		//AABB‚P
-	const AABB& b		//AABB‚Q
+	const AABB& a,		//AABBï¼‘
+	const AABB& b		//AABBï¼’
 );
- —p“r: AABB a‚ªAABB ‚‚‚ÉŠ®‘S‚ÉŠÜ‚Ü‚ê‚é‚©”»’è
- –ß‚è’l: Õ“Ë‚µ‚Ä‚¢‚ê‚Îtrue
+ ç”¨é€”: AABB aãŒAABB ï½‚ã«å®Œå…¨ã«å«ã¾ã‚Œã‚‹ã‹åˆ¤å®š
+ æˆ»ã‚Šå€¤: è¡çªã—ã¦ã„ã‚Œã°true
 ***************************************************************************/
 	static bool AABB_IN_AABB(const AABB& a,const AABB& b){
 		if(a.m_Min.x < b.m_Min.x || a.m_Max.x > b.m_Max.x)
@@ -417,12 +417,12 @@ public:
 	}
 /**************************************************************************
  static bool SPHERE_OBB(
-	const SPHERE& sp,		//‹…
+	const SPHERE& sp,		//çƒ
 	const OBB& obb,		//OBB
-	D3DXVECTOR3& retvec	//Å‹ßÚ“_‚ª‘ã“ü‚³‚ê‚éQÆ
+	D3DXVECTOR3& retvec	//æœ€è¿‘æ¥ç‚¹ãŒä»£å…¥ã•ã‚Œã‚‹å‚ç…§
 );
- —p“r: OBB‚Æ‹…‚Æ‚ÌÕ“Ë”»’è
- –ß‚è’l: Õ“Ë‚µ‚Ä‚¢‚ê‚Îtrueiretvec‚ÉÅ‹ßÚ“_‚ª‘ã“ü‚³‚ê‚éj
+ ç”¨é€”: OBBã¨çƒã¨ã®è¡çªåˆ¤å®š
+ æˆ»ã‚Šå€¤: è¡çªã—ã¦ã„ã‚Œã°trueï¼ˆretvecã«æœ€è¿‘æ¥ç‚¹ãŒä»£å…¥ã•ã‚Œã‚‹ï¼‰
 ***************************************************************************/
 	static bool SPHERE_OBB(const SPHERE& sp,const OBB& obb,D3DXVECTOR3& retvec){
         ClosestPtPointOBB(sp.m_Center,obb,retvec);
@@ -434,8 +434,8 @@ public:
  const OBB& obb1,
  const OBB& obb2
  );
- —p“r: OBB‚ÆOBB‚Æ‚ÌÕ“Ë”»’è
- –ß‚è’l: Õ“Ë‚µ‚Ä‚¢‚ê‚Îtrue
+ ç”¨é€”: OBBã¨OBBã¨ã®è¡çªåˆ¤å®š
+ æˆ»ã‚Šå€¤: è¡çªã—ã¦ã„ã‚Œã°true
 ***************************************************************************/
 	static bool OBB_OBB(const OBB& obb1,const OBB& obb2){
 		const float EPSILON = 1.175494e-37f;
@@ -450,7 +450,7 @@ public:
 		t = D3DXVECTOR3(D3DXVec3Dot(&t, &obb1.m_Rot[0]),
 						D3DXVec3Dot(&t, &obb1.m_Rot[1]),
 						D3DXVec3Dot(&t, &obb1.m_Rot[2]));
-		//²L=A0, L=A1, L=A2”»’è
+		//è»¸L=A0, L=A1, L=A2åˆ¤å®š
 		float ra, rb;
 		for(int i = 0; i < 3; i++){
 			ra = obb1.m_Size[i];
@@ -459,7 +459,7 @@ public:
 				return false;
 			}
 		}
-		//²L=B0, L=B1, L=B2”»’è
+		//è»¸L=B0, L=B1, L=B2åˆ¤å®š
 		for(int i = 0; i < 3; i++){
 			ra = obb1.m_Size[0] * AbsR[0][i] + obb1.m_Size[1] * AbsR[1][i] + obb1.m_Size[2] * AbsR[2][i];
 			rb = obb2.m_Size[i];
@@ -467,55 +467,55 @@ public:
 				return false;
 			}
 		}
-		//²L=A0 X B0”»’è
+		//è»¸L=A0 X B0åˆ¤å®š
 		ra = obb1.m_Size[1] * AbsR[2][0] + obb1.m_Size[2] * AbsR[1][0];
 		rb = obb2.m_Size[1] * AbsR[0][2] + obb2.m_Size[2] * AbsR[0][1];
 		if(fabsf(t[2] * R[1][0] - t[1] * R[2][0]) > ra + rb){
 			return false;
 		}
-		//²L=A0 X B1”»’è
+		//è»¸L=A0 X B1åˆ¤å®š
 		ra = obb1.m_Size[1] * AbsR[2][1] + obb1.m_Size[2] * AbsR[1][1];
 		rb = obb2.m_Size[0] * AbsR[0][2] + obb2.m_Size[2] * AbsR[0][0];
 		if(fabsf(t[2] * R[1][1] - t[1] * R[2][1]) > ra + rb){
 			return false;
 		}
-		//²L=A0 X B2”»’è
+		//è»¸L=A0 X B2åˆ¤å®š
 		ra = obb1.m_Size[1] * AbsR[2][2] + obb1.m_Size[2] * AbsR[1][2];
 		rb = obb2.m_Size[0] * AbsR[0][1] + obb2.m_Size[1] * AbsR[0][0];
 		if(fabsf(t[2] * R[1][2] - t[1] * R[2][2]) > ra + rb){
 			return false;
 		}
-		//²L=A1 X B0”»’è
+		//è»¸L=A1 X B0åˆ¤å®š
 		ra = obb1.m_Size[0] * AbsR[2][0] + obb1.m_Size[2] * AbsR[0][0];
 		rb = obb2.m_Size[1] * AbsR[1][2] + obb2.m_Size[2] * AbsR[1][1];
 		if(fabsf(t[0] * R[2][0] - t[2] * R[0][0]) > ra + rb){
 			return false;
 		}
-		//²L=A1 X B1”»’è
+		//è»¸L=A1 X B1åˆ¤å®š
 		ra = obb1.m_Size[0] * AbsR[2][1] + obb1.m_Size[2] * AbsR[0][1];
 		rb = obb2.m_Size[0] * AbsR[1][2] + obb2.m_Size[2] * AbsR[1][0];
 		if(fabsf(t[0] * R[2][1] - t[2] * R[0][1]) > ra + rb){
 			return false;
 		}
-		//²L=A1 X B2”»’è
+		//è»¸L=A1 X B2åˆ¤å®š
 		ra = obb1.m_Size[0] * AbsR[2][2] + obb1.m_Size[2] * AbsR[0][2];
 		rb = obb2.m_Size[0] * AbsR[1][1] + obb2.m_Size[1] * AbsR[1][0];
 		if(fabsf(t[0] * R[2][2] - t[2] * R[0][2]) > ra + rb){
 			return false;
 		}
-		//²L=A2 X B0”»’è
+		//è»¸L=A2 X B0åˆ¤å®š
 		ra = obb1.m_Size[0] * AbsR[1][0] + obb1.m_Size[1] * AbsR[0][0];
 		rb = obb2.m_Size[1] * AbsR[2][2] + obb2.m_Size[2] * AbsR[2][1];
 		if(fabsf(t[1] * R[0][0] - t[0] * R[1][0]) > ra + rb){
 			return false;
 		}
-		//²L=A2 X B1”»’è
+		//è»¸L=A2 X B1åˆ¤å®š
 		ra = obb1.m_Size[0] * AbsR[1][1] + obb1.m_Size[1] * AbsR[0][1];
 		rb = obb2.m_Size[0] * AbsR[2][2] + obb2.m_Size[2] * AbsR[2][0];
 		if(fabsf(t[1] * R[0][1] - t[0] * R[1][1]) > ra + rb){
 			return false;
 		}
-		//²L=A2 X B2”»’è
+		//è»¸L=A2 X B2åˆ¤å®š
 		ra = obb1.m_Size[0] * AbsR[1][2] + obb1.m_Size[1] * AbsR[0][2];
 		rb = obb2.m_Size[0] * AbsR[2][1] + obb2.m_Size[1] * AbsR[2][0];
 		if(fabsf(t[1] * R[0][2] - t[0] * R[1][2]) > ra + rb){
@@ -525,15 +525,15 @@ public:
 	}
 };
 /////////////////// ////////////////////
-//// ŠÖ”–¼     Finline DWORD BYTE4toDWORD(BYTE* byteBuf,BYTE arraySize/* MAX = 4*/)
-//// ƒJƒeƒSƒŠ   FƒOƒ[ƒoƒ‹ŠÖ”
-//// —p“r       F
-//// ˆø”       F  BYTE* byteBuf
-////            F  BYTE  arraySize
-//// –ß’l       F
-//// ’S“–       F
-//// ”õl       F
-////            F
+//// é–¢æ•°å     ï¼šinline DWORD BYTE4toDWORD(BYTE* byteBuf,BYTE arraySize/* MAX = 4*/)
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚°ãƒ­ãƒ¼ãƒãƒ«é–¢æ•°
+//// ç”¨é€”       ï¼š
+//// å¼•æ•°       ï¼š  BYTE* byteBuf
+////            ï¼š  BYTE  arraySize
+//// æˆ»å€¤       ï¼š
+//// æ‹…å½“       ï¼š
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
 inline DWORD BYTE4toDWORD(BYTE* byteBuf,BYTE arraySize/* MAX = 4*/){
 	union BYTE4toDWORD{
@@ -546,15 +546,15 @@ inline DWORD BYTE4toDWORD(BYTE* byteBuf,BYTE arraySize/* MAX = 4*/){
 	return buf.uniDword;
 };
 /////////////////// ////////////////////
-//// ŠÖ”–¼     Finline float BYTE4toFLOATfor(BYTE* byteBuf,BYTE arraySize/* MAX = 4*/)
-//// ƒJƒeƒSƒŠ   FƒOƒ[ƒoƒ‹ŠÖ”
-//// —p“r       F
-//// ˆø”       F  BYTE* byteBuf
-////            F  BYTE  arraySize
-//// –ß’l       F
-//// ’S“–       F
-//// ”õl       F
-////            F
+//// é–¢æ•°å     ï¼šinline float BYTE4toFLOATfor(BYTE* byteBuf,BYTE arraySize/* MAX = 4*/)
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚°ãƒ­ãƒ¼ãƒãƒ«é–¢æ•°
+//// ç”¨é€”       ï¼š
+//// å¼•æ•°       ï¼š  BYTE* byteBuf
+////            ï¼š  BYTE  arraySize
+//// æˆ»å€¤       ï¼š
+//// æ‹…å½“       ï¼š
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
 inline float BYTE4toFLOATfor(BYTE* byteBuf,BYTE arraySize/* MAX = 4*/){
 	union BYTE4toDWORD{
@@ -567,25 +567,25 @@ inline float BYTE4toFLOATfor(BYTE* byteBuf,BYTE arraySize/* MAX = 4*/){
 	return buf.uniFloat;
 };
 /////////////////// ////////////////////
-//// ŠÖ”–¼     Finline void MeshTransformer(LPD3DXBASEMESH io_pMesh,D3DXMATRIX& i_mMatrix)
-//// ƒJƒeƒSƒŠ   FƒOƒ[ƒoƒ‹ŠÖ”
-//// —p“r       Fƒ}ƒgƒŠƒbƒNƒX‚ğg‚Á‚ÄƒƒbƒVƒ…‚ğ•ÏŒ`‚³‚¹‚é
-//// ˆø”       F  LPD3DXBASEMESH io_pMesh     // •ÏŒ`‚³‚¹‚½‚¢ƒƒbƒVƒ…
-////            F  D3DXMATRIX&    i_mMatrix    // ŒvZ‚Ég‚¤s—ñ
-//// –ß’l       F‚È‚µ
-//// ’S“–       F°Œ´ “O
-//// ”õl       F
-////            F
+//// é–¢æ•°å     ï¼šinline void MeshTransformer(LPD3DXBASEMESH io_pMesh,D3DXMATRIX& i_mMatrix)
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚°ãƒ­ãƒ¼ãƒãƒ«é–¢æ•°
+//// ç”¨é€”       ï¼šãƒãƒˆãƒªãƒƒã‚¯ã‚¹ã‚’ä½¿ã£ã¦ãƒ¡ãƒƒã‚·ãƒ¥ã‚’å¤‰å½¢ã•ã›ã‚‹
+//// å¼•æ•°       ï¼š  LPD3DXBASEMESH io_pMesh     // å¤‰å½¢ã•ã›ãŸã„ãƒ¡ãƒƒã‚·ãƒ¥
+////            ï¼š  D3DXMATRIX&    i_mMatrix    // è¨ˆç®—ã«ä½¿ã†è¡Œåˆ—
+//// æˆ»å€¤       ï¼šãªã—
+//// æ‹…å½“       ï¼šé´«åŸ å¾¹
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
 inline void MeshTransformer(LPD3DXBASEMESH io_pMesh,D3DXMATRIX& i_mMatrix){
-	//’¸“_æ‚èo‚µ
-	LPDIRECT3DVERTEXBUFFER9 VertexBuffer;			// ’¸“_ƒoƒbƒtƒ@-
-	const DWORD vSize = io_pMesh->GetNumBytesPerVertex();	// ’¸“_‚ÌƒoƒCƒg”
-	const DWORD vNum  = io_pMesh->GetNumVertices();		// ’¸“_ŒÂ”
-	DWORD fvf   = io_pMesh->GetFVF();				// ’¸“_ƒtƒH[ƒ}ƒbƒg
-	io_pMesh->GetVertexBuffer(&VertexBuffer);		// ƒoƒbƒtƒ@[‚ÌŠl“¾
-	BYTE* Vertex = new BYTE[vSize*vNum];			// ŒvZ—p’¸“_ƒoƒbƒtƒ@-
-	VertexBuffer->Lock(0,0,(void**)&Vertex,0);		// ’¸“_ƒƒbƒN
+	//é ‚ç‚¹å–ã‚Šå‡ºã—
+	LPDIRECT3DVERTEXBUFFER9 VertexBuffer;			// é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡-
+	const DWORD vSize = io_pMesh->GetNumBytesPerVertex();	// é ‚ç‚¹ã®ãƒã‚¤ãƒˆæ•°
+	const DWORD vNum  = io_pMesh->GetNumVertices();		// é ‚ç‚¹å€‹æ•°
+	DWORD fvf   = io_pMesh->GetFVF();				// é ‚ç‚¹ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆ
+	io_pMesh->GetVertexBuffer(&VertexBuffer);		// ãƒãƒƒãƒ•ã‚¡ãƒ¼ã®ç²å¾—
+	BYTE* Vertex = new BYTE[vSize*vNum];			// è¨ˆç®—ç”¨é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡-
+	VertexBuffer->Lock(0,0,(void**)&Vertex,0);		// é ‚ç‚¹ãƒ­ãƒƒã‚¯
 
 	for(DWORD i = 0 ; i < vNum ; i++){
 		FlexibleVertex fvBuf(Vertex+(vSize*i),fvf);
@@ -596,41 +596,41 @@ inline void MeshTransformer(LPD3DXBASEMESH io_pMesh,D3DXMATRIX& i_mMatrix){
 	
 	VertexBuffer->Unlock();
 	//*/
-	/*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*/
-	/*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*/
-	/*š*™*š*™*š*™*                                      *™*š*™*š*™*š*/
-	/*š*™*š*™*š*™*                                      *™*š*™*š*™*š*/
-	/*š*™*š*™*š*™*       ƒfƒŠ[ƒg ‚µ‚È‚­‚Ä‚¢‚¢‚ÌH      *™*š*™*š*™*š*/
-	/*š*™*š*™*š*™*                                      *™*š*™*š*™*š*/
-	/*š*™*š*™*š*™*                                      *™*š*™*š*™*š*/
-	/*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*/
-	/*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*/
+	/*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*/
+	/*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*/
+	/*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*                                      *â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*/
+	/*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*                                      *â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*/
+	/*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*       ãƒ‡ãƒªãƒ¼ãƒˆ ã—ãªãã¦ã„ã„ã®ï¼Ÿ      *â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*/
+	/*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*                                      *â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*/
+	/*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*                                      *â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*/
+	/*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*/
+	/*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*/
 }
 
 /////////////////// ////////////////////
-//// ŠÖ”–¼     Finline float Jump(float fHight,float fVTime,float fNowTime)
-//// ƒJƒeƒSƒŠ   FƒOƒ[ƒoƒ‹ŠÖ”
-//// —p“r       F
-//// ˆø”       F
-////            F
-//// –ß’l       F
-//// ’S“–       F
-//// ”õl       F
-////            F
+//// é–¢æ•°å     ï¼šinline float Jump(float fHight,float fVTime,float fNowTime)
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚°ãƒ­ãƒ¼ãƒãƒ«é–¢æ•°
+//// ç”¨é€”       ï¼š
+//// å¼•æ•°       ï¼š
+////            ï¼š
+//// æˆ»å€¤       ï¼š
+//// æ‹…å½“       ï¼š
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
 inline float Jump(float fHight,float fVTime,float fNowTime){
 	return ( fHight / pow( fVTime, 2 ) ) * pow( fNowTime - fVTime, 2) + fHight ;
 }
 /////////////////// ////////////////////
-//// ŠÖ”–¼     Finline float Jump(float fHight,float fVTime,float fOneOldTime,float fNowTime)
-//// ƒJƒeƒSƒŠ   FƒOƒ[ƒoƒ‹ŠÖ”
-//// —p“r       F
-//// ˆø”       F
-////            F
-//// –ß’l       F
-//// ’S“–       F
-//// ”õl       F
-////            F
+//// é–¢æ•°å     ï¼šinline float Jump(float fHight,float fVTime,float fOneOldTime,float fNowTime)
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚°ãƒ­ãƒ¼ãƒãƒ«é–¢æ•°
+//// ç”¨é€”       ï¼š
+//// å¼•æ•°       ï¼š
+////            ï¼š
+//// æˆ»å€¤       ï¼š
+//// æ‹…å½“       ï¼š
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
 inline float Jump(float fHight,float fVTime,float fOneOldTime,float fNowTime){
 	return Jump(fHight,fVTime,fNowTime) - Jump(fHight,fVTime,fOneOldTime);
@@ -638,12 +638,12 @@ inline float Jump(float fHight,float fVTime,float fOneOldTime,float fNowTime){
 //**************************************************************************
 // class __GetClientSize;
 //
-// ’S“–Ò  : 
-// —p“r    : 
-// @    @@
+// æ‹…å½“è€…  : 
+// ç”¨é€”    : 
+// ã€€    ã€€ã€€
 //****************************************************************************/
 class __GetClientSize{
-	static Rect				m_MainWindowRect;	// ƒQ[ƒ€‰æ–Ê‚Ì•`‰æ—Ìˆæ
+	static Rect				m_MainWindowRect;	// ã‚²ãƒ¼ãƒ ç”»é¢ã®æç”»é ˜åŸŸ
 public:
 	__GetClientSize(Rect& i_Rect){
 		m_MainWindowRect = i_Rect ;
@@ -657,29 +657,29 @@ inline Rect GetClientSize(){
 }
 
 /////////////////// ////////////////////
-//// ŠÖ”–¼     Finline void SetRenderState(const LPDIRECT3DDEVICE9 i_pDevice, RENDERSTATE_PARAM& i_Param)
-//// ƒJƒeƒSƒŠ   FƒOƒ[ƒoƒ‹ŠÖ”
-//// —p“r       FƒŒƒ“ƒ_[İ’è‚Ì‘‚«Š·‚¦
-//// ˆø”       F    const LPDIRECT3DDEVICE9 i_pDevice      //  ƒfƒoƒCƒX
-////            F    RENDERSTATE_PARAM&      io_Param       //  ƒŒƒ“ƒ_[ƒ^ƒCƒv‚Æƒf[ƒ^
-//// –ß’l       F‚È‚µ
-//// ’S“–       F°Œ´ “O
-//// ”õl       Fio_Param ‚Ì’l‚ğİ’è
-////            F
+//// é–¢æ•°å     ï¼šinline void SetRenderState(const LPDIRECT3DDEVICE9 i_pDevice, RENDERSTATE_PARAM& i_Param)
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚°ãƒ­ãƒ¼ãƒãƒ«é–¢æ•°
+//// ç”¨é€”       ï¼šãƒ¬ãƒ³ãƒ€ãƒ¼è¨­å®šã®æ›¸ãæ›ãˆ
+//// å¼•æ•°       ï¼š    const LPDIRECT3DDEVICE9 i_pDevice      //  ãƒ‡ãƒã‚¤ã‚¹
+////            ï¼š    RENDERSTATE_PARAM&      io_Param       //  ãƒ¬ãƒ³ãƒ€ãƒ¼ã‚¿ã‚¤ãƒ—ã¨ãƒ‡ãƒ¼ã‚¿
+//// æˆ»å€¤       ï¼šãªã—
+//// æ‹…å½“       ï¼šé´«åŸ å¾¹
+//// å‚™è€ƒ       ï¼šio_Param ã®å€¤ã‚’è¨­å®š
+////            ï¼š
 ////
 inline void SetRenderState(const LPDIRECT3DDEVICE9 i_pDevice, RENDERSTATE_PARAM& i_Param) {
 	i_pDevice->SetRenderState(i_Param.renderType,i_Param.value);
 };
 /////////////////// ////////////////////
-//// ŠÖ”–¼     Finline void ChangeRenderState(const LPDIRECT3DDEVICE9 i_pDevice, RENDERSTATE_PARAM& io_Param)
-//// ƒJƒeƒSƒŠ   FƒOƒ[ƒoƒ‹ŠÖ”
-//// —p“r       FƒŒƒ“ƒ_[İ’è‚Ì‘‚«Š·‚¦‚Æ•Û
-//// ˆø”       F    const LPDIRECT3DDEVICE9 i_pDevice      //  ƒfƒoƒCƒX
-////            F    RENDERSTATE_PARAM&      io_Param       //  ƒŒƒ“ƒ_[ƒ^ƒCƒv‚Æƒf[ƒ^
-//// –ß’l       F‚È‚µ(io_Param‚É’l‚ğ•Ô‚·)
-//// ’S“–       F°Œ´ “O
-//// ”õl       Fio_Param ‚Ì’l‚ğİ’è
-////            FŒ³‚Ì’l‚ğ io_Param‚Ö‘ã“ü‚µ‚Ä•Ô‚·
+//// é–¢æ•°å     ï¼šinline void ChangeRenderState(const LPDIRECT3DDEVICE9 i_pDevice, RENDERSTATE_PARAM& io_Param)
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚°ãƒ­ãƒ¼ãƒãƒ«é–¢æ•°
+//// ç”¨é€”       ï¼šãƒ¬ãƒ³ãƒ€ãƒ¼è¨­å®šã®æ›¸ãæ›ãˆã¨ä¿æŒ
+//// å¼•æ•°       ï¼š    const LPDIRECT3DDEVICE9 i_pDevice      //  ãƒ‡ãƒã‚¤ã‚¹
+////            ï¼š    RENDERSTATE_PARAM&      io_Param       //  ãƒ¬ãƒ³ãƒ€ãƒ¼ã‚¿ã‚¤ãƒ—ã¨ãƒ‡ãƒ¼ã‚¿
+//// æˆ»å€¤       ï¼šãªã—(io_Paramã«å€¤ã‚’è¿”ã™)
+//// æ‹…å½“       ï¼šé´«åŸ å¾¹
+//// å‚™è€ƒ       ï¼šio_Param ã®å€¤ã‚’è¨­å®š
+////            ï¼šå…ƒã®å€¤ã‚’ io_Paramã¸ä»£å…¥ã—ã¦è¿”ã™
 ////
 inline void ChangeRenderState(const LPDIRECT3DDEVICE9 i_pDevice, RENDERSTATE_PARAM& io_Param){
 	DWORD		dwSaveState;
@@ -689,15 +689,15 @@ inline void ChangeRenderState(const LPDIRECT3DDEVICE9 i_pDevice, RENDERSTATE_PAR
 };
 
 /////////////////// ////////////////////
-//// ŠÖ”–¼     Finline void SetRenderStateArray(const LPDIRECT3DDEVICE9 i_pDevice,RENDERSTATE_PARAM* i_pParam)
-//// ƒJƒeƒSƒŠ   FƒOƒ[ƒoƒ‹ŠÖ”
-//// —p“r       FƒŒƒ“ƒ_[İ’èŒQ‚Ì‘‚«Š·‚¦
-//// ˆø”       F    const LPDIRECT3DDEVICE9 i_pDevice      //  ƒfƒoƒCƒX
-////            F    RENDERSTATE_PARAM*      i_pParam       //  ƒŒƒ“ƒ_[ƒ^ƒCƒv‚Æƒf[ƒ^‚Ì”z—ñ
-//// –ß’l       F‚È‚µ
-//// ’S“–       F°Œ´ “O
-//// ”õl       Fi_pParam ‚ÌÅŒã‚É‚Í•K‚¸ { D3DRS_FORCE_DWORD , NULL } ‚ğw’è‚µ‚Ä‚­‚¾‚³‚¢
-////            F
+//// é–¢æ•°å     ï¼šinline void SetRenderStateArray(const LPDIRECT3DDEVICE9 i_pDevice,RENDERSTATE_PARAM* i_pParam)
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚°ãƒ­ãƒ¼ãƒãƒ«é–¢æ•°
+//// ç”¨é€”       ï¼šãƒ¬ãƒ³ãƒ€ãƒ¼è¨­å®šç¾¤ã®æ›¸ãæ›ãˆ
+//// å¼•æ•°       ï¼š    const LPDIRECT3DDEVICE9 i_pDevice      //  ãƒ‡ãƒã‚¤ã‚¹
+////            ï¼š    RENDERSTATE_PARAM*      i_pParam       //  ãƒ¬ãƒ³ãƒ€ãƒ¼ã‚¿ã‚¤ãƒ—ã¨ãƒ‡ãƒ¼ã‚¿ã®é…åˆ—
+//// æˆ»å€¤       ï¼šãªã—
+//// æ‹…å½“       ï¼šé´«åŸ å¾¹
+//// å‚™è€ƒ       ï¼ši_pParam ã®æœ€å¾Œã«ã¯å¿…ãš { D3DRS_FORCE_DWORD , NULL } ã‚’æŒ‡å®šã—ã¦ãã ã•ã„
+////            ï¼š
 inline void SetRenderStateArray(const LPDIRECT3DDEVICE9 i_pDevice,RENDERSTATE_PARAM* i_pParam){
 	if( !i_pParam ) return ;
 	for(WORD i = 0 ; i_pParam[i].renderType != D3DRS_FORCE_DWORD ; i++){
@@ -706,17 +706,17 @@ inline void SetRenderStateArray(const LPDIRECT3DDEVICE9 i_pDevice,RENDERSTATE_PA
 };
 
 /////////////////// ////////////////////
-//// ŠÖ”–¼     Finline void ChangeRenderStateArray(const LPDIRECT3DDEVICE9 i_pDevice,RENDERSTATE_PARAM* io_pParam)
-//// ƒJƒeƒSƒŠ   FƒOƒ[ƒoƒ‹ŠÖ”
-//// —p“r       FƒŒƒ“ƒ_[İ’èŒQ‚Ì‘‚«Š·‚¦‚Æ•Û
-//// ˆø”       F    const LPDIRECT3DDEVICE9 i_pDevice      //  ƒfƒoƒCƒX
-////            F    RENDERSTATE_PARAM*      io_Param       //  ƒŒƒ“ƒ_[ƒ^ƒCƒv‚Æƒf[ƒ^‚Ì”z—ñ
-//// –ß’l       F‚È‚µ(io_pParam‚É’l‚ğ•Ô‚·)
-//// ’S“–       F°Œ´ “O
-//// ”õl       Fio_pParam ‚Ì’l‚ğİ’è
-////            FŒ³‚Ì’l‚ğ io_Param‚Ö‘ã“ü‚µ‚Ä•Ô‚·
-//// ”õl       Fi_pParam ‚ÌÅŒã‚É‚Í•K‚¸ { D3DRS_FORCE_DWORD , NULL } ‚ğw’è‚µ‚Ä‚­‚¾‚³‚¢
-////            F
+//// é–¢æ•°å     ï¼šinline void ChangeRenderStateArray(const LPDIRECT3DDEVICE9 i_pDevice,RENDERSTATE_PARAM* io_pParam)
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚°ãƒ­ãƒ¼ãƒãƒ«é–¢æ•°
+//// ç”¨é€”       ï¼šãƒ¬ãƒ³ãƒ€ãƒ¼è¨­å®šç¾¤ã®æ›¸ãæ›ãˆã¨ä¿æŒ
+//// å¼•æ•°       ï¼š    const LPDIRECT3DDEVICE9 i_pDevice      //  ãƒ‡ãƒã‚¤ã‚¹
+////            ï¼š    RENDERSTATE_PARAM*      io_Param       //  ãƒ¬ãƒ³ãƒ€ãƒ¼ã‚¿ã‚¤ãƒ—ã¨ãƒ‡ãƒ¼ã‚¿ã®é…åˆ—
+//// æˆ»å€¤       ï¼šãªã—(io_pParamã«å€¤ã‚’è¿”ã™)
+//// æ‹…å½“       ï¼šé´«åŸ å¾¹
+//// å‚™è€ƒ       ï¼šio_pParam ã®å€¤ã‚’è¨­å®š
+////            ï¼šå…ƒã®å€¤ã‚’ io_Paramã¸ä»£å…¥ã—ã¦è¿”ã™
+//// å‚™è€ƒ       ï¼ši_pParam ã®æœ€å¾Œã«ã¯å¿…ãš { D3DRS_FORCE_DWORD , NULL } ã‚’æŒ‡å®šã—ã¦ãã ã•ã„
+////            ï¼š
 inline void ChangeRenderStateArray(const LPDIRECT3DDEVICE9 i_pDevice,RENDERSTATE_PARAM* io_pParam){
 	if( !io_pParam ) return ;
 	for(WORD i = 0 ; io_pParam[i].renderType != D3DRS_FORCE_DWORD ; i++){
@@ -726,18 +726,18 @@ inline void ChangeRenderStateArray(const LPDIRECT3DDEVICE9 i_pDevice,RENDERSTATE
 
 
 /////////////////// ////////////////////
-//// ŠÖ”–¼     Finline Object* SearchObjectFromID(vector<Object*>* i_pVec,DWORD i_dwID, vector<Object*>* o_pVec = NULL)
-//// ƒJƒeƒSƒŠ   FƒOƒ[ƒoƒ‹ŠÖ”
-//// —p“r       FOBJID‚ğŒ³‚ÉƒIƒuƒWƒFƒNƒg‚ğ’T‚·
-//// ˆø”       F    vector<Object*>*   i_pVec     //   [in] ‘ÎÛƒIƒuƒWƒFƒNƒg‚ªŠi”[‚³‚ê‚Ä‚¢‚évector<>‚Ö‚Ìƒ|ƒCƒ“ƒ^
-////            F    DWORD              i_dwID     //   [in] ŒŸõ‘ÎÛ‚ÌID
-////            F    vector<Object*>*   o_pVec	    //  [out] (Option) ”­Œ©‚µ‚½ƒIƒuƒWƒFƒNƒgˆê—— ( 
-//// –ß’l       Fˆê”ÔÅ‰‚É”­Œ©‚µ‚½ƒIƒuƒWƒFƒNƒg‚Ö‚Ìƒ|ƒCƒ“ƒ^
-//// ’S“–       F°Œ´ “O
-//// ”õl       FŒ»İSearchObjectFromTypeID‚Å‚à“¯‚¶‚æ‚¤‚È‚±‚Æ‚Í‚Å‚«‚Ü‚·‚ªŒ´‘¥SearchObjectFromID‚ğ—˜—p‚µ‚Ä‚­‚¾‚³‚¢
-////            F
-////            F
-////            F
+//// é–¢æ•°å     ï¼šinline Object* SearchObjectFromID(vector<Object*>* i_pVec,DWORD i_dwID, vector<Object*>* o_pVec = NULL)
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚°ãƒ­ãƒ¼ãƒãƒ«é–¢æ•°
+//// ç”¨é€”       ï¼šOBJIDã‚’å…ƒã«ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’æ¢ã™
+//// å¼•æ•°       ï¼š    vector<Object*>*   i_pVec     //   [in] å¯¾è±¡ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãŒæ ¼ç´ã•ã‚Œã¦ã„ã‚‹vector<>ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+////            ï¼š    DWORD              i_dwID     //   [in] æ¤œç´¢å¯¾è±¡ã®ID
+////            ï¼š    vector<Object*>*   o_pVec	    //  [out] (Option) ç™ºè¦‹ã—ãŸã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆä¸€è¦§ ( 
+//// æˆ»å€¤       ï¼šä¸€ç•ªæœ€åˆã«ç™ºè¦‹ã—ãŸã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã¸ã®ãƒã‚¤ãƒ³ã‚¿
+//// æ‹…å½“       ï¼šé´«åŸ å¾¹
+//// å‚™è€ƒ       ï¼šç¾åœ¨SearchObjectFromTypeIDã§ã‚‚åŒã˜ã‚ˆã†ãªã“ã¨ã¯ã§ãã¾ã™ãŒåŸå‰‡SearchObjectFromIDã‚’åˆ©ç”¨ã—ã¦ãã ã•ã„
+////            ï¼š
+////            ï¼š
+////            ï¼š
 #define SOF_NOTFOUND ( UINT_MAX )
 inline Object* SearchObjectFromID(vector<Object*>* i_pVec, DWORD i_dwID, vector<Object*>::size_type* o_Point = NULL, vector<Object*>* o_pVec = NULL, vector<vector<Object*>::size_type>* o_PointList = NULL){
 	if( !i_pVec ) return NULL ;
@@ -747,12 +747,12 @@ inline Object* SearchObjectFromID(vector<Object*>* i_pVec, DWORD i_dwID, vector<
 	for( i = 0; i < sz ; i++ ){
 		const DWORD id = (*i_pVec)[i]->getID() ;
 
-		//	: ID‚Æˆê’v‚·‚éƒIƒuƒWƒFƒNƒg‚ğ”­Œ©
+		//	: IDã¨ä¸€è‡´ã™ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ç™ºè¦‹
 		if( id == i_dwID ) {
 
-			//	: ‚à‚µƒqƒbƒgƒŠƒXƒg‚ğ—v‹‚³‚ê‚½‚ç
-			//	: ƒŠƒXƒg‚É“o˜^‚µ‚ÄŸ‚ğŒŸõ
-			//	: ‚È‚¯‚ê‚ÎŒ©‚Â‚¯‚½ƒIƒuƒWƒFƒNƒg‚ğ•Ô‚·
+			//	: ã‚‚ã—ãƒ’ãƒƒãƒˆãƒªã‚¹ãƒˆã‚’è¦æ±‚ã•ã‚ŒãŸã‚‰
+			//	: ãƒªã‚¹ãƒˆã«ç™»éŒ²ã—ã¦æ¬¡ã‚’æ¤œç´¢
+			//	: ãªã‘ã‚Œã°è¦‹ã¤ã‘ãŸã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’è¿”ã™
 			if( o_pVec ){
 				if( o_PointList ) o_PointList->push_back(i) ;
 				o_pVec->size() == 0 && o_Point && ( *o_Point = i ) ;
@@ -774,18 +774,18 @@ inline Object* SearchObjectFromID(vector<Object*>* i_pVec, DWORD i_dwID, vector<
 };
 
 /////////////////// ////////////////////
-//// ŠÖ”–¼     Finline Object* SearchObjectFromTypeID(vector<Object*>* i_pVec,DWORD i_dwID, vector<Object*>* o_pVec = NULL)
-//// ƒJƒeƒSƒŠ   FƒOƒ[ƒoƒ‹ŠÖ”
-//// —p“r       FOBJID‚ğŒ³‚ÉƒIƒuƒWƒFƒNƒg‚ğ’T‚·
-//// ˆø”       F    vector<Object*>*   i_pVec     //   [in] ‘ÎÛƒIƒuƒWƒFƒNƒg‚ªŠi”[‚³‚ê‚Ä‚¢‚évector<>‚Ö‚Ìƒ|ƒCƒ“ƒ^
-////            F    DWORD              i_dwID     //   [in] ŒŸõ‘ÎÛ‚ÌID
-////            F    vector<Object*>*   o_pVec	    //  [out] (Option) ”­Œ©‚µ‚½ƒIƒuƒWƒFƒNƒgˆê—— ( 
-//// –ß’l       Fˆê”ÔÅ‰‚É”­Œ©‚µ‚½ƒIƒuƒWƒFƒNƒg‚Ö‚Ìƒ|ƒCƒ“ƒ^
-//// ’S“–       F°Œ´ “O
-//// ”õl       F
-////            F
-////            F
-////            F
+//// é–¢æ•°å     ï¼šinline Object* SearchObjectFromTypeID(vector<Object*>* i_pVec,DWORD i_dwID, vector<Object*>* o_pVec = NULL)
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚°ãƒ­ãƒ¼ãƒãƒ«é–¢æ•°
+//// ç”¨é€”       ï¼šOBJIDã‚’å…ƒã«ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’æ¢ã™
+//// å¼•æ•°       ï¼š    vector<Object*>*   i_pVec     //   [in] å¯¾è±¡ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãŒæ ¼ç´ã•ã‚Œã¦ã„ã‚‹vector<>ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+////            ï¼š    DWORD              i_dwID     //   [in] æ¤œç´¢å¯¾è±¡ã®ID
+////            ï¼š    vector<Object*>*   o_pVec	    //  [out] (Option) ç™ºè¦‹ã—ãŸã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆä¸€è¦§ ( 
+//// æˆ»å€¤       ï¼šä¸€ç•ªæœ€åˆã«ç™ºè¦‹ã—ãŸã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã¸ã®ãƒã‚¤ãƒ³ã‚¿
+//// æ‹…å½“       ï¼šé´«åŸ å¾¹
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
+////            ï¼š
+////            ï¼š
 inline Object* SearchObjectFromTypeID(vector<Object*>* i_pVec,const type_info& i_typeinfo, vector<Object*>* o_pVec = NULL){
 
 	vector<Object*>::size_type	sz = i_pVec->size(),
@@ -808,13 +808,13 @@ inline Object* SearchObjectFromTypeID(vector<Object*>* i_pVec,const type_info& i
 
 
 /////////////////// ////////////////////
-//// ŠÖ”–¼     Finline D3DCOLORVALUE getD3DCOLORVALUE(float a, float r, float g, float b)
-//// ƒJƒeƒSƒŠ   FƒOƒ[ƒoƒ‹ŠÖ”
-//// —p“r       F
-//// ˆø”       F
-//// ’S“–       F°Œ´ “O
-//// ”õl       F‚¢‚¢–¼‘O‚ªv‚¢‚Â‚©‚È‚¢(LEƒÖEM)
-////            F
+//// é–¢æ•°å     ï¼šinline D3DCOLORVALUE getD3DCOLORVALUE(float a, float r, float g, float b)
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚°ãƒ­ãƒ¼ãƒãƒ«é–¢æ•°
+//// ç”¨é€”       ï¼š
+//// å¼•æ•°       ï¼š
+//// æ‹…å½“       ï¼šé´«åŸ å¾¹
+//// å‚™è€ƒ       ï¼šã„ã„åå‰ãŒæ€ã„ã¤ã‹ãªã„(Â´ãƒ»Ï‰ãƒ»ï½€)
+////            ï¼š
 ////
 inline D3DCOLORVALUE getD3DCOLORVALUE(float a, float r, float g, float b){
 	D3DCOLORVALUE c = { a, r, g, b } ;
@@ -822,13 +822,13 @@ inline D3DCOLORVALUE getD3DCOLORVALUE(float a, float r, float g, float b){
 }
 
 /////////////////// ////////////////////
-//// ŠÖ”–¼     Finline D3DCOLORVALUE COLOR2D3DCOLORVALUE(Color i_Color, float i_fRate = 1.0f)
-//// ƒJƒeƒSƒŠ   F
-//// —p“r       F
-//// ˆø”       F
-//// ’S“–       F
-//// ”õl       F
-////            F
+//// é–¢æ•°å     ï¼šinline D3DCOLORVALUE COLOR2D3DCOLORVALUE(Color i_Color, float i_fRate = 1.0f)
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼š
+//// ç”¨é€”       ï¼š
+//// å¼•æ•°       ï¼š
+//// æ‹…å½“       ï¼š
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 inline D3DCOLORVALUE COLOR2D3DCOLORVALUE(Color i_Color, float i_fRate = 1.0f){
 	
 	D3DCOLORVALUE c = {
@@ -841,48 +841,48 @@ inline D3DCOLORVALUE COLOR2D3DCOLORVALUE(Color i_Color, float i_fRate = 1.0f){
 }
 
 /////////////////// ////////////////////
-//// ŠÖ”–¼     F
-//// ƒJƒeƒSƒŠ   F
-//// —p“r       F
-//// ˆø”       F
-//// ’S“–       F
-//// ”õl       F
-////            F
+//// é–¢æ•°å     ï¼š
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼š
+//// ç”¨é€”       ï¼š
+//// å¼•æ•°       ï¼š
+//// æ‹…å½“       ï¼š
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 inline D3DCOLORVALUE COLOR2DIFFUSE(Color i_Color, float i_fRate = 0.7f){
 	return COLOR2D3DCOLORVALUE(i_Color,i_fRate) ;
 }
 
 /////////////////// ////////////////////
-//// ŠÖ”–¼     F
-//// ƒJƒeƒSƒŠ   F
-//// —p“r       F
-//// ˆø”       F
-//// ’S“–       F
-//// ”õl       F
-////            F
+//// é–¢æ•°å     ï¼š
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼š
+//// ç”¨é€”       ï¼š
+//// å¼•æ•°       ï¼š
+//// æ‹…å½“       ï¼š
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 inline D3DCOLORVALUE COLOR2AMBIENT(Color i_Color, float i_fRate = 0.3f){
 	return COLOR2D3DCOLORVALUE(i_Color,i_fRate) ;
 }
-// ƒXƒNƒŠ[ƒ“À•W‚ğƒ[ƒ‹ƒhÀ•W‚É•ÏŠ·
+// ã‚¹ã‚¯ãƒªãƒ¼ãƒ³åº§æ¨™ã‚’ãƒ¯ãƒ¼ãƒ«ãƒ‰åº§æ¨™ã«å¤‰æ›
 /////////////////// ////////////////////
-//// ŠÖ”–¼     F
-//// ƒJƒeƒSƒŠ   F
-//// —p“r       F
-//// ˆø”       F
-//// ’S“–       F
-//// ”õl       F
-////            F
+//// é–¢æ•°å     ï¼š
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼š
+//// ç”¨é€”       ï¼š
+//// å¼•æ•°       ï¼š
+//// æ‹…å½“       ï¼š
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 inline D3DXVECTOR3* CalcScreenToWorld(
    D3DXVECTOR3* pout,
-   int Sx,  // ƒXƒNƒŠ[ƒ“XÀ•W
-   int Sy,  // ƒXƒNƒŠ[ƒ“YÀ•W
-   float fZ,  // Ë‰e‹óŠÔ‚Å‚ÌZ’li0`1j
+   int Sx,  // ã‚¹ã‚¯ãƒªãƒ¼ãƒ³Xåº§æ¨™
+   int Sy,  // ã‚¹ã‚¯ãƒªãƒ¼ãƒ³Yåº§æ¨™
+   float fZ,  // å°„å½±ç©ºé–“ã§ã®Zå€¤ï¼ˆ0ã€œ1ï¼‰
    int Screen_w,
    int Screen_h,
    D3DXMATRIX* View,
    D3DXMATRIX* Prj
 ) {
-   // Šes—ñ‚Ì‹ts—ñ‚ğZo
+   // å„è¡Œåˆ—ã®é€†è¡Œåˆ—ã‚’ç®—å‡º
    D3DXMATRIX InvView, InvPrj, VP, InvViewport;
    D3DXMatrixInverse( &InvView, NULL, View );
    D3DXMatrixInverse( &InvPrj, NULL, Prj );
@@ -891,22 +891,22 @@ inline D3DXVECTOR3* CalcScreenToWorld(
    VP._41 = Screen_w/2.0f; VP._42 = Screen_h/2.0f;
    D3DXMatrixInverse( &InvViewport, NULL, &VP );
 
-   // ‹t•ÏŠ·
+   // é€†å¤‰æ›
    D3DXMATRIX tmp = InvViewport * InvPrj * InvView;
    D3DXVec3TransformCoord( pout, &D3DXVECTOR3((float)Sx,(float)Sy,fZ), &tmp );
 
    return pout;
 }
 /////////////////// ////////////////////
-//// ŠÖ”–¼     F
-//// ƒJƒeƒSƒŠ   F
-//// —p“r       F
-//// ˆø”       F
-//// ’S“–       F
-//// ”õl       F
-////            F
-//ƒXƒNƒŠ[ƒ“À•W‚ÆXZ•½–Ê‚Ìƒ[ƒ‹ƒhÀ•WŒğ“_Zoi CalcScreenToXZŠÖ” j
-// XZ•½–Ê‚ÆƒXƒNƒŠ[ƒ“À•W‚ÌŒğ“_ZoŠÖ”
+//// é–¢æ•°å     ï¼š
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼š
+//// ç”¨é€”       ï¼š
+//// å¼•æ•°       ï¼š
+//// æ‹…å½“       ï¼š
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
+//ã‚¹ã‚¯ãƒªãƒ¼ãƒ³åº§æ¨™ã¨XZå¹³é¢ã®ãƒ¯ãƒ¼ãƒ«ãƒ‰åº§æ¨™äº¤ç‚¹ç®—å‡ºï¼ˆ CalcScreenToXZé–¢æ•° ï¼‰
+// XZå¹³é¢ã¨ã‚¹ã‚¯ãƒªãƒ¼ãƒ³åº§æ¨™ã®äº¤ç‚¹ç®—å‡ºé–¢æ•°
 inline D3DXVECTOR3* CalcScreenToXZ(
    D3DXVECTOR3* pout,
    int Sx,
@@ -924,10 +924,10 @@ inline D3DXVECTOR3* CalcScreenToXZ(
    ray = farpos - nearpos;
    D3DXVec3Normalize( &ray, &ray );
 
-   // °‚Æ‚ÌŒğ·‚ª‹N‚«‚Ä‚¢‚éê‡‚ÍŒğ“_‚ğ
-   // ‹N‚«‚Ä‚¢‚È‚¢ê‡‚Í‰“‚­‚Ì•Ç‚Æ‚ÌŒğ“_‚ğo—Í
+   // åºŠã¨ã®äº¤å·®ãŒèµ·ãã¦ã„ã‚‹å ´åˆã¯äº¤ç‚¹ã‚’
+   // èµ·ãã¦ã„ãªã„å ´åˆã¯é ãã®å£ã¨ã®äº¤ç‚¹ã‚’å‡ºåŠ›
    if( ray.y <= 0 ) {
-      // °Œğ“_
+      // åºŠäº¤ç‚¹
       float Lray = D3DXVec3Dot( &ray, &D3DXVECTOR3(0,1,0) );
       float LP0 = D3DXVec3Dot( &(-nearpos), &D3DXVECTOR3(0,1,0) );
       *pout = nearpos + (LP0/Lray)*ray;
@@ -950,13 +950,13 @@ inline D3DXVECTOR3* CalcScreenToXZ(
 ///////// /////////
 //BOOL ArcMove(float *x ,float *y , float Distance, float Degree);
 //
-//Šî€“_(x,y)‚©‚çDegree“x,Distance‹——£—£‚ê‚½‚Æ‚±‚ë‚É
-//ƒ|ƒCƒ“ƒg(x,y)‚ğˆÚ“®‚³‚¹‚é
+//åŸºæº–ç‚¹(x,y)ã‹ã‚‰Degreeåº¦,Distanceè·é›¢é›¢ã‚ŒãŸã¨ã“ã‚ã«
+//ãƒã‚¤ãƒ³ãƒˆ(x,y)ã‚’ç§»å‹•ã•ã›ã‚‹
 //
-//ˆø”F
-//	float *xFˆÚ“®‚³‚¹‚½‚¢xÀ•W
-//	float *yFˆÚ“®‚³‚¹‚½‚¢yÀ•W
-//	float DistanceF
+//å¼•æ•°ï¼š
+//	float *xï¼šç§»å‹•ã•ã›ãŸã„xåº§æ¨™
+//	float *yï¼šç§»å‹•ã•ã›ãŸã„yåº§æ¨™
+//	float Distanceï¼š
 //
 inline bool ArcMove( D3DXVECTOR3& Pos , float Distance, float Degree){
     Pos.x = Distance  *  cosf((float)TL_RAD(Degree)) ;
@@ -970,24 +970,24 @@ inline bool ArcMove( D3DXVECTOR3& Pos , float Distance, float Degree){
 ///////// /////////
 //float TurnAngle(float *Angle, float Turn);
 //
-//Angle‚ğ0‹`360‹‚Éû‚Ü‚é‚æ‚¤‚ÉTurn“x•ª•ÏX‚·‚é
+//Angleã‚’0Â°ã€œ360Â°ã«åã¾ã‚‹ã‚ˆã†ã«Turnåº¦åˆ†å¤‰æ›´ã™ã‚‹
 //
-//ˆø”F
-//	float *AngleF	•ÏX‚·‚×‚«ƒf[ƒ^‚Ö‚Ìƒ|ƒCƒ“ƒ^
-//	float TurnF	•ÏX‚µ‚½‚¢Šp“x
+//å¼•æ•°ï¼š
+//	float *Angleï¼š	å¤‰æ›´ã™ã¹ããƒ‡ãƒ¼ã‚¿ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+//	float Turnï¼š	å¤‰æ›´ã—ãŸã„è§’åº¦
 //
-//•Ô‚è’lF•ÏXŒã‚ÌŠp“x(“¯‚¶’l‚ª‘æˆêˆø”‚É‚à•Ô‚³‚ê‚é)
+//è¿”ã‚Šå€¤ï¼šå¤‰æ›´å¾Œã®è§’åº¦(åŒã˜å€¤ãŒç¬¬ä¸€å¼•æ•°ã«ã‚‚è¿”ã•ã‚Œã‚‹)
 //
-//ƒI[ƒo[–h~‚Éˆê‰
+//ã‚ªãƒ¼ãƒãƒ¼é˜²æ­¢ã«ä¸€å¿œ
 //
 inline float TurnAngle(float *Angle, float Turn){
     if(*Angle +Turn >= 360){
-        *Angle = (*Angle +Turn)  - 360;		//360“x‚ğ’´‚¦‚½
-        while(*Angle >= 360) *Angle -= 360;	//Šp“x‚Ì”ÍˆÍ“à‚Éû‚Ü‚é‚æ‚¤‚Éˆêü•ª‚ğˆø‚­
+        *Angle = (*Angle +Turn)  - 360;		//360åº¦ã‚’è¶…ãˆãŸæ™‚
+        while(*Angle >= 360) *Angle -= 360;	//è§’åº¦ã®ç¯„å›²å†…ã«åã¾ã‚‹ã‚ˆã†ã«ä¸€å‘¨åˆ†ã‚’å¼•ã
     }
     else if(*Angle +Turn < 0){
-        *Angle = (*Angle +Turn)+360;		//0“x‚ğ‰º‰ñ‚Á‚½
-        while(*Angle <= 0) *Angle += 360;	//Šp“x‚Ì”ÍˆÍ“à‚Éû‚Ü‚é‚æ‚¤‚Éˆêü•ª‚ğ‘«‚·
+        *Angle = (*Angle +Turn)+360;		//0åº¦ã‚’ä¸‹å›ã£ãŸæ™‚
+        while(*Angle <= 0) *Angle += 360;	//è§’åº¦ã®ç¯„å›²å†…ã«åã¾ã‚‹ã‚ˆã†ã«ä¸€å‘¨åˆ†ã‚’è¶³ã™
     }else{
         *Angle += Turn;//
     }
@@ -996,7 +996,7 @@ inline float TurnAngle(float *Angle, float Turn){
 
 ///////// /////////
 //inline float VectorLength( float X, float Y );
-// ƒxƒNƒgƒ‹‚Ì’·‚³‚ğŒvZ‚·‚é
+// ãƒ™ã‚¯ãƒˆãƒ«ã®é•·ã•ã‚’è¨ˆç®—ã™ã‚‹
 //
 inline double TwoPointToBassLength( D3DXVECTOR3& i_Vec1, D3DXVECTOR3& i_Vec2 ){
 	return TL_SQUARE( i_Vec2.x - i_Vec1.x )  + TL_SQUARE( i_Vec2.y - i_Vec1.y ) ;
@@ -1004,7 +1004,7 @@ inline double TwoPointToBassLength( D3DXVECTOR3& i_Vec1, D3DXVECTOR3& i_Vec2 ){
 
 ///////// /////////
 //inline float VectorLength( float X, float Y );
-// ƒxƒNƒgƒ‹‚Ì’·‚³‚ğŒvZ‚·‚é
+// ãƒ™ã‚¯ãƒˆãƒ«ã®é•·ã•ã‚’è¨ˆç®—ã™ã‚‹
 //
 inline double VectorLength( D3DXVECTOR3& i_Vec1 ){
 	double ret = ( i_Vec1.x * i_Vec1.x ) + ( i_Vec1.y * i_Vec1.y ) ;
@@ -1013,14 +1013,14 @@ inline double VectorLength( D3DXVECTOR3& i_Vec1 ){
 
 ///////// /////////
 //inline float VectorLength( float X, float Y );
-// ƒxƒNƒgƒ‹‚Ì’·‚³‚ğŒvZ‚·‚é
+// ãƒ™ã‚¯ãƒˆãƒ«ã®é•·ã•ã‚’è¨ˆç®—ã™ã‚‹
 //
 inline double VectorProduct( D3DXVECTOR3& i_Vec1, D3DXVECTOR3& i_Vec2 ){
 	return i_Vec1.x * i_Vec2.x + i_Vec1.y * i_Vec2.y ;
 }
 ///////// /////////
 //inline float VectorLength( float X, float Y );
-// ƒxƒNƒgƒ‹‚Ì’·‚³‚ğŒvZ‚·‚é
+// ãƒ™ã‚¯ãƒˆãƒ«ã®é•·ã•ã‚’è¨ˆç®—ã™ã‚‹
 //
 //
 inline double GetCosineTheta( D3DXVECTOR3& i_Vec1, D3DXVECTOR3& i_Vec2 ){
@@ -1032,7 +1032,7 @@ inline double GetCosineTheta( D3DXVECTOR3& i_Vec1, D3DXVECTOR3& i_Vec2 ){
 }
 ///////// /////////
 //inline float VectorLength( float X, float Y );
-// ƒxƒNƒgƒ‹‚Ì’·‚³‚ğŒvZ‚·‚é
+// ãƒ™ã‚¯ãƒˆãƒ«ã®é•·ã•ã‚’è¨ˆç®—ã™ã‚‹
 //
 //
 inline D3DXVECTOR3 TwoPoint2Vector( D3DXVECTOR3& i_Vec1, D3DXVECTOR3& i_Vec2 ){
@@ -1043,14 +1043,14 @@ inline D3DXVECTOR3 TwoPoint2Vector( D3DXVECTOR3& i_Vec1, D3DXVECTOR3& i_Vec2 ){
 ///////// /////////
 //double ThreePoint2Radian(double P1x,double P1y,double P2x,double P2y,double P3x,double P3y);
 //
-//ˆø”F
-//	double P1xF“_‚P‚Ì‚wÀ•W’l
-//	double P1yF“_‚P‚Ì‚xÀ•W’l
-//	double P2xF“_‚Q‚Ì‚wÀ•W’l
-//	double P2yF“_‚Q‚Ì‚xÀ•W’l
-//	double P3xF“_‚R‚Ì‚wÀ•W’l
-//	double P3yF“_‚R‚Ì‚xÀ•W’l
-//–ß‚è’lFÚP1P2P3‚Ìƒ‰ƒWƒAƒ“Šp
+//å¼•æ•°ï¼š
+//	double P1xï¼šç‚¹ï¼‘ã®ï¼¸åº§æ¨™å€¤
+//	double P1yï¼šç‚¹ï¼‘ã®ï¼¹åº§æ¨™å€¤
+//	double P2xï¼šç‚¹ï¼’ã®ï¼¸åº§æ¨™å€¤
+//	double P2yï¼šç‚¹ï¼’ã®ï¼¹åº§æ¨™å€¤
+//	double P3xï¼šç‚¹ï¼“ã®ï¼¸åº§æ¨™å€¤
+//	double P3yï¼šç‚¹ï¼“ã®ï¼¹åº§æ¨™å€¤
+//æˆ»ã‚Šå€¤ï¼šâˆ P1P2P3ã®ãƒ©ã‚¸ã‚¢ãƒ³è§’
 //
 inline double ThreePoint2Radian(D3DXVECTOR3& i_Vec1, D3DXVECTOR3& i_Vec2, D3DXVECTOR3& i_Vec3){
 	//double vAx , vAy , vBx, vBy ;
@@ -1066,14 +1066,14 @@ inline double ThreePoint2Radian(D3DXVECTOR3& i_Vec1, D3DXVECTOR3& i_Vec2, D3DXVE
 ///////// /////////
 //float ThreePoint2Radian(float P1x,float P1y,float P2x,float P2y,float P3x,float P3y);
 //
-//ˆø”F
-//	float P1xF“_‚P‚Ì‚wÀ•W’l
-//	float P1yF“_‚P‚Ì‚xÀ•W’l
-//	float P2xF“_‚Q‚Ì‚wÀ•W’l
-//	float P2yF“_‚Q‚Ì‚xÀ•W’l
-//	float P3xF“_‚R‚Ì‚wÀ•W’l
-//	float P3yF“_‚R‚Ì‚xÀ•W’l
-//–ß‚è’lFÚP1P2P3‚ÌƒfƒBƒOƒŠ[Šp
+//å¼•æ•°ï¼š
+//	float P1xï¼šç‚¹ï¼‘ã®ï¼¸åº§æ¨™å€¤
+//	float P1yï¼šç‚¹ï¼‘ã®ï¼¹åº§æ¨™å€¤
+//	float P2xï¼šç‚¹ï¼’ã®ï¼¸åº§æ¨™å€¤
+//	float P2yï¼šç‚¹ï¼’ã®ï¼¹åº§æ¨™å€¤
+//	float P3xï¼šç‚¹ï¼“ã®ï¼¸åº§æ¨™å€¤
+//	float P3yï¼šç‚¹ï¼“ã®ï¼¹åº§æ¨™å€¤
+//æˆ»ã‚Šå€¤ï¼šâˆ P1P2P3ã®ãƒ‡ã‚£ã‚°ãƒªãƒ¼è§’
 //
 inline float ThreePoint2Degree(D3DXVECTOR3& i_Vec1, D3DXVECTOR3& i_Vec2, D3DXVECTOR3& i_Vec3){
 	float ret = (float)TL_DEG(ThreePoint2Radian( i_Vec1, i_Vec2, i_Vec3));
@@ -1084,12 +1084,12 @@ inline float ThreePoint2Degree(D3DXVECTOR3& i_Vec1, D3DXVECTOR3& i_Vec2, D3DXVEC
 ///////// /////////
 //float ThreePoint2Radian(float P1x,float P1y,float P2x,float P2y,float P3x,float P3y);
 //
-//ˆø”F
-//	float P1xF“_‚P‚Ì‚wÀ•W’l
-//	float P1yF“_‚P‚Ì‚xÀ•W’l
-//	float P2xF“_‚Q‚Ì‚wÀ•W’l
-//	float P2yF“_‚Q‚Ì‚xÀ•W’l
-//–ß‚è’lFÚP1P2P3‚Ìƒ‰ƒWƒAƒ“Šp
+//å¼•æ•°ï¼š
+//	float P1xï¼šç‚¹ï¼‘ã®ï¼¸åº§æ¨™å€¤
+//	float P1yï¼šç‚¹ï¼‘ã®ï¼¹åº§æ¨™å€¤
+//	float P2xï¼šç‚¹ï¼’ã®ï¼¸åº§æ¨™å€¤
+//	float P2yï¼šç‚¹ï¼’ã®ï¼¹åº§æ¨™å€¤
+//æˆ»ã‚Šå€¤ï¼šâˆ P1P2P3ã®ãƒ©ã‚¸ã‚¢ãƒ³è§’
 //
 inline double TwoPoint2Radian(D3DXVECTOR3& i_Vec1, D3DXVECTOR3& i_Vec2){
 	double ret =  ThreePoint2Radian( i_Vec1, i_Vec2, D3DXVECTOR3( i_Vec2.x + 1 , i_Vec2.y , 0 ) );
@@ -1099,12 +1099,12 @@ inline double TwoPoint2Radian(D3DXVECTOR3& i_Vec1, D3DXVECTOR3& i_Vec2){
 ///////// /////////
 //float ThreePoint2Radian(float P1x,float P1y,float P2x,float P2y,float P3x,float P3y);
 //
-//ˆø”F
-//	float P1xF“_‚P‚Ì‚wÀ•W’l
-//	float P1yF“_‚P‚Ì‚xÀ•W’l
-//	float P2xF“_‚Q‚Ì‚wÀ•W’l
-//	float P2yF“_‚Q‚Ì‚xÀ•W’l
-//–ß‚è’lFÚP1P2P3‚ÌƒfƒBƒOƒŠ[Šp
+//å¼•æ•°ï¼š
+//	float P1xï¼šç‚¹ï¼‘ã®ï¼¸åº§æ¨™å€¤
+//	float P1yï¼šç‚¹ï¼‘ã®ï¼¹åº§æ¨™å€¤
+//	float P2xï¼šç‚¹ï¼’ã®ï¼¸åº§æ¨™å€¤
+//	float P2yï¼šç‚¹ï¼’ã®ï¼¹åº§æ¨™å€¤
+//æˆ»ã‚Šå€¤ï¼šâˆ P1P2P3ã®ãƒ‡ã‚£ã‚°ãƒªãƒ¼è§’
 //
 inline float TwoPoint2Degree(D3DXVECTOR3& i_Vec1, D3DXVECTOR3& i_Vec2){
 
@@ -1121,7 +1121,7 @@ inline float TwoPoint2Degree(D3DXVECTOR3& i_Vec1, D3DXVECTOR3& i_Vec2){
 
 ///////// /////////
 //inline double TwoPointToBassLength( double P1x,double P1y,double P2x,double P2y );
-// ƒ‹[ƒg‚ğæ‚é‘O‚Ì“ñ“_ŠÔ‚Ì‹——£‚ğŒvZ
+// ãƒ«ãƒ¼ãƒˆã‚’å–ã‚‹å‰ã®äºŒç‚¹é–“ã®è·é›¢ã‚’è¨ˆç®—
 //
 inline double TwoPointToBassLength( double P1x,double P1y,double P2x,double P2y ){
 	return TL_SQUARE( P2x - P1x )  + TL_SQUARE( P2y * P1y ) ;
@@ -1129,7 +1129,7 @@ inline double TwoPointToBassLength( double P1x,double P1y,double P2x,double P2y 
 
 ///////// /////////
 //inline float VectorLength( float X, float Y );
-// ƒxƒNƒgƒ‹‚Ì’·‚³‚ğŒvZ‚·‚é
+// ãƒ™ã‚¯ãƒˆãƒ«ã®é•·ã•ã‚’è¨ˆç®—ã™ã‚‹
 //
 inline double VectorLength( double X, double Y ){
 	return pow( ( X * X ) + ( Y * Y ), 0.5 );
@@ -1137,14 +1137,14 @@ inline double VectorLength( double X, double Y ){
 
 ///////// /////////
 //inline double VectorProduct(double P1x,double P1y,double P2x,double P2y);
-// ƒxƒNƒgƒ‹‚Ì“àÏ‚ğŒvZ‚·‚é
+// ãƒ™ã‚¯ãƒˆãƒ«ã®å†…ç©ã‚’è¨ˆç®—ã™ã‚‹
 //
 inline double VectorProduct(double P1x,double P1y,double P2x,double P2y){
 	return P1x * P2x + P1y * P2y ;
 }
 ///////// /////////
 //inline double GetCosineTheta(double P1x,double P1y,double P2x,double P2y);
-// ‚±‚ê‚ğacos()‚·‚é‚ÆŠp“x‚ªo‚é
+// ã“ã‚Œã‚’acos()ã™ã‚‹ã¨è§’åº¦ãŒå‡ºã‚‹
 //
 //
 inline double GetCosineTheta(double P1x,double P1y,double P2x,double P2y){
@@ -1152,7 +1152,7 @@ inline double GetCosineTheta(double P1x,double P1y,double P2x,double P2y){
 }
 ///////// /////////
 //inline float ConvertToCartesianCoordinates( float X, float Y );
-// ‹ÉÀ•W‚ğƒfƒJƒ‹ƒgÀ•W‚É•ÏŠ·
+// æ¥µåº§æ¨™ã‚’ãƒ‡ã‚«ãƒ«ãƒˆåº§æ¨™ã«å¤‰æ›
 //
 inline D3DXVECTOR3 ConvertToCartesianCoordinates(float Move, float Direction ){
 	float CosBuffer = NULL, SinBuffer = NULL;
@@ -1165,7 +1165,7 @@ inline D3DXVECTOR3 ConvertToCartesianCoordinates(float Move, float Direction ){
 }
 ///////// /////////
 //inline void TwoPoint2Vector( double &retX, double &retY, double P1x,double P1y,double P2x,double P2y);
-// ƒxƒNƒgƒ‹‚Ì’·‚³‚ğŒvZ‚·‚é
+// ãƒ™ã‚¯ãƒˆãƒ«ã®é•·ã•ã‚’è¨ˆç®—ã™ã‚‹
 //
 //
 inline void TwoPoint2Vector( double &retX, double &retY, double P1x,double P1y,double P2x,double P2y){
@@ -1174,7 +1174,7 @@ inline void TwoPoint2Vector( double &retX, double &retY, double P1x,double P1y,d
 }
 ///////// /////////
 //inline void TwoPointLength( double &retX, double &retY, double P1x,double P1y,double P2x,double P2y);
-// ƒxƒNƒgƒ‹‚Ì’·‚³‚ğŒvZ‚·‚é
+// ãƒ™ã‚¯ãƒˆãƒ«ã®é•·ã•ã‚’è¨ˆç®—ã™ã‚‹
 //
 //
 inline void TwoPointLength( double &retX, double &retY, double P1x,double P1y,double P2x,double P2y){
@@ -1185,14 +1185,14 @@ inline void TwoPointLength( double &retX, double &retY, double P1x,double P1y,do
 ///////// /////////
 //double ThreePoint2Radian(double P1x,double P1y,double P2x,double P2y,double P3x,double P3y);
 //
-//ˆø”F
-//	double P1xF“_‚P‚Ì‚wÀ•W’l
-//	double P1yF“_‚P‚Ì‚xÀ•W’l
-//	double P2xF“_‚Q‚Ì‚wÀ•W’l
-//	double P2yF“_‚Q‚Ì‚xÀ•W’l
-//	double P3xF“_‚R‚Ì‚wÀ•W’l
-//	double P3yF“_‚R‚Ì‚xÀ•W’l
-//–ß‚è’lFÚP1P2P3‚Ìƒ‰ƒWƒAƒ“Šp
+//å¼•æ•°ï¼š
+//	double P1xï¼šç‚¹ï¼‘ã®ï¼¸åº§æ¨™å€¤
+//	double P1yï¼šç‚¹ï¼‘ã®ï¼¹åº§æ¨™å€¤
+//	double P2xï¼šç‚¹ï¼’ã®ï¼¸åº§æ¨™å€¤
+//	double P2yï¼šç‚¹ï¼’ã®ï¼¹åº§æ¨™å€¤
+//	double P3xï¼šç‚¹ï¼“ã®ï¼¸åº§æ¨™å€¤
+//	double P3yï¼šç‚¹ï¼“ã®ï¼¹åº§æ¨™å€¤
+//æˆ»ã‚Šå€¤ï¼šâˆ P1P2P3ã®ãƒ©ã‚¸ã‚¢ãƒ³è§’
 //
 inline double ThreePoint2Radian(double P1x,double P1y,double P2x,double P2y,double P3x,double P3y){
 	double vAx , vAy , vBx, vBy ;
@@ -1204,14 +1204,14 @@ inline double ThreePoint2Radian(double P1x,double P1y,double P2x,double P2y,doub
 ///////// /////////
 //float ThreePoint2Degree(float P1x,float P1y,float P2x,float P2y,float P3x,float P3y);
 //
-//ˆø”F
-//	float P1xF“_‚P‚Ì‚wÀ•W’l
-//	float P1yF“_‚P‚Ì‚xÀ•W’l
-//	float P2xF“_‚Q‚Ì‚wÀ•W’l
-//	float P2yF“_‚Q‚Ì‚xÀ•W’l
-//	float P3xF“_‚R‚Ì‚wÀ•W’l
-//	float P3yF“_‚R‚Ì‚xÀ•W’l
-//–ß‚è’lFÚP1P2P3‚ÌƒfƒBƒOƒŠ[Šp
+//å¼•æ•°ï¼š
+//	float P1xï¼šç‚¹ï¼‘ã®ï¼¸åº§æ¨™å€¤
+//	float P1yï¼šç‚¹ï¼‘ã®ï¼¹åº§æ¨™å€¤
+//	float P2xï¼šç‚¹ï¼’ã®ï¼¸åº§æ¨™å€¤
+//	float P2yï¼šç‚¹ï¼’ã®ï¼¹åº§æ¨™å€¤
+//	float P3xï¼šç‚¹ï¼“ã®ï¼¸åº§æ¨™å€¤
+//	float P3yï¼šç‚¹ï¼“ã®ï¼¹åº§æ¨™å€¤
+//æˆ»ã‚Šå€¤ï¼šâˆ P1P2P3ã®ãƒ‡ã‚£ã‚°ãƒªãƒ¼è§’
 //
 inline float ThreePoint2Degree(float P1x,float P1y,float P2x,float P2y,float P3x,float P3y){
     return (float)TL_DEG(ThreePoint2Radian( P1x, P1y, P2x, P2y, P3x, P3y));
@@ -1221,12 +1221,12 @@ inline float ThreePoint2Degree(float P1x,float P1y,float P2x,float P2y,float P3x
 ///////// /////////
 //float ThreePoint2Radian(float P1x,float P1y,float P2x,float P2y,float P3x,float P3y);
 //
-//ˆø”F
-//	float P1xF“_‚P‚Ì‚wÀ•W’l
-//	float P1yF“_‚P‚Ì‚xÀ•W’l
-//	float P2xF“_‚Q‚Ì‚wÀ•W’l
-//	float P2yF“_‚Q‚Ì‚xÀ•W’l
-//–ß‚è’lFÚP1P2P3‚Ìƒ‰ƒWƒAƒ“Šp
+//å¼•æ•°ï¼š
+//	float P1xï¼šç‚¹ï¼‘ã®ï¼¸åº§æ¨™å€¤
+//	float P1yï¼šç‚¹ï¼‘ã®ï¼¹åº§æ¨™å€¤
+//	float P2xï¼šç‚¹ï¼’ã®ï¼¸åº§æ¨™å€¤
+//	float P2yï¼šç‚¹ï¼’ã®ï¼¹åº§æ¨™å€¤
+//æˆ»ã‚Šå€¤ï¼šâˆ P1P2P3ã®ãƒ©ã‚¸ã‚¢ãƒ³è§’
 //
 inline double TwoPoint2Radian(double P1x,double P1y,double P2x,double P2y){
     return ThreePoint2Radian( P1x, P1y, P2x, P2y, P2x + 1 , P2y );
@@ -1235,12 +1235,12 @@ inline double TwoPoint2Radian(double P1x,double P1y,double P2x,double P2y){
 ///////// /////////
 //float ThreePoint2Radian(float P1x,float P1y,float P2x,float P2y,float P3x,float P3y);
 //
-//ˆø”F
-//	float P1xF“_‚P‚Ì‚wÀ•W’l
-//	float P1yF“_‚P‚Ì‚xÀ•W’l
-//	float P2xF“_‚Q‚Ì‚wÀ•W’l
-//	float P2yF“_‚Q‚Ì‚xÀ•W’l
-//–ß‚è’lFÚP1P2P3‚ÌƒfƒBƒOƒŠ[Šp
+//å¼•æ•°ï¼š
+//	float P1xï¼šç‚¹ï¼‘ã®ï¼¸åº§æ¨™å€¤
+//	float P1yï¼šç‚¹ï¼‘ã®ï¼¹åº§æ¨™å€¤
+//	float P2xï¼šç‚¹ï¼’ã®ï¼¸åº§æ¨™å€¤
+//	float P2yï¼šç‚¹ï¼’ã®ï¼¹åº§æ¨™å€¤
+//æˆ»ã‚Šå€¤ï¼šâˆ P1P2P3ã®ãƒ‡ã‚£ã‚°ãƒªãƒ¼è§’
 //
 inline float TwoPoint2Degree(float P1x,float P1y,float P2x,float P2y){
 	if( P1y >= P2y )

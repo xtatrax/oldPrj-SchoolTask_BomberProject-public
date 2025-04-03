@@ -1,11 +1,11 @@
 ////////////////////////////// //////////////////////////////
-//	ÉvÉçÉWÉFÉNÉg	ÅFBomberProject
-//	ÉtÉ@ÉCÉãñº		ÅFFactory_Stage1.cpp
-//	äJî≠ä¬ã´		ÅFMSVC++ 2008
-//	ç≈ìKÉ^Éuêî		ÅF4
-//	íSìñé“			ÅFé∞å¥ ìO
-//	ì‡ïÔ√ﬁ∞¿Ç∆îıçl	ÅFÉÅÉCÉìÉtÉ@ÉNÉgÉäÅ[
-//					Å•
+//	„Éó„É≠„Ç∏„Çß„ÇØ„Éà	ÔºöBomberProject
+//	„Éï„Ç°„Ç§„É´Âêç		ÔºöFactory_Stage1.cpp
+//	ÈñãÁô∫Áí∞Â¢É		ÔºöMSVC++ 2008
+//	ÊúÄÈÅ©„Çø„ÉñÊï∞		Ôºö4
+//	ÊãÖÂΩìËÄÖ			ÔºöÈ¥´Âéü Âæπ
+//	ÂÜÖÂåÖ„Éá„Éº„Çø„Å®ÂÇôËÄÉ	Ôºö„É°„Ç§„É≥„Éï„Ç°„ÇØ„Éà„É™„Éº
+//					‚ñº
 //	namespace wiz;
 //		class Factory_Stage1 ;
 //
@@ -20,26 +20,26 @@ namespace wiz{
 namespace bomberobject{
 
 /**************************************************************************
- Factory_Stage1 íËã`ïî
+ Factory_Stage1 ÂÆöÁæ©ÈÉ®
 ****************************************************************************/
 /**************************************************************************
  Factory_Stage1::Factory_Stage1(
 	Factory_Stage1 *fpac
-	LPDIRECT3DDEVICE9 pD3DDevice,	//ÉfÉoÉCÉX
-	vector<Object*>& vec,			//ÉIÉuÉWÉFÉNÉgÇÃîzóÒ
-	TextureManager& TexMgr		//ÉeÉNÉXÉ`ÉÉÇÃîzóÒ
+	LPDIRECT3DDEVICE9 pD3DDevice,	//„Éá„Éê„Ç§„Çπ
+	vector<Object*>& vec,			//„Ç™„Éñ„Ç∏„Çß„ÇØ„Éà„ÅÆÈÖçÂàó
+	TextureManager& TexMgr		//„ÉÜ„ÇØ„Çπ„ÉÅ„É£„ÅÆÈÖçÂàó
 );
- ópìr: ÉRÉìÉXÉgÉâÉNÉ^ÅiÉTÉìÉvÉãÉIÉuÉWÉFÉNÉgÇîzóÒÇ…í«â¡Ç∑ÇÈÅj
- ñﬂÇËíl: Ç»Çµ
+ Áî®ÈÄî: „Ç≥„É≥„Çπ„Éà„É©„ÇØ„ÇøÔºà„Çµ„É≥„Éó„É´„Ç™„Éñ„Ç∏„Çß„ÇØ„Éà„ÇíÈÖçÂàó„Å´ËøΩÂä†„Åô„ÇãÔºâ
+ Êàª„ÇäÂÄ§: „Å™„Åó
 ***************************************************************************/
 Factory_Stage1::Factory_Stage1(FactoryPacket *fpac){
 	try{
 		LPDIRECT3DDEVICE9 pD3DDevice	= fpac->GetDevice()	;
 
-		//	: äÓñ{ï«  ÉTÉCÉY	
-		//	:		   ògï«
+		//	: Âü∫Êú¨Â£Å  „Çµ„Ç§„Ç∫	
+		//	:		   Êû†Â£Å
 		D3DXVECTOR3	   BaseWallSize ( 2.0f, 26.0f,  0.0f ),
-		//	: ÉpÅ[Éc(äeï«)
+		//	: „Éë„Éº„ÉÑ(ÂêÑÂ£Å)
 					   PartsWallSize02( 2.0f,  2.0f,  0.0f ),
 					   PartsWallSize05( 2.0f,  5.0f,  0.0f ),
 					   PartsWallSize10( 2.0f, 10.0f,  0.0f ),
@@ -49,7 +49,7 @@ Factory_Stage1::Factory_Stage1(FactoryPacket *fpac){
 					   PartsWallSize32( 2.0f, 32.0f,  0.0f ),
 					   PartsWallSize35( 2.0f, 35.0f,  0.0f ),
 					   PartsWallSize40( 2.0f, 40.0f,  0.0f ),
-		//	: äÓñ{ï«  âÒì]
+		//	: Âü∫Êú¨Â£Å  ÂõûËª¢
 					   WallRot1		( 0.0f,  0.0f,  0.0f ),
 					   WallRot2		( 0.0f,  0.0f, 90.0f );
 		D3DCOLORVALUE  WallDiffuse  = getD3DCOLORVALUE( 0.5f, 0.5f, 0.5f, 0.5f );		//	Diffuse
@@ -57,27 +57,27 @@ Factory_Stage1::Factory_Stage1(FactoryPacket *fpac){
 		D3DCOLORVALUE  WallAmbient  = getD3DCOLORVALUE( 0.7f, 0.7f, 0.7f, 0.7f );		//	Ambient
 
 
-		//	: MAPì‡é•äE
+		//	: MAPÂÜÖÁ£ÅÁïå
 		D3DCOLORVALUE  MagDiffuse  = getD3DCOLORVALUE( 1.0f, 1.0f, 1.0f, 1.0f );		//	Diffuse
 		D3DCOLORVALUE  MagSpecular = getD3DCOLORVALUE( 0.0f, 0.0f, 0.0f, 0.0f );		//	Specular
 		D3DCOLORVALUE  MagAmbient  = getD3DCOLORVALUE( 1.0f, 1.0f, 1.0f, 1.0f );		//	Ambient
 
 
 		float i = 26.0f ;
-		// â°.x=51,èc.y=25.5, UI.y=4.5
+		// Ê®™.x=51,Á∏¶.y=25.5, UI.y=4.5
 		MapPartsStatus MapData[] = {
 			//	:			 scale		   Rot		   Pos							          Diffuse	   Specular	     Ambient
-			//â°â∫
+			//Ê®™‰∏ã
 			//{ OBJID_3D_WALL, BaseWallSize, WallRot2, D3DXVECTOR3( 12.0f,  0.0f,     0.0f ), WallDiffuse, WallSpecular, WallAmbient },
 			//{ OBJID_3D_WALL, BaseWallSize, WallRot2, D3DXVECTOR3( 38.0f,  0.0f,     0.0f ), WallDiffuse, WallSpecular, WallAmbient },
-			////ècç∂ï«
+			////Á∏¶Â∑¶Â£Å
 			//{ OBJID_3D_WALL, BaseWallSize, WallRot1, D3DXVECTOR3(  0.5f, 13.0f,	    0.0f ), WallDiffuse, WallSpecular, WallAmbient },
 			//{ OBJID_3D_WALL, BaseWallSize, WallRot1, D3DXVECTOR3(  0.5f, 13.0f+i*1, 0.0f ), WallDiffuse, WallSpecular, WallAmbient },
 			//{ OBJID_3D_WALL, BaseWallSize, WallRot1, D3DXVECTOR3(  0.5f, 13.0f+i*2, 0.0f ), WallDiffuse, WallSpecular, WallAmbient },
 			//{ OBJID_3D_WALL, BaseWallSize, WallRot1, D3DXVECTOR3(  0.5f, 13.0f+i*3, 0.0f ), WallDiffuse, WallSpecular, WallAmbient },
 			//{ OBJID_3D_WALL, BaseWallSize, WallRot1, D3DXVECTOR3(  0.5f, 13.0f+i*4, 0.0f ), WallDiffuse, WallSpecular, WallAmbient },
 			//{ OBJID_3D_WALL, BaseWallSize, WallRot1, D3DXVECTOR3(  0.5f, 13.0f+i*5, 0.0f ), WallDiffuse, WallSpecular, WallAmbient },
-			////ècâEï«
+			////Á∏¶Âè≥Â£Å
 			//{ OBJID_3D_WALL, BaseWallSize, WallRot1, D3DXVECTOR3( 49.5f, 13.0f,     0.0f ), WallDiffuse, WallSpecular, WallAmbient },
 			//{ OBJID_3D_WALL, BaseWallSize, WallRot1, D3DXVECTOR3( 49.5f, 13.0f+i*1, 0.0f ), WallDiffuse, WallSpecular, WallAmbient },
 			//{ OBJID_3D_WALL, BaseWallSize, WallRot1, D3DXVECTOR3( 49.5f, 13.0f+i*2, 0.0f ), WallDiffuse, WallSpecular, WallAmbient },
@@ -85,7 +85,7 @@ Factory_Stage1::Factory_Stage1(FactoryPacket *fpac){
 			//{ OBJID_3D_WALL, BaseWallSize, WallRot1, D3DXVECTOR3( 49.5f, 13.0f+i*4, 0.0f ), WallDiffuse, WallSpecular, WallAmbient },
 			//{ OBJID_3D_WALL, BaseWallSize, WallRot1, D3DXVECTOR3( 49.5f, 13.0f+i*5, 0.0f ), WallDiffuse, WallSpecular, WallAmbient },
 
-			////í«â¡
+			////ËøΩÂä†
 			////1
 			//{ OBJID_3D_WALL, PartsWallSize20, WallRot1, D3DXVECTOR3(25.0f,  30.0, 0.0f), WallDiffuse, WallSpecular, WallAmbient },
 			////2
@@ -121,7 +121,7 @@ Factory_Stage1::Factory_Stage1(FactoryPacket *fpac){
 			////17
 			//{ OBJID_3D_WALL, PartsWallSize10, WallRot2, D3DXVECTOR3(5.0f, 145.0, 0.0f), WallDiffuse, WallSpecular, WallAmbient },
 
-			//	: MAPì‡ÇÃé•äE
+			//	: MAPÂÜÖ„ÅÆÁ£ÅÁïå
 			//{ OBJID_3D_STATIC_MAGNET, D3DXVECTOR3( 1.0f,1.0f, 0.0f), WallRot1, D3DXVECTOR3(30.0f, 10.0, 0.0f), MagDiffuse, MagSpecular, WallAmbient, POLE_N },
 			//{ OBJID_3D_STATIC_MAGNET, D3DXVECTOR3( 1.0f,1.0f, 0.0f), WallRot1, D3DXVECTOR3(30.0f, 10.0, 0.0f), MagDiffuse, MagSpecular, WallAmbient, POLE_N },
 
@@ -131,7 +131,7 @@ Factory_Stage1::Factory_Stage1(FactoryPacket *fpac){
 		StageLoader loader( *fpac , MapData );
 	}
 	catch(...){
-		//çƒthrow
+		//ÂÜçthrow
 		throw;
 	}
 

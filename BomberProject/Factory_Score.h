@@ -14,8 +14,8 @@ namespace bomberobject{
 	const	int MAX_DIGIT	= 6;
 /**************************************************************************
  class Score : public Sprite;
- —p“r@F”š‚Ì•`‰æ—pƒNƒ‰ƒX
- ’S“–ÒF²“¡—Á
+ ç”¨é€”ã€€ï¼šæ•°å­—ã®æç”»ç”¨ã‚¯ãƒ©ã‚¹
+ æ‹…å½“è€…ï¼šä½è—¤æ¶¼
 ****************************************************************************/
 class Score : public SpriteObject{
 protected:
@@ -48,8 +48,8 @@ public:
 
 /**************************************************************************
  class DeadScore : public Score;
- —p“r@F€–S‰ñ”•`‰æƒNƒ‰ƒX
- ’S“–ÒF²“¡—Á
+ ç”¨é€”ã€€ï¼šæ­»äº¡å›æ•°æç”»ã‚¯ãƒ©ã‚¹
+ æ‹…å½“è€…ï¼šä½è—¤æ¶¼
 ****************************************************************************/
 class DeadScore : public Score{
 public:
@@ -66,11 +66,11 @@ public:
 
 /**************************************************************************
  class ArrivalPos : public Score;
- —p“r@F“’B’n“_•`‰æƒNƒ‰ƒX
- ’S“–ÒF²“¡—Á
+ ç”¨é€”ã€€ï¼šåˆ°é”åœ°ç‚¹æç”»ã‚¯ãƒ©ã‚¹
+ æ‹…å½“è€…ï¼šä½è—¤æ¶¼
 ****************************************************************************/
 class ArrivalPos : public Score{
-	int		m_iMaxPosY;	//Å‚“’B“_
+	int		m_iMaxPosY;	//æœ€é«˜åˆ°é”ç‚¹
 public:
 	ArrivalPos(LPDIRECT3DDEVICE9	pD3DDevice,
 				LPTATRATEXTURE	pTexture,
@@ -82,7 +82,7 @@ public:
 	void	Draw(DrawPacket& i_DrawPacket);
 	void	Update(UpdatePacket& i_UpdatePacket);
 
-	//ƒQƒbƒ^[
+	//ã‚²ãƒƒã‚¿ãƒ¼
 	int	getMaxPosY(){
 		return	m_iMaxPosY;
 	}
@@ -90,8 +90,8 @@ public:
 
 /**************************************************************************
  class ScratchPoint : public Score;
- —p“r@F“’B’n“_•`‰æƒNƒ‰ƒX
- ’S“–ÒF²“¡—Á
+ ç”¨é€”ã€€ï¼šåˆ°é”åœ°ç‚¹æç”»ã‚¯ãƒ©ã‚¹
+ æ‹…å½“è€…ï¼šä½è—¤æ¶¼
 ****************************************************************************/
 class ScratchPoint : public Score{
 public:
@@ -109,8 +109,8 @@ public:
 
 /**************************************************************************
  class GoalPos : public Score;
- —p“r@F“’B’n“_•`‰æƒNƒ‰ƒX
- ’S“–ÒF²“¡—Á
+ ç”¨é€”ã€€ï¼šåˆ°é”åœ°ç‚¹æç”»ã‚¯ãƒ©ã‚¹
+ æ‹…å½“è€…ï¼šä½è—¤æ¶¼
 ****************************************************************************/
 class GoalPos : public Score{
 	GoalObject*	m_pGoalObject;
@@ -128,8 +128,8 @@ public:
 
 /**************************************************************************
  class TimeScore : public Score;
- —p“r@F“’B’n“_•`‰æƒNƒ‰ƒX
- ’S“–ÒF²“¡—Á
+ ç”¨é€”ã€€ï¼šåˆ°é”åœ°ç‚¹æç”»ã‚¯ãƒ©ã‚¹
+ æ‹…å½“è€…ï¼šä½è—¤æ¶¼
 ****************************************************************************/
 class TimeScore : public Score{
 	int		m_iTime;
@@ -154,13 +154,13 @@ public:
 
 /**************************************************************************
  class AnimationScore : public Score;
- —p“r@FƒAƒjƒ[ƒVƒ‡ƒ“ƒXƒRƒA•`‰æƒNƒ‰ƒX
- ’S“–ÒF²“¡—Á
+ ç”¨é€”ã€€ï¼šã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚¹ã‚³ã‚¢æç”»ã‚¯ãƒ©ã‚¹
+ æ‹…å½“è€…ï¼šä½è—¤æ¶¼
 ****************************************************************************/
 class AnimationScore : public Score{
-	int		m_iDrawScore;		//•`‰æ‚·‚éƒXƒRƒA
-	int		m_iResultScore;		//ÅI“I‚ÈƒXƒRƒA
-	bool	m_bNext;			//ƒAƒjƒ[ƒVƒ‡ƒ“‚·‚éƒXƒRƒA‚ğŸ‚Éi‚ß‚é
+	int		m_iDrawScore;		//æç”»ã™ã‚‹ã‚¹ã‚³ã‚¢
+	int		m_iResultScore;		//æœ€çµ‚çš„ãªã‚¹ã‚³ã‚¢
+	bool	m_bNext;			//ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã™ã‚‹ã‚¹ã‚³ã‚¢ã‚’æ¬¡ã«é€²ã‚ã‚‹
 	bool	m_bClickRock;		//
 	float	m_fTransRate;
 	float	m_fTime;
@@ -186,24 +186,24 @@ public:
 
 /**************************************************************************
  class ResultScore : public Score;
- —p“r@FƒŠƒUƒ‹ƒgƒXƒRƒA•`‰æƒNƒ‰ƒX
- ’S“–ÒF²“¡—Á
+ ç”¨é€”ã€€ï¼šãƒªã‚¶ãƒ«ãƒˆã‚¹ã‚³ã‚¢æç”»ã‚¯ãƒ©ã‚¹
+ æ‹…å½“è€…ï¼šä½è—¤æ¶¼
 ****************************************************************************/
 class ResultScore : public Score{
 	Rank*				m_pRank;
-	AnimationScore*		m_pMaxPos;		//Å‚ˆÊ’u—pƒAƒjƒ[ƒVƒ‡ƒ“ƒXƒRƒA‚Ìƒ|ƒCƒ“ƒ^
+	AnimationScore*		m_pMaxPos;		//æœ€é«˜ä½ç½®ç”¨ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚¹ã‚³ã‚¢ã®ãƒã‚¤ãƒ³ã‚¿
 	AnimationScore*		m_pScratch;		//
-	AnimationScore*		m_pDead;		//€–S‰ñ”—pƒAƒjƒ[ƒVƒ‡ƒ“ƒXƒRƒA‚Ìƒ|ƒCƒ“ƒ^
+	AnimationScore*		m_pDead;		//æ­»äº¡å›æ•°ç”¨ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚¹ã‚³ã‚¢ã®ãƒã‚¤ãƒ³ã‚¿
 	AnimationScore*		m_pTotal;		//
 	SpriteObject*		m_pRate_10;
 	SpriteObject*		m_pRate_30;
 	SpriteObject*		m_pRate_1;
-	LPTATRATEXTURE		m_pDeadTex;		//€–S‰ñ”ƒXƒRƒA‚ÌƒeƒNƒXƒ`ƒƒ
-	LPTATRATEXTURE		m_pMaxPosTex;	//Å‚ˆÊ’uƒXƒRƒA‚ÌƒeƒNƒXƒ`ƒƒ
+	LPTATRATEXTURE		m_pDeadTex;		//æ­»äº¡å›æ•°ã‚¹ã‚³ã‚¢ã®ãƒ†ã‚¯ã‚¹ãƒãƒ£
+	LPTATRATEXTURE		m_pMaxPosTex;	//æœ€é«˜ä½ç½®ã‚¹ã‚³ã‚¢ã®ãƒ†ã‚¯ã‚¹ãƒãƒ£
 	LPTATRATEXTURE		m_pRate10Tex;	//
 	LPTATRATEXTURE		m_pRate30Tex;	//
 	LPTATRATEXTURE		m_pRate1Tex;	//
-	int					m_iNowDraw;		//ƒAƒjƒ[ƒVƒ‡ƒ“‚³‚¹‚½‚¢ƒXƒRƒA‚Ì”Ô†
+	int					m_iNowDraw;		//ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã•ã›ãŸã„ã‚¹ã‚³ã‚¢ã®ç•ªå·
 	Result_Rank			m_ResultRank;
 public:
 	ResultScore(LPDIRECT3DDEVICE9	pD3DDevice,
@@ -226,24 +226,24 @@ public:
 
 /**************************************************************************
  class Factory_Score;
- —p“r: ƒƒCƒ“HêƒNƒ‰ƒX
+ ç”¨é€”: ãƒ¡ã‚¤ãƒ³å·¥å ´ã‚¯ãƒ©ã‚¹
 ****************************************************************************/
 class Factory_Score{
 public:
 /**************************************************************************
  Factory_Score(
-	LPDIRECT3DDEVICE9 pD3DDevice,	//ƒfƒoƒCƒX
-	vector<Object*>& vec,			//ƒIƒuƒWƒFƒNƒg‚Ì”z—ñ
-	TextureManager& TexMgr		//ƒeƒNƒXƒ`ƒƒ‚Ì”z—ñ
+	LPDIRECT3DDEVICE9 pD3DDevice,	//ãƒ‡ãƒã‚¤ã‚¹
+	vector<Object*>& vec,			//ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®é…åˆ—
+	TextureManager& TexMgr		//ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®é…åˆ—
 );
- —p“r: ƒRƒ“ƒXƒgƒ‰ƒNƒ^iƒTƒ“ƒvƒ‹ƒIƒuƒWƒFƒNƒg‚ğ”z—ñ‚É’Ç‰Á‚·‚éj
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ï¼ˆã‚µãƒ³ãƒ—ãƒ«ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’é…åˆ—ã«è¿½åŠ ã™ã‚‹ï¼‰
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
 	Factory_Score( FactoryPacket* fpac ) ;
 /**************************************************************************
  ~MyFactory();
- —p“r: ƒfƒXƒgƒ‰ƒNƒ^
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
 ~Factory_Score() ;
 };

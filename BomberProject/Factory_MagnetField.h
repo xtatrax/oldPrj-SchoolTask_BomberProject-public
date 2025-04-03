@@ -1,13 +1,13 @@
 ////////////////////////////// //////////////////////////////
-//	ƒvƒƒWƒFƒNƒg	FBomberProject
-//	ƒtƒ@ƒCƒ‹–¼		FFactory_MagnetField.h
-//	ŠJ”­ŠÂ‹«		FMSVC++ 2008
-//	Å“Kƒ^ƒu”		F4
-//	’S“–Ò			F°Œ´ “O
-//	ˆøŒp‚¬			F‰g’n ‘å—m
-//	„¤¨			F–{‘½ Š°”V
-//	“à•ïÃŞ°À‚Æ”õl	F¥ŠE”ÍˆÍ‚Ì‰Â‹‰»Object
-//					¥
+//	ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆ	ï¼šBomberProject
+//	ãƒ•ã‚¡ã‚¤ãƒ«å		ï¼šFactory_MagnetField.h
+//	é–‹ç™ºç’°å¢ƒ		ï¼šMSVC++ 2008
+//	æœ€é©ã‚¿ãƒ–æ•°		ï¼š4
+//	æ‹…å½“è€…			ï¼šé´«åŸ å¾¹
+//	å¼•ç¶™ã			ï¼šæ›³åœ° å¤§æ´‹
+//	â””â†’			ï¼šæœ¬å¤š å¯›ä¹‹
+//	å†…åŒ…ãƒ‡ãƒ¼ã‚¿ã¨å‚™è€ƒ	ï¼šç£ç•Œç¯„å›²ã®å¯è¦–åŒ–Object
+//					â–¼
 //	namespace wiz;
 //		class Factory_MagnetField ;
 //
@@ -33,7 +33,7 @@ class MagnetFieldCircle{
 		static DWORD getFVF(){return D3DFVF_XYZ | D3DFVF_DIFFUSE ;}
 	};
 	static DWORD						m_dwMyInstance	;
-	static LPDIRECT3DVERTEXBUFFER9		m_pVertexBuffer	;	//ƒoƒbƒtƒ@
+	static LPDIRECT3DVERTEXBUFFER9		m_pVertexBuffer	;	//ãƒãƒƒãƒ•ã‚¡
 	static DWORD						m_dwVertexQty	;
 	D3DXMATRIX					m_mMatrix		;
 	DWORD						m_dwColor_N		;
@@ -48,7 +48,7 @@ public:
 	}
 	void setPole(POLE pl){
 		Vertex* m_pVertex;
-		m_pVertexBuffer->Lock( 0, 0, (void**)&m_pVertex ,0 );	//	: ’¸“_ƒf[ƒ^‚ÌƒAƒhƒŒƒX‚ğæ“¾‚·‚é‚Æ‚Æ‚à‚ÉAƒf[ƒ^‚Ö‚ÌƒAƒNƒZƒX‚ğŠJn‚·‚é	
+		m_pVertexBuffer->Lock( 0, 0, (void**)&m_pVertex ,0 );	//	: é ‚ç‚¹ãƒ‡ãƒ¼ã‚¿ã®ã‚¢ãƒ‰ãƒ¬ã‚¹ã‚’å–å¾—ã™ã‚‹ã¨ã¨ã‚‚ã«ã€ãƒ‡ãƒ¼ã‚¿ã¸ã®ã‚¢ã‚¯ã‚»ã‚¹ã‚’é–‹å§‹ã™ã‚‹	
 
 
 		if( pl == POLE_S ){
@@ -80,21 +80,21 @@ public:
 	}
 };
 
-//3D•ÏŠ·—p
+//3Då¤‰æ›ç”¨
 //**************************************************************************//
 // class MagnetField : public PrimitiveCylinder ;
 //
-// ’S“–Ò  : ‰g’n ‘å—m
-// •ÒW    : °Œ´ “O(‘å•‰ü—Ç)
-//         : –{‘½ Š°”V
-// —p“r    : ¥ŠEƒIƒuƒWƒFƒNƒg
-//         : ƒRƒCƒ‹ƒIƒuƒWƒFƒNƒg‚âƒ†[ƒU[İ’u¥ŠE‚É‚à‰—p‚µ‚Ä‚¢‚Ü‚·¡
+// æ‹…å½“è€…  : æ›³åœ° å¤§æ´‹
+// ç·¨é›†    : é´«åŸ å¾¹(å¤§å¹…æ”¹è‰¯)
+//         : æœ¬å¤š å¯›ä¹‹
+// ç”¨é€”    : ç£ç•Œã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+//         : ã‚³ã‚¤ãƒ«ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚„ãƒ¦ãƒ¼ã‚¶ãƒ¼è¨­ç½®ç£ç•Œã«ã‚‚å¿œç”¨ã—ã¦ã„ã¾ã™ã€‚
 //**************************************************************************//
 extern class PlayerCoil ;
 class MagnetField : public Object, public MagneticObject{
 
 //////////
-//	: ƒvƒƒeƒNƒg
+//	: ãƒ—ãƒ­ãƒ†ã‚¯ãƒˆ
 protected:
 	Camera*				m_pCamera			;
 	PlayerCoil*			m_pCoil				;
@@ -110,22 +110,22 @@ protected:
 
 
 //////////
-//	: ŒöŠJ
+//	: å…¬é–‹
 public:
 	/////////////////// ////////////////////
-	//// —p“r       FMagnetField(
+	//// ç”¨é€”       ï¼šMagnetField(
 	///										LPDIRECT3DDEVICE9 pD3DDevice,
 	///										LPDIRECT3DTEXTURE9 pTexture,
 	///										wiz::OBJID id = OBJID_3D_MAGNET
 	///										) ;
-	//// ƒJƒeƒSƒŠ   FƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	//// —p“r       F
-	//// ˆø”       F  LPDIRECT3DDEVICE9 pD3DDevice,	//ƒfƒoƒCƒX
-	////			  :   LPDIRECT3DTEXTURE9 pTexture,  //ƒeƒNƒXƒ`ƒƒ	
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	//// ç”¨é€”       ï¼š
+	//// å¼•æ•°       ï¼š  LPDIRECT3DDEVICE9 pD3DDevice,	//ãƒ‡ãƒã‚¤ã‚¹
+	////			  :   LPDIRECT3DTEXTURE9 pTexture,  //ãƒ†ã‚¯ã‚¹ãƒãƒ£	
 	////              :   wiz::OBJID id = OBJID_3D_MAGNET //ID
-	//// –ß’l       F‚È‚µ
-	//// ’S“–Ò     F‰g’n ‘å—m
-	//// ”õl       F
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“è€…     ï¼šæ›³åœ° å¤§æ´‹
+	//// å‚™è€ƒ       ï¼š
 	////	
 	MagnetField(
 		LPDIRECT3DDEVICE9 pD3DDevice,
@@ -135,56 +135,56 @@ public:
 
 
 	/////////////////// ////////////////////
-	//// —p“r       F  ~MagnetField()
-	//// ƒJƒeƒSƒŠ   FƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	//// —p“r       FPlayer—p‚ÌƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	//// ˆø”       F‚È‚µ
-	//// –ß’l       F‚È‚µ
-	//// ’S“–Ò     F°Œ´ “O
-	//// ”õl       F
+	//// ç”¨é€”       ï¼š  ~MagnetField()
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	//// ç”¨é€”       ï¼šPlayerç”¨ã®ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	//// å¼•æ•°       ï¼šãªã—
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“è€…     ï¼šé´«åŸ å¾¹
+	//// å‚™è€ƒ       ï¼š
 	////	
 	~MagnetField();
 
 	/////////////////// ////////////////////
-	//// —p“r       Fvoid Draw( DrawPacket& i_DrawPacket )
-	//// ƒJƒeƒSƒŠ   FŠÖ”
-	//// —p“r       FƒIƒuƒWƒFƒNƒg‚ğƒfƒBƒXƒvƒŒƒC‚É•\¦‚·‚é
-	//// ˆø”       F  DrawPacket& i_DrawPacket             // ‰æ–Ê•`‰æ‚É•K—v‚Èƒf[ƒ^ŒQ «“à—e‰º‹L
-	////			 F  „¥ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 ƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-	////             F  „¥ vector<Object*>&    Vec                     // ƒIƒuƒWƒFƒNƒg‚Ì”z—ñ
-	////             F  „¥ Tempus2*            i_DrawPacket.GetTime()	   // ŠÔ‚ğŠÇ—‚·‚éƒNƒ‰ƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^[
-	////             F  „¤ Command             i_DrawPacket.pCommand   // ƒRƒ}ƒ“ƒh
-	//// –ß’l       F‚È‚µ
-	//// ’S“–Ò     F‰g’n ‘å—m
-	//// ”õl       F
+	//// ç”¨é€”       ï¼švoid Draw( DrawPacket& i_DrawPacket )
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šé–¢æ•°
+	//// ç”¨é€”       ï¼šã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ãƒ‡ã‚£ã‚¹ãƒ—ãƒ¬ã‚¤ã«è¡¨ç¤ºã™ã‚‹
+	//// å¼•æ•°       ï¼š  DrawPacket& i_DrawPacket             // ç”»é¢æç”»æ™‚ã«å¿…è¦ãªãƒ‡ãƒ¼ã‚¿ç¾¤ â†“å†…å®¹ä¸‹è¨˜
+	////			 ï¼š  â”œ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+	////             ï¼š  â”œ vector<Object*>&    Vec                     // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®é…åˆ—
+	////             ï¼š  â”œ Tempus2*            i_DrawPacket.GetTime()	   // æ™‚é–“ã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿ãƒ¼
+	////             ï¼š  â”” Command             i_DrawPacket.pCommand   // ã‚³ãƒãƒ³ãƒ‰
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“è€…     ï¼šæ›³åœ° å¤§æ´‹
+	//// å‚™è€ƒ       ï¼š
 	////
 	void Draw( DrawPacket& i_DrawPacket );
 
 	/////////////////// ////////////////////
-	//// —p“r       Fvoid Update( UpdatePacket& i_UpdatePacket )
-	//// ƒJƒeƒSƒŠ   FŠÖ”
-	//// —p“r       FƒIƒuƒWƒFƒNƒg‚ğXV
-	//// ˆø”       F  UpdatePacket& i_UpdatePacket     // ƒAƒbƒvƒf[ƒg‚É•K—v‚Èƒf[ƒ^ŒQ «“à—e‰º‹L
-	////			  F  „¥       LPDIRECT3DDEVICE9  pD3DDevice      // IDirect3DDevice9 ƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-	////              F  „¥       Tempus2*           pTime           // ŠÔ‚ğŠÇ—‚·‚éƒNƒ‰ƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^[
-	////              F  „¥       vector<Object*>&   Vec,            // ƒIƒuƒWƒFƒNƒg‚Ì”z—ñ
-	////              F  „¥ const CONTROLER_STATE*   pCntlState      // ƒRƒ“ƒgƒ[ƒ‰‚ÌƒXƒe[ƒ^ƒX
-	////              F  „¤       Command            pCommand        // ƒRƒ}ƒ“ƒh
-	//// –ß’l       F‚È‚µ
-	//// ’S“–Ò     F‰g’n ‘å—m
-	//// ”õl       F
+	//// ç”¨é€”       ï¼švoid Update( UpdatePacket& i_UpdatePacket )
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šé–¢æ•°
+	//// ç”¨é€”       ï¼šã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’æ›´æ–°
+	//// å¼•æ•°       ï¼š  UpdatePacket& i_UpdatePacket     // ã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆæ™‚ã«å¿…è¦ãªãƒ‡ãƒ¼ã‚¿ç¾¤ â†“å†…å®¹ä¸‹è¨˜
+	////			  ï¼š  â”œ       LPDIRECT3DDEVICE9  pD3DDevice      // IDirect3DDevice9 ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+	////              ï¼š  â”œ       Tempus2*           pTime           // æ™‚é–“ã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿ãƒ¼
+	////              ï¼š  â”œ       vector<Object*>&   Vec,            // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®é…åˆ—
+	////              ï¼š  â”œ const CONTROLER_STATE*   pCntlState      // ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹
+	////              ï¼š  â””       Command            pCommand        // ã‚³ãƒãƒ³ãƒ‰
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“è€…     ï¼šæ›³åœ° å¤§æ´‹
+	//// å‚™è€ƒ       ï¼š
 	void Update( UpdatePacket& i_UpdatePacket );
 
 
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     FD3DXVECTOR3 getPos() const
-	//// ƒJƒeƒSƒŠ   FƒQƒbƒ^[
-	//// —p“r       F’†SÀ•W‚ğŠl“¾
-	//// ˆø”       F‚È‚µ
-	//// –ß’l       F‚È‚µ
-	//// ’S“–       F°Œ´ “O
-	//// ”õl       F
-	////            F
+	//// é–¢æ•°å     ï¼šD3DXVECTOR3 getPos() const
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚²ãƒƒã‚¿ãƒ¼
+	//// ç”¨é€”       ï¼šä¸­å¿ƒåº§æ¨™ã‚’ç²å¾—
+	//// å¼•æ•°       ï¼šãªã—
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“       ï¼šé´«åŸ å¾¹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	D3DXVECTOR3 getPos() const {
 		return m_vPos			;	
 	}	;
@@ -192,14 +192,14 @@ public:
 	void HitTest();
 
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     Fmultimap<float, Magnet3DItem*> getMapTarget() const
-	//// ƒJƒeƒSƒŠ   FƒQƒbƒ^[
-	//// —p“r       Fm_ItemMap_Target‚ğŠl“¾
-	//// ˆø”       F‚È‚µ
-	//// –ß’l       Fm_ItemMap_Target
-	//// ’S“–       F–{‘½Š°”V
-	//// ”õl       F
-	////            F
+	//// é–¢æ•°å     ï¼šmultimap<float, Magnet3DItem*> getMapTarget() const
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚²ãƒƒã‚¿ãƒ¼
+	//// ç”¨é€”       ï¼šm_ItemMap_Targetã‚’ç²å¾—
+	//// å¼•æ•°       ï¼šãªã—
+	//// æˆ»å€¤       ï¼šm_ItemMap_Target
+	//// æ‹…å½“       ï¼šæœ¬å¤šå¯›ä¹‹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	//multimap<float, Magnet3DItem*> getMapTarget() const{
 	//	return m_ItemMap_Target;
 	//}
@@ -212,7 +212,7 @@ public:
 class StaticMagnetField : public MagnetField {
 protected:
 	struct Magnet3DItem{
-		//	: À•W
+		//	: åº§æ¨™
 		D3DXVECTOR3		m_vPos ;
 		POLE			m_bMagnetPole ;
 		float			m_fMapKey	;
@@ -221,7 +221,7 @@ protected:
 	};
 
 
-	//map<ƒIƒuƒWƒFƒNƒg‚Ìƒ|ƒWƒVƒ‡ƒ“, Magnet3DItem>
+	//map<ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ãƒã‚¸ã‚·ãƒ§ãƒ³, Magnet3DItem>
 	typedef multimap<float, Magnet3DItem*>	ALLCONTAINER		;
 	typedef list<Magnet3DItem*>				TARGETCONTAINER		;
 	ALLCONTAINER		m_ItemMap_All		;
@@ -235,48 +235,48 @@ public:
 	);
 	~StaticMagnetField();
 	/////////////////// ////////////////////
-	//// —p“r       Fvoid Update( UpdatePacket& i_UpdatePacket )
-	//// ƒJƒeƒSƒŠ   FŠÖ”
-	//// —p“r       FƒIƒuƒWƒFƒNƒg‚ğXV
-	//// ˆø”       F  UpdatePacket& i_UpdatePacket     // ƒAƒbƒvƒf[ƒg‚É•K—v‚Èƒf[ƒ^ŒQ «“à—e‰º‹L
-	////			  F  „¥       LPDIRECT3DDEVICE9  pD3DDevice      // IDirect3DDevice9 ƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-	////              F  „¥       Tempus2*           pTime           // ŠÔ‚ğŠÇ—‚·‚éƒNƒ‰ƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^[
-	////              F  „¥       vector<Object*>&   Vec,            // ƒIƒuƒWƒFƒNƒg‚Ì”z—ñ
-	////              F  „¥ const CONTROLER_STATE*   pCntlState      // ƒRƒ“ƒgƒ[ƒ‰‚ÌƒXƒe[ƒ^ƒX
-	////              F  „¤       Command            pCommand        // ƒRƒ}ƒ“ƒh
-	//// –ß’l       F‚È‚µ
-	//// ’S“–Ò     F‰g’n ‘å—m
-	//// ”õl       F
+	//// ç”¨é€”       ï¼švoid Update( UpdatePacket& i_UpdatePacket )
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šé–¢æ•°
+	//// ç”¨é€”       ï¼šã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’æ›´æ–°
+	//// å¼•æ•°       ï¼š  UpdatePacket& i_UpdatePacket     // ã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆæ™‚ã«å¿…è¦ãªãƒ‡ãƒ¼ã‚¿ç¾¤ â†“å†…å®¹ä¸‹è¨˜
+	////			  ï¼š  â”œ       LPDIRECT3DDEVICE9  pD3DDevice      // IDirect3DDevice9 ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+	////              ï¼š  â”œ       Tempus2*           pTime           // æ™‚é–“ã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿ãƒ¼
+	////              ï¼š  â”œ       vector<Object*>&   Vec,            // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®é…åˆ—
+	////              ï¼š  â”œ const CONTROLER_STATE*   pCntlState      // ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹
+	////              ï¼š  â””       Command            pCommand        // ã‚³ãƒãƒ³ãƒ‰
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“è€…     ï¼šæ›³åœ° å¤§æ´‹
+	//// å‚™è€ƒ       ï¼š
 	void Update( UpdatePacket& i_UpdatePacket );
 
 	/////////////////// ////////////////////
-	//// —p“r       Fvoid Draw( DrawPacket& i_DrawPacket )
-	//// ƒJƒeƒSƒŠ   FŠÖ”
-	//// —p“r       FƒIƒuƒWƒFƒNƒg‚ğƒfƒBƒXƒvƒŒƒC‚É•\¦‚·‚é
-	//// ˆø”       F  DrawPacket& i_DrawPacket             // ‰æ–Ê•`‰æ‚É•K—v‚Èƒf[ƒ^ŒQ «“à—e‰º‹L
-	////			 F  „¥ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 ƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-	////             F  „¥ vector<Object*>&    Vec                     // ƒIƒuƒWƒFƒNƒg‚Ì”z—ñ
-	////             F  „¥ Tempus2*            i_DrawPacket.GetTime()	   // ŠÔ‚ğŠÇ—‚·‚éƒNƒ‰ƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^[
-	////             F  „¤ Command             i_DrawPacket.pCommand   // ƒRƒ}ƒ“ƒh
-	//// –ß’l       F‚È‚µ
-	//// ’S“–Ò     F‰g’n ‘å—m
-	//// ”õl       F
+	//// ç”¨é€”       ï¼švoid Draw( DrawPacket& i_DrawPacket )
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šé–¢æ•°
+	//// ç”¨é€”       ï¼šã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ãƒ‡ã‚£ã‚¹ãƒ—ãƒ¬ã‚¤ã«è¡¨ç¤ºã™ã‚‹
+	//// å¼•æ•°       ï¼š  DrawPacket& i_DrawPacket             // ç”»é¢æç”»æ™‚ã«å¿…è¦ãªãƒ‡ãƒ¼ã‚¿ç¾¤ â†“å†…å®¹ä¸‹è¨˜
+	////			 ï¼š  â”œ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+	////             ï¼š  â”œ vector<Object*>&    Vec                     // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®é…åˆ—
+	////             ï¼š  â”œ Tempus2*            i_DrawPacket.GetTime()	   // æ™‚é–“ã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿ãƒ¼
+	////             ï¼š  â”” Command             i_DrawPacket.pCommand   // ã‚³ãƒãƒ³ãƒ‰
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“è€…     ï¼šæ›³åœ° å¤§æ´‹
+	//// å‚™è€ƒ       ï¼š
 	////
 	void Draw( DrawPacket& i_DrawPacket );
 	/////////////////// ////////////////////
-	//// —p“r       Fvoid AddMagnetic( DrawPacket& i_DrawPacket )
-	//// ƒJƒeƒSƒŠ   FŠÖ”
-	//// —p“r       Fƒ}ƒOƒlƒbƒg‚Ì’Ç‰Á
-	//// ˆø”       F  LPDIRECT3DDEVICE9 pD3DDevice,	////IDirect3DDevice9ƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-	////		    F  D3DXVECTOR3 &vScale				//Šg‘åk¬
-	////		    F  D3DXVECTOR3 &vRot				//‰ñ“]Šp
-	////		    F  D3DXVECTOR3 &vPos				//ˆÊ’u
-	////            F  D3DCOLORVALUE& Diffuse,			//ƒfƒBƒtƒ…[ƒYF
-	////            F  D3DCOLORVALUE& Specular,		//ƒXƒyƒLƒ…ƒ‰F
-	////            F  D3DCOLORVALUE& Ambient,			//ƒAƒ“ƒrƒGƒ“ƒgF
-	//// –ß’l       F‚È‚µ
-	//// ’S“–Ò     F‰g’n ‘å—m
-	//// ”õl       F
+	//// ç”¨é€”       ï¼švoid AddMagnetic( DrawPacket& i_DrawPacket )
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šé–¢æ•°
+	//// ç”¨é€”       ï¼šãƒã‚°ãƒãƒƒãƒˆã®è¿½åŠ 
+	//// å¼•æ•°       ï¼š  LPDIRECT3DDEVICE9 pD3DDevice,	////IDirect3DDevice9ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+	////		    ï¼š  D3DXVECTOR3 &vScale				//æ‹¡å¤§ç¸®å°
+	////		    ï¼š  D3DXVECTOR3 &vRot				//å›è»¢è§’
+	////		    ï¼š  D3DXVECTOR3 &vPos				//ä½ç½®
+	////            ï¼š  D3DCOLORVALUE& Diffuse,			//ãƒ‡ã‚£ãƒ•ãƒ¥ãƒ¼ã‚ºè‰²
+	////            ï¼š  D3DCOLORVALUE& Specular,		//ã‚¹ãƒšã‚­ãƒ¥ãƒ©è‰²
+	////            ï¼š  D3DCOLORVALUE& Ambient,			//ã‚¢ãƒ³ãƒ“ã‚¨ãƒ³ãƒˆè‰²
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“è€…     ï¼šæ›³åœ° å¤§æ´‹
+	//// å‚™è€ƒ       ï¼š
 	////
 	void AddMagnetic(
 		D3DXVECTOR3 &vPos,
@@ -287,15 +287,15 @@ public:
 	) ;
 	
 	/////////////////// ////////////////////
-	//// —p“r       Fbool CheckDistance( D3DXVECTOR3& i_vMagneticFieldPos, D3DXVECTOR3& i_vCoilPos ) const
-	//// ƒJƒeƒSƒŠ   FŠÖ”
-	//// —p“r       F‹——£‚ğ”»’è
-	//// ˆø”       FD3DXVECTOR3& i_vMagneticFieldPos //¥ŠE‚ÌˆÊ’u 
-	////@@@@@@FD3DXVECTOR3& i_vCoilPos          //ƒRƒCƒ‹‚ÌˆÊ’u
-	////@@@@@@Ffloat        i_iBorder           //”»’è‚·‚é’l
-	//// –ß’l       Ftrue , false
-	//// ’S“–Ò     F–{‘½Š°”V
-	//// ”õl       F
+	//// ç”¨é€”       ï¼šbool CheckDistance( D3DXVECTOR3& i_vMagneticFieldPos, D3DXVECTOR3& i_vCoilPos ) const
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šé–¢æ•°
+	//// ç”¨é€”       ï¼šè·é›¢ã‚’åˆ¤å®š
+	//// å¼•æ•°       ï¼šD3DXVECTOR3& i_vMagneticFieldPos //ç£ç•Œã®ä½ç½® 
+	////ã€€ã€€ã€€ã€€ã€€ã€€ï¼šD3DXVECTOR3& i_vCoilPos          //ã‚³ã‚¤ãƒ«ã®ä½ç½®
+	////ã€€ã€€ã€€ã€€ã€€ã€€ï¼šfloat        i_iBorder           //åˆ¤å®šã™ã‚‹å€¤
+	//// æˆ»å€¤       ï¼štrue , false
+	//// æ‹…å½“è€…     ï¼šæœ¬å¤šå¯›ä¹‹
+	//// å‚™è€ƒ       ï¼š
 	//bool CheckDistance( D3DXVECTOR3& i_vMagneticFieldPos, D3DXVECTOR3& i_vCoilPos, float i_iBorder ) const;
 	
 	void setDrawTarget();
@@ -305,25 +305,25 @@ public:
 
 /**************************************************************************
  class Factory_MagnetField;
- —p“r: ƒƒCƒ“HêƒNƒ‰ƒX
+ ç”¨é€”: ãƒ¡ã‚¤ãƒ³å·¥å ´ã‚¯ãƒ©ã‚¹
 ****************************************************************************/
 class Factory_MagnetField{
 public:
 /**************************************************************************
  Factory_MagnetField(
-	LPDIRECT3DDEVICE9 pD3DDevice,	//ƒfƒoƒCƒX
-	vector<Object*>& vec,			//ƒIƒuƒWƒFƒNƒg‚Ì”z—ñ
-	TextureManager& TexMgr		//ƒeƒNƒXƒ`ƒƒ‚Ì”z—ñ
+	LPDIRECT3DDEVICE9 pD3DDevice,	//ãƒ‡ãƒã‚¤ã‚¹
+	vector<Object*>& vec,			//ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®é…åˆ—
+	TextureManager& TexMgr		//ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®é…åˆ—
 );
- —p“r: ƒRƒ“ƒXƒgƒ‰ƒNƒ^iƒTƒ“ƒvƒ‹ƒIƒuƒWƒFƒNƒg‚ğ”z—ñ‚É’Ç‰Á‚·‚éj
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ï¼ˆã‚µãƒ³ãƒ—ãƒ«ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’é…åˆ—ã«è¿½åŠ ã™ã‚‹ï¼‰
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
 	//Factory_MagnetField(LPDIRECT3DDEVICE9 pD3DDevice,vector<Object*>& vec,TextureManager& TexMgr);
 	Factory_MagnetField( FactoryPacket* fpac ) ;
 /**************************************************************************
  ~MyFactory();
- —p“r: ƒfƒXƒgƒ‰ƒNƒ^
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
 ~Factory_MagnetField() ;
 };

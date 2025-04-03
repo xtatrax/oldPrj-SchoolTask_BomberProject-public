@@ -1,13 +1,13 @@
 /********************************************************************
 Effect.cpp
 
-class Object „„-class Effect ’è‹`•”„„-class ThreeDimensionsEffect		’è‹`•”
-			  |						|		‡˜class BlockBreakEffect	’è‹`•”
-			  |						‡˜class TwoDimensionsEffect			’è‹`•”
+class Object Ñ‚-class Effect å®šç¾©éƒ¨Ñ‚-class ThreeDimensionsEffect		å®šç¾©éƒ¨
+			  |						|		âˆŸclass BlockBreakEffect	å®šç¾©éƒ¨
+			  |						âˆŸclass TwoDimensionsEffect			å®šç¾©éƒ¨
 			  |								
-			@|- class XMeshEffect	’è‹`•”
+			ã€€|- class XMeshEffect	å®šç¾©éƒ¨
 			  |
-			  ‡˜ class LineEffect	’è‹`•” 
+			  âˆŸ class LineEffect	å®šç¾©éƒ¨ 
 
 ********************************************************************/
 
@@ -21,14 +21,14 @@ class Object „„-class Effect ’è‹`•”„„-class ThreeDimensionsEffect		’è‹`•”
 
 namespace wiz{
 /*****************************************************************************
-struct VertexLineState	éŒ¾•”
-—p“r : 3ŸŒ³À•Wã‚Ì’¸“_•`‰æˆ—‚ğs‚¤
+struct VertexLineState	å®£è¨€éƒ¨
+ç”¨é€” : 3æ¬¡å…ƒåº§æ¨™ä¸Šã®é ‚ç‚¹æç”»å‡¦ç†ã‚’è¡Œã†
 ******************************************************************************/
 
 /******************************************************************************
 VertexLineState::VertexLineState()
-—p“r : ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-–ß‚è’l : ‚È‚µ
+ç”¨é€” : ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+æˆ»ã‚Šå€¤ : ãªã—
 ******************************************************************************/
 VertexLineState::VertexLineState()
 {
@@ -36,11 +36,11 @@ VertexLineState::VertexLineState()
 
 /******************************************************************************
 VertexLineState::VertexLineState(
-		LPDIRECT3DDEVICE9 pD3DDevice ,	//ƒfƒoƒCƒX 
-		const wchar_t* i_pFilename		//ƒtƒ@ƒCƒ‹–¼
+		LPDIRECT3DDEVICE9 pD3DDevice ,	//ãƒ‡ãƒã‚¤ã‚¹ 
+		const wchar_t* i_pFilename		//ãƒ•ã‚¡ã‚¤ãƒ«å
 	)
-—p“r : ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-–ß‚è’l : ‚È‚µ
+ç”¨é€” : ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+æˆ»ã‚Šå€¤ : ãªã—
 ******************************************************************************/
 VertexLineState::VertexLineState(LPDIRECT3DDEVICE9 pD3DDevice , const wchar_t* i_pFilename )
 :m_iDrawPrimitiveVertexNum( 0 ) , m_pVertexBuffer( 0 ) , m_pVertex( 0 ) ,
@@ -54,8 +54,8 @@ m_PrimitiveType( D3DPT_TRIANGLESTRIP ) , m_iVertexNum( 0 )
 }
 /******************************************************************************
 VertexLineState::~VertexLineState()
-—p“r : ƒfƒXƒgƒ‰ƒNƒ^
-–ß‚è’l : ‚È‚µ
+ç”¨é€” : ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+æˆ»ã‚Šå€¤ : ãªã—
 ******************************************************************************/
 VertexLineState::~VertexLineState()
 {
@@ -65,25 +65,25 @@ VertexLineState::~VertexLineState()
 
 /******************************************************************************
 void VertexLineState::SetVertex(
-	LPDIRECT3DDEVICE9	pD3DDevice ,	//ƒfƒoƒCƒX
-	VertexStyle			i_Style			//Object‚ÌŒ`
+	LPDIRECT3DDEVICE9	pD3DDevice ,	//ãƒ‡ãƒã‚¤ã‚¹
+	VertexStyle			i_Style			//Objectã®å½¢
 );
-—p“r : ˆø”‚É‰‚¶‚½Œ`‚ğì‚é
-–ß‚è’l : ‚È‚µ
+ç”¨é€” : å¼•æ•°ã«å¿œã˜ãŸå½¢ã‚’ä½œã‚‹
+æˆ»ã‚Šå€¤ : ãªã—
 ******************************************************************************/
 void VertexLineState::SetVertex( LPDIRECT3DDEVICE9 pD3DDevice , VertexStyle i_Style , D3DPRIMITIVETYPE i_PrimitiveType )
 {
 	
-	D3DXVECTOR3 vHafeSize = D3DXVECTOR3( 1.0f , 1.0f , 0.0f ) / 2 ;	//”¼•ª‚Ì‘å‚«‚³
+	D3DXVECTOR3 vHafeSize = D3DXVECTOR3( 1.0f , 1.0f , 0.0f ) / 2 ;	//åŠåˆ†ã®å¤§ãã•
 
-	int iVertexSize = 0 ;	//’¸“_‚Ì”‚ğ“ü‚ê‚é
+	int iVertexSize = 0 ;	//é ‚ç‚¹ã®æ•°ã‚’å…¥ã‚Œã‚‹
 
-	//ŠeƒXƒ^ƒCƒ‹‚Ì’¸“_”
-	const int c_iTriangle	= 4 ;	//OŠpŒ`
-	const int c_iSquare		= 5 ;	//lŠpŒ`
-	const int c_iCircle		= 7 ;	//‰~
-	const int c_iCross		= 4 ;	//\š
-	const int c_iLine		= 2 ;	//ü
+	//å„ã‚¹ã‚¿ã‚¤ãƒ«ã®é ‚ç‚¹æ•°
+	const int c_iTriangle	= 4 ;	//ä¸‰è§’å½¢
+	const int c_iSquare		= 5 ;	//å››è§’å½¢
+	const int c_iCircle		= 7 ;	//å††
+	const int c_iCross		= 4 ;	//åå­—
+	const int c_iLine		= 2 ;	//ç·š
 
 	switch( i_Style ) {
 		case VS_Triangle :
@@ -98,7 +98,7 @@ void VertexLineState::SetVertex( LPDIRECT3DDEVICE9 pD3DDevice , VertexStyle i_St
 			iVertexSize					= c_iCircle		;
 			m_iDrawPrimitiveVertexNum	= c_iCircle	- 1 ;
 			break ;
-		//“ñ‚Â‚Ìü‚ğˆø‚­‚Ég—p
+		//äºŒã¤ã®ç·šã‚’å¼•ãæ™‚ã«ä½¿ç”¨
 		case VS_Cross :
 		case VS_NameLine :
 			iVertexSize					= c_iCross		;
@@ -113,9 +113,9 @@ void VertexLineState::SetVertex( LPDIRECT3DDEVICE9 pD3DDevice , VertexStyle i_St
 	float iRotSize = 360.0f / m_iDrawPrimitiveVertexNum ;	
 	m_iVertexNum = iVertexSize ;
 
-	//	: ’¸“_ƒoƒbƒtƒ@‚Ì¶¬i“à•ï‚Å‚«‚é—Ìˆæ‚ÌƒTƒCƒYAƒf[ƒ^‚Ìˆµ‚¢A’¸“_ƒf[ƒ^‚Ì’†gA’¸“_ƒf[ƒ^‚ğŠÇ—‚·‚éƒƒ‚ƒŠA¶¬‚³‚ê‚½ƒoƒbƒtƒ@‚ğ¦‚·ƒAƒhƒŒƒX‚ª‹A‚Á‚Ä‚­‚éjj
+	//	: é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã®ç”Ÿæˆï¼ˆå†…åŒ…ã§ãã‚‹é ˜åŸŸã®ã‚µã‚¤ã‚ºã€ãƒ‡ãƒ¼ã‚¿ã®æ‰±ã„ã€é ‚ç‚¹ãƒ‡ãƒ¼ã‚¿ã®ä¸­èº«ã€é ‚ç‚¹ãƒ‡ãƒ¼ã‚¿ã‚’ç®¡ç†ã™ã‚‹ãƒ¡ãƒ¢ãƒªã€ç”Ÿæˆã•ã‚ŒãŸãƒãƒƒãƒ•ã‚¡ã‚’ç¤ºã™ã‚¢ãƒ‰ãƒ¬ã‚¹ãŒå¸°ã£ã¦ãã‚‹ï¼‰ï¼‰
 	pD3DDevice->CreateVertexBuffer( Vertex::getSize() * iVertexSize , D3DUSAGE_WRITEONLY, Vertex::getFVF(), D3DPOOL_MANAGED, &m_pVertexBuffer, NULL );
-	m_pVertexBuffer->Lock( 0, 0, (void**)&m_pVertex ,0 );	//	: ’¸“_ƒf[ƒ^‚ÌƒAƒhƒŒƒX‚ğæ“¾‚·‚é‚Æ‚Æ‚à‚ÉAƒf[ƒ^‚Ö‚ÌƒAƒNƒZƒX‚ğŠJn‚·‚é	
+	m_pVertexBuffer->Lock( 0, 0, (void**)&m_pVertex ,0 );	//	: é ‚ç‚¹ãƒ‡ãƒ¼ã‚¿ã®ã‚¢ãƒ‰ãƒ¬ã‚¹ã‚’å–å¾—ã™ã‚‹ã¨ã¨ã‚‚ã«ã€ãƒ‡ãƒ¼ã‚¿ã¸ã®ã‚¢ã‚¯ã‚»ã‚¹ã‚’é–‹å§‹ã™ã‚‹	
 
 	switch( i_Style ){
 
@@ -124,7 +124,7 @@ void VertexLineState::SetVertex( LPDIRECT3DDEVICE9 pD3DDevice , VertexStyle i_St
 		case VS_Triangle :
 			for ( int i = 0 ; i < iVertexSize ; i++ )
 				m_pVertex[ i ]	= Vertex( D3DXVECTOR3(  cosf( D3DXToRadian( iRotSize * i ) ) , sinf(D3DXToRadian( iRotSize * i ) ) , 0.0f )	, 0xFFFFFFFF, D3DXVECTOR2(0.5f,0.0f) );
-			//ƒvƒŠƒ~ƒeƒBƒu‚ğ“ü‚ê‚é
+			//ãƒ—ãƒªãƒŸãƒ†ã‚£ãƒ–ã‚’å…¥ã‚Œã‚‹
 			m_PrimitiveType = i_PrimitiveType ;
 			break ;
 
@@ -161,18 +161,18 @@ void VertexLineState::SetVertex( LPDIRECT3DDEVICE9 pD3DDevice , VertexStyle i_St
 
 /******************************************************************************
 void VertexrhwState::SetDownColor( 
-	DWORD i_dwColor	//ƒZƒbƒg‚µ‚½‚¢F
+	DWORD i_dwColor	//ã‚»ãƒƒãƒˆã—ãŸã„è‰²
 ) ;
-—p“r : F‚Ì•ÏX
-–ß‚è’l : ‚È‚µ
+ç”¨é€” : è‰²ã®å¤‰æ›´
+æˆ»ã‚Šå€¤ : ãªã—
 ******************************************************************************/
 void VertexLineState::SetDownColor( DWORD i_dwColor )
 {
-	//ƒf[ƒ^‚ğ•ÏX
+	//ãƒ‡ãƒ¼ã‚¿ã‚’å¤‰æ›´
 	for( int i = 0 ; i <m_iVertexNum  ; i++ )
 		m_pVertex[ i ].m_dwColor -= i_dwColor ;
 
-	m_pVertexBuffer->Lock( 0, 0, (void**)&m_pVertex ,0 );	//	: ’¸“_ƒf[ƒ^‚ÌƒAƒhƒŒƒX‚ğæ“¾‚·‚é‚Æ‚Æ‚à‚ÉAƒf[ƒ^‚Ö‚ÌƒAƒNƒZƒX‚ğŠJn‚·‚é	
+	m_pVertexBuffer->Lock( 0, 0, (void**)&m_pVertex ,0 );	//	: é ‚ç‚¹ãƒ‡ãƒ¼ã‚¿ã®ã‚¢ãƒ‰ãƒ¬ã‚¹ã‚’å–å¾—ã™ã‚‹ã¨ã¨ã‚‚ã«ã€ãƒ‡ãƒ¼ã‚¿ã¸ã®ã‚¢ã‚¯ã‚»ã‚¹ã‚’é–‹å§‹ã™ã‚‹	
 	
 	for ( int i = 0 ; i < m_iVertexNum ; i++ )
 		m_pVertex[ i ]	= Vertex( m_pVertex[i].m_vPos , m_pVertex[i].m_dwColor , m_pVertex[i].m_vTex);
@@ -183,10 +183,10 @@ void VertexLineState::SetDownColor( DWORD i_dwColor )
 
 /******************************************************************************
 void VertexLineState::setVertexPos(
-	vector<D3DXVECTOR3*> i_vPosVec•ÏX‚µ‚½‚¢Line‚Ìƒ|ƒWƒVƒ‡ƒ“
+	vector<D3DXVECTOR3*> i_vPosVecå¤‰æ›´ã—ãŸã„Lineã®ãƒã‚¸ã‚·ãƒ§ãƒ³
 );
-—p“r : ’¸“_‚ÌˆÊ’u‚ğ•ÏX‚·‚é
-–ß‚è’l : ‚È‚µ
+ç”¨é€” : é ‚ç‚¹ã®ä½ç½®ã‚’å¤‰æ›´ã™ã‚‹
+æˆ»ã‚Šå€¤ : ãªã—
 ******************************************************************************/
 void VertexLineState::setVertexPos( vector<D3DXVECTOR3*> i_vPosVec )
 {
@@ -196,7 +196,7 @@ void VertexLineState::setVertexPos( vector<D3DXVECTOR3*> i_vPosVec )
 
 		if( iLoadPosSize != iVertexSize ){
 			#ifdef _DEBUG
-				throw BaseException(	L"İ’è‚µ‚½‚¢ˆÊ’u‚Ì”‚ªˆá‚¢‚Ü‚·"	,
+				throw BaseException(	L"è¨­å®šã—ãŸã„ä½ç½®ã®æ•°ãŒé•ã„ã¾ã™"	,
 									L"VertexLineState::setVertexPos()");
 			#else
 				return ;
@@ -205,7 +205,7 @@ void VertexLineState::setVertexPos( vector<D3DXVECTOR3*> i_vPosVec )
 			for(int i = 0 ; i < iLoadPosSize ; i++ ){
 				m_pVertex[ i ].m_vPos = *i_vPosVec[ i ] ;
 			}
-			m_pVertexBuffer->Lock( 0, 0, (void**)&m_pVertex ,0 );	//	: ’¸“_ƒf[ƒ^‚ÌƒAƒhƒŒƒX‚ğæ“¾‚·‚é‚Æ‚Æ‚à‚ÉAƒf[ƒ^‚Ö‚ÌƒAƒNƒZƒX‚ğŠJn‚·‚é	
+			m_pVertexBuffer->Lock( 0, 0, (void**)&m_pVertex ,0 );	//	: é ‚ç‚¹ãƒ‡ãƒ¼ã‚¿ã®ã‚¢ãƒ‰ãƒ¬ã‚¹ã‚’å–å¾—ã™ã‚‹ã¨ã¨ã‚‚ã«ã€ãƒ‡ãƒ¼ã‚¿ã¸ã®ã‚¢ã‚¯ã‚»ã‚¹ã‚’é–‹å§‹ã™ã‚‹	
 			
 			for ( int i = 0 ; i < m_iVertexNum ; i++ )
 				m_pVertex[ i ]	= Vertex( m_pVertex[i].m_vPos , m_pVertex[i].m_dwColor , m_pVertex[i].m_vTex);
@@ -221,42 +221,42 @@ void VertexLineState::setVertexPos( vector<D3DXVECTOR3*> i_vPosVec )
 
 /******************************************************************************
 void VertexLineState::Draw(
-	LPDIRECT3DDEVICE9 pD3DDevice ,	//ƒfƒoƒCƒX
-	const D3DXMATRIX& i_Matrix		//•`‰æ‚µ‚½‚¢ƒvƒŒ[ƒg‚Ì”z—ñ
+	LPDIRECT3DDEVICE9 pD3DDevice ,	//ãƒ‡ãƒã‚¤ã‚¹
+	const D3DXMATRIX& i_Matrix		//æç”»ã—ãŸã„ãƒ—ãƒ¬ãƒ¼ãƒˆã®é…åˆ—
 	)
-—p“r : ³•ûŒ`‚ÌƒvƒŒ[ƒg‚ğ•`‰æ
-–ß‚è’l : ‚È‚µ
+ç”¨é€” : æ­£æ–¹å½¢ã®ãƒ—ãƒ¬ãƒ¼ãƒˆã‚’æç”»
+æˆ»ã‚Šå€¤ : ãªã—
 ******************************************************************************/
 void VertexLineState::Draw(LPDIRECT3DDEVICE9 pD3DDevice , const D3DXMATRIX& i_Matrix )
 {
 	 pD3DDevice->SetRenderState( D3DRS_LIGHTING , FALSE );
 
-	//if( m_pTexture ) pD3DDevice->SetTexture( 0 , m_pTexture->getTexture() );			//	: ƒeƒNƒXƒ`ƒƒ‚ğİ’èiNULL ‚Ìê‡‚ÍƒeƒNƒXƒ`ƒƒ–³‚µj
+	//if( m_pTexture ) pD3DDevice->SetTexture( 0 , m_pTexture->getTexture() );			//	: ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’è¨­å®šï¼ˆNULL ã®å ´åˆã¯ãƒ†ã‚¯ã‚¹ãƒãƒ£ç„¡ã—ï¼‰
 
-	 //ƒ[ƒ‹ƒh•ÏŠ·s—ñ‚ğİ’è
-	pD3DDevice->SetTransform( D3DTS_WORLD , &i_Matrix );								//•ÏŠ·Ï‚İ’¸“_‚Ìê‡‚Í–³‹‚³‚ê‚é
+	 //ãƒ¯ãƒ¼ãƒ«ãƒ‰å¤‰æ›è¡Œåˆ—ã‚’è¨­å®š
+	pD3DDevice->SetTransform( D3DTS_WORLD , &i_Matrix );								//å¤‰æ›æ¸ˆã¿é ‚ç‚¹ã®å ´åˆã¯ç„¡è¦–ã•ã‚Œã‚‹
 
-	//	: ’¸“_ƒoƒbƒtƒ@‚ğ—p‚¢‚Äƒ‚ƒfƒ‹‚ğ•`‰æ‚·‚é
-	pD3DDevice->SetStreamSource( 0, m_pVertexBuffer , 0 , Vertex::getSize() );		//	: •`‰æ‘ÎÛ‚Æ‚È‚é’¸“_ƒoƒbƒtƒ@‚ğİ’è
-	pD3DDevice->SetFVF( Vertex::getFVF() );											//	: ’¸“_ƒf[ƒ^‚ÌŒ`®‚ğİ’è
-	pD3DDevice->DrawPrimitive( m_PrimitiveType , 0, m_iDrawPrimitiveVertexNum );	//	: ’¸“_ƒf[ƒ^‚Ì•`‰æi•`‰æ‚Ìd•ûA•`‰æŠJnˆÊ’uAƒvƒŠƒ~ƒeƒBƒu”j
+	//	: é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã‚’ç”¨ã„ã¦ãƒ¢ãƒ‡ãƒ«ã‚’æç”»ã™ã‚‹
+	pD3DDevice->SetStreamSource( 0, m_pVertexBuffer , 0 , Vertex::getSize() );		//	: æç”»å¯¾è±¡ã¨ãªã‚‹é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã‚’è¨­å®š
+	pD3DDevice->SetFVF( Vertex::getFVF() );											//	: é ‚ç‚¹ãƒ‡ãƒ¼ã‚¿ã®å½¢å¼ã‚’è¨­å®š
+	pD3DDevice->DrawPrimitive( m_PrimitiveType , 0, m_iDrawPrimitiveVertexNum );	//	: é ‚ç‚¹ãƒ‡ãƒ¼ã‚¿ã®æç”»ï¼ˆæç”»ã®ä»•æ–¹ã€æç”»é–‹å§‹ä½ç½®ã€ãƒ—ãƒªãƒŸãƒ†ã‚£ãƒ–æ•°ï¼‰
 
 
-	pD3DDevice->SetTexture( 0 , NULL );												//	: ƒeƒNƒXƒ`ƒƒ‚ğİ’èiNULL ‚Ìê‡‚ÍƒeƒNƒXƒ`ƒƒ–³‚µj
+	pD3DDevice->SetTexture( 0 , NULL );												//	: ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’è¨­å®šï¼ˆNULL ã®å ´åˆã¯ãƒ†ã‚¯ã‚¹ãƒãƒ£ç„¡ã—ï¼‰
 	pD3DDevice->SetRenderState( D3DRS_LIGHTING , TRUE );
 
 }
 
 
 /*********************************************************************
-class Effect : public Object	’è‹`•”
-—p“r : ‰‰o—pƒGƒtƒFƒNƒg‚ÌŒ³ƒNƒ‰ƒX
+class Effect : public Object	å®šç¾©éƒ¨
+ç”¨é€” : æ¼”å‡ºç”¨ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã®å…ƒã‚¯ãƒ©ã‚¹
 *********************************************************************/
 
 /*********************************************************************
 Effect::clear()
-—p“r : íœˆ—
-–ß‚è’l: ‚È‚µ
+ç”¨é€” : å‰Šé™¤å‡¦ç†
+æˆ»ã‚Šå€¤: ãªã—
 *********************************************************************/
 void Effect::clear()
 {
@@ -265,40 +265,40 @@ void Effect::clear()
 
 /*********************************************************************
 Effect::Effect(
-	LPDIRECT3DDEVICE9	pD3DDevice,			//ƒfƒoƒCƒX
-	const wchar_t*		i_filename,			//‰æ‘œ‚Ìƒtƒ@ƒCƒ‹–¼
-	DWORD				i_Decolorisation,	//”²‚«‚½‚¢F
-	float				i_fSize				//ƒGƒtƒFƒNƒg‚Ì‘å‚«‚³
+	LPDIRECT3DDEVICE9	pD3DDevice,			//ãƒ‡ãƒã‚¤ã‚¹
+	const wchar_t*		i_filename,			//ç”»åƒã®ãƒ•ã‚¡ã‚¤ãƒ«å
+	DWORD				i_Decolorisation,	//æŠœããŸã„è‰²
+	float				i_fSize				//ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã®å¤§ãã•
 	)
-—p“r: ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-–ß‚è’l: ‚È‚µ
+ç”¨é€”: ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+æˆ»ã‚Šå€¤: ãªã—
 *********************************************************************/
 Effect::Effect(LPDIRECT3DDEVICE9 pD3DDevice, const wchar_t* i_filename,DWORD i_Decolorisation,float i_fSize)
 :m_fEffectSize(i_fSize)
 {
 	if( i_filename ){
 		int Decolorisations[4] ;
-		// 0 = ƒAƒ‹ƒtƒ@’l , 1 = Ô , 2 = —Î , 3 = Â
+		// 0 = ã‚¢ãƒ«ãƒ•ã‚¡å€¤ , 1 = èµ¤ , 2 = ç·‘ , 3 = é’
 		for(int i = 0 ; i < 4 ; i++){
 			Decolorisations[i] = i_Decolorisation & 0x000000FF ;
-			i_Decolorisation = i_Decolorisation >> 8 ;		//1F•ªƒVƒtƒg
+			i_Decolorisation = i_Decolorisation >> 8 ;		//1è‰²åˆ†ã‚·ãƒ•ãƒˆ
 		}
 
 		//D3DXCreateTextureFromFileEx(
 		//	pD3DDevice,
-		//	i_filename,			         // ƒtƒ@ƒCƒ‹–¼
+		//	i_filename,			         // ãƒ•ã‚¡ã‚¤ãƒ«å
 		//	0,
 		//	0,
 		//	0,
 		//	0,
-		//	D3DFMT_A1R5G5B5,                // F”²‚«‚ğ‰Â”\‚É
+		//	D3DFMT_A1R5G5B5,                // è‰²æŠœãã‚’å¯èƒ½ã«
 		//	D3DPOOL_MANAGED,
 		//	D3DX_FILTER_LINEAR,
 		//	D3DX_FILTER_LINEAR,
-		//	D3DCOLOR_ARGB(Decolorisations[0], Decolorisations[1], Decolorisations[2], Decolorisations[3]),  // w’è‚³‚ê‚½F‚ğ“§‰ßF‚Æ‚·‚é
+		//	D3DCOLOR_ARGB(Decolorisations[0], Decolorisations[1], Decolorisations[2], Decolorisations[3]),  // æŒ‡å®šã•ã‚ŒãŸè‰²ã‚’é€éè‰²ã¨ã™ã‚‹
 		//	NULL,
 		//	NULL,
-		//	&m_pTexture                   // ƒeƒNƒXƒ`ƒƒ–¼
+		//	&m_pTexture                   // ãƒ†ã‚¯ã‚¹ãƒãƒ£å
 		//);
 	}else{
 		m_pTexture = 0 ;
@@ -307,8 +307,8 @@ Effect::Effect(LPDIRECT3DDEVICE9 pD3DDevice, const wchar_t* i_filename,DWORD i_D
 
 /*********************************************************************
 Effect::~Effect()
-—p“r: ƒfƒXƒgƒ‰ƒNƒ^
-–ß‚è’l: ‚È‚µ
+ç”¨é€”: ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+æˆ»ã‚Šå€¤: ãªã—
 *********************************************************************/
 Effect::~Effect()
 {
@@ -316,20 +316,20 @@ Effect::~Effect()
 }
 
 /*********************************************************************
-class ThreeDimensionsEffect : public Effect	’è‹`•”
-—p“r : 3ŸŒ³À•W‚ÌƒGƒtƒFƒNƒg•`‰æƒNƒ‰ƒX
+class ThreeDimensionsEffect : public Effect	å®šç¾©éƒ¨
+ç”¨é€” : 3æ¬¡å…ƒåº§æ¨™ã®ã‚¨ãƒ•ã‚§ã‚¯ãƒˆæç”»ã‚¯ãƒ©ã‚¹
 *********************************************************************/
 
 /*********************************************************************
 ThreeDimensionsEffect::PointSpriteVertex::PointSpriteVertex(
-		const D3DXVECTOR3&	i_vPos,		//ˆÊ’u
-		BYTE				i_byBlue,	//ÂF
-		BYTE				i_byGreen,	//—ÎF
-		BYTE				i_byRed,	//ÔF
-		BYTE				i_byAlpha	//“§–¾“x
+		const D3DXVECTOR3&	i_vPos,		//ä½ç½®
+		BYTE				i_byBlue,	//é’è‰²
+		BYTE				i_byGreen,	//ç·‘è‰²
+		BYTE				i_byRed,	//èµ¤è‰²
+		BYTE				i_byAlpha	//é€æ˜åº¦
 		);
-—p“r : ˆø”•t‚«ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-–ß‚è’l : ‚È‚µ
+ç”¨é€” : å¼•æ•°ä»˜ãã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+æˆ»ã‚Šå€¤ : ãªã—
 *********************************************************************/
 ThreeDimensionsEffect::PointSpriteVertex::PointSpriteVertex(  const D3DXVECTOR3& i_vPos,
 	BYTE i_byBlue, BYTE i_byGreen, BYTE i_byRed, BYTE i_byAlpha)
@@ -343,11 +343,11 @@ ThreeDimensionsEffect::PointSpriteVertex::PointSpriteVertex(  const D3DXVECTOR3&
 
 /*********************************************************************
 void ThreeDimensionsEffect::PointSpriteVertex::setState(
-	const D3DXVECTOR3&	i_vPos,		//ˆÊ’u
-	DWORD				i_dwColor	//F
+	const D3DXVECTOR3&	i_vPos,		//ä½ç½®
+	DWORD				i_dwColor	//è‰²
 	) ;
-—p“r : ƒXƒe[ƒ^ƒX‚ğ“ü‚ê‚é
-–ß‚è’l : ‚È‚µ
+ç”¨é€” : ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã‚’å…¥ã‚Œã‚‹
+æˆ»ã‚Šå€¤ : ãªã—
 *********************************************************************/
 void ThreeDimensionsEffect::PointSpriteVertex::setState(const D3DXVECTOR3& i_vPos, DWORD i_dwColor)
 {
@@ -357,13 +357,13 @@ void ThreeDimensionsEffect::PointSpriteVertex::setState(const D3DXVECTOR3& i_vPo
 
 /*********************************************************************
 ThreeDimensionsEffect::ThreeDimensionsEffect(
-	LPDIRECT3DDEVICE9	pD3DDevice,			//ƒfƒoƒCƒX
-	const wchar_t*		i_filename,			//‰æ‘œ‚Ìƒtƒ@ƒCƒ‹–¼
-	DWORD				i_Decolorisation,	//”²‚«‚½‚¢F
-	float				i_fSize				//ƒGƒtƒFƒNƒg‚Ì‘å‚«‚³
+	LPDIRECT3DDEVICE9	pD3DDevice,			//ãƒ‡ãƒã‚¤ã‚¹
+	const wchar_t*		i_filename,			//ç”»åƒã®ãƒ•ã‚¡ã‚¤ãƒ«å
+	DWORD				i_Decolorisation,	//æŠœããŸã„è‰²
+	float				i_fSize				//ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã®å¤§ãã•
 	)
-—p“r: ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-–ß‚è’l: ‚È‚µ
+ç”¨é€”: ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+æˆ»ã‚Šå€¤: ãªã—
 *********************************************************************/
 ThreeDimensionsEffect::ThreeDimensionsEffect(LPDIRECT3DDEVICE9 pD3DDevice, const wchar_t* i_filename,DWORD i_Decolorisation,float i_fSize)
 	:Effect(pD3DDevice,i_filename,i_Decolorisation,i_fSize)
@@ -372,19 +372,19 @@ ThreeDimensionsEffect::ThreeDimensionsEffect(LPDIRECT3DDEVICE9 pD3DDevice, const
 
 /*********************************************************************
 void ThreeDimensionsEffect::VerticesRender(
-		LPDIRECT3DDEVICE9 pD3DDevice		,	//ƒfƒoƒCƒX
-		const PointSpriteVertex* pPSVertex	,	//ƒo[ƒeƒbƒNƒX‚Ì”z—ñ
-		unsigned int VertexSize					//Œ»İ•Û‚µ‚Ä‚¢‚é’¸“_ƒf[ƒ^‚Ì”
+		LPDIRECT3DDEVICE9 pD3DDevice		,	//ãƒ‡ãƒã‚¤ã‚¹
+		const PointSpriteVertex* pPSVertex	,	//ãƒãƒ¼ãƒ†ãƒƒã‚¯ã‚¹ã®é…åˆ—
+		unsigned int VertexSize					//ç¾åœ¨ä¿æŒã—ã¦ã„ã‚‹é ‚ç‚¹ãƒ‡ãƒ¼ã‚¿ã®æ•°
 		);
-—p“r : •`‰æˆ—
-–ß‚è’l : ‚È‚µ
+ç”¨é€” : æç”»å‡¦ç†
+æˆ»ã‚Šå€¤ : ãªã—
 *********************************************************************/
 void ThreeDimensionsEffect::VerticesRender(LPDIRECT3DDEVICE9 pD3DDevice,const PointSpriteVertex* pPSVertex,unsigned int VertexSize)
 {
-	//ãŒÀ‚ğİ’è
+	//ä¸Šé™ã‚’è¨­å®š
 	if(VertexSize <= 0 ) VertexSize = 0 ;
 	else if(VertexSize > m_iVerticesMaxSize) VertexSize = m_iVerticesMaxSize ;
-	////•`‰æˆ—
+	////æç”»å‡¦ç†
 	pD3DDevice->SetFVF( getSPFVF() );
 	pD3DDevice->SetTexture(0,m_pTexture);
 	pD3DDevice->DrawPrimitiveUP( D3DPT_POINTLIST,VertexSize,pPSVertex, getSPSize() ) ;
@@ -392,38 +392,38 @@ void ThreeDimensionsEffect::VerticesRender(LPDIRECT3DDEVICE9 pD3DDevice,const Po
 }
 
 /***********************************************************
-class RHWEffect : public Effect	’è‹`•”
-—p“r : ƒXƒNƒŠ[ƒ“À•W—p‚ÌƒGƒtƒFƒNƒg‚ğ•`‰æ
+class RHWEffect : public Effect	å®šç¾©éƒ¨
+ç”¨é€” : ã‚¹ã‚¯ãƒªãƒ¼ãƒ³åº§æ¨™ç”¨ã®ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚’æç”»
 ***********************************************************/
 
 /**********************************************************************
 RHWEffect::RHWEffect(
-	LPDIRECT3DDEVICE9	pD3DDevice,			//ƒfƒoƒCƒX
-	const wchar_t*		i_filename,			//‰æ‘œ‚Ìƒtƒ@ƒCƒ‹–¼
-	DWORD				i_Decolorisation,	//”²‚«‚½‚¢F
-	float				i_fSize				//ƒGƒtƒFƒNƒg‚Ì‘å‚«‚³
+	LPDIRECT3DDEVICE9	pD3DDevice,			//ãƒ‡ãƒã‚¤ã‚¹
+	const wchar_t*		i_filename,			//ç”»åƒã®ãƒ•ã‚¡ã‚¤ãƒ«å
+	DWORD				i_Decolorisation,	//æŠœããŸã„è‰²
+	float				i_fSize				//ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã®å¤§ãã•
 	)
-—p“r: ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-–ß‚è’l: ‚È‚µ
+ç”¨é€”: ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+æˆ»ã‚Šå€¤: ãªã—
 ***********************************************************************/
 RHWEffect::RHWEffect(LPDIRECT3DDEVICE9 pD3DDevice, const wchar_t* i_filename,DWORD i_Decolorisation,float i_fSize)
 	:Effect(pD3DDevice,i_filename,i_Decolorisation,i_fSize){}
 
 /*********************************************************************
 void RHWEffect::RHWVerticesRender(
-		LPDIRECT3DDEVICE9			pD3DDevice	,	//ƒfƒoƒCƒX
-		const PointSpriteRHWVertex* pPSRHWVertex,	//ƒo[ƒeƒbƒNƒX‚Ì”z—ñ
-		unsigned int				VertexSize		//Œ»İ•Û‚µ‚Ä‚¢‚é’¸“_ƒf[ƒ^‚Ì”
+		LPDIRECT3DDEVICE9			pD3DDevice	,	//ãƒ‡ãƒã‚¤ã‚¹
+		const PointSpriteRHWVertex* pPSRHWVertex,	//ãƒãƒ¼ãƒ†ãƒƒã‚¯ã‚¹ã®é…åˆ—
+		unsigned int				VertexSize		//ç¾åœ¨ä¿æŒã—ã¦ã„ã‚‹é ‚ç‚¹ãƒ‡ãƒ¼ã‚¿ã®æ•°
 		);
-—p“r : •`‰æˆ—
-–ß‚è’l : ‚È‚µ
+ç”¨é€” : æç”»å‡¦ç†
+æˆ»ã‚Šå€¤ : ãªã—
 *********************************************************************/
 void RHWEffect::RHWVerticesRender(LPDIRECT3DDEVICE9 pD3DDevice,const PointSpriteRHWVertex* pPSRHWVertex,unsigned int VertexSize)
 {
-	//ãŒÀ‚ğİ’è
+	//ä¸Šé™ã‚’è¨­å®š
 	if(VertexSize <= 0 ) VertexSize = 0 ;
 	else if(VertexSize > m_iVerticesMaxSize) VertexSize = m_iVerticesMaxSize ;
-	//•`‰æˆ—
+	//æç”»å‡¦ç†
 	pD3DDevice->SetFVF( getSPRHWFVF() );
 	pD3DDevice->SetTexture(0,m_pTexture);
 	pD3DDevice->DrawPrimitiveUP( D3DPT_POINTLIST,VertexSize,pPSRHWVertex, getSPRHWSize() ) ;
@@ -431,19 +431,19 @@ void RHWEffect::RHWVerticesRender(LPDIRECT3DDEVICE9 pD3DDevice,const PointSprite
 }
 
 /***********************************************************
-class ScaleEffect : public RHWEffect	’è‹`•”
-—p“r : ƒXƒNƒŠ[ƒ“À•W—p‚ÌƒGƒtƒFƒNƒg‚ğ•`‰æ
+class ScaleEffect : public RHWEffect	å®šç¾©éƒ¨
+ç”¨é€” : ã‚¹ã‚¯ãƒªãƒ¼ãƒ³åº§æ¨™ç”¨ã®ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚’æç”»
 ***********************************************************/
 
 /**********************************************************************
 ScaleEffect::ScaleEffect(
-	LPDIRECT3DDEVICE9	pD3DDevice,			//ƒfƒoƒCƒX
-	const wchar_t*		i_filename,			//‰æ‘œ‚Ìƒtƒ@ƒCƒ‹–¼
-	const D3DXVECTOR3&	i_vPos			,	//ˆÊ’u‚ğİ’è
-	float				i_fSize				//ƒGƒtƒFƒNƒg‚Ì‘å‚«‚³
+	LPDIRECT3DDEVICE9	pD3DDevice,			//ãƒ‡ãƒã‚¤ã‚¹
+	const wchar_t*		i_filename,			//ç”»åƒã®ãƒ•ã‚¡ã‚¤ãƒ«å
+	const D3DXVECTOR3&	i_vPos			,	//ä½ç½®ã‚’è¨­å®š
+	float				i_fSize				//ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã®å¤§ãã•
 	)
-—p“r: ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-–ß‚è’l: ‚È‚µ
+ç”¨é€”: ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+æˆ»ã‚Šå€¤: ãªã—
 ***********************************************************************/
 ScaleEffect::ScaleEffect(LPDIRECT3DDEVICE9 pD3DDevice, const wchar_t* i_filename,
 						 const D3DXVECTOR3& i_vPos , float i_fSize)
@@ -454,8 +454,8 @@ ScaleEffect::ScaleEffect(LPDIRECT3DDEVICE9 pD3DDevice, const wchar_t* i_filename
 
 /***********************************************************************
 ScaleEffect::~ScaleEffect()
-—p“r: ƒfƒXƒgƒ‰ƒNƒ^
-–ß‚è’l: ‚È‚µ
+ç”¨é€”: ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+æˆ»ã‚Šå€¤: ãªã—
 ***********************************************************************/
 ScaleEffect::~ScaleEffect()
 {
@@ -464,13 +464,13 @@ ScaleEffect::~ScaleEffect()
 
 /******************************************************************
 virtualvoid ScaleEffect::Transform(
-	LPDIRECT3DDEVICE9		pD3DDevice	,	//ƒfƒoƒCƒX
-	const CONTROLER_STATE*	pCntlState	,	//ƒRƒ“ƒgƒ[ƒ‰‚ÌƒXƒe[ƒ^ƒX
-	vector<Object*>&		i_Vec		,	//ƒIƒuƒWƒFƒNƒg‚Ì”z—ñ
-	Command&				i_Com			//ƒRƒ}ƒ“ƒh
+	LPDIRECT3DDEVICE9		pD3DDevice	,	//ãƒ‡ãƒã‚¤ã‚¹
+	const CONTROLER_STATE*	pCntlState	,	//ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹
+	vector<Object*>&		i_Vec		,	//ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®é…åˆ—
+	Command&				i_Com			//ã‚³ãƒãƒ³ãƒ‰
 ) ;
-—p“r : ƒV[ƒ“‚Ì•Ï‰»
-–ß‚è’l : ‚È‚µ
+ç”¨é€” : ã‚·ãƒ¼ãƒ³ã®å¤‰åŒ–
+æˆ»ã‚Šå€¤ : ãªã—
 ******************************************************************/
 void ScaleEffect::Transform( LPDIRECT3DDEVICE9 pD3DDevice , const CONTROLER_STATE* pCntlState ,vector<Object*> i_ObjectVec ,Command& i_Com)
  {
@@ -479,56 +479,56 @@ void ScaleEffect::Transform( LPDIRECT3DDEVICE9 pD3DDevice , const CONTROLER_STAT
 
 /*****************************************************************
  virtual void ScaleEffect::Draw(
-	LPDIRECT3DDEVICE9 pD3DDevice		//IDirect3DDevice9 ƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-	vector<Object*>& i_Vec,				//ƒIƒuƒWƒFƒNƒg‚Ì”z—ñ
-	const CONTROLER_STATE* pCntlState   //ƒRƒ“ƒgƒ[ƒ‰‚ÌƒXƒe[ƒ^ƒX
-	Command i_Com						//ƒRƒ}ƒ“ƒh
+	LPDIRECT3DDEVICE9 pD3DDevice		//IDirect3DDevice9 ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+	vector<Object*>& i_Vec,				//ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®é…åˆ—
+	const CONTROLER_STATE* pCntlState   //ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹
+	Command i_Com						//ã‚³ãƒãƒ³ãƒ‰
  );
- —p“r: ƒIƒuƒWƒFƒNƒg‚ğ•`‰æ
- –ß‚è’l: ‚È‚µB
+ ç”¨é€”: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’æç”»
+ æˆ»ã‚Šå€¤: ãªã—ã€‚
 *****************************************************************/
 void ScaleEffect::Draw(LPDIRECT3DDEVICE9 pD3DDevice,vector<Object*>& i_Vec,
 							const CONTROLER_STATE* pCntlState,Command& i_Com )
 {
 
 
-	//ƒŒƒ“ƒ_[ƒXƒe[ƒg‚ğ•ÏX‚³‚¹‚é‚½‚ß‚ÌƒNƒ‰ƒX‚ğéŒ¾
+	//ãƒ¬ãƒ³ãƒ€ãƒ¼ã‚¹ãƒ†ãƒ¼ãƒˆã‚’å¤‰æ›´ã•ã›ã‚‹ãŸã‚ã®ã‚¯ãƒ©ã‚¹ã‚’å®£è¨€
 	DeviceRenderState drs = DeviceRenderState() ;
 
-	drs.SetDeviceRenderState(D3DRS_LIGHTING, FALSE );	//ƒ‰ƒCƒeƒBƒ“ƒOƒ‚[ƒh‚ğFALSE‚Éİ’è
-	drs.ChangeRS_PointSprite(m_fEffectSize);			//•`‰æ•û–@‚ğƒ|ƒCƒ“ƒgƒXƒvƒ‰ƒCƒg‚Éİ’è
-	drs.ChangeRS_ALPHABLENDENABLE_Black();				//‰ÁZ‡¬‚Ìİ’è
-	drs.ChangeRenderState(pD3DDevice);					//ã‹L‚Ìİ’è‚ÉƒŒƒ“ƒ_[ƒXƒe[ƒg‚ğ•ÏX‚·‚é
+	drs.SetDeviceRenderState(D3DRS_LIGHTING, FALSE );	//ãƒ©ã‚¤ãƒ†ã‚£ãƒ³ã‚°ãƒ¢ãƒ¼ãƒ‰ã‚’FALSEã«è¨­å®š
+	drs.ChangeRS_PointSprite(m_fEffectSize);			//æç”»æ–¹æ³•ã‚’ãƒã‚¤ãƒ³ãƒˆã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã«è¨­å®š
+	drs.ChangeRS_ALPHABLENDENABLE_Black();				//åŠ ç®—åˆæˆã®è¨­å®š
+	drs.ChangeRenderState(pD3DDevice);					//ä¸Šè¨˜ã®è¨­å®šã«ãƒ¬ãƒ³ãƒ€ãƒ¼ã‚¹ãƒ†ãƒ¼ãƒˆã‚’å¤‰æ›´ã™ã‚‹
 
 	RHWVerticesRender(pD3DDevice , m_pPSVertexrhw , 1 );
 
-	drs.ChangeRenderState(pD3DDevice);					//ã‹L‚Ìİ’è‚ÉƒŒƒ“ƒ_[ƒXƒe[ƒg‚ğ•ÏX‚·‚é
+	drs.ChangeRenderState(pD3DDevice);					//ä¸Šè¨˜ã®è¨­å®šã«ãƒ¬ãƒ³ãƒ€ãƒ¼ã‚¹ãƒ†ãƒ¼ãƒˆã‚’å¤‰æ›´ã™ã‚‹
 
 }
 
 
 
 /***********************************************************
-class ExtinguishEffect : public RHWEffect	’è‹`•”
-—p“r : Á–Å‚ÌƒGƒtƒFƒNƒg
+class ExtinguishEffect : public RHWEffect	å®šç¾©éƒ¨
+ç”¨é€” : æ¶ˆæ»…æ™‚ã®ã‚¨ãƒ•ã‚§ã‚¯ãƒˆ
 ***********************************************************/
 
 /***********************************************************
-struct ExtinguishEffectState	’è‹`•”
-—p“r : ’¸“_ƒf[ƒ^‚ğ•ÏX‚·‚é‚½‚ß‚Ì\‘¢‘Ì
+struct ExtinguishEffectState	å®šç¾©éƒ¨
+ç”¨é€” : é ‚ç‚¹ãƒ‡ãƒ¼ã‚¿ã‚’å¤‰æ›´ã™ã‚‹ãŸã‚ã®æ§‹é€ ä½“
 ***********************************************************/
 
 /*******************************************************
 ExtinguishEffect::ExtinguishEffectState::ExtinguishEffectState( 
-	float				i_fSpeed,			//ƒXƒs[ƒh
-	const D3DXVECTOR3&	i_vPos,				//ˆÊ’u
-	int 				i_iRadSpeed,		//‰ñ“]‚Ì‘¬‚³
-	int					i_iLifeTime,		//•\¦ŠÔ
-	int					i_iParticleSize,	//ƒp[ƒeƒBƒNƒ‹‚Ì”
-	DWORD				i_dwColor,			//F
+	float				i_fSpeed,			//ã‚¹ãƒ”ãƒ¼ãƒ‰
+	const D3DXVECTOR3&	i_vPos,				//ä½ç½®
+	int 				i_iRadSpeed,		//å›è»¢ã®é€Ÿã•
+	int					i_iLifeTime,		//è¡¨ç¤ºæ™‚é–“
+	int					i_iParticleSize,	//ãƒ‘ãƒ¼ãƒ†ã‚£ã‚¯ãƒ«ã®æ•°
+	DWORD				i_dwColor,			//è‰²
 	)
-—p“r : ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-–ß‚è’l : ‚È‚µ
+ç”¨é€” : ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+æˆ»ã‚Šå€¤ : ãªã—
 *******************************************************/
 ExtinguishEffect::ExtinguishEffectState::ExtinguishEffectState(float i_fSpeed,const D3DXVECTOR3& i_vPos, int i_iRadSpeed , int i_iLifeTime ,int i_iParticleSize,DWORD i_dwColor )
 	:m_fSpeed(i_fSpeed), m_iLifeTime(i_iLifeTime),m_vCenter(i_vPos),m_fLangth(0),m_iRadSpeed(i_iRadSpeed),m_iRad(0)
@@ -538,18 +538,18 @@ ExtinguishEffect::ExtinguishEffectState::ExtinguishEffectState(float i_fSpeed,co
 
 /*******************************************************
 ExtinguishEffect::ExtinguishEffectState::ExtinguishEffectState( 
-	float				i_fSpeed,			//ƒXƒs[ƒh
-	const D3DXVECTOR3&	i_vPos,				//ˆÊ’u
-	int 				i_iRadSpeed,		//‰ñ“]‚Ì‘¬‚³
-	int					i_iLifeTime,		//•\¦ŠÔ
-	int					i_iParticleSize,	//ƒp[ƒeƒBƒNƒ‹‚Ì”
-	BYTE				i_byBlue,			//ÂF
-	BYTE				i_byGreen,			//—ÎF
-	BYTE				i_byRed,			//ÔF
-	BYTE				i_byAlpha			//“§–¾“x
+	float				i_fSpeed,			//ã‚¹ãƒ”ãƒ¼ãƒ‰
+	const D3DXVECTOR3&	i_vPos,				//ä½ç½®
+	int 				i_iRadSpeed,		//å›è»¢ã®é€Ÿã•
+	int					i_iLifeTime,		//è¡¨ç¤ºæ™‚é–“
+	int					i_iParticleSize,	//ãƒ‘ãƒ¼ãƒ†ã‚£ã‚¯ãƒ«ã®æ•°
+	BYTE				i_byBlue,			//é’è‰²
+	BYTE				i_byGreen,			//ç·‘è‰²
+	BYTE				i_byRed,			//èµ¤è‰²
+	BYTE				i_byAlpha			//é€æ˜åº¦
 	)
-—p“r : ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-–ß‚è’l : ‚È‚µ
+ç”¨é€” : ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+æˆ»ã‚Šå€¤ : ãªã—
 *******************************************************/
 ExtinguishEffect::ExtinguishEffectState::ExtinguishEffectState(float i_fSpeed,const D3DXVECTOR3& i_vPos,int i_iRadSpeed , int i_iLifeTime ,int i_iParticleSize,BYTE i_byBlue, BYTE i_byGreen, BYTE i_byRed, BYTE i_byAlpha)
 	:m_fSpeed(i_fSpeed), m_iLifeTime(i_iLifeTime),m_vCenter(i_vPos),m_fLangth(0),m_iRadSpeed(i_iRadSpeed),m_iRad(0)
@@ -559,46 +559,46 @@ ExtinguishEffect::ExtinguishEffectState::ExtinguishEffectState(float i_fSpeed,co
 
 /*****************************************************************
 bool ExtinguishEffect::ExtinguishEffectState::Move(
-	const float* i_fRadSinArray,	//Sin‚Ì”z—ñ‚ğ“ü‚ê‚é
-	const float* i_fRadCosArray		//Cos‚Ì”z—ñ‚ğ“ü‚ê‚é
+	const float* i_fRadSinArray,	//Sinã®é…åˆ—ã‚’å…¥ã‚Œã‚‹
+	const float* i_fRadCosArray		//Cosã®é…åˆ—ã‚’å…¥ã‚Œã‚‹
 )
-—p“r : Particle‚Ì“®‚«‚ğs‚¢íœˆ—‚Ìê‡‚Ítrue‚ğ•Ô‚·
-–ß‚è’l : ‚È‚µ
+ç”¨é€” : Particleã®å‹•ãã‚’è¡Œã„å‰Šé™¤å‡¦ç†ã®å ´åˆã¯trueã‚’è¿”ã™
+æˆ»ã‚Šå€¤ : ãªã—
 *****************************************************************/
 bool ExtinguishEffect::ExtinguishEffectState::Move(const float* i_fRadSinArray,const float* i_fRadCosArray)
 {
-	//ì‹Æ—p•Ï”
+	//ä½œæ¥­ç”¨å¤‰æ•°
 	int iRad = m_iRad ;
 
-	//ƒ‹[ƒv—p’¸“_ƒf[ƒ^
+	//ãƒ«ãƒ¼ãƒ—ç”¨é ‚ç‚¹ãƒ‡ãƒ¼ã‚¿
 	list<PointSpriteRHWVertex>::iterator it  = m_Vertices.begin() ;
 	list<PointSpriteRHWVertex>::iterator end = m_Vertices.end()   ;
 
-	//’¸“_ƒf[ƒ^‚Ìƒ‹[ƒv
+	//é ‚ç‚¹ãƒ‡ãƒ¼ã‚¿ã®ãƒ«ãƒ¼ãƒ—
 	for(; it != end ; it++){
-		//Šp“x‚ª360“x‚ğ’´‚¦‚È‚¢‚æ‚¤‚Éˆ—
+		//è§’åº¦ãŒ360åº¦ã‚’è¶…ãˆãªã„ã‚ˆã†ã«å‡¦ç†
 		iRad %= MAXDEGREES ;
 
-		//“§–¾F‚É•ÏX‚·‚é‚½‚ß‚Ì•Ï”
+		//é€æ˜è‰²ã«å¤‰æ›´ã™ã‚‹ãŸã‚ã®å¤‰æ•°
 		BYTE DownColor = 0x00000000 ;
 		if(m_iLifeTime >= 1 )DownColor = ( ( m_iLifeTime - 1 ) * (*it).m_Color.a ) / m_iLifeTime ;
 
 		D3DXVECTOR3	 g_vDir = D3DXVECTOR3(i_fRadCosArray[iRad],i_fRadSinArray[iRad],0.0f);
 
-		//’¸“_‚ÌˆÚ“®•ûŒü‚ğ³‹K‰»
+		//é ‚ç‚¹ã®ç§»å‹•æ–¹å‘ã‚’æ­£è¦åŒ–
 		D3DXVec3Normalize(&g_vDir,&g_vDir);
 
-		//ˆÊ’u‚Ìİ’è
+		//ä½ç½®ã®è¨­å®š
 		(*it).m_vPos	= m_vCenter + g_vDir * m_fLangth ;
 		iRad += MAXDEGREES / m_Vertices.size() ;
 
-		//F‚ğ•ÏX
+		//è‰²ã‚’å¤‰æ›´
 		(*it).m_Color.r = DownColor ;
 		(*it).m_Color.g = DownColor ;
 		(*it).m_Color.b = DownColor ;
 		(*it).m_Color.a = DownColor ;
 	}
-	//‚à‚µ•\¦ŠÔ‚ª‚O‚É‚È‚Á‚½‚ç
+	//ã‚‚ã—è¡¨ç¤ºæ™‚é–“ãŒï¼ã«ãªã£ãŸã‚‰
 	if( m_iLifeTime < 0 )	return true ;
 	else					m_iLifeTime-- ;
 
@@ -609,13 +609,13 @@ bool ExtinguishEffect::ExtinguishEffectState::Move(const float* i_fRadSinArray,c
 
 /**********************************************************************
 ExtinguishEffect::ExtinguishEffect(
-	LPDIRECT3DDEVICE9	pD3DDevice,			//ƒfƒoƒCƒX
-	const wchar_t*		i_filename,			//‰æ‘œ‚Ìƒtƒ@ƒCƒ‹–¼
-	DWORD				i_Decolorisation,	//”²‚«‚½‚¢F
-	float				i_fSize				//ƒGƒtƒFƒNƒg‚Ì‘å‚«‚³
+	LPDIRECT3DDEVICE9	pD3DDevice,			//ãƒ‡ãƒã‚¤ã‚¹
+	const wchar_t*		i_filename,			//ç”»åƒã®ãƒ•ã‚¡ã‚¤ãƒ«å
+	DWORD				i_Decolorisation,	//æŠœããŸã„è‰²
+	float				i_fSize				//ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã®å¤§ãã•
 	)
-—p“r: ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-–ß‚è’l: ‚È‚µ
+ç”¨é€”: ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+æˆ»ã‚Šå€¤: ãªã—
 ***********************************************************************/
 ExtinguishEffect::ExtinguishEffect(LPDIRECT3DDEVICE9 pD3DDevice, const wchar_t* i_filename,DWORD i_Decolorisation,float i_fSize)
 	:RHWEffect(pD3DDevice,i_filename,i_Decolorisation,i_fSize),m_iVerticesSize( 0 )
@@ -631,18 +631,18 @@ ExtinguishEffect::ExtinguishEffect(LPDIRECT3DDEVICE9 pD3DDevice, const wchar_t* 
 
 /***********************************************************************
 void ExtinguishEffect::AddExtinguishEffect(
-				const D3DXVECTOR3,	i_vPos,					//ˆÊ’u
-				float				i_fSpeed,				//ƒXƒs[ƒh
-				int 				i_iRotSpeed,			//‰ñ“]‚Ì‘¬‚³
-				int					i_iParticleSize,		//ƒp[ƒeƒBƒNƒ‹‚Ì”
-				int					i_iLifeTime,			//•\¦ŠÔ
-				BYTE				i_bBlue		= 0xFF,		//ÂF
-				BYTE				i_bGreen	= 0xFF,		//—ÎF
-				BYTE				i_bRed		= 0xFF,		//ÔF
-				BYTE				i_bAlpha	= 0xFF		//“§–¾F
+				const D3DXVECTOR3,	i_vPos,					//ä½ç½®
+				float				i_fSpeed,				//ã‚¹ãƒ”ãƒ¼ãƒ‰
+				int 				i_iRotSpeed,			//å›è»¢ã®é€Ÿã•
+				int					i_iParticleSize,		//ãƒ‘ãƒ¼ãƒ†ã‚£ã‚¯ãƒ«ã®æ•°
+				int					i_iLifeTime,			//è¡¨ç¤ºæ™‚é–“
+				BYTE				i_bBlue		= 0xFF,		//é’è‰²
+				BYTE				i_bGreen	= 0xFF,		//ç·‘è‰²
+				BYTE				i_bRed		= 0xFF,		//èµ¤è‰²
+				BYTE				i_bAlpha	= 0xFF		//é€æ˜è‰²
 			);
-—p“r: ƒQ[ƒW‚Ì’iŠK‚ªã‚ª‚Á‚½‚É”­¶‚·‚éƒGƒtƒFƒNƒgƒIƒuƒWƒFƒNƒg‚Ìì¬
-–ß‚è’l: ‚È‚µ
+ç”¨é€”: ã‚²ãƒ¼ã‚¸ã®æ®µéšãŒä¸ŠãŒã£ãŸæ™‚ã«ç™ºç”Ÿã™ã‚‹ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ä½œæˆ
+æˆ»ã‚Šå€¤: ãªã—
 ************************************************************************/
 void ExtinguishEffect::AddExtinguishEffect(const D3DXVECTOR3 i_vPos,float i_fSpeed,int i_iRotSpeed , int i_iLifeTime ,int i_iParticleSize, BYTE i_bBlue,BYTE i_bGreen, BYTE i_bRed,BYTE i_bAlpha)
 {
@@ -653,28 +653,28 @@ void ExtinguishEffect::AddExtinguishEffect(const D3DXVECTOR3 i_vPos,float i_fSpe
 
 /******************************************************************
 virtualvoid ExtinguishEffect::Transform(
-	LPDIRECT3DDEVICE9		pD3DDevice	,	//ƒfƒoƒCƒX
-	const CONTROLER_STATE*	pCntlState	,	//ƒRƒ“ƒgƒ[ƒ‰‚ÌƒXƒe[ƒ^ƒX
-	vector<Object*>&		i_Vec		,	//ƒIƒuƒWƒFƒNƒg‚Ì”z—ñ
-	Command&				i_Com			//ƒRƒ}ƒ“ƒh
+	LPDIRECT3DDEVICE9		pD3DDevice	,	//ãƒ‡ãƒã‚¤ã‚¹
+	const CONTROLER_STATE*	pCntlState	,	//ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹
+	vector<Object*>&		i_Vec		,	//ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®é…åˆ—
+	Command&				i_Com			//ã‚³ãƒãƒ³ãƒ‰
 ) ;
-—p“r : ƒV[ƒ“‚Ì•Ï‰»
-–ß‚è’l : ‚È‚µ
+ç”¨é€” : ã‚·ãƒ¼ãƒ³ã®å¤‰åŒ–
+æˆ»ã‚Šå€¤ : ãªã—
 ******************************************************************/
 void ExtinguishEffect::Transform( LPDIRECT3DDEVICE9 pD3DDevice , const CONTROLER_STATE* pCntlState ,vector<Object*> i_ObjectVec ,Command& i_Com)
 {
 	try{
 
-		list<ExtinguishEffectState*>::iterator		StateIt = m_Statelist.begin() ;		//•`‰æƒVƒXƒeƒ€‚ÌƒXƒe[ƒ^ƒX
-		list<ExtinguishEffectState*>::iterator		endIt	= m_Statelist.end() ;		//ƒ‹[ƒv‚ÌI‚í‚è
+		list<ExtinguishEffectState*>::iterator		StateIt = m_Statelist.begin() ;		//æç”»ã‚·ã‚¹ãƒ†ãƒ ã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹
+		list<ExtinguishEffectState*>::iterator		endIt	= m_Statelist.end() ;		//ãƒ«ãƒ¼ãƒ—ã®çµ‚ã‚ã‚Š
 
-		//•`‰æƒ‹[ƒv
+		//æç”»ãƒ«ãƒ¼ãƒ—
 		while(StateIt != endIt){
 
-			//ˆê‚Â‚Ìƒp[ƒeƒBƒNƒ‹‚ğ“®‚©‚µAíœ‚·‚éê‡‚É^‚ª•Ô‚Á‚Ä‚­‚é
+			//ä¸€ã¤ã®ãƒ‘ãƒ¼ãƒ†ã‚£ã‚¯ãƒ«ã‚’å‹•ã‹ã—ã€å‰Šé™¤ã™ã‚‹å ´åˆã«çœŸãŒè¿”ã£ã¦ãã‚‹
 			bool DeleteFlg = (*StateIt)->Move(m_fRadSinArray,m_fRadCosArray) ;		
 
-			//íœˆ—
+			//å‰Šé™¤å‡¦ç†
 			if(DeleteFlg){
 
 				StateIt = m_Statelist.erase(StateIt);
@@ -682,32 +682,32 @@ void ExtinguishEffect::Transform( LPDIRECT3DDEVICE9 pD3DDevice , const CONTROLER
 			
 			}
 			
-			//’¸“_ƒf[ƒ^‚Ì•Ï”
+			//é ‚ç‚¹ãƒ‡ãƒ¼ã‚¿ã®å¤‰æ•°
 			list<PointSpriteRHWVertex>::iterator it  = (*StateIt)->m_Vertices.begin() ;	
 			list<PointSpriteRHWVertex>::iterator end = (*StateIt)->m_Vertices.end()   ;	
 
-			//ƒp[ƒeƒBƒNƒ‹‚ğ•`‰æ‚·‚é‚½‚ß‚Ì’¸“_ƒf[ƒ^‚ğİ’è‚·‚é
+			//ãƒ‘ãƒ¼ãƒ†ã‚£ã‚¯ãƒ«ã‚’æç”»ã™ã‚‹ãŸã‚ã®é ‚ç‚¹ãƒ‡ãƒ¼ã‚¿ã‚’è¨­å®šã™ã‚‹
 			for(  ; it != end ;  it++){
 
-				//•`‰æ‚·‚é’¸“_”‚Ì‡Œv‚ªÅ‘å’l‚ğ’´‚¦‚Ä‚È‚¢ê‡
+				//æç”»ã™ã‚‹é ‚ç‚¹æ•°ã®åˆè¨ˆãŒæœ€å¤§å€¤ã‚’è¶…ãˆã¦ãªã„å ´åˆ
 				if(m_iVerticesSize < m_iVerticesMaxSize ){
-					//’¸“_‚ğ•`‰æ—p”z—ñ‚Éİ’è‚·‚é
+					//é ‚ç‚¹ã‚’æç”»ç”¨é…åˆ—ã«è¨­å®šã™ã‚‹
 					m_DrawVertices[m_iVerticesSize] = (*it) ;
 					m_iVerticesSize++ ;
 
-				//’´‚¦‚½ê‡
+				//è¶…ãˆãŸå ´åˆ
 				}else{
-					//ƒfƒoƒbƒN—p
-					throw BaseException(L"Particle‚ÌãŒÀ‚ğ’´‚¦‚Ü‚µ‚½",
+					//ãƒ‡ãƒãƒƒã‚¯ç”¨
+					throw BaseException(L"Particleã®ä¸Šé™ã‚’è¶…ãˆã¾ã—ãŸ",
 						L"ExtinguishEffect::Draw()");
-					//Release—p
+					//Releaseç”¨
 					//break ;
 
 				}
 
 			}
 
-			StateIt++ ;	//Ÿ‚Ìƒp[ƒeƒBƒNƒ‹‚Éi‚ß‚é
+			StateIt++ ;	//æ¬¡ã®ãƒ‘ãƒ¼ãƒ†ã‚£ã‚¯ãƒ«ã«é€²ã‚ã‚‹
 		}
 
 	}
@@ -718,34 +718,34 @@ void ExtinguishEffect::Transform( LPDIRECT3DDEVICE9 pD3DDevice , const CONTROLER
 
 /*****************************************************************
  virtual void ExtinguishEffect::Draw(
-	LPDIRECT3DDEVICE9 pD3DDevice		//IDirect3DDevice9 ƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-	vector<Object*>& i_Vec,				//ƒIƒuƒWƒFƒNƒg‚Ì”z—ñ
-	const CONTROLER_STATE* pCntlState   //ƒRƒ“ƒgƒ[ƒ‰‚ÌƒXƒe[ƒ^ƒX
-	Command i_Com						//ƒRƒ}ƒ“ƒh
+	LPDIRECT3DDEVICE9 pD3DDevice		//IDirect3DDevice9 ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+	vector<Object*>& i_Vec,				//ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®é…åˆ—
+	const CONTROLER_STATE* pCntlState   //ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹
+	Command i_Com						//ã‚³ãƒãƒ³ãƒ‰
  );
- —p“r: ƒIƒuƒWƒFƒNƒg‚ğ•`‰æ
- –ß‚è’l: ‚È‚µB
+ ç”¨é€”: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’æç”»
+ æˆ»ã‚Šå€¤: ãªã—ã€‚
 *****************************************************************/
 void ExtinguishEffect::Draw(LPDIRECT3DDEVICE9 pD3DDevice,vector<Object*>& i_Vec,
 							const CONTROLER_STATE* pCntlState,Command& i_Com )
 {
 	try{
-		//ƒŒƒ“ƒ_[ƒXƒe[ƒg‚ğ•ÏX‚³‚¹‚é‚½‚ß‚ÌƒNƒ‰ƒX‚ğéŒ¾
+		//ãƒ¬ãƒ³ãƒ€ãƒ¼ã‚¹ãƒ†ãƒ¼ãƒˆã‚’å¤‰æ›´ã•ã›ã‚‹ãŸã‚ã®ã‚¯ãƒ©ã‚¹ã‚’å®£è¨€
 		DeviceRenderState drs = DeviceRenderState() ;
 
-		drs.SetDeviceRenderState(D3DRS_LIGHTING, FALSE );	//ƒ‰ƒCƒeƒBƒ“ƒOƒ‚[ƒh‚ğFALSE‚Éİ’è
-		drs.ChangeRS_PointSprite(m_fEffectSize);			//•`‰æ•û–@‚ğƒ|ƒCƒ“ƒgƒXƒvƒ‰ƒCƒg‚Éİ’è
-		drs.ChangeRS_ALPHABLENDENABLE_Black();				//‰ÁZ‡¬‚Ìİ’è
+		drs.SetDeviceRenderState(D3DRS_LIGHTING, FALSE );	//ãƒ©ã‚¤ãƒ†ã‚£ãƒ³ã‚°ãƒ¢ãƒ¼ãƒ‰ã‚’FALSEã«è¨­å®š
+		drs.ChangeRS_PointSprite(m_fEffectSize);			//æç”»æ–¹æ³•ã‚’ãƒã‚¤ãƒ³ãƒˆã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã«è¨­å®š
+		drs.ChangeRS_ALPHABLENDENABLE_Black();				//åŠ ç®—åˆæˆã®è¨­å®š
 
-		drs.ChangeRenderState(pD3DDevice);					//ã‹L‚Ìİ’è‚ÉƒŒƒ“ƒ_[ƒXƒe[ƒg‚ğ•ÏX‚·‚é
+		drs.ChangeRenderState(pD3DDevice);					//ä¸Šè¨˜ã®è¨­å®šã«ãƒ¬ãƒ³ãƒ€ãƒ¼ã‚¹ãƒ†ãƒ¼ãƒˆã‚’å¤‰æ›´ã™ã‚‹
 
-		//ƒp[ƒeƒBƒNƒ‹‚Ì•`‰æ
+		//ãƒ‘ãƒ¼ãƒ†ã‚£ã‚¯ãƒ«ã®æç”»
 		RHWVerticesRender(pD3DDevice,m_DrawVertices,m_iVerticesSize);
 
-		//ƒŒƒ“ƒ_[ƒXƒe[ƒg‚Ì•ÏX
+		//ãƒ¬ãƒ³ãƒ€ãƒ¼ã‚¹ãƒ†ãƒ¼ãƒˆã®å¤‰æ›´
 		drs.ChangeRenderState(pD3DDevice);
 
-		//’¸“_”‚ğƒ[ƒ‚É–ß‚·
+		//é ‚ç‚¹æ•°ã‚’ã‚¼ãƒ­ã«æˆ»ã™
 		m_iVerticesSize = 0 ;
 
 	}
@@ -761,16 +761,16 @@ void ExtinguishEffect::Draw(LPDIRECT3DDEVICE9 pD3DDevice,vector<Object*>& i_Vec,
 
 /***********************************************************
 class BreakEffect : public ThreeDimensionsEffect
-—p“r : ”j‰ó‚³‚ê‚½‚Æ‚«‚ÌƒGƒtƒFƒNƒg
+ç”¨é€” : ç ´å£Šã•ã‚ŒãŸã¨ãã®ã‚¨ãƒ•ã‚§ã‚¯ãƒˆ
 ***********************************************************/
 
 /*******************************************************
 BreakEffect::EffectState::EffectState(
-	int					i_iVertexSize,		//’¸“_ƒf[ƒ^‚Ì”
-	float				i_vPos,				//ˆÊ’u
+	int					i_iVertexSize,		//é ‚ç‚¹ãƒ‡ãƒ¼ã‚¿ã®æ•°
+	float				i_vPos,				//ä½ç½®
 	)
-—p“r : ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-–ß‚è’l : ‚È‚µ
+ç”¨é€” : ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+æˆ»ã‚Šå€¤ : ãªã—
 *******************************************************/
 BreakEffect::EffectState::EffectState(int i_iVertexSize, const D3DXVECTOR3& i_vPos)
 :m_iLifeTime(0)
@@ -802,53 +802,53 @@ BreakEffect::EffectState::EffectState(int i_iVertexSize, const D3DXVECTOR3& i_vP
 
 /*****************************************************************
 bool BreakEffect::EffectState::Move(
-		Command				i_Com			//ƒRƒ}ƒ“ƒh
+		Command				i_Com			//ã‚³ãƒãƒ³ãƒ‰
 )
-—p“r : Particle‚Ì“®‚«‚ğs‚¢íœˆ—‚Ìê‡‚Ítrue‚ğ•Ô‚·
-–ß‚è’l : ‚È‚µ
+ç”¨é€” : Particleã®å‹•ãã‚’è¡Œã„å‰Šé™¤å‡¦ç†ã®å ´åˆã¯trueã‚’è¿”ã™
+æˆ»ã‚Šå€¤ : ãªã—
 *****************************************************************/
 bool BreakEffect::EffectState::Move( Command& i_Com )
 {
 
-	//”ò‚ÑU‚Á‚Ä‚¢‚éŠÔ
+	//é£›ã³æ•£ã£ã¦ã„ã‚‹æ™‚é–“
 	const int c_iDeadTime = 50 ;
 
-	//’¸“_ƒf[ƒ^‚ÌƒCƒeƒŒ[ƒ^‚ÌéŒ¾
+	//é ‚ç‚¹ãƒ‡ãƒ¼ã‚¿ã®ã‚¤ãƒ†ãƒ¬ãƒ¼ã‚¿ã®å®£è¨€
 	list<PointSpriteVertex>::iterator VertexIt	= m_Vertices.begin();
 	list<PointSpriteVertex>::iterator end		= m_Vertices.end()  ;
 
-	//ˆÚ“®ƒpƒ‰ƒ[ƒ^‚ÌƒCƒeƒŒ[ƒ^‚ÌéŒ¾
+	//ç§»å‹•ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã®ã‚¤ãƒ†ãƒ¬ãƒ¼ã‚¿ã®å®£è¨€
 	list<EffectParam>::iterator ParamIt = m_EffectParams.begin() ;
 
-	//’¸“_ƒf[ƒ^‚ğˆÚ“®‚³‚ê‚éƒ‹[ƒv
+	//é ‚ç‚¹ãƒ‡ãƒ¼ã‚¿ã‚’ç§»å‹•ã•ã‚Œã‚‹ãƒ«ãƒ¼ãƒ—
 	while(VertexIt != end){
 
 		 (*ParamIt).m_fSpeed -=  (*ParamIt).m_fSpeed / c_iDeadTime ;
 
-		(*VertexIt).m_vPos +=  (*ParamIt).m_vDir *  (*ParamIt).m_fSpeed ;		//ˆÚ“®ˆ—
-		(*VertexIt).m_Color.r += 10 ;											//F‚Ì•ÏX
+		(*VertexIt).m_vPos +=  (*ParamIt).m_vDir *  (*ParamIt).m_fSpeed ;		//ç§»å‹•å‡¦ç†
+		(*VertexIt).m_Color.r += 10 ;											//è‰²ã®å¤‰æ›´
 
-		//Šeƒf[ƒ^‚ğŸ‚Éi‚ß‚é
+		//å„ãƒ‡ãƒ¼ã‚¿ã‚’æ¬¡ã«é€²ã‚ã‚‹
 		ParamIt++	;
 		VertexIt++	;
 	}
 
 	m_iLifeTime++ ;
 
-	//íœ‚µ‚½‚¢ê‡‚Ítrue‚ğ•Ô‚·
+	//å‰Šé™¤ã—ãŸã„å ´åˆã¯trueã‚’è¿”ã™
 	if(m_iLifeTime < c_iDeadTime )	return false ;
 	else							return true  ;
 }
 
 /**********************************************************************
 BreakEffect::BreakEffect(
-	LPDIRECT3DDEVICE9	pD3DDevice,			//ƒfƒoƒCƒX
-	const wchar_t*		i_filename,			//‰æ‘œ‚Ìƒtƒ@ƒCƒ‹–¼
-	DWORD				i_Decolorisation,	//”²‚«‚½‚¢F
-	float				i_fSize				//ƒGƒtƒFƒNƒg‚Ì‘å‚«‚³
+	LPDIRECT3DDEVICE9	pD3DDevice,			//ãƒ‡ãƒã‚¤ã‚¹
+	const wchar_t*		i_filename,			//ç”»åƒã®ãƒ•ã‚¡ã‚¤ãƒ«å
+	DWORD				i_Decolorisation,	//æŠœããŸã„è‰²
+	float				i_fSize				//ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã®å¤§ãã•
 	)
-—p“r: ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-–ß‚è’l: ‚È‚µ
+ç”¨é€”: ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+æˆ»ã‚Šå€¤: ãªã—
 ***********************************************************************/
 BreakEffect::BreakEffect(LPDIRECT3DDEVICE9 pD3DDevice, const wchar_t* i_filename,DWORD i_Decolorisation,float i_fSize)
 :ThreeDimensionsEffect(pD3DDevice,i_filename,i_Decolorisation,i_fSize),m_iDrawVerticesNumber( 0 )
@@ -859,10 +859,10 @@ BreakEffect::BreakEffect(LPDIRECT3DDEVICE9 pD3DDevice, const wchar_t* i_filename
 
 /***********************************************************************
 void BreakEffect::AddBreakEffect(
-				const D3DXVECTOR3& i_vPos,	//ˆÊ’u
+				const D3DXVECTOR3& i_vPos,	//ä½ç½®
 				);
-—p“r: ƒuƒƒbƒN”j‰ó‚ÌƒGƒtƒFƒNƒgƒIƒuƒWƒFƒNƒg‚Ìì¬
-–ß‚è’l: ‚È‚µ
+ç”¨é€”: ãƒ–ãƒ­ãƒƒã‚¯ç ´å£Šæ™‚ã®ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ä½œæˆ
+æˆ»ã‚Šå€¤: ãªã—
 ************************************************************************/
 void BreakEffect::AddBreakEffect(const D3DXVECTOR3& i_vPos)
 {
@@ -875,46 +875,46 @@ void BreakEffect::AddBreakEffect(const D3DXVECTOR3& i_vPos)
 
 /******************************************************************
 virtual void BreakEffect::Transform(
-	LPDIRECT3DDEVICE9		pD3DDevice	,	//ƒfƒoƒCƒX
-	const CONTROLER_STATE*	pCntlState	,	//ƒRƒ“ƒgƒ[ƒ‰‚ÌƒXƒe[ƒ^ƒX
-	vector<Object*>&		i_Vec		,	//ƒIƒuƒWƒFƒNƒg‚Ì”z—ñ
-	Command&				i_Com			//ƒRƒ}ƒ“ƒh
+	LPDIRECT3DDEVICE9		pD3DDevice	,	//ãƒ‡ãƒã‚¤ã‚¹
+	const CONTROLER_STATE*	pCntlState	,	//ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹
+	vector<Object*>&		i_Vec		,	//ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®é…åˆ—
+	Command&				i_Com			//ã‚³ãƒãƒ³ãƒ‰
 ) ;
-—p“r : ƒV[ƒ“‚Ì•Ï‰»
-–ß‚è’l : ‚È‚µ
+ç”¨é€” : ã‚·ãƒ¼ãƒ³ã®å¤‰åŒ–
+æˆ»ã‚Šå€¤ : ãªã—
 ******************************************************************/
 void BreakEffect::Transform( LPDIRECT3DDEVICE9 pD3DDevice , const CONTROLER_STATE* pCntlState ,vector<Object*> i_ObjectVec ,Command& i_Com)
 {
 
 
-	//•`‰æ—piterator‚ÌéŒ¾
+	//æç”»ç”¨iteratorã®å®£è¨€
 	list<EffectState*>::iterator		StateIt  = m_Statelist.begin() ;
-	//ƒ‹[ƒv—pƒCƒeƒŒ[ƒ^‚ÌéŒ¾
+	//ãƒ«ãƒ¼ãƒ—ç”¨ã‚¤ãƒ†ãƒ¬ãƒ¼ã‚¿ã®å®£è¨€
 	list<EffectState*>::iterator		endIt = m_Statelist.end() ;
 
 	for(int i = 0 ; StateIt != endIt ; i++ ){
 
-		//ˆÚ“®ˆ—
+		//ç§»å‹•å‡¦ç†
 		bool DeleteFlg = (*StateIt)->Move( i_Com );
 
-		//íœˆ—
+		//å‰Šé™¤å‡¦ç†
 		if(DeleteFlg){
 
 			StateIt  = m_Statelist.erase(StateIt) ;
 
 		}else{
 
-			//”z—ñ‚É“ü‚ê‚é’¸“_ƒf[ƒ^
+			//é…åˆ—ã«å…¥ã‚Œã‚‹é ‚ç‚¹ãƒ‡ãƒ¼ã‚¿
 			list<PointSpriteVertex>::iterator it  = (*StateIt)->m_Vertices.begin() ;
 			list<PointSpriteVertex>::iterator end = (*StateIt)->m_Vertices.end() ;
 
-			//”z—ñ‚É•`‰æ‚³‚ê‚éƒo[ƒeƒbƒNƒX‚Ìƒf[ƒ^‚ğ“ü‚ê‚é
+			//é…åˆ—ã«æç”»ã•ã‚Œã‚‹ãƒãƒ¼ãƒ†ãƒƒã‚¯ã‚¹ã®ãƒ‡ãƒ¼ã‚¿ã‚’å…¥ã‚Œã‚‹
 			for( ; it != end ; it++ ){
 				m_DrawVertices[m_iDrawVerticesNumber] = (*it) ;
 				m_iDrawVerticesNumber++ ;
 			}
 
-			//ƒCƒeƒŒ[ƒ^‚ğŸ‚Éi‚ß‚é
+			//ã‚¤ãƒ†ãƒ¬ãƒ¼ã‚¿ã‚’æ¬¡ã«é€²ã‚ã‚‹
 			StateIt++  ;
 		}
 
@@ -924,63 +924,63 @@ void BreakEffect::Transform( LPDIRECT3DDEVICE9 pD3DDevice , const CONTROLER_STAT
 
 /*****************************************************************
  virtual void BreakEffect::Draw(
-	LPDIRECT3DDEVICE9		pD3DDevice	,	//IDirect3DDevice9 ƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-	vector<Object*>&		i_Vec		,	//ƒIƒuƒWƒFƒNƒg‚Ì”z—ñ
-	const CONTROLER_STATE*	pCntlState	,	//ƒRƒ“ƒgƒ[ƒ‰‚ÌƒXƒe[ƒ^ƒX
-	Command					i_Com			//ƒRƒ}ƒ“ƒh
+	LPDIRECT3DDEVICE9		pD3DDevice	,	//IDirect3DDevice9 ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+	vector<Object*>&		i_Vec		,	//ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®é…åˆ—
+	const CONTROLER_STATE*	pCntlState	,	//ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹
+	Command					i_Com			//ã‚³ãƒãƒ³ãƒ‰
  );
- —p“r: ƒIƒuƒWƒFƒNƒg‚ğ•`‰æ
- –ß‚è’l: ‚È‚µB
+ ç”¨é€”: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’æç”»
+ æˆ»ã‚Šå€¤: ãªã—ã€‚
 *****************************************************************/
 void BreakEffect::Draw(LPDIRECT3DDEVICE9 pD3DDevice,vector<Object*>& i_Vec,
 							const CONTROLER_STATE* pCntlState,Command& i_Com )
 {
 
-	//ƒŒƒ“ƒ_[ƒXƒe[ƒg‚ğ•ÏX‚³‚¹‚é‚½‚ß‚ÌƒNƒ‰ƒX‚ğéŒ¾
+	//ãƒ¬ãƒ³ãƒ€ãƒ¼ã‚¹ãƒ†ãƒ¼ãƒˆã‚’å¤‰æ›´ã•ã›ã‚‹ãŸã‚ã®ã‚¯ãƒ©ã‚¹ã‚’å®£è¨€
 	DeviceRenderState drs = DeviceRenderState() ;
-	drs.SetDeviceRenderState(D3DRS_LIGHTING, FALSE );	//ƒ‰ƒCƒeƒBƒ“ƒOƒ‚[ƒh‚ğFALSE
+	drs.SetDeviceRenderState(D3DRS_LIGHTING, FALSE );	//ãƒ©ã‚¤ãƒ†ã‚£ãƒ³ã‚°ãƒ¢ãƒ¼ãƒ‰ã‚’FALSE
 	drs.ChangeRS_PointSprite(m_fEffectSize);
 	drs.ChangeRS_ALPHABLENDENABLE_Black();
 	drs.ChangeRenderState(pD3DDevice);
 
-	//ƒ}ƒgƒŠƒbƒNƒX‚Ìİ’è
+	//ãƒãƒˆãƒªãƒƒã‚¯ã‚¹ã®è¨­å®š
 	D3DXMATRIX Matrix ;
 	D3DXMatrixIdentity(&Matrix);		
 	pD3DDevice->SetTransform(D3DTS_WORLD,&Matrix);
 
-	//ƒp[ƒeƒBƒNƒ‹‚Ì•`‰æ
+	//ãƒ‘ãƒ¼ãƒ†ã‚£ã‚¯ãƒ«ã®æç”»
 	VerticesRender(pD3DDevice,m_DrawVertices,m_iDrawVerticesNumber);
 
-	//ƒŒƒ“ƒ_[ƒXƒe[ƒg‚Ì•ÏX
+	//ãƒ¬ãƒ³ãƒ€ãƒ¼ã‚¹ãƒ†ãƒ¼ãƒˆã®å¤‰æ›´
 	drs.ChangeRenderState(pD3DDevice);
 
-	//’¸“_”‚ğƒ[ƒ‚É–ß‚·
+	//é ‚ç‚¹æ•°ã‚’ã‚¼ãƒ­ã«æˆ»ã™
 	m_iDrawVerticesNumber = 0 ;
-	//’¸“_ƒf[ƒ^‚Ì”z—ñ‚ğƒŠƒZƒbƒg‚·‚é
+	//é ‚ç‚¹ãƒ‡ãƒ¼ã‚¿ã®é…åˆ—ã‚’ãƒªã‚»ãƒƒãƒˆã™ã‚‹
 	ZeroMemory( m_DrawVertices , sizeof( m_DrawVertices ));
 
 }
 
 
 /*******************************************************************
-class LineEffect : public Object ’è‹`•”
-—p“r :	üƒGƒtƒFƒNƒg‚Ì•`‰æ
+class LineEffect : public Object å®šç¾©éƒ¨
+ç”¨é€” :	ç·šã‚¨ãƒ•ã‚§ã‚¯ãƒˆã®æç”»
 *******************************************************************/
 
 /*******************************************************************
-class LineEffect::LineEffectGroup::LineEffectState  ’è‹`•”
-—p“r : üƒGƒtƒFƒNƒg‚ğŠÇ—‚·‚éƒXƒe[ƒ^ƒX
+class LineEffect::LineEffectGroup::LineEffectState  å®šç¾©éƒ¨
+ç”¨é€” : ç·šã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚’ç®¡ç†ã™ã‚‹ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹
 *******************************************************************/
 /***********************************************************
 LineEffect::LineEffectGroup::LineEffectState::LineEffectState(
-	LPDIRECT3DDEVICE9	pD3DDevice	,	//ƒfƒoƒCƒX
-	const D3DXVECTOR3&	i_vPos		,	//ˆÊ’u
-	const D3DXVECTOR3&	i_vSize		,	//‘å‚«‚³
-	const D3DXVECTOR3&	i_vRot			//‰ñ“]“x
-	VertexStyle			i_VertexStyle	//ü‚ÌŒ`
+	LPDIRECT3DDEVICE9	pD3DDevice	,	//ãƒ‡ãƒã‚¤ã‚¹
+	const D3DXVECTOR3&	i_vPos		,	//ä½ç½®
+	const D3DXVECTOR3&	i_vSize		,	//å¤§ãã•
+	const D3DXVECTOR3&	i_vRot			//å›è»¢åº¦
+	VertexStyle			i_VertexStyle	//ç·šã®å½¢
 );
-—p“r : ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-–ß‚è’l : ‚È‚µ
+ç”¨é€” : ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+æˆ»ã‚Šå€¤ : ãªã—
 ***********************************************************/
 LineEffect::LineEffectGroup::LineEffectState::LineEffectState(LPDIRECT3DDEVICE9 pD3DDevice , const D3DXVECTOR3& i_vPos ,
 	const D3DXVECTOR3& i_vSize , const D3DXVECTOR3& i_vRot , VertexStyle i_VertexStyle )
@@ -993,17 +993,17 @@ LineEffect::LineEffectGroup::LineEffectState::LineEffectState(LPDIRECT3DDEVICE9 
 }
 
 /***************************************************************
-struct LineEffect::LineEffectGroup	’è‹`•”
-—p“r : üƒGƒtƒFƒNƒg‚ğŠÇ—‚·‚é\‘¢‘Ì
+struct LineEffect::LineEffectGroup	å®šç¾©éƒ¨
+ç”¨é€” : ç·šã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚’ç®¡ç†ã™ã‚‹æ§‹é€ ä½“
 ***************************************************************/
 /**************************************************************
 LineEffect::LineEffectGroup::LineEffectGroup(
-	float				i_fRotZSpeed,	//	‰ñ“]‘¬“x
-	float				i_fScaling		//	Šg‘åk¬‚Ì’l
-	int					i_iLifeTime		//oŒ»‚µ‚Ä‚¢‚éŠÔ
+	float				i_fRotZSpeed,	//	å›è»¢é€Ÿåº¦
+	float				i_fScaling		//	æ‹¡å¤§ç¸®å°ã®å€¤
+	int					i_iLifeTime		//å‡ºç¾ã—ã¦ã„ã‚‹æ™‚é–“
 );
-—p“r : ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-–ß‚è’l : ‚È‚µ
+ç”¨é€” : ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+æˆ»ã‚Šå€¤ : ãªã—
 **************************************************************/
 LineEffect::LineEffectGroup::LineEffectGroup( float i_fRotZSpeed ,float i_fScaling , int i_iLifeTime )
 :m_fRotZSpeed( i_fRotZSpeed ) , m_fScale( i_fScaling ),m_iLifeTime( i_iLifeTime )
@@ -1012,15 +1012,15 @@ LineEffect::LineEffectGroup::LineEffectGroup( float i_fRotZSpeed ,float i_fScali
 
 /**************************************************************
 void LineEffect::LineEffectGroup::Move( 
-	Command& i_Com		//ƒRƒ}ƒ“ƒh
+	Command& i_Com		//ã‚³ãƒãƒ³ãƒ‰
 );
-—p“r : “®ì
-–ß‚è’l : ‚È‚µ
+ç”¨é€” : å‹•ä½œ
+æˆ»ã‚Šå€¤ : ãªã—
 **************************************************************/
 void LineEffect::LineEffectGroup::Move( Command& i_Com )
 {
-	float fRotZSpeed	= m_fRotZSpeed	 ;		//	‰ñ“]‘¬“x
-	DWORD dwDownColor	= 0x00000D2B	 ;		//	F‚Ì•ÏˆÊ
+	float fRotZSpeed	= m_fRotZSpeed	 ;		//	å›è»¢é€Ÿåº¦
+	DWORD dwDownColor	= 0x00000D2B	 ;		//	è‰²ã®å¤‰ä½
 	vector<LineEffectState*>::size_type i	= 0 ;
 	vector<LineEffectState*>::size_type end	= m_StateVec.size() ;
 
@@ -1031,7 +1031,7 @@ void LineEffect::LineEffectGroup::Move( Command& i_Com )
 		m_StateVec[ i ]->m_Matrix = CreateMatrix( m_StateVec[i]->m_vPos , m_StateVec[i]->m_vSize , m_StateVec[i]->m_vRot );
 
 		m_StateVec[ i ]->m_VLState->SetDownColor( dwDownColor );
-		fRotZSpeed *= -1 ;	//‰ñ“]•ûŒü‚ğ”½“]‚³‚¹‚é
+		fRotZSpeed *= -1 ;	//å›è»¢æ–¹å‘ã‚’åè»¢ã•ã›ã‚‹
 	}
 
 	m_iLifeTime-- ;
@@ -1040,10 +1040,10 @@ void LineEffect::LineEffectGroup::Move( Command& i_Com )
 
 /*************************************************************
 void LineEffect::LineEffectGroup::Draw( 
-	LPDIRECT3DDEVICE9 pD3DDevice	//ƒfƒoƒCƒX
+	LPDIRECT3DDEVICE9 pD3DDevice	//ãƒ‡ãƒã‚¤ã‚¹
 )
-—p“r : 
-–ß‚è’l : 
+ç”¨é€” : 
+æˆ»ã‚Šå€¤ : 
 *************************************************************/
 void LineEffect::LineEffectGroup::Draw( LPDIRECT3DDEVICE9 pD3DDevice )
 {
@@ -1059,8 +1059,8 @@ void LineEffect::LineEffectGroup::Draw( LPDIRECT3DDEVICE9 pD3DDevice )
 
 /******************************************************************
 LineEffect::LineEffect() ;
-—p“r : ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-–ß‚è’l : ‚È‚µ
+ç”¨é€” : ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+æˆ»ã‚Šå€¤ : ãªã—
 ******************************************************************/
 LineEffect::LineEffect( )
 {
@@ -1068,8 +1068,8 @@ LineEffect::LineEffect( )
 
 /******************************************************************
 LineEffect::~LineEffect();
-—p“r : ƒfƒXƒgƒ‰ƒNƒ^
-–ß‚è’l : ‚È‚µ
+ç”¨é€” : ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+æˆ»ã‚Šå€¤ : ãªã—
 ******************************************************************/
 LineEffect::~LineEffect()
 {
@@ -1077,30 +1077,30 @@ LineEffect::~LineEffect()
 
 /******************************************************************
 void LineEffect::AddLineEffect(
-	LPDIRECT3DDEVICE9 pD3DDevice	,	//ƒfƒoƒCƒX
-	const D3DXVECTOR3&	i_vPos		,	//ˆÊ’u
-	const D3DXVECTOR3&	i_vSize		,	//‘å‚«‚³
-	const D3DXVECTOR3&	i_vRot		,	//‰ñ“]“x
-	VertexStyle			i_VertexStyle	//ü‚ÌŒ`
-	float				i_fRotZSpeed,	//	‰ñ“]‘¬“x
-	float				i_fScaling	,	//	Šg‘åk¬‚Ì’l
-	int					i_iLifeTime	,	//oŒ»‚µ‚Ä‚¢‚éŠÔ
-	int					i_iLineNumber	//ü‚Ì–{”
+	LPDIRECT3DDEVICE9 pD3DDevice	,	//ãƒ‡ãƒã‚¤ã‚¹
+	const D3DXVECTOR3&	i_vPos		,	//ä½ç½®
+	const D3DXVECTOR3&	i_vSize		,	//å¤§ãã•
+	const D3DXVECTOR3&	i_vRot		,	//å›è»¢åº¦
+	VertexStyle			i_VertexStyle	//ç·šã®å½¢
+	float				i_fRotZSpeed,	//	å›è»¢é€Ÿåº¦
+	float				i_fScaling	,	//	æ‹¡å¤§ç¸®å°ã®å€¤
+	int					i_iLifeTime	,	//å‡ºç¾ã—ã¦ã„ã‚‹æ™‚é–“
+	int					i_iLineNumber	//ç·šã®æœ¬æ•°
 );
-—p“r : ƒ‰ƒCƒ“ƒGƒtƒFƒNƒg‚Ì’Ç‰Á
-–ß‚è’l : ‚È‚µ
+ç”¨é€” : ãƒ©ã‚¤ãƒ³ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã®è¿½åŠ 
+æˆ»ã‚Šå€¤ : ãªã—
 ******************************************************************/
 void LineEffect::AddLineEffect( LPDIRECT3DDEVICE9 pD3DDevice , const D3DXVECTOR3& i_vPos ,const D3DXVECTOR3& i_vSize ,
 							   const D3DXVECTOR3& i_vRot , VertexStyle i_VertexStyle ,float i_fRotZSpeed ,float i_fScaling , int i_iLifeTime , int i_iLineNumber)
 {
 
-	D3DXVECTOR3 vRot			= i_vRot	;					//‰ñ“]—p‚Ìì‹Æ—Ìˆæ
-	float		fRotZ			= 15.0f	/ i_iLineNumber;	//ƒGƒtƒFƒNƒgˆê‚ÂŒã‚É‚¸‚ç‚·‰ñ“]“x”
-	const float	fSize			= 0.25f		;					//¶¬‚Ì‘å‚«‚³‚ğ‚¸‚ç‚·—p‚Ì•Ï”
+	D3DXVECTOR3 vRot			= i_vRot	;					//å›è»¢ç”¨ã®ä½œæ¥­é ˜åŸŸ
+	float		fRotZ			= 15.0f	/ i_iLineNumber;	//ã‚¨ãƒ•ã‚§ã‚¯ãƒˆä¸€ã¤å¾Œã«ãšã‚‰ã™å›è»¢åº¦æ•°
+	const float	fSize			= 0.25f		;					//ç”Ÿæˆæ™‚ã®å¤§ãã•ã‚’ãšã‚‰ã™ç”¨ã®å¤‰æ•°
 
 	LineEffectGroup* LEG = new LineEffectGroup( i_fRotZSpeed , i_fScaling , i_iLifeTime);
 
-	//ƒGƒtƒFƒNƒg‚Ì¶¬ƒ‹[ƒv
+	//ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã®ç”Ÿæˆãƒ«ãƒ¼ãƒ—
 	for(int i = 0 ; i < i_iLineNumber ; i++ ){
 
 		D3DXVECTOR3 wvSize = i_vSize + D3DXVECTOR3( (i * fSize) / ((i_iLineNumber - i) * fSize ) , (i * fSize) / ((i_iLineNumber - i) * fSize) , 0.0f )  ; 
@@ -1116,13 +1116,13 @@ void LineEffect::AddLineEffect( LPDIRECT3DDEVICE9 pD3DDevice , const D3DXVECTOR3
 
 /******************************************************************
 virtual void LineEffect::Transform(
-	LPDIRECT3DDEVICE9		pD3DDevice	,	//ƒfƒoƒCƒX
-	const CONTROLER_STATE*	pCntlState	,	//ƒRƒ“ƒgƒ[ƒ‰‚ÌƒXƒe[ƒ^ƒX
-	vector<Object*>&		i_Vec		,	//ƒIƒuƒWƒFƒNƒg‚Ì”z—ñ
-	Command&				i_Com			//ƒRƒ}ƒ“ƒh
+	LPDIRECT3DDEVICE9		pD3DDevice	,	//ãƒ‡ãƒã‚¤ã‚¹
+	const CONTROLER_STATE*	pCntlState	,	//ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹
+	vector<Object*>&		i_Vec		,	//ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®é…åˆ—
+	Command&				i_Com			//ã‚³ãƒãƒ³ãƒ‰
 ) ;
-—p“r : ƒV[ƒ“‚Ì•Ï‰»
-–ß‚è’l : ‚È‚µ
+ç”¨é€” : ã‚·ãƒ¼ãƒ³ã®å¤‰åŒ–
+æˆ»ã‚Šå€¤ : ãªã—
 ******************************************************************/
 void LineEffect::Transform( LPDIRECT3DDEVICE9 pD3DDevice , const CONTROLER_STATE* pCntlState ,vector<Object*> i_ObjectVec ,Command& i_Com)
 {
@@ -1137,13 +1137,13 @@ void LineEffect::Transform( LPDIRECT3DDEVICE9 pD3DDevice , const CONTROLER_STATE
 
 /*****************************************************************
  virtual void LineEffect::Draw(
-	LPDIRECT3DDEVICE9		pD3DDevice	,	//IDirect3DDevice9 ƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-	vector<Object*>&		i_Vec		,	//ƒIƒuƒWƒFƒNƒg‚Ì”z—ñ
-	const CONTROLER_STATE*	pCntlState	,	//ƒRƒ“ƒgƒ[ƒ‰‚ÌƒXƒe[ƒ^ƒX
-	Command					i_Com			//ƒRƒ}ƒ“ƒh
+	LPDIRECT3DDEVICE9		pD3DDevice	,	//IDirect3DDevice9 ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+	vector<Object*>&		i_Vec		,	//ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®é…åˆ—
+	const CONTROLER_STATE*	pCntlState	,	//ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹
+	Command					i_Com			//ã‚³ãƒãƒ³ãƒ‰
  );
- —p“r: ƒIƒuƒWƒFƒNƒg‚ğ•`‰æ
- –ß‚è’l: ‚È‚µB
+ ç”¨é€”: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’æç”»
+ æˆ»ã‚Šå€¤: ãªã—ã€‚
 *****************************************************************/
 void LineEffect::Draw(LPDIRECT3DDEVICE9 pD3DDevice,vector<Object*>& i_Vec,
 							const CONTROLER_STATE* pCntlState,Command& i_Com )
@@ -1153,14 +1153,14 @@ void LineEffect::Draw(LPDIRECT3DDEVICE9 pD3DDevice,vector<Object*>& i_Vec,
 
 	for( it = m_StateVec.begin() ; it != end ; ){
 
-		//•`‰æˆ—
+		//æç”»å‡¦ç†
 		(*(it))->Draw(pD3DDevice);
 
 		if((*(it))->m_iLifeTime > 0 ){
 	
 			it++ ;
 
-		//‚à‚µƒ‰ƒCƒtƒ^ƒCƒ€‚ª‚È‚­‚È‚Á‚½‚çíœ‚·‚é
+		//ã‚‚ã—ãƒ©ã‚¤ãƒ•ã‚¿ã‚¤ãƒ ãŒãªããªã£ãŸã‚‰å‰Šé™¤ã™ã‚‹
 		}else{
 
 			it	= m_StateVec.erase( it );
@@ -1173,10 +1173,10 @@ void LineEffect::Draw(LPDIRECT3DDEVICE9 pD3DDevice,vector<Object*>& i_Vec,
 
 /***************************************************************************
 D3DXVECTOR3 LineEffect::getPos(
-	int i_iVecNum	//”z—ñ“à‚Å‚Ì“Y‚¦š
+	int i_iVecNum	//é…åˆ—å†…ã§ã®æ·»ãˆå­—
 ) ;
-—p“r : ˆÊ’u‚ğ•Ô‚·
-–ß‚è’l : w’è‚³‚ê‚½“Y‚¦š‚ÌObject‚ÌˆÊ’u‚ğ•Ô‚·
+ç”¨é€” : ä½ç½®ã‚’è¿”ã™
+æˆ»ã‚Šå€¤ : æŒ‡å®šã•ã‚ŒãŸæ·»ãˆå­—ã®Objectã®ä½ç½®ã‚’è¿”ã™
 ***************************************************************************/
 D3DXVECTOR3 LineEffect::getPos( int i_iVecNum )
 {
@@ -1188,8 +1188,8 @@ D3DXVECTOR3 LineEffect::getPos( int i_iVecNum )
 
 /**************************************************************************
 const int LineEffect::getObjectVecSize() const ;
-—p“r : ƒIƒuƒWƒFƒNƒg‚Ì”‚ğ”cˆ¬‚·‚é
-–ß‚è’l : ‚±‚ÌƒNƒ‰ƒX‚ÅŠÇ—‚µ‚Ä‚¢‚éObject‚Ì”
+ç”¨é€” : ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®æ•°ã‚’æŠŠæ¡ã™ã‚‹
+æˆ»ã‚Šå€¤ : ã“ã®ã‚¯ãƒ©ã‚¹ã§ç®¡ç†ã—ã¦ã„ã‚‹Objectã®æ•°
 **************************************************************************/
 const int LineEffect::getObjectVecSize() const
 {
@@ -1197,24 +1197,24 @@ const int LineEffect::getObjectVecSize() const
 }
 
 /*******************************************************************
-class NameLineEffect : public Object ’è‹`•”
-—p“r :	–¼‘O‚ÌüƒGƒtƒFƒNƒg‚Ì•`‰æ
+class NameLineEffect : public Object å®šç¾©éƒ¨
+ç”¨é€” :	åå‰ã®ç·šã‚¨ãƒ•ã‚§ã‚¯ãƒˆã®æç”»
 *******************************************************************/
 
 /*******************************************************************
-class NameLineEffect::NameLineEffectState  ’è‹`•”
-—p“r : üƒGƒtƒFƒNƒg‚ğŠÇ—‚·‚éƒXƒe[ƒ^ƒX
+class NameLineEffect::NameLineEffectState  å®šç¾©éƒ¨
+ç”¨é€” : ç·šã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚’ç®¡ç†ã™ã‚‹ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹
 *******************************************************************/
 /***********************************************************
 NameLineEffect::NameLineEffectGroup::NameLineEffectState::NameLineEffectState(
-	LPDIRECT3DDEVICE9	pD3DDevice	,	//ƒfƒoƒCƒX
-	const D3DXVECTOR3&	i_vPos		,	//ˆÊ’u
-	const D3DXVECTOR3&	i_vSize		,	//‘å‚«‚³
-	const D3DXVECTOR3&	i_vRot			//‰ñ“]“x
-	VertexStyle			i_VertexStyle	//ü‚ÌŒ`
+	LPDIRECT3DDEVICE9	pD3DDevice	,	//ãƒ‡ãƒã‚¤ã‚¹
+	const D3DXVECTOR3&	i_vPos		,	//ä½ç½®
+	const D3DXVECTOR3&	i_vSize		,	//å¤§ãã•
+	const D3DXVECTOR3&	i_vRot			//å›è»¢åº¦
+	VertexStyle			i_VertexStyle	//ç·šã®å½¢
 );
-—p“r : ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-–ß‚è’l : ‚È‚µ
+ç”¨é€” : ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+æˆ»ã‚Šå€¤ : ãªã—
 ***********************************************************/
 NameLineEffect::NameLineEffectState::NameLineEffectState(LPDIRECT3DDEVICE9 pD3DDevice , const D3DXVECTOR3& i_vPos ,
 	const D3DXVECTOR3& i_vSize , const D3DXVECTOR3& i_vRot , VertexStyle i_VertexStyle )
@@ -1229,8 +1229,8 @@ NameLineEffect::NameLineEffectState::NameLineEffectState(LPDIRECT3DDEVICE9 pD3DD
 
 /************************************************************
 NameLineEffect::NameLineEffectState::~NameLineEffectState();
-—p“r : ƒfƒXƒgƒ‰ƒNƒ^
-–ß‚è’l : ‚È‚µ
+ç”¨é€” : ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+æˆ»ã‚Šå€¤ : ãªã—
 ************************************************************/
 NameLineEffect::NameLineEffectState::~NameLineEffectState()
 {
@@ -1240,10 +1240,10 @@ NameLineEffect::NameLineEffectState::~NameLineEffectState()
 
 /**************************************************************
 void NameLineEffect::NameLineEffectState::Move( 
-	Command& i_Com		//ƒRƒ}ƒ“ƒh
+	Command& i_Com		//ã‚³ãƒãƒ³ãƒ‰
 );
-—p“r : “®ì
-–ß‚è’l : ‚È‚µ
+ç”¨é€” : å‹•ä½œ
+æˆ»ã‚Šå€¤ : ãªã—
 **************************************************************/
 void NameLineEffect::NameLineEffectState::Move( Command& i_Com )
 {
@@ -1256,12 +1256,12 @@ void NameLineEffect::NameLineEffectState::Move( Command& i_Com )
 
 /******************************************************************
 NameLineEffect::NameLineEffect(
-	LPDIRECT3DDEVICE9	pD3DDevice,			//ƒfƒoƒCƒX
-	const wchar_t*		i_filename			//‰æ‘œ‚Ìƒtƒ@ƒCƒ‹–¼
-	float				i_fSize				//ƒGƒtƒFƒNƒg‚Ì‘å‚«‚³
+	LPDIRECT3DDEVICE9	pD3DDevice,			//ãƒ‡ãƒã‚¤ã‚¹
+	const wchar_t*		i_filename			//ç”»åƒã®ãƒ•ã‚¡ã‚¤ãƒ«å
+	float				i_fSize				//ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã®å¤§ãã•
 ) ;
-—p“r : ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-–ß‚è’l : ‚È‚µ
+ç”¨é€” : ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+æˆ»ã‚Šå€¤ : ãªã—
 ******************************************************************/
 NameLineEffect::NameLineEffect(LPDIRECT3DDEVICE9 pD3DDevice, const wchar_t* i_filename,float i_fSize)
 :ThreeDimensionsEffect( pD3DDevice , i_filename , 0x00000000 , i_fSize ),m_iDrawVerticesNumber(0)
@@ -1273,8 +1273,8 @@ NameLineEffect::NameLineEffect(LPDIRECT3DDEVICE9 pD3DDevice, const wchar_t* i_fi
 
 /******************************************************************
 NameLineEffect::~NameLineEffect();
-—p“r : ƒfƒXƒgƒ‰ƒNƒ^
-–ß‚è’l : ‚È‚µ
+ç”¨é€” : ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+æˆ»ã‚Šå€¤ : ãªã—
 ******************************************************************/
 NameLineEffect::~NameLineEffect()
 {
@@ -1282,12 +1282,12 @@ NameLineEffect::~NameLineEffect()
 
 /******************************************************************
 void NameLineEffect::AddNameLineEffect(
-	LPDIRECT3DDEVICE9 pD3DDevice	,	//ƒfƒoƒCƒX
-	const D3DXVECTOR3&	i_vPos		,	//ˆÊ’u
-	const D3DXVECTOR3&	i_vSize		,	//‘å‚«‚³
+	LPDIRECT3DDEVICE9 pD3DDevice	,	//ãƒ‡ãƒã‚¤ã‚¹
+	const D3DXVECTOR3&	i_vPos		,	//ä½ç½®
+	const D3DXVECTOR3&	i_vSize		,	//å¤§ãã•
 );
-—p“r : ƒ‰ƒCƒ“ƒGƒtƒFƒNƒg‚Ì’Ç‰Á
-–ß‚è’l : ‚È‚µ
+ç”¨é€” : ãƒ©ã‚¤ãƒ³ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã®è¿½åŠ 
+æˆ»ã‚Šå€¤ : ãªã—
 ******************************************************************/
 void NameLineEffect::AddNameLineEffect( LPDIRECT3DDEVICE9 pD3DDevice , const D3DXVECTOR3& i_vPos ,const D3DXVECTOR3& i_vSize )
 {
@@ -1296,13 +1296,13 @@ void NameLineEffect::AddNameLineEffect( LPDIRECT3DDEVICE9 pD3DDevice , const D3D
 
 /******************************************************************
 virtual void NameLineEffect::Transform(
-	LPDIRECT3DDEVICE9		pD3DDevice	,	//ƒfƒoƒCƒX
-	const CONTROLER_STATE*	pCntlState	,	//ƒRƒ“ƒgƒ[ƒ‰‚ÌƒXƒe[ƒ^ƒX
-	vector<Object*>&		i_Vec		,	//ƒIƒuƒWƒFƒNƒg‚Ì”z—ñ
-	Command&				i_Com			//ƒRƒ}ƒ“ƒh
+	LPDIRECT3DDEVICE9		pD3DDevice	,	//ãƒ‡ãƒã‚¤ã‚¹
+	const CONTROLER_STATE*	pCntlState	,	//ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹
+	vector<Object*>&		i_Vec		,	//ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®é…åˆ—
+	Command&				i_Com			//ã‚³ãƒãƒ³ãƒ‰
 ) ;
-—p“r : ƒV[ƒ“‚Ì•Ï‰»
-–ß‚è’l : ‚È‚µ
+ç”¨é€” : ã‚·ãƒ¼ãƒ³ã®å¤‰åŒ–
+æˆ»ã‚Šå€¤ : ãªã—
 ******************************************************************/
 void NameLineEffect::Transform( LPDIRECT3DDEVICE9 pD3DDevice , const CONTROLER_STATE* pCntlState ,vector<Object*> i_ObjectVec ,Command& i_Com)
 {
@@ -1319,13 +1319,13 @@ void NameLineEffect::Transform( LPDIRECT3DDEVICE9 pD3DDevice , const CONTROLER_S
 
 /*****************************************************************
  virtual void NameLineEffect::Draw(
-	LPDIRECT3DDEVICE9		pD3DDevice	,	//IDirect3DDevice9 ƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-	vector<Object*>&		i_Vec		,	//ƒIƒuƒWƒFƒNƒg‚Ì”z—ñ
-	const CONTROLER_STATE*	pCntlState	,	//ƒRƒ“ƒgƒ[ƒ‰‚ÌƒXƒe[ƒ^ƒX
-	Command					i_Com			//ƒRƒ}ƒ“ƒh
+	LPDIRECT3DDEVICE9		pD3DDevice	,	//IDirect3DDevice9 ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+	vector<Object*>&		i_Vec		,	//ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®é…åˆ—
+	const CONTROLER_STATE*	pCntlState	,	//ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹
+	Command					i_Com			//ã‚³ãƒãƒ³ãƒ‰
  );
- —p“r: ƒIƒuƒWƒFƒNƒg‚ğ•`‰æ
- –ß‚è’l: ‚È‚µB
+ ç”¨é€”: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’æç”»
+ æˆ»ã‚Šå€¤: ãªã—ã€‚
 *****************************************************************/
 void NameLineEffect::Draw(LPDIRECT3DDEVICE9 pD3DDevice,vector<Object*>& i_Vec,
 							const CONTROLER_STATE* pCntlState,Command& i_Com )
@@ -1335,16 +1335,16 @@ void NameLineEffect::Draw(LPDIRECT3DDEVICE9 pD3DDevice,vector<Object*>& i_Vec,
 	vector<NameLineEffectState*>::iterator end	= m_StateVec.end() ;
 
 
-	//ü‚Ì•`‰æ
+	//ç·šã®æç”»
 	for( it = m_StateVec.begin() ; it != end ; ){
 
-		//•`‰æˆ—
+		//æç”»å‡¦ç†
 		(*(it))->m_pVLState->Draw(pD3DDevice,(*it)->m_Matrix);
 		//if((*(it))->m_iLifeTime > 0 ){
 	
 		//	it++ ;
 
-		////‚à‚µƒ‰ƒCƒtƒ^ƒCƒ€‚ª‚È‚­‚È‚Á‚½‚çíœ‚·‚é
+		////ã‚‚ã—ãƒ©ã‚¤ãƒ•ã‚¿ã‚¤ãƒ ãŒãªããªã£ãŸã‚‰å‰Šé™¤ã™ã‚‹
 		//}else{
 
 		//	it	= m_StateVec.erase( it );
@@ -1357,21 +1357,21 @@ void NameLineEffect::Draw(LPDIRECT3DDEVICE9 pD3DDevice,vector<Object*>& i_Vec,
 	D3DXMatrixIdentity( &mMatrix );
 	pD3DDevice->SetTransform( D3DTS_WORLD , &mMatrix );
 
-	//–¼‘O‚Ì•`‰æ
-	//ƒŒƒ“ƒ_[ƒXƒe[ƒg‚ğ•ÏX‚³‚¹‚é‚½‚ß‚ÌƒNƒ‰ƒX‚ğéŒ¾
+	//åå‰ã®æç”»
+	//ãƒ¬ãƒ³ãƒ€ãƒ¼ã‚¹ãƒ†ãƒ¼ãƒˆã‚’å¤‰æ›´ã•ã›ã‚‹ãŸã‚ã®ã‚¯ãƒ©ã‚¹ã‚’å®£è¨€
 	DeviceRenderState drs = DeviceRenderState() ;
-	drs.SetDeviceRenderState(D3DRS_LIGHTING, FALSE );	//ƒ‰ƒCƒeƒBƒ“ƒOƒ‚[ƒh‚ğFALSE
+	drs.SetDeviceRenderState(D3DRS_LIGHTING, FALSE );	//ãƒ©ã‚¤ãƒ†ã‚£ãƒ³ã‚°ãƒ¢ãƒ¼ãƒ‰ã‚’FALSE
 	drs.ChangeRS_PointSprite(m_fEffectSize);
 	drs.ChangeRS_ALPHABLENDENABLE_Black();
 	drs.ChangeRenderState(pD3DDevice);
-	//ƒp[ƒeƒBƒNƒ‹‚Ì•`‰æ
+	//ãƒ‘ãƒ¼ãƒ†ã‚£ã‚¯ãƒ«ã®æç”»
 	VerticesRender(pD3DDevice,m_DrawVertices,m_iDrawVerticesNumber);
-	//ƒŒƒ“ƒ_[ƒXƒe[ƒg‚Ì•ÏX
+	//ãƒ¬ãƒ³ãƒ€ãƒ¼ã‚¹ãƒ†ãƒ¼ãƒˆã®å¤‰æ›´
 	drs.ChangeRenderState(pD3DDevice);
 
-	//’¸“_”‚ğƒ[ƒ‚É–ß‚·
+	//é ‚ç‚¹æ•°ã‚’ã‚¼ãƒ­ã«æˆ»ã™
 	m_iDrawVerticesNumber = 0 ;
-	//’¸“_ƒf[ƒ^‚Ì”z—ñ‚ğƒŠƒZƒbƒg‚·‚é
+	//é ‚ç‚¹ãƒ‡ãƒ¼ã‚¿ã®é…åˆ—ã‚’ãƒªã‚»ãƒƒãƒˆã™ã‚‹
 	ZeroMemory( m_DrawVertices , sizeof( m_DrawVertices ));
 
 
@@ -1379,10 +1379,10 @@ void NameLineEffect::Draw(LPDIRECT3DDEVICE9 pD3DDevice,vector<Object*>& i_Vec,
 
 /****************************************************************
 void NameLineEffect::setPos( 
-	const vector<D3DXVECTOR3*>& i_vPosVec //w’è‚µ‚½‚¢ƒ|ƒWƒVƒ‡ƒ“‚Ì”z—ñ
+	const vector<D3DXVECTOR3*>& i_vPosVec //æŒ‡å®šã—ãŸã„ãƒã‚¸ã‚·ãƒ§ãƒ³ã®é…åˆ—
 );
-—p“r : “n‚³‚ê‚½ƒ|ƒWƒVƒ‡ƒ“‚Ì”‚¾‚¯ˆÊ’u‚ğƒZƒbƒg‚·‚é
-–ß‚è’l : ‚È‚µ
+ç”¨é€” : æ¸¡ã•ã‚ŒãŸãƒã‚¸ã‚·ãƒ§ãƒ³ã®æ•°ã ã‘ä½ç½®ã‚’ã‚»ãƒƒãƒˆã™ã‚‹
+æˆ»ã‚Šå€¤ : ãªã—
 ****************************************************************/
 void NameLineEffect::setPos( const D3DXVECTOR3& i_vPosVec )
 {

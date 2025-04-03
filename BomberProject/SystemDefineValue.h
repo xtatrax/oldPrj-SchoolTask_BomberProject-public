@@ -1,11 +1,11 @@
 ////////////////////////////// //////////////////////////////
-//	ƒvƒƒWƒFƒNƒg	FDirectX Program Bass Project
-//	ƒtƒ@ƒCƒ‹–¼		FDefineValue.h
-//	ŠJ”­ŠÂ‹«		FMSVC++ 2008
-//	Å“Kƒ^ƒu”		F4
-//	’S“–ŽÒ			FŽ°Œ´ “O
-//	“à•ïÃÞ°À‚Æ”õl	FƒOƒ[ƒoƒ‹‚ÈƒfƒBƒtƒ@ƒCƒ“’lŒQ
-//					¥
+//	ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆ	ï¼šDirectX Program Bass Project
+//	ãƒ•ã‚¡ã‚¤ãƒ«å		ï¼šDefineValue.h
+//	é–‹ç™ºç’°å¢ƒ		ï¼šMSVC++ 2008
+//	æœ€é©ã‚¿ãƒ–æ•°		ï¼š4
+//	æ‹…å½“è€…			ï¼šé´«åŽŸ å¾¹
+//	å†…åŒ…ãƒ‡ãƒ¼ã‚¿ã¨å‚™è€ƒ	ï¼šã‚°ãƒ­ãƒ¼ãƒãƒ«ãªãƒ‡ã‚£ãƒ•ã‚¡ã‚¤ãƒ³å€¤ç¾¤
+//					â–¼
 //
 #ifndef	_System_Define_Value__
 #define	_System_Define_Value__
@@ -13,7 +13,7 @@
  
 
 //////////
-// ƒ}ƒNƒŠÖ”
+// ãƒžã‚¯ãƒ­é–¢æ•°
 
 #define TL_SQUARE(n)							((n)*(n))
 
@@ -22,62 +22,62 @@
 
 
 //////////
-//	: ƒRƒ“ƒpƒCƒŠƒ“ƒOƒtƒ‰ƒO
+//	: ã‚³ãƒ³ãƒ‘ã‚¤ãƒªãƒ³ã‚°ãƒ•ãƒ©ã‚°
 
 //-------------------------------//
-//		ƒfƒoƒbƒOƒ‚[ƒh’è‹`       //
+//		ãƒ‡ãƒãƒƒã‚°ãƒ¢ãƒ¼ãƒ‰å®šç¾©       //
 //-------------------------------//
 #if defined(DEBUG) || defined(_DEBUG)
-	#define ON_DEBUGGINGPROCESS					/* ƒfƒoƒbƒNƒ‚[ƒh             */
+	#define ON_DEBUGGINGPROCESS					/* ãƒ‡ãƒãƒƒã‚¯ãƒ¢ãƒ¼ãƒ‰             */
 	//#define ON_GUIDELINE
 
-	//	: ƒVƒXƒeƒ€Œn
-	//#define CF_LOADINGANIMATION				/* ƒ[ƒh‰æ–Ê‚Åƒ}ƒ‹ƒ`ƒXƒŒƒbƒhƒAƒjƒ[ƒVƒ‡ƒ“ */
-	#define CF_MEMORYMANAGER_ENABLE				/* Ž©ì‚Ìƒƒ‚ƒŠŠÇ—ƒVƒXƒeƒ€‚ð—LŒø‰» */
-	#define CF_OVERLORDNEW_ENABLE				/* Ž©ì‚Ìnew‚ð‹­§‰»( “à•”‚Ånew‚ðƒI[ƒo[ƒ‰ƒCƒh‚µ‚Ä‚¢‚éƒNƒ‰ƒX‚ª‚ ‚éê‡ƒGƒ‰[‚ð‹N‚±‚·‰Â”\«‚ª‚ ‚è‚Ü‚· ) */
-	#define CF_MEMORYOUTPUTPROCESS_ENABLE		/* Ž©ì‚Ìƒƒ‚ƒŠŠÇ—ƒVƒXƒeƒ€‚É‚æ‚èŠÇ—‚³‚ê‚Ä‚¢‚éƒAƒCƒeƒ€‚Ìƒtƒ@ƒCƒ‹‚Ö‚Ì‘‚«o‚µ‚ð‰Â”\‚É‚·‚é(Manager—LŒøŽž) */
-	#define CF_DEBUG_JUMPTOOTHGOAL				/* ƒS[ƒ‹Žè‘O‚ÖJUMP‰Â”\ */
+	//	: ã‚·ã‚¹ãƒ†ãƒ ç³»
+	//#define CF_LOADINGANIMATION				/* ãƒ­ãƒ¼ãƒ‰ç”»é¢ã§ãƒžãƒ«ãƒã‚¹ãƒ¬ãƒƒãƒ‰ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ */
+	#define CF_MEMORYMANAGER_ENABLE				/* è‡ªä½œã®ãƒ¡ãƒ¢ãƒªç®¡ç†ã‚·ã‚¹ãƒ†ãƒ ã‚’æœ‰åŠ¹åŒ– */
+	#define CF_OVERLORDNEW_ENABLE				/* è‡ªä½œã®newã‚’å¼·åˆ¶åŒ–( å†…éƒ¨ã§newã‚’ã‚ªãƒ¼ãƒãƒ¼ãƒ©ã‚¤ãƒ‰ã—ã¦ã„ã‚‹ã‚¯ãƒ©ã‚¹ãŒã‚ã‚‹å ´åˆã‚¨ãƒ©ãƒ¼ã‚’èµ·ã“ã™å¯èƒ½æ€§ãŒã‚ã‚Šã¾ã™ ) */
+	#define CF_MEMORYOUTPUTPROCESS_ENABLE		/* è‡ªä½œã®ãƒ¡ãƒ¢ãƒªç®¡ç†ã‚·ã‚¹ãƒ†ãƒ ã«ã‚ˆã‚Šç®¡ç†ã•ã‚Œã¦ã„ã‚‹ã‚¢ã‚¤ãƒ†ãƒ ã®ãƒ•ã‚¡ã‚¤ãƒ«ã¸ã®æ›¸ãå‡ºã—ã‚’å¯èƒ½ã«ã™ã‚‹(Manageræœ‰åŠ¹æ™‚) */
+	#define CF_DEBUG_JUMPTOOTHGOAL				/* ã‚´ãƒ¼ãƒ«æ‰‹å‰ã¸JUMPå¯èƒ½ */
 
-	//	: ‘€ìŒn
-	#define DEBUG_KEYBORD_ON					/* ƒfƒoƒbƒO—pƒL[ƒ{[ƒh‘€ì‚ð—LŒø‰» */
-	#define CF_MEMORYLEEKOUTPUT_ENABLE			/* ƒƒ‚ƒŠƒ}ƒl[ƒWƒƒ—LŒøŽž‚ÉƒŠ[ƒN‚µ‚Ä‚¢‚éƒƒ‚ƒŠˆê——‚ðƒtƒ@ƒCƒ‹‚Ö‘‚«o‚µ‚Ü‚· */
+	//	: æ“ä½œç³»
+	#define DEBUG_KEYBORD_ON					/* ãƒ‡ãƒãƒƒã‚°ç”¨ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰æ“ä½œã‚’æœ‰åŠ¹åŒ– */
+	#define CF_MEMORYLEEKOUTPUT_ENABLE			/* ãƒ¡ãƒ¢ãƒªãƒžãƒãƒ¼ã‚¸ãƒ£æœ‰åŠ¹æ™‚ã«ãƒªãƒ¼ã‚¯ã—ã¦ã„ã‚‹ãƒ¡ãƒ¢ãƒªä¸€è¦§ã‚’ãƒ•ã‚¡ã‚¤ãƒ«ã¸æ›¸ãå‡ºã—ã¾ã™ */
 
-	//	: î•ñŒn
-	#define CF_DRAW_DEBUGSTRING					/* ƒfƒoƒbƒO—p•¶Žš—ñ‚ð—LŒø‰» */
-	#define CF_DEBUGLOGTEXT_OUTPUT_ENABLE		/* DEBUG—p‚ÌƒƒO‚ðƒeƒLƒXƒg‚É“f‚«o‚µ‰Â”\‚É‚·‚é */
+	//	: æƒ…å ±ç³»
+	#define CF_DRAW_DEBUGSTRING					/* ãƒ‡ãƒãƒƒã‚°ç”¨æ–‡å­—åˆ—ã‚’æœ‰åŠ¹åŒ– */
+	#define CF_DEBUGLOGTEXT_OUTPUT_ENABLE		/* DEBUGç”¨ã®ãƒ­ã‚°ã‚’ãƒ†ã‚­ã‚¹ãƒˆã«åãå‡ºã—å¯èƒ½ã«ã™ã‚‹ */
 
-	//#define CF_DEBUGINFORMATIONWINDOW_ENABLE	/* ƒfƒoƒbƒOî•ñ•\Ž¦—pƒEƒCƒ“ƒhƒE‚ð—LŒø‰» */
+	//#define CF_DEBUGINFORMATIONWINDOW_ENABLE	/* ãƒ‡ãƒãƒƒã‚°æƒ…å ±è¡¨ç¤ºç”¨ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ã‚’æœ‰åŠ¹åŒ– */
 	//#define CF_
-	#define CF_DEBUG_TIMEDRAW					/* ŽžŠÔ‚ð•`‰æ */
+	#define CF_DEBUG_TIMEDRAW					/* æ™‚é–“ã‚’æç”» */
 #endif
 
 //-------------------------------//
-//		ƒvƒŒƒ[ƒ“ƒ‚[ƒh’è‹`       //
+//		ãƒ—ãƒ¬ã‚¼ãƒ³ãƒ¢ãƒ¼ãƒ‰å®šç¾©       //
 //-------------------------------//
 #if defined( CONS_PRESENTATION )
-	#define CF_DEBUG_JUMPTOOTHGOAL			/* ƒS[ƒ‹Žè‘O‚ÖJUMP‰Â”\       */
-	#define CF_FULLSCREEN					/* ƒtƒ‹ƒXƒNƒŠ[ƒ“ƒ‚[ƒh       */
+	#define CF_DEBUG_JUMPTOOTHGOAL			/* ã‚´ãƒ¼ãƒ«æ‰‹å‰ã¸JUMPå¯èƒ½       */
+	#define CF_FULLSCREEN					/* ãƒ•ãƒ«ã‚¹ã‚¯ãƒªãƒ¼ãƒ³ãƒ¢ãƒ¼ãƒ‰       */
 #endif
 
 //-------------------------------//
-//    ƒZƒ~ƒŠƒŠ[ƒXƒ‚[ƒh’è‹`     //
+//    ã‚»ãƒŸãƒªãƒªãƒ¼ã‚¹ãƒ¢ãƒ¼ãƒ‰å®šç¾©     //
 //-------------------------------//
 #if defined( CONS_SEMIRELEASE )
-	//	: ƒVƒXƒeƒ€Œn
-	#define CF_FULLSCREEN						/* ƒtƒ‹ƒXƒNƒŠ[ƒ“ƒ‚[ƒh       */
-	//#define CF_MEMORYMANAGER_ENABLE				/* Ž©ì‚Ìƒƒ‚ƒŠŠÇ—ƒVƒXƒeƒ€‚ð—LŒø‰» */
-	//#define CF_OVERLORDNEW_ENABLE				/* Ž©ì‚Ìnew‚ð‹­§‰»( “à•”‚Ånew‚ðƒI[ƒo[ƒ‰ƒCƒh‚µ‚Ä‚¢‚éƒNƒ‰ƒX‚ª‚ ‚éê‡ƒGƒ‰[‚ð‹N‚±‚·‰Â”\«‚ª‚ ‚è‚Ü‚· ) */
-	//#define CF_MEMORYLEEKOUTPUT_ENABLE			/* ƒƒ‚ƒŠƒ}ƒl[ƒWƒƒ—LŒøŽž‚ÉƒŠ[ƒN‚µ‚Ä‚¢‚éƒƒ‚ƒŠˆê——‚ðƒtƒ@ƒCƒ‹‚Ö‘‚«o‚µ‚Ü‚· */
+	//	: ã‚·ã‚¹ãƒ†ãƒ ç³»
+	#define CF_FULLSCREEN						/* ãƒ•ãƒ«ã‚¹ã‚¯ãƒªãƒ¼ãƒ³ãƒ¢ãƒ¼ãƒ‰       */
+	//#define CF_MEMORYMANAGER_ENABLE				/* è‡ªä½œã®ãƒ¡ãƒ¢ãƒªç®¡ç†ã‚·ã‚¹ãƒ†ãƒ ã‚’æœ‰åŠ¹åŒ– */
+	//#define CF_OVERLORDNEW_ENABLE				/* è‡ªä½œã®newã‚’å¼·åˆ¶åŒ–( å†…éƒ¨ã§newã‚’ã‚ªãƒ¼ãƒãƒ¼ãƒ©ã‚¤ãƒ‰ã—ã¦ã„ã‚‹ã‚¯ãƒ©ã‚¹ãŒã‚ã‚‹å ´åˆã‚¨ãƒ©ãƒ¼ã‚’èµ·ã“ã™å¯èƒ½æ€§ãŒã‚ã‚Šã¾ã™ ) */
+	//#define CF_MEMORYLEEKOUTPUT_ENABLE			/* ãƒ¡ãƒ¢ãƒªãƒžãƒãƒ¼ã‚¸ãƒ£æœ‰åŠ¹æ™‚ã«ãƒªãƒ¼ã‚¯ã—ã¦ã„ã‚‹ãƒ¡ãƒ¢ãƒªä¸€è¦§ã‚’ãƒ•ã‚¡ã‚¤ãƒ«ã¸æ›¸ãå‡ºã—ã¾ã™ */
 	/////////////////////
 	/////////////////////
-	#define CF_DEBUG_JUMPTOOTHGOAL			/* ƒS[ƒ‹Žè‘O‚ÖJUMP‰Â”\ */
+	#define CF_DEBUG_JUMPTOOTHGOAL			/* ã‚´ãƒ¼ãƒ«æ‰‹å‰ã¸JUMPå¯èƒ½ */
 	/////////////////////
 	/////////////////////
 
 #endif
 
 //-------------------------------//
-//	   ƒEƒCƒ“ƒhƒEƒ‚[ƒh’è‹`      //
+//	   ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ãƒ¢ãƒ¼ãƒ‰å®šç¾©      //
 //-------------------------------//
 #if defined( CONS_WINDOW )
 	#ifdef CF_FULLSCREEN
@@ -86,20 +86,20 @@
 #endif
 
 //-------------------------------//
-//	 ƒtƒ‹ƒXƒNƒŠ[ƒ“ƒ‚[ƒh’è‹`    //
+//	 ãƒ•ãƒ«ã‚¹ã‚¯ãƒªãƒ¼ãƒ³ãƒ¢ãƒ¼ãƒ‰å®šç¾©    //
 //-------------------------------//
 #if defined( CONS_FULLSCREEN )
-	#define CF_FULLSCREEN				/* ƒtƒ‹ƒXƒNƒŠ[ƒ“ƒ‚[ƒh       */
+	#define CF_FULLSCREEN				/* ãƒ•ãƒ«ã‚¹ã‚¯ãƒªãƒ¼ãƒ³ãƒ¢ãƒ¼ãƒ‰       */
 #endif
 
-#define CF_SINGLETHREAD					/* ƒVƒ“ƒOƒ‹ƒXƒŒƒbƒhƒ‚[ƒh  ( –³Œø‚É‚·‚é‚Æƒ}ƒ‹ƒ`ƒXƒŒƒbƒh“I‚É‚È‚è‚Ü‚·‚ªƒoƒO‚è‚Ü‚· )   */
-#define DRAW_MOUSE	(false)				/* ƒ}ƒEƒX‚ð•`‰æ‚·‚é‚©‚Ç‚¤‚© */
+#define CF_SINGLETHREAD					/* ã‚·ãƒ³ã‚°ãƒ«ã‚¹ãƒ¬ãƒƒãƒ‰ãƒ¢ãƒ¼ãƒ‰  ( ç„¡åŠ¹ã«ã™ã‚‹ã¨ãƒžãƒ«ãƒã‚¹ãƒ¬ãƒƒãƒ‰çš„ã«ãªã‚Šã¾ã™ãŒãƒã‚°ã‚Šã¾ã™ )   */
+#define DRAW_MOUSE	(false)				/* ãƒžã‚¦ã‚¹ã‚’æç”»ã™ã‚‹ã‹ã©ã†ã‹ */
 
 //
 //////////
 
 //////////
-// ƒ}ƒNƒŠÖ”
+// ãƒžã‚¯ãƒ­é–¢æ•°
 
 #define TL_SQUARE(n)							((n)*(n))
 
@@ -108,36 +108,36 @@
 
 
 //////////
-//	: ƒOƒ[ƒoƒ‹‚È•Ï”
+//	: ã‚°ãƒ­ãƒ¼ãƒãƒ«ãªå¤‰æ•°
 
-//	: ƒfƒtƒ@ƒCƒ“’è”
+//	: ãƒ‡ãƒ•ã‚¡ã‚¤ãƒ³å®šæ•°
 #define MAP_PARTS_HEIGHT		(    1.0f)	/*  */
 #define MAP_PARTS_WIDTH			(    1.0f)	/*  */
-#define BASE_CLIENT_HEIGHT		(  600.0f)	/* Šî€‚É‚È‚é•`‰æ—Ìˆæ‚Ì‚‚³ */
-#define BASE_CLIENT_WIDTH		( 1024.0f)	/* Šî€‚É‚È‚é•`‰æ—Ìˆæ‚Ì•   */
+#define BASE_CLIENT_HEIGHT		(  600.0f)	/* åŸºæº–ã«ãªã‚‹æç”»é ˜åŸŸã®é«˜ã• */
+#define BASE_CLIENT_WIDTH		( 1024.0f)	/* åŸºæº–ã«ãªã‚‹æç”»é ˜åŸŸã®å¹…   */
 #if defined(CF_FULLSCREEN)
 
-#define STANDARD_WINDOW_HEIGHT		(  768.0f)	/* ƒEƒCƒ“ƒhƒEƒ‚[ƒh‚Ì‚‚³ */
-#define STANDARD_WINDOW_WIDTH		( 1280.0f)	/* ƒEƒCƒ“ƒhƒEƒ‚[ƒh‚Ì•   */
+#define STANDARD_WINDOW_HEIGHT		(  768.0f)	/* ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ãƒ¢ãƒ¼ãƒ‰ã®é«˜ã• */
+#define STANDARD_WINDOW_WIDTH		( 1280.0f)	/* ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ãƒ¢ãƒ¼ãƒ‰ã®å¹…   */
 
-//#define STANDARD_WINDOW_HEIGHT  (  800.0f)	/* ƒEƒCƒ“ƒhƒEƒ‚[ƒh‚Ì‚‚³   */
-//#define STANDARD_WINDOW_WIDTH   ( 1280.0f)	/* ƒEƒCƒ“ƒhƒEƒ‚[ƒh‚Ì•     */
+//#define STANDARD_WINDOW_HEIGHT  (  800.0f)	/* ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ãƒ¢ãƒ¼ãƒ‰ã®é«˜ã•   */
+//#define STANDARD_WINDOW_WIDTH   ( 1280.0f)	/* ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ãƒ¢ãƒ¼ãƒ‰ã®å¹…     */
 
-//#define STANDARD_WINDOW_HEIGHT  (  768.0f)	/* ƒEƒCƒ“ƒhƒEƒ‚[ƒh‚Ì‚‚³   */
-//#define STANDARD_WINDOW_WIDTH   ( 1366.0f)	/* ƒEƒCƒ“ƒhƒEƒ‚[ƒh‚Ì•     */
-//#define STANDARD_WINDOW_HEIGHT  (  600.0f)	/* ƒEƒCƒ“ƒhƒEƒ‚[ƒh‚Ì‚‚³   */
-//#define STANDARD_WINDOW_WIDTH   ( 1024.0f)	/* ƒEƒCƒ“ƒhƒEƒ‚[ƒh‚Ì•     */
+//#define STANDARD_WINDOW_HEIGHT  (  768.0f)	/* ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ãƒ¢ãƒ¼ãƒ‰ã®é«˜ã•   */
+//#define STANDARD_WINDOW_WIDTH   ( 1366.0f)	/* ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ãƒ¢ãƒ¼ãƒ‰ã®å¹…     */
+//#define STANDARD_WINDOW_HEIGHT  (  600.0f)	/* ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ãƒ¢ãƒ¼ãƒ‰ã®é«˜ã•   */
+//#define STANDARD_WINDOW_WIDTH   ( 1024.0f)	/* ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ãƒ¢ãƒ¼ãƒ‰ã®å¹…     */
 #else
-#define STANDARD_WINDOW_HEIGHT  (  600.0f)	/* ƒEƒCƒ“ƒhƒEƒ‚[ƒh‚Ì‚‚³   */
-#define STANDARD_WINDOW_WIDTH   ( 1024.0f)	/* ƒEƒCƒ“ƒhƒEƒ‚[ƒh‚Ì•     */
+#define STANDARD_WINDOW_HEIGHT  (  600.0f)	/* ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ãƒ¢ãƒ¼ãƒ‰ã®é«˜ã•   */
+#define STANDARD_WINDOW_WIDTH   ( 1024.0f)	/* ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ãƒ¢ãƒ¼ãƒ‰ã®å¹…     */
 #endif
 
-#define DRAW_TOLERANCE			(   20.0f)	/* ƒJƒƒ‰‚©‚ç‚Ì•`‰æ‹——£ */
+#define DRAW_TOLERANCE			(   20.0f)	/* ã‚«ãƒ¡ãƒ©ã‹ã‚‰ã®æç”»è·é›¢ */
 
 #define DEFAULT_WINDOW_TITLE		( L"Magnetica" )
 #define DEFAULT_WINDOW_CLASS_NAME	( L"MagneticWindow" )
 
-//	ƒL[ƒ{[ƒh’è‹`
+//	ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰å®šç¾©
 #define MYVK_GAMEPAD_A				( 'X' )
 #define MYVK_GAMEPAD_B				( 'C' )
 #define MYVK_GAMEPAD_X				( 'S' )
@@ -173,9 +173,9 @@
 #define MYVK_DEBUG_STAGE_RULER_SUBKEY		( VK_SHIFT   )
 #define MYVK_DEBUG_SWITCH_ALPHABLEND		( 'A'        )
 
-#define UI_HEIGHT							( 88.0f )	//	: UI‚Ì‚‚³
-#define DRAW_CLIENT_MAGNIFICATION			( 50.0f )	//	: •\Ž¦‰æ–Ê‚Ì”{—¦ x=800, y=512 : x=40, y=25.6
-#define MAGNETIC_RADIUS						( 0.5f )	//	: Ž¥ŠE‚Ì”¼Œa
+#define UI_HEIGHT							( 88.0f )	//	: UIã®é«˜ã•
+#define DRAW_CLIENT_MAGNIFICATION			( 50.0f )	//	: è¡¨ç¤ºç”»é¢ã®å€çŽ‡ x=800, y=512 : x=40, y=25.6
+#define MAGNETIC_RADIUS						( 0.5f )	//	: ç£ç•Œã®åŠå¾„
 const float	CURSOR_FIELD_LENGHT				= 10.0f;
 const float CURSOR_FIELD_TIME				= 2.0f;		
 
@@ -183,7 +183,7 @@ const float CURSOR_FIELD_TIME				= 2.0f;
 static ULONG				RCVAL_SAVEDATA_IDENTIFIER_H		= 0x534E4B42 ;	//	: BKNS
 static ULONG				RCVAL_SAVEDATA_IDENTIFIER_L		= 0x5F455641 ;	//	: AVE_
 
-//	: ƒeƒLƒXƒg
+//	: ãƒ†ã‚­ã‚¹ãƒˆ
 static const char*			RCTEXT_SAVEDATA_EXTENSION		= "bkn"  ;
 static const char*			RCTEXT_SAVEDATA_FILENAME		= "SaveData/Save.bkn"  ;
 
@@ -216,16 +216,16 @@ static const char*			RCTEXT_SOUND_SE_COUNT_FINISH	= "SE-COUNT_FINISH"		;
 static const char*			RCTEXT_MODEL_ENEMY				= "media/Model/mine.x"	;
 
 //	: 
-static const float			MGPRM_INVISIBLESOUND_TIME		= 0.7f	; /* Ž¥ŠE‚Ì‰e‹¿”¼Œa*/
-static const int			MGPRM_MAGNETICUM				= 10	; /* Ž¥ŠE‚Ì‰e‹¿”¼Œa*/
+static const float			MGPRM_INVISIBLESOUND_TIME		= 0.7f	; /* ç£ç•Œã®å½±éŸ¿åŠå¾„*/
+static const int			MGPRM_MAGNETICUM				= 10	; /* ç£ç•Œã®å½±éŸ¿åŠå¾„*/
 static const int			MGPRM_MAGNETICUM_QUAD			= ( MGPRM_MAGNETICUM * MGPRM_MAGNETICUM );
-static const float			MGPRM_EFFECTINTERVAL			= 0.85f	; /* Ž¥ŠE‚Ì‰e‹¿”¼Œa*/
+static const float			MGPRM_EFFECTINTERVAL			= 0.85f	; /* ç£ç•Œã®å½±éŸ¿åŠå¾„*/
 static const int			DRAWING_RANGE					= 25;
 static const D3DXVECTOR3	g_vZero							= D3DXVECTOR3(0.0f,0.0f,0.0f);
 static const D3DXVECTOR3	g_vOne							= D3DXVECTOR3(1.0f,1.0f,1.0f);
 static const D3DXVECTOR3	g_vMax							= D3DXVECTOR3(+FLT_MAX,+FLT_MAX,+FLT_MAX);
 static const D3DXVECTOR3	g_vMin							= D3DXVECTOR3(-FLT_MAX,-FLT_MAX,-FLT_MAX);
-static const wstring		g_sDefaultTexturePath			= L"media/Textures/" ;	//	: ƒeƒNƒXƒ`ƒƒ‚Ì’u‚«ê
+static const wstring		g_sDefaultTexturePath			= L"media/Textures/" ;	//	: ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®ç½®ãå ´
 static const SIZE			g_GaugeReverseSize				= { 146,67 };
 static const bool			g_bIsCookTranceEnable_Coil		= false ;
 
@@ -237,40 +237,40 @@ static const bool			g_bIsCookTranceEnable_Coil		= false ;
 
 //
 namespace wiz{
-	//	: ƒQ[ƒ€“àƒƒZ[ƒW
+	//	: ã‚²ãƒ¼ãƒ å†…ãƒ¡ã‚»ãƒ¼ã‚¸
 	enum{
 
-		GM_WITHOUT					,	//	: ‰½‚à‚µ‚È‚¢
+		GM_WITHOUT					,	//	: ä½•ã‚‚ã—ãªã„
 
-		GM_OPENSTAGE_TITLE			,	//	: ƒ^ƒCƒgƒ‹‰æ–Ê‚ðŠJ‚­
-		GM_OPENSTAGE_DEMO			,	//	: ƒfƒ‚‰æ–Ê‚ðŠJ‚­
-		GM_OPENSTAGE_SELECT			,	//	: ƒZƒŒƒNƒg‰æ–Ê‚ðŠJ‚­
-		GM_OPENSTAGE_LOAD			,	//	: ƒ[ƒh‰æ–Ê‚ðŠJ‚­
-		GM_OPENSTAGE_LOAD_PLAY		,	//	: ƒ[ƒh‰æ–Ê‚ðŠJ‚¢‚½Œã‚ÉƒvƒŒƒC‰æ–Ê‚ðŠJ‚­
-		GM_OPENSTAGE_PLAY			,	//	: ƒvƒŒƒC‰æ–Ê‚ðŠJ‚­
-		GM_OPENSTAGE_GAMECLEAR		,	//	: ƒNƒŠƒA‰æ–Ê‚ðŠJ‚­
-		GM_OPENSTAGE_GAMEOVER		,	//	: ƒQ[ƒ€ƒI[ƒo[‰æ–Ê‚ðŠJ‚­
-		GM_OPENSTAGE_CLEAR			,	//	: ƒNƒŠƒA‰æ–Ê‚ðŠJ‚­
-		GM_OPENSTAGE_RESULT			,	//	: ƒŠƒUƒ‹ƒg‰æ–Ê‚ðŠJ‚­
-		GM_OPENSTAGE_RANKING		,	//	: ƒ‰ƒ“ƒLƒ“ƒO‰æ–Ê‚ðŠJ‚­
-		GM_OPENSTAGE_OPTION			,	//	: ƒIƒvƒVƒ‡ƒ“‰æ–Ê‚ðŠJ‚­
-		GM_EXIT						,	//	: ƒQ[ƒ€‚ðI—¹‚·‚é
+		GM_OPENSTAGE_TITLE			,	//	: ã‚¿ã‚¤ãƒˆãƒ«ç”»é¢ã‚’é–‹ã
+		GM_OPENSTAGE_DEMO			,	//	: ãƒ‡ãƒ¢ç”»é¢ã‚’é–‹ã
+		GM_OPENSTAGE_SELECT			,	//	: ã‚»ãƒ¬ã‚¯ãƒˆç”»é¢ã‚’é–‹ã
+		GM_OPENSTAGE_LOAD			,	//	: ãƒ­ãƒ¼ãƒ‰ç”»é¢ã‚’é–‹ã
+		GM_OPENSTAGE_LOAD_PLAY		,	//	: ãƒ­ãƒ¼ãƒ‰ç”»é¢ã‚’é–‹ã„ãŸå¾Œã«ãƒ—ãƒ¬ã‚¤ç”»é¢ã‚’é–‹ã
+		GM_OPENSTAGE_PLAY			,	//	: ãƒ—ãƒ¬ã‚¤ç”»é¢ã‚’é–‹ã
+		GM_OPENSTAGE_GAMECLEAR		,	//	: ã‚¯ãƒªã‚¢ç”»é¢ã‚’é–‹ã
+		GM_OPENSTAGE_GAMEOVER		,	//	: ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼ç”»é¢ã‚’é–‹ã
+		GM_OPENSTAGE_CLEAR			,	//	: ã‚¯ãƒªã‚¢ç”»é¢ã‚’é–‹ã
+		GM_OPENSTAGE_RESULT			,	//	: ãƒªã‚¶ãƒ«ãƒˆç”»é¢ã‚’é–‹ã
+		GM_OPENSTAGE_RANKING		,	//	: ãƒ©ãƒ³ã‚­ãƒ³ã‚°ç”»é¢ã‚’é–‹ã
+		GM_OPENSTAGE_OPTION			,	//	: ã‚ªãƒ—ã‚·ãƒ§ãƒ³ç”»é¢ã‚’é–‹ã
+		GM_EXIT						,	//	: ã‚²ãƒ¼ãƒ ã‚’çµ‚äº†ã™ã‚‹
 
 		//////////
-		//	: ƒfƒoƒbƒO—pƒXƒe[ƒW‚ðŠJ‚­
+		//	: ãƒ‡ãƒãƒƒã‚°ç”¨ã‚¹ãƒ†ãƒ¼ã‚¸ã‚’é–‹ã
 		GM_OPENDEBUGSTAGE_DEBUGMENU			,	
 		GM_OPENDEBUGSTAGE_PLAY_RELOAD		,
 		GM_OPENDEBUGSTAGE_STAGELOADERTEST	,
 		GM_OPENDEBUGSTAGE_TATEAWORKSPACE	,
 		GM_OPENDEBUGSTAGE_STAGECREATE		,
-		//	: ƒfƒoƒbƒO—pƒXƒe[ƒW‚ðŠJ‚­
+		//	: ãƒ‡ãƒãƒƒã‚°ç”¨ã‚¹ãƒ†ãƒ¼ã‚¸ã‚’é–‹ã
 		//////////
 
-		GM_CHANGE_PARENTSTAGE	,	//	: eƒXƒe[ƒW‚ÖˆÚs
-		GM_CHANGE_CHILDSTAGE	,	//	: ŽqƒXƒe[ƒW‚ÖˆÚs
+		GM_CHANGE_PARENTSTAGE	,	//	: è¦ªã‚¹ãƒ†ãƒ¼ã‚¸ã¸ç§»è¡Œ
+		GM_CHANGE_CHILDSTAGE	,	//	: å­ã‚¹ãƒ†ãƒ¼ã‚¸ã¸ç§»è¡Œ
 
-		GM_CONTINUEBUTTON_YES	,	//	: YESƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚½
-		GM_CONTINUEBUTTON_NO	,	//	: NOƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚½
+		GM_CONTINUEBUTTON_YES	,	//	: YESãƒœã‚¿ãƒ³ãŒæŠ¼ã•ã‚ŒãŸ
+		GM_CONTINUEBUTTON_NO	,	//	: NOãƒœã‚¿ãƒ³ãŒæŠ¼ã•ã‚ŒãŸ
 
 		//////////
 		//	: 
@@ -281,8 +281,8 @@ namespace wiz{
 	enum CLASSID{
 		/////////
 		//
-		//	‚±‚Ì—ñ‹“Œ^‚ÍŠO•”ƒtƒ@ƒCƒ‹‚ÅŽg—p‚·‚é‚Ì‚Å
-		//	Žd—l‚É]‚¢â‘Î‚É’l‚ð–¾‹L‚·‚é‚±‚Æ
+		//	ã“ã®åˆ—æŒ™åž‹ã¯å¤–éƒ¨ãƒ•ã‚¡ã‚¤ãƒ«ã§ä½¿ç”¨ã™ã‚‹ã®ã§
+		//	ä»•æ§˜ã«å¾“ã„çµ¶å¯¾ã«å€¤ã‚’æ˜Žè¨˜ã™ã‚‹ã“ã¨
 		//
 
 		CLASSID_NONE		=    0 ,
@@ -302,28 +302,28 @@ namespace wiz{
 	//////////////////////////////////////////////////
 	//                                              //
 	//                                              //
-	//	     ƒIƒuƒWƒFƒNƒg‚ðŽ¯•Ê‚·‚é‚½‚ß‚ÌID         //
+	//	     ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’è­˜åˆ¥ã™ã‚‹ãŸã‚ã®ID         //
 	//                                              //
-	//   ’Ç‰Á‚ÌÛ‚Í‚·‚×‚Ä‘å•¶Žš‚Å‹Lq‚µ‚Ä‚­‚¾‚³‚¢   //
+	//   è¿½åŠ ã®éš›ã¯ã™ã¹ã¦å¤§æ–‡å­—ã§è¨˜è¿°ã—ã¦ãã ã•ã„   //
 	//                                              //
 	//                                              //
 	//////////////////////////////////////////////////
 	enum OBJID{
-		OBJID_NONE					= 0x0000,	//	: ‚È‚µ
-		OBJID_UNK					= 0x0001,	//	: –¢’èƒIƒuƒWƒF
+		OBJID_NONE					= 0x0000,	//	: ãªã—
+		OBJID_UNK					= 0x0001,	//	: æœªå®šã‚ªãƒ–ã‚¸ã‚§
 
-		//	: ƒVƒXƒeƒ€ŠÖŒW
+		//	: ã‚·ã‚¹ãƒ†ãƒ é–¢ä¿‚
 		OBJID_SYS_BEGIN				= 0x1000,
-		OBJID_SYS_GUIDELINE			,	//	: XYZƒKƒCƒhü( Debug—p )
-		OBJID_SYS_CAMERA			,	//	: ƒJƒƒ‰
-		OBJID_SYS_LIGHT				,	//	: ƒ‰ƒCƒg
-		OBJID_SYS_DIRECTIONAL		,	//	: •ûŒü«ƒ‰ƒCƒg
-		OBJID_SYS_CURSOR			,	//	: ƒJ[ƒ\ƒ‹
-		OBJID_SYS_SOUND				,	//	: ‰¹º
-		OBJID_SYS_CHECKPOINT		,	//	: ƒ`ƒFƒbƒNƒ|ƒCƒ“ƒg
-		OBJID_SYS_RESTARTPOINT		,	//	: •œ‹A’n“_
-		OBJID_SYS_CLEARAREA			,	//	: ƒNƒŠƒA—Ìˆæ
-		OBJID_SYS_RENDERTARGET		,	//	: ƒŒƒ“ƒ_[ƒ^[ƒQƒbƒg
+		OBJID_SYS_GUIDELINE			,	//	: XYZã‚¬ã‚¤ãƒ‰ç·š( Debugç”¨ )
+		OBJID_SYS_CAMERA			,	//	: ã‚«ãƒ¡ãƒ©
+		OBJID_SYS_LIGHT				,	//	: ãƒ©ã‚¤ãƒˆ
+		OBJID_SYS_DIRECTIONAL		,	//	: æ–¹å‘æ€§ãƒ©ã‚¤ãƒˆ
+		OBJID_SYS_CURSOR			,	//	: ã‚«ãƒ¼ã‚½ãƒ«
+		OBJID_SYS_SOUND				,	//	: éŸ³å£°
+		OBJID_SYS_CHECKPOINT		,	//	: ãƒã‚§ãƒƒã‚¯ãƒã‚¤ãƒ³ãƒˆ
+		OBJID_SYS_RESTARTPOINT		,	//	: å¾©å¸°åœ°ç‚¹
+		OBJID_SYS_CLEARAREA			,	//	: ã‚¯ãƒªã‚¢é ˜åŸŸ
+		OBJID_SYS_RENDERTARGET		,	//	: ãƒ¬ãƒ³ãƒ€ãƒ¼ã‚¿ãƒ¼ã‚²ãƒƒãƒˆ
 		OBJID_SYS_END				,	
 		OBJID_SYS_START				,	
 
@@ -332,14 +332,14 @@ namespace wiz{
 		OBJID_BEHAVIOR_PLAYSAVE				,
 		OBJID_BEHAVIOR_CONTINUE				,
 
-		//	:ƒTƒEƒ“ƒh‚Ü‚í‚è
+		//	:ã‚µã‚¦ãƒ³ãƒ‰ã¾ã‚ã‚Š
 		//	:BGM
 		//OBJID_SOUND_BGM_TITLE			,
 		//OBJID_SOUND_BGM_PLAY			,
 		//OBJID_SOUND_BGM_CLEAR			,
 		//OBJID_SOUND_BGM_GAME_OVER		,
 
-		//	:Œø‰Ê‰¹
+		//	:åŠ¹æžœéŸ³
 		//OBJID_SOUND_SE_ALERT			,
 		//OBJID_SOUND_SE_BLOKEN_ENEMY		,
 		//OBJID_SOUND_SE_CHACK_POINT		,
@@ -354,10 +354,10 @@ namespace wiz{
 		//OBJID_SOUND_SE_SPARK			,
 
 
-		//	: UIŽü‚è
+		//	: UIå‘¨ã‚Š
 		OBJID_UI_BEGIN				= 0x2000,
-		OBJID_UI_SPRITE				,	//	: UI‚ÉŽg‚¤ƒXƒvƒ‰ƒCƒg
-		OBJID_UI_SPRITEBUTTON		,	//	: ƒXƒvƒ‰ƒCƒgƒ{ƒ^ƒ“‚ÌUI
+		OBJID_UI_SPRITE				,	//	: UIã«ä½¿ã†ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆ
+		OBJID_UI_SPRITEBUTTON		,	//	: ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆãƒœã‚¿ãƒ³ã®UI
 		OBJID_UI_BUTTON_NORMAL		,	//	:
 		OBJID_UI_BUTTON_HARD		,	//	:
 		OBJID_UI_BUTTON_EXTRA		,	//	:
@@ -366,69 +366,69 @@ namespace wiz{
 		OBJID_UI_BUTTON_NO			,	//	:
 		OBJID_UI_TITLEMAGNETFIELD	,	//	:
 		OBJID_UI_SELECTINFORMATION	,	//	:
-		OBJID_UI_CHECKPOINT_CHAR	,	//	: ƒ`ƒFƒbƒNƒ|ƒCƒ“ƒg
-		OBJID_UI_LIFE				,	//	: ƒ‰ƒCƒt( ”O‚Ì‚½‚ß )
-		OBJID_UI_SUPERGAUGE			,	//	: ƒQ[ƒW
-		OBJID_UI_MAGNETGAUGE_N		,	//	: N‹ÉƒQ[ƒW
-		OBJID_UI_MAGNETGAUGE_S		,	//	: S‹ÉƒQ[ƒW
-		OBJID_UI_SCORE				,	//	: ƒXƒRƒA
-		OBJID_UI_TIME				,	//	: ŽžŠÔ
-		OBJID_UI_NOTICE				,	//	: ƒX[ƒp[‚½‚Ü‚Á‚½(Ready)
-		OBJID_UI_RANK				,	//	: ƒ‰ƒ“ƒN
-		OBJID_UI_DEAD_CHAR			,	//	: Ž€–SŽž‚¾‚·•¶Žš
-		OBJID_UI_END				,	//	: UI‚ÌIDéŒ¾I—¹
-		//	: 3DƒIƒuƒWƒF
+		OBJID_UI_CHECKPOINT_CHAR	,	//	: ãƒã‚§ãƒƒã‚¯ãƒã‚¤ãƒ³ãƒˆ
+		OBJID_UI_LIFE				,	//	: ãƒ©ã‚¤ãƒ•( å¿µã®ãŸã‚ )
+		OBJID_UI_SUPERGAUGE			,	//	: ã‚²ãƒ¼ã‚¸
+		OBJID_UI_MAGNETGAUGE_N		,	//	: Næ¥µã‚²ãƒ¼ã‚¸
+		OBJID_UI_MAGNETGAUGE_S		,	//	: Sæ¥µã‚²ãƒ¼ã‚¸
+		OBJID_UI_SCORE				,	//	: ã‚¹ã‚³ã‚¢
+		OBJID_UI_TIME				,	//	: æ™‚é–“
+		OBJID_UI_NOTICE				,	//	: ã‚¹ãƒ¼ãƒ‘ãƒ¼ãŸã¾ã£ãŸ(Ready)
+		OBJID_UI_RANK				,	//	: ãƒ©ãƒ³ã‚¯
+		OBJID_UI_DEAD_CHAR			,	//	: æ­»äº¡æ™‚ã ã™æ–‡å­—
+		OBJID_UI_END				,	//	: UIã®IDå®£è¨€çµ‚äº†
+		//	: 3Dã‚ªãƒ–ã‚¸ã‚§
 		////
-		// ƒvƒŠƒ~ƒeƒBƒuŒn
+		// ãƒ—ãƒªãƒŸãƒ†ã‚£ãƒ–ç³»
 		OBJID_3D_BEGIN				= 0x3000,
-		OBJID_3D_POLYGON			,	//	: ‚Æ‚è‚ ‚¦‚¸“Ç‚Ýž‚ñ‚¾ƒ‚ƒfƒ‹ƒf[ƒ^
-		OBJID_3D_BOX				,	//	: ‚Æ‚è‚ ‚¦‚¸ì‚Á‚½” 
-		OBJID_3D_BOX_PARALLEL		,	//	: ‚Ï‚ç‚ê‚é?EEE
-		OBJID_3D_SPHERE				,	//	: ‚Æ‚è‚ ‚¦‚¸ì‚Á‚½‹…‘Ì
-		OBJID_3D_CYLINDER			,	//	: ‚Æ‚è‚ ‚¦‚¸ì‚Á‚½‰~’Œ‰~
+		OBJID_3D_POLYGON			,	//	: ã¨ã‚Šã‚ãˆãšèª­ã¿è¾¼ã‚“ã ãƒ¢ãƒ‡ãƒ«ãƒ‡ãƒ¼ã‚¿
+		OBJID_3D_BOX				,	//	: ã¨ã‚Šã‚ãˆãšä½œã£ãŸç®±
+		OBJID_3D_BOX_PARALLEL		,	//	: ã±ã‚‰ã‚Œã‚‹?ãƒ»ãƒ»ãƒ»
+		OBJID_3D_SPHERE				,	//	: ã¨ã‚Šã‚ãˆãšä½œã£ãŸçƒä½“
+		OBJID_3D_CYLINDER			,	//	: ã¨ã‚Šã‚ãˆãšä½œã£ãŸå††æŸ±å††éŒ
 
-		//	: ƒ}ƒ‹ƒ`ƒvƒŠƒ~ƒeƒBƒu
+		//	: ãƒžãƒ«ãƒãƒ—ãƒªãƒŸãƒ†ã‚£ãƒ–
 		OBJID_3D_MULTI_POLYGON		,	
 		OBJID_3D_MULTI_BOX			,
 		OBJID_3D_MULTI_BOX_PARALLEL	,
 		OBJID_3D_MULTI_SPHERE		,
 		OBJID_3D_MULTI_CYLINDER		,
 		OBJID_3D_MULTI_TAURUS		,
-		// ƒvƒŠƒ~ƒeƒBƒuŒn
+		// ãƒ—ãƒªãƒŸãƒ†ã‚£ãƒ–ç³»
 		////
 
 		//	: 
-		//OBJID_3D_MAGNET			,	//	: Ž¥Î
+		//OBJID_3D_MAGNET			,	//	: ç£çŸ³
 		OBJID_3D_BACKGROUND			,
-		OBJID_3D_WALL				,	//	: •Ç
-		OBJID_3D_ITEM				,	//	: ƒAƒCƒeƒ€
+		OBJID_3D_WALL				,	//	: å£
+		OBJID_3D_ITEM				,	//	: ã‚¢ã‚¤ãƒ†ãƒ 
 
 
 		//	:
 		//OBJID_3D_PLAYER				,
-		OBJID_3D_USERMAGNET			,	//	: ƒ†[ƒU[
-		OBJID_3D_COIL				,	//	: ƒvƒŒƒCƒ„[
-		OBJID_3D_STATIC_MAGNET		,	//	: Ž¥Î
-		OBJID_3D_EFFECT				,	//	: ƒGƒtƒFƒNƒg
-		OBJID_3D_WARNING			,	//	: Œx
-		OBJID_3D_ENEMY				,	//	: “G
-		OBJID_3D_DEADEFFECT			,	//	: ƒvƒŒƒCƒ„[
+		OBJID_3D_USERMAGNET			,	//	: ãƒ¦ãƒ¼ã‚¶ãƒ¼
+		OBJID_3D_COIL				,	//	: ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼
+		OBJID_3D_STATIC_MAGNET		,	//	: ç£çŸ³
+		OBJID_3D_EFFECT				,	//	: ã‚¨ãƒ•ã‚§ã‚¯ãƒˆ
+		OBJID_3D_WARNING			,	//	: è­¦å‘Š
+		OBJID_3D_ENEMY				,	//	: æ•µ
+		OBJID_3D_DEADEFFECT			,	//	: ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼
 
 
 
 		//	: 
-		OBJID_3D_TESTBOX			,	//	: ƒeƒXƒg—p‚Ì” 
+		OBJID_3D_TESTBOX			,	//	: ãƒ†ã‚¹ãƒˆç”¨ã®ç®±
 		OBJID_3D_DRAWOBB			,
 		OBJID_3D_END				,
 
 
-		//	: I‚í‚è
+		//	: çµ‚ã‚ã‚Š
 		OBJID_END					=  0xFFFFFFFFFFFFFFFF ,
 
 	} ;
 	enum POLE{
-		POLE_S , 		/* S‹É */
-		POLE_N , 		/* N‹É */
+		POLE_S , 		/* Sæ¥µ */
+		POLE_N , 		/* Næ¥µ */
 	};
 
 

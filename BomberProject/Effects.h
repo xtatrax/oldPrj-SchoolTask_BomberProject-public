@@ -1,11 +1,11 @@
 ////////////////////////////// //////////////////////////////
-//	ƒvƒƒWƒFƒNƒg	FBomberProject
-//	ƒtƒ@ƒCƒ‹–¼		FDebug_Stage.h
-//	ŠJ”­ŠÂ‹«		FMSVC++ 2008
-//	Å“Kƒ^ƒu”		F4
-//	’S“–Ò			F°Œ´ “O
-//	“à•ïÃŞ°À‚Æ”õl	FƒfƒoƒbƒN—pƒXƒe[ƒW
-//					¥
+//	ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆ	ï¼šBomberProject
+//	ãƒ•ã‚¡ã‚¤ãƒ«å		ï¼šDebug_Stage.h
+//	é–‹ç™ºç’°å¢ƒ		ï¼šMSVC++ 2008
+//	æœ€é©ã‚¿ãƒ–æ•°		ï¼š4
+//	æ‹…å½“è€…			ï¼šé´«åŸ å¾¹
+//	å†…åŒ…ãƒ‡ãƒ¼ã‚¿ã¨å‚™è€ƒ	ï¼šãƒ‡ãƒãƒƒã‚¯ç”¨ã‚¹ãƒ†ãƒ¼ã‚¸
+//					â–¼
 //	namespace wiz;
 //		class DebugStage : public MenuStage;
 //		class DebugMenu  : public MenuStage;
@@ -21,34 +21,34 @@ protected:
 };
 
 
-//	: ’¸“_ƒf[ƒ^‚Ì’è‹`
+//	: é ‚ç‚¹ãƒ‡ãƒ¼ã‚¿ã®å®šç¾©
 struct	Vertex
 {
-	D3DXVECTOR3	vPos ;		//	: ’¸“_‚ÍAˆÊ’uÀ•Wƒf[ƒ^‚ğ‚Â
-	DWORD		dwColor ;	//	: ’¸“_‚ÍAFƒf[ƒ^‚ğ‚Â
-	D3DXVECTOR2	vTex ;		//	: ’¸“_‚ÍAƒeƒNƒXƒ`ƒƒÀ•W‚ğ‚Â
+	D3DXVECTOR3	vPos ;		//	: é ‚ç‚¹ã¯ã€ä½ç½®åº§æ¨™ãƒ‡ãƒ¼ã‚¿ã‚’æŒã¤
+	DWORD		dwColor ;	//	: é ‚ç‚¹ã¯ã€è‰²ãƒ‡ãƒ¼ã‚¿ã‚’æŒã¤
+	D3DXVECTOR2	vTex ;		//	: é ‚ç‚¹ã¯ã€ãƒ†ã‚¯ã‚¹ãƒãƒ£åº§æ¨™ã‚’æŒã¤
 
-	//	: ƒfƒtƒHƒ‹ƒgƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	//	: ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	Vertex()
 	{
 	}
-	//	: ‰Šú‰»‚ğŠÈ—ª‰»‚·‚é‚½‚ß‚Ìˆø”•t‚«ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	//	: åˆæœŸåŒ–ã‚’ç°¡ç•¥åŒ–ã™ã‚‹ãŸã‚ã®å¼•æ•°ä»˜ãã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	Vertex( const D3DXVECTOR3& i_vPos, DWORD i_dwColor, const D3DXVECTOR2& i_vTex )
 		: vPos( i_vPos ), dwColor( i_dwColor ), vTex( i_vTex )
 	{
 	}
-	//	: ƒfƒXƒgƒ‰ƒNƒ^
+	//	: ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	virtual ~Vertex()
 	{
 	}
 
-	//	: ‚±‚Ì’¸“_ƒf[ƒ^‚ÌŒ`®‚ğ•Ô‚·
+	//	: ã“ã®é ‚ç‚¹ãƒ‡ãƒ¼ã‚¿ã®å½¢å¼ã‚’è¿”ã™
 	static DWORD	getFVF()
 	{
 		return D3DFVF_XYZ | D3DFVF_DIFFUSE | D3DFVF_TEX1 ;
 	}
 
-	//	: ‚±‚Ì’¸“_ƒf[ƒ^‚Ìƒf[ƒ^ƒTƒCƒY‚ğ•Ô‚·
+	//	: ã“ã®é ‚ç‚¹ãƒ‡ãƒ¼ã‚¿ã®ãƒ‡ãƒ¼ã‚¿ã‚µã‚¤ã‚ºã‚’è¿”ã™
 	static int		getSize()
 	{
 		return sizeof( Vertex );
@@ -56,7 +56,7 @@ struct	Vertex
 };
 
 //////////
-//	: Particle—p‚Ì’¸“_ƒf[ƒ^
+//	: Particleç”¨ã®é ‚ç‚¹ãƒ‡ãƒ¼ã‚¿
 struct PointVertex{
 	D3DXVECTOR3 vPos ;
 	union{
@@ -74,7 +74,7 @@ struct PointVertex{
 	~PointVertex()
 	{}
 	static DWORD getFVF(){
-		return D3DFVF_XYZ | D3DFVF_DIFFUSE ;	//	: ’¸“_î•ñ‚ÆF‚Ì‚İ
+		return D3DFVF_XYZ | D3DFVF_DIFFUSE ;	//	: é ‚ç‚¹æƒ…å ±ã¨è‰²ã®ã¿
 	}
 	static int getSize()
 	{
@@ -120,11 +120,11 @@ public:
 	void Draw(IDirect3DDevice9* pd3dDevice){
 
 		//////////
-		//	: ’¸“_‚ÌˆÚ“®
+		//	: é ‚ç‚¹ã®ç§»å‹•
 		m_VertexList.vPos += m_vDirection * m_fSpeed;
 
 		//////////
-		//	: ’¸“_‚ÉƒeƒNƒXƒ`ƒƒ‚ğ“\‚è•t‚¯‚é
+		//	: é ‚ç‚¹ã«ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’è²¼ã‚Šä»˜ã‘ã‚‹
 		float fPointSize = 0.03f;
 		pd3dDevice->SetRenderState(D3DRS_POINTSPRITEENABLE, TRUE );
 		pd3dDevice->SetRenderState(D3DRS_POINTSCALEENABLE , TRUE );
@@ -163,7 +163,7 @@ public:
 
 	void Draw(IDirect3DDevice9* pd3dDevice){
 		//////////
-		//	: ƒŒƒ“ƒ_[ƒXƒe[ƒg‚Ì•Û
+		//	: ãƒ¬ãƒ³ãƒ€ãƒ¼ã‚¹ãƒ†ãƒ¼ãƒˆã®ä¿æŒ
 		DWORD	dwLighting_Status,
 				dwAlphaEnable_Status,
 				dwSrcBlend_Status,
@@ -179,14 +179,14 @@ public:
 		//////////
 
 		//////////
-		//	: ƒfƒoƒCƒX‚Ìİ’è
+		//	: ãƒ‡ãƒã‚¤ã‚¹ã®è¨­å®š
 		pd3dDevice->SetRenderState( D3DRS_LIGHTING,			FALSE			);
 		pd3dDevice->SetRenderState( D3DRS_ALPHABLENDENABLE,	TRUE			);
 		pd3dDevice->SetRenderState( D3DRS_SRCBLEND,			D3DBLEND_ONE	);
 		pd3dDevice->SetRenderState( D3DRS_DESTBLEND,		D3DBLEND_ONE	);
 		pd3dDevice->SetRenderState( D3DRS_ZWRITEENABLE,		FALSE			);
 		
-		//	: ƒeƒNƒXƒ`ƒƒ‚ğ‚Ú‚©‚·İ’èiƒhƒbƒg‚ğ–Ú—§‚½‚È‚­‚·‚éj
+		//	: ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’ã¼ã‹ã™è¨­å®šï¼ˆãƒ‰ãƒƒãƒˆã‚’ç›®ç«‹ãŸãªãã™ã‚‹ï¼‰
 		pd3dDevice->SetSamplerState( 0, D3DSAMP_MINFILTER, D3DTEXF_LINEAR );
 		pd3dDevice->SetSamplerState( 0, D3DSAMP_MAGFILTER, D3DTEXF_LINEAR );
 		//pd3dDevice->SetRenderState(D3DRS_LIGHTING , FALSE);
@@ -196,7 +196,7 @@ public:
 		//////////
 
 		//////////
-		//	: Še’¸“_‚Ì•`‰æ
+		//	: å„é ‚ç‚¹ã®æç”»
 		list<Particle*>::iterator it = m_ParticleList.begin();
 		for( ;it != m_ParticleList.end(); it++ ){
 			(*it)->Draw(pd3dDevice);
@@ -205,7 +205,7 @@ public:
 		//////////
 
 		//////////
-		//	: ƒŒƒ“ƒ_[ƒXƒe[ƒg‚Ì•œŒ³
+		//	: ãƒ¬ãƒ³ãƒ€ãƒ¼ã‚¹ãƒ†ãƒ¼ãƒˆã®å¾©å…ƒ
 		pd3dDevice->SetRenderState( D3DRS_LIGHTING,			dwLighting_Status		);
 		pd3dDevice->SetRenderState( D3DRS_ALPHABLENDENABLE,	dwAlphaEnable_Status	);
 		pd3dDevice->SetRenderState( D3DRS_SRCBLEND,			dwSrcBlend_Status		);

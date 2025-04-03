@@ -1,7 +1,7 @@
 
-ƒT[ƒo[       : Assembla
+ã‚µãƒ¼ãƒãƒ¼       : Assembla
 URL            : https://www.assembla.com/
-ƒ`[ƒ€–¼(ID)   : TeamBokan
-ƒvƒƒWƒFƒNƒg–¼ : BomberProject
-ƒpƒXƒ[ƒh     : diskerror0
+ãƒãƒ¼ãƒ å(ID)   : TeamBokan
+ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆå : BomberProject
+ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰     : diskerror0
 GitURL         : git@git.assembla.com:BomberProject_.git

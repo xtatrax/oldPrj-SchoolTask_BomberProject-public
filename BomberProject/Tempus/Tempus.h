@@ -1,11 +1,11 @@
 ////////////////////////////// //////////////////////////////
-//	ƒvƒƒWƒFƒNƒg	FTATRA-Library
-//	ƒtƒ@ƒCƒ‹–¼		FTempus.h
-//	ŠJ”­ŠÂ‹«		FMSVC++ 2008
-//	Å“Kƒ^ƒu”		F4
-//	’S“–ŽÒ			FŽ°Œ´ “O
-//	“à•ïÃÞ°À‚Æ”õl	FŽžŠÔŠÖŒW‚ÌŠÖ”
-//					¥
+//	ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆ	ï¼šTATRA-Library
+//	ãƒ•ã‚¡ã‚¤ãƒ«å		ï¼šTempus.h
+//	é–‹ç™ºç’°å¢ƒ		ï¼šMSVC++ 2008
+//	æœ€é©ã‚¿ãƒ–æ•°		ï¼š4
+//	æ‹…å½“è€…			ï¼šé´«åŽŸ å¾¹
+//	å†…åŒ…ãƒ‡ãƒ¼ã‚¿ã¨å‚™è€ƒ	ï¼šæ™‚é–“é–¢ä¿‚ã®é–¢æ•°
+//					â–¼
 //	namespace wiz;
 //		class Tempus ;
 //		class Tempus2 ;
@@ -17,157 +17,157 @@ namespace TLIB{
 #define MSTOS( DW )    ((DW) * 1000.0f)
 //**************************************************************************//
 // class Tempus ;
-// ’S“–  : Ž°Œ´“O
-// —p“r  : ŽžŠÔ‚ðŠÇ—‚·‚éƒNƒ‰ƒX
-// ”õl  : Ã“I
+// æ‹…å½“  : é´«åŽŸå¾¹
+// ç”¨é€”  : æ™‚é–“ã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹
+// å‚™è€ƒ  : é™çš„
 //**************************************************************************//
 class Tempus
 {
-	static DWORD m_dwStartGameTime;		//	: ŽÀsƒtƒ@ƒCƒ‹‚ª‹N“®‚µ‚½Žž‚ÌƒVƒXƒeƒ€ƒ~ƒŠ•b
-	static DWORD m_dwFrameAccumulator ;	//	: ‹N“®‚©‚ç‚ÌŒo‰ßƒtƒŒ[ƒ€”
-	static DWORD m_dwOFOTime ;			//	: ‘OƒtƒŒ[ƒ€‚ÌƒNƒƒbƒNŽžŠÔ
-	static DWORD m_dwElapsedTime;		//	: ‚PƒtƒŒ[ƒ€‚É‚©‚©‚Á‚½ŽžŠÔ
-	static DWORD m_dwFixFpsTime ;		//	: ƒtƒŒ[ƒ€ˆ—‚Ì‹K§ŽžŠÔ
+	static DWORD m_dwStartGameTime;		//	: å®Ÿè¡Œãƒ•ã‚¡ã‚¤ãƒ«ãŒèµ·å‹•ã—ãŸæ™‚ã®ã‚·ã‚¹ãƒ†ãƒ ãƒŸãƒªç§’
+	static DWORD m_dwFrameAccumulator ;	//	: èµ·å‹•ã‹ã‚‰ã®çµŒéŽãƒ•ãƒ¬ãƒ¼ãƒ æ•°
+	static DWORD m_dwOFOTime ;			//	: å‰ãƒ•ãƒ¬ãƒ¼ãƒ ã®ã‚¯ãƒ­ãƒƒã‚¯æ™‚é–“
+	static DWORD m_dwElapsedTime;		//	: ï¼‘ãƒ•ãƒ¬ãƒ¼ãƒ ã«ã‹ã‹ã£ãŸæ™‚é–“
+	static DWORD m_dwFixFpsTime ;		//	: ãƒ•ãƒ¬ãƒ¼ãƒ å‡¦ç†ã®è¦åˆ¶æ™‚é–“
 
 	static float m_fOneSecondCounter;
 	static bool  m_bOneSecondSignal;
 
 	static float m_fFps;				//	: FPS
-	static DWORD m_dwFFA;				//	: FPSŒvŽZ—p‚ÉƒtƒŒ[ƒ€”‚ð’~Ï‚·‚é
-	static DWORD m_dwLFT;				//	: ÅŒã‚ÉFPS‚ðŒvŽZ‚µ‚Ä‚©‚ç‚ÌŽžŠÔ
-//::::: E‚¢•¨ :::::://
+	static DWORD m_dwFFA;				//	: FPSè¨ˆç®—ç”¨ã«ãƒ•ãƒ¬ãƒ¼ãƒ æ•°ã‚’è“„ç©ã™ã‚‹
+	static DWORD m_dwLFT;				//	: æœ€å¾Œã«FPSã‚’è¨ˆç®—ã—ã¦ã‹ã‚‰ã®æ™‚é–“
+//::::: æ‹¾ã„ç‰© :::::://
 	static void	Fps_Calculation();
 public:
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     FTempus::Tempus();
-	//// ƒJƒeƒSƒŠ   FƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	//// —p“r       FƒCƒ“ƒXƒ^ƒ“ƒX‚Ì¶¬
-	//// ˆø”       F‚È‚µ
-	//// –ß’l       F‚È‚µ
-	//// ’S“–       FŽ°Œ´ “O
-	//// ”õl       F
-	////            F
+	//// é–¢æ•°å     ï¼šTempus::Tempus();
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	//// ç”¨é€”       ï¼šã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã®ç”Ÿæˆ
+	//// å¼•æ•°       ï¼šãªã—
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“       ï¼šé´«åŽŸ å¾¹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
 	Tempus(void);
 
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     FTempus::~Tempus();
-	//// ƒJƒeƒSƒŠ   FƒfƒXƒgƒ‰ƒNƒ^
-	//// —p“r       FƒCƒ“ƒXƒ^ƒ“ƒX‚Ì”jŠü
-	//// ˆø”       F‚È‚µ
-	//// –ß’l       F‚È‚µ
-	//// ’S“–       FŽ°Œ´ “O
-	//// ”õl       F
-	////            F
+	//// é–¢æ•°å     ï¼šTempus::~Tempus();
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	//// ç”¨é€”       ï¼šã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã®ç ´æ£„
+	//// å¼•æ•°       ï¼šãªã—
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“       ï¼šé´«åŽŸ å¾¹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
 	~Tempus(void);
 
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     Fstatic void Tempus::TimeUpdate();
-	//// ƒJƒeƒSƒŠ   Fƒƒ“ƒoŠÖ”
-	//// —p“r       FŽžŠÔ‚ÌXV
-	//// ˆø”       F‚È‚µ
-	//// –ß’l       F‚È‚µ
-	//// ’S“–       FŽ°Œ´ “O
-	//// ”õl       F
-	////            F
+	//// é–¢æ•°å     ï¼šstatic void Tempus::TimeUpdate();
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šãƒ¡ãƒ³ãƒé–¢æ•°
+	//// ç”¨é€”       ï¼šæ™‚é–“ã®æ›´æ–°
+	//// å¼•æ•°       ï¼šãªã—
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“       ï¼šé´«åŽŸ å¾¹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
 	static void    TimeUpdate();
 
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     Fstatic DWORD Tempus::TimeGetTime();
-	//// ƒJƒeƒSƒŠ   Fƒƒ“ƒoŠÖ”
-	//// —p“r       F‹N“®‚©‚ç‚ÌŒo‰ßŽžŠÔ‚ð•Ô‚·
-	//// ˆø”       F‚È‚µ
-	//// –ß’l       F‹N“®‚©‚ç‚ÌŒo‰ßŽžŠÔ(‡_•b)
-	//// ’S“–       FŽ°Œ´ “O
-	//// ”õl       F
-	////            F
+	//// é–¢æ•°å     ï¼šstatic DWORD Tempus::TimeGetTime();
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šãƒ¡ãƒ³ãƒé–¢æ•°
+	//// ç”¨é€”       ï¼šèµ·å‹•ã‹ã‚‰ã®çµŒéŽæ™‚é–“ã‚’è¿”ã™
+	//// å¼•æ•°       ï¼šãªã—
+	//// æˆ»å€¤       ï¼šèµ·å‹•ã‹ã‚‰ã®çµŒéŽæ™‚é–“(ã‰ç§’)
+	//// æ‹…å½“       ï¼šé´«åŽŸ å¾¹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
 	static DWORD   TimeGetTime();
 
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     Fstatic double TwoDwTime2ElapsedTime( DWORD dwOldTime, DWORD dwNowTime );
-	//// ƒJƒeƒSƒŠ   Fƒƒ“ƒoŠÖ”
-	//// —p“r       F2‚Â‚ÌŽžŠÔ‚Ì·‚ð•‚“®­”•b‚Å•Ô‚·
-	//// ˆø”       F  DWORD dwOldTime   //  : ‘O‚ÌŽžŠÔ
-	////            F  DWORD dwNowTime   //  : ¡‚ÌŽžŠÔ
-	//// –ß’l       F2‚Â‚ÌŽžŠÔ‚Ì·(•b)
-	//// ’S“–       FŽ°Œ´ “O
-	//// ”õl       F
-	////            F
+	//// é–¢æ•°å     ï¼šstatic double TwoDwTime2ElapsedTime( DWORD dwOldTime, DWORD dwNowTime );
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šãƒ¡ãƒ³ãƒé–¢æ•°
+	//// ç”¨é€”       ï¼š2ã¤ã®æ™‚é–“ã®å·®ã‚’æµ®å‹•å°‘æ•°ç§’ã§è¿”ã™
+	//// å¼•æ•°       ï¼š  DWORD dwOldTime   //  : å‰ã®æ™‚é–“
+	////            ï¼š  DWORD dwNowTime   //  : ä»Šã®æ™‚é–“
+	//// æˆ»å€¤       ï¼š2ã¤ã®æ™‚é–“ã®å·®(ç§’)
+	//// æ‹…å½“       ï¼šé´«åŽŸ å¾¹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
 	static double   TwoDwTime2ElapsedTime( DWORD dwOldTime, DWORD dwNowTime );
 
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     Fstatic double Tempus::getWorkTime();
-	//// ƒJƒeƒSƒŠ   FƒQƒbƒ^[
-	//// —p“r       F‹N“®‚©‚ç‚ÌŒo‰ßŽžŠÔ(TimeUpdateŽžŒ»Ý)
-	//// ˆø”       F‚È‚µ
-	//// –ß’l       F‹N“®‚©‚ç‚ÌŒo‰ßŽžŠÔ(•b)
-	//// ’S“–       FŽ°Œ´ “O
-	//// ”õl       F
-	////            F
+	//// é–¢æ•°å     ï¼šstatic double Tempus::getWorkTime();
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚²ãƒƒã‚¿ãƒ¼
+	//// ç”¨é€”       ï¼šèµ·å‹•ã‹ã‚‰ã®çµŒéŽæ™‚é–“(TimeUpdateæ™‚ç¾åœ¨)
+	//// å¼•æ•°       ï¼šãªã—
+	//// æˆ»å€¤       ï¼šèµ·å‹•ã‹ã‚‰ã®çµŒéŽæ™‚é–“(ç§’)
+	//// æ‹…å½“       ï¼šé´«åŽŸ å¾¹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
 	static double  getWorkTime();
 
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     Fstatic double Tempus::getElapsedTime();
-	//// ƒJƒeƒSƒŠ   FƒQƒbƒ^[
-	//// —p“r       F‚PƒtƒŒ[ƒ€‚ÌŒo‰ßŽžŠÔ‚ð•Ô‚·
-	//// ˆø”       F‚È‚µ
-	//// –ß’l       FŒo‰ßŽžŠÔ(•b)
-	//// ’S“–       FŽ°Œ´ “O
-	//// ”õl       F
-	////            F
+	//// é–¢æ•°å     ï¼šstatic double Tempus::getElapsedTime();
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚²ãƒƒã‚¿ãƒ¼
+	//// ç”¨é€”       ï¼šï¼‘ãƒ•ãƒ¬ãƒ¼ãƒ ã®çµŒéŽæ™‚é–“ã‚’è¿”ã™
+	//// å¼•æ•°       ï¼šãªã—
+	//// æˆ»å€¤       ï¼šçµŒéŽæ™‚é–“(ç§’)
+	//// æ‹…å½“       ï¼šé´«åŽŸ å¾¹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
 	static double  getElapsedTime();
 
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     Fstatic double Tempus::getFps();
-	//// ƒJƒeƒSƒŠ   FƒQƒbƒ^[
-	//// —p“r       FƒtƒŒ[ƒ€ƒŒ[ƒg‚ÌŒvŽZ
-	//// ˆø”       F‚È‚µ
-	//// –ß’l       FƒtƒŒ[ƒ€ƒŒ[ƒg
-	//// ’S“–       FŽ°Œ´ “O
-	//// ”õl       F
-	////            F
+	//// é–¢æ•°å     ï¼šstatic double Tempus::getFps();
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚²ãƒƒã‚¿ãƒ¼
+	//// ç”¨é€”       ï¼šãƒ•ãƒ¬ãƒ¼ãƒ ãƒ¬ãƒ¼ãƒˆã®è¨ˆç®—
+	//// å¼•æ•°       ï¼šãªã—
+	//// æˆ»å€¤       ï¼šãƒ•ãƒ¬ãƒ¼ãƒ ãƒ¬ãƒ¼ãƒˆ
+	//// æ‹…å½“       ï¼šé´«åŽŸ å¾¹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
 	static double  getFps();
 
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     Fstatic double Tempus::getClockSec();
-	//// ƒJƒeƒSƒŠ   FƒQƒbƒ^[
-	//// —p“r       F•b‚ÌŠl“¾
-	//// ˆø”       F‚È‚µ
-	//// –ß’l       F•b
-	//// ’S“–       FŽ°Œ´ “O
-	//// ”õl       F
-	////            F
+	//// é–¢æ•°å     ï¼šstatic double Tempus::getClockSec();
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚²ãƒƒã‚¿ãƒ¼
+	//// ç”¨é€”       ï¼šç§’ã®ç²å¾—
+	//// å¼•æ•°       ï¼šãªã—
+	//// æˆ»å€¤       ï¼šç§’
+	//// æ‹…å½“       ï¼šé´«åŽŸ å¾¹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
 	static double  getClockSec();
 
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     Fstatic double Tempus::getClock();
-	//// ƒJƒeƒSƒŠ   FƒQƒbƒ^[
-	//// —p“r       Fclock()
-	//// ˆø”       F‚È‚µ
-	//// –ß’l       Fclock()
-	//// ’S“–       FŽ°Œ´ “O
-	//// ”õl       F
-	////            F
+	//// é–¢æ•°å     ï¼šstatic double Tempus::getClock();
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚²ãƒƒã‚¿ãƒ¼
+	//// ç”¨é€”       ï¼šclock()
+	//// å¼•æ•°       ï¼šãªã—
+	//// æˆ»å€¤       ï¼šclock()
+	//// æ‹…å½“       ï¼šé´«åŽŸ å¾¹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
 	static clock_t getClock();
 
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     Fstatic bool Tempus::OneSecondSignal();
-	//// ƒJƒeƒSƒŠ   FƒQƒbƒ^[
-	//// —p“r       Fˆê•bƒVƒOƒiƒ‹
-	//// ˆø”       F‚È‚µ
-	//// –ß’l       Fˆê•bƒVƒOƒiƒ‹
-	//// ’S“–       FŽ°Œ´ “O
-	//// ”õl       F
-	////            F
+	//// é–¢æ•°å     ï¼šstatic bool Tempus::OneSecondSignal();
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚²ãƒƒã‚¿ãƒ¼
+	//// ç”¨é€”       ï¼šä¸€ç§’ã‚·ã‚°ãƒŠãƒ«
+	//// å¼•æ•°       ï¼šãªã—
+	//// æˆ»å€¤       ï¼šä¸€ç§’ã‚·ã‚°ãƒŠãƒ«
+	//// æ‹…å½“       ï¼šé´«åŽŸ å¾¹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
 	static bool OneSecondSignal();
 	//static void  FixedFPS(int i_iFPS);
@@ -175,156 +175,156 @@ public:
 
 //**************************************************************************//
 // class Tempus2 ;
-// ’S“–  : Ž°Œ´“O
-// —p“r  : ŽžŠÔ‚ðŠÇ—‚·‚éƒNƒ‰ƒX
-// ”õl  : 
+// æ‹…å½“  : é´«åŽŸå¾¹
+// ç”¨é€”  : æ™‚é–“ã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹
+// å‚™è€ƒ  : 
 //**************************************************************************//
 class Tempus2
 {
-	DWORD m_dwStartGameTime;		//	: ŽÀsƒtƒ@ƒCƒ‹‚ª‹N“®‚µ‚½Žž‚ÌƒVƒXƒeƒ€ƒ~ƒŠ•b
-	DWORD m_dwFrameAccumulator ;	//	: ‹N“®‚©‚ç‚ÌŒo‰ßƒtƒŒ[ƒ€”
-	DWORD m_dwOFOTime ;				//	: ‘OƒtƒŒ[ƒ€‚ÌƒNƒƒbƒNŽžŠÔ
-	DWORD m_dwElapsedTime;			//	: ‚PƒtƒŒ[ƒ€‚É‚©‚©‚Á‚½ŽžŠÔ
-	DWORD m_dwFixFpsTime ;			//	: ƒtƒŒ[ƒ€ˆ—‚Ì‹K§ŽžŠÔ
+	DWORD m_dwStartGameTime;		//	: å®Ÿè¡Œãƒ•ã‚¡ã‚¤ãƒ«ãŒèµ·å‹•ã—ãŸæ™‚ã®ã‚·ã‚¹ãƒ†ãƒ ãƒŸãƒªç§’
+	DWORD m_dwFrameAccumulator ;	//	: èµ·å‹•ã‹ã‚‰ã®çµŒéŽãƒ•ãƒ¬ãƒ¼ãƒ æ•°
+	DWORD m_dwOFOTime ;				//	: å‰ãƒ•ãƒ¬ãƒ¼ãƒ ã®ã‚¯ãƒ­ãƒƒã‚¯æ™‚é–“
+	DWORD m_dwElapsedTime;			//	: ï¼‘ãƒ•ãƒ¬ãƒ¼ãƒ ã«ã‹ã‹ã£ãŸæ™‚é–“
+	DWORD m_dwFixFpsTime ;			//	: ãƒ•ãƒ¬ãƒ¼ãƒ å‡¦ç†ã®è¦åˆ¶æ™‚é–“
 
 	float m_fOneSecondCounter;
 	bool  m_bOneSecondSignal;
 
 	float m_fFps;					//	: FPS
-	DWORD m_dwFFA;					//	: FPSŒvŽZ—p‚ÉƒtƒŒ[ƒ€”‚ð’~Ï‚·‚é
-	DWORD m_dwLFT;					//	: ÅŒã‚ÉFPS‚ðŒvŽZ‚µ‚Ä‚©‚ç‚ÌŽžŠÔ
-//::::: E‚¢•¨ :::::://
+	DWORD m_dwFFA;					//	: FPSè¨ˆç®—ç”¨ã«ãƒ•ãƒ¬ãƒ¼ãƒ æ•°ã‚’è“„ç©ã™ã‚‹
+	DWORD m_dwLFT;					//	: æœ€å¾Œã«FPSã‚’è¨ˆç®—ã—ã¦ã‹ã‚‰ã®æ™‚é–“
+//::::: æ‹¾ã„ç‰© :::::://
 	void	Fps_Calculation();
 public:
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     FTempus2::Tempus2();
-	//// ƒJƒeƒSƒŠ   FƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	//// —p“r       FƒCƒ“ƒXƒ^ƒ“ƒX‚Ì¶¬
-	//// ˆø”       F‚È‚µ
-	//// –ß’l       F‚È‚µ
-	//// ’S“–       FŽ°Œ´ “O
-	//// ”õl       F
-	////            F
+	//// é–¢æ•°å     ï¼šTempus2::Tempus2();
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	//// ç”¨é€”       ï¼šã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã®ç”Ÿæˆ
+	//// å¼•æ•°       ï¼šãªã—
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“       ï¼šé´«åŽŸ å¾¹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
 	Tempus2(void);
 
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     FTempus2::~Tempus2();
-	//// ƒJƒeƒSƒŠ   FƒfƒXƒgƒ‰ƒNƒ^
-	//// —p“r       FƒCƒ“ƒXƒ^ƒ“ƒX‚Ì”jŠü
-	//// ˆø”       F‚È‚µ
-	//// –ß’l       F‚È‚µ
-	//// ’S“–       FŽ°Œ´ “O
-	//// ”õl       F
-	////            F
+	//// é–¢æ•°å     ï¼šTempus2::~Tempus2();
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	//// ç”¨é€”       ï¼šã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã®ç ´æ£„
+	//// å¼•æ•°       ï¼šãªã—
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“       ï¼šé´«åŽŸ å¾¹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
 	~Tempus2(void);
 
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     Fstatic void  Tempus2::TimeUpdate();
-	//// ƒJƒeƒSƒŠ   Fƒƒ“ƒoŠÖ”
-	//// —p“r       FŽžŠÔ‚ÌXV
-	//// ˆø”       F‚È‚µ
-	//// –ß’l       F‚È‚µ
-	//// ’S“–       FŽ°Œ´ “O
-	//// ”õl       F
-	////            F
+	//// é–¢æ•°å     ï¼šstatic void  Tempus2::TimeUpdate();
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šãƒ¡ãƒ³ãƒé–¢æ•°
+	//// ç”¨é€”       ï¼šæ™‚é–“ã®æ›´æ–°
+	//// å¼•æ•°       ï¼šãªã—
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“       ï¼šé´«åŽŸ å¾¹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
 	void    TimeUpdate();
 
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     Fstatic DWORD Tempus2::TimeGetTime();
-	//// ƒJƒeƒSƒŠ   FƒQƒbƒ^[
-	//// —p“r       F‹N“®‚©‚ç‚ÌŒo‰ßŽžŠÔ‚ð•Ô‚·
-	//// ˆø”       F‚È‚µ
-	//// –ß’l       F‹N“®‚©‚ç‚ÌŒo‰ßŽžŠÔ(‡_•b)
-	//// ’S“–       FŽ°Œ´ “O
-	//// ”õl       F
-	////            F
+	//// é–¢æ•°å     ï¼šstatic DWORD Tempus2::TimeGetTime();
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚²ãƒƒã‚¿ãƒ¼
+	//// ç”¨é€”       ï¼šèµ·å‹•ã‹ã‚‰ã®çµŒéŽæ™‚é–“ã‚’è¿”ã™
+	//// å¼•æ•°       ï¼šãªã—
+	//// æˆ»å€¤       ï¼šèµ·å‹•ã‹ã‚‰ã®çµŒéŽæ™‚é–“(ã‰ç§’)
+	//// æ‹…å½“       ï¼šé´«åŽŸ å¾¹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
 	DWORD   TimeGetTime();
 
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     Fstatic double Tempus2::getWorkTime();
-	//// ƒJƒeƒSƒŠ   FƒQƒbƒ^[
-	//// —p“r       F‹N“®‚©‚ç‚ÌŒo‰ßŽžŠÔ(TimeUpdateŽžŒ»Ý)
-	//// ˆø”       F‚È‚µ
-	//// –ß’l       F‹N“®‚©‚ç‚ÌŒo‰ßŽžŠÔ(•b)
-	//// ’S“–       FŽ°Œ´ “O
-	//// ”õl       F
-	////            F
+	//// é–¢æ•°å     ï¼šstatic double Tempus2::getWorkTime();
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚²ãƒƒã‚¿ãƒ¼
+	//// ç”¨é€”       ï¼šèµ·å‹•ã‹ã‚‰ã®çµŒéŽæ™‚é–“(TimeUpdateæ™‚ç¾åœ¨)
+	//// å¼•æ•°       ï¼šãªã—
+	//// æˆ»å€¤       ï¼šèµ·å‹•ã‹ã‚‰ã®çµŒéŽæ™‚é–“(ç§’)
+	//// æ‹…å½“       ï¼šé´«åŽŸ å¾¹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
 	double  getWorkTime();
 
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     Fstatic double Tempus::getWorkTime();
-	//// ƒJƒeƒSƒŠ   FƒQƒbƒ^[
-	//// —p“r       F‚PƒtƒŒ[ƒ€‚ÌŒo‰ßŽžŠÔ‚ð•Ô‚·
-	//// ˆø”       F‚È‚µ
-	//// –ß’l       FŒo‰ßŽžŠÔ(‡_•b)
-	//// ’S“–       FŽ°Œ´ “O
-	//// ”õl       F
-	////            F
+	//// é–¢æ•°å     ï¼šstatic double Tempus::getWorkTime();
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚²ãƒƒã‚¿ãƒ¼
+	//// ç”¨é€”       ï¼šï¼‘ãƒ•ãƒ¬ãƒ¼ãƒ ã®çµŒéŽæ™‚é–“ã‚’è¿”ã™
+	//// å¼•æ•°       ï¼šãªã—
+	//// æˆ»å€¤       ï¼šçµŒéŽæ™‚é–“(ã‰ç§’)
+	//// æ‹…å½“       ï¼šé´«åŽŸ å¾¹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
 	DWORD getWorkFrame();
 
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     Fstatic double Tempus2::getElapsedTime();
-	//// ƒJƒeƒSƒŠ   FƒQƒbƒ^[
-	//// —p“r       F‚PƒtƒŒ[ƒ€‚ÌŒo‰ßŽžŠÔ‚ð•Ô‚·
-	//// ˆø”       F‚È‚µ
-	//// –ß’l       FŒo‰ßŽžŠÔ(•b)
-	//// ’S“–       FŽ°Œ´ “O
-	//// ”õl       F
-	////            F
+	//// é–¢æ•°å     ï¼šstatic double Tempus2::getElapsedTime();
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚²ãƒƒã‚¿ãƒ¼
+	//// ç”¨é€”       ï¼šï¼‘ãƒ•ãƒ¬ãƒ¼ãƒ ã®çµŒéŽæ™‚é–“ã‚’è¿”ã™
+	//// å¼•æ•°       ï¼šãªã—
+	//// æˆ»å€¤       ï¼šçµŒéŽæ™‚é–“(ç§’)
+	//// æ‹…å½“       ï¼šé´«åŽŸ å¾¹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
 	double  getElapsedTime();
 
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     Fstatic Tempus2::getFps();
-	//// ƒJƒeƒSƒŠ   FƒQƒbƒ^[
-	//// —p“r       FƒtƒŒ[ƒ€ƒŒ[ƒg‚ÌŒvŽZ
-	//// ˆø”       F‚È‚µ
-	//// –ß’l       FƒtƒŒ[ƒ€ƒŒ[ƒg
-	//// ’S“–       FŽ°Œ´ “O
-	//// ”õl       F
-	////            F
+	//// é–¢æ•°å     ï¼šstatic Tempus2::getFps();
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚²ãƒƒã‚¿ãƒ¼
+	//// ç”¨é€”       ï¼šãƒ•ãƒ¬ãƒ¼ãƒ ãƒ¬ãƒ¼ãƒˆã®è¨ˆç®—
+	//// å¼•æ•°       ï¼šãªã—
+	//// æˆ»å€¤       ï¼šãƒ•ãƒ¬ãƒ¼ãƒ ãƒ¬ãƒ¼ãƒˆ
+	//// æ‹…å½“       ï¼šé´«åŽŸ å¾¹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
 	double  getFps();
 
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     Fstatic double Tempus2::getClockSec();
-	//// ƒJƒeƒSƒŠ   FƒQƒbƒ^[
-	//// —p“r       F•b‚ÌŠl“¾
-	//// ˆø”       F‚È‚µ
-	//// –ß’l       F•b
-	//// ’S“–       FŽ°Œ´ “O
-	//// ”õl       F
-	////            F
+	//// é–¢æ•°å     ï¼šstatic double Tempus2::getClockSec();
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚²ãƒƒã‚¿ãƒ¼
+	//// ç”¨é€”       ï¼šç§’ã®ç²å¾—
+	//// å¼•æ•°       ï¼šãªã—
+	//// æˆ»å€¤       ï¼šç§’
+	//// æ‹…å½“       ï¼šé´«åŽŸ å¾¹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
 	double  getClockSec();
 
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     Fstatic double Tempus2::getClock();
-	//// ƒJƒeƒSƒŠ   FƒQƒbƒ^[
-	//// —p“r       Fclock()
-	//// ˆø”       F‚È‚µ
-	//// –ß’l       Fclock()
-	//// ’S“–       FŽ°Œ´ “O
-	//// ”õl       F
-	////            F
+	//// é–¢æ•°å     ï¼šstatic double Tempus2::getClock();
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚²ãƒƒã‚¿ãƒ¼
+	//// ç”¨é€”       ï¼šclock()
+	//// å¼•æ•°       ï¼šãªã—
+	//// æˆ»å€¤       ï¼šclock()
+	//// æ‹…å½“       ï¼šé´«åŽŸ å¾¹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
 	clock_t getClock();
 
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     Fstatic bool Tempus2::OneSecondSignal();
-	//// ƒJƒeƒSƒŠ   FƒQƒbƒ^[
-	//// —p“r       Fˆê•bƒVƒOƒiƒ‹
-	//// ˆø”       F‚È‚µ
-	//// –ß’l       Fˆê•bƒVƒOƒiƒ‹
-	//// ’S“–       FŽ°Œ´ “O
-	//// ”õl       F
-	////            F
+	//// é–¢æ•°å     ï¼šstatic bool Tempus2::OneSecondSignal();
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚²ãƒƒã‚¿ãƒ¼
+	//// ç”¨é€”       ï¼šä¸€ç§’ã‚·ã‚°ãƒŠãƒ«
+	//// å¼•æ•°       ï¼šãªã—
+	//// æˆ»å€¤       ï¼šä¸€ç§’ã‚·ã‚°ãƒŠãƒ«
+	//// æ‹…å½“       ï¼šé´«åŽŸ å¾¹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
 	bool OneSecondSignal();
 	//static void  FixedFPS(int i_iFPS);

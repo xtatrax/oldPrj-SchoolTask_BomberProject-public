@@ -1,11 +1,11 @@
 ////////////////////////////// //////////////////////////////
-//	ƒvƒƒWƒFƒNƒg	FDirectX Program Bass Project
-//	ƒtƒ@ƒCƒ‹–¼		FBassMenuItems.h
-//	ŠJ”­ŠÂ‹«		FMSVC++ 2008
-//	Å“Kƒ^ƒu”		F4
-//	’S“–ŽÒ			F
-//	“à•ïÃÞ°À‚Æ”õl	Fƒƒjƒ…[‚Ì•”•iŒQ
-//					¥
+//	ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆ	ï¼šDirectX Program Bass Project
+//	ãƒ•ã‚¡ã‚¤ãƒ«å		ï¼šBassMenuItems.h
+//	é–‹ç™ºç’°å¢ƒ		ï¼šMSVC++ 2008
+//	æœ€é©ã‚¿ãƒ–æ•°		ï¼š4
+//	æ‹…å½“è€…			ï¼š
+//	å†…åŒ…ãƒ‡ãƒ¼ã‚¿ã¨å‚™è€ƒ	ï¼šãƒ¡ãƒ‹ãƒ¥ãƒ¼ã®éƒ¨å“ç¾¤
+//					â–¼
 //	namespace wiz;
 //		class Button;
 //		class ButtonSprite : public SpriteObject;
@@ -54,31 +54,31 @@ public:
 	);
 	virtual ~ButtonSprite();
 /////////////////// ////////////////////
-//// —p“r       Fvirtual void Update( LPDIRECT3DDEVICE9 pD3DDevice
-////            F  vector<Object*>& Vec,const CONTROLER_STATE* pCntlState,Command& Com)
-//// ƒJƒeƒSƒŠ   F‰¼‘zŠÖ”
-//// —p“r       FƒIƒuƒWƒFƒNƒg‚ðXV
-//// ˆø”       F  LPDIRECT3DDEVICE9 pD3DDevice        // IDirect3DDevice9 ƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-////            F  vector<Object*>& Vec,               // ƒIƒuƒWƒFƒNƒg‚Ì”z—ñ
-////            F  const CONTROLER_STATE* pCntlState   // ƒRƒ“ƒgƒ[ƒ‰‚ÌƒXƒe[ƒ^ƒX
-////            F  Command Com                         // ƒRƒ}ƒ“ƒh
-//// –ß’l       F‚È‚µ
-//// ”õl       F
-////            F
+//// ç”¨é€”       ï¼švirtual void Update( LPDIRECT3DDEVICE9 pD3DDevice
+////            ï¼š  vector<Object*>& Vec,const CONTROLER_STATE* pCntlState,Command& Com)
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šä»®æƒ³é–¢æ•°
+//// ç”¨é€”       ï¼šã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’æ›´æ–°
+//// å¼•æ•°       ï¼š  LPDIRECT3DDEVICE9 pD3DDevice        // IDirect3DDevice9 ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+////            ï¼š  vector<Object*>& Vec,               // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®é…åˆ—
+////            ï¼š  const CONTROLER_STATE* pCntlState   // ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹
+////            ï¼š  Command Com                         // ã‚³ãƒžãƒ³ãƒ‰
+//// æˆ»å€¤       ï¼šãªã—
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
     virtual void Update(UpdatePacket& i_UpdatePacket);
 
 /////////////////// ////////////////////
-//// —p“r       Fvirtual void Update( LPDIRECT3DDEVICE9 pD3DDevice
-////            F  vector<Object*>& Vec)
-//// ƒJƒeƒSƒŠ   Fƒˆ‰¼‘zŠÖ”
-//// —p“r       FƒIƒuƒWƒFƒNƒg‚ð•`‰æ
-//// ˆø”       F  LPDIRECT3DDEVICE9 pD3DDevice        // IDirect3DDevice9 ƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-////            F  vector<Object*>& Vec,               // ƒIƒuƒWƒFƒNƒg‚Ì”z—ñ
-////            F  Command Com                         // ƒRƒ}ƒ“ƒh
-//// –ß’l       F‚È‚µ
-//// ”õl       F
-////            F
+//// ç”¨é€”       ï¼švirtual void Update( LPDIRECT3DDEVICE9 pD3DDevice
+////            ï¼š  vector<Object*>& Vec)
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šç´”ç²‹ä»®æƒ³é–¢æ•°
+//// ç”¨é€”       ï¼šã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’æç”»
+//// å¼•æ•°       ï¼š  LPDIRECT3DDEVICE9 pD3DDevice        // IDirect3DDevice9 ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+////            ï¼š  vector<Object*>& Vec,               // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®é…åˆ—
+////            ï¼š  Command Com                         // ã‚³ãƒžãƒ³ãƒ‰
+//// æˆ»å€¤       ï¼šãªã—
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
     virtual void Draw(DrawPacket& i_DrawPacket) ;
 

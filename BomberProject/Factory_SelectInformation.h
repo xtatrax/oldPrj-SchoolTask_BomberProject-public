@@ -1,18 +1,18 @@
 ////////////////////////////// //////////////////////////////
-//	ƒvƒƒWƒFƒNƒg	FBomberProject
-//	ƒtƒ@ƒCƒ‹–¼		FFactory_SelectInformation.h
-//	ŠJ”­ŠÂ‹«		FMSVC++ 2008
-//	Å“Kƒ^ƒu”		F4
-//	’S“–ŽÒ			FŽ°Œ´ “O
-//	“à•ïÃÞ°À‚Æ”õl	FƒZƒŒƒNƒg‰æ–Ê‚Ìà–¾ƒEƒCƒ“ƒhƒE
-//					¥
+//	ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆ	ï¼šBomberProject
+//	ãƒ•ã‚¡ã‚¤ãƒ«å		ï¼šFactory_SelectInformation.h
+//	é–‹ç™ºç’°å¢ƒ		ï¼šMSVC++ 2008
+//	æœ€é©ã‚¿ãƒ–æ•°		ï¼š4
+//	æ‹…å½“è€…			ï¼šé´«åŽŸ å¾¹
+//	å†…åŒ…ãƒ‡ãƒ¼ã‚¿ã¨å‚™è€ƒ	ï¼šã‚»ãƒ¬ã‚¯ãƒˆç”»é¢ã®èª¬æ˜Žã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦
+//					â–¼
 //	namespace wiz;
 //
 #pragma once
 
 //////////
-//	: ƒCƒ“ƒNƒ‹[ƒh
-//	: ƒCƒ“ƒNƒ‹[ƒh
+//	: ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰
+//	: ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰
 //////////
 
 namespace wiz{
@@ -72,20 +72,20 @@ public:
 //**************************************************************************//
 // class Factory_SelectInformation ;
 //
-// ’S“–  : Ž°Œ´ “O
-// —p“r  : ƒ`ƒFƒbƒNƒ|ƒCƒ“ƒg‚ÅƒZ[ƒu‚ðs‚¤‹@”\‚ðì¬‚µ‚Ü‚·
+// æ‹…å½“  : é´«åŽŸ å¾¹
+// ç”¨é€”  : ãƒã‚§ãƒƒã‚¯ãƒã‚¤ãƒ³ãƒˆã§ã‚»ãƒ¼ãƒ–ã‚’è¡Œã†æ©Ÿèƒ½ã‚’ä½œæˆã—ã¾ã™
 //**************************************************************************//
 class Factory_SelectInformation{
 public:
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     FFactory_SelectInformation(FactoryPacket* fpac)
-	//// ƒJƒeƒSƒŠ   FƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	//// —p“r       Fƒ`ƒFƒbƒNƒ|ƒCƒ“ƒg‚ÅƒZ[ƒu‚·‚é‹@”\‚ðì¬‚µ‚Ü‚·
-	//// ˆø”       F  FactoryPacket* fpac
-	//// –ß’l       F‚È‚µ
-	//// ’S“–       FŽ°Œ´ “O
-	//// ”õl       F
-	////            F
+	//// é–¢æ•°å     ï¼šFactory_SelectInformation(FactoryPacket* fpac)
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	//// ç”¨é€”       ï¼šãƒã‚§ãƒƒã‚¯ãƒã‚¤ãƒ³ãƒˆã§ã‚»ãƒ¼ãƒ–ã™ã‚‹æ©Ÿèƒ½ã‚’ä½œæˆã—ã¾ã™
+	//// å¼•æ•°       ï¼š  FactoryPacket* fpac
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“       ï¼šé´«åŽŸ å¾¹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
 	Factory_SelectInformation(FactoryPacket* fpac);
 	~Factory_SelectInformation(){};

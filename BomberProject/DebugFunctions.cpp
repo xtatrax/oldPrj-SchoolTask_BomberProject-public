@@ -1,11 +1,11 @@
 ////////////////////////////// //////////////////////////////
-//	ƒvƒƒWƒFƒNƒg	FTATRA-Library_DirectX
-//	ƒtƒ@ƒCƒ‹–¼		FDebugFunctions.cpp
-//	ŠJ”­ŠÂ‹«		FMSVC++ 2008
-//	Å“Kƒ^ƒu”		F4
-//	’S“–Ò			F°Œ´ “O
-//	“à•ïÃŞ°À‚Æ”õl	FƒfƒoƒbƒO—pŠÖ”ŒQ
-//					¥
+//	ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆ	ï¼šTATRA-Library_DirectX
+//	ãƒ•ã‚¡ã‚¤ãƒ«å		ï¼šDebugFunctions.cpp
+//	é–‹ç™ºç’°å¢ƒ		ï¼šMSVC++ 2008
+//	æœ€é©ã‚¿ãƒ–æ•°		ï¼š4
+//	æ‹…å½“è€…			ï¼šé´«åŸ å¾¹
+//	å†…åŒ…ãƒ‡ãƒ¼ã‚¿ã¨å‚™è€ƒ	ï¼šãƒ‡ãƒãƒƒã‚°ç”¨é–¢æ•°ç¾¤
+//					â–¼
 //	namespace wiz;
 //		class DBGSTR ;
 //		class DBGWRITINGLOGTEXT ;
@@ -15,7 +15,7 @@
 
 #if defined( DIRECT3D_VERSION )
 bool		Debugger::DBGSTR::m_bDrawFlag	= true			;
-wstring		Debugger::DBGSTR::str			= L"ƒfƒoƒbƒO\n"	;
+wstring		Debugger::DBGSTR::str			= L"ãƒ‡ãƒãƒƒã‚°\n"	;
 LPD3DXFONT	Debugger::DBGSTR::m_lpDebagFont = NULL			;
 #endif
 wstring		Debugger::DBGWRITINGLOGTEXT::DefaultLogFolder   = L"LogDatas/";

@@ -1,13 +1,13 @@
 ////////////////////////////// //////////////////////////////
-//	ƒvƒƒWƒFƒNƒg	FBomberProject
-//	ƒtƒ@ƒCƒ‹–¼		FFactory_MagnetField.cpp
-//	ŠJ”­ŠÂ‹«		FMSVC++ 2008
-//	Å“Kƒ^ƒu”		F4
-//	’S“–Ò			F°Œ´ “O
-//	ˆøŒp‚¬			F‰g’n ‘å—m
-//	„¤¨			F–{‘½ Š°”V
-//	“à•ïÃŞ°À‚Æ”õl	F¥ŠE”ÍˆÍ‚Ì‰Â‹‰»Object
-//					¥
+//	ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆ	ï¼šBomberProject
+//	ãƒ•ã‚¡ã‚¤ãƒ«å		ï¼šFactory_MagnetField.cpp
+//	é–‹ç™ºç’°å¢ƒ		ï¼šMSVC++ 2008
+//	æœ€é©ã‚¿ãƒ–æ•°		ï¼š4
+//	æ‹…å½“è€…			ï¼šé´«åŸ å¾¹
+//	å¼•ç¶™ã			ï¼šæ›³åœ° å¤§æ´‹
+//	â””â†’			ï¼šæœ¬å¤š å¯›ä¹‹
+//	å†…åŒ…ãƒ‡ãƒ¼ã‚¿ã¨å‚™è€ƒ	ï¼šç£ç•Œç¯„å›²ã®å¯è¦–åŒ–Object
+//					â–¼
 //	namespace wiz;
 //		class Factory_MagnetField ;
 //
@@ -21,35 +21,35 @@ namespace bomberobject{
 
 
 ///**************************************************************************
-// MagnetFieldCircle ’è‹`•”
+// MagnetFieldCircle å®šç¾©éƒ¨
 //****************************************************************************/
 DWORD						MagnetFieldCircle::m_dwMyInstance	= 0		;
-LPDIRECT3DVERTEXBUFFER9		MagnetFieldCircle::m_pVertexBuffer	= NULL	;	//ƒoƒbƒtƒ@
+LPDIRECT3DVERTEXBUFFER9		MagnetFieldCircle::m_pVertexBuffer	= NULL	;	//ãƒãƒƒãƒ•ã‚¡
 DWORD						MagnetFieldCircle::m_dwVertexQty	;
 
 
 /////////////////// ////////////////////
-//// ŠÖ”–¼     F
-//// —p“r       F
-//// ˆø”       F
-//// –ß’l       F‚È‚µ
-//// ’S“–       F°Œ´ “O
-//// ”õl       F
-////            F
+//// é–¢æ•°å     ï¼š
+//// ç”¨é€”       ï¼š
+//// å¼•æ•°       ï¼š
+//// æˆ»å€¤       ï¼šãªã—
+//// æ‹…å½“       ï¼šé´«åŸ å¾¹
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
 MagnetFieldCircle::MagnetFieldCircle( LPDIRECT3DDEVICE9 pD3DDevice ){
 
 
 	if( !m_pVertexBuffer ){
-		//	: ‹Ù‹}‰ñ”ğ—p ‚ ‚Æ‚Åˆø”‚É‚à‚Ç‚µ‚½‚¢¡
+		//	: ç·Šæ€¥å›é¿ç”¨ ã‚ã¨ã§å¼•æ•°ã«ã‚‚ã©ã—ãŸã„ã€‚
 		DWORD dwVertexQty = 64 ;
 
-		m_dwVertexQty	= dwVertexQty +1 ;	//	: Šp”@+@’†S’¸“_
+		m_dwVertexQty	= dwVertexQty +1 ;	//	: è§’æ•°ã€€+ã€€ä¸­å¿ƒé ‚ç‚¹
 		float iRotSize	= 360.0f / ( dwVertexQty -1 ) ;
 		Vertex* m_pVertex;
 
 		pD3DDevice->CreateVertexBuffer( Vertex::getSize() * m_dwVertexQty , D3DUSAGE_WRITEONLY, Vertex::getFVF(), D3DPOOL_MANAGED, &m_pVertexBuffer, NULL );
-		m_pVertexBuffer->Lock( 0, 0, (void**)&m_pVertex ,0 );	//	: ’¸“_ƒf[ƒ^‚ÌƒAƒhƒŒƒX‚ğæ“¾‚·‚é‚Æ‚Æ‚à‚ÉAƒf[ƒ^‚Ö‚ÌƒAƒNƒZƒX‚ğŠJn‚·‚é
+		m_pVertexBuffer->Lock( 0, 0, (void**)&m_pVertex ,0 );	//	: é ‚ç‚¹ãƒ‡ãƒ¼ã‚¿ã®ã‚¢ãƒ‰ãƒ¬ã‚¹ã‚’å–å¾—ã™ã‚‹ã¨ã¨ã‚‚ã«ã€ãƒ‡ãƒ¼ã‚¿ã¸ã®ã‚¢ã‚¯ã‚»ã‚¹ã‚’é–‹å§‹ã™ã‚‹
 
 		m_pVertex[ 0 ]	= Vertex( D3DXVECTOR3( 0.0f, 0.0f, 0.0f ) , 0x3FFFFFFF );
 
@@ -69,53 +69,53 @@ MagnetFieldCircle::MagnetFieldCircle( LPDIRECT3DDEVICE9 pD3DDevice ){
 	m_dwColor_N	= 0x3FFF0000;
 }
 /////////////////// ////////////////////
-//// ŠÖ”–¼     F
-//// —p“r       F
-//// ˆø”       F
-//// –ß’l       F‚È‚µ
-//// ’S“–       F°Œ´ “O
-//// ”õl       F
-////            F
+//// é–¢æ•°å     ï¼š
+//// ç”¨é€”       ï¼š
+//// å¼•æ•°       ï¼š
+//// æˆ»å€¤       ï¼šãªã—
+//// æ‹…å½“       ï¼šé´«åŸ å¾¹
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
 MagnetFieldCircle::~MagnetFieldCircle(){
-	//Debugger::DBGWRITINGLOGTEXT::addStr(L"MagnetFieldCircle::~MagnetFieldCircle ŠJn\n");
+	//Debugger::DBGWRITINGLOGTEXT::addStr(L"MagnetFieldCircle::~MagnetFieldCircle é–‹å§‹\n");
 	if( --m_dwMyInstance <= 0){
 		//SafeRelease( m_pVertexBuffer );
 	};
-	//Debugger::DBGWRITINGLOGTEXT::addStr(L"MagnetFieldCircle::~MagnetFieldCircle Š®—¹\n");
+	//Debugger::DBGWRITINGLOGTEXT::addStr(L"MagnetFieldCircle::~MagnetFieldCircle å®Œäº†\n");
 }
 /////////////////// ////////////////////
-//// ŠÖ”–¼     F
-//// ƒJƒeƒSƒŠ   F
-//// —p“r       F
-//// ˆø”       F
-//// –ß’l       F‚È‚µ
-//// ’S“–       F°Œ´ “O
-//// ”õl       F
-////            F
+//// é–¢æ•°å     ï¼š
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼š
+//// ç”¨é€”       ï¼š
+//// å¼•æ•°       ï¼š
+//// æˆ»å€¤       ï¼šãªã—
+//// æ‹…å½“       ï¼šé´«åŸ å¾¹
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
 void MagnetFieldCircle::Draw(DrawPacket& i_DrawPacket){
 	if( !this ){
-		//Debugger::DBGWRITINGLOGTEXT::addStr(L"MagnetFieldCircle::Draw ‚Å this ‚ª NULL ‚È‚Ì‚Å‚·EEE");
+		//Debugger::DBGWRITINGLOGTEXT::addStr(L"MagnetFieldCircle::Draw ã§ this ãŒ NULL ãªã®ã§ã™ãƒ»ãƒ»ãƒ»");
 		return;
 	}
-	 //ƒ[ƒ‹ƒh•ÏŠ·s—ñ‚ğİ’è
-	i_DrawPacket.GetDevice()->SetTransform( D3DTS_WORLD , &m_mMatrix );								//•ÏŠ·Ï‚İ’¸“_‚Ìê‡‚Í–³‹‚³‚ê‚é
+	 //ãƒ¯ãƒ¼ãƒ«ãƒ‰å¤‰æ›è¡Œåˆ—ã‚’è¨­å®š
+	i_DrawPacket.GetDevice()->SetTransform( D3DTS_WORLD , &m_mMatrix );								//å¤‰æ›æ¸ˆã¿é ‚ç‚¹ã®å ´åˆã¯ç„¡è¦–ã•ã‚Œã‚‹
 
 	i_DrawPacket.GetDevice()->SetRenderState(D3DRS_ALPHABLENDENABLE, 1);
     i_DrawPacket.GetDevice()->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
     i_DrawPacket.GetDevice()->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
 
-	////’¸“_ƒAƒ‹ƒtƒ@‚ğg‚¦‚é‚æ‚¤‚É‚·‚éƒfƒtƒHƒ‹ƒg‚Å‚à‚±‚Ì‚æ‚¤‚Éİ’è‚³‚ê‚Ä‚¢‚é
+	////é ‚ç‚¹ã‚¢ãƒ«ãƒ•ã‚¡ã‚’ä½¿ãˆã‚‹ã‚ˆã†ã«ã™ã‚‹ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã§ã‚‚ã“ã®ã‚ˆã†ã«è¨­å®šã•ã‚Œã¦ã„ã‚‹
  //   i_DrawPacket.GetDevice()->SetRenderState(D3DRS_DIFFUSEMATERIALSOURCE , D3DMCS_COLOR1);
- //   //ã‚Ìİ’è‚ğ—LŒø‚É‚·‚é
+ //   //ä¸Šã®è¨­å®šã‚’æœ‰åŠ¹ã«ã™ã‚‹
  //   i_DrawPacket.GetDevice()->SetRenderState(D3DRS_COLORVERTEX, TRUE); 
 	i_DrawPacket.GetDevice()->SetRenderState( D3DRS_CULLMODE , D3DCULL_NONE );
-	//	: ’¸“_ƒoƒbƒtƒ@‚ğ—p‚¢‚Äƒ‚ƒfƒ‹‚ğ•`‰æ‚·‚é
+	//	: é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã‚’ç”¨ã„ã¦ãƒ¢ãƒ‡ãƒ«ã‚’æç”»ã™ã‚‹
 	i_DrawPacket.GetDevice()->SetRenderState( D3DRS_LIGHTING, FALSE );
-	i_DrawPacket.GetDevice()->SetStreamSource( 0, m_pVertexBuffer , 0 , Vertex::getSize() );		//	: •`‰æ‘ÎÛ‚Æ‚È‚é’¸“_ƒoƒbƒtƒ@‚ğİ’è
-	i_DrawPacket.GetDevice()->SetFVF( Vertex::getFVF() );											//	: ’¸“_ƒf[ƒ^‚ÌŒ`®‚ğİ’è
-	i_DrawPacket.GetDevice()->DrawPrimitive( D3DPT_TRIANGLEFAN  , 0, m_dwVertexQty -1 );	//	: ’¸“_ƒf[ƒ^‚Ì•`‰æi•`‰æ‚Ìd•ûA•`‰æŠJnˆÊ’uAƒvƒŠƒ~ƒeƒBƒu”j
+	i_DrawPacket.GetDevice()->SetStreamSource( 0, m_pVertexBuffer , 0 , Vertex::getSize() );		//	: æç”»å¯¾è±¡ã¨ãªã‚‹é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã‚’è¨­å®š
+	i_DrawPacket.GetDevice()->SetFVF( Vertex::getFVF() );											//	: é ‚ç‚¹ãƒ‡ãƒ¼ã‚¿ã®å½¢å¼ã‚’è¨­å®š
+	i_DrawPacket.GetDevice()->DrawPrimitive( D3DPT_TRIANGLEFAN  , 0, m_dwVertexQty -1 );	//	: é ‚ç‚¹ãƒ‡ãƒ¼ã‚¿ã®æç”»ï¼ˆæç”»ã®ä»•æ–¹ã€æç”»é–‹å§‹ä½ç½®ã€ãƒ—ãƒªãƒŸãƒ†ã‚£ãƒ–æ•°ï¼‰
 	i_DrawPacket.GetDevice()->SetRenderState( D3DRS_LIGHTING, TRUE );
     //i_DrawPacket.GetDevice()->SetRenderState(D3DRS_COLORVERTEX, FALSE); 
 	i_DrawPacket.GetDevice()->SetRenderState(D3DRS_ALPHABLENDENABLE, 0);
@@ -124,24 +124,24 @@ void MagnetFieldCircle::Draw(DrawPacket& i_DrawPacket){
 
 
 
-//3D•ÏŠ·—p
+//3Då¤‰æ›ç”¨
 /**************************************************************************
- MagnetField ’è‹`•”
+ MagnetField å®šç¾©éƒ¨
 ****************************************************************************/
 /////////////////// ////////////////////
-//// ŠÖ”–¼     FMagnetField( LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTexture,
-////            F    D3DXVECTOR3 &vScale, D3DXVECTOR3 &vRot, D3DXVECTOR3 &vPos, Rect* pRect,
-////            F    Color color = 0xFFFFFFFF, wiz::OBJID id = OBJID_3D_PLAYER )
-//// ƒJƒeƒSƒŠ   FƒRƒ“ƒXƒgƒ‰ƒNƒ^
-//// —p“r       F
-//// ˆø”       F
-//// –ß’l       F‚È‚µ
-//// ’S“–       F‰g’n ‘å—m
-//// ”õl       F
-////            F
+//// é–¢æ•°å     ï¼šMagnetField( LPDIRECT3DDEVICE9 pD3DDevice, LPDIRECT3DTEXTURE9 pTexture,
+////            ï¼š    D3DXVECTOR3 &vScale, D3DXVECTOR3 &vRot, D3DXVECTOR3 &vPos, Rect* pRect,
+////            ï¼š    Color color = 0xFFFFFFFF, wiz::OBJID id = OBJID_3D_PLAYER )
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+//// ç”¨é€”       ï¼š
+//// å¼•æ•°       ï¼š
+//// æˆ»å€¤       ï¼šãªã—
+//// æ‹…å½“       ï¼šæ›³åœ° å¤§æ´‹
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
 MagnetField::MagnetField(
-	LPDIRECT3DDEVICE9 pD3DDevice,				//	: ƒfƒoƒCƒX
+	LPDIRECT3DDEVICE9 pD3DDevice,				//	: ãƒ‡ãƒã‚¤ã‚¹
 	wiz::OBJID id 								//	: ID
 )
 :Object(id)
@@ -156,32 +156,32 @@ MagnetField::MagnetField(
 {
 }
 /////////////////// ////////////////////
-//// —p“r       F~MagnetField()
-//// ƒJƒeƒSƒŠ   F
-//// —p“r       F
-//// ˆø”       F‚È‚µ
-//// –ß’l       F‚È‚µ
-//// ’S“–Ò     F°Œ´ “O
-//// ”õl       F
+//// ç”¨é€”       ï¼š~MagnetField()
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼š
+//// ç”¨é€”       ï¼š
+//// å¼•æ•°       ï¼šãªã—
+//// æˆ»å€¤       ï¼šãªã—
+//// æ‹…å½“è€…     ï¼šé´«åŸ å¾¹
+//// å‚™è€ƒ       ï¼š
 ////	
 MagnetField::~MagnetField(){
-	//Debugger::DBGWRITINGLOGTEXT::addStr(L"MagnetField::~MagnetField ŠJn\n");
+	//Debugger::DBGWRITINGLOGTEXT::addStr(L"MagnetField::~MagnetField é–‹å§‹\n");
 	m_pCamera = NULL;
 	m_pCoil	  = NULL;
 	m_pPole_N = NULL;
 	m_pPole_S = NULL;
-	//Debugger::DBGWRITINGLOGTEXT::addStr(L"MagnetField::~MagnetField Š®—¹\n");
+	//Debugger::DBGWRITINGLOGTEXT::addStr(L"MagnetField::~MagnetField å®Œäº†\n");
 }
 
 /////////////////// ////////////////////
-//// ŠÖ”–¼     Fvoid Update( UpdatePacket& i_UpdatePacket )
-//// ƒJƒeƒSƒŠ   F
-//// —p“r       F
-//// ˆø”       F
-//// –ß’l       F‚È‚µ
-//// ’S“–       F°Œ´ “O
-//// ”õl       F
-////            F
+//// é–¢æ•°å     ï¼švoid Update( UpdatePacket& i_UpdatePacket )
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼š
+//// ç”¨é€”       ï¼š
+//// å¼•æ•°       ï¼š
+//// æˆ»å€¤       ï¼šãªã—
+//// æ‹…å½“       ï¼šé´«åŸ å¾¹
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
 void MagnetField::Update( UpdatePacket& i_UpdatePacket ){
 	if( !m_pCamera )	m_pCamera	=     (Camera*)i_UpdatePacket.SearchObjectFromID(OBJID_SYS_CAMERA	) ;
@@ -193,26 +193,26 @@ void MagnetField::Update( UpdatePacket& i_UpdatePacket ){
 
 }
 /////////////////// ////////////////////
-//// —p“r       Fvoid Draw( DrawPacket& i_DrawPacket )
-//// ƒJƒeƒSƒŠ   FŠÖ”
-//// —p“r       FƒIƒuƒWƒFƒNƒg‚ğƒfƒBƒXƒvƒŒƒC‚É•\¦‚·‚é
-//// ˆø”       F  DrawPacket& i_DrawPacket             // ‰æ–Ê•`‰æ‚É•K—v‚Èƒf[ƒ^ŒQ «“à—e‰º‹L
-////            F  „¥ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 ƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-////            F  „¥ vector<Object*>&    Vec                     // ƒIƒuƒWƒFƒNƒg‚Ì”z—ñ
-////            F  „¥ Tempus2*            i_DrawPacket.GetTime()	   // ŠÔ‚ğŠÇ—‚·‚éƒNƒ‰ƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^[
-////            F  „¤ Command             i_DrawPacket.pCommand   // ƒRƒ}ƒ“ƒh
-//// –ß’l       F‚È‚µ
-//// ’S“–Ò     F‰g’n ‘å—m
-//// •ÒWÒ     F°Œ´ “O(‘å•‰ü—Ç)
-//// ”õl       F
+//// ç”¨é€”       ï¼švoid Draw( DrawPacket& i_DrawPacket )
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šé–¢æ•°
+//// ç”¨é€”       ï¼šã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ãƒ‡ã‚£ã‚¹ãƒ—ãƒ¬ã‚¤ã«è¡¨ç¤ºã™ã‚‹
+//// å¼•æ•°       ï¼š  DrawPacket& i_DrawPacket             // ç”»é¢æç”»æ™‚ã«å¿…è¦ãªãƒ‡ãƒ¼ã‚¿ç¾¤ â†“å†…å®¹ä¸‹è¨˜
+////            ï¼š  â”œ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+////            ï¼š  â”œ vector<Object*>&    Vec                     // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®é…åˆ—
+////            ï¼š  â”œ Tempus2*            i_DrawPacket.GetTime()	   // æ™‚é–“ã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿ãƒ¼
+////            ï¼š  â”” Command             i_DrawPacket.pCommand   // ã‚³ãƒãƒ³ãƒ‰
+//// æˆ»å€¤       ï¼šãªã—
+//// æ‹…å½“è€…     ï¼šæ›³åœ° å¤§æ´‹
+//// ç·¨é›†è€…     ï¼šé´«åŸ å¾¹(å¤§å¹…æ”¹è‰¯)
+//// å‚™è€ƒ       ï¼š
 void MagnetField::Draw(DrawPacket& i_DrawPacket)
 {
 
-	//	: F‚ÌŒˆ’è
+	//	: è‰²ã®æ±ºå®š
 	m_MagneticField.setPole(MagneticObject::getMagnetPole());
 
 	//////////
-	//	: Šî–{Matrix‚Ì€”õ
+	//	: åŸºæœ¬Matrixã®æº–å‚™
 	D3DXMATRIX mAll, mScale, mMove;
 
 	D3DXMatrixTranslation(&mMove,
@@ -220,13 +220,13 @@ void MagnetField::Draw(DrawPacket& i_DrawPacket)
 		m_vPos.y,
 		m_vPos.z+0.2f
 	);
-	//	: Šî–{Matrix‚Ì€”õ
+	//	: åŸºæœ¬Matrixã®æº–å‚™
 	//////////
 
 	//////////
-	//	: ”ÍˆÍ‚Ì•`‰æ
+	//	: ç¯„å›²ã®æç”»
 
-	//	: •ªŠ„”
+	//	: åˆ†å‰²æ•°
 	BYTE byPartitionQty = 3 ;
 
 	float fCircleSize ;
@@ -238,16 +238,16 @@ void MagnetField::Draw(DrawPacket& i_DrawPacket)
 		m_MagneticField.setMatrix(mAll) ;
 		m_MagneticField.Draw(i_DrawPacket);
 	}
-	//	: ”ÍˆÍ‚Ì•`‰æ
+	//	: ç¯„å›²ã®æç”»
 	//////////
 
 
 	if( !m_pCoil ){
-		OutputDebugString(L"MagnetField::Draw()ŠÖ”‚Å[ m_pCoil ] ‚ªu‚Ê‚é‚Û!v‚Á‚Ä‚¢‚Á‚Ä‚é‚Å‚·¡ \n");
+		OutputDebugString(L"MagnetField::Draw()é–¢æ•°ã§[ m_pCoil ] ãŒã€Œã¬ã‚‹ã½!ã€ã£ã¦ã„ã£ã¦ã‚‹ã§ã™ã€‚ \n");
 		return ;
 	}
 	//////////
-	//	: ƒGƒtƒFƒNƒg‚Ì•`‰æ
+	//	: ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã®æç”»
 	if( MagnetField::getMagnetPole() == m_pCoil->getMagnetPole() )
 		fCircleSize =(float)MGPRM_MAGNETICUM * m_fEffectSizeRate;
 	else
@@ -258,7 +258,7 @@ void MagnetField::Draw(DrawPacket& i_DrawPacket)
 	mAll = mScale * mMove;
 	m_MagneticField.setMatrix(mAll) ;
 	m_MagneticField.Draw(i_DrawPacket);
-	//	: ƒGƒtƒFƒNƒg‚Ì•`‰æ
+	//	: ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã®æç”»
 	//////////
 
 }
@@ -300,18 +300,18 @@ void	MagnetField::Flashing( UpdatePacket& i_UpdatePacket, POLE i_Pole ){
 }
 
 /**************************************************************************
- StaticMagnetField ’è‹`•”
+ StaticMagnetField å®šç¾©éƒ¨
 ****************************************************************************/
 /////////////////// ////////////////////
-//// —p“r       Fbool StaticMagnetField::CheckDistance( D3DXVECTOR3& i_vMagneticFieldPos, D3DXVECTOR3& i_vCoilPos ) const
-//// ƒJƒeƒSƒŠ   FŠÖ”
-//// —p“r       F‹——£‚ğ”»’è
-//// ˆø”       FD3DXVECTOR3& i_vMagneticFieldPos //¥ŠE‚ÌˆÊ’u 
-////@@@@@@FD3DXVECTOR3& i_vCoilPos          //ƒRƒCƒ‹‚ÌˆÊ’u
-////@@@@@@Ffloat        i_iBorder           //”»’è‚·‚é’l
-//// –ß’l       Ftrue , false
-//// ’S“–Ò     F–{‘½Š°”V
-//// ”õl       F
+//// ç”¨é€”       ï¼šbool StaticMagnetField::CheckDistance( D3DXVECTOR3& i_vMagneticFieldPos, D3DXVECTOR3& i_vCoilPos ) const
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šé–¢æ•°
+//// ç”¨é€”       ï¼šè·é›¢ã‚’åˆ¤å®š
+//// å¼•æ•°       ï¼šD3DXVECTOR3& i_vMagneticFieldPos //ç£ç•Œã®ä½ç½® 
+////ã€€ã€€ã€€ã€€ã€€ã€€ï¼šD3DXVECTOR3& i_vCoilPos          //ã‚³ã‚¤ãƒ«ã®ä½ç½®
+////ã€€ã€€ã€€ã€€ã€€ã€€ï¼šfloat        i_iBorder           //åˆ¤å®šã™ã‚‹å€¤
+//// æˆ»å€¤       ï¼štrue , false
+//// æ‹…å½“è€…     ï¼šæœ¬å¤šå¯›ä¹‹
+//// å‚™è€ƒ       ï¼š
 //bool MagnetField::CheckDistance( D3DXVECTOR3& i_vMagneticFieldPos, D3DXVECTOR3& i_vCoilPos, float i_iBorder ) const{
 //	float Lng  = (float)TwoPointToBassLength( i_vMagneticFieldPos, i_vCoilPos ) ;
 //	if( Lng <= i_iBorder ){
@@ -326,21 +326,21 @@ StaticMagnetField::StaticMagnetField(LPDIRECT3DDEVICE9 pD3DDevice, wiz::OBJID id
 
 }
 /////////////////// ////////////////////
-//// —p“r       F  ~StaticMagnetField()
-//// ƒJƒeƒSƒŠ   FƒRƒ“ƒXƒgƒ‰ƒNƒ^
-//// —p“r       F
-//// ˆø”       F‚È‚µ
-//// –ß’l       F‚È‚µ
-//// ’S“–Ò     F°Œ´ “O
-//// ”õl       F
+//// ç”¨é€”       ï¼š  ~StaticMagnetField()
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+//// ç”¨é€”       ï¼š
+//// å¼•æ•°       ï¼šãªã—
+//// æˆ»å€¤       ï¼šãªã—
+//// æ‹…å½“è€…     ï¼šé´«åŸ å¾¹
+//// å‚™è€ƒ       ï¼š
 ////	
 StaticMagnetField::~StaticMagnetField(){
-	//Debugger::DBGWRITINGLOGTEXT::addStr(L"StaticMagnetField::~StaticMagnetField ŠJn\n");
-	//¥ŠE@ŠO‘¤
+	//Debugger::DBGWRITINGLOGTEXT::addStr(L"StaticMagnetField::~StaticMagnetField é–‹å§‹\n");
+	//ç£ç•Œã€€å¤–å´
 	SafeDeletePointerMap( m_ItemMap_All );
 	m_ItemMap_All.clear();
 	m_ItemMap_Target.clear();
-	//Debugger::DBGWRITINGLOGTEXT::addStr(L"StaticMagnetField::~StaticMagnetField Š®—¹\n");
+	//Debugger::DBGWRITINGLOGTEXT::addStr(L"StaticMagnetField::~StaticMagnetField å®Œäº†\n");
 
 }
 
@@ -349,7 +349,7 @@ void StaticMagnetField::setDrawTarget(){
 	if( !m_pCamera ) return;
 
 	//////////
-	//	•`‰æ‘ÎÛŠO‚Ìíœ
+	//	æç”»å¯¾è±¡å¤–ã®å‰Šé™¤
 	//
 	TARGETCONTAINER::iterator	TIMit  = m_ItemMap_Target.begin(),
 								TIMend = m_ItemMap_Target.end(  );
@@ -367,7 +367,7 @@ void StaticMagnetField::setDrawTarget(){
 	//////////
 
 	//////////
-	//	•`‰æ‘ÎÛ‚Ì’Ç‰Á
+	//	æç”»å¯¾è±¡ã®è¿½åŠ 
 	//
 	ALLCONTAINER::iterator	AIMit  = m_ItemMap_All.lower_bound( m_pCamera->getPosY()  -DRAWING_RANGE ),
 							AIMend = m_ItemMap_All.upper_bound( m_pCamera->getPosY()  +DRAWING_RANGE );
@@ -384,14 +384,14 @@ void StaticMagnetField::setDrawTarget(){
 
 }
 /////////////////// ////////////////////
-//// ŠÖ”–¼     Fvoid Update( UpdatePacket& i_UpdatePacket )
-//// ƒJƒeƒSƒŠ   F
-//// —p“r       F
-//// ˆø”       F
-//// –ß’l       F‚È‚µ
-//// ’S“–       F°Œ´ “O
-//// ”õl       F
-////            F
+//// é–¢æ•°å     ï¼švoid Update( UpdatePacket& i_UpdatePacket )
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼š
+//// ç”¨é€”       ï¼š
+//// å¼•æ•°       ï¼š
+//// æˆ»å€¤       ï¼šãªã—
+//// æ‹…å½“       ï¼šé´«åŸ å¾¹
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
 void StaticMagnetField::Update( UpdatePacket& i_UpdatePacket ){
 
@@ -401,18 +401,18 @@ void StaticMagnetField::Update( UpdatePacket& i_UpdatePacket ){
 
 
 /////////////////// ////////////////////
-//// —p“r       Fvoid Draw( DrawPacket& i_DrawPacket )
-//// ƒJƒeƒSƒŠ   FŠÖ”
-//// —p“r       FƒIƒuƒWƒFƒNƒg‚ğƒfƒBƒXƒvƒŒƒC‚É•\¦‚·‚é
-//// ˆø”       F  DrawPacket& i_DrawPacket             // ‰æ–Ê•`‰æ‚É•K—v‚Èƒf[ƒ^ŒQ «“à—e‰º‹L
-////            F  „¥ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 ƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-////            F  „¥ vector<Object*>&    Vec                     // ƒIƒuƒWƒFƒNƒg‚Ì”z—ñ
-////            F  „¥ Tempus2*            i_DrawPacket.GetTime()	   // ŠÔ‚ğŠÇ—‚·‚éƒNƒ‰ƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^[
-////            F  „¤ Command             i_DrawPacket.pCommand   // ƒRƒ}ƒ“ƒh
-//// –ß’l       F‚È‚µ
-//// ’S“–Ò     F‰g’n ‘å—m
-//// •ÒWÒ     F°Œ´ “O(‘å•‰ü—Ç)
-//// ”õl       F
+//// ç”¨é€”       ï¼švoid Draw( DrawPacket& i_DrawPacket )
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šé–¢æ•°
+//// ç”¨é€”       ï¼šã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ãƒ‡ã‚£ã‚¹ãƒ—ãƒ¬ã‚¤ã«è¡¨ç¤ºã™ã‚‹
+//// å¼•æ•°       ï¼š  DrawPacket& i_DrawPacket             // ç”»é¢æç”»æ™‚ã«å¿…è¦ãªãƒ‡ãƒ¼ã‚¿ç¾¤ â†“å†…å®¹ä¸‹è¨˜
+////            ï¼š  â”œ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+////            ï¼š  â”œ vector<Object*>&    Vec                     // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®é…åˆ—
+////            ï¼š  â”œ Tempus2*            i_DrawPacket.GetTime()	   // æ™‚é–“ã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿ãƒ¼
+////            ï¼š  â”” Command             i_DrawPacket.pCommand   // ã‚³ãƒãƒ³ãƒ‰
+//// æˆ»å€¤       ï¼šãªã—
+//// æ‹…å½“è€…     ï¼šæ›³åœ° å¤§æ´‹
+//// ç·¨é›†è€…     ï¼šé´«åŸ å¾¹(å¤§å¹…æ”¹è‰¯)
+//// å‚™è€ƒ       ï¼š
 void StaticMagnetField::Draw(DrawPacket& i_DrawPacket){
 
 	TARGETCONTAINER::iterator	it  = m_ItemMap_Target.begin(),
@@ -420,7 +420,7 @@ void StaticMagnetField::Draw(DrawPacket& i_DrawPacket){
 	while(it != end){
 		Magnet3DItem* pNowItem  = (*it);
 
-		//	: ‹É«
+		//	: æ¥µæ€§
 		MagneticObject::setPole(pNowItem->m_bMagnetPole);
 		MagnetField::m_vPos = pNowItem->m_vPos;
 
@@ -429,19 +429,19 @@ void StaticMagnetField::Draw(DrawPacket& i_DrawPacket){
 	}
 }
 /////////////////// ////////////////////
-//// —p“r       Fvoid AddMagnetic( DrawPacket& i_DrawPacket )
-//// ƒJƒeƒSƒŠ   FŠÖ”
-//// —p“r       Fƒ}ƒOƒlƒbƒg‚Ì’Ç‰Á
-//// ˆø”       F  LPDIRECT3DDEVICE9 pD3DDevice,	////IDirect3DDevice9ƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-////		    F  D3DXVECTOR3 &vScale				//Šg‘åk¬
-////		    F  D3DXVECTOR3 &vRot				//‰ñ“]Šp
-////		    F  D3DXVECTOR3 &vPos				//ˆÊ’u
-////            F  D3DCOLORVALUE& Diffuse,			//ƒfƒBƒtƒ…[ƒYF
-////            F  D3DCOLORVALUE& Specular,		//ƒXƒyƒLƒ…ƒ‰F
-////            F  D3DCOLORVALUE& Ambient,			//ƒAƒ“ƒrƒGƒ“ƒgF
-//// –ß’l       F‚È‚µ
-//// ’S“–Ò     F‰g’n ‘å—m
-//// ”õl       F
+//// ç”¨é€”       ï¼švoid AddMagnetic( DrawPacket& i_DrawPacket )
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šé–¢æ•°
+//// ç”¨é€”       ï¼šãƒã‚°ãƒãƒƒãƒˆã®è¿½åŠ 
+//// å¼•æ•°       ï¼š  LPDIRECT3DDEVICE9 pD3DDevice,	////IDirect3DDevice9ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+////		    ï¼š  D3DXVECTOR3 &vScale				//æ‹¡å¤§ç¸®å°
+////		    ï¼š  D3DXVECTOR3 &vRot				//å›è»¢è§’
+////		    ï¼š  D3DXVECTOR3 &vPos				//ä½ç½®
+////            ï¼š  D3DCOLORVALUE& Diffuse,			//ãƒ‡ã‚£ãƒ•ãƒ¥ãƒ¼ã‚ºè‰²
+////            ï¼š  D3DCOLORVALUE& Specular,		//ã‚¹ãƒšã‚­ãƒ¥ãƒ©è‰²
+////            ï¼š  D3DCOLORVALUE& Ambient,			//ã‚¢ãƒ³ãƒ“ã‚¨ãƒ³ãƒˆè‰²
+//// æˆ»å€¤       ï¼šãªã—
+//// æ‹…å½“è€…     ï¼šæ›³åœ° å¤§æ´‹
+//// å‚™è€ƒ       ï¼š
 void StaticMagnetField::AddMagnetic(D3DXVECTOR3 &vPos,POLE vPole,
 			D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient)
 {
@@ -467,34 +467,34 @@ void StaticMagnetField::HitTest(){
 }
 
 /**************************************************************************
- Factory_MagnetField ’è‹`•”
+ Factory_MagnetField å®šç¾©éƒ¨
 ****************************************************************************/
 /**************************************************************************
  Factory_MagnetField::Factory_MagnetField(
 	Factory_MagnetField *fpac
-	LPDIRECT3DDEVICE9 pD3DDevice,	//ƒfƒoƒCƒX
-	vector<Object*>& vec,			//ƒIƒuƒWƒFƒNƒg‚Ì”z—ñ
-	TextureManager& TexMgr		//ƒeƒNƒXƒ`ƒƒ‚Ì”z—ñ
+	LPDIRECT3DDEVICE9 pD3DDevice,	//ãƒ‡ãƒã‚¤ã‚¹
+	vector<Object*>& vec,			//ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®é…åˆ—
+	TextureManager& TexMgr		//ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®é…åˆ—
 );
- —p“r: ƒRƒ“ƒXƒgƒ‰ƒNƒ^iƒTƒ“ƒvƒ‹ƒIƒuƒWƒFƒNƒg‚ğ”z—ñ‚É’Ç‰Á‚·‚éj
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ï¼ˆã‚µãƒ³ãƒ—ãƒ«ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’é…åˆ—ã«è¿½åŠ ã™ã‚‹ï¼‰
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
 Factory_MagnetField::Factory_MagnetField(FactoryPacket *fpac){
 	try{
 	}
 	catch(...){
-		//Äthrow
+		//å†throw
 		throw;
 	}
 
 }
 /**************************************************************************
  Factory_MagnetField::~Factory_MagnetField();
- —p“r: ƒfƒXƒgƒ‰ƒNƒ^
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
 Factory_MagnetField::~Factory_MagnetField(){
-    //‚È‚É‚à‚µ‚È‚¢
+    //ãªã«ã‚‚ã—ãªã„
 }
 
 }

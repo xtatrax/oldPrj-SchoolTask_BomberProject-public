@@ -1,11 +1,11 @@
 ////////////////////////////// //////////////////////////////
-//	ƒvƒƒWƒFƒNƒg	FBomberProject
-//	ƒtƒ@ƒCƒ‹–¼		FFactory_Gage.h
-//	ŠJ”­ŠÂ‹«		FMSVC++ 2008
-//	Å“Kƒ^ƒu”		F4
-//	’S“–Ò			F²“¡@—Á –{‘½Š°”V(•ÒW)
-//	“à•ïÃŞ°À‚Æ”õl	FƒQ[ƒWƒtƒ@ƒNƒgƒŠ[
-//					¥
+//	ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆ	ï¼šBomberProject
+//	ãƒ•ã‚¡ã‚¤ãƒ«å		ï¼šFactory_Gage.h
+//	é–‹ç™ºç’°å¢ƒ		ï¼šMSVC++ 2008
+//	æœ€é©ã‚¿ãƒ–æ•°		ï¼š4
+//	æ‹…å½“è€…			ï¼šä½è—¤ã€€æ¶¼ æœ¬å¤šå¯›ä¹‹(ç·¨é›†)
+//	å†…åŒ…ãƒ‡ãƒ¼ã‚¿ã¨å‚™è€ƒ	ï¼šã‚²ãƒ¼ã‚¸ãƒ•ã‚¡ã‚¯ãƒˆãƒªãƒ¼
+//					â–¼
 //	namespace wiz;
 //		class Gage;
 //		class SuperGage;
@@ -33,8 +33,8 @@ namespace bomberobject{
 /************************************************
 class	GaugeKind	: public	SpriteObject
 
-—p“r@FƒQ[ƒW‚Ìí—Ş‚ğ•`‰æ
-’S“–ÒF²“¡—Á
+ç”¨é€”ã€€ï¼šã‚²ãƒ¼ã‚¸ã®ç¨®é¡ã‚’æç”»
+æ‹…å½“è€…ï¼šä½è—¤æ¶¼
 ************************************************/
 class	SuperNotice	: public SpriteObject{
 	float			m_fMovePos	;
@@ -45,11 +45,11 @@ class	SuperNotice	: public SpriteObject{
 	bool			m_bDraw		;
 public:
 	SuperNotice(
-		const LPDIRECT3DDEVICE9		pD3DDevice	,				//	: ƒfƒoƒCƒX
-		const LPTATRATEXTURE	pTex		,				//	: ƒRƒA•”•ª‚ÌTexture
-		const D3DXVECTOR3			&vScale		,				//	: Lk
-		const D3DXVECTOR3			&vPos		,				//	: ˆÊ’u
-		const Rect					Rect		,				//	: •`‰æ”ÍˆÍ
+		const LPDIRECT3DDEVICE9		pD3DDevice	,				//	: ãƒ‡ãƒã‚¤ã‚¹
+		const LPTATRATEXTURE	pTex		,				//	: ã‚³ã‚¢éƒ¨åˆ†ã®Texture
+		const D3DXVECTOR3			&vScale		,				//	: ä¼¸ç¸®
+		const D3DXVECTOR3			&vPos		,				//	: ä½ç½®
+		const Rect					Rect		,				//	: æç”»ç¯„å›²
 		const wiz::OBJID			id	=	OBJID_UI_NOTICE		//	: ID
 	);
 	~SuperNotice();
@@ -64,8 +64,8 @@ public:
 /************************************************
 class	GaugeKind	: public	SpriteObject
 
-—p“r@FƒQ[ƒW‚Ìí—Ş‚ğ•`‰æ
-’S“–ÒF²“¡—Á
+ç”¨é€”ã€€ï¼šã‚²ãƒ¼ã‚¸ã®ç¨®é¡ã‚’æç”»
+æ‹…å½“è€…ï¼šä½è—¤æ¶¼
 ************************************************/
 class	Relationship_Gage	: public SpriteObject{
 	float			m_fMovePos	;
@@ -74,12 +74,12 @@ class	Relationship_Gage	: public SpriteObject{
 	MouseCursor*	m_pCursor	;
 public:
 	Relationship_Gage(
-		const LPDIRECT3DDEVICE9		pD3DDevice	,				//	: ƒfƒoƒCƒX
-		const LPTATRATEXTURE	pTex		,				//	: ƒRƒA•”•ª‚ÌTexture
-		const D3DXVECTOR3			&vScale		,				//	: Lk
-		const D3DXVECTOR3			&vRot		,				//	: ‰ñ“]
-		const D3DXVECTOR3			&vPos		,				//	: ˆÊ’u
-		const Rect					Rect		,				//	: •`‰æ”ÍˆÍ
+		const LPDIRECT3DDEVICE9		pD3DDevice	,				//	: ãƒ‡ãƒã‚¤ã‚¹
+		const LPTATRATEXTURE	pTex		,				//	: ã‚³ã‚¢éƒ¨åˆ†ã®Texture
+		const D3DXVECTOR3			&vScale		,				//	: ä¼¸ç¸®
+		const D3DXVECTOR3			&vRot		,				//	: å›è»¢
+		const D3DXVECTOR3			&vPos		,				//	: ä½ç½®
+		const Rect					Rect		,				//	: æç”»ç¯„å›²
 		const wiz::OBJID			id	=	OBJID_UI_SPRITE		//	: ID
 	);
 	~Relationship_Gage();
@@ -90,8 +90,8 @@ public:
 /************************************************
 class Gage : public SpriteObject
 
-—p“r@FƒX[ƒp[ƒ‚[ƒh—p‚ÌƒQ[ƒW
-’S“–ÒF²“¡—Á –{‘½Š°”V(•ÒW)
+ç”¨é€”ã€€ï¼šã‚¹ãƒ¼ãƒ‘ãƒ¼ãƒ¢ãƒ¼ãƒ‰ç”¨ã®ã‚²ãƒ¼ã‚¸
+æ‹…å½“è€…ï¼šä½è—¤æ¶¼ æœ¬å¤šå¯›ä¹‹(ç·¨é›†)
 *************************************************/
 class Gage : public SpriteObject{
 protected:
@@ -103,33 +103,33 @@ protected:
 	float	m_fMovePos;
 public:
 	Gage(
-		const LPDIRECT3DDEVICE9	pD3DDevice	,		//	: ƒfƒoƒCƒX
-		const LPTATRATEXTURE	pTex		,		//	: ƒRƒA•”•ª‚ÌTexture
-		const D3DXVECTOR3			&vScale		,		//	: Lk
-		const D3DXVECTOR3			&vRot		,		//	: ‰ñ“]
-		const D3DXVECTOR3			&vPos		,		//	: ˆÊ’u
-		const D3DXVECTOR3			&vDirOffset	,		//	: •`‰æƒIƒtƒZƒbƒg
-		const Rect				GaugeRect	,		//	: •`‰æ”ÍˆÍ
-		const Rect				FrameRect	,		//	: •`‰æ”ÍˆÍ
+		const LPDIRECT3DDEVICE9	pD3DDevice	,		//	: ãƒ‡ãƒã‚¤ã‚¹
+		const LPTATRATEXTURE	pTex		,		//	: ã‚³ã‚¢éƒ¨åˆ†ã®Texture
+		const D3DXVECTOR3			&vScale		,		//	: ä¼¸ç¸®
+		const D3DXVECTOR3			&vRot		,		//	: å›è»¢
+		const D3DXVECTOR3			&vPos		,		//	: ä½ç½®
+		const D3DXVECTOR3			&vDirOffset	,		//	: æç”»ã‚ªãƒ•ã‚»ãƒƒãƒˆ
+		const Rect				GaugeRect	,		//	: æç”»ç¯„å›²
+		const Rect				FrameRect	,		//	: æç”»ç¯„å›²
 		const wiz::OBJID			id	//	: ID
 	);
 	~Gage();
-	void	Recovery( float fAddValue );	//	: ƒGƒlƒ‹ƒM[‚Ì‰ñ•œ
-	void	Consume(  float fSubValue );	//	: ƒGƒlƒ‹ƒM[‚ÌÁ”ï
+	void	Recovery( float fAddValue );	//	: ã‚¨ãƒãƒ«ã‚®ãƒ¼ã®å›å¾©
+	void	Consume(  float fSubValue );	//	: ã‚¨ãƒãƒ«ã‚®ãƒ¼ã®æ¶ˆè²»
 	/////////////////// ////////////////////
-	//// —p“r       Fvoid Update( UpdatePacket& i_UpdatePacket )
-	//// ƒJƒeƒSƒŠ   FŠÖ”
-	//// —p“r       FƒIƒuƒWƒFƒNƒg‚ğXV
-	//// ˆø”       F  UpdatePacket& i_UpdatePacket     // ƒAƒbƒvƒf[ƒg‚É•K—v‚Èƒf[ƒ^ŒQ «“à—e‰º‹L
-	////            F  „¥       LPDIRECT3DDEVICE9  pD3DDevice      // IDirect3DDevice9 ƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-	////            F  „¥       Tempus2*           pTime           // ŠÔ‚ğŠÇ—‚·‚éƒNƒ‰ƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^[
-	////            F  „¥       vector<Object*>&   Vec,            // ƒIƒuƒWƒFƒNƒg‚Ì”z—ñ
-	////            F  „¥ const CONTROLER_STATE*   pCntlState      // ƒRƒ“ƒgƒ[ƒ‰‚ÌƒXƒe[ƒ^ƒX
-	////            F  „¤       Command            pCommand        // ƒRƒ}ƒ“ƒh
-	//// –ß’l       F‚È‚µ
-	//// ’S“–Ò     F°Œ´ “O
-	//// ”õl       F
-	////            F
+	//// ç”¨é€”       ï¼švoid Update( UpdatePacket& i_UpdatePacket )
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šé–¢æ•°
+	//// ç”¨é€”       ï¼šã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’æ›´æ–°
+	//// å¼•æ•°       ï¼š  UpdatePacket& i_UpdatePacket     // ã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆæ™‚ã«å¿…è¦ãªãƒ‡ãƒ¼ã‚¿ç¾¤ â†“å†…å®¹ä¸‹è¨˜
+	////            ï¼š  â”œ       LPDIRECT3DDEVICE9  pD3DDevice      // IDirect3DDevice9 ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+	////            ï¼š  â”œ       Tempus2*           pTime           // æ™‚é–“ã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿ãƒ¼
+	////            ï¼š  â”œ       vector<Object*>&   Vec,            // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®é…åˆ—
+	////            ï¼š  â”œ const CONTROLER_STATE*   pCntlState      // ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹
+	////            ï¼š  â””       Command            pCommand        // ã‚³ãƒãƒ³ãƒ‰
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“è€…     ï¼šé´«åŸ å¾¹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
 	void Update( UpdatePacket& i_UpdatePacket );
     void	Draw(DrawPacket& i_DrawPacket) ;
@@ -159,15 +159,15 @@ public:
 /************************************************
 class SuperGage : public SpriteObject
 
-—p“r@FƒX[ƒp[ƒ‚[ƒh—p‚ÌƒQ[ƒW
-’S“–ÒF²“¡—Á –{‘½Š°”V(•ÒW)
+ç”¨é€”ã€€ï¼šã‚¹ãƒ¼ãƒ‘ãƒ¼ãƒ¢ãƒ¼ãƒ‰ç”¨ã®ã‚²ãƒ¼ã‚¸
+æ‹…å½“è€…ï¼šä½è—¤æ¶¼ æœ¬å¤šå¯›ä¹‹(ç·¨é›†)
 *************************************************/
 class SuperGage : public Gage{
 	D3DXVECTOR3		m_vBassPos		;
 	MouseCursor*	m_pCursor		;
 	D3DXMATRIX		m_Matrix		;
-	D3DXVECTOR3		m_vScale		;	//	: Lk
-	D3DXVECTOR3		m_vRot			;	//	: ‰ñ“]
+	D3DXVECTOR3		m_vScale		;	//	: ä¼¸ç¸®
+	D3DXVECTOR3		m_vRot			;	//	: å›è»¢
 	float			m_fLineMoveDistance;
 	bool			m_bAcquired		;
 	Line*			m_pLineTop		;
@@ -177,50 +177,50 @@ class SuperGage : public Gage{
 	SuperNotice*	m_pSuperNotice	;
 public:
 	SuperGage(
-		LPDIRECT3DDEVICE9	pD3DDevice	,		//	: ƒfƒoƒCƒX
-		LPTATRATEXTURE	pTex		,		//	: ƒRƒA•”•ª‚ÌTexture
-		D3DXVECTOR3			&vScale		,		//	: Lk
-		D3DXVECTOR3			&vRot		,		//	: ‰ñ“]
-		D3DXVECTOR3			&vPos		,		//	: ˆÊ’u
-		Rect				GaugeRect	,		//	: •`‰æ”ÍˆÍ
-		Rect				FrameRect	,		//	: •`‰æ”ÍˆÍ
+		LPDIRECT3DDEVICE9	pD3DDevice	,		//	: ãƒ‡ãƒã‚¤ã‚¹
+		LPTATRATEXTURE	pTex		,		//	: ã‚³ã‚¢éƒ¨åˆ†ã®Texture
+		D3DXVECTOR3			&vScale		,		//	: ä¼¸ç¸®
+		D3DXVECTOR3			&vRot		,		//	: å›è»¢
+		D3DXVECTOR3			&vPos		,		//	: ä½ç½®
+		Rect				GaugeRect	,		//	: æç”»ç¯„å›²
+		Rect				FrameRect	,		//	: æç”»ç¯„å›²
 		wiz::OBJID			id=OBJID_UI_SUPERGAUGE	//	: ID
 	);
 	~SuperGage();
     void	Draw(DrawPacket& i_DrawPacket) ;
 	void	Update( UpdatePacket& i_UpdatePacket );
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     FUpdate_Line()
-	//// ƒJƒeƒSƒŠ   FŠÖ”
-	//// —p“r       FLine‚ÌXV
-	//// ˆø”       F‚È‚µ
-	//// –ß’l       F‚È‚µ
-	//// ’S“–       F–{‘½Š°”V
-	//// ”õl       F
-	////            F
+	//// é–¢æ•°å     ï¼šUpdate_Line()
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šé–¢æ•°
+	//// ç”¨é€”       ï¼šLineã®æ›´æ–°
+	//// å¼•æ•°       ï¼šãªã—
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“       ï¼šæœ¬å¤šå¯›ä¹‹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	void Update_Line();
 
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     FsetAcquired(bool i_bFlg)
-	//// ƒJƒeƒSƒŠ   FƒZƒbƒ^[
-	//// —p“r       F
-	//// ˆø”       F‚È‚µ
-	//// –ß’l       F‚È‚µ
-	//// ’S“–       F–{‘½Š°”V
-	//// ”õl       F
-	////            F
+	//// é–¢æ•°å     ï¼šsetAcquired(bool i_bFlg)
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚»ãƒƒã‚¿ãƒ¼
+	//// ç”¨é€”       ï¼š
+	//// å¼•æ•°       ï¼šãªã—
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“       ï¼šæœ¬å¤šå¯›ä¹‹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	void setAcquired(bool i_bFlg){
 		m_bAcquired = i_bFlg;
 	}
 	/////////////////// ////////////////////
-	//// ŠÖ”–¼     Fbool getAcquired()
-	//// ƒJƒeƒSƒŠ   FƒQƒbƒ^[
-	//// —p“r       Fm_bAcquired‚ğŠl“¾
-	//// ˆø”       F‚È‚µ
-	//// –ß’l       Fm_bAcquired
-	//// ’S“–       F–{‘½Š°”V
-	//// ”õl       F
-	////            F
+	//// é–¢æ•°å     ï¼šbool getAcquired()
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚²ãƒƒã‚¿ãƒ¼
+	//// ç”¨é€”       ï¼šm_bAcquiredã‚’ç²å¾—
+	//// å¼•æ•°       ï¼šãªã—
+	//// æˆ»å€¤       ï¼šm_bAcquired
+	//// æ‹…å½“       ï¼šæœ¬å¤šå¯›ä¹‹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	bool getAcquired() const{
 		return m_bAcquired;
 	}
@@ -229,8 +229,8 @@ public:
 /************************************************
 class MagneticGage_N : public Gage
 
-—p“r@FN¥ŠE—p‚ÌƒQ[ƒW
-’S“–ÒF–{‘½Š°”V
+ç”¨é€”ã€€ï¼šNç£ç•Œç”¨ã®ã‚²ãƒ¼ã‚¸
+æ‹…å½“è€…ï¼šæœ¬å¤šå¯›ä¹‹
 *************************************************/
 class MagneticGage_N : public Gage{
 	MouseCursor*	m_pCursor ;
@@ -238,31 +238,31 @@ class MagneticGage_N : public Gage{
 	D3DXVECTOR3		m_vScale;
 public:
 	MagneticGage_N(
-		LPDIRECT3DDEVICE9	pD3DDevice	,		//	: ƒfƒoƒCƒX
-		LPTATRATEXTURE	pTex		,		//	: ƒRƒA•”•ª‚ÌTexture
-		D3DXVECTOR3			&vPos		,		//	: ˆÊ’u
-		D3DXVECTOR3			&vScale		,		//	: ‘å‚«‚³
-		Rect				GaugeRect	,		//	: •`‰æ”ÍˆÍ
-		Rect				FrameRect	,		//	: •`‰æ”ÍˆÍ
+		LPDIRECT3DDEVICE9	pD3DDevice	,		//	: ãƒ‡ãƒã‚¤ã‚¹
+		LPTATRATEXTURE	pTex		,		//	: ã‚³ã‚¢éƒ¨åˆ†ã®Texture
+		D3DXVECTOR3			&vPos		,		//	: ä½ç½®
+		D3DXVECTOR3			&vScale		,		//	: å¤§ãã•
+		Rect				GaugeRect	,		//	: æç”»ç¯„å›²
+		Rect				FrameRect	,		//	: æç”»ç¯„å›²
 		wiz::OBJID			id=OBJID_UI_MAGNETGAUGE_N	//	: ID
 	);
 	
 	~MagneticGage_N();
 
 	/////////////////// ////////////////////
-	//// —p“r       Fvoid Update( UpdatePacket& i_UpdatePacket )
-	//// ƒJƒeƒSƒŠ   FŠÖ”
-	//// —p“r       FƒIƒuƒWƒFƒNƒg‚ğXV
-	//// ˆø”       F  UpdatePacket& i_UpdatePacket     // ƒAƒbƒvƒf[ƒg‚É•K—v‚Èƒf[ƒ^ŒQ «“à—e‰º‹L
-	////            F  „¥       LPDIRECT3DDEVICE9  pD3DDevice      // IDirect3DDevice9 ƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-	////            F  „¥       Tempus2*           pTime           // ŠÔ‚ğŠÇ—‚·‚éƒNƒ‰ƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^[
-	////            F  „¥       vector<Object*>&   Vec,            // ƒIƒuƒWƒFƒNƒg‚Ì”z—ñ
-	////            F  „¥ const CONTROLER_STATE*   pCntlState      // ƒRƒ“ƒgƒ[ƒ‰‚ÌƒXƒe[ƒ^ƒX
-	////            F  „¤       Command            pCommand        // ƒRƒ}ƒ“ƒh
-	//// –ß’l       F‚È‚µ
-	//// ’S“–Ò     F°Œ´ “O
-	//// ”õl       F
-	////            F
+	//// ç”¨é€”       ï¼švoid Update( UpdatePacket& i_UpdatePacket )
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šé–¢æ•°
+	//// ç”¨é€”       ï¼šã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’æ›´æ–°
+	//// å¼•æ•°       ï¼š  UpdatePacket& i_UpdatePacket     // ã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆæ™‚ã«å¿…è¦ãªãƒ‡ãƒ¼ã‚¿ç¾¤ â†“å†…å®¹ä¸‹è¨˜
+	////            ï¼š  â”œ       LPDIRECT3DDEVICE9  pD3DDevice      // IDirect3DDevice9 ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+	////            ï¼š  â”œ       Tempus2*           pTime           // æ™‚é–“ã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿ãƒ¼
+	////            ï¼š  â”œ       vector<Object*>&   Vec,            // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®é…åˆ—
+	////            ï¼š  â”œ const CONTROLER_STATE*   pCntlState      // ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹
+	////            ï¼š  â””       Command            pCommand        // ã‚³ãƒãƒ³ãƒ‰
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“è€…     ï¼šé´«åŸ å¾¹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
 	void Update( UpdatePacket& i_UpdatePacket );
     void	Draw(DrawPacket& i_DrawPacket) ;
@@ -271,8 +271,8 @@ public:
 /************************************************
 class MagneticGage_S : public Gage
 
-—p“r@FS¥ŠE—p‚ÌƒQ[ƒW
-’S“–ÒF–{‘½Š°”V
+ç”¨é€”ã€€ï¼šSç£ç•Œç”¨ã®ã‚²ãƒ¼ã‚¸
+æ‹…å½“è€…ï¼šæœ¬å¤šå¯›ä¹‹
 *************************************************/
 class MagneticGage_S : public Gage{
 	MouseCursor*	m_pCursor	;
@@ -280,31 +280,31 @@ class MagneticGage_S : public Gage{
 	D3DXVECTOR3		m_vScale;
 public:
 	MagneticGage_S(
-		LPDIRECT3DDEVICE9	pD3DDevice	,		//	: ƒfƒoƒCƒX
-		LPTATRATEXTURE	pTex		,		//	: ƒRƒA•”•ª‚ÌTexture
-		D3DXVECTOR3			&vPos		,		//	: ˆÊ’u
-		D3DXVECTOR3			&vScale		,		//	: ‘å‚«‚³
-		Rect				GaugeRect	,		//	: •`‰æ”ÍˆÍ
-		Rect				FrameRect	,		//	: •`‰æ”ÍˆÍ
+		LPDIRECT3DDEVICE9	pD3DDevice	,		//	: ãƒ‡ãƒã‚¤ã‚¹
+		LPTATRATEXTURE	pTex		,		//	: ã‚³ã‚¢éƒ¨åˆ†ã®Texture
+		D3DXVECTOR3			&vPos		,		//	: ä½ç½®
+		D3DXVECTOR3			&vScale		,		//	: å¤§ãã•
+		Rect				GaugeRect	,		//	: æç”»ç¯„å›²
+		Rect				FrameRect	,		//	: æç”»ç¯„å›²
 		wiz::OBJID			id = OBJID_UI_MAGNETGAUGE_S	//	: ID
 	);
 
 	~MagneticGage_S();
 
 	/////////////////// ////////////////////
-	//// —p“r       Fvoid Update( UpdatePacket& i_UpdatePacket )
-	//// ƒJƒeƒSƒŠ   FŠÖ”
-	//// —p“r       FƒIƒuƒWƒFƒNƒg‚ğXV
-	//// ˆø”       F  UpdatePacket& i_UpdatePacket     // ƒAƒbƒvƒf[ƒg‚É•K—v‚Èƒf[ƒ^ŒQ «“à—e‰º‹L
-	////            F  „¥       LPDIRECT3DDEVICE9  pD3DDevice      // IDirect3DDevice9 ƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-	////            F  „¥       Tempus2*           pTime           // ŠÔ‚ğŠÇ—‚·‚éƒNƒ‰ƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^[
-	////            F  „¥       vector<Object*>&   Vec,            // ƒIƒuƒWƒFƒNƒg‚Ì”z—ñ
-	////            F  „¥ const CONTROLER_STATE*   pCntlState      // ƒRƒ“ƒgƒ[ƒ‰‚ÌƒXƒe[ƒ^ƒX
-	////            F  „¤       Command            pCommand        // ƒRƒ}ƒ“ƒh
-	//// –ß’l       F‚È‚µ
-	//// ’S“–Ò     F°Œ´ “O
-	//// ”õl       F
-	////            F
+	//// ç”¨é€”       ï¼švoid Update( UpdatePacket& i_UpdatePacket )
+	//// ã‚«ãƒ†ã‚´ãƒª   ï¼šé–¢æ•°
+	//// ç”¨é€”       ï¼šã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’æ›´æ–°
+	//// å¼•æ•°       ï¼š  UpdatePacket& i_UpdatePacket     // ã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆæ™‚ã«å¿…è¦ãªãƒ‡ãƒ¼ã‚¿ç¾¤ â†“å†…å®¹ä¸‹è¨˜
+	////            ï¼š  â”œ       LPDIRECT3DDEVICE9  pD3DDevice      // IDirect3DDevice9 ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+	////            ï¼š  â”œ       Tempus2*           pTime           // æ™‚é–“ã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿ãƒ¼
+	////            ï¼š  â”œ       vector<Object*>&   Vec,            // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®é…åˆ—
+	////            ï¼š  â”œ const CONTROLER_STATE*   pCntlState      // ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹
+	////            ï¼š  â””       Command            pCommand        // ã‚³ãƒãƒ³ãƒ‰
+	//// æˆ»å€¤       ï¼šãªã—
+	//// æ‹…å½“è€…     ï¼šé´«åŸ å¾¹
+	//// å‚™è€ƒ       ï¼š
+	////            ï¼š
 	////
 	void Update( UpdatePacket& i_UpdatePacket );
     void	Draw(DrawPacket& i_DrawPacket) ;
@@ -313,21 +313,21 @@ public:
 /**************************************************************************
  class Factory_Gage;
 
- —p“r@FƒƒCƒ“HêƒNƒ‰ƒX
- ’S“–ÒF²“¡—Á 
+ ç”¨é€”ã€€ï¼šãƒ¡ã‚¤ãƒ³å·¥å ´ã‚¯ãƒ©ã‚¹
+ æ‹…å½“è€…ï¼šä½è—¤æ¶¼ 
 ****************************************************************************/
 class Factory_Gage{
 	public:
 	/**************************************************************************
 	 Factory_Item(FactoryPacket* fpac);
-	 —p“r: ƒRƒ“ƒXƒgƒ‰ƒNƒ^iƒTƒ“ƒvƒ‹ƒIƒuƒWƒFƒNƒg‚ğ”z—ñ‚É’Ç‰Á‚·‚éj
-	 –ß‚è’l: ‚È‚µ
+	 ç”¨é€”: ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ï¼ˆã‚µãƒ³ãƒ—ãƒ«ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’é…åˆ—ã«è¿½åŠ ã™ã‚‹ï¼‰
+	 æˆ»ã‚Šå€¤: ãªã—
 	***************************************************************************/
 		Factory_Gage(FactoryPacket* fpac);
 	/**************************************************************************
 	 ~MyFactory();
-	 —p“r: ƒfƒXƒgƒ‰ƒNƒ^
-	 –ß‚è’l: ‚È‚µ
+	 ç”¨é€”: ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	 æˆ»ã‚Šå€¤: ãªã—
 	***************************************************************************/
 		~Factory_Gage();
 	};

@@ -8,71 +8,71 @@
 namespace wiz{
 
 /**************************************************************************
- CommonMesh ’è‹`•”
+ CommonMesh å®šç¾©éƒ¨
 ***************************************************************************/
 /**************************************************************************
  CommonMesh(
-    D3DXVECTOR3 pos,                //ˆÊ’u
-    D3DCOLORVALUE& Diffuse,         //ƒfƒBƒtƒ…[ƒYF
-    D3DCOLORVALUE& Specular,            //ƒXƒyƒLƒ…ƒ‰F
-    D3DCOLORVALUE& Ambient          //ƒAƒ“ƒrƒGƒ“ƒgF
+    D3DXVECTOR3 pos,                //ä½ç½®
+    D3DCOLORVALUE& Diffuse,         //ãƒ‡ã‚£ãƒ•ãƒ¥ãƒ¼ã‚ºè‰²
+    D3DCOLORVALUE& Specular,            //ã‚¹ãƒšã‚­ãƒ¥ãƒ©è‰²
+    D3DCOLORVALUE& Ambient          //ã‚¢ãƒ³ãƒ“ã‚¨ãƒ³ãƒˆè‰²
     );
- —p“r: ƒRƒ“ƒXƒgƒ‰ƒNƒ^
- –ß‚è’l: ‚È‚µiŽ¸”sŽž‚Í—áŠO‚ðthrowj
+ ç”¨é€”: ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+ æˆ»ã‚Šå€¤: ãªã—ï¼ˆå¤±æ•—æ™‚ã¯ä¾‹å¤–ã‚’throwï¼‰
 ***************************************************************************/
 CommonMesh::CommonMesh(D3DXVECTOR3 pos,
         D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient)
 :Object(),
-m_pMesh(0),     //ƒ|ƒCƒ“ƒ^‚Í‚O‰Šú‰»
+m_pMesh(0),     //ãƒã‚¤ãƒ³ã‚¿ã¯ï¼åˆæœŸåŒ–
 m_pShadowMesh(0),
 m_Pos(pos)
 {
     try{
-        // D3DMATERIAL9\‘¢‘Ì‚ð0‚ÅƒNƒŠƒA
+        // D3DMATERIAL9æ§‹é€ ä½“ã‚’0ã§ã‚¯ãƒªã‚¢
         ::ZeroMemory( &m_Material, sizeof(D3DMATERIAL9));
-        // ƒ‚ƒfƒ‹‚ÌF‚ðÝ’è
+        // ãƒ¢ãƒ‡ãƒ«ã®è‰²ã‚’è¨­å®š
         m_Material.Diffuse = Diffuse;
         m_Material.Specular = Specular;
         m_Material.Ambient = Ambient;
     }
     catch(...){
-        //ƒRƒ“ƒXƒgƒ‰ƒNƒ^—áŠO”­¶
-        //ÄƒXƒ[
+        //ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ä¾‹å¤–ç™ºç”Ÿ
+        //å†ã‚¹ãƒ­ãƒ¼
         throw;
     }
 }
 /**************************************************************************
  CommonMesh::~CommonMesh();
- —p“r: ƒfƒXƒgƒ‰ƒNƒ^
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
 CommonMesh::~CommonMesh(){
-    //ŒãŽn––
-	//”h¶ƒNƒ‰ƒX‚Å‚ÌDelete/Release–Y‚ê‘Îô
+    //å¾Œå§‹æœ«
+	//æ´¾ç”Ÿã‚¯ãƒ©ã‚¹ã§ã®Delete/Releaseå¿˜ã‚Œå¯¾ç­–
     SafeRelease(m_pMesh);
     SafeRelease(m_pShadowMesh);
 }
 /**************************************************************************
  void CommonMesh::Draw(
-    LPDIRECT3DDEVICE9 pD3DDevice    //IDirect3DDevice9 ƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-    vector<Object*>& Vec,            //ƒIƒuƒWƒFƒNƒg‚Ì”z—ñ
-    const CONTROLER_STATE* pCntlState,   //ƒRƒ“ƒgƒ[ƒ‰‚ÌƒXƒe[ƒ^ƒX
-	Command& Com					//ƒV[ƒ“‚©‚çƒXƒe[ƒWA‚à‚µ‚­‚ÍƒXƒe[ƒW‚©‚çƒIƒuƒWƒFƒNƒg‚É
-									//“n‚³‚ê‚éƒRƒ}ƒ“ƒh‚ÌŽQÆ
+    LPDIRECT3DDEVICE9 pD3DDevice    //IDirect3DDevice9 ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+    vector<Object*>& Vec,            //ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®é…åˆ—
+    const CONTROLER_STATE* pCntlState,   //ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹
+	Command& Com					//ã‚·ãƒ¼ãƒ³ã‹ã‚‰ã‚¹ãƒ†ãƒ¼ã‚¸ã€ã‚‚ã—ãã¯ã‚¹ãƒ†ãƒ¼ã‚¸ã‹ã‚‰ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã«
+									//æ¸¡ã•ã‚Œã‚‹ã‚³ãƒžãƒ³ãƒ‰ã®å‚ç…§
  );
- —p“r: ƒRƒ‚ƒ“ƒƒbƒVƒ…‚ð•`‰æ
- –ß‚è’l: ‚È‚µB
+ ç”¨é€”: ã‚³ãƒ¢ãƒ³ãƒ¡ãƒƒã‚·ãƒ¥ã‚’æç”»
+ æˆ»ã‚Šå€¤: ãªã—ã€‚
 ***************************************************************************/
 void CommonMesh::Draw(LPDIRECT3DDEVICE9 pD3DDevice,
     vector<Object*>& Vec,const CONTROLER_STATE* pCntlState,Command& Com){
-    //–³Œøƒ`ƒFƒbƒN
+    //ç„¡åŠ¹ãƒã‚§ãƒƒã‚¯
     if((!m_pMesh) || (!pD3DDevice)){
-        throw DxException(L"ƒfƒoƒCƒX‚©ƒƒbƒVƒ…‚ª–³Œø‚Å‚·B",
+        throw DxException(L"ãƒ‡ãƒã‚¤ã‚¹ã‹ãƒ¡ãƒƒã‚·ãƒ¥ãŒç„¡åŠ¹ã§ã™ã€‚",
         L"CommonMesh::Draw()");
     }
     if(m_Material.Diffuse.a < 1.0f){
-        //‚à‚µA“§–¾“x‚ª1.0–¢–ž‚È‚ç
-        // ƒAƒ‹ƒtƒ@‡¬‚ÌÝ’è
+        //ã‚‚ã—ã€é€æ˜Žåº¦ãŒ1.0æœªæº€ãªã‚‰
+        // ã‚¢ãƒ«ãƒ•ã‚¡åˆæˆã®è¨­å®š
         pD3DDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, 1);
         pD3DDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
         pD3DDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
@@ -81,25 +81,25 @@ void CommonMesh::Draw(LPDIRECT3DDEVICE9 pD3DDevice,
         || m_Material.Specular.g > 0.0f
         || m_Material.Specular.b > 0.0f)
     {
-        //‚à‚µAƒXƒyƒLƒ…ƒ‰[‚ªÝ’è‚µ‚Ä‚¢‚½‚ç
-        // ƒXƒyƒLƒ…ƒ‰[—LŒø‚ÌÝ’è
+        //ã‚‚ã—ã€ã‚¹ãƒšã‚­ãƒ¥ãƒ©ãƒ¼ãŒè¨­å®šã—ã¦ã„ãŸã‚‰
+        // ã‚¹ãƒšã‚­ãƒ¥ãƒ©ãƒ¼æœ‰åŠ¹ã®è¨­å®š
         pD3DDevice->SetRenderState(D3DRS_SPECULARENABLE, 1);
     }
-    // ƒ}ƒeƒŠƒAƒ‹‚ðƒŒƒ“ƒ_ƒŠƒ“ƒOƒpƒCƒvƒ‰ƒCƒ“‚ÉÝ’è
+    // ãƒžãƒ†ãƒªã‚¢ãƒ«ã‚’ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³ã«è¨­å®š
     pD3DDevice->SetMaterial( &m_Material);
-    //•`‰æ
+    //æç”»
     m_pMesh->DrawSubset(0);
     if(m_Material.Specular.r > 0.0f
         || m_Material.Specular.g > 0.0f
         || m_Material.Specular.b > 0.0f)
     {
-        //‚à‚µAƒXƒyƒLƒ…ƒ‰[‚ªÝ’è‚µ‚Ä‚¢‚½‚ç
-        // ƒXƒyƒLƒ…ƒ‰[‚ðŒ³‚É–ß‚·
+        //ã‚‚ã—ã€ã‚¹ãƒšã‚­ãƒ¥ãƒ©ãƒ¼ãŒè¨­å®šã—ã¦ã„ãŸã‚‰
+        // ã‚¹ãƒšã‚­ãƒ¥ãƒ©ãƒ¼ã‚’å…ƒã«æˆ»ã™
         pD3DDevice->SetRenderState(D3DRS_SPECULARENABLE, 0);
     }
     if(m_Material.Diffuse.a < 1.0f){
-        //‚à‚µA“§–¾“x‚ª1.0–¢–ž‚È‚ç
-        // ƒAƒ‹ƒtƒ@‡¬‚ðŒ³‚É–ß‚·
+        //ã‚‚ã—ã€é€æ˜Žåº¦ãŒ1.0æœªæº€ãªã‚‰
+        // ã‚¢ãƒ«ãƒ•ã‚¡åˆæˆã‚’å…ƒã«æˆ»ã™
         pD3DDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, 0);
     }
 }

@@ -10,54 +10,54 @@ namespace wiz{
 
 /**************************************************************************
  class CommonMesh : public Object;
- —p“r: ƒRƒ‚ƒ“ƒƒbƒVƒ…ƒNƒ‰ƒX
+ ç”¨é€”: ã‚³ãƒ¢ãƒ³ãƒ¡ãƒƒã‚·ãƒ¥ã‚¯ãƒ©ã‚¹
 ****************************************************************************/
 class CommonMesh : public Object{
 protected:
-    //ƒƒbƒVƒ…
+    //ãƒ¡ãƒƒã‚·ãƒ¥
     LPD3DXMESH m_pMesh;
-	//‰e‚ÌƒƒbƒVƒ…
+	//å½±ã®ãƒ¡ãƒƒã‚·ãƒ¥
     LPD3DXMESH m_pShadowMesh;
-    //ƒ}ƒeƒŠƒAƒ‹
+    //ãƒžãƒ†ãƒªã‚¢ãƒ«
     D3DMATERIAL9 m_Material;
-    //Œ»Ý‚ÌƒIƒuƒWƒFƒNƒg‚ÌˆÊ’u(’†S)
+    //ç¾åœ¨ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ä½ç½®(ä¸­å¿ƒ)
     D3DXVECTOR3 m_Pos;
 /**************************************************************************
  CommonMesh(
-    D3DXVECTOR3 pos,                //ˆÊ’u
-    D3DCOLORVALUE& Diffuse,         //ƒfƒBƒtƒ…[ƒYF
-    D3DCOLORVALUE& Specular,            //ƒXƒyƒLƒ…ƒ‰F
-    D3DCOLORVALUE& Ambient          //ƒAƒ“ƒrƒGƒ“ƒgF
+    D3DXVECTOR3 pos,                //ä½ç½®
+    D3DCOLORVALUE& Diffuse,         //ãƒ‡ã‚£ãƒ•ãƒ¥ãƒ¼ã‚ºè‰²
+    D3DCOLORVALUE& Specular,            //ã‚¹ãƒšã‚­ãƒ¥ãƒ©è‰²
+    D3DCOLORVALUE& Ambient          //ã‚¢ãƒ³ãƒ“ã‚¨ãƒ³ãƒˆè‰²
     );
- —p“r: ƒRƒ“ƒXƒgƒ‰ƒNƒ^
- –ß‚è’l: ‚È‚µiŽ¸”sŽž‚Í—áŠO‚ðthrowj
+ ç”¨é€”: ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+ æˆ»ã‚Šå€¤: ãªã—ï¼ˆå¤±æ•—æ™‚ã¯ä¾‹å¤–ã‚’throwï¼‰
 ***************************************************************************/
   CommonMesh(D3DXVECTOR3 pos,
         D3DCOLORVALUE& Diffuse,D3DCOLORVALUE& Specular,D3DCOLORVALUE& Ambient);
 /**************************************************************************
  virtual ~CommonMesh();
- —p“r: ƒfƒXƒgƒ‰ƒNƒ^
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
     virtual ~CommonMesh();
 /**************************************************************************
  virtual void Draw(
-    LPDIRECT3DDEVICE9 pD3DDevice    //IDirect3DDevice9 ƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-    vector<Object*>& Vec,            //ƒIƒuƒWƒFƒNƒg‚Ì”z—ñ
-    const CONTROLER_STATE* pCntlState,   //ƒRƒ“ƒgƒ[ƒ‰‚ÌƒXƒe[ƒ^ƒX
-	Command& Com					//ƒV[ƒ“‚©‚çƒXƒe[ƒWA‚à‚µ‚­‚ÍƒXƒe[ƒW‚©‚çƒIƒuƒWƒFƒNƒg‚É
-									//“n‚³‚ê‚éƒRƒ}ƒ“ƒh‚ÌŽQÆ
+    LPDIRECT3DDEVICE9 pD3DDevice    //IDirect3DDevice9 ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+    vector<Object*>& Vec,            //ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®é…åˆ—
+    const CONTROLER_STATE* pCntlState,   //ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹
+	Command& Com					//ã‚·ãƒ¼ãƒ³ã‹ã‚‰ã‚¹ãƒ†ãƒ¼ã‚¸ã€ã‚‚ã—ãã¯ã‚¹ãƒ†ãƒ¼ã‚¸ã‹ã‚‰ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã«
+									//æ¸¡ã•ã‚Œã‚‹ã‚³ãƒžãƒ³ãƒ‰ã®å‚ç…§
  );
- —p“r: ƒƒbƒVƒ…‚ð•`‰æ
- –ß‚è’l: ‚È‚µB
+ ç”¨é€”: ãƒ¡ãƒƒã‚·ãƒ¥ã‚’æç”»
+ æˆ»ã‚Šå€¤: ãªã—ã€‚
 ***************************************************************************/
     virtual void Draw(LPDIRECT3DDEVICE9 pD3DDevice,
         vector<Object*>& Vec,const CONTROLER_STATE* pCntlState,Command& Com);
 public:
 /**************************************************************************
  D3DXVECTOR3 getPos() const;
- —p“r: Œ»Ý‚Ìƒ|ƒWƒVƒ‡ƒ“‚ð“¾‚é
- –ß‚è’l: Œ»Ý‚Ìƒ|ƒWƒVƒ‡ƒ“
+ ç”¨é€”: ç¾åœ¨ã®ãƒã‚¸ã‚·ãƒ§ãƒ³ã‚’å¾—ã‚‹
+ æˆ»ã‚Šå€¤: ç¾åœ¨ã®ãƒã‚¸ã‚·ãƒ§ãƒ³
 ***************************************************************************/
 	D3DXVECTOR3 getPos() const{
 		return m_Pos;
@@ -65,8 +65,8 @@ public:
 
 /**************************************************************************
  void setPos(D3DXVECTOR3& pos);
- —p“r:ƒ|ƒWƒVƒ‡ƒ“‚ðÝ’è
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”:ãƒã‚¸ã‚·ãƒ§ãƒ³ã‚’è¨­å®š
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
 	void setPos(D3DXVECTOR3& pos){
 		m_Pos = pos;

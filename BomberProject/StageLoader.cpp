@@ -1,12 +1,12 @@
 ////////////////////////////// //////////////////////////////
-//	ƒvƒƒWƒFƒNƒg	FDirectX Program Bass Project
-//	ƒtƒ@ƒCƒ‹–¼		FStageLoader.cpp
-//	ŠJ”­ŠÂ‹«		FMSVC++ 2008
-//	Å“Kƒ^ƒu”		F4
-//	’S“–Ò			F°Œ´ “O
-//	“à•ïÃŞ°À‚Æ”õl	FƒXƒe[ƒW
-//					FƒXƒe[ƒW‚ÍƒV[ƒ“‚©‚çŒÄ‚Î‚ê‚Ü‚·
-//					¥
+//	ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆ	ï¼šDirectX Program Bass Project
+//	ãƒ•ã‚¡ã‚¤ãƒ«å		ï¼šStageLoader.cpp
+//	é–‹ç™ºç’°å¢ƒ		ï¼šMSVC++ 2008
+//	æœ€é©ã‚¿ãƒ–æ•°		ï¼š4
+//	æ‹…å½“è€…			ï¼šé´«åŸ å¾¹
+//	å†…åŒ…ãƒ‡ãƒ¼ã‚¿ã¨å‚™è€ƒ	ï¼šã‚¹ãƒ†ãƒ¼ã‚¸
+//					ï¼šã‚¹ãƒ†ãƒ¼ã‚¸ã¯ã‚·ãƒ¼ãƒ³ã‹ã‚‰å‘¼ã°ã‚Œã¾ã™
+//					â–¼
 //	namespace wiz;
 //		class StageLoader ;
 //		class StageLoader ;
@@ -28,29 +28,29 @@ namespace wiz{
 using namespace bomberobject;
 
 /////////////////// ////////////////////
-//// ŠÖ”–¼     Fvoid StageLoader::PartsGenerator(MapPartsStatus i_Data)
-//// ƒJƒeƒSƒŠ   FƒWƒFƒlƒŒ[ƒ^
-//// —p“r       Fƒtƒ@ƒCƒ‹‚©‚ç“Ç‚İæ‚Á‚Á‚½ƒf[ƒ^‚ğŒ³‚ÉƒIƒuƒWƒFƒNƒgî•ñ‚ğ\’z‚µ‚Ü‚·
-//// ˆø”       F  MapPartsStatus   i_Data    //  : ƒtƒ@ƒCƒ‹‚©‚ç“Ç‚İ‚Æ‚½ƒp[ƒc‚Ìî•ñ
-//// –ß’l       F‚È‚µ
-//// ’S“–Ò     F°Œ´ “O
-//// ”õl       FStageGenerator‚©‚ç
-////            F‡F
+//// é–¢æ•°å     ï¼švoid StageLoader::PartsGenerator(MapPartsStatus i_Data)
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚¸ã‚§ãƒãƒ¬ãƒ¼ã‚¿
+//// ç”¨é€”       ï¼šãƒ•ã‚¡ã‚¤ãƒ«ã‹ã‚‰èª­ã¿å–ã£ã£ãŸãƒ‡ãƒ¼ã‚¿ã‚’å…ƒã«ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆæƒ…å ±ã‚’æ§‹ç¯‰ã—ã¾ã™
+//// å¼•æ•°       ï¼š  MapPartsStatus   i_Data    //  : ãƒ•ã‚¡ã‚¤ãƒ«ã‹ã‚‰èª­ã¿ã¨ãŸãƒ‘ãƒ¼ãƒ„ã®æƒ…å ±
+//// æˆ»å€¤       ï¼šãªã—
+//// æ‹…å½“è€…     ï¼šé´«åŸ å¾¹
+//// å‚™è€ƒ       ï¼šStageGeneratorã‹ã‚‰
+////            ï¼šâ‘¦
 ////
 void StageLoader::PartsGenerator(MapPartsStatus i_Data){
-	//	: ƒIƒuƒWƒFƒ^ƒCƒv‚É‰‚¶‚½ƒIƒuƒWƒFƒNƒg‚ğ¶¬‚·‚é
-	//	: ¶¬‚ÌÛ¤—]Œv‚Èƒf[ƒ^‚ª‘‚¦‚È‚¢‚æ‚¤‚É
+	//	: ã‚ªãƒ–ã‚¸ã‚§ã‚¿ã‚¤ãƒ—ã«å¿œã˜ãŸã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ç”Ÿæˆã™ã‚‹
+	//	: ç”Ÿæˆã®éš›ã€ä½™è¨ˆãªãƒ‡ãƒ¼ã‚¿ãŒå¢—ãˆãªã„ã‚ˆã†ã«
 	multimap<OBJID,Object*>::iterator it;
 
 
-	//	: ƒƒCƒh‚©‚çƒ}ƒ‹ƒ`‚Ö
+	//	: ãƒ¯ã‚¤ãƒ‰ã‹ã‚‰ãƒãƒ«ãƒã¸
 	string sFilePath;
 	TLIB::narrow(i_Data.sFilePath, sFilePath);
 
 
 	switch( (wiz::OBJID)i_Data.enClassid ){
 
-/*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*/
+/*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*/
 		//////////
 		//
 		case CLASSID_NONE:
@@ -58,20 +58,20 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 			return;
 		//
 		//////////
-/*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*/
+/*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*/
 
-/*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*/
+/*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*/
 		case CLASSID_WALL :	//	: 20
 		{
 			//////////
-			//	: •Ç
+			//	: å£
 
-			//	: ‚½[‚°‚Á‚ÆB
+			//	: ãŸãƒ¼ã’ã£ã¨ã€‚
 			typedef WallObject TARGET_CLASS;
 			wiz::OBJID ObjectID = OBJID_3D_WALL ;
 			if((it = m_ObjeTypeMap.find( ObjectID )) != m_ObjeTypeMap.end()){
-				//	: “o˜^‚ğŒ©‚Â‚¯‚½ê‡
-				//	: ‚»‚Ì‚Ü‚ÜƒIƒuƒWƒFƒNƒg‚ğ’Ç‰Á
+				//	: ç™»éŒ²ã‚’è¦‹ã¤ã‘ãŸå ´åˆ
+				//	: ãã®ã¾ã¾ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’è¿½åŠ 
 				dynamic_cast< TARGET_CLASS* >( it->second )->AddWall(
 					i_Data.vScale		,
 					i_Data.vRot			,
@@ -81,31 +81,31 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 					i_Data.Ambient
 				);
 			}else{
-																//Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_WALL‚ğŠm•Û‚µ‚Ü‚·\n",this);
+																//Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_WALLã‚’ç¢ºä¿ã—ã¾ã™\n",this);
 
-				//	: “o˜^‚ª‚È‚©‚Á‚½ê‡
+				//	: ç™»éŒ²ãŒãªã‹ã£ãŸå ´åˆ
 				WallObject* cp ;
 
 				if( cp = (TARGET_CLASS*)m_pFpac->SearchObjectFromID(ObjectID) ){
-																//Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_WALL  >>>> Objectˆê——‚æ‚è”­Œ©‚µ‚Ü‚µ‚½\n",this);
-					//	: ƒIƒuƒWƒFƒNƒg‚ÌêŠ‚ğŠo‚¦‚Ä‚¨‚­
+																//Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_WALL  >>>> Objectä¸€è¦§ã‚ˆã‚Šç™ºè¦‹ã—ã¾ã—ãŸ\n",this);
+					//	: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®å ´æ‰€ã‚’è¦šãˆã¦ãŠã
 					m_ObjeTypeMap.insert( make_pair( ObjectID , cp ));
 				}else{
-																//Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_WALL  >>>> Objectˆê——‚æ‚è”­Œ©‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½ V‹K‚Éì¬‚µ‚Ü‚·\n",this);
-					//	: ƒCƒ“ƒXƒ^ƒ“ƒX‚ğ¶¬
+																//Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_WALL  >>>> Objectä¸€è¦§ã‚ˆã‚Šç™ºè¦‹ã§ãã¾ã›ã‚“ã§ã—ãŸ æ–°è¦ã«ä½œæˆã—ã¾ã™\n",this);
+					//	: ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’ç”Ÿæˆ
 					cp = new TARGET_CLASS(
 						m_pFpac->GetDevice(),
 						m_pFpac->AddTexture(L"Lightning.png"),
 						ObjectID
 					);
-					//	: ƒIƒuƒWƒFƒNƒgƒŠƒXƒg‚Ö“o˜^
+					//	: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãƒªã‚¹ãƒˆã¸ç™»éŒ²
 					m_pFpac->AddObject(cp);
 
-					//	: ƒIƒuƒWƒFƒNƒg‚ÌêŠ‚ğŠo‚¦‚Ä‚¨‚­
+					//	: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®å ´æ‰€ã‚’è¦šãˆã¦ãŠã
 					m_ObjeTypeMap.insert( make_pair( ObjectID , cp));
 				}
-																//Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_WALL  >>>> ‰‰ñ“o˜^Š®—¹\n",this);
-				//	: ƒAƒCƒeƒ€‚Ì’Ç‰Á
+																//Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_WALL  >>>> åˆå›ç™»éŒ²å®Œäº†\n",this);
+				//	: ã‚¢ã‚¤ãƒ†ãƒ ã®è¿½åŠ 
 				cp->AddWall(
 					i_Data.vScale	,
 					i_Data.vRot		,
@@ -114,31 +114,31 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 					i_Data.Specular	,
 					i_Data.Ambient
 				);
-																//Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_WALL  >>>> ‰‰ñ‚Ì’Ç‰Ás“®‚ğŠ®—¹‚µ‚Ü‚·\n",this);
+																//Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_WALL  >>>> åˆå›ã®è¿½åŠ è¡Œå‹•ã‚’å®Œäº†ã—ã¾ã™\n",this);
 			}
-			//	: •Ç
+			//	: å£
 			//////////
 		}
 		break;
 
-/*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*/
+/*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*/
 
-/*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*/
+/*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*/
 		case CLASSID_ITEM :	//	: 40
 		{
 			//////////
-			//	: ƒAƒCƒeƒ€
+			//	: ã‚¢ã‚¤ãƒ†ãƒ 
 			D3DCOLORVALUE BallDiffuse = {0.0f,0.7f,0.7f,1.0f};
 			D3DCOLORVALUE BallSpecular = {0.0f,0.0f,0.0f,0.0f};
 			D3DCOLORVALUE BallAmbient = {0.0f,0.7f,0.7f,1.0f};
 
-			//	: ‚½[‚°‚Á‚ÆB
+			//	: ãŸãƒ¼ã’ã£ã¨ã€‚
 			typedef Item TARGET_CLASS;
 			wiz::OBJID ObjectID = OBJID_3D_ITEM ;
 
 			if((it = m_ObjeTypeMap.find( ObjectID )) != m_ObjeTypeMap.end()){
-				//	: “o˜^‚ğŒ©‚Â‚¯‚½ê‡
-				//	: ‚»‚Ì‚Ü‚ÜƒIƒuƒWƒFƒNƒg‚ğ’Ç‰Á
+				//	: ç™»éŒ²ã‚’è¦‹ã¤ã‘ãŸå ´åˆ
+				//	: ãã®ã¾ã¾ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’è¿½åŠ 
 				dynamic_cast< TARGET_CLASS* >( it->second )->addItem(
 					i_Data.vPos			,
 					g_vOne				,
@@ -148,29 +148,29 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 					i_Data.vScale.x
 				);
 			}else{
-																	//Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_ITEM‚ğŠm•Û‚µ‚Ü‚·\n",this);
-				//	: “o˜^‚ª‚È‚©‚Á‚½ê‡
+																	//Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_ITEMã‚’ç¢ºä¿ã—ã¾ã™\n",this);
+				//	: ç™»éŒ²ãŒãªã‹ã£ãŸå ´åˆ
 				TARGET_CLASS* cp;
 				if( cp = (TARGET_CLASS*)m_pFpac->SearchObjectFromID( ObjectID ) ){
-																	//Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_ITEM  >>>> Objectˆê——‚æ‚è”­Œ©‚µ‚Ü‚µ‚½\n",this);
-					//	: ƒIƒuƒWƒFƒNƒg‚ÌêŠ‚ğŠo‚¦‚Ä‚¨‚­
+																	//Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_ITEM  >>>> Objectä¸€è¦§ã‚ˆã‚Šç™ºè¦‹ã—ã¾ã—ãŸ\n",this);
+					//	: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®å ´æ‰€ã‚’è¦šãˆã¦ãŠã
 					m_ObjeTypeMap.insert( make_pair( ObjectID , cp ));
 
 				}else{
-																	//Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_ITEM  >>>> Objectˆê——‚æ‚è”­Œ©‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½ V‹K‚Éì¬‚µ‚Ü‚·\n",this);
-					//	: “o˜^‚ª‚È‚©‚Á‚½ê‡
-					//	: ƒCƒ“ƒXƒ^ƒ“ƒX‚ğ¶¬
+																	//Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_ITEM  >>>> Objectä¸€è¦§ã‚ˆã‚Šç™ºè¦‹ã§ãã¾ã›ã‚“ã§ã—ãŸ æ–°è¦ã«ä½œæˆã—ã¾ã™\n",this);
+					//	: ç™»éŒ²ãŒãªã‹ã£ãŸå ´åˆ
+					//	: ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’ç”Ÿæˆ
 					cp  = new Item( m_pFpac, NULL, ObjectID);
 
-					//	: ƒIƒuƒWƒFƒNƒgƒŠƒXƒg‚Ö“o˜^
+					//	: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãƒªã‚¹ãƒˆã¸ç™»éŒ²
 					m_pFpac->AddObject(cp);
 
-					//	: ƒIƒuƒWƒFƒNƒg‚ÌêŠ‚ğŠo‚¦‚Ä‚¨‚­
+					//	: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®å ´æ‰€ã‚’è¦šãˆã¦ãŠã
 					m_ObjeTypeMap.insert( make_pair( ObjectID , cp ));
 				}
-																	//Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_ITEM  >>>> ‰‰ñ“o˜^Š®—¹\n",this);
+																	//Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_ITEM  >>>> åˆå›ç™»éŒ²å®Œäº†\n",this);
 
-				//	: ƒAƒCƒeƒ€‚Ì’Ç‰Á
+				//	: ã‚¢ã‚¤ãƒ†ãƒ ã®è¿½åŠ 
 				cp->addItem(
 					i_Data.vPos			,
 					g_vOne				,
@@ -179,26 +179,26 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 					BallAmbient		,
 					i_Data.vScale.x
 				);
-																	//Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_ITEM  >>>> ‰‰ñ‚Ì’Ç‰Ás“®‚ğŠ®—¹‚µ‚Ü‚·\n",this);
+																	//Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_ITEM  >>>> åˆå›ã®è¿½åŠ è¡Œå‹•ã‚’å®Œäº†ã—ã¾ã™\n",this);
 			}
-			//	: ƒAƒCƒeƒ€
+			//	: ã‚¢ã‚¤ãƒ†ãƒ 
 			//////////
 		}
 		break;
-/*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*/
+/*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*/
 
-/*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*/
+/*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*/
 		case CLASSID_MAGNET :	//	: 30 
 		{
 			//////////
-			//	: ¥ŠE
+			//	: ç£ç•Œ
 
-			//	: ‚½[‚°‚Á‚ÆB
+			//	: ãŸãƒ¼ã’ã£ã¨ã€‚
 			typedef StaticMagnetField TARGET_CLASS;
 			wiz::OBJID ObjectID = OBJID_3D_STATIC_MAGNET ;
 
 			if((it = m_ObjeTypeMap.find( ObjectID )) != m_ObjeTypeMap.end()){
-				//	: “o˜^‚ğŒ©‚Â‚¯‚½ê‡
+				//	: ç™»éŒ²ã‚’è¦‹ã¤ã‘ãŸå ´åˆ
 				dynamic_cast< TARGET_CLASS* >( it->second )->AddMagnetic(
 					i_Data.vPos			,
 					i_Data.bPool		,
@@ -207,31 +207,31 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 					i_Data.Ambient
 				);
 			}else{
-																			//Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_MAGNET‚ğŠm•Û‚µ‚Ü‚·\n",this);
-				//	: “o˜^‚ª‚È‚©‚Á‚½ê‡
+																			//Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_MAGNETã‚’ç¢ºä¿ã—ã¾ã™\n",this);
+				//	: ç™»éŒ²ãŒãªã‹ã£ãŸå ´åˆ
 				TARGET_CLASS* cp;
 				if( cp = (TARGET_CLASS*)m_pFpac->SearchObjectFromID( ObjectID  ) ){
-																			//Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_MAGNET  >>>> Objectˆê——‚æ‚è”­Œ©‚µ‚Ü‚µ‚½\n",this);
-					//	: ƒIƒuƒWƒFƒNƒg‚ÌêŠ‚ğŠo‚¦‚Ä‚¨‚­
+																			//Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_MAGNET  >>>> Objectä¸€è¦§ã‚ˆã‚Šç™ºè¦‹ã—ã¾ã—ãŸ\n",this);
+					//	: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®å ´æ‰€ã‚’è¦šãˆã¦ãŠã
 					m_ObjeTypeMap.insert( make_pair( ObjectID , cp ));
 
 				}else{
-																			//Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_MAGNET  >>>> Objectˆê——‚æ‚è”­Œ©‚Å‚¢‚Ü‚¹‚ñ‚Å‚µ‚½ V‹K‚Éì¬‚µ‚Ü‚·\n",this);
-					//	: “o˜^‚ª‚È‚©‚Á‚½ê‡
-					//	: ƒCƒ“ƒXƒ^ƒ“ƒX‚ğ¶¬
+																			//Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_MAGNET  >>>> Objectä¸€è¦§ã‚ˆã‚Šç™ºè¦‹ã§ã„ã¾ã›ã‚“ã§ã—ãŸ æ–°è¦ã«ä½œæˆã—ã¾ã™\n",this);
+					//	: ç™»éŒ²ãŒãªã‹ã£ãŸå ´åˆ
+					//	: ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’ç”Ÿæˆ
 					cp = new TARGET_CLASS(
 						m_pFpac->GetDevice()	,
 						ObjectID
 					);
 
-					//	: ƒIƒuƒWƒFƒNƒgƒŠƒXƒg‚Ö“o˜^
+					//	: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãƒªã‚¹ãƒˆã¸ç™»éŒ²
 					m_pFpac->AddObject(cp);
 
-					//	: ƒIƒuƒWƒFƒNƒg‚ÌêŠ‚ğŠo‚¦‚Ä‚¨‚­
+					//	: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®å ´æ‰€ã‚’è¦šãˆã¦ãŠã
 					m_ObjeTypeMap.insert( make_pair( ObjectID , cp ));
 				}
-																			//Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_MAGNET  >>>> ‰‰ñ“o˜^Š®—¹\n",this);
-				//	: “o˜^‚ª‚È‚©‚Á‚½ê‡
+																			//Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_MAGNET  >>>> åˆå›ç™»éŒ²å®Œäº†\n",this);
+				//	: ç™»éŒ²ãŒãªã‹ã£ãŸå ´åˆ
 				cp->AddMagnetic(
 					i_Data.vPos		,
 					i_Data.bPool	,
@@ -239,26 +239,26 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 					i_Data.Specular	,
 					i_Data.Ambient
 				);
-																			//Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_MAGNET  >>>> ‰‰ñ‚Ì’Ç‰Ás“®‚ğŠ®—¹‚µ‚Ü‚·\n",this);
+																			//Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_MAGNET  >>>> åˆå›ã®è¿½åŠ è¡Œå‹•ã‚’å®Œäº†ã—ã¾ã™\n",this);
 			}
-			//	: ¥ŠE
+			//	: ç£ç•Œ
 			//////////
 		}
 		break;
-/*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*/
+/*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*/
 
-/*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*/
+/*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*/
 		case CLASSID_ENEMY :	//	: 31
 		{
 			//////////
-			//	: “G(ƒEƒCƒ‹ƒX?)
+			//	: æ•µ(ã‚¦ã‚¤ãƒ«ã‚¹?)
 
-			//	: ‚½[‚°‚Á‚ÆB
+			//	: ãŸãƒ¼ã’ã£ã¨ã€‚
 			typedef EnemyModel TARGET_CLASS;
 			wiz::OBJID ObjectID = OBJID_3D_ENEMY ;
 
 			if((it = m_ObjeTypeMap.find( ObjectID )) != m_ObjeTypeMap.end()){
-				//	: “o˜^‚ğŒ©‚Â‚¯‚½ê‡
+				//	: ç™»éŒ²ã‚’è¦‹ã¤ã‘ãŸå ´åˆ
 				dynamic_cast< TARGET_CLASS* >( it->second )->AddEnemy(
 					g_vOne		,
 					g_vZero			,
@@ -269,35 +269,35 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 					i_Data.bPool
 				);
 			}else{
-																			//Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_ENEMY‚ğŠm•Û‚µ‚Ü‚·\n",this);
-				//	: “o˜^‚ª‚È‚©‚Á‚½ê‡
+																			//Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_ENEMYã‚’ç¢ºä¿ã—ã¾ã™\n",this);
+				//	: ç™»éŒ²ãŒãªã‹ã£ãŸå ´åˆ
 				TARGET_CLASS* cp;
 				if( cp = (TARGET_CLASS*)m_pFpac->SearchObjectFromID( ObjectID ) ){
-																			//Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_ENEMY  >>>> Objectˆê——‚æ‚è”­Œ©‚µ‚Ü‚µ‚½\n",this);
-					//	: ƒIƒuƒWƒFƒNƒg‚ÌêŠ‚ğŠo‚¦‚Ä‚¨‚­
+																			//Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_ENEMY  >>>> Objectä¸€è¦§ã‚ˆã‚Šç™ºè¦‹ã—ã¾ã—ãŸ\n",this);
+					//	: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®å ´æ‰€ã‚’è¦šãˆã¦ãŠã
 					m_ObjeTypeMap.insert( make_pair( ObjectID , cp ));
 
 				}else{
-																			//Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_ENEMY  >>>> Objectˆê——‚æ‚è”­Œ©‚Å‚¢‚Ü‚¹‚ñ‚Å‚µ‚½ V‹K‚Éì¬‚µ‚Ü‚·\n",this);
-					//	: “o˜^‚ª‚È‚©‚Á‚½ê‡
+																			//Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_ENEMY  >>>> Objectä¸€è¦§ã‚ˆã‚Šç™ºè¦‹ã§ã„ã¾ã›ã‚“ã§ã—ãŸ æ–°è¦ã«ä½œæˆã—ã¾ã™\n",this);
+					//	: ç™»éŒ²ãŒãªã‹ã£ãŸå ´åˆ
 					D3DCOLORVALUE EnemyDiffuse	= {1.0f,1.0f,1.0f,1.0f};
 					D3DCOLORVALUE EnemySpecular	= {1.0f,1.0f,1.0f,1.0f};
 					D3DCOLORVALUE EnemyAmbient	= {1.0f,1.0f,1.0f,1.0f};
-					//	: ƒCƒ“ƒXƒ^ƒ“ƒX‚ğ¶¬
+					//	: ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’ç”Ÿæˆ
 					cp = new TARGET_CLASS(
 						*m_pFpac,
 						RCTEXT_MODEL_ENEMY,
 						ObjectID
 					);
 
-					//	: ƒIƒuƒWƒFƒNƒgƒŠƒXƒg‚Ö“o˜^
+					//	: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãƒªã‚¹ãƒˆã¸ç™»éŒ²
 					m_pFpac->AddObject(cp);
 
-					//	: ƒIƒuƒWƒFƒNƒg‚ÌêŠ‚ğŠo‚¦‚Ä‚¨‚­
+					//	: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®å ´æ‰€ã‚’è¦šãˆã¦ãŠã
 					m_ObjeTypeMap.insert( make_pair( ObjectID , cp ));
 				}
-																			//Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_ENEMY  >>>> ‰‰ñ“o˜^Š®—¹\n",this);
-				//	: “o˜^‚ª‚È‚©‚Á‚½ê‡
+																			//Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_ENEMY  >>>> åˆå›ç™»éŒ²å®Œäº†\n",this);
+				//	: ç™»éŒ²ãŒãªã‹ã£ãŸå ´åˆ
 				cp->AddEnemy(
 					g_vOne		,
 					g_vZero			,
@@ -307,43 +307,43 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 					i_Data.Ambient		,
 					i_Data.bPool
 				);
-																			//Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_ENEMY  >>>> ‰‰ñ‚Ì’Ç‰Ás“®‚ğŠ®—¹‚µ‚Ü‚·\n",this);
+																			//Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_ENEMY  >>>> åˆå›ã®è¿½åŠ è¡Œå‹•ã‚’å®Œäº†ã—ã¾ã™\n",this);
 			}
-			//	: “G(ƒEƒCƒ‹ƒX?)
+			//	: æ•µ(ã‚¦ã‚¤ãƒ«ã‚¹?)
 			//////////
 		}
 		break;
-/*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*/
+/*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*/
 
-/*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*/
+/*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*/
 		case CLASSID_CHECKPOINT :	//	: 11 
 		{
 			//////////
-			//	: ƒ`ƒFƒbƒNƒ|ƒCƒ“ƒg
+			//	: ãƒã‚§ãƒƒã‚¯ãƒã‚¤ãƒ³ãƒˆ
 
-			//	: ‚½[‚°‚Á‚ÆB
+			//	: ãŸãƒ¼ã’ã£ã¨ã€‚
 			typedef CheckPoint TARGET_CLASS;
 			wiz::OBJID ObjectID = OBJID_SYS_CHECKPOINT ;
 
 			if((it = m_ObjeTypeMap.find( ObjectID )) != m_ObjeTypeMap.end()){
-				//	: “o˜^‚ğŒ©‚Â‚¯‚½ê‡
+				//	: ç™»éŒ²ã‚’è¦‹ã¤ã‘ãŸå ´åˆ
 				dynamic_cast< TARGET_CLASS* >( it->second )->add(
 					i_Data.vPos
 				);
 			}else{
-																//Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_CHECKPOINT‚ğŠm•Û‚µ‚Ü‚·\n",this);
-				//	: “o˜^‚ª‚È‚©‚Á‚½ê‡
+																//Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_CHECKPOINTã‚’ç¢ºä¿ã—ã¾ã™\n",this);
+				//	: ç™»éŒ²ãŒãªã‹ã£ãŸå ´åˆ
 				TARGET_CLASS* cp;
 
 				if( cp = (TARGET_CLASS*)m_pFpac->SearchObjectFromID( ObjectID ) ){
-																//Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_CHECKPOINT  >>>> Objectˆê——‚æ‚è”­Œ©‚µ‚Ü‚µ‚½\n",this);
-					//	: ƒIƒuƒWƒFƒNƒg‚ÌêŠ‚ğŠo‚¦‚Ä‚¨‚­
+																//Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_CHECKPOINT  >>>> Objectä¸€è¦§ã‚ˆã‚Šç™ºè¦‹ã—ã¾ã—ãŸ\n",this);
+					//	: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®å ´æ‰€ã‚’è¦šãˆã¦ãŠã
 					m_ObjeTypeMap.insert( make_pair( ObjectID , cp ));
 
 				}else{
-																//Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_CHECKPOINT  >>>> Objectˆê——‚æ‚è”­Œ©‚Å‚¢‚Ü‚¹‚ñ‚Å‚µ‚½ V‹K‚Éì¬‚µ‚Ü‚·\n",this);
-					//	: “o˜^‚ª‚È‚©‚Á‚½ê‡
-					//	: ƒCƒ“ƒXƒ^ƒ“ƒX‚ğ¶¬
+																//Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_CHECKPOINT  >>>> Objectä¸€è¦§ã‚ˆã‚Šç™ºè¦‹ã§ã„ã¾ã›ã‚“ã§ã—ãŸ æ–°è¦ã«ä½œæˆã—ã¾ã™\n",this);
+					//	: ç™»éŒ²ãŒãªã‹ã£ãŸå ´åˆ
+					//	: ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’ç”Ÿæˆ
 					cp = new TARGET_CLASS(
 						m_pFpac->GetDevice()	,
 						100.0f			,
@@ -353,29 +353,29 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 						ObjectID
 					);
 
-					//	: ƒIƒuƒWƒFƒNƒgƒŠƒXƒg‚Ö“o˜^
+					//	: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãƒªã‚¹ãƒˆã¸ç™»éŒ²
 					m_pFpac->AddObject(cp);
 
-					//	: ƒIƒuƒWƒFƒNƒg‚ÌêŠ‚ğŠo‚¦‚Ä‚¨‚­
+					//	: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®å ´æ‰€ã‚’è¦šãˆã¦ãŠã
 					m_ObjeTypeMap.insert( make_pair( ObjectID , cp ));
 				}
-																	//Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_CHECKPOINT  >>>> ‰‰ñ“o˜^Š®—¹\n",this);
-				//	: “o˜^‚ª‚È‚©‚Á‚½ê‡
+																	//Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_CHECKPOINT  >>>> åˆå›ç™»éŒ²å®Œäº†\n",this);
+				//	: ç™»éŒ²ãŒãªã‹ã£ãŸå ´åˆ
 				cp->add(
 					i_Data.vPos
 				);
-																	//Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_CHECKPOINT  >>>> ‰‰ñ‚Ì’Ç‰Ás“®‚ğŠ®—¹‚µ‚Ü‚·\n",this);
+																	//Debugger::DBGWRITINGLOGTEXT::addStr(L"StageLoader::PartsGenerator( 0x%X )  >>>>  CLASSID_CHECKPOINT  >>>> åˆå›ã®è¿½åŠ è¡Œå‹•ã‚’å®Œäº†ã—ã¾ã™\n",this);
 			}
-			//	: ¥ŠE
+			//	: ç£ç•Œ
 			//////////
 		}
 		break;
-/*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*/
+/*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*/
 
-/*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*/
+/*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*/
 		case CLASSID_GOAL :	//:10
 			//////////
-			//	: ƒNƒŠƒA—Ìˆæ
+			//	: ã‚¯ãƒªã‚¢é ˜åŸŸ
 			D3DCOLORVALUE MemoryDiffuse = {1.0f,1.0f,1.0f,0.0f};
 			D3DCOLORVALUE MemorySpecular = {0.0f,0.0f,0.0f,0.0f};
 			D3DCOLORVALUE MemoryAmbient = {1.0f,1.0f,1.0f,0.0f};
@@ -385,7 +385,7 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 			D3DCOLORVALUE GoalAmbient = {0.0f,1.0f,1.0f,0.3f};
 
 			wiz::OBJID ObjectID = OBJID_SYS_CLEARAREA ;
-			//	: ƒCƒ“ƒXƒ^ƒ“ƒX‚ğ¶¬
+			//	: ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’ç”Ÿæˆ
 			GoalObject* go = new GoalObject(
 				m_pFpac->GetDevice()	,
 				D3DXVECTOR3(20.0f, i_Data.vPos.y,  0.0f),
@@ -398,7 +398,7 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 				m_pFpac->AddTexture( L"USB.png" )
 			);
 			
-			//	: ƒS[ƒ‹‚Ì’Ç‰Á
+			//	: ã‚´ãƒ¼ãƒ«ã®è¿½åŠ 
 			//mgb->addGoal(
 			//	D3DXVECTOR3( 100.0f,  2.0f, 0.0f )			,
 			//	D3DXVECTOR3(  0.0f,  0.0f, 0.0f )			,
@@ -417,31 +417,31 @@ void StageLoader::PartsGenerator(MapPartsStatus i_Data){
 			);
 
 			m_pFpac->AddObject( mt );
-			//	: ƒIƒuƒWƒFƒNƒgƒŠƒXƒg‚Ö“o˜^
+			//	: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãƒªã‚¹ãƒˆã¸ç™»éŒ²
 			m_pFpac->AddObject( go );
 			break;
-			//	: ƒNƒŠƒA—Ìˆæ
+			//	: ã‚¯ãƒªã‚¢é ˜åŸŸ
 			//////////
 		}
-/*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*/
+/*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*/
 };
 
 /////////////////// ////////////////////
-//// ŠÖ”–¼     Fvoid StageLoader::StageGenerator(wstring i_sStageFilePath)
-//// ƒJƒeƒSƒŠ   Fƒƒ“ƒoŠÖ”
-//// —p“r       FƒXƒe[ƒW‚ğ\’z‚·‚µ‚Ü‚·
-//// ˆø”       F  wstring i_sStageFilePath         //  ƒXƒe[ƒW‚Ì\¬ƒtƒ@ƒCƒ‹‚Ö‚ÌƒpƒX
-//// –ß’l       F‚È‚µ
-//// ’S“–Ò     F°Œ´ “O
-//// ”õl       FStageListLoaderŠÖ”‚©‚çŒÄ‚Î‚ê‚Ü‚·
-////            F‡E
+//// é–¢æ•°å     ï¼švoid StageLoader::StageGenerator(wstring i_sStageFilePath)
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šãƒ¡ãƒ³ãƒé–¢æ•°
+//// ç”¨é€”       ï¼šã‚¹ãƒ†ãƒ¼ã‚¸ã‚’æ§‹ç¯‰ã™ã—ã¾ã™
+//// å¼•æ•°       ï¼š  wstring i_sStageFilePath         //  ã‚¹ãƒ†ãƒ¼ã‚¸ã®æ§‹æˆãƒ•ã‚¡ã‚¤ãƒ«ã¸ã®ãƒ‘ã‚¹
+//// æˆ»å€¤       ï¼šãªã—
+//// æ‹…å½“è€…     ï¼šé´«åŸ å¾¹
+//// å‚™è€ƒ       ï¼šStageListLoaderé–¢æ•°ã‹ã‚‰å‘¼ã°ã‚Œã¾ã™
+////            ï¼šâ‘¥
 ////
 void StageLoader::StageGenerator(wstring i_sFileName){
-	vector<vector<wstring>> vvCsvData;	//	: CSVƒf[ƒ^‚ğó‚¯æ‚é‚½‚ß‚Ì•Ï”
-	//readcsv(i_sFileName,vvCsvData);		//	: CSVƒf[ƒ^‚Ìó‚¯æ‚è
-	if( !readcsv(i_sFileName,vvCsvData) ){	//	: CSVƒf[ƒ^‚Ìó‚¯æ‚è
+	vector<vector<wstring>> vvCsvData;	//	: CSVãƒ‡ãƒ¼ã‚¿ã‚’å—ã‘å–ã‚‹ãŸã‚ã®å¤‰æ•°
+	//readcsv(i_sFileName,vvCsvData);		//	: CSVãƒ‡ãƒ¼ã‚¿ã®å—ã‘å–ã‚Š
+	if( !readcsv(i_sFileName,vvCsvData) ){	//	: CSVãƒ‡ãƒ¼ã‚¿ã®å—ã‘å–ã‚Š
 		throw LoaderException(
-			L"ƒXƒe[ƒW’è‹`ƒtƒ@ƒCƒ‹‚ÌƒpƒX‚ª³‚µ‚¢‚©Aƒf[ƒ^‚ª”j‘¹‚µ‚Ä‚¢‚È‚¢‚©Šm”F‚µ‚Ä‚­‚¾‚³‚¢",
+			L"ã‚¹ãƒ†ãƒ¼ã‚¸å®šç¾©ãƒ•ã‚¡ã‚¤ãƒ«ã®ãƒ‘ã‚¹ãŒæ­£ã—ã„ã‹ã€ãƒ‡ãƒ¼ã‚¿ãŒç ´æã—ã¦ã„ãªã„ã‹ç¢ºèªã—ã¦ãã ã•ã„",
 			L"StageLoader::StageGenerator()"
 		);
 
@@ -465,15 +465,15 @@ void StageLoader::StageGenerator(wstring i_sFileName){
 	}
 }
 /////////////////// ////////////////////
-//// ŠÖ”–¼     Fvoid PointSearch( vector<vector<wstring>>& i_vvCsvData, CSVMATRIX& o_CsvMatrix)
-//// ƒJƒeƒSƒŠ   Fƒƒ“ƒoŠÖ”
-//// —p“r       FƒXƒe[ƒW‚ğ\’z‚·‚µ‚Ü‚·
-//// ˆø”       F  wstring    i_sStageFilePath         //  ƒXƒe[ƒW‚Ì\¬ƒtƒ@ƒCƒ‹‚Ö‚ÌƒpƒX
-////            F CSVMATRIX&  o_CsvMatrix				//	“Ç‚İ‚Ş‚×‚«s‚Æ—ñ‚Ì‹l‚ß‡‚í‚¹
-//// –ß’l       F‚È‚µ
-//// ’S“–Ò     F°Œ´ “O
-//// ”õl       FStageListLoaderŠÖ”‚©‚çŒÄ‚Î‚ê‚Ü‚·
-////            F‡D
+//// é–¢æ•°å     ï¼švoid PointSearch( vector<vector<wstring>>& i_vvCsvData, CSVMATRIX& o_CsvMatrix)
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šãƒ¡ãƒ³ãƒé–¢æ•°
+//// ç”¨é€”       ï¼šã‚¹ãƒ†ãƒ¼ã‚¸ã‚’æ§‹ç¯‰ã™ã—ã¾ã™
+//// å¼•æ•°       ï¼š  wstring    i_sStageFilePath         //  ã‚¹ãƒ†ãƒ¼ã‚¸ã®æ§‹æˆãƒ•ã‚¡ã‚¤ãƒ«ã¸ã®ãƒ‘ã‚¹
+////            ï¼š CSVMATRIX&  o_CsvMatrix				//	èª­ã¿è¾¼ã‚€ã¹ãè¡Œã¨åˆ—ã®è©°ã‚åˆã‚ã›
+//// æˆ»å€¤       ï¼šãªã—
+//// æ‹…å½“è€…     ï¼šé´«åŸ å¾¹
+//// å‚™è€ƒ       ï¼šStageListLoaderé–¢æ•°ã‹ã‚‰å‘¼ã°ã‚Œã¾ã™
+////            ï¼šâ‘¤
 ////
 void StageLoader::PointSearch( vector<vector<wstring>>& i_vvCsvData, CSVMATRIX& o_CsvMatrix)
 {
@@ -504,7 +504,7 @@ void StageLoader::PointSearch( vector<vector<wstring>>& i_vvCsvData, CSVMATRIX& 
 		for(BYTE i = 1 , Lane = i_vvCsvData.size(); i < Lane ; i++ ){
 			for(BYTE j = 0 , Line = i_vvCsvData[i].size() ; j < Line ; j++){
 
-				//	: “Ç‚İ‚İˆÊ’u‚Ìİ’è
+				//	: èª­ã¿è¾¼ã¿ä½ç½®ã®è¨­å®š
 				if(i_vvCsvData[i][j] == L"Number"	){ o_CsvMatrix.Column.uiNumber		= j ; SearchFlag |= STAGE_NUMBER ; o_CsvMatrix.Line = i ; }
 			///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 				if(i_vvCsvData[i][j] == L"Type"		){ o_CsvMatrix.Column.uiType		= j ; SearchFlag |= OBJECT_TYPE  ; }
@@ -524,72 +524,72 @@ void StageLoader::PointSearch( vector<vector<wstring>>& i_vvCsvData, CSVMATRIX& 
 				if(i_vvCsvData[i][j] == L"PosZ"		){ o_CsvMatrix.Column.uiPosX		= j ; SearchFlag |= POS_Z        ; }
 				if(i_vvCsvData[i][j] == L"Pool"		){ o_CsvMatrix.Column.uiPool		= j ; SearchFlag |= POOL         ; }
 				
-				//	: ‚·‚×‚Ä‚Ì“Ç‚İ‚İ‚ğŠ®—¹
+				//	: ã™ã¹ã¦ã®èª­ã¿è¾¼ã¿ã‚’å®Œäº†
 				if(SearchFlag == ALL_OK) return ;
 			}
-			//	: ˆê•”“Ç‚İ‚ß‚È‚­‚Ä‚à–â‘è‚È‚µ!
+			//	: ä¸€éƒ¨èª­ã¿è¾¼ã‚ãªãã¦ã‚‚å•é¡Œãªã—!
 			if(SearchFlag & IS_OK) return ;
 		}
 
 //////////
 //
-//	‚±‚±‚Ü‚Å”ò‚ñ‚Å‚«‚½‚çŠmÀ‚É“Ç‚İ‚İ‚ª¸”s‚µ‚Ä‚¢‚é
+//	ã“ã“ã¾ã§é£›ã‚“ã§ããŸã‚‰ç¢ºå®Ÿã«èª­ã¿è¾¼ã¿ãŒå¤±æ•—ã—ã¦ã„ã‚‹
 //
 
-//	: ƒfƒbƒoƒbƒO—pƒGƒ‰[
+//	: ãƒ‡ãƒƒãƒãƒƒã‚°ç”¨ã‚¨ãƒ©ãƒ¼
 //#if defined(DEBUG) | defined(_DEBUG) | defined(ON_DEBUGGINGPROCESS)
 //			//	: 
 //			if( !(SearchFlag & ( FILE_PATH )) ) 
 //					throw LoaderException(
-//						L"ƒtƒ@ƒCƒ‹ƒpƒX‚Ìs‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñ‚Å‚µ‚½\n¨CSVƒf[ƒ^‚ğŠm”F‚µ‚Ä‚­‚¾‚³‚¢",
+//						L"ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹ã®è¡ŒãŒè¦‹ã¤ã‹ã‚Šã¾ã›ã‚“ã§ã—ãŸ\nâ†’CSVãƒ‡ãƒ¼ã‚¿ã‚’ç¢ºèªã—ã¦ãã ã•ã„",
 //						L"StageLoader::PointSearch()"
 //					);
 //			if( !(SearchFlag & ( STAGE_NUMBER )) ) 
 //					throw LoaderException(
-//						L"ƒXƒe[ƒW”Ô†‚Ìs‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñ‚Å‚µ‚½\n¨CSVƒf[ƒ^‚ğŠm”F‚µ‚Ä‚­‚¾‚³‚¢",
+//						L"ã‚¹ãƒ†ãƒ¼ã‚¸ç•ªå·ã®è¡ŒãŒè¦‹ã¤ã‹ã‚Šã¾ã›ã‚“ã§ã—ãŸ\nâ†’CSVãƒ‡ãƒ¼ã‚¿ã‚’ç¢ºèªã—ã¦ãã ã•ã„",
 //						L"StageLoader::PointSearch()"
 //					);
 //			//	: 
 //			if( !(SearchFlag & ( FILE_PATH )) ) 
 //					throw LoaderException(
-//						L"ƒtƒ@ƒCƒ‹ƒpƒX‚Ìs‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñ‚Å‚µ‚½\n¨CSVƒf[ƒ^‚ğŠm”F‚µ‚Ä‚­‚¾‚³‚¢",
+//						L"ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹ã®è¡ŒãŒè¦‹ã¤ã‹ã‚Šã¾ã›ã‚“ã§ã—ãŸ\nâ†’CSVãƒ‡ãƒ¼ã‚¿ã‚’ç¢ºèªã—ã¦ãã ã•ã„",
 //						L"StageLoader::PointSearch()"
 //					);
 //			if( !(SearchFlag & ( STAGE_NUMBER )) ) 
 //					throw LoaderException(
-//						L"ƒXƒe[ƒW”Ô†‚Ìs‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñ‚Å‚µ‚½\n¨CSVƒf[ƒ^‚ğŠm”F‚µ‚Ä‚­‚¾‚³‚¢",
+//						L"ã‚¹ãƒ†ãƒ¼ã‚¸ç•ªå·ã®è¡ŒãŒè¦‹ã¤ã‹ã‚Šã¾ã›ã‚“ã§ã—ãŸ\nâ†’CSVãƒ‡ãƒ¼ã‚¿ã‚’ç¢ºèªã—ã¦ãã ã•ã„",
 //						L"StageLoader::PointSearch()"
 //					);
 //#endif
 
-		//	: ˆê”ÊŒü‚¯ƒGƒ‰[
+		//	: ä¸€èˆ¬å‘ã‘ã‚¨ãƒ©ãƒ¼
 		throw LoaderException(
-			L"ƒXƒe[ƒWƒf[ƒ^‚Ì“Ç‚İ‚İ‚É¸”s‚µ‚Ü‚µ‚½\n¨ƒf[ƒ^‚ª”j‘¹‚µ‚Ä‚¢‚È‚¢‚©Šm”F‚µ‚Ä‚­‚¾‚³‚¢",
+			L"ã‚¹ãƒ†ãƒ¼ã‚¸ãƒ‡ãƒ¼ã‚¿ã®èª­ã¿è¾¼ã¿ã«å¤±æ•—ã—ã¾ã—ãŸ\nâ†’ãƒ‡ãƒ¼ã‚¿ãŒç ´æã—ã¦ã„ãªã„ã‹ç¢ºèªã—ã¦ãã ã•ã„",
 			L"StageLoader::PointSearch()\nA"
 		);
 	}
 	catch(wiz::LoaderException& e){
-		//ÄƒXƒ[
+		//å†ã‚¹ãƒ­ãƒ¼
 		throw LoaderException(
 				e.what_w(), 
-				L"ªStageLoader::PointSearch()"
+				L"â†‘StageLoader::PointSearch()"
 				);
 	}
 	catch(...){
-		//ÄƒXƒ[
+		//å†ã‚¹ãƒ­ãƒ¼
 		throw;
 	}
 }
 /////////////////// ////////////////////
-//// ŠÖ”–¼     Fvoid StageLoader::ObjectsLoader(wstring i_sFilePath)
-//// ƒJƒeƒSƒŠ   Fƒƒ“ƒoŠÖ”
-//// —p“r       FƒIƒuƒWƒFƒNƒgî•ñ‚ğ\’z‚µ‚Ü‚·
-//// ˆø”       F  wstring i_sFilePath         //
-//// –ß’l       F‚È‚µ
-//// ’S“–Ò     F°Œ´ “O
-//// ”õl       FCSV‚©‚ç“Ç‚İæ‚Á‚½î•ñ‚ğ‰ğÍ&ƒCƒ“ƒXƒ^ƒ“ƒX‰»‚µ‚Ü‚·
-////            FPointSearchŠÖ”‚©‚çŒÄ‚Î‚ê‚Ü‚·
-////            F‡C
+//// é–¢æ•°å     ï¼švoid StageLoader::ObjectsLoader(wstring i_sFilePath)
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šãƒ¡ãƒ³ãƒé–¢æ•°
+//// ç”¨é€”       ï¼šã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆæƒ…å ±ã‚’æ§‹ç¯‰ã—ã¾ã™
+//// å¼•æ•°       ï¼š  wstring i_sFilePath         //
+//// æˆ»å€¤       ï¼šãªã—
+//// æ‹…å½“è€…     ï¼šé´«åŸ å¾¹
+//// å‚™è€ƒ       ï¼šCSVã‹ã‚‰èª­ã¿å–ã£ãŸæƒ…å ±ã‚’è§£æ&ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹åŒ–ã—ã¾ã™
+////            ï¼šPointSearché–¢æ•°ã‹ã‚‰å‘¼ã°ã‚Œã¾ã™
+////            ï¼šâ‘£
 ////
 float	getCsvFloat(	vector<vector<wstring>>& vvCsvData, vector<vector<wstring>>::size_type Line, UINT Num, float		Default = 0.0f){
 	if( Num == UINT_MAX ) return Default ;
@@ -609,19 +609,19 @@ POLE getCsvPOLE(		vector<vector<wstring>>& vvCsvData, vector<vector<wstring>>::s
 	else									return POLE_S ;
 };
 void StageLoader::ObjectsLoader(wstring i_sFileName){
-	vector<vector<wstring>> vvCsvData;		//	: CSVƒf[ƒ^‚ğó‚¯æ‚é‚½‚ß‚Ì•Ï”
-	if( !readcsv(i_sFileName,vvCsvData) ){	//	: CSVƒf[ƒ^‚Ìó‚¯æ‚è
+	vector<vector<wstring>> vvCsvData;		//	: CSVãƒ‡ãƒ¼ã‚¿ã‚’å—ã‘å–ã‚‹ãŸã‚ã®å¤‰æ•°
+	if( !readcsv(i_sFileName,vvCsvData) ){	//	: CSVãƒ‡ãƒ¼ã‚¿ã®å—ã‘å–ã‚Š
 		throw LoaderException(
-			L"ƒIƒuƒWƒFƒNƒg’è‹`ƒtƒ@ƒCƒ‹‚ÌƒpƒX‚ª³‚µ‚¢‚©Aƒf[ƒ^‚ª”j‘¹‚µ‚Ä‚¢‚È‚¢‚©Šm”F‚µ‚Ä‚­‚¾‚³‚¢",
+			L"ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆå®šç¾©ãƒ•ã‚¡ã‚¤ãƒ«ã®ãƒ‘ã‚¹ãŒæ­£ã—ã„ã‹ã€ãƒ‡ãƒ¼ã‚¿ãŒç ´æã—ã¦ã„ãªã„ã‹ç¢ºèªã—ã¦ãã ã•ã„",
 			L"StageLoader::ObjectsLoader()"
 		);
 	}
-	CSVMATRIX o_CsvMatrix ;					//	: Šeƒpƒ‰ƒ[ƒ^‚Ì‘‚¢‚Ä‚ ‚é—ñ‚ğŠi”[‚·‚é\‘¢‘Ì
-	PointSearch(vvCsvData, o_CsvMatrix);	//	: Šeƒpƒ‰ƒ[ƒ^‚ª‘‚¢‚Ä‚ ‚és‚ğŠl“¾
+	CSVMATRIX o_CsvMatrix ;					//	: å„ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã®æ›¸ã„ã¦ã‚ã‚‹åˆ—ã‚’æ ¼ç´ã™ã‚‹æ§‹é€ ä½“
+	PointSearch(vvCsvData, o_CsvMatrix);	//	: å„ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãŒæ›¸ã„ã¦ã‚ã‚‹è¡Œã‚’ç²å¾—
 
-	//	: i		> Œ»İ‚ÌƒZƒ‹
-	//	: vvSz	> Å‘å‚ÌƒZƒ‹”
-	//	: Line	> —ñ
+	//	: i		> ç¾åœ¨ã®ã‚»ãƒ«
+	//	: vvSz	> æœ€å¤§ã®ã‚»ãƒ«æ•°
+	//	: Line	> åˆ—
 	D3DCOLORVALUE Diffuse	= {0.7f,0.7f,0.7f,1.0f};
 	D3DCOLORVALUE Specular	= {0.0f,0.0f,0.0f,0.0f};
 	D3DCOLORVALUE Ambient	= {0.5f,0.5f,0.5f,1.0f};
@@ -632,7 +632,7 @@ void StageLoader::ObjectsLoader(wstring i_sFileName){
 		
 		MapPartsStatus Status ;
 		//////////
-		//	: ‚±‚Ì‚Ğ‚Æ‚©‚½‚Ü‚è‚Åˆês
+		//	: ã“ã®ã²ã¨ã‹ãŸã¾ã‚Šã§ä¸€è¡Œ
 		Line				= o_CsvMatrix.Line + i ;
 		int		iNumber		= getCsvLong(	vvCsvData, Line, o_CsvMatrix.Column.uiNumber			) ;
 		Status.enClassid	= getCsvLong(	vvCsvData, Line, o_CsvMatrix.Column.uiType				) ;
@@ -656,23 +656,23 @@ void StageLoader::ObjectsLoader(wstring i_sFileName){
 		Status.Diffuse		= Diffuse	;
 		//Status.vRot			= g_vZero	;
 		//Status.vPos			= g_vZero	;
-		//	: ‚±‚Ì‚Ğ‚Æ‚©‚½‚Ü‚è‚Åˆês
+		//	: ã“ã®ã²ã¨ã‹ãŸã¾ã‚Šã§ä¸€è¡Œ
 		//////////
 		m_ObjeMap[iNumber] = Status;
 	}
 }
 
 /////////////////// ////////////////////
-//// ŠÖ”–¼     Fvoid StageLoader::PointSearch( vector<vector<wstring>>& i_vvCsvData , POINT& o_NumberPoint , POINT& o_PathPoint)
-//// ƒJƒeƒSƒŠ   Fƒƒ“ƒoŠÖ”
-//// —p“r       FƒXƒe[ƒW‚ğ\’z‚·‚µ‚Ü‚·
-//// ˆø”       F  vector<vector<wstring>>&  i_vvCsvData    //  :  [IN]CSV‚©‚ç“Ç‚İæ‚Á‚½ƒiƒ}‚Ìƒf[ƒ^
-////            F  POINT&                    o_NumberPoint  //  : [OUT]
-////            F  POINT&                    o_PathPoint    //  : [OUT]
-//// –ß’l       F‚È‚µ
-//// ’S“–Ò     F°Œ´ “O
-//// ”õl       FStageListLoaderŠÖ”‚©‚çŒÄ‚Î‚ê‚Ü‚·
-////            F‡B
+//// é–¢æ•°å     ï¼švoid StageLoader::PointSearch( vector<vector<wstring>>& i_vvCsvData , POINT& o_NumberPoint , POINT& o_PathPoint)
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šãƒ¡ãƒ³ãƒé–¢æ•°
+//// ç”¨é€”       ï¼šã‚¹ãƒ†ãƒ¼ã‚¸ã‚’æ§‹ç¯‰ã™ã—ã¾ã™
+//// å¼•æ•°       ï¼š  vector<vector<wstring>>&  i_vvCsvData    //  :  [IN]CSVã‹ã‚‰èª­ã¿å–ã£ãŸãƒŠãƒã®ãƒ‡ãƒ¼ã‚¿
+////            ï¼š  POINT&                    o_NumberPoint  //  : [OUT]
+////            ï¼š  POINT&                    o_PathPoint    //  : [OUT]
+//// æˆ»å€¤       ï¼šãªã—
+//// æ‹…å½“è€…     ï¼šé´«åŸ å¾¹
+//// å‚™è€ƒ       ï¼šStageListLoaderé–¢æ•°ã‹ã‚‰å‘¼ã°ã‚Œã¾ã™
+////            ï¼šâ‘¢
 ////
 void StageLoader::PointSearch( vector<vector<wstring>>& i_vvCsvData , POINT& o_NumberPoint , POINT& o_PathPoint){
 	try{
@@ -686,84 +686,84 @@ void StageLoader::PointSearch( vector<vector<wstring>>& i_vvCsvData , POINT& o_N
 		for(BYTE i = 1 , Lane = i_vvCsvData.size(); i < Lane ; i++ ){
 			for(BYTE j = 0 , Line = i_vvCsvData[i].size() ; j < Line ; j++){
 
-				//	: ObjectƒŠƒXƒg‚ğ“Ç‚İ‚İ
+				//	: Objectãƒªã‚¹ãƒˆã‚’èª­ã¿è¾¼ã¿
 				if(i_vvCsvData[i][j] == L"ObjectsCSV" ){ ObjectsLoader(i_vvCsvData[i][j+1]); SearchFlag |= OBJECTS_CSV ; }
 
-				//	: “Ç‚İ‚İˆÊ’u‚Ìİ’è
+				//	: èª­ã¿è¾¼ã¿ä½ç½®ã®è¨­å®š
 				if(i_vvCsvData[i][j] == L"StageNumber"){ o_NumberPoint.x = j ; o_NumberPoint.y = i ; SearchFlag |= STAGE_NUMBER ; }
 				if(i_vvCsvData[i][j] == L"FilePath"   ){ o_PathPoint.x   = j ; o_PathPoint.y   = i ; SearchFlag |= FILE_PATH    ; }
 
-				//	: ‚·‚×‚Ä‚Ì“Ç‚İ‚İ‚ğŠ®—¹
+				//	: ã™ã¹ã¦ã®èª­ã¿è¾¼ã¿ã‚’å®Œäº†
 				if(SearchFlag == ALL_OK) return ;
 			}
 		}
 //////////
 //
-//	‚±‚±‚Ü‚Å”ò‚ñ‚Å‚«‚½‚çŠmÀ‚É“Ç‚İ‚İ‚ª¸”s‚µ‚Ä‚¢‚é
+//	ã“ã“ã¾ã§é£›ã‚“ã§ããŸã‚‰ç¢ºå®Ÿã«èª­ã¿è¾¼ã¿ãŒå¤±æ•—ã—ã¦ã„ã‚‹
 //
 
-//	: ƒfƒbƒoƒbƒO—pƒGƒ‰[
+//	: ãƒ‡ãƒƒãƒãƒƒã‚°ç”¨ã‚¨ãƒ©ãƒ¼
 #if defined(ON_DEBUGGINGPROCESS)
 			//	: 
 			if( !(SearchFlag & ( FILE_PATH )) ) 
 					throw LoaderException(
-						L"ƒtƒ@ƒCƒ‹ƒpƒX‚Ìs‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñ‚Å‚µ‚½\n¨CSVƒf[ƒ^‚ğŠm”F‚µ‚Ä‚­‚¾‚³‚¢",
+						L"ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹ã®è¡ŒãŒè¦‹ã¤ã‹ã‚Šã¾ã›ã‚“ã§ã—ãŸ\nâ†’CSVãƒ‡ãƒ¼ã‚¿ã‚’ç¢ºèªã—ã¦ãã ã•ã„",
 						L"StageLoader::PointSearch()"
 					);
 			if( !(SearchFlag & ( STAGE_NUMBER )) ) 
 					throw LoaderException(
-						L"ƒXƒe[ƒW”Ô†‚Ìs‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñ‚Å‚µ‚½\n¨CSVƒf[ƒ^‚ğŠm”F‚µ‚Ä‚­‚¾‚³‚¢",
+						L"ã‚¹ãƒ†ãƒ¼ã‚¸ç•ªå·ã®è¡ŒãŒè¦‹ã¤ã‹ã‚Šã¾ã›ã‚“ã§ã—ãŸ\nâ†’CSVãƒ‡ãƒ¼ã‚¿ã‚’ç¢ºèªã—ã¦ãã ã•ã„",
 						L"StageLoader::PointSearch()"
 					);
 #endif
 
-		//	: ˆê”ÊŒü‚¯ƒGƒ‰[
+		//	: ä¸€èˆ¬å‘ã‘ã‚¨ãƒ©ãƒ¼
 		throw LoaderException(
-			L"ƒXƒe[ƒWƒf[ƒ^‚Ì“Ç‚İ‚İ‚É¸”s‚µ‚Ü‚µ‚½\n¨ƒf[ƒ^‚ª”j‘¹‚µ‚Ä‚¢‚È‚¢‚©Šm”F‚µ‚Ä‚­‚¾‚³‚¢",
+			L"ã‚¹ãƒ†ãƒ¼ã‚¸ãƒ‡ãƒ¼ã‚¿ã®èª­ã¿è¾¼ã¿ã«å¤±æ•—ã—ã¾ã—ãŸ\nâ†’ãƒ‡ãƒ¼ã‚¿ãŒç ´æã—ã¦ã„ãªã„ã‹ç¢ºèªã—ã¦ãã ã•ã„",
 			L"StageLoader::PointSearch()\nB"
 		);
 	}
 	catch(wiz::LoaderException& e){
-		//ÄƒXƒ[
+		//å†ã‚¹ãƒ­ãƒ¼
 		throw LoaderException(
 				e.what_w(), 
-				L"ªStageLoader::PointSearch()"
+				L"â†‘StageLoader::PointSearch()"
 				);
 	}
 	catch(...){
-		//ÄƒXƒ[
+		//å†ã‚¹ãƒ­ãƒ¼
 		throw;
 	}
 }
 /////////////////// ////////////////////
-//// ŠÖ”–¼     Fvoid StageLoader::StageListLoader(wstring i_sFileName, BYTE i_byStageNum)
-//// ƒJƒeƒSƒŠ   Fƒ[ƒ_[
-//// —p“r       FƒXƒe[ƒWƒŠƒXƒg‚ğ“Ç‚İ‚Ş
-//// ˆø”       F
-//// –ß’l       F
-//// ’S“–Ò     F°Œ´ “O
-//// ”õl       F‡A
-////            F
+//// é–¢æ•°å     ï¼švoid StageLoader::StageListLoader(wstring i_sFileName, BYTE i_byStageNum)
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šãƒ­ãƒ¼ãƒ€ãƒ¼
+//// ç”¨é€”       ï¼šã‚¹ãƒ†ãƒ¼ã‚¸ãƒªã‚¹ãƒˆã‚’èª­ã¿è¾¼ã‚€
+//// å¼•æ•°       ï¼š
+//// æˆ»å€¤       ï¼š
+//// æ‹…å½“è€…     ï¼šé´«åŸ å¾¹
+//// å‚™è€ƒ       ï¼šâ‘¡
+////            ï¼š
 ////
 void StageLoader::StageListLoader(wstring i_sFileName, BYTE i_byStageNum){
 	try{
 
-		vector<vector<wstring>> vvCsvData;	//	: CSVƒf[ƒ^‚ğó‚¯æ‚é‚½‚ß‚Ì•Ï”
-		if( !readcsv(i_sFileName,vvCsvData) ){	//	: CSVƒf[ƒ^‚Ìó‚¯æ‚è
+		vector<vector<wstring>> vvCsvData;	//	: CSVãƒ‡ãƒ¼ã‚¿ã‚’å—ã‘å–ã‚‹ãŸã‚ã®å¤‰æ•°
+		if( !readcsv(i_sFileName,vvCsvData) ){	//	: CSVãƒ‡ãƒ¼ã‚¿ã®å—ã‘å–ã‚Š
 			throw LoaderException(
-				L"Stages.csv‚ÌƒpƒX‚ª³‚µ‚¢‚©Aƒf[ƒ^‚ª”j‘¹‚µ‚Ä‚¢‚È‚¢‚©Šm”F‚µ‚Ä‚­‚¾‚³‚¢",
+				L"Stages.csvã®ãƒ‘ã‚¹ãŒæ­£ã—ã„ã‹ã€ãƒ‡ãƒ¼ã‚¿ãŒç ´æã—ã¦ã„ãªã„ã‹ç¢ºèªã—ã¦ãã ã•ã„",
 				L"StageLoader::StageListLoader()"
 			);
 
 		}
-		//readcsv(i_sFileName,vvCsvData);		//	: CSVƒf[ƒ^‚Ìó‚¯æ‚è
+		//readcsv(i_sFileName,vvCsvData);		//	: CSVãƒ‡ãƒ¼ã‚¿ã®å—ã‘å–ã‚Š
 
-		POINT NumberPoint ;		//	: ƒXƒe[ƒW”Ô†‚ª‘‚¢‚Ä‚ ‚és‚Æ—ñ‚Ìƒf[ƒ^
-		POINT PathPoint   ;		//	: ƒXƒe[ƒW‚Ì\¬ƒf[ƒ^ƒtƒ@ƒCƒ‹–¼‚ª‘‚¢‚Ä‚ ‚és‚Æ—ñ‚Ìƒf[ƒ^
+		POINT NumberPoint ;		//	: ã‚¹ãƒ†ãƒ¼ã‚¸ç•ªå·ãŒæ›¸ã„ã¦ã‚ã‚‹è¡Œã¨åˆ—ã®ãƒ‡ãƒ¼ã‚¿
+		POINT PathPoint   ;		//	: ã‚¹ãƒ†ãƒ¼ã‚¸ã®æ§‹æˆãƒ‡ãƒ¼ã‚¿ãƒ•ã‚¡ã‚¤ãƒ«åãŒæ›¸ã„ã¦ã‚ã‚‹è¡Œã¨åˆ—ã®ãƒ‡ãƒ¼ã‚¿
 
 		{
 		DWORD dwSTime = TLIB::Tempus::TimeGetTime();
-		//	: ObjectƒŠƒXƒg‚Æ“Ç‚İ‚Şƒtƒ@ƒCƒ‹ƒpƒX‚ğŠl“¾
+		//	: Objectãƒªã‚¹ãƒˆã¨èª­ã¿è¾¼ã‚€ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹ã‚’ç²å¾—
 		PointSearch( vvCsvData , NumberPoint , PathPoint ) ;
 		DWORD dwETime = TLIB::Tempus::TimeGetTime();
 		////Debugger::DBGWRITINGLOGTEXT::addStr( L"StageLoader::StageListLoader >> PointSearch : %f\n", TLIB::Tempus::TwoDwTime2ElapsedTime(dwSTime,dwETime));
@@ -789,26 +789,26 @@ void StageLoader::StageListLoader(wstring i_sFileName, BYTE i_byStageNum){
 				);
 	}
 	catch(wiz::LoaderException& e){
-		//ÄƒXƒ[
+		//å†ã‚¹ãƒ­ãƒ¼
 		throw LoaderException(
 				e.what_w(), 
-				L"ªStageLoader::StageListLoader()"
+				L"â†‘StageLoader::StageListLoader()"
 				);
 	}
 	catch(...){
-		//ÄƒXƒ[
+		//å†ã‚¹ãƒ­ãƒ¼
 		throw;
 	}
 }
 /////////////////// ////////////////////
-//// ŠÖ”–¼     FStageLoader::StageLoader(FactoryPacket& i_Fpac, wstring i_sFileName,DWORD i_dwStageNum)
-//// ƒJƒeƒSƒŠ   FƒRƒ“ƒXƒgƒ‰ƒNƒ^
-//// —p“r       FFILE‚©‚çStageLoader‚ğ\’z‚µ‚Ü‚·
-//// ˆø”       F
-//// –ß’l       F‚È‚µ(¸”s‚Í—áŠO‚ğthrow)
-//// ’S“–Ò     F°Œ´ “O
-//// ”õl       F‡@
-////            F
+//// é–¢æ•°å     ï¼šStageLoader::StageLoader(FactoryPacket& i_Fpac, wstring i_sFileName,DWORD i_dwStageNum)
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+//// ç”¨é€”       ï¼šFILEã‹ã‚‰StageLoaderã‚’æ§‹ç¯‰ã—ã¾ã™
+//// å¼•æ•°       ï¼š
+//// æˆ»å€¤       ï¼šãªã—(å¤±æ•—æ™‚ã¯ä¾‹å¤–ã‚’throw)
+//// æ‹…å½“è€…     ï¼šé´«åŸ å¾¹
+//// å‚™è€ƒ       ï¼šâ‘ 
+////            ï¼š
 ////
 StageLoader::StageLoader(FactoryPacket& i_Fpac, wstring i_sFileName,DWORD i_dwStageNum)
 :m_pFpac( &i_Fpac )
@@ -820,29 +820,29 @@ StageLoader::StageLoader(FactoryPacket& i_Fpac, wstring i_sFileName,DWORD i_dwSt
 		StageListLoader(i_sFileName, (BYTE)i_dwStageNum);
 
 		//DWORD dwETime = TLIB::Tempus::TimeGetTime();
-		////Debugger::DBGWRITINGLOGTEXT::addStr( L"StageLoader::StageLoader(ƒ[ƒh‘S‘Ì) : %f\n", TLIB::Tempus::TwoDwTime2ElapsedTime(dwSTime,dwETime));
+		////Debugger::DBGWRITINGLOGTEXT::addStr( L"StageLoader::StageLoader(ãƒ­ãƒ¼ãƒ‰å…¨ä½“) : %f\n", TLIB::Tempus::TwoDwTime2ElapsedTime(dwSTime,dwETime));
 	}
 	catch(wiz::LoaderException& e){
-		//ÄƒXƒ[
+		//å†ã‚¹ãƒ­ãƒ¼
 		throw LoaderException(
 				e.what_w(), 
-				L"ªStageLoader::StageLoader()"
+				L"â†‘StageLoader::StageLoader()"
 				);
 	}
 	catch(...){
-		//ÄƒXƒ[
+		//å†ã‚¹ãƒ­ãƒ¼
 		throw;
 	}
 }
 /////////////////// ////////////////////
-//// ŠÖ”–¼     FStageLoader::StageLoader(FactoryPacket& i_Fpac, MapPartsStatus* i_Parts)
-//// ƒJƒeƒSƒŠ   FƒRƒ“ƒXƒgƒ‰ƒNƒ^
-//// —p“r       F
-//// ˆø”       F
-//// –ß’l       F
-//// ’S“–Ò     F°Œ´ “O
-//// ”õl       F‡@'
-////            F
+//// é–¢æ•°å     ï¼šStageLoader::StageLoader(FactoryPacket& i_Fpac, MapPartsStatus* i_Parts)
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+//// ç”¨é€”       ï¼š
+//// å¼•æ•°       ï¼š
+//// æˆ»å€¤       ï¼š
+//// æ‹…å½“è€…     ï¼šé´«åŸ å¾¹
+//// å‚™è€ƒ       ï¼šâ‘ '
+////            ï¼š
 ////
 StageLoader::StageLoader(FactoryPacket& i_Fpac, MapPartsStatus* i_Parts)
 :m_pFpac( &i_Fpac )
@@ -855,21 +855,21 @@ StageLoader::StageLoader(FactoryPacket& i_Fpac, MapPartsStatus* i_Parts)
 		}
 	}
 	catch(wiz::LoaderException& e){
-		//ÄƒXƒ[
+		//å†ã‚¹ãƒ­ãƒ¼
 		throw LoaderException(
 				e.what_w(), 
-				L"ªStageLoader::StageLoader()"
+				L"â†‘StageLoader::StageLoader()"
 				);
 	}
 	catch(...){
 		throw LoaderException(
-				L"ƒ}ƒbƒvƒf[ƒ^”z—ñ‚ÌÅŒã‚ÉOBJID_END‚ğw’è‚µ‚½‚©Šm”F‚µ‚Ä‚¾‚³‚¢", 
-				L"ªStageLoader::StageLoader()"
+				L"ãƒãƒƒãƒ—ãƒ‡ãƒ¼ã‚¿é…åˆ—ã®æœ€å¾Œã«OBJID_ENDã‚’æŒ‡å®šã—ãŸã‹ç¢ºèªã—ã¦ã ã•ã„", 
+				L"â†‘StageLoader::StageLoader()"
 				);
 		throw;
 	}
 }
-/*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*™*š*/
+/*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*â˜†*â˜…*/
 
 
 }

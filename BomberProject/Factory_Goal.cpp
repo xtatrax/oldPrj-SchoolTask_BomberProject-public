@@ -1,11 +1,11 @@
 ////////////////////////////// //////////////////////////////
-//	ƒvƒƒWƒFƒNƒg	FBomberProject
-//	ƒtƒ@ƒCƒ‹–¼		FFactory_Goal.cpp
-//	ŠJ”­ŠÂ‹«		FMSVC++ 2008
-//	Å“Kƒ^ƒu”		F4
-//	’S“–Ò			F²“¡@—Á
-//	“à•ïÃŞ°À‚Æ”õl	FƒS[ƒ‹ƒtƒ@ƒNƒgƒŠ[
-//					¥
+//	ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆ	ï¼šBomberProject
+//	ãƒ•ã‚¡ã‚¤ãƒ«å		ï¼šFactory_Goal.cpp
+//	é–‹ç™ºç’°å¢ƒ		ï¼šMSVC++ 2008
+//	æœ€é©ã‚¿ãƒ–æ•°		ï¼š4
+//	æ‹…å½“è€…			ï¼šä½è—¤ã€€æ¶¼
+//	å†…åŒ…ãƒ‡ãƒ¼ã‚¿ã¨å‚™è€ƒ	ï¼šã‚´ãƒ¼ãƒ«ãƒ•ã‚¡ã‚¯ãƒˆãƒªãƒ¼
+//					â–¼
 //	namespace wiz;
 //		class GoalObject ;
 //		class Factory_Goal ;
@@ -26,17 +26,17 @@ namespace wiz{
 namespace bomberobject{
 
 /**************************************************************************
- FMemoryTex ’è‹`•”
+ FMemoryTex å®šç¾©éƒ¨
 ****************************************************************************/
 /**************************************************************************
  FMemoryTex::FMemoryTex(
-	LPDIRECT3DDEVICE9 pD3DDevice,	//ƒfƒoƒCƒX
-	LPTATRATEXTURE pTexture,	//ƒeƒNƒXƒ`ƒƒ
-	wiz::OBJID id					//ƒIƒuƒWƒFƒNƒg‚Ìí—Ş
+	LPDIRECT3DDEVICE9 pD3DDevice,	//ãƒ‡ãƒã‚¤ã‚¹
+	LPTATRATEXTURE pTexture,	//ãƒ†ã‚¯ã‚¹ãƒãƒ£
+	wiz::OBJID id					//ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ç¨®é¡
 );
- —p“r: ƒRƒ“ƒXƒgƒ‰ƒNƒ^
- –ß‚è’l: ‚È‚µ
- ’S“–F²“¡—Á
+ ç”¨é€”: ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+ æˆ»ã‚Šå€¤: ãªã—
+ æ‹…å½“ï¼šä½è—¤æ¶¼
 ***************************************************************************/
 FMemoryTex::FMemoryTex( LPDIRECT3DDEVICE9 pD3DDevice, LPTATRATEXTURE pTexture, wiz::OBJID id)
 	:PrimitiveBox(pD3DDevice,
@@ -57,22 +57,22 @@ FMemoryTex::FMemoryTex( LPDIRECT3DDEVICE9 pD3DDevice, LPTATRATEXTURE pTexture, w
 	m_pMesh->GetVertexBuffer(&pVB);
 	pVB->Lock(0,0,(VOID**)&pVer,0);
 	DWORD vsize = m_pMesh->GetNumVertices();
-	for(DWORD n = 0;n < vsize;n++){ //’¸“_‚Ì”‚ğæ“¾‚·‚é
-		//–@ü‚Æ’¸“_‚©‚çuv’l‚ğ“¾‚é
+	for(DWORD n = 0;n < vsize;n++){ //é ‚ç‚¹ã®æ•°ã‚’å–å¾—ã™ã‚‹
+		//æ³•ç·šã¨é ‚ç‚¹ã‹ã‚‰uvå€¤ã‚’å¾—ã‚‹
 		BoxVecNomalUV(pVer[n].vec,pVer[n].normal,pVer[n].tu,pVer[n].tv);
 	}
 	pVB->Unlock();
 
 }
 /////////////////// ////////////////////
-//// ŠÖ”–¼     FFMemoryTex::~FMemoryTex()
-//// ƒJƒeƒSƒŠ   FƒfƒXƒgƒ‰ƒNƒ^
-//// —p“r       F”jŠü
-//// ˆø”       F‚È‚µ
-//// –ß’l       F‚È‚µ
-//// ’S“–Ò     F°Œ´ “O
-//// ”õl       F
-////            F
+//// é–¢æ•°å     ï¼šFMemoryTex::~FMemoryTex()
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+//// ç”¨é€”       ï¼šç ´æ£„
+//// å¼•æ•°       ï¼šãªã—
+//// æˆ»å€¤       ï¼šãªã—
+//// æ‹…å½“è€…     ï¼šé´«åŸ å¾¹
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
 FMemoryTex::~FMemoryTex(){
 	m_pCamera = NULL;
@@ -84,47 +84,47 @@ FMemoryTex::~FMemoryTex(){
 }
 
 /////////////////// ////////////////////
-//// —p“r       Fvoid Draw( DrawPacket& i_DrawPacket )
-//// ƒJƒeƒSƒŠ   FŠÖ”
-//// —p“r       FƒIƒuƒWƒFƒNƒg‚ğƒfƒBƒXƒvƒŒƒC‚É•\¦‚·‚é
-//// ˆø”       F  DrawPacket& i_DrawPacket             // ‰æ–Ê•`‰æ‚É•K—v‚Èƒf[ƒ^ŒQ «“à—e‰º‹L
-////            F  „¥ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 ƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-////            F  „¥ vector<Object*>&    Vec                     // ƒIƒuƒWƒFƒNƒg‚Ì”z—ñ
-////            F  „¥ Tempus2*            i_DrawPacket.GetTime()	   // ŠÔ‚ğŠÇ—‚·‚éƒNƒ‰ƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^[
-////            F  „¤ Command             i_DrawPacket.pCommand   // ƒRƒ}ƒ“ƒh
-//// –ß’l       F‚È‚µ
-//// ’S“–Ò     F²“¡—Á
-//// ”õl       F
+//// ç”¨é€”       ï¼švoid Draw( DrawPacket& i_DrawPacket )
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šé–¢æ•°
+//// ç”¨é€”       ï¼šã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ãƒ‡ã‚£ã‚¹ãƒ—ãƒ¬ã‚¤ã«è¡¨ç¤ºã™ã‚‹
+//// å¼•æ•°       ï¼š  DrawPacket& i_DrawPacket             // ç”»é¢æç”»æ™‚ã«å¿…è¦ãªãƒ‡ãƒ¼ã‚¿ç¾¤ â†“å†…å®¹ä¸‹è¨˜
+////            ï¼š  â”œ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+////            ï¼š  â”œ vector<Object*>&    Vec                     // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®é…åˆ—
+////            ï¼š  â”œ Tempus2*            i_DrawPacket.GetTime()	   // æ™‚é–“ã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿ãƒ¼
+////            ï¼š  â”” Command             i_DrawPacket.pCommand   // ã‚³ãƒãƒ³ãƒ‰
+//// æˆ»å€¤       ï¼šãªã—
+//// æ‹…å½“è€…     ï¼šä½è—¤æ¶¼
+//// å‚™è€ƒ       ï¼š
 void FMemoryTex::Draw(DrawPacket& i_DrawPacket)
 {
 	multimap<float,mItem*>::iterator it = m_ItemMap_Target.begin();
 	while(it != m_ItemMap_Target.end()){
-		//ƒeƒNƒXƒ`ƒƒ‚ª‚ ‚éê‡
+		//ãƒ†ã‚¯ã‚¹ãƒãƒ£ãŒã‚ã‚‹å ´åˆ
 		if(m_pTexture){
 			DWORD wkdword;
-			//Œ»İ‚ÌƒeƒNƒXƒ`ƒƒƒXƒe[ƒ^ƒX‚ğ“¾‚é
+			//ç¾åœ¨ã®ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã‚’å¾—ã‚‹
 			i_DrawPacket.GetDevice()->GetTextureStageState(0,D3DTSS_COLOROP,&wkdword);
-			//ƒXƒe[ƒW‚Ìİ’è
+			//ã‚¹ãƒ†ãƒ¼ã‚¸ã®è¨­å®š
 			i_DrawPacket.GetDevice()->SetTexture(0,m_pTexture->getTexture());
-			//ƒfƒtƒB[ƒYF‚ÆƒeƒNƒXƒ`ƒƒ‚ğŠ|‚¯‡‚í‚¹‚éİ’è
+			//ãƒ‡ãƒ•ã‚£ãƒ¼ã‚ºè‰²ã¨ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’æ›ã‘åˆã‚ã›ã‚‹è¨­å®š
 			i_DrawPacket.GetDevice()->SetTextureStageState( 0, D3DTSS_COLOROP, D3DTOP_MODULATE4X );
 			i_DrawPacket.GetDevice()->SetTextureStageState( 0, D3DTSS_COLORARG1, D3DTA_TEXTURE );
 			i_DrawPacket.GetDevice()->SetTextureStageState( 0, D3DTSS_COLORARG2, D3DTA_DIFFUSE );
 
 			//i_DrawPacket.GetDevice()->SetFVF(PlateFVF);
-			// ƒ}ƒgƒŠƒbƒNƒX‚ğƒŒƒ“ƒ_ƒŠƒ“ƒOƒpƒCƒvƒ‰ƒCƒ“‚Éİ’è
+			// ãƒãƒˆãƒªãƒƒã‚¯ã‚¹ã‚’ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³ã«è¨­å®š
 			i_DrawPacket.GetDevice()->SetTransform(D3DTS_WORLD, &it->second->mMatrix);
-			//ƒRƒ‚ƒ“ƒƒbƒVƒ…‚ÌDraw()‚ğŒÄ‚Ô
+			//ã‚³ãƒ¢ãƒ³ãƒ¡ãƒƒã‚·ãƒ¥ã®Draw()ã‚’å‘¼ã¶
 			CommonMesh::Draw(i_DrawPacket);
 			i_DrawPacket.GetDevice()->SetTexture(0,0);
-			//ƒXƒe[ƒW‚ğŒ³‚É–ß‚·
+			//ã‚¹ãƒ†ãƒ¼ã‚¸ã‚’å…ƒã«æˆ»ã™
 			i_DrawPacket.GetDevice()->SetTextureStageState(0,D3DTSS_COLOROP,wkdword);
 		}
 		else{
-		//ƒeƒNƒXƒ`ƒƒ‚ª‚È‚¢ê‡
-			// ƒ}ƒgƒŠƒbƒNƒX‚ğƒŒƒ“ƒ_ƒŠƒ“ƒOƒpƒCƒvƒ‰ƒCƒ“‚Éİ’è
+		//ãƒ†ã‚¯ã‚¹ãƒãƒ£ãŒãªã„å ´åˆ
+			// ãƒãƒˆãƒªãƒƒã‚¯ã‚¹ã‚’ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³ã«è¨­å®š
 			i_DrawPacket.GetDevice()->SetTransform(D3DTS_WORLD, &it->second->mMatrix);
-			//ƒRƒ‚ƒ“ƒƒbƒVƒ…‚ÌDraw()‚ğŒÄ‚Ô
+			//ã‚³ãƒ¢ãƒ³ãƒ¡ãƒƒã‚·ãƒ¥ã®Draw()ã‚’å‘¼ã¶
 			CommonMesh::Draw(i_DrawPacket);
 		}
 		++it;
@@ -132,19 +132,19 @@ void FMemoryTex::Draw(DrawPacket& i_DrawPacket)
 }
 
 /////////////////// ////////////////////
-//// —p“r       Fvoid Update( UpdatePacket& i_UpdatePacket )
-//// ƒJƒeƒSƒŠ   FŠÖ”
-//// —p“r       FƒIƒuƒWƒFƒNƒg‚ğXV
-//// ˆø”       F  UpdatePacket& i_UpdatePacket     // ƒAƒbƒvƒf[ƒg‚É•K—v‚Èƒf[ƒ^ŒQ «“à—e‰º‹L
-////            F  „¥       LPDIRECT3DDEVICE9  pD3DDevice      // IDirect3DDevice9 ƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-////            F  „¥       Tempus2*           pTime           // ŠÔ‚ğŠÇ—‚·‚éƒNƒ‰ƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^[
-////            F  „¥       vector<Object*>&   Vec,            // ƒIƒuƒWƒFƒNƒg‚Ì”z—ñ
-////            F  „¥ const CONTROLER_STATE*   pCntlState      // ƒRƒ“ƒgƒ[ƒ‰‚ÌƒXƒe[ƒ^ƒX
-////            F  „¤       Command            pCommand        // ƒRƒ}ƒ“ƒh
-//// –ß’l       F‚È‚µ
-//// ’S“–Ò     F²“¡—Á
-//// ”õl       F
-////            F
+//// ç”¨é€”       ï¼švoid Update( UpdatePacket& i_UpdatePacket )
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šé–¢æ•°
+//// ç”¨é€”       ï¼šã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’æ›´æ–°
+//// å¼•æ•°       ï¼š  UpdatePacket& i_UpdatePacket     // ã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆæ™‚ã«å¿…è¦ãªãƒ‡ãƒ¼ã‚¿ç¾¤ â†“å†…å®¹ä¸‹è¨˜
+////            ï¼š  â”œ       LPDIRECT3DDEVICE9  pD3DDevice      // IDirect3DDevice9 ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+////            ï¼š  â”œ       Tempus2*           pTime           // æ™‚é–“ã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿ãƒ¼
+////            ï¼š  â”œ       vector<Object*>&   Vec,            // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®é…åˆ—
+////            ï¼š  â”œ const CONTROLER_STATE*   pCntlState      // ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹
+////            ï¼š  â””       Command            pCommand        // ã‚³ãƒãƒ³ãƒ‰
+//// æˆ»å€¤       ï¼šãªã—
+//// æ‹…å½“è€…     ï¼šä½è—¤æ¶¼
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
 void FMemoryTex::Update( UpdatePacket& i_UpdatePacket ){
 	if( !m_pCamera	)	m_pCamera	=     (Camera*)i_UpdatePacket.SearchObjectFromID(OBJID_SYS_CAMERA	) ;
@@ -167,24 +167,24 @@ void FMemoryTex::Update( UpdatePacket& i_UpdatePacket ){
 			OrientGoal( i_UpdatePacket );
 		}
 
-		//ŒvZ‚ÍUpdate‚Å
-		//Šg‘åk¬
+		//è¨ˆç®—ã¯Updateã§
+		//æ‹¡å¤§ç¸®å°
 		D3DXMATRIX mScale;
 		D3DXMatrixIdentity(&mScale);
 		D3DXMatrixScaling(&mScale,
 			it2->second->vScale.x,it2->second->vScale.y,it2->second->vScale.z);
-		//‰ñ“]
+		//å›è»¢
 		D3DXMATRIX mRot;
 		D3DXMatrixIdentity(&mRot);
 		D3DXMatrixRotationQuaternion(&mRot,&it2->second->vRot);
-		//ˆÚ“®—p
+		//ç§»å‹•ç”¨
 		D3DXMATRIX mMove;
 		D3DXMatrixIdentity(&mMove);
 		D3DXMatrixTranslation(&mMove,
 			it2->second->vPos.x,it2->second->vPos.y,it2->second->vPos.z);
-		//ƒ~ƒbƒNƒXs—ñ
+		//ãƒŸãƒƒã‚¯ã‚¹è¡Œåˆ—
 		it2->second->mMatrix = mScale * mRot * mMove;
-		//ƒ}ƒeƒBƒŠƒAƒ‹İ’è
+		//ãƒãƒ†ã‚£ãƒªã‚¢ãƒ«è¨­å®š
 		m_Material = it2->second->mMaterial;
 
 		++it2;
@@ -192,19 +192,19 @@ void FMemoryTex::Update( UpdatePacket& i_UpdatePacket ){
 }
 
 /////////////////// ////////////////////
-//// —p“r       Fvoid AddDesc( DrawPacket& i_DrawPacket )
-//// ƒJƒeƒSƒŠ   FŠÖ”
-//// —p“r       FDesc‚Ì’Ç‰Á
-//// ˆø”       F  LPDIRECT3DDEVICE9 pD3DDevice,	////IDirect3DDevice9ƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-////		    F  D3DXVECTOR3 &vScale				//Šg‘åk¬
-////		    F  D3DXVECTOR3 &vRot				//‰ñ“]Šp
-////		    F  D3DXVECTOR3 &vPos				//ˆÊ’u
-////            F  D3DCOLORVALUE& Diffuse,			//ƒfƒBƒtƒ…[ƒYF
-////            F  D3DCOLORVALUE& Specular,		//ƒXƒyƒLƒ…ƒ‰F
-////            F  D3DCOLORVALUE& Ambient,			//ƒAƒ“ƒrƒGƒ“ƒgF
-//// –ß’l       F‚È‚µ
-//// ’S“–Ò     F²“¡—Á
-//// ”õl       F
+//// ç”¨é€”       ï¼švoid AddDesc( DrawPacket& i_DrawPacket )
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šé–¢æ•°
+//// ç”¨é€”       ï¼šDescã®è¿½åŠ 
+//// å¼•æ•°       ï¼š  LPDIRECT3DDEVICE9 pD3DDevice,	////IDirect3DDevice9ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+////		    ï¼š  D3DXVECTOR3 &vScale				//æ‹¡å¤§ç¸®å°
+////		    ï¼š  D3DXVECTOR3 &vRot				//å›è»¢è§’
+////		    ï¼š  D3DXVECTOR3 &vPos				//ä½ç½®
+////            ï¼š  D3DCOLORVALUE& Diffuse,			//ãƒ‡ã‚£ãƒ•ãƒ¥ãƒ¼ã‚ºè‰²
+////            ï¼š  D3DCOLORVALUE& Specular,		//ã‚¹ãƒšã‚­ãƒ¥ãƒ©è‰²
+////            ï¼š  D3DCOLORVALUE& Ambient,			//ã‚¢ãƒ³ãƒ“ã‚¨ãƒ³ãƒˆè‰²
+//// æˆ»å€¤       ï¼šãªã—
+//// æ‹…å½“è€…     ï¼šä½è—¤æ¶¼
+//// å‚™è€ƒ       ï¼š
 void FMemoryTex::AddMemory(const D3DXVECTOR3 &vScale,const D3DXVECTOR3 &vRot,const D3DXVECTOR3 &vPos,
 			const D3DCOLORVALUE& Diffuse,const D3DCOLORVALUE& Specular,const D3DCOLORVALUE& Ambient)
 {
@@ -215,7 +215,7 @@ void FMemoryTex::AddMemory(const D3DXVECTOR3 &vScale,const D3DXVECTOR3 &vRot,con
 	pItem->mMaterial.Diffuse = Diffuse;
 	pItem->mMaterial.Specular = Specular;
 	pItem->mMaterial.Ambient = Ambient;
-	//‰ñ“]‚Ì‰Šú‰»
+	//å›è»¢ã®åˆæœŸåŒ–
 	D3DXQuaternionRotationYawPitchRoll(&pItem->vRot,
 			D3DXToRadian(vRot.y),D3DXToRadian(vRot.x),D3DXToRadian(vRot.z));
 
@@ -226,34 +226,34 @@ void FMemoryTex::AddMemory(const D3DXVECTOR3 &vScale,const D3DXVECTOR3 &vRot,con
 }
 
 /****************************************************
-ŠÖ”–¼@Fvoid	OrientGoal(UpdatePacket& i_UpdatePacket)
-ƒJƒeƒSƒŠFŠÖ”
-—p“r@@FƒNƒŠƒAŒãƒvƒŒ[ƒ„[‚ğ“®‚©‚·
-ˆø”@@F‚È‚µ
-–ß‚è’l@F‚È‚µ
-’S“–Ò@F²“¡—Á
-”õl@@F
+é–¢æ•°åã€€ï¼švoid	OrientGoal(UpdatePacket& i_UpdatePacket)
+ã‚«ãƒ†ã‚´ãƒªï¼šé–¢æ•°
+ç”¨é€”ã€€ã€€ï¼šã‚¯ãƒªã‚¢å¾Œãƒ—ãƒ¬ãƒ¼ãƒ¤ãƒ¼ã‚’å‹•ã‹ã™
+å¼•æ•°ã€€ã€€ï¼šãªã—
+æˆ»ã‚Šå€¤ã€€ï¼šãªã—
+æ‹…å½“è€…ã€€ï¼šä½è—¤æ¶¼
+å‚™è€ƒã€€ã€€ï¼š
 ****************************************************/
 void FMemoryTex::OrientGoal(UpdatePacket& i_UpdatePacket){
-	//ƒRƒCƒ‹‚ÌŒ»İ‚Ìî•ñ‚ğ“¾‚é
-	D3DXVECTOR3	move		= m_pCoil->getPos();	//ˆÊ’u
-	D3DXVECTOR3	scale		= m_pCoil->getScale();	//‘å‚«‚³
-	float		dir			= m_pCoil->getDir();	//is•ûŒü
+	//ã‚³ã‚¤ãƒ«ã®ç¾åœ¨ã®æƒ…å ±ã‚’å¾—ã‚‹
+	D3DXVECTOR3	move		= m_pCoil->getPos();	//ä½ç½®
+	D3DXVECTOR3	scale		= m_pCoil->getScale();	//å¤§ãã•
+	float		dir			= m_pCoil->getDir();	//é€²è¡Œæ–¹å‘
 
-	const float	rate		= 0.1f;			//ˆÚ“®‚·‚é‘¬‚³
-	const float	ScaleRate	= rate*rate;	//‘å‚«‚³‚Ì•Ï‰»—¦
-	const float DirRate		= rate*60;		//Šp“x‚Ì•Ï‰»—¦
-	const float	OrientPos	= m_vPos.x + ((m_vScale.x - 1.0f) * (-0.2f) ) ;	//Œü‚©‚¤‚×‚«ˆÊ’u
+	const float	rate		= 0.1f;			//ç§»å‹•ã™ã‚‹é€Ÿã•
+	const float	ScaleRate	= rate*rate;	//å¤§ãã•ã®å¤‰åŒ–ç‡
+	const float DirRate		= rate*60;		//è§’åº¦ã®å¤‰åŒ–ç‡
+	const float	OrientPos	= m_vPos.x + ((m_vScale.x - 1.0f) * (-0.2f) ) ;	//å‘ã‹ã†ã¹ãä½ç½®
 
-	int			dirPtn		= 1;		//Œü‚­‚×‚«Šp“x‚ğ¦‚·
-	const float	TopDir		= 90.0f;	//ã‚ğŒü‚¢‚½‚Ì‚ÌŠp“x
-	const float	RightDir	= 0.0f;		//‰E‚ğŒü‚¢‚½‚Ì‚ÌŠp“x
-	const float	LeftDir		= 180.0f;	//¶‚ğŒü‚¢‚½‚Ì‚ÌŠp“x
+	int			dirPtn		= 1;		//å‘ãã¹ãè§’åº¦ã‚’ç¤ºã™
+	const float	TopDir		= 90.0f;	//ä¸Šã‚’å‘ã„ãŸæ™‚ã®ã®è§’åº¦
+	const float	RightDir	= 0.0f;		//å³ã‚’å‘ã„ãŸæ™‚ã®ã®è§’åº¦
+	const float	LeftDir		= 180.0f;	//å·¦ã‚’å‘ã„ãŸæ™‚ã®ã®è§’åº¦
 
-	static float LeastScale	= 0.3f;	//Å‚àk¬‚µ‚½‚Ì‘å‚«‚³
+	static float LeastScale	= 0.3f;	//æœ€ã‚‚ç¸®å°ã—ãŸæ™‚ã®å¤§ãã•
 
 	//****************************
-	//‘å‚«‚³‚Ì•ÏX
+	//å¤§ãã•ã®å¤‰æ›´
 	if( scale.x > LeastScale ){
 		scale.x	-= ScaleRate;
 		scale.y	-= ScaleRate;
@@ -267,7 +267,7 @@ void FMemoryTex::OrientGoal(UpdatePacket& i_UpdatePacket){
 		if( scale.x == 0 )	m_bEnding	= true;
 	}
 	//****************************
-	//ˆÊ’u‚Ì•ÏX
+	//ä½ç½®ã®å¤‰æ›´
 	switch( m_iPtn ){
 		case 1:	if( m_vPos.y-1.0f >= move.y )
 					move.y	+= rate;
@@ -275,13 +275,13 @@ void FMemoryTex::OrientGoal(UpdatePacket& i_UpdatePacket){
 				break;
 		case 2:	if( OrientPos > move.x ){
 					move.x	+= rate;
-					dirPtn	= 2;	//‰E
+					dirPtn	= 2;	//å³
 					if( OrientPos < move.x )
 						move.x	= OrientPos;
 				}
 				else if( OrientPos < move.x ){
 					move.x	-= rate;
-					dirPtn	= 3;	//¶
+					dirPtn	= 3;	//å·¦
 					if( OrientPos > move.x )
 						move.x	= OrientPos;
 				}
@@ -305,23 +305,23 @@ void FMemoryTex::OrientGoal(UpdatePacket& i_UpdatePacket){
 				break;
 	}
 	//****************************
-	//Šp“x‚Ì•ÏX
+	//è§’åº¦ã®å¤‰æ›´
 	switch( dirPtn ){
-		case 1:	//ã
+		case 1:	//ä¸Š
 			if( dir > TopDir )
 				dir	-= DirRate;
 			else if( dir < TopDir )
 				dir	+= DirRate;
 			break;
 
-		case 2:	//‰E
+		case 2:	//å³
 			if( dir > RightDir )
 				dir	-= DirRate;
 			else if( dir < RightDir )
 				dir	+= DirRate;
 			break;
 
-		case 3:	//¶
+		case 3:	//å·¦
 			if( dir > LeftDir )
 				dir	-= DirRate;
 			else if( dir < LeftDir )
@@ -355,22 +355,22 @@ void FMemoryTex::OrientGoal(UpdatePacket& i_UpdatePacket){
 }
 
 /**************************************************************************
- GoalObject ’è‹`•”
+ GoalObject å®šç¾©éƒ¨
 ****************************************************************************/
 /***************************************************************************
-ŠÖ”–¼@@FGoalObject(
+é–¢æ•°åã€€ã€€ï¼šGoalObject(
                    FactoryPacket* fpac,
                    LPTATRATEXTURE pTexture,
                    wiz::OBJID id
               )
-ƒJƒeƒSƒŠ@FƒRƒ“ƒXƒgƒ‰ƒNƒ^
-—p“r@@@F
-ˆø”@@@FFactoryPacket* fpac           //ƒfƒoƒCƒX‚È‚Ç
-@@@@@FLPTATRATEXTURE pTexture   //ƒeƒNƒXƒ`ƒƒ\
-@@@@@Fwiz::OBJID id                 //ID
-–ß‚è’l@@F
-’S“–Ò@@F²“¡—Á
-”õl@@@F
+ã‚«ãƒ†ã‚´ãƒªã€€ï¼šã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+ç”¨é€”ã€€ã€€ã€€ï¼š
+å¼•æ•°ã€€ã€€ã€€ï¼šFactoryPacket* fpac           //ãƒ‡ãƒã‚¤ã‚¹ãªã©
+ã€€ã€€ã€€ã€€ã€€ï¼šLPTATRATEXTURE pTexture   //ãƒ†ã‚¯ã‚¹ãƒãƒ£â€”
+ã€€ã€€ã€€ã€€ã€€ï¼šwiz::OBJID id                 //ID
+æˆ»ã‚Šå€¤ã€€ã€€ï¼š
+æ‹…å½“è€…ã€€ã€€ï¼šä½è—¤æ¶¼
+å‚™è€ƒã€€ã€€ã€€ï¼š
 ****************************************************************************/
 GoalObject::GoalObject( LPDIRECT3DDEVICE9 pD3DDevice, D3DXVECTOR3 vPos , LPTATRATEXTURE pTexture, LPTATRATEXTURE pGoakCharTex,wiz::OBJID id)
 	:PrimitiveBox(pD3DDevice,
@@ -392,7 +392,7 @@ GoalObject::GoalObject( LPDIRECT3DDEVICE9 pD3DDevice, D3DXVECTOR3 vPos , LPTATRA
 
 		m_Obb = OBB( vScale, g_vZero, vPos );
 		this->CalcWorldMatrix();
-        // D3DMATERIAL9\‘¢‘Ì‚ğ0‚ÅƒNƒŠƒA
+        // D3DMATERIAL9æ§‹é€ ä½“ã‚’0ã§ã‚¯ãƒªã‚¢
 		m_Material.Diffuse	= COLOR2D3DCOLORVALUE(0xFFFFFF00);
 		m_Material.Specular	= COLOR2D3DCOLORVALUE(0xFFFFFF00);
 		m_Material.Ambient	= COLOR2D3DCOLORVALUE(0xFFFFFF00);
@@ -402,7 +402,7 @@ GoalObject::GoalObject( LPDIRECT3DDEVICE9 pD3DDevice, D3DXVECTOR3 vPos , LPTATRA
 
 	}
 	catch(...){
-		//ÄƒXƒ[
+		//å†ã‚¹ãƒ­ãƒ¼
 		throw;
 	}
 }
@@ -417,13 +417,13 @@ GoalObject::~GoalObject(){
 
 }
 /**************************************************************
-ŠÖ”–¼@@Fvoid GoalObject::Draw(DrawPacket &i_DrawPacket)
-ƒJƒeƒSƒŠ@FŠÖ”
-—p“r@@@FƒIƒuƒWƒFƒNƒg‚Ì•`‰æ
-ˆø”@@@FDrawPacket &i_DrawPacket   //‚à‚ë‚à‚ë‚Ìƒf[ƒ^
-–ß‚è’l@@F
-’S“–Ò@@F²“¡—Á
-”õl@@@F
+é–¢æ•°åã€€ã€€ï¼švoid GoalObject::Draw(DrawPacket &i_DrawPacket)
+ã‚«ãƒ†ã‚´ãƒªã€€ï¼šé–¢æ•°
+ç”¨é€”ã€€ã€€ã€€ï¼šã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®æç”»
+å¼•æ•°ã€€ã€€ã€€ï¼šDrawPacket &i_DrawPacket   //ã‚‚ã‚ã‚‚ã‚ã®ãƒ‡ãƒ¼ã‚¿
+æˆ»ã‚Šå€¤ã€€ã€€ï¼š
+æ‹…å½“è€…ã€€ã€€ï¼šä½è—¤æ¶¼
+å‚™è€ƒã€€ã€€ã€€ï¼š
 ***************************************************************/
 void	GoalObject::Draw(DrawPacket &i_DrawPacket){
 	PrimitiveBox::Draw( i_DrawPacket );
@@ -431,15 +431,15 @@ void	GoalObject::Draw(DrawPacket &i_DrawPacket){
 }
 
 /*******************************************************************
-ŠÖ”–¼@@Fvoid GoalObject::Update(UpdatePacket& i_UpdatePacket)
-ƒJƒeƒSƒŠ@FŠÖ”
-—p“r@@@Fƒf[ƒ^XV
-ˆø”@@@FUpdatePacket& i_UpdatePacket  //‚à‚ë‚à‚ë‚Ìƒf[ƒ^
-–ß‚è’l@@F
-’S“–Ò@@F²“¡—Á
-”õl@@@F
-ŠÖ”–¼     Fvoid	 GoalObject::Update(UpdatePacket& i_UpdatePacket)
-—p“r       Fƒf[ƒ^XV
+é–¢æ•°åã€€ã€€ï¼švoid GoalObject::Update(UpdatePacket& i_UpdatePacket)
+ã‚«ãƒ†ã‚´ãƒªã€€ï¼šé–¢æ•°
+ç”¨é€”ã€€ã€€ã€€ï¼šãƒ‡ãƒ¼ã‚¿æ›´æ–°
+å¼•æ•°ã€€ã€€ã€€ï¼šUpdatePacket& i_UpdatePacket  //ã‚‚ã‚ã‚‚ã‚ã®ãƒ‡ãƒ¼ã‚¿
+æˆ»ã‚Šå€¤ã€€ã€€ï¼š
+æ‹…å½“è€…ã€€ã€€ï¼šä½è—¤æ¶¼
+å‚™è€ƒã€€ã€€ã€€ï¼š
+é–¢æ•°å     ï¼švoid	 GoalObject::Update(UpdatePacket& i_UpdatePacket)
+ç”¨é€”       ï¼šãƒ‡ãƒ¼ã‚¿æ›´æ–°
 ********************************************************************/
 void	GoalObject::Update(UpdatePacket& i_UpdatePacket)
 {
@@ -450,7 +450,7 @@ void	GoalObject::Update(UpdatePacket& i_UpdatePacket)
 	}
 
 
-	//Õ“Ë”»’è
+	//è¡çªåˆ¤å®š
 	if( m_pCoil && m_pCoil->HitTestWall( m_Obb ) ){
 		m_pCoil->setState( COIL_STATE_CLEAR );
 		m_pCoil->setSuperMode(COIL_STATE_SUPER_CHARGE);
@@ -461,7 +461,7 @@ void	GoalObject::Update(UpdatePacket& i_UpdatePacket)
 	}
 
 	//*****************************************************************************************************
-	//ƒS[ƒ‹‚Ì•¶š
+	//ã‚´ãƒ¼ãƒ«ã®æ–‡å­—
 	float	fTexPosY	= 0.0f;
 	if( m_pCamera )
 		fTexPosY	= m_pCamera->getPosY() - m_fInitPosY;
@@ -486,33 +486,33 @@ void	GoalObject::Update(UpdatePacket& i_UpdatePacket)
 
 
 /**************************************************************************
- Factory_Goal ’è‹`•”
+ Factory_Goal å®šç¾©éƒ¨
 ****************************************************************************/
 /**************************************************************************
  Factory_Goal::Factory_Goal(
-	LPDIRECT3DDEVICE9 pD3DDevice,	//ƒfƒoƒCƒX
-	vector<Object*>& vec,			//ƒIƒuƒWƒFƒNƒg‚Ì”z—ñ
-	TextureManager& TexMgr		//ƒeƒNƒXƒ`ƒƒ‚Ì”z—ñ
+	LPDIRECT3DDEVICE9 pD3DDevice,	//ãƒ‡ãƒã‚¤ã‚¹
+	vector<Object*>& vec,			//ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®é…åˆ—
+	TextureManager& TexMgr		//ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®é…åˆ—
 );
- —p“r: ƒRƒ“ƒXƒgƒ‰ƒNƒ^iƒTƒ“ƒvƒ‹ƒIƒuƒWƒFƒNƒg‚ğ”z—ñ‚É’Ç‰Á‚·‚éj
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ï¼ˆã‚µãƒ³ãƒ—ãƒ«ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’é…åˆ—ã«è¿½åŠ ã™ã‚‹ï¼‰
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
 Factory_Goal::Factory_Goal(FactoryPacket* fpac){
 	try{
 	}
 	catch(...){
-		//Äthrow
+		//å†throw
 		throw;
 	}
 
 }
 /**************************************************************************
  Factory_Goal::~Factory_Goal();
- —p“r: ƒfƒXƒgƒ‰ƒNƒ^
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
 Factory_Goal::~Factory_Goal(){
-    //‚È‚É‚à‚µ‚È‚¢
+    //ãªã«ã‚‚ã—ãªã„
 }
 
 }

@@ -1,11 +1,11 @@
 ////////////////////////////// //////////////////////////////
-//	ƒvƒƒWƒFƒNƒg	FDirectX Program Bass Project
-//	ƒtƒ@ƒCƒ‹–¼		FTextureManager.cpp
-//	ŠJ”­ŠÂ‹«		FMSVC++ 2008
-//	Å“Kƒ^ƒu”		F4
-//	’S“–Ò			Ftatra
-//	“à•ïÃŞ°À‚Æ”õl	FƒeƒNƒXƒ`ƒƒ[‚ÌŠÇ—
-//					¥
+//	ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆ	ï¼šDirectX Program Bass Project
+//	ãƒ•ã‚¡ã‚¤ãƒ«å		ï¼šTextureManager.cpp
+//	é–‹ç™ºç’°å¢ƒ		ï¼šMSVC++ 2008
+//	æœ€é©ã‚¿ãƒ–æ•°		ï¼š4
+//	æ‹…å½“è€…			ï¼štatra
+//	å†…åŒ…ãƒ‡ãƒ¼ã‚¿ã¨å‚™è€ƒ	ï¼šãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒ¼ã®ç®¡ç†
+//					â–¼
 //	namespace wiz;
 //		class TextureManager;
 //		class TextureManager::Texture;
@@ -15,20 +15,20 @@
 #include "TL-String.h"
 namespace wiz {
 /**************************************************************************
- Texture ’è‹`•”
+ Texture å®šç¾©éƒ¨
 ****************************************************************************/
 /////////////////// ////////////////////
-//// —p“r       FTexture::Texture(LPDIRECT3DDEVICE9 pD3DDevice,const wchar_t* filepath,
-////            F    const wchar_t* texturename = L"")
-//// ƒJƒeƒSƒŠ   FƒRƒ“ƒXƒgƒ‰ƒNƒ^
-//// —p“r       FNormalLoad
-//// ˆø”       F  LPDIRECT3DDEVICE9 pD3DDevice		// ŒŸõ‚·‚éƒtƒ@ƒCƒ‹–¼
-////            F  const wchar_t* filepath             // 
-////            F  const wchar_t* texturename = L""    // 
-//// –ß’l       F‚È‚µ
-//// ’S“–Ò     F°Œ´ “O
-//// ”õl       F
-////            F
+//// ç”¨é€”       ï¼šTexture::Texture(LPDIRECT3DDEVICE9 pD3DDevice,const wchar_t* filepath,
+////            ï¼š    const wchar_t* texturename = L"")
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+//// ç”¨é€”       ï¼šNormalLoad
+//// å¼•æ•°       ï¼š  LPDIRECT3DDEVICE9 pD3DDevice		// æ¤œç´¢ã™ã‚‹ãƒ•ã‚¡ã‚¤ãƒ«å
+////            ï¼š  const wchar_t* filepath             // 
+////            ï¼š  const wchar_t* texturename = L""    // 
+//// æˆ»å€¤       ï¼šãªã—
+//// æ‹…å½“è€…     ï¼šé´«åŸ å¾¹
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
 Texture::Texture(LPDIRECT3DDEVICE9 pD3DDevice,const wchar_t* filepath,const wchar_t* texturename )
 :m_pTexture( 0 )
@@ -38,69 +38,69 @@ Texture::Texture(LPDIRECT3DDEVICE9 pD3DDevice,const wchar_t* filepath,const wcha
 {
 	try{
 		wstring sFileName ;
-		//ƒeƒNƒXƒ`ƒƒ‚Ìì¬
+		//ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®ä½œæˆ
 		if( PathFileExists( filepath ) ){
 			sFileName = filepath ;
 		}else if( PathFileExists( wstring( g_sDefaultTexturePath + filepath ).c_str() ) ){
 			sFileName = g_sDefaultTexturePath + filepath ;
 		}else{
-			wstring msgtxt = L"ƒeƒNƒXƒ`ƒƒƒtƒ@ƒCƒ‹‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñ‚Å‚µ‚½B\nTextureManager::Texture::Texture()\n";
+			wstring msgtxt = L"ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒ•ã‚¡ã‚¤ãƒ«ãŒè¦‹ã¤ã‹ã‚Šã¾ã›ã‚“ã§ã—ãŸã€‚\nTextureManager::Texture::Texture()\n";
 			msgtxt += sFileName  ;
 			msgtxt += L"  or  "  ;
 			msgtxt += g_sDefaultTexturePath + filepath ;
 
-            // ‰Šú‰»¸”s
-			::MessageBox(NULL,msgtxt.c_str(),L"ƒGƒ‰[",MB_OK);
+            // åˆæœŸåŒ–å¤±æ•—
+			::MessageBox(NULL,msgtxt.c_str(),L"ã‚¨ãƒ©ãƒ¼",MB_OK);
 		}
 		if(FAILED(D3DXCreateTextureFromFile(pD3DDevice,sFileName.c_str(),&m_pTexture))){
-			wstring msgtxt = L"ƒeƒNƒXƒ`ƒƒ“Ç‚İ‚İ‚É¸”s‚µ‚Ü‚µ‚½B\nTextureManager::Texture::Texture()\n";
+			wstring msgtxt = L"ãƒ†ã‚¯ã‚¹ãƒãƒ£èª­ã¿è¾¼ã¿ã«å¤±æ•—ã—ã¾ã—ãŸã€‚\nTextureManager::Texture::Texture()\n";
 			msgtxt += sFileName  ;
 			msgtxt += L"  or  "  ;
 			msgtxt += g_sDefaultTexturePath + filepath ;
-			::MessageBox(NULL,msgtxt.c_str(),L"ƒGƒ‰[",MB_OK);
+			::MessageBox(NULL,msgtxt.c_str(),L"ã‚¨ãƒ©ãƒ¼",MB_OK);
 		}
 	}
 	catch(wiz::BaseException& e){
         SafeRelease(m_pTexture);
-        //ÄƒXƒ[
+        //å†ã‚¹ãƒ­ãƒ¼
         throw BaseException(
 				e.what_w(), 
-                L"ªTextureManager::Texture::Texture()"
+                L"â†‘TextureManager::Texture::Texture()"
                 );
 	}
     catch(...){
-        //ƒRƒ“ƒXƒgƒ‰ƒNƒ^—áŠO”­¶
-        //Œãn––
+        //ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ä¾‹å¤–ç™ºç”Ÿ
+        //å¾Œå§‹æœ«
         SafeRelease(m_pTexture);
-        //ÄƒXƒ[
+        //å†ã‚¹ãƒ­ãƒ¼
         throw;
     }
 }
 /////////////////// ////////////////////
-//// —p“r       FTexture::Texture(LPDIRECT3DDEVICE9 pD3DDevice,const wchar_t* filepath,
-////            F    UINT Width, UINT Height, UINT MipLevels, DWORD Usage, D3DFORMAT Format,
-////            F    D3DPOOL Pool, DWORD Filter,DWORD MipFilter, D3DCOLOR ColorKey,
-////            F    D3DXIMAGE_INFO *pSrcInfo, PALETTEENTRY *pPalette, const wchar_t* texturename = L"" );
-//// ƒJƒeƒSƒŠ   FƒRƒ“ƒXƒgƒ‰ƒNƒ^
-//// —p“r       FExLoad
-//// ˆø”       F  LPDIRECT3DDEVICE9 pD3DDevice	 // ƒfƒoƒCƒX
-////            F  const wchar_t *filepath			 // ƒtƒ@ƒCƒ‹ƒpƒX
-////            F  UINT Width						 // ‰æ‘œ‚Ì•(0‚ÅƒIƒŠƒWƒiƒ‹)
-////            F  UINT Height						 // ‰æ‘œ‚Ì‚‚³(0‚ÅƒIƒŠƒWƒiƒ‹)
-////            F  UINT MipLevels					 // ƒ~ƒbƒvƒŒƒxƒ‹(’Êí0)
-////            F  DWORD Usage						 // ƒŒƒ“ƒ_ƒŠƒ“ƒOƒ^[ƒQƒbƒg‚Éw’è‚·‚é‚Æ‚«‚Æ‚©‚Éw’è(’Êí0)
-////            F  D3DFORMAT Format				 // F‚ÌƒtƒH[ƒ}ƒbƒg
-////            F  D3DPOOL Pool					 // ƒf[ƒ^‚Ì“Ç‚İ‚İæ(‚¢‚¶‚ç‚È‚­‚Ä‚¨k)
-////            F  DWORD Filter					 // ƒtƒBƒ‹ƒ^[(‚¢‚¶‚ç‚È‚­‚Ä‚¨k)
-////            F  DWORD MipFilter					 // ƒ~ƒbƒvƒtƒBƒ‹ƒ^[(‚¢‚¶‚ç‚È‚­‚Ä‚¨k)
-////            F  D3DCOLOR ColorKey				 // yƒ¿‚ ‚èzÂF‚ğ“§‰ßF‚Æ‚·‚éy0‚Å–³Œøz
-////            F  D3DXIMAGE_INFO *pSrcInfo		 // yD3DXIMAGE_INFO\‘¢‘Ìz‰æ‘œƒf[ƒ^‚Ì\‘¢yƒsƒNƒZƒ‹ƒTƒCƒY‚Æ‚©z
-////            F  PALETTEENTRY *pPalette			 // ƒpƒŒƒbƒg
-////            F  const wchar_t *texturename = L"" // ƒeƒNƒXƒ`ƒƒ–¼(ƒIƒvƒVƒ‡ƒ“)
-//// –ß’l       F‚È‚µ
-//// ’S“–Ò     F°Œ´ “O
-//// ”õl       F
-////            F
+//// ç”¨é€”       ï¼šTexture::Texture(LPDIRECT3DDEVICE9 pD3DDevice,const wchar_t* filepath,
+////            ï¼š    UINT Width, UINT Height, UINT MipLevels, DWORD Usage, D3DFORMAT Format,
+////            ï¼š    D3DPOOL Pool, DWORD Filter,DWORD MipFilter, D3DCOLOR ColorKey,
+////            ï¼š    D3DXIMAGE_INFO *pSrcInfo, PALETTEENTRY *pPalette, const wchar_t* texturename = L"" );
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+//// ç”¨é€”       ï¼šExLoad
+//// å¼•æ•°       ï¼š  LPDIRECT3DDEVICE9 pD3DDevice	 // ãƒ‡ãƒã‚¤ã‚¹
+////            ï¼š  const wchar_t *filepath			 // ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹
+////            ï¼š  UINT Width						 // ç”»åƒã®å¹…(0ã§ã‚ªãƒªã‚¸ãƒŠãƒ«)
+////            ï¼š  UINT Height						 // ç”»åƒã®é«˜ã•(0ã§ã‚ªãƒªã‚¸ãƒŠãƒ«)
+////            ï¼š  UINT MipLevels					 // ãƒŸãƒƒãƒ—ãƒ¬ãƒ™ãƒ«(é€šå¸¸0)
+////            ï¼š  DWORD Usage						 // ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã«æŒ‡å®šã™ã‚‹ã¨ãã¨ã‹ã«æŒ‡å®š(é€šå¸¸0)
+////            ï¼š  D3DFORMAT Format				 // è‰²ã®ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆ
+////            ï¼š  D3DPOOL Pool					 // ãƒ‡ãƒ¼ã‚¿ã®èª­ã¿è¾¼ã¿å…ˆ(ã„ã˜ã‚‰ãªãã¦ãŠk)
+////            ï¼š  DWORD Filter					 // ãƒ•ã‚£ãƒ«ã‚¿ãƒ¼(ã„ã˜ã‚‰ãªãã¦ãŠk)
+////            ï¼š  DWORD MipFilter					 // ãƒŸãƒƒãƒ—ãƒ•ã‚£ãƒ«ã‚¿ãƒ¼(ã„ã˜ã‚‰ãªãã¦ãŠk)
+////            ï¼š  D3DCOLOR ColorKey				 // ã€Î±ã‚ã‚Šã€‘é’è‰²ã‚’é€éè‰²ã¨ã™ã‚‹ã€0ã§ç„¡åŠ¹ã€‘
+////            ï¼š  D3DXIMAGE_INFO *pSrcInfo		 // ã€D3DXIMAGE_INFOæ§‹é€ ä½“ã€‘ç”»åƒãƒ‡ãƒ¼ã‚¿ã®æ§‹é€ ã€ãƒ”ã‚¯ã‚»ãƒ«ã‚µã‚¤ã‚ºã¨ã‹ã€‘
+////            ï¼š  PALETTEENTRY *pPalette			 // ãƒ‘ãƒ¬ãƒƒãƒˆ
+////            ï¼š  const wchar_t *texturename = L"" // ãƒ†ã‚¯ã‚¹ãƒãƒ£å(ã‚ªãƒ—ã‚·ãƒ§ãƒ³)
+//// æˆ»å€¤       ï¼šãªã—
+//// æ‹…å½“è€…     ï¼šé´«åŸ å¾¹
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
 Texture::Texture(LPDIRECT3DDEVICE9 pD3DDevice,const wchar_t* filepath,
     UINT Width, UINT Height, UINT MipLevels, DWORD Usage, D3DFORMAT Format, D3DPOOL Pool, DWORD Filter,
@@ -112,60 +112,60 @@ Texture::Texture(LPDIRECT3DDEVICE9 pD3DDevice,const wchar_t* filepath,
 {
 	try{
 		 
-		//ƒeƒNƒXƒ`ƒƒ‚Ìì¬
+		//ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®ä½œæˆ
 		if(FAILED(D3DXCreateTextureFromFileEx(
-				pD3DDevice,			// ƒfƒoƒCƒX
-				filepath,			// ƒtƒ@ƒCƒ‹–¼
-				Width,				// ‰æ‘œ‚Ì•(0‚ÅƒIƒŠƒWƒiƒ‹)
-				Height,				// ‰æ‘œ‚Ì‚‚³(0‚ÅƒIƒŠƒWƒiƒ‹)
-				MipLevels,			// ƒ~ƒbƒvƒŒƒxƒ‹(’Êí0)
-				Usage,				// ƒŒƒ“ƒ_ƒŠƒ“ƒOƒ^[ƒQƒbƒg‚Éw’è‚·‚é‚Æ‚«‚Æ‚©‚Éw’è(’Êí0)
-				Format,				// F‚ÌƒtƒH[ƒ}ƒbƒg
-				Pool,				// ƒf[ƒ^‚Ì“Ç‚İ‚İæ(‚¢‚¶‚ç‚È‚­‚Ä‚¨k)
-				Filter,				// ƒtƒBƒ‹ƒ^[(‚¢‚¶‚ç‚È‚­‚Ä‚¨k)
-				MipFilter,			// ƒ~ƒbƒvƒtƒBƒ‹ƒ^[(‚¢‚¶‚ç‚È‚­‚Ä‚¨k)
-				ColorKey,			// yƒ¿‚ ‚èzÂF‚ğ“§‰ßF‚Æ‚·‚éy0‚Å–³Œøz
-				pSrcInfo,			// yD3DXIMAGE_INFO\‘¢‘Ìz‰æ‘œƒf[ƒ^‚Ì\‘¢yƒsƒNƒZƒ‹ƒTƒCƒY‚Æ‚©z
-				pPalette,			// ƒpƒŒƒbƒg
-				&m_pTexture			// ƒeƒNƒXƒ`ƒƒ–¼
+				pD3DDevice,			// ãƒ‡ãƒã‚¤ã‚¹
+				filepath,			// ãƒ•ã‚¡ã‚¤ãƒ«å
+				Width,				// ç”»åƒã®å¹…(0ã§ã‚ªãƒªã‚¸ãƒŠãƒ«)
+				Height,				// ç”»åƒã®é«˜ã•(0ã§ã‚ªãƒªã‚¸ãƒŠãƒ«)
+				MipLevels,			// ãƒŸãƒƒãƒ—ãƒ¬ãƒ™ãƒ«(é€šå¸¸0)
+				Usage,				// ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã«æŒ‡å®šã™ã‚‹ã¨ãã¨ã‹ã«æŒ‡å®š(é€šå¸¸0)
+				Format,				// è‰²ã®ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆ
+				Pool,				// ãƒ‡ãƒ¼ã‚¿ã®èª­ã¿è¾¼ã¿å…ˆ(ã„ã˜ã‚‰ãªãã¦ãŠk)
+				Filter,				// ãƒ•ã‚£ãƒ«ã‚¿ãƒ¼(ã„ã˜ã‚‰ãªãã¦ãŠk)
+				MipFilter,			// ãƒŸãƒƒãƒ—ãƒ•ã‚£ãƒ«ã‚¿ãƒ¼(ã„ã˜ã‚‰ãªãã¦ãŠk)
+				ColorKey,			// ã€Î±ã‚ã‚Šã€‘é’è‰²ã‚’é€éè‰²ã¨ã™ã‚‹ã€0ã§ç„¡åŠ¹ã€‘
+				pSrcInfo,			// ã€D3DXIMAGE_INFOæ§‹é€ ä½“ã€‘ç”»åƒãƒ‡ãƒ¼ã‚¿ã®æ§‹é€ ã€ãƒ”ã‚¯ã‚»ãƒ«ã‚µã‚¤ã‚ºã¨ã‹ã€‘
+				pPalette,			// ãƒ‘ãƒ¬ãƒƒãƒˆ
+				&m_pTexture			// ãƒ†ã‚¯ã‚¹ãƒãƒ£å
 			))){
-            // ‰Šú‰»¸”s
-			::MessageBox(NULL,L"ƒeƒNƒXƒ`ƒƒ“Ç‚İ‚İ‚É¸”s‚µ‚Ü‚µ‚½B\nTextureManager::Texture::Texture()",L"ƒGƒ‰[",MB_OK);
+            // åˆæœŸåŒ–å¤±æ•—
+			::MessageBox(NULL,L"ãƒ†ã‚¯ã‚¹ãƒãƒ£èª­ã¿è¾¼ã¿ã«å¤±æ•—ã—ã¾ã—ãŸã€‚\nTextureManager::Texture::Texture()",L"ã‚¨ãƒ©ãƒ¼",MB_OK);
 		}
 	}
 	catch(wiz::BaseException& e){
         SafeRelease(m_pTexture);
-        //ÄƒXƒ[
+        //å†ã‚¹ãƒ­ãƒ¼
         throw BaseException(
 				e.what_w(), 
-                L"ªTextureManager::Texture::Texture()   (EX"
+                L"â†‘TextureManager::Texture::Texture()   (EX"
                 );
 	}
     catch(...){
-        //ƒRƒ“ƒXƒgƒ‰ƒNƒ^—áŠO”­¶
-        //Œãn––
+        //ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ä¾‹å¤–ç™ºç”Ÿ
+        //å¾Œå§‹æœ«
         SafeRelease(m_pTexture);
-        //ÄƒXƒ[
+        //å†ã‚¹ãƒ­ãƒ¼
         throw;
     }
 }
 /////////////////// ////////////////////
-//// —p“r       FTexture::~Texture()
-//// ƒJƒeƒSƒŠ   FƒfƒXƒgƒ‰ƒNƒ^
-//// —p“r       FƒCƒ“ƒXƒ^ƒ“ƒX”jŠüˆ—
-//// ˆø”       F‚È‚µ
-//// –ß’l       F‚È‚µ
-//// ”õl       F
-////            F
+//// ç”¨é€”       ï¼šTexture::~Texture()
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+//// ç”¨é€”       ï¼šã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ç ´æ£„æ™‚å‡¦ç†
+//// å¼•æ•°       ï¼šãªã—
+//// æˆ»å€¤       ï¼šãªã—
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
 Texture::~Texture(){
 	if( this && m_pTexture){
 		//Debugger::DBGWRITINGLOGTEXT::addStr( L"TextureManager::Texture::~Texture(0x%X)  >>>  m_strFilePath( 0x%X ) = %s\n", this,m_pTexture , m_strFilePath.c_str() );
-	    //Œãn––
+	    //å¾Œå§‹æœ«
 		int ret = SafeRelease(m_pTexture);
 		//Debugger::DBGWRITINGLOGTEXT::addStr( L"TextureManager::Texture::~Texture(0x%X)  >>>  %d \n", this,ret );
 	}else{
-		Debugger::DBGWRITINGLOGTEXT::OutputSystemLog(L"TextureManager::Texture::~Texture ‚Å this ‚ª‚Ê‚é‚Û‚Á!‚Ä‚Ü‚·¡");
+		Debugger::DBGWRITINGLOGTEXT::OutputSystemLog(L"TextureManager::Texture::~Texture ã§ this ãŒã¬ã‚‹ã½ã£!ã¦ã¾ã™ã€‚");
 	}
 }
 //bool Texture::checkTextureName( wstring name ) const{
@@ -176,42 +176,42 @@ bool Texture::checkFilePath( wstring filepath ) const{
 	return ( _wcsicmp(m_strFilePath.c_str(),filepath.c_str()) == 0 );
 }
 /**************************************************************************
- TextureManager ’è‹`•”
+ TextureManager å®šç¾©éƒ¨
 /***************************************************************************/
 
 /////////////////// ////////////////////
-//// —p“r       FTextureManager::TextureManager()
-//// ƒJƒeƒSƒŠ   FƒRƒ“ƒXƒgƒ‰ƒNƒ^
-//// —p“r       FƒCƒ“ƒXƒ^ƒ“ƒX¶¬ˆ—
-//// ˆø”       F‚È‚µ
-//// –ß’l       F‚È‚µ
-//// ’S“–Ò     F°Œ´ “O
-//// ”õl       F
-////            F
+//// ç”¨é€”       ï¼šTextureManager::TextureManager()
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+//// ç”¨é€”       ï¼šã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ç”Ÿæˆæ™‚å‡¦ç†
+//// å¼•æ•°       ï¼šãªã—
+//// æˆ»å€¤       ï¼šãªã—
+//// æ‹…å½“è€…     ï¼šé´«åŸ å¾¹
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
 TextureManager::TextureManager(){
 
 };
 /////////////////// ////////////////////
-//// —p“r       FTextureManager::~TextureManager()
-//// ƒJƒeƒSƒŠ   FƒfƒXƒgƒ‰ƒNƒ^
-//// —p“r       FƒCƒ“ƒXƒ^ƒ“ƒX”jŠüˆ—
-//// ˆø”       F‚È‚µ
-//// –ß’l       F‚È‚µ
-//// ”õl       F
-////            F
+//// ç”¨é€”       ï¼šTextureManager::~TextureManager()
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+//// ç”¨é€”       ï¼šã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ç ´æ£„æ™‚å‡¦ç†
+//// å¼•æ•°       ï¼šãªã—
+//// æˆ»å€¤       ï¼šãªã—
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
 TextureManager::~TextureManager(){
 	Release();
 };
 /////////////////// ////////////////////
-//// —p“r       FTextureManager::Release()
-//// ƒJƒeƒSƒŠ   FŠÖ”
-//// —p“r       F‘SƒeƒNƒXƒ`ƒƒ[‚Ì”jŠü
-//// ˆø”       F‚È‚µ
-//// –ß’l       F‚È‚µ
-//// ”õl       F
-////            F
+//// ç”¨é€”       ï¼šTextureManager::Release()
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šé–¢æ•°
+//// ç”¨é€”       ï¼šå…¨ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒ¼ã®ç ´æ£„
+//// å¼•æ•°       ï¼šãªã—
+//// æˆ»å€¤       ï¼šãªã—
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
 void TextureManager::Release(){
 	vector< Texture* >::iterator	it  = m_vecTextures.begin()	;
@@ -226,16 +226,16 @@ void TextureManager::Release(){
 	m_vecTextures.clear();
 };
 /////////////////// ////////////////////
-//// —p“r       FLPTATRATEXTURE TextureManager::addTexture(LPDIRECT3DDEVICE9 pD3DDevice,
-////            F  	const wchar_t *filepath, const wchar_t *texturename )
-//// ƒJƒeƒSƒŠ   FŠÖ”
-//// —p“r       FƒeƒNƒXƒ`ƒƒ[‚Ì“Ç‚İ‚İ
-//// ˆø”       F  LPDIRECT3DDEVICE9 pD3DDevice	// ƒfƒoƒCƒX
-////            F  const wchar_t *filepath			// ƒtƒ@ƒCƒ‹ƒpƒX
-////            F  const wchar_t *texturename		// ƒeƒNƒXƒ`ƒƒ–¼ ( ƒIƒvƒVƒ‡ƒ“ )
-//// –ß’l       F¶¬‚³‚ê‚½ƒeƒNƒXƒ`ƒƒ‚Ìƒ|ƒCƒ“ƒ^‚ğ•Ô‚· ( LPDIRECT3DTEXTURE9Œ^ )
-//// ”õl       F
-////            F
+//// ç”¨é€”       ï¼šLPTATRATEXTURE TextureManager::addTexture(LPDIRECT3DDEVICE9 pD3DDevice,
+////            ï¼š  	const wchar_t *filepath, const wchar_t *texturename )
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šé–¢æ•°
+//// ç”¨é€”       ï¼šãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒ¼ã®èª­ã¿è¾¼ã¿
+//// å¼•æ•°       ï¼š  LPDIRECT3DDEVICE9 pD3DDevice	// ãƒ‡ãƒã‚¤ã‚¹
+////            ï¼š  const wchar_t *filepath			// ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹
+////            ï¼š  const wchar_t *texturename		// ãƒ†ã‚¯ã‚¹ãƒãƒ£å ( ã‚ªãƒ—ã‚·ãƒ§ãƒ³ )
+//// æˆ»å€¤       ï¼šç”Ÿæˆã•ã‚ŒãŸãƒ†ã‚¯ã‚¹ãƒãƒ£ã®ãƒã‚¤ãƒ³ã‚¿ã‚’è¿”ã™ ( LPDIRECT3DTEXTURE9å‹ )
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
 LPTATRATEXTURE TextureManager::addTexture(
 		LPDIRECT3DDEVICE9	pD3DDevice	,
@@ -248,8 +248,8 @@ LPTATRATEXTURE TextureManager::addTexture(
 			return tex;
 		else
 		//if( texturename && TextureSearchFromName(texturename) ){
-		//	// ‰Šú‰»¸”s
-		//	::MessageBox(NULL,L"ƒeƒNƒXƒ`ƒƒ–¼‚ª‹£‡‚µ‚Ü‚µ‚½\nTextureManager::addTexture()",L"ƒGƒ‰[",MB_OK);
+		//	// åˆæœŸåŒ–å¤±æ•—
+		//	::MessageBox(NULL,L"ãƒ†ã‚¯ã‚¹ãƒãƒ£åãŒç«¶åˆã—ã¾ã—ãŸ\nTextureManager::addTexture()",L"ã‚¨ãƒ©ãƒ¼",MB_OK);
 		//	
 		//}
 		//else
@@ -263,43 +263,43 @@ LPTATRATEXTURE TextureManager::addTexture(
 	}
 	catch(wiz::BaseException& e){
 		Release();
-		//ÄƒXƒ[
+		//å†ã‚¹ãƒ­ãƒ¼
 		throw BaseException(
 				e.what_w(), 
-				L"ªTextureManager::addTexture()"
+				L"â†‘TextureManager::addTexture()"
 				);
 	}
 	catch(...){
-		//ƒRƒ“ƒXƒgƒ‰ƒNƒ^—áŠO”­¶
-		//Œãn––
+		//ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ä¾‹å¤–ç™ºç”Ÿ
+		//å¾Œå§‹æœ«
 		Release();
-		//ÄƒXƒ[
+		//å†ã‚¹ãƒ­ãƒ¼
 		throw;
 	}
 };
 /////////////////// ////////////////////
-//// —p“r       FLPTATRATEXTURE TextureManager::addTextureEx(LPDIRECT3DDEVICE9 pD3DDevice,const wchar_t* filepath,
-////            F  	UINT Width, UINT Height, UINT MipLevels, DWORD Usage, D3DFORMAT Format, D3DPOOL Pool, DWORD Filter,
-////            F  	DWORD MipFilter, D3DCOLOR ColorKey, D3DXIMAGE_INFO *pSrcInfo, PALETTEENTRY *pPalette, const wchar_t* texturename )
-//// ƒJƒeƒSƒŠ   FŠÖ”
-//// —p“r       FƒeƒNƒXƒ`ƒƒ[‚Ì“Ç‚İ‚İ
-//// ˆø”       F  LPDIRECT3DDEVICE9 pD3DDevice	// ƒfƒoƒCƒX
-////            F  const wchar_t *filepath			// ƒtƒ@ƒCƒ‹ƒpƒX
-////            F  UINT Width						// ‰æ‘œ‚Ì•(0‚ÅƒIƒŠƒWƒiƒ‹)
-////            F  UINT Height						// ‰æ‘œ‚Ì‚‚³(0‚ÅƒIƒŠƒWƒiƒ‹)
-////            F  UINT MipLevels					// ƒ~ƒbƒvƒŒƒxƒ‹(’Êí0)
-////            F  DWORD Usage						// ƒŒƒ“ƒ_ƒŠƒ“ƒOƒ^[ƒQƒbƒg‚Éw’è‚·‚é‚Æ‚«‚Æ‚©‚Éw’è(’Êí0)
-////            F  D3DFORMAT Format				// F‚ÌƒtƒH[ƒ}ƒbƒg
-////            F  D3DPOOL Pool					// ƒf[ƒ^‚Ì“Ç‚İ‚İæ(‚¢‚¶‚ç‚È‚­‚Ä‚¨k)
-////            F  DWORD Filter					// ƒtƒBƒ‹ƒ^[(‚¢‚¶‚ç‚È‚­‚Ä‚¨k)
-////            F  DWORD MipFilter					// ƒ~ƒbƒvƒtƒBƒ‹ƒ^[(‚¢‚¶‚ç‚È‚­‚Ä‚¨k)
-////            F  D3DCOLOR ColorKey				// yƒ¿‚ ‚èzÂF‚ğ“§‰ßF‚Æ‚·‚éy0‚Å–³Œøz
-////            F  D3DXIMAGE_INFO *pSrcInfo		// yD3DXIMAGE_INFO\‘¢‘Ìz‰æ‘œƒf[ƒ^‚Ì\‘¢yƒsƒNƒZƒ‹ƒTƒCƒY‚Æ‚©z
-////            F  PALETTEENTRY *pPalette			// ƒpƒŒƒbƒg
-////            F  const wchar_t *texturename		// ƒeƒNƒXƒ`ƒƒ–¼(ƒIƒvƒVƒ‡ƒ“)
-//// –ß’l       F‚È‚µ
-//// ”õl       F
-////            F
+//// ç”¨é€”       ï¼šLPTATRATEXTURE TextureManager::addTextureEx(LPDIRECT3DDEVICE9 pD3DDevice,const wchar_t* filepath,
+////            ï¼š  	UINT Width, UINT Height, UINT MipLevels, DWORD Usage, D3DFORMAT Format, D3DPOOL Pool, DWORD Filter,
+////            ï¼š  	DWORD MipFilter, D3DCOLOR ColorKey, D3DXIMAGE_INFO *pSrcInfo, PALETTEENTRY *pPalette, const wchar_t* texturename )
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šé–¢æ•°
+//// ç”¨é€”       ï¼šãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒ¼ã®èª­ã¿è¾¼ã¿
+//// å¼•æ•°       ï¼š  LPDIRECT3DDEVICE9 pD3DDevice	// ãƒ‡ãƒã‚¤ã‚¹
+////            ï¼š  const wchar_t *filepath			// ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹
+////            ï¼š  UINT Width						// ç”»åƒã®å¹…(0ã§ã‚ªãƒªã‚¸ãƒŠãƒ«)
+////            ï¼š  UINT Height						// ç”»åƒã®é«˜ã•(0ã§ã‚ªãƒªã‚¸ãƒŠãƒ«)
+////            ï¼š  UINT MipLevels					// ãƒŸãƒƒãƒ—ãƒ¬ãƒ™ãƒ«(é€šå¸¸0)
+////            ï¼š  DWORD Usage						// ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã«æŒ‡å®šã™ã‚‹ã¨ãã¨ã‹ã«æŒ‡å®š(é€šå¸¸0)
+////            ï¼š  D3DFORMAT Format				// è‰²ã®ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆ
+////            ï¼š  D3DPOOL Pool					// ãƒ‡ãƒ¼ã‚¿ã®èª­ã¿è¾¼ã¿å…ˆ(ã„ã˜ã‚‰ãªãã¦ãŠk)
+////            ï¼š  DWORD Filter					// ãƒ•ã‚£ãƒ«ã‚¿ãƒ¼(ã„ã˜ã‚‰ãªãã¦ãŠk)
+////            ï¼š  DWORD MipFilter					// ãƒŸãƒƒãƒ—ãƒ•ã‚£ãƒ«ã‚¿ãƒ¼(ã„ã˜ã‚‰ãªãã¦ãŠk)
+////            ï¼š  D3DCOLOR ColorKey				// ã€Î±ã‚ã‚Šã€‘é’è‰²ã‚’é€éè‰²ã¨ã™ã‚‹ã€0ã§ç„¡åŠ¹ã€‘
+////            ï¼š  D3DXIMAGE_INFO *pSrcInfo		// ã€D3DXIMAGE_INFOæ§‹é€ ä½“ã€‘ç”»åƒãƒ‡ãƒ¼ã‚¿ã®æ§‹é€ ã€ãƒ”ã‚¯ã‚»ãƒ«ã‚µã‚¤ã‚ºã¨ã‹ã€‘
+////            ï¼š  PALETTEENTRY *pPalette			// ãƒ‘ãƒ¬ãƒƒãƒˆ
+////            ï¼š  const wchar_t *texturename		// ãƒ†ã‚¯ã‚¹ãƒãƒ£å(ã‚ªãƒ—ã‚·ãƒ§ãƒ³)
+//// æˆ»å€¤       ï¼šãªã—
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
 LPTATRATEXTURE TextureManager::addTextureEx(
 	LPDIRECT3DDEVICE9	pD3DDevice	,
@@ -324,25 +324,25 @@ LPTATRATEXTURE TextureManager::addTextureEx(
 		else
 		//if( texturename && TextureSearchFromName(texturename) ){
 
-		//	// ‰Šú‰»¸”s
-		//	::MessageBox(NULL,L"ƒeƒNƒXƒ`ƒƒ–¼‚ª‹£‡‚µ‚Ü‚µ‚½\nTextureManager::addTextureEx()",L"ƒGƒ‰[",MB_OK);
+		//	// åˆæœŸåŒ–å¤±æ•—
+		//	::MessageBox(NULL,L"ãƒ†ã‚¯ã‚¹ãƒãƒ£åãŒç«¶åˆã—ã¾ã—ãŸ\nTextureManager::addTextureEx()",L"ã‚¨ãƒ©ãƒ¼",MB_OK);
 		//}
 		//else
 		{
 			Texture* tx = new Texture(
 					pD3DDevice ,
 					filepath ,
-					Width,				// ‰æ‘œ‚Ì•(0‚ÅƒIƒŠƒWƒiƒ‹)
-					Height,				// ‰æ‘œ‚Ì‚‚³(0‚ÅƒIƒŠƒWƒiƒ‹)
-					MipLevels,			// ƒ~ƒbƒvƒŒƒxƒ‹(’Êí0)
-					Usage,				// ƒŒƒ“ƒ_ƒŠƒ“ƒOƒ^[ƒQƒbƒg‚Éw’è‚·‚é‚Æ‚«‚Æ‚©‚Éw’è(’Êí0)
-					Format,				// F‚ÌƒtƒH[ƒ}ƒbƒg
-					Pool,				// ƒf[ƒ^‚Ì“Ç‚İ‚İæ(‚¢‚¶‚ç‚È‚­‚Ä‚¨k)
-					Filter,				// ƒtƒBƒ‹ƒ^[(‚¢‚¶‚ç‚È‚­‚Ä‚¨k)
-					MipFilter,			// ƒ~ƒbƒvƒtƒBƒ‹ƒ^[(‚¢‚¶‚ç‚È‚­‚Ä‚¨k)
-					ColorKey,			// yƒ¿‚ ‚èzÂF‚ğ“§‰ßF‚Æ‚·‚éy0‚Å–³Œøz
-					pSrcInfo,			// yD3DXIMAGE_INFO\‘¢‘Ìz‰æ‘œƒf[ƒ^‚Ì\‘¢yƒsƒNƒZƒ‹ƒTƒCƒY‚Æ‚©z
-					pPalette,			// ƒpƒŒƒbƒg
+					Width,				// ç”»åƒã®å¹…(0ã§ã‚ªãƒªã‚¸ãƒŠãƒ«)
+					Height,				// ç”»åƒã®é«˜ã•(0ã§ã‚ªãƒªã‚¸ãƒŠãƒ«)
+					MipLevels,			// ãƒŸãƒƒãƒ—ãƒ¬ãƒ™ãƒ«(é€šå¸¸0)
+					Usage,				// ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã«æŒ‡å®šã™ã‚‹ã¨ãã¨ã‹ã«æŒ‡å®š(é€šå¸¸0)
+					Format,				// è‰²ã®ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆ
+					Pool,				// ãƒ‡ãƒ¼ã‚¿ã®èª­ã¿è¾¼ã¿å…ˆ(ã„ã˜ã‚‰ãªãã¦ãŠk)
+					Filter,				// ãƒ•ã‚£ãƒ«ã‚¿ãƒ¼(ã„ã˜ã‚‰ãªãã¦ãŠk)
+					MipFilter,			// ãƒŸãƒƒãƒ—ãƒ•ã‚£ãƒ«ã‚¿ãƒ¼(ã„ã˜ã‚‰ãªãã¦ãŠk)
+					ColorKey,			// ã€Î±ã‚ã‚Šã€‘é’è‰²ã‚’é€éè‰²ã¨ã™ã‚‹ã€0ã§ç„¡åŠ¹ã€‘
+					pSrcInfo,			// ã€D3DXIMAGE_INFOæ§‹é€ ä½“ã€‘ç”»åƒãƒ‡ãƒ¼ã‚¿ã®æ§‹é€ ã€ãƒ”ã‚¯ã‚»ãƒ«ã‚µã‚¤ã‚ºã¨ã‹ã€‘
+					pPalette,			// ãƒ‘ãƒ¬ãƒƒãƒˆ
 					texturename);
 			m_vecTextures.push_back( tx );
 			return tx;
@@ -352,42 +352,42 @@ LPTATRATEXTURE TextureManager::addTextureEx(
 	}
 	catch(wiz::BaseException& e){
 		Release();
-		//ÄƒXƒ[
+		//å†ã‚¹ãƒ­ãƒ¼
 		throw BaseException(
 				e.what_w(), 
-				L"ªTextureManager::addTextureEx()"
+				L"â†‘TextureManager::addTextureEx()"
 				);
 	}
 	catch(...){
-		//ƒRƒ“ƒXƒgƒ‰ƒNƒ^—áŠO”­¶
-		//Œãn––
+		//ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ä¾‹å¤–ç™ºç”Ÿ
+		//å¾Œå§‹æœ«
 		Release();
-		//ÄƒXƒ[
+		//å†ã‚¹ãƒ­ãƒ¼
 		throw;
 	}
 };
 /////////////////// ////////////////////
-//// —p“r       FLPTATRATEXTURE TextureManager::addTextureExLight(LPDIRECT3DDEVICE9 pD3DDevice,const wchar_t* filepath,
-////            F  	DWORD Usage, D3DFORMAT Format, D3DCOLOR ColorKey,  const wchar_t* texturename )
-//// ƒJƒeƒSƒŠ   FŠÖ”
-//// —p“r       FƒeƒNƒXƒ`ƒƒ[‚Ì“Ç‚İ‚İ
-//// ˆø”       F  LPDIRECT3DDEVICE9 pD3DDevice	// ƒfƒoƒCƒX
-////            F  const wchar_t *filepath			// ƒtƒ@ƒCƒ‹ƒpƒX
-////            F  UINT Width						// ‰æ‘œ‚Ì•(0‚ÅƒIƒŠƒWƒiƒ‹)
-////            F  UINT Height						// ‰æ‘œ‚Ì‚‚³(0‚ÅƒIƒŠƒWƒiƒ‹)
-////            F  UINT MipLevels					// ƒ~ƒbƒvƒŒƒxƒ‹(’Êí0)
-////            F  DWORD Usage						// ƒŒƒ“ƒ_ƒŠƒ“ƒOƒ^[ƒQƒbƒg‚Éw’è‚·‚é‚Æ‚«‚Æ‚©‚Éw’è(’Êí0)
-////            F  D3DFORMAT Format				// F‚ÌƒtƒH[ƒ}ƒbƒg
-////            F  D3DPOOL Pool					// ƒf[ƒ^‚Ì“Ç‚İ‚İæ(‚¢‚¶‚ç‚È‚­‚Ä‚¨k)
-////            F  DWORD Filter					// ƒtƒBƒ‹ƒ^[(‚¢‚¶‚ç‚È‚­‚Ä‚¨k)
-////            F  DWORD MipFilter					// ƒ~ƒbƒvƒtƒBƒ‹ƒ^[(‚¢‚¶‚ç‚È‚­‚Ä‚¨k)
-////            F  D3DCOLOR ColorKey				// yƒ¿‚ ‚èzÂF‚ğ“§‰ßF‚Æ‚·‚éy0‚Å–³Œøz
-////            F  D3DXIMAGE_INFO *pSrcInfo		// yD3DXIMAGE_INFO\‘¢‘Ìz‰æ‘œƒf[ƒ^‚Ì\‘¢yƒsƒNƒZƒ‹ƒTƒCƒY‚Æ‚©z
-////            F  PALETTEENTRY *pPalette			// ƒpƒŒƒbƒg
-////            F  const wchar_t *texturename		// ƒeƒNƒXƒ`ƒƒ–¼(ƒIƒvƒVƒ‡ƒ“)
-//// –ß’l       F‚È‚µ
-//// ”õl       F
-////            F
+//// ç”¨é€”       ï¼šLPTATRATEXTURE TextureManager::addTextureExLight(LPDIRECT3DDEVICE9 pD3DDevice,const wchar_t* filepath,
+////            ï¼š  	DWORD Usage, D3DFORMAT Format, D3DCOLOR ColorKey,  const wchar_t* texturename )
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šé–¢æ•°
+//// ç”¨é€”       ï¼šãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒ¼ã®èª­ã¿è¾¼ã¿
+//// å¼•æ•°       ï¼š  LPDIRECT3DDEVICE9 pD3DDevice	// ãƒ‡ãƒã‚¤ã‚¹
+////            ï¼š  const wchar_t *filepath			// ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹
+////            ï¼š  UINT Width						// ç”»åƒã®å¹…(0ã§ã‚ªãƒªã‚¸ãƒŠãƒ«)
+////            ï¼š  UINT Height						// ç”»åƒã®é«˜ã•(0ã§ã‚ªãƒªã‚¸ãƒŠãƒ«)
+////            ï¼š  UINT MipLevels					// ãƒŸãƒƒãƒ—ãƒ¬ãƒ™ãƒ«(é€šå¸¸0)
+////            ï¼š  DWORD Usage						// ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã«æŒ‡å®šã™ã‚‹ã¨ãã¨ã‹ã«æŒ‡å®š(é€šå¸¸0)
+////            ï¼š  D3DFORMAT Format				// è‰²ã®ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆ
+////            ï¼š  D3DPOOL Pool					// ãƒ‡ãƒ¼ã‚¿ã®èª­ã¿è¾¼ã¿å…ˆ(ã„ã˜ã‚‰ãªãã¦ãŠk)
+////            ï¼š  DWORD Filter					// ãƒ•ã‚£ãƒ«ã‚¿ãƒ¼(ã„ã˜ã‚‰ãªãã¦ãŠk)
+////            ï¼š  DWORD MipFilter					// ãƒŸãƒƒãƒ—ãƒ•ã‚£ãƒ«ã‚¿ãƒ¼(ã„ã˜ã‚‰ãªãã¦ãŠk)
+////            ï¼š  D3DCOLOR ColorKey				// ã€Î±ã‚ã‚Šã€‘é’è‰²ã‚’é€éè‰²ã¨ã™ã‚‹ã€0ã§ç„¡åŠ¹ã€‘
+////            ï¼š  D3DXIMAGE_INFO *pSrcInfo		// ã€D3DXIMAGE_INFOæ§‹é€ ä½“ã€‘ç”»åƒãƒ‡ãƒ¼ã‚¿ã®æ§‹é€ ã€ãƒ”ã‚¯ã‚»ãƒ«ã‚µã‚¤ã‚ºã¨ã‹ã€‘
+////            ï¼š  PALETTEENTRY *pPalette			// ãƒ‘ãƒ¬ãƒƒãƒˆ
+////            ï¼š  const wchar_t *texturename		// ãƒ†ã‚¯ã‚¹ãƒãƒ£å(ã‚ªãƒ—ã‚·ãƒ§ãƒ³)
+//// æˆ»å€¤       ï¼šãªã—
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
 LPTATRATEXTURE TextureManager::addTextureExLight(
 	LPDIRECT3DDEVICE9	pD3DDevice		,
@@ -403,25 +403,25 @@ LPTATRATEXTURE TextureManager::addTextureExLight(
 			return tex;
 		else
 		//if( texturename && TextureSearchFromName(texturename) ){
-		//	// ‰Šú‰»¸”s
-		//	::MessageBox(NULL,L"ƒeƒNƒXƒ`ƒƒ–¼‚ª‹£‡‚µ‚Ü‚µ‚½\nTextureManager::addTextureExLight()",L"ƒGƒ‰[",MB_OK);
+		//	// åˆæœŸåŒ–å¤±æ•—
+		//	::MessageBox(NULL,L"ãƒ†ã‚¯ã‚¹ãƒãƒ£åãŒç«¶åˆã—ã¾ã—ãŸ\nTextureManager::addTextureExLight()",L"ã‚¨ãƒ©ãƒ¼",MB_OK);
 		//}
 		//else
 		{
 			Texture* tx = new Texture(
 					pD3DDevice ,
 					filepath ,
-					0,					// ‰æ‘œ‚Ì•(0‚ÅƒIƒŠƒWƒiƒ‹)
-					0,					// ‰æ‘œ‚Ì‚‚³(0‚ÅƒIƒŠƒWƒiƒ‹)
-					0,					// ƒ~ƒbƒvƒŒƒxƒ‹(’Êí0)
-					Usage,				// ƒŒƒ“ƒ_ƒŠƒ“ƒOƒ^[ƒQƒbƒg‚Éw’è‚·‚é‚Æ‚«‚Æ‚©‚Éw’è(’Êí0)
-					Format,				// F‚ÌƒtƒH[ƒ}ƒbƒg
-					D3DPOOL_MANAGED,	// ƒf[ƒ^‚Ì“Ç‚İ‚İæ(‚¢‚¶‚ç‚È‚­‚Ä‚¨k)
-					D3DX_FILTER_LINEAR,	// ƒtƒBƒ‹ƒ^[(‚¢‚¶‚ç‚È‚­‚Ä‚¨k)
-					D3DX_FILTER_LINEAR,	// ƒ~ƒbƒvƒtƒBƒ‹ƒ^[(‚¢‚¶‚ç‚È‚­‚Ä‚¨k)
-					ColorKey,			// yƒ¿‚ ‚èzÂF‚ğ“§‰ßF‚Æ‚·‚éy0‚Å–³Œøz
-					NULL,				// yD3DXIMAGE_INFO\‘¢‘Ìz‰æ‘œƒf[ƒ^‚Ì\‘¢yƒsƒNƒZƒ‹ƒTƒCƒY‚Æ‚©z
-					NULL,				// ƒpƒŒƒbƒg
+					0,					// ç”»åƒã®å¹…(0ã§ã‚ªãƒªã‚¸ãƒŠãƒ«)
+					0,					// ç”»åƒã®é«˜ã•(0ã§ã‚ªãƒªã‚¸ãƒŠãƒ«)
+					0,					// ãƒŸãƒƒãƒ—ãƒ¬ãƒ™ãƒ«(é€šå¸¸0)
+					Usage,				// ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã«æŒ‡å®šã™ã‚‹ã¨ãã¨ã‹ã«æŒ‡å®š(é€šå¸¸0)
+					Format,				// è‰²ã®ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆ
+					D3DPOOL_MANAGED,	// ãƒ‡ãƒ¼ã‚¿ã®èª­ã¿è¾¼ã¿å…ˆ(ã„ã˜ã‚‰ãªãã¦ãŠk)
+					D3DX_FILTER_LINEAR,	// ãƒ•ã‚£ãƒ«ã‚¿ãƒ¼(ã„ã˜ã‚‰ãªãã¦ãŠk)
+					D3DX_FILTER_LINEAR,	// ãƒŸãƒƒãƒ—ãƒ•ã‚£ãƒ«ã‚¿ãƒ¼(ã„ã˜ã‚‰ãªãã¦ãŠk)
+					ColorKey,			// ã€Î±ã‚ã‚Šã€‘é’è‰²ã‚’é€éè‰²ã¨ã™ã‚‹ã€0ã§ç„¡åŠ¹ã€‘
+					NULL,				// ã€D3DXIMAGE_INFOæ§‹é€ ä½“ã€‘ç”»åƒãƒ‡ãƒ¼ã‚¿ã®æ§‹é€ ã€ãƒ”ã‚¯ã‚»ãƒ«ã‚µã‚¤ã‚ºã¨ã‹ã€‘
+					NULL,				// ãƒ‘ãƒ¬ãƒƒãƒˆ
 					texturename);
 			m_vecTextures.push_back( tx );
 			return tx;
@@ -430,28 +430,28 @@ LPTATRATEXTURE TextureManager::addTextureExLight(
 	}
 	catch(wiz::BaseException& e){
 		Release();
-		//ÄƒXƒ[
+		//å†ã‚¹ãƒ­ãƒ¼
 		throw BaseException(
 				e.what_w(), 
-				L"ªTextureManager::addTextureExLight()"
+				L"â†‘TextureManager::addTextureExLight()"
 				);
 	}
 	catch(...){
-		//ƒRƒ“ƒXƒgƒ‰ƒNƒ^—áŠO”­¶
-		//Œãn––
+		//ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ä¾‹å¤–ç™ºç”Ÿ
+		//å¾Œå§‹æœ«
 		Release();
-		//ÄƒXƒ[
+		//å†ã‚¹ãƒ­ãƒ¼
 		throw;
 	}
 };
 /////////////////// ////////////////////
-//// —p“r       FLPTATRATEXTURE TextureManager::TextureSearchFromName(const wchar_t* filename)
-//// ƒJƒeƒSƒŠ   FŠÖ”
-//// —p“r       FƒeƒNƒXƒ`ƒƒ–¼‚©‚ç“Ç‚İ‚İÏ‚İ‚ÌƒeƒNƒXƒ`ƒƒ[‚ğŒŸõ
-//// ˆø”       F  const wchar_t* filename		// ŒŸõ‚·‚éƒtƒ@ƒCƒ‹–¼
-//// –ß’l       F”­Œ©‚µ‚½ƒeƒNƒXƒ`ƒƒ‚Ìƒ|ƒCƒ“ƒ^‚ğ•Ô‚· ( LPDIRECT3DTEXTURE9Œ^ )
-//// ”õl       F
-////            F
+//// ç”¨é€”       ï¼šLPTATRATEXTURE TextureManager::TextureSearchFromName(const wchar_t* filename)
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šé–¢æ•°
+//// ç”¨é€”       ï¼šãƒ†ã‚¯ã‚¹ãƒãƒ£åã‹ã‚‰èª­ã¿è¾¼ã¿æ¸ˆã¿ã®ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒ¼ã‚’æ¤œç´¢
+//// å¼•æ•°       ï¼š  const wchar_t* filename		// æ¤œç´¢ã™ã‚‹ãƒ•ã‚¡ã‚¤ãƒ«å
+//// æˆ»å€¤       ï¼šç™ºè¦‹ã—ãŸãƒ†ã‚¯ã‚¹ãƒãƒ£ã®ãƒã‚¤ãƒ³ã‚¿ã‚’è¿”ã™ ( LPDIRECT3DTEXTURE9å‹ )
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
 //LPTATRATEXTURE TextureManager::TextureSearchFromName(const wchar_t* filename) {
 //	vector< LPTATRATEXTURE >::iterator it;
@@ -462,13 +462,13 @@ LPTATRATEXTURE TextureManager::addTextureExLight(
 //	return NULL;
 //}
 /////////////////// ////////////////////
-//// —p“r       FLPDIRECT3DTEXTURE9 TextureManager::TextureSearchFromFilePath(const wchar_t* path)
-//// ƒJƒeƒSƒŠ   FŠÖ”
-//// —p“r       Fƒtƒ@ƒCƒ‹ƒpƒX‚©‚ç“Ç‚İ‚İÏ‚İ‚ÌƒeƒNƒXƒ`ƒƒ[‚ğŒŸõ
-//// ˆø”       F  const wchar_t* path		// ŒŸõ‚·‚éƒtƒ@ƒCƒ‹–¼
-//// –ß’l       F”­Œ©‚µ‚½ƒeƒNƒXƒ`ƒƒ‚Ìƒ|ƒCƒ“ƒ^‚ğ•Ô‚· ( LPDIRECT3DTEXTURE9Œ^ )
-//// ”õl       F
-////            F
+//// ç”¨é€”       ï¼šLPDIRECT3DTEXTURE9 TextureManager::TextureSearchFromFilePath(const wchar_t* path)
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šé–¢æ•°
+//// ç”¨é€”       ï¼šãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹ã‹ã‚‰èª­ã¿è¾¼ã¿æ¸ˆã¿ã®ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒ¼ã‚’æ¤œç´¢
+//// å¼•æ•°       ï¼š  const wchar_t* path		// æ¤œç´¢ã™ã‚‹ãƒ•ã‚¡ã‚¤ãƒ«å
+//// æˆ»å€¤       ï¼šç™ºè¦‹ã—ãŸãƒ†ã‚¯ã‚¹ãƒãƒ£ã®ãƒã‚¤ãƒ³ã‚¿ã‚’è¿”ã™ ( LPDIRECT3DTEXTURE9å‹ )
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
 LPTATRATEXTURE TextureManager::TextureSearchFromFilePath(const wchar_t* path){
 	vector< LPTATRATEXTURE >::iterator it;

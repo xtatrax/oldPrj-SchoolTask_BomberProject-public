@@ -1,11 +1,11 @@
 ////////////////////////////// //////////////////////////////
-//	�v���W�F�N�g	�FDirectX Program Bass Project
-//	�t�@�C����		�FObject.h
-//	�J����		�FMSVC++ 2008
-//	�œK�^�u��		�F4
-//	�S����			�F���� �O
-//	�����ް��Ɣ��l	�F
-//					��
+//	プロジェクト	：DirectX Program Bass Project
+//	ファイル名		：Object.h
+//	開発環境		：MSVC++ 2008
+//	最適タブ数		：4
+//	担当者			：鴫原 徹
+//	内包データと備考	：
+//					▼
 //	namespace wiz;
 //		class Object ;
 //		class Light  ;
@@ -26,8 +26,8 @@ namespace wiz{
 //**************************************************************************
 // class Object;
 //
-// �S����  : ���� �O
-// �p�r    : �V�[���z�u�I�u�W�F�N�g�̊��N���X�i���ۃN���X�j
+// 担当者  : 鴫原 徹
+// 用途    : シーン配置オブジェクトの基底クラス（抽象クラス）
 //**************************************************************************
 class Object{
 private:
@@ -40,45 +40,45 @@ public:
 	virtual ~Object(){}
 
 //////////
-//	: �Q�b�^�[
+//	: ゲッター
 public:
 	virtual Button* getButtonP(){ return NULL; };
 	/////////////////// ////////////////////
-	//// �֐���     �Fvoid getID()
-	//// �J�e�S��   �F�Q�b�^�[
-	//// �p�r       �F���̕��̂�ID���l�����܂�
-	//// ����       �F�Ȃ�
-	//// �ߒl       �F OBJID�ԍ�(DWORD)
-	//// �S����     �F���� �O
-	//// ���l       �F
-	////            �F
+	//// 関数名     ：void getID()
+	//// カテゴリ   ：ゲッター
+	//// 用途       ：この物体のIDを獲得します
+	//// 引数       ：なし
+	//// 戻値       ： OBJID番号(DWORD)
+	//// 担当者     ：鴫原 徹
+	//// 備考       ：
+	////            ：
 	////
 	DWORD getID() const { return m_dwID ; }
 
 	/////////////////// ////////////////////
-	//// �֐���     �Fbool getDead()
-	//// �J�e�S��   �F�Q�b�^�[
-	//// �p�r       �F�폜�\��̏�Ԃ��l������
-	//// ����       �F�Ȃ�
-	//// �ߒl       �F�Ȃ�
-	//// �S����     �F���� �O
-	//// ���l       �F�폜�\��̏ꍇ true
-	////            �F�����łȂ��ꍇ false
+	//// 関数名     ：bool getDead()
+	//// カテゴリ   ：ゲッター
+	//// 用途       ：削除予約の状態を獲得する
+	//// 引数       ：なし
+	//// 戻値       ：なし
+	//// 担当者     ：鴫原 徹
+	//// 備考       ：削除予定の場合 true
+	////            ：そうでない場合 false
 	////
 	bool getDead() const { return m_bDead; }
 
 //////////
-//	: �Z�b�^�[
+//	: セッター
 public:
 	/////////////////// ////////////////////
-	//// �֐���     �Fvoid setDead()
-	//// �J�e�S��   �F�Z�b�^�[
-	//// �p�r       �F���S�t���O���Z�b�g����
-	//// ����       �F�Ȃ�
-	//// �ߒl       �F�Ȃ�
-	//// �S����     �F���� �O
-	//// ���l       �F���̊֐����ĂԂƃ���������폜����܂�
-	////            �F
+	//// 関数名     ：void setDead()
+	//// カテゴリ   ：セッター
+	//// 用途       ：死亡フラグをセットする
+	//// 引数       ：なし
+	//// 戻値       ：なし
+	//// 担当者     ：鴫原 徹
+	//// 備考       ：この関数を呼ぶとメモリから削除されます
+	////            ：
 	////
 	void setDead(){	m_bDead = true ; }
 
@@ -86,129 +86,129 @@ public:
 
 
 	///////////////////// ////////////////////
-	//// �֐���     �FD3DXVECTOR3 getPos() const { return g_vZero; }
-	//// �J�e�S��   �F�Q�b�^�[
-	//// �p�r       �F���z�֐�
-	//// ����       �F�Ȃ�
-	//// �ߒl       �F���W
-	//// �S����     �F���� �O
-	//// ���l       �F�h����ŕK�v�Ȃ�Ώ���
-	////            �F
+	//// 関数名     ：D3DXVECTOR3 getPos() const { return g_vZero; }
+	//// カテゴリ   ：ゲッター
+	//// 用途       ：仮想関数
+	//// 引数       ：なし
+	//// 戻値       ：座標
+	//// 担当者     ：鴫原 徹
+	//// 備考       ：派生先で必要ならば書く
+	////            ：
 	////
 	virtual D3DXVECTOR3 getPos() const { return g_vZero; }
 
 public:
 	/////////////////// ////////////////////
-	//// �֐���     �Fvoid AccessBegin()
-	//// �J�e�S��   �F�����o�֐�
-	//// �p�r       �F�f�[�^�ւ̃A�N�Z�X���J�n
-	//// ����       �F�Ȃ�
-	//// �ߒl       �F����
-	//// �S����     �F���� �O
-	//// ���l       �F�}���`�X���b�h�𗘗p����ۂɕ����̃X���b�h�������Ƀf�[�^������������̂�h��
-	////            �F���L�̊֐� ( void AccessEnd() ) �ƃZ�b�g
+	//// 関数名     ：void AccessBegin()
+	//// カテゴリ   ：メンバ関数
+	//// 用途       ：データへのアクセスを開始
+	//// 引数       ：なし
+	//// 戻値       ：あし
+	//// 担当者     ：鴫原 徹
+	//// 備考       ：マルチスレッドを利用する際に複数のスレッドが同時にデータを書き換えるのを防ぐ
+	////            ：下記の関数 ( void AccessEnd() ) とセット
 	////
 	void AccessBegin(){	while(m_bAccessLock){ Sleep(1); } m_bAccessLock = true; }
 
 
 	/////////////////// ////////////////////
-	//// �֐���     �Fvoid AccessEnd()
-	//// �J�e�S��   �F�����o�֐�
-	//// �p�r       �F�f�[�^�ւ̃A�N�Z�X���I��
-	//// ����       �F�Ȃ�
-	//// �ߒl       �F�Ȃ�
-	//// �S����     �F���� �O
-	//// ���l       �F�}���`�X���b�h�𗘗p����ۂɕ����̃X���b�h�������Ƀf�[�^������������̂�h��
-	////            �F��L�̊֐� ( void AccessBegin() ) �ƃZ�b�g
+	//// 関数名     ：void AccessEnd()
+	//// カテゴリ   ：メンバ関数
+	//// 用途       ：データへのアクセスを終了
+	//// 引数       ：なし
+	//// 戻値       ：なし
+	//// 担当者     ：鴫原 徹
+	//// 備考       ：マルチスレッドを利用する際に複数のスレッドが同時にデータを書き換えるのを防ぐ
+	////            ：上記の関数 ( void AccessBegin() ) とセット
 	////
 	void AccessEnd(){ m_bAccessLock = false; }
 
 
 	/////////////////// ////////////////////
-	//// �֐���     �Fvirtual bool HitTest(D3DXVECTOR3 Pos)
-	//// �J�e�S��   �F���z�֐�
-	//// �p�r       �F�I�u�W�F�N�g���X�V
-	//// ����       �F  D3DXVECTOR3 Pos      //
-	//// �ߒl       �Ffalse
-	//// �S����     �F
-	//// ���l       �F�h����ŕK�v�Ȃ�Ώ���
-	////            �F  
+	//// 関数名     ：virtual bool HitTest(D3DXVECTOR3 Pos)
+	//// カテゴリ   ：仮想関数
+	//// 用途       ：オブジェクトを更新
+	//// 引数       ：  D3DXVECTOR3 Pos      //
+	//// 戻値       ：false
+	//// 担当者     ：
+	//// 備考       ：派生先で必要ならば書く
+	////            ：  
 	////
     virtual bool HitTest(D3DXVECTOR3 Pos){ return false; }
 
 
 	/////////////////// ////////////////////
-	//// �p�r       �Fvirtual bool HitTest(Object* other)
-	//// �J�e�S��   �F���z�֐�
-	//// �p�r       �F�I�u�W�F�N�g���X�V
-	//// ����       �FObject* other      // ���̃I�u�W�F�̃|�C���^
-	//// �ߒl       �Ffalse 
-	//// �S����     �F
-	//// ���l       �F�h����ŕK�v�Ȃ�Ώ���
-	////            �F
+	//// 用途       ：virtual bool HitTest(Object* other)
+	//// カテゴリ   ：仮想関数
+	//// 用途       ：オブジェクトを更新
+	//// 引数       ：Object* other      // 他のオブジェのポインタ
+	//// 戻値       ：false 
+	//// 担当者     ：
+	//// 備考       ：派生先で必要ならば書く
+	////            ：
 	////
     virtual bool HitTest(Object* other){ return false; }
 
 
 	/**************************************************************************
 		virtual void ChangeDevice(
-		LPDIRECT3DDEVICE9 pD3DDevice    //IDirect3DDevice9 �C���^�[�t�F�C�X�ւ̃|�C���^
+		LPDIRECT3DDEVICE9 pD3DDevice    //IDirect3DDevice9 インターフェイスへのポインタ
 		);
-	 �p�r: �f�o�C�X�r���ɂ��č\�z�i���z�֐��j
-	 �߂�l: �Ȃ��B
-	 ���f�o�C�X���r�������Ƃ��ɍō\�z���ɌĂ΂��B���ׂĂ�Object�̔h���N���X�́A�ʂɑΉ����Ƃ�
-	 ���̃v���W�F�N�g�ł͂܂����Ή��ł��B
+	 用途: デバイス喪失による再構築（仮想関数）
+	 戻り値: なし。
+	 ＊デバイスが喪失したときに最構築時に呼ばれる。すべてのObjectの派生クラスは、個別に対応をとる
+	 このプロジェクトではまだ未対応です。
 	***************************************************************************/
 	virtual void ChangeDevice(LPDIRECT3DDEVICE9 pD3DDevice){
-		//���N���X�ł͉������Ȃ�
+		//基底クラスでは何もしない
 	}
 
 public:
 	/////////////////// ////////////////////
-	//// �p�r       �Fvirtual void Update( UpdatePacket& i_UpdatePacket )
-	//// �J�e�S��   �F���z�֐�
-	//// �p�r       �F�I�u�W�F�N�g���X�V
-	//// ����       �F  UpdatePacket& i_UpdatePacket     // �A�b�v�f�[�g���ɕK�v�ȃf�[�^�Q �����e���L
-	////            �F  ��       LPDIRECT3DDEVICE9  pD3DDevice      // IDirect3DDevice9 �C���^�[�t�F�C�X�ւ̃|�C���^
-	////            �F  ��       Tempus2*           pTime           // ���Ԃ��Ǘ�����N���X�ւ̃|�C���^�[
-	////            �F  ��       vector<Object*>&   Vec,            // �I�u�W�F�N�g�̔z��
-	////            �F  �� const CONTROLER_STATE*   pCntlState      // �R���g���[���̃X�e�[�^�X
-	////            �F  ��       Command            pCommand        // �R�}���h
-	//// �ߒl       �F�Ȃ�
-	//// �S����     �F���� �O
-	//// ���l       �F�p���������̂ł��K���Ƃ���`�����Ȃ��Ă��ǂ�
-	////            �F
+	//// 用途       ：virtual void Update( UpdatePacket& i_UpdatePacket )
+	//// カテゴリ   ：仮想関数
+	//// 用途       ：オブジェクトを更新
+	//// 引数       ：  UpdatePacket& i_UpdatePacket     // アップデート時に必要なデータ群 ↓内容下記
+	////            ：  ├       LPDIRECT3DDEVICE9  pD3DDevice      // IDirect3DDevice9 インターフェイスへのポインタ
+	////            ：  ├       Tempus2*           pTime           // 時間を管理するクラスへのポインター
+	////            ：  ├       vector<Object*>&   Vec,            // オブジェクトの配列
+	////            ：  ├ const CONTROLER_STATE*   pCntlState      // コントローラのステータス
+	////            ：  └       Command            pCommand        // コマンド
+	//// 戻値       ：なし
+	//// 担当者     ：鴫原 徹
+	//// 備考       ：継承したものでも必ずとも定義をしなくても良い
+	////            ：
 	////
 	virtual void Update( structs::UpdatePacket& i_UpdatePacket ){};
 
 	/////////////////// ////////////////////
-	//// �p�r       �Fvirtual void TargetRender( LPDIRECT3DDEVICE9 pD3DDevice
-	////            �F      vector<Object*>& Vec)
-	//// �J�e�S��   �F���z�֐�
-	//// �p�r       �F�I�u�W�F�N�g��`��
-	//// ����       �F  LPDIRECT3DDEVICE9 pD3DDevice        // IDirect3DDevice9 �C���^�[�t�F�C�X�ւ̃|�C���^
-	////            �F  vector<Object*>& Vec,               // �I�u�W�F�N�g�̔z��
-	////            �F  Command i_DrawPacket.pCommand                         // �R�}���h
-	//// �ߒl       �F�Ȃ�
-	//// �S����     �F���� �O
-	//// ���l       �F�p���������̂ł��K���Ƃ���`�����Ȃ��Ă��ǂ�
-	////            �F
+	//// 用途       ：virtual void TargetRender( LPDIRECT3DDEVICE9 pD3DDevice
+	////            ：      vector<Object*>& Vec)
+	//// カテゴリ   ：仮想関数
+	//// 用途       ：オブジェクトを描画
+	//// 引数       ：  LPDIRECT3DDEVICE9 pD3DDevice        // IDirect3DDevice9 インターフェイスへのポインタ
+	////            ：  vector<Object*>& Vec,               // オブジェクトの配列
+	////            ：  Command i_DrawPacket.pCommand                         // コマンド
+	//// 戻値       ：なし
+	//// 担当者     ：鴫原 徹
+	//// 備考       ：継承したものでも必ずとも定義をしなくても良い
+	////            ：
 	////
 	virtual void TargetRender( structs::RenderPacket& i_RenderPacket ){};
 
 	/////////////////// ////////////////////
-	//// �p�r       �Fvirtual void Draw( DrawPacket& i_DrawPacket )
-	//// �J�e�S��   �F�������z�֐�
-	//// �p�r       �F�I�u�W�F�N�g���f�B�X�v���C�ɕ\������
-	//// ����       �F  DrawPacket& i_DrawPacket             // ��ʕ`�掞�ɕK�v�ȃf�[�^�Q �����e���L
-	////            �F  �� LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 �C���^�[�t�F�C�X�ւ̃|�C���^
-	////            �F  �� vector<Object*>&    Vec                     // �I�u�W�F�N�g�̔z��
-	////            �F  �� Tempus2*            i_DrawPacket.GetTime()	   // ���Ԃ��Ǘ�����N���X�ւ̃|�C���^�[
-	////            �F  �� Command             i_DrawPacket.pCommand   // �R�}���h
-	//// �ߒl       �F�Ȃ�
-	//// �S����     �F
-	//// ���l       �F�p��������͉̂��ꂩ�̃��x���ŕK����`�����邱�ơ
-	////            �F
+	//// 用途       ：virtual void Draw( DrawPacket& i_DrawPacket )
+	//// カテゴリ   ：純粋仮想関数
+	//// 用途       ：オブジェクトをディスプレイに表示する
+	//// 引数       ：  DrawPacket& i_DrawPacket             // 画面描画時に必要なデータ群 ↓内容下記
+	////            ：  ├ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 インターフェイスへのポインタ
+	////            ：  ├ vector<Object*>&    Vec                     // オブジェクトの配列
+	////            ：  ├ Tempus2*            i_DrawPacket.GetTime()	   // 時間を管理するクラスへのポインター
+	////            ：  └ Command             i_DrawPacket.pCommand   // コマンド
+	//// 戻値       ：なし
+	//// 担当者     ：
+	//// 備考       ：継承するものは何れかのレベルで必ず定義をすること。
+	////            ：
 	////
     virtual void Draw( structs::DrawPacket& i_DrawPacket ) = 0;
 };
@@ -216,32 +216,32 @@ public:
 
 /**************************************************************************
  class Button ;
- �p�r: �{�^������N���X
- �p�@: ����ButtonPlate����h�����Ȃ��N���X���{�^���ɂ��������͈ȉ��̂悤�ɂ�
-	�邱�Ƃɂ���ă{�^�������邱�Ƃ��ł��܂�
-	�܂����̃N���X���N���X���ɐ錾���Ă�������
-		��)
+ 用途: ボタン根底クラス
+ 用法: もしButtonPlateから派生しないクラスをボタンにしたい時は以下のようにす
+	ることによってボタン化することができます
+	まずこのクラスをクラス内に宣言してください
+		例)
 		    class foo{
 		    private:
 		       Button m_ButtonPrm;
-		       �E
-		       �E
-		       �E
-	���ɃI�u�W�F�N�g�z��ǉ�����ہAStage�N���X��Button�p�z��ɂ��̃N���X��
-	�C���X�^���X�ւ̃|�C���^�[��ǉ����Ă�������
-		��)	m_vec.push_back(pButtonPlate);
+		       ・
+		       ・
+		       ・
+	次にオブジェクト配列追加する際、StageクラスのButton用配列にこのクラスの
+	インスタンスへのポインターを追加してください
+		例)	m_vec.push_back(pButtonPlate);
 			m_ButtonVec.push_back(&pButtonPlate->m_ButtonPrm);
  ****************************************************************************/
 class Button {
 	friend struct BassPacket;
 	friend class  Stage ;
 protected:
-	DWORD				m_Index;				//���j���[��̃C���f�b�N�X
-	bool				m_IsSelect;				//�I���t���O
+	DWORD				m_Index;				//メニュー上のインデックス
+	bool				m_IsSelect;				//選択フラグ
 
-	bool				m_IsMouseSelect;		//�}�E�X�ɂ���đI������Ă���
-	bool				m_IsPressed;			//����t���O
-	structs::Command	m_Command;				//�R�}���h
+	bool				m_IsMouseSelect;		//マウスによって選択されている
+	bool				m_IsPressed;			//決定フラグ
+	structs::Command	m_Command;				//コマンド
 
 	static DWORD MouseSelectIndex(bool Set = false ,DWORD index = 0){
 		static DWORD	MouseSelectIndex	;
@@ -257,47 +257,47 @@ protected:
 public:
 	/**************************************************************************
 	 Button(
-		LPDIRECT3DDEVICE9 pD3DDevice,   ////IDirect3DDevice9�C���^�[�t�F�C�X�ւ̃|�C���^
-		DWORD Cmd,						//�I�����s���ꂽ�Ƃ��̃R�}���h
-		DWORD Index,					//���j���[�X�e�[�W��̃C���f�b�N�X
+		LPDIRECT3DDEVICE9 pD3DDevice,   ////IDirect3DDevice9インターフェイスへのポインタ
+		DWORD Cmd,						//選択実行されたときのコマンド
+		DWORD Index,					//メニューステージ上のインデックス
 		);
-	 �p�r: �R���X�g���N�^
-	 �߂�l: �Ȃ�
+	 用途: コンストラクタ
+	 戻り値: なし
 	***************************************************************************/
     Button(Command Cmd)
 		:m_Index(ULONG_MAX),m_IsPressed(false),m_IsSelect(false),m_Command(Cmd)
 		,m_IsMouseSelect( false )
 	{
-		//�����C���f�b�N�X��0�ԂȂ�A������ԂőI������Ă���
+		//もしインデックスが0番なら、初期状態で選択されている
 		if(m_Index == 0){
 			m_IsSelect = true;
 		}
 	};
 	/**************************************************************************
 	 virtual ~Button();
-	 �p�r: �f�X�g���N�^
-	 �߂�l: �Ȃ�
+	 用途: デストラクタ
+	 戻り値: なし
 	***************************************************************************/
 	virtual ~Button(){};
 //////////
-//	: �Z�b�^�[
+//	: セッター
 public:
 	/**************************************************************************
 	 void setSelect(
-		bool select	//�I�����
+		bool select	//選択状態
 	 );
-	 �p�r: �I����Ԃ�ݒ�
-	 �߂�l: �Ȃ��B
+	 用途: 選択状態を設定
+	 戻り値: なし。
 	***************************************************************************/
 	void setSelect(bool select){
 		m_IsSelect = select;
 	}
 	/**************************************************************************
 	 void setSelect(
-		bool select	//�I�����
+		bool select	//選択状態
 	 );
-	 �p�r: �I����Ԃ�ݒ�
-	 �߂�l: �Ȃ��B
+	 用途: 選択状態を設定
+	 戻り値: なし。
 	***************************************************************************/
 	void setMouseSelect(bool select){
 		if(m_IsSelect = m_IsMouseSelect = select)
@@ -305,37 +305,37 @@ public:
 	}
 	/**************************************************************************
 	 void setPressed();
-	 �p�r: ����t���O���Z�b�g����
-	 �߂�l: �Ȃ��B
+	 用途: 決定フラグをセットする
+	 戻り値: なし。
 	***************************************************************************/
 	void setPressed(bool b = true){
 		m_IsPressed = b;
 	}
 //////////
-//	: �Q�b�^�[
+//	: ゲッター
 public:
 	/**************************************************************************
 	 bool getSelect();
-	 �p�r: �I������Ă邩�ǂ���
-	 �߂�l: 0 ��I�� / 1 �I��
+	 用途: 選択されてるかどうか
+	 戻り値: 0 非選択 / 1 選択
 	***************************************************************************/
 	bool getSelect(){
 		return m_IsSelect;
 	}
 	/**************************************************************************
 	 bool getMouseSelect();
-	 �p�r: �I������Ă邩�ǂ���
-	 �߂�l: 0 ��I�� / 1 �I��
+	 用途: 選択されてるかどうか
+	 戻り値: 0 非選択 / 1 選択
 	***************************************************************************/
 	bool getMouseSelect(){
 		return m_IsMouseSelect;
 	}
 	/**************************************************************************
 	 void setSelect(
-		bool select	//�I�����
+		bool select	//選択状態
 	 );
-	 �p�r: �I����Ԃ�ݒ�
-	 �߂�l: �Ȃ��B
+	 用途: 選択状態を設定
+	 戻り値: なし。
 	***************************************************************************/
 	static DWORD getMouseSelectIndex(){
 
@@ -345,8 +345,8 @@ public:
 	}
 	/**************************************************************************
 	 bool getPressed();
-	 �p�r: ���肳�ꂽ���ǂ���
-	 �߂�l: 0 �񌈒� / 1 ����
+	 用途: 決定されたかどうか
+	 戻り値: 0 非決定 / 1 決定
 	***************************************************************************/
 	bool getPressed(){
 		if( m_IsPressed ){
@@ -358,8 +358,8 @@ public:
 	}
 	/**************************************************************************
 	 void getIndex();
-	 �p�r: ���������Ԗڂ̃{�^������Ԃ�
-	 �߂�l: �����̔ԍ�
+	 用途: 自分が何番目のボタンかを返す
+	 戻り値: 自分の番号
 	***************************************************************************/
 	DWORD getIndex(){
 		return m_Index;
@@ -369,8 +369,8 @@ public:
 public:
 	/**************************************************************************
 	 Command CommandIssue
-	 �p�r: �R�}���h�̔��s
-	 �߂�l: ���s���ꂽ�R�}���h
+	 用途: コマンドの発行
+	 戻り値: 発行されたコマンド
 	***************************************************************************/
 	Command CommandIssue(){
 		m_IsPressed		= false;
@@ -380,51 +380,51 @@ public:
 //**************************************************************************
 // class Behavior;
 //
-// �S����  : ���� �O
-// �p�r    : �������`����I�u�W�F�N�g�̊�{�N���X
+// 担当者  : 鴫原 徹
+// 用途    : 挙動を定義するオブジェクトの基本クラス
 //**************************************************************************
 class Behavior : public Object{
 public:
 	/////////////////// ////////////////////
-	//// �p�r       �FBehavior(wiz::OBJID id)
-	//// �J�e�S��   �F�R���X�g���N�^
-	//// �p�r       �F
-	//// ����       �F�Ȃ�
-	//// �ߒl       �F�Ȃ�
-	//// �S����     �F���� �O
-	//// ���l       �F
-	////            �F
+	//// 用途       ：Behavior(wiz::OBJID id)
+	//// カテゴリ   ：コンストラクタ
+	//// 用途       ：
+	//// 引数       ：なし
+	//// 戻値       ：なし
+	//// 担当者     ：鴫原 徹
+	//// 備考       ：
+	////            ：
 	////
 	Behavior(wiz::OBJID id):Object(id){}
 	/////////////////// ////////////////////
-	//// �p�r       �Fvirtual void Update( UpdatePacket& i_UpdatePacket )
-	//// �J�e�S��   �F���z�֐�
-	//// �p�r       �F�I�u�W�F�N�g���X�V
-	//// ����       �F  UpdatePacket& i_UpdatePacket     // �A�b�v�f�[�g���ɕK�v�ȃf�[�^�Q �����e���L
-	////            �F  ��       LPDIRECT3DDEVICE9  pD3DDevice      // IDirect3DDevice9 �C���^�[�t�F�C�X�ւ̃|�C���^
-	////            �F  ��       Tempus2*           pTime           // ���Ԃ��Ǘ�����N���X�ւ̃|�C���^�[
-	////            �F  ��       vector<Object*>&   Vec,            // �I�u�W�F�N�g�̔z��
-	////            �F  �� const CONTROLER_STATE*   pCntlState      // �R���g���[���̃X�e�[�^�X
-	////            �F  ��       Command            pCommand        // �R�}���h
-	//// �ߒl       �F�Ȃ�
-	//// �S����     �F���� �O
-	//// ���l       �F�p���������̂ł��K���Ƃ���`�����Ȃ��Ă��ǂ�
-	////            �F
+	//// 用途       ：virtual void Update( UpdatePacket& i_UpdatePacket )
+	//// カテゴリ   ：仮想関数
+	//// 用途       ：オブジェクトを更新
+	//// 引数       ：  UpdatePacket& i_UpdatePacket     // アップデート時に必要なデータ群 ↓内容下記
+	////            ：  ├       LPDIRECT3DDEVICE9  pD3DDevice      // IDirect3DDevice9 インターフェイスへのポインタ
+	////            ：  ├       Tempus2*           pTime           // 時間を管理するクラスへのポインター
+	////            ：  ├       vector<Object*>&   Vec,            // オブジェクトの配列
+	////            ：  ├ const CONTROLER_STATE*   pCntlState      // コントローラのステータス
+	////            ：  └       Command            pCommand        // コマンド
+	//// 戻値       ：なし
+	//// 担当者     ：鴫原 徹
+	//// 備考       ：継承したものでも必ずとも定義をしなくても良い
+	////            ：
 	////
     virtual void Update( UpdatePacket& i_UpdatePacket ) = 0;
 	/////////////////// ////////////////////
-	//// �p�r       �Fvirtual void Draw( DrawPacket& i_DrawPacket )
-	//// �J�e�S��   �F�������z�֐�
-	//// �p�r       �F�I�u�W�F�N�g���f�B�X�v���C�ɕ\������
-	//// ����       �F  DrawPacket& i_DrawPacket             // ��ʕ`�掞�ɕK�v�ȃf�[�^�Q �����e���L
-	////            �F  �� LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 �C���^�[�t�F�C�X�ւ̃|�C���^
-	////            �F  �� vector<Object*>&    Vec                     // �I�u�W�F�N�g�̔z��
-	////            �F  �� Tempus2*            i_DrawPacket.GetTime()	   // ���Ԃ��Ǘ�����N���X�ւ̃|�C���^�[
-	////            �F  �� Command             i_DrawPacket.pCommand   // �R�}���h
-	//// �ߒl       �F�Ȃ�
-	//// �S����     �F
-	//// ���l       �F�p��������͉̂��ꂩ�̃��x���ŕK����`�����邱�ơ
-	////            �F
+	//// 用途       ：virtual void Draw( DrawPacket& i_DrawPacket )
+	//// カテゴリ   ：純粋仮想関数
+	//// 用途       ：オブジェクトをディスプレイに表示する
+	//// 引数       ：  DrawPacket& i_DrawPacket             // 画面描画時に必要なデータ群 ↓内容下記
+	////            ：  ├ LPDIRECT3DDEVICE9   pD3DDevice              // IDirect3DDevice9 インターフェイスへのポインタ
+	////            ：  ├ vector<Object*>&    Vec                     // オブジェクトの配列
+	////            ：  ├ Tempus2*            i_DrawPacket.GetTime()	   // 時間を管理するクラスへのポインター
+	////            ：  └ Command             i_DrawPacket.pCommand   // コマンド
+	//// 戻値       ：なし
+	//// 担当者     ：
+	//// 備考       ：継承するものは何れかのレベルで必ず定義をすること。
+	////            ：
 	////
 	virtual void Draw( DrawPacket& i_DrawPacket ){};
 };
@@ -432,32 +432,32 @@ public:
 //**************************************************************************
 // class Light;
 //
-// �S����  : 
-// �p�r    : ���C�g�N���X
+// 担当者  : 
+// 用途    : ライトクラス
 //**************************************************************************
 class Light : public Object{
 protected:
     D3DLIGHT9   m_Light;
 	/////////////////// ////////////////////
-	//// �p�r       �FLight()
-	//// �J�e�S��   �F���񂷂Ƃ炭��
-	//// �p�r       �F�v���e�N�g�R���X�g���N�^
-	//// ����       �F�Ȃ�
-	//// �ߒl       �F�Ȃ� 
-	//// �S����     �F
-	//// ���l       �F���ڍ\�z�ł��Ȃ��悤�ɁA�v���e�N�g�ɂ���
-	////            �F
+	//// 用途       ：Light()
+	//// カテゴリ   ：こんすとらくた
+	//// 用途       ：プロテクトコンストラクタ
+	//// 引数       ：なし
+	//// 戻値       ：なし 
+	//// 担当者     ：
+	//// 備考       ：直接構築できないように、プロテクトにする
+	////            ：
 	////
     Light(wiz::OBJID id);
 	/////////////////// ////////////////////
-	//// �p�r       �FLight()
-	//// �J�e�S��   �F�ł��Ƃ炭��
-	//// �p�r       �F�v���e�N�g�f�X�g���N�^�i���z�f�X�g���N�^�j
-	//// ����       �F�Ȃ�
-	//// �ߒl       �F�Ȃ� 
-	//// �S����     �F
-	//// ���l       �F���ڍ\�z�ł��Ȃ��悤�ɁA�v���e�N�g�ɂ���
-	////            �F
+	//// 用途       ：Light()
+	//// カテゴリ   ：ですとらくた
+	//// 用途       ：プロテクトデストラクタ（仮想デストラクタ）
+	//// 引数       ：なし
+	//// 戻値       ：なし 
+	//// 担当者     ：
+	//// 備考       ：直接構築できないように、プロテクトにする
+	////            ：
 	////
     virtual ~Light();
 public:
@@ -467,26 +467,26 @@ public:
 //**************************************************************************
 // class DirectionalLight : public Light , public Object;
 //
-// �S����  : 
-// �p�r    : �f�B���N�V���i�����C�g�N���X
+// 担当者  : 
+// 用途    : ディレクショナルライトクラス
 //**************************************************************************
 class DirectionalLight : public Light {
 public:
 	/////////////////// ////////////////////
-	//// �p�r       �FDirectionalLight(LPDIRECT3DDEVICE9 pD3DDevice,
-	////            �F    D3DCOLORVALUE Diffuse,D3DCOLORVALUE Specular,
-	////            �F    D3DCOLORVALUE Ambient,D3DXVECTOR3 Direction)
-	//// �J�e�S��   �F�R���X�g���N�^
-	//// �p�r       �F
-	//// ����       �F�Ȃ�
-	//// �ߒl       �F  LPDIRECT3DDEVICE9 pD3DDevice,   //�f�o�C�X
-	////            �F  D3DCOLORVALUE Diffuse,          //�f�B�t���[�Y�F
-	////            �F  D3DCOLORVALUE Specular,         //�X�y�L�����F
-	////            �F  D3DCOLORVALUE Ambient,          //�A���r�G���g�F
-	////            �F  D3DXVECTOR3 Direction           //���[���h��ԂŌ����w������
-	//// �S����     �F
-	//// ���l       �F�f�B���N�V���i�����C�g���\�z����
-	////            �F
+	//// 用途       ：DirectionalLight(LPDIRECT3DDEVICE9 pD3DDevice,
+	////            ：    D3DCOLORVALUE Diffuse,D3DCOLORVALUE Specular,
+	////            ：    D3DCOLORVALUE Ambient,D3DXVECTOR3 Direction)
+	//// カテゴリ   ：コンストラクタ
+	//// 用途       ：
+	//// 引数       ：なし
+	//// 戻値       ：  LPDIRECT3DDEVICE9 pD3DDevice,   //デバイス
+	////            ：  D3DCOLORVALUE Diffuse,          //ディフューズ色
+	////            ：  D3DCOLORVALUE Specular,         //スペキュラ色
+	////            ：  D3DCOLORVALUE Ambient,          //アンビエント色
+	////            ：  D3DXVECTOR3 Direction           //ワールド空間で光が指す方向
+	//// 担当者     ：
+	//// 備考       ：ディレクショナルライトを構築する
+	////            ：
 	////
     DirectionalLight(LPDIRECT3DDEVICE9 pD3DDevice,
         D3DCOLORVALUE Diffuse,
@@ -495,27 +495,27 @@ public:
         D3DXVECTOR3 Direction,
 		wiz::OBJID id = OBJID_SYS_DIRECTIONAL);
 	/////////////////// ////////////////////
-	//// �p�r       �Fvirtual ~DirectionalLight()
-	//// �J�e�S��   �F�Z�X�g���N�^
-	//// �p�r       �F
-	//// ����       �F�Ȃ�
-	//// �ߒl       �F�Ȃ�
-	//// �S����     �F
-	//// ���l       �F
-	////            �F
+	//// 用途       ：virtual ~DirectionalLight()
+	//// カテゴリ   ：セストラクタ
+	//// 用途       ：
+	//// 引数       ：なし
+	//// 戻値       ：なし
+	//// 担当者     ：
+	//// 備考       ：
+	////            ：
 	////
     virtual ~DirectionalLight();
 	/////////////////// ////////////////////
-	//// �p�r       �Fvirtual void Update( LPDIRECT3DDEVICE9 pD3DDevice
-	////            �F  vector<Object*>& Vec)
-	//// �J�e�S��   �F�������z�֐�
-	//// �p�r       �F�I�u�W�F�N�g��`��
-	//// ����       �F  LPDIRECT3DDEVICE9 pD3DDevice        // IDirect3DDevice9 �C���^�[�t�F�C�X�ւ̃|�C���^
-	////            �F  vector<Object*>& Vec,               // �I�u�W�F�N�g�̔z��
-	////            �F  Command i_DrawPacket.pCommand                         // �R�}���h
-	//// �ߒl       �F�Ȃ�
-	//// ���l       �F�p��������͉̂��ꂩ�̃��x���ŕK����`�����邱�ơ
-	////            �F
+	//// 用途       ：virtual void Update( LPDIRECT3DDEVICE9 pD3DDevice
+	////            ：  vector<Object*>& Vec)
+	//// カテゴリ   ：純粋仮想関数
+	//// 用途       ：オブジェクトを描画
+	//// 引数       ：  LPDIRECT3DDEVICE9 pD3DDevice        // IDirect3DDevice9 インターフェイスへのポインタ
+	////            ：  vector<Object*>& Vec,               // オブジェクトの配列
+	////            ：  Command i_DrawPacket.pCommand                         // コマンド
+	//// 戻値       ：なし
+	//// 備考       ：継承するものは何れかのレベルで必ず定義をすること。
+	////            ：
 	////
 	virtual void Draw(DrawPacket& i_DrawPacket){};
 
@@ -524,80 +524,80 @@ public:
 
 /**************************************************************************
  class Camera : public Object;
- �p�r: �J�����N���X
+ 用途: カメラクラス
 ****************************************************************************/
 class Camera : public Object{
 protected:
-    D3DXMATRIX  m_View;     // �J�����̔z�u
-    D3DXMATRIX m_Proj;		// �ˉe�s��
-    D3DXVECTOR3 m_Eye;      //�J�����̈ʒu
-    D3DXVECTOR3 m_At;       //�����_
-    FLOAT m_Near;           //�ˉe�̎�O���̋���
-    FLOAT m_Far;            //�ˉe�̉����̋���
-    FLOAT m_FovY;           //�ˉe�p�x
+    D3DXMATRIX  m_View;     // カメラの配置
+    D3DXMATRIX m_Proj;		// 射影行列
+    D3DXVECTOR3 m_Eye;      //カメラの位置
+    D3DXVECTOR3 m_At;       //直視点
+    FLOAT m_Near;           //射影の手前側の距離
+    FLOAT m_Far;            //射影の奥側の距離
+    FLOAT m_FovY;           //射影角度
 
-    D3DXVECTOR3 m_Arm;       //���_�ƒ����_�̊ԁi�r�j�̃x�N�g��
-	FLOAT m_TotalAngleXZ;	//�J������XZ��]�̃��W�A���l
-	FLOAT m_TotalAngleY;	//�J������Y��]�̃��W�A���l
+    D3DXVECTOR3 m_Arm;       //視点と直視点の間（腕）のベクトル
+	FLOAT m_TotalAngleXZ;	//カメラのXZ回転のラジアン値
+	FLOAT m_TotalAngleY;	//カメラのY回転のラジアン値
 
 	
 
 public:
 	/**************************************************************************
 	 Camera(
-		LPDIRECT3DDEVICE9 pD3DDevice,    //IDirect3DDevice9 �C���^�[�t�F�C�X�ւ̃|�C���^
-		D3DXVECTOR3& At,    //�����_
-		FLOAT AbsPosZFromAt,//�����_���猩���A�J�����ʒu��Z�̈ʒu(��Βl�w��)
-		FLOAT PosYFromAt,	//�����_���猩���A�J�����ʒu��Y�̈ʒu
-		FLOAT Near,         //�ˉe�̎�O���̋���
-		FLOAT Far,          //�ˉe�̉����̋���
-		FLOAT FovY          //Y���ˉe�p�x
+		LPDIRECT3DDEVICE9 pD3DDevice,    //IDirect3DDevice9 インターフェイスへのポインタ
+		D3DXVECTOR3& At,    //直視点
+		FLOAT AbsPosZFromAt,//直視点から見た、カメラ位置のZの位置(絶対値指定)
+		FLOAT PosYFromAt,	//直視点から見た、カメラ位置のYの位置
+		FLOAT Near,         //射影の手前側の距離
+		FLOAT Far,          //射影の奥側の距離
+		FLOAT FovY          //Y軸射影角度
 		);
-	 �p�r: �R���X�g���N�^
-	 ���J�����ʒu�̏����l�͒��ڂ͎w��ł��Ȃ��B
-	 �������_����݂āAZ�̎�O�Ɉ������Έʒu��Y�̑��Έʒu���w�肷��BX��0�ɌŒ�
-	 ��Z�̎�O�Ɉ������Έʒu�iAbsPosZFromAt�j�͐�Βl�������̂ŁA
-		�}�C�i�X���w�肵�Ă��Ӗ����Ȃ��B
-	 �߂�l: �Ȃ�
+	 用途: コンストラクタ
+	 ＊カメラ位置の初期値は直接は指定できない。
+	 ＊直視点からみて、Zの手前に引く相対位置とYの相対位置を指定する。Xは0に固定
+	 ＊Zの手前に引く相対位置（AbsPosZFromAt）は絶対値化されるので、
+		マイナスを指定しても意味がない。
+	 戻り値: なし
 	***************************************************************************/
 	 Camera(LPDIRECT3DDEVICE9 pD3DDevice,D3DXVECTOR3& At,FLOAT PosZFromAt,FLOAT PosYFromAt,
 		FLOAT Near,FLOAT Far,FLOAT FovY);
 	/**************************************************************************
 	Camera(
-		LPDIRECT3DDEVICE9 pD3DDevice,    //IDirect3DDevice9 �C���^�[�t�F�C�X�ւ̃|�C���^
-		D3DXVECTOR3& Eye,    //�J�����̈ʒu
-		D3DXVECTOR3& At,    //�����_
-		FLOAT Near,         //�ˉe�̎�O���̋���
-		FLOAT Far,          //�ˉe�̉����̋���
-		FLOAT FovY          //Y���ˉe�p�x
+		LPDIRECT3DDEVICE9 pD3DDevice,    //IDirect3DDevice9 インターフェイスへのポインタ
+		D3DXVECTOR3& Eye,    //カメラの位置
+		D3DXVECTOR3& At,    //直視点
+		FLOAT Near,         //射影の手前側の距離
+		FLOAT Far,          //射影の奥側の距離
+		FLOAT FovY          //Y軸射影角度
 		);
-	 �p�r: �R���X�g���N�^
-	 �߂�l: �Ȃ�
+	 用途: コンストラクタ
+	 戻り値: なし
 	***************************************************************************/
 	Camera(LPDIRECT3DDEVICE9 pD3DDevice,D3DXVECTOR3& Eye,D3DXVECTOR3& At,
 		FLOAT Near,FLOAT Far,FLOAT FovY);
 
 	/**************************************************************************
 	 virtual ~Camera();
-	 �p�r: ���z�f�X�g���N�^
-	 �߂�l: �Ȃ�
+	 用途: 仮想デストラクタ
+	 戻り値: なし
 	***************************************************************************/
     virtual ~Camera();
 	/**************************************************************************
 	 virtual void Draw(
 		DrawPacket& i_DrawPacket 
 	 );
-	 �p�r: �I�u�W�F�N�g��`��i�������z�֐��j
-	 �߂�l: �Ȃ��B
+	 用途: オブジェクトを描画（純粋仮想関数）
+	 戻り値: なし。
 	***************************************************************************/
     virtual void Draw(DrawPacket& i_DrawPacket);
 	/**************************************************************************
 	 void GetEyeAt(
-	 D3DXVECTOR3& Eye,	//�J�����̈ʒu
-	 D3DXVECTOR3& At	//�����_
+	 D3DXVECTOR3& Eye,	//カメラの位置
+	 D3DXVECTOR3& At	//注視点
 	 );
-	 �p�r: �J�����̌��݂̈ʒu�ƒ����_�𓾂�
-	 �߂�l: �Ȃ��BEye��AT�ɒl����
+	 用途: カメラの現在の位置と注視点を得る
+	 戻り値: なし。EyeとATに値を代入
 	***************************************************************************/
 	void GetEyeAt(D3DXVECTOR3& Eye,D3DXVECTOR3& At){
 		Eye = m_Eye;
@@ -607,11 +607,11 @@ public:
 	D3DXVECTOR3 getAt(){  return m_At ; }
 	/**************************************************************************
 	 void GetMatrix(
-	 D3DXMATRIX& View,	//�r���[�s��
-	 D3DXMATRIX& Proj	//�ˉe�s��
+	 D3DXMATRIX& View,	//ビュー行列
+	 D3DXMATRIX& Proj	//射影行列
 	 );
-	 �p�r: �J�����̃r���[�s��Ǝˉe�s��𓾂�
-	 �߂�l: �Ȃ��BView��Proj�ɒl����
+	 用途: カメラのビュー行列と射影行列を得る
+	 戻り値: なし。ViewとProjに値を代入
 	***************************************************************************/
 	void GetMatrix(D3DXMATRIX& View,D3DXMATRIX& Proj){
 		View = m_View;
@@ -619,32 +619,32 @@ public:
 	}
 	/**************************************************************************
 	 FLOAT GetFar();
-	 �p�r: �J������Far�ʒu�𓾂�
-	 �߂�l: Far�ʒu
+	 用途: カメラのFar位置を得る
+	 戻り値: Far位置
 	***************************************************************************/
 	FLOAT GetFar(){
 		return m_Far;
 	}
 	/////////////////// ////////////////////
-	//// �֐���     �F
-	//// �J�e�S��   �F
-	//// �p�r       �F
-	//// ����       �F
-	//// �ߒl       �F�Ȃ�
-	//// �S��       �F���� �O
-	//// ���l       �F
-	////            �F
+	//// 関数名     ：
+	//// カテゴリ   ：
+	//// 用途       ：
+	//// 引数       ：
+	//// 戻値       ：なし
+	//// 担当       ：鴫原 徹
+	//// 備考       ：
+	////            ：
 	////
 	float getPosY(){ return m_Eye.y ; };
 	/////////////////// ////////////////////
-	//// �֐���     �F
-	//// �J�e�S��   �F
-	//// �p�r       �F
-	//// ����       �F
-	//// �ߒl       �F�Ȃ�
-	//// �S��       �F���� �O
-	//// ���l       �F
-	////            �F
+	//// 関数名     ：
+	//// カテゴリ   ：
+	//// 用途       ：
+	//// 引数       ：
+	//// 戻値       ：なし
+	//// 担当       ：鴫原 徹
+	//// 備考       ：
+	////            ：
 	////
 	void setPosY( float i_fYPos ){
 		if( i_fYPos < 13.4f )
@@ -656,7 +656,7 @@ public:
 
 /**************************************************************************
  class LookAtCamera : public Camera;
- �p�r: �I�u�W�F�N�g�𒍖ڂ���J�����N���X
+ 用途: オブジェクトを注目するカメラクラス
 ****************************************************************************/
 class LookAtCamera : public Camera{
 protected:
@@ -665,48 +665,48 @@ protected:
 public:
 	/**************************************************************************
 	 LookAtCamera(
-		LPDIRECT3DDEVICE9 pD3DDevice,    //IDirect3DDevice9 �C���^�[�t�F�C�X�ւ̃|�C���^
-		Object*	pObj,		//�����_�𓾂邽�߂̃I�u�W�F�N�g
-		FLOAT LocalY,		//�����_���璲������Y�ʒu
-		FLOAT AbsPosZFromAt,//�����_���猩���A�J�����ʒu��Z�̈ʒu(��Βl�w��)
-		FLOAT PosYFromAt,	//�����_���猩���A�J�����ʒu��Y�̈ʒu
-		FLOAT Near,         //�ˉe�̎�O���̋���
-		FLOAT Far,          //�ˉe�̉����̋���
-		FLOAT FovY          //Y���ˉe�p�x
+		LPDIRECT3DDEVICE9 pD3DDevice,    //IDirect3DDevice9 インターフェイスへのポインタ
+		Object*	pObj,		//直視点を得るためのオブジェクト
+		FLOAT LocalY,		//直視点から調整するY位置
+		FLOAT AbsPosZFromAt,//直視点から見た、カメラ位置のZの位置(絶対値指定)
+		FLOAT PosYFromAt,	//直視点から見た、カメラ位置のYの位置
+		FLOAT Near,         //射影の手前側の距離
+		FLOAT Far,          //射影の奥側の距離
+		FLOAT FovY          //Y軸射影角度
 		);
-	 �p�r: �R���X�g���N�^
-	 ���J�����ʒu�̏����l�͒��ڂ͎w��ł��Ȃ��B
-	 �������_����݂āAZ�̎�O�Ɉ������Έʒu��Y�̑��Έʒu���w�肷��BX��0�ɌŒ�
-	 ��Z�̎�O�Ɉ������Έʒu�iAbsPosZFromAt�j�͐�Βl�������̂ŁA
-		�}�C�i�X���w�肵�Ă��Ӗ����Ȃ��B
-	 �߂�l: �Ȃ�
+	 用途: コンストラクタ
+	 ＊カメラ位置の初期値は直接は指定できない。
+	 ＊直視点からみて、Zの手前に引く相対位置とYの相対位置を指定する。Xは0に固定
+	 ＊Zの手前に引く相対位置（AbsPosZFromAt）は絶対値化されるので、
+		マイナスを指定しても意味がない。
+	 戻り値: なし
 	***************************************************************************/
 	LookAtCamera(LPDIRECT3DDEVICE9 pD3DDevice,
 		Object* pObj,FLOAT LocalY,FLOAT AbsPosZFromAt,FLOAT PosYFromAt,
 	    FLOAT Near,FLOAT Far,FLOAT FovY);
 	/**************************************************************************
 	 virtual ~LookAtCamera();
-	 �p�r: ���z�f�X�g���N�^
-	 �߂�l: �Ȃ�
+	 用途: 仮想デストラクタ
+	 戻り値: なし
 	***************************************************************************/
     virtual ~LookAtCamera();
 	/**************************************************************************
 	 virtual void Transform(
 		UpdatePacket& i_UpdatePacket
 	 );
-	 �p�r: �I�u�W�F�N�g��ω�������i���z�֐��j
-	 �߂�l: �Ȃ��B
+	 用途: オブジェクトを変化させる（仮想関数）
+	 戻り値: なし。
 	***************************************************************************/
 	virtual void Update( UpdatePacket& i_UpdatePacket );
 	/**************************************************************************
 	 virtual void Draw(
-		LPDIRECT3DDEVICE9 pD3DDevice    //IDirect3DDevice9 �C���^�[�t�F�C�X�ւ̃|�C���^
-		vector<Object*>& Vec,            //�I�u�W�F�N�g�̔z��
-		const CONTROLER_STATE* pCntlState,   //�R���g���[���̃X�e�[�^�X
-		Context& Data					//���[�U�[�f�[�^
+		LPDIRECT3DDEVICE9 pD3DDevice    //IDirect3DDevice9 インターフェイスへのポインタ
+		vector<Object*>& Vec,            //オブジェクトの配列
+		const CONTROLER_STATE* pCntlState,   //コントローラのステータス
+		Context& Data					//ユーザーデータ
 	 );
-	 �p�r: �I�u�W�F�N�g��`��i�������z�֐��j
-	 �߂�l: �Ȃ��B
+	 用途: オブジェクトを描画（純粋仮想関数）
+	 戻り値: なし。
 	***************************************************************************/
     virtual void Draw(LPDIRECT3DDEVICE9 pD3DDevice,vector<Object*>& Vec,
 		const CONTROLER_STATE* pCntlState,Context& Data);
@@ -714,13 +714,13 @@ public:
 
 /**************************************************************************
  class Guide : public Object;
- �p�r: �K�C�h�N���X�ix�Ay�Az�����ɐL�т�K�C�h���j
+ 用途: ガイドクラス（x、y、z方向に伸びるガイド線）
 ****************************************************************************/
 class Guide : public Object{
 protected:
     IDirect3DVertexBuffer9* m_pVB;
-    //�N���X���\����
-    //�����ł����g�p���Ȃ��̂ŁA�����Ɏ���
+    //クラス内構造体
+    //ここでしか使用しないので、内部に持つ
     struct CUSTOMVERTEX
     {
         D3DXVECTOR3 vec;
@@ -728,52 +728,52 @@ protected:
     };
 	/**************************************************************************
 	 void CreateInctance(
-	 LPDIRECT3DDEVICE9 pD3DDevice	//IDirect3DDevice9�C���^�[�t�F�C�X�ւ̃|�C���^
+	 LPDIRECT3DDEVICE9 pD3DDevice	//IDirect3DDevice9インターフェイスへのポインタ
 	 );
-	 �p�r: �C���X�^���X�̍\�z
-	 �߂�l: �Ȃ��B�i��O��throw�����j
+	 用途: インスタンスの構築
+	 戻り値: なし。（例外がthrowされる）
 	***************************************************************************/
 	void CreateInctance(LPDIRECT3DDEVICE9 pD3DDevice);
 public:
 	/**************************************************************************
 	 Guide(
-		LPDIRECT3DDEVICE9 pD3DDevice    //IDirect3DDevice9�C���^�[�t�F�C�X�ւ̃|�C���^
+		LPDIRECT3DDEVICE9 pD3DDevice    //IDirect3DDevice9インターフェイスへのポインタ
 		);
-	 �p�r: �R���X�g���N�^
-	 �߂�l: �Ȃ��i���s���͗�O��throw�j
+	 用途: コンストラクタ
+	 戻り値: なし（失敗時は例外をthrow）
 	***************************************************************************/
     Guide(LPDIRECT3DDEVICE9 pD3DDevice);
 	/**************************************************************************
 	 virtual ~Guide();
-	 �p�r: �f�X�g���N�^
-	 �߂�l: �Ȃ�
+	 用途: デストラクタ
+	 戻り値: なし
 	***************************************************************************/
     virtual ~Guide();
 	/**************************************************************************
 		virtual void ReleaseObj();
-	 �p�r: �f�o�C�X�r���ɂ�郊�\�[�X�̊J���i���z�֐��j
-	 �߂�l: �Ȃ��B
-	 ���f�o�C�X���r�������Ƃ��ɌĂ΂��B���ׂĂ�Object�̔h���N���X�́A�ʂɑΉ����Ƃ�
+	 用途: デバイス喪失によるリソースの開放（仮想関数）
+	 戻り値: なし。
+	 ＊デバイスが喪失したときに呼ばれる。すべてのObjectの派生クラスは、個別に対応をとる
 	***************************************************************************/
 	virtual void ReleaseObj();
 	/**************************************************************************
 		virtual void ChangeDevice(
-		LPDIRECT3DDEVICE9 pD3DDevice    //IDirect3DDevice9 �C���^�[�t�F�C�X�ւ̃|�C���^
+		LPDIRECT3DDEVICE9 pD3DDevice    //IDirect3DDevice9 インターフェイスへのポインタ
 		);
-	 �p�r: �f�o�C�X�r���ɂ��č\�z�i���z�֐��j
-	 �߂�l: �Ȃ��B
-	 ���f�o�C�X���r�������Ƃ��ɍō\�z���ɌĂ΂��B���ׂĂ�Object�̔h���N���X�́A�ʂɑΉ����Ƃ�
+	 用途: デバイス喪失による再構築（仮想関数）
+	 戻り値: なし。
+	 ＊デバイスが喪失したときに最構築時に呼ばれる。すべてのObjectの派生クラスは、個別に対応をとる
 	***************************************************************************/
 	virtual void ChangeDevice(LPDIRECT3DDEVICE9 pD3DDevice);
 	/**************************************************************************
 	 virtual void Draw(
-		LPDIRECT3DDEVICE9 pD3DDevice    //IDirect3DDevice9 �C���^�[�t�F�C�X�ւ̃|�C���^
-		vector<Object*>& Vec,            //�I�u�W�F�N�g�̔z��
-		const CONTROLER_STATE* pCntlState,   //�R���g���[���̃X�e�[�^�X
-		Context& Data					//���[�U�[�f�[�^
+		LPDIRECT3DDEVICE9 pD3DDevice    //IDirect3DDevice9 インターフェイスへのポインタ
+		vector<Object*>& Vec,            //オブジェクトの配列
+		const CONTROLER_STATE* pCntlState,   //コントローラのステータス
+		Context& Data					//ユーザーデータ
 	 );
-	 �p�r: �I�u�W�F�N�g��`��i�������z�֐��j
-	 �߂�l: �Ȃ��B
+	 用途: オブジェクトを描画（純粋仮想関数）
+	 戻り値: なし。
 	***************************************************************************/
 		virtual void Draw(DrawPacket& i_DrawPacket);
 	};

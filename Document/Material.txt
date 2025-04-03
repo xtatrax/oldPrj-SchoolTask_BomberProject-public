@@ -1,62 +1,62 @@
-‚±‚Ìƒtƒ@ƒCƒ‹‚ÍƒQ[ƒ€hMagneticah‚ðŠJ”­‚·‚é‚Ì‚É•K—v‚È‘fÞ‚ÌƒŠƒXƒg
-h‚±‚Ì‘fÞ‚ª•K—v‚¾IIh‚ÆŽv‚Á‚½ê‡’Ç‰Á‚·‚é‚±‚Æ
-’Ç‰Á‚·‚éê‡‚Íy›››z©‚Ì‚æ‚¤‚ÉŠ‡ŒÊ‚Ì’†‚É–¼‘O‚ð‘‚­‚±‚Æ
+ã“ã®ãƒ•ã‚¡ã‚¤ãƒ«ã¯ã‚²ãƒ¼ãƒ â€Magneticaâ€ã‚’é–‹ç™ºã™ã‚‹ã®ã«å¿…è¦ãªç´ æã®ãƒªã‚¹ãƒˆ
+â€ã“ã®ç´ æãŒå¿…è¦ã ï¼ï¼â€ã¨æ€ã£ãŸå ´åˆè¿½åŠ ã™ã‚‹ã“ã¨
+è¿½åŠ ã™ã‚‹å ´åˆã¯ã€â—‹â—‹â—‹ã€‘â†ã®ã‚ˆã†ã«æ‹¬å¼§ã®ä¸­ã«åå‰ã‚’æ›¸ãã“ã¨
 
 
-‰¹ESEiƒQ[ƒ€ŠJ”­‚ÉŽg‚¤‰¹‚Ìˆê——@¦Žg‚¢‰ñ‚¹‚é‚à‚Ì‚ª‚ ‚éê‡AŽg‚¢‰ñ‚µ‚½•û‚ª—Ç‚¢‚à‚Ì‚ÍŽg‚¢‰ñ‚·j
+éŸ³ãƒ»SEï¼ˆã‚²ãƒ¼ãƒ é–‹ç™ºã«ä½¿ã†éŸ³ã®ä¸€è¦§ã€€â€»ä½¿ã„å›žã›ã‚‹ã‚‚ã®ãŒã‚ã‚‹å ´åˆã€ä½¿ã„å›žã—ãŸæ–¹ãŒè‰¯ã„ã‚‚ã®ã¯ä½¿ã„å›žã™ï¼‰
 -OP-
-EŒˆ’è‰¹
-EOPBGM
+ãƒ»æ±ºå®šéŸ³
+ãƒ»OPBGM
 -GAMES-
-EƒRƒCƒ‹”­ŽËŽž‚Ì‰¹
-EƒS[ƒ‹‚Ì‰¹
-E–³“Gƒ‚[ƒh’†‚Ì‰¹
-EƒrƒŠƒrƒŠ‰¹
-EŽ¥ŠE‚ÌÝ’u‰¹
-Eƒ`ƒFƒbƒNƒ|ƒCƒ“ƒg
-EƒQ[ƒ€ƒI[ƒo[‰¹
-E”š”­i‚â‚ç‚êj
-E“G‚Ì‰¹
-EƒAƒ‰[ƒg‰¹c“G‚ª‹ß‚­‚É‚¢‚é
-E“G‚Æ“–‚½‚Á‚½Žž‚Ì‰¹
-EBGM1@ƒXƒe[ƒW‚P
-EBGM2	ƒXƒe[ƒW‚Q
-EBGM3@ƒXƒe[ƒW‚R
+ãƒ»ã‚³ã‚¤ãƒ«ç™ºå°„æ™‚ã®éŸ³
+ãƒ»ã‚´ãƒ¼ãƒ«ã®éŸ³
+ãƒ»ç„¡æ•µãƒ¢ãƒ¼ãƒ‰ä¸­ã®éŸ³
+ãƒ»ãƒ“ãƒªãƒ“ãƒªéŸ³
+ãƒ»ç£ç•Œã®è¨­ç½®éŸ³
+ãƒ»ãƒã‚§ãƒƒã‚¯ãƒã‚¤ãƒ³ãƒˆ
+ãƒ»ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼éŸ³
+ãƒ»çˆ†ç™ºï¼ˆã‚„ã‚‰ã‚Œï¼‰
+ãƒ»æ•µã®éŸ³
+ãƒ»ã‚¢ãƒ©ãƒ¼ãƒˆéŸ³â€¦æ•µãŒè¿‘ãã«ã„ã‚‹
+ãƒ»æ•µã¨å½“ãŸã£ãŸæ™‚ã®éŸ³
+ãƒ»BGM1ã€€ã‚¹ãƒ†ãƒ¼ã‚¸ï¼‘
+ãƒ»BGM2	ã‚¹ãƒ†ãƒ¼ã‚¸ï¼’
+ãƒ»BGM3ã€€ã‚¹ãƒ†ãƒ¼ã‚¸ï¼“
 -Clear-
-EƒNƒŠƒA‚µ‚½‰¹
-ECLEARBGM
+ãƒ»ã‚¯ãƒªã‚¢ã—ãŸéŸ³
+ãƒ»CLEARBGM
 
-// ‰¹EŒø‰Ê‰¹iƒtƒŠ[‚Ü‚Æ‚ßƒTƒCƒgj¦‚½‚¾‚µAŠeƒTƒCƒg‚Ì—˜—p‹K–ñ‚É€‚¸‚é//
+// éŸ³ãƒ»åŠ¹æžœéŸ³ï¼ˆãƒ•ãƒªãƒ¼ã¾ã¨ã‚ã‚µã‚¤ãƒˆï¼‰â€»ãŸã ã—ã€å„ã‚µã‚¤ãƒˆã®åˆ©ç”¨è¦ç´„ã«æº–ãšã‚‹//
 http://maoudamashii.jokersounds.com/
 http://www.yen-soft.com/ssse/
 http://sfx-g.net/
 http://www.skipmore.com/sound/
 
 
-ƒeƒNƒXƒ`ƒƒ
-ƒƒCƒ“‰æ–Ê
-*EƒQ[ƒ€“àƒ}ƒEƒXƒJ[ƒ\ƒ‹
-*EƒrƒŠƒrƒŠ•Ç
-E”wŒi
-EƒQ[ƒ€ƒI[ƒo[
-EƒQ[ƒW
-Eƒ`ƒFƒbƒNƒ|ƒCƒ“ƒg
-E”Žš‚O`‚XƒeƒNƒXƒ`ƒƒ(Ž€–S‰ñ”)
-ƒXƒ^[ƒg‰æ–Ê
-EƒXƒ^[ƒgƒ{ƒ^ƒ“
-EƒGƒ“ƒhƒ{ƒ^ƒ“
-Eƒ^ƒCƒgƒ‹
-EƒXƒ^[ƒg‰æ–Ê”wŒi
-ƒNƒŠƒA‰æ–Ê
-EƒNƒŠƒA
-EƒNƒŠƒA‰æ–Ê”wŒi
+ãƒ†ã‚¯ã‚¹ãƒãƒ£
+ãƒ¡ã‚¤ãƒ³ç”»é¢
+*ãƒ»ã‚²ãƒ¼ãƒ å†…ãƒžã‚¦ã‚¹ã‚«ãƒ¼ã‚½ãƒ«
+*ãƒ»ãƒ“ãƒªãƒ“ãƒªå£
+ãƒ»èƒŒæ™¯
+ãƒ»ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼
+ãƒ»ã‚²ãƒ¼ã‚¸
+ãƒ»ãƒã‚§ãƒƒã‚¯ãƒã‚¤ãƒ³ãƒˆ
+ãƒ»æ•°å­—ï¼ã€œï¼™ãƒ†ã‚¯ã‚¹ãƒãƒ£(æ­»äº¡å›žæ•°)
+ã‚¹ã‚¿ãƒ¼ãƒˆç”»é¢
+ãƒ»ã‚¹ã‚¿ãƒ¼ãƒˆãƒœã‚¿ãƒ³
+ãƒ»ã‚¨ãƒ³ãƒ‰ãƒœã‚¿ãƒ³
+ãƒ»ã‚¿ã‚¤ãƒˆãƒ«
+ãƒ»ã‚¹ã‚¿ãƒ¼ãƒˆç”»é¢èƒŒæ™¯
+ã‚¯ãƒªã‚¢ç”»é¢
+ãƒ»ã‚¯ãƒªã‚¢
+ãƒ»ã‚¯ãƒªã‚¢ç”»é¢èƒŒæ™¯
 
-ƒGƒtƒFƒNƒg
-EƒrƒŠƒrƒŠ
-EƒS[ƒ‹
-Eƒ`ƒFƒbƒNƒ|ƒCƒ“ƒg
-E”š”­i‚â‚ç‚êj
-E–³“G
+ã‚¨ãƒ•ã‚§ã‚¯ãƒˆ
+ãƒ»ãƒ“ãƒªãƒ“ãƒª
+ãƒ»ã‚´ãƒ¼ãƒ«
+ãƒ»ãƒã‚§ãƒƒã‚¯ãƒã‚¤ãƒ³ãƒˆ
+ãƒ»çˆ†ç™ºï¼ˆã‚„ã‚‰ã‚Œï¼‰
+ãƒ»ç„¡æ•µ
 
 
 

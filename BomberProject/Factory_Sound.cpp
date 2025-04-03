@@ -1,11 +1,11 @@
 ////////////////////////////// //////////////////////////////
-//	ƒvƒƒWƒFƒNƒg	FBomberProject
-//	ƒtƒ@ƒCƒ‹–¼		FFactory_Sound.cpp
-//	ŠJ”­ŠÂ‹«		FMSVC++ 2008
-//	Å“Kƒ^ƒu”		F4
-//	’S“–ŽÒ			F²“¡@—Á
-//	“à•ïÃÞ°À‚Æ”õl	FƒAƒCƒeƒ€ƒtƒ@ƒNƒgƒŠ[
-//					¥
+//	ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆ	ï¼šBomberProject
+//	ãƒ•ã‚¡ã‚¤ãƒ«å		ï¼šFactory_Sound.cpp
+//	é–‹ç™ºç’°å¢ƒ		ï¼šMSVC++ 2008
+//	æœ€é©ã‚¿ãƒ–æ•°		ï¼š4
+//	æ‹…å½“è€…			ï¼šä½è—¤ã€€æ¶¼
+//	å†…åŒ…ãƒ‡ãƒ¼ã‚¿ã¨å‚™è€ƒ	ï¼šã‚¢ã‚¤ãƒ†ãƒ ãƒ•ã‚¡ã‚¯ãƒˆãƒªãƒ¼
+//					â–¼
 //	namespace wiz;
 //		class Factory_Sound ;
 //
@@ -19,13 +19,13 @@ namespace wiz{
 namespace system{
 
 /**************************************************************************
- _Sound ’è‹`•”
+ _Sound å®šç¾©éƒ¨
 ****************************************************************************/
 
 /**************************************************************************
  void _Sound::CreateInctance();
- —p“r: ƒCƒ“ƒXƒ^ƒ“ƒX‚Ì\’z
- –ß‚è’l: ‚È‚µBi—áŠO‚ªthrow‚³‚ê‚éj
+ ç”¨é€”: ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã®æ§‹ç¯‰
+ æˆ»ã‚Šå€¤: ãªã—ã€‚ï¼ˆä¾‹å¤–ãŒthrowã•ã‚Œã‚‹ï¼‰
 ***************************************************************************/
 void _Sound::CreateInctance(){
 	ReleaseObj();
@@ -33,35 +33,35 @@ void _Sound::CreateInctance(){
 		HANDLE hFile;
 		DWORD dwFileSize;
 		HANDLE hMapFile;
-		//ƒƒ‚ƒŠ‚ðnew‚µ‚Äƒf[ƒ^ì¬‚·‚éê‡ˆÈ‰º‚Ì•Ï”‚ª•K—v
+		//ãƒ¡ãƒ¢ãƒªã‚’newã—ã¦ãƒ‡ãƒ¼ã‚¿ä½œæˆã™ã‚‹å ´åˆä»¥ä¸‹ã®å¤‰æ•°ãŒå¿…è¦
 		//DWORD dwBytesRead;
 
-		//ƒfƒoƒbƒOŽž‚ÍˆÈ‰º‚ðtrue‚É‚·‚é
+		//ãƒ‡ãƒãƒƒã‚°æ™‚ã¯ä»¥ä¸‹ã‚’trueã«ã™ã‚‹
 		bool bDebugMode = false;
 		DWORD dwCreationFlags = 0;
 		if( bDebugMode ) dwCreationFlags |= XACT_FLAG_API_DEBUG_MODE;
 		if(FAILED(XACT3CreateEngine( dwCreationFlags, &m_pEngine ))){
-			// ‰Šú‰»Ž¸”s
+			// åˆæœŸåŒ–å¤±æ•—
 			throw BaseException(
-				L"ƒTƒEƒ“ƒhƒGƒ“ƒWƒ“\’z‚ÉŽ¸”s‚µ‚Ü‚µ‚½B",
+				L"ã‚µã‚¦ãƒ³ãƒ‰ã‚¨ãƒ³ã‚¸ãƒ³æ§‹ç¯‰ã«å¤±æ•—ã—ã¾ã—ãŸã€‚",
 				L"_Sound::CreateInctance()"
 				);
 		}
 		// Initialize & create the XACT runtime 
 		XACT_RUNTIME_PARAMETERS xrParams = {0};
-		//ƒR[ƒ‹ƒoƒbƒNŠÖ”‚ÌŽw’è
+		//ã‚³ãƒ¼ãƒ«ãƒãƒƒã‚¯é–¢æ•°ã®æŒ‡å®š
 		if(m_fnNotificationCallback){
 			xrParams.fnNotificationCallback = m_fnNotificationCallback;
 		}
 		xrParams.lookAheadTime = XACT_ENGINE_LOOKAHEAD_DEFAULT;
 		if(FAILED(m_pEngine->Initialize( &xrParams ))){
-			// ‰Šú‰»Ž¸”s
+			// åˆæœŸåŒ–å¤±æ•—
 			throw BaseException(
-				L"ƒTƒEƒ“ƒhƒGƒ“ƒWƒ“‰Šú‰»‚ÉŽ¸”s‚µ‚Ü‚µ‚½B",
+				L"ã‚µã‚¦ãƒ³ãƒ‰ã‚¨ãƒ³ã‚¸ãƒ³åˆæœŸåŒ–ã«å¤±æ•—ã—ã¾ã—ãŸã€‚",
 				L"_Sound::CreateInctance()"
 				);
 		}
-		//Wavƒoƒ“ƒN‚Ìì¬
+		//Wavãƒãƒ³ã‚¯ã®ä½œæˆ
 		if(m_WavBankFileName != L""){
 			hFile = CreateFile(m_WavBankFileName.c_str(), GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, 0, NULL );
 			if( hFile != INVALID_HANDLE_VALUE ){
@@ -75,9 +75,9 @@ void _Sound::CreateInctance(){
 								0, &m_pWaveBank))){
 								CloseHandle( hMapFile );
 								CloseHandle( hFile );
-								// ‰Šú‰»Ž¸”s
+								// åˆæœŸåŒ–å¤±æ•—
 								throw BaseException(
-									L"Wavƒoƒ“ƒNƒnƒ“ƒhƒ‹‰Šú‰»‚ÉŽ¸”s‚µ‚Ü‚µ‚½B",
+									L"Wavãƒãƒ³ã‚¯ãƒãƒ³ãƒ‰ãƒ«åˆæœŸåŒ–ã«å¤±æ•—ã—ã¾ã—ãŸã€‚",
 									L"_Sound::CreateInctance()"
 									);
 							}
@@ -88,14 +88,14 @@ void _Sound::CreateInctance(){
 				CloseHandle( hFile ); // pbWaveBank maintains a handle on the file so close this unneeded handle
 			}
 			else{
-				// ‰Šú‰»Ž¸”s
+				// åˆæœŸåŒ–å¤±æ•—
 				throw BaseException(
-					L"ƒEƒFƒuƒoƒ“ƒNƒtƒ@ƒCƒ‹‚Ì“Ç‚Ýž‚Ý‚ÉŽ¸”s‚µ‚Ü‚µ‚½B",
+					L"ã‚¦ã‚§ãƒ–ãƒãƒ³ã‚¯ãƒ•ã‚¡ã‚¤ãƒ«ã®èª­ã¿è¾¼ã¿ã«å¤±æ•—ã—ã¾ã—ãŸã€‚",
 					L"_Sound::CreateInctance()"
 					);
 			}
 		}
-		//_Soundƒoƒ“ƒN‚Ìì¬
+		//_Soundãƒãƒ³ã‚¯ã®ä½œæˆ
 		if(m_SoundBankFileName != L""){
 			hFile = CreateFile(m_SoundBankFileName.c_str(), GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, 0, NULL );
 			if( hFile != INVALID_HANDLE_VALUE )
@@ -112,9 +112,9 @@ void _Sound::CreateInctance(){
 								0, &m_pSoundBank))){
 								CloseHandle( hMapFile );
 								CloseHandle( hFile );
-								// ‰Šú‰»Ž¸”s
+								// åˆæœŸåŒ–å¤±æ•—
 								throw BaseException(
-									L"_Soundƒoƒ“ƒNƒnƒ“ƒhƒ‹‰Šú‰»‚ÉŽ¸”s‚µ‚Ü‚µ‚½B",
+									L"_Soundãƒãƒ³ã‚¯ãƒãƒ³ãƒ‰ãƒ«åˆæœŸåŒ–ã«å¤±æ•—ã—ã¾ã—ãŸã€‚",
 									L"_Sound::CreateInctance()"
 									);
 							}
@@ -123,7 +123,7 @@ void _Sound::CreateInctance(){
 					}
 
 					// Allocate the data here and free the data when recieving the sound bank destroyed notification
-					//ˆÈ‰º‚Ì‚æ‚¤‚Éƒƒ‚ƒŠ‚ðnew‚µ‚Äì¬‚·‚é‚±‚Æ‚à‚Å‚«‚éiWavBank‚à“¯—lj
+					//ä»¥ä¸‹ã®ã‚ˆã†ã«ãƒ¡ãƒ¢ãƒªã‚’newã—ã¦ä½œæˆã™ã‚‹ã“ã¨ã‚‚ã§ãã‚‹ï¼ˆWavBankã‚‚åŒæ§˜ï¼‰
 					//m_pbSoundBank = new BYTE[dwFileSize];
 					//if(m_pbSoundBank)
 					//{
@@ -132,9 +132,9 @@ void _Sound::CreateInctance(){
 					//		if(FAILED(m_pEngine->CreateSoundBank(m_pbSoundBank, dwFileSize, 0,
 					//			0, &m_pSoundBank))){
 					//			CloseHandle( hFile );
-					//			// ‰Šú‰»Ž¸”s
+					//			// åˆæœŸåŒ–å¤±æ•—
 					//			throw BaseException(
-					//				L"_Soundƒoƒ“ƒNƒnƒ“ƒhƒ‹‰Šú‰»‚ÉŽ¸”s‚µ‚Ü‚µ‚½B",
+					//				L"_Soundãƒãƒ³ã‚¯ãƒãƒ³ãƒ‰ãƒ«åˆæœŸåŒ–ã«å¤±æ•—ã—ã¾ã—ãŸã€‚",
 					//				L"_Sound::CreateInctance()"
 					//				);
 
@@ -147,9 +147,9 @@ void _Sound::CreateInctance(){
 				CloseHandle( hFile );
 			}
 			else{
-				// ‰Šú‰»Ž¸”s
+				// åˆæœŸåŒ–å¤±æ•—
 				throw BaseException(
-					L"ƒTƒEƒ“ƒhƒoƒ“ƒNƒtƒ@ƒCƒ‹‚Ì“Ç‚Ýž‚Ý‚ÉŽ¸”s‚µ‚Ü‚µ‚½B",
+					L"ã‚µã‚¦ãƒ³ãƒ‰ãƒãƒ³ã‚¯ãƒ•ã‚¡ã‚¤ãƒ«ã®èª­ã¿è¾¼ã¿ã«å¤±æ•—ã—ã¾ã—ãŸã€‚",
 					L"_Sound::CreateInctance()"
 					);
 			}
@@ -157,7 +157,7 @@ void _Sound::CreateInctance(){
 	}
 	catch(...){
 		ReleaseObj();
-		//Äthrow
+		//å†throw
 		throw;
 	}
 }
@@ -165,12 +165,12 @@ void _Sound::CreateInctance(){
 
 /**************************************************************************
  _Sound::_Sound(
- const wchar_t* pWavBankFileName,		//Wavƒoƒ“ƒN‚Ìƒtƒ@ƒCƒ‹–¼
- const wchar_t* pSoundBankFileName = 0,	//_Soundƒoƒ“ƒN‚Ìƒtƒ@ƒCƒ‹–¼iƒIƒvƒVƒ‡ƒ“j
- XACT_NOTIFICATION_CALLBACK fnNotificationCallback = 0	//’Ê’m—pƒR[ƒ‹ƒoƒbƒNŠÖ”‚Ìƒ|ƒCƒ“ƒ^
+ const wchar_t* pWavBankFileName,		//Wavãƒãƒ³ã‚¯ã®ãƒ•ã‚¡ã‚¤ãƒ«å
+ const wchar_t* pSoundBankFileName = 0,	//_Soundãƒãƒ³ã‚¯ã®ãƒ•ã‚¡ã‚¤ãƒ«åï¼ˆã‚ªãƒ—ã‚·ãƒ§ãƒ³ï¼‰
+ XACT_NOTIFICATION_CALLBACK fnNotificationCallback = 0	//é€šçŸ¥ç”¨ã‚³ãƒ¼ãƒ«ãƒãƒƒã‚¯é–¢æ•°ã®ãƒã‚¤ãƒ³ã‚¿
  );
- —p“r: ƒRƒ“ƒXƒgƒ‰ƒNƒ^
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
 _Sound::_Sound(const wchar_t* pWavBankFileName,const wchar_t* pSoundBankFileName,wiz::OBJID id,
 		XACT_NOTIFICATION_CALLBACK fnNotificationCallback)
@@ -182,9 +182,9 @@ m_SoundBankFileName(L"")
 {
 	try{
 		if(!pWavBankFileName){
-			// ‰Šú‰»Ž¸”s
+			// åˆæœŸåŒ–å¤±æ•—
 			throw BaseException(
-				L"WAVƒoƒ“ƒNƒtƒ@ƒCƒ‹‚ªŽw’è‚³‚ê‚Ä‚Ü‚¹‚ñB",
+				L"WAVãƒãƒ³ã‚¯ãƒ•ã‚¡ã‚¤ãƒ«ãŒæŒ‡å®šã•ã‚Œã¦ã¾ã›ã‚“ã€‚",
 				L"_Sound::_Sound()"
 				);
 		}
@@ -199,7 +199,7 @@ m_SoundBankFileName(L"")
 		::MessageBoxA(
 			wiz::DxDevice::m_hWnd,
 			e.what(),
-			"ƒTƒEƒ“ƒhƒGƒ‰[",
+			"ã‚µã‚¦ãƒ³ãƒ‰ã‚¨ãƒ©ãƒ¼",
 			MB_OK);
 	}
 	catch(...){
@@ -207,16 +207,16 @@ m_SoundBankFileName(L"")
 
 		::MessageBoxA(
 			NULL,
-			"_Sound‚Å–¢’m‚ÌƒGƒ‰[",
-			"ƒTƒEƒ“ƒhƒGƒ‰[",
+			"_Soundã§æœªçŸ¥ã®ã‚¨ãƒ©ãƒ¼",
+			"ã‚µã‚¦ãƒ³ãƒ‰ã‚¨ãƒ©ãƒ¼",
 			MB_OK);
-		//Äthrow
+		//å†throw
 	}
 }
 /**************************************************************************
  virtual _Sound::~_Sound();
- —p“r: ƒfƒXƒgƒ‰ƒNƒ^
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
 _Sound::~_Sound(){
 	ReleaseObj();
@@ -224,16 +224,16 @@ _Sound::~_Sound(){
 
 /**************************************************************************
  virtual void _Sound::ReleaseObj();
- —p“r: ƒfƒoƒCƒX‘rŽ¸‚É‚æ‚éƒŠƒ\[ƒX‚ÌŠJ•úi‰¼‘zŠÖ”j
- –ß‚è’l: ‚È‚µB
- –ƒfƒoƒCƒX‚ª‘rŽ¸‚µ‚½‚Æ‚«‚ÉŒÄ‚Î‚ê‚éB‚·‚×‚Ä‚ÌObject‚Ì”h¶ƒNƒ‰ƒX‚ÍAŒÂ•Ê‚É‘Î‰ž‚ð‚Æ‚é
+ ç”¨é€”: ãƒ‡ãƒã‚¤ã‚¹å–ªå¤±ã«ã‚ˆã‚‹ãƒªã‚½ãƒ¼ã‚¹ã®é–‹æ”¾ï¼ˆä»®æƒ³é–¢æ•°ï¼‰
+ æˆ»ã‚Šå€¤: ãªã—ã€‚
+ ï¼Šãƒ‡ãƒã‚¤ã‚¹ãŒå–ªå¤±ã—ãŸã¨ãã«å‘¼ã°ã‚Œã‚‹ã€‚ã™ã¹ã¦ã®Objectã®æ´¾ç”Ÿã‚¯ãƒ©ã‚¹ã¯ã€å€‹åˆ¥ã«å¯¾å¿œã‚’ã¨ã‚‹
 ***************************************************************************/
 void _Sound::ReleaseObj(){
     if(m_pEngine){
         m_pEngine->ShutDown();
 		SafeRelease(m_pEngine);
     }
-	//new‚Åƒf[ƒ^‚ðŽæ“¾‚µ‚½ê‡‚ÍˆÈ‰º‚Ì‚æ‚¤‚Édelete‚·‚é
+	//newã§ãƒ‡ãƒ¼ã‚¿ã‚’å–å¾—ã—ãŸå ´åˆã¯ä»¥ä¸‹ã®ã‚ˆã†ã«deleteã™ã‚‹
 	//SafeDeleteArr(m_pbSoundBank);
 	if(m_pbSoundBank){
         UnmapViewOfFile(m_pbSoundBank);
@@ -247,35 +247,35 @@ void _Sound::ReleaseObj(){
 
 /**************************************************************************
 	virtual void _Sound::ChangeDevice(
-    LPDIRECT3DDEVICE9 pD3DDevice    //IDirect3DDevice9 ƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
+    LPDIRECT3DDEVICE9 pD3DDevice    //IDirect3DDevice9 ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
 	);
- —p“r: ƒfƒoƒCƒX‘rŽ¸‚É‚æ‚éÄ\’zi‰¼‘zŠÖ”j
- –ß‚è’l: ‚È‚µB
- –ƒfƒoƒCƒX‚ª‘rŽ¸‚µ‚½‚Æ‚«‚ÉŒÄ‚Î‚ê‚éB‚·‚×‚Ä‚ÌObject‚Ì”h¶ƒNƒ‰ƒX‚ÍAŒÂ•Ê‚É‘Î‰ž‚ð‚Æ‚é
+ ç”¨é€”: ãƒ‡ãƒã‚¤ã‚¹å–ªå¤±ã«ã‚ˆã‚‹å†æ§‹ç¯‰ï¼ˆä»®æƒ³é–¢æ•°ï¼‰
+ æˆ»ã‚Šå€¤: ãªã—ã€‚
+ ï¼Šãƒ‡ãƒã‚¤ã‚¹ãŒå–ªå¤±ã—ãŸã¨ãã«å‘¼ã°ã‚Œã‚‹ã€‚ã™ã¹ã¦ã®Objectã®æ´¾ç”Ÿã‚¯ãƒ©ã‚¹ã¯ã€å€‹åˆ¥ã«å¯¾å¿œã‚’ã¨ã‚‹
 ***************************************************************************/
 void _Sound::ChangeDevice(LPDIRECT3DDEVICE9 pD3DDevice){
-	//ƒTƒEƒ“ƒh‚Í•\Ž¦ƒfƒoƒCƒX‚ÉŠÖŒW‚È‚¢‚Ì‚Å‰½‚à‚µ‚È‚¢
+	//ã‚µã‚¦ãƒ³ãƒ‰ã¯è¡¨ç¤ºãƒ‡ãƒã‚¤ã‚¹ã«é–¢ä¿‚ãªã„ã®ã§ä½•ã‚‚ã—ãªã„
 }
 
 /**************************************************************************
  virtual void _Sound::Draw(
-    LPDIRECT3DDEVICE9 pD3DDevice    //IDirect3DDevice9 ƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-    vector<Object*>& Vec,            //ƒIƒuƒWƒFƒNƒg‚Ì”z—ñ
-    const CONTROLER_STATE* pCntlState,   //ƒRƒ“ƒgƒ[ƒ‰‚ÌƒXƒe[ƒ^ƒX
-	Context& Data					//ƒ†[ƒU[ƒf[ƒ^
+    LPDIRECT3DDEVICE9 pD3DDevice    //IDirect3DDevice9 ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+    vector<Object*>& Vec,            //ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®é…åˆ—
+    const CONTROLER_STATE* pCntlState,   //ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹
+	Context& Data					//ãƒ¦ãƒ¼ã‚¶ãƒ¼ãƒ‡ãƒ¼ã‚¿
  );
- —p“r: ƒIƒuƒWƒFƒNƒg‚ð•`‰æiƒˆ‰¼‘zŠÖ”j‚±‚ÌƒNƒ‰ƒX‚Å‚Í‰½‚à‚µ‚È‚¢
- –ß‚è’l: ‚È‚µB
+ ç”¨é€”: ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’æç”»ï¼ˆç´”ç²‹ä»®æƒ³é–¢æ•°ï¼‰ã“ã®ã‚¯ãƒ©ã‚¹ã§ã¯ä½•ã‚‚ã—ãªã„
+ æˆ»ã‚Šå€¤: ãªã—ã€‚
 ***************************************************************************/
 void _Sound::Draw( DrawPacket& i_DrawPacket ){
-	//ƒTƒEƒ“ƒhƒGƒ“ƒWƒ“‚Éì‹ÆŽžŠÔ‚ð—^‚¦‚é
+	//ã‚µã‚¦ãƒ³ãƒ‰ã‚¨ãƒ³ã‚¸ãƒ³ã«ä½œæ¥­æ™‚é–“ã‚’ä¸Žãˆã‚‹
 	m_pEngine && m_pEngine->DoWork();
 }
 
 namespace Avoidance{
 
 /**************************************************************************
- OneSound ’è‹`•”
+ OneSound å®šç¾©éƒ¨
 ****************************************************************************/
 OneSound::OneSound(const wchar_t* pWavBankFileName,const wchar_t* pSoundBankFileName,PCSTR pSoundName,wiz::OBJID id)
 :_Sound(pWavBankFileName, pSoundBankFileName, id )
@@ -306,26 +306,26 @@ void OneSound::PlaySound(BYTE count){
 }
 
 /**************************************************************************
- Sound ’è‹`•”
+ Sound å®šç¾©éƒ¨
 ****************************************************************************/
 //-----------//
-//	”ñŒöŠJ   //
+//	éžå…¬é–‹   //
 //-----------//
 
 /////////////////// ////////////////////
-//// —p“r       Fbool Sound::SearchSoundMap( PCSTR  i_pSoundName , XACTINDEX& o_SoundNum ) ;
-//// ƒJƒeƒSƒŠ   FƒT[ƒ`ƒƒ[
-//// —p“r       FƒTƒEƒ“ƒhƒ}ƒbƒv‚©‚çŽw’è‚³‚ê‚½‰¹‚ð’T‚µo‚·
-//// ˆø”       F  PCSTR         i_pSoundName        //  : [ IN  ]‰¹º–¼
-////            F  XACTINDEX&    o_SoundNum          //  : [ OUT ]”­Œ©‚µ‚½‰¹º”Ô†
-//// –ß’l       Ftrue   : ”­Œ©‚µ‚½
-////            Ffalse  : o—ˆ‚È‚©‚Á‚½
-//// ’S“–ŽÒ     FŽ°Œ´ “O
-//// ”õl       F
-////            F
+//// ç”¨é€”       ï¼šbool Sound::SearchSoundMap( PCSTR  i_pSoundName , XACTINDEX& o_SoundNum ) ;
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼šã‚µãƒ¼ãƒãƒ£ãƒ¼
+//// ç”¨é€”       ï¼šã‚µã‚¦ãƒ³ãƒ‰ãƒžãƒƒãƒ—ã‹ã‚‰æŒ‡å®šã•ã‚ŒãŸéŸ³ã‚’æŽ¢ã—å‡ºã™
+//// å¼•æ•°       ï¼š  PCSTR         i_pSoundName        //  : [ IN  ]éŸ³å£°å
+////            ï¼š  XACTINDEX&    o_SoundNum          //  : [ OUT ]ç™ºè¦‹ã—ãŸéŸ³å£°ç•ªå·
+//// æˆ»å€¤       ï¼štrue   : ç™ºè¦‹ã—ãŸ
+////            ï¼šfalse  : å‡ºæ¥ãªã‹ã£ãŸ
+//// æ‹…å½“è€…     ï¼šé´«åŽŸ å¾¹
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
 bool Sound::SearchSoundMap( PCSTR  pSoundName , XACTINDEX& o_SoundNum ) {
-	if( m_SoundMap.count(  pSoundName ) ){	//	: ƒ}ƒbƒv“à‚É‚·‚Å‚É“o˜^‚Í‚ ‚é‚©
+	if( m_SoundMap.count(  pSoundName ) ){	//	: ãƒžãƒƒãƒ—å†…ã«ã™ã§ã«ç™»éŒ²ã¯ã‚ã‚‹ã‹
 		o_SoundNum = m_SoundMap[ pSoundName ] ;
 		return true ;
 	}
@@ -333,20 +333,20 @@ bool Sound::SearchSoundMap( PCSTR  pSoundName , XACTINDEX& o_SoundNum ) {
 }
 
 /////////////////// ////////////////////
-//// —p“r       F
-//// ƒJƒeƒSƒŠ   F
-//// —p“r       F
-//// ˆø”       F
-//// –ß’l       F
-//// ’S“–ŽÒ     FŽ°Œ´ “O
-//// ”õl       F
-////            F
+//// ç”¨é€”       ï¼š
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼š
+//// ç”¨é€”       ï¼š
+//// å¼•æ•°       ï¼š
+//// æˆ»å€¤       ï¼š
+//// æ‹…å½“è€…     ï¼šé´«åŽŸ å¾¹
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
 bool Sound::SearchSoundBank(PCSTR  pSoundName , XACTINDEX& o_SoundNum){
-	//	: ƒTƒEƒ“ƒhƒtƒ@ƒCƒ‹“à‚É‚Í“o˜^‚³‚ê‚Ä‚¢‚é‚©
+	//	: ã‚µã‚¦ãƒ³ãƒ‰ãƒ•ã‚¡ã‚¤ãƒ«å†…ã«ã¯ç™»éŒ²ã•ã‚Œã¦ã„ã‚‹ã‹
 	XACTINDEX SoundNum = m_pSoundBank->GetCueIndex( pSoundName ) ;
 	if( SoundNum != XACTINDEX_INVALID ){
-		//	: ƒTƒEƒ“ƒhƒ}ƒbƒv‚Ö“o˜^
+		//	: ã‚µã‚¦ãƒ³ãƒ‰ãƒžãƒƒãƒ—ã¸ç™»éŒ²
 		m_SoundMap.insert( SOUNDLISTMAP::value_type( pSoundName, SoundNum) );
 		o_SoundNum = SoundNum ;
 		return true ;
@@ -357,17 +357,17 @@ bool Sound::SearchSoundBank(PCSTR  pSoundName , XACTINDEX& o_SoundNum){
 
 
 /////////////////// ////////////////////
-//// —p“r       F
-//// ƒJƒeƒSƒŠ   F
-//// —p“r       F
-//// ˆø”       F
-//// –ß’l       F
-//// ’S“–ŽÒ     FŽ°Œ´ “O
-//// ”õl       F
-////            F
+//// ç”¨é€”       ï¼š
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼š
+//// ç”¨é€”       ï¼š
+//// å¼•æ•°       ï¼š
+//// æˆ»å€¤       ï¼š
+//// æ‹…å½“è€…     ï¼šé´«åŽŸ å¾¹
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
 bool Sound::SearchWaveMap( PCSTR  pWaveName , XACTINDEX& o_WaveNum ) {
-	if( m_WaveMap.count(  pWaveName ) ){	//	: ƒ}ƒbƒv“à‚É‚·‚Å‚É“o˜^‚Í‚ ‚é‚©
+	if( m_WaveMap.count(  pWaveName ) ){	//	: ãƒžãƒƒãƒ—å†…ã«ã™ã§ã«ç™»éŒ²ã¯ã‚ã‚‹ã‹
 		o_WaveNum = m_WaveMap[ pWaveName ] ;
 		return true ;
 	}
@@ -375,20 +375,20 @@ bool Sound::SearchWaveMap( PCSTR  pWaveName , XACTINDEX& o_WaveNum ) {
 }
 
 /////////////////// ////////////////////
-//// —p“r       F
-//// ƒJƒeƒSƒŠ   F
-//// —p“r       F
-//// ˆø”       F
-//// –ß’l       F
-//// ’S“–ŽÒ     FŽ°Œ´ “O
-//// ”õl       F
-////            F
+//// ç”¨é€”       ï¼š
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼š
+//// ç”¨é€”       ï¼š
+//// å¼•æ•°       ï¼š
+//// æˆ»å€¤       ï¼š
+//// æ‹…å½“è€…     ï¼šé´«åŽŸ å¾¹
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
 bool Sound::SearchWaveBank(PCSTR  pWaveName , XACTINDEX& o_WaveNum){
-	//	: ƒTƒEƒ“ƒhƒtƒ@ƒCƒ‹“à‚É‚Í“o˜^‚³‚ê‚Ä‚¢‚é‚©
+	//	: ã‚µã‚¦ãƒ³ãƒ‰ãƒ•ã‚¡ã‚¤ãƒ«å†…ã«ã¯ç™»éŒ²ã•ã‚Œã¦ã„ã‚‹ã‹
 	XACTINDEX WaveNum = m_pWaveBank->GetWaveIndex( pWaveName ) ;
 	if( WaveNum != XACTINDEX_INVALID ){
-		//	: ƒTƒEƒ“ƒhƒ}ƒbƒv‚Ö“o˜^
+		//	: ã‚µã‚¦ãƒ³ãƒ‰ãƒžãƒƒãƒ—ã¸ç™»éŒ²
 		m_WaveMap.insert( SOUNDLISTMAP::value_type( pWaveName, WaveNum) );
 		o_WaveNum = WaveNum ;
 		return true ;
@@ -399,18 +399,18 @@ bool Sound::SearchWaveBank(PCSTR  pWaveName , XACTINDEX& o_WaveNum){
 
 
 //-----------//
-//	 ŒöŠJ    //
+//	 å…¬é–‹    //
 //-----------//
 
 /////////////////// ////////////////////
-//// —p“r       F
-//// ƒJƒeƒSƒŠ   F
-//// —p“r       F
-//// ˆø”       F
-//// –ß’l       F
-//// ’S“–ŽÒ     FŽ°Œ´ “O
-//// ”õl       F
-////            F
+//// ç”¨é€”       ï¼š
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼š
+//// ç”¨é€”       ï¼š
+//// å¼•æ•°       ï¼š
+//// æˆ»å€¤       ï¼š
+//// æ‹…å½“è€…     ï¼šé´«åŽŸ å¾¹
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
 Sound::Sound(const wchar_t* pWavBankFileName,const wchar_t* pSoundBankFileName ,wiz::OBJID id)
 :_Sound(pWavBankFileName, pSoundBankFileName, id )
@@ -418,14 +418,14 @@ Sound::Sound(const wchar_t* pWavBankFileName,const wchar_t* pSoundBankFileName ,
 }
 
 /////////////////// ////////////////////
-//// —p“r       F
-//// ƒJƒeƒSƒŠ   F
-//// —p“r       F
-//// ˆø”       F
-//// –ß’l       F
-//// ’S“–ŽÒ     FŽ°Œ´ “O
-//// ”õl       F
-////            F
+//// ç”¨é€”       ï¼š
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼š
+//// ç”¨é€”       ï¼š
+//// å¼•æ•°       ï¼š
+//// æˆ»å€¤       ï¼š
+//// æ‹…å½“è€…     ï¼šé´«åŽŸ å¾¹
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
 void Sound::Update( UpdatePacket& i_UpdatePacket ){
 #if defined( ON_DEBUGGINGPROCESS ) | defined( PRESENTATION )
@@ -440,18 +440,18 @@ void Sound::Update( UpdatePacket& i_UpdatePacket ){
 }
 
 /////////////////// ////////////////////
-//// —p“r       F
-//// ƒJƒeƒSƒŠ   F
-//// —p“r       F
-//// ˆø”       F
-//// –ß’l       F
-//// ’S“–ŽÒ     FŽ°Œ´ “O
-//// ”õl       F
-////            F
+//// ç”¨é€”       ï¼š
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼š
+//// ç”¨é€”       ï¼š
+//// å¼•æ•°       ï¼š
+//// æˆ»å€¤       ï¼š
+//// æ‹…å½“è€…     ï¼šé´«åŽŸ å¾¹
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
 bool Sound::SearchSoundAndPlay(PCSTR pSoundName){
 
-	//	: ‚Ê‚é‚Û->ƒKƒb
+	//	: ã¬ã‚‹ã½->ã‚¬ãƒƒ
 	if( this != NULL && DxDevice::getIsPlaySound() && m_pEngine && m_pWaveBank && m_pSoundBank ){
 		XACTINDEX SoundNum ;
 		if(SearchSoundMap( pSoundName, SoundNum ) || SearchSoundBank( pSoundName, SoundNum ) ){
@@ -464,18 +464,18 @@ bool Sound::SearchSoundAndPlay(PCSTR pSoundName){
 }
 
 /////////////////// ////////////////////
-//// —p“r       F
-//// ƒJƒeƒSƒŠ   F
-//// —p“r       F
-//// ˆø”       F
-//// –ß’l       F
-//// ’S“–ŽÒ     FŽ°Œ´ “O
-//// ”õl       F
-////            F
+//// ç”¨é€”       ï¼š
+//// ã‚«ãƒ†ã‚´ãƒª   ï¼š
+//// ç”¨é€”       ï¼š
+//// å¼•æ•°       ï¼š
+//// æˆ»å€¤       ï¼š
+//// æ‹…å½“è€…     ï¼šé´«åŽŸ å¾¹
+//// å‚™è€ƒ       ï¼š
+////            ï¼š
 ////
 bool Sound::SearchWaveAndPlay(PCSTR pWaveName, BYTE count){
 
-	//	: ‚Ê‚é‚Û->ƒKƒb
+	//	: ã¬ã‚‹ã½->ã‚¬ãƒƒ
 	if( DxDevice::getIsPlaySound() && m_pEngine && m_pWaveBank && m_pSoundBank ){
 		XACTINDEX WaveNum ;
 		if(SearchWaveMap( pWaveName, WaveNum ) || SearchWaveBank( pWaveName, WaveNum ) ){
@@ -518,35 +518,35 @@ void	Sound::SoundStop(PCSTR pWaveName){
 }
 
 /**************************************************************************
- Factory_Sound ’è‹`•”
+ Factory_Sound å®šç¾©éƒ¨
 ****************************************************************************/
 /**************************************************************************
  Factory_Sound::Factory_Sound(
-	LPDIRECT3DDEVICE9 pD3DDevice,	//ƒfƒoƒCƒX
-	vector<Object*>& vec,			//ƒIƒuƒWƒFƒNƒg‚Ì”z—ñ
-	TextureManager& TexMgr		//ƒeƒNƒXƒ`ƒƒ‚Ì”z—ñ
+	LPDIRECT3DDEVICE9 pD3DDevice,	//ãƒ‡ãƒã‚¤ã‚¹
+	vector<Object*>& vec,			//ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®é…åˆ—
+	TextureManager& TexMgr		//ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®é…åˆ—
 );
- —p“r: ƒRƒ“ƒXƒgƒ‰ƒNƒ^iƒTƒ“ƒvƒ‹ƒIƒuƒWƒFƒNƒg‚ð”z—ñ‚É’Ç‰Á‚·‚éj
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ï¼ˆã‚µãƒ³ãƒ—ãƒ«ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’é…åˆ—ã«è¿½åŠ ã™ã‚‹ï¼‰
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
 Factory_Sound::Factory_Sound(FactoryPacket* fpac){
 	try{
-		//	:BGM-TITLE----------:ƒ^ƒCƒgƒ‹‰æ–Ê‚Å—¬‚ê‚éBGM
+		//	:BGM-TITLE----------:ã‚¿ã‚¤ãƒˆãƒ«ç”»é¢ã§æµã‚Œã‚‹BGM
 
 	}
 	catch(...){
-		//Äthrow
+		//å†throw
 		throw;
 	}
 
 }
 /**************************************************************************
  Factory_Sound::~Factory_Sound();
- —p“r: ƒfƒXƒgƒ‰ƒNƒ^
- –ß‚è’l: ‚È‚µ
+ ç”¨é€”: ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+ æˆ»ã‚Šå€¤: ãªã—
 ***************************************************************************/
 Factory_Sound::~Factory_Sound(){
-    //‚È‚É‚à‚µ‚È‚¢
+    //ãªã«ã‚‚ã—ãªã„
 }
 
 }
